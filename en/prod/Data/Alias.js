@@ -1,6 +1,6 @@
 var xmlAliasData = "";
 xmlAliasData += '<?xml version=\"1.0\" encoding=\"utf-8\"?>';
-xmlAliasData += '<CatapultAliasFile DefaultSkinName=\"IBC\">';
+xmlAliasData += '<CatapultAliasFile>';
 xmlAliasData += '    <Map Name=\"Security_General\" Link=\"Topics/Security/Security.htm#Security_General\" ResolvedId=\"1000\" />';
 xmlAliasData += '    <Map Name=\"Security_Policies\" Link=\"Topics/Security/Security_Policies.htm#Security_Policies1\" ResolvedId=\"-2147483648\" />';
 xmlAliasData += '    <Map Name=\"Security_Authentication_AD\" Link=\"Topics/Security/Security_Authentication.htm#Security_Authentication_AD\" ResolvedId=\"1020\" />';
@@ -28,4 +28,4 @@ xmlAliasData += '    <Map Name=\"Directory_Profile_Editor\" Link=\"Topics/Direct
 xmlAliasData += '    <Map Name=\"Directory_Profile_Masters\" Link=\"Topics/Directory/Directory_Profile_Masters.htm#Directory_Profile_Masters1\" ResolvedId=\"1170\" />';
 xmlAliasData += '    <Map Name=\"Reports_System_Log\" Link=\"Topics/Reports/Reports_SysLog.htm#Reports_System_Log1\" ResolvedId=\"1200\" />';
 xmlAliasData += '</CatapultAliasFile>';
-CMCXmlParser._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
+MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);

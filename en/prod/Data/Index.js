@@ -1,12 +1,1 @@
-var xmlIndexData = "";
-xmlIndexData += '<?xml version=\"1.0\" encoding=\"utf-8\"?>';
-xmlIndexData += '<CatapultTargetIndex Count=\"0\">';
-xmlIndexData += '    <IndexEntry>';
-xmlIndexData += '        <Entries />';
-xmlIndexData += '        <Links />';
-xmlIndexData += '        <SeeAlsoLinks />';
-xmlIndexData += '        <IndexControlLinks />';
-xmlIndexData += '        <SortAsLinks />';
-xmlIndexData += '    </IndexEntry>';
-xmlIndexData += '</CatapultTargetIndex>';
-CMCXmlParser._FilePathToXmlStringMap.Add('Index', xmlIndexData);
+define({numchunks:1,prefix:'Index_Chunk',terms:[]});
