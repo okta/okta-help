@@ -5,11 +5,8 @@ xmlAliasData += '    <Map Name=\"Security_General\" Link=\"Topics/Security/Secur
 xmlAliasData += '    <Map Name=\"Security_Policies\" Link=\"Topics/Security/Security_Policies.htm#Security_Policies1\" ResolvedId=\"1260\" />';
 xmlAliasData += '    <Map Name=\"Security_Authentication_AD\" Link=\"Topics/Security/Security_Authentication.htm#Security_Authentication_AD\" ResolvedId=\"1020\" />';
 xmlAliasData += '    <Map Name=\"Security_Authentication_LDAP\" Link=\"Topics/Security/Security_Authentication.htm#Security_Authentication_LDAP\" ResolvedId=\"1030\" />';
-xmlAliasData += '    <Map Name=\"Security_Authentication_JIT\" Link=\"Topics/Security/Security_Authentication.htm#Security_Authentication_JIT\" ResolvedId=\"1040\" />';
-xmlAliasData += '    <Map Name=\"Security_Authentication_SymantecVIP\" Link=\"Topics/Security/Security_Authentication.htm#Security_Authentication_SymantecVIP\" ResolvedId=\"1050\" />';
 xmlAliasData += '    <Map Name=\"Security_Authentication_RSA\" Link=\"Topics/Security/MFA_OnPrem.htm#Security_Authentication_RSA\" ResolvedId=\"1060\" />';
 xmlAliasData += '    <Map Name=\"Security_Authentication_OnPrem\" Link=\"Topics/Security/MFA_OnPrem.htm#Authentication_OnPrem\" ResolvedId=\"1070\" />';
-xmlAliasData += '    <Map Name=\"Security_Authentication_Yubikey\" Link=\"Topics/Security/Security_Authentication.htm#Security_Authentication_YubiKey\" ResolvedId=\"1080\" />';
 xmlAliasData += '    <Map Name=\"Security_IdP\" Link=\"Topics/Security/Identity_Providers.htm#Security_IDP\" ResolvedId=\"1090\" />';
 xmlAliasData += '    <Map Name=\"Security_Network\" Link=\"Topics/Security/Security_Network.htm#Security_Network\" ResolvedId=\"1100\" />';
 xmlAliasData += '    <Map Name=\"Security_Administrators\" Link=\"Topics/Security/Administrators.htm#Security_Administrators\" ResolvedId=\"1110\" />';
