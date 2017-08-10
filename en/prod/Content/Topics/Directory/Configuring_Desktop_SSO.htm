@@ -390,15 +390,15 @@
                                                 </div>
                                                 <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Configure failover settings</a></span>
                                                     <div class="MCDropDownBody dropDownBody"><a name="IWA_failover"></a>
-                                                        <p>Failover settings determine what users experience if your primary IWA&#160;application goes offiline. You can check your <a href="../Reports/Reports_SysLog.htm">System Log</a> to see when a failover occurred and the backup IWA Web App was promoted.</p>
+                                                        <p>Failover settings determine what users experience if your primary IWA&#160;application goes offline. You can check your <a href="../Reports/Reports_SysLog.htm">System Log</a> to see when a failover occurred and the backup IWA Web App was promoted.</p>
                                                         <ol>
                                                             <li value="1">Go to <b>Security &gt; Authentication &gt; Active Directory</b>.</li>
                                                             <li value="2">Click <b>Edit</b> in the Desktop Single Sign-On section.</li>
                                                             <li value="3">Under <b>Failover</b>, select the failover setting appropriate for your environment.
 										
 								<ul><li value="1"><b>Manual failover</b> (default)										
-									<p>When selected, if the primary IWA&#160;application goes offiline, users are redirected back to the primary IWA application when it is brought back online. You would typically select this option if you have not configured a backup IWA Web App and/or you do not want to redirect users to a <a href="#GlobalRedirectURL" class="selected">global redirect URL</a>.</p></li><li value="2"><b>Automatic failover</b><p>When selected, Okta automatically switches to a healthy IWA Web App if your primary IWA Web App goes offline. Your AD Agent checks the health of each IWA Web App that you have set up.</p></li><li value="3"><a name="GlobalRedirectURL"></a><b>Global redirect URL</b><![CDATA[
-							]]><p>When selected, if the primary IWA&#160;application goes offiline, users are redirected to a URL that you specify.</p></li></ul></li>
+									<p>When selected, if the primary IWA&#160;application goes offline, users are redirected back to the primary IWA application when it is brought back online. You would typically select this option if you have not configured a backup IWA Web App or you do not want to redirect users to a <a href="#GlobalRedirectURL" class="selected">global redirect URL</a>.</p></li><li value="2"><b>Automatic failover</b><p>When selected, Okta automatically switches to a healthy IWA Web App if your primary IWA Web App goes offline. Your AD Agent checks the health of each IWA Web App that you have set up.</p></li><li value="3"><a name="GlobalRedirectURL"></a><b>Global redirect URL</b><![CDATA[
+							]]><p>When selected, if the primary IWA&#160;application goes offline, users are redirected to a URL that you specify.</p></li></ul></li>
                                                             <li value="4">Click <b>Save</b>.</li>
                                                         </ol>
                                                     </div>
@@ -488,20 +488,21 @@
                                                         <ol class="bullets" start="2">
                                                             <li value="2">The domain that your users specify when they log in to work is different from the domain that your Okta org is built upon.<br /><br />			For example:</li>
                                                         </ol>
-                                                        <p style="margin-left: 50px;">— Your users log in to work using <font face="courier">username@example-<font color="blue">abc</font>.com.</font></p>
+                                                        <p style="margin-left: 50px;">— Your users log in to work using <font face="courier">username@<font color="blue">abc</font>.com.</font></p>
                                                         <p style="margin-left: 45px;"><strong>. . . and</strong>
                                                         </p>
-                                                        <p style="margin-left: 50px;">— Your Okta org contains usernames such as <font face="courier">username@example-<font color="red">xyz</font>.okta.com.</font></p>
-                                                        <p>In this case, the authenticated usernames that your company sends to Okta will not match the usernames in your Okta org. <span style="">Instead of being logged in to their Okta dashboards automatically, y</span>our users will be prompted to enter their credentials. To fix this, add a rule in the web.config file&#160;to transform the authenticated usernames that your company sends to&#160;your Okta org.</p>
+                                                        <p style="margin-left: 50px;">— Your Okta org contains usernames such as <font face="courier">username@<font color="red">xyz</font>.com.</font></p>
+                                                        <p>In this case, the authenticated usernames that your company sends to Okta will not match the usernames in your Okta org. Instead of being logged in to their Okta dashboards automatically, your users will be prompted to enter their credentials. To fix this, add a rule in the web.config file&#160;to transform the authenticated usernames that your company sends to&#160;your Okta org.</p>
                                                         <h3>Procedure<a name="Procedure"></a></h3>
                                                         <ol>
                                                             <li value="1">Navigate to&#160;<b>C:\inetpub\wwwroot\IWA</b>&#160;and open the file&#160;<b style="">web.config</b>.</li>
                                                         </ol>
                                                         <ol class="bullets" start="2">
-                                                            <li value="2">Insert the following rule inside the <b><font face="courier">&lt;upnTransformation&gt;</font></b> element (a child of&#160;the <b><font face="courier">&lt;oktaSSOConfigGroup&gt;</font></b> element). The rule will convert all usernames from the domain<br /><font face="courier"><strong>example-<font color="blue">abc</font>.com</strong></font> to the domain <font face="courier"><strong>example-<font color="red">xyz</font>.okta.com</strong></font>:</li>
+                                                            <li value="2">Insert the following rule inside the <b><font face="courier">&lt;upnTransformation&gt;</font></b> element (a child of&#160;the <b><font face="courier">&lt;oktaSSOConfigGroup&gt;</font></b> element). The rule will convert all usernames from the domain<br /><font face="courier"><strong><font color="blue">abc</font>.com</strong></font> to the domain <font face="courier"><strong><font color="red">xyz</font>.com</strong></font>:</li>
                                                         </ol>
                                                         <p style="margin-left: 25px;"><b style=""><font face="courier" size="3">&lt;upnTransformation&gt; &lt;rule match="(.+)@<font color="blue">abc</font>\.com" replace="${1}@<font color="red">xyz</font>.com" /&gt; &lt;/upnTransformation&gt; </font></b>
                                                         </p>
+                                                        <p>The same logic can be applied to other common use cases such as transforming <span style="font-family: 'Courier New'; font-weight: bold;">company.local</span> to <span style="font-family: 'Courier New'; font-weight: bold;">company.com</span>, or <span style="font-family: 'Courier New'; font-weight: bold;">company.com</span> to <span style="font-family: 'Courier New'; font-weight: bold;">company.okta.com</span></p>
                                                         <h3>How the UPN Transformation code works<a name="HowUPN"></a></h3>
                                                         <p>The match&#160;attribute specifies a regular expression that the IWA Web App uses to check UPNs. If a UPN matches a UPN transformation rule, the IWA Web App uses the expression specified by the replace&#160;attribute to compute a transformed UPN. For more information, see:</p>
                                                         <ul>
@@ -603,7 +604,7 @@
                                                     <li value="4">Select and copy the IWA redirect URL.</li>
                                                     <li value="5">Paste the IWA redirect URL in a browser that has been configured for SSO,&#160;and then add&#160;<strong>authenticated.aspx</strong> to the end of the URL. For example, if your IWA redirect URL is http://WIN-GTVLLAG671R/IWA/ enter&#160;<strong>http://WIN-</strong>GTVLLAG671R<strong>/IWA/authenticated.aspx</strong>&#160;in your browser.<p><img src="../../Resources/Images/Desktop_SSO_5.png" /></p></li>
                                                     <li value="6">Press <b>Enter</b> on your keyboard.
-					<p>If you configured IWA correctly, three rows of results are returned similar to the following:</p><b>  <![CDATA[ ]]></b><p><img alt="2013-02-13_11-47-45.jpg" src="../../Resources/Images/Desktop_SSO_6_500x143.jpeg" style="width: 500;height: 143;" /></p><p>If the Okta Sign-In page displays instead of the success message, the test failed.</p></li>
+					<p>If you configured IWA correctly, three rows of results are returned similar to the following:</p><b> <![CDATA[ ]]></b><p><img alt="2013-02-13_11-47-45.jpg" src="../../Resources/Images/Desktop_SSO_6_500x143.jpeg" style="width: 500;height: 143;" /></p><p>If the Okta Sign-In page displays instead of the success message, the test failed.</p></li>
                                                 </ol>
                                             </div>
                                         </div>
