@@ -5,8 +5,11 @@ xmlAliasData += '    <Map Name=\"Security_General\" Link=\"Topics/Security/Secur
 xmlAliasData += '    <Map Name=\"Security_Policies\" Link=\"Topics/Security/Security_Policies.htm#Security_Policies1\" ResolvedId=\"1260\" />';
 xmlAliasData += '    <Map Name=\"Security_Authentication_AD\" Link=\"Topics/Security/Security_Authentication.htm#Security_Authentication_AD\" ResolvedId=\"1020\" />';
 xmlAliasData += '    <Map Name=\"Security_Authentication_LDAP\" Link=\"Topics/Security/Security_Authentication.htm#Security_Authentication_LDAP\" ResolvedId=\"1030\" />';
+xmlAliasData += '    <Map Name=\"Security_Authentication_SymantecVIP\" Link=\"Topics/Security/MFA.htm#Security_Authentication_SymantecVIP\" ResolvedId=\"1050\" />';
+xmlAliasData += '    <Map Name=\"Security_Authentication_Yubikey\" Link=\"Topics/Settings/Settings_Customization.htm#Security_Authentication_JIT\" ResolvedId=\"1080\" />';
 xmlAliasData += '    <Map Name=\"Security_Authentication_RSA\" Link=\"Topics/Security/MFA_OnPrem.htm#Security_Authentication_RSA\" ResolvedId=\"1060\" />';
 xmlAliasData += '    <Map Name=\"Security_Authentication_OnPrem\" Link=\"Topics/Security/MFA_OnPrem.htm#Authentication_OnPrem\" ResolvedId=\"1070\" />';
+xmlAliasData += '    <Map Name=\"Security_Authentication_JIT\" Link=\"Topics/Security/MFA.htm#Security_Authentication_YubiKey\" ResolvedId=\"1040\" />';
 xmlAliasData += '    <Map Name=\"Security_IdP\" Link=\"Topics/Security/Identity_Providers.htm#Security_IDP\" ResolvedId=\"1090\" />';
 xmlAliasData += '    <Map Name=\"Security_Network\" Link=\"Topics/Security/Security_Network.htm#Security_Network\" ResolvedId=\"1100\" />';
 xmlAliasData += '    <Map Name=\"Security_Administrators\" Link=\"Topics/Security/Administrators.htm#Security_Administrators\" ResolvedId=\"1110\" />';
@@ -35,5 +38,7 @@ xmlAliasData += '    <Map Name=\"Security_FactorTypes\" Link=\"Topics/Security/M
 xmlAliasData += '    <Map Name=\"Security_FactorPolicies\" Link=\"Topics/Security/MFA.htm#MultifactorPolicies\" ResolvedId=\"1006\" />';
 xmlAliasData += '    <Map Name=\"Device_Trust\" Link=\"Topics/Mobile/device-trust.htm\" ResolvedId=\"1007\" />';
 xmlAliasData += '    <Map Name=\"Ver_Hist_Device_Trust_Win_Desktop\" Link=\"Topics/Settings/Version_Histories/Ver_History_DeviceTrust_Installer_Windows.htm\" ResolvedId=\"1008\" />';
+xmlAliasData += '    <Map Name=\"Device_Trust_Mobile\" Link=\"Topics/Mobile/device-trust-mobile.htm\" ResolvedId=\"1009\" />';
+xmlAliasData += '    <Map Name=\"Device_Trust_EAS_iOS\" Link=\"Topics/Mobile/Okta_Mobile_Device_Trust_O365_EAS_iOS.htm\" ResolvedId=\"1010\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
