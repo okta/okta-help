@@ -1,1 +1,1 @@
-define({'began deployment':{l:[{u:'/Content/Topics/ReleaseNotes/mobile-release-status.htm#kanchor1',t:'Mobile Releases'}]}});
+define({'began deployment':{l:[{u:'/Content/Topics/ReleaseNotes/mobile-release-status.htm#kanchor1',t:'Okta Mobile Release Notes'}]}});
