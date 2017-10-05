@@ -40,5 +40,6 @@ xmlAliasData += '    <Map Name=\"Device_Trust\" Link=\"Topics/Mobile/device-trus
 xmlAliasData += '    <Map Name=\"Device_Trust_Mobile\" Link=\"Topics/Mobile/device-trust-mobile.htm\" ResolvedId=\"1009\" />';
 xmlAliasData += '    <Map Name=\"Device_Trust_EAS_iOS\" Link=\"Topics/Mobile/Okta_Mobile_Device_Trust_O365_EAS_iOS.htm\" ResolvedId=\"1010\" />';
 xmlAliasData += '    <Map Name=\"App_SignOn_Policies\" Link=\"Topics/Security/App_Based_Signon.htm\" ResolvedId=\"1011\" />';
+xmlAliasData += '    <Map Name=\"okta-android-installers\" Link=\"Topics/Mobile/Okta_Mobile_Obtaining_Okta_Android_Installers.htm\" ResolvedId=\"1012\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
