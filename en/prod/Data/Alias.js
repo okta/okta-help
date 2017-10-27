@@ -27,6 +27,7 @@ xmlAliasData += '    <Map Name=\"Directory_Profile_Editor\" Link=\"Topics/Direct
 xmlAliasData += '    <Map Name=\"Directory_Profile_Masters\" Link=\"Topics/Directory/Directory_Profile_Masters.htm#Directory_Profile_Masters1\" ResolvedId=\"1170\" />';
 xmlAliasData += '    <Map Name=\"Reports_System_Log\" Link=\"Topics/Reports/Reports_SysLog.htm#Reports_System_Log1\" ResolvedId=\"1200\" />';
 xmlAliasData += '    <Map Name=\"API_Access\" Link=\"Topics/Security/API_Access.htm#API_Access\" ResolvedId=\"1270\" />';
+xmlAliasData += '    <Map Name=\"create-scopes\" Link=\"Topics/Security/API_Access.htm#create-scopes\" ResolvedId=\"1272\" />';
 xmlAliasData += '    <Map Name=\"create-claims\" Link=\"Topics/Security/API_Access.htm#create-claims\" ResolvedId=\"1274\" />';
 xmlAliasData += '    <Map Name=\"create-access-policies\" Link=\"Topics/Security/API_Access.htm#create-access-policies\" ResolvedId=\"1276\" />';
 xmlAliasData += '    <Map Name=\"Production_Relnotes\" Link=\"Topics/ReleaseNotes/okta-rel-notes.htm\" ResolvedId=\"1002\" />';
