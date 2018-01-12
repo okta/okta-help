@@ -420,6 +420,60 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Add a Smart Card</a></span>
+                                        <div class="MCDropDownBody dropDownBody">
+                                            <p>You can specify a Smart card as an identity provider by clicking the Add Identity Provider button and choosing it from the list. To add a Smart card, you must provide a name, the certificate chain, and specify the amount of time for Okta to consider the CRL valid after a successful download, as shown below.</p>
+                                            <p>
+                                                <img src="../../Resources/Images/add_smart_card.png" />
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Add a PIV Card</a></span>
+                                        <div class="MCDropDownBody dropDownBody">
+                                            <p class="earlyaccess">This is an Early Access feature. To enable it, please contact <a href="https://support.okta.com/">Okta Support</a>.</p>
+                                            <p>A	personal	identity	verification	(PIV)	card	is	a	United	States	federal	smart	card	that	contains	the	necessary	data	for	the	cardholder	to	be	granted	to	federal	facilities	and	information	systems	and	assure	appropriate	levels	of	security	for	all	applicable federal applications. PIV cards are very strong authenticators (up to LOA 4, per NIST guidance), which can replace the username and password as an authentication method where supported.</p>
+                                            <h3>Setup</h3>
+                                            <p>Format a PKI Certificate Chain</p>
+                                            <p>If your are using more than one certificate, follow this procedure to combine them into a single file.</p>
+                                            <ol>
+                                                <li value="1">Convert DER encoded root and intermediate certificates (with .cer, .crt extension) into PEM format using the following openssl command: <code>openssl x509 -inform der -in $input-cert-file-name -out $out-cert-file-name-with-pem-extension</code></li>
+                                                <li value="2">
+                        Concatenate all the PEM certificates into a single file with root certificate being the last one using the following command: <code>cat $intermediate-cert-file-1 ... $intermediate-cert-file-N $root-cert-file-with-pem-extension &gt; trust-chain.pem</code><p><b>Important:</b> Be sure the root certificate is last.</p></li>
+                                                <li value="3">Upload <code>trust-chain.pem</code> when creating the the Smart Card Identity Provider and make sure that no other Smart Cards IDPs exist.</li>
+                                            </ol>
+                                            <p>Enable PIV Authentication</p>
+                                            <ol>
+                                                <li value="1">Download the certificate chain for the Certificate Authority that issued your organization's smart cards. This should be in PEM or DER format, and if there are multiple certs in the chain, they should be in a single .DER or .PEM file, appended in order with the root certificate last, as described above.</li>
+                                                <li value="2">Sign in to Okta as an <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">admin<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>An abbreviation of administrator. This is the individual(s) who have access to the Okta Administrator Dashboard. They control the provisioning and deprovisioning of end users, the assigning of apps, the resetting of passwords, and the overall end user experience. Only administrators have the Administration button on the upper right side of the My Applications page.</span></a> and navigate to <b>Security &gt; Identity Providers</b>.</li>
+                                                <li value="3">Click <b>Add Identity Provider</b> and select <b>Add Smart Card</b> from the drop down.</li>
+                                                <li value="4">On the <b>Add Identity Provider</b> screen, enter information for your organization.
+						<ul><li value="1"><b>Name:</b> Enter the Friendly Name of this Identity Provider.</li><li value="2"><b>Certificate Chain:</b> Click Browse files... to launch a file picker. Choose the certificate chain for the issuing authority.</li><li value="3"><b>IdP Username:</b> Specify which attribute within the <b>Subject Alternate Name</b> field should be used to match to the Okta account. This value should match exactly the <i>Match Against</i> attribute that you define below. Note: This field supports the <a href="https://developer.okta.com/reference/okta_expression_language/">Okta Expression Language</a>.</li><li value="4"><b>Match Against:</b> To log a user into Okta a user account must already exist and either the email address or the Okta login name must match the attribute or expression defined above. In this field, choose which Okta attribute against which Okta should match. The options are <i>Email</i>, <i>Okta Username</i>, or <i>Email or Okta Username</i>.</li></ul></li>
+                                                <li value="5">
+                                                    <p>Click <b>Add Identity Provider</b> or <b>Save</b> to continue. The org is now configured to accept PIV cards as an alternate form of authentication.</p>
+                                                </li>
+                                            </ol>
+                                            <p>Sign in with a PIV card as an end user</p>
+                                            <ol>
+                                                <li value="1">Ensure that your PIV Card reader is plugged in and your PIV card is inserted.</li>
+                                                <li value="2">In a fresh browser session, navigate to the Okta login page for your Okta org and click <b>PIV Card</b> on the login page.</li>
+                                                <li value="3">The browser will present a certificate picker. Choose the certificate with the <i>Smart Card Logon</i> value under the <b>Enhanced Key Usage</b> attribute. You might have to view more certificate details to find the right certificate. </li>
+                                                <li value="4">The browser will prompt for the end user's PIN. Enter the Pin and hit Enter or click <b>OK</b>.</li>
+                                                <li value="5">Okta will sign you in to your end user dashboard. <b>Note:</b> if your org has an MFA policy configured, you will be prompted for the configured authentication factor first.</li>
+                                            </ol>
+                                            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Troubleshooting</a></span>
+                                                <div class="MCDropDownBody dropDownBody">
+                                                    <p>If the log in fails, check the following items:</p>
+                                                    <ol>
+                                                        <li value="1">Make sure that the <b>Subject Alternate Name</b> or expression result matches the Okta attribute that you specified. It must be either email or Okta username.</li>
+                                                        <li value="2">Ensure that the entire certificate chain of issuers is uploaded in the correct format. See <i>Format the PKI Certificate Chain</i>, above for formatting instructions.</li>
+                                                        <li value="3">Check that the user has an account in an active state. The user can be in a password reset state; however, the user must be activated.</li>
+                                                        <li value="4">Always start with a brand new browser session to avoid caching issues. Close out all browser windows before testing the feature.</li>
+                                                        <li value="5">Test the accessibility of CRL endpoints.<p>Okta requires access to the Certificate Revocation List distribution points on a perpetual basis for PIV card authentication to work. This access is necessary so that Okta can verify that the certificate that the end user is presenting is not revoked, expired, or otherwise not trustworthy. Revocation checking is a critical process to ensure the security of PIV Authentication. Typically, Certificate Revocation Lists are posted in a publicly reachable HTTP location on the internet, but in some highly secure environments, the revocation iendpoints are not public.</p><p>To verify that the CRL is posted in a location where Okta can reach it, copy the Certificate Revocation List Endpoint URL from the <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">client<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>Essentially, a client is anything that talks to the Okta service. Within the traditional client-server model, Okta is the server. The client might be an agent, an Okta mobile app, or a browser plugin. </span></a>'s public X.509 certificate (that ends in <code>.crl</code>) and paste it into a browser on an off-network device. If the CRL is accessible, the <i>.crl</i> file will automatically download. If the URL returns a 401 error, then it is not public, and the Okta service cannot to access the endpoints, either. For more information, see <a href="Firewall_Whitelisting.htm">Configuring Firewall Whitelisting</a>. Ensure that the Okta IPs can access the CRL distribution point over HTTP.</p><p>Revocation checking occurs for every certificate in the chain. It might be necessary to repeat this process for each intermediate certificate in the PKI chain.</p></li>
+                                                    </ol>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div>
                                     <ul class="menu _Skins_okta_side_menu mc-component">
