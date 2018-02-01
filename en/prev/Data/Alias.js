@@ -45,5 +45,9 @@ xmlAliasData += '    <Map Name=\"okta-android-installers\" Link=\"Topics/Mobile/
 xmlAliasData += '    <Map Name=\"Service_Mode\" Link=\"Topics/Reference/service-op-mode.htm\" ResolvedId=\"1014\" />';
 xmlAliasData += '    <Map Name=\"conf-desktop-sso\" Link=\"Topics/Directory/Configuring_Desktop_SSO.htm\" ResolvedId=\"1015\" />';
 xmlAliasData += '    <Map Name=\"ad-agent\" Link=\"Topics/Directory/okta-active-directory-agent.htm\" ResolvedId=\"1016\" />';
+xmlAliasData += '    <Map Name=\"okta-radius-agent-install\" Link=\"Topics/Directory/Agent_Installing_the_Okta_Radius_Agent.htm\" ResolvedId=\"1017\" />';
+xmlAliasData += '    <Map Name=\"mfa-onprem\" Link=\"Topics/Security/MFA_OnPrem.htm\" ResolvedId=\"1018\" />';
+xmlAliasData += '    <Map Name=\"ad-pw-sync-agent\" Link=\"Topics/Directory/Installing and Configuring the Active Directory Password Sync Agent.htm\" ResolvedId=\"1019\" />';
+xmlAliasData += '    <Map Name=\"dt-win-desktop\" Link=\"Topics/Mobile/Okta_Mobile_Device_Trust_Windows-desktop.htm\" ResolvedId=\"1021\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
