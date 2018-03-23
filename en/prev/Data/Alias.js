@@ -51,5 +51,6 @@ xmlAliasData += '    <Map Name=\"ad-pw-sync-agent\" Link=\"Topics/Directory/Inst
 xmlAliasData += '    <Map Name=\"dt-win-desktop\" Link=\"Topics/Mobile/Okta_Mobile_Device_Trust_Windows-desktop.htm\" ResolvedId=\"1021\" />';
 xmlAliasData += '    <Map Name=\"okta-cisco-radius-intg\" Link=\"Topics/integrations/cisco-radius-intg.htm\" ResolvedId=\"1022\" />';
 xmlAliasData += '    <Map Name=\"Security_Behavior_Detection\" Link=\"Topics/Security/proc-security-behavior-detection.htm\" ResolvedId=\"1024\" />';
+xmlAliasData += '    <Map Name=\"okta-palo-alto-radius-intg\" Link=\"Topics/integrations/palo-alto-radius-intg.htm\" ResolvedId=\"1025\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
