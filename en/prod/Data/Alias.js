@@ -55,5 +55,6 @@ xmlAliasData += '    <Map Name=\"ver-hist-opp-agent\" Link=\"Topics/Settings/Ver
 xmlAliasData += '    <Map Name=\"adfs-okta-int\" Link=\"Topics/integrations/adfs-okta-int.htm\" ResolvedId=\"1027\" />';
 xmlAliasData += '    <Map Name=\"conf-desktop-sso-test-iwa\" Link=\"Topics/Directory/Configuring_Desktop_SSO.htm#TestingIWA\" ResolvedId=\"1028\" />';
 xmlAliasData += '    <Map Name=\"okta-mfa-win-cred-prov\" Link=\"Topics/Security/proc-mfa-win-creds-rdp.htm\" ResolvedId=\"1029\" />';
+xmlAliasData += '    <Map Name=\"citrix-netscaler-radius-int\" Link=\"Topics/integrations/citrix-netscaler-radius-int.htm\" ResolvedId=\"1031\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
