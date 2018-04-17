@@ -225,6 +225,27 @@
                                                             <p><code>CLIENT_SECRET</code> – find this value on the <b>General</b> tab of the Microsoft RDP (MFA) application in Okta.</p>
                                                             <p><code>OKTA_URL</code> – your full Okta org name, including <em>https://</em>.</p>
                                                         </li>
+                                                        <li value="4">
+                                                            <p>Modify additional properties</p>
+                                                            <p>In addition to the parameters you added in the previous step, modify the following properties to ensure MFA is always enforced. </p>
+                                                            <blockquote><pre>"WidgetTimeout" : 30</pre><pre>"EnforceTimeoutVersionAgnostic": true</pre><pre>"ErrorTimeOutInSeconds": 30,</pre><pre xml:space="preserve">"SslPinningEnabled": true</pre>
+                                                            </blockquote>
+                                                            <p>To modify these properties, use the following power shell script.</p>
+                                                            <blockquote><pre>
+$lib=[System.Reflection.Assembly]::LoadFile("C:\Program Files\Okta\Okta Windows Credential Provider\bin\Newtonsoft.Json.dll")
+$configStr=Get-Content -Path "C:\Program Files\Okta\Okta Windows Credential Provider\config\rdp_app_config.json"
+$config=[Newtonsoft.Json.JsonConvert]::DeserializeObject($configStr)
+$t=New-Object -TypeName Newtonsoft.Json.Linq.JValue -ArgumentList true
+$config.Add("EnforceTimeoutVersionAgnostic", $t)
+
+$format=[Newtonsoft.Json.Formatting]::Indented
+
+$newConfig=[Newtonsoft.Json.JsonConvert]::SerializeObject($config, $format)
+Echo $newConfig &gt; "C:\Program Files\Okta\Okta Windows Credential Provider\config\rdp_app_config.json"
+								</pre>
+                                                            </blockquote>
+                                                            <p><b>Note:</b> You can run this script from the same location you ran the installation in step 2, above.</p>
+                                                        </li>
                                                     </ol>
                                                 </div>
                                             </div>
