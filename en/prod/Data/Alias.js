@@ -9,6 +9,7 @@ xmlAliasData += '    <Map Name=\"Security_Authentication_SymantecVIP\" Link=\"To
 xmlAliasData += '    <Map Name=\"Security_Authentication_Yubikey\" Link=\"Topics/Settings/Settings_Customization.htm#Security_Authentication_JIT\" ResolvedId=\"1080\" />';
 xmlAliasData += '    <Map Name=\"Security_Authentication_RSA\" Link=\"Topics/Security/MFA_OnPrem.htm#Security_Authentication_RSA\" ResolvedId=\"1060\" />';
 xmlAliasData += '    <Map Name=\"Security_Authentication_OnPrem\" Link=\"Topics/Security/MFA_OnPrem.htm#Authentication_OnPrem\" ResolvedId=\"1070\" />';
+xmlAliasData += '    <Map Name=\"Security_Authentication_JIT\" Link=\"Topics/Security/MFA.htm#Security_Authentication_YubiKey\" ResolvedId=\"1040\" />';
 xmlAliasData += '    <Map Name=\"Security_IdP\" Link=\"Topics/Security/Identity_Providers.htm#Security_IDP\" ResolvedId=\"1090\" />';
 xmlAliasData += '    <Map Name=\"Security_Network\" Link=\"Topics/Security/Security_Network.htm\" ResolvedId=\"1100\" />';
 xmlAliasData += '    <Map Name=\"Security_Administrators\" Link=\"Topics/Security/Administrators.htm#Security_Administrators\" ResolvedId=\"1110\" />';
