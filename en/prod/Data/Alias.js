@@ -63,5 +63,6 @@ xmlAliasData += '    <Map Name=\"custom-sign-in-page\" Link=\"Topics/Settings/cu
 xmlAliasData += '    <Map Name=\"custom-domain\" Link=\"Topics/Settings/custom-url-domain.htm\" ResolvedId=\"1034\" />';
 xmlAliasData += '    <Map Name=\"fortinet-radius-intg\" Link=\"Topics/integrations/fortinet-radius-intg.htm\" ResolvedId=\"1036\" />';
 xmlAliasData += '    <Map Name=\"okta-f5-intg\" Link=\"Topics/integrations/f5-radius-intg.htm\" ResolvedId=\"1037\" />';
+xmlAliasData += '    <Map Name=\"dt-safari\" Link=\"Topics/Mobile/Okta_Device_Trust_Native_Apps_Safari_MDM_MACOS_Devices.htm\" ResolvedId=\"1038\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
