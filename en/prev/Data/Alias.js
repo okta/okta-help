@@ -75,6 +75,7 @@ xmlAliasData += '    <Map Name=\"ver-hist-jira-auth-toolkit\" Link=\"Topics/Sett
 xmlAliasData += '    <Map Name=\"ver-hist-ldap-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_LDAP_Agent.htm\" ResolvedId=\"1048\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-mfa-cred-win\" Link=\"Topics/Settings/Version_Histories/Ver_History_Okta_MFA_Credential_Provider_for_Windows.htm\" ResolvedId=\"1049\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-mfa-adfs\" Link=\"Topics/Settings/Version_Histories/Ver_History_Okta_MFA_Provider_for_ADFS.htm\" ResolvedId=\"1051\" />';
+xmlAliasData += '    <Map Name=\"ver-hist-pingfed-adapter\" Link=\"Topics/Settings/Version_Histories/Ver_History_Okta_PingFederate_Adapter.htm\" ResolvedId=\"1052\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-op-mfa-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_On-Prem_MFA_Agent.htm\" ResolvedId=\"1053\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-radius-server\" Link=\"Topics/Settings/Version_Histories/Ver_History_RADIUS_Server_Agent.htm\" ResolvedId=\"1054\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-saml-java-toolkit\" Link=\"Topics/Settings/Version_Histories/Ver_History_SAML_Toolkit_For_Java.htm\" ResolvedId=\"1055\" />';
