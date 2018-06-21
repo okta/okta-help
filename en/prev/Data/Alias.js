@@ -44,6 +44,7 @@ xmlAliasData += '    <Map Name=\"App_SignOn_Policies\" Link=\"Topics/Security/Ap
 xmlAliasData += '    <Map Name=\"okta-android-installers\" Link=\"Topics/Mobile/Okta_Mobile_Obtaining_Okta_Android_Installers.htm\" ResolvedId=\"1012\" />';
 xmlAliasData += '    <Map Name=\"Service_Mode\" Link=\"Topics/Reference/ref-service-op-mode.htm\" ResolvedId=\"1014\" />';
 xmlAliasData += '    <Map Name=\"conf-desktop-sso\" Link=\"Topics/Directory/Configuring_Desktop_SSO.htm\" ResolvedId=\"1015\" />';
+xmlAliasData += '    <Map Name=\"ServicePrincipalName\" Link=\"Topics/Directory/Configuring_Agentless_SSO.htm#SSOAgentlessPrincName\" ResolvedId=\"1013\" />';
 xmlAliasData += '    <Map Name=\"ad-agent\" Link=\"Topics/Directory/okta-active-directory-agent.htm\" ResolvedId=\"1016\" />';
 xmlAliasData += '    <Map Name=\"okta-radius-agent-install\" Link=\"Topics/Directory/Agent_Installing_the_Okta_Radius_Agent.htm\" ResolvedId=\"1017\" />';
 xmlAliasData += '    <Map Name=\"mfa-onprem\" Link=\"Topics/Security/MFA_OnPrem.htm\" ResolvedId=\"1018\" />';
