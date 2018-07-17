@@ -81,5 +81,6 @@ xmlAliasData += '    <Map Name=\"ver-hist-radius-server\" Link=\"Topics/Settings
 xmlAliasData += '    <Map Name=\"ver-hist-saml-java-toolkit\" Link=\"Topics/Settings/Version_Histories/Ver_History_SAML_Toolkit_For_Java.htm\" ResolvedId=\"1055\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-sharepoint-pp-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_Sharepoint_People_Picker_Agent.htm\" ResolvedId=\"1056\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-sso-iwa-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_SSO_IWA_Agent.htm\" ResolvedId=\"1057\" />';
+xmlAliasData += '    <Map Name=\"pulse-radius-intg\" Link=\"Topics/integrations/pulse-secure-radius-intg.htm\" ResolvedId=\"1035\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
