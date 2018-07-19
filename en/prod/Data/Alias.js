@@ -82,7 +82,6 @@ xmlAliasData += '    <Map Name=\"ver-hist-saml-java-toolkit\" Link=\"Topics/Sett
 xmlAliasData += '    <Map Name=\"ver-hist-sharepoint-pp-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_Sharepoint_People_Picker_Agent.htm\" ResolvedId=\"1056\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-sso-iwa-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_SSO_IWA_Agent.htm\" ResolvedId=\"1057\" />';
 xmlAliasData += '    <Map Name=\"pulse-radius-intg\" Link=\"Topics/integrations/pulse-secure-radius-intg.htm\" ResolvedId=\"1035\" />';
-xmlAliasData += '    <Map Name=\"ext_okta_doc\" Link=\"okta-doc.htm\" ResolvedId=\"200000\" />';
 xmlAliasData += '    <Map Name=\"ext_Access_Request_Workflow\" Link=\"Topics/Apps/Access_Request_Workflow.htm\" ResolvedId=\"200008\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Active_Directory_Agent_appSettings_Definition\" Link=\"Topics/Apps/Apps_Active_Directory_Agent_appSettings_Definition.htm\" ResolvedId=\"200009\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Adding_an_App_from_the_Browser_Plugin\" Link=\"Topics/Apps/Apps_Adding_an_App_from_the_Browser_Plugin.htm\" ResolvedId=\"200010\" />';
@@ -253,5 +252,6 @@ xmlAliasData += '    <Map Name=\"ext_Ver_History_RADIUS_Server_Agent\" Link=\"To
 xmlAliasData += '    <Map Name=\"ext_Ver_History_SAML_Toolkit_For_Java\" Link=\"Topics/Settings/Version_Histories/Ver_History_SAML_Toolkit_For_Java.htm\" ResolvedId=\"200209\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_Sharepoint_People_Picker_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_Sharepoint_People_Picker_Agent.htm\" ResolvedId=\"200210\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_SSO_IWA_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_SSO_IWA_Agent.htm\" ResolvedId=\"200211\" />';
+xmlAliasData += '    <Map Name=\"csh-java-ldap-agent\" Link=\"Topics/Directory/Okta-Java-LDAP-Agent.htm\" ResolvedId=\"10000\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);

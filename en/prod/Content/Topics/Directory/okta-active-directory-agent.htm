@@ -164,16 +164,19 @@
                                                         <li value="2"><b>Install on Windows Server 2008 R2 or Later</b>&#160;— You need access to a Windows server to install the Okta AD Agent. You do not need to install the agent on the domain controller itself. Your system must have&#160;20Mb memory for the AD Service Account that is created upon agent installation. <p><b>Note:</b>&#160;You must be running IE 10 or later on your Windows Server.</p></li>
                                                         <li value="3"><b>.NET 4.0</b> (minimum)&#160;up to&#160;&#160;<b>.NET&#160;4.6.x</b> &#160;(downloaded and installed&#160;automatically with the agent if no suitable version is found on the target machine&#160;at runtime).</li>
                                                         <li value="4">
+                                                            <p>To improve the security of AD integrations, we now default to the TLS1.2 security protocol in orgs running .NET Framework 4.5 or later. For Windows 2008 R2 TLS 1.2 is disabled by default and needs to be enabled through the registry. For details, see <a href="#TLS12">AD agent does not connect at startup</a>.</p>
+                                                        </li>
+                                                        <li value="5">
                                                             <p> <b>AD domain/forest functional level</b>&#160;— Okta supports an AD domain/forest functional level of 2003 and higher. For additional information on AD domain functional levels, see:&#160;</p>
                                                             <p><a href="https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/understanding-active-directory-domain-services--ad-ds--functional-levels">https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/understanding-active-directory-domain-services--ad-ds--functional-levels</a>
                                                                 <p><b>Note</b>:&#160;If you are on AD domain functional level of 2003, your AD usernames must in the domain name format. Users must have a UPN that contains a <b>domain.name</b> format.      </p>
                                                             </p>
                                                         </li>
-                                                        <li value="5"><b>Installing the agent on a </b><a href="https://en.wikipedia.org/wiki/DMZ_(computing)" style="font-weight: bold;">DMZ server</a>&#160;— You must <a href="#Ports">open several ports</a>.</li>
-                                                        <li value="6"><b>AD password history enforcement</b>&#160;— To enforce the AD&#160;Password History policy, you must use Okta AD Agent <b>version 3.4.1</b>&#160;or later and your Domain Controllers must be running&#160;<b>Windows Server 2008 R2</b> or later.</li>
-                                                        <li value="7"><b>256 Mb of free memory</b> for the service to run.</li>
-                                                        <li value="8"><b>Service Dedicated AD Service Account with Domain user permissions</b>&#160;</li>
-                                                        <li value="9"><b>For each domain:</b>
+                                                        <li value="6"><b>Installing the agent on a </b><a href="https://en.wikipedia.org/wiki/DMZ_(computing)" style="font-weight: bold;">DMZ server</a>&#160;— You must <a href="#Ports">open several ports</a>.</li>
+                                                        <li value="7"><b>AD password history enforcement</b>&#160;— To enforce the AD&#160;Password History policy, you must use Okta AD Agent <b>version 3.4.1</b>&#160;or later and your Domain Controllers must be running&#160;<b>Windows Server 2008 R2</b> or later.</li>
+                                                        <li value="8"><b>256 Mb of free memory</b> for the service to run.</li>
+                                                        <li value="9"><b>Service Dedicated AD Service Account with Domain user permissions</b>&#160;</li>
+                                                        <li value="10"><b>For each domain:</b>
                                                             <ul>
                                                                 <li value="1">
                                                                     <p>The AD agent should be installed on a VM with at least 2 vCPUs and 8 GBs of RAM.</p>
@@ -693,6 +696,17 @@ Allows an admin to choose if a <i>deactivated</i> Okta user should be reactivate
                                                         <li value="3">Save the configuration file and restart the agent.</li>
                                                     </ol>
                                                     <p class="bodyindent">For more information about SSL certificate pinning, see the article by the <a href="https://www.owasp.org/index.php/Certificate_and_Public_Key_Pinning">Open Web Application Security Project</a>.</p>
+                                                    <h4> The AD agent does <a name="TLS12"></a>not connect after startup
+                </h4>
+                                                    <p>If the AD Agent does not connect after startup and the agent logs contain an exception:</p>
+                                                    <p> <i>The <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">client<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>Essentially, a client is anything that talks to the Okta service. Within the traditional client-server model, Okta is the server. The client might be an agent, an Okta mobile app, or a browser plugin. </span></a> and server cannot communicate, because they do not possess a common algorithm</i></p>
+                                                    <p>Make sure that TLS 1.2 is enabled on your OS. For Windows 2008 R2 TLS 1.2 is disabled by default and needs to be enabled through the registry. Ensure the following regkeys are set correctly:</p>
+                                                    <p style="font-family: 'Courier New';">[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Server] "<span style="color: #ff0000;">Enabled</span>"=dword:00000001</p>
+                                                    <p><span style="font-family: 'Courier New';">[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Server] <span style="color: #ff0000;">"DisabledByDefault</span>"=dword:00000000</span>
+                                                    </p>
+                                                    <p style="font-family: 'Courier New';">[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client] "<span style="color: #ff0000;">Enabled</span>"=dword:00000001</p>
+                                                    <p><span style="font-family: 'Courier New';">[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client] "<span style="color: #ff0000;">DisabledByDefault</span>"=dword:00000000</span>
+                                                    </p>
                                                 </div>
                                             </div><a href="#" class="sf-back-to-top"><span class="arrow"></span>Top</a>
                                         </div>
