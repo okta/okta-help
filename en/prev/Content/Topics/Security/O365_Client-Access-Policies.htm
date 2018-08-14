@@ -156,92 +156,99 @@
                                                 <li value="4">Exchange ActiveSync client</li>
                                                 <li value="5">Modern authentication supported mobile apps (iOS, Android, other mobile)</li>
                                             </ul>
-                                            <p>In order to achieve this granular level of control, Okta leverages host headers sent from the client and O365 service to make access decisions based on the policies that you configure. Okta determines the client type by reading the request header. The client writes the header, which is responsible for its accuracy. Okta provides flexibility to inspect these headers as part of our <a href="../Reports/Reports_SysLog.htm">System Log</a> functionality.</p>
+                                            <p>test In order to achieve this granular level of control, Okta leverages host headers sent from the client and O365 service to make access decisions based on the policies that you configure. Okta determines the client type by reading the request header. The client writes the header, which is responsible for its accuracy. Okta provides flexibility to inspect these headers as part of our <a href="../Reports/Reports_SysLog.htm">System Log</a> functionality.</p>
                                             <h3>Important Security Note</h3>
-                                            <p>Legacy email protocols such as IMAP and POP are not capable of processing client access policies or MFA. This can present a significant security risk, as potential attackers who acquire user credentials will not be challenged for MFA if they use a legacy protocol. To disable these legacy protocols in your O365 tenant, refer to <a href="https://support.microsoft.com/en-us/help/2416434/how-to-enable-or-disable-pop3-imap-mapi-outlook-web-app-or-exchange-ac">How to enable or disable POP3, IMAP, MAPI, Outlook Web app or Exchange ActiveSync for a mailbox in Office 365</a>.</p>
-                                            <p>You can deploy O365 client access policies in your environment incrementally (by applying rules to <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">groups<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>Groups allow you to organize your end users and the apps they can access. Assigning apps to large sets of end users is made easier with groups.</span></a> and users) or across all users that access the <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">app<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>An abbreviation of application. Essentially, it is a web-based site used to perform any number of specific tasks, and requires authentication from end users by signing in.</span></a>.</p>
-                                            <p><b>Note</b>: To accurately and safely apply these security policies, ensure that you thoroughly review this guide.</p>
-                                            <h2>O365 Client Access Policies Configuration</h2>
-                                            <p>Before you begin, ensure that you have an O365 app created in your Okta tenant, and that it is configured for <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">SSO<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>An acronym for single sign-on. In a SSO system, a user logs in once to the system and can access multiple systems without being prompted to sign in for each one. Okta is a cloud-based SSO platform that allows users to enter one name and password to access multiple applications. Users can access all of their web applications, both behind the firewall and in the cloud, with a single sign in. Okta provides a seamless experience across PCs, laptops, tablets, and smartphones.</span></a>. If you’re just getting started with O365, refer to our <a href="https://support.okta.com/help/Documentation/Knowledge_Article/Office365-Deployment-Guide">Office 365 Deployment Guide</a> for setup instructions and configuration options.</p>
-                                            <p>Once the app and SSO are configured, you can begin setting up O365 client access policies:</p>
+                                            <p>Legacy email protocols such as IMAP and POP are not capable of processing client access policies or MFA. This can present a significant security risk, as potential attackers who acquire user credentials will not be challenged for MFA if they use a legacy protocol. To disable these legacy protocols in your O365 tenant, refer to this MS Support documentation: <a href="https://support.microsoft.com/en-us/help/2416434/how-to-enable-or-disable-pop3-imap-mapi-outlook-web-app-or-exchange-ac">How to enable or disable POP3, IMAP, MAPI, Outlook Web app or Exchange ActiveSync for a mailbox in Office 365</a>.</p>
+                                            <h2>Rule Configuration</h2>
+                                            <p>You can deploy O365 client access policies in your environment incrementally (by applying rules to users and/or user <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">groups<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>Groups allow you to organize your end users and the apps they can access. Assigning apps to large sets of end users is made easier with groups.</span></a>) or across all users that access the <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">app<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>An abbreviation of application. Essentially, it is a web-based site used to perform any number of specific tasks, and requires authentication from end users by signing in.</span></a>.</p>
+                                            <p>Before you begin, do the following:</p>
+                                            <ul>
+                                                <li value="1">Ensure  that you <i>thoroughly review this guide</i> to accurately and safely apply these security policies.</li>
+                                                <li value="2">Have an O365 app created in your Okta tenant, and ensure that it is configured for <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">SSO<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>An acronym for single sign-on. In a SSO system, a user logs in once to the system and can access multiple systems without being prompted to sign in for each one. Okta is a cloud-based SSO platform that allows users to enter one name and password to access multiple applications. Users can access all of their web applications, both behind the firewall and in the cloud, with a single sign in. Okta provides a seamless experience across PCs, laptops, tablets, and smartphones.</span></a>. If you’re just getting started with O365, refer to our <a href="https://support.okta.com/help/Documentation/Knowledge_Article/Office365-Deployment-Guide">Office 365 Deployment Guide</a> for setup instructions and configuration options.</li>
+                                            </ul>
+                                            <p>Note the following when creating new rules:</p>
+                                            <ul>
+                                                <li value="1">The <b>Default sign on rule</b> allows access to all clients from any network without requiring MFA. This cannot be modified.</li>
+                                                <li value="2">Starting from <b>Priority 1</b> to the final rule, Okta evaluates each rule by priority. Okta then applies the first rule that matches. If a user does not fall within the <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">scope<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>A scope is an indication by the client that it wants to access some resource.</span></a> of a preceding rule (or rules applied globally across the tenant), they are subject to the <b>Default sign on rule</b> allowing access to O365 services.</li>
+                                            </ul>
+                                            <p>You can layer rules for O365 client access policies to provide a more tightly controlled user sign-on experience. This user experience is dependent on the components configured within the rules. </p>
+                                            <p>To create your rules, do the following:</p>
                                             <ol>
-                                                <li value="1">From the <b><a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">Admin<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>An abbreviation of administrator. This is the individual(s) who have access to the Okta Administrator Dashboard. They control the provisioning and deprovisioning of end users, the assigning of apps, the resetting of passwords, and the overall end user experience. Only administrators have the Administration button on the upper right side of the My Applications page.</span></a> Dashboard</b>, hover over <b>Applications</b> drop-down menu.</li>
-                                                <li value="2">On the <b>Applications</b> page, scroll down to the <b>O365 app</b> instance and click the app.</li>
-                                                <li value="3">Click the <b>Sign On</b> tab.</li>
-                                                <li value="4">Scroll down to <b>Sign On Policy</b>.</li>
+                                                <li value="1">From the <b><a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">Admin<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>An abbreviation of administrator. This is the individual(s) who have access to the Okta Administrator Dashboard. They control the provisioning and deprovisioning of end users, the assigning of apps, the resetting of passwords, and the overall end user experience. Only administrators have the Administration button on the upper right side of the My Applications page.</span></a> Dashboard</b>, hover over <b>Applications</b> drop-down menu.
+</li>
+                                                <li value="2">On the <b>Applications</b> page, scroll down to the <b>O365 app</b> instance and click the app.
+</li>
+                                                <li value="3">Click the <b>Sign On</b> tab.
+Scroll down to <b>Sign On Policy</b>.
+</li>
+                                                <li value="4">Click the <b>Add Rule</b> button. The <b>App Sign On Rule</b> page appears.
+</li>
+                                                <li value="5">Give a descriptive name for your rule.
+</li>
+                                                <li value="6">Configure the desired conditions for the rule.
+</li>
                                             </ol>
-                                            <p>The <b>Default sign on rule</b> allows access to all clients from any network without requiring MFA. This cannot be modified.</p>
-                                            <p><b>Note</b>: Starting from <b>Priority</b> 1 to the final rule, Okta evaluates each rule by priority. Okta then applies the first rule that matches. If a user does not fall within the <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">scope<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>A scope is an indication by the client that it wants to access some resource.</span></a> of a preceding rule (or rules applied globally across the tenant), they are subject to the <b>Default sign on rule</b> allowing access to O365 services.</p>
-                                            <p>5.	Click the <b>Add Rule</b> button to get started configuring rules for O365 client access policies.</p>
-                                            <p>Configuration Best Practices</p>
-                                            <p>Need the details here.</p>
-                                            <p>Rule Configuration for Office 365 Client Access Policies</p>
-                                            <p>You can layer rules for O365 client access policies to provide a more tightly controlled user sign-on experience. This user experience is dependent on the components configured within the rules. To create your rules, do the following:</p>
-                                            <p>1.	From the Okta Admin Console, go to Applications &gt; Applications &gt; Office 365 app instance.</p>
-                                            <p>2.	Click the Sign On tab.</p>
-                                            <p>3.	Scroll down to Sign On Policy.</p>
-                                            <p>4.	Click the Add Rule button. The App Sign On Rule page appears.</p>
-                                            <p>5.	Give a descriptive name for your rule.</p>
-                                            <p>6.	Configure the desired conditions within the rule.</p>
-                                            <p>￼</p>
-                                            <p>Note: Depending on the configuration and features available in your Okta tenant, your user interface may vary.</p>
-                                            <p>People</p>
-                                            <p>You can scope O365 client access policies to all users accessing the O365 application, or you can break them down to a subset of users/groups. When configuring these rules it is important to consider:</p>
+                                            <p>
+                                                <img src="../../Resources/Images/ss-o365SignOn_565x324.png" style="width: 565;height: 324;" />
+                                            </p>
                                             <p>&#160;</p>
-                                            <p>Should the rule apply to all users accessing the O365 application?</p>
-                                            <p>Should the rule apply to a subset of users or groups only? Consider scoping the rule to groups or users if:</p>
-                                            <p>&#160;</p>
-                                            <p>•	There is a requirement to enable exceptions for application access.</p>
-                                            <p>•	There is a need to slowly phase these sign-on rules into an existing O365 deployment.</p>
-                                            <p>Location</p>
-                                            <p>You can scope rules to specific locations or zones. The O365 client access policies work seamlessly with Okta’s Geographic Network and IP Zones. These options can be configured in the Okta under Security &gt; Networks.</p>
-                                            <p>In order to apply these rules, Okta relies on the IP Address(es) that are passed in the authentication request headers. Okta recommends including Microsoft Exchange Online IP addresses (listed here) as proxy IPs in your network configuration. Consult our network guide for details.</p>
-                                            <p>It is important to consider the impact of network zones when restricting access and prompting for MFA. The available options include:</p>
-                                            <p>&#160;</p>
-                                            <p>•	Anywhere: Apply this rule to all users regardless of where the access is originating.</p>
-                                            <p>•	In Zone: Apply this rule to users coming from a specific location or IP range.</p>
-                                            <p>&#160;</p>
-                                            <p>Consider a branch office in a location with unreliable security, for example. You may make MFA a consistent requirement from this location.</p>
-                                            <p>•	Not in Zone: Apply this rule to anyone not coming from a specific location or IP range.</p>
-                                            <p>&#160;</p>
-                                            <p>As another example, you may have corporate offices configured as a network location in Okta. You may require that MFA is always enforced when users are not coming from one of these known networks.</p>
-                                            <p>Client</p>
+                                            <p><b>Note</b>: Depending on the configuration and features available in your Okta tenant, your user interface may vary.</p>
+                                            <h3>People</h3>
+                                            <p>You can scope O365 client access policies to all users accessing the O365 application, or you can break them down to a subset of users/groups. </p>
+                                            <p>When configuring these rules you should consider who they should apply to</p>
+                                            <ul>
+                                                <li value="1"> All users accessing the O365 app OR</li>
+                                                <li value="2"> Only a subset of users or groups </li>
+                                            </ul>
+                                            <p> Consider scoping the rule to groups or a subset of users if:</p>
+                                            <ul>
+                                                <li value="1">There is a requirement to enable exceptions for application access.</li>
+                                                <li value="2">There is a need to slowly phase these sign-on rules into an existing O365 deployment.</li>
+                                            </ul>
+                                            <h3>Location</h3>
+                                            <p>You can scope rules to specific locations or zones. The O365 client access policies work seamlessly with Okta’s <a href="Security_Network.htm">geographic network and IP Zones</a>. These options can be configured in Okta under <b>Security</b> &gt; <b>Networks</b>.</p>
+                                            <p>In order to apply these rules, Okta relies on the IP Address(es) that are passed in the authentication request headers. Okta recommends including <a href="https://docs.microsoft.com/en-us/office365/securitycompliance/eop/exchange-online-protection-ip-addresses">Microsoft Exchange Online IP addresses</a> as proxy IPs in your network configuration.</p>
+                                            <p>It is important to consider the impact of network zones when restricting access and prompting for MFA. </p>
+                                            <p><b>Anywhere</b>: Apply this rule to all users regardless of where the access is originating.</p>
+                                            <p><b>In Zone</b>: Apply this rule to users coming from a specific location or IP range. Consider a branch office in a location with unreliable security, for example. You may make MFA a consistent requirement from this location.</p>
+                                            <p><b>Not in Zone</b>: Apply this rule to anyone <i>not</i> coming from a specific location or IP range. As an example, you may have corporate offices configured as a network location in Okta. You may require that MFA is always enforced when users are <i>not</i> coming from one of these known networks.</p>
+                                            <h3>Client</h3>
                                             <p>One benefit to O365 client access policies is the ability to distinguish access based on the client that is requesting the O365 resource.</p>
-                                            <p>Note: Clients using modern authentication are treated as Web browsers. Microsoft documents this limitation as part of Office Clients and the O365 service. For more details, refer to: http://go.microsoft.com/fwlink/p/?LinkId=717374</p>
-                                            <p>￼</p>
-                                            <p>Type</p>
-                                            <p>Web browser or Modern Auth client: Includes browsers such as Chrome, Safari, or Internet Explorer, as well as thick client applications configured to leverage Modern Authentication. This includes Office 2013 and 2016 clients with required patches or configuration updates, as detailed here:</p>
-                                            <p>https://blogs.office.com/2015/11/19/updated-office-365-modern-authentication-public-preview/).</p>
-                                            <p>Note: Modern Authentication is a configurable setting on the O365 tenant for Exchange Online. For more information about configuring this setting, refer to Microsoft’s documentation: https://support.office.com/en-us/article/Enable-Exchange-Online-for-modern-authentication-58018196-f918-49cd-8238-56f57f38d662</p>
-                                            <p>&#160;</p>
-                                            <p>Exchange ActiveSync or Legacy Auth client: Native mail clients on iOS or Android devices, and older desktop clients on macOS and Windows that do not support modern authentication.</p>
-                                            <p>Platform</p>
-                                            <p>Mobile:</p>
-                                            <p>•	iOS</p>
-                                            <p>•	Android</p>
-                                            <p>•	Other mobile (e.g., Blackberry). Select this option for:</p>
-                                            <p>•	Non-iOS and non-Android clients such as Blackberry.</p>
-                                            <p>•	Client types for which Okta cannot determine the operating system type by inspecting the request header. For example, when using an Outlook mail app on an iOS or Android device, the request header contains both iOS and Android. Selecting Other allows the client access policy to evaluate requests from these clients.</p>
-                                            <p>&#160;</p>
-                                            <p>Desktop:</p>
-                                            <p>•	MS Windows</p>
-                                            <p>•	macOS</p>
-                                            <p>•	Other desktop OS (e.g., Linux)</p>
-                                            <p>Device Trust</p>
-                                            <p>Note: This is an Early Access feature. To enable it, please contact Okta Support.</p>
-                                            <p>If enabled for your <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">org<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>The Okta container that represents a real-world organization.</span></a>, Device Trust settings allow you to gate access to apps depending on whether a users' devices are trusted. For details, see Device Trust documentation for the appropriate client.</p>
-                                            <p>Access</p>
-                                            <p>Finally, when all the conditions set above are met, specify the actions to be taken if a user triggers a rule:</p>
-                                            <p>￼</p>
-                                            <p>You can dictate whether the conditions set allow access to be Allowed or Denied:</p>
-                                            <p>&#160;</p>
-                                            <p>•	You can deny access if a user is coming from a risky or unknown network location.</p>
-                                            <p>•	You can set a requirement to prompt the user to re-authenticate after a set amount of time has elapsed after the app has launched.</p>
-                                            <p>•	You can prompt the user to perform MFA when logging into the app.</p>
-                                            <p>&#160;</p>
-                                            <p>Note: Okta enforces Sign On policies when a client is directed back to its Okta org. For browser-based clients, this generally occurs when the session is terminated by closing the browser or clearing cookies.</p>
-                                            <p>Note: For desktop clients (not using Modern Authentication) and Exchange ActiveSync clients, an authenticated session is cached for up to 24 hours within the Microsoft service. After configuring client access policies to restrict these client types, it may take up to 24 hours in order for the restrictions to take effect.</p>
-                                            <p>For thick clients supporting MFA, the individual app or service determines how frequently they are directed back to Okta for authentication. For MS Office apps, see refresh intervals here: https://support.office.com/en-us/article/Session-timeouts-for-Office-365-37a5c116-5b07-4f70-8333-5b86fd2c3c40</p><a href="#" class="sf-back-to-top"><span class="arrow"></span>Top</a>
+                                            <p><b>Note</b>: Clients using <b>Modern Authentication client</b> are treated as <b>Web browsers</b>. Microsoft documents this limitation as part of MS Office Clients and the O365 service. For details, refer to this MS Support documentation: <a href="https://social.technet.microsoft.com/wiki/contents/articles/30253.office-2013-and-office-365-proplus-modern-authentication-and-client-access-filtering-policies-things-to-know-before-onboarding.aspx">MS TechNet: Things to know before onboarding</a>.</p>
+                                            <p>
+                                                <img src="../../Resources/Images/ss-o365ClientAccessP_550x319.png" style="width: 550;height: 319;" />
+                                            </p>
+                                            <h4>Client type</h4>
+                                            <p><b>Web browser </b>or<b> Modern Authentication client</b>: Includes browsers such as Chrome, Safari, or Internet Explorer, as well as thick client applications configured to leverage Modern Authentication. This includes Office 2013 and 2016 clients with required patches or configuration updates, as detailed in this MS Support documentation:<a href="https://blogs.office.com/2015/11/19/updated-office-365-modern-authentication-public-preview/">Updated Office 365 modern authentication</a>.</p>
+                                            <p><b>Note</b>: Modern Authentication is a configurable setting on the O365 tenant for Exchange Online. For more information about configuring this setting, refer to this MS Support documentation: <a href="https://support.office.com/en-us/article/Enable-Exchange-Online-for-modern-authentication-58018196-f918-49cd-8238-56f57f38d662">Enable or disable modern authentication in Exchange Online</a>.</p>
+                                            <p><b>Exchange ActiveSync </b>or<b> Legacy Auth client</b>: Includes native mail clients on iOS or Android devices, as well as older desktop clients on macOS and MS Windows that do not support modern authentication.</p>
+                                            <h4>Platform type</h4>
+                                            <h5>Mobile:</h5>
+                                            <ul>
+                                                <li value="1">iOS</li>
+                                                <li value="2">Android</li>
+                                                <li value="3">Other mobile options. Select this option for:<ul style="list-style-type: circle;"><li value="1">Non-iOS and non-Android clients such as Blackberry.</li><li value="2">	Client types for which Okta cannot determine the operating system type by inspecting the request header. For example, when using an Outlook mail app on an iOS or Android device, the request header contains both iOS and Android. Selecting <b>Other</b> allows the client access policy to evaluate requests from these clients.</li></ul></li>
+                                            </ul>
+                                            <h5>Desktop:</h5>
+                                            <ul>
+                                                <li value="1">MS Windows</li>
+                                                <li value="2">macOS</li>
+                                                <li value="3">Other desktop OS platforms such as Linux</li>
+                                            </ul>
+                                            <h3>Access</h3>
+                                            <p>Finally, when all the conditions set above are met, specify the actions to be taken if a user triggers a rule.</p>
+                                            <p>Dictate whether the conditions you've set allow access to be <b>Allowed</b> or <b>Denied</b>:</p>
+                                            <ul>
+                                                <li value="1">You can deny access if a user is coming from a risky or unknown network location.</li>
+                                                <li value="2">You can set a requirement to prompt the user to re-authenticate after a set amount of time has elapsed after the app has launched.</li>
+                                                <li value="3">You can prompt the user to perform MFA when signing into the app.</li>
+                                            </ul>
+                                            <p>Please also note the following: </p>
+                                            <ul>
+                                                <li value="1">Okta enforces Sign On policies when a client is directed back to its Okta <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">org<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>The Okta container that represents a real-world organization.</span></a>. For browser-based clients, this generally occurs when the session is terminated by closing the browser or clearing cookies.</li>
+                                                <li value="2">For desktop clients (<i>not</i> using Modern Authentication) and Exchange ActiveSync clients, an authenticated session is cached for up to 24 hours within the Microsoft service. After configuring client access policies to restrict these client types, it may take up to 24 hours for the restrictions to take effect.</li>
+                                            </ul>
+                                            <p>For thick clients supporting MFA, the individual app or service determines how frequently they are directed back to Okta for authentication. For MS Office apps, refer to this MS Support documentation, <a href="https://support.office.com/en-us/article/Session-timeouts-for-Office-365-37a5c116-5b07-4f70-8333-5b86fd2c3c40">Session timeouts for Office 365</a>, for refresh intervals.</p><a href="#" class="sf-back-to-top"><span class="arrow"></span>Top</a>
                                         </div>
                                     </div>
                                     <div>
