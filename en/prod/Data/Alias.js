@@ -253,5 +253,8 @@ xmlAliasData += '    <Map Name=\"ext_Ver_History_SAML_Toolkit_For_Java\" Link=\"
 xmlAliasData += '    <Map Name=\"ext_Ver_History_Sharepoint_People_Picker_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_Sharepoint_People_Picker_Agent.htm\" ResolvedId=\"200210\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_SSO_IWA_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_SSO_IWA_Agent.htm\" ResolvedId=\"200211\" />';
 xmlAliasData += '    <Map Name=\"csh-java-ldap-agent\" Link=\"Topics/Directory/Okta-Java-LDAP-Agent.htm\" ResolvedId=\"10000\" />';
+xmlAliasData += '    <Map Name=\"check-point-radius-intg\" Link=\"Topics/integrations/check-point-radius-intg.htm\" ResolvedId=\"1058\" />';
+xmlAliasData += '    <Map Name=\"vmware-horizon-radius-intg\" Link=\"Topics/integrations/vmware-horizon-radius-intg.htm\" ResolvedId=\"1059\" />';
+xmlAliasData += '    <Map Name=\"beyondtrust-radius\" Link=\"Topics/integrations/beyondtrust-powerbroker-password-safe-radius-intg.htm\" ResolvedId=\"1061\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
