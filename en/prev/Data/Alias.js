@@ -256,5 +256,6 @@ xmlAliasData += '    <Map Name=\"csh-java-ldap-agent\" Link=\"Topics/Directory/O
 xmlAliasData += '    <Map Name=\"check-point-radius-intg\" Link=\"Topics/integrations/check-point-radius-intg.htm\" ResolvedId=\"1058\" />';
 xmlAliasData += '    <Map Name=\"vmware-horizon-radius-intg\" Link=\"Topics/integrations/vmware-horizon-radius-intg.htm\" ResolvedId=\"1059\" />';
 xmlAliasData += '    <Map Name=\"beyondtrust-radius-intg\" Link=\"Topics/integrations/beyondtrust-powerbroker-password-safe-radius-intg.htm\" ResolvedId=\"1061\" />';
+xmlAliasData += '    <Map Name=\"dt-android-mdm\" Link=\"Topics/Mobile/Okta_Device_Trust_MDM-managed_Android_devices.htm\" ResolvedId=\"1062\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
