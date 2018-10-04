@@ -113,7 +113,7 @@ xmlAliasData += '    <Map Name=\"ext_Configure_Cust_Portal_Leverage_OktaPlugin\"
 xmlAliasData += '    <Map Name=\"ext_Dashboard\" Link=\"Topics/Dashboard/Dashboard.htm\" ResolvedId=\"200037\" />';
 xmlAliasData += '    <Map Name=\"ext_Dashboard_End_User_Notifications\" Link=\"Topics/Dashboard/Dashboard_End_User_Notifications.htm\" ResolvedId=\"200038\" />';
 xmlAliasData += '    <Map Name=\"ext_Embedding_Your_End_User_Portal\" Link=\"Topics/Dashboard/Embedding_Your_End_User_Portal.htm\" ResolvedId=\"200039\" />';
-xmlAliasData += '    <Map Name=\"ext_Importing_People\" Link=\"Topics/Dashboard/Importing_People.htm\" ResolvedId=\"200040\" />';
+xmlAliasData += '    <Map Name=\"ext_Importing_People\" Link=\"Topics/Directory/Importing_People.htm\" ResolvedId=\"200040\" />';
 xmlAliasData += '    <Map Name=\"ext_radius_server_agent_dg\" Link=\"Topics/DeploymentGuides/Radius_Server_Agent/radius-server-agent-dg.htm\" ResolvedId=\"200041\" />';
 xmlAliasData += '    <Map Name=\"ext_Android_For_Work\" Link=\"Topics/Devices/Android_For_Work.htm\" ResolvedId=\"200043\" />';
 xmlAliasData += '    <Map Name=\"ext_application_inventory\" Link=\"Topics/Devices/application-inventory.htm\" ResolvedId=\"200044\" />';
