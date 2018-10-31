@@ -44,6 +44,7 @@ xmlAliasData += '    <Map Name=\"okta-android-installers\" Link=\"Topics/Mobile/
 xmlAliasData += '    <Map Name=\"Service_Mode\" Link=\"Topics/Reference/ref-service-op-mode.htm\" ResolvedId=\"1014\" />';
 xmlAliasData += '    <Map Name=\"conf-desktop-sso\" Link=\"Topics/Directory/Configuring_Desktop_SSO.htm\" ResolvedId=\"1015\" />';
 xmlAliasData += '    <Map Name=\"ServicePrincipalName\" Link=\"Topics/Directory/Configuring_Agentless_SSO.htm#SSOAgentlessPrincName\" ResolvedId=\"1013\" />';
+xmlAliasData += '    <Map Name=\"ad-agent\" Link=\"Topics/Directory/okta-active-directory-agent.htm\" ResolvedId=\"1016\" />';
 xmlAliasData += '    <Map Name=\"okta-radius-agent-install\" Link=\"Topics/Directory/Agent_Installing_the_Okta_Radius_Agent.htm\" ResolvedId=\"1017\" />';
 xmlAliasData += '    <Map Name=\"mfa-onprem\" Link=\"Topics/Security/MFA_OnPrem.htm\" ResolvedId=\"1018\" />';
 xmlAliasData += '    <Map Name=\"ad-pw-sync-agent\" Link=\"Topics/Directory/Installing_Configuring_Active_Directory_Password_Sync_Agent.htm\" ResolvedId=\"1019\" />';
@@ -139,6 +140,7 @@ xmlAliasData += '    <Map Name=\"ext_Directory_Self_Service_Registration\" Link=
 xmlAliasData += '    <Map Name=\"ext_Directory_Using_Group_Push\" Link=\"Topics/Directory/Directory_Using_Group_Push.htm\" ResolvedId=\"200072\" />';
 xmlAliasData += '    <Map Name=\"ext_Installing_Configuring_Active_Directory_Password_Sync_Agent\" Link=\"Topics/Directory/Installing_Configuring_Active_Directory_Password_Sync_Agent.htm\" ResolvedId=\"200073\" />';
 xmlAliasData += '    <Map Name=\"ext_LDAP_Using_the_LDAP_Interface\" Link=\"Topics/Directory/LDAP_Using_the_LDAP_Interface.htm\" ResolvedId=\"200075\" />';
+xmlAliasData += '    <Map Name=\"ext_okta_active_directory_agent\" Link=\"Topics/Directory/okta-active-directory-agent.htm\" ResolvedId=\"200076\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_Java_LDAP_Agent\" Link=\"Topics/Directory/Okta-Java-LDAP-Agent.htm\" ResolvedId=\"200078\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_Active_Directory_Agent_UDMappingchanges\" Link=\"Topics/Directory/Okta_Active_Directory_Agent_UDMappingchanges.htm\" ResolvedId=\"200079\" />';
 xmlAliasData += '    <Map Name=\"ext_Reference_Directories\" Link=\"Topics/Directory/Reference_Directories.htm\" ResolvedId=\"200081\" />';
