@@ -204,8 +204,9 @@
                                                                 <img src="../../Resources/Images/DT_SCCM_FileSystemDetect.png" />
                                                             </p>
                                                         </li>
-                                                        <li value="5"><b>Shared-terminal scenarios not supported</b> — This Device Trust solution does not support shared-terminal scenarios in which multiple end users log in to the same domain-joined workstation.</li>
-                                                        <li value="6"><b>Device Trust-secured apps are shown as locked on end user Okta Home pages</b> — On end-user Okta Home pages, a lock icon appears on <u>all</u> Device Trust-secured app <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">chiclets<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>The "buttons" that appear on an end user's Home page and represent each application they wish to access through Okta. Clicking the chiclet allows the end user to instantly sign in and authenticate themselves into their chosen app.</span></a> if (1) the device is not trusted, and (2) the end user tried to access <u>any</u> Device Trust-secured app from their Home page. The lock icon remains for the duration of the session.</li>
+                                                        <li value="5"><b>Ensure clients can complete the MTLS handshake</b> —  If your <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">org<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>The Okta container that represents a real-world organization.</span></a> implements  proxy servers/proxy clients or endpoint protection software, make sure to configure them in a way that does not block the Mutual TLS certificate exchange (handshake) that occurs during this Device Trust flow. For details, see <a href="#MTLS-handshake">Troubleshooting</a>.</li>
+                                                        <li value="6"><b>Shared-terminal scenarios not supported</b> — This Device Trust solution does not support shared-terminal scenarios in which multiple end users log in to the same domain-joined workstation.</li>
+                                                        <li value="7"><b>Device Trust-secured apps are shown as locked on end user Okta Home pages</b> — On end-user Okta Home pages, a lock icon appears on <u>all</u> Device Trust-secured app <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">chiclets<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>The "buttons" that appear on an end user's Home page and represent each application they wish to access through Okta. Clicking the chiclet allows the end user to instantly sign in and authenticate themselves into their chosen app.</span></a> if (1) the device is not trusted, and (2) the end user tried to access <u>any</u> Device Trust-secured app from their Home page. The lock icon remains for the duration of the session.</li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -255,7 +256,7 @@
                                                                     <ol>
                                                                         <li value="1">To download the  IWA&#160;web app, configure a link as follows:</li>
                                                                         <div style="padding:10px;border:1px solid black;min-height:23px;min-width:100px;overflow-y:hidden;overflow-x:scroll;">
-                                                                            <p style="width:110%;"><pre xml:space="preserve">https://&lt;<a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">org<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>The Okta container that represents a real-world organization.</span></a>&gt;.&lt;okta/oktapreview&gt;.com/static/agents/iwa/OktaSsoIwa-x.x.x.exe</pre>
+                                                                            <p style="width:110%;"><pre xml:space="preserve">https://&lt;org&gt;.&lt;okta/oktapreview&gt;.com/static/agents/iwa/OktaSsoIwa-x.x.x.exe</pre>
                                                                             </p>
                                                                         </div>
                                                                         <div style="line-height:115%;">
@@ -431,7 +432,11 @@
         
             <ul><li value="1"><p>Upgrade to Okta Device Trust Registration Task version <b>1.2.2+</b> as detailed in <a href="#B.2">section B.2</a>.</p></li><p><b>– or –</b></p><li value="2"><p>Edit the Windows registry as detailed in <a href="#TS-IE-64bit">Basic Troublshooting</a>.</p></li></ul></p>
                                                                             <h3>Proxy server environment</h3>
-                                                                            <p>If your organization routes internet traffic through a proxy server, you must install Device Trust Registration Task <b>version 1.2.1</b> or higher through a command line and append the appropriate <span style="font-family: 'Courier New'; font-weight: bold;">HttpProxy</span> parameter to the installation command. For details, see <a href="#MSI-installation">Install the Registration Task</a>. </p>
+                                                                            <p>If your organization routes internet traffic through a proxy server, note the following:</p>
+                                                                            <ul>
+                                                                                <li value="1">You must install Device Trust Registration Task <b>version 1.2.1</b> or higher through a command line and append the appropriate <span style="font-family: 'Courier New'; font-weight: bold;">HttpProxy</span> parameter to the installation command. For details, see <a href="#MSI-installation">Install the Registration Task</a>. </li>
+                                                                                <li value="2">   If your org implements  proxy servers/proxy clients or endpoint protection software, make sure to configure them in a way that does not block the Mutual TLS certificate exchange (handshake) that occurs during this Device Trust flow. details, see <a href="#MTLS-handshake">Troubleshooting</a>.</li>
+                                                                            </ul>
                                                                             <h3>Certificate revocation</h3>
                                                                             <p>You may need to revoke an end user's Device Trust certificate(s) from the Okta Certificate Authority. This is recommended if the computer is lost or stolen. To re-secure an end user's computer with Device Trust after revoking their certificate(s), you need to remove the Device Trust certificate from their computer before you enroll a new certificate. Certificate revocation does <u>not</u> remove existing certificates from managed Windows computers. For details, see <a href="#PartD">Revoke and remove Device Trust certificates</a>.</p>
                                                                             <h3>Use an appropriate Setting Type in SCCM to verify Device Trust Registration Task installation</h3>
@@ -484,37 +489,54 @@
                                                                                     </p>
                                                                                     <div style="display: none;" data-mc-target-name="proxyserver_msi-1">
                                                                                         <div style="clear: none;mc-float: none;border-top-left-radius: 3px;border-top-right-radius: 3px;border-bottom-right-radius: 3px;border-bottom-left-radius: 3px;border-left-style: solid;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;width: auto;height: auto;background-color: #f9f9f9;border-left-width: 8px;border-color: #f1d10d;border-top: solid 2px #eaeaea;border-right-color: #eaeaea;border-bottom-color: #eaeaea;margin-bottom: 10px;margin-top: 10px;padding-left: 20px;padding-bottom: 10px;padding-right: 10px;padding-top: 10px;border:;">
-                                                                                            <h3>About the Device Trust Registration Task and proxy servers</h3>
-                                                                                            <p>If your organization routes internet traffic through a proxy server, you must install Device Trust Registration Task <b>version 1.2.2+</b>&#160;through a command line and append the appropriate <span style="font-family: 'Courier New';">HttpProxy</span> parameter to the installation command. This is necessary because the Registration Task installer installs these two scheduled tasks:</p>
-                                                                                            <ul>
-                                                                                                <li value="1">A <i>user task</i> that runs as the logged-in user.</li>
-                                                                                                <li value="2">A <i>device task</i> that runs as a network service. If you set up your proxy server(s) as part of your Internet Explorer (IE) configuration, the device task does not detect your IE settings unless you specify that behavior through a command line as shown in the examples below.</li>
-                                                                                            </ul>
-                                                                                            <p>Include the parameter appropriate for your environment:</p>
-                                                                                            <p>&#160;</p>
-                                                                                            <ul>
-                                                                                                <li value="1"><b style="text-decoration: underline;">Proxy server environments</b>
-                                                                                                </li>
-                                                                                                <p style="font-family: 'Courier New';"><b>HttpProxy=&lt;your proxy http url&gt;:&lt;port number&gt;</b>
-                                                                                                </p>
-                                                                                                <p>For example, the installation command that includes the proxy server parameter would look similar to this:</p>
-                                                                                                <div style="padding: 10px;border: 1px solid black;min-height: 15px;min-width: 100px;overflow-y: hidden;overflow-x: scroll; background-color: #FFFFFF;">
-                                                                                                    <p style="width:110%;"><pre xml:space="preserve">msiexec /i OktaDeviceRegistrationTaskSetup-1.x.x-xxxxxxx INSTALLDIR="c:\Program Files\Okta\DeviceTrust" EXEOPTIONS="/q2 OktaURL=https://&lt;your Okta org&gt;/ <b>HttpProxy=&lt;your proxy http url&gt;:&lt;port number&gt;</b>"</pre>
+                                                                                            <h2>About the Device Trust Registration Task and proxy servers</h2>
+                                                                                            <p>If your organization routes internet traffic through a proxy server, you must do the following:</p>
+                                                                                            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Use a command line to install the Device Trust Registration Task and include parameters</a></span>
+                                                                                                <div class="MCDropDownBody dropDownBody">
+                                                                                                    <p>Install Device Trust Registration Task <b>version 1.2.2+</b>&#160;through a command line and append the appropriate <span style="font-family: 'Courier New';">HttpProxy</span> parameter to the installation command. This is necessary because the Registration Task installer installs these two scheduled tasks:</p>
+                                                                                                    <ul>
+                                                                                                        <li value="1">A <i>user task</i> that runs as the logged-in user.</li>
+                                                                                                        <li value="2">A <i>device task</i> that runs as a network service. If you set up your proxy server(s) as part of your Internet Explorer (IE) configuration, the device task does not detect your IE settings unless you specify that behavior through a command line as shown in the examples below.</li>
+                                                                                                    </ul>
+                                                                                                    <p>Include the parameter appropriate for your environment:</p>
+                                                                                                    <h4>Proxy server environments
+					</h4>
+                                                                                                    <p style="font-family: 'Courier New';"><b>HttpProxy=&lt;your proxy http url&gt;:&lt;port number&gt;</b>
                                                                                                     </p>
-                                                                                                </div>
-                                                                                                <p><b>Note:</b> Make sure to add a space if you are also adding the parameter to disable automatic certificate handling. </p>
-                                                                                                <p>&#160;</p>
-                                                                                                <li value="2"><b style="text-decoration: underline;">Proxy Auto-Configuraiton (PAC) environments</b>
-                                                                                                </li>
-                                                                                                <p style="font-family: 'Courier New';"><b>HttpProxyPacLocation=http://mypacfile.url.location</b>
-                                                                                                </p>
-                                                                                                <p>For example, the installation command that includes the PAC&#160;location parameter would look similar to this:</p>
-                                                                                                <div style="padding: 10px;border: 1px solid black;min-height: 15px;min-width: 100px;overflow-y: hidden;overflow-x: scroll; background-color: #FFFFFF;">
-                                                                                                    <p style="width:110%;"><pre xml:space="preserve">msiexec /i OktaDeviceRegistrationTaskSetup-1.x.x-xxxxxxx INSTALLDIR="c:\Program Files\Okta\DeviceTrust" EXEOPTIONS="/q2 OktaURL=https://&lt;your Okta org&gt;/ <b>HttpProxyPacLocation=http://mypacfile.url.location</b>"</pre>
+                                                                                                    <p>For example, the installation command that includes the proxy server parameter would look similar to this:</p>
+                                                                                                    <div style="padding: 10px;border: 1px solid black;min-height: 15px;min-width: 100px;overflow-y: hidden;overflow-x: scroll; background-color: #FFFFFF;">
+                                                                                                        <p style="width:110%;"><pre xml:space="preserve">msiexec /i OktaDeviceRegistrationTaskSetup-1.x.x-xxxxxxx INSTALLDIR="c:\Program Files\Okta\DeviceTrust" EXEOPTIONS="/q2 OktaURL=https://&lt;your Okta org&gt;/ <b>HttpProxy=&lt;your proxy http url&gt;:&lt;port number&gt;</b>"</pre>
+                                                                                                        </p>
+                                                                                                    </div>
+                                                                                                    <p><b>Note:</b> Make sure to add a space if you are also adding the parameter to disable automatic certificate handling. </p>
+                                                                                                    <h4>Proxy Auto-Configuraiton (PAC) environments</h4>
+                                                                                                    <p style="font-family: 'Courier New';font-weight: bold;"><b>HttpProxyPacLocation=http://mypacfile.url.location</b>
                                                                                                     </p>
+                                                                                                    <p>For example, the installation command that includes the PAC&#160;location parameter would look similar to this:</p>
+                                                                                                    <div style="padding: 10px;border: 1px solid black;min-height: 15px;min-width: 100px;overflow-y: hidden;overflow-x: scroll; background-color: #FFFFFF;">
+                                                                                                        <p style="width:110%;"><pre xml:space="preserve">msiexec /i OktaDeviceRegistrationTaskSetup-1.x.x-xxxxxxx INSTALLDIR="c:\Program Files\Okta\DeviceTrust" EXEOPTIONS="/q2 OktaURL=https://&lt;your Okta org&gt;/ <b>HttpProxyPacLocation=http://mypacfile.url.location</b>"</pre>
+                                                                                                        </p>
+                                                                                                    </div>
+                                                                                                    <p><b>Note:</b> Make sure to add a space if you are also adding the parameter to disable automatic certificate handling. </p>
+                                                                                                    <hr />
                                                                                                 </div>
-                                                                                                <p><b>Note:</b> Make sure to add a space if you are also adding the parameter to disable automatic certificate handling. </p>
-                                                                                            </ul>
+                                                                                            </div>
+                                                                                            <div style="line-height:90%;">
+                                                                                                <br />
+                                                                                            </div>
+                                                                                            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Ensure clients can complete the MTLS handshake</a></span>
+                                                                                                <div class="MCDropDownBody dropDownBody">
+                                                                                                    <div>
+                                                                                                        <p>The Mutual TLS certificate exchange (handshake) in this Device Trust flow occurs on Okta URLs that are <i>separate</i> from your Okta org URL (indicated by the wildcard character (*) in the example below). Make sure to configure  proxy servers/proxy clients, as well as any endpoint protection software you may implement, in a way that does not block your clients from completing the certificate exchange with Okta. For example, if your organization uses a whitelist to limit outbound traffic, add these exact URLs to the whitelist, <i>including the wildcard character</i> (*), as shown here:</p>
+                                                                                                        <div style="margin-left: 55px;">
+                                                                                                            <p><b>*.okta.com</b>
+                                                                                                            </p>
+                                                                                                            <p><b>*.okta-emea.com</b>
+                                                                                                            </p>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
                                                                                         </div>
                                                                                     </div>
                                                                                     <p style="line-height: 150%;">
@@ -541,36 +563,54 @@
                                                                                     </p>
                                                                                     <div style="display: none;" data-mc-target-name="proxyserver_exe-1">
                                                                                         <div style="clear: none;mc-float: none;border-top-left-radius: 3px;border-top-right-radius: 3px;border-bottom-right-radius: 3px;border-bottom-left-radius: 3px;border-left-style: solid;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;width: auto;height: auto;background-color: #f9f9f9;border-left-width: 8px;border-color: #f1d10d;border-top: solid 2px #eaeaea;border-right-color: #eaeaea;border-bottom-color: #eaeaea;margin-bottom: 10px;margin-top: 10px;padding-left: 20px;padding-bottom: 10px;padding-right: 10px;padding-top: 10px;border:;">
-                                                                                            <h3>About the Device Trust Registration Task and proxy servers</h3>
-                                                                                            <p>If your organization routes internet traffic through a proxy server, you must install Device Trust Registration Task <b>version 1.2.2+</b>&#160;through a command line and append the appropriate <span style="font-family: 'Courier New';">HttpProxy</span> parameter to the installation command. This is necessary because the Registration Task installer installs these two scheduled tasks:</p>
-                                                                                            <ul>
-                                                                                                <li value="1">A <i>user task</i> that runs as the logged-in user.</li>
-                                                                                                <li value="2">A <i>device task</i> that runs as a network service. If you set up your proxy server(s) as part of your Internet Explorer (IE) configuration, the device task does not detect your IE settings unless you specify that behavior through a command line as shown in the examples below.</li>
-                                                                                            </ul>
-                                                                                            <p>Include the parameter appropriate for your environment:</p>
-                                                                                            <p>&#160;</p>
-                                                                                            <ul>
-                                                                                                <li value="1"><b style="text-decoration: underline;">Proxy server environments</b>
-                                                                                                </li>
-                                                                                                <p style="font-family: 'Courier New';"><b>HttpProxy=&lt;your proxy http url&gt;:&lt;port number&gt;</b>
-                                                                                                </p>
-                                                                                                <p>For example, the installation command that includes the proxy server parameter would look similar to this:</p>
-                                                                                                <div style="padding: 10px;border: 1px solid black;min-height: 15px;min-width: 100px;overflow-y: hidden;overflow-x: scroll; background-color: #FFFFFF;">
-                                                                                                    <p style="width:110%;"><pre xml:space="preserve">OktaDeviceRegistrationTaskSetup-1.0.0-XXXX.exe /q2 OktaURL=https://&lt;your-okta-org-url&gt;.com <b>HttpProxy=&lt;your proxy http url&gt;:&lt;port number&gt;</b></pre>
+                                                                                            <h2>About the Device Trust Registration Task and proxy servers</h2>
+                                                                                            <p>If your organization routes internet traffic through a proxy server, you must do the following:</p>
+                                                                                            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Use a command line to install the Device Trust Registration Task and include parameters</a></span>
+                                                                                                <div class="MCDropDownBody dropDownBody">
+                                                                                                    <p>Install Device Trust Registration Task <b>version 1.2.2+</b>&#160;through a command line and append the appropriate <span style="font-family: 'Courier New';">HttpProxy</span> parameter to the installation command. This is necessary because the Registration Task installer installs these two scheduled tasks:</p>
+                                                                                                    <ul>
+                                                                                                        <li value="1">A <i>user task</i> that runs as the logged-in user.</li>
+                                                                                                        <li value="2">A <i>device task</i> that runs as a network service. If you set up your proxy server(s) as part of your Internet Explorer (IE) configuration, the device task does not detect your IE settings unless you specify that behavior through a command line as shown in the examples below.</li>
+                                                                                                    </ul>
+                                                                                                    <p>Include the parameter appropriate for your environment:</p>
+                                                                                                    <h4>Proxy server environments
+					</h4>
+                                                                                                    <p style="font-family: 'Courier New';"><b>HttpProxy=&lt;your proxy http url&gt;:&lt;port number&gt;</b>
                                                                                                     </p>
-                                                                                                </div>
-                                                                                                <p><b>Note:</b> Make sure to add a space if you are also adding the parameter to disable automatic certificate handling. </p>
-                                                                                                <p>&#160;</p>
-                                                                                                <li style="font-weight: bold;text-decoration: underline;" value="2">Proxy Auto-Configuraiton (PAC) environments</li>
-                                                                                                <p style="font-family: 'Courier New';font-weight: bold;"><b>HttpProxyPacLocation=http://mypacfile.url.location</b>
-                                                                                                </p>
-                                                                                                <p>For example, the installation command that includes the PAC&#160;location parameter would look similar to this:</p>
-                                                                                                <div style="padding: 10px;border: 1px solid black;min-height: 15px;min-width: 100px;overflow-y: hidden;overflow-x: scroll; background-color: #FFFFFF;">
-                                                                                                    <p style="width:110%;"><pre xml:space="preserve">OktaDeviceRegistrationTaskSetup-1.0.0-XXXX.exe /q2 OktaURL=https://&lt;your-okta-org-url&gt;.com <b>HttpProxyPacLocation=http://mypacfile.url.location</b></pre>
+                                                                                                    <p>For example, the installation command that includes the proxy server parameter would look similar to this:</p>
+                                                                                                    <div style="padding: 10px;border: 1px solid black;min-height: 15px;min-width: 100px;overflow-y: hidden;overflow-x: scroll; background-color: #FFFFFF;">
+                                                                                                        <p style="width:110%;"><pre xml:space="preserve">OktaDeviceRegistrationTaskSetup-1.0.0-XXXX.exe /q2 OktaURL=https://&lt;your-okta-org-url&gt;.com <b>HttpProxy=&lt;your proxy http url&gt;:&lt;port number&gt;</b></pre>
+                                                                                                        </p>
+                                                                                                    </div>
+                                                                                                    <p><b>Note:</b> Make sure to add a space if you are also adding the parameter to disable automatic certificate handling. </p>
+                                                                                                    <h4>Proxy Auto-Configuraiton (PAC) environments</h4>
+                                                                                                    <p style="font-family: 'Courier New';font-weight: bold;"><b>HttpProxyPacLocation=http://mypacfile.url.location</b>
                                                                                                     </p>
+                                                                                                    <p>For example, the installation command that includes the PAC&#160;location parameter would look similar to this:</p>
+                                                                                                    <div style="padding: 10px;border: 1px solid black;min-height: 15px;min-width: 100px;overflow-y: hidden;overflow-x: scroll; background-color: #FFFFFF;">
+                                                                                                        <p style="width:110%;"><pre xml:space="preserve">OktaDeviceRegistrationTaskSetup-1.0.0-XXXX.exe /q2 OktaURL=https://&lt;your-okta-org-url&gt;.com <b>HttpProxyPacLocation=http://mypacfile.url.location</b></pre>
+                                                                                                        </p>
+                                                                                                    </div>
+                                                                                                    <p><b>Note:</b> Make sure to add a space if you are also adding the parameter to disable automatic certificate handling. </p>
+                                                                                                    <hr />
                                                                                                 </div>
-                                                                                                <p><b>Note:</b> Make sure to add a space if you are also adding the parameter to disable automatic certificate handling. </p>
-                                                                                            </ul>
+                                                                                            </div>
+                                                                                            <div style="line-height:90%;">
+                                                                                                <br />
+                                                                                            </div>
+                                                                                            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Ensure clients can complete the MTLS handshake</a></span>
+                                                                                                <div class="MCDropDownBody dropDownBody">
+                                                                                                    <div>
+                                                                                                        <p>The Mutual TLS certificate exchange (handshake) in this Device Trust flow occurs on Okta URLs that are <i>separate</i> from your Okta org URL (indicated by the wildcard character (*) in the example below). Make sure to configure  proxy servers/proxy clients, as well as any endpoint protection software you may implement, in a way that does not block your clients from completing the certificate exchange with Okta. For example, if your organization uses a whitelist to limit outbound traffic, add these exact URLs to the whitelist, <i>including the wildcard character</i> (*), as shown here:</p>
+                                                                                                        <div style="margin-left: 55px;">
+                                                                                                            <p><b>*.okta.com</b>
+                                                                                                            </p>
+                                                                                                            <p><b>*.okta-emea.com</b>
+                                                                                                            </p>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
                                                                                         </div>
                                                                                     </div>
                                                                                     <p style="line-height: 150%;">
@@ -610,37 +650,54 @@
                                                                                         </p>
                                                                                         <div style="display: none;" data-mc-target-name="proxyserver_msi-2">
                                                                                             <div style="clear: none;mc-float: none;border-top-left-radius: 3px;border-top-right-radius: 3px;border-bottom-right-radius: 3px;border-bottom-left-radius: 3px;border-left-style: solid;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;width: auto;height: auto;background-color: #f9f9f9;border-left-width: 8px;border-color: #f1d10d;border-top: solid 2px #eaeaea;border-right-color: #eaeaea;border-bottom-color: #eaeaea;margin-bottom: 10px;margin-top: 10px;padding-left: 20px;padding-bottom: 10px;padding-right: 10px;padding-top: 10px;border:;">
-                                                                                                <h3>About the Device Trust Registration Task and proxy servers</h3>
-                                                                                                <p>If your organization routes internet traffic through a proxy server, you must install Device Trust Registration Task <b>version 1.2.2+</b>&#160;through a command line and append the appropriate <span style="font-family: 'Courier New';">HttpProxy</span> parameter to the installation command. This is necessary because the Registration Task installer installs these two scheduled tasks:</p>
-                                                                                                <ul>
-                                                                                                    <li value="1">A <i>user task</i> that runs as the logged-in user.</li>
-                                                                                                    <li value="2">A <i>device task</i> that runs as a network service. If you set up your proxy server(s) as part of your Internet Explorer (IE) configuration, the device task does not detect your IE settings unless you specify that behavior through a command line as shown in the examples below.</li>
-                                                                                                </ul>
-                                                                                                <p>Include the parameter appropriate for your environment:</p>
-                                                                                                <p>&#160;</p>
-                                                                                                <ul>
-                                                                                                    <li value="1"><b style="text-decoration: underline;">Proxy server environments</b>
-                                                                                                    </li>
-                                                                                                    <p style="font-family: 'Courier New';"><b>HttpProxy=&lt;your proxy http url&gt;:&lt;port number&gt;</b>
-                                                                                                    </p>
-                                                                                                    <p>For example, the installation command that includes the proxy server parameter would look similar to this:</p>
-                                                                                                    <div style="padding: 10px;border: 1px solid black;min-height: 15px;min-width: 100px;overflow-y: hidden;overflow-x: scroll; background-color: #FFFFFF;">
-                                                                                                        <p style="width:110%;"><pre xml:space="preserve">msiexec /i OktaDeviceRegistrationTaskSetup-1.x.x-xxxxxxx INSTALLDIR="c:\Program Files\Okta\DeviceTrust" EXEOPTIONS="/q2 OktaURL=https://&lt;your Okta org&gt;/ <b>HttpProxy=&lt;your proxy http url&gt;:&lt;port number&gt;</b>"</pre>
+                                                                                                <h2>About the Device Trust Registration Task and proxy servers</h2>
+                                                                                                <p>If your organization routes internet traffic through a proxy server, you must do the following:</p>
+                                                                                                <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Use a command line to install the Device Trust Registration Task and include parameters</a></span>
+                                                                                                    <div class="MCDropDownBody dropDownBody">
+                                                                                                        <p>Install Device Trust Registration Task <b>version 1.2.2+</b>&#160;through a command line and append the appropriate <span style="font-family: 'Courier New';">HttpProxy</span> parameter to the installation command. This is necessary because the Registration Task installer installs these two scheduled tasks:</p>
+                                                                                                        <ul>
+                                                                                                            <li value="1">A <i>user task</i> that runs as the logged-in user.</li>
+                                                                                                            <li value="2">A <i>device task</i> that runs as a network service. If you set up your proxy server(s) as part of your Internet Explorer (IE) configuration, the device task does not detect your IE settings unless you specify that behavior through a command line as shown in the examples below.</li>
+                                                                                                        </ul>
+                                                                                                        <p>Include the parameter appropriate for your environment:</p>
+                                                                                                        <h4>Proxy server environments
+					</h4>
+                                                                                                        <p style="font-family: 'Courier New';"><b>HttpProxy=&lt;your proxy http url&gt;:&lt;port number&gt;</b>
                                                                                                         </p>
-                                                                                                    </div>
-                                                                                                    <p><b>Note:</b> Make sure to add a space if you are also adding the parameter to disable automatic certificate handling. </p>
-                                                                                                    <p>&#160;</p>
-                                                                                                    <li value="2"><b style="text-decoration: underline;">Proxy Auto-Configuraiton (PAC) environments</b>
-                                                                                                    </li>
-                                                                                                    <p style="font-family: 'Courier New';"><b>HttpProxyPacLocation=http://mypacfile.url.location</b>
-                                                                                                    </p>
-                                                                                                    <p>For example, the installation command that includes the PAC&#160;location parameter would look similar to this:</p>
-                                                                                                    <div style="padding: 10px;border: 1px solid black;min-height: 15px;min-width: 100px;overflow-y: hidden;overflow-x: scroll; background-color: #FFFFFF;">
-                                                                                                        <p style="width:110%;"><pre xml:space="preserve">msiexec /i OktaDeviceRegistrationTaskSetup-1.x.x-xxxxxxx INSTALLDIR="c:\Program Files\Okta\DeviceTrust" EXEOPTIONS="/q2 OktaURL=https://&lt;your Okta org&gt;/ <b>HttpProxyPacLocation=http://mypacfile.url.location</b>"</pre>
+                                                                                                        <p>For example, the installation command that includes the proxy server parameter would look similar to this:</p>
+                                                                                                        <div style="padding: 10px;border: 1px solid black;min-height: 15px;min-width: 100px;overflow-y: hidden;overflow-x: scroll; background-color: #FFFFFF;">
+                                                                                                            <p style="width:110%;"><pre xml:space="preserve">msiexec /i OktaDeviceRegistrationTaskSetup-1.x.x-xxxxxxx INSTALLDIR="c:\Program Files\Okta\DeviceTrust" EXEOPTIONS="/q2 OktaURL=https://&lt;your Okta org&gt;/ <b>HttpProxy=&lt;your proxy http url&gt;:&lt;port number&gt;</b>"</pre>
+                                                                                                            </p>
+                                                                                                        </div>
+                                                                                                        <p><b>Note:</b> Make sure to add a space if you are also adding the parameter to disable automatic certificate handling. </p>
+                                                                                                        <h4>Proxy Auto-Configuraiton (PAC) environments</h4>
+                                                                                                        <p style="font-family: 'Courier New';font-weight: bold;"><b>HttpProxyPacLocation=http://mypacfile.url.location</b>
                                                                                                         </p>
+                                                                                                        <p>For example, the installation command that includes the PAC&#160;location parameter would look similar to this:</p>
+                                                                                                        <div style="padding: 10px;border: 1px solid black;min-height: 15px;min-width: 100px;overflow-y: hidden;overflow-x: scroll; background-color: #FFFFFF;">
+                                                                                                            <p style="width:110%;"><pre xml:space="preserve">msiexec /i OktaDeviceRegistrationTaskSetup-1.x.x-xxxxxxx INSTALLDIR="c:\Program Files\Okta\DeviceTrust" EXEOPTIONS="/q2 OktaURL=https://&lt;your Okta org&gt;/ <b>HttpProxyPacLocation=http://mypacfile.url.location</b>"</pre>
+                                                                                                            </p>
+                                                                                                        </div>
+                                                                                                        <p><b>Note:</b> Make sure to add a space if you are also adding the parameter to disable automatic certificate handling. </p>
+                                                                                                        <hr />
                                                                                                     </div>
-                                                                                                    <p><b>Note:</b> Make sure to add a space if you are also adding the parameter to disable automatic certificate handling. </p>
-                                                                                                </ul>
+                                                                                                </div>
+                                                                                                <div style="line-height:90%;">
+                                                                                                    <br />
+                                                                                                </div>
+                                                                                                <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Ensure clients can complete the MTLS handshake</a></span>
+                                                                                                    <div class="MCDropDownBody dropDownBody">
+                                                                                                        <div>
+                                                                                                            <p>The Mutual TLS certificate exchange (handshake) in this Device Trust flow occurs on Okta URLs that are <i>separate</i> from your Okta org URL (indicated by the wildcard character (*) in the example below). Make sure to configure  proxy servers/proxy clients, as well as any endpoint protection software you may implement, in a way that does not block your clients from completing the certificate exchange with Okta. For example, if your organization uses a whitelist to limit outbound traffic, add these exact URLs to the whitelist, <i>including the wildcard character</i> (*), as shown here:</p>
+                                                                                                            <div style="margin-left: 55px;">
+                                                                                                                <p><b>*.okta.com</b>
+                                                                                                                </p>
+                                                                                                                <p><b>*.okta-emea.com</b>
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
                                                                                             </div>
                                                                                         </div>
                                                                                         <p style="line-height: 150%;">
@@ -667,36 +724,54 @@
                                                                                         </p>
                                                                                         <div style="display: none;" data-mc-target-name="proxyserver_exe-2">
                                                                                             <div style="clear: none;mc-float: none;border-top-left-radius: 3px;border-top-right-radius: 3px;border-bottom-right-radius: 3px;border-bottom-left-radius: 3px;border-left-style: solid;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;width: auto;height: auto;background-color: #f9f9f9;border-left-width: 8px;border-color: #f1d10d;border-top: solid 2px #eaeaea;border-right-color: #eaeaea;border-bottom-color: #eaeaea;margin-bottom: 10px;margin-top: 10px;padding-left: 20px;padding-bottom: 10px;padding-right: 10px;padding-top: 10px;border:;">
-                                                                                                <h3>About the Device Trust Registration Task and proxy servers</h3>
-                                                                                                <p>If your organization routes internet traffic through a proxy server, you must install Device Trust Registration Task <b>version 1.2.2+</b>&#160;through a command line and append the appropriate <span style="font-family: 'Courier New';">HttpProxy</span> parameter to the installation command. This is necessary because the Registration Task installer installs these two scheduled tasks:</p>
-                                                                                                <ul>
-                                                                                                    <li value="1">A <i>user task</i> that runs as the logged-in user.</li>
-                                                                                                    <li value="2">A <i>device task</i> that runs as a network service. If you set up your proxy server(s) as part of your Internet Explorer (IE) configuration, the device task does not detect your IE settings unless you specify that behavior through a command line as shown in the examples below.</li>
-                                                                                                </ul>
-                                                                                                <p>Include the parameter appropriate for your environment:</p>
-                                                                                                <p>&#160;</p>
-                                                                                                <ul>
-                                                                                                    <li value="1"><b style="text-decoration: underline;">Proxy server environments</b>
-                                                                                                    </li>
-                                                                                                    <p style="font-family: 'Courier New';"><b>HttpProxy=&lt;your proxy http url&gt;:&lt;port number&gt;</b>
-                                                                                                    </p>
-                                                                                                    <p>For example, the installation command that includes the proxy server parameter would look similar to this:</p>
-                                                                                                    <div style="padding: 10px;border: 1px solid black;min-height: 15px;min-width: 100px;overflow-y: hidden;overflow-x: scroll; background-color: #FFFFFF;">
-                                                                                                        <p style="width:110%;"><pre xml:space="preserve">OktaDeviceRegistrationTaskSetup-1.0.0-XXXX.exe /q2 OktaURL=https://&lt;your-okta-org-url&gt;.com <b>HttpProxy=&lt;your proxy http url&gt;:&lt;port number&gt;</b></pre>
+                                                                                                <h2>About the Device Trust Registration Task and proxy servers</h2>
+                                                                                                <p>If your organization routes internet traffic through a proxy server, you must do the following:</p>
+                                                                                                <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Use a command line to install the Device Trust Registration Task and include parameters</a></span>
+                                                                                                    <div class="MCDropDownBody dropDownBody">
+                                                                                                        <p>Install Device Trust Registration Task <b>version 1.2.2+</b>&#160;through a command line and append the appropriate <span style="font-family: 'Courier New';">HttpProxy</span> parameter to the installation command. This is necessary because the Registration Task installer installs these two scheduled tasks:</p>
+                                                                                                        <ul>
+                                                                                                            <li value="1">A <i>user task</i> that runs as the logged-in user.</li>
+                                                                                                            <li value="2">A <i>device task</i> that runs as a network service. If you set up your proxy server(s) as part of your Internet Explorer (IE) configuration, the device task does not detect your IE settings unless you specify that behavior through a command line as shown in the examples below.</li>
+                                                                                                        </ul>
+                                                                                                        <p>Include the parameter appropriate for your environment:</p>
+                                                                                                        <h4>Proxy server environments
+					</h4>
+                                                                                                        <p style="font-family: 'Courier New';"><b>HttpProxy=&lt;your proxy http url&gt;:&lt;port number&gt;</b>
                                                                                                         </p>
-                                                                                                    </div>
-                                                                                                    <p><b>Note:</b> Make sure to add a space if you are also adding the parameter to disable automatic certificate handling. </p>
-                                                                                                    <p>&#160;</p>
-                                                                                                    <li style="font-weight: bold;text-decoration: underline;" value="2">Proxy Auto-Configuraiton (PAC) environments</li>
-                                                                                                    <p style="font-family: 'Courier New';font-weight: bold;"><b>HttpProxyPacLocation=http://mypacfile.url.location</b>
-                                                                                                    </p>
-                                                                                                    <p>For example, the installation command that includes the PAC&#160;location parameter would look similar to this:</p>
-                                                                                                    <div style="padding: 10px;border: 1px solid black;min-height: 15px;min-width: 100px;overflow-y: hidden;overflow-x: scroll; background-color: #FFFFFF;">
-                                                                                                        <p style="width:110%;"><pre xml:space="preserve">OktaDeviceRegistrationTaskSetup-1.0.0-XXXX.exe /q2 OktaURL=https://&lt;your-okta-org-url&gt;.com <b>HttpProxyPacLocation=http://mypacfile.url.location</b></pre>
+                                                                                                        <p>For example, the installation command that includes the proxy server parameter would look similar to this:</p>
+                                                                                                        <div style="padding: 10px;border: 1px solid black;min-height: 15px;min-width: 100px;overflow-y: hidden;overflow-x: scroll; background-color: #FFFFFF;">
+                                                                                                            <p style="width:110%;"><pre xml:space="preserve">OktaDeviceRegistrationTaskSetup-1.0.0-XXXX.exe /q2 OktaURL=https://&lt;your-okta-org-url&gt;.com <b>HttpProxy=&lt;your proxy http url&gt;:&lt;port number&gt;</b></pre>
+                                                                                                            </p>
+                                                                                                        </div>
+                                                                                                        <p><b>Note:</b> Make sure to add a space if you are also adding the parameter to disable automatic certificate handling. </p>
+                                                                                                        <h4>Proxy Auto-Configuraiton (PAC) environments</h4>
+                                                                                                        <p style="font-family: 'Courier New';font-weight: bold;"><b>HttpProxyPacLocation=http://mypacfile.url.location</b>
                                                                                                         </p>
+                                                                                                        <p>For example, the installation command that includes the PAC&#160;location parameter would look similar to this:</p>
+                                                                                                        <div style="padding: 10px;border: 1px solid black;min-height: 15px;min-width: 100px;overflow-y: hidden;overflow-x: scroll; background-color: #FFFFFF;">
+                                                                                                            <p style="width:110%;"><pre xml:space="preserve">OktaDeviceRegistrationTaskSetup-1.0.0-XXXX.exe /q2 OktaURL=https://&lt;your-okta-org-url&gt;.com <b>HttpProxyPacLocation=http://mypacfile.url.location</b></pre>
+                                                                                                            </p>
+                                                                                                        </div>
+                                                                                                        <p><b>Note:</b> Make sure to add a space if you are also adding the parameter to disable automatic certificate handling. </p>
+                                                                                                        <hr />
                                                                                                     </div>
-                                                                                                    <p><b>Note:</b> Make sure to add a space if you are also adding the parameter to disable automatic certificate handling. </p>
-                                                                                                </ul>
+                                                                                                </div>
+                                                                                                <div style="line-height:90%;">
+                                                                                                    <br />
+                                                                                                </div>
+                                                                                                <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Ensure clients can complete the MTLS handshake</a></span>
+                                                                                                    <div class="MCDropDownBody dropDownBody">
+                                                                                                        <div>
+                                                                                                            <p>The Mutual TLS certificate exchange (handshake) in this Device Trust flow occurs on Okta URLs that are <i>separate</i> from your Okta org URL (indicated by the wildcard character (*) in the example below). Make sure to configure  proxy servers/proxy clients, as well as any endpoint protection software you may implement, in a way that does not block your clients from completing the certificate exchange with Okta. For example, if your organization uses a whitelist to limit outbound traffic, add these exact URLs to the whitelist, <i>including the wildcard character</i> (*), as shown here:</p>
+                                                                                                            <div style="margin-left: 55px;">
+                                                                                                                <p><b>*.okta.com</b>
+                                                                                                                </p>
+                                                                                                                <p><b>*.okta-emea.com</b>
+                                                                                                                </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
                                                                                             </div>
                                                                                         </div>
                                                                                         <p style="line-height: 150%;">
@@ -1276,15 +1351,29 @@
                                                             <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Certificate</a></span>
                                                                 <div class="MCDropDownBody dropDownBody">
                                                                     <div>
-                                                                        <h3>Verify that the certificate is installed</h3>
+                                                                        <h2>Verify that the certificate is installed</h2>
                                                                         <ol>
                                                                             <li value="1">Open <b>Microsoft Management Console</b> as described in <a href="#B.3">section B.3</a>.</li>
                                                                             <li value="2">Open the end user's personal store (not the Local computer store).</li>
                                                                             <li value="3">Verify that a single certificate appears under <b>Personal &gt; Certificates</b> issued by <b>MTLS Certificate Authority</b>.</li>
-                                                                            <li value="4">If no certificate appears, proceed to <a href="#AdvancedTroubleshooting_DT-Win">Advanced Troubleshooting</a>.</li>
+                                                                            <li value="4">If no certificate appears, first investigate <a href="#MTLS-handshake">Auth failure caused by blocked Mutual TLS certificate exchange</a> below, and if the that issue does not apply, proceed to <a href="#AdvancedTroubleshooting_DT-Win">Advanced Troubleshooting</a>.</li>
                                                                         </ol>
                                                                     </div>
                                                                     <div>
+                                                                        <h2>Certificate Known Issues</h2>
+                                                                        <h3><a name="MTLS-handshake"></a>Auth failure caused by blocked Mutual TLS certificate exchange
+                                    </h3>
+                                                                        <p>
+                                                                            <div>
+                                                                                <p>The Mutual TLS certificate exchange (handshake) in this Device Trust flow occurs on Okta URLs that are <i>separate</i> from your Okta org URL (indicated by the wildcard character (*) in the example below). Make sure to configure  proxy servers/proxy clients, as well as any endpoint protection software you may implement, in a way that does not block your clients from completing the certificate exchange with Okta. For example, if your organization uses a whitelist to limit outbound traffic, add these exact URLs to the whitelist, <i>including the wildcard character</i> (*), as shown here:</p>
+                                                                                <div style="margin-left: 55px;">
+                                                                                    <p><b>*.okta.com</b>
+                                                                                    </p>
+                                                                                    <p><b>*.okta-emea.com</b>
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </p>
                                                                         <h3><a name="TS-IE-64bit"></a>Device Trust certificate picker displays on 32-bit Internet Explorer</h3>
                                                                         <p>
 										If end users are running Okta Device Trust Registration Task version 1.2.1 or lower and using the 32-bit version of Internet Explorer on their domain-joined computer, they may be prompted to pick the Device Trust certificate when accessing Device Trust-secured apps. This happens because pre-1.2.2 versions of the Device Trust Registration Task automatically configure the 64-bit version of Microsoft Internet Explorer and Edge browsers. To prevent the certificate picker from displaying in this case, do either of the following:</p>
@@ -1498,8 +1587,8 @@ It may be possible to  enable certificate hinting in <b>IIS</b> so that only one
                                         </div>
                                     </div>
                                     <div>
-                                        <div data-sticky-container="" id="RO7aIv3_SkKpeWU2nPo9oA">
-                                            <div class="sticky sticky-menu" style="width:100%" data-sticky="" data-top-anchor="RO7aIv3_SkKpeWU2nPo9oA:top" data-bottom-anchor="contentBody:bottom" data-scroll-container=".body-container" data-sticky-on="only screen and (min-width: 1025px)" data-scroll-container-on="only screen and (min-width: 1025px)">
+                                        <div data-sticky-container="" id="95hxINhDIkWUAANP5hV2-Q">
+                                            <div class="sticky sticky-menu" style="width:100%" data-sticky="" data-top-anchor="95hxINhDIkWUAANP5hV2-Q:top" data-bottom-anchor="contentBody:bottom" data-scroll-container=".body-container" data-sticky-on="only screen and (min-width: 1025px)" data-scroll-container-on="only screen and (min-width: 1025px)">
                                                 <ul class="nocontent menu _Skins_okta_side_menu mc-component" data-mc-is-context-sensitive="True" data-mc-linked-toc="Data/BrowseSequences/BrowseSequences__secondary.js" data-mc-side-menu="True" data-mc-max-depth="1" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="True" data-mc-include-siblings="True" data-mc-include-parent="False" data-mc-toc="True">
                                                 </ul>
                                             </div>
