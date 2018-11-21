@@ -258,7 +258,7 @@ xmlAliasData += '    <Map Name=\"beyondtrust-radius-intg\" Link=\"Topics/integra
 xmlAliasData += '    <Map Name=\"dt-android-mdm\" Link=\"Topics/Mobile/Okta_Device_Trust_MDM-managed_Android_devices.htm\" ResolvedId=\"1062\" />';
 xmlAliasData += '    <Map Name=\"ldapuserattribute\" Link=\"Topics/Directory/Okta-Java-LDAP-Agent.htm\" ResolvedId=\"1063\" />';
 xmlAliasData += '    <Map Name=\"ver-hist_dt-macOS-desktop\" Link=\"Topics/Settings/Version_Histories/Ver_History_Device_Trust_MacOS.htm\" ResolvedId=\"1064\" />';
-xmlAliasData += '    <Map Name=\"ext_widget-redirect\" Link=\"Topics/Settings/sign-in-widget-redirect.htm\" ResolvedId=\"1065\" />';
-xmlAliasData += '    <Map Name=\"NEW\" Link=\"Topics/Settings/Settings_Customization.htm#Redirect\" ResolvedId=\"1066\" />';
+xmlAliasData += '    <Map Name=\"ext_widget_redirect\" Link=\"Topics/Settings/sign-in-widget-redirect.htm\" ResolvedId=\"1065\" />';
+xmlAliasData += '    <Map Name=\"ext_mfa_windows_hello\" Link=\"Topics/Security/MFA.htm#Using\" ResolvedId=\"1066\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
