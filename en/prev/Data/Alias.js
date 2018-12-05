@@ -254,7 +254,6 @@ xmlAliasData += '    <Map Name=\"csh-java-ldap-agent\" Link=\"Topics/Directory/O
 xmlAliasData += '    <Map Name=\"check-point-radius-intg\" Link=\"Topics/integrations/check-point-radius-intg.htm\" ResolvedId=\"1058\" />';
 xmlAliasData += '    <Map Name=\"vmware-horizon-radius-intg\" Link=\"Topics/integrations/vmware-horizon-radius-intg.htm\" ResolvedId=\"1059\" />';
 xmlAliasData += '    <Map Name=\"beyondtrust-radius-intg\" Link=\"Topics/integrations/beyondtrust-powerbroker-password-safe-radius-intg.htm\" ResolvedId=\"1061\" />';
-xmlAliasData += '    <Map Name=\"dt-android-mdm\" Link=\"Topics/Mobile/Okta_Device_Trust_MDM-managed_Android_devices.htm\" ResolvedId=\"1062\" />';
 xmlAliasData += '    <Map Name=\"ldapuserattribute\" Link=\"Topics/Directory/Okta-Java-LDAP-Agent.htm\" ResolvedId=\"1063\" />';
 xmlAliasData += '    <Map Name=\"ver-hist_dt-macOS-desktop\" Link=\"Topics/Settings/Version_Histories/Ver_History_Device_Trust_MacOS.htm\" ResolvedId=\"1064\" />';
 xmlAliasData += '    <Map Name=\"ext_widget_redirect\" Link=\"Topics/Settings/sign-in-widget-redirect.htm\" ResolvedId=\"1065\" />';
