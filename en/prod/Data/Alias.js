@@ -260,5 +260,6 @@ xmlAliasData += '    <Map Name=\"ext_widget_redirect\" Link=\"Topics/Settings/si
 xmlAliasData += '    <Map Name=\"ext_mfa_windows_hello\" Link=\"Topics/Security/MFA.htm#Using\" ResolvedId=\"1066\" />';
 xmlAliasData += '    <Map Name=\"csh-okta-verify\" Link=\"Topics/Mobile/Okta_Verify_Using.htm\" ResolvedId=\"1068\" />';
 xmlAliasData += '    <Map Name=\"csh-okta-verify-fips\" Link=\"Topics/Mobile/Okta_Verify_Using.htm#FIPS\" ResolvedId=\"1067\" />';
+xmlAliasData += '    <Map Name=\"ext_Assign_Admin\" Link=\"Topics/Security/admin-role-superadmin.htm#Assign\" ResolvedId=\"1069\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
