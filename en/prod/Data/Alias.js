@@ -33,9 +33,9 @@ xmlAliasData += '    <Map Name=\"create-access-policies\" Link=\"Topics/Security
 xmlAliasData += '    <Map Name=\"Production_Relnotes\" Link=\"Topics/ReleaseNotes/production.htm\" ResolvedId=\"1002\" />';
 xmlAliasData += '    <Map Name=\"Preview_relnotes\" Link=\"Topics/ReleaseNotes/preview.htm\" ResolvedId=\"1003\" />';
 xmlAliasData += '    <Map Name=\"Security_Duo\" Link=\"Topics/Security/Security_Duo.htm\" ResolvedId=\"1004\" />';
-xmlAliasData += '    <Map Name=\"Device_Trust\" Link=\"Topics/Mobile/device-trust.htm\" ResolvedId=\"1007\" />';
+xmlAliasData += '    <Map Name=\"Device_Trust\" Link=\"Topics/Mobile/device-trust-overview.htm\" ResolvedId=\"1007\" />';
 xmlAliasData += '    <Map Name=\"ver-hist_dt-win-desktop\" Link=\"Topics/Settings/Version_Histories/Ver_History_DeviceTrust_Installer_Windows.htm\" ResolvedId=\"1008\" />';
-xmlAliasData += '    <Map Name=\"Device_Trust_Mobile\" Link=\"Topics/Mobile/device-trust-mobile.htm\" ResolvedId=\"1009\" />';
+xmlAliasData += '    <Map Name=\"Device_Trust_Mobile\" Link=\"Topics/Mobile/device-trust-overview.htm\" ResolvedId=\"1009\" />';
 xmlAliasData += '    <Map Name=\"Device_Trust_EAS_iOS\" Link=\"Topics/Mobile/Okta_Mobile_Device_Trust_O365_EAS_iOS.htm\" ResolvedId=\"1010\" />';
 xmlAliasData += '    <Map Name=\"App_SignOn_Policies\" Link=\"Topics/Security/App_Based_Signon.htm\" ResolvedId=\"1011\" />';
 xmlAliasData += '    <Map Name=\"okta-android-installers\" Link=\"Topics/Mobile/Okta_Mobile_Obtaining_Okta_Android_Installers.htm\" ResolvedId=\"1012\" />';
@@ -259,5 +259,6 @@ xmlAliasData += '    <Map Name=\"ext_mfa_windows_hello\" Link=\"Topics/Security/
 xmlAliasData += '    <Map Name=\"csh-okta-verify\" Link=\"Topics/Mobile/Okta_Verify_Using.htm\" ResolvedId=\"1068\" />';
 xmlAliasData += '    <Map Name=\"csh-okta-verify-fips\" Link=\"Topics/Mobile/Okta_Verify_Using.htm#FIPS\" ResolvedId=\"1067\" />';
 xmlAliasData += '    <Map Name=\"ext_Assign_Admin\" Link=\"Topics/Security/admin-role-superadmin.htm#Assign\" ResolvedId=\"1069\" />';
+xmlAliasData += '    <Map Name=\"dt-integrations\" Link=\"Topics/Mobile/device-trust-overview.htm\" ResolvedId=\"1071\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
