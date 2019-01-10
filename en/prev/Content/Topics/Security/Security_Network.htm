@@ -155,10 +155,77 @@
                                             <p>From the admin dashboard, navigate to <b>Security &gt; Networks</b>.</p>
                                             <br />
                                             <h3>Types of Zones</h3>
-                                            <p>There are two types of network zones: <b>IP&#160;Zones</b> and <b>Dynamic Zones</b>.</p>
+                                            <p>There are two types of network zones:</p>
+                                            <ol>
+                                                <li value="1"><b>IP Zones</b>: A zone where the network perimeter is configured based on IP addresses</li>
+                                                <li value="2"><b>Dynamic Zones</b>: A zone where the network perimeter is configured based on location or the proxy type. To create a dynamic zone, one of two features must be enabled: Geolocation for Network Zones or IP Trust for Network Zones.
+</li>
+                                            </ol>
                                             <p>&#160;</p>
-                                            <p><b>IP Zones</b>: A zone where the network perimeter is configured based on IP addresses.</p>
-                                            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="IP Zones"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_">Adding and Configuring IP Zones</a></span>
+                                            <h3><a name="IPZoneEvaluation"></a>IP Zone Evaluation</h3>
+                                            <p>When an IP Zone is included in a policy, Okta verifies if the IP chain of the request matches the gateways and proxies configured in the zone.</p>
+                                            <p>The following applies when the IP chain of the request contains one IP:</p>
+                                            <ul>
+                                                <li value="1">If the IP is defined as a gateway in particular zone, Okta considers the requests to be from within that zone.</li>
+                                            </ul>
+                                            <p>The following applies when the IP&#160;chain of the request contains more than one IP:</p>
+                                            <table style="width: 100%;border-spacing: 5px 5px;">
+                                                <col style="width: 233px;" />
+                                                <col />
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="background-color: #f5f5f5;">
+                                                            <p style="font-weight: bold;">Gateway Evaluation</p>
+                                                        </td>
+                                                        <td>
+                                                            <ul>
+                                                                <li value="1">If the IP address to the very right of the IP chain is defined as a gateway for that zone, the request is considered to be from inside that zone.</li>
+                                                                <li value="2">
+                                                                    <p>If the IP address to the very right of the IP chain is not defined as a gateway or a proxy for that zone, the request is considered not to be from inside that zone.</p>
+                                                                </li>
+                                                            </ul>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="background-color: #f5f5f5;font-weight: bold;">Proxy Evaluation</td>
+                                                        <td>
+                                                            <ul>
+                                                                <li value="1">If the IP address to the very right of the IP chain is not defined as a gateway, but is defined as a proxy, the IP to the left of the proxy is then verified and the process repeats.</li>
+                                                                <li value="2">If this IP is a gateway IP, the request is considered to be from inside that zone. </li>
+                                                                <li value="3">If it is not a gateway IP or a proxy, the IP address is not considered a match and the request is considered not to be from inside that zone. </li>
+                                                            </ul>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <p>
+            This process of matching continues until one of the following is found:
+           
+                <ul><li value="1">An IP in the chain that is a gateway (in which case the request is considered from within the zone).</li><li value="2">An IP that is neither a gateway nor a proxy (in which case the request is considered not from within the zone)</li></ul></p>
+                                            <p style="text-align: left;font-weight: bold;">&#160;</p>
+                                            <h3><a name="DynamicZoneEvaluation"></a>Dynamic Zone Evaluation</h3>
+                                            <p>When a Dynamic Zone is included in a policy, Okta verifies if the dynamic zone configuration (location, proxy type or ASN) matches the location, proxy type or ASN of the IP where the request originates.</p>
+                                            <ul>
+                                                <li value="1">The IP&#160;chain of the request typically contains  one IP. </li>
+                                                <li value="2">Okta resolves the location, proxy type or ASN for that IP and compares with the dynamic zone configuration (location, proxy type or ASN) to determine if the request is from within that zone.</li>
+                                                <li value="3">If a user accesses Okta through a proxy, the IP chain would contain more than one IP.</li>
+                                            </ul>
+                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Identifying the originating Client IP</a></span>
+                                                <div class="MCDropDownBody dropDownBody">
+                                                    <p>In order to identify the originating <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">client<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>Essentially, a client is anything that talks to the Okta service. Within the traditional client-server model, Okta is the server. The client might be an agent, an Okta mobile app, or a browser plugin. </span></a> IP for the request, the IP chain of the request is considered and compared with all the proxy IPs defined in all the IP zones for that <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">org<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>The Okta container that represents a real-world organization.</span></a>.</p>
+                                                    <ul>
+                                                        <li value="1">If the IP address to the very right of the IP chain is not defined as a proxy, it is marked as the client IP.</li>
+                                                        <li value="2">If the IP address to the very right of the IP chain is a proxy IP, evaluation of the next IP address to the left takes place until an IP that is not a proxy is discovered. This IP will be marked as the client IP.</li>
+                                                        <li value="3">Once the client IP is determined, the geo-location, proxy type and ASN for that IP is resolved and compared with the configured geo-location, proxy type, and ASN for that zone to verify if they match. If a match takes place, the request is considered to be from inside that zone.</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <p>&#160;</p>
+                                            <h3>Generating a Proxy IP Report</h3>
+                                            <p>A report of proxy IP addresses that have been used to sign in to your Okta org can be generated to help identify which proxies can be configured in IP zones. This information is used by Okta to correctly identify the client IP where the request originated. </p>
+                                            <p>To obtain a list from your dashboard, navigate to <b>Reports</b> &gt;&#160;<b>Proxies</b>. For more information, refer to <a href="https://help.okta.com/en/prod/Content/Topics/Reports/Reports.htm#Proxies">Reports</a>.</p>
+                                            <p>&#160;</p>
+                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="IP Zones"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_">Adding and Configuring IP Zones</a></span>
                                                 <div class="MCDropDownBody dropDownBody">
                                                     <ol>
                                                         <li value="1">Navigate to <b>Security &gt; Networks</b>.</li>
@@ -203,14 +270,12 @@
                                                             </tr>
                                                         </tbody>
                                                     </table>
-                                                    <p>A request is within an IP Zone if the public IP of the address falls within range of the configured gateway IP addresses. If the request is via a proxy, configure the IP address as a proxy IP. Okta will trust the proxy IP address and attempt to match the <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">client<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>Essentially, a client is anything that talks to the Okta service. Within the traditional client-server model, Okta is the server. The client might be an agent, an Okta mobile app, or a browser plugin. </span></a> IP with the configured gateway IP addresses.</p>
+                                                    <p>A request is within an IP Zone if the public IP of the address falls within range of the configured gateway IP addresses. If the request is via a proxy, configure the IP address as a proxy IP. Okta will trust the proxy IP address and attempt to match the client IP with the configured gateway IP addresses.</p>
                                                     <p><b>Note:</b> To configure an IP Zone for blacklisting requests, configure the blacklisted gateway IPs. Proxy IP addresses do not need to be specified.</p>
+                                                    <p>&#160;</p>
                                                 </div>
                                             </div>
-                                            <p>&#160;</p>
-                                            <p><a name="DynamicZones"></a><b>Dynamic Zones</b>: A zone where the network perimeter is configured based on location or the proxy type. To create a dynamic zone, one of two features must be enabled: Geolocation for Network Zones or IP Trust for Network Zones.
-</p>
-                                            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Dynamic Zones"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_">Adding and Configuring Dynamic Zones
+                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a name="DynamicZones"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Adding and Configuring Dynamic Zones
 				</a></span>
                                                 <div class="MCDropDownBody dropDownBody">
                                                     <ol>
@@ -259,10 +324,9 @@
                                                         <li value="1">Geolocation Network Zones: Used for entering a specific geolocation.</li>
                                                         <li value="2">IP Trust: Used for specifying a proxy type.</li>
                                                     </ul>
-                                                    <p>&#160;</p>
                                                 </div>
                                             </div>
-                                            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Adding ASNs to Dynamic Zones</a></span>
+                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Adding ASNs to Dynamic Zones</a></span>
                                                 <div class="MCDropDownBody dropDownBody">
                                                     <p class="earlyaccess">This is an <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ #text">Early Access<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>Early Access (EA) features are opt-in features that you can try out in your org by asking Okta Support to enable them. Additionally, the Features page in the Okta Admin Console (Settings &amp;gt; Features) allows Super Admins to enable and disable some EA features themselves.</span></a> feature. To enable it, please contact <a href="https://support.okta.com/">Okta Support</a>.</p>
                                                     <p><b>ASN (Autonomous System Numbers)</b> are used to uniquely identify each network on the Internet. Internet Service Providers can apply to obtain one or multiple ASNs assigned to them. While an ISP name can change, their assigned ASN is reserved and immutable.</p>
@@ -315,7 +379,7 @@
                                                     <br />
                                                 </div>
                                             </div>
-                                            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Troubleshooting: Dynamic Zone Region Codes for China</a></span>
+                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Troubleshooting: Dynamic Zone Region Codes for China</a></span>
                                                 <div class="MCDropDownBody dropDownBody">
                                                     <p>An update to the universal ISO standard for region codes and country codes has resulted in some discrepancies between new codes for China and the codes that are displayed in Okta. As a result, we recommend updating your region codes for China by editing any affected zones to prevent any issues.
                         </p>
@@ -325,7 +389,7 @@
                                             </div>
                                             <br />
                                             <h3>Advanced Topics</h3>
-                                            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Zone Policies</a></span>
+                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Zone Policies</a></span>
                                                 <div class="MCDropDownBody dropDownBody">
                                                     <p>When entering rules for sign-on policies, under <b>Security &gt; Authentication</b>, specify zone information from the selection shown below.</p>
                                                     <p>
@@ -346,13 +410,13 @@
                                                     </p>
                                                 </div>
                                             </div>
-                                            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="VPN Notifications"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_">VPN Notifications</a></span>
+                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="VPN Notifications"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_">VPN Notifications</a></span>
                                                 <div class="MCDropDownBody dropDownBody">
                                                     <p>When entering rules for VPN notifications, you cannot list specific zones for these notifications; you can specify <em>Inside Any Zones</em> or <em>Outside All Zones</em>.</p>
                                                     <p><b>Note:</b> You can jump to the Zone setup screens anytime by choosing the <b>Network</b> link shown above.</p>
                                                 </div>
                                             </div>
-                                            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="IWA"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_">IWA</a></span>
+                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="IWA"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_">IWA</a></span>
                                                 <div class="MCDropDownBody dropDownBody">
                                                     <p>When evaluating IWA logins, Okta checks that the login is from the configured zones. You can edit the configuration and choose any desired zones, or choose <em>All Zones</em> as you do in policies.</p>
                                                     <p>When an IWA <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">agent<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>A software agent is a lightweight program that runs as a service outside of Okta. It is typically installed behind a firewall and allows Okta to tunnel communication between an on-premises service and Okta's cloud service. Okta employs several agent types: Active Directory, LDAP, RADIUS, RSA, Active Directory Password Sync, and IWA. For example, users can install multiple Active Directory agents to ensure that the integration is robust and highly available across geographic locations.</span></a> is configured, the IP address of the client is added to the <b>LegacyIPZone</b>. The LegacyIPZone is the only zone configured by default, as shown below.</p>
@@ -362,7 +426,7 @@
                                                     <p><b>Note:</b> You can define up to 20 network zones in IWA network zones.</p>
                                                 </div>
                                             </div>
-                                            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Deleting Zones"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_">Deleting Zones</a></span>
+                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Deleting Zones"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_">Deleting Zones</a></span>
                                                 <div class="MCDropDownBody dropDownBody">
                                                     <p>When an IP or Location Zone is deleted, all rules that use the deleted zone are affected.</p>
                                                     <ul>
@@ -371,21 +435,21 @@
                                                     </ul>
                                                 </div>
                                             </div>
-                                            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Legacy Zones"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_">Legacy Zones</a></span>
+                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Legacy Zones"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_">Legacy Zones</a></span>
                                                 <div class="MCDropDownBody dropDownBody">
                                                     <p>If you have already defined Public Gateway IP Addresses, the information is migrated to a zone named LegacyIpZone. You cannot delete this zone, but you can edit it.</p>
                                                     <p>For existing rules, LegacyIpZone retains the previous settings. This zone is still active and can be used in new assignments.</p>
                                                     <p><b>Note:</b> You can define a maximum of 5000 legacy network zones.</p>
                                                     <h3>Blacklist an Entire Zone</h3>
-                                                    <p>Entire zones can be marked as blacklisted. Clients from these zones cannot access any URL for the <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">org<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>The Okta container that represents a real-world organization.</span></a>. To mark a zone as blacklisted, check <i>Blacklist access from IPs listed in this zones</i> in the <b>Add IP Zone</b> screen.</p>
+                                                    <p>Entire zones can be marked as blacklisted. Clients from these zones cannot access any URL for the org. To mark a zone as blacklisted, check <i>Blacklist access from IPs listed in this zones</i> in the <b>Add IP Zone</b> screen.</p>
                                                     <p><b>Note:</b> Two network zones are created by default when the <i>Multiple Network Zones</i> feature is enabled. One of them can be used for blacklisting IPs. Creating multiple network zones is currently an EA feature; contact Okta support to enable it.</p>
                                                 </div>
                                             </div><a href="#" class="sf-back-to-top"><span class="arrow"></span>Top</a>
                                         </div>
                                     </div>
                                     <div>
-                                        <div data-sticky-container="" id="BJj6PDzqCkmpDyOWKZfz7g">
-                                            <div class="sticky sticky-menu" style="width:100%" data-sticky="" data-top-anchor="BJj6PDzqCkmpDyOWKZfz7g:top" data-bottom-anchor="contentBody:bottom" data-scroll-container=".body-container" data-sticky-on="only screen and (min-width: 1025px)" data-scroll-container-on="only screen and (min-width: 1025px)">
+                                        <div data-sticky-container="" id="xYird04y50uSFd9a44PphA">
+                                            <div class="sticky sticky-menu" style="width:100%" data-sticky="" data-top-anchor="xYird04y50uSFd9a44PphA:top" data-bottom-anchor="contentBody:bottom" data-scroll-container=".body-container" data-sticky-on="only screen and (min-width: 1025px)" data-scroll-container-on="only screen and (min-width: 1025px)">
                                                 <ul class="nocontent menu _Skins_okta_side_menu mc-component" data-mc-is-context-sensitive="True" data-mc-linked-toc="Data/BrowseSequences/BrowseSequences__secondary.js" data-mc-side-menu="True" data-mc-max-depth="1" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="True" data-mc-include-siblings="False" data-mc-include-parent="False" data-mc-toc="True">
                                                 </ul>
                                             </div>
