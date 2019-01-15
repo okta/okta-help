@@ -24,7 +24,7 @@ xmlAliasData += '    <Map Name=\"Settings_Emails_SMS\" Link=\"Topics/Settings/Se
 xmlAliasData += '    <Map Name=\"Settings_Downloads\" Link=\"Topics/Settings/Settings_Downloads.htm#Settings_Downloads\" ResolvedId=\"1250\" />';
 xmlAliasData += '    <Map Name=\"Directory_People\" Link=\"Topics/Directory/eu-people.htm#Directory_People1\" ResolvedId=\"1130\" />';
 xmlAliasData += '    <Map Name=\"Directory_Profile_Editor\" Link=\"Topics/Directory/eu-profile-editor.htm#Directory_Profile_Editor1\" ResolvedId=\"1150\" />';
-xmlAliasData += '    <Map Name=\"Directory_Profile_Masters\" Link=\"Topics/Directory/Directory_Profile_Masters.htm#Directory_Profile_Masters1\" ResolvedId=\"1170\" />';
+xmlAliasData += '    <Map Name=\"Directory_Profile_Masters\" Link=\"Topics/Directory/eu-profile-masters.htm#Directory_Profile_Masters1\" ResolvedId=\"1170\" />';
 xmlAliasData += '    <Map Name=\"Reports_System_Log\" Link=\"Topics/Reports/Reports_SysLog.htm#Reports_System_Log1\" ResolvedId=\"1200\" />';
 xmlAliasData += '    <Map Name=\"API_Access\" Link=\"Topics/Security/API_Access.htm#API_Access\" ResolvedId=\"1270\" />';
 xmlAliasData += '    <Map Name=\"create-scopes\" Link=\"Topics/Security/API_Access.htm#create-scopes\" ResolvedId=\"1272\" />';
@@ -133,7 +133,7 @@ xmlAliasData += '    <Map Name=\"ext_Directory_FAQ_Okta_and_AD_Groups\" Link=\"T
 xmlAliasData += '    <Map Name=\"ext_Directory_Groups\" Link=\"Topics/Directory/Directory_Groups.htm\" ResolvedId=\"200065\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_People\" Link=\"Topics/Directory/eu-people.htm\" ResolvedId=\"200068\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_Profile_Editor\" Link=\"Topics/Directory/eu-profile-editor.htm\" ResolvedId=\"200069\" />';
-xmlAliasData += '    <Map Name=\"ext_Directory_Profile_Masters\" Link=\"Topics/Directory/Directory_Profile_Masters.htm\" ResolvedId=\"200070\" />';
+xmlAliasData += '    <Map Name=\"ext_Directory_Profile_Masters\" Link=\"Topics/Directory/eu-profile-masters.htm\" ResolvedId=\"200070\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_Self_Service_Registration\" Link=\"Topics/Directory/eu-self-service.htm\" ResolvedId=\"200071\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_Using_Group_Push\" Link=\"Topics/Directory/Directory_Using_Group_Push.htm\" ResolvedId=\"200072\" />';
 xmlAliasData += '    <Map Name=\"ext_Installing_Configuring_Active_Directory_Password_Sync_Agent\" Link=\"Topics/Directory/Installing_Configuring_Active_Directory_Password_Sync_Agent.htm\" ResolvedId=\"200073\" />';
