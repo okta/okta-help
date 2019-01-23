@@ -324,10 +324,11 @@
                                                                     <li value="9">In <b>Target Computers</b> and/or <b>Target Users</b>, specify the computers and users to whom the policy will apply.</li>
                                                                     <li value="10">Save the policy.</li>
                                                                 </ol>
-                                                                <li value="6"> <a name="disable-keychain-syncing"></a>(Recommended) To prevent iCloud from transferring the Okta keychain from Device Trust-secured macOS devices to other Apple devices, you should create a <b>Configuration Profile</b> in Jamf Pro that disables <b>Allow iCloud Keychain syncing</b>.  <a href="javascript:void(0);" class="MCToggler MCTogglerHead MCTogglerHotSpot MCToggler_Open toggler MCTogglerHotSpot_ MCHotSpotImage" style="color: #0000ff;" data-mc-targets="DT_URL"><img class="MCToggler_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Screenshot</a><p style="display: none;" data-mc-target-name="DT_URL"><img src="../../Resources/Images/disable-iCloud-keychaing-sync.png" /></p></li>
-                                                                <li value="7">Check the log in Jamf Pro to verify that the Okta Device Registration Task ran successfully.
+                                                                <li value="6">(Optional) Okta whitelists some popular apps by default. If you want to modify the default whitelist, see <a href="#Part">Part 	Ⓖ: Modify the default whitelist</a>. <i>Don't modify the whitelist directly in the Okta Device Registration Task</i>.</li>
+                                                                <li value="7"> <a name="disable-keychain-syncing"></a>(Recommended) To prevent iCloud from transferring the Okta keychain from Device Trust-secured macOS devices to other Apple devices, you should create a <b>Configuration Profile</b> in Jamf Pro that disables <b>Allow iCloud Keychain syncing</b>.  <a href="javascript:void(0);" class="MCToggler MCTogglerHead MCTogglerHotSpot MCToggler_Open toggler MCTogglerHotSpot_ MCHotSpotImage" style="color: #0000ff;" data-mc-targets="DT_URL"><img class="MCToggler_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Screenshot</a><p style="display: none;" data-mc-target-name="DT_URL"><img src="../../Resources/Images/disable-iCloud-keychaing-sync.png" /></p></li>
+                                                                <li value="8">Check the log in Jamf Pro to verify that the Okta Device Registration Task ran successfully.
 								<ol style="list-style-type: lower-alpha;"><li value="1">Go to <b>Policies</b> and click&#160;your policy.</li><li value="2">Click <b>Logs</b> at the bottom of the screen.</li></ol></li>
-                                                                <li value="8">Proceed to Part Ⓓ.</li>
+                                                                <li value="9">Proceed to Part Ⓓ.</li>
                                                             </ol>
                                                             <hr width="100%" size="0" align="center" />
                                                         </div>
@@ -687,6 +688,131 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Part"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_">Part Ⓖ — <b>In Jamf Pro:</b> Modify the app whitelist (optional)</a></span>
+                                                        <div class="MCDropDownBody dropDownBody"><a name="PartG"></a>
+                                                            <p>The Okta Device Registration Task whitelists some popular apps by default  so that end users aren't prompted for consent when trying to access them. You can modify the default whitelist in the Okta Device Registration Task by defining and passing a command line parameter through Jamf Pro. The parameter specifies the apps that you want to whitelist. Jamf Pro sends the parameter  to targeted devices when it pushes the Okta Device Registration Task according to your policy settings. Once on the device, the parameter is passed to the Okta Device Registration Task when the task is executed.</p>
+                                                            <div style="line-height:110%;">
+                                                                <br />
+                                                            </div>
+                                                            <div class="MCDropDown MCDropDown_Closed dropDown" style="background-color: #FAFAFA;"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" style="font-weight: bold;"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /><span style="color: #4cbf9c;">Click: </span><b>Important to know before you begin</b></a></span>
+                                                                <div class="MCDropDownBody dropDownBody" style="background-color: #FAFAFA;">
+                                                                    <ul>
+                                                                        <li value="1">
+
+                                        You can whitelist any SAML/WS-Fed-enabled app that supports authentication through a webview. The webview in which authentication is performed must have access to the Okta Keychain on the device. The default whitelist currently includes the following apps:
+										
+										<ul><li value="1">Box</li><li value="2">Chrome</li><li value="3">Safari</li><li value="4">Microsoft Office</li><li value="5">Skype for Business</li><li value="6">Google Drive</li><li value="7">Slack</li></ul></li>
+                                                                        <li value="2">
+
+									The default whitelist is overwritten if you define a command line to the Okta Device Registration Task  in Jamf Pro as described in this procedure. The parameter must specify all the apps that want to whitelist,  including any apps from the default list that you want to continue to whitelist.</li>
+                                                                        <li value="3">Although the default whitelist is available in the  Okta Device Registration Task, Okta recommends that you <u>not</u> edit it directly within the Task; otherwise, when Jamf Pro pushes a new Device Registration to targeted devices, your edited whitelist will be overwritten and you will have to modify the whitelist again. For better maintainability, follow this procedure if you want to modify the default whitelist.</li>
+                                                                    </ul>
+                                                                    <hr width="100%" size="0" align="center" />
+                                                                </div>
+                                                            </div>
+                                                            <ol>
+                                                                <li value="1">Obtain the TeamIdentifier for the apps you want to whitelist:</li>
+                                                                <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />TeamIdentifiers in the current default whitelist</a></span>
+                                                                    <div class="MCDropDownBody dropDownBody">
+                                                                        <div>
+                                                                            <div style="line-height:110%;">
+                                                                                <br />
+                                                                            </div>
+                                                                            <table style="width: 50%;mc-table-style: url('../../Resources/TableStyles/okta_table_white.css');" class="TableStyle-okta_table_white" cellspacing="0">
+                                                                                <col class="TableStyle-okta_table_white-Column-Column1" style="width: 60%;" />
+                                                                                <col class="TableStyle-okta_table_white-Column-Column1" style="width: 40%;" />
+                                                                                <thead>
+                                                                                    <tr class="TableStyle-okta_table_white-Head-Header1">
+                                                                                        <th class="TableStyle-okta_table_white-HeadE-Column1-Header1" style="text-align: left;">Manufacturer</th>
+                                                                                        <th class="TableStyle-okta_table_white-HeadD-Column1-Header1" style="text-align: left;">TeamIdentifier</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr class="TableStyle-okta_table_white-Body-Body1">
+                                                                                        <td class="TableStyle-okta_table_white-BodyE-Column1-Body1">† Safari</td>
+                                                                                        <td class="TableStyle-okta_table_white-BodyD-Column1-Body1"><i>apple:</i>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr class="TableStyle-okta_table_white-Body-Body1">
+                                                                                        <td class="TableStyle-okta_table_white-BodyE-Column1-Body1">Microsoft</td>
+                                                                                        <td class="TableStyle-okta_table_white-BodyD-Column1-Body1"><i>UBF8T346G9</i>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr class="TableStyle-okta_table_white-Body-Body1">
+                                                                                        <td class="TableStyle-okta_table_white-BodyE-Column1-Body1">Google</td>
+                                                                                        <td class="TableStyle-okta_table_white-BodyD-Column1-Body1"><i>EQHXZ8M8AV</i>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr class="TableStyle-okta_table_white-Body-Body1">
+                                                                                        <td class="TableStyle-okta_table_white-BodyE-Column1-Body1">Box</td>
+                                                                                        <td class="TableStyle-okta_table_white-BodyD-Column1-Body1"><i>M683GB7CPW</i>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr class="TableStyle-okta_table_white-Body-Body1">
+                                                                                        <td class="TableStyle-okta_table_white-BodyE-Column1-Body1">Skype for Business</td>
+                                                                                        <td class="TableStyle-okta_table_white-BodyD-Column1-Body1"><i>AL798K98FX</i>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr class="TableStyle-okta_table_white-Body-Body1">
+                                                                                        <td class="TableStyle-okta_table_white-BodyB-Column1-Body1">Slack</td>
+                                                                                        <td class="TableStyle-okta_table_white-BodyA-Column1-Body1"><i>BQR82RBBHL</i>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                            <p>†  The Safari TeamIdentifier  is simply <i>apple:</i> (notice the colon at the end).</p>
+                                                                        </div>
+                                                                        <div style="line-height:150%;">
+                                                                            <br />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div style="line-height:70%;">
+                                                                    <br />
+                                                                </div>
+                                                                <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />TeamIdentifiers for other apps on the device</a></span>
+                                                                    <div class="MCDropDownBody dropDownBody">
+                                                                        <ol style="list-style-type: lower-alpha;">
+                                                                            <li value="1">On a macOS device that has the apps you want to whitelist, open a command line  and issue the following command</li>
+                                                                            <div style="padding:10px;border:1px solid black;line-height:2em;min-height:50px;min-width:100px;overflow:auto;"><pre xml:space="preserve">codesign -dv --verbose=4 /Applications/exampleapp.app</pre>
+                                                                            </div>
+                                                                            <p>where <span style="font-family: 'Courier New'; font-weight: bold;">exampleapp</span> is the app you are investigating.
+                                        </p>
+                                                                            <li value="2">For use later in this procedure, locate the TeamIdentifier value in the output and make a note of it. </li>
+                                                                            <p>For example, here is output that shows the TeamIdentifier for Zoom:</p>
+                                                                            <p>
+                                                                                <img src="../../Resources/Images/dt-teamID-zoom.png" />
+                                                                            </p>
+                                                                        </ol>
+                                                                    </div>
+                                                                </div>
+                                                                <li value="2">In Jamf Pro click the gear icon <img src="../../Resources/Images/DT-macOS-gear-icon.png" /> to go to <b>All Settings</b>.</li>
+                                                                <li value="3">Go to <b>Computer Management &gt;&#160;Scripts</b>. (For details, see <a href="http://docs.jamf.com/10.6.0/jamf-pro/administrator-guide/Managing_Scripts.html">Managing Scripts</a> in Jamf Pro documentation).</li>
+                                                                <li value="4">Click the script you want to modify.</li>
+                                                                <li value="5">Click the <b>Options</b> tab.</li>
+                                                                <li value="6">Click <b>Edit</b>.</li>
+                                                                <li value="7">Leave the <b>Priority</b> as <b>After</b>.</li>
+                                                                <li value="8">Under <b>Parameter Labels</b>, locate an available Parameter field and enter the TeamIdentifiers of the apps that you want to whitelist, making sure to include colons (:) and commas (,) as shown in the following example:</li>
+                                                                <div style="padding:10px;border:1px solid black;line-height:2em;min-height:50px;min-width:100px;overflow:auto;"><pre xml:space="preserve">teamIds=apple:,teamId:UBF8T346G9,teamId:EQHXZ8M8AV,teamId:M683GB7CPW,teamId:AL798K98FX,teamId:BQR82RBBHL,teamId:BJ4HAAB9B3</pre>
+                                                                </div>
+                                                                <div style="line-height:115%;">
+                                                                    <br />
+                                                                </div>
+                                                                <p>The parameter in the above example includes all of the apps from the default whitelist as well as Zoom (<span style="font-family: 'Courier New';">teamID:BJ4HAAB9B3</span>). Below is how the same parameter would appear in Jamf Pro: </p>
+                                                                <div style="line-height:115%;">
+                                                                    <br />
+                                                                </div>
+                                                                <p>
+                                                                    <img src="../../Resources/Images/dt-teamID-parameter-field-zoom.png" />
+                                                                </p>
+                                                                <div style="line-height:115%;">
+                                                                    <br />
+                                                                </div>
+                                                                <p><b>Note:</b> The default whitelist is overwritten when you define a parameter in Jamf Pro. You must specify all the apps that want to whitelist,  including any apps from the default list that you want to continue to whitelist.</p>
+                                                                <li value="9">Click <b>Save</b>.</li>
+                                                            </ol>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div style="line-height:150%;">
@@ -702,7 +828,7 @@
                                                         </li>
                                                         <li value="3"><b>Prevent iCloud from transferring the Okta keychain to other Apple devices</b> — To prevent iCloud from transferring the Okta keychain from DT-secured macOS devices to other Apple devices, Okta strongly recommends that you create a <b>Configuration Profile</b> in Jamf Pro that disables <b>Allow iCloud Keychain syncing</b>. (<b>Note</b>:&#160;Be aware that disabling syncing blocks all keychain transfers.) For details, see the <a href="#disable-keychain-syncing">Jamf Pro procedure in Part Ⓒ</a>.</li>
                                                         <li value="4">
-                                                            <p><b>Webview must have access to the device keychain</b> — Device Trust for managed macOS computers works with any SAML/WS-Fed-enabled app that supports authentication through a webview. The webview in which authentication is performed must have access to the Okta Keychain on the device. To prevent&#160;end users&#160;from being prompted for consent when the certificate is used in the authentication flow, Okta whitelists the following apps:</p>
+                                                            <p><b>Webview must have access to the device keychain</b> — Device Trust for managed macOS computers works with any SAML/WS-Fed-enabled app that supports authentication through a webview. The webview in which authentication is performed must have access to the Okta Keychain on the device. To prevent&#160;end users&#160;from being prompted for consent when the certificate is used in the authentication flow, Okta whitelists the following apps (To modify  the default whitelist, see <a href="#Part">Part Ⓖ: Modify the default whitelist (optional)</a>):</p>
                                                             <ul>
                                                                 <li value="1">Box</li>
                                                                 <li value="2">Chrome</li>
@@ -710,6 +836,7 @@
                                                                 <li value="4">Microsoft Office</li>
                                                                 <li value="5">Skype for Business</li>
                                                                 <li value="6">Google Drive</li>
+                                                                <li value="7">Slack</li>
                                                             </ul>
                                                         </li>
                                                         <li value="5"><b>Per-device enrollment limit</b>  — No macOS&#160;device can be enrolled in this Device Trust solution more than five times.</li>
@@ -784,8 +911,8 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <div data-sticky-container="" id="9OTBx331y0WwfpszhW7gSA">
-                                            <div class="sticky sticky-menu" style="width:100%" data-sticky="" data-top-anchor="9OTBx331y0WwfpszhW7gSA:top" data-bottom-anchor="contentBody:bottom" data-scroll-container=".body-container" data-sticky-on="only screen and (min-width: 1025px)" data-scroll-container-on="only screen and (min-width: 1025px)">
+                                        <div data-sticky-container="" id="AjLvF1mMhUG-adzNbvDUMA">
+                                            <div class="sticky sticky-menu" style="width:100%" data-sticky="" data-top-anchor="AjLvF1mMhUG-adzNbvDUMA:top" data-bottom-anchor="contentBody:bottom" data-scroll-container=".body-container" data-sticky-on="only screen and (min-width: 1025px)" data-scroll-container-on="only screen and (min-width: 1025px)">
                                                 <ul class="nocontent menu _Skins_okta_side_menu mc-component" data-mc-is-context-sensitive="True" data-mc-linked-toc="Data/BrowseSequences/BrowseSequences__secondary.js" data-mc-side-menu="True" data-mc-max-depth="1" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="True" data-mc-include-siblings="False" data-mc-include-parent="False" data-mc-toc="True">
                                                 </ul>
                                             </div>
