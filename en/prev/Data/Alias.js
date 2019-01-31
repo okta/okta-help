@@ -81,7 +81,7 @@ xmlAliasData += '    <Map Name=\"ver-hist-sharepoint-pp-agent\" Link=\"Topics/Se
 xmlAliasData += '    <Map Name=\"ver-hist-sso-iwa-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_SSO_IWA_Agent.htm\" ResolvedId=\"1057\" />';
 xmlAliasData += '    <Map Name=\"pulse-radius-intg\" Link=\"Topics/integrations/pulse-secure-radius-intg.htm\" ResolvedId=\"1035\" />';
 xmlAliasData += '    <Map Name=\"ext_Access_Request_Workflow\" Link=\"Topics/Apps/Access_Request_Workflow.htm\" ResolvedId=\"200008\" />';
-xmlAliasData += '    <Map Name=\"ext_Apps_Active_Directory_Agent_appSettings_Definition\" Link=\"Topics/Apps/Apps_Active_Directory_Agent_appSettings_Definition.htm\" ResolvedId=\"200009\" />';
+xmlAliasData += '    <Map Name=\"ext_Apps_Active_Directory_Agent_appSettings_Definition\" Link=\"Topics/Directory/ad-agent-appsettings.htm\" ResolvedId=\"200009\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Adding_an_App_from_the_Browser_Plugin\" Link=\"Topics/Apps/Apps_Adding_an_App_from_the_Browser_Plugin.htm\" ResolvedId=\"200010\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_and_SSO_Verifying_IE_Plugin_Enablement\" Link=\"Topics/Apps/Apps_and_SSO_Verifying_IE_Plugin_Enablement.htm\" ResolvedId=\"200011\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Apps\" Link=\"Topics/Apps/Apps_Apps.htm\" ResolvedId=\"200012\" />';
@@ -161,7 +161,6 @@ xmlAliasData += '    <Map Name=\"ext_Apps_OMM\" Link=\"Topics/Mobile/Apps_OMM.ht
 xmlAliasData += '    <Map Name=\"ext_Apps_OMM_End_User\" Link=\"Topics/Mobile/Apps_OMM_End_User.htm\" ResolvedId=\"200108\" />';
 xmlAliasData += '    <Map Name=\"ext_device_trust_mobile\" Link=\"Topics/Mobile/device-trust-mobile.htm\" ResolvedId=\"200111\" />';
 xmlAliasData += '    <Map Name=\"ext_device_trust\" Link=\"Topics/Mobile/device-trust.htm\" ResolvedId=\"200112\" />';
-xmlAliasData += '    <Map Name=\"ext_devices1\" Link=\"Topics/Mobile/devices.htm\" ResolvedId=\"200113\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_Device_Trust_Jamf_AirWatch_macOS_Devices\" Link=\"Topics/Mobile/Okta_Device_Trust_Jamf_macOS_Devices.htm\" ResolvedId=\"200114\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_Device_Trust_Native_Apps_Safari_MDM_Devices\" Link=\"Topics/Mobile/Okta_Device_Trust_Native_Apps_Safari_MDM_Devices.htm\" ResolvedId=\"200115\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_Mobile_Connect\" Link=\"Topics/Mobile/Okta_Mobile_Connect.htm\" ResolvedId=\"200116\" />';
@@ -262,5 +261,6 @@ xmlAliasData += '    <Map Name=\"ext_Assign_Admin\" Link=\"Topics/Security/admin
 xmlAliasData += '    <Map Name=\"dt-integrations\" Link=\"Topics/Mobile/device-trust-overview.htm\" ResolvedId=\"1071\" />';
 xmlAliasData += '    <Map Name=\"ext_Verify_IE_Plugin\" Link=\"Topics/Apps/Apps_and_SSO_Verifying_IE_Plugin_Enablement.htm\" ResolvedId=\"1074\" />';
 xmlAliasData += '    <Map Name=\"ext_eu_comm\" Link=\"Topics/Settings/End_User_Communication.htm\" ResolvedId=\"1075\" />';
+xmlAliasData += '    <Map Name=\"automations\" Link=\"Topics/Directory/lca-automations.htm\" ResolvedId=\"1078\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
