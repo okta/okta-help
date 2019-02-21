@@ -264,5 +264,6 @@ xmlAliasData += '    <Map Name=\"ext_skip_group_import_o365\" Link=\"Topics/Apps
 xmlAliasData += '    <Map Name=\"automations\" Link=\"Topics/Directory/lca-automations.htm\" ResolvedId=\"1078\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-ios-mdm\" Link=\"Topics/Mobile/Okta_Device_Trust_Native_Apps_Safari_MDM_Devices.htm\" ResolvedId=\"1079\" />';
 xmlAliasData += '    <Map Name=\"generic-oidc\" Link=\"Topics/integrations/open-id-connect.htm\" ResolvedId=\"1081\" />';
+xmlAliasData += '    <Map Name=\"csh_MFA_Reset\" Link=\"Topics/Security/MFA.htm#MFA_Reset\" ResolvedId=\"1095\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
