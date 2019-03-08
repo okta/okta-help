@@ -275,5 +275,6 @@ xmlAliasData += '    <Map Name=\"ext_API_Access-claims\" Link=\"Topics/Security/
 xmlAliasData += '    <Map Name=\"ext_Apps_Apps_Page-assign\" Link=\"Topics/Apps/Apps_Apps_Page.htm#Assigning\" ResolvedId=\"1105\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_Administrators\" Link=\"Topics/Security/Administrators.htm#Security_Administrators\" ResolvedId=\"1106\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Customization-interstitial\" Link=\"Topics/Settings/Settings_Customization.htm#CustomInterStitialPage\" ResolvedId=\"1107\" />';
+xmlAliasData += '    <Map Name=\"adv_server_access\" Link=\"Topics/Adv_Server_Access/docs/setup/introduction.htm\" ResolvedId=\"1109\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
