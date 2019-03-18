@@ -262,7 +262,7 @@ xmlAliasData += '    <Map Name=\"ext_Verify_IE_Plugin\" Link=\"Topics/Apps/Apps_
 xmlAliasData += '    <Map Name=\"ext_eu_comm\" Link=\"Topics/Settings/End_User_Communication.htm\" ResolvedId=\"1075\" />';
 xmlAliasData += '    <Map Name=\"ext_skip_group_import_o365\" Link=\"Topics/Apps/Office365/Skip_Group_Import_Office365.htm\" ResolvedId=\"1076\" />';
 xmlAliasData += '    <Map Name=\"ext_o365_dep_guide\" Link=\"Topics/Apps/Office365/Deploy_Office365/Okta_and_Office365.htm\" ResolvedId=\"1077\" />';
-xmlAliasData += '    <Map Name=\"automations\" Link=\"Topics/Directory/lca-automations.htm\" ResolvedId=\"1078\" />';
+xmlAliasData += '    <Map Name=\"automations\" Link=\"Topics/Directory/automations.htm\" ResolvedId=\"1078\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-ios-mdm\" Link=\"Topics/Mobile/Okta_Device_Trust_Native_Apps_Safari_MDM_Devices.htm\" ResolvedId=\"1079\" />';
 xmlAliasData += '    <Map Name=\"generic-oidc\" Link=\"Topics/integrations/open-id-connect.htm\" ResolvedId=\"1081\" />';
 xmlAliasData += '    <Map Name=\"csh_MFA_Reset\" Link=\"Topics/Security/MFA.htm#MFA_Reset\" ResolvedId=\"1095\" />';
