@@ -277,5 +277,6 @@ xmlAliasData += '    <Map Name=\"ext_Security_Administrators\" Link=\"Topics/Sec
 xmlAliasData += '    <Map Name=\"ext_Settings_Customization-interstitial\" Link=\"Topics/Settings/Settings_Customization.htm#CustomInterStitialPage\" ResolvedId=\"1107\" />';
 xmlAliasData += '    <Map Name=\"adv_server_access\" Link=\"Topics/Adv_Server_Access/docs/setup/introduction.htm\" ResolvedId=\"1109\" />';
 xmlAliasData += '    <Map Name=\"csh-attribute-statements-saml\" Link=\"Topics/Apps/attribute-statements-saml.htm\" ResolvedId=\"1111\" />';
+xmlAliasData += '    <Map Name=\"csh_FIDO2_WebAuthn\" Link=\"Topics/Security/MFA.htm#WebAuthentication\" ResolvedId=\"1112\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
