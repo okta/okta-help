@@ -265,6 +265,7 @@ xmlAliasData += '    <Map Name=\"ext_o365_dep_guide\" Link=\"Topics/Apps/Office3
 xmlAliasData += '    <Map Name=\"automations\" Link=\"Topics/Directory/automations.htm\" ResolvedId=\"1078\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-ios-mdm\" Link=\"Topics/Mobile/Okta_Device_Trust_Native_Apps_Safari_MDM_Devices.htm\" ResolvedId=\"1079\" />';
 xmlAliasData += '    <Map Name=\"generic-oidc\" Link=\"Topics/integrations/open-id-connect.htm\" ResolvedId=\"1081\" />';
+xmlAliasData += '    <Map Name=\"csh-dt-ios-VMware-AW\" Link=\"Topics/Mobile/Okta_Device_Trust_Native_Apps_Safari_MDM_Devices.htm\" ResolvedId=\"1083\" />';
 xmlAliasData += '    <Map Name=\"csh_MFA_Reset\" Link=\"Topics/Security/MFA.htm#MFA_Reset\" ResolvedId=\"1095\" />';
 xmlAliasData += '    <Map Name=\"csh_security_policies\" Link=\"Topics/Security/Security_Policies.htm\" ResolvedId=\"1096\" />';
 xmlAliasData += '    <Map Name=\"csh_notification_new\" Link=\"Topics/Security/Security_General.htm#NewDeviceEmail\" ResolvedId=\"1097\" />';
