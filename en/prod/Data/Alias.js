@@ -58,7 +58,7 @@ xmlAliasData += '    <Map Name=\"okta-mfa-win-cred-prov\" Link=\"Topics/Security
 xmlAliasData += '    <Map Name=\"citrix-netscaler-radius-int\" Link=\"Topics/integrations/citrix-netscaler-radius-int.htm\" ResolvedId=\"1031\" />';
 xmlAliasData += '    <Map Name=\"custom-error-pages\" Link=\"Topics/Settings/custom-error-pages.htm\" ResolvedId=\"1032\" />';
 xmlAliasData += '    <Map Name=\"custom-sign-in-page\" Link=\"Topics/Settings/custom-okta-hosted-sign-in-page.htm\" ResolvedId=\"1033\" />';
-xmlAliasData += '    <Map Name=\"custom-domain\" Link=\"Topics/Settings/custom-url-domain.htm\" ResolvedId=\"1034\" />';
+xmlAliasData += '    <Map Name=\"csh-custom-domain\" Link=\"Topics/Settings/custom-url-domain.htm\" ResolvedId=\"1034\" />';
 xmlAliasData += '    <Map Name=\"fortinet-radius-intg\" Link=\"Topics/integrations/fortinet-radius-intg.htm\" ResolvedId=\"1036\" />';
 xmlAliasData += '    <Map Name=\"okta-f5-intg\" Link=\"Topics/integrations/f5-radius-intg.htm\" ResolvedId=\"1037\" />';
 xmlAliasData += '    <Map Name=\"dt-safari\" Link=\"Topics/Mobile/Okta_Device_Trust_Jamf_macOS_Devices.htm\" ResolvedId=\"1038\" />';
