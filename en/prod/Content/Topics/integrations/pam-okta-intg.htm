@@ -64,6 +64,8 @@
         </script>
         <script src="../../../Resources/Scripts/jquery.min.js">
         </script>
+        <script src="../../../Resources/Scripts/sanitize-html.min.js">
+        </script>
         <script src="../../../Resources/Scripts/require.min.js">
         </script>
         <script src="../../../Resources/Scripts/require.config.js">
@@ -170,7 +172,7 @@
                                                 <p>This beta version is tested on Red Hat Enterprise Linux Server release 7.5 (Maipo). The instructions in this document may require modifications to work on other Linux distributions.</p>
                                                 <p>Only the Push, SMS, Call, and OTP-codes <a href="../Security/MFA.htm#Factor">MFA factors</a> are supported.</p>
                                                 <h2>Step-by-step Configuration Guide</h2>
-                                                <p>There are seven parts to the configuration, including prerequisites and testing. Answers to frequently asked questions are also provided.</p>
+                                                <p>There are four parts to the configuration, including prerequisites. Additionally, there is a troubleshooting section..</p>
                                                 <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Part"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"> Part 1 – Prerequisites</a></span>
                                                     <div class="MCDropDownBody dropDownBody">
                                                         <p>To get started with this beta feature, you must first request access to the PAM <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">app<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>An abbreviation of application. Essentially, it is a web-based site used to perform any number of specific tasks, and requires authentication from end users by signing in.</span></a> and <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">agent<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>A software agent is a lightweight program that runs as a service outside of Okta. It is typically installed behind a firewall and allows Okta to tunnel communication between an on-premises service and Okta's cloud service. Okta employs several agent types: Active Directory, LDAP, RADIUS, RSA, Active Directory Password Sync, and IWA. For example, users can install multiple Active Directory agents to ensure that the integration is robust and highly available across geographic locations.</span></a>. To obtain access, send an email to <a href="mailto:mfabeta@okta.com">mfabeta@okta.com</a>  with the subject: <i>Request to participate in the MFA for Linux beta release</i>. Be sure to also include your <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">org<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>The Okta container that represents a real-world organization.</span></a> name in the request.</p>
@@ -253,7 +255,7 @@ make
 # Copy built library to pam module folder
 sudo cp pam_okta_mfa_authenticate.so /usr/lib64/security</pre></p></li>
                                                             <li value="4">
-                                                                <p>Allow sshd to make network connections with the following command.</p>
+                                                                <p>Allow sshd to make network connections with the following command.<br /><br /><b>Important:</b> : Misconfigurations can lock you out of the system. Okta recommends keeping an open session while editing the <em>sshd</em> and <em>pam.d</em> configuration filesand simultaneously testing in another window.<br /></p>
                                                                 <p><pre xml:space="preserve">
 sudo setsebool -P authlogin_yubikey 1</pre>
                                                                 </p>
@@ -266,28 +268,58 @@ ChallengeResponseAuthentication yes</pre>
                                                                 </p>
                                                             </li>
                                                             <li value="6">
+                                                                <p>Edit the <em>okta-auth</em> file.</p>
+                                                                <p><code>sudo vi /etc/pam.d/okta-auth</code>
+                                                                </p>
+                                                                <p><code>auth sufficient pam_okta.so https://&lt;org name&gt;.okta.com &lt;<a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">client<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>Essentially, a client is anything that talks to the Okta service. Within the traditional client-server model, Okta is the server. The client might be an agent, an Okta mobile app, or a browser plugin. </span></a> id&gt; &lt;client secret&gt;</code>
+                                                                </p>
+                                                                <p>Replace <code style="font-size: 11pt;">&lt;org name&gt;</code>, <code style="font-size: 11pt;">&lt;client id&gt;</code> and <code style="font-size: 11pt;">&lt;client secret&gt;</code> with the correct values for your org. </p>
+                                                                <p><b>Important: </b> To find the values for the client id and client secret to use, in Okta navigate to <b>Applications</b>, and then select the app you created in <a href="#Part2">Part 2</a>, above. Select the <b>General</b> tab and locate the values for <b>Client ID</b> and <b>Client secret</b>.
+Org name is the org portion of your Okta url.</p>
+                                                                <p><u>Example</u>
+                                                                </p>
+                                                                <p><code>auth sufficient pam_okta.so https://yourOrg.okta.com 0oabcdefghijklmno123 abcdefghijklmnopqrstuvwxyz_0123456789-AB</code>
+                                                                </p>
+                                                            </li>
+                                                            <li value="7">
                                                                 <p>Edit the <em>/etc/pam.d/sshd</em> file, and set the auth section to look like the following. This step comments out the line <code style="font-size: 11pt;">auth substack password-auth</code>, adds in new values that were covered by that line, edits the basic auth to be requisite instead of sufficient, and makes a sufficient password authentication with <code style="font-size: 11pt;">pam_okta_mfa_authenticate</code>.</p>
                                                                 <p><pre xml:space="preserve">
 auth    required     pam_sepermit.so
 # auth    substack     password-auth
 auth    required     pam_env.so
 auth    requisite    pam_unix.so nullok try_first_pass
-auth    sufficient   pam_okta_mfa_authenticate.so https://&lt;org name&gt;.okta.com &lt;<a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">client<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>Essentially, a client is anything that talks to the Okta service. Within the traditional client-server model, Okta is the server. The client might be an agent, an Okta mobile app, or a browser plugin. </span></a> id&gt; &lt;client secret&gt;
+auth    sufficient   okta-auth
 auth    requisite    pam_succeed_if.so uid &gt;= 1000 quiet_success
 auth    required     pam_deny.so
 auth    include      postlogin</pre>
                                                                 </p>
-                                                                <p><b>Important: </b> To find the values for the client id and client secret to use, in Okta navigate to <b>Applications</b>, and then select the app you created in <a href="#Part2">Part 2</a>, above. Select the <b>General</b> tab and locate the values for <b>Client ID</b> and <b>Client secret</b>.
-Org name is the org portion of your Okta url.</p>
+                                                                <p><b>Note:</b> The reference to <em>okta-auth</em> is used instead of inserting the contents of that file to provide the ability to use any more restrictive permissions that exist on that file.</p>
                                                             </li>
-                                                            <li value="7">
+                                                            <li value="8">
                                                                 <p>Restart the sshd service with the following command.</p>
                                                                 <p><pre xml:space="preserve">
 service sshd restart</pre>
                                                                 </p>
                                                             </li>
                                                         </ol>
-                                                        <p>&#160;</p>
+                                                    </div>
+                                                </div>
+                                                <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Part5"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"> Part 5 – Troubleshooting</a></span>
+                                                    <div class="MCDropDownBody dropDownBody">
+                                                        <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Peer reports incompatible or unsupported protocol version</a></span>
+                                                            <div class="MCDropDownBody dropDownBody">
+                                                                <p>When installing the UNIX PAM module on a stock CentOS 7 image, the UNIX PAM module will report the following error:<em> peer reports incompatible or unsupported protocol version</em>.</p>
+                                                                <p>The stock CentOS 7 install does not support TLS 1.2. Running the following command, followed by a recompile of the UNIX PAM module fixes the issue:</p>
+                                                                <p><code>yum update -y nss curl libcurl</code>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />User gets prompted for password repeatedly</a></span>
+                                                            <div class="MCDropDownBody dropDownBody">
+                                                                <p>This could happen if the user is not assigned the PAM app in Okta. After creating and assigning the PAM app to the user, they should be able to login.</p>
+                                                                <p>Before you can create a PAM app, you may need to assign the PAM agent and the private app to your org if it was not previously done. These instructions to do this are Part 2, above.</p>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div><a href="#" class="sf-back-to-top"><span class="arrow"></span>Top</a>
                                             </div>
