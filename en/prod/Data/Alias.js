@@ -14,7 +14,6 @@ xmlAliasData += '    <Map Name=\"Security_Network\" Link=\"Topics/Security/Secur
 xmlAliasData += '    <Map Name=\"Security_Administrators\" Link=\"Topics/Security/Administrators.htm#Security_Administrators\" ResolvedId=\"1110\" />';
 xmlAliasData += '    <Map Name=\"Security_API\" Link=\"Topics/Security/API.htm#Security_API\" ResolvedId=\"1120\" />';
 xmlAliasData += '    <Map Name=\"Directory_Groups\" Link=\"Topics/Directory/Directory_Groups.htm#Directory_Groups\" ResolvedId=\"1140\" />';
-xmlAliasData += '    <Map Name=\"Directory_Directory_Integrations\" Link=\"Topics/Directory/Directory_Directory_Integrations.htm#Directory_Directory_Integrations\" ResolvedId=\"1001\" />';
 xmlAliasData += '    <Map Name=\"Applications_Applications\" Link=\"Topics/Apps/Apps_Apps.htm#Applications_Applications\" ResolvedId=\"1180\" />';
 xmlAliasData += '    <Map Name=\"Reports_Reports\" Link=\"Topics/Reports/Reports.htm#Reports_Reports\" ResolvedId=\"1190\" />';
 xmlAliasData += '    <Map Name=\"Settings_Account\" Link=\"Topics/Settings/Settings_Account.htm#Settings_Account\" ResolvedId=\"1210\" />';
@@ -33,6 +32,7 @@ xmlAliasData += '    <Map Name=\"create-access-policies\" Link=\"Topics/Security
 xmlAliasData += '    <Map Name=\"Production_Relnotes\" Link=\"Topics/ReleaseNotes/production.htm\" ResolvedId=\"1002\" />';
 xmlAliasData += '    <Map Name=\"Preview_relnotes\" Link=\"Topics/ReleaseNotes/preview.htm\" ResolvedId=\"1003\" />';
 xmlAliasData += '    <Map Name=\"Security_Duo\" Link=\"Topics/Security/Security_Duo.htm\" ResolvedId=\"1004\" />';
+xmlAliasData += '    <Map Name=\"Security_FactorTypes\" Link=\"Topics/Security/MFA.htm#factor-types\" ResolvedId=\"1005\" />';
 xmlAliasData += '    <Map Name=\"Device_Trust\" Link=\"Topics/Mobile/device-trust-overview.htm\" ResolvedId=\"1007\" />';
 xmlAliasData += '    <Map Name=\"ver-hist_dt-win-desktop\" Link=\"Topics/Settings/Version_Histories/Ver_History_DeviceTrust_Installer_Windows.htm\" ResolvedId=\"1008\" />';
 xmlAliasData += '    <Map Name=\"Device_Trust_Mobile\" Link=\"Topics/Mobile/device-trust-overview.htm\" ResolvedId=\"1009\" />';
@@ -127,7 +127,6 @@ xmlAliasData += '    <Map Name=\"ext_Configuring_Desktop_SSO\" Link=\"Topics/Dir
 xmlAliasData += '    <Map Name=\"ext_Custom_Attributes_with_AD\" Link=\"Topics/Directory/Custom_Attributes_with_AD.htm\" ResolvedId=\"200058\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory\" Link=\"Topics/Directory/Directory.htm\" ResolvedId=\"200059\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_AD_Field_Mappings\" Link=\"Topics/Directory/Directory_AD_Field_Mappings.htm\" ResolvedId=\"200061\" />';
-xmlAliasData += '    <Map Name=\"ext_Directory_Directory_Integrations\" Link=\"Topics/Directory/Directory_Directory_Integrations.htm\" ResolvedId=\"200063\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_FAQ_Okta_and_AD_Groups\" Link=\"Topics/Directory/Directory_FAQ_Okta_and_AD_Groups.htm\" ResolvedId=\"200064\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_Groups\" Link=\"Topics/Directory/Directory_Groups.htm\" ResolvedId=\"200065\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_People\" Link=\"Topics/Directory/eu-people.htm\" ResolvedId=\"200068\" />';
@@ -284,5 +283,19 @@ xmlAliasData += '    <Map Name=\"csh_FIDO2_WebAuthn\" Link=\"Topics/Security/MFA
 xmlAliasData += '    <Map Name=\"csh_dirintmain\" Link=\"Topics/Directory/directory-integrations-main.htm\" ResolvedId=\"1113\" />';
 xmlAliasData += '    <Map Name=\"csh_superadmin\" Link=\"Topics/Security/admin-role-superadmin.htm#Assign\" ResolvedId=\"1114\" />';
 xmlAliasData += '    <Map Name=\"csh_mfa\" Link=\"Topics/Security/MFA.htm\" ResolvedId=\"1115\" />';
+xmlAliasData += '    <Map Name=\"ext_ad_importusers\" Link=\"Topics/Directory/directory-AD-importusers.htm\" ResolvedId=\"1117\" />';
+xmlAliasData += '    <Map Name=\"ext_end_user_states\" Link=\"Topics/Directory/end-user-states.htm\" ResolvedId=\"1118\" />';
+xmlAliasData += '    <Map Name=\"ext_csv_import\" Link=\"Topics/Directory/eu-csv-import.htm\" ResolvedId=\"1119\" />';
+xmlAliasData += '    <Map Name=\"ext_secpol_configur\" Link=\"Topics/Security/Security_Policies.htm#Configur\" ResolvedId=\"1121\" />';
+xmlAliasData += '    <Map Name=\"ext_secpol_passpol\" Link=\"Topics/Security/Security_Policies.htm#PassPolOver\" ResolvedId=\"1122\" />';
+xmlAliasData += '    <Map Name=\"ext_secpol_group\" Link=\"Topics/Security/Security_Policies.htm#Creating\" ResolvedId=\"1123\" />';
+xmlAliasData += '    <Map Name=\"ext_secpol_configpp\" Link=\"Topics/Security/Security_Policies.htm#Configur\" ResolvedId=\"1124\" />';
+xmlAliasData += '    <Map Name=\"ext_secpol_poleval\" Link=\"Topics/Security/Security_Policies.htm#Understanding\" ResolvedId=\"1125\" />';
+xmlAliasData += '    <Map Name=\"ext_secpol_signonpolrules\" Link=\"Topics/Security/Security_Policies.htm#Creating2\" ResolvedId=\"1126\" />';
+xmlAliasData += '    <Map Name=\"ext_AD_profmaster\" Link=\"Topics/Directory/Directory_AD_Enable_Profile_Master.htm\" ResolvedId=\"1127\" />';
+xmlAliasData += '    <Map Name=\"ext_app_map\" Link=\"Topics/Directory/Directory_Application-Based_Mapping.htm\" ResolvedId=\"1128\" />';
+xmlAliasData += '    <Map Name=\"ext_superadmin\" Link=\"Topics/Security/admin-role-superadmin.htm\" ResolvedId=\"1129\" />';
+xmlAliasData += '    <Map Name=\"ext_suspend\" Link=\"Topics/Directory/eu-suspend.htm\" ResolvedId=\"1131\" />';
+xmlAliasData += '    <Map Name=\"ext_ldap_trouble\" Link=\"Topics/Directory/ldap-troubleshooting.htm\" ResolvedId=\"1132\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);

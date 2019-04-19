@@ -1,7 +1,7 @@
 ﻿	/* <![CDATA[ */
 var amountScrolled = 300;
 
-$(window).scroll(function() {
+$('div.body-container').scroll(function() {
 		if ( $(window).scrollTop() > amountScrolled ) {
 			$('a.sf-back-to-top').fadeIn('slow');
 		} else {
