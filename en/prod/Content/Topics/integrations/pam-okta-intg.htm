@@ -231,7 +231,7 @@ sudo yum install devtoolset-7-gcc*</pre>
                                             </div>
                                             <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Part4"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"> Part 4 – Download, Build, and Install the PAM Module</a></span>
                                                 <div class="MCDropDownBody dropDownBody">
-                                                    <p>There are seven parts to this process.</p>
+                                                    <p>There are eight required parts and one optional part to this process.</p>
                                                     <ol>
                                                         <li value="1">Download the PAM module in Okta<p>From your Okta admin console, navigate to <b>Settings &gt; Downloads</b>. Download the PAM source code from the PAM section under <em>MFA Plugins and Agents</em>, as shown below.</p><p><img src="../../Resources/Images/pam-okta-2.png" /></p></li>
                                                         <li value="2">
@@ -294,6 +294,29 @@ auth    include      postlogin</pre>
                                                             <p><b>Note:</b> The reference to <em>okta-auth</em> is used instead of inserting the contents of that file to provide the ability to use any more restrictive permissions that exist on that file.</p>
                                                         </li>
                                                         <li value="8">
+                                                            <p>(Optional) Enable public key authentication for PAM</p>
+                                                            <ul>
+                                                                <li value="1">
+                                                                    <p>In<em> /etc/ssh/sshd_config</em>, set the following to turn off password-based authentication.</p>
+                                                                    <p><pre xml:space="preserve">
+AuthenticationMethods publickey,keyboard-interactive</pre>
+                                                                    </p>
+                                                                </li>
+                                                                <li value="2">
+                                                                    <p>Next, comment out the auth line with <em>pam_unix.so in /etc/pam.d/sshd</em>. With this change, the auth section looks like:</p>
+                                                                    <p><pre xml:space="preserve">
+auth required pam_sepermit.so
+auth required pam_env.so
+# auth requisite pam_unix.so nullok try_first_pass
+auth include okta-auth
+auth requisite pam_succeed_if.so uid &gt;= 1000 quiet_success
+auth required pam_deny.so
+auth include postlogin</pre>
+                                                                    </p>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li value="9">
                                                             <p>Restart the sshd service with the following command.</p>
                                                             <p><pre xml:space="preserve">
 service sshd restart</pre>
