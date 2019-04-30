@@ -301,5 +301,7 @@ xmlAliasData += '    <Map Name=\"ext_superadmin\" Link=\"Topics/Security/admin-r
 xmlAliasData += '    <Map Name=\"ext_suspend\" Link=\"Topics/Directory/eu-suspend.htm\" ResolvedId=\"1131\" />';
 xmlAliasData += '    <Map Name=\"ext_ldap_trouble\" Link=\"Topics/Directory/ldap-troubleshooting.htm\" ResolvedId=\"1132\" />';
 xmlAliasData += '    <Map Name=\"ext_o365_accesspol\" Link=\"Topics/Security/O365_Client-Access-Policies.htm\" ResolvedId=\"1133\" />';
+xmlAliasData += '    <Map Name=\"ext_prov_workday_imports\" Link=\"Topics/Provisioning/Workday/incremental-imports.htm\" ResolvedId=\"1134\" />';
+xmlAliasData += '    <Map Name=\"ext_activate_user\" Link=\"Topics/Directory/eu-activate.htm\" ResolvedId=\"1135\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
