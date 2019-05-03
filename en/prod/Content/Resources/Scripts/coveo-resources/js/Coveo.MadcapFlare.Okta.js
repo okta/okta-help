@@ -1,4 +1,4 @@
-﻿/* Coveo integration for MadcapFlare environment @ Okta */
+/* Coveo integration for MadcapFlare environment @ Okta */
 document.addEventListener('readyToInitCoveo', function () {
     var getMadcapFlareVariable = function (id) {
         var content = '';
@@ -38,15 +38,16 @@ document.addEventListener('readyToInitCoveo', function () {
         var searchboxRoot = document.getElementById('standaloneSearchbox');
         var customSelectObj = new Coveo.CustomSelect(document.getElementById('customSelect'), {
             field: '@commoncontenttype',
-            defaultOption: 'Documentation'
+            defaultOption: 'Documentation',
+            customSort: Coveo.OktaCusto.CONTENT_TYPE_CUSTOM_SORT
         });
         Coveo.$$(searchboxRoot).on(Coveo.StandaloneSearchInterfaceEvents.beforeRedirect, function (e, args) {
             args.searchPageUri = args.searchPageUri + "?sbOption=" + customSelectObj.getSelectedOption();
         });
-		Coveo.configureResourceRoot('https://static.cloud.coveo.com/searchui/v2.5395/js/')
+        Coveo.configureResourceRoot('https://static.cloud.coveo.com/searchui/v2.5395/js/');
         Coveo.initSearchbox(searchboxRoot, coveo_search_url, {
             Searchbox: {
-                placeholder: 'Search for articles, documentation, training and more'
+                placeholder: 'Search our content'
             }
         });
     });

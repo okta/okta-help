@@ -43,7 +43,7 @@ xmlAliasData += '    <Map Name=\"okta-android-installers\" Link=\"Topics/Mobile/
 xmlAliasData += '    <Map Name=\"Service_Mode\" Link=\"Topics/Reference/ref-service-op-mode.htm\" ResolvedId=\"1014\" />';
 xmlAliasData += '    <Map Name=\"conf-desktop-sso\" Link=\"Topics/Directory/Configuring_Desktop_SSO.htm\" ResolvedId=\"1015\" />';
 xmlAliasData += '    <Map Name=\"ServicePrincipalName\" Link=\"Topics/Directory/Configuring_Agentless_SSO.htm#SSOAgentlessPrincName\" ResolvedId=\"1013\" />';
-xmlAliasData += '    <Map Name=\"ad-agent\" Link=\"Topics/Directory/okta-active-directory-agent.htm\" ResolvedId=\"1016\" />';
+xmlAliasData += '    <Map Name=\"ad-agent\" Link=\"Topics/Settings/end-user-quick-access-apps.htm\" ResolvedId=\"1016\" />';
 xmlAliasData += '    <Map Name=\"okta-radius-agent-install\" Link=\"Topics/Directory/Agent_Installing_the_Okta_Radius_Agent.htm\" ResolvedId=\"1017\" />';
 xmlAliasData += '    <Map Name=\"mfa-onprem\" Link=\"Topics/Security/MFA_OnPrem.htm\" ResolvedId=\"1018\" />';
 xmlAliasData += '    <Map Name=\"ad-pw-sync-agent\" Link=\"Topics/Directory/Installing_Configuring_Active_Directory_Password_Sync_Agent.htm\" ResolvedId=\"1019\" />';
@@ -303,5 +303,9 @@ xmlAliasData += '    <Map Name=\"ext_ldap_trouble\" Link=\"Topics/Directory/ldap
 xmlAliasData += '    <Map Name=\"ext_o365_accesspol\" Link=\"Topics/Security/O365_Client-Access-Policies.htm\" ResolvedId=\"1133\" />';
 xmlAliasData += '    <Map Name=\"ext_prov_workday_imports\" Link=\"Topics/Provisioning/Workday/incremental-imports.htm\" ResolvedId=\"1134\" />';
 xmlAliasData += '    <Map Name=\"ext_activate_user\" Link=\"Topics/Directory/eu-activate.htm\" ResolvedId=\"1135\" />';
+xmlAliasData += '    <Map Name=\"ext-quick-access-apps\" Link=\"Topics/Settings/end-user-quick-access-apps.htm\" ResolvedId=\"1136\" />';
+xmlAliasData += '    <Map Name=\"csh-eu-quick-access-apps\" Link=\"Topics/Settings/end-user-quick-access-apps.htm\" ResolvedId=\"1137\" />';
+xmlAliasData += '    <Map Name=\"okta-meraki-wlan-radius-intg\" Link=\"Topics/integrations/meraki-radius-intg.htm\" ResolvedId=\"-2147483648\" />';
+xmlAliasData += '    <Map Name=\"csh-app-browser-plugin\" Link=\"Topics/Apps/Apps_Browser_Plugin.htm\" ResolvedId=\"1139\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
