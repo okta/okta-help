@@ -163,8 +163,8 @@
                                     <div class="okta-topics">
                                         <!-- *** Col1: Left Nav Col *** -->
                                         <div class="is-not-in-mobile">
-                                            <div data-sticky-container="" id="tdjZMz1OLEiZvxVTEaUI6Q">
-                                                <div class="sticky sticky-menu" style="width:100%" data-sticky="" data-top-anchor="tdjZMz1OLEiZvxVTEaUI6Q:top" data-bottom-anchor="contentBody:bottom" data-sticky-on="small" data-scroll-container-on="small">
+                                            <div data-sticky-container="" id="APAsLiBBQ02nKffq1Yg_vA">
+                                                <div class="sticky sticky-menu" style="width:100%" data-sticky="" data-top-anchor="APAsLiBBQ02nKffq1Yg_vA:top" data-bottom-anchor="contentBody:bottom" data-sticky-on="small" data-scroll-container-on="small">
                                                     <ul class="nocontent menu _Skins_okta_left_menu mc-component" data-mc-linked-toc="Data/Tocs/left_nav_TOC.js" data-mc-side-menu="True" data-mc-max-depth="2" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="True" data-mc-include-siblings="True" data-mc-include-parent="True" data-mc-toc="True">
                                                     </ul>
                                                 </div>
@@ -195,6 +195,11 @@
                                                 <h2> Limitations</h2>
                                                 <p>This beta version is tested on Red Hat Enterprise Linux Server release 7.5 (Maipo). The instructions in this document may require modifications to work on other Linux distributions.</p>
                                                 <p>Only the Push, SMS, Call, and OTP-codes <a href="../Security/MFA.htm#FactorTypes">MFA factors</a> are supported.</p>
+                                                <h2>Sequence Diagram</h2>
+                                                <p>The following sample sequence diagram shows an authentication flow using Okta Verify Push.</p>
+                                                <p>
+                                                    <img src="../../Resources/Images/okta-pam-1a.png" />
+                                                </p>
                                                 <h2>Step-by-step Configuration Guide</h2>
                                                 <p>There are four parts to the configuration, including prerequisites. Additionally, there is a troubleshooting section..</p>
                                                 <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Part"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"> Part 1 – Prerequisites</a></span>
@@ -219,7 +224,7 @@
                                                                 <p>On the <b>General</b> tab for the&#160;app, specify an <b>Application Label</b> relevant to your organization, then click <b>Next</b>.</p>
                                                                 <p>On the Sign On tab for the app, click <b>Edit</b> and change the <b>Application Username format</b> to Email Prefix.</p>
                                                             </li>
-                                                            <li value="5">Skip the <b>Assignments</b> page for now. You'll return to this after making a few application modifications.                  </li>
+                                                            <li value="5">Skip the <b>Assignments</b> page for now. You'll return to this after making a few application modifications  to ensure that the Linux and app usernames of the involved users match.<![CDATA[           ]]></li>
                                                         </ol>
                                                         <p>&#160;</p>
                                                     </div>
@@ -355,6 +360,28 @@ service sshd restart</pre>
                                                 </div>
                                                 <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Part5"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"> Part 5 – Troubleshooting</a></span>
                                                     <div class="MCDropDownBody dropDownBody">
+                                                        <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Logs</a></span>
+                                                            <div class="MCDropDownBody dropDownBody">
+                                                                <p>Logs can be viewed at <b>/var/log/secure</b>. These logs can help  pinpoint issues during sign in.</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Debugging with pamtester</a></span>
+                                                            <div class="MCDropDownBody dropDownBody">
+                                                                <p>You can use pamtester as a debugging tool. Obtain and install pamtester from SourceForge, then use the following command to test your configuration:</p>
+                                                                <p><pre xml:space="preserve">
+pamtester -v sshd &lt;unix-login&gt; authenticate</pre>
+                                                                </p>
+                                                                <p>You can also experiment with configurations by creating a file in <code style="font-size: 11pt;">/etc/pam.d/</code> with the rules you want to experiment with. As an example, create a file at <code style="font-size: 11pt;">/etc/pam.d/test</code> with the following content:</p>
+                                                                <p><pre xml:space="preserve">
+auth sufficient pam_okta.so https://yourOrg.okta.com 0oabcdefghijklmno123 abcdefghijklmnopqrstuvwxyz_0123456789-AB</pre>
+                                                                </p>
+                                                                <p>With the command shown below, you will be prompted directly for MFA with Okta:</p>
+                                                                <p><pre xml:space="preserve">
+pamtester -v test &lt;unix-login&gt; authenticate</pre>
+                                                                </p>
+                                                                <p>Note that <code style="font-size: 11pt;">test</code> above denotes the service name, which corresponds to the name of the file created in the <code style="font-size: 11pt;">/etc/pam.d</code> directory.</p>
+                                                            </div>
+                                                        </div>
                                                         <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Peer reports incompatible or unsupported protocol version</a></span>
                                                             <div class="MCDropDownBody dropDownBody">
                                                                 <p>When installing the UNIX PAM module on a stock CentOS 7 image, the UNIX PAM module will report the following error:<em> peer reports incompatible or unsupported protocol version</em>.</p>
@@ -367,6 +394,15 @@ service sshd restart</pre>
                                                             <div class="MCDropDownBody dropDownBody">
                                                                 <p>This could happen if the user is not assigned the PAM app in Okta. After creating and assigning the PAM app to the user, they should be able to login.</p>
                                                                 <p>Before you can create a PAM app, you may need to assign the PAM agent and the private app to your org if it was not previously done. These instructions to do this are Part 2, above.</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />User is not prompted for password</a></span>
+                                                            <div class="MCDropDownBody dropDownBody">
+                                                                <p>When trying to log in with a password, if user gets the following error,</p>
+                                                                <p><pre xml:space="preserve">
+Permission denied (publickey,gssapi-keyex,gssapi-with-mic)</pre>
+                                                                </p>
+                                                                <p>check that <b>PasswordAuthentication</b> is set to yes in <code style="font-size: 11pt;">/etc/ssh/sshd_config</code>. Note that  you might have to set the user's password first and then, restart the SSHD service.</p>
                                                             </div>
                                                         </div>
                                                     </div>
