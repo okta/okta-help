@@ -36,7 +36,7 @@ xmlAliasData += '    <Map Name=\"Security_Duo\" Link=\"Topics/Security/Security_
 xmlAliasData += '    <Map Name=\"Security_FactorTypes\" Link=\"Topics/Security/MFA.htm#FactorTypes\" ResolvedId=\"1005\" />';
 xmlAliasData += '    <Map Name=\"Device_Trust\" Link=\"Topics/Mobile/device-trust-overview.htm\" ResolvedId=\"1007\" />';
 xmlAliasData += '    <Map Name=\"ver-hist_dt-win-desktop\" Link=\"Topics/Settings/Version_Histories/Ver_History_DeviceTrust_Installer_Windows.htm\" ResolvedId=\"1008\" />';
-xmlAliasData += '    <Map Name=\"Device_Trust_Mobile\" Link=\"Topics/Mobile/device-trust-overview.htm\" ResolvedId=\"1009\" />';
+xmlAliasData += '    <Map Name=\"Device_Trust_Mobile\" Link=\"Topics/Mobile/Okta_Device_Trust_Native_Apps_Safari_MDM_Devices.htm#Copy-secret-key\" ResolvedId=\"1009\" />';
 xmlAliasData += '    <Map Name=\"Device_Trust_EAS_iOS\" Link=\"Topics/Mobile/Okta_Mobile_Device_Trust_O365_EAS_iOS.htm\" ResolvedId=\"1010\" />';
 xmlAliasData += '    <Map Name=\"App_SignOn_Policies\" Link=\"Topics/Security/App_Based_Signon.htm\" ResolvedId=\"1011\" />';
 xmlAliasData += '    <Map Name=\"okta-android-installers\" Link=\"Topics/Mobile/Okta_Mobile_Obtaining_Okta_Android_Installers.htm\" ResolvedId=\"1012\" />';
@@ -265,9 +265,9 @@ xmlAliasData += '    <Map Name=\"ext_skip_group_import_o365\" Link=\"Topics/Apps
 xmlAliasData += '    <Map Name=\"automations\" Link=\"Topics/Directory/automations.htm\" ResolvedId=\"1078\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-ios-mdm\" Link=\"Topics/Mobile/Okta_Device_Trust_Native_Apps_Safari_MDM_Devices.htm\" ResolvedId=\"1079\" />';
 xmlAliasData += '    <Map Name=\"generic-oidc\" Link=\"Topics/integrations/open-id-connect.htm\" ResolvedId=\"1081\" />';
-xmlAliasData += '    <Map Name=\"csh-dt-ios-VMware-AW\" Link=\"Topics/Mobile/Okta_Device_Trust_Native_Apps_Safari_MDM_Devices.htm\" ResolvedId=\"1083\" />';
-xmlAliasData += '    <Map Name=\"csh-dt-ios-mobileIron\" Link=\"Topics/Mobile/Okta_Device_Trust_Native_Apps_Safari_MDM_Devices.htm\" ResolvedId=\"1089\" />';
-xmlAliasData += '    <Map Name=\"csh-dt-ios-other-mngApp\" Link=\"Topics/Mobile/Okta_Device_Trust_Native_Apps_Safari_MDM_Devices.htm\" ResolvedId=\"1093\" />';
+xmlAliasData += '    <Map Name=\"csh-dt-ios-VMware-AW\" Link=\"Topics/Mobile/Okta_Device_Trust_Native_Apps_Safari_MDM_Devices.htm#Copy-secret-key\" ResolvedId=\"1083\" />';
+xmlAliasData += '    <Map Name=\"csh-dt-ios-mobileIron\" Link=\"Topics/Mobile/Okta_Device_Trust_Native_Apps_Safari_MDM_Devices.htm#Copy-secret-key\" ResolvedId=\"1089\" />';
+xmlAliasData += '    <Map Name=\"csh-dt-ios-other-mngApp\" Link=\"Topics/Mobile/Okta_Device_Trust_Native_Apps_Safari_MDM_Devices.htm#Copy-secret-key\" ResolvedId=\"1093\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-ios-intune\" Link=\"Topics/Mobile/Okta_Device_Trust_Native_Apps_Safari_MDM_Devices.htm#Copy-secret-key\" ResolvedId=\"1094\" />';
 xmlAliasData += '    <Map Name=\"csh_MFA_Reset\" Link=\"Topics/Security/MFA.htm#MFA_Reset\" ResolvedId=\"1095\" />';
 xmlAliasData += '    <Map Name=\"csh_security_policies\" Link=\"Topics/Security/Security_Policies.htm\" ResolvedId=\"1096\" />';
