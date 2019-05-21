@@ -256,7 +256,7 @@ xmlAliasData += '    <Map Name=\"ext_mfa_windows_hello\" Link=\"Topics/Security/
 xmlAliasData += '    <Map Name=\"csh-okta-verify\" Link=\"Topics/Mobile/okta-verify-overview.htm\" ResolvedId=\"1068\" />';
 xmlAliasData += '    <Map Name=\"csh-okta-verify-fips\" Link=\"Topics/Mobile/okta-verify-admins.htm#FIPS\" ResolvedId=\"1067\" />';
 xmlAliasData += '    <Map Name=\"ext_Assign_Admin\" Link=\"Topics/Security/admin-role-superadmin.htm#Assign\" ResolvedId=\"1069\" />';
-xmlAliasData += '    <Map Name=\"dt-integrations\" Link=\"Topics/Mobile/device-trust-overview.htm\" ResolvedId=\"1071\" />';
+xmlAliasData += '    <Map Name=\"dt-integrations\" Link=\"Topics/Mobile/Okta_Device_Trust_Native_Apps_Safari_MDM_Devices.htm\" ResolvedId=\"1071\" />';
 xmlAliasData += '    <Map Name=\"ext_Assign_Group_Admin\" Link=\"Topics/Security/The_User_Admin_Role.htm#Assign\" ResolvedId=\"1072\" />';
 xmlAliasData += '    <Map Name=\"ext_Assign_HD_Admin\" Link=\"Topics/Security/The_Help_Desk_Admin_Role.htm#Assign\" ResolvedId=\"1073\" />';
 xmlAliasData += '    <Map Name=\"ext_Verify_IE_Plugin\" Link=\"Topics/Apps/Apps_and_SSO_Verifying_IE_Plugin_Enablement.htm\" ResolvedId=\"1074\" />';
@@ -268,6 +268,7 @@ xmlAliasData += '    <Map Name=\"generic-oidc\" Link=\"Topics/integrations/open-
 xmlAliasData += '    <Map Name=\"csh-dt-ios-VMware-AW\" Link=\"Topics/Mobile/Okta_Device_Trust_Native_Apps_Safari_MDM_Devices.htm\" ResolvedId=\"1083\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-ios-mobileIron\" Link=\"Topics/Mobile/Okta_Device_Trust_Native_Apps_Safari_MDM_Devices.htm\" ResolvedId=\"1089\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-ios-other-mngApp\" Link=\"Topics/Mobile/Okta_Device_Trust_Native_Apps_Safari_MDM_Devices.htm\" ResolvedId=\"1093\" />';
+xmlAliasData += '    <Map Name=\"csh-dt-ios-intune\" Link=\"Topics/Mobile/Okta_Device_Trust_Native_Apps_Safari_MDM_Devices.htm#Copy-secret-key\" ResolvedId=\"1094\" />';
 xmlAliasData += '    <Map Name=\"csh_MFA_Reset\" Link=\"Topics/Security/MFA.htm#MFA_Reset\" ResolvedId=\"1095\" />';
 xmlAliasData += '    <Map Name=\"csh_security_policies\" Link=\"Topics/Security/Security_Policies.htm\" ResolvedId=\"1096\" />';
 xmlAliasData += '    <Map Name=\"csh_notification_new\" Link=\"Topics/Security/Security_General.htm#SecurityNotificationEmails\" ResolvedId=\"1097\" />';
