@@ -34,6 +34,7 @@ xmlAliasData += '    <Map Name=\"Production_Relnotes\" Link=\"Topics/ReleaseNote
 xmlAliasData += '    <Map Name=\"Preview_relnotes\" Link=\"Topics/ReleaseNotes/preview.htm\" ResolvedId=\"1003\" />';
 xmlAliasData += '    <Map Name=\"Security_Duo\" Link=\"Topics/Security/Security_Duo.htm\" ResolvedId=\"1004\" />';
 xmlAliasData += '    <Map Name=\"Security_FactorTypes\" Link=\"Topics/Security/MFA.htm#FactorTypes\" ResolvedId=\"1005\" />';
+xmlAliasData += '    <Map Name=\"Security_FactorPolicies\" Link=\"Topics/Security/MFA.htm#MultifactorPolicies\" ResolvedId=\"1006\" />';
 xmlAliasData += '    <Map Name=\"Device_Trust\" Link=\"Topics/Mobile/device-trust-overview.htm\" ResolvedId=\"1007\" />';
 xmlAliasData += '    <Map Name=\"ver-hist_dt-win-desktop\" Link=\"Topics/Settings/Version_Histories/Ver_History_DeviceTrust_Installer_Windows.htm\" ResolvedId=\"1008\" />';
 xmlAliasData += '    <Map Name=\"Device_Trust_Mobile\" Link=\"Topics/Mobile/Okta_Device_Trust_Native_Apps_Safari_MDM_Devices.htm#Copy-secret-key\" ResolvedId=\"1009\" />';
@@ -320,5 +321,6 @@ xmlAliasData += '    <Map Name=\"csh-ov-reset\" Link=\"Topics/Mobile/okta-verify
 xmlAliasData += '    <Map Name=\"csh-ov-end-users\" Link=\"Topics/Mobile/okta-verify-end-users.htm\" ResolvedId=\"1156\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-secret-key-ios\" Link=\"Topics/Mobile/Okta_Device_Trust_Native_Apps_Safari_MDM_Devices.htm#Copy-secret-key\" ResolvedId=\"1158\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-secret-key-android\" Link=\"Topics/Mobile/Okta_Device_Trust_Native_Apps_Safari_MDM_Devices.htm#Copy-secret-key\" ResolvedId=\"1159\" />';
+xmlAliasData += '    <Map Name=\"csh-dt-main\" Link=\"Topics/Mobile/device-trust-overview.htm\" ResolvedId=\"1160\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
