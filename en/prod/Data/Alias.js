@@ -6,7 +6,6 @@ xmlAliasData += '    <Map Name=\"Security_Policies\" Link=\"Topics/Security/Secu
 xmlAliasData += '    <Map Name=\"Security_Authentication_AD\" Link=\"Topics/Security/Security_Authentication.htm#Security_Authentication_AD\" ResolvedId=\"1020\" />';
 xmlAliasData += '    <Map Name=\"Security_Authentication_LDAP\" Link=\"Topics/Security/Security_Authentication.htm#Security_Authentication_LDAP\" ResolvedId=\"1030\" />';
 xmlAliasData += '    <Map Name=\"Security_Authentication_SymantecVIP\" Link=\"Topics/Security/MFA.htm#Security_Authentication_SymantecVIP\" ResolvedId=\"1050\" />';
-xmlAliasData += '    <Map Name=\"Security_Authentication_Yubikey\" Link=\"Topics/Settings/Settings_Customization.htm#Security_Authentication_JIT\" ResolvedId=\"1080\" />';
 xmlAliasData += '    <Map Name=\"Security_Authentication_RSA\" Link=\"Topics/Security/MFA_OnPrem.htm#Security_Authentication_RSA\" ResolvedId=\"1060\" />';
 xmlAliasData += '    <Map Name=\"Security_Authentication_OnPrem\" Link=\"Topics/Security/MFA_OnPrem.htm#Authentication_OnPrem\" ResolvedId=\"1070\" />';
 xmlAliasData += '    <Map Name=\"Security_Authentication_JIT\" Link=\"Topics/Security/MFA.htm#YubiKey\" ResolvedId=\"1040\" />';
@@ -136,7 +135,6 @@ xmlAliasData += '    <Map Name=\"ext_Directory_Self_Service_Registration\" Link=
 xmlAliasData += '    <Map Name=\"ext_Directory_Using_Group_Push\" Link=\"Topics/Directory/Directory_Using_Group_Push.htm\" ResolvedId=\"200072\" />';
 xmlAliasData += '    <Map Name=\"ext_Installing_Configuring_Active_Directory_Password_Sync_Agent\" Link=\"Topics/Directory/Installing_Configuring_Active_Directory_Password_Sync_Agent.htm\" ResolvedId=\"200073\" />';
 xmlAliasData += '    <Map Name=\"ext_LDAP_Using_the_LDAP_Interface\" Link=\"Topics/Directory/LDAP_Using_the_LDAP_Interface.htm\" ResolvedId=\"200075\" />';
-xmlAliasData += '    <Map Name=\"ext_okta_active_directory_agent\" Link=\"Topics/Directory/okta-active-directory-agent.htm\" ResolvedId=\"200076\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_Java_LDAP_Agent\" Link=\"Topics/Directory/Okta-Java-LDAP-Agent.htm\" ResolvedId=\"200078\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_Active_Directory_Agent_UDMappingchanges\" Link=\"Topics/Directory/Okta_Active_Directory_Agent_UDMappingchanges.htm\" ResolvedId=\"200079\" />';
 xmlAliasData += '    <Map Name=\"ext_Reference_Directories\" Link=\"Topics/Directory/Reference_Directories.htm\" ResolvedId=\"200081\" />';
@@ -278,7 +276,6 @@ xmlAliasData += '    <Map Name=\"ext_Apps_App_Integration_Wizard-oidc\" Link=\"T
 xmlAliasData += '    <Map Name=\"ext_API_Access-claims\" Link=\"Topics/Security/API_Access.htm#create_claims\" ResolvedId=\"1104\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Apps_Page-assign\" Link=\"Topics/Apps/Apps_Apps_Page.htm#Assigning\" ResolvedId=\"1105\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_Administrators\" Link=\"Topics/Security/Administrators.htm#Security_Administrators\" ResolvedId=\"1106\" />';
-xmlAliasData += '    <Map Name=\"ext_Settings_Customization-interstitial\" Link=\"Topics/Settings/Settings_Customization.htm#CustomInterStitialPage\" ResolvedId=\"1107\" />';
 xmlAliasData += '    <Map Name=\"adv_server_access\" Link=\"Topics/Adv_Server_Access/docs/setup/introduction.htm\" ResolvedId=\"1109\" />';
 xmlAliasData += '    <Map Name=\"csh-attribute-statements-saml\" Link=\"Topics/Apps/attribute-statements-saml.htm\" ResolvedId=\"1111\" />';
 xmlAliasData += '    <Map Name=\"csh_FIDO2_WebAuthn\" Link=\"Topics/Security/MFA.htm#WebAuthentication\" ResolvedId=\"1112\" />';
