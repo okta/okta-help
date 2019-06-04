@@ -14,6 +14,7 @@ xmlAliasData += '    <Map Name=\"Security_Network\" Link=\"Topics/Security/Secur
 xmlAliasData += '    <Map Name=\"Security_Administrators\" Link=\"Topics/Security/Administrators.htm#Security_Administrators\" ResolvedId=\"1110\" />';
 xmlAliasData += '    <Map Name=\"Security_API\" Link=\"Topics/Security/API.htm#Security_API\" ResolvedId=\"1120\" />';
 xmlAliasData += '    <Map Name=\"Directory_Groups\" Link=\"Topics/Directory/Directory_Groups.htm#Directory_Groups\" ResolvedId=\"1140\" />';
+xmlAliasData += '    <Map Name=\"Directory_Directory_Integrations\" Link=\"Topics/Directory/directory-integrations-main.htm\" ResolvedId=\"1001\" />';
 xmlAliasData += '    <Map Name=\"Applications_Applications\" Link=\"Topics/Apps/Apps_Apps.htm#Applications_Applications\" ResolvedId=\"1180\" />';
 xmlAliasData += '    <Map Name=\"Reports_Reports\" Link=\"Topics/Reports/Reports.htm#Reports_Reports\" ResolvedId=\"1190\" />';
 xmlAliasData += '    <Map Name=\"Settings_Account\" Link=\"Topics/Settings/Settings_Account.htm#Settings_Account\" ResolvedId=\"1210\" />';
@@ -125,7 +126,9 @@ xmlAliasData += '    <Map Name=\"ext_Attribute_Level_Mastering\" Link=\"Topics/D
 xmlAliasData += '    <Map Name=\"ext_Configuring_Agentless_SSO\" Link=\"Topics/Directory/Configuring_Agentless_SSO.htm\" ResolvedId=\"200056\" />';
 xmlAliasData += '    <Map Name=\"ext_Configuring_Desktop_SSO\" Link=\"Topics/Directory/Configuring_Desktop_SSO.htm\" ResolvedId=\"200057\" />';
 xmlAliasData += '    <Map Name=\"ext_Custom_Attributes_with_AD\" Link=\"Topics/Directory/Custom_Attributes_with_AD.htm\" ResolvedId=\"200058\" />';
+xmlAliasData += '    <Map Name=\"ext_Directory\" Link=\"Topics/Directory/directory-integrations-main.htm\" ResolvedId=\"200059\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_AD_Field_Mappings\" Link=\"Topics/Directory/Directory_AD_Field_Mappings.htm\" ResolvedId=\"200061\" />';
+xmlAliasData += '    <Map Name=\"ext_Directory_Directory_Integrations\" Link=\"Topics/Directory/directory-integrations-main.htm\" ResolvedId=\"1161\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_FAQ_Okta_and_AD_Groups\" Link=\"Topics/Directory/Directory_FAQ_Okta_and_AD_Groups.htm\" ResolvedId=\"200064\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_Groups\" Link=\"Topics/Directory/Directory_Groups.htm\" ResolvedId=\"200065\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_People\" Link=\"Topics/Directory/eu-people.htm\" ResolvedId=\"200068\" />';
@@ -135,6 +138,7 @@ xmlAliasData += '    <Map Name=\"ext_Directory_Self_Service_Registration\" Link=
 xmlAliasData += '    <Map Name=\"ext_Directory_Using_Group_Push\" Link=\"Topics/Directory/Directory_Using_Group_Push.htm\" ResolvedId=\"200072\" />';
 xmlAliasData += '    <Map Name=\"ext_Installing_Configuring_Active_Directory_Password_Sync_Agent\" Link=\"Topics/Directory/Installing_Configuring_Active_Directory_Password_Sync_Agent.htm\" ResolvedId=\"200073\" />';
 xmlAliasData += '    <Map Name=\"ext_LDAP_Using_the_LDAP_Interface\" Link=\"Topics/Directory/LDAP_Using_the_LDAP_Interface.htm\" ResolvedId=\"200075\" />';
+xmlAliasData += '    <Map Name=\"ext_okta_active_directory_agent\" Link=\"Topics/Directory/ad-agent-install.htm\" ResolvedId=\"200076\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_Java_LDAP_Agent\" Link=\"Topics/Directory/Okta-Java-LDAP-Agent.htm\" ResolvedId=\"200078\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_Active_Directory_Agent_UDMappingchanges\" Link=\"Topics/Directory/Okta_Active_Directory_Agent_UDMappingchanges.htm\" ResolvedId=\"200079\" />';
 xmlAliasData += '    <Map Name=\"ext_Reference_Directories\" Link=\"Topics/Directory/Reference_Directories.htm\" ResolvedId=\"200081\" />';
