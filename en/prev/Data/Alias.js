@@ -328,5 +328,7 @@ xmlAliasData += '    <Map Name=\"csh-dt-secret-key-android\" Link=\"Topics/Mobil
 xmlAliasData += '    <Map Name=\"csh-dt-main\" Link=\"Topics/Mobile/device-trust-overview.htm\" ResolvedId=\"1160\" />';
 xmlAliasData += '    <Map Name=\"ext_csvintegration\" Link=\"Topics/Directory/directory-integrations-csv.htm\" ResolvedId=\"1162\" />';
 xmlAliasData += '    <Map Name=\"ext_MFAVoice\" Link=\"Topics/Security/MFA.htm#VoiceCall\" ResolvedId=\"1163\" />';
+xmlAliasData += '    <Map Name=\"csh-dt-integrations-ios\" Link=\"Topics/Mobile/device-trust-overview.htm\" ResolvedId=\"1164\" />';
+xmlAliasData += '    <Map Name=\"csh-dt-integration-android\" Link=\"Topics/Mobile/device-trust-overview.htm\" ResolvedId=\"1165\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
