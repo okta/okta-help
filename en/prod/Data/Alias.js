@@ -333,5 +333,6 @@ xmlAliasData += '    <Map Name=\"csh-dt-integration-android\" Link=\"Topics/Mobi
 xmlAliasData += '    <Map Name=\"ext_inlinehooks\" Link=\"Topics/Directory/inline-hooks.htm\" ResolvedId=\"1166\" />';
 xmlAliasData += '    <Map Name=\"okta-radius-agent-history\" Link=\"Topics/Settings/Version_Histories/Ver_History_RADIUS_Server_Agent.htm\" ResolvedId=\"1167\" />';
 xmlAliasData += '    <Map Name=\"csh-actionable-notifications\" Link=\"Topics/Mobile/okta-verify-end-users.htm#ActionableNotifications\" ResolvedId=\"1168\" />';
+xmlAliasData += '    <Map Name=\"Security_General\" Link=\"Topics/Security/Security_General.htm\" ResolvedId=\"1169\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
