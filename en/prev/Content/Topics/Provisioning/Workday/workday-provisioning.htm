@@ -163,8 +163,8 @@
                                     <div class="okta-topics">
                                         <!-- *** Col1: Left Nav Col *** -->
                                         <div class="is-not-in-mobile">
-                                            <div data-sticky-container="" id="uGFLB_SRVEScFHEvt_0FgQ">
-                                                <div class="sticky sticky-menu" style="width:100%" data-sticky="" data-top-anchor="uGFLB_SRVEScFHEvt_0FgQ:top" data-bottom-anchor="contentBody:bottom" data-sticky-on="small" data-scroll-container-on="small">
+                                            <div data-sticky-container="" id="5cPUN9M1HU-eN_FzfZquqQ">
+                                                <div class="sticky sticky-menu" style="width:100%" data-sticky="" data-top-anchor="5cPUN9M1HU-eN_FzfZquqQ:top" data-bottom-anchor="contentBody:bottom" data-sticky-on="small" data-scroll-container-on="small">
                                                     <ul class="nocontent menu _Skins_okta_left_menu mc-component" data-mc-linked-toc="Data/Tocs/left_nav_TOC.js" data-mc-side-menu="True" data-mc-max-depth="2" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="True" data-mc-include-siblings="True" data-mc-include-parent="True" data-mc-toc="True">
                                                     </ul>
                                                 </div>
@@ -869,7 +869,6 @@ For the <a href="#Workday_driven_IT">Workday­-driven IT Provisioning</a> scenar
                                                         <p>After this, Contractor to Full-Time conversions in Workday will no longer create conflicts on import tab.</p>
                                                     </div>
                                                 </div>
-                                                <hr width="100%" size="0" align="center" />
                                                 <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Deactiva"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_">Deactivation</a></span>
                                                     <div class="MCDropDownBody dropDownBody">
                                                         <h2>Overview</h2>
@@ -879,7 +878,7 @@ For the <a href="#Workday_driven_IT">Workday­-driven IT Provisioning</a> scenar
                                                         <ul>
                                                             <li value="1">
                                                                 <p><a href="#Immediat" class="MCXref xref" xrefformat="{para}">Immediate Deactivation</a>: If the termination reason of the worker matches one of the configured immediate termination reasons within Okta, the worker is deactivated immediately. </p>
-                                                                <p><strong>Note</strong>: The termination date is not consulted if the termination reason matches. Therefore, a worker with an immediate termination reason will be terminated in 24 hours will be terminated immediately with the next import.</p>
+                                                                <p><strong>Note</strong>: The termination date is not consulted if the termination reason matches. Therefore, a worker with an immediate termination reason will be terminated immediately with the next import.</p>
                                                             </li>
                                                             <li value="2"><a href="#Time" class="MCXref xref" xrefformat="{para}">Time Zone Aware Deactivation</a>: If the termination reasons are not matched, then the termination/last day worked date of the worker are compared to the current time. Okta relies on the timezone provided by Workday within the termination date when determining if the deactivation time has come to pass. Typically Workday returns the termination date as midnight PST. If the current time is after that date then the worker will be deactivated.</li>
                                                         </ul>
@@ -1319,6 +1318,21 @@ Terminate_Employee_Voluntary_Commute</pre>
                                                                     <li value="2">WORKDAY_VERSION29_API_UPGRADE_AND_PERFORMANCE_IMPROVEMENTS</li>
                                                                 </ul>
                                                                 <p>The Workday Integration now supports Time-Zone Aware Deactivations where a worker's termination is processed based on the time zone of the worker's Location in Workday. </p>
+                                                                <p>In order for the Time-Zone Aware Deactivations feature to work successfully, you need to give additional required permissions to the integration System User/System Group listed below then activate those permissions, as described below:</p>
+                                                                <li value="6">
+                                                                    <p><strong>Domain Security Policy Permissions</strong>.</p>
+                                                                    <ul>
+                                                                        <li value="1">
+                                                                            <p>Follow steps a-e (part of step 6) of <a href="#integrator_system_user">Creating an Integrator System User in Workday</a> for the following domains:</p>
+                                                                            <ul>
+                                                                                <li value="1">
+                                                                                    <p><strong>"Worker Data:Location"</strong>
+                                                                                    </p>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
                                                                 <p>Okta detects the location of the worker and processes their scheduled termination (based on either <strong>Termination Date</strong> or <strong>Last Day of Work</strong>) based on the associated time zone of that location. This worker will then be deactivated on the next scheduled import after midnight in the time zone of that worker.</p>
                                                                 <p>If the worker has a preferred time zone in Workday set, aside from their location, then that time zone takes precedence over their detected location's timezone.  Order of precedence of determining time zone is as follows:</p>
                                                                 <ol>
@@ -1340,13 +1354,35 @@ Terminate_Employee_Voluntary_Commute</pre>
                                                     </div>
                                                 </div>
                                                 <hr width="100%" size="0" align="center" />
+                                                <h2>FAQ</h2>
+                                                <p style="font-weight: bold;">Are custom attributes supported? </p>
+                                                <blockquote>
+                                                    <p>Yes, we pull custom attributes in all of the imports. If you are not seeing a custom attribute, check the custom report in Workday with JSON endpoint and validate that the data is there.</p>
+                                                </blockquote>
+                                                <p><b>What are the performance load that can be supported in a Workday as a Master implementation? How many users can be imported in a full import/incremental import? </b>
+                                                </p>
+                                                <blockquote>
+                                                    <p>Currently we passed 150k users in our scale testing. We continue to move forward towards 500k.</p>
+                                                </blockquote>
+                                                <p style="font-weight: bold;">Are there technical limitations to integrating Okta with Workday?</p>
+                                                <blockquote>
+                                                    <p> We cannot determine changes on custom attributes for incremental imports if they do not have a transaction log tied to them, but if there are base attribute changes, we will pull in the custom attributes too.</p>
+                                                </blockquote>
+                                                <p style="font-weight: bold;">Are there limitations when provisioning/de-provisioning users using custom attributes? </p>
+                                                <blockquote>
+                                                    <p>No, the user works the same with or without the custom attributes.</p>
+                                                </blockquote>
+                                                <p style="font-weight: bold;">Are there limitations with a real time sync versus an import? </p>
+                                                <blockquote>
+                                                    <p>RTS requires a business process to be setup in Workday for each event you want to trigger.</p>
+                                                </blockquote>
                                                 <!-- Back to Top button --><a href="#" class="sf-back-to-top"><span class="arrow"></span>Top</a>
                                             </div>
                                         </div>
                                         <!-- *** Col3: Right menu Col *** -->
                                         <div class="is-not-in-mobile">
-                                            <div data-sticky-container="" id="G0hbAX3LR06O7wmneezB0g">
-                                                <div class="sticky sticky-menu" style="width:100%" data-sticky="" data-top-anchor="G0hbAX3LR06O7wmneezB0g:top" data-bottom-anchor="contentBody:bottom" data-sticky-on="small" data-scroll-container-on="small">
+                                            <div data-sticky-container="" id="PbqDVrNXsUCg4hki2IqE6Q">
+                                                <div class="sticky sticky-menu" style="width:100%" data-sticky="" data-top-anchor="PbqDVrNXsUCg4hki2IqE6Q:top" data-bottom-anchor="contentBody:bottom" data-sticky-on="small" data-scroll-container-on="small">
                                                     <ul class="nocontent menu _Skins_okta_right_menu mc-component" data-mc-is-context-sensitive="True" data-mc-linked-toc="Data/Tocs/okta_TOC.js" data-mc-side-menu="True" data-mc-max-depth="1" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="True" data-mc-include-siblings="False" data-mc-include-parent="True" data-mc-toc="True">
                                                     </ul>
                                                 </div>
