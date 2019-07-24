@@ -335,5 +335,7 @@ xmlAliasData += '    <Map Name=\"okta-radius-agent-history\" Link=\"Topics/Setti
 xmlAliasData += '    <Map Name=\"csh-actionable-notifications\" Link=\"Topics/Mobile/okta-verify-end-users.htm#ActionableNotifications\" ResolvedId=\"1168\" />';
 xmlAliasData += '    <Map Name=\"Security_General\" Link=\"Topics/Security/Security_General.htm\" ResolvedId=\"1169\" />';
 xmlAliasData += '    <Map Name=\"ext_match-user\" Link=\"Topics/Directory/eu-matching-imported-users.htm\" ResolvedId=\"1171\" />';
+xmlAliasData += '    <Map Name=\"ext_eu_reset_password_selfserve\" Link=\"Topics/Directory/eu-reset-password-self-serve.htm\" ResolvedId=\"1172\" />';
+xmlAliasData += '    <Map Name=\"ext_ov_eu\" Link=\"Topics/Mobile/okta-verify-end-users.htm\" ResolvedId=\"1173\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
