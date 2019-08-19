@@ -346,5 +346,6 @@ xmlAliasData += '    <Map Name=\"ext_match-user\" Link=\"Topics/Directory/eu-mat
 xmlAliasData += '    <Map Name=\"ext_eu_reset_password_selfserve\" Link=\"Topics/Directory/eu-reset-password-self-serve.htm\" ResolvedId=\"1172\" />';
 xmlAliasData += '    <Map Name=\"ext_ov_eu\" Link=\"Topics/Mobile/okta-verify-end-users.htm\" ResolvedId=\"1173\" />';
 xmlAliasData += '    <Map Name=\"ext_asa_main\" Link=\"Topics/Adv_Server_Access/docs/asa-overview.htm\" ResolvedId=\"1174\" />';
+xmlAliasData += '    <Map Name=\"oamp-okta-int\" Link=\"Topics/integrations/oamp-okta-int.htm\" ResolvedId=\"1175\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
