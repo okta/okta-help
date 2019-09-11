@@ -349,5 +349,12 @@ xmlAliasData += '    <Map Name=\"oamp-okta-int\" Link=\"Topics/integrations/oamp
 xmlAliasData += '    <Map Name=\"ext_okta_verify\" Link=\"Topics/Mobile/okta-verify-overview.htm\" ResolvedId=\"1176\" />';
 xmlAliasData += '    <Map Name=\"csh-suspicious-activity-reporting\" Link=\"Topics/Security/suspicious-activity-reporting.htm\" ResolvedId=\"1177\" />';
 xmlAliasData += '    <Map Name=\"csh_eDirectory\" Link=\"Topics/Directory/ldap-agent-configure.htm#eDirectory\" ResolvedId=\"1178\" />';
+xmlAliasData += '    <Map Name=\"csh-shc-threat-insight\" Link=\"Topics/Security/security-threat-insight.htm\" ResolvedId=\"1192\" />';
+xmlAliasData += '    <Map Name=\"ext_threatinsight\" Link=\"Topics/Security/security-threat-insight.htm\" ResolvedId=\"1195\" />';
+xmlAliasData += '    <Map Name=\"ext_asa\" Link=\"Topics/Adv_Server_Access/docs/setup/introduction.htm\" ResolvedId=\"1196\" />';
+xmlAliasData += '    <Map Name=\"ext_advars\" Link=\"Topics/Directory/ad-agent-var-defs-ref.htm\" ResolvedId=\"1197\" />';
+xmlAliasData += '    <Map Name=\"ext_googletrbl\" Link=\"Topics/Provisioning/Google/troubleshooting.htm\" ResolvedId=\"1198\" />';
+xmlAliasData += '    <Map Name=\"ext_addmzports\" Link=\"Topics/Directory/ad-agent-install-dmzports.htm\" ResolvedId=\"1199\" />';
+xmlAliasData += '    <Map Name=\"ext_oaginboundsaml\" Link=\"Topics/Access-Gateway/configure-spgw-okta-inbound-saml.htm\" ResolvedId=\"1201\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
