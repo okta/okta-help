@@ -349,6 +349,7 @@ xmlAliasData += '    <Map Name=\"oamp-okta-int\" Link=\"Topics/integrations/oamp
 xmlAliasData += '    <Map Name=\"ext_okta_verify\" Link=\"Topics/Mobile/okta-verify-overview.htm\" ResolvedId=\"1176\" />';
 xmlAliasData += '    <Map Name=\"csh-suspicious-activity-reporting\" Link=\"Topics/Security/suspicious-activity-reporting.htm\" ResolvedId=\"1177\" />';
 xmlAliasData += '    <Map Name=\"csh_eDirectory\" Link=\"Topics/Directory/ldap-agent-configure.htm#eDirectory\" ResolvedId=\"1178\" />';
+xmlAliasData += '    <Map Name=\"csh-shc-security-health-check\" Link=\"Topics/Security/SHC/security-health-check.htm\" ResolvedId=\"1193\" />';
 xmlAliasData += '    <Map Name=\"csh-shc-threat-insight\" Link=\"Topics/Security/security-threat-insight.htm\" ResolvedId=\"1192\" />';
 xmlAliasData += '    <Map Name=\"ext_threatinsight\" Link=\"Topics/Security/security-threat-insight.htm\" ResolvedId=\"1195\" />';
 xmlAliasData += '    <Map Name=\"ext_asa\" Link=\"Topics/Adv_Server_Access/docs/setup/introduction.htm\" ResolvedId=\"1196\" />';
@@ -356,5 +357,16 @@ xmlAliasData += '    <Map Name=\"ext_advars\" Link=\"Topics/Directory/ad-agent-v
 xmlAliasData += '    <Map Name=\"ext_googletrbl\" Link=\"Topics/Provisioning/Google/troubleshooting.htm\" ResolvedId=\"1198\" />';
 xmlAliasData += '    <Map Name=\"ext_addmzports\" Link=\"Topics/Directory/ad-agent-install-dmzports.htm\" ResolvedId=\"1199\" />';
 xmlAliasData += '    <Map Name=\"ext_oaginboundsaml\" Link=\"Topics/Access-Gateway/configure-spgw-okta-inbound-saml.htm\" ResolvedId=\"1201\" />';
+xmlAliasData += '    <Map Name=\"csh-shc-blacklist-zones\" Link=\"Topics/Security/SHC/blacklist-network-zones.htm\" ResolvedId=\"1184\" />';
+xmlAliasData += '    <Map Name=\"csh-shc-limit-admins\" Link=\"Topics/Security/SHC/limit-admins.htm\" ResolvedId=\"1182\" />';
+xmlAliasData += '    <Map Name=\"csh-shc-mfa-for-admins\" Link=\"Topics/Security/SHC/mfa-for-admins.htm\" ResolvedId=\"1179\" />';
+xmlAliasData += '    <Map Name=\"csh-shc-notification-enrollment\" Link=\"Topics/Security/SHC/notifications-factor-enroll.htm\" ResolvedId=\"1187\" />';
+xmlAliasData += '    <Map Name=\"csh-shc-notification-reset\" Link=\"Topics/Security/SHC/notifications-factor-reset.htm\" ResolvedId=\"1188\" />';
+xmlAliasData += '    <Map Name=\"csh-shc-notification-signon\" Link=\"Topics/Security/SHC/notifications-signon.htm\" ResolvedId=\"1186\" />';
+xmlAliasData += '    <Map Name=\"csh-shc-required-factors\" Link=\"Topics/Security/SHC/required-factors.htm\" ResolvedId=\"1191\" />';
+xmlAliasData += '    <Map Name=\"csh-shc-saml-authentication\" Link=\"Topics/Security/SHC/saml-authentication.htm\" ResolvedId=\"1194\" />';
+xmlAliasData += '    <Map Name=\"csh-shc-session-lifetime\" Link=\"Topics/Security/SHC/session-lifetime.htm\" ResolvedId=\"1185\" />';
+xmlAliasData += '    <Map Name=\"csh-shc-strong-factors\" Link=\"Topics/Security/SHC/strong-factors.htm\" ResolvedId=\"1181\" />';
+xmlAliasData += '    <Map Name=\"csh-shc-strong-password\" Link=\"Topics/Security/SHC/strong-passwords.htm\" ResolvedId=\"1189\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
