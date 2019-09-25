@@ -366,6 +366,5 @@ xmlAliasData += '    <Map Name=\"csh-shc-saml-authentication\" Link=\"Topics/Sec
 xmlAliasData += '    <Map Name=\"csh-session-lifetime\" Link=\"Topics/Security/security-health-check/session-lifetime.htm\" ResolvedId=\"1185\" />';
 xmlAliasData += '    <Map Name=\"csh-strong-factors\" Link=\"Topics/Security/security-health-check/strong-factors.htm\" ResolvedId=\"1181\" />';
 xmlAliasData += '    <Map Name=\"csh-strong-password\" Link=\"Topics/Security/security-health-check/strong-passwords.htm\" ResolvedId=\"1189\" />';
-xmlAliasData += '    <Map Name=\"csh-new-eu-dashboard\" Link=\"Topics/Settings/new-end-user-dashboard.htm\" ResolvedId=\"1183\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
