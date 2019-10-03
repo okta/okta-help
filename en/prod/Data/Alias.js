@@ -326,6 +326,7 @@ xmlAliasData += '    <Map Name=\"ext_Location_Zones\" Link=\"Topics/Security/Sec
 xmlAliasData += '    <Map Name=\"ext_Radius_Autopush\" Link=\"Topics/integrations/radius-autopush.htm\" ResolvedId=\"1152\" />';
 xmlAliasData += '    <Map Name=\"ext_Groups_Assign_Users\" Link=\"Topics/Directory/group-rules.htm#SupportedFunctions\" ResolvedId=\"1153\" />';
 xmlAliasData += '    <Map Name=\"ext_Group_Rules\" Link=\"Topics/Directory/group-rules.htm\" ResolvedId=\"1154\" />';
+xmlAliasData += '    <Map Name=\"csh-ov-reset\" Link=\"Topics/Mobile/okta-verify-reset.htm\" ResolvedId=\"1157\" />';
 xmlAliasData += '    <Map Name=\"csh-ov-end-users\" Link=\"Topics/Mobile/okta-verify-end-users.htm\" ResolvedId=\"1156\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-secret-key-ios\" Link=\"Topics/Mobile/Okta_Device_Trust_Native_Apps_Safari_MDM_Devices.htm\" ResolvedId=\"1158\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-secret-key-android\" Link=\"Topics/Mobile/dt-mdm-managed-android-devices.htm\" ResolvedId=\"1159\" />';
@@ -366,5 +367,6 @@ xmlAliasData += '    <Map Name=\"csh-session-lifetime\" Link=\"Topics/Security/s
 xmlAliasData += '    <Map Name=\"csh-strong-factors\" Link=\"Topics/Security/security-health-check/strong-factors.htm\" ResolvedId=\"1181\" />';
 xmlAliasData += '    <Map Name=\"csh-strong-password\" Link=\"Topics/Security/security-health-check/strong-passwords.htm\" ResolvedId=\"1189\" />';
 xmlAliasData += '    <Map Name=\"csh-agentless-dsso\" Link=\"Topics/Directory/Configuring_Agentless_SSO.htm\" ResolvedId=\"1202\" />';
+xmlAliasData += '    <Map Name=\"csh-agentless-regkey\" Link=\"Topics/Directory/Configuring_Agentless_SSO_pre2019.09.htm\" ResolvedId=\"1205\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
