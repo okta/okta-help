@@ -165,8 +165,8 @@
                                     <div class="okta-topics">
                                         <!-- *** Col1: Left Nav Col *** -->
                                         <div class="is-not-in-mobile">
-                                            <div data-sticky-container="" id="zfGwF8WzIE-sB_Fmx6K6-Q">
-                                                <div class="sticky sticky-menu" style="width:100%" data-sticky="" data-top-anchor="zfGwF8WzIE-sB_Fmx6K6-Q:top" data-bottom-anchor="contentBody:bottom" data-sticky-on="small" data-scroll-container-on="small">
+                                            <div data-sticky-container="" id="SSjEpmLr0k-e8ZlZPnNrRQ">
+                                                <div class="sticky sticky-menu" style="width:100%" data-sticky="" data-top-anchor="SSjEpmLr0k-e8ZlZPnNrRQ:top" data-bottom-anchor="contentBody:bottom" data-sticky-on="small" data-scroll-container-on="small">
                                                     <ul class="nocontent menu _Skins_okta_left_menu mc-component" data-mc-linked-toc="Data/Tocs/left_nav_TOC.js" data-mc-side-menu="True" data-mc-max-depth="2" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="True" data-mc-include-siblings="True" data-mc-include-parent="True" data-mc-toc="True">
                                                     </ul>
                                                 </div>
@@ -228,8 +228,7 @@
                                                     <p data-mc-conditions="Primary.live-site-only">Make sure to configure either an app- or org-level MFA policy in Okta before using this feature. Otherwise, when trying to access an Office 365 instance that has been configured in Azure AD Conditional Access to require MFA, end users can get stuck in an infinite authentication loop. </p>
                                                     <p data-mc-conditions="Primary.live-site-only">This is most likely to occur if neither your Okta org nor Office 365 app instance is configured to prompt for Okta MFA. Because Azure expects Okta to supply the app's MFA requirement, the Okta loading animation spins indefinitely and the end user cannot access the app. </p>
                                                 </div>
-                                                <h2>Procedure</h2>
-                                                <ol>
+                                                <ol data-mc-conditions="Primary.live-site-only">
                                                     <li value="1">Configure MFA in Okta.
 			
 			
@@ -249,6 +248,13 @@
                                                                         <li value="2">Open your WS-federated Office 365 app.</li>
                                                                         <li value="3">Click the <b>Sign On</b> tab &gt; <b>View Setup Instructions</b>.</li>
                                                                         <li value="4">Copy and run the script from under the <b>If your domain is already federated</b> section.</li>
+                                                                        <li value="5">
+                                                                            <p>Run the following Powershell command to ensure that <code>SupportMFA</code> value is <code>True</code>:</p>
+                                                                            <p><code>Connect-MsolService</code>
+                                                                            </p>
+                                                                            <p><code>Get-DomainFederationSettings</code>
+                                                                            </p>
+                                                                        </li>
                                                                     </ol>
                                                                 </p>
                                                                 <p>&#160;</p>
@@ -265,21 +271,30 @@
                                                                         <li value="1">From the Okta Admin Console, go to <b>Applications &gt;&#160;Applications</b>.</li>
                                                                         <li value="2">Open your WS-Federated Office 365 app.</li>
                                                                         <li value="3">Click the <b>Sign On</b> tab <b>&gt; Edit &gt; Save</b>.</li>
+                                                                        <li value="4">
+                                                                            <p>Run the following Powershell command to ensure that <code>SupportMFA</code> value is <code>True</code>:</p>
+                                                                            <p><code>Connect-MsolService</code>
+                                                                            </p>
+                                                                            <p><code>Get-DomainFederationSettings</code>
+                                                                            </p>
+                                                                        </li>
                                                                     </ol>
                                                                 </p>
                                                             </li>
                                                         </ol>
                                                     </li>
                                                 </ol>
+                                                <h3>Disable this feature</h3>
+                                                <p>If you decide to turn off this feature, you must manually set the <code>SupportsMFA</code> setting to <code>false</code> for all federated domains that were automatically federated in Okta and had this feature enabled.</p>
+                                                <p>Use this PowerShell cmdlet to turn this feature off:</p>
+                                                <p><code style="background-color: #f5f5f5;">Set-MsolDomainFederationSettings -DomainName &lt;target domain name&gt; -SupportsMfa $false</code>
+                                                </p>
                                                 <h2>How it works</h2>
-                                                <h3>Okta MFA satisfies Azure AD Conditional Access
-				MFA requirement</h3>
-                                                <p>If  Office 365 is configured with an Azure AD Conditional Access policy that requires MFA, end users trying to access the app are challenged by Okta for MFA to satisfy the Azure AD MFA&#160;requirement. Okta then passes the successful MFA claim to Azure AD which accepts the claim and allows access without prompting end users for a separate MFA.
-
-					</p>
+                                                <h3>Okta MFA satisfies Azure AD Conditional Access MFA requirement</h3>
+                                                <p>If  Office 365 is configured with an Azure AD Conditional Access policy that requires MFA, end users trying to access the app are challenged by Okta for MFA to satisfy the Azure AD MFA&#160;requirement. Okta then passes the successful MFA claim to Azure AD which accepts the claim and allows access without prompting end users for a separate MFA.</p>
                                                 <p>Assuming that Azure AD Conditional Access MFA is enabled and Okta MFA is enabled at the org or app level, or both, Okta passes the MFA claim as described in the following table.</p>
                                                 <p> </p>
-                                                <table style="mc-table-style: url('../../../Resources/TableStyles/okta_table_white.css');margin-left: 0;margin-right: auto;width: auto;" class="TableStyle-okta_table_white" cellspacing="0">
+                                                <table style="mc-table-style: url('../../../Resources/TableStyles/okta_table_white.css');margin-left: 0;margin-right: auto;" class="TableStyle-okta_table_white" cellspacing="0">
                                                     <col class="TableStyle-okta_table_white-Column-Column1" />
                                                     <col class="TableStyle-okta_table_white-Column-Column1" />
                                                     <col class="TableStyle-okta_table_white-Column-Column1" />
@@ -299,7 +314,7 @@
                                                             <td class="TableStyle-okta_table_white-BodyE-Column1-Body1">Enabled</td>
                                                             <td class="TableStyle-okta_table_white-BodyD-Column1-Body1">
                                                                 <p>End users will enter an infinite loop. To prevent this, you must configure Okta MFA in order to satisfy the Azure AD MFA requirement. </p>
-                                                                <p>See the <b>Warning</b> above.</p>
+                                                                <p>See the <b>Caution</b> above.</p>
                                                             </td>
                                                         </tr>
                                                         <tr class="TableStyle-okta_table_white-Body-Body1">
@@ -321,12 +336,11 @@
                                                     </tbody>
                                                 </table>
                                                 <p>&#160;</p>
-                                                <h3><a name="When"></a>
-		Okta enrolls users in Windows Hello for Business</h3>
+                                                <h3>Okta enrolls users in Windows Hello for Business</h3>
                                                 <p><b>Prerequisite</b>: The device must be Hybrid Azure AD or Azure AD joined.</p>
                                                 <p>If your organization requires Windows Hello for Business, end users who are not enrolled in Windows Hello for Business already are prompted to complete a step-up authentication (e.g. SMS, push) in Okta. After successful enrollment in Windows Hello for Business, end users can use it to log in on the device. Okta will help the end users enroll in Windows Hello for Business as described in the following table.</p>
                                                 <p>&#160;</p>
-                                                <table style="margin-left: 0;margin-right: auto;width: auto;mc-table-style: url('../../../Resources/TableStyles/okta_table_white.css');" class="TableStyle-okta_table_white" cellspacing="0">
+                                                <table style="mc-table-style: url('../../../Resources/TableStyles/okta_table_white.css');margin-left: 0;margin-right: auto;" class="TableStyle-okta_table_white" cellspacing="0">
                                                     <col class="TableStyle-okta_table_white-Column-Column1" />
                                                     <col class="TableStyle-okta_table_white-Column-Column1" />
                                                     <col class="TableStyle-okta_table_white-Column-Column1" />
@@ -343,7 +357,7 @@
                                                             <td class="TableStyle-okta_table_white-BodyE-Column1-Body1">Disabled</td>
                                                             <td class="TableStyle-okta_table_white-BodyD-Column1-Body1">
                                                                 <p>End users will enter an infinite loop. To prevent this, you must configure Okta MFA in order to satisfy the Azure AD MFA requirement. </p>
-                                                                <p>See the <b>Warning</b> above.</p>
+                                                                <p>See the <b>Caution</b> above.</p>
                                                             </td>
                                                         </tr>
                                                         <tr class="TableStyle-okta_table_white-Body-Body1">
@@ -363,14 +377,11 @@
                                                 </table>
                                                 <p>&#160;</p>
                                                 <h2>Related topics</h2>
-                                                <h3>From Okta</h3>
-                                                <p><a href="../../Security/MFA.htm" target="_blank">Multifactor Authentication</a>
+                                                <p><a href="../Apps_Okta_Enhancements_Office_365_Integration.htm" class="MCXref xref">Enhanced provisioning and deprovisioning for Office 365</a>
                                                 </p>
-                                                <h3>From Microsoft</h3>
-                                                <p><a href="https://docs.microsoft.com/en-us/office365/admin/security-and-compliance/multi-factor-authentication-plan?view=o365-worldwide#enable-mfa" target="_blank">Enable MFA</a>
+                                                <p><a href="o365-main.htm" class="MCXref xref">Integrate Office 365</a>
                                                 </p>
-                                                <p><a href="https://docs.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/hello-identity-verification" target="_blank">Windows Hello for Business</a>
-                                                </p>
+                                                <p><a href="https://docs.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/hello-identity-verification" target="_blank">Windows Hello for Business</a> (Microsoft documentation)</p>
                                                 <!-- Back to Top button --><a href="#" class="sf-back-to-top"><span class="arrow"></span>Top</a>
                                             </div>
                                         </div>
