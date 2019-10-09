@@ -366,10 +366,14 @@ xmlAliasData += '    <Map Name=\"csh-shc-saml-authentication\" Link=\"Topics/Sec
 xmlAliasData += '    <Map Name=\"csh-session-lifetime\" Link=\"Topics/Security/healthinsight/session-lifetime.htm\" ResolvedId=\"1185\" />';
 xmlAliasData += '    <Map Name=\"csh-strong-factors\" Link=\"Topics/Security/healthinsight/strong-factors.htm\" ResolvedId=\"1181\" />';
 xmlAliasData += '    <Map Name=\"csh-strong-password\" Link=\"Topics/Security/healthinsight/strong-passwords.htm\" ResolvedId=\"1189\" />';
+xmlAliasData += '    <Map Name=\"csh-new-eu-dashboard\" Link=\"Topics/Settings/new-end-user-dashboard.htm\" ResolvedId=\"1183\" />';
 xmlAliasData += '    <Map Name=\"csh-agentless-dsso\" Link=\"Topics/Directory/Configuring_Agentless_SSO.htm\" ResolvedId=\"1202\" />';
 xmlAliasData += '    <Map Name=\"csh-agentless-regkey\" Link=\"Topics/Directory/Configuring_Agentless_SSO_pre2019.09.htm\" ResolvedId=\"1205\" />';
 xmlAliasData += '    <Map Name=\"csh-saml-authentication\" Link=\"Topics/Security/healthinsight/saml-authentication.htm\" ResolvedId=\"1206\" />';
 xmlAliasData += '    <Map Name=\"csh-healthinsight\" Link=\"Topics/Security/healthinsight/healthinsight.htm\" ResolvedId=\"1207\" />';
 xmlAliasData += '    <Map Name=\"ext-healthinsight\" Link=\"Topics/Security/healthinsight/healthinsight.htm\" ResolvedId=\"1208\" />';
+xmlAliasData += '    <Map Name=\"ext_healthinsight\" Link=\"Topics/Security/healthinsight/healthinsight.htm\" ResolvedId=\"1209\" />';
+xmlAliasData += '    <Map Name=\"ext_sar\" Link=\"Topics/Security/suspicious-activity-reporting.htm\" ResolvedId=\"1211\" />';
+xmlAliasData += '    <Map Name=\"ext_ov_endusers\" Link=\"Topics/Mobile/okta-verify-end-users.htm\" ResolvedId=\"1212\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
