@@ -375,5 +375,7 @@ xmlAliasData += '    <Map Name=\"ext-healthinsight\" Link=\"Topics/Security/heal
 xmlAliasData += '    <Map Name=\"ext_healthinsight\" Link=\"Topics/Security/healthinsight/healthinsight.htm\" ResolvedId=\"1209\" />';
 xmlAliasData += '    <Map Name=\"ext_sar\" Link=\"Topics/Security/suspicious-activity-reporting.htm\" ResolvedId=\"1211\" />';
 xmlAliasData += '    <Map Name=\"ext_ov_endusers\" Link=\"Topics/Mobile/okta-verify-end-users.htm\" ResolvedId=\"1212\" />';
+xmlAliasData += '    <Map Name=\"csh_custom_user_types\" Link=\"Topics/Directory/directory-UD-usertypes.htm\" ResolvedId=\"1213\" />';
+xmlAliasData += '    <Map Name=\"csh_custom_user_types_about\" Link=\"Topics/Directory/directory-UD-usertypes-about.htm\" ResolvedId=\"1214\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
