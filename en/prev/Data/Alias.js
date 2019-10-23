@@ -92,7 +92,6 @@ xmlAliasData += '    <Map Name=\"ext_Apps_Configure_Template_App\" Link=\"Topics
 xmlAliasData += '    <Map Name=\"ext_Apps_Configuring_WS_Federation\" Link=\"Topics/Apps/Apps_Configuring WS-Federation.htm\" ResolvedId=\"200019\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Enable_O365_Chiclets\" Link=\"Topics/Apps/Apps_Enable_O365_Chiclets.htm\" ResolvedId=\"200020\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Installing_Plugin_5x_with_IE\" Link=\"Topics/Apps/Apps_Installing_Plugin_5x_with_IE.htm\" ResolvedId=\"200021\" />';
-xmlAliasData += '    <Map Name=\"ext_Apps_Managing_Google_Licenses\" Link=\"Topics/Apps/Apps_Managing_Google_Licenses.htm\" ResolvedId=\"200022\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Mapping_AD_LDAP_and_Workday_Values\" Link=\"Topics/Apps/Apps_Mapping_AD_LDAP_and_Workday_Values.htm\" ResolvedId=\"200023\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Moving_Microsoft\" Link=\"Topics/Apps/Apps_Moving_Microsoft.htm\" ResolvedId=\"200024\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_O365_Admin_Consent\" Link=\"Topics/Apps/Apps_O365_Admin_Consent.htm\" ResolvedId=\"200025\" />';
