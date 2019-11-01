@@ -356,7 +356,7 @@ xmlAliasData += '    <Map Name=\"ext_addmzports\" Link=\"Topics/Directory/ad-age
 xmlAliasData += '    <Map Name=\"ext_oaginboundsaml\" Link=\"Topics/Access-Gateway/configure-saml-app.htm\" ResolvedId=\"1201\" />';
 xmlAliasData += '    <Map Name=\"csh-blacklist-zones\" Link=\"Topics/Security/healthinsight/blacklist-network-zones.htm\" ResolvedId=\"1184\" />';
 xmlAliasData += '    <Map Name=\"csh-limit-admins\" Link=\"Topics/Security/healthinsight/limit-admins.htm\" ResolvedId=\"1182\" />';
-xmlAliasData += '    <Map Name=\"csh-mfa-for-admins\" Link=\"Topics/Security/healthinsight/mfa-for-admins.htm\" ResolvedId=\"1179\" />';
+xmlAliasData += '    <Map Name=\"csh-mfa-for-admins\" Link=\"Topics/Security/mfa-for-admins.htm\" ResolvedId=\"1179\" />';
 xmlAliasData += '    <Map Name=\"csh-notification-enrollment\" Link=\"Topics/Security/healthinsight/notifications-factor-enroll.htm\" ResolvedId=\"1187\" />';
 xmlAliasData += '    <Map Name=\"csh-notification-reset\" Link=\"Topics/Security/healthinsight/notifications-factor-reset.htm\" ResolvedId=\"1188\" />';
 xmlAliasData += '    <Map Name=\"csh-notification-signon\" Link=\"Topics/Security/healthinsight/notifications-signon.htm\" ResolvedId=\"1186\" />';
@@ -376,5 +376,9 @@ xmlAliasData += '    <Map Name=\"ext_sar\" Link=\"Topics/Security/suspicious-act
 xmlAliasData += '    <Map Name=\"ext_ov_endusers\" Link=\"Topics/Mobile/okta-verify-end-users.htm\" ResolvedId=\"1212\" />';
 xmlAliasData += '    <Map Name=\"csh_custom_user_types\" Link=\"Topics/Directory/directory-UD-usertypes.htm\" ResolvedId=\"1213\" />';
 xmlAliasData += '    <Map Name=\"csh_custom_user_types_about\" Link=\"Topics/Directory/directory-UD-usertypes-about.htm\" ResolvedId=\"1214\" />';
+xmlAliasData += '    <Map Name=\"ext-inline-hooks\" Link=\"Topics/Directory/inline-hooks.htm\" ResolvedId=\"1215\" />';
+xmlAliasData += '    <Map Name=\"ext-event-hooks\" Link=\"Topics/Directory/event-hooks.htm\" ResolvedId=\"1216\" />';
+xmlAliasData += '    <Map Name=\"ext-workflow-overview\" Link=\"Topics/Directory/workflow-overview.htm\" ResolvedId=\"1217\" />';
+xmlAliasData += '    <Map Name=\"csh-SMS-customization\" Link=\"Topics/Settings/Settings_SMS.htm\" ResolvedId=\"1218\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
