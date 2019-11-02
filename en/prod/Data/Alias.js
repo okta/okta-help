@@ -380,5 +380,9 @@ xmlAliasData += '    <Map Name=\"ext-inline-hooks\" Link=\"Topics/Directory/inli
 xmlAliasData += '    <Map Name=\"ext-event-hooks\" Link=\"Topics/Directory/event-hooks.htm\" ResolvedId=\"1216\" />';
 xmlAliasData += '    <Map Name=\"ext-workflow-overview\" Link=\"Topics/Directory/workflow-overview.htm\" ResolvedId=\"1217\" />';
 xmlAliasData += '    <Map Name=\"csh-SMS-customization\" Link=\"Topics/Settings/Settings_SMS.htm\" ResolvedId=\"1218\" />';
+xmlAliasData += '    <Map Name=\"Okta_RADIUS_App\" Link=\"Topics/Security/Okta_Radius_App.htm\" ResolvedId=\"1221\" />';
+xmlAliasData += '    <Map Name=\"integrations\" Link=\"Topics/integrations/integrations.htm\" ResolvedId=\"1222\" />';
+xmlAliasData += '    <Map Name=\"App_Based_Signon\" Link=\"Topics/Security/App_Based_Signon.htm\" ResolvedId=\"1223\" />';
+xmlAliasData += '    <Map Name=\"Apps_Apps_Page\" Link=\"Topics/Apps/Apps_Apps_Page.htm\" ResolvedId=\"1224\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
