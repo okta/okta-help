@@ -367,6 +367,8 @@ xmlAliasData += '    <Map Name=\"csh-strong-factors\" Link=\"Topics/Security/hea
 xmlAliasData += '    <Map Name=\"csh-strong-password\" Link=\"Topics/Security/healthinsight/strong-passwords.htm\" ResolvedId=\"1189\" />';
 xmlAliasData += '    <Map Name=\"csh-new-eu-dashboard\" Link=\"Topics/Settings/new-end-user-dashboard.htm\" ResolvedId=\"1183\" />';
 xmlAliasData += '    <Map Name=\"csh-agentless-dsso\" Link=\"Topics/Directory/Configuring_Agentless_SSO.htm\" ResolvedId=\"1202\" />';
+xmlAliasData += '    <Map Name=\"csh-agentless-migration\" Link=\"Topics/Directory/configure-agentless-sso-migration.htm\" ResolvedId=\"1203\" />';
+xmlAliasData += '    <Map Name=\"NEW\" Link=\"Topics/Directory/configure-agentless-sso-migration.htm\" ResolvedId=\"1204\" />';
 xmlAliasData += '    <Map Name=\"csh-agentless-regkey\" Link=\"Topics/Directory/Configuring_Agentless_SSO_pre2019.09.htm\" ResolvedId=\"1205\" />';
 xmlAliasData += '    <Map Name=\"csh-saml-authentication\" Link=\"Topics/Security/healthinsight/saml-authentication.htm\" ResolvedId=\"1206\" />';
 xmlAliasData += '    <Map Name=\"csh-healthinsight\" Link=\"Topics/Security/healthinsight/healthinsight.htm\" ResolvedId=\"1207\" />';
