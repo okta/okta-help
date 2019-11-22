@@ -49,6 +49,7 @@ xmlAliasData += '    <Map Name=\"mfa-onprem\" Link=\"Topics/Security/MFA_OnPrem.
 xmlAliasData += '    <Map Name=\"ad-pw-sync-agent\" Link=\"Topics/Directory/Installing_Configuring_Active_Directory_Password_Sync_Agent.htm\" ResolvedId=\"1019\" />';
 xmlAliasData += '    <Map Name=\"dt-win-desktop\" Link=\"Topics/Mobile/Okta_Mobile_Device_Trust_Windows-desktop.htm\" ResolvedId=\"1021\" />';
 xmlAliasData += '    <Map Name=\"okta-cisco-radius-intg\" Link=\"Topics/integrations/cisco-radius-intg.htm\" ResolvedId=\"1022\" />';
+xmlAliasData += '    <Map Name=\"chs-custom-url\" Link=\"Topics/Settings/settings-customization-general.htm\" ResolvedId=\"1023\" />';
 xmlAliasData += '    <Map Name=\"Security_Behavior_Detection\" Link=\"Topics/Security/proc-security-behavior-detection.htm\" ResolvedId=\"1024\" />';
 xmlAliasData += '    <Map Name=\"okta-palo-alto-radius-intg\" Link=\"Topics/integrations/palo-alto-radius-intg.htm\" ResolvedId=\"1025\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-opp-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_OPP_Agent.htm\" ResolvedId=\"1026\" />';
@@ -388,5 +389,10 @@ xmlAliasData += '    <Map Name=\"App_Based_Signon\" Link=\"Topics/Security/App_B
 xmlAliasData += '    <Map Name=\"Apps_Apps_Page\" Link=\"Topics/Apps/Apps_Apps_Page.htm\" ResolvedId=\"1224\" />';
 xmlAliasData += '    <Map Name=\"ext-custom-user-types\" Link=\"Topics/Directory/directory-UD-usertypes-about.htm\" ResolvedId=\"1225\" />';
 xmlAliasData += '    <Map Name=\"ext-assign-apps\" Link=\"Topics/Directory/eu-assign-apps.htm\" ResolvedId=\"1226\" />';
+xmlAliasData += '    <Map Name=\"ext-Okta-workflows\" Link=\"Topics/Directory/workflow-Okta-Workflows.htm\" ResolvedId=\"1228\" />';
+xmlAliasData += '    <Map Name=\"ext-connect-your-apps\" Link=\"Topics/Directory/workflow-connect-your-applications.htm\" ResolvedId=\"1229\" />';
+xmlAliasData += '    <Map Name=\"ext-build-a-flow\" Link=\"Topics/Directory/workflow-build-a-flow.htm\" ResolvedId=\"1231\" />';
+xmlAliasData += '    <Map Name=\"csh-profile-masters\" Link=\"Topics/Directory/eu-profile-masters.htm\" ResolvedId=\"1233\" />';
+xmlAliasData += '    <Map Name=\"epcs-okta-intg\" Link=\"Topics/integrations/epcs-okta.htm\" ResolvedId=\"1234\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
