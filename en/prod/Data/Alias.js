@@ -394,5 +394,6 @@ xmlAliasData += '    <Map Name=\"ext-connect-your-apps\" Link=\"Topics/Directory
 xmlAliasData += '    <Map Name=\"ext-build-a-flow\" Link=\"Topics/Directory/workflow-build-a-flow.htm\" ResolvedId=\"1231\" />';
 xmlAliasData += '    <Map Name=\"csh-profile-masters\" Link=\"Topics/Directory/eu-profile-masters.htm\" ResolvedId=\"1233\" />';
 xmlAliasData += '    <Map Name=\"epcs-okta-intg\" Link=\"Topics/integrations/epcs-okta.htm\" ResolvedId=\"1234\" />';
+xmlAliasData += '    <Map Name=\"csh-LDAP-deployment\" Link=\"Topics/Directory/ldap-deployment-main.htm\" ResolvedId=\"1235\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
