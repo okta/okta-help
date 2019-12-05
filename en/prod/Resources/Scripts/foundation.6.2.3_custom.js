@@ -836,26 +836,29 @@
         Feather: function (menu) {
             var type = arguments.length <= 1 || arguments[1] === undefined ? 'zf' : arguments[1];
 
-            //menu.attr('role', 'navigation');
+            menu.attr('role', 'menubar');
 
-            var items = menu.find('li'),
+            var items = menu.find('li').attr({ 'role': 'menuitem' }),
                 subMenuClass = 'is-' + type + '-submenu',
                 subItemClass = subMenuClass + '-item',
                 hasSubClass = 'is-' + type + '-submenu-parent';
+
+            menu.find('a:first').attr('tabindex', 0);
 
             items.each(function () {
                 var $item = $(this),
                     $sub = $item.children('ul');
 
                 if ($sub.length) {
-                    $item.children().children('a:first').addClass(hasSubClass).attr({
+                    $item.addClass(hasSubClass).attr({
                         'aria-haspopup': true,
                         'aria-expanded': false,
+                        'aria-label': $item.children('a:first').text()
                     });
 
                     $sub.addClass('submenu ' + subMenuClass).attr({
                         'data-submenu': '',
-                        'aria-hidden': false,
+                        'aria-hidden': true,
                         'role': 'menu'
                     });
                 }
@@ -1196,7 +1199,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             value: function _init() {
                 this.$submenuAnchors = this.$element.find('li.is-drilldown-submenu-parent').children('a');
                 this.$submenus = this.$submenuAnchors.parent('li').children('[data-submenu]');
-                this.$menuItems = this.$element.find('li').not('.js-drilldown-back').find('a');
+                this.$menuItems = this.$element.find('li').not('.js-drilldown-back').attr('role', 'menuitem').find('a');
 
                 this._prepareMenu();
 
@@ -1433,8 +1436,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }, {
             key: '_show',
             value: function _show($elem) {
-                $elem.children('[data-submenu]').addClass('is-active').attr("aria-hidden", false).css('display', 'block');
-                $elem.children('a').attr('aria-expanded', true);
+                $elem.children('[data-submenu]').addClass('is-active');
                 /**
                  * Fires when the submenu has opened.
                  * @event Drilldown#open
@@ -1454,8 +1456,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             value: function _hide($elem) {
                 var _this = this;
                 $elem.addClass('is-closing').one(Foundation.transitionend($elem), function () {
-                    $elem.removeClass('is-active is-closing').attr('aria-hidden', true).css('display', 'none');
-                    $elem.parent().children('a').attr('aria-expanded', false);
+                    $elem.removeClass('is-active is-closing');
                     $elem.blur();
                 });
                 /**
@@ -1610,10 +1611,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             key: '_init',
             value: function _init() {
                 this.$element.find('[data-submenu]').not('.is-active').slideUp(0); //.find('a').css('padding-left', '1rem');
-                //this.$element.attr({
-                    //'role': 'tablist',
-                    //'aria-multiselectable': this.options.multiOpen
-                //});
+                this.$element.attr({
+                    'role': 'tablist',
+                    'aria-multiselectable': this.options.multiOpen
+                });
 
                 this.$menuLinks = this.$element.find('.is-accordion-submenu-parent');
                 this.$menuLinks.each(function () {
@@ -1786,8 +1787,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     this.up(this.$element.find('.is-active').not($target.parentsUntil(this.$element).add($target)));
                 }
 
-                $target.addClass('is-active').attr({ 'aria-hidden': false });
-                $("[aria-controls='" + $target.attr("id") + "']").attr({"aria-expanded": true});
+                $target.addClass('is-active').attr({ 'aria-hidden': false }).parent('.is-accordion-submenu-parent').attr({ 'aria-expanded': true });
 
                 //Foundation.Move(this.options.slideSpeed, $target, function() {
                 $target.slideDown(_this.options.slideSpeed, function () {
@@ -1821,7 +1821,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 //});
 
                 var $menus = $target.find('[data-submenu]').slideUp(0).addBack().attr('aria-hidden', true);
-                $("[aria-controls='" + $menus.attr("id") + "']").attr({ "aria-expanded": false });;
+
+                $menus.parent('.is-accordion-submenu-parent').attr('aria-expanded', false);
             }
 
             /**
@@ -2324,7 +2325,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 }
                 var _this = this,
                     $body = $(document.body);
-                this.$element.css('display', 'block');
 
                 if (this.options.forceTop) {
                     $('body').scrollTop(0);
@@ -2355,12 +2355,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 this.$triggers.attr('aria-expanded', 'true');
                 this.$element.attr('aria-hidden', 'false').trigger('opened.zf.offcanvas');
 
-                var $focusElement = this.$element.find('a.selected');
-                if ($focusElement.length == 0) {
-                    $focusElement = this.$element.find('a').first();
-                }
-                $focusElement.focus();
-
                 if (trigger) {
                     this.$lastTrigger = trigger;
                 }
@@ -2371,11 +2365,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                             _this.$exiter.addClass('is-visible');
                         }
 
-                        var $focusEl = _this.$element.find('a.selected');
-                        if (!($focusEl.length > 0 && $focusEl.is(":visible"))) {
-                            $focusEl = _this.$element.find('a, button').eq(0);
-                        }
-                        $focusEl.focus();
+                        _this.$element.find('a, button').eq(0).focus();
                     });
                 }
 
@@ -2445,10 +2435,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 }
 
                 var _this = this;
-
-                this.$element.one(Foundation.transitionend(this.$element), function () {
-                    $(this).css('display', 'none');
-                });
 
                 //  Foundation.Move(this.options.transitionTime, this.$element, function() {
                 $('[data-off-canvas-wrapper]').removeClass('is-off-canvas-open is-open-' + _this.options.position);
@@ -2934,7 +2920,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 }
                 this.containerHeight = newContainerHeight;
                 this.$container.css({
-                    'min-height': newContainerHeight
+                    height: newContainerHeight
                 });
                 this.elemHeight = newContainerHeight;
 
