@@ -392,10 +392,12 @@ xmlAliasData += '    <Map Name=\"ext-assign-apps\" Link=\"Topics/Directory/eu-as
 xmlAliasData += '    <Map Name=\"ext-Okta-workflows\" Link=\"Topics/Directory/workflow-Okta-Workflows.htm\" ResolvedId=\"1228\" />';
 xmlAliasData += '    <Map Name=\"ext-connect-your-apps\" Link=\"Topics/Directory/workflow-connect-your-applications.htm\" ResolvedId=\"1229\" />';
 xmlAliasData += '    <Map Name=\"ext-build-a-flow\" Link=\"Topics/Directory/workflow-build-a-flow.htm\" ResolvedId=\"1231\" />';
+xmlAliasData += '    <Map Name=\"csh_admin-third\" Link=\"Topics/Security/admin-third-party.htm\" ResolvedId=\"1232\" />';
 xmlAliasData += '    <Map Name=\"csh-profile-masters\" Link=\"Topics/Directory/eu-profile-masters.htm\" ResolvedId=\"1233\" />';
 xmlAliasData += '    <Map Name=\"epcs-okta-intg\" Link=\"Topics/integrations/epcs-okta.htm\" ResolvedId=\"1234\" />';
 xmlAliasData += '    <Map Name=\"csh-LDAP-deployment\" Link=\"Topics/Directory/ldap-deployment-main.htm\" ResolvedId=\"1235\" />';
 xmlAliasData += '    <Map Name=\"ext_ldap_deployment\" Link=\"Topics/Directory/ldap-deployment-main.htm\" ResolvedId=\"1236\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_Profile_Editor_Tasks\" Link=\"Topics/Directory/eu-profile_editor_tasks.htm\" ResolvedId=\"1237\" />';
+xmlAliasData += '    <Map Name=\"ext_AD_register_domains\" Link=\"Topics/Directory/ad-agent-register-multipledomains.htm\" ResolvedId=\"1238\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
