@@ -3,8 +3,6 @@ xmlAliasData += '<?xml version=\"1.0\" encoding=\"utf-8\"?>';
 xmlAliasData += '<CatapultAliasFile>';
 xmlAliasData += '    <Map Name=\"csh_security_general\" Link=\"Topics/Security/Security_General.htm\" ResolvedId=\"1000\" />';
 xmlAliasData += '    <Map Name=\"Security_Policies\" Link=\"Topics/Security/Security_Policies.htm#Security_Policies1\" ResolvedId=\"1260\" />';
-xmlAliasData += '    <Map Name=\"Security_Authentication_AD\" Link=\"Topics/Security/Security_Authentication.htm#Security_Authentication_AD\" ResolvedId=\"1020\" />';
-xmlAliasData += '    <Map Name=\"Security_Authentication_LDAP\" Link=\"Topics/Security/Security_Authentication.htm#Security_Authentication_LDAP\" ResolvedId=\"1030\" />';
 xmlAliasData += '    <Map Name=\"Security_Authentication_SymantecVIP\" Link=\"Topics/Security/MFA.htm#Security_Authentication_SymantecVIP\" ResolvedId=\"1050\" />';
 xmlAliasData += '    <Map Name=\"Security_Authentication_RSA\" Link=\"Topics/Security/MFA_OnPrem.htm#Security_Authentication_RSA\" ResolvedId=\"1060\" />';
 xmlAliasData += '    <Map Name=\"Security_Authentication_OnPrem\" Link=\"Topics/Security/MFA_OnPrem.htm#Authentication_OnPrem\" ResolvedId=\"1070\" />';
@@ -203,7 +201,6 @@ xmlAliasData += '    <Map Name=\"ext_proc_mfa_win_creds_rdp\" Link=\"Topics/Secu
 xmlAliasData += '    <Map Name=\"ext_proc_security_behavior_detection\" Link=\"Topics/Security/proc-security-behavior-detection.htm\" ResolvedId=\"200165\" />';
 xmlAliasData += '    <Map Name=\"ext_Security\" Link=\"Topics/Security/Security.htm\" ResolvedId=\"200167\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_at_Okta\" Link=\"Topics/Security/Security_at_Okta.htm\" ResolvedId=\"200168\" />';
-xmlAliasData += '    <Map Name=\"ext_Security_Authentication\" Link=\"Topics/Security/Security_Authentication.htm\" ResolvedId=\"200169\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_Duo\" Link=\"Topics/Security/Security_Duo.htm\" ResolvedId=\"200170\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_General\" Link=\"Topics/Security/Security_General.htm\" ResolvedId=\"200171\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_Network\" Link=\"Topics/Security/Security_Network.htm\" ResolvedId=\"200172\" />';
@@ -324,7 +321,6 @@ xmlAliasData += '    <Map Name=\"ext_Device_Trust_MacOS\" Link=\"Topics/Mobile/O
 xmlAliasData += '    <Map Name=\"ext_Create_Group_Rules\" Link=\"Topics/Directory/group-rules.htm#Using\" ResolvedId=\"1149\" />';
 xmlAliasData += '    <Map Name=\"ext_Location_Zones\" Link=\"Topics/Security/Security_Network.htm#LocationZones\" ResolvedId=\"1151\" />';
 xmlAliasData += '    <Map Name=\"ext_Radius_Autopush\" Link=\"Topics/integrations/radius-autopush.htm\" ResolvedId=\"1152\" />';
-xmlAliasData += '    <Map Name=\"ext_Groups_Assign_Users\" Link=\"Topics/Directory/group-rules.htm#SupportedFunctions\" ResolvedId=\"1153\" />';
 xmlAliasData += '    <Map Name=\"ext_Group_Rules\" Link=\"Topics/Directory/group-rules.htm\" ResolvedId=\"1154\" />';
 xmlAliasData += '    <Map Name=\"csh-ov-reset\" Link=\"Topics/Mobile/okta-verify-reset.htm\" ResolvedId=\"1157\" />';
 xmlAliasData += '    <Map Name=\"csh-ov-end-users\" Link=\"Topics/Mobile/okta-verify-end-users.htm\" ResolvedId=\"1156\" />';
