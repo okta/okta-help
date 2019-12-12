@@ -201,6 +201,7 @@ xmlAliasData += '    <Map Name=\"ext_proc_mfa_win_creds_rdp\" Link=\"Topics/Secu
 xmlAliasData += '    <Map Name=\"ext_proc_security_behavior_detection\" Link=\"Topics/Security/proc-security-behavior-detection.htm\" ResolvedId=\"200165\" />';
 xmlAliasData += '    <Map Name=\"ext_Security\" Link=\"Topics/Security/Security.htm\" ResolvedId=\"200167\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_at_Okta\" Link=\"Topics/Security/Security_at_Okta.htm\" ResolvedId=\"200168\" />';
+xmlAliasData += '    <Map Name=\"ext_Security_Authentication\" Link=\"Topics/Security/Security_Authentication.htm\" ResolvedId=\"200169\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_Duo\" Link=\"Topics/Security/Security_Duo.htm\" ResolvedId=\"200170\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_General\" Link=\"Topics/Security/Security_General.htm\" ResolvedId=\"200171\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_Network\" Link=\"Topics/Security/Security_Network.htm\" ResolvedId=\"200172\" />';
