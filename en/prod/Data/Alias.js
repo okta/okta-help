@@ -121,7 +121,6 @@ xmlAliasData += '    <Map Name=\"ext_Agent_Installing_the_Okta_Radius_Agent\" Li
 xmlAliasData += '    <Map Name=\"ext_Attribute_Level_Mastering\" Link=\"Topics/Directory/eu-attribute-level-mastering.htm\" ResolvedId=\"200055\" />';
 xmlAliasData += '    <Map Name=\"ext_Configuring_Agentless_SSO\" Link=\"Topics/Directory/Configuring_Agentless_SSO.htm\" ResolvedId=\"200056\" />';
 xmlAliasData += '    <Map Name=\"ext_Configuring_Desktop_SSO\" Link=\"Topics/Directory/Configuring_Desktop_SSO.htm\" ResolvedId=\"200057\" />';
-xmlAliasData += '    <Map Name=\"ext_Custom_Attributes_with_AD\" Link=\"Topics/Directory/Custom_Attributes_with_AD.htm\" ResolvedId=\"200058\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory\" Link=\"Topics/Directory/directory-integrations-main.htm\" ResolvedId=\"200059\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_AD_Field_Mappings\" Link=\"Topics/Directory/Directory_AD_Field_Mappings.htm\" ResolvedId=\"200061\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_Directory_Integrations\" Link=\"Topics/Directory/directory-integrations-main.htm\" ResolvedId=\"1161\" />';
@@ -396,5 +395,6 @@ xmlAliasData += '    <Map Name=\"csh-LDAP-deployment\" Link=\"Topics/Directory/l
 xmlAliasData += '    <Map Name=\"ext_ldap_deployment\" Link=\"Topics/Directory/ldap-deployment-main.htm\" ResolvedId=\"1236\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_Profile_Editor_Tasks\" Link=\"Topics/Directory/eu-profile_editor_tasks.htm\" ResolvedId=\"1237\" />';
 xmlAliasData += '    <Map Name=\"ext_AD_register_domains\" Link=\"Topics/Directory/ad-agent-register-multipledomains.htm\" ResolvedId=\"1238\" />';
+xmlAliasData += '    <Map Name=\"ext_google-provisioning\" Link=\"Topics/Provisioning/Google/google-provisioning.htm\" ResolvedId=\"1239\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
