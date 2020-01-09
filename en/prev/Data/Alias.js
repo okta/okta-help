@@ -204,7 +204,7 @@ xmlAliasData += '    <Map Name=\"ext_Security_Duo\" Link=\"Topics/Security/Secur
 xmlAliasData += '    <Map Name=\"ext_Security_General\" Link=\"Topics/Security/Security_General.htm\" ResolvedId=\"200171\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_Network\" Link=\"Topics/Security/Security_Network.htm\" ResolvedId=\"200172\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_Policies\" Link=\"Topics/Security/Security_Policies.htm\" ResolvedId=\"200173\" />';
-xmlAliasData += '    <Map Name=\"ext_Security_Using_Sync_Password\" Link=\"Topics/Security/Security_Using_Sync_Password.htm\" ResolvedId=\"200174\" />';
+xmlAliasData += '    <Map Name=\"ext_Security_Using_Sync_Password\" Link=\"Topics/Directory/Security_Using_Sync_Password.htm\" ResolvedId=\"200174\" />';
 xmlAliasData += '    <Map Name=\"ext_The_Help_Desk_Admin_Role\" Link=\"Topics/Security/The_Help_Desk_Admin_Role.htm\" ResolvedId=\"200175\" />';
 xmlAliasData += '    <Map Name=\"ext_The_User_Admin_Role\" Link=\"Topics/Security/admin-role-groupadmin.htm\" ResolvedId=\"200176\" />';
 xmlAliasData += '    <Map Name=\"ext_custom_error_pages\" Link=\"Topics/Settings/custom-error-pages.htm\" ResolvedId=\"200177\" />';
