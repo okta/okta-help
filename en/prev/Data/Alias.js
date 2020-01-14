@@ -396,5 +396,7 @@ xmlAliasData += '    <Map Name=\"ext_Directory_Profile_Editor_Tasks\" Link=\"Top
 xmlAliasData += '    <Map Name=\"ext_AD_register_domains\" Link=\"Topics/Directory/ad-agent-register-multipledomains.htm\" ResolvedId=\"1238\" />';
 xmlAliasData += '    <Map Name=\"ext_google-provisioning\" Link=\"Topics/Provisioning/Google/google-provisioning.htm\" ResolvedId=\"1239\" />';
 xmlAliasData += '    <Map Name=\"ext-password-sync-main\" Link=\"Topics/Directory/password-sync-main.htm\" ResolvedId=\"1241\" />';
+xmlAliasData += '    <Map Name=\"ext_prov_con_okta_prov\" Link=\"Topics/Provisioning/LCM-Prov/con-okta-prov.htm\" ResolvedId=\"1242\" />';
+xmlAliasData += '    <Map Name=\"ext_prov_okta_lcm_user_provision\" Link=\"Topics/Provisioning/LCM-Prov/okta-lcm-user-provision.htm\" ResolvedId=\"1243\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);

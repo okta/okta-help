@@ -4,7 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="typeofcontent" content="documentation" />
         <meta name="audience" content="admin" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Deploy an Ubuntu/Debian Amazon Web Services Server with Userdata and an Enrollment Token | Okta</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Deploy an Ubuntu/Debian Amazon Web Services Server with Terraform and an Enrollment Token | Okta</title>
         <meta charset="utf-8" />
         <meta name="description" content="" />
         <meta name="author" content="" />
@@ -164,8 +164,8 @@
                                     <div class="okta-topics">
                                         <!-- *** Col1: Left Nav Col *** -->
                                         <div class="is-not-in-mobile">
-                                            <div data-sticky-container="" id="9_Maoe2jSEeicd8IqnwbLA">
-                                                <div class="sticky sticky-menu" style="width:100%" data-sticky="" data-top-anchor="9_Maoe2jSEeicd8IqnwbLA:top" data-bottom-anchor="contentBody:bottom" data-sticky-on="small" data-scroll-container-on="small">
+                                            <div data-sticky-container="" id="6iidhwhBRUSyP537d6sekQ">
+                                                <div class="sticky sticky-menu" style="width:100%" data-sticky="" data-top-anchor="6iidhwhBRUSyP537d6sekQ:top" data-bottom-anchor="contentBody:bottom" data-sticky-on="small" data-scroll-container-on="small">
                                                     <ul class="nocontent menu _Skins_okta_left_menu mc-component" data-mc-linked-toc="Data/Tocs/left_nav_TOC.js" data-mc-side-menu="True" data-mc-max-depth="2" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="True" data-mc-include-siblings="True" data-mc-include-parent="True" data-mc-toc="True">
                                                     </ul>
                                                 </div>
@@ -188,12 +188,13 @@
                                             </div>
                                             <div class="body-main">
                                                 <!-- Main content body -->
-                                                <h1>Deploy an&#160;Ubuntu/Debian Amazon Web Services Server with Userdata and an Enrollment Token</h1>
+                                                <h1>Deploy an&#160;Ubuntu/Debian Amazon Web Services Server with Terraform</h1>
                                                 <h2>Overviews</h2>
-                                                <p>This guide provides the information you need to deploy an&#160;Ubuntu/Debian Amazon Web Services Cloud Server with systemd to your <span class="okta-feature-namesScaleFT">Advanced Server Access</span> team.  Depending on your target server and enrollment type some topics in this guide may not apply to you, such as if your team's project will not be using enrollment tokens, or if you plan to add a different server type to your project.&#160;Modify your steps as needed to fit your team or refer to a different guide on the <a href="cloud-deployment.htm">cloud deployments page</a>.</p>
-                                                <p>Creating a cloud server with Userdata means installing the <span class="okta-feature-namesScaleFT">Advanced Server Access</span> <span class="disableGlossary">Agent</span> simultaneously while you create a server with a cloud provider.&#160;Using user data to install software on a new cloud server can be done through any cloud provider, although user data helps dictate the specific software that you want on your servers.  Installing the <span class="okta-feature-namesScaleFT">Advanced Server Access</span> <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">Agent<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>A software agent is a lightweight program that runs as a service outside of Okta. It is typically installed behind a firewall and allows Okta to tunnel communication between an on-premises service and Okta's cloud service. Okta employs several agent types: Active Directory, LDAP, RADIUS, RSA, Active Directory Password Sync, and IWA. For example, users can install multiple Active Directory agents to ensure that the integration is robust and highly available across geographic locations.</span></a> on a Cloud Server doesn't need to be done when the cloud server is created, but running the installation as a startup script alongside a server's creation ensures that your Cloud Deployment is as safe and secure as possible. </p>
+                                                <p>This guide provides the information you need to deploy an&#160;Ubuntu/Debian Amazon Web Services Cloud Server with systemd and a bastion to your <span class="okta-feature-namesScaleFT">Advanced Server Access</span> team with Terraform.  Depending on your target server and enrollment type some topics in this guide may not apply to you, such as if your team's project will not be using terraform or if you plan to add a different server type to your project.&#160;Modify your steps as needed to fit your team or refer to a different guide on the <a href="cloud-deployment.htm">cloud deployments page</a>.</p>
+                                                <p>Creating a cloud server with Terraform means installing the Terraform tool on your personal machine and using an Access ID,&#160;enrollment token, and secret ID&#160;to create servers on the Amazon Web Services console.&#160;Once created, your new servers should list automatically within your team's console in <span class="okta-feature-namesScaleFT">Advanced Server Access</span>. </p>
+                                                <p><b>Note:</b> For this guide we used the <a href="https://github.com/ScaleFT/StarterKit/tree/master/AWS/ubuntu-behind-bastion">ScaleFT ubuntu-behind-bastion StarterKit</a> provided by Okta on Github as our terraform module. For your setup, use your company's Terraform repo for you production environment instead, though you should still end up with similar configuration values in your <code>terraform.tfvars</code> file.</p>
                                                 <h2>Prerequisites</h2>
-                                                <p>You need the following permissions and resources to deploy an Amazon Web Services Server with Userdata</p>
+                                                <p>You need the following permissions you need to deploy an Amazon Web Services Server with Terraform</p>
                                                 <h3>Amazon Web Services </h3>
                                                 <table style="width: 100%;border-collapse: collapse;border-spacing: 0px 0px;border-left-style: solid;border-left-width: 1px;border-left-color: #dcdcdc;border-right-style: solid;border-right-width: 1px;border-right-color: #dcdcdc;border-top-style: solid;border-top-width: 1px;border-top-color: #dcdcdc;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #dcdcdc;mc-table-style: url('../../../Resources/TableStyles/oktatable_greyborders.css');" class="TableStyle-oktatable_greyborders" cellspacing="0">
                                                     <col style="width: 410px;" class="TableStyle-oktatable_greyborders-Column-Column1" />
@@ -229,79 +230,58 @@
                                                     </tbody>
                                                 </table>
                                                 <h1>Procedures</h1>
-                                                <p>Deploying an Amazon Web Services Server with Userdata has two major sections: Creating your team's server within the Amazon Web Services Management Console and Enrolling your new Server in your <span class="okta-feature-namesScaleFT">Advanced Server Access</span> project. Click each link below to navigate to the instructions for each process.</p>
+                                                <p>Deploying an Amazon Web Services Server with Terraform can be done in 3 steps:</p>
                                                 <ol>
-                                                    <li value="1"><a href="#Create" class="MCXref xref">Create an Enrollment Token in the Advanced Server Access Console</a>
+                                                    <li value="1"><a href="#Create" class="MCXref xref">Download and Install Terraform</a>
                                                     </li>
-                                                    <li value="2"><a href="#Enroll" class="MCXref xref">Create and Enroll your Amazon Web Services Server with Userdata</a>
+                                                    <li value="2"><a href="#Enroll">Locate your Amazon Web Services Security Credentials </a>
+                                                    </li>
+                                                    <li value="3"><a href="#Configure">Configure Terraform to work with Amazon Web Services and Advanced Server Access</a>
                                                     </li>
                                                 </ol>
-                                                <h1><a name="Create"></a>Create an Enrollment Token in the <span class="okta-feature-namesScaleFT">Advanced Server Access</span> Console</h1>
-                                                <ol>
-                                                    <li value="1">Within the<span class="okta-feature-namesScaleFT">Advanced Server Access</span> console, select the <b>Projects</b> header at the top of the page</li>
-                                                    <li value="2">Select the project you want to add your server to</li>
-                                                    <li value="3">
-                                                        <p>Click the <b>Enrollment</b> tab within that Project's console and click the <b>Create an Enrollment Token</b> button</p>
-                                                        <p><b>Note:</b> You can use the same enrollment token every time you add a server to your team. If you have already created an enrollment token, skip this step.</p>
-                                                    </li>
-                                                    <li value="4">Create a description for your new Enrollment token if prompted, and click <b>Submit</b></li>
-                                                    <li value="5">Once the token has been successfully created, copy the string of numbers in the <b>Token</b> field and save it for later</li>
-                                                </ol>
-                                                <h1><a name="Enroll"></a>Create and Enroll your Amazon Web Services Server with Userdata</h1>
+                                                <p>&#160;</p>
+                                                <h1><a name="Create"></a>Download and Install Terraform</h1>
                                                 <ol>
                                                     <li value="1">
-                                                        <p>Log into the <a href="https://aws.amazon.com/console/">Amazon Web Services Management Console</a>.</p>
+                                                        <p><![CDATA[
+              ]]><a href="https://www.terraform.io/downloads.html">Download the Terraform installer from the official site</a><![CDATA[            ]]></p>
                                                     </li>
-                                                    <li value="2">Click the <b>Services</b> tab at the top of the console and select the <b>EC2</b> option in the <b>Compute</b> category to create a new EC2 Server</li>
-                                                    <li value="3">Click the <b>Launch <span class="disableGlossary">Instance</span></b> button to begin setup</li>
-                                                    <li value="4">On the <b>Choose an Amazon Machine&#160;Image</b> page, scroll down the page and click the <b>Select</b> button for <b>Ubuntu server 16.04 LTS (HVM), SSD&#160;Volume Type</b>. Doing this sets your new instance as an Ubuntu/Debian Server with systemd</li>
-                                                    <li value="5">On the <b>Choose an <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ #text">Instance<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>An instance, or computer instance, is a virtual machine (VM) or individual physical computer, used to host a software appliance.</span></a> Type</b> page, click the <b>Next:&#160;Configure Instance Details</b> button</li>
-                                                    <li value="6">Select the <b>Advanced Details</b> dropdown on the <b>Configure Instance Details</b> page to access the <b>User Data</b> text box</li>
-                                                    <li value="7">
-                                                        <p>Within the <b>User data</b> text box, copy and paste the following:</p><pre xml:space="preserve">#!/bin/bash
-
-echo "Add an enrollment token"
-sudo mkdir -p /var/lib/sftd
-echo "&lt;enrollment-token&gt;" | sudo tee /var/lib/sftd/enrollment.token
-					
-export DEBIAN_FRONTEND=noninteractive
-					
-echo "Add a basic sftd configuration"
-sudo mkdir -p /etc/sft/
-sftcfg=$(cat &lt;&lt;EOF
----
-# CanonicalName: Specifies the name clients should use/see when connecting to this host.
-CanonicalName:            "ubuntu-target"
-EOF
-)
-					
-echo -e "$sftcfg" | sudo tee /etc/sft/sftd.yaml
-					
-echo "Retrieve information about new packages"
-sudo apt-get update
-					
-sudo apt-get install -y curl
-					
-echo "Add the ScaleFT testing apt repo to your /etc/apt/sources.list system config file"
-echo "deb http://pkg.scaleft.com/deb/ linux main" | sudo tee -a /etc/apt/sources.list
-					
-echo "Trust the repository signing key"
-curl -C - https://dist.scaleft.com/pki/scaleft_deb_key.asc | sudo apt-key add -
-					
-echo "Retrieve information about new packages"
-sudo apt-get update
-					
-echo "Install sftd"
-sudo apt-get install scaleft-server-tools</pre>
-                                                        <p><b>Note:</b> This script creates a<code> sftd.yaml</code> file for your server and uses <code>ubuntu-target</code> as its <code>CanonicalName</code>. Modify and generate this information as needed to fit your teams and project environments.</p>
-                                                    </li>
-                                                    <li value="8">Replace <b>&lt;enrollment_token&gt;</b> in the pasted text with the token information you copied in the <b>Create an Enrollment Token in </b><span style="font-weight: bold;" class="okta-feature-namesScaleFT">Advanced Server Access</span> section above</li>
-                                                    <li value="9">Click the <b>Review and Launch</b> button and then press <b>Launch</b> at the bottom right corner of the screen.</li>
-                                                    <li value="10">Select the dropdown in the <b>Select an existing key pair or create a new key pair</b> window and choose the <b>Proceed without a key pair</b> option</li>
-                                                    <li value="11">Confirm and acknowledge your choice by selecting the relevant checkbox before clicking the <b>Launch Instances</b> button</li>
-                                                    <li value="12">Select the <b>View Instances</b> button, and you should see your new server initializing on the <b>Instances</b> page</li>
+                                                    <li value="2">Unzip the downloaded file and run the unix executable</li>
                                                 </ol>
-                                                <p>Ensure that your new server is listed in your Project's <b>Server</b> tab within the <span class="okta-feature-namesScaleFT">Advanced Server Access</span> console before trying to SSH&#160;into your team's servers.</p>
+                                                <h1><a name="Enroll"></a>Locate and Save your Amazon Web Services Security Credentials </h1>
+                                                <ol>
+                                                    <li value="1">Navigate to the Amazon Web Services console and log in to your account</li>
+                                                    <li value="2">
+                                                        <p>Click the dropdown next to your username in the top-right corner of the console and select <b>My Security Credentials</b></p>
+                                                        <p>If prompted with another window concerning AWS&#160;Identity and Access Management users, click the <b>Continue to Security Credentials</b> button</p>
+                                                    </li>
+                                                    <li value="3">Click the <b>Access keys&#160;(access key ID&#160;and secret access key)</b> dropdown menu</li>
+                                                    <li value="4">Click the <b>Create New Access Key</b> button, and click the <b>Hide Access Key</b> dropdown to see your new Access Key ID&#160;and Secret Access Key</li>
+                                                    <li value="5">Copy and store both the Access Key ID and Secret Access Key and save in a secure location</li>
+                                                </ol>
+                                                <h1><a name="Configure"></a>Configure Terraform to work with Advanced Server Access and Amazon Web Services</h1>
+                                                <ol>
+                                                    <li value="1">
+                                                        <p>Open your machine's console and run the <code>ls -a</code> command to see the folders in your home directory</p>
+                                                    </li>
+                                                    <li value="2">
+                                                        <p>Create a file named <code>terraform.tfvars</code> and add the following lines:</p><pre xml:space="preserve">access_key:"&lt;access-key&gt;"
+secret_key:"&lt;secret-key&gt;"
+enrollment_token:"&lt;enrollment-token&gt;"</pre>
+                                                    </li>
+                                                    <li value="3">
+                                                        <p>Save the file and place it in your Terraform module</p>
+                                                    </li>
+                                                    <li value="4">
+                                                        <p>In your machine's console, run the <code>which terraform</code> command to confirm that your terraform path exists.&#160;Depending on your platform, the output should look something like the following:&#160;</p>
+                                                        <p><code>/Users/user/bin/terraform</code>
+                                                        </p>
+                                                    </li>
+                                                    <li value="5">Confirm that you are in your terrform module before running the <code>terraform init</code> command to initialize the terraform program</li>
+                                                    <li value="6">Confirm that the information you saved to you <code>terraform.tfvars</code> file is correct by running the <code>terraform plan</code> command. If you receive any errors, troubleshoot as needed before proceeding</li>
+                                                    <li value="7">Run  <code>terraform apply</code> to begin creating your servers. If prompted for approval, type <code>yes</code> and press return on your keyboard</li>
+                                                </ol>
+                                                <p>Navigate to the <span class="okta-feature-namesScaleFT">Advanced Server Access</span> console and confirm that your new servers are listed before attempting to SSH into your team's servers. </p>
                                                 <!-- Back to Top button --><a href="#" class="sf-back-to-top"><span class="arrow"></span>Top</a>
                                             </div>
                                         </div>
