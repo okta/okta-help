@@ -163,8 +163,8 @@
                                     <div class="okta-topics">
                                         <!-- *** Col1: Left Nav Col *** -->
                                         <div class="is-not-in-mobile">
-                                            <div data-sticky-container="" id="-vuLBsPxgkWcWaUiDyT6sg">
-                                                <div class="sticky sticky-menu" style="width:100%" data-sticky="" data-top-anchor="-vuLBsPxgkWcWaUiDyT6sg:top" data-bottom-anchor="contentBody:bottom" data-sticky-on="small" data-scroll-container-on="small">
+                                            <div data-sticky-container="" id="P0sgRMEN5UGx5r1ZYwu8lQ">
+                                                <div class="sticky sticky-menu" style="width:100%" data-sticky="" data-top-anchor="P0sgRMEN5UGx5r1ZYwu8lQ:top" data-bottom-anchor="contentBody:bottom" data-sticky-on="small" data-scroll-container-on="small">
                                                     <ul class="nocontent menu _Skins_okta_left_menu mc-component" data-mc-linked-toc="Data/Tocs/left_nav_TOC.js" data-mc-side-menu="True" data-mc-max-depth="2" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="True" data-mc-include-siblings="True" data-mc-include-parent="True" data-mc-toc="True">
                                                     </ul>
                                                 </div>
@@ -206,7 +206,7 @@
             </li>
                                                     <li value="8">Password Attribute — userpassword
             </li>
-                                                    <li value="9">Group Object Class — groupofnames</li>
+                                                    <li value="9">Group Object Class — groupofuniquenames</li>
                                                     <li value="10">Group Object Filter — (objectclass=groupofnames)
             </li>
                                                     <li value="11">Member Attribute — uniquemember<![CDATA[
@@ -227,7 +227,25 @@ Authentication methods and protocols include direct auth, delegated auth, SAML, 
                                                 <p>Use the pwdPolicy object class to implement ODSEE specific password policies.</p>
                                                 <p>You can configure settings such as password length and expiration on your LDAP instance.</p>
                                                 <h2>Import </h2>
-                                                <p>ODSEE LDAP&#160;integrations include support for the LDAP&#160;virtual list view (VLV) control. By default, the sorting key for <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">groups<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>Groups allow you to organize your end users and the apps they can access. Assigning apps to large sets of end users is made easier with groups.</span></a> is <span style="font-family: 'Courier New';">cn</span>  and <span style="font-family: 'Courier New';">uid</span> for users. A similar methodology to server simple pagination control is used for imports. When VLV is enabled, the agent log displays this message: <span style="font-family: 'Courier New';">VLVContext for reading from LDAP with sortingKey=cn</span>.</p>
+                                                <p>ODSEE LDAP&#160;integrations include support for the LDAP&#160;virtual list view (VLV) control. By default, the sorting key for <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">groups<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>Groups allow you to organize your end users and the apps they can access. Assigning apps to large sets of end users is made easier with groups.</span></a> is <code>cn</code>  and <code>uid</code> for users. A similar methodology to server simple pagination control is used for imports. When VLV is enabled, the agent log displays this message: <code>VLVContext for reading from LDAP with sortingKey=cn</code>.</p>
+                                                <p>If you are using the LDAP&#160;VLV control, you need to create VLV indices to match user and group base Distinguished Names (DNs).  For example, when creating a VLV index for the user base DN <span class="code"><a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">ou<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>An acronym of Organizational Unit. Organizational units are Active Directory containers into which you can place users, groups, computers, and other organizational units.  It is the smallest scope or unit to which you can assign Group Policy settings or delegate administrative authority.</span></a>=people,dc=example,dc=com</span>, you  use these default values:</p>
+                                                <p class="code">dn: cn=people_browsing_index, cn=database-name,</p>
+                                                <p class="code">cn=ldbm database,cn=plugins,cn=config</p>
+                                                <p class="code">objectClass: top</p>
+                                                <p class="code">objectClass: vlvSearch</p>
+                                                <p class="code">cn: Browsing ou=People</p>
+                                                <p class="code">vlvBase: ou=People,dc=example,dc=com</p>
+                                                <p class="code">vlvScope: 2</p>
+                                                <p class="code">vlvFilter: (objectclass=inetOrgPerson)</p>
+                                                <p>&#160;</p>
+                                                <p class="code">dn: cn=Sort rev uid, cn=people_browsing_index,</p>
+                                                <p class="code">cn=database-name,cn=ldbm database,cn=plugins,cn=config</p>
+                                                <p class="code">objectClass: top</p>
+                                                <p class="code">objectClass: vlvIndex</p>
+                                                <p class="code">cn: Sort rev uid</p>
+                                                <p class="code">vlvSort: uid</p>
+                                                <p>After you create your VLV indices, you might need to reindex the LDAP server to implement the new settings. </p>
+                                                <p>To create a VLV index, see <a href="https://docs.oracle.com/cd/E20295_01/html/821-1220/bcaug.html#add-browsing-index">To Add or Modify Browsing Index Entries</a> in the <i>Oracle Directory Server Enterprise Edition Administration Guide</i>.</p>
                                                 <h2>JIT provisioning</h2>
                                                 <p>There are no special considerations for ODSEE Just In Time (JIT) provisioning. For user identification (UID), use an email format   to match the default setting for an Okta username. Do not use an external identity provider (<a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">IDP<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>An acronym for Identity Provider. It is a service that manages end user accounts analogous to user directories such as LDAP and Active Directory, and can send SAML responses to SPs to authenticate end users. Within this scenario, the IdP is Okta.</span></a>)  to trigger sign in.</p>
                                                 <p>To make sure that JIT provisioning is successful the first time:</p>
@@ -275,7 +293,7 @@ Authentication methods and protocols include direct auth, delegated auth, SAML, 
                                                 <h4>Agent: Success</h4>
                                                 <p>POST initiated with result status=SUCCESS, actionType=USER_AUTH_AND_UPDATE, actionId=ADStwgvcY62FO3G5j0g3, diagnostic message=, error code=, matched dn=, message=SUCCESS, result code=, vendor=OID</p>
                                                 <h4>Agent:&#160;Delauth failure</h4>
-                                                <p>POST initiated with result status=FAILURE, actionType=USER_AUTH_AND_UPDATE, actionId=ADStwmk6wiL2JhaEq0g3, diagnostic message=, error code=49, matched dn=cn=MultyGroupsODSEE MultyGroupsODSEE,<a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">ou<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>An acronym of Organizational Unit. Organizational units are Active Directory containers into which you can place users, groups, computers, and other organizational units.  It is the smallest scope or unit to which you can assign Group Policy settings or delegate administrative authority.</span></a>=QA users,dc=okta,dc=com, message=LDAPException(resultCode=49 (invalid credentials), errorMessage='invalid credentials'), result code=invalid credentials, vendor=OID</p>
+                                                <p>POST initiated with result status=FAILURE, actionType=USER_AUTH_AND_UPDATE, actionId=ADStwmk6wiL2JhaEq0g3, diagnostic message=, error code=49, matched dn=cn=MultyGroupsODSEE MultyGroupsODSEE,ou=QA users,dc=okta,dc=com, message=LDAPException(resultCode=49 (invalid credentials), errorMessage='invalid credentials'), result code=invalid credentials, vendor=OID</p>
                                                 <h4>Agent:&#160;No user </h4>
                                                 <p>POST initiated with result status=FAILURE, actionType=USER_AUTH_AND_UPDATE, actionId=ADStwotN9I9aWlO0w0g3, diagnostic message=, error code=, matched dn=, message=User not found while executing query: (&amp;(objectclass=inetorgperson)(uid=ODSEE@odsee.com)), result code=, vendor=OID</p>
                                                 <h4>Agent:&#160;Password expired</h4>
