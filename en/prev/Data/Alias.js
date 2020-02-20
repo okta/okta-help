@@ -21,6 +21,7 @@ xmlAliasData += '    <Map Name=\"Settings_Customization\" Link=\"Topics/Settings
 xmlAliasData += '    <Map Name=\"Settings_Emails_SMS\" Link=\"Topics/Settings/Settings_Email.htm#Settings_Emails_SMS1\" ResolvedId=\"1240\" />';
 xmlAliasData += '    <Map Name=\"Settings_Downloads\" Link=\"Topics/Settings/Settings_Downloads.htm#Settings_Downloads\" ResolvedId=\"1250\" />';
 xmlAliasData += '    <Map Name=\"Directory_People\" Link=\"Topics/Directory/eu-people.htm#Directory_People1\" ResolvedId=\"1130\" />';
+xmlAliasData += '    <Map Name=\"Directory_Profile_Editor\" Link=\"Topics/Directory/ad-agent-configure-user-profiles-attributes.htm\" ResolvedId=\"1150\" />';
 xmlAliasData += '    <Map Name=\"Directory_Profile_Masters\" Link=\"Topics/Directory/eu-profile-masters.htm#Directory_Profile_Masters1\" ResolvedId=\"1170\" />';
 xmlAliasData += '    <Map Name=\"Reports_System_Log\" Link=\"Topics/Reports/Reports_SysLog.htm#Reports_System_Log1\" ResolvedId=\"1200\" />';
 xmlAliasData += '    <Map Name=\"API_Access\" Link=\"Topics/Security/API_Access.htm#API_Access\" ResolvedId=\"1270\" />';
