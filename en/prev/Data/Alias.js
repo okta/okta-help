@@ -406,5 +406,6 @@ xmlAliasData += '    <Map Name=\"csh-eu-import-safeguard\" Link=\"Topics/Directo
 xmlAliasData += '    <Map Name=\"csh-o365-sa\" Link=\"Topics/Apps/Apps_O365_Silent_Activation.htm\" ResolvedId=\"1252\" />';
 xmlAliasData += '    <Map Name=\"ext-apps-page-show-application-embed-links\" Link=\"Topics/Apps/Apps_Apps_Page.htm#Show\" ResolvedId=\"1253\" />';
 xmlAliasData += '    <Map Name=\"csh-config-asso\" Link=\"Topics/Directory/Configuring_Agentless_SSO.htm\" ResolvedId=\"1254\" />';
+xmlAliasData += '    <Map Name=\"csh-ov-signin\" Link=\"Topics/Mobile/okta-verify-sign-in.htm\" ResolvedId=\"1255\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
