@@ -25,10 +25,17 @@ document.addEventListener('readyToInitCoveo', function () {
             resolve(tokenObj.value);
         }
         else {
-            Coveo.HttpUtils.get(coveo_token_url, function (response) {
+        /* Revision below from Nate MacInnes 3/26/20 to fix preview sandbox issue */
+		Coveo.HttpUtils.get(coveo_token_url, function (response) {
                 var newTokenObj = { value: JSON.parse(response), timestamp: new Date().getTime() };
                 localStorage.setItem("CoveoSearchToken", JSON.stringify(newTokenObj));
                 resolve(newTokenObj.value);
+/* 		Coveo.HttpUtils.get(coveo_token_url, function (response) {
+                var parsedResponse = JSON.parse(response);
+                var token = parsedResponse.token ? parsedResponse.token : parsedResponse
+                var newTokenObj = { value: token, timestamp: new Date().getTime() };
+                localStorage.setItem("CoveoSearchToken", JSON.stringify(newTokenObj));
+                resolve(newTokenObj.value); */
             });
         }
     });

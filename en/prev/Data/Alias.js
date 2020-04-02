@@ -386,9 +386,8 @@ xmlAliasData += '    <Map Name=\"App_Based_Signon\" Link=\"Topics/Security/App_B
 xmlAliasData += '    <Map Name=\"Apps_Apps_Page\" Link=\"Topics/Apps/Apps_Apps_Page.htm\" ResolvedId=\"1224\" />';
 xmlAliasData += '    <Map Name=\"ext-custom-user-types\" Link=\"Topics/Directory/directory-UD-usertypes-about.htm\" ResolvedId=\"1225\" />';
 xmlAliasData += '    <Map Name=\"ext-assign-apps\" Link=\"Topics/Directory/eu-assign-apps.htm\" ResolvedId=\"1226\" />';
-xmlAliasData += '    <Map Name=\"ext-Okta-workflows\" Link=\"Topics/Directory/workflow-Okta-Workflows.htm\" ResolvedId=\"1228\" />';
-xmlAliasData += '    <Map Name=\"ext-connect-your-apps\" Link=\"Topics/Directory/workflow-connect-your-applications.htm\" ResolvedId=\"1229\" />';
-xmlAliasData += '    <Map Name=\"ext-build-a-flow\" Link=\"Topics/Directory/workflow-build-a-flow.htm\" ResolvedId=\"1231\" />';
+xmlAliasData += '    <Map Name=\"ext-connect-your-apps\" Link=\"Topics/Workflows/workflow-connect-your-applications.htm\" ResolvedId=\"1229\" />';
+xmlAliasData += '    <Map Name=\"ext-build-a-flow\" Link=\"Topics/Workflows/workflows-build-a-flow.htm\" ResolvedId=\"1231\" />';
 xmlAliasData += '    <Map Name=\"csh_admin-third\" Link=\"Topics/Security/admin-third-party.htm\" ResolvedId=\"1232\" />';
 xmlAliasData += '    <Map Name=\"csh-profile-masters\" Link=\"Topics/Directory/eu-profile-masters.htm\" ResolvedId=\"1233\" />';
 xmlAliasData += '    <Map Name=\"epcs-okta-intg\" Link=\"Topics/integrations/epcs-okta.htm\" ResolvedId=\"1234\" />';
