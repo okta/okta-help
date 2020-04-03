@@ -26,12 +26,12 @@ document.addEventListener('readyToInitCoveo', function () {
         }
         else {
             Coveo.HttpUtils.get(coveo_token_url, function (response) {
-			/* Code update below from Nate McInnes for using search sandbox in review builds 
-                var newTokenObj = { value: JSON.parse(response), timestamp: new Date().getTime() };
+			/* Code update below from Nate McInnes for using search sandbox in review builds */
+/*                var newTokenObj = { value: JSON.parse(response), timestamp: new Date().getTime() };
                 localStorage.setItem("CoveoSearchToken", JSON.stringify(newTokenObj));
                 resolve(newTokenObj.value); */				
                 var parsedResponse = JSON.parse(response);
-                var token = parsedResponse.token ? parsedResponse.token : parsedResponse
+                var token = parsedResponse.token ? parsedResponse.token : parsedResponse;
                 var newTokenObj = { value: token, timestamp: new Date().getTime() };
                 localStorage.setItem("CoveoSearchToken", JSON.stringify(newTokenObj));
                 resolve(newTokenObj.value);				
