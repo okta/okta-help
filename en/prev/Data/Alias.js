@@ -407,5 +407,9 @@ xmlAliasData += '    <Map Name=\"csh-o365-sa\" Link=\"Topics/Apps/Apps_O365_Sile
 xmlAliasData += '    <Map Name=\"ext-apps-page-show-application-embed-links\" Link=\"Topics/Apps/Apps_Apps_Page.htm#Show\" ResolvedId=\"1253\" />';
 xmlAliasData += '    <Map Name=\"csh-config-asso\" Link=\"Topics/Directory/Configuring_Agentless_SSO.htm\" ResolvedId=\"1254\" />';
 xmlAliasData += '    <Map Name=\"csh-ov-signin\" Link=\"Topics/Mobile/okta-verify-sign-in.htm\" ResolvedId=\"1255\" />';
+xmlAliasData += '    <Map Name=\"ext_OPP_configure\" Link=\"Topics/Provisioning/On Premise Provisioning/OPP-configure-on-premises-provisioning.htm\" ResolvedId=\"-2147483648\" />';
+xmlAliasData += '    <Map Name=\"ext_OPP_create_connectors\" Link=\"Topics/Provisioning/On Premise Provisioning/OPP-create-SCIM-connectors.htm\" ResolvedId=\"-2147483648\" />';
+xmlAliasData += '    <Map Name=\"ext_OPP_build\" Link=\"Topics/Provisioning/On Premise Provisioning/OPP-build-SCIM-using-SDK.htm\" ResolvedId=\"-2147483648\" />';
+xmlAliasData += '    <Map Name=\"ext_OPP_test\" Link=\"Topics/Provisioning/On Premise Provisioning/OPP-test-SCIM-server.htm\" ResolvedId=\"-2147483648\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
