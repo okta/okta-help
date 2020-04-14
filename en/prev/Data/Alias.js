@@ -283,7 +283,6 @@ xmlAliasData += '    <Map Name=\"ext_API_Access-claims\" Link=\"Topics/Security/
 xmlAliasData += '    <Map Name=\"ext_Apps_Apps_Page-assign\" Link=\"Topics/Apps/Apps_Apps_Page.htm#Assigning\" ResolvedId=\"1105\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_Administrators\" Link=\"Topics/Security/Administrators.htm#Security_Administrators\" ResolvedId=\"1106\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-integration-types\" Link=\"Topics/device-trust/SAML/Mobile/integrate-okta-dt-with-ws1-mobile.htm\" ResolvedId=\"1108\" />';
-xmlAliasData += '    <Map Name=\"adv_server_access\" Link=\"Topics/Adv_Server_Access/docs/setup/introduction.htm\" ResolvedId=\"1109\" />';
 xmlAliasData += '    <Map Name=\"csh-attribute-statements-saml\" Link=\"Topics/Apps/attribute-statements-saml.htm\" ResolvedId=\"1111\" />';
 xmlAliasData += '    <Map Name=\"csh_FIDO2_WebAuthn\" Link=\"Topics/Security/MFA.htm#WebAuthentication\" ResolvedId=\"1112\" />';
 xmlAliasData += '    <Map Name=\"csh_dirintmain\" Link=\"Topics/Directory/directory-integrations-main.htm\" ResolvedId=\"1113\" />';
@@ -346,7 +345,6 @@ xmlAliasData += '    <Map Name=\"csh_eDirectory\" Link=\"Topics/Directory/ldap-a
 xmlAliasData += '    <Map Name=\"csh-security-health-check\" Link=\"Topics/Security/healthinsight/healthinsight.htm\" ResolvedId=\"1193\" />';
 xmlAliasData += '    <Map Name=\"csh-threat-insight\" Link=\"Topics/Security/security-threat-insight.htm\" ResolvedId=\"1192\" />';
 xmlAliasData += '    <Map Name=\"ext_threatinsight\" Link=\"Topics/Security/security-threat-insight.htm\" ResolvedId=\"1195\" />';
-xmlAliasData += '    <Map Name=\"ext_asa\" Link=\"Topics/Adv_Server_Access/docs/setup/introduction.htm\" ResolvedId=\"1196\" />';
 xmlAliasData += '    <Map Name=\"ext_advars\" Link=\"Topics/Directory/ad-agent-var-defs-ref.htm\" ResolvedId=\"1197\" />';
 xmlAliasData += '    <Map Name=\"ext_googletrbl\" Link=\"Topics/Provisioning/Google/troubleshooting.htm\" ResolvedId=\"1198\" />';
 xmlAliasData += '    <Map Name=\"ext_addmzports\" Link=\"Topics/Directory/ad-agent-install-dmzports.htm\" ResolvedId=\"1199\" />';
