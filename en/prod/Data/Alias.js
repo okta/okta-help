@@ -122,7 +122,7 @@ xmlAliasData += '    <Map Name=\"ext_Agent_Installing_the_Okta_Radius_Agent\" Li
 xmlAliasData += '    <Map Name=\"ext_Attribute_Level_Mastering\" Link=\"Topics/Directory/eu-attribute-level-mastering.htm\" ResolvedId=\"200055\" />';
 xmlAliasData += '    <Map Name=\"ext_Configuring_Agentless_SSO\" Link=\"Topics/Directory/Configuring_Agentless_SSO.htm\" ResolvedId=\"200056\" />';
 xmlAliasData += '    <Map Name=\"ext_Configuring_Desktop_SSO\" Link=\"Topics/Directory/Configuring_Desktop_SSO.htm\" ResolvedId=\"200057\" />';
-xmlAliasData += '    <Map Name=\"ext_Custom_Attributes_with_AD\" Link=\"Topics/Directory/ad-agent-add-custom-attribute.htm\" ResolvedId=\"200058\" />';
+xmlAliasData += '    <Map Name=\"ext_Custom_Attributes_with_AD\" Link=\"Topics/Directory/Directory_Application-Based_Mapping.htm\" ResolvedId=\"200058\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory\" Link=\"Topics/Directory/directory-integrations-main2.htm\" ResolvedId=\"200059\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_AD_Field_Mappings\" Link=\"Topics/Directory/Directory_AD_Field_Mappings.htm\" ResolvedId=\"200061\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_Directory_Integrations\" Link=\"Topics/Directory/directory-integrations-main2.htm\" ResolvedId=\"1161\" />';
@@ -409,14 +409,12 @@ xmlAliasData += '    <Map Name=\"csh-o365-sa\" Link=\"Topics/Apps/Apps_O365_Sile
 xmlAliasData += '    <Map Name=\"ext-apps-page-show-application-embed-links\" Link=\"Topics/Apps/Apps_Apps_Page.htm#Show\" ResolvedId=\"1253\" />';
 xmlAliasData += '    <Map Name=\"csh-config-asso\" Link=\"Topics/Directory/Configuring_Agentless_SSO.htm\" ResolvedId=\"1254\" />';
 xmlAliasData += '    <Map Name=\"csh-ov-signin\" Link=\"Topics/Mobile/okta-verify-sign-in.htm\" ResolvedId=\"1255\" />';
-xmlAliasData += '    <Map Name=\"ext_OPP_configure\" Link=\"Topics/Provisioning/On Premise Provisioning/OPP-configure-on-premises-provisioning.htm\" ResolvedId=\"1259\" />';
-xmlAliasData += '    <Map Name=\"ext_OPP_create_connectors\" Link=\"Topics/Provisioning/On Premise Provisioning/OPP-create-SCIM-connectors.htm\" ResolvedId=\"1261\" />';
-xmlAliasData += '    <Map Name=\"ext_OPP_build\" Link=\"Topics/Provisioning/On Premise Provisioning/OPP-build-SCIM-using-SDK.htm\" ResolvedId=\"1258\" />';
-xmlAliasData += '    <Map Name=\"ext_OPP_test\" Link=\"Topics/Provisioning/On Premise Provisioning/OPP-test-SCIM-server.htm\" ResolvedId=\"1262\" />';
+xmlAliasData += '    <Map Name=\"ext_OPP_configure\" Link=\"Topics/Provisioning/On Premise Provisioning/OPP-configure-on-premises-provisioning.htm\" ResolvedId=\"-2147483648\" />';
+xmlAliasData += '    <Map Name=\"ext_OPP_create_connectors\" Link=\"Topics/Provisioning/On Premise Provisioning/OPP-create-SCIM-connectors.htm\" ResolvedId=\"-2147483648\" />';
+xmlAliasData += '    <Map Name=\"ext_OPP_build\" Link=\"Topics/Provisioning/On Premise Provisioning/OPP-build-SCIM-using-SDK.htm\" ResolvedId=\"-2147483648\" />';
+xmlAliasData += '    <Map Name=\"ext_OPP_test\" Link=\"Topics/Provisioning/On Premise Provisioning/OPP-test-SCIM-server.htm\" ResolvedId=\"-2147483648\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_Manage_Profile_Attributes\" Link=\"Topics/Directory/eu-profile_editor_tasks.htm\" ResolvedId=\"200067\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_AD_agent\" Link=\"Topics/Directory/ad-agent-main2.htm\" ResolvedId=\"200060\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_Attribute_Mapping\" Link=\"Topics/Directory/ad-agent-configure-user-profiles-attributes.htm\" ResolvedId=\"200062\" />';
-xmlAliasData += '    <Map Name=\"ext_OPP_provision\" Link=\"Topics/Provisioning/On Premise Provisioning/OPP-provision-SCIM-messages.htm\" ResolvedId=\"1263\" />';
-xmlAliasData += '    <Map Name=\"ext-install-multiple-AD-agents\" Link=\"Topics/Directory/ad-agent-install-multiple2.htm\" ResolvedId=\"1264\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
