@@ -281,7 +281,6 @@ xmlAliasData += '    <Map Name=\"csh_notification_new\" Link=\"Topics/Security/S
 xmlAliasData += '    <Map Name=\"csh_notification_enroll\" Link=\"Topics/Security/Security_General.htm#SecurityNotificationEmails\" ResolvedId=\"1098\" />';
 xmlAliasData += '    <Map Name=\"csh_notification_reset\" Link=\"Topics/Security/Security_General.htm#SecurityNotificationEmails\" ResolvedId=\"1099\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-applies-to-okta-mobile\" Link=\"Topics/device-trust/device-trust-landing.htm\" ResolvedId=\"1101\" />';
-xmlAliasData += '    <Map Name=\"ext_Apps_App_Integration_Wizard-oidc\" Link=\"Topics/Apps/Apps_App_Integration_Wizard.htm#OIDCWizard\" ResolvedId=\"1103\" />';
 xmlAliasData += '    <Map Name=\"ext_API_Access-claims\" Link=\"Topics/Security/API_Access.htm#create_claims\" ResolvedId=\"1104\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Apps_Page-assign\" Link=\"Topics/Apps/Apps_Apps_Page.htm#Assigning\" ResolvedId=\"1105\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_Administrators\" Link=\"Topics/Security/Administrators.htm#Security_Administrators\" ResolvedId=\"1106\" />';
