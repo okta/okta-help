@@ -1,15 +1,1 @@
-var xmlConceptsData = "";
-xmlConceptsData += '<?xml version=\"1.0\" encoding=\"utf-8\"?>';
-xmlConceptsData += '<CatapultTargetConcepts>';
-xmlConceptsData += '    <ConceptEntry Term=\"ad-agent\">';
-xmlConceptsData += '        <ConceptLink Title=\"Okta Active Directory Agent Version History | Okta\" Link=\"/Content/Topics/Settings/Version_Histories/Ver_History_AD_Agent.htm#aanchor3\" UsedConditions=\"\" LocalConditions=\"\" />';
-xmlConceptsData += '        <ConceptLink Title=\"Configure Okta Active Directory agent threads | Okta\" Link=\"/Content/Topics/Directory/ad-agent-threads.htm#aanchor4\" UsedConditions=\"\" LocalConditions=\"\" />';
-xmlConceptsData += '        <ConceptLink Title=\"Configure DMZ server ports for Active Directory integrations | Okta\" Link=\"/Content/Topics/Directory/ad-agent-install-dmzports.htm#aanchor5\" UsedConditions=\"\" LocalConditions=\"\" />';
-xmlConceptsData += '    </ConceptEntry>';
-xmlConceptsData += '    <ConceptEntry Term=\"dir-intg\">';
-xmlConceptsData += '        <ConceptLink Title=\"Install and configure the Okta IWA&#160;Web agent for Desktop Single Sign-on | Okta\" Link=\"/Content/Topics/Directory/Configuring_Desktop_SSO.htm#aanchor0\" UsedConditions=\"\" LocalConditions=\"\" />';
-xmlConceptsData += '        <ConceptLink Title=\"Integrate with Active Directory | Okta\" Link=\"/Content/Topics/Directory/ad-agent-main.htm#aanchor1\" UsedConditions=\"\" LocalConditions=\"\" />';
-xmlConceptsData += '        <ConceptLink Title=\"CSV Directory Integration | Okta\" Link=\"/Content/Topics/Directory/directory-integrations-csv.htm#aanchor2\" UsedConditions=\"\" LocalConditions=\"\" />';
-xmlConceptsData += '    </ConceptEntry>';
-xmlConceptsData += '</CatapultTargetConcepts>';
-MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Concepts', xmlConceptsData);
+define({'ad-agent':[190,194,106],'dir-intg':[527,187],});
