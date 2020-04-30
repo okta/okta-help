@@ -64,7 +64,7 @@ xmlAliasData += '    <Map Name=\"dt-safari\" Link=\"Topics/Mobile/Okta_Device_Tr
 xmlAliasData += '    <Map Name=\"sophos-radius-intg\" Link=\"Topics/integrations/sophos-radius-intg.htm\" ResolvedId=\"1039\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-ad-pw-sync-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_Active_Directory_Password_Sync_Agent.htm\" ResolvedId=\"1041\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-ad-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_AD_Agent.htm\" ResolvedId=\"1042\" />';
-xmlAliasData += '    <Map Name=\"ver-hist-adfs-adapter\" Link=\"Topics/Settings/Version_Histories/Ver_History_ADFS_Adapter.htm\" ResolvedId=\"1043\" />';
+xmlAliasData += '    <Map Name=\"ver-hist-adfs-adapter\" Link=\"Topics/Settings/Version_Histories/Ver_History_Okta_MFA_Provider_for_ADFS.htm\" ResolvedId=\"1043\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-arch-jira-auth-toolkit\" Link=\"Topics/Settings/Version_Histories/Ver_History_Archive_JIRA_Authenticator_Toolkit.htm\" ResolvedId=\"1044\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-browser-plugin\" Link=\"Topics/Settings/Version_Histories/Ver_History_Browser_Plugin.htm\" ResolvedId=\"1045\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-confluence-auth-toolkit\" Link=\"Topics/Settings/Version_Histories/Ver_History_Confluence_Authenticator_Toolkit.htm\" ResolvedId=\"1046\" />';
@@ -226,7 +226,7 @@ xmlAliasData += '    <Map Name=\"ext_Settings_Email\" Link=\"Topics/Settings/Set
 xmlAliasData += '    <Map Name=\"ext_Settings_Manage_Dashboard_Tabs_for_End_Users\" Link=\"Topics/Settings/Settings_Manage_Dashboard_Tabs_for_End_Users.htm\" ResolvedId=\"200192\" />';
 xmlAliasData += '    <Map Name=\"ext_Supported_Configurations\" Link=\"Topics/Settings/Supported_Configurations.htm\" ResolvedId=\"200193\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_Active_Directory_Password_Sync_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_Active_Directory_Password_Sync_Agent.htm\" ResolvedId=\"200194\" />';
-xmlAliasData += '    <Map Name=\"ext_Ver_History_ADFS_Adapter\" Link=\"Topics/Settings/Version_Histories/Ver_History_ADFS_Adapter.htm\" ResolvedId=\"200195\" />';
+xmlAliasData += '    <Map Name=\"ext_Ver_History_ADFS_Adapter\" Link=\"Topics/Settings/Version_Histories/Ver_History_Okta_MFA_Provider_for_ADFS.htm\" ResolvedId=\"200195\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_AD_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_AD_Agent.htm\" ResolvedId=\"200196\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_Archive_JIRA_Authenticator_Toolkit\" Link=\"Topics/Settings/Version_Histories/Ver_History_Archive_JIRA_Authenticator_Toolkit.htm\" ResolvedId=\"200197\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_Browser_Plugin\" Link=\"Topics/Settings/Version_Histories/Ver_History_Browser_Plugin.htm\" ResolvedId=\"200198\" />';
@@ -324,7 +324,6 @@ xmlAliasData += '    <Map Name=\"ext_Location_Zones\" Link=\"Topics/Security/Sec
 xmlAliasData += '    <Map Name=\"ext_Radius_Autopush\" Link=\"Topics/integrations/radius-autopush.htm\" ResolvedId=\"1152\" />';
 xmlAliasData += '    <Map Name=\"ext_Groups_Assign_Users\" Link=\"Topics/Directory/group-rules.htm\" ResolvedId=\"1153\" />';
 xmlAliasData += '    <Map Name=\"ext_Group_Rules\" Link=\"Topics/Directory/group-rules.htm\" ResolvedId=\"1154\" />';
-xmlAliasData += '    <Map Name=\"csh-ov-reset\" Link=\"Topics/Mobile/okta-verify-reset.htm\" ResolvedId=\"1157\" />';
 xmlAliasData += '    <Map Name=\"csh-ov-end-users\" Link=\"Topics/Mobile/okta-verify-end-users.htm\" ResolvedId=\"1156\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-secret-key-ios\" Link=\"Topics/Mobile/Okta_Device_Trust_Native_Apps_Safari_MDM_Devices.htm\" ResolvedId=\"1158\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-secret-key-android\" Link=\"Topics/Mobile/dt-mdm-managed-android-devices.htm\" ResolvedId=\"1159\" />';
@@ -418,5 +417,6 @@ xmlAliasData += '    <Map Name=\"ext_Directory_Attribute_Mapping\" Link=\"Topics
 xmlAliasData += '    <Map Name=\"ext_OPP_provision\" Link=\"Topics/Provisioning/On Premise Provisioning/OPP-provision-SCIM-messages.htm\" ResolvedId=\"1263\" />';
 xmlAliasData += '    <Map Name=\"ext-install-multiple-AD-agents\" Link=\"Topics/Directory/ad-agent-install-multiple2.htm\" ResolvedId=\"1264\" />';
 xmlAliasData += '    <Map Name=\"ext-workflows-limits\" Link=\"Topics/Workflows/workflows-limits-learn-about.htm\" ResolvedId=\"1269\" />';
+xmlAliasData += '    <Map Name=\"csh-okta-verify-admins\" Link=\"Topics/Mobile/okta-verify-admins.htm\" ResolvedId=\"1271\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
