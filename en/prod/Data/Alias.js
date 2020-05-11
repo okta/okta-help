@@ -290,6 +290,7 @@ xmlAliasData += '    <Map Name=\"ext_Apps_Apps_Page-assign\" Link=\"Topics/Apps/
 xmlAliasData += '    <Map Name=\"ext_Security_Administrators\" Link=\"Topics/Security/Administrators.htm#Security_Administrators\" ResolvedId=\"1106\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Customization-interstitial\" Link=\"Topics/Settings/settings-customization-general.htm#CustomInterStitialPage\" ResolvedId=\"1107\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-integration-types\" Link=\"Topics/device-trust/SAML/Mobile/integrate-okta-dt-with-ws1-mobile.htm\" ResolvedId=\"1108\" />';
+xmlAliasData += '    <Map Name=\"adv_server_access\" Link=\"Topics/Adv_Server_Access/docs/asa-overview.htm\" ResolvedId=\"1109\" />';
 xmlAliasData += '    <Map Name=\"csh-attribute-statements-saml\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SAML.htm\" ResolvedId=\"1111\" />';
 xmlAliasData += '    <Map Name=\"csh_FIDO2_WebAuthn\" Link=\"Topics/Security/MFA.htm#WebAuthentication\" ResolvedId=\"1112\" />';
 xmlAliasData += '    <Map Name=\"csh_dirintmain\" Link=\"Topics/Directory/directory-integrations-main2.htm\" ResolvedId=\"1113\" />';
@@ -432,5 +433,6 @@ xmlAliasData += '    <Map Name=\"ext_Apps_App_Integration_Wizard-scim\" Link=\"T
 xmlAliasData += '    <Map Name=\"ext_Apps_App_Integration_Wizard-swa\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SWA.htm\" ResolvedId=\"1268\" />';
 xmlAliasData += '    <Map Name=\"ext-workflows-limits\" Link=\"Topics/Workflows/workflows-limits-learn-about.htm\" ResolvedId=\"1269\" />';
 xmlAliasData += '    <Map Name=\"csh-okta-verify-admins\" Link=\"Topics/Mobile/okta-verify-admins.htm\" ResolvedId=\"1271\" />';
+xmlAliasData += '    <Map Name=\"ext_asa_on_demand_users\" Link=\"Topics/Adv_Server_Access/docs/on-demand-users.htm\" ResolvedId=\"1273\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
