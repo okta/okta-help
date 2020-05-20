@@ -434,5 +434,10 @@ xmlAliasData += '    <Map Name=\"ext_Apps_App_Integration_Wizard-swa\" Link=\"To
 xmlAliasData += '    <Map Name=\"ext-workflows-limits\" Link=\"Topics/Workflows/workflows-limits-learn-about.htm\" ResolvedId=\"1269\" />';
 xmlAliasData += '    <Map Name=\"csh-okta-verify-admins\" Link=\"Topics/Mobile/okta-verify-admins.htm\" ResolvedId=\"1271\" />';
 xmlAliasData += '    <Map Name=\"ext_asa_on_demand_users\" Link=\"Topics/Adv_Server_Access/docs/on-demand-users.htm\" ResolvedId=\"1273\" />';
+xmlAliasData += '    <Map Name=\"ext_integrate_SuccessFactors\" Link=\"Topics/Provisioning/SuccessFactors Employee Central/sfec-main.htm\" ResolvedId=\"1275\" />';
+xmlAliasData += '    <Map Name=\"ext_integrate_Slack\" Link=\"Topics/Provisioning/Slack/slck-main.htm\" ResolvedId=\"1277\" />';
+xmlAliasData += '    <Map Name=\"ext_integrate_Dropbox\" Link=\"Topics/Provisioning/Dropbox/drbx-main.htm\" ResolvedId=\"1278\" />';
+xmlAliasData += '    <Map Name=\"ext_integrate_Rally\" Link=\"Topics/Provisioning/Rally Software/raly-main.htm\" ResolvedId=\"1279\" />';
+xmlAliasData += '    <Map Name=\"ext_integrate_RingCentral\" Link=\"Topics/Provisioning/RingCentral/rngc-main.htm\" ResolvedId=\"1280\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
