@@ -51,7 +51,7 @@ xmlAliasData += '    <Map Name=\"mfa-onprem\" Link=\"Topics/Security/MFA_OnPrem.
 xmlAliasData += '    <Map Name=\"ad-pw-sync-agent\" Link=\"Topics/Directory/Installing_Configuring_Active_Directory_Password_Sync_Agent.htm\" ResolvedId=\"1019\" />';
 xmlAliasData += '    <Map Name=\"dt-win-desktop\" Link=\"Topics/Mobile/Okta_Mobile_Device_Trust_Windows-desktop.htm\" ResolvedId=\"1021\" />';
 xmlAliasData += '    <Map Name=\"okta-cisco-radius-intg\" Link=\"Topics/integrations/cisco-radius-intg.htm\" ResolvedId=\"1022\" />';
-xmlAliasData += '    <Map Name=\"chs-custom-url\" Link=\"Topics/Settings/settings-customization-general.htm\" ResolvedId=\"1023\" />';
+xmlAliasData += '    <Map Name=\"chs-custom-url\" Link=\"Topics/Settings/settings-customization-general.htm#Configur5\" ResolvedId=\"1023\" />';
 xmlAliasData += '    <Map Name=\"Security_Behavior_Detection\" Link=\"Topics/Security/proc-security-behavior-detection.htm\" ResolvedId=\"1024\" />';
 xmlAliasData += '    <Map Name=\"okta-palo-alto-radius-intg\" Link=\"Topics/integrations/palo-alto-radius-intg.htm\" ResolvedId=\"1025\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-opp-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_OPP_Agent.htm\" ResolvedId=\"1026\" />';
@@ -61,6 +61,7 @@ xmlAliasData += '    <Map Name=\"okta-mfa-win-cred-prov\" Link=\"Topics/Security
 xmlAliasData += '    <Map Name=\"citrix-netscaler-radius-int\" Link=\"Topics/integrations/citrix-netscaler-radius-int.htm\" ResolvedId=\"1031\" />';
 xmlAliasData += '    <Map Name=\"custom-error-pages\" Link=\"Topics/Settings/custom-error-pages.htm\" ResolvedId=\"1032\" />';
 xmlAliasData += '    <Map Name=\"custom-sign-in-page\" Link=\"Topics/Settings/custom-okta-hosted-sign-in-page.htm\" ResolvedId=\"1033\" />';
+xmlAliasData += '    <Map Name=\"csh-custom-domain\" Link=\"Topics/Settings/settings-customization-general.htm#Configur5\" ResolvedId=\"1034\" />';
 xmlAliasData += '    <Map Name=\"fortinet-radius-intg\" Link=\"Topics/integrations/fortinet-radius-intg.htm\" ResolvedId=\"1036\" />';
 xmlAliasData += '    <Map Name=\"okta-f5-intg\" Link=\"Topics/integrations/f5-radius-intg.htm\" ResolvedId=\"1037\" />';
 xmlAliasData += '    <Map Name=\"dt-safari\" Link=\"Topics/Mobile/Okta_Device_Trust_Jamf_macOS_Devices.htm\" ResolvedId=\"1038\" />';
@@ -154,7 +155,7 @@ xmlAliasData += '    <Map Name=\"ext_fortinet_radius_intg\" Link=\"Topics/integr
 xmlAliasData += '    <Map Name=\"ext_palo_alto_radius_intg\" Link=\"Topics/integrations/palo-alto-radius-intg.htm\" ResolvedId=\"200089\" />';
 xmlAliasData += '    <Map Name=\"ext_sophos_radius_intg\" Link=\"Topics/integrations/sophos-radius-intg.htm\" ResolvedId=\"200091\" />';
 xmlAliasData += '    <Map Name=\"ext_vmware_horizon_radius_intg\" Link=\"Topics/integrations/vmware-horizon-radius-intg.htm\" ResolvedId=\"200092\" />';
-xmlAliasData += '    <Map Name=\"ext_embed_your_end_user_portal\" Link=\"Topics/Miscellaneous/embed-your-end-user-portal.htm\" ResolvedId=\"200093\" />';
+xmlAliasData += '    <Map Name=\"ext_embed_your_end_user_portal\" Link=\"Topics/Dashboard/Embedding_Your_End_User_Portal.htm\" ResolvedId=\"200093\" />';
 xmlAliasData += '    <Map Name=\"ext_okta_ends_browser_support_for_TLS_1_1\" Link=\"Topics/Miscellaneous/okta-ends-browser-support-for-TLS-1.1.htm\" ResolvedId=\"200094\" />';
 xmlAliasData += '    <Map Name=\"ext_Platforms_Browser_OS_Support\" Link=\"Topics/Miscellaneous/Platforms_Browser_OS_Support.htm\" ResolvedId=\"200095\" />';
 xmlAliasData += '    <Map Name=\"ext_access_managed_mobile_apps\" Link=\"Topics/Mobile/access-managed-mobile-apps.htm\" ResolvedId=\"200104\" />';
@@ -205,6 +206,7 @@ xmlAliasData += '    <Map Name=\"ext_Okta_3PartyWhitelist\" Link=\"Topics/Securi
 xmlAliasData += '    <Map Name=\"ext_Okta_Radius_App\" Link=\"Topics/Security/Okta_Radius_App.htm\" ResolvedId=\"200162\" />';
 xmlAliasData += '    <Map Name=\"ext_proc_mfa_win_creds_rdp\" Link=\"Topics/Security/proc-mfa-win-creds-rdp.htm\" ResolvedId=\"200163\" />';
 xmlAliasData += '    <Map Name=\"ext_proc_security_behavior_detection\" Link=\"Topics/Security/proc-security-behavior-detection.htm\" ResolvedId=\"200165\" />';
+xmlAliasData += '    <Map Name=\"ext_Security\" Link=\"Topics/Security/Security_at_Okta.htm\" ResolvedId=\"200167\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_at_Okta\" Link=\"Topics/Security/Security_at_Okta.htm\" ResolvedId=\"200168\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_Authentication\" Link=\"Topics/Security/Security_Authentication.htm\" ResolvedId=\"200169\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_Duo\" Link=\"Topics/Security/Security_Duo.htm\" ResolvedId=\"200170\" />';
@@ -216,6 +218,7 @@ xmlAliasData += '    <Map Name=\"ext_The_Help_Desk_Admin_Role\" Link=\"Topics/Se
 xmlAliasData += '    <Map Name=\"ext_The_User_Admin_Role\" Link=\"Topics/Security/admin-role-groupadmin.htm\" ResolvedId=\"200176\" />';
 xmlAliasData += '    <Map Name=\"ext_custom_error_pages\" Link=\"Topics/Settings/custom-error-pages.htm\" ResolvedId=\"200177\" />';
 xmlAliasData += '    <Map Name=\"ext_custom_okta_hosted_sign_in_page\" Link=\"Topics/Settings/custom-okta-hosted-sign-in-page.htm\" ResolvedId=\"200178\" />';
+xmlAliasData += '    <Map Name=\"ext_custom_url_domain\" Link=\"Topics/Settings/settings-customization-general.htm#Configur5\" ResolvedId=\"200179\" />';
 xmlAliasData += '    <Map Name=\"ext_end_user_okta_account_chooser\" Link=\"Topics/Settings/end-user-okta-account-chooser.htm\" ResolvedId=\"200180\" />';
 xmlAliasData += '    <Map Name=\"ext_End_User_Password_Reset\" Link=\"Topics/Settings/End_User_Password_Reset.htm\" ResolvedId=\"200181\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings\" Link=\"Topics/Settings/Settings.htm\" ResolvedId=\"200184\" />';
