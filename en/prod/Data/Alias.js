@@ -442,5 +442,6 @@ xmlAliasData += '    <Map Name=\"ext_integrate_Slack\" Link=\"Topics/Provisionin
 xmlAliasData += '    <Map Name=\"ext_integrate_Dropbox\" Link=\"Topics/Provisioning/Dropbox/drbx-main.htm\" ResolvedId=\"1278\" />';
 xmlAliasData += '    <Map Name=\"ext_integrate_Rally\" Link=\"Topics/Provisioning/Rally Software/raly-main.htm\" ResolvedId=\"1279\" />';
 xmlAliasData += '    <Map Name=\"ext_integrate_RingCentral\" Link=\"Topics/Provisioning/RingCentral/rngc-main.htm\" ResolvedId=\"1280\" />';
+xmlAliasData += '    <Map Name=\"ext-ad-agent-domain-rename\" Link=\"Topics/Directory/ad-agent-rename-domain-name.htm\" ResolvedId=\"1281\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);

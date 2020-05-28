@@ -352,7 +352,7 @@
                                                 <p>Sign in to Okta and verify or set up policies. Install the agent on the Windows server and return to Okta to create an <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">app<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>An abbreviation of application. Essentially, it is a web-based site used to perform any number of specific tasks, and requires authentication from end users by signing in.</span></a> and assign users. Test the setup once the installation has been successful. The installation contains three major installation steps and one testing step. Be sure to complete the testing after the installation.</p>
                                                 <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Step 1 – Configure Okta </a></span>
                                                     <div class="MCDropDownBody dropDownBody">
-                                                        <p>Before installing the Okta credential provider for Windows, your <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ #text">org<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>The Okta container that represents a real-world organization.</span></a> must have the following three items configured. </p>
+                                                        <p>Before installing the Okta credential provider for Windows, your <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">org<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>The Okta container that represents a real-world organization.</span></a> must have the following three items configured. </p>
                                                         <ul>
                                                             <li value="1">Configured MFA factors that include the factor to use for RDP sign in. For instructions, see <a href="MFA.htm">MFA</a>.</li>
                                                             <li value="2">A group for the end users who will authenticate RDP sign ins. For instructions, see <a href="../Directory/Directory_Groups.htm#Group">Group Types Used in Okta</a>. </li>
@@ -679,7 +679,104 @@ $rdpAppConfig | ConvertTo-Json | Set-Content  'C:\Program Files\Okta\Okta Window
                                                                 <p>
                                                                     <img src="../../Resources/Images/mfa-ms-rdp-10.png" alt="System Properties screen" style="display: none;" data-mc-target-name="mfa-ms-rdp-10-dropdown" />
                                                                 </p>
+                                                                <p>&#160;</p>
                                                             </li>
+                                                            <li value="4">If you see <b>System.Net.WebException</b>
+similar to that shown below:						
+						<pre xml:space="preserve">System.Net.WebException: The underlying connection was closed: An unexpected error occurred on a send.
+. . . 
+System.IO.IOException: Unable to read data from the transport connection: An existing connection was forcibly closed by the remote host. 
+. . . 
+System.Net.Sockets.SocketException: An existing connection was forcibly closed by the remote host.</pre>
+						Cause is an older version of TLS, rRequired version is TLS 1.2.<br />					    Open a PowerShell terminal as administrator and execute the following script:
+<br /><pre id="code" xml:space="preserve">
+$is64bit = [IntPtr]::Size * 8 -eq 64
+Write-Host "Is 64-bit script: $is64bit"
+#helper function to check for if 0x800 bit is set
+function checkTls12Bit([Int] $regValue) {
+    return ($regValue -band 0x800) -ne 0x800
+}
+
+function setRegKeyToBitValue([string] $regBranch, [string] $regKey) {
+    $current = Get-ItemProperty -Path $regBranch
+    $regValue = $current.$regKey
+    if ($regValue -eq $null -or (checkTls12Bit $regValue) ) {
+        if ($regValue -eq $null) {
+	        $regValue = 0x800
+	     } else	{
+             $regValue = $regValue -bor 0x800
+ 	     }
+
+	     $p = New-ItemProperty $regBranch -Name $regKey -PropertyType DWord -Value $regValue -ErrorAction Stop -Force
+	     Write-Host "Updated $regBranch\$regKey value to $regValue" 
+	     return $true
+	 }
+	Write-Host "$regBranch\$regKey value is $regValue. No change."
+	return $false
+}
+
+function setRegKeyToValueOfOne([string] $regBranch, [string] $regKey) {
+    $current = Get-ItemProperty -Path $regBranch
+	if ($current.$regKey -ne 1) {
+		$p = New-ItemProperty $regBranch -Name $regKey -PropertyType DWord -Value 1 -ErrorAction Stop -Force
+		Write-Host "Updated $regBranch\$regKey value to 1"
+		return $true
+	 }
+	Write-Host "$regBranch\$regKey value is 1. No change."
+	return $false
+}
+
+#setup .net tls settings
+function setupTls4NET([boolean]$is64bit, [string]$regBranch, [string]$reg32bitBranch) {
+# https://docs.microsoft.com/en-us/dotnet/framework/network-programming/tls
+    $updated = setRegKeyToValueOfOne $regBranch "SchUseStrongCrypto"
+	$updated = (setRegKeyToValueOfOne $regBranch "SystemDefaultTlsVersions") -or $updated
+
+	if ($is64bit) {
+    	$updated = (setRegKeyToValueOfOne $reg32bitBranch "SchUseStrongCrypto") -or $updated
+		$updated = (setRegKeyToValueOfOne $reg32bitBranch "SystemDefaultTlsVersions") -or $updated
+	}
+
+	return $updated
+}							
+# https://docs.microsoft.com/en-us/dotnet/framework/migration-guide/how-to-determine-which-versions-are-installed
+
+$version = Get-ItemProperty -Path "HKLM:\Software\Microsoft\NET Framework Setup\NDP\v4\Full" -Name Release
+# 394254 - .NET Framework 4.6.1, which is the current target of the installer
+if ($version.Release -ge 394254)  {
+    $ev = [environment]::Version
+	$v = "v" + $ev.Major + "." + $ev.Minor + "." + $ev.Build
+	$updated = setupTls4NET $is64bit "HKLM:\SOFTWARE\Microsoft\.NETFramework\$v" "HKLM:\SOFTWARE\Wow6432Node\Microsoft\.NETFramework\$v"
+# https://support.microsoft.com/en-ca/help/3140245/update-to-enable-tls-1-1-and-tls-1-2-as-a-default-secure-protocols-in
+
+	$updated = (setRegKeyToBitValue "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\WinHttp" "DefaultSecureProtocols") -or $updated
+	$updated = (setRegKeyToBitValue "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings" "SecureProtocols") -or $updated
+
+	# updated the 32-bit branches if we are on 64-bit machine
+	if ($is64bit) {
+		$updated = (setRegKeyToBitValue "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Internet Settings\WinHttp" "DefaultSecureProtocols") -or $updated
+		$updated = (setRegKeyToBitValue "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Internet Settings" "SecureProtocols") -or $updated
+	}
+
+	# current user settings
+	$updated = (setRegKeyToBitValue "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings" "SecureProtocols") -or $updated
+
+	# local system account
+	$userSid = ".DEFAULT"
+	$updated = (setRegKeyToBitValue "Registry::HKEY_USERS\$userSid\Software\Microsoft\Windows\CurrentVersion\Internet Settings" "SecureProtocols") -or $updated
+
+	if ($updated) {
+		Write-Host "Done. Updated required settings."
+	}
+	else
+	{
+	    Write-Host "Done. No updates are required."
+	}
+}
+							else 
+							{
+							Write-Host "No changes were made. Your version of .NET Framework is earlier version than 4.6.1, please upgrade."
+}					</pre></li>
                                                         </ol>
                                                     </div>
                                                 </div>
