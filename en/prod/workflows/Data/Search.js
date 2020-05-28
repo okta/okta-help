@@ -1,1 +1,1 @@
-define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../Content/Topics/Access-Gateway/about-application-attribute-datasources.htm'],s:['$'],p:[['$',18]]});
+define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../Content/Topics/Access-Gateway/about-access-gateway-applications.htm'],s:['$'],p:[['$',27]]});
