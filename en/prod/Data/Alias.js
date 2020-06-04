@@ -444,5 +444,6 @@ xmlAliasData += '    <Map Name=\"ext_integrate_Rally\" Link=\"Topics/Provisionin
 xmlAliasData += '    <Map Name=\"ext_integrate_RingCentral\" Link=\"Topics/Provisioning/RingCentral/rngc-main.htm\" ResolvedId=\"1280\" />';
 xmlAliasData += '    <Map Name=\"ext-ad-agent-domain-rename\" Link=\"Topics/Directory/ad-agent-rename-domain-name.htm\" ResolvedId=\"1281\" />';
 xmlAliasData += '    <Map Name=\"csh-OPP\" Link=\"Topics/Provisioning/On Premise Provisioning/OPP-main.htm\" ResolvedId=\"1282\" />';
+xmlAliasData += '    <Map Name=\"csh-ad-import-settings\" Link=\"Topics/Directory/ad-agent-configure-import.htm\" ResolvedId=\"1283\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
