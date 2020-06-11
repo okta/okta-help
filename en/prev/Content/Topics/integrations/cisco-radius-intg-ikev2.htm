@@ -280,17 +280,12 @@
                                             <div class="body-main">
                                                 <!-- Main content body -->
                                                 <h1>Configure ASA IKEv2 Remote Access with EAP-TTLS to interoperate with Okta via RADIUS</h1>
-                                                <p>Okta provides the ability for organizations to manage authorization and access to on-premises applications and resources using the RADIUS protocol and the Okta RADIUS&#160;<a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">agent<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>A software agent is a lightweight program that runs as a service outside of Okta. It is typically installed behind a firewall and allows Okta to tunnel communication between an on-premises service and Okta's cloud service. Okta employs several agent types: Active Directory, LDAP, RADIUS, RSA, Active Directory Password Sync, and IWA. For example, users can install multiple Active Directory agents to ensure that the integration is robust and highly available across geographic locations.</span></a>. With the Okta RADIUS Server Agent organizations can  delegate authentication to Okta.<br /><br />This page describes how to configure <b>Cisco ASA IKEV2 VPN</b>&#160;to use <b>EAP-TTLS</b> and the <b>Okta RADIUS Server Agent</b>.</p>
+                                                <p>Okta provides the ability for organizations to manage authorization and access to on-premises applications and resources using the RADIUS protocol and the Okta RADIUS&#160;agent. With the Okta RADIUS Server Agent organizations can  delegate authentication to Okta.<br /><br />This page describes how to configure <b>Cisco ASA IKEV2 VPN</b>&#160;to use <b>EAP-TTLS</b> and the <b>Okta RADIUS Server Agent</b>.</p>
                                                 <p>&#160;</p>
                                                 <div class="noteOkta">
                                                     <img src="../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Info" alt="Info" />
                                                     <p class="noteHeading">Note</p>
-                                                    <p class="noteContent">If you are using AnyConnect v4.4 and greater and ASA&#160;version 9.7.1 and greater consider using <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">SAML<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>An acronym for Security Assertion Markup Language, SAML is an XML-based standard for exchanging authentication and authorization data between an identity provider (IdP) and a service provider (SP). The SAML standard addresses issues unique to the single sign-on (SSO) solution, and defines three roles: the end user, the IdP, and the SP.
-
-Here's how SAML works through Okta:
-
-SP-initiated flow: the end user requests (principally through a browser) a service from the SP. The SP requests and obtains an identity assertion from the IdP (in this case, Okta). On the basis of this assertion, the SP can decide whether or not to authorize or authenticate the service for the end user.
-IdP-initiated flow: with Okta as the IdP, an end user goes to the Okta browser and clicks on an app, sending a SAMLResponse to the configured SP. A session is established with the SP, and the end user is authenticated.</span></a>.</p>
+                                                    <p class="noteContent">If you are using AnyConnect v4.4 and greater and ASA&#160;version 9.7.1 and greater consider using SAML.</p>
                                                 </div>
                                                 <p>For information and a comparison between SAML and RADIUS&#160;user experiences see <a href="about-saml-vs-radius.htm" class="MCXref xref">About SAML vs RADIUS User Experience.</a></p>
                                                 <h3>Before You Begin</h3>
@@ -323,7 +318,7 @@ UDP/1812
 RADIUS
 (actual port number defined during 
 <a href="#Part" class="MCXref xref">Part 1 – Install and configure the Okta RADIUS Agent</a></td>
-                                                            <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">RADIUS traffic between the firewall (<a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">client<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>Essentially, a client is anything that talks to the Okta service. Within the traditional client-server model, Okta is the server. The client might be an agent, an Okta mobile app, or a browser plugin. </span></a>) and the RADIUS Agent (server)</td>
+                                                            <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">RADIUS traffic between the firewall (client) and the RADIUS Agent (server)</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -357,8 +352,8 @@ RADIUS
                                                             <li value="1">Contact Okta support for the latest EA version of the Okta RADIUS Agent. </li>
                                                             <li value="2">Install the agent using the instructions in <a href="../Directory/Agent_Installing_the_Okta_Radius_Agent.htm"> Installing and Configuring the Okta RADIUS Server Agent</a>.
                     
-                        <div class="noteOkta"><img src="../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Info" alt="Info" /><p class="noteHeading">Note</p><p class="noteContent">The service account used during installation must be granted at least one of the <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">admin<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>An abbreviation of administrator. This is the individual(s) who have access to the Okta Administrator Dashboard. They control the provisioning and deprovisioning of end users, the assigning of apps, the resetting of passwords, and the overall end user experience. Only administrators have the Administration button on the upper right side of the My Applications page.</span></a> roles:
-							<a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">Super admin<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>The super admin receives full access to every item in the Administrative Console and is the only role that can assign administrator roles to other user accounts. Accounts with other administrator role assignments have reduced functionalities to different permission sets. Contact Okta support to create an Okta Mastered account with Super Admin rights.</span></a> or <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">App admin<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>An app admin can be granted access to all instances of an app, or just specific instances of that application. This allows for more granular access control.</span></a>.</p></div></li>
+                        <div class="noteOkta"><img src="../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Info" alt="Info" /><p class="noteHeading">Note</p><p class="noteContent">The service account used during installation must be granted at least one of the admin roles:
+							Super admin or App admin.</p></div></li>
                                                             <li value="3">For throughput, availability and other considerations, see <a href="../DeploymentGuides/Radius_Server_Agent/radius-server-agent-dg.htm">Okta RADIUS Server Agent Deployment Best Practices</a>.</li>
                                                         </ol>
                                                         <p>&#160;</p>
@@ -368,7 +363,7 @@ RADIUS
                                                     <div class="MCDropDownBody dropDownBody">
                                                         <p>In this section you will use the Okta Admin Console to:</p>
                                                         <ul>
-                                                            <li value="1">Add the <b>Cisco ASA - RADIUS</b> app from the <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">OIN<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>An acronym for the Okta Integration Network. The OIN is comprised of thousands of public, pre-integrated business and consumer applications. As an on-demand service, OIN integrations are continuously validated, always up to date, and constantly growing both in number and capability. Okta performs a single integration with an ISV or SP, providing thousands of end users with point-and-click customization for their orgs.</span></a> </li>
+                                                            <li value="1">Add the <b>Cisco ASA - RADIUS</b> app from the OIN </li>
                                                             <li value="2">Apply settings specific to your deployment.  <br /></li>
                                                         </ul>
                                                         <p>Specifically you will configure:</p>
@@ -378,8 +373,7 @@ RADIUS
                                                                 <p>UDP Port</p>
                                                             </li>
                                                             <li value="3">
-                                                                <p><a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ #text">Secret Key<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>An Okta-generated string of characters that allows end users to set up (enroll) their mobile device in to Okta Verify. End users enter the Secret Key in the Okta Verify app during the set up process as an alternative to scanning a QR code.</span></a>
-                                                                </p>
+                                                                <p>Secret Key</p>
                                                             </li>
                                                             <li value="4">
                                                                 <p>Application Username Format</p>
@@ -390,7 +384,7 @@ RADIUS
                                                             <p class="noteHeading">Note</p>
                                                             <p class="noteContent">The U2F&#160;Security and Windows Hello <a href="../Security/MFA.htm#FactorTypes">MFA factors</a> are not compatible with RADIUS-enabled implementations. <br />For additional information about the Radius apps refer to <a href="../Security/Okta_Radius_App.htm">Configuring RADIUS applications in Okta</a>.</p>
                                                         </div>
-                                                        <p>There are some optional advanced radius configuration options that are listed at the end of this document to help with Reporting the Client IP and Sending <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">Groups<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>Groups allow you to organize your end users and the apps they can access. Assigning apps to large sets of end users is made easier with groups.</span></a> information to the firewall.</p>
+                                                        <p>There are some optional advanced radius configuration options that are listed at the end of this document to help with Reporting the Client IP and Sending Groups information to the firewall.</p>
                                                         <ol>
                                                             <li value="1">In Okta, navigate to <b>Applications &gt; Applications&gt; Add Application</b>.</li>
                                                             <li value="2">Search for <i>Cisco ASA</i>, and click <b>Add Application</b>.</li><![CDATA[      
@@ -443,7 +437,7 @@ RADIUS
                                                                 <ul>
                                                                     <li value="1">VPN provider  –  <b>Windows (built-in)</b>.</li>
                                                                     <li value="2">Connection name –  <b>An appropriate name</b>.</li>
-                                                                    <li value="3">Server name or address  – <b>&lt;Address of ASA <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ #text">FQDN<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>A fully qualified domain name (FQDN) is the complete domain name for a specific computer, or host, on the internet.</span></a>.&gt;</b></li>
+                                                                    <li value="3">Server name or address  – <b>&lt;Address of ASA FQDN.&gt;</b></li>
                                                                     <li value="4">VPN type  – <b>IKEv2</b></li>
                                                                 </ul>
                                                                 <img src="../../Resources/Images/hybrid-access/cisco-radius-intg-ikev2-part5-02.png" id="img_new" />
@@ -598,6 +592,7 @@ RADIUS
                 </ul>
             </div> -->
                                     </div>
+                                    <!-- Qualtrics feedback div -->
                                     <!-- ***************************** Scripts ************************************* -->
                                     <!-- Foundation -->
                                     <script src="../../Resources/Scripts/js/app.js">
@@ -611,8 +606,8 @@ RADIUS
                                     </script>
                                     <script type="text/javascript" src="../../Resources/Scripts/get-feedback.js">
                                     </script>
-                                    <script type="text/javascript" src="../../Resources/Scripts/js/vendor/qualtrics.js">
-                                    </script>
+                                    <!-- <script type="text/javascript" src="../../Resources/Scripts/js/vendor/qualtrics.js" defer="defer">		
+		</script> -->
                                     <!-- Coveo -->
                                     <script src="https://static.cloud.coveo.com/searchui/v2.5395/js/CoveoJsSearch.Lazy.min.js" defer="defer">
                                     </script>
