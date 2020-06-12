@@ -23,7 +23,7 @@ xmlAliasData += '    <Map Name=\"Settings_Appearance\" Link=\"Topics/Settings/Se
 xmlAliasData += '    <Map Name=\"Settings_Customization\" Link=\"Topics/Settings/Settings_Customization.htm#Settings_Customization1\" ResolvedId=\"1230\" />';
 xmlAliasData += '    <Map Name=\"Settings_Emails_SMS\" Link=\"Topics/Settings/Settings_Email.htm#Settings_Emails_SMS1\" ResolvedId=\"1240\" />';
 xmlAliasData += '    <Map Name=\"Settings_Downloads\" Link=\"Topics/Settings/Settings_Downloads.htm#Settings_Downloads\" ResolvedId=\"1250\" />';
-xmlAliasData += '    <Map Name=\"Directory_People\" Link=\"Topics/Directory/eu-people.htm#Directory_People1\" ResolvedId=\"1130\" />';
+xmlAliasData += '    <Map Name=\"Directory_People\" Link=\"Topics/Users Groups and Profiles/usgp-people.htm#Directory_People1\" ResolvedId=\"1130\" />';
 xmlAliasData += '    <Map Name=\"Directory_Profile_Editor\" Link=\"Topics/Directory/ad-agent-configure-user-profiles-attributes.htm\" ResolvedId=\"1150\" />';
 xmlAliasData += '    <Map Name=\"Directory_Profile_Masters\" Link=\"Topics/Directory/eu-profile-masters.htm#Directory_Profile_Masters1\" ResolvedId=\"1170\" />';
 xmlAliasData += '    <Map Name=\"Reports_System_Log\" Link=\"Topics/Reports/Reports_SysLog.htm#Reports_System_Log1\" ResolvedId=\"1200\" />';
@@ -112,7 +112,7 @@ xmlAliasData += '    <Map Name=\"ext_Configure_Cust_Portal_Leverage_OktaPlugin\"
 xmlAliasData += '    <Map Name=\"ext_Dashboard\" Link=\"Topics/Dashboard/Dashboard.htm\" ResolvedId=\"200037\" />';
 xmlAliasData += '    <Map Name=\"ext_Dashboard_End_User_Notifications\" Link=\"Topics/Dashboard/Dashboard_End_User_Notifications.htm\" ResolvedId=\"200038\" />';
 xmlAliasData += '    <Map Name=\"ext_Embedding_Your_End_User_Portal\" Link=\"Topics/Dashboard/Embedding_Your_End_User_Portal.htm\" ResolvedId=\"200039\" />';
-xmlAliasData += '    <Map Name=\"ext_Importing_People\" Link=\"Topics/Directory/eu-importing-people.htm\" ResolvedId=\"200040\" />';
+xmlAliasData += '    <Map Name=\"ext_Importing_People\" Link=\"Topics/Users Groups and Profiles/usgp-import-users-main.htm\" ResolvedId=\"200040\" />';
 xmlAliasData += '    <Map Name=\"ext_radius_server_agent_dg\" Link=\"Topics/DeploymentGuides/Radius_Server_Agent/radius-server-agent-dg.htm\" ResolvedId=\"200041\" />';
 xmlAliasData += '    <Map Name=\"ext_Android_For_Work\" Link=\"Topics/Devices/Android_For_Work.htm\" ResolvedId=\"200043\" />';
 xmlAliasData += '    <Map Name=\"ext_application_inventory\" Link=\"Topics/Devices/application-inventory.htm\" ResolvedId=\"200044\" />';
@@ -132,10 +132,10 @@ xmlAliasData += '    <Map Name=\"ext_Directory_AD_Field_Mappings\" Link=\"Topics
 xmlAliasData += '    <Map Name=\"ext_Directory_Directory_Integrations\" Link=\"Topics/Directory/directory-integrations-main2.htm\" ResolvedId=\"1161\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_FAQ_Okta_and_AD_Groups\" Link=\"Topics/Directory/Directory_FAQ_Okta_and_AD_Groups.htm\" ResolvedId=\"200064\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_Groups\" Link=\"Topics/Directory/Directory_Groups.htm\" ResolvedId=\"200065\" />';
-xmlAliasData += '    <Map Name=\"ext_Directory_People\" Link=\"Topics/Directory/eu-people.htm\" ResolvedId=\"200068\" />';
+xmlAliasData += '    <Map Name=\"ext_Directory_People\" Link=\"Topics/Users Groups and Profiles/usgp-people.htm\" ResolvedId=\"200068\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_Profile_Editor\" Link=\"Topics/Directory/eu-profile-editor.htm\" ResolvedId=\"200069\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_Profile_Masters\" Link=\"Topics/Directory/eu-profile-masters.htm\" ResolvedId=\"200070\" />';
-xmlAliasData += '    <Map Name=\"ext_Directory_Self_Service_Registration\" Link=\"Topics/Directory/eu-self-service.htm\" ResolvedId=\"200071\" />';
+xmlAliasData += '    <Map Name=\"ext_Directory_Self_Service_Registration\" Link=\"Topics/Users Groups and Profiles/usgp-self-service.htm\" ResolvedId=\"200071\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_Using_Group_Push\" Link=\"Topics/Directory/Directory_Using_Group_Push.htm\" ResolvedId=\"200072\" />';
 xmlAliasData += '    <Map Name=\"ext_Installing_Configuring_Active_Directory_Password_Sync_Agent\" Link=\"Topics/Directory/Installing_Configuring_Active_Directory_Password_Sync_Agent.htm\" ResolvedId=\"200073\" />';
 xmlAliasData += '    <Map Name=\"ext_LDAP_Provisioning\" Link=\"Topics/Directory/ldap-agent-manage-integration.htm\" ResolvedId=\"200074\" />';
@@ -145,7 +145,7 @@ xmlAliasData += '    <Map Name=\"ext_Okta_Java_LDAP_Agent\" Link=\"Topics/Direct
 xmlAliasData += '    <Map Name=\"ext_Okta_Active_Directory_Agent_UDMappingchanges\" Link=\"Topics/Directory/Okta_Active_Directory_Agent_UDMappingchanges.htm\" ResolvedId=\"200079\" />';
 xmlAliasData += '    <Map Name=\"ext_Overview_of_JIT\" Link=\"Topics/Directory/ad-agent-add-update-JIT.htm\" ResolvedId=\"200080\" />';
 xmlAliasData += '    <Map Name=\"ext_Reference_Directories\" Link=\"Topics/Directory/Reference_Directories.htm\" ResolvedId=\"200081\" />';
-xmlAliasData += '    <Map Name=\"ext_User_Lifecycle_Overview\" Link=\"Topics/Directory/eug-overview.htm\" ResolvedId=\"200082\" />';
+xmlAliasData += '    <Map Name=\"ext_User_Lifecycle_Overview\" Link=\"Topics/Users Groups and Profiles/usgp-main.htm\" ResolvedId=\"200082\" />';
 xmlAliasData += '    <Map Name=\"ext_Using_Selective_Profile_Push\" Link=\"Topics/Directory/Using_Selective_Profile_Push.htm\" ResolvedId=\"200083\" />';
 xmlAliasData += '    <Map Name=\"ext_adfs_okta_int\" Link=\"Topics/integrations/adfs-okta-int.htm\" ResolvedId=\"200084\" />';
 xmlAliasData += '    <Map Name=\"ext_cisco_radius_intg\" Link=\"Topics/integrations/cisco-radius-intg.htm\" ResolvedId=\"200085\" />';
@@ -301,8 +301,8 @@ xmlAliasData += '    <Map Name=\"csh_superadmin\" Link=\"Topics/Security/admin-r
 xmlAliasData += '    <Map Name=\"csh_mfa\" Link=\"Topics/Security/MFA.htm\" ResolvedId=\"1115\" />';
 xmlAliasData += '    <Map Name=\"csh_threat_insight\" Link=\"Topics/Security/security-threat-insight.htm\" ResolvedId=\"1116\" />';
 xmlAliasData += '    <Map Name=\"ext_ad_importusers\" Link=\"Topics/Directory/ad-agent-manage-users-groups.htm\" ResolvedId=\"1117\" />';
-xmlAliasData += '    <Map Name=\"ext_end_user_states\" Link=\"Topics/Directory/end-user-states.htm\" ResolvedId=\"1118\" />';
-xmlAliasData += '    <Map Name=\"ext_csv_import\" Link=\"Topics/Directory/eu-csv-import.htm\" ResolvedId=\"1119\" />';
+xmlAliasData += '    <Map Name=\"ext_end_user_states\" Link=\"Topics/Users Groups and Profiles/usgp-end-user-states.htm\" ResolvedId=\"1118\" />';
+xmlAliasData += '    <Map Name=\"ext_csv_import\" Link=\"Topics/Users Groups and Profiles/usgp-import-users-csv.htm\" ResolvedId=\"1119\" />';
 xmlAliasData += '    <Map Name=\"ext_secpol_configur\" Link=\"Topics/Security/Security_Policies.htm#Configur\" ResolvedId=\"1121\" />';
 xmlAliasData += '    <Map Name=\"ext_secpol_passpol\" Link=\"Topics/Security/Security_Policies.htm#PassPolOver\" ResolvedId=\"1122\" />';
 xmlAliasData += '    <Map Name=\"ext_secpol_group\" Link=\"Topics/Security/Security_Policies.htm#Creating\" ResolvedId=\"1123\" />';
@@ -312,11 +312,11 @@ xmlAliasData += '    <Map Name=\"ext_secpol_signonpolrules\" Link=\"Topics/Secur
 xmlAliasData += '    <Map Name=\"ext_AD_profmaster\" Link=\"Topics/Directory/Directory_AD_Enable_Profile_Master.htm\" ResolvedId=\"1127\" />';
 xmlAliasData += '    <Map Name=\"ext_app_map\" Link=\"Topics/Directory/Directory_Application-Based_Mapping.htm\" ResolvedId=\"1128\" />';
 xmlAliasData += '    <Map Name=\"ext_superadmin\" Link=\"Topics/Security/admin-role-superadmin.htm\" ResolvedId=\"1129\" />';
-xmlAliasData += '    <Map Name=\"ext_suspend\" Link=\"Topics/Directory/eu-suspend.htm\" ResolvedId=\"1131\" />';
+xmlAliasData += '    <Map Name=\"ext_suspend\" Link=\"Topics/Users Groups and Profiles/usgp-suspend.htm\" ResolvedId=\"1131\" />';
 xmlAliasData += '    <Map Name=\"ext_ldap_trouble\" Link=\"Topics/Directory/ldap-troubleshooting.htm\" ResolvedId=\"1132\" />';
 xmlAliasData += '    <Map Name=\"ext_o365_accesspol\" Link=\"Topics/Security/O365_Client-Access-Policies.htm\" ResolvedId=\"1133\" />';
 xmlAliasData += '    <Map Name=\"ext_prov_workday_imports\" Link=\"Topics/Provisioning/Workday/incremental-imports.htm\" ResolvedId=\"1134\" />';
-xmlAliasData += '    <Map Name=\"ext_activate_user\" Link=\"Topics/Directory/eu-activate.htm\" ResolvedId=\"1135\" />';
+xmlAliasData += '    <Map Name=\"ext_activate_user\" Link=\"Topics/Users Groups and Profiles/usgp-activate-user-account.htm\" ResolvedId=\"1135\" />';
 xmlAliasData += '    <Map Name=\"ext-quick-access-apps\" Link=\"Topics/Settings/end-user-quick-access-apps.htm\" ResolvedId=\"1136\" />';
 xmlAliasData += '    <Map Name=\"csh-eu-quick-access-apps\" Link=\"Topics/Settings/end-user-quick-access-apps.htm\" ResolvedId=\"1137\" />';
 xmlAliasData += '    <Map Name=\"okta-meraki-wlan-radius-intg\" Link=\"Topics/integrations/cisco-meraki-radius-intg.htm\" ResolvedId=\"1155\" />';
@@ -347,8 +347,8 @@ xmlAliasData += '    <Map Name=\"ext_inlinehooks\" Link=\"Topics/Directory/inlin
 xmlAliasData += '    <Map Name=\"okta-radius-agent-history\" Link=\"Topics/Settings/Version_Histories/Ver_History_RADIUS_Server_Agent.htm\" ResolvedId=\"1167\" />';
 xmlAliasData += '    <Map Name=\"csh-actionable-notifications\" Link=\"Topics/Mobile/okta-verify-sign-in.htm#iOSPush\" ResolvedId=\"1168\" />';
 xmlAliasData += '    <Map Name=\"Security_General\" Link=\"Topics/Security/Security_General.htm\" ResolvedId=\"1169\" />';
-xmlAliasData += '    <Map Name=\"ext_match-user\" Link=\"Topics/Directory/eu-matching-imported-users.htm\" ResolvedId=\"1171\" />';
-xmlAliasData += '    <Map Name=\"ext_eu_reset_password_selfserve\" Link=\"Topics/Directory/eu-reset-password-self-serve.htm\" ResolvedId=\"1172\" />';
+xmlAliasData += '    <Map Name=\"ext_match-user\" Link=\"Topics/Users Groups and Profiles/usgp-matching-imported-users.htm\" ResolvedId=\"1171\" />';
+xmlAliasData += '    <Map Name=\"ext_eu_reset_password_selfserve\" Link=\"Topics/Users Groups and Profiles/usgp-manage-password-reset.htm\" ResolvedId=\"1172\" />';
 xmlAliasData += '    <Map Name=\"ext_ov_eu\" Link=\"Topics/Mobile/okta-verify-end-users.htm\" ResolvedId=\"1173\" />';
 xmlAliasData += '    <Map Name=\"ext_asa_main\" Link=\"Topics/Adv_Server_Access/docs/asa-overview.htm\" ResolvedId=\"1174\" />';
 xmlAliasData += '    <Map Name=\"oamp-okta-int\" Link=\"Topics/integrations/oamp-okta-int.htm\" ResolvedId=\"1175\" />';
@@ -396,7 +396,7 @@ xmlAliasData += '    <Map Name=\"integrations\" Link=\"Topics/integrations/integ
 xmlAliasData += '    <Map Name=\"App_Based_Signon\" Link=\"Topics/Security/App_Based_Signon.htm\" ResolvedId=\"1223\" />';
 xmlAliasData += '    <Map Name=\"Apps_Apps_Page\" Link=\"Topics/Apps/Apps_Apps_Page.htm\" ResolvedId=\"1224\" />';
 xmlAliasData += '    <Map Name=\"ext-custom-user-types\" Link=\"Topics/Directory/directory-UD-usertypes-about.htm\" ResolvedId=\"1225\" />';
-xmlAliasData += '    <Map Name=\"ext-assign-apps\" Link=\"Topics/Directory/eu-assign-apps.htm\" ResolvedId=\"1226\" />';
+xmlAliasData += '    <Map Name=\"ext-assign-apps\" Link=\"Topics/Users Groups and Profiles/usgp-assign-apps.htm\" ResolvedId=\"1226\" />';
 xmlAliasData += '    <Map Name=\"meraki-radius-intg\" Link=\"Topics/integrations/cisco-meraki-radius-intg.htm\" ResolvedId=\"1227\" />';
 xmlAliasData += '    <Map Name=\"ext-Okta-workflows\" Link=\"Topics/Workflows/workflows-main.htm\" ResolvedId=\"1228\" />';
 xmlAliasData += '    <Map Name=\"ext-connect-your-apps\" Link=\"Topics/Workflows/workflow-connect-your-applications.htm\" ResolvedId=\"1229\" />';
@@ -414,7 +414,7 @@ xmlAliasData += '    <Map Name=\"ext_prov_con_okta_prov\" Link=\"Topics/Provisio
 xmlAliasData += '    <Map Name=\"ext_prov_okta_lcm_user_provision\" Link=\"Topics/Provisioning/LCM-Prov/okta-lcm-user-provision.htm\" ResolvedId=\"1243\" />';
 xmlAliasData += '    <Map Name=\"csh-administrators\" Link=\"Topics/Security/Administrators.htm\" ResolvedId=\"1248\" />';
 xmlAliasData += '    <Map Name=\"csh-admin-role-groupmembership\" Link=\"Topics/Security/admin-role-groupmembershipadmin.htm\" ResolvedId=\"1249\" />';
-xmlAliasData += '    <Map Name=\"csh-eu-import-safeguard\" Link=\"Topics/Directory/eu-import-safeguard.htm\" ResolvedId=\"1251\" />';
+xmlAliasData += '    <Map Name=\"csh-eu-import-safeguard\" Link=\"Topics/Users Groups and Profiles/usgp-import-safeguard.htm\" ResolvedId=\"1251\" />';
 xmlAliasData += '    <Map Name=\"csh-o365-sa\" Link=\"Topics/Apps/Apps_O365_Silent_Activation.htm\" ResolvedId=\"1252\" />';
 xmlAliasData += '    <Map Name=\"ext-apps-page-show-application-embed-links\" Link=\"Topics/Apps/Apps_Apps_Page.htm#Show\" ResolvedId=\"1253\" />';
 xmlAliasData += '    <Map Name=\"csh-config-asso\" Link=\"Topics/Directory/Configuring_Agentless_SSO.htm\" ResolvedId=\"1254\" />';
