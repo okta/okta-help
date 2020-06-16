@@ -42,7 +42,6 @@ xmlAliasData += '    <Map Name=\"Device_Trust_Mobile\" Link=\"Topics/device-trus
 xmlAliasData += '    <Map Name=\"Device_Trust_EAS_iOS\" Link=\"Topics/Mobile/Okta_Mobile_Device_Trust_O365_EAS_iOS.htm\" ResolvedId=\"1010\" />';
 xmlAliasData += '    <Map Name=\"App_SignOn_Policies\" Link=\"Topics/Security/App_Based_Signon.htm\" ResolvedId=\"1011\" />';
 xmlAliasData += '    <Map Name=\"okta-android-installers\" Link=\"Topics/Mobile/Okta_Mobile_Obtaining_Okta_Android_Installers.htm\" ResolvedId=\"1012\" />';
-xmlAliasData += '    <Map Name=\"Service_Mode\" Link=\"Topics/Reference/ref-service-op-mode.htm\" ResolvedId=\"1014\" />';
 xmlAliasData += '    <Map Name=\"conf-desktop-sso\" Link=\"Topics/Directory/Configuring_Desktop_SSO.htm\" ResolvedId=\"1015\" />';
 xmlAliasData += '    <Map Name=\"ServicePrincipalName\" Link=\"Topics/Directory/Configuring_Agentless_SSO.htm#SSOAgentlessPrincName\" ResolvedId=\"1013\" />';
 xmlAliasData += '    <Map Name=\"ad-agent\" Link=\"Topics/Settings/end-user-quick-access-apps.htm\" ResolvedId=\"1016\" />';
@@ -110,7 +109,6 @@ xmlAliasData += '    <Map Name=\"ext_CASB_config_guide\" Link=\"Topics/Apps/CASB
 xmlAliasData += '    <Map Name=\"ext_Provisioning_Deprovisioning_Overview\" Link=\"Topics/Apps/Provisioning_Deprovisioning_Overview.htm\" ResolvedId=\"200034\" />';
 xmlAliasData += '    <Map Name=\"ext_Configure_Cust_Portal_Leverage_OktaPlugin\" Link=\"Topics/Dashboard/Configure_Cust_Portal_Leverage_OktaPlugin.htm\" ResolvedId=\"200036\" />';
 xmlAliasData += '    <Map Name=\"ext_Dashboard\" Link=\"Topics/Dashboard/Dashboard.htm\" ResolvedId=\"200037\" />';
-xmlAliasData += '    <Map Name=\"ext_Dashboard_End_User_Notifications\" Link=\"Topics/Dashboard/Dashboard_End_User_Notifications.htm\" ResolvedId=\"200038\" />';
 xmlAliasData += '    <Map Name=\"ext_Embedding_Your_End_User_Portal\" Link=\"Topics/Dashboard/Embedding_Your_End_User_Portal.htm\" ResolvedId=\"200039\" />';
 xmlAliasData += '    <Map Name=\"ext_Importing_People\" Link=\"Topics/Users Groups and Profiles/usgp-import-users-main.htm\" ResolvedId=\"200040\" />';
 xmlAliasData += '    <Map Name=\"ext_radius_server_agent_dg\" Link=\"Topics/DeploymentGuides/Radius_Server_Agent/radius-server-agent-dg.htm\" ResolvedId=\"200041\" />';
@@ -179,7 +177,6 @@ xmlAliasData += '    <Map Name=\"ext_Set_up_Android_Enterprise\" Link=\"Topics/M
 xmlAliasData += '    <Map Name=\"ext_The_Mobile_App_Store\" Link=\"Topics/Mobile/The_Mobile_App_Store.htm\" ResolvedId=\"200129\" />';
 xmlAliasData += '    <Map Name=\"ext_glossary\" Link=\"Topics/Reference/glossary.htm\" ResolvedId=\"200131\" />';
 xmlAliasData += '    <Map Name=\"ext_ref_apps_events\" Link=\"Topics/Reference/ref-apps-events.htm\" ResolvedId=\"200132\" />';
-xmlAliasData += '    <Map Name=\"ext_ref_service_op_mode\" Link=\"Topics/Reference/ref-service-op-mode.htm\" ResolvedId=\"200133\" />';
 xmlAliasData += '    <Map Name=\"ext_ref_supported_languages\" Link=\"Topics/Reference/ref-supported-languages.htm\" ResolvedId=\"200134\" />';
 xmlAliasData += '    <Map Name=\"ext_announcements\" Link=\"Topics/ReleaseNotes/announcements.htm\" ResolvedId=\"200135\" />';
 xmlAliasData += '    <Map Name=\"ext_early_access\" Link=\"Topics/ReleaseNotes/early-access.htm\" ResolvedId=\"200138\" />';
@@ -230,7 +227,6 @@ xmlAliasData += '    <Map Name=\"ext_Settings_Customization\" Link=\"Topics/Sett
 xmlAliasData += '    <Map Name=\"ext_Settings_Downloads\" Link=\"Topics/Settings/Settings_Downloads.htm\" ResolvedId=\"200190\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Email\" Link=\"Topics/Settings/Settings_Email.htm\" ResolvedId=\"200191\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Manage_Dashboard_Tabs_for_End_Users\" Link=\"Topics/Settings/Settings_Manage_Dashboard_Tabs_for_End_Users.htm\" ResolvedId=\"200192\" />';
-xmlAliasData += '    <Map Name=\"ext_Supported_Configurations\" Link=\"Topics/Settings/Supported_Configurations.htm\" ResolvedId=\"200193\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_Active_Directory_Password_Sync_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_Active_Directory_Password_Sync_Agent.htm\" ResolvedId=\"200194\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_ADFS_Adapter\" Link=\"Topics/Settings/Version_Histories/Ver_History_Okta_MFA_Provider_for_ADFS.htm\" ResolvedId=\"200195\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_AD_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_AD_Agent.htm\" ResolvedId=\"200196\" />';
@@ -255,7 +251,6 @@ xmlAliasData += '    <Map Name=\"vmware-horizon-radius-intg\" Link=\"Topics/inte
 xmlAliasData += '    <Map Name=\"beyondtrust-radius-intg\" Link=\"Topics/integrations/beyondtrust-powerbroker-password-safe-radius-intg.htm\" ResolvedId=\"1061\" />';
 xmlAliasData += '    <Map Name=\"ldapuserattribute\" Link=\"Topics/Directory/ldap-agent-manage-integration.htm\" ResolvedId=\"1063\" />';
 xmlAliasData += '    <Map Name=\"ver-hist_dt-macOS-desktop\" Link=\"Topics/Settings/Version_Histories/Ver_History_Device_Trust_MacOS.htm\" ResolvedId=\"1064\" />';
-xmlAliasData += '    <Map Name=\"ext_widget_redirect\" Link=\"Topics/Settings/sign-in-widget-redirect.htm\" ResolvedId=\"1065\" />';
 xmlAliasData += '    <Map Name=\"ext_mfa_windows_hello\" Link=\"Topics/Security/MFA.htm#WindowsHello\" ResolvedId=\"1066\" />';
 xmlAliasData += '    <Map Name=\"csh-okta-verify\" Link=\"Topics/Mobile/okta-verify-overview.htm\" ResolvedId=\"1068\" />';
 xmlAliasData += '    <Map Name=\"csh-okta-verify-fips\" Link=\"Topics/Mobile/okta-verify-admins.htm#FIPS\" ResolvedId=\"1067\" />';
