@@ -146,7 +146,7 @@ xmlAliasData += '    <Map Name=\"ext_Okta_Active_Directory_Agent_UDMappingchange
 xmlAliasData += '    <Map Name=\"ext_Overview_of_JIT\" Link=\"Topics/Directory/ad-agent-add-update-JIT.htm\" ResolvedId=\"200080\" />';
 xmlAliasData += '    <Map Name=\"ext_Reference_Directories\" Link=\"Topics/Directory/Reference_Directories.htm\" ResolvedId=\"200081\" />';
 xmlAliasData += '    <Map Name=\"ext_User_Lifecycle_Overview\" Link=\"Topics/users-groups-profiles/usgp-main.htm\" ResolvedId=\"200082\" />';
-xmlAliasData += '    <Map Name=\"ext_Using_Selective_Profile_Push\" Link=\"Topics/Directory/Using_Selective_Profile_Push.htm\" ResolvedId=\"200083\" />';
+xmlAliasData += '    <Map Name=\"ext_Using_Selective_Profile_Push\" Link=\"Topics/users-groups-profiles/usgp-about-selective-profile-push.htm\" ResolvedId=\"200083\" />';
 xmlAliasData += '    <Map Name=\"ext_adfs_okta_int\" Link=\"Topics/integrations/adfs-okta-int.htm\" ResolvedId=\"200084\" />';
 xmlAliasData += '    <Map Name=\"ext_cisco_radius_intg\" Link=\"Topics/integrations/cisco-radius-intg.htm\" ResolvedId=\"200085\" />';
 xmlAliasData += '    <Map Name=\"ext_citrix_netscaler_radius_int\" Link=\"Topics/integrations/citrix-netscaler-radius-int.htm\" ResolvedId=\"200086\" />';
@@ -385,8 +385,8 @@ xmlAliasData += '    <Map Name=\"ext-healthinsight\" Link=\"Topics/Security/heal
 xmlAliasData += '    <Map Name=\"ext_healthinsight\" Link=\"Topics/Security/healthinsight/healthinsight.htm\" ResolvedId=\"1209\" />';
 xmlAliasData += '    <Map Name=\"ext_sar\" Link=\"Topics/Security/suspicious-activity-reporting.htm\" ResolvedId=\"1211\" />';
 xmlAliasData += '    <Map Name=\"ext_ov_endusers\" Link=\"Topics/Mobile/okta-verify-end-users.htm\" ResolvedId=\"1212\" />';
-xmlAliasData += '    <Map Name=\"csh_custom_user_types\" Link=\"Topics/Directory/directory-UD-usertypes.htm\" ResolvedId=\"1213\" />';
-xmlAliasData += '    <Map Name=\"csh_custom_user_types_about\" Link=\"Topics/Directory/directory-UD-usertypes-about.htm\" ResolvedId=\"1214\" />';
+xmlAliasData += '    <Map Name=\"csh_custom_user_types\" Link=\"Topics/users-groups-profiles/usgp-user-types-known issues.htm\" ResolvedId=\"1213\" />';
+xmlAliasData += '    <Map Name=\"csh_custom_user_types_about\" Link=\"Topics/users-groups-profiles/usgp-usertypes-about.htm\" ResolvedId=\"1214\" />';
 xmlAliasData += '    <Map Name=\"ext-inline-hooks\" Link=\"Topics/Directory/inline-hooks.htm\" ResolvedId=\"1215\" />';
 xmlAliasData += '    <Map Name=\"ext-event-hooks\" Link=\"Topics/Directory/event-hooks.htm\" ResolvedId=\"1216\" />';
 xmlAliasData += '    <Map Name=\"ext-workflow-overview\" Link=\"Topics/Directory/workflow-overview.htm\" ResolvedId=\"1217\" />';
@@ -395,7 +395,7 @@ xmlAliasData += '    <Map Name=\"Okta_RADIUS_App\" Link=\"Topics/Security/Okta_R
 xmlAliasData += '    <Map Name=\"integrations\" Link=\"Topics/integrations/integrations.htm\" ResolvedId=\"1222\" />';
 xmlAliasData += '    <Map Name=\"App_Based_Signon\" Link=\"Topics/Security/App_Based_Signon.htm\" ResolvedId=\"1223\" />';
 xmlAliasData += '    <Map Name=\"Apps_Apps_Page\" Link=\"Topics/Apps/Apps_Apps_Page.htm\" ResolvedId=\"1224\" />';
-xmlAliasData += '    <Map Name=\"ext-custom-user-types\" Link=\"Topics/Directory/directory-UD-usertypes-about.htm\" ResolvedId=\"1225\" />';
+xmlAliasData += '    <Map Name=\"ext-custom-user-types\" Link=\"Topics/users-groups-profiles/usgp-usertypes-about.htm\" ResolvedId=\"1225\" />';
 xmlAliasData += '    <Map Name=\"ext-assign-apps\" Link=\"Topics/users-groups-profiles/usgp-assign-apps.htm\" ResolvedId=\"1226\" />';
 xmlAliasData += '    <Map Name=\"meraki-radius-intg\" Link=\"Topics/integrations/cisco-meraki-radius-intg.htm\" ResolvedId=\"1227\" />';
 xmlAliasData += '    <Map Name=\"ext-Okta-workflows\" Link=\"Topics/Workflows/workflows-main.htm\" ResolvedId=\"1228\" />';
