@@ -25,7 +25,7 @@ xmlAliasData += '    <Map Name=\"Settings_Emails_SMS\" Link=\"Topics/Settings/Se
 xmlAliasData += '    <Map Name=\"Settings_Downloads\" Link=\"Topics/Settings/Settings_Downloads.htm#Settings_Downloads\" ResolvedId=\"1250\" />';
 xmlAliasData += '    <Map Name=\"Directory_People\" Link=\"Topics/users-groups-profiles/usgp-people.htm#Directory_People1\" ResolvedId=\"1130\" />';
 xmlAliasData += '    <Map Name=\"Directory_Profile_Editor\" Link=\"Topics/Directory/ad-agent-configure-user-profiles-attributes.htm\" ResolvedId=\"1150\" />';
-xmlAliasData += '    <Map Name=\"Directory_Profile_Masters\" Link=\"Topics/Directory/eu-profile-masters.htm#Directory_Profile_Masters1\" ResolvedId=\"1170\" />';
+xmlAliasData += '    <Map Name=\"Directory_Profile_Masters\" Link=\"Topics/users-groups-profiles/usgp-about-profile-mastering.htm#Directory_Profile_Masters1\" ResolvedId=\"1170\" />';
 xmlAliasData += '    <Map Name=\"Reports_System_Log\" Link=\"Topics/Reports/Reports_SysLog.htm#Reports_System_Log1\" ResolvedId=\"1200\" />';
 xmlAliasData += '    <Map Name=\"API_Access\" Link=\"Topics/Security/API_Access.htm#API_Access\" ResolvedId=\"1270\" />';
 xmlAliasData += '    <Map Name=\"create-scopes\" Link=\"Topics/Security/API_Access.htm#create-scopes\" ResolvedId=\"1272\" />';
@@ -123,7 +123,7 @@ xmlAliasData += '    <Map Name=\"ext_devices_Mobile_Policies\" Link=\"Topics/Dev
 xmlAliasData += '    <Map Name=\"ext_About_Universal_Directory\" Link=\"Topics/users-groups-profiles/usgp-user-profiles-main.htm\" ResolvedId=\"200052\" />';
 xmlAliasData += '    <Map Name=\"ext_AD_Move_user_across_OU\" Link=\"Topics/Directory/ad-agent-ou-updates.htm\" ResolvedId=\"200053\" />';
 xmlAliasData += '    <Map Name=\"ext_Agent_Installing_the_Okta_Radius_Agent\" Link=\"Topics/Directory/Agent_Installing_the_Okta_Radius_Agent.htm\" ResolvedId=\"200054\" />';
-xmlAliasData += '    <Map Name=\"ext_Attribute_Level_Mastering\" Link=\"Topics/Directory/eu-attribute-level-mastering.htm\" ResolvedId=\"200055\" />';
+xmlAliasData += '    <Map Name=\"ext_Attribute_Level_Mastering\" Link=\"Topics/users-groups-profiles/usgp-about-attribute-mastering.htm\" ResolvedId=\"200055\" />';
 xmlAliasData += '    <Map Name=\"ext_Configuring_Agentless_SSO\" Link=\"Topics/Directory/Configuring_Agentless_SSO.htm\" ResolvedId=\"200056\" />';
 xmlAliasData += '    <Map Name=\"ext_Configuring_Desktop_SSO\" Link=\"Topics/Directory/Configuring_Desktop_SSO.htm\" ResolvedId=\"200057\" />';
 xmlAliasData += '    <Map Name=\"ext_Custom_Attributes_with_AD\" Link=\"Topics/Directory/ad-agent-add-custom-attribute.htm\" ResolvedId=\"200058\" />';
@@ -134,7 +134,7 @@ xmlAliasData += '    <Map Name=\"ext_Directory_FAQ_Okta_and_AD_Groups\" Link=\"T
 xmlAliasData += '    <Map Name=\"ext_Directory_Groups\" Link=\"Topics/Directory/Directory_Groups.htm\" ResolvedId=\"200065\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_People\" Link=\"Topics/users-groups-profiles/usgp-people.htm\" ResolvedId=\"200068\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_Profile_Editor\" Link=\"Topics/users-groups-profiles/usgp-user-profiles-main.htm\" ResolvedId=\"200069\" />';
-xmlAliasData += '    <Map Name=\"ext_Directory_Profile_Masters\" Link=\"Topics/Directory/eu-profile-masters.htm\" ResolvedId=\"200070\" />';
+xmlAliasData += '    <Map Name=\"ext_Directory_Profile_Masters\" Link=\"Topics/users-groups-profiles/usgp-about-profile-mastering.htm\" ResolvedId=\"200070\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_Self_Service_Registration\" Link=\"Topics/users-groups-profiles/usgp-self-service.htm\" ResolvedId=\"200071\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_Using_Group_Push\" Link=\"Topics/Directory/Directory_Using_Group_Push.htm\" ResolvedId=\"200072\" />';
 xmlAliasData += '    <Map Name=\"ext_Installing_Configuring_Active_Directory_Password_Sync_Agent\" Link=\"Topics/Directory/Installing_Configuring_Active_Directory_Password_Sync_Agent.htm\" ResolvedId=\"200073\" />';
@@ -402,7 +402,7 @@ xmlAliasData += '    <Map Name=\"ext-Okta-workflows\" Link=\"Topics/Workflows/wo
 xmlAliasData += '    <Map Name=\"ext-connect-your-apps\" Link=\"Topics/Workflows/workflow-connect-your-applications.htm\" ResolvedId=\"1229\" />';
 xmlAliasData += '    <Map Name=\"ext-build-a-flow\" Link=\"Topics/Workflows/workflows-build-a-flow.htm\" ResolvedId=\"1231\" />';
 xmlAliasData += '    <Map Name=\"csh_admin-third\" Link=\"Topics/Security/admin-third-party.htm\" ResolvedId=\"1232\" />';
-xmlAliasData += '    <Map Name=\"csh-profile-masters\" Link=\"Topics/Directory/eu-profile-masters.htm\" ResolvedId=\"1233\" />';
+xmlAliasData += '    <Map Name=\"csh-profile-masters\" Link=\"Topics/users-groups-profiles/usgp-about-profile-mastering.htm\" ResolvedId=\"1233\" />';
 xmlAliasData += '    <Map Name=\"epcs-okta-intg\" Link=\"Topics/integrations/epcs-okta.htm\" ResolvedId=\"1234\" />';
 xmlAliasData += '    <Map Name=\"csh-LDAP-deployment\" Link=\"Topics/Directory/ldap-agent-main2.htm\" ResolvedId=\"1235\" />';
 xmlAliasData += '    <Map Name=\"ext_ldap_deployment\" Link=\"Topics/Directory/ldap-agent-main2.htm\" ResolvedId=\"1236\" />';
@@ -445,5 +445,8 @@ xmlAliasData += '    <Map Name=\"ext_integrate_RingCentral\" Link=\"Topics/Provi
 xmlAliasData += '    <Map Name=\"ext-ad-agent-domain-rename\" Link=\"Topics/Directory/ad-agent-rename-domain-name.htm\" ResolvedId=\"1281\" />';
 xmlAliasData += '    <Map Name=\"csh-OPP\" Link=\"Topics/Provisioning/opp/OPP-main.htm\" ResolvedId=\"1282\" />';
 xmlAliasData += '    <Map Name=\"csh-ad-import-settings\" Link=\"Topics/Directory/ad-agent-configure-import.htm\" ResolvedId=\"1283\" />';
+xmlAliasData += '    <Map Name=\"csh-blacklist-proxies-tor\" Link=\"Topics/Security/healthinsight/blacklist-proxies-tor.htm\" ResolvedId=\"1284\" />';
+xmlAliasData += '    <Map Name=\"ext-ldap-get-started\" Link=\"Topics/Directory/ldap-agent-get-started.htm\" ResolvedId=\"1285\" />';
+xmlAliasData += '    <Map Name=\"ext_Apps_Single_Logout\" Link=\"Topics/Apps/Apps_Single_Logout.htm\" ResolvedId=\"1286\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);

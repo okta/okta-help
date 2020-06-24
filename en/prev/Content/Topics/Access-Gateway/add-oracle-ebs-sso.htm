@@ -343,6 +343,13 @@
                                                             </tr>
                                                         </tbody>
                                                     </table>
+                                                    <p>
+                                                        <div class="noteOkta">
+                                                            <img src="../../Resources/Images/assets/Icons/Notes/icon-lightbulb.png" class="noteImgFloat" title="Tip" alt="Tip" />
+                                                            <p class="noteHeading">Tip</p>
+                                                            <p class="noteContent">This application is part of a class of applications which exchange user information using header variables. For more information about the <span class="okta-feature-namesAccess Gateway">Access Gateway</span> generic header application please see <a href="add-generic-header-app.htm" class="MCXref xref">Add a generic header application</a>. <br /><br /><span class="okta-feature-namesAccess Gateway">Access Gateway</span>also provides a sample header application. Please see <a href="add-sample-header-app-okta.htm" class="MCXref xref">Add a sample header application</a> for more information.</p>
+                                                        </div>
+                                                    </p>
                                                     <div>
                                                         <h2><a name="Before You Begin"></a>Before You Begin</h2>
                                                         <h3>General</h3>
@@ -358,7 +365,7 @@
                                                         <h3>Rapid</h3>
                                                         <ul style="list-style-type: square;">
                                                             <li value="1">Oracle E-Business Suite(EBS) configured and available.</li>
-                                                            <li value="2">DBC File created by the Oracle EBS owner and is available to the Access Gateway administrator.<br />For reference the section <a href="#Configur" class="MCXref xref">Add an Oracle EBS&#160;application</a> contains instructions for configuring Oracle E-Business Suite for Rapid SSO.<br /><div class="noteOkta"><img src="../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Info" alt="Info" /><p class="noteHeading">Important</p><p class="noteContent">Rapid EBS SSO uses domain cookies to communicate between Access Gateway and the EBS&#160;server. The domain used by the protected service and the externally facing instance of the gateway must share the same domain. </p><br /></div></li>
+                                                            <li value="2">DBC File created by the Oracle EBS owner and is available to the Access Gateway administrator.<br />For reference the section <a href="#Configur" class="MCXref xref">Configure the EBS environment for Rapid SSO and create DBC file</a> contains instructions for configuring Oracle E-Business Suite for Rapid SSO.<br /><div class="noteOkta"><img src="../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Info" alt="Info" /><p class="noteHeading">Important</p><p class="noteContent">Rapid EBS SSO uses domain cookies to communicate between Access Gateway and the EBS&#160;server. The domain used by the protected service and the externally facing instance of the gateway must share the same domain. </p><br /></div></li>
                                                             <li value="3">If configuring Oracle E-Business Suite, sysadmin credentials for logging in to the EBS console and making required configuration changes.</li>
                                                             <li value="4">EBS Service Account Credentials (Username or email and associated password)</li>
                                                             <li value="5">EBS_USER mapped to an&#160;Okta tenant user</li>
@@ -367,16 +374,90 @@
                                                     <div>
                                                         <h2><a name="What’s"></a>Topics</h2>
                                                         <ol>
-                                                            <li value="1"><a href="#Create_Application" class="MCXref xref">Create application </a>
+                                                            <li value="1"><a href="#Configur" class="MCXref xref">Configure the EBS environment for Rapid SSO and create DBC file</a>
                                                             </li>
-                                                            <li value="2"><a href="#Configure_EBS_Rapid_Application" class="MCXref xref">Configure EBS Rapid Application</a>
+                                                            <li value="2"><a href="#Create_Application" class="MCXref xref">Create application </a>
+                                                            </li>
+                                                            <li value="3"><a href="#Configure_EBS_Rapid_Application" class="MCXref xref">Configure EBS Rapid Application</a>
                                                             </li>
                                                             <p>or</p>
-                                                            <li value="3"><a href="#Configure_EBS_Classic_Application" class="MCXref xref">Configure EBS Classic application</a>
+                                                            <li value="4"><a href="#Configure_EBS_Classic_Application" class="MCXref xref">Configure EBS Classic application</a>
                                                             </li>
-                                                            <li value="4"><a href="#Test" class="MCXref xref">Test </a>
+                                                            <li value="5"><a href="#Test" class="MCXref xref">Test </a>
                                                             </li>
                                                         </ol>
+                                                        <div>
+                                                            <h2><a name="Configur"></a>Configure the EBS environment for Rapid SSO and create DBC file</h2>
+                                                            <p>Roles and Requirements - You will need the follows roles to comple</p>
+                                                            <div>
+                                                                <div class="noteOkta">
+                                                                    <img src="../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Note" alt="Note" />
+                                                                    <p class="noteHeading">Note</p>
+                                                                    <p class="noteContent">The Configure EBS&#160;environment section only applies to integrations using Rapid SSO. If you are integrating using Access Gate and Classic SSO you can skip this section. </p>
+                                                                </div>
+                                                                <h3>Create required user and assign roles</h3>
+                                                                <ol>
+                                                                    <li value="1">Browse to the Oracle E-Business Suite console and sign in as <b>sysadmin</b>.<br />					For example: <span id="code">http://ebs.example.com:8000/OA_HTML/AppsLogin</span></li>
+                                                                    <li value="2">From the Oracle E-Business Suite Home page, scroll down the <b>Navigator</b> panel and expand <b>User Management</b>.</li>
+                                                                    <li value="3">Click <b>Users</b>. The <b>User Maintenance</b> page will appear. </li>
+                                                                    <li value="4">Select <b>User Account</b> from the <b>Register</b> drop-down menu, and then click <b>Go</b>. <br />The <b>Create User</b> account page will display. </li>
+                                                                    <li value="5">Enter the following details to create the <b>OAGSSOUSER</b> user, and then click <b>Submit</b>.<br /><table style="mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0"><col class="TableStyle-srb_header_alt_shade-Column-Column1" /><col class="TableStyle-srb_header_alt_shade-Column-Column1" /><thead><tr class="TableStyle-srb_header_alt_shade-Head-Header1"><th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Field</th><th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">Value</th></tr></thead><tbody><tr class="TableStyle-srb_header_alt_shade-Body-Body1"><td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><b>User Name</b></td><td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">OAGSSOUSER</td></tr><tr class="TableStyle-srb_header_alt_shade-Body-Body2"><td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><b>Password</b></td><td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">An appropriate password</td></tr><tr class="TableStyle-srb_header_alt_shade-Body-Body1"><td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><b>Description</b></td><td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">OAG&#160;User account for SSO</td></tr><tr class="TableStyle-srb_header_alt_shade-Body-Body2"><td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2"><b>Password Expiration</b></td><td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">None</td></tr></tbody></table></li>
+                                                                    <li value="6">Select the <b>Roles</b> tab and click <b>Assign Roles</b>. <br />The <b>Update User</b> page will display. </li>
+                                                                    <li value="7">Click <b>Assign Roles</b>.</li>
+                                                                    <li value="8">In the <b>Search</b> field enter <b>UMX|APPS_SCHEMA_CONNECT </b> and click <b>Go</b>. <br />This role grants the user the right to communicate with the EBS database.</li>
+                                                                    <li value="9">Enter an appropriate <b>Justification</b> such as <i>Required for OAG&#160;SSO</i> and click <b>Apply</b>. </li>
+                                                                </ol>
+                                                            </div>
+                                                            <h3>Enable EBS for Single Sign-On</h3>
+                                                            <ol>
+                                                                <li value="1">From the Windows or the appropriate OS&#160;specific menu, start the <b>Java Control Panel</b> and the select the <b>Security</b> Tab.</li>
+                                                                <li value="2">Add your Oracle E-Business Suite host to the exception list.</li>
+                                                                <li value="3">Return to the to the to Oracle E-Business Suite console.</li>
+                                                                <li value="4">In Navigation pane scroll to System Administrator and expand <b>System Administrator &gt; Profile &gt; System</b>.<br />A Java applet will launch. </li>
+                                                                <li value="5">If a security warning is displayed, click I accept the risk and then <b>Run</b>. </li>
+                                                                <li value="6">Select <b>System Administrator &gt; Profile &gt; System</b>  and <i>Search</i> for the <b>Application Authenticate Agent</b> profile.</li>
+                                                                <li value="7">Update the <b>Site</b> to the EBS route that Access will use to authenticate the user.<br />This field MUST contain the fully qualified domain name of the application which will be protected with <span class="okta-feature-namesAccess Gateway">Access Gateway</span>. <br />For example:&#160; <span class="code">https://ebssso.example.com.</span></li>
+                                                                <li value="8">Click <b>Save</b>.</li>
+                                                                <li value="9">Select <b>System Administrator &gt; Profile &gt; System</b>  and <i>Search</i> for the <b>Applications SSO&#160;Type</b>.</li>
+                                                                <li value="10">Change <b>Applications SSO type</b> from <b>SSWA</b>&#160;to <b>SSWA/W SSO</b> and click <b>Save</b>. </li>
+                                                                <li value="11">Select <b>System Administrator &gt; Profile &gt; System</b>  and <i>Search</i> for the <b>Applications SSO&#160;Login</b>.</li>
+                                                                <li value="12">Examine <b>Applications SSO Login Types</b> ensure its set to <b>BOTH</b> and click <b>Save</b>. </li>
+                                                                <li value="13">Select <b>System Administrator &gt; Profile &gt; System</b>  and <i>Search</i> for the <b>%Session Cookie%</b>.</li>
+                                                                <li value="14">Change <b>Oracle Application Session Cookie ...</b> to <b>DOMAIN</b> and click <b>Save</b>. </li>
+                                                                <li value="15">Exit the Java applet.</li>
+                                                                <li value="16">Exit the console.</li>
+                                                                <li value="17">Reboot Oracle E-Business Suite. Note this can take 15 to 30 minutes. </li>
+                                                            </ol>
+                                                            <div class="noteOkta">
+                                                                <img src="../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Note" alt="Note" />
+                                                                <p class="noteHeading">Note</p>
+                                                                <p class="noteContent"><span class="okta-feature-namesAccess Gateway">Access Gateway</span> uses the E-Business Suite API to communicate with the E-Business Suite database. Confirm with your E-Business Suite administrator what port this communication uses and ensure it is open between <span class="okta-feature-namesAccess Gateway">Access Gateway</span> and the back end E-Business Suite database. Typically this is port 1521, but other ports are possible.</p>
+                                                            </div>
+                                                            <div>
+                                                                <h3>Register Okta Access Gateway With Oracle E-Business Suite</h3>
+                                                                <ol>
+                                                                    <li value="1">On your Oracle E-Business Suite server, locate and uncompress the <b>ebs.war</b> web application. <br /><div class="noteOkta"><img src="../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Note" alt="Note" /><p class="noteHeading">Note</p><p class="noteContent">The <b>ebs.war</b> can also be downloaded from the Oracle Identity Cloud Service console.</p></div></li>
+                                                                    <li value="2">
+                                                                        <p>Extract the <b>fndext.M.m.r.jar</b> file, which is located in the <b>WEB-INF/lib</b> folder inside the <b>ebs.war</b> file.</p>
+                                                                    </li>
+                                                                    <li value="3">Open a command prompt and change directory to the location where the zip was unpacked.</li>
+                                                                    <li value="4">Copy the <b>fndext-M.m.rev.jar</b> file to the E-Business Suite host using a command similar to:<br /><span class="code">scp fndext-2.0.8.jar oracle@&lt;EBS_IP&gt;:/home/oracle</span></li>
+                                                                    <li value="5">Secure shell into the EBS host using a command similar to:<br /><span class="code">ssh oracle@&lt;EBS_IP&gt;</span></li>
+                                                                    <li value="6">Configure the environment for E-Business Suite using a command similar to:<br /><span class="code">. /u01/install/APPS/EBSapps.env run</span></li>
+                                                                    <li value="7">Prepare the <b>EBSSDK</b> directory using a command similar to:<br /><span class="code">cd $HOME; mkdir EBSSDK; mv fndext-2.0.8.jar; cd EBSSDK</span></li>
+                                                                    <li value="8">Configure desktop app security using a command similar to:<br /><span class="code">java oracle.apps.fnd.security.AdminDesktop apps/apps CREATE NODE_NAME=&lt;your ebs domain name&gt; </span> <span class="code">DBC=/u01/install/APPS/fs1/inst/apps/EBSDB_apps/appl/fnd/12.0.0/secure/EBSDB.dbc</span><br />Replacing <i>&lt;your ebs domain name&gt;</i> with the address of your EBS domain.</li>
+                                                                    <li value="9">Confirm a DBC file was created using a command similar to:<br /><span class="code">cat  EBSDB.dbc</span><br /><b>Note</b>: you will need the contents of this file when creating the <span class="okta-feature-namesAccess Gateway">Access Gateway</span> Rapid EBS app.</li>
+                                                                </ol>
+                                                                <h3>Test</h3>
+                                                                <ol>
+                                                                    <li value="1">Confirm local authentication by accessing <span id="code">http://ebs.example.com:8000/OA_HTML/AppsLocalLogin.jsp</span></li>
+                                                                    <li value="2">Secure shell into the host runing the EBS&#160;database using a command similar to:<br /><span class="code">ssh oracle@&lt;EBS_IP&gt;</span></li>
+                                                                    <li value="3">Navigate to the directory containing <b>listener.ora</b>.</li>
+                                                                    <li value="4">Examine listener.ora for:<br /><span id="code">tcp.validnode_checking = NO<br />                    tcp.invited_nodes = ( apps.example.com )</span></li>
+                                                                    <li value="5">Restart the listener.</li>
+                                                                </ol>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                     <div>
                                                         <h2><a name="Create_Application"></a>Create application </h2>
@@ -705,12 +786,15 @@
                                                     <div>
                                                         <h3><a name="Next_Steps"></a>See Also</h3>
                                                         <ul>
-                                                            <li value="1">Add or review application essential settings. For more details see <a href="about-application-essentials.htm" class="MCXref xref">About application essentials</a> and <a href="managing-application-essentials.htm" class="MCXref xref">Manage application essentials</a>.</li>
-                                                            <li value="2">Add application behaviors. For details and examples of behaviors see <a href="about-application-behaviors.htm" class="MCXref xref">About application behaviors</a></li>
-                                                            <li value="3">Add fine grained policy to further protect resources. An overview of user policy can be found in <a href="about-application-policy.htm" class="MCXref xref">About application policy</a>.<br /> For details and examples of policy see <a href="managing-application-policy.htm" class="MCXref xref">Manage application policy </a>.</li>
-                                                            <li value="4">Extend existing policy using Custom configuration, see<a href="advanced-oag-policy.htm" class="MCXref xref">Advanced Access Gateway Policy</a>.</li>
-                                                            <li value="5">Define one or more certificates for use with this application. See<a href="configure-certificates.htm" class="MCXref xref">Configure certificates</a></li>
-                                                            <li value="6">Add supplemental database or LDAP based data stores.&#160;For more information see <a href="admin-settings-datastores-administer.htm" class="MCXref xref">Administer data stores</a>.</li>
+                                                            <li value="1">For information about the generic header application please see <a href="add-generic-header-app.htm" class="MCXref xref">Add a generic header application</a>.</li>
+                                                            <li value="2">For information about the sample header application please see <a href="add-sample-header-app-okta.htm" class="MCXref xref">Add a sample header application</a>.</li>
+                                                            <li value="3">For information on the sample policy application please see <a href="add-sample-policy-app-okta.htm" class="MCXref xref">Add a sample policy application</a>.</li>
+                                                            <li value="4">Add or review application essential settings. For more details see <a href="about-application-essentials.htm" class="MCXref xref">About application essentials</a> and <a href="managing-application-essentials.htm" class="MCXref xref">Manage application essentials</a>.</li>
+                                                            <li value="5">Add application behaviors. For details and examples of behaviors see <a href="about-application-behaviors.htm" class="MCXref xref">About application behaviors</a>.</li>
+                                                            <li value="6">Add fine grained policy to further protect resources. An overview of user policy can be found in <a href="about-application-policy.htm" class="MCXref xref">About application policy</a>.<br /> For details and examples of policy see <a href="managing-application-policy.htm" class="MCXref xref">Manage application policy </a>.</li>
+                                                            <li value="7">Extend existing policy using Custom configuration, see <a href="advanced-oag-policy.htm" class="MCXref xref">Advanced Access Gateway Policy</a>.</li>
+                                                            <li value="8">Define one or more certificates for use with this application. See <a href="configure-certificates.htm" class="MCXref xref">Configure certificates</a>.</li>
+                                                            <li value="9">Add supplemental database or LDAP based data stores.&#160;For more information see <a href="admin-settings-datastores-administer.htm" class="MCXref xref">Administer data stores</a>.</li>
                                                         </ul>
                                                     </div>
                                                 </div>
