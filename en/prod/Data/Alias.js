@@ -14,7 +14,7 @@ xmlAliasData += '    <Map Name=\"Security_IdP\" Link=\"Topics/Security/Identity_
 xmlAliasData += '    <Map Name=\"Security_Network\" Link=\"Topics/Security/Security_Network.htm\" ResolvedId=\"1100\" />';
 xmlAliasData += '    <Map Name=\"Security_Administrators\" Link=\"Topics/Security/Administrators.htm#Security_Administrators\" ResolvedId=\"1110\" />';
 xmlAliasData += '    <Map Name=\"Security_API\" Link=\"Topics/Security/API.htm#Security_API\" ResolvedId=\"1120\" />';
-xmlAliasData += '    <Map Name=\"Directory_Groups\" Link=\"Topics/Directory/Directory_Groups.htm#Directory_Groups\" ResolvedId=\"1140\" />';
+xmlAliasData += '    <Map Name=\"Directory_Groups\" Link=\"Topics/users-groups-profiles/usgp-about-groups.htm#Directory_Groups\" ResolvedId=\"1140\" />';
 xmlAliasData += '    <Map Name=\"Directory_Directory_Integrations\" Link=\"Topics/Directory/directory-integrations-main2.htm\" ResolvedId=\"1001\" />';
 xmlAliasData += '    <Map Name=\"Applications_Applications\" Link=\"Topics/Apps/Apps_Apps.htm#Applications_Applications\" ResolvedId=\"1180\" />';
 xmlAliasData += '    <Map Name=\"Reports_Reports\" Link=\"Topics/Reports/Reports.htm#Reports_Reports\" ResolvedId=\"1190\" />';
@@ -131,7 +131,7 @@ xmlAliasData += '    <Map Name=\"ext_Directory\" Link=\"Topics/Directory/directo
 xmlAliasData += '    <Map Name=\"ext_Directory_AD_Field_Mappings\" Link=\"Topics/Directory/Directory_AD_Field_Mappings.htm\" ResolvedId=\"200061\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_Directory_Integrations\" Link=\"Topics/Directory/directory-integrations-main2.htm\" ResolvedId=\"1161\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_FAQ_Okta_and_AD_Groups\" Link=\"Topics/Directory/Directory_FAQ_Okta_and_AD_Groups.htm\" ResolvedId=\"200064\" />';
-xmlAliasData += '    <Map Name=\"ext_Directory_Groups\" Link=\"Topics/Directory/Directory_Groups.htm\" ResolvedId=\"200065\" />';
+xmlAliasData += '    <Map Name=\"ext_Directory_Groups\" Link=\"Topics/users-groups-profiles/usgp-about-groups.htm\" ResolvedId=\"200065\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_People\" Link=\"Topics/users-groups-profiles/usgp-people.htm\" ResolvedId=\"200068\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_Profile_Editor\" Link=\"Topics/users-groups-profiles/usgp-user-profiles-main.htm\" ResolvedId=\"200069\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_Profile_Masters\" Link=\"Topics/users-groups-profiles/usgp-about-profile-mastering.htm\" ResolvedId=\"200070\" />';
