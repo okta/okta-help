@@ -136,7 +136,7 @@ xmlAliasData += '    <Map Name=\"ext_Directory_People\" Link=\"Topics/users-grou
 xmlAliasData += '    <Map Name=\"ext_Directory_Profile_Editor\" Link=\"Topics/users-groups-profiles/usgp-user-profiles-main.htm\" ResolvedId=\"200069\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_Profile_Masters\" Link=\"Topics/users-groups-profiles/usgp-about-profile-mastering.htm\" ResolvedId=\"200070\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_Self_Service_Registration\" Link=\"Topics/users-groups-profiles/usgp-self-service.htm\" ResolvedId=\"200071\" />';
-xmlAliasData += '    <Map Name=\"ext_Directory_Using_Group_Push\" Link=\"Topics/Directory/Directory_Using_Group_Push.htm\" ResolvedId=\"200072\" />';
+xmlAliasData += '    <Map Name=\"ext_Directory_Using_Group_Push\" Link=\"Topics/users-groups-profiles/usgp-about-group-push.htm\" ResolvedId=\"200072\" />';
 xmlAliasData += '    <Map Name=\"ext_Installing_Configuring_Active_Directory_Password_Sync_Agent\" Link=\"Topics/Directory/Installing_Configuring_Active_Directory_Password_Sync_Agent.htm\" ResolvedId=\"200073\" />';
 xmlAliasData += '    <Map Name=\"ext_LDAP_Provisioning\" Link=\"Topics/Directory/ldap-agent-manage-integration.htm\" ResolvedId=\"200074\" />';
 xmlAliasData += '    <Map Name=\"ext_LDAP_Using_the_LDAP_Interface\" Link=\"Topics/Directory/LDAP-interface-main.htm\" ResolvedId=\"200075\" />';
@@ -329,11 +329,11 @@ xmlAliasData += '    <Map Name=\"ext_Admin_Assignment\" Link=\"Topics/Security/a
 xmlAliasData += '    <Map Name=\"ext_MFA_U2F\" Link=\"Topics/Security/MFA.htm#U2F\" ResolvedId=\"1146\" />';
 xmlAliasData += '    <Map Name=\"ext_Configure_App_Approval\" Link=\"Topics/Apps/Access_Request_Workflow.htm#ConfigureAppApproval\" ResolvedId=\"1147\" />';
 xmlAliasData += '    <Map Name=\"ext_Device_Trust_MacOS\" Link=\"Topics/Mobile/Okta_Device_Trust_Jamf_macOS_Devices.htm\" ResolvedId=\"1148\" />';
-xmlAliasData += '    <Map Name=\"ext_Create_Group_Rules\" Link=\"Topics/Directory/group-rules.htm\" ResolvedId=\"1149\" />';
+xmlAliasData += '    <Map Name=\"ext_Create_Group_Rules\" Link=\"Topics/users-groups-profiles/usgp-about-group-rules.htm\" ResolvedId=\"1149\" />';
 xmlAliasData += '    <Map Name=\"ext_Location_Zones\" Link=\"Topics/Security/Security_Network.htm#LocationZones\" ResolvedId=\"1151\" />';
 xmlAliasData += '    <Map Name=\"ext_Radius_Autopush\" Link=\"Topics/integrations/radius-autopush.htm\" ResolvedId=\"1152\" />';
-xmlAliasData += '    <Map Name=\"ext_Groups_Assign_Users\" Link=\"Topics/Directory/group-rules.htm\" ResolvedId=\"1153\" />';
-xmlAliasData += '    <Map Name=\"ext_Group_Rules\" Link=\"Topics/Directory/group-rules.htm\" ResolvedId=\"1154\" />';
+xmlAliasData += '    <Map Name=\"ext_Groups_Assign_Users\" Link=\"Topics/users-groups-profiles/usgp-about-group-rules.htm\" ResolvedId=\"1153\" />';
+xmlAliasData += '    <Map Name=\"ext_Group_Rules\" Link=\"Topics/users-groups-profiles/usgp-about-group-rules.htm\" ResolvedId=\"1154\" />';
 xmlAliasData += '    <Map Name=\"csh-ov-reset\" Link=\"Topics/Mobile/okta-verify-enroll-new-device-existing-users.htm\" ResolvedId=\"1157\" />';
 xmlAliasData += '    <Map Name=\"csh-ov-end-users\" Link=\"Topics/Mobile/okta-verify-end-users.htm\" ResolvedId=\"1156\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-secret-key-ios\" Link=\"Topics/Mobile/Okta_Device_Trust_Native_Apps_Safari_MDM_Devices.htm\" ResolvedId=\"1158\" />';
@@ -448,5 +448,7 @@ xmlAliasData += '    <Map Name=\"csh-ad-import-settings\" Link=\"Topics/Director
 xmlAliasData += '    <Map Name=\"csh-blacklist-proxies-tor\" Link=\"Topics/Security/healthinsight/blacklist-proxies-tor.htm\" ResolvedId=\"1284\" />';
 xmlAliasData += '    <Map Name=\"ext-ldap-get-started\" Link=\"Topics/Directory/ldap-agent-get-started.htm\" ResolvedId=\"1285\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Single_Logout\" Link=\"Topics/Apps/Apps_Single_Logout.htm\" ResolvedId=\"1286\" />';
+xmlAliasData += '    <Map Name=\"csh-dashboard\" Link=\"Topics/Dashboard/Dashboard.htm\" ResolvedId=\"1297\" />';
+xmlAliasData += '    <Map Name=\"csh-index\" Link=\"index.htm\" ResolvedId=\"1298\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
