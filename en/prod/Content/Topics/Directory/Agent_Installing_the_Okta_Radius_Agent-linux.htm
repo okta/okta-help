@@ -449,12 +449,65 @@
                                                                         <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
                                                                             <p>The maximum time the RADIUS agent is allowed to process a UDP packet after it has arrived from the RADIUS client. </p>
                                                                             <p>&#160;</p>
-                                                                            <p>For the Okta Verify with Push factor the actual value is interpreted by the RADIUS agent as one half (1/2) of the configured value. <br />For example: 60000 =60 seconds, divided in half =30 seconds.<br /><br />For all other factors the value is used as specified. </p>
+                                                                            <p>For the Okta Verify with Push factor the actual value is interpreted by the RADIUS agent as one half (1/2) of the configured value. <br />For example: 60000 =60 seconds, divided in half =30 seconds.<br /><br />For all other factors the value is used as specified. <br /></p>
                                                                             <p>
                                                                                 <br />
                                                                             </p>
                                                                         </td>
                                                                         <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">60000</td>
+                                                                    </tr>
+                                                                    <tr class="TableStyle-srb_header_alt_shade-Body-Body2" data-mc-conditions="">
+                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><code style="font-size: 11pt;font-family: monospace;">ragent.request.timeout.millisecond</code>
+                                                                        </td>
+                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">The maximum time the RADIUS agent is allowed to process a UDP packet after it has arrived from the RADIUS client. <br /><br />If specified, <span style="font-family: 'Courier New'; font-size: 11pt;">ragent.total.request.timeout.millisecond</span> is ignored.
+<br />If  not specified, default is to use  <span style="font-family: 'Courier New'; font-size: 11pt;">ragent.total.request.timeout.millisecond</span>.
+
+<br /><br />Available since version 2.9.4.</td>
+                                                                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">N/A defaults to value specified by <span style="font-family: 'Courier New'; font-size: 11pt;">ragent.total.request.timeout.millisecond</span></td>
+                                                                    </tr>
+                                                                    <tr class="TableStyle-srb_header_alt_shade-Body-Body1" data-mc-conditions="">
+                                                                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1" colspan="3">
+                                                                            <p>When using the RADIUS agent with a VPN&#160;such as <a href="../integrations/cisco-radius-intg.htm">Cisco ASA VPN</a> the following timeout values should be configured on both RADIUS Agent and VPN settings:<br /></p>
+                                                                            <table>
+                                                                                <col />
+                                                                                <col />
+                                                                                <tbody>
+                                                                                    <tr>
+                                                                                        <td>RADIUS agent  v2.9.3 and earlier with out Okta Verify Push.</td>
+                                                                                        <td><span class="code">ragent.total.request.timeout.millisecond = VPN retry count * (VPN timeout + VPN wait between retries) - VPN wait between retries</span>
+                                                                                            <p>&#160;</p>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>RADIUS agent  v2.9.3 with Okta Verify Push.</td>
+                                                                                        <td><span class="code">ragent.total.request.timeout.millisecond = 2 * (VPN retry count * (VPN timeout + VPN wait between retries) - VPN wait between retries)</span>
+                                                                                            <p>&#160;</p>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>RADIUS agent  v 2.9.4 and later.</td>
+                                                                                        <td><span class="code">ragent.request.timeout.millisecond = VPN retry count * (VPN timeout + VPN wait between retries) - VPN wait between retries</span>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                            <p><b>Note</b>: </p>
+                                                                            <ul>
+                                                                                <li value="1">VPN retry count should be between 3-5. </li>
+                                                                                <li value="2">VPN request timeout should be 15-60s, (60-120s when using Okta Verify Push).</li>
+                                                                            </ul>
+                                                                            <p>For example, where:</p>
+                                                                            <ul>
+                                                                                <li value="1">VPN retry = 5x</li>
+                                                                                <li value="2">VPN request timeout = 60s</li>
+                                                                                <li value="3">VPN wait between retry = 5s</li>
+                                                                            </ul>
+                                                                            <p>Then, VPN authentication timeout = 5 * (60 + 5) + 5 = 320s, or 320000ms<br />RADIUS agent v2.9.3 and earlier with Okta Verify Push: <span class="code">ragent.total.request.timeout.millisecond = 320000</span>.</p>
+                                                                            <p>RADIUS agent v 2.9.4 and later: <span class="code">ragent.request.timeout.millisecond =320000</span>.<br /></p>
+                                                                            <p>
+                                                                                <br />
+                                                                            </p>
+                                                                        </td>
                                                                     </tr>
                                                                     <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
                                                                         <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><code style="font-size: 11pt;">ragent.okta.request.max.timeout.millisecond</code>
@@ -464,19 +517,10 @@
                                                                         </td>
                                                                         <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">Dynamic, based on remaining TTL for request</td>
                                                                     </tr>
-                                                                    <tr class="TableStyle-srb_header_alt_shade-Body-Body1" data-mc-conditions="">
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><code style="font-size: 11pt;font-family: monospace;">ragent.request.timeout.millisecond</code>
+                                                                    <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><code style="font-size: 11pt;">ragent.request.timeout.response.mode</code>
                                                                         </td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">The maximum time the RADIUS agent is allowed to process a UDP packet after it has arrived from the RADIUS client. <br /><br />If specified, <span style="font-family: 'Courier New'; font-size: 11pt;">ragent.total.request.timeout.millisecond</span> is ignored.
-<br />If  not specified, default is to use  <span style="font-family: 'Courier New'; font-size: 11pt;">ragent.total.request.timeout.millisecond</span>.
-
-<br /><br />Available since version 2.9.4.</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">N/A defaults to value specified by <span style="font-family: 'Courier New'; font-size: 11pt;">ragent.total.request.timeout.millisecond</span></td>
-                                                                    </tr>
-                                                                    <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><code style="font-size: 11pt;">ragent.request.timeout.response.mode</code>
-                                                                        </td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
                                                                             <p>The timeout response mode. Possible values include:</p>
                                                                             <ul>
                                                                                 <li value="1"><code>SEND_REJECT_ALWAYS</code> - agent sends a reject message to the client after any timeout..</li>
@@ -484,14 +528,14 @@
                                                                                 <li value="3"><code>NO_RESPONSE</code> - no response will be sent to the client when the agent times out.</li>
                                                                             </ul>
                                                                         </td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2"><code>SEND_REJECT_ON_POLL_MFA</code>
+                                                                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1"><code>SEND_REJECT_ON_POLL_MFA</code>
                                                                         </td>
                                                                     </tr>
-                                                                    <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1"><code style="font-size: 11pt;">ragent.mfa.timeout.seconds</code>
+                                                                    <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                        <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2"><code style="font-size: 11pt;">ragent.mfa.timeout.seconds</code>
                                                                         </td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1">Time, in seconds, that the agent will wait for the client to respond to an MFA challenge such as factor selection. </td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body1">60</td>
+                                                                        <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">Time, in seconds, that the agent will wait for the client to respond to an MFA challenge such as factor selection. </td>
+                                                                        <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">60</td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
