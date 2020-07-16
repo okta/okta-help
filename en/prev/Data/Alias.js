@@ -448,5 +448,6 @@ xmlAliasData += '    <Map Name=\"ext_Apps_Single_Logout\" Link=\"Topics/Apps/App
 xmlAliasData += '    <Map Name=\"csh-dashboard\" Link=\"Topics/Dashboard/Dashboard.htm\" ResolvedId=\"1297\" />';
 xmlAliasData += '    <Map Name=\"csh-index\" Link=\"index.htm\" ResolvedId=\"1298\" />';
 xmlAliasData += '    <Map Name=\"ext_self_service_registration_policy\" Link=\"Topics/users-groups-profiles/usgp-self-service-registration.htm\" ResolvedId=\"1287\" />';
+xmlAliasData += '    <Map Name=\"ext-vend-spec-attr-group\" Link=\"Topics/integrations/fortinet-radius-intg.htm\" ResolvedId=\"1288\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
