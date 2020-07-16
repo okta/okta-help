@@ -126,7 +126,7 @@ xmlAliasData += '    <Map Name=\"ext_Agent_Installing_the_Okta_Radius_Agent\" Li
 xmlAliasData += '    <Map Name=\"ext_Attribute_Level_Mastering\" Link=\"Topics/users-groups-profiles/usgp-about-attribute-mastering.htm\" ResolvedId=\"200055\" />';
 xmlAliasData += '    <Map Name=\"ext_Configuring_Agentless_SSO\" Link=\"Topics/Directory/Configuring_Agentless_SSO.htm\" ResolvedId=\"200056\" />';
 xmlAliasData += '    <Map Name=\"ext_Configuring_Desktop_SSO\" Link=\"Topics/Directory/Configuring_Desktop_SSO.htm\" ResolvedId=\"200057\" />';
-xmlAliasData += '    <Map Name=\"ext_Custom_Attributes_with_AD\" Link=\"Topics/Directory/ad-agent-add-custom-attribute.htm\" ResolvedId=\"200058\" />';
+xmlAliasData += '    <Map Name=\"ext_Custom_Attributes_with_AD\" Link=\"Topics/users-groups-profiles/usgp-add-custom-attribute.htm\" ResolvedId=\"200058\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory\" Link=\"Topics/Directory/directory-integrations-main.htm\" ResolvedId=\"200059\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_AD_Field_Mappings\" Link=\"Topics/Directory/Directory_AD_Field_Mappings.htm\" ResolvedId=\"200061\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_Directory_Integrations\" Link=\"Topics/Directory/directory-integrations-main.htm\" ResolvedId=\"1161\" />';
@@ -307,7 +307,7 @@ xmlAliasData += '    <Map Name=\"ext_secpol_configpp\" Link=\"Topics/Security/Se
 xmlAliasData += '    <Map Name=\"ext_secpol_poleval\" Link=\"Topics/Security/Security_Policies.htm#Understanding\" ResolvedId=\"1125\" />';
 xmlAliasData += '    <Map Name=\"ext_secpol_signonpolrules\" Link=\"Topics/Security/Security_Policies.htm#Creating2\" ResolvedId=\"1126\" />';
 xmlAliasData += '    <Map Name=\"ext_AD_profmaster\" Link=\"Topics/Directory/Directory_AD_Enable_Profile_Master.htm\" ResolvedId=\"1127\" />';
-xmlAliasData += '    <Map Name=\"ext_app_map\" Link=\"Topics/Directory/Directory_Application-Based_Mapping.htm\" ResolvedId=\"1128\" />';
+xmlAliasData += '    <Map Name=\"ext_app_map\" Link=\"Topics/users-groups-profiles/usgp-map-attributes-provisioning.htm\" ResolvedId=\"1128\" />';
 xmlAliasData += '    <Map Name=\"ext_superadmin\" Link=\"Topics/Security/administrators-super-admin.htm\" ResolvedId=\"1129\" />';
 xmlAliasData += '    <Map Name=\"ext_suspend\" Link=\"Topics/users-groups-profiles/usgp-suspend.htm\" ResolvedId=\"1131\" />';
 xmlAliasData += '    <Map Name=\"ext_ldap_trouble\" Link=\"Topics/Directory/ldap-troubleshooting.htm\" ResolvedId=\"1132\" />';
@@ -447,5 +447,6 @@ xmlAliasData += '    <Map Name=\"ext-ldap-get-started\" Link=\"Topics/Directory/
 xmlAliasData += '    <Map Name=\"ext_Apps_Single_Logout\" Link=\"Topics/Apps/Apps_Single_Logout.htm\" ResolvedId=\"1286\" />';
 xmlAliasData += '    <Map Name=\"csh-dashboard\" Link=\"Topics/Dashboard/Dashboard.htm\" ResolvedId=\"1297\" />';
 xmlAliasData += '    <Map Name=\"csh-index\" Link=\"index.htm\" ResolvedId=\"1298\" />';
+xmlAliasData += '    <Map Name=\"ext_self_service_registration_policy\" Link=\"Topics/users-groups-profiles/usgp-self-service-registration.htm\" ResolvedId=\"1287\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
