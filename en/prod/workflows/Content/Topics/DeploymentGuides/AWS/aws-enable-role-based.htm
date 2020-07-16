@@ -277,10 +277,10 @@
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
                                                     <h1><a name="Step"></a>Enable group-based role mapping in <span class="okta-variablesProductName">Okta</span></h1>
-                                                    <p>After importing the Amazon Web Services (AWS) role  and management <a href="#" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">groups<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>Groups allow you to organize your end users and the apps they can access. Assigning apps to large sets of end users is made easier with groups.</span></a> into <span class="okta-variablesProductName">Okta</span>, you need to configure the <span class="okta-variablesProductName">Okta</span> AWS <a href="#" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">app<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>An abbreviation of application. Essentially, it is a web-based site used to perform any number of specific tasks, and requires authentication from end users by signing in.</span></a> to translate AWS role-group membership into entitlements that AWS can understand syntactically.</p>
+                                                    <p>After importing the Amazon Web Services (AWS) role  and management groups into <span class="okta-variablesProductName">Okta</span>, you need to configure the <span class="okta-variablesProductName">Okta</span> AWS app to translate AWS role-group membership into entitlements that AWS can understand syntactically.</p>
                                                     <ol>
                                                         <li value="1">
-                                                            <p>On the <span class="okta-variablesProductName">Okta</span> <span class="okta-feature-namesAdministrator dashboard"><a href="#" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">Admin<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>An abbreviation of administrator. This is the individual(s) who have access to the Okta Administrator Dashboard. They control the provisioning and deprovisioning of end users, the assigning of apps, the resetting of passwords, and the overall end user experience. Only administrators have the Administration button on the upper right side of the My Applications page.</span></a> Console</span>, click <b>Applications</b>.</p>
+                                                            <p>On the <span class="okta-variablesProductName">Okta</span> <span class="okta-feature-namesAdministrator dashboard">Admin Console</span>, click <b>Applications</b>.</p>
                                                         </li>
                                                         <li value="2">
                                                             <p>Enter <b>AWS</b> in the <b>Search</b> field.</p>
@@ -292,7 +292,7 @@
                                                             <p>Complete these fields:</p>
                                                         </li>
                                                         <ul>
-                                                            <li value="1"><b>App Filter:</b> Enter a comma separated list of apps  for AWS entitlement mapping. This field provides additional security and avoids the issue of rogue admins creating groups following a certain syntax in order to intentionally gain unauthorized access to a specific AWS account or role. If you created your groups in <a href="#" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">Active Directory<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>Active Directory (AD) is a directory service that Microsoft developed for the Windows domain networks. It is included in most Windows Server operating systems as a set of processes and services. Initially, Active Directory was only in charge of centralized domain management.</span></a>, enter <code>active_directory</code>, or enter <code>okta</code> to limit use to local <span class="okta-variablesProductName">Okta</span> groups. For other applications, you can use values such as: <code>bamboohr</code> for the Bamboo HR app or <code>okta</code>, <code>egnyte</code> for <span class="okta-variablesProductName">Okta</span> + Egnyte groups.
+                                                            <li value="1"><b>App Filter:</b> Enter a comma separated list of apps  for AWS entitlement mapping. This field provides additional security and avoids the issue of rogue admins creating groups following a certain syntax in order to intentionally gain unauthorized access to a specific AWS account or role. If you created your groups in Active Directory, enter <code>active_directory</code>, or enter <code>okta</code> to limit use to local <span class="okta-variablesProductName">Okta</span> groups. For other applications, you can use values such as: <code>bamboohr</code> for the Bamboo HR app or <code>okta</code>, <code>egnyte</code> for <span class="okta-variablesProductName">Okta</span> + Egnyte groups.
             </li>
                                                             <li value="2"><b>Group Filter:</b> Enter a RegEx expression to filter AWS related groups and extract accountid and role. If you use the  default AWS role group syntax (<code>aws#[account alias]#[role name]#[account #]</code>), then you can  use this RegEx string:</li>
                                                         </ul><pre style="text-align: left;margin-left: 40px;">^aws\#\S+\#(?{{role}}[\w\-]+)\#(?{{accountid}}\d+)$</pre>
@@ -300,18 +300,13 @@
                                                         <p style="text-align: left;margin-left: 40px;">You can also use this RegEx expression:</p><pre style="text-align: left;margin-left: 40px;">aws_(?{{accountid}}\d+)_(?{{role}}[a-zA-Z0-9+=,.@\-_]+)</pre>
                                                         <p style="text-align: left;margin-left: 40px;">If you don't use a default RegEx expression, create a RegEx expression that properly filters your AWS role groups, and captures the AWS role name and account ID within two distinct RegEx groups named <b>{{role}}</b> and <b>{{accountid}}</b>.</p>
                                                         <ul>
-                                                            <li value="1"><b>Role Value Pattern:</b> This field takes the AWS role and account ID captured within the syntax of your AWS role groups and translates it into the proper syntax AWS requires in the <span class="okta-variablesProductName">Okta</span> <a href="#" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open MCTextPopupHotSpot_ MCTextPopupHotSpot_Popup #text #textPopup">SAML<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>An acronym for Security Assertion Markup Language, SAML is an XML-based standard for exchanging authentication and authorization data between an identity provider (IdP) and a service provider (SP). The SAML standard addresses issues unique to the single sign-on (SSO) solution, and defines three roles: the end user, the IdP, and the SP.
-
-Here's how SAML works through Okta:
-
-SP-initiated flow: the end user requests (principally through a browser) a service from the SP. The SP requests and obtains an identity assertion from the IdP (in this case, Okta). On the basis of this assertion, the SP can decide whether or not to authorize or authenticate the service for the end user.
-IdP-initiated flow: with Okta as the IdP, an end user goes to the Okta browser and clicks on an app, sending a SAMLResponse to the configured SP. A session is established with the SP, and the end user is authenticated.</span></a> assertion. This enables users to view their accounts and roles when they sign in.</li>
+                                                            <li value="1"><b>Role Value Pattern:</b> This field takes the AWS role and account ID captured within the syntax of your AWS role groups and translates it into the proper syntax AWS requires in the <span class="okta-variablesProductName">Okta</span> SAML assertion. This enables users to view their accounts and roles when they sign in.</li>
                                                         </ul>
                                                         <p style="text-align: left;margin-left: 40px;">Field syntax:</p><pre xml:space="preserve" style="text-align: left;margin-left: 40px;">arn:aws:iam::${accountid}:saml-provider/[SAML Provider Name],</pre><pre xml:space="preserve" style="text-align: left;margin-left: 40px;">arn:aws:iam::${accountid}:role/${role}</pre>
                                                         <p style="text-align: left;margin-left: 40px;">Replace <b>[SAML Provider Name]</b> with the name of the SAML provider for your AWS accounts (see <a href="#Set2" class="MCXref xref">Enable group-based role mapping in Okta</a>). The rest of the string should not be altered, only copied and pasted.</p>
                                                         <li style="text-align: left;margin-left: 40px;" value="7">Scroll down and click <b>Save</b>.</li>
                                                     </ol>
-                                                    <h3>Next steps</h3>
+                                                    <h2>Next steps</h2>
                                                     <ul>
                                                         <li value="1"><a href="aws-assign-aws-groups.htm">Assign AWS management groups to the Okta AWS app</a>
                                                         </li>
@@ -376,6 +371,10 @@ IdP-initiated flow: with Okta as the IdP, an end user goes to the Okta browser a
                 </ul>
             </div> -->
                                     </div>
+                                    <!-- Qualtrics setup to use with script below, replacing getfeedback -->
+                                    <div id="ZN_6fGBJ8J3VcIBymN">
+                                        <!--DO NOT REMOVE-CONTENTS PLACED HERE-->
+                                    </div>
                                     <!-- ***************************** Scripts ************************************* -->
                                     <!-- Foundation -->
                                     <script src="../../../Resources/Scripts/js/app.js">
@@ -387,8 +386,8 @@ IdP-initiated flow: with Okta as the IdP, an end user goes to the Okta browser a
                                     <!-- Ours -->
                                     <script type="text/javascript" src="../../../Resources/Scripts/back-to-top.js">
                                     </script>
-                                    <script type="text/javascript" src="../../../Resources/Scripts/get-feedback.js">
-                                    </script>
+                                    <!--         <script type="text/javascript" src="../Scripts/get-feedback.js">
+        </script> -->
                                     <script type="text/javascript" src="../../../Resources/Scripts/js/vendor/qualtrics.js">
                                     </script>
                                     <!-- Coveo -->

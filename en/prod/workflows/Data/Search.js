@@ -1,1 +1,1 @@
-define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../Content/Topics/Access-Gateway/about-access-gateway-applications.htm'],s:['$'],p:[['$',27]]});
+define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../Content/Topics/Access-Gateway/about-access-gateway-applications.htm'],s:['$'],p:[['$',147]]});
