@@ -449,6 +449,7 @@ xmlAliasData += '    <Map Name=\"csh-index\" Link=\"index.htm\" ResolvedId=\"129
 xmlAliasData += '    <Map Name=\"ext_self_service_registration_policy\" Link=\"Topics/users-groups-profiles/usgp-self-service-registration.htm\" ResolvedId=\"1287\" />';
 xmlAliasData += '    <Map Name=\"ext-vend-spec-attr-group\" Link=\"Topics/integrations/fortinet-radius-intg.htm\" ResolvedId=\"1288\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-concepts\" Link=\"Topics/Adv_Server_Access/docs/concepts.htm\" ResolvedId=\"1289\" />';
+xmlAliasData += '    <Map Name=\"ext-oag-manage-cert\" Link=\"Topics/Access-Gateway/manage-certificates.htm\" ResolvedId=\"1294\" />';
 xmlAliasData += '    <Map Name=\"csh-admin-plugin-settings\" Link=\"Topics/Browser-Plugin/admin-plugin-settings.htm\" ResolvedId=\"1291\" />';
 xmlAliasData += '    <Map Name=\"csh-browser-plugin-main\" Link=\"Topics/Browser-Plugin/browser-plugin-main.htm\" ResolvedId=\"1290\" />';
 xmlAliasData += '    <Map Name=\"ext_plugin_installation\" Link=\"Topics/Browser-Plugin/plugin-installation.htm\" ResolvedId=\"1292\" />';
