@@ -305,6 +305,7 @@
                                                             <li value="3"><a href="#Authenti" class="MCXref xref">Authentication and Authorization</a> events such as authentication, authorization, and policy. </li>
                                                             <li value="4"><a href="#Connecti" class="MCXref xref">Connectivity and validation</a> between <span class="okta-feature-namesAccess Gateway">Access Gateway</span> and external resources such as back end applications, data stores and similar conditions.</li>
                                                             <li value="5"><a href="#Kerberos" class="MCXref xref">Kerberos</a> related activity such as create, update or delete. </li>
+                                                            <li value="6"><a href="#TrustedDomains" class="MCXref xref">Trusted Domains</a> related activity such as create, update, delete or synchronize as well as exceptions during trusted domain operations.</li>
                                                         </ul>
                                                         <p>&#160;</p>
                                                         <div>
@@ -391,16 +392,17 @@
                                                                                 <ul>
                                                                                     <li value="1">AUTHN</li>
                                                                                     <li value="2">AUTHZ</li>
-                                                                                    <li value="3">ERROR</li>
-                                                                                    <li value="4">IDP</li>
-                                                                                    <li value="5">INFO</li>
-                                                                                    <li value="6">KRB5</li>
-                                                                                    <li value="7">LOG_DOWNLOAD_STATUS</li>
-                                                                                    <li value="8">LOG_PREPARE_OPERATION</li>
-                                                                                    <li value="9">LOG_PREPARE_STATUS</li>
-                                                                                    <li value="10">NGINX</li>
-                                                                                    <li value="11">SYSTEM</li>
-                                                                                    <li value="12">TRUSTED_DOMAINS</li>
+                                                                                    <li value="3">CLUSTER MANAGER ADMIN</li>
+                                                                                    <li value="4">ERROR</li>
+                                                                                    <li value="5">IDP</li>
+                                                                                    <li value="6">INFO</li>
+                                                                                    <li value="7">KRB5</li>
+                                                                                    <li value="8">LOG_DOWNLOAD_STATUS</li>
+                                                                                    <li value="9">LOG_PREPARE_OPERATION</li>
+                                                                                    <li value="10">LOG_PREPARE_STATUS</li>
+                                                                                    <li value="11">NGINX</li>
+                                                                                    <li value="12">SYSTEM</li>
+                                                                                    <li value="13">TRUSTED_DOMAINS</li>
                                                                                 </ul>
                                                                             </td>
                                                                         </tr>
@@ -417,9 +419,10 @@
                                                                                     <li value="4">INFO</li>
                                                                                     <li value="5">LOCAL</li>
                                                                                     <li value="6">NETCAT</li>
-                                                                                    <li value="7">POLICY</li>
-                                                                                    <li value="8">SESSION</li>
-                                                                                    <li value="9">STARTUP/SHUTDOWN</li>
+                                                                                    <li value="7">NOMINATION</li>
+                                                                                    <li value="8">POLICY</li>
+                                                                                    <li value="9">SESSION</li>
+                                                                                    <li value="10">STARTUP/SHUTDOWN</li>
                                                                                 </ul>
                                                                             </td>
                                                                         </tr>
@@ -532,6 +535,16 @@
                                                             <li value="3">Structured data: None</li>
                                                         </ul>
                                                     </div>
+                                                    <div>
+                                                        <h2><a name="TrustedDomains"></a>Trusted Domains</h2>
+                                                        <h3>SYSTEM_TD_EVENT</h3>
+                                                        <ul>
+                                                            <li value="1"><strong>Message(s)</strong>
+                                                                <br />source_app_guid: "&lt;guid&gt;", source_app_name="&lt;name of source app&gt;",source_app_domain: "&lt;source domain of application&gt;".<br />exception 'exception data' occurred.<br /></li>
+                                                            <li value="2"><strong>Example(s)</strong>:<br />When events are published:<br /><span class="code">2020-07-15T04:46:38.000-04:00 localhost ACCESS_GATEWAY WEB_CONSOLE TRUSTED_DOMAINS - INFO SYSTEM_TD_EVENT [ SOURCE="APP"  ACTION="UPDATE" ] source_app_guid: "61602a9d. . . ", source_app_name="Wikipedia SSO App", source_app_domain: "www.wikipedia.com"</span><br /><br />When errors occur:<br /><span class="code">2020-07-15T04:46:38.000-04:00 localhost ACCESS_GATEWAY WEB_CONSOLE TRUSTED_DOMAINS ALERT SYSTEM_TD_EVENT [ SOURCE="APP" ACTION="UPDATE" ] Exception when disable/enable trusted domains: [Errno 13] Permission denied: '/opt/oag/events/trusteddomains.DISABLE.json'.</span> <br /><br />When events are synchronized with an Okta tenant:<br /><span class="code">2020-07-15T04:46:38.000-04:00 localhost ACCESS_GATEWAY WEB_CONSOLE TRUSTED_DOMAINS -  INFO SYSTEM_TD_EVENT [ SOURCE="OKTA_TRUSTED_ORIGIN" ACTION="SYNC" ]</span><br /></li>
+                                                            <li value="3">Structured data:<ul style="list-style-type: square;"><li value="1"><span class="code">SOURCE</span> - APP or OKTA_TRUSTED_ORIGIN.</li><li value="2"><span class="code">ACTION</span> -One of CREATE, UPDATE, DELETE or SYNCH. Indicating that the a trusted domain was added, updated, removed or synchronized.</li></ul><p><b>Note</b> severity can be <span class="code">ALERT</span>, <span class="code">INFO</span> or <span class="code">WARN</span>.</p></li>
+                                                        </ul>
+                                                    </div>
                                                     <h2><a name="Kerberos"></a>Kerberos</h2>
                                                     <div>
                                                         <h3>SYSTEM_KRB5_EVENT</h3>
@@ -560,7 +573,7 @@
                                                         <p>Event issued when a request for a session is issued.</p>
                                                         <ul>
                                                             <li value="1"><strong>Message</strong>:No session cookie. Sending to handler. <br />Upgraded auth cookie. App session created.<br />This should be investigated by your security group.<br /></li>
-                                                            <li style="font-weight: bold;" value="2"><strong>Example</strong>:<br /><code>2020-06-04T13:53:53.483-05:00 example.myaccessgateway.com ACCESS_GATEWAY ACCESS AUTHZ SESSION INFO USER_SESSION [SESSION_ID="&lt;Session ID&gt;" APP="Local OAG Admin Console" APP_TYPE="ADMINUI_APP" APP_DOMAIN="&lt;Application Domain&gt;" RESULT="DENY" REASON="NOT_EXIST" REMOTE_IP="10.63.182.118" USER_AGENT="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36"] No session cookie. Sending to handler.</code><br /><br /><span style="font-weight: normal;" class="code">2020-06-04T13:53:53.483-05:00 example.myaccessgateway.com ACCESS_GATEWAY ACCESS AUTHZ SESSION INFO USER_SESSION [SESSION_ID="&lt;Session&#160;ID&gt;" SESSION_AUTH="&lt;Session&#160;Auth ID&gt;" SESSION_APP="e701ddf534554eab8ea671e884438b99" SUBJECT="&lt;User login name&gt;" APP="Sample Header App" APP_TYPE="SAMPLEHEADER_APP" APP_DOMAIN="&lt;App Domain URL&gt;" RESULT="ALLOW" REASON="VALID_AUTHCOOKIE" REMOTE_IP="" USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"] Upgraded auth cookie. App session created.</span><br /><br /><span class="code">2020-06-04T13:53:53.483-05:00 example.myaccessgateway.com ACCESS_GATEWAY ACCESS AUTHZ SESSION WARN USER_SESSION [SESSION_ID="&lt;Session&#160;ID&gt;" SESSION_AUTH="&lt;Session&#160;Auth ID&gt;" APP="Sample Header App" APP_TYPE="SAMPLEHEADER_APP" APP_DOMAIN="&lt;App Domain URL&gt;" RESULT="DENY" REASON="INVALID_AUTHCOOKIE" REMOTE_IP="" USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"] This should be investigated by your security group.</span><br /><br /><br /></li>
+                                                            <li style="font-weight: bold;" value="2"><strong>Example</strong>:<br /><code>2020-06-04T13:53:53.483-05:00 example.myaccessgateway.com ACCESS_GATEWAY ACCESS AUTHZ SESSION INFO USER_SESSION [SESSION_ID="&lt;Session ID&gt;" APP="Local OAG Admin Console" APP_TYPE="ADMINUI_APP" APP_DOMAIN="&lt;Application Domain&gt;" RESULT="DENY" REASON="NOT_EXIST" REMOTE_IP="10.63.182.118" USER_AGENT="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36"] No session cookie. Sending to handler.</code><br /><br /><span style="font-weight: normal;" class="code">2020-06-04T13:53:53.483-05:00 example.myaccessgateway.com ACCESS_GATEWAY ACCESS AUTHZ SESSION INFO USER_SESSION [SESSION_ID="&lt;Session&#160;ID&gt;" SESSION_AUTH="&lt;Session&#160;Auth ID&gt;" SESSION_APP="e701ddf534554eab8ea671e884438b99" SUBJECT="&lt;User login name&gt;" APP="Sample Header App" APP_TYPE="SAMPLEHEADER_APP" APP_DOMAIN="&lt;App Domain URL&gt;" RESULT="ALLOW" REASON="VALID_AUTHCOOKIE" REMOTE_IP="" USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"] Upgraded auth cookie. App session created.</span><br /><br /><span class="code">2020-06-04T13:53:53.483-05:00 example.myaccessgateway.com ACCESS_GATEWAY ACCESS AUTHZ SESSION WARN USER_SESSION [SESSION_ID="&lt;Session&#160;ID&gt;" SESSION_AUTH="&lt;Session&#160;Auth ID&gt;" APP="Sample Header App" APP_TYPE="SAMPLEHEADER_APP" APP_DOMAIN="&lt;App Domain URL&gt;" RESULT="DENY" REASON="INVALID_AUTHCOOKIE" REMOTE_IP="" USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"] This should be investigated by your security group.</span><br /><br /></li>
                                                             <li value="3">Structured data<ul style="list-style-type: square;"><li value="1"><span class="code">SESSION_ID</span> - Assigned session id, if it exists. </li><li value="2"><span class="code">APP</span> - Application name.</li><li value="3"><span class="code">APP_TYPE</span> - Application session was used against.</li><li value="4"><span id="code">APP_DOMAIN</span> - associated application domain.</li><li value="5"><span id="code">RESULT</span>- <span class="code">ALLOW</span>&#160;or <span class="code">DENY</span>.</li><li value="6"><span class="code">REASON</span> - Reason why request was allowed or denied. </li><li value="7"><span id="code">REMOTE_IP</span> - Remote IP from which user attempted to log in.</li><li value="8"><span id="code">USER_AGENT</span>- Remote operating system, browser, etc.</li></ul></li>
                                                         </ul>
                                                     </div>
@@ -608,7 +621,7 @@
                                                             <h3><a name="CHECK_DS"></a>ACCESS AUTHN - - STORE</h3>
                                                             <p>Event issued immediate after a check connection is performed. &#160;Results of the check noted in message.</p>
                                                             <ul>
-                                                                <li value="1"><strong>Message</strong>:tore failed during initialization.</li>
+                                                                <li value="1"><strong>Message</strong>:store failed during initialization.</li>
                                                                 <li style="font-weight: bold;" value="2"><strong>Example </strong> :<br /><code>22020-06-25T14:18:52.458-05: example.store.com ACCESS_GATEWAY ACCESS AUTHN FAILED WARN STORE [STORE_NAME="Name of datastore    - Entry DN" FAILURE_COUNT="3"] Store failed during initialization.</code></li>
                                                                 <li value="3">Structured data<ul style="list-style-type: square;"><li value="1"><span class="code">STORE_NAME</span> - Name of data store which failed to initialize.</li><li value="2"><span id="code">FAILURE_COUNT</span> - Number of attempts to access store.</li></ul></li>
                                                             </ul>
