@@ -459,6 +459,8 @@ xmlAliasData += '    <Map Name=\"csh-browser-plugin-main\" Link=\"Topics/Browser
 xmlAliasData += '    <Map Name=\"ext-expression-language\" Link=\"Topics/Settings/Settings_Email.htm#Customiz\" ResolvedId=\"1295\" />';
 xmlAliasData += '    <Map Name=\"ext_plugin_installation\" Link=\"Topics/Browser-Plugin/plugin-installation.htm\" ResolvedId=\"1292\" />';
 xmlAliasData += '    <Map Name=\"ext_browser_plugin_main\" Link=\"Topics/Browser-Plugin/browser-plugin-main.htm\" ResolvedId=\"1293\" />';
+xmlAliasData += '    <Map Name=\"ext-recent-signin-activity\" Link=\"Topics/Security/recent-signin-activity.htm\" ResolvedId=\"1296\" />';
+xmlAliasData += '    <Map Name=\"csh-notification-changed-password\" Link=\"Topics/Security/healthinsight/notifications-changed-password.htm\" ResolvedId=\"1301\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_set_log_levels\" Link=\"Topics/Access-Gateway/admin-settings-logging-log-level.htm\" ResolvedId=\"1300\" />';
 xmlAliasData += '    <Map Name=\"ext_asa_service_users\" Link=\"Topics/Adv_Server_Access/docs/service-users.htm\" ResolvedId=\"1302\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_app_jde\" Link=\"Topics/Access-Gateway/add-app-jde.htm\" ResolvedId=\"1303\" />';
