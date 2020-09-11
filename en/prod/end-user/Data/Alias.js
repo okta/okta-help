@@ -1,0 +1,10 @@
+var xmlAliasData = "";
+xmlAliasData += '<?xml version=\"1.0\" encoding=\"utf-8\"?>';
+xmlAliasData += '<CatapultAliasFile>';
+xmlAliasData += '    <Map Name=\"ext_servicenow_intg\" Link=\"Topics/DeploymentGuides/ServiceNow/servicenow-intg.htm\" ResolvedId=\"200042\" />';
+xmlAliasData += '    <Map Name=\"ver-hist-okta-hyperspace-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_ePCS_Agent.htm\" ResolvedId=\"1102\" />';
+xmlAliasData += '    <Map Name=\"ext-devices-directory\" Link=\"Topics/Devices/devices-directory.htm\" ResolvedId=\"1219\" />';
+xmlAliasData += '    <Map Name=\"ext_proc_mfa_rdp\" Link=\"Topics/Security/proc-mfa-for-rdp.htm\" ResolvedId=\"1244\" />';
+xmlAliasData += '    <Map Name=\"csh-index\" Link=\"index.htm\" ResolvedId=\"1298\" />';
+xmlAliasData += '</CatapultAliasFile>';
+MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
