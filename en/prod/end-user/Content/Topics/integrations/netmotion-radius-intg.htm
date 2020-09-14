@@ -6,7 +6,7 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="robots" content="noindex, nofollow" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Define Custom Application Attributes | Okta</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Configure Check Point to Interoperate with Okta via RADIUS | Okta</title>
         <meta charset="utf-8" />
         <meta name="description" content="" />
         <meta name="author" content="" />
@@ -80,6 +80,8 @@
 }
 
 </style>
+        <link href="../../Resources/Okta Templates/TableStyles/standard-shaded-rows.css" rel="stylesheet" />
+        <link href="../../Resources/TableStyles/standard-shaded-rows.css" rel="stylesheet" />
         <script src="../../../Resources/Scripts/jquery.min.js">
         </script>
         <script src="../../../Resources/Scripts/require.min.js" defer="defer">
@@ -286,58 +288,216 @@
                                             <div class="body-main">
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
-                                                    <h1>Define Custom Application Attributes</h1>
+                                                    <h1>Configure NetMotion Mobility to interoperate with Okta via RADIUS</h1>
+                                                    <p> This guide details how to configure NetMotion mobility  to use the Okta RADIUS Server Agent in conjunction with the Okta Integration Network (OIN) NetMotion Moblity (RADIUS) app.</p>
+                                                    <p class="earlyaccess">This is an Early Access feature. To enable it, contact <a href="https://support.okta.com/help/s/">Okta Support</a>.</p>
+                                                    <h3>Topics</h3>
+                                                    <ul>
+                                                        <li value="1"><a href="#Supporte" class="MCXref xref">Supported Factors</a><![CDATA[
+            ]]></li>
+                                                        <li value="2"><a href="#Tasks" class="MCXref xref">Tasks</a><![CDATA[            ]]></li>
+                                                        <li value="3"> <a href="#User" class="MCXref xref">User Experience</a><![CDATA[
+            ]]></li>
+                                                    </ul>
+                                                    <h2>Before you begin</h2>
                                                     <div>
-                                                        <h2>Okta User Profiles and Attributes</h2>
-                                                        <p>Okta tenants provide a variety of attribute functionality which are provided to Access gateway using the <b>IDP</b> datasource. <br />Within your Okta tenant, for a given 
-Universal&#160;Directory you can:</p>
-                                                        <ul>
-                                                            <li value="1">Store rich profiles of user attributes in Okta.
-
-</li>
-                                                            <li value="2">Customize these profiles with custom attributes.
-</li>
-                                                            <li value="3">Bi-directionally map and move attributes from Okta and applications.
-</li>
-                                                            <li value="4">Transform attributes prior to storing or moving with a powerful expression language.</li>
-                                                        </ul>
-                                                        <p>For more information on </p>
+                                                        <p>Before installing the Okta RADIUS Agent ensure that you have met these minimum requirements for network connectivity</p>
+                                                        <table style="width: 80% %;mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+                                                            <col style="width: 158px;" class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                            <col style="width: 208px;" class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                            <col style="width: 326px;" class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                            <col style="width: 224px;" class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                            <thead>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                                                                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Source</th>
+                                                                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Destination</th>
+                                                                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Port/Protocol</th>
+                                                                    <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">Description</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Okta RADIUS Agent</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Okta Identity Cloud</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">TCP/443<br />HTTP</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Configuration and authentication traffic</td>
+                                                                </tr>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">Client Gateway</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">Okta RADIUS Agent</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">
+UDP/1812
+RADIUS
+(Default, may be changed in RADIUS install)
+</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">RADIUS traffic between the gateway (client) and the RADIUS Agent (server)</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
                                                     </div>
-                                                    <div>
-                                                        <h2><a name="Prerequisites"></a>Before You Begin</h2>
-                                                        <ul>
-                                                            <li value="1">Ensure you have administrator rights on your Okta tenant and can assign attributes to users</li>
-                                                        </ul>
-                                                    </div>
+                                                    <h2><a name="Supporte"></a>Supported Factors</h2>
+                                                    <p>The following MFA Factors are supported:</p>
                                                     <p>&#160;</p>
-                                                    <div>
-                                                        <h3><a name="AddAttributes"></a>Define a Custom Attribute In Okta</h3>
-                                                        <div>
-                                                            <ol>
-                                                                <li value="1">
-                                                                    <p>In a new tab, navigate to your Okta org and sign in as an administrator.</p>
-                                                                </li>
-                                                                <li value="2">
-                                                                    <p>In the <span class="okta-feature-namesAdministrator dashboard">Admin Console</span>, go to <b>Directory</b> &gt;<strong>Profile Editor</strong>.</p>
-                                                                </li>
-                                                                <li value="3">In the <strong>Actions</strong> column, click <strong>Profile</strong>.</li>
-                                                                <li value="4">Click <strong>+ Add Attribute</strong> to add a custom attribute used to send header information through the Sample Header Application.</li>
-                                                                <li value="5">Enter a <b>Display name</b> and an appropriate <b>Variable name</b>. For example, the display name can be , for example, <strong>Gender</strong> and the variable can be <strong>gender</strong>. Click <strong>Save</strong>.</li>
-                                                                <li value="6">In the <span class="okta-feature-namesAdministrator dashboard">Admin Console</span>, go to <b>Directory</b> &gt;<strong> People</strong>.</li>
-                                                                <li value="7">Select your account under the <strong>Person &amp; Username</strong> column.</li>
-                                                                <li value="8">Click the <strong>Profile</strong> tab, and click <strong>Edit</strong>.</li>
-                                                                <li value="9">Go to the new attribute, in this example <strong>Gender</strong>,  and enter a corresponding value.</li>
-                                                                <li value="10">Click <strong>Save</strong>.</li>
-                                                            </ol>
-                                                        </div>
-                                                        <p>&#160;</p>
-                                                        <h3>Related topics</h3>
-                                                        <ul>
-                                                            <li value="1">How you can integrate directories into your Okta tenant, see Integrations.</li>
-                                                            <li value="2">How to extend and customize user profiles, see Work with  user profiles and attributes.</li>
-                                                        </ul>
-                                                        <p>&#160;</p>
+                                                    <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+                                                        <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                        <col class="TableStyle-srb_header_alt_shade-Column-Column1" style="width: 399px;" />
+                                                        <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                        <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                        <tbody>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1" style="font-weight: bold;">MFA Factor</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1" style="font-weight: bold;"> Password Authentication Protocol<br />PAP</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1" style="font-weight: bold;">
+                        Extensible Authentication Protocol - Generic Token Card<br />EAP-GTC</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1" style="font-weight: bold;"> Extensible Authentication Protocol - Tunneled Transport Layer Security<br />EAP-TTLS</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Okta Verify (TOTP and PUSH)</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Supported</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Supported</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">Supported - as long as challenge is avoided. <br />For example:<br />MFA-only or password, MFA for TOTP. <br />Push can work with primary auth + MFA as the push challenge is sent out-of-band.</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Voice Call</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Supported</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Supported</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Not supported</td>
+                                                            </tr>
+                                                            <tr style="height: 49px;" class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">SMS Authentication</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Supported</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Supported</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">Not supported</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Google Authenticator</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Supported</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Supported</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Supported - as long as challenge is avoided.<br />For example MFA only or password, MFA)</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Symantec VIP</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Supported</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Supported</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">Supported</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Security Question</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Supported</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Supported</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Not supported</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Custom TOTP Authentication</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Supported</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Supported</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">Not supported</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Duo(Push, SMS and Passcode only)</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Supported</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Supported</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Supported (passcode, Push)</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">YubiKey</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Supported</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Supported</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">Supported</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                                                                    <p>RSA Token</p>
+                                                                </td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                                                                    <p>Supported</p>
+                                                                </td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                                                                    <p>Supported</p>
+                                                                </td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                                                                    <p>Supported</p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">
+                                                                    <p>Email</p>
+                                                                </td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">
+                                                                    <p>Supported</p>
+                                                                </td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">
+                                                                    <p>Supported</p>
+                                                                </td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">
+                                                                    <p>Not supported</p>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <div class="noteOkta">
+                                                        <img src="../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Info" alt="Info" />
+                                                        <p class="noteHeading">Note</p>
+                                                        <p class="noteContent">The U2F&#160;Security and Windows Hello MFA factors are not compatible with RADIUS-enabled implementations. <br />For additional information about the Radius apps refer to Configuring RADIUS applications in Okta.</p>
                                                     </div>
+                                                    <h2><a name="Tasks"></a>Tasks</h2>
+                                                    <p>Perform the following tasks, in the order shown:</p>
+                                                    <table style="width: 100%;mc-table-style: url('../../Resources/Okta Templates/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+                                                        <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                        <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                        <thead>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                                                                <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                                                                    <p><span style="font-family: 'Proxima Nova';">Task</span>
+                                                                    </p>
+                                                                </th>
+                                                                <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                                                                    <p><span style="font-family: 'Proxima Nova';"><span style="font-family: 'Proxima Nova';">Description</span></span>
+                                                                    </p>
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Download the RADIUS agent</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                                                                    <li value="1">Download the Okta RADIUS Agent from the <b>Settings &gt; Downloads</b> page your in Okta org. Note that there are both Windows and Linux agents</li>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Install the Okta RADIUS Agent.</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                                                                    <p>Install the Windows RADIUS agent.</p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Configure application</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">In your Okta org, configure the <a href="netmotion-radius-intg-add-app.htm">Netmotion Mobility</a> application. </td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">Add Trusted root CA</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">On the Windows computer running the RADIUS agent. Using the Microsoft Management Console (MMC) <a href="netmotion-radius-intg-add-trusted-root-cert.htm">add the required additional Trusted root CA</a>. </td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">Verify Connection</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">Ensure that the end-user’s NetMotion Mobility client has the right server settings. <br />For example:
+<br /><br /><br /></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <h2><a name="User"></a>User Experience</h2>
+                                                    <ol>
+                                                        <li value="1">User opens Mobility client and enters their Userid and password.<br /></li>
+                                                        <li value="2">If MFA is configured, user will be prompted for a factor.<br /></li>
+                                                        <li value="3">After user presents the factor, VPN client will connect successfully.<br /></li>
+                                                    </ol>
+                                                    <h2>Related topics</h2>
+                                                    <ul>
+                                                        <div>
+                                                            <li value="1">Okta Support - Installing the Okta RADIUS Agent</li>
+                                                            <li value="2">Okta Support - Sign-on Policies: Authentication</li>
+                                                        </div>
+                                                    </ul>
                                                 </div>
                                                 <!-- Back to Top button --><a href="#" class="sf-back-to-top"><span class="arrow"></span>Top</a>
                                             </div>
