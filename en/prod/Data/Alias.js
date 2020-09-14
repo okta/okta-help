@@ -484,5 +484,6 @@ xmlAliasData += '    <Map Name=\"ext_oag_app_sample_policy\" Link=\"Topics/Acces
 xmlAliasData += '    <Map Name=\"ext_oag_app_sample_proxy\" Link=\"Topics/Access-Gateway/add-sample-proxy-app-okta.htm\" ResolvedId=\"1322\" />';
 xmlAliasData += '    <Map Name=\"ext-IDP-factor\" Link=\"Topics/Security/MFA_Custom_Factor.htm\" ResolvedId=\"1323\" />';
 xmlAliasData += '    <Map Name=\"ext-ad-override-username\" Link=\"Topics/Directory/ad-agent-override-username-format.htm\" ResolvedId=\"1324\" />';
+xmlAliasData += '    <Map Name=\"ext-Security-Policies-eu-control\" Link=\"Topics/Security/Security_Policies.htm#EndUserControlMFAPrompts\" ResolvedId=\"1325\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
