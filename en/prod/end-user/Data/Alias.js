@@ -5,6 +5,6 @@ xmlAliasData += '    <Map Name=\"ext_servicenow_intg\" Link=\"Topics/DeploymentG
 xmlAliasData += '    <Map Name=\"ver-hist-okta-hyperspace-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_ePCS_Agent.htm\" ResolvedId=\"1102\" />';
 xmlAliasData += '    <Map Name=\"ext-devices-directory\" Link=\"Topics/Devices/devices-directory.htm\" ResolvedId=\"1219\" />';
 xmlAliasData += '    <Map Name=\"ext_proc_mfa_rdp\" Link=\"Topics/Security/proc-mfa-for-rdp.htm\" ResolvedId=\"1244\" />';
-xmlAliasData += '    <Map Name=\"csh-index\" Link=\"index.htm\" ResolvedId=\"1298\" />';
+xmlAliasData += '    <Map Name=\"ext-ov-user-overview\" Link=\"Topics/end-user/ov-overview.htm\" ResolvedId=\"1330\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
