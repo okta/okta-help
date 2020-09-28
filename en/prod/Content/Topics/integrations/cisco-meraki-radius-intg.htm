@@ -7,8 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="typeofcontent" content="documentation" />
         <meta name="audience" content="admin" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="description" content="Configure Cisco Meraki to Interoperate with Okta via RADIUS agents." /><title>Configure Cisco Meraki to Interoperate with Okta via RADIUS using EAP-TTLS  | Okta</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Configure Cisco Meraki to interoperate with Okta via RADIUS | Okta</title>
         <meta charset="utf-8" />
         <meta name="description" content="" />
         <meta name="author" content="" />
@@ -84,7 +83,7 @@
 }
 
 </style>
-        <link href="../../Resources/TableStyles/standard.css" rel="stylesheet" />
+        <link href="../../Resources/Okta Templates/TableStyles/standard-shaded-rows.css" rel="stylesheet" />
         <link href="../../Resources/TableStyles/standard-shaded-rows.css" rel="stylesheet" />
         <script src="../../../Resources/Scripts/jquery.min.js">
         </script>
@@ -297,351 +296,248 @@
                                             <div class="body-main">
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
-                                                    <h1>Configure Cisco Meraki to Interoperate with Okta via RADIUS using EAP-TTLS</h1>
-                                                    <div>
-                                                        <h2><a name="Overview"></a>Overview</h2>
-                                                        <p class="earlyaccess">This is an Early Access feature. To enable it, contact <a href="https://support.okta.com/help/s/">Okta Support</a>.</p>
-                                                        <p>This guide details how to configure Cisco Meraki wireless access points to use the Okta RADIUS Server Agent and EAP-TTLS.. The following network diagram shows the flow between Meraki and several endpoints using Okta.</p>
-                                                        <div class="noteOkta">
-                                                            <img src="../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Important Note" alt="Important Note" />
-                                                            <p class="noteHeading">Important</p>
-                                                            <p class="noteContent">Contact Okta Support to have EAP-TTLS support enabled for your Okta org.</p>
-                                                        </div>
-                                                        <div>
-                                                            <p>This guide was verified against:</p>
-                                                            <ul>
-                                                                <li value="1">Okta RADIUS agent 2.10.0.</li>
-                                                                <li value="2">Cisco Meraki MR16, Firmware version 25.13</li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <div>
-                                                        <h2><a name="What’s"></a>What’s covered in this guide</h2>
-                                                        <ol>
-                                                            <li value="1"><a href="#Concepts" class="MCXref xref">Concepts</a>
-                                                            </li>
-                                                            <li value="2"><a href="#Supporte" class="MCXref xref">Supported Factors</a>
-                                                            </li>
-                                                            <li value="3"><a href="#Part1" class="MCXref xref">Install the Okta RADIUS Agent</a>
-                                                            </li>
-                                                            <li value="4"><a href="#Part2" class="MCXref xref">Add the Cisco Meraki Wireless LAN (RADIUS) app</a>
-                                                            </li>
-                                                            <li value="5"><a href="#Part3" class="MCXref xref">Configure Meraki to use the Okta RADIUS&#160;Agent</a>
-                                                            </li>
-                                                            <li value="6"><a href="#Part4" class="MCXref xref">Configure Wireless Clients</a>
-                                                            </li>
-                                                            <li value="7"><a href="#Troubleshooting" class="MCXref xref">Troubleshooting</a>
-                                                            </li>
-                                                        </ol>
-                                                    </div>
-                                                    <div>
-                                                        <h2><a name="Concepts"></a>Concepts</h2>
-                                                        <figure style="text-align: center;">
-                                                            <img src="../../Resources/Images/hybrid-access/cisco-meraki-radius-intg-flow.png" alt="Cisco Meraki to Okta tenant process flow diagram." />
-                                                            <figcaption style="text-align: center;"><b>Process Flow</b>
-                                                            </figcaption>
-                                                        </figure>
-                                                        <p>The data flow has the following steps:</p>
-                                                        <ol>
-                                                            <li value="1">A supplicant (Mobile Device/Laptop/Desktop) tries to associate with the Meraki Access Point (AP).</li>
-                                                            <li value="2">The Meraki AP contacts the Okta RADIUS agent with the user's identity<br /></li>
-                                                            <li value="3">The Okta RADIUS agent requests the start of the EAP-TTLS conversation, which is forwarded to the supplicant<br /></li>
-                                                            <li value="4">A TLS channel is established between the supplicant and the Okta RADIUS agent. <br />Within the tunnel, the supplicant sends the configured username and password to the Okta RADIUS agent.</li>
-                                                            <li value="5">The Okta RADIUS agent sends authentication information to the Okta tenant.<br /></li>
-                                                            <li value="6">The Okta tenant sends the authentication response back to the Okta RADIUS agent.</li>
-                                                            <li value="7">The Okta RADIUS agent sends an Accept or Reject message to the Meraki AP.</li>
-                                                            <li value="8">
-                                                                <p>The Meraki AP accepts or rejects the terminal access request.</p>
-                                                            </li>
-                                                        </ol>
-                                                        <p>&#160;</p>
-                                                    </div>
-                                                    <hr width="100%" size="0" align="center" />
-                                                    <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Supporte"></a><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" aria-expanded="false">Supported Factors</a></span>
-                                                        <div class="MCDropDownBody dropDownBody">
-                                                            <p>The following MFA Factors are supported:</p>
-                                                            <p>&#160;</p>
-                                                            <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
-                                                                <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
-                                                                <col class="TableStyle-srb_header_alt_shade-Column-Column1" style="width: 399px;" />
-                                                                <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
-                                                                <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
-                                                                <tbody>
-                                                                    <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1" style="font-weight: bold;">MFA Factor</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1" style="font-weight: bold;"> Password Authentication Protocol<br />PAP</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1" style="font-weight: bold;">
-                        Extensible Authentication Protocol - Generic Token Card<br />EAP-GTC</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1" style="font-weight: bold;"> Extensible Authentication Protocol - Tunneled Transport Layer Security<br />EAP-TTLS</td>
-                                                                    </tr>
-                                                                    <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><a href="../Security/MFA.htm#OktaVerify">Okta Verify (TOTP and PUSH)</a>
-                                                                        </td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Supported</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Supported</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">Supported - as long as challenge is avoided. <br />For example:<br />MFA-only or password, MFA for TOTP. <br />Push can work with primary auth + MFA as the push challenge is sent out-of-band.</td>
-                                                                    </tr>
-                                                                    <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><a href="../Security/MFA.htm#VoiceCall">Voice Call</a>
-                                                                        </td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Supported</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Supported</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Not supported</td>
-                                                                    </tr>
-                                                                    <tr style="height: 49px;" class="TableStyle-srb_header_alt_shade-Body-Body2">
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><a href="../Security/MFA.htm#SMSAuthentication">SMS Authentication</a>
-                                                                        </td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Supported</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Supported</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">Not supported</td>
-                                                                    </tr>
-                                                                    <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><a href="../Security/MFA.htm#GoogleAuthenticator">Google Authenticator</a>
-                                                                        </td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Supported</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Supported</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Supported - as long as challenge is avoided.<br />For example MFA only or password, MFA.</td>
-                                                                    </tr>
-                                                                    <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><a href="../Security/MFA.htm#SymantecVIP">Symantec VIP</a>
-                                                                        </td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Supported</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Supported</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">Supported</td>
-                                                                    </tr>
-                                                                    <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><a href="../Security/MFA.htm#SecurityQuestion">Security Question</a>
-                                                                        </td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Supported</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Supported</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Not supported</td>
-                                                                    </tr>
-                                                                    <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><a href="../Security/MFA.htm#TOTPFactor">Custom TOTP Authentication</a>
-                                                                        </td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Supported</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Supported</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">Not supported</td>
-                                                                    </tr>
-                                                                    <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><a href="../Security/MFA.htm#Duo">Duo(Push, SMS and Passcode only)</a>
-                                                                        </td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Supported</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Supported</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Supported (passcode, Push)</td>
-                                                                    </tr>
-                                                                    <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><a href="../Security/MFA.htm#YubiKey">YubiKey</a>
-                                                                        </td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Supported</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Supported</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">Supported</td>
-                                                                    </tr>
-                                                                    <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
-                                                                            <p><a href="../Security/MFA.htm#RSAToken">RSA Token</a>
-                                                                            </p>
-                                                                        </td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
-                                                                            <p>Supported</p>
-                                                                        </td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
-                                                                            <p>Supported</p>
-                                                                        </td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
-                                                                            <p>Supported</p>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">
-                                                                            <p><a href="../Security/MFA.htm#Email">Email</a>
-                                                                            </p>
-                                                                        </td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">
-                                                                            <p>Supported</p>
-                                                                        </td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">
-                                                                            <p>Supported</p>
-                                                                        </td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">
-                                                                            <p>Not supported</p>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                            <div class="noteOkta">
-                                                                <img src="../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Info" alt="Info" />
-                                                                <p class="noteHeading">Note</p>
-                                                                <p class="noteContent">The U2F&#160;Security and Windows Hello <a href="../Security/MFA.htm#FactorTypes">MFA factors</a> are not compatible with RADIUS-enabled implementations. <br />For additional information about the Radius apps refer to <a href="../Security/Okta_Radius_App.htm">Configuring RADIUS applications in Okta</a>.</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div>
-                                                        <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Part1"></a><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" aria-expanded="false">Install the Okta RADIUS Agent</a></span>
-                                                            <div class="MCDropDownBody dropDownBody">
-                                                                <p>Configuring Cisco Meraki to use the Okta RADIUS Agent requires pre-configuration of the RADIUS agent.</p>
-                                                                <ol>
-                                                                    <li value="1">Contact support and download the Okta RADIUS Agent.<br />Please ensure you are using RADIUS Agent v2.9.5 or later.<br />See <a href="../Settings/Version_Histories/Ver_History_RADIUS_Server_Agent.htm" class="MCXref xref">Okta RADIUS Server Agent Version History</a> for complete release history.</li>
-                                                                    <li value="2">Install the agent using the instructions in <a href="../Directory/Agent_Installing_the_Okta_Radius_Agent.htm" class="MCXref xref">Install and configure the Okta RADIUS Server agent</a>.<br />The service account used during installation must be granted at least one of the admin roles:<br />Super admin or App admin. <br /><div class="noteOkta"><img src="../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Info" alt="Info" /><p class="noteHeading">Note</p><p class="noteContent">Only the <b>Super</b> admin and <b>App</b> admin roles have access to the EAP-TTLS certificate and private key.</p></div></li>
-                                                                    <li value="3">For throughput, availability and other considerations, see <a href="../DeploymentGuides/Radius_Server_Agent/radius-server-agent-dg.htm" class="MCXref xref">Okta RADIUS Server Agent Deployment Best Practices</a></li>
-                                                                    <li value="4">After installing the Okta RADIUS Agent ensure that you have met these minimum requirements for network connectivity.<br /><table style="mc-table-style: url('../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0"><col class="TableStyle-standard-Column-Column1" /><col class="TableStyle-standard-Column-Column1" /><col class="TableStyle-standard-Column-Column1" /><col class="TableStyle-standard-Column-Column1" /><thead><tr class="TableStyle-standard-Head-Header1"><th class="TableStyle-standard-HeadF-Column1-Header1">Source</th><th class="TableStyle-standard-HeadF-Column1-Header1">Destination</th><th class="TableStyle-standard-HeadF-Column1-Header1"><p>Port/Protocol</p></th><th class="TableStyle-standard-HeadD-Column1-Header1"><p>Description</p></th></tr></thead><tbody><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyF-Column1-Body1">Okta RADIUS Agent</td><td class="TableStyle-standard-BodyF-Column1-Body1">Okta Identity Cloud</td><td class="TableStyle-standard-BodyF-Column1-Body1"><p>TCP/ 443</p><p>HTTPS</p></td><td class="TableStyle-standard-BodyD-Column1-Body1"><p>Configuration and authentication traffic</p></td></tr><tr class="TableStyle-standard-Body-Body2"><td class="TableStyle-standard-BodyC-Column1-Body2">Cisco Meraki</td><td class="TableStyle-standard-BodyC-Column1-Body2">Okta RADIUS Agent</td><td class="TableStyle-standard-BodyC-Column1-Body2"><p>UDP/ 1812 RADIUS (actual port number defined in next step)</p></td><td class="TableStyle-standard-BodyA-Column1-Body2"><p>RADIUS traffic between the AP (client) and the RADIUS Agent (server)<br /></p></td></tr></tbody></table></li>
-                                                                </ol>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div>
-                                                        <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Part2"></a><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" aria-expanded="false">Add the Cisco Meraki Wireless LAN (RADIUS) app</a></span>
-                                                            <div class="MCDropDownBody dropDownBody">
-                                                                <p>In this step, add the <b>Cisco Meraki Wireless LAN (RADIUS)</b> app from the OIN and apply settings specific to your deployment.  In this section we will configure the following:</p>
-                                                                <ul>
-                                                                    <li value="1">Authentication configuration</li>
-                                                                    <li value="2">UDP Port</li>
-                                                                    <li value="3">Secret Key</li>
-                                                                    <li value="4">Application Username Format</li>
-                                                                </ul>
-                                                                <div class="noteOkta">
-                                                                    <img src="../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Info" alt="Info" />
-                                                                    <p class="noteHeading">Note</p>
-                                                                    <p class="noteContent">Duo, U2F Security, and Windows Hello <a href="../Security/MFA.htm">MFA Factors</a> are not compatible with RADIUS-enabled implementations. <br />For additional information about the Radius apps refer to <a href="../Security/Okta_Radius_App.htm" class="MCXref xref">RADIUS applications in Okta</a>.<br /></p>
-                                                                </div>
-                                                                <p>There are optional advanced radius configuration options that are listed at the end of this page to help with Reporting the Client IP and Sending Groups information to the access point.</p>
-                                                                <ol>
-                                                                    <li value="1">Login to your Okta tenant as Admin.</li>
-                                                                    <li value="2">Navigate to <b>Applications &gt; Applications &gt; Add Application</b>. </li>
-                                                                    <li value="3">Search for <i>Cisco Meraki Wireless LAN (RADIUS)</i>, then click <b>Add Application</b>.<br /><img src="../../Resources/Images/hybrid-access/cisco-meraki-radius-intg-01.png" id="img_new" alt="Cisco Meraki Wireless Lan(RADIUS) search results" /></li>
-                                                                    <li value="4">
-                                                                        <p>Enter a unique name.</p>
-                                                                    </li>
-                                                                    <li value="5">Enter the following Sign On values:
-                            <br /><table style="mc-table-style: url('../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0"><col class="TableStyle-standard-Column-Column1" /><col class="TableStyle-standard-Column-Column1" /><thead><tr class="TableStyle-standard-Head-Header1"><th class="TableStyle-standard-HeadF-Column1-Header1">Field</th><th class="TableStyle-standard-HeadD-Column1-Header1">Value</th></tr></thead><tbody><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyF-Column1-Body1" style="font-weight: bold;">Authentication</td><td class="TableStyle-standard-BodyD-Column1-Body1">Retaining this default checkbox</td></tr><tr class="TableStyle-standard-Body-Body2"><td class="TableStyle-standard-BodyF-Column1-Body2" style="font-weight: bold;">UDP Port</td><td class="TableStyle-standard-BodyD-Column1-Body2">Required. Each RADIUS app has a unique number.</td></tr><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyF-Column1-Body1" style="font-weight: bold;">Secret Key</td><td class="TableStyle-standard-BodyD-Column1-Body1">Required:<br />This key must be identical to what is configured in the Meraki Admin Console.</td></tr><tr class="TableStyle-standard-Body-Body2"><td class="TableStyle-standard-BodyC-Column1-Body2"><b>Application username format</b></td><td class="TableStyle-standard-BodyA-Column1-Body2">This determines how the RADIUS client sends in the username. Select Okta username format from the drop-down menu</td></tr></tbody></table>Which should resemble:<br /><img src="../../Resources/Images/hybrid-access/cisco-meraki-radius-intg-02.png" id="img_new" alt="Cisco Meraki Wireless Lan(RADIUS) settings" /></li>
-                                                                    <li value="6">To enable EAP-TTLS:<ol style="list-style-type: lower-alpha;"><li value="1">Scroll to the <i>Authentication Protocol</i> section and click <b>Use EAP-TTLS authentication</b>.</li><li value="2">Upload the server certificate chain and private key.</li><li value="3">Enter the password used to protect the certificate and key. <br /><b>Note</b>:&#160;Okta recommends password protecting certificates and keys.</li><li value="4">Select the TLS version.</li><li value="5">Click <b>Save</b>. <br /><img src="../../Resources/Images/hybrid-access/cisco-radius-EAP-TTLS-01.png" id="img_new" alt="Authentication Protocol settings for Cisco Meraki application" /></li></ol></li>
-                                                                    <li value="7">After completing setup, <a href="../Apps/Apps_Apps.htm#Assigning">assign the app</a> to the users/groups that require access.<br />For additional information, including guidance on advanced authentication and adaptive multifactor configuration options, see <a href="../Security/Okta_Radius_App.htm" class="MCXref xref">RADIUS applications in Okta</a>.
-						</li>
-                                                                </ol>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div>
-                                                        <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Part3"></a><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" aria-expanded="false">Configure Meraki to use the Okta RADIUS&#160;Agent</a></span>
-                                                            <div class="MCDropDownBody dropDownBody">
-                                                                <p>In this section we configure access control using the Meraki Admin Console.<br /></p>
-                                                                <div class="noteOkta">
-                                                                    <img src="../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Important Note" alt="Important Note" />
-                                                                    <p class="noteHeading">Important</p>
-                                                                    <blockquote>
-                                                                        <p>The following steps are only valid when configuring an EAP-TTLS enabled RADIUS agent.<br /></p>
-                                                                    </blockquote>
-                                                                    <ul>
-                                                                        <li value="1">If plain PAP authentication is used, use the splash screen option in Meraki to authenticate. <br />If the RADIUS app is not configured for EAP-TTLS, the steps for configuring Meraki are  different. Instead select <b>sign-on with my RADIUS server</b>.<br /></li>
-                                                                    </ul>
-                                                                </div>
-                                                                <ol>
-                                                                    <li value="1">Sign in to the Meraki console using an account with sufficient privileges.</li>
-                                                                    <li value="2">Navigate to <b>Wireless &gt; Configure &gt; Access Control</b>.</li>
-                                                                    <li value="3">Configure the following settings:<br /><ul style="list-style-type: circle;"><li value="1">Select the SSID to setup for 802.1X EAP-TTLS authentication with Okta.</li><li value="2">Check WPA2-Enterprise and select my RADIUS server.</li><li value="3">Splash page check: None</li></ul></li>
-                                                                    <li value="4">Enter RADIUS&#160;agent details:<ul style="list-style-type: circle;"><li value="1"><b>RADIUS servers</b>, enter the IP address of Okta RADIUS Agent under Host.</li><li value="2"><b>Port number</b> and <b>Secret</b> are the same as the application setup in your Cisco Meraki Wireless LAN (RADIUS) app.<br /></li></ul><br /><img src="../../Resources/Images/hybrid-access/cisco-meraki-radius-intg-04.png" id="img_new" alt="Cisco Meraki application settings" /></li>
-                                                                </ol>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    <h1>Configure Cisco Meraki to interoperate with Okta via RADIUS</h1>
+                                                    <p>This guide details how to configure Cisco Meraki wireless access points to use the Okta RADIUS Server Agent and EAP-TTLS.. The following network diagram shows the flow between Meraki and several endpoints using Okta.</p>
+                                                    <p>For details of the flow between Okta, the RADIUS agent and Cisco Meraki see<a href="cisco-meraki-radius-intg-flow.htm" class="MCXref xref">Cisco Meraki RADIUS integration flow</a></p>
+                                                    <p class="earlyaccess">This is an Early Access feature. To enable it, contact <a href="https://support.okta.com/help/s/">Okta Support</a>.</p>
                                                     <div class="noteOkta">
-                                                        <img src="../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Note" alt="Note" />
-                                                        <p class="noteHeading">Note</p>
-                                                        <p class="noteContent">This and similar integrations required either CA&#160;provided or self signed certificates. <br />Obtain client and server certificates from a known certificate authority such as <a href="https://www.digicert.com/compare-and-buy-ssl-certificates/">DigiCert</a>, <a href="https://comodosslstore.com/">Comodo SSL</a> or other authorities. <br />Okta does not endorse any specific certificate authority. </p>
+                                                        <img src="../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Important Note" alt="Important Note" />
+                                                        <p class="noteHeading">Important</p>
+                                                        <p class="noteContent">Contact Okta Support to have EAP-TTLS support enabled for your Okta org.</p>
+                                                    </div>
+                                                    <h3>Topics</h3>
+                                                    <ul>
+                                                        <li value="1"><a href="#Before" class="MCXref xref">Before you begin</a>
+                                                        </li>
+                                                        <li value="2"> <a href="#Supporte" class="MCXref xref">Supported factors</a></li>
+                                                        <li value="3"> <a href="#Tasks" class="MCXref xref">Typical workflow</a></li>
+                                                    </ul>
+                                                    <h2><a name="Before"></a>Before you begin</h2>
+                                                    <div>
+                                                        <p>Before installing the Okta RADIUS Agent ensure that you have met these minimum requirements for network connectivity</p>
+                                                        <table style="width: 80% %;mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+                                                            <col style="width: 158px;" class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                            <col style="width: 208px;" class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                            <col style="width: 326px;" class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                            <col style="width: 224px;" class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                            <thead>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                                                                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Source</th>
+                                                                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Destination</th>
+                                                                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Port/Protocol</th>
+                                                                    <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">Description</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Okta RADIUS Agent</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Okta Identity Cloud</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">TCP/443<br />HTTP</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Configuration and authentication traffic</td>
+                                                                </tr>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">Client Gateway</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">Okta RADIUS Agent</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">
+UDP/1812
+RADIUS
+(Default, may be changed in RADIUS app install and configuration)
+</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">RADIUS traffic between the gateway (client) and the RADIUS Agent (server)</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
                                                     </div>
                                                     <div>
-                                                        <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Part4"></a><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" aria-expanded="false">Configure Wireless Clients</a></span>
-                                                            <div class="MCDropDownBody dropDownBody">
-                                                                <p>The instructions to configure the wireless client vary depending on the device being configured. Choose an appropriate wireless client from the list below.</p>
-                                                                <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Configure Apple macOS  device</a></span>
-                                                                    <div class="MCDropDownBody dropDownBody">
-                                                                        <ol>
-                                                                            <li value="1">Download Apple Configurator 2 from the App Store on your Mac.<br /><img src="../../Resources/Images/hybrid-access/cisco-meraki-radius-intg-osx.01.png" id="img_new" alt="" /></li>
-                                                                            <li value="2">In the Apple Configurator 2 app, choose <b>File &gt; New Profile</b>.<br />Enter a display name and unique identifier: <br /><img src="../../Resources/Images/hybrid-access/cisco-meraki-radius-intg-osx.02.png" id="img_new" alt="" /></li>
-                                                                            <li value="3">Add your root certificate to the Certificates tab:<br /><img src="../../Resources/Images/hybrid-access/cisco-meraki-radius-intg-osx.03.png" id="img_new" alt="" /></li>
-                                                                            <li value="4">In the <b>Wi-Fi</b> tab, enter values appropriate for your environment. <br />For example:	<br /><img src="../../Resources/Images/hybrid-access/cisco-meraki-radius-intg-osx.04.png" id="img_new" alt="" /></li>
-                                                                            <li value="5">In the <b>Trust</b>, choose to trust the root certificate you previously added:<br /><img src="../../Resources/Images/hybrid-access/cisco-meraki-radius-intg-osx.05.png" id="img_new" alt="" /></li>
-                                                                            <li value="6">Select <b>File &gt; Save</b> and save the file with a .<i>mobileconfig</i> extension. You might receive the error message shown below. Ignore the message and select <b>Save Anyway</b>.<br /><br /><img src="../../Resources/Images/hybrid-access/cisco-meraki-radius-intg-osx.06.png" id="img_new" alt="" /></li>
-                                                                            <li value="7">Add the 802.1X Wifi user profile to your system.<ol style="list-style-type: lower-alpha;"><li value="1">Select <b>Profiles</b> from <b>System Preferences</b></li><li value="2">Choose the <b>+</b> sign to add the Wifi Profile you selected previously</li></ol></li>
-                                                                            <li value="8">
-                                                                                <p>Connect to your network using the <b>Network</b> panel in <b>System Preferences</b>.</p>
-                                                                            </li>
-                                                                        </ol>
-                                                                        <p>On successful login, within the Meraki events log, you would see events resembling:<br /><img src="../../Resources/Images/hybrid-access/cisco-meraki-radius-intg-osx.10.png" id="img_new" alt="" /></p>
-                                                                        <p>&#160;</p>
-                                                                        <div class="note_cautionOkta">
-                                                                            <img src="../../Resources/Images/assets/Icons/Notes/Alert.png" class="noteImgFloat" title="Caution" alt="Caution" />
-                                                                            <p class="noteHeading">Caution</p>
-                                                                            <p class="noteContent"> When an AD or Okta password is updated, the user does not get prompted by OSX to update the password for WiFi connection. <br />Rather OSx continues to try to connect using the old password which could result in an account lockout.</p>
-                                                                        </div>
-                                                                        <p> </p>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Configure Apple iOS&#160;device</a></span>
-                                                                    <div class="MCDropDownBody dropDownBody">
-                                                                        <ol>
-                                                                            <li value="1">Download Apple Configurator 2 from the App Store on your Mac device and open it.<br /><img src="../../Resources/Images/hybrid-access/cisco-meraki-radius-intg-ios.01.png" id="img_new" /></li>
-                                                                            <li value="2">Choose <b>File</b> &gt; <b>New Profile</b>. <br />Then enter a display name and unique identifier for the profile:<br /><img src="../../Resources/Images/hybrid-access/cisco-meraki-radius-intg-ios.02.png" id="img_new" /></li>
-                                                                            <li value="3">Add your root certificate to the Certificates tab:<br /><img src="../../Resources/Images/hybrid-access/cisco-meraki-radius-intg-ios.03.png" id="img_new" /></li>
-                                                                            <li value="4">Under the Wi-Fifi tab, enter values appropriate for your environment. Sample values are provided below:<br /><img src="../../Resources/Images/hybrid-access/cisco-meraki-radius-intg-ios.04.png" id="img_new" /></li>
-                                                                            <li value="5">In the <b>Trust</b> tab within the Wi-Fi section, choose to trust the root certificate you previously added:<br /><img src="../../Resources/Images/hybrid-access/cisco-meraki-radius-intg-ios.05.png" id="img_new" /></li>
-                                                                            <li value="6">Choose <b>File</b> &gt; <b>Save</b> to save the file with a .mobileconfig extension. <br />Ignore any errors:<br /><img src="../../Resources/Images/hybrid-access/cisco-meraki-radius-intg-ios.06.png" id="img_new" /></li>
-                                                                            <li value="7">Next, connect your iOS device with a USB cable. <br />It will appear in the "All Devices" view in Apple Configurator 2:<br /><img src="../../Resources/Images/hybrid-access/cisco-meraki-radius-intg-ios.07.png" id="img_new" /></li>
-                                                                            <li value="8">Right click on your device and choose the option to add a profile. In the file choosing dialog that appears, select the profile you previously created and follow the prompts on your laptop and mobile device:<br /><img src="../../Resources/Images/hybrid-access/cisco-meraki-radius-intg-ios.08.png" id="img_new" /><br /><br /><img src="../../Resources/Images/hybrid-access/cisco-meraki-radius-intg-ios.09.png" id="img_new" /><br /><img src="../../Resources/Images/hybrid-access/cisco-meraki-radius-intg-ios.10.png" id="img_new" /></li>
-                                                                            <li value="9">
-                                                                                <p>Lastly, connect to the Wifi just configured</p>
-                                                                            </li>
-                                                                        </ol>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Configure Android
-Device					
-                </a></span>
-                                                                    <div class="MCDropDownBody dropDownBody">
-                                                                        <ol>
-                                                                            <li value="1">Install EAP-TTLS root certificate<ol style="list-style-type: lower-alpha;"><li value="1">Copy the certificate onto your Android device using a USB connected to your laptop or other means.</li><li value="2">On the device, navigate to <b>Settings &gt; Security &amp; location &gt; Advanced &gt; Encryption &amp; credentials</b>.</li><li value="3">Under 'Credential Storage', tap the option to Install from device storage.</li><li value="4">Navigate to the location of the saved certificate.</li><li value="5">Tap the file.</li><li value="6">Type a name for the certificate and choose <b>Wi-Fi</b></li><li value="7">Tap <b>OK</b>.</li></ol></li>
-                                                                            <li value="2">Open your Wi-Fi settings and click on the SSID you want to connect to. If it's not visible, choose the option to <b>Add network</b> and enter your network SSID name and set the Security type to "802.1x EAP". </li>
-                                                                            <li value="3">Set the following options:<br /><table style="mc-table-style: url('../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0"><col class="TableStyle-standard-Column-Column1" /><col class="TableStyle-standard-Column-Column1" /><thead><tr class="TableStyle-standard-Head-Header1"><th class="TableStyle-standard-HeadF-Column1-Header1">Field</th><th class="TableStyle-standard-HeadD-Column1-Header1">Value</th></tr></thead><tbody><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyF-Column1-Body1"><b>EAP Methods</b></td><td class="TableStyle-standard-BodyD-Column1-Body1">TTLS</td></tr><tr class="TableStyle-standard-Body-Body2"><td class="TableStyle-standard-BodyF-Column1-Body2"><b>CA certification</b></td><td class="TableStyle-standard-BodyD-Column1-Body2">Choose the just installed certificate</td></tr><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyF-Column1-Body1"><b>Identity</b></td><td class="TableStyle-standard-BodyD-Column1-Body1">Your Okta username</td></tr><tr class="TableStyle-standard-Body-Body2"><td class="TableStyle-standard-BodyF-Column1-Body2"><b>Password</b></td><td class="TableStyle-standard-BodyD-Column1-Body2">Your Okta password/MFA</td></tr><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyC-Column1-Body1"><p><b>Advanced</b></p></td><td class="TableStyle-standard-BodyA-Column1-Body1"><p>Under advanced set the following:</p><ul><li value="1">Phase 2 authentication PAP:</li><li value="2">Anonymous identity: This value is the user's unencrypted identity outside the TLS tunnel. Since the RADIUS agent does not use this currently, you can enter any random value.</li></ul></td></tr></tbody></table><br />								When complete the configuration should resemble:
-<br /><img src="../../Resources/Images/hybrid-access/cisco-meraki-radius-intg-android.02.png" id="img_new" /><![CDATA[								
-								 ]]></li>
-                                                                        </ol>
-                                                                        <p>The device should now be able to connect to the Wi-Fi network.</p>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />
-					
-					Windows 10
-				</a></span>
-                                                                    <div class="MCDropDownBody dropDownBody">
-                                                                        <ol>
-                                                                            <li value="1">Navigate to the <b>Network and Sharing Cente</b>r and choose to <b>Set up a new connection or network</b> and then click <b>Next</b>. <br /><img src="../../Resources/Images/hybrid-access/cisco-meraki-radius-intg-windows.01.png" id="img_new" /></li>
-                                                                            <li value="2">Choose <b>Manually connect to a wireless network</b>, then click <b>Next</b>.<br /><img src="../../Resources/Images/hybrid-access/cisco-meraki-radius-intg-windows.02.png" id="img_new" /></li>
-                                                                            <li value="3">Enter the name of the <b>SSID</b> for your wireless network. <br />Choose <b>WPA2-Enterprise</b> for the security type.<br />Then click&#160;<b>Next</b>. <br /><img src="../../Resources/Images/hybrid-access/cisco-meraki-radius-intg-windows.03.png" id="img_new" /></li>
-                                                                            <li value="4">Click <b>Change connection settings</b>.
-								<br /><img src="../../Resources/Images/hybrid-access/cisco-meraki-radius-intg-windows.04.png" id="img_new" /></li>
-                                                                            <li value="5">Select the <b>Security</b> tab and change the network authentication method to <b>Microsoft: EAP-TTLS</b> and then click on <b>Settings</b>.<br /><img src="../../Resources/Images/hybrid-access/cisco-meraki-radius-intg-windows.05.png" id="img_new" /></li>
-                                                                            <li value="6">In the TTLS Properties page select the following settings:<br /><table style="mc-table-style: url('../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0"><col class="TableStyle-standard-Column-Column1" /><col class="TableStyle-standard-Column-Column1" /><thead><tr class="TableStyle-standard-Head-Header1"><th class="TableStyle-standard-HeadF-Column1-Header1">Setting</th><th class="TableStyle-standard-HeadD-Column1-Header1">Value</th></tr></thead><tbody><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyF-Column1-Body1">Enable identity provacy</td><td class="TableStyle-standard-BodyD-Column1-Body1">anonymous</td></tr><tr class="TableStyle-standard-Body-Body2"><td class="TableStyle-standard-BodyF-Column1-Body2">Trusted Root Certification Authorities</td><td class="TableStyle-standard-BodyD-Column1-Body2">Check AddTrust&#160;External CA&#160;Root</td></tr><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyC-Column1-Body1">Within Client authentication</td><td class="TableStyle-standard-BodyA-Column1-Body1">Check <b>Select a non-EAP method for authentication</b> with value <b>Unencrypted password(PAP)</b></td></tr></tbody></table><br />Which should resemble:<br /><img src="../../Resources/Images/hybrid-access/cisco-meraki-radius-intg-windows.06.png" id="img_new" /></li>
-                                                                            <li value="7">Navigate back to the Network Properties and click <b>Advanced settings</b>. <br /><img src="../../Resources/Images/hybrid-access/cisco-meraki-radius-intg-windows.07.png" id="img_new" /></li>
-                                                                            <li value="8">In Advanced settings, <b>check Specify authentication mode</b> with value<b>User authentication</b> Then click <b>Save credentials</b>.</li>
-                                                                            <li value="9">Connect to your RADIUS enabled SSID.</li>
-                                                                        </ol>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                                        <h2><a name="Supporte"></a>Supported factors</h2>
+                                                        <p>The following MFA Factors are supported:</p>
+                                                        <p>&#160;</p>
+                                                        <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+                                                            <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                            <col class="TableStyle-srb_header_alt_shade-Column-Column1" style="width: 399px;" />
+                                                            <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                            <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                            <tbody>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1" style="font-weight: bold;">MFA Factor</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1" style="font-weight: bold;"> Password Authentication Protocol<br />PAP</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1" style="font-weight: bold;">
+                        Extensible Authentication Protocol - Generic Token Card<br />EAP-GTC</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1" style="font-weight: bold;"> Extensible Authentication Protocol - Tunneled Transport Layer Security<br />EAP-TTLS</td>
+                                                                </tr>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><a href="../Security/MFA.htm#OktaVerify">Okta Verify (TOTP and PUSH)</a>
+                                                                    </td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Supported</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Supported</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">Supported - as long as challenge is avoided. <br />For example:<br />MFA-only or password, MFA for TOTP. <br />Push can work with primary auth + MFA as the push challenge is sent out-of-band.</td>
+                                                                </tr>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><a href="../Security/MFA.htm#VoiceCall">Voice Call</a>
+                                                                    </td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Supported</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Supported</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Not supported</td>
+                                                                </tr>
+                                                                <tr style="height: 49px;" class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><a href="../Security/MFA.htm#SMSAuthentication">SMS Authentication</a>
+                                                                    </td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Supported</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Supported</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">Not supported</td>
+                                                                </tr>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><a href="../Security/MFA.htm#GoogleAuthenticator">Google Authenticator</a>
+                                                                    </td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Supported</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Supported</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Supported - as long as challenge is avoided.<br />For example MFA only or password, MFA.</td>
+                                                                </tr>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><a href="../Security/MFA.htm#SymantecVIP">Symantec VIP</a>
+                                                                    </td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Supported</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Supported</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">Supported</td>
+                                                                </tr>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><a href="../Security/MFA.htm#SecurityQuestion">Security Question</a>
+                                                                    </td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Supported</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Supported</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Not supported</td>
+                                                                </tr>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><a href="../Security/MFA.htm#TOTPFactor">Custom TOTP Authentication</a>
+                                                                    </td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Supported</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Supported</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">Not supported</td>
+                                                                </tr>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><a href="../Security/MFA.htm#Duo">Duo(Push, SMS and Passcode only)</a>
+                                                                    </td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Supported</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Supported</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Supported (passcode, Push)</td>
+                                                                </tr>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><a href="../Security/MFA.htm#YubiKey">YubiKey</a>
+                                                                    </td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Supported</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Supported</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">Supported</td>
+                                                                </tr>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                                                                        <p><a href="../Security/MFA.htm#RSAToken">RSA Token</a>
+                                                                        </p>
+                                                                    </td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                                                                        <p>Supported</p>
+                                                                    </td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                                                                        <p>Supported</p>
+                                                                    </td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                                                                        <p>Supported</p>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">
+                                                                        <p><a href="../Security/MFA.htm#Email">Email</a>
+                                                                        </p>
+                                                                    </td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">
+                                                                        <p>Supported</p>
+                                                                    </td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">
+                                                                        <p>Supported</p>
+                                                                    </td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">
+                                                                        <p>Not supported</p>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <div class="noteOkta">
+                                                            <img src="../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Info" alt="Info" />
+                                                            <p class="noteHeading">Note</p>
+                                                            <p class="noteContent">The U2F&#160;Security and Windows Hello <a href="../Security/MFA.htm#FactorTypes">MFA factors</a> are not compatible with RADIUS-enabled implementations. <br />For additional information about the Radius apps refer to <a href="../Security/Okta_Radius_App.htm">Configuring RADIUS applications in Okta</a>.</p>
                                                         </div>
                                                     </div>
-                                                    <div>
-                                                        <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Troubleshooting"></a><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" aria-expanded="false">Troubleshooting</a></span>
-                                                            <div class="MCDropDownBody dropDownBody">
-                                                                <ul>
-                                                                    <li value="1">The <b>Error</b>(s) below show when one of:<br /><ul style="list-style-type: circle;"><li value="1">The CA certificate  was not added on the client machine</li><li value="2">The wrong CA certificate was added on the client machine</li><li value="3">An incorrect Wi-Fi network is used</li></ul><figure><img src="../../Resources/Images/hybrid-access/cisco-meraki-radius-intg-ts.OSX.png" /><figcaption style="text-align: center;"><b>Example Error</b></figcaption></figure><br /></li>
-                                                                    <li value="2">To set the log level in the RADIUS agent:<ol style="list-style-type: lower-alpha;"><li value="1">Using a text editor, open the <b>log4j.properties</b> file from the installation folder<br /><span style="font-family: 'Courier New';">C:\Program Files (x86)\Okta\Okta RADIUS Agent\current\user\config\radius\</span></li><li value="2">Change the last instance of “<b>info</b>” to <br /><b>debug</b> (verbose) or <b>trace</b> (very verbose). <br />The update should resemble: <br /><span style="font-family: 'Courier New';">log4j.rootLogger=</span><b style="font-style: italic;font-family: 'Courier New';">debug</b><span style="font-family: 'Courier New';">, app, stdout</span><br />or<br /><span style="font-family: 'Courier New';">log4j.rootLogger=<b style="font-style: italic;">trace</b>, app, stdout</span></li><li value="3">Save the change and close the editor.<br /></li></ol></li>
-                                                                    <li value="3">To examine logs or capture packets:<ul style="list-style-type: circle;"><li value="1">On Mac, to display log information during connection attempts:<br />Upen a command prompt and execute the command: <br /><code>log show --predicate 'subsystem == "com.apple.eapol"'</code><br />Attempt to connect to the WiFi access point.<br />Examine the log which will product results similar to:<br /><code>2019-04-10 15:38:53.868667-0400 0x1caacd   Default     0x0                  17296  0    eapolclient: [com.apple.eapol:Client] en0 START uid 501 gid 20<br />2019-04-10 15:38:54.062713-0400 0x1caacd   Default     0x0                  17296  0    eapolclient: [com.apple.eapol:Client] en0: 802.1X User Mode<br />2019-04-10 15:39:02.510875-0400 0x1caacd   Default     0x0                  17296  0    eapolclient: [com.apple.eapol:Client] en0 EAP-TTLS: successfully authenticated<br />2019-04-10 15:39:11.117972-0400 0x1caacd   Default     0x0                  17296  0    eapolclient: [com.apple.eapol:Client] en0 STOP</code><br /></li><li value="2">On Meraki cloud admin dashboard,  navigate to <b>Network-wide</b> , and select either <b>Packet capture</b> or <b>Event Log</b>, as shown below.<p><img src="../../Resources/Images/hybrid-access/meraki_15.png" /></p></li></ul></li>
-                                                                    <li value="4">Interpreting Wireshark captures<br />At a high level, there are three stages in the communication between the supplicant/AP and the RADIUS server when an authentication takes place:<br /><ul style="list-style-type: circle;"><li value="1">exchange of EAP-Identity and EAP-Start messages</li><li value="2">TLS Handshake, starting with a ClientHello</li><li value="3">RADIUS Access-Accept, followed by a 4-way EAPoL handshake between the AP and supplicant</li></ul></li>
-                                                                </ul>
-                                                            </div>
+                                                    <p>&#160;</p>
+                                                    <h2><a name="Tasks"></a>Typical workflow</h2>
+                                                    <table style="width: 100%;mc-table-style: url('../../Resources/Okta Templates/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+                                                        <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                        <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                        <thead>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                                                                <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                                                                    <p><span style="font-family: 'Proxima Nova';">Task</span>
+                                                                    </p>
+                                                                </th>
+                                                                <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                                                                    <p><span style="font-family: 'Proxima Nova';"><span style="font-family: 'Proxima Nova';">Description</span></span>
+                                                                    </p>
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Download the RADIUS agent</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                                                                    <ul>
+                                                                        <li value="1">Download the Okta RADIUS Agent from the <b>Settings &gt; Downloads</b> page your in Okta org. Note that there are both Windows and Linux agents.</li>
+                                                                        <li value="2">For throughput, availability and other considerations, see <a href="../DeploymentGuides/Radius_Server_Agent/radius-server-agent-dg.htm">Okta RADIUS Server Agent Deployment Best Practices</a>.</li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Install the Okta RADIUS Agent.</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                                                                    <ul>
+                                                                        <li value="1">Install either the <a href="../Directory/Agent_Installing_the_Okta_Radius_Agent.htm">Windows</a> or <a href="../Directory/Agent_Installing_the_Okta_Radius_Agent-linux.htm">Linux</a> RADIUS agents as appropriate for your environment. </li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Configure application</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                                                                    <ul>
+                                                                        <li value="1">In your Okta org, <a href="cisco-meraki-radius-intg-app.htm">configure the Cisco Meraki Wireless LAN (RADIUS) application</a>. </li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Configure gateway</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                                                                    <ul>
+                                                                        <li value="1">Using the  Meraki Admin Console configuration tool, <a href="cisco-meraki-radius-intg-gateway.htm">configure Cisco Meraki for RADIUS integration</a>. </li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">Configure devices</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">
+                                                                    <ul>
+                                                                        <li value="1">Cisco Meraki supports a number of devices include Apple, Android and Windows devices. Using various device and operation system specific tools <a href="cisco-meraki-radius-intg-clients.htm">configure Cisco Meraki wireless clients</a>. </li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <h2>Related topics</h2>
+                                                    <ul>
+                                                        <li value="1"><a href="cisco-meraki-radius-intg-flow.htm" class="MCXref xref">Cisco Meraki RADIUS integration flow</a>
+                                                        </li>
+                                                        <li value="2"><a href="cisco-meraki-radius-intg-app-troubleshoot.htm" class="MCXref xref">Troubleshoot Cisco Meraki integrations</a>
+                                                        </li>
+                                                        <div>
+                                                            <li value="1"><a href="../Directory/Agent_Installing_the_Okta_Radius_Agent.htm">Installing the Okta RADIUS Agent</a>-Windows</li>
+                                                            <li value="2"><a href="../Directory/Agent_Installing_the_Okta_Radius_Agent-linux.htm">Installing the Okta RADIUS Agent</a>-Linux</li>
                                                         </div>
-                                                    </div>
+                                                    </ul>
                                                 </div>
                                                 <!-- Back to Top button --><a href="#" class="sf-back-to-top"><span class="arrow"></span>Top</a>
                                             </div>
