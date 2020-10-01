@@ -7,8 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="typeofcontent" content="documentation" />
         <meta name="audience" content="admin" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="description" content="Configure the Palo Alto Networks VPN integration to enable MFA against your RADIUS server agent and securely protect company resources." /><title>Configure Palo Alto Networks GlobalProtect VPN to Interoperate with Okta via RADIUS | Okta</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Configure Palo Alto Networks VPN&#160;to interoperate with Okta via RADIUS | Okta</title>
         <meta charset="utf-8" />
         <meta name="description" content="" />
         <meta name="author" content="" />
@@ -84,8 +83,8 @@
 }
 
 </style>
+        <link href="../../Resources/Okta Templates/TableStyles/standard-shaded-rows.css" rel="stylesheet" />
         <link href="../../Resources/TableStyles/standard-shaded-rows.css" rel="stylesheet" />
-        <link href="../../Resources/TableStyles/standard.css" rel="stylesheet" />
         <script src="../../../Resources/Scripts/jquery.min.js">
         </script>
         <script src="../../../Resources/Scripts/require.min.js">
@@ -297,603 +296,146 @@
                                             <div class="body-main">
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
-                                                    <h1>Configure Palo Alto Networks VPN to Interoperate with Okta via RADIUS</h1>
-                                                    <p>Okta and Palo Alto Networks interoperate through either RADIUS or SAML 2.0. For each Palo Alto gateway, you can assign one or more authentication providers. Each authentication profile maps to to an authentication server, which can be RADIUS, TACAS+, LDAP, etc. Using RADIUS, Okta’s agent translates RADIUS authentication requests from the VPN into Okta API calls.</p>
+                                                    <h1>Configure Palo Alto Networks VPN&#160;to interoperate with Okta via RADIUS</h1>
+                                                    <div>
+                                                        <p>This guide details how to configure Palo Alto Networks VPN to use the <b>Okta RADIUS Server Agent</b>.</p>
+                                                        <p>Okta and Palo Alto Networks interoperate through either RADIUS or SAML 2.0. For each Palo Alto gateway, you can assign one or more authentication providers. </p>
+                                                        <p>Each authentication profile maps to to an authentication server, which can be RADIUS, TACAS+, LDAP, etc. Using RADIUS, Okta’s agent translates RADIUS authentication requests from the VPN into Okta API calls.<br /><br /></p>
+                                                    </div>
                                                     <div class="noteOkta">
                                                         <img src="../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Important Note" alt="Important Note" />
                                                         <p class="noteHeading">Important</p>
-                                                        <p class="noteContent">This page describes how to integrate using RADIUS integration for Palo Alto Network VPN when running PanOS versions older than 8.0. It does not describe how to integrate using Palo Alto Networks and SAML. &#160;<br />When running PanOS 8.0, 9.0 or newer integrate using SAML. For more information see:<![CDATA[  ]]><ul><li value="1"><a href="http://saml-doc.okta.com/SAML_Docs/How-to-Configure-SAML-2.0-for-Palo-Alto-Networks-GlobalProtect.html">How to Configure SAML 2.0 for Palo Alto Networks - GlobalProtect</a></li><li value="2"><p><a href="http://saml-doc.okta.com/SAML_Docs/How-to-Configure-SAML-2.0-for-Palo-Alto-Networks-CaptivePortal.html">How to Configure SAML 2.0 for Palo Alto Networks - Captive Portal</a></p></li><li value="3"> <a href="http://saml-doc.okta.com/SAML_Docs/How-to-Configure-SAML-2.0-for-Palo-Alto-Networks-Admin-UI.html">How to Configure SAML 2.0 for Palo Alto Networks - Admin UI</a></li></ul></p>
+                                                        <p class="noteContent">This page describes how to integrate using RADIUS integration for Palo Alto Network VPN when running PanOS versions older than 8.0. It does not describe how to integrate using Palo Alto Networks and SAML. &#160;<br />When running PanOS 8.0, 9.0 or newer integrate using SAML. <br />For more information see:  <ul><li value="1"><a href="http://saml-doc.okta.com/SAML_Docs/How-to-Configure-SAML-2.0-for-Palo-Alto-Networks-GlobalProtect.html">How to Configure SAML 2.0 for Palo Alto Networks - GlobalProtect</a></li><li value="2"><p><a href="http://saml-doc.okta.com/SAML_Docs/How-to-Configure-SAML-2.0-for-Palo-Alto-Networks-CaptivePortal.html">How to Configure SAML 2.0 for Palo Alto Networks - Captive Portal</a></p></li><li value="3"><a href="http://saml-doc.okta.com/SAML_Docs/How-to-Configure-SAML-2.0-for-Palo-Alto-Networks-Admin-UI.html">How to Configure SAML 2.0 for Palo Alto Networks - Admin UI</a></li></ul></p>
                                                     </div>
+                                                    <h3>Topics</h3>
                                                     <ul>
-                                                        <li value="1">For seamless end user experience and enhanced security, integrate your Palo Alto Network VPN to Okta using SAML if you are running PanOS 8.0, 9.0 or newer.</li>
-                                                        <li value="2">
-                                                            <p>Use the Okta RADIUS Server Agent for authentication when running PanOS versions older than 8.0.</p>
+                                                        <li value="1"><a href="#Before" class="MCXref xref">Before you begin</a><![CDATA[
+            ]]></li>
+                                                        <li value="2"><a href="#Tasks" class="MCXref xref">Typical workflow</a>
                                                         </li>
                                                     </ul>
-                                                    <p>This guide details how to configure Palo Alto Networks VPN to use the <b>Okta RADIUS Server Agent</b>.</p>
-                                                    <p>If you want to integrate with Okta via SAML 2.0, add the Palo Alto Network – &lt;specific_app_name&gt; SAML&#160;app in Okta by navigating to the <b>Applications</b> tab, select <b>Applications &gt; Add Application</b>, search for <i>Palo Alto Network – &lt;specific_app_name&gt;</i>, then click <b>Add</b>.</p>
-                                                    <p>For SAML, these are the Palo Alto Networks apps we support and their use cases. Be sure to select the appropriate app from the OIN when setting up the app in Okta.</p>
-                                                    <table style="width: 80% %;mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
-                                                        <col style="width: 179px;" class="TableStyle-srb_header_alt_shade-Column-Column1" />
-                                                        <col style="width: 208px;" class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                    <h2><a name="Before"></a>Before you begin</h2>
+                                                    <div>
+                                                        <p>Before installing the Okta RADIUS Agent ensure that you have met these minimum requirements for network connectivity</p>
+                                                        <table style="width: 80% %;mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+                                                            <col style="width: 158px;" class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                            <col style="width: 208px;" class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                            <col style="width: 326px;" class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                            <col style="width: 224px;" class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                            <thead>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                                                                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Source</th>
+                                                                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Destination</th>
+                                                                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Port/Protocol</th>
+                                                                    <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">Description</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Okta RADIUS Agent</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Okta Identity Cloud</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">TCP/443<br />HTTP</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Configuration and authentication traffic</td>
+                                                                </tr>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">Client Gateway</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">Okta RADIUS Agent</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">
+UDP/1812
+RADIUS
+(Default, may be changed in RADIUS app install and configuration)
+</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">RADIUS traffic between the gateway (client) and the RADIUS Agent (server)</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <p>See <a href="palo-alto-radius-intg-support.htm">Palo Alto Networks VPN supported  features and factors</a> for a complete list of supported version, factor and related information. </p>
+                                                    <h2><a name="Tasks"></a>Typical workflow</h2>
+                                                    <table style="width: 100%;mc-table-style: url('../../Resources/Okta Templates/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+                                                        <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                        <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
                                                         <thead>
                                                             <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
-                                                                <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">App </th>
-                                                                <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">Use Case</th>
+                                                                <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                                                                    <p><span style="font-family: 'Proxima Nova';">Task</span>
+                                                                    </p>
+                                                                </th>
+                                                                <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                                                                    <p><span style="font-family: 'Proxima Nova';"><span style="font-family: 'Proxima Nova';">Description</span></span>
+                                                                    </p>
+                                                                </th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
-                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">GlobalProtect</td>
-                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">For Client and Clientless VPN</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Download the RADIUS agent</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                                                                    <ul>
+                                                                        <li value="1">Download the Okta RADIUS Agent from the <b>Settings &gt; Downloads</b> page your in Okta org. Note that there are both Windows and Linux agents.</li>
+                                                                        <li value="2">For throughput, availability and other considerations, see <a href="../DeploymentGuides/Radius_Server_Agent/radius-server-agent-dg.htm">Okta RADIUS Server Agent Deployment Best Practices</a>.</li>
+                                                                    </ul>
+                                                                </td>
                                                             </tr>
                                                             <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
-                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Captive Portal </td>
-                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">For captive portal deployments to provide userid to ip mappings through SAML</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Install the Okta RADIUS Agent.</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                                                                    <ul>
+                                                                        <li value="1">Install either the <a href="../Directory/Agent_Installing_the_Okta_Radius_Agent.htm">Windows</a> or <a href="../Directory/Agent_Installing_the_Okta_Radius_Agent-linux.htm">Linux</a> RADIUS agents as appropriate for your environment. </li>
+                                                                    </ul>
+                                                                </td>
                                                             </tr>
                                                             <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
-                                                                <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1">Admin UI</td>
-                                                                <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body1">For administrators of Palo Alto devices to access Panorama or the Firewall admin UI</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Configure application</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                                                                    <ul>
+                                                                        <li value="1">In your Okta org, <a href="palo-alto-radius-intg-app.htm">configure the Palo Alto Networks VPN (RADIUS) application</a>. </li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Configure gateway</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                                                                    <ul>
+                                                                        <li value="1">Using the GlobalProtect Portal tool to <a href="palo-alto-radius-intg-gateway.htm">configure the  Palo Alto Networks</a>. </li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body2" data-mc-conditions="">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">Configure optional settings</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">
+                                                                    <ul>
+                                                                        <li value="1"><a href="palo-alto-radius-intg-opt.htm">Configure optional settings</a> as required, such as vendor specific attributes. </li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1">Test</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1">
+                                                                    <ul>
+                                                                        <li value="1"><a href="palo-alto-radius-intg-test.htm">Test the newly integrated agent</a>. </li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1">Troubleshoot</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1">
+                                                                    <ul>
+                                                                        <li value="1">When required troubleshoot the integration. </li>
+                                                                    </ul>
+                                                                </td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
-                                                    <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Supported Features</a></span>
-                                                        <div class="MCDropDownBody dropDownBody">
-                                                            <table style="width: 80% %;mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
-                                                                <col style="width: 179px;" class="TableStyle-srb_header_alt_shade-Column-Column1" />
-                                                                <col style="width: 208px;" class="TableStyle-srb_header_alt_shade-Column-Column1" />
-                                                                <col style="width: 208px;" class="TableStyle-srb_header_alt_shade-Column-Column1" />
-                                                                <thead>
-                                                                    <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
-                                                                        <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Feature</th>
-                                                                        <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Supported</th>
-                                                                        <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">
-                                                                            <p>Notes</p>
-                                                                        </th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Authentication with Okta Credentials via RADIUS</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Yes</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
-                                                                            <p>&#160;</p>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
-                                                                            <p>Authentication with Okta Credentials via SAML.</p>
-                                                                        </td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
-                                                                            <p>No</p>
-                                                                        </td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
-                                                                            <p>The <b>RADIUS Integration</b> for Palo Alto VPN does not support SAML.</p>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Multi-factor authentication via RADIUS</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Yes</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
-                                                                            <p>&#160;</p>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">Multi-factor authentication via SAML</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">Yes</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">
-                                                                            <p>The <b>RADIUS Integration</b> for Palo Alto VPN does not support MFA using SAML.</p>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
+                                                    <h2>Related topics</h2>
+                                                    <ul>
+                                                        <div>
+                                                            <li value="1"><a href="integrations-bp-saml.htm" class="MCXref xref">SAML vs RADIUS interoperability</a>
+                                                            </li>
+                                                            <li value="2">Installing the Okta RADIUS Agent under <a href="../Directory/Agent_Installing_the_Okta_Radius_Agent.htm">Windows</a> or 
+            <a href="../Directory/Agent_Installing_the_Okta_Radius_Agent-linux.htm">Linux</a></li>
                                                         </div>
-                                                    </div>
-                                                    <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Supporte"></a><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" aria-expanded="false">Supported Factors</a></span>
-                                                        <div class="MCDropDownBody dropDownBody">
-                                                            <p>The following MFA Factors are supported:</p>
-                                                            <p>&#160;</p>
-                                                            <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
-                                                                <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
-                                                                <col class="TableStyle-srb_header_alt_shade-Column-Column1" style="width: 399px;" />
-                                                                <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
-                                                                <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
-                                                                <tbody>
-                                                                    <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1" style="font-weight: bold;">MFA Factor</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1" style="font-weight: bold;"> Password Authentication Protocol<br />PAP</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1" style="font-weight: bold;">
-                        Extensible Authentication Protocol - Generic Token Card<br />EAP-GTC</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1" style="font-weight: bold;"> Extensible Authentication Protocol - Tunneled Transport Layer Security<br />EAP-TTLS</td>
-                                                                    </tr>
-                                                                    <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><a href="../Security/MFA.htm#OktaVerify">Okta Verify (TOTP and PUSH)</a>
-                                                                        </td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Supported</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Supported</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">Supported - as long as challenge is avoided. <br />For example:<br />MFA-only or password, MFA for TOTP. <br />Push can work with primary auth + MFA as the push challenge is sent out-of-band.</td>
-                                                                    </tr>
-                                                                    <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><a href="../Security/MFA.htm#VoiceCall">Voice Call</a>
-                                                                        </td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Supported</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Supported</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Not supported</td>
-                                                                    </tr>
-                                                                    <tr style="height: 49px;" class="TableStyle-srb_header_alt_shade-Body-Body2">
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><a href="../Security/MFA.htm#SMSAuthentication">SMS Authentication</a>
-                                                                        </td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Supported</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Supported</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">Not supported</td>
-                                                                    </tr>
-                                                                    <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><a href="../Security/MFA.htm#GoogleAuthenticator">Google Authenticator</a>
-                                                                        </td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Supported</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Supported</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Supported - as long as challenge is avoided.<br />For example MFA only or password, MFA.</td>
-                                                                    </tr>
-                                                                    <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><a href="../Security/MFA.htm#SymantecVIP">Symantec VIP</a>
-                                                                        </td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Supported</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Supported</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">Supported</td>
-                                                                    </tr>
-                                                                    <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><a href="../Security/MFA.htm#SecurityQuestion">Security Question</a>
-                                                                        </td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Supported</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Supported</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Not supported</td>
-                                                                    </tr>
-                                                                    <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><a href="../Security/MFA.htm#TOTPFactor">Custom TOTP Authentication</a>
-                                                                        </td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Supported</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Supported</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">Not supported</td>
-                                                                    </tr>
-                                                                    <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><a href="../Security/MFA.htm#Duo">Duo(Push, SMS and Passcode only)</a>
-                                                                        </td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Supported</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Supported</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Supported (passcode, Push)</td>
-                                                                    </tr>
-                                                                    <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><a href="../Security/MFA.htm#YubiKey">YubiKey</a>
-                                                                        </td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Supported</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Supported</td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">Supported</td>
-                                                                    </tr>
-                                                                    <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
-                                                                            <p><a href="../Security/MFA.htm#RSAToken">RSA Token</a>
-                                                                            </p>
-                                                                        </td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
-                                                                            <p>Supported</p>
-                                                                        </td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
-                                                                            <p>Supported</p>
-                                                                        </td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
-                                                                            <p>Supported</p>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">
-                                                                            <p><a href="../Security/MFA.htm#Email">Email</a>
-                                                                            </p>
-                                                                        </td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">
-                                                                            <p>Supported</p>
-                                                                        </td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">
-                                                                            <p>Supported</p>
-                                                                        </td>
-                                                                        <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">
-                                                                            <p>Not supported</p>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                            <div class="noteOkta">
-                                                                <img src="../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Info" alt="Info" />
-                                                                <p class="noteHeading">Note</p>
-                                                                <p class="noteContent">The U2F&#160;Security and Windows Hello <a href="../Security/MFA.htm#FactorTypes">MFA factors</a> are not compatible with RADIUS-enabled implementations. <br />For additional information about the Radius apps refer to <a href="../Security/Okta_Radius_App.htm">Configuring RADIUS applications in Okta</a>.</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <br />
-                                                    <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Best Practice – When to interoperate with SAML vs. RADIUS</a></span>
-                                                        <div class="MCDropDownBody dropDownBody">
-                                                            <p>Some integrations interoperate with Okta through either RADIUS or SAML 2.0. The following screen shots compare the two end-user experiences.</p>
-                                                            <h4>SAML end-user experience</h4>
-                                                            <blockquote>
-                                                                <p>
-                                                                    <img src="../../Resources/Images/radius_vs_saml_1.png" />
-                                                                </p>
-                                                            </blockquote>
-                                                            <h4>RADIUS end-user experience</h4>
-                                                            <blockquote>
-                                                                <p>
-                                                                    <img src="../../Resources/Images/radius_vs_saml_2.png" />
-                                                                </p>
-                                                            </blockquote>
-                                                            <blockquote>
-                                                                <p>
-                                                                    <img src="../../Resources/Images/radius_vs_saml_3.png" />
-                                                                </p>
-                                                            </blockquote>
-                                                            <div class="noteOkta">
-                                                                <img src="../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Note" alt="Note" />
-                                                                <p class="noteHeading">Note</p>
-                                                                <p class="noteContent">The Yubikey factor doesn't appear in the menu as an option. <br />The end user must enter the Yubikey code into the <b>Response</b> field and click <b>Continue</b>.</p>
-                                                            </div>
-                                                            <p>There are several advantages to using SAML integrations when available.</p>
-                                                            <ol>
-                                                                <li value="1">
-                                                                    <p>SAML provides a rich, intuitive and consistent login experience. RADIUS interacts with a text-based challenge with inconsistent formatting. Using SAML can reduce user training and support requirements and the consistent sign in experience with SAML makes users less susceptible to phishing attempts.</p>
-                                                                </li>
-                                                                <li value="2">
-                                                                    <p>SAML integrations provide more security as credentials are exposed to fewer parties.</p>
-                                                                </li>
-                                                                <li value="3">
-                                                                    <p>SAML integrations run with a simplified infrastructure. The do not require running on-premise agents and require little maintenance. The user agent (web browser, VPN client, etc.) is used to transmit messages in a secure manner; therefore, there is no need for the service provider (firewall or application server) to connect to Okta.  Federation is established through a one-time exchange of SAML metadata. This one-time setup establishes trust for ongoing transactions.</p>
-                                                                </li>
-                                                                <li value="4">
-                                                                    <p>Okta SAML integrations are very robust and include adaptive MFA and provisioning.</p>
-                                                                </li>
-                                                            </ol>
-                                                        </div>
-                                                    </div>
-                                                    <p>There are five parts to the configuration, including optional settings. Troubleshooting help and a list of additional resources are also provided.</p>
-                                                    <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Part"></a><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" aria-expanded="false"> Part 1 – Preconfiguration: Installing, and configuring the Okta RADIUS Agent.</a></span>
-                                                        <div class="MCDropDownBody dropDownBody">
-                                                            <p>Configuring the Palo Alto Networks VPN to use the Okta RADIUS Agent requires pre-configuration of the RADIUS agent.</p>
-                                                            <ol>
-                                                                <li value="1">Download the Okta RADIUS Agent from the <b>Settings &gt; Downloads</b> page in Okta.</li>
-                                                                <li value="2">Install the agent using the instructions in <a href="../Directory/Agent_Installing_the_Okta_Radius_Agent.htm"> Installing and Configuring the Okta RADIUS Server Agent</a>.</li>
-                                                                <li value="3">For throughput, availability and other considerations, see <a href="../DeploymentGuides/Radius_Server_Agent/radius-server-agent-dg.htm">Okta RADIUS Server Agent Deployment Best Practices</a>.</li>
-                                                            </ol>
-                                                            <p>After installing the Okta RADIUS Agent ensure that you have met these minimum requirements for network connectivity</p>
-                                                            <table style="width: 80% %;mc-table-style: url('../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
-                                                                <col style="width: 158px;" class="TableStyle-standard-Column-Column1" />
-                                                                <col style="width: 208px;" class="TableStyle-standard-Column-Column1" />
-                                                                <col style="width: 326px;" class="TableStyle-standard-Column-Column1" />
-                                                                <col style="width: 224px;" class="TableStyle-standard-Column-Column1" />
-                                                                <thead>
-                                                                    <tr class="TableStyle-standard-Head-Header1">
-                                                                        <th class="TableStyle-standard-HeadF-Column1-Header1">Source</th>
-                                                                        <th class="TableStyle-standard-HeadF-Column1-Header1">Destination</th>
-                                                                        <th class="TableStyle-standard-HeadF-Column1-Header1">Port/Protocol</th>
-                                                                        <th class="TableStyle-standard-HeadD-Column1-Header1">Description</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <tr class="TableStyle-standard-Body-Body1">
-                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1">Okta RADIUS Agent</td>
-                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1">Okta Identity Cloud</td>
-                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1">TCP/443<br />HTTP</td>
-                                                                        <td class="TableStyle-standard-BodyD-Column1-Body1">Configuration and authentication traffic</td>
-                                                                    </tr>
-                                                                    <tr class="TableStyle-standard-Body-Body2">
-                                                                        <td class="TableStyle-standard-BodyC-Column1-Body2">Palo Alto Network device </td>
-                                                                        <td class="TableStyle-standard-BodyC-Column1-Body2">Okta RADIUS Agent</td>
-                                                                        <td class="TableStyle-standard-BodyC-Column1-Body2">
-UDP/1812
-RADIUS
-(actual port number defined in next step)
-</td>
-                                                                        <td class="TableStyle-standard-BodyA-Column1-Body2">RADIUS traffic between the firewall (client) and the RADIUS Agent (server)</td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                    <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Part2"></a><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" aria-expanded="false"> Part 2 – Use the Okta Admin Console to Configure the Okta RADIUS Agent</a></span>
-                                                        <div class="MCDropDownBody dropDownBody">
-                                                            <p>In this step, add the <b>Palo Alto Networks VPN (RADIUS)</b> app from the OIN and apply settings specific to your deployment.  In this section we will configure the following:</p>
-                                                            <ul>
-                                                                <li value="1">Authentication configuration</li>
-                                                                <li value="2">
-                                                                    <p>UDP Port</p>
-                                                                </li>
-                                                                <li value="3">
-                                                                    <p>Secret Key</p>
-                                                                </li>
-                                                                <li value="4">
-                                                                    <p>Application Username Format</p>
-                                                                </li>
-                                                            </ul>
-                                                            <div class="noteOkta">
-                                                                <img src="../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Info" alt="Info" />
-                                                                <p class="noteHeading">Note</p>
-                                                                <p class="noteContent">The U2F&#160;Security and Windows Hello <a href="../Security/MFA.htm#FactorTypes">MFA factors</a> are not compatible with RADIUS-enabled implementations. <br />For additional information about the Radius apps refer to <a href="../Security/Okta_Radius_App.htm">Configuring RADIUS applications in Okta</a>.</p>
-                                                            </div>
-                                                            <p>There are some optional advanced radius configuration options that are listed at the end of this document to help with Reporting the Client IP and Sending Groups information to the firewall.</p>
-                                                            <ol>
-                                                                <li value="1">In Okta, navigate to <b>Applications &gt; Applications&gt; Add Application</b>, search for <i>Palo Alto Networks VPN (RADIUS)</i>, and then click <b>Add Application</b>:
-        
-        <p><img src="../../Resources/Images/palo_alto_networks_1.png" /></p></li>
-                                                                <li value="2">Enter a unique name.</li>
-                                                                <li value="3">
-                                                                    <p>Provide the following <b>Sign On</b> values:</p>
-                                                                    <ul>
-                                                                        <li value="1"> <b>Authentication</b>: Retaining this default button allows Okta to perform primary authentication.</li>
-                                                                        <li value="2">
-                                                                            <p><b>UDP Port</b>: Required. Each RADIUS app has a unique number. Enter it here.</p>
-                                                                        </li>
-                                                                        <li value="3">
-                                                                            <p><b>Secret Key</b>: Required. Enter the secret key that will be used to encrypt and decrypt the user password. This key must be identical to what is configured on the <b>Palo Alto Networks VPN (RADIUS)</b> app.</p>
-                                                                        </li>
-                                                                        <li value="4">
-                                                                            <p> <b>Application username format</b>:This  determines how the RADIUS client sends in the username. Select an option from the drop-down menu.</p>
-                                                                        </li>
-                                                                    </ul>
-                                                                </li>
-                                                                <li value="4">After completing the setup, <a href="../Apps/Apps_Apps_Page.htm#Assigning">assign the app</a> to the users/groups that require access.</li>
-                                                            </ol>
-                                                            <p>For additional information, including guidance on advanced authentication and adaptive multifactor configuration options, see <a href="../Security/Okta_Radius_App.htm">Using the Okta RADIUS App</a>.</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Part3"></a><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" aria-expanded="false"> Part 3 – Configure Palo Alto Networks VPN to use the Okta RADIUS App</a></span>
-                                                        <div class="MCDropDownBody dropDownBody">
-                                                            <p>In Part 3 you define a RADIUS Server Profile, define an Authentication Profile for Okta Palo Alto RADIUS Agent, apply the Okta RADIUS Authentication Profile to a Gateway, and configure the GlobalProtect Portal to use the Okta RADIUS Authentication Profile. Complete these using the Palo Alto Networks RADIUS Server Profile.</p>
-                                                            <h3>Step 1 – Define a RADIUS Server Profile</h3>
-                                                            <ol>
-                                                                <li value="1">Sign in to the Palo Alto Networks Admin console with sufficient privileges</li>
-                                                                <li value="2">Navigate to <b>Device &gt; Server Profile &gt; Radius</b>, and then click <b>Add</b> to define a new RADIUS server. The screen shown below opens.<p><img src="../../Resources/Images/palo_alto_networks_4.png" /></p></li>
-                                                                <li value="3">
-                                                                    <p>Enter a profile name that is unique and appropriate, and enter the following server settings, as shown above.</p>
-                                                                    <ul>
-                                                                        <li value="1">
-                                                                            <p><b>Timeout (sec):</b> 60</p>
-                                                                        </li>
-                                                                        <li value="2">
-                                                                            <p><b>Authentication Protocol:</b> PAP</p>
-                                                                        </li>
-                                                                        <li value="3">
-                                                                            <p><b>Retries:</b> 1</p>
-                                                                        </li>
-                                                                    </ul>
-                                                                </li>
-                                                                <li value="4">Click <b>Add</b> in the screen shown above to define a server. Enter the following settings:
-					<ul><li value="1"><p><b>Name:</b> Unique and appropriate name</p></li><li value="2"><p><b>Radius Server:</b> IP Address of the Server you installed the Okta Palo Alto Radius Agent above.</p></li><li value="3"><p><b>Secret:</b> The Radius Secret you defined in the Okta Radius App above.</p></li><li value="4"><p><b>Port:</b> The UDP Port you defined in the Okta Palo Alto Radius App above.</p></li></ul></li>
-                                                                <li value="5">Click <b>OK</b> to save the settings.</li>
-                                                            </ol>
-                                                            <h3>Step 2 – Define an Authentication Profile for Okta Palo Alto RADIUS Agent</h3>
-                                                            <ol>
-                                                                <li value="1">
-                                                                    <p>Select <b>Device &gt; Authentication Profile</b> and then click <b>Add</b> to define an Authentication Profile.</p>
-                                                                </li>
-                                                                <li value="2">
-                                                                    <p>Click <b>Authentication</b> tab. The screen shown below opens.</p>
-                                                                    <p>
-                                                                        <img src="../../Resources/Images/palo_alto_networks_6.png" />
-                                                                    </p>
-                                                                </li>
-                                                                <li value="3">Leave the default settings except for the following
-				<ul><li value="1"><p><b>Type:</b> RADIUS</p></li><li value="2"><p><b>Server Profile:</b> Enter the name of the Server Profile you defined in Step 1, above.</p></li></ul></li>
-                                                                <li value="4">When done, click <b>OK</b>.</li>
-                                                                <li value="5">In the <b>Authentication Profile</b> screen, click the <b>Advanced</b> tab.</li>
-                                                                <li value="6">In the screen shown below, select <b>Add</b> to assign an Allow List. Then, select <b>All</b> from the displayed options.
-					<p><img src="../../Resources/Images/palo_alto_networks_6b.png" /></p></li>
-                                                                <li value="7">Click <b>OK</b> to save the settings.</li>
-                                                                <li value="8">
-                                                                    <p>Click <b>Commit</b> to save the Okta RADIUS Authentication Profile.</p>
-                                                                </li>
-                                                                <li value="9">
-                                                                    <p>Open the Palo Alto Networks <b>Administrative Shell</b>l and test the Authentication Profile, as described in <a href="#Test">Test the Authentication Profile</a>, in the Troubleshooting section, below.</p>
-                                                                </li>
-                                                            </ol>
-                                                            <h3>Step 3: Apply the Okta RADIUS Authentication Profile to a Gateway</h3>
-                                                            <ol>
-                                                                <li value="1">Select <b>Network &gt; GlobalProtect &gt; Gateways</b> and open your configured GlobalProtect Gateway.</li>
-                                                                <li value="2">Select the <b>Authentication</b> tab to define <b>Client Authentication Settings</b>.</li>
-                                                                <li value="3">Click <b>Add</b> to update Client Authentication to the Okta RADIUS Authentication Profile you just configured.</li>
-                                                                <li value="4">Leave the default settings except for the following:<ul><li value="1"><b>Name:</b> Unique and appropriate name</li><li value="2"><b>OS</b>: Any</li><li value="3"><b>Authentication Profile:</b> Enter the Authentication Profile you configuredabove. </li><li value="4"><b>Authentication Message:</b> Enter appropriate instructions for end users such as <em>Enter login credentials</em>.</li></ul></li>
-                                                                <li value="5">
-                                                                    <p>Click <b>OK</b> to save the settings.</p>
-                                                                </li>
-                                                            </ol>
-                                                            <h3>Step 4: Configure the GlobalProtect Portal to use the Okta RADIUS Authentication Profile
-				</h3>
-                                                            <p><b>Note:</b> The step applies the same settings that you just applied to you GlobalProtect Gateway to the GlobalProtect Portal. </p>
-                                                            <ol>
-                                                                <li value="1">Select <b>Network &gt; GlobalProtect &gt; Portals</b> and open your configured GlobalProtect Portal.</li>
-                                                                <li value="2">Select the <b>Authentication</b> tab to define <b>Client Authentication Settings</b>.</li>
-                                                                <li value="3">Click <b>Add</b> to update Client Authentication to the Okta RADIUS Authentication Profile you just configured.</li>
-                                                                <li value="4">Leave the default settings except for the following:<ul><li value="1"><b>Name:</b> Unique and appropriate name</li><li value="2"><b>OS</b>: Any</li><li value="3"><b>Authentication Profile:</b> Enter the Authentication Profile you configuredabove. </li><li value="4"><b>Authentication Message:</b> Enter appropriate instructions for end users such as <em>Enter login credentials</em>.</li></ul></li>
-                                                                <li value="5">
-                                                                    <p>Click <b>OK</b> to save the settings.</p>
-                                                                </li>
-                                                            </ol>
-                                                            <h3>Step 5: Commit all Settings</h3>
-                                                            <p>Click <b>Commit</b> to save the Okta RADIUS configuration within the Palo Alto Networks Admin Console.
-				</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Part4"></a><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" aria-expanded="false"> Part 4 – Test your Configuration</a></span>
-                                                        <div class="MCDropDownBody dropDownBody">
-                                                            <p>There are two configuration tests for the flows, shown in the following network diagram.</p>
-                                                            <p>
-                                                                <img src="../../Resources/Images/palo_alto_networks_network_1.png" />
-                                                            </p>
-                                                            <p>&#160;</p>
-                                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Test 1 – Test Against the Gateway with the GlobalProtect Client</a></span>
-                                                                <div class="MCDropDownBody dropDownBody">
-                                                                    <ol>
-                                                                        <li value="1">
-                                                                            <p>Open the GlobalProtect Client and then, enter your Username and Password and click <b>OK</b>.</p>
-                                                                            <p>
-                                                                                <img src="../../Resources/Images/palo_alto_networks_7.png" />
-                                                                            </p>
-                                                                            <p><b>Note:</b> The username must be in the format you specified when you added the app in Okta in Part 2, above.</p>
-                                                                        </li>
-                                                                        <li value="2">
-                                                                            <p>When the challenge screen appears, enter the <b>number</b> corresponding  to the appropriate second factor and click <b>OK</b>.</p>
-                                                                            <p>
-                                                                                <img src="../../Resources/Images/palo_alto_networks_8.png" />
-                                                                            </p>
-                                                                            <p><b>Note:</b> Users are challenged for a second factor to use based on the devices they have enrolled.</p>
-                                                                        </li>
-                                                                        <li value="3">
-                                                                            <p>Enter the value for the chosen second factor, or accept the out-of-band push notification.</p>
-                                                                            <p>
-                                                                                <img src="../../Resources/Images/palo_alto_networks_9.png" />
-                                                                            </p>
-                                                                        </li>
-                                                                        <li value="4">
-                                                                            <p>Verify that you are connected to the VPN.</p>
-                                                                            <p>
-                                                                                <img src="../../Resources/Images/palo_alto_networks_10.png" />
-                                                                            </p>
-                                                                        </li>
-                                                                    </ol>
-                                                                </div>
-                                                            </div>
-                                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Test 2 – Test Against the Portal with a Web Browser</a></span>
-                                                                <div class="MCDropDownBody dropDownBody">
-                                                                    <ol>
-                                                                        <li value="1">
-                                                                            <p>Open a web browser and navigate to your GlobalProtect portal page, then, enter your Username and Password and click <b>LOG IN</b>.</p>
-                                                                        </li>
-                                                                        <p>
-                                                                            <img src="../../Resources/Images/palo_alto_networks_11.png" />
-                                                                        </p>
-                                                                        <li value="2">
-                                                                            <p>When the challenge screen appears,enter the <b>number</b> corresponding  to the appropriate second factor and click <b>LOG&#160;IN</b>.</p>
-                                                                            <p>
-                                                                                <img src="../../Resources/Images/palo_alto_networks_12.png" />
-                                                                            </p>
-                                                                            <p><b>Note:</b> Users are challenged for a second factor to use based on the devices they have enrolled.</p>
-                                                                        </li>
-                                                                        <li value="3">Enter the value for the chosen second factor, or accept the out-of-band push notification.<p><img src="../../Resources/Images/palo_alto_networks_14.png" /></p></li>
-                                                                        <li value="4">
-                                                                            <p>Verify that you are connected to the VPN. The GlobalProtect page loads to your user credentials</p>
-                                                                            <p>
-                                                                                <img src="../../Resources/Images/palo_alto_networks_15.png" />
-                                                                            </p>
-                                                                        </li>
-                                                                    </ol>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Part6"></a><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" aria-expanded="false"> Part 5 – Configure Optional Settings</a></span>
-                                                        <div class="MCDropDownBody dropDownBody">
-                                                            <p>There are two optional settings you can configure, Client IP Reporting and Groups response.</p>
-                                                            <h3>Configure Client IP Reporting</h3>
-                                                            <p>The Palo Alto Networks Gateway does not report the Client IP address by default.  For Devices running PAN-OS 7 and greater you can configure the device to send this information with the following command from the devices administrative shell.</p>
-                                                            <p><code style="font-size: 11pt;">set authentication radius-vsa-on client-source-ip</code>
-                                                            </p>
-                                                            <p>The Palo Alto Networks NGFW does not Send the Client IP using the standard Attribute Value Pairs (AVP) like 31 (Calling-Station-Id). Instead, it sends the data using a Vendor Specific Attribute (VSA).  To configure Okta to  parse, report, and eventually enforce policy based on  the source client IP Address, configure the Okta Palo Alto Radius App in the Okta Admin Console.</p>
-                                                            <p>Enter the following settings in Advanced RADIUS Settings, as shown below.</p>
-                                                            <ul>
-                                                                <li value="1"><b>Client IP:</b> Check Report client IP.</li>
-                                                                <li value="2"><b>RADIUS End User IP Attributes:</b> 26 Vendor-Specific, 7</li>
-                                                            </ul>
-                                                            <p>
-                                                                <img src="../../Resources/Images/palo_alto_networks_16_523x237.png" style="width: 523;height: 237;" />
-                                                            </p>
-                                                            <h3>Configure Groups Response</h3>
-                                                            <div>
-                                                                <p>The Palo Alto Network Gateway does not receive groups using the standard Attribute Value Pairs (AVP) of 11 (Filter-Id) and 25 (Class). Instead it relies on <a href="https://www.paloaltonetworks.com/documentation/70/pan-os/pan-os/authentication/radius-vendor-specific-attributes-for-palo-alto-networks-devices">Vendor Specific Attributes. </a></p>
-                                                                <p>To configure the app to send RADIUS Group information in vendor specific attributes: </p>
-                                                                <div class="noteOkta">
-                                                                    <img src="../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Note" alt="Note" />
-                                                                    <p class="noteHeading">Note</p>
-                                                                    <p class="noteContent">This is an Early Access feature. To enable it, contact <a href="https://support.okta.com/help/s/">Okta Support</a>.</p>
-                                                                </div>
-                                                                <ol>
-                                                                    <li value="1">In Okta, navigate to <b>Applications &gt; Applications</b>.</li>
-                                                                    <li value="2">Open the application by clicking its name.<br /><div class="noteOkta"><img src="../../Resources/Images/assets/Icons/Notes/icon-lightbulb.png" class="noteImgFloat" title="Tip" alt="Tip" /><p class="noteHeading">Tip</p><p class="noteContent">You can narrow the set of applications displayed using the <b>Search</b> field.</p></div></li>
-                                                                    <li value="3">Select the <b>sign on</b> tab. </li>
-                                                                    <li value="4">Scroll to the <b>Advanced RADIUS Settings</b> section and click <b>Edit</b>. </li>
-                                                                    <li value="5">In the GROUPS&#160;RESPONSE section:<ol style="list-style-type: lower-alpha;"><li value="1">Check include groups in RADIUS response. </li><li value="2">In the RADIUS&#160;attributes sub section, specify the following:<br /><table class="TableStyle-standard" style="mc-table-style: url('../../Resources/TableStyles/standard.css');" cellspacing="0"><col class="TableStyle-standard-Column-Column1" /><col class="TableStyle-standard-Column-Column1" /><col class="TableStyle-standard-Column-Column1" /><thead><tr class="TableStyle-standard-Head-Header1"><th class="TableStyle-standard-HeadF-Column1-Header1"><p>Field</p></th><th class="TableStyle-standard-HeadF-Column1-Header1"><p>Value</p></th><th class="TableStyle-standard-HeadD-Column1-Header1"><p>Comment</p></th></tr></thead><tbody><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyF-Column1-Body1" style="font-weight: bold;"><p>RADIUS&#160;attribute</p></td><td class="TableStyle-standard-BodyF-Column1-Body1"><p>26-Vendor specific. </p></td><td class="TableStyle-standard-BodyD-Column1-Body1"><p>Must be 26-Vendor specific</p></td></tr><tr class="TableStyle-standard-Body-Body2"><td class="TableStyle-standard-BodyF-Column1-Body2" style="font-weight: bold;"><p>vendor specific ID</p></td><td class="TableStyle-standard-BodyF-Column1-Body2"><p>Enter one of :<br /><b>Cisco</b> - <b>ASA-Group-Policy (3076)</b></p><p style="font-weight: bold;">Citrix-Group-Names (3845)</p><p>Fortinet-<b>Group-Name(12356)</b></p><p>PaloAlto-<b>User-Group(25461)</b><br /></p></td><td class="TableStyle-standard-BodyD-Column1-Body2"><p>Enter the associated numeric vendor id. <br />For example, for Cisco enter 3076.</p></td></tr><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyC-Column1-Body1" style="font-weight: bold;"><p>Attribute ID</p></td><td class="TableStyle-standard-BodyC-Column1-Body1"><p><b>Cisco</b> - <b>ASA-Group-Policy (25)</b></p><p style="font-weight: bold;">Citrix-Group-Names (16)</p><p>Fortinet-<b>Group-Name(1)</b></p><p>PaloAlto-<b>User-Group(5)</b></p></td><td class="TableStyle-standard-BodyA-Column1-Body1"><p>Enter the associated numeric attribute id. For example, for Cisco enter 25.<br /></p></td></tr></tbody></table><br /><div class="noteOkta"><img src="../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Important Note" alt="Important Note" /><p class="noteHeading">Important</p><p class="noteContent">Vendor specific ID and Attribute ID are string fields. <br />Admins may use any appropriate value for vendors not listed. </p></div><br /><img src="../../Resources/Images/integrations/radius-vendor-specific-attribute.png" /><div class="note_cautionOkta"><img src="../../Resources/Images/assets/Icons/Notes/Alert.png" class="noteImgFloat" title="Caution" alt="Caution" /><p class="noteHeading">Caution</p><ul><li value="1">The maximum group membership value length is 247 bytes. In situations where length of group memberships  or where any group names length exceeds the maximum size truncation will occur and partial values returned.
-
-
-<p>&#160;</p></li><li value="2">
-			In such situations Okta suggests configuring the response as a set of <b>Repeated Attributes</b> as opposed to a single delimited list. </li></ul></div></li></ol></li>
-                                                                    <li value="6">Click <b>Save</b>.</li>
-                                                                </ol>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />[Optional]&#160;Double prompting for credentials and enabling cookies</a></span>
-                                                        <div class="MCDropDownBody dropDownBody">
-                                                            <p>In certain situations GlobalProtect will prompt twice for credentials when configured with Okta RADIUS. This second prompt can be avoided by enabling cookies for the Global Protect login. In this situation the the GlobalConnect portal generates a cookie that the RADIUS Gateway accepts within a short time window, typically 60 seconds or less.</p>
-                                                            <h3>Enable cookie generation on GlobalProtect Portal:</h3>
-                                                            <ol>
-                                                                <li value="1">Connect to the Global Protect Porta. </li>
-                                                                <li value="2">Navigate to <b>Network &gt; GlobalProtect &gt; Portals</b>.</li>
-                                                                <li value="3">Open <b>Portal Profile</b>.</li>
-                                                                <li value="4">Select the <b>Agent</b> tab and then click <b>Agent Config</b>.</li>
-                                                                <li value="5">Enable <b>Generate cookie for authentication override</b>.</li>
-                                                                <li value="6">Set the Cookie Lifetime. For RADIUS this is typically 60-90 seconds. </li>
-                                                                <li value="7">Select Certificate to <b>Encrypt/Decrypt Cookie</b>.</li>
-                                                            </ol>
-                                                            <h3>Enable Cookie Acceptance in GlobalProtect Gateway</h3>
-                                                            <ol>
-                                                                <li value="1">Navigate to <b>Network &gt; GlobalProtect &gt; Gateways</b></li>
-                                                                <li value="2">Open the <b>Gateway Profile</b>.</li>
-                                                                <li value="3">Select the <b>Agent</b> tab.</li>
-                                                                <li value="4">Click <b>Client Settings</b> and open <b>Client Config</b>.</li>
-                                                                <li value="5">Select the <b>Authentication Override</b> tab and enable <b>Accept cookie for authentication override</b>.</li>
-                                                                <li value="6">Set the <b>Cookie Lifetime</b>. For RADIUS this is typically 60-90 seconds.</li>
-                                                                <li value="7">Select <b>Certificate</b> to <b>Encrypt/Decrypt Cookie</b>.<br />Note:&#160;This must be the same certificate used in the prior step. <br /><br /></li>
-                                                            </ol>
-                                                        </div>
-                                                    </div>
-                                                    <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Troubleshooting</a></span>
-                                                        <div class="MCDropDownBody dropDownBody">
-                                                            <h3>Review the Authentication Logs</h3>
-                                                            <ol>
-                                                                <li value="1">Open a web browser and navigate to the GlobalProtect Admin Page, or open the Palo Alto Networks Panorama.</li>
-                                                                <li value="2">Navigate to <b>Monitor &gt; Authentication</b>.</li>
-                                                                <li value="3">In the search filter enter: <b>subtype eq Radius</b>.</li>
-                                                                <li value="4">Open the Palo Alto Networks <b>Administrative Shell</b>  and run the following commands:
-                <ul><li value="1"><code style="font-size: 11pt;">debug authentication on dump</code></li><li value="2"><code style="font-size: 11pt;">tail follow yes lines 20 mp-log authd.log</code></li></ul></li>
-                                                                <li value="5">Click <b>enter</b> to run the test.  Review the logs for detailed output. Sample logs are shown below.</li>
-                                                            </ol>
-                                                            <p>
-                                                                <img src="../../Resources/Images/palo_alto_networks_17.png" />
-                                                            </p>
-                                                            <p>
-                                                                <img src="../../Resources/Images/palo_alto_networks_20.png" />
-                                                            </p>
-                                                            <h3><a name="Test"></a>Test the Authentication Profile</h3>
-                                                            <p>Open the Palo Alto Networks <b>Administrative Shell</b> and run the following commands:</p>
-                                                            <p><code style="font-size: 11pt;">test authentication authentication-profile &lt;profile name&gt; username &lt;username&gt; password</code>
-                                                            </p>
-                                                            <p>where <code style="font-size: 11pt;">&lt;profile name&gt;</code> and <span style="font-size: 11pt;">&lt;username&gt;</span> are the values for your organization.</p>
-                                                            <p><b>Note:</b> The command line test of the Authentication Profile does not support a second- factor challenge. Receiving a second-factor challenge is validation that the configuration is working.</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Addition"></a><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" aria-expanded="false">Additional Resources</a></span>
-                                                        <div class="MCDropDownBody dropDownBody">
-                                                            <ul>
-                                                                <li value="1">Okta Documentation - <a href="../Security/App_Based_Signon.htm">Configuring Sign On Policies</a></li>
-                                                                <li value="2">
-                                                                    <p>Palo Alto Network Devices Radius Vendor-Specifc Attributes: <a href="https://www.paloaltonetworks.com/documentation/70/pan-os/pan-os/authentication/radius-vendor-specific-attributes-for-palo-alto-networks-devices">https://www.paloaltonetworks.com/documentation/70/pan-os/pan-os/authentication/radius-vendor-specific-attributes-for-palo-alto-networks-devices</a></p>
-                                                                </li>
-                                                                <li value="3">
-                                                                    <p>Palo Alto Network Configure a RADIUS Server Profile: <a href="https://www.paloaltonetworks.com/documentation/70/pan-os/pan-os/authentication/configure-a-radius-server-profile#_38627">https://www.paloaltonetworks.com/documentation/70/pan-os/pan-os/authentication/configure-a-radius-server-profile#_38627</a></p>
-                                                                </li>
-                                                                <li value="4">
-                                                                    <p>Palo Alto Network Configure an Authentication Profile: <a href="https://www.paloaltonetworks.com/documentation/70/pan-os/pan-os/authentication/configure-an-authentication-profile-and-sequence#_64152">https://www.paloaltonetworks.com/documentation/70/pan-os/pan-os/authentication/configure-an-authentication-profile-and-sequence#_64152</a></p>
-                                                                </li>
-                                                                <li value="5">
-                                                                    <p>Palo Alto Network Configure Services to use Radius: https://www.paloaltonetworks.com/documentation/70/pan-os/pan-os/authentication/enable-external-authentication-for-users-and-services#_26976</p>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
+                                                    </ul>
                                                 </div>
                                                 <!-- Back to Top button --><a href="#" class="sf-back-to-top"><span class="arrow"></span>Top</a>
                                             </div>
