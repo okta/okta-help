@@ -191,7 +191,7 @@ xmlAliasData += '    <Map Name=\"ext_Reports\" Link=\"Topics/Reports/Reports.htm
 xmlAliasData += '    <Map Name=\"ext_Reports_RogueAccounts\" Link=\"Topics/Reports/Reports.htm\" ResolvedId=\"200144\" />';
 xmlAliasData += '    <Map Name=\"ext_Reports_SysLog\" Link=\"Topics/Reports/Reports_SysLog.htm\" ResolvedId=\"200145\" />';
 xmlAliasData += '    <Map Name=\"ext_Administrators\" Link=\"Topics/Security/Administrators.htm\" ResolvedId=\"200146\" />';
-xmlAliasData += '    <Map Name=\"ext_AmaznWS_App\" Link=\"Topics/Security/AmaznWS_App.htm\" ResolvedId=\"200147\" />';
+xmlAliasData += '    <Map Name=\"ext_AmaznWS_App\" Link=\"Topics/integrations/aws-radius-intg.htm\" ResolvedId=\"200147\" />';
 xmlAliasData += '    <Map Name=\"ext_API\" Link=\"Topics/Security/API.htm\" ResolvedId=\"200148\" />';
 xmlAliasData += '    <Map Name=\"ext_API_Access\" Link=\"Topics/Security/API_Access.htm\" ResolvedId=\"200149\" />';
 xmlAliasData += '    <Map Name=\"ext_App_Based_Signon\" Link=\"Topics/Security/App_Based_Signon.htm\" ResolvedId=\"200150\" />';
@@ -497,5 +497,6 @@ xmlAliasData += '    <Map Name=\"csh-sso-ext-macos\" Link=\"Topics/device-trust/
 xmlAliasData += '    <Map Name=\"csh-sso-ext-ios\" Link=\"Topics/device-trust/device-trust-landing.htm\" ResolvedId=\"1352\" />';
 xmlAliasData += '    <Map Name=\"csh-ver-hist-okta-verify-windows\" Link=\"Topics/Settings/Version_Histories/Ver_History_DeviceTrust_Installer_Windows.htm\" ResolvedId=\"1353\" />';
 xmlAliasData += '    <Map Name=\"ext_cofigure_ldap_okta_settings\" Link=\"Topics/Directory/ldap-agent-configure-LDAP-import-settings.htm\" ResolvedId=\"15000\" />';
+xmlAliasData += '    <Map Name=\"ext-mfa-totp\" Link=\"Topics/Security/mfa-totp-seed.htm\" ResolvedId=\"2000\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
