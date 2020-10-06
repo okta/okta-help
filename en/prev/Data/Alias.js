@@ -164,6 +164,7 @@ xmlAliasData += '    <Map Name=\"ext_Apps_OMM\" Link=\"Topics/Mobile/Apps_OMM.ht
 xmlAliasData += '    <Map Name=\"ext_Apps_OMM_End_User\" Link=\"Topics/Mobile/Apps_OMM_End_User.htm\" ResolvedId=\"200108\" />';
 xmlAliasData += '    <Map Name=\"ext_device_trust_mobile\" Link=\"Topics/device-trust/device-trust-landing.htm\" ResolvedId=\"200111\" />';
 xmlAliasData += '    <Map Name=\"ext_device_trust\" Link=\"Topics/device-trust/device-trust-landing.htm\" ResolvedId=\"200112\" />';
+xmlAliasData += '    <Map Name=\"ext_devices1\" Link=\"Topics/Devices/devices.htm\" ResolvedId=\"200113\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_Device_Trust_Jamf_AirWatch_macOS_Devices\" Link=\"Topics/Mobile/Okta_Device_Trust_Jamf_macOS_Devices.htm\" ResolvedId=\"200114\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_Device_Trust_Native_Apps_Safari_MDM_Devices\" Link=\"Topics/Mobile/Okta_Device_Trust_Native_Apps_Safari_MDM_Devices.htm\" ResolvedId=\"200115\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_Mobile_Connect\" Link=\"Topics/Mobile/Okta_Mobile_Connect.htm\" ResolvedId=\"200116\" />';
