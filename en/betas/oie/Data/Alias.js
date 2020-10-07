@@ -4,5 +4,8 @@ xmlAliasData += '<CatapultAliasFile>';
 xmlAliasData += '    <Map Name=\"csh-oie\" Link=\"Topics/identity-engine/oie-index.htm\" ResolvedId=\"1328\" />';
 xmlAliasData += '    <Map Name=\"ext-oie\" Link=\"Topics/identity-engine/oie-index.htm\" ResolvedId=\"1329\" />';
 xmlAliasData += '    <Map Name=\"csh-oie-release-notes\" Link=\"Topics/identity-engine/oie-release-notes.htm\" ResolvedId=\"1333\" />';
+xmlAliasData += '    <Map Name=\"csh-oie-rn\" Link=\"Topics/identity-engine/oie-release-notes.htm\" ResolvedId=\"2001\" />';
+xmlAliasData += '    <Map Name=\"csh-oie-upgrade\" Link=\"Topics/identity-engine/oie-upgrade.htm\" ResolvedId=\"2002\" />';
+xmlAliasData += '    <Map Name=\"csh-features\" Link=\"Topics/identity-engine/oie-features.htm\" ResolvedId=\"2003\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
