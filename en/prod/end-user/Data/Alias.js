@@ -5,6 +5,7 @@ xmlAliasData += '    <Map Name=\"ext_servicenow_intg\" Link=\"Topics/DeploymentG
 xmlAliasData += '    <Map Name=\"ver-hist-okta-hyperspace-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_ePCS_Agent.htm\" ResolvedId=\"1102\" />';
 xmlAliasData += '    <Map Name=\"ext-devices-directory\" Link=\"Topics/Devices/devices-directory.htm\" ResolvedId=\"1219\" />';
 xmlAliasData += '    <Map Name=\"ext_proc_mfa_rdp\" Link=\"Topics/Security/proc-mfa-for-rdp.htm\" ResolvedId=\"1244\" />';
+xmlAliasData += '    <Map Name=\"csh-webauthn\" Link=\"Topics/Security/mfa-webauthn.htm\" ResolvedId=\"1247\" />';
 xmlAliasData += '    <Map Name=\"ext-ov-user-overview\" Link=\"Topics/end-user/ov-overview.htm\" ResolvedId=\"1330\" />';
 xmlAliasData += '    <Map Name=\"ext-about-events\" Link=\"Topics/Workflows/learn/about-events.htm\" ResolvedId=\"1331\" />';
 xmlAliasData += '    <Map Name=\"ext-applications-connections\" Link=\"Topics/Workflows/learn/about-applications-connections.htm\" ResolvedId=\"1336\" />';
@@ -22,7 +23,6 @@ xmlAliasData += '    <Map Name=\"ext-export-import-flows\" Link=\"Topics/Workflo
 xmlAliasData += '    <Map Name=\"ext-create-table\" Link=\"Topics/Workflows/build/create-table.htm\" ResolvedId=\"1348\" />';
 xmlAliasData += '    <Map Name=\"ext-import-from-csv\" Link=\"Topics/Workflows/build/import-from-csv.htm\" ResolvedId=\"1349\" />';
 xmlAliasData += '    <Map Name=\"ext-save-data-flow-history\" Link=\"Topics/Workflows/execute/save-data-with-flow-history.htm\" ResolvedId=\"1350\" />';
-xmlAliasData += '    <Map Name=\"ext-netmotion-mobility-radius-intg\" Link=\"Topics/integrations/netmotion-radius-intg.htm\" ResolvedId=\"3000\" />';
 xmlAliasData += '    <Map Name=\"csh-user-ov-overview\" Link=\"Topics/end-user/ov-overview.htm\" ResolvedId=\"4000\" />';
 xmlAliasData += '    <Map Name=\"csh-user-ov-sign-in\" Link=\"Topics/end-user/ov-sign-in.htm\" ResolvedId=\"4001\" />';
 xmlAliasData += '    <Map Name=\"csh-user-om-overview\" Link=\"Topics/end-user/om-overview.htm\" ResolvedId=\"4002\" />';
@@ -39,5 +39,11 @@ xmlAliasData += '    <Map Name=\"csh-user-plugin-config-settings\" Link=\"Topics
 xmlAliasData += '    <Map Name=\"csh-user-plugin-access-recent-apps\" Link=\"Topics/end-user/plugin-access-recent-apps.htm\" ResolvedId=\"4013\" />';
 xmlAliasData += '    <Map Name=\"csh-user-dashboard-set-language\" Link=\"Topics/end-user/dashboard-set-language.htm\" ResolvedId=\"4014\" />';
 xmlAliasData += '    <Map Name=\"csh-user-plugin-keyboard\" Link=\"Topics/end-user/plugin-keyboard.htm\" ResolvedId=\"4015\" />';
+xmlAliasData += '    <Map Name=\"csh-user-home\" Link=\"Topics/end-user/end-user-home.htm\" ResolvedId=\"4016\" />';
+xmlAliasData += '    <Map Name=\"ext-ov-faq\" Link=\"Topics/end-user/ov-faq.htm\" ResolvedId=\"4017\" />';
+xmlAliasData += '    <Map Name=\"ext-about-child-flows\" Link=\"Topics/Workflows/learn/about-child-flows.htm\" ResolvedId=\"10007\" />';
+xmlAliasData += '    <Map Name=\"csh-user-ov-reset-register\" Link=\"Topics/end-user/ov-reset-register.htm\" ResolvedId=\"4018\" />';
+xmlAliasData += '    <Map Name=\"csh-user-dashboard-password-reset\" Link=\"Topics/end-user/dashboard-password-reset.htm\" ResolvedId=\"4019\" />';
+xmlAliasData += '    <Map Name=\"csh-user-action-ov-sign-in\" Link=\"Topics/end-user/ov-sign-in.htm#iOSPush\" ResolvedId=\"4020\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
