@@ -45,5 +45,9 @@ xmlAliasData += '    <Map Name=\"ext-about-child-flows\" Link=\"Topics/Workflows
 xmlAliasData += '    <Map Name=\"csh-user-ov-reset-register\" Link=\"Topics/end-user/ov-reset-register.htm\" ResolvedId=\"4018\" />';
 xmlAliasData += '    <Map Name=\"csh-user-dashboard-password-reset\" Link=\"Topics/end-user/dashboard-password-reset.htm\" ResolvedId=\"4019\" />';
 xmlAliasData += '    <Map Name=\"csh-user-action-ov-sign-in\" Link=\"Topics/end-user/ov-sign-in.htm#iOSPush\" ResolvedId=\"4020\" />';
+xmlAliasData += '    <Map Name=\"ext-about-flow-alias\" Link=\"Topics/Workflows/learn/about-flow-alias.htm\" ResolvedId=\"10019\" />';
+xmlAliasData += '    <Map Name=\"about-flow-client-token\" Link=\"Topics/Workflows/learn/about-flow-client-token.htm\" ResolvedId=\"10020\" />';
+xmlAliasData += '    <Map Name=\"ext-resume-paused-flow\" Link=\"Topics/Workflows/execute/resume-paused-flow.htm\" ResolvedId=\"10021\" />';
+xmlAliasData += '    <Map Name=\"ext-invoke-api-endpoint-flow\" Link=\"Topics/Workflows/learn/about-invoke-api-endpoint-flow.htm\" ResolvedId=\"10022\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
