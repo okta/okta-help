@@ -519,5 +519,6 @@ xmlAliasData += '    <Map Name=\"ext-tutorials-id-creation\" Link=\"Topics/Workf
 xmlAliasData += '    <Map Name=\"ext-tutorials-time-based-actions\" Link=\"Topics/Workflows/Tutorials/timebasedactions-walkthrough/timebasedactions-walkthrough.htm\" ResolvedId=\"10018\" />';
 xmlAliasData += '    <Map Name=\"ext_ldap_prerequisites\" Link=\"Topics/Directory/ldap-agent-prerequisites.htm\" ResolvedId=\"15001\" />';
 xmlAliasData += '    <Map Name=\"csh-device-mgmt-desktop-mdm-setup\" Link=\"Topics/device-trust/device-trust-landing.htm\" ResolvedId=\"12000\" />';
+xmlAliasData += '    <Map Name=\"ext_prov_lcm_prov_app\" Link=\"Topics/Provisioning/lcm/lcm-provision-application.htm\" ResolvedId=\"6000\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
