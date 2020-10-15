@@ -505,6 +505,7 @@ xmlAliasData += '    <Map Name=\"ext-functions-reference\" Link=\"Topics/Workflo
 xmlAliasData += '    <Map Name=\"ext-text-compose\" Link=\"Topics/Workflows/function-reference/Text/text_compose.htm\" ResolvedId=\"10004\" />';
 xmlAliasData += '    <Map Name=\"ext-branching-continueif\" Link=\"Topics/Workflows/function-reference/Branching/branching_continueif.htm\" ResolvedId=\"10005\" />';
 xmlAliasData += '    <Map Name=\"ext-branching-if\" Link=\"Topics/Workflows/function-reference/Branching/branching_if.htm\" ResolvedId=\"10006\" />';
+xmlAliasData += '    <Map Name=\"ext-about-child-flows\" Link=\"Topics/Workflows/learn/about-child-flows.htm\" ResolvedId=\"10007\" />';
 xmlAliasData += '    <Map Name=\"ext-slack-send-message-channel\" Link=\"Topics/Workflows/connector-reference/slack/actions/sendmessagetochannel2.htm\" ResolvedId=\"10001\" />';
 xmlAliasData += '    <Map Name=\"ext-stash-searchrows\" Link=\"Topics/Workflows/function-reference/Tables/stash_searchrows2.htm\" ResolvedId=\"10008\" />';
 xmlAliasData += '    <Map Name=\"ext-tutorials\" Link=\"Topics/Workflows/Tutorials/tutorials-workflows-learn.htm\" ResolvedId=\"10009\" />';
