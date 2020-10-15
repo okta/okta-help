@@ -1,1 +1,0 @@
-define({'/Content/Topics/betas/open/event-hooks-preview.htm':{i:[1],t:['Event Hook Preview'],b:['']},'/Content/docs_home_beta.htm':{i:[2],t:['Admin Documentation'],b:['']},'___':{i:[0],t:['Open Okta Betas'],b:['']}});
