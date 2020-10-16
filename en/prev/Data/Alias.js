@@ -301,7 +301,7 @@ xmlAliasData += '    <Map Name=\"csh_FIDO2_WebAuthn\" Link=\"Topics/Security/MFA
 xmlAliasData += '    <Map Name=\"csh_dirintmain\" Link=\"Topics/Directory/directory-integrations-main.htm\" ResolvedId=\"1113\" />';
 xmlAliasData += '    <Map Name=\"csh_superadmin\" Link=\"Topics/Security/administrators-assign-admins.htm\" ResolvedId=\"1114\" />';
 xmlAliasData += '    <Map Name=\"csh_mfa\" Link=\"Topics/Security/MFA.htm\" ResolvedId=\"1115\" />';
-xmlAliasData += '    <Map Name=\"csh_threat_insight\" Link=\"Topics/Security/security-threat-insight.htm\" ResolvedId=\"1116\" />';
+xmlAliasData += '    <Map Name=\"csh_threat_insight\" Link=\"Topics/Security/threatinsight/ti-index.htm\" ResolvedId=\"1116\" />';
 xmlAliasData += '    <Map Name=\"ext_ad_importusers\" Link=\"Topics/Directory/ad-agent-manage-users-groups.htm\" ResolvedId=\"1117\" />';
 xmlAliasData += '    <Map Name=\"ext_end_user_states\" Link=\"Topics/users-groups-profiles/usgp-end-user-states.htm\" ResolvedId=\"1118\" />';
 xmlAliasData += '    <Map Name=\"ext_csv_import\" Link=\"Topics/users-groups-profiles/usgp-import-users-csv.htm\" ResolvedId=\"1119\" />';
@@ -358,8 +358,8 @@ xmlAliasData += '    <Map Name=\"ext_okta_verify\" Link=\"Topics/Mobile/okta-ver
 xmlAliasData += '    <Map Name=\"csh-suspicious-activity-reporting\" Link=\"Topics/Security/suspicious-activity-reporting.htm\" ResolvedId=\"1177\" />';
 xmlAliasData += '    <Map Name=\"csh_eDirectory\" Link=\"Topics/Directory/ldap-agent-manage-integration.htm\" ResolvedId=\"1178\" />';
 xmlAliasData += '    <Map Name=\"csh-security-health-check\" Link=\"Topics/Security/healthinsight/healthinsight.htm\" ResolvedId=\"1193\" />';
-xmlAliasData += '    <Map Name=\"csh-threat-insight\" Link=\"Topics/Security/security-threat-insight.htm\" ResolvedId=\"1192\" />';
-xmlAliasData += '    <Map Name=\"ext_threatinsight\" Link=\"Topics/Security/security-threat-insight.htm\" ResolvedId=\"1195\" />';
+xmlAliasData += '    <Map Name=\"csh-threat-insight\" Link=\"Topics/Security/threatinsight/ti-index.htm\" ResolvedId=\"1192\" />';
+xmlAliasData += '    <Map Name=\"ext_threatinsight\" Link=\"Topics/Security/threatinsight/ti-index.htm\" ResolvedId=\"1195\" />';
 xmlAliasData += '    <Map Name=\"ext_asa\" Link=\"Topics/Adv_Server_Access/docs/setup/getting-started.htm\" ResolvedId=\"1196\" />';
 xmlAliasData += '    <Map Name=\"ext_advars\" Link=\"Topics/Directory/ad-agent-appsettings.htm\" ResolvedId=\"1197\" />';
 xmlAliasData += '    <Map Name=\"ext_googletrbl\" Link=\"Topics/Provisioning/Google/troubleshooting.htm\" ResolvedId=\"1198\" />';
