@@ -399,7 +399,6 @@ xmlAliasData += '    <Map Name=\"Apps_Apps_Page\" Link=\"Topics/Apps/Apps_Apps_P
 xmlAliasData += '    <Map Name=\"ext-custom-user-types\" Link=\"Topics/users-groups-profiles/usgp-usertypes-about.htm\" ResolvedId=\"1225\" />';
 xmlAliasData += '    <Map Name=\"ext-assign-apps\" Link=\"Topics/users-groups-profiles/usgp-assign-apps.htm\" ResolvedId=\"1226\" />';
 xmlAliasData += '    <Map Name=\"meraki-radius-intg\" Link=\"Topics/integrations/cisco-meraki-radius-intg.htm\" ResolvedId=\"1227\" />';
-xmlAliasData += '    <Map Name=\"ext-Okta-workflows\" Link=\"Topics/Workflows/workflows-main-OLD.htm\" ResolvedId=\"1228\" />';
 xmlAliasData += '    <Map Name=\"ext-connect-your-apps\" Link=\"Topics/Workflows/workflow-connect-your-applications.htm\" ResolvedId=\"1229\" />';
 xmlAliasData += '    <Map Name=\"ext-build-a-flow\" Link=\"Topics/Workflows/workflows-build-a-flow.htm\" ResolvedId=\"1231\" />';
 xmlAliasData += '    <Map Name=\"csh_admin-third\" Link=\"Topics/Security/administrators-configure-third-party-admins.htm\" ResolvedId=\"1232\" />';
