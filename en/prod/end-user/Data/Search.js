@@ -1,1 +1,1 @@
-define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../Content/Resources/Okta Templates/MFA_NEW/about_mfa.htm'],s:['$'],p:[['$',48]]});
+define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../Content/Resources/Stylesheets/foundation-icons/preview.html'],s:['+'],p:[['+',3]]});

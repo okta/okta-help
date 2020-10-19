@@ -1,13 +1,7 @@
 var xmlAliasData = "";
 xmlAliasData += '<?xml version=\"1.0\" encoding=\"utf-8\"?>';
 xmlAliasData += '<CatapultAliasFile>';
-xmlAliasData += '    <Map Name=\"ext_servicenow_intg\" Link=\"Topics/DeploymentGuides/ServiceNow/servicenow-intg.htm\" ResolvedId=\"200042\" />';
-xmlAliasData += '    <Map Name=\"ver-hist-okta-hyperspace-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_ePCS_Agent.htm\" ResolvedId=\"1102\" />';
-xmlAliasData += '    <Map Name=\"ext-devices-directory\" Link=\"Topics/Devices/devices-directory.htm\" ResolvedId=\"1219\" />';
-xmlAliasData += '    <Map Name=\"ext_proc_mfa_rdp\" Link=\"Topics/Security/proc-mfa-for-rdp.htm\" ResolvedId=\"1244\" />';
-xmlAliasData += '    <Map Name=\"csh-webauthn\" Link=\"Topics/Security/mfa-webauthn.htm\" ResolvedId=\"1247\" />';
 xmlAliasData += '    <Map Name=\"ext-ov-user-overview\" Link=\"Topics/end-user/ov-overview.htm\" ResolvedId=\"1330\" />';
-xmlAliasData += '    <Map Name=\"ext-set-monitor-options\" Link=\"Topics/Workflows/build/set-monitor-options.htm\" ResolvedId=\"1345\" />';
 xmlAliasData += '    <Map Name=\"csh-user-ov-overview\" Link=\"Topics/end-user/ov-overview.htm\" ResolvedId=\"4000\" />';
 xmlAliasData += '    <Map Name=\"csh-user-ov-sign-in\" Link=\"Topics/end-user/ov-sign-in.htm\" ResolvedId=\"4001\" />';
 xmlAliasData += '    <Map Name=\"csh-user-om-overview\" Link=\"Topics/end-user/om-overview.htm\" ResolvedId=\"4002\" />';
@@ -29,5 +23,8 @@ xmlAliasData += '    <Map Name=\"ext-ov-faq\" Link=\"Topics/end-user/ov-faq.htm\
 xmlAliasData += '    <Map Name=\"csh-user-ov-reset-register\" Link=\"Topics/end-user/ov-reset-register.htm\" ResolvedId=\"4018\" />';
 xmlAliasData += '    <Map Name=\"csh-user-dashboard-password-reset\" Link=\"Topics/end-user/dashboard-password-reset.htm\" ResolvedId=\"4019\" />';
 xmlAliasData += '    <Map Name=\"csh-user-action-ov-sign-in\" Link=\"Topics/end-user/ov-sign-in.htm#iOSPush\" ResolvedId=\"4020\" />';
+xmlAliasData += '    <Map Name=\"csh-user-dashboard-overview\" Link=\"Topics/end-user/dashboard-overview.htm\" ResolvedId=\"4021\" />';
+xmlAliasData += '    <Map Name=\"csh-user-ov-review-signin\" Link=\"Topics/end-user/ov-review-signin.htm\" ResolvedId=\"4022\" />';
+xmlAliasData += '    <Map Name=\"csh-user-ov-new-install\" Link=\"Topics/end-user/ov-new-install.htm\" ResolvedId=\"4023\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
