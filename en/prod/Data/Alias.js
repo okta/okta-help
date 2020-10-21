@@ -142,7 +142,7 @@ xmlAliasData += '    <Map Name=\"ext_LDAP_Provisioning\" Link=\"Topics/Directory
 xmlAliasData += '    <Map Name=\"ext_LDAP_Using_the_LDAP_Interface\" Link=\"Topics/Directory/LDAP-interface-main.htm\" ResolvedId=\"200075\" />';
 xmlAliasData += '    <Map Name=\"ext_okta_active_directory_agent\" Link=\"Topics/Directory/ad-agent-manage-integration.htm\" ResolvedId=\"200076\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_Java_LDAP_Agent\" Link=\"Topics/Directory/ldap-agent-manage-integration.htm\" ResolvedId=\"200078\" />';
-xmlAliasData += '    <Map Name=\"ext_Okta_Active_Directory_Agent_UDMappingchanges\" Link=\"Topics/Directory/Okta_Active_Directory_Agent_UDMappingchanges.htm\" ResolvedId=\"200079\" />';
+xmlAliasData += '    <Map Name=\"ext_Okta_Active_Directory_Agent_UDMappingchanges\" Link=\"Topics/users-groups-profiles/usgp-mastering-main.htm\" ResolvedId=\"200079\" />';
 xmlAliasData += '    <Map Name=\"ext_Overview_of_JIT\" Link=\"Topics/Directory/ad-agent-add-update-JIT.htm\" ResolvedId=\"200080\" />';
 xmlAliasData += '    <Map Name=\"ext_Reference_Directories\" Link=\"Topics/Directory/Reference_Directories.htm\" ResolvedId=\"200081\" />';
 xmlAliasData += '    <Map Name=\"ext_User_Lifecycle_Overview\" Link=\"Topics/users-groups-profiles/usgp-main.htm\" ResolvedId=\"200082\" />';
@@ -483,7 +483,7 @@ xmlAliasData += '    <Map Name=\"ext_oag_app_sample_header\" Link=\"Topics/Acces
 xmlAliasData += '    <Map Name=\"ext_oag_app_sample_policy\" Link=\"Topics/Access-Gateway/add-sample-policy-app-okta.htm\" ResolvedId=\"1321\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_app_sample_proxy\" Link=\"Topics/Access-Gateway/add-sample-proxy-app-okta.htm\" ResolvedId=\"1322\" />';
 xmlAliasData += '    <Map Name=\"ext-IDP-factor\" Link=\"Topics/Security/MFA_Custom_Factor.htm\" ResolvedId=\"1323\" />';
-xmlAliasData += '    <Map Name=\"ext-ad-override-username\" Link=\"Topics/Directory/ad-agent-override-username-format.htm\" ResolvedId=\"1324\" />';
+xmlAliasData += '    <Map Name=\"ext-ad-override-username\" Link=\"Topics/users-groups-profiles/usgp-override-username-format.htm\" ResolvedId=\"1324\" />';
 xmlAliasData += '    <Map Name=\"ext-Security-Policies-eu-control\" Link=\"Topics/Security/Security_Policies.htm#EndUserControlMFAPrompts\" ResolvedId=\"1325\" />';
 xmlAliasData += '    <Map Name=\"ext-get-started\" Link=\"Topics/Security/admin-get-started.htm\" ResolvedId=\"1326\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-verify-relnotes\" Link=\"Topics/ReleaseNotes/okta-verify-release-notes.htm\" ResolvedId=\"1327\" />';
@@ -541,5 +541,10 @@ xmlAliasData += '    <Map Name=\"ext-invoke-api-endpoint-flow\" Link=\"Topics/Wo
 xmlAliasData += '    <Map Name=\"ext-build-flows\" Link=\"Topics/Workflows/build/build-flows.htm\" ResolvedId=\"10023\" />';
 xmlAliasData += '    <Map Name=\"ext-learn-workflows\" Link=\"Topics/Workflows/learn/learn-workflows.htm\" ResolvedId=\"10024\" />';
 xmlAliasData += '    <Map Name=\"ext-execute-flows\" Link=\"Topics/Workflows/execute/execute-flows.htm\" ResolvedId=\"10025\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_pre_req\" Link=\"Topics/Access-Gateway/about-oag-prereqs.htm\" ResolvedId=\"3001\" />';
+xmlAliasData += '    <Map Name=\"ext-about-templates\" Link=\"Topics/Workflows/templates/about-templates.htm\" ResolvedId=\"10026\" />';
+xmlAliasData += '    <Map Name=\"ext-add-template\" Link=\"Topics/Workflows/templates/add-template.htm\" ResolvedId=\"10027\" />';
+xmlAliasData += '    <Map Name=\"ext-templates-list\" Link=\"Topics/Workflows/templates/templates-list.htm\" ResolvedId=\"10028\" />';
+xmlAliasData += '    <Map Name=\"ext-workflows-templates\" Link=\"Topics/Workflows/templates/workflows-templates.htm\" ResolvedId=\"10029\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
