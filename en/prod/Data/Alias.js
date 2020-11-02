@@ -364,7 +364,7 @@ xmlAliasData += '    <Map Name=\"ext_asa\" Link=\"Topics/Adv_Server_Access/docs/
 xmlAliasData += '    <Map Name=\"ext_advars\" Link=\"Topics/Directory/ad-agent-appsettings.htm\" ResolvedId=\"1197\" />';
 xmlAliasData += '    <Map Name=\"ext_googletrbl\" Link=\"Topics/Provisioning/Google/troubleshooting.htm\" ResolvedId=\"1198\" />';
 xmlAliasData += '    <Map Name=\"ext_addmzports\" Link=\"Topics/Directory/ad-agent-install-dmzports.htm\" ResolvedId=\"1199\" />';
-xmlAliasData += '    <Map Name=\"ext_oaginboundsaml\" Link=\"Topics/Access-Gateway/configure-saml-app.htm\" ResolvedId=\"1201\" />';
+xmlAliasData += '    <Map Name=\"ext_oaginboundsaml\" Link=\"Topics/Access-Gateway/add-admin-app-okta.htm\" ResolvedId=\"1201\" />';
 xmlAliasData += '    <Map Name=\"csh-blacklist-zones\" Link=\"Topics/Security/healthinsight/blacklist-network-zones.htm\" ResolvedId=\"1184\" />';
 xmlAliasData += '    <Map Name=\"csh-limit-admins\" Link=\"Topics/Security/healthinsight/limit-admins.htm\" ResolvedId=\"1182\" />';
 xmlAliasData += '    <Map Name=\"csh-mfa-for-admins\" Link=\"Topics/Security/mfa-for-admins.htm\" ResolvedId=\"1179\" />';
