@@ -108,11 +108,6 @@
                         <nav class="title-bar tab-bar sticky" data-sticky="" data-options="marginTop:0" style="width:100%" data-sticky-on="only screen and (max-width: 1024px)" data-mc-ignore="true"><a class="skip-to-content fluid-skip showOnFocus" href="#">Skip To Main Content</a>
                             <div class="middle title-bar-section outer-row clearfix">
                                 <div class="menu-icon-container relative clearfix">
-                                    <div class="central-dropdown" style="display:none;" id="#centralSmallScreen"><a class="central-account-drop"><span class="central-account-image"></span><span class="central-account-text">Account</span></a>
-                                        <div class="central-dropdown-content"><a class="MCCentralLink central-dropdown-content-settings">Settings</a>
-                                            <hr class="central-separator" /><a class="MCCentralLink central-dropdown-content-logout">Logout</a>
-                                        </div>
-                                    </div>
                                     <button class="menu-icon" aria-label="Show Navigation Panel" data-toggle="offCanvas"><span></span>
                                     </button>
                                 </div>
@@ -125,11 +120,6 @@
                                         <li class="placeholder" style="visibility:hidden"><a>placeholder</a>
                                         </li>
                                     </ul>
-                                    <div class="central-dropdown" style="display:none;" id="#centralTop"><a class="central-account-drop"><span class="central-account-image"></span><span class="central-account-text">Account</span></a>
-                                        <div class="central-dropdown-content"><a class="MCCentralLink central-dropdown-content-settings">Settings</a>
-                                            <hr class="central-separator" /><a class="MCCentralLink central-dropdown-content-logout">Logout</a>
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="nav-search-wrapper">
                                     <div class="nav-search row">
@@ -155,11 +145,6 @@
                                             </div>
                                         </form>
                                     </div>
-                                    <div class="central-dropdown" style="display:none;"><a class="central-account-drop"><span class="central-account-image"></span><span class="central-account-text">Account</span></a>
-                                        <div class="central-dropdown-content"><a class="MCCentralLink central-dropdown-content-settings">Settings</a>
-                                            <hr class="central-separator" /><a class="MCCentralLink central-dropdown-content-logout">Logout</a>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </nav>
@@ -172,7 +157,7 @@
                                     </ul>
                                 </div>
                             </nav>
-                            <div class="body-container">
+                            <main id="main" class="body-container">
                                 <div data-mc-content-body="True">
                                     <!-- Google Tag Manager (noscript) -->
                                     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KXMLV58" height="0" width="0" style="display:none;visibility:hidden"></iframe>
@@ -293,199 +278,197 @@
                                             </div>
                                             <div class="body-main">
                                                 <!-- Main content body -->
-                                                <div role="main" id="mc-main-content">
-                                                    <h1>Configure Okta SharePoint People Picker agent</h1>
-                                                    <p>Installing the Okta SharePoint People Picker plugin allows you to fetch users and groups from Okta. The People Picker plugin is a Microsoft Windows executable that you can download from the Downloads page of your Okta Administrator Dashboard. </p>
-                                                    <h2>Prerequisites</h2>
+                                                <h1>Configure Okta SharePoint People Picker agent</h1>
+                                                <p>Installing the Okta SharePoint People Picker plugin allows you to fetch users and groups from Okta. The People Picker plugin is a Microsoft Windows executable that you can download from the Downloads page of your Okta Administrator Dashboard. </p>
+                                                <h2>Prerequisites</h2>
+                                                <ul>
+                                                    <li value="1">User account that has permissions to modify the SharePoint farm</li>
+                                                    <li value="2">
+                                                        <p>SharePoint Management Shell or SharePoint PowerShell snap-in to run PowerShell commands. Add the required snap-in to an existing PowerShell prompt by entering the following the command:</p>
+                                                        <p id="code">Add-PSSnapIn Microsoft.Sharepoint.Powershell</p>
+                                                    </li>
+                                                </ul>
+                                                <h2>Procedure</h2>
+                                                <h3>1. Set configuration values in SharePoint farm</h3>
+                                                <p>You need to set several configuration values in the SharePoint farm to install the Okta People Picker. These values are used to configure People Picker functionality and define the Okta org that you are integrating with this SharePoint environment.</p>
+                                                <table style="width: 100%;">
+                                                    <col />
+                                                    <col />
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Property</th>
+                                                            <th>Value</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Okta API Key</td>
+                                                            <td>Read-only administrator API key generated during prerequisite steps</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><code>BaseUrl</code>
+                                                            </td>
+                                                            <td>Your Okta org domain, example: <code>https://oktaorg.okta.com</code></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><code>OktaClaimProviderDisplayName</code>
+                                                            </td>
+                                                            <td>Set to Okta by default. Can be set to a different value if you prefer a different display name for the Okta People Picker</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><code>MapUpnToWindowsUser</code>
+                                                            </td>
+                                                            <td>Configuration flag to enable or disable C2WTS protocol translation</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><code>UniqueUserIdentifierClaimType</code>
+                                                            </td>
+                                                            <td>
+                                                                <p>To define the unique user identifier claim. Identifier claim type on the Okta trusted token issuer must be unique and immutable, and must match the <code>UniqueUserIdentifierClaimType</code>. Set to <code>Email</code> or <code>UserName</code>, depending on what you want to use as identifier claim.</p>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <p>&#160;</p>
+                                                <h3>2. Run the appropriate commands</h3>
+                                                <p>Replace the variables below with the appropriate values as defined above and enter the following commands.</p>
+                                                <div class="noteOkta">
+                                                    <img src="../../../../Resources/Images/assets/Icons/Notes/icon-lightbulb.png" class="noteImgFloat" title="Tip" alt="Tip" />
+                                                    <p class="noteHeading">Tip</p>
+                                                    <p class="noteContent">Type in the commands rather than copy and paste.</p>
+                                                </div>
+                                                <p>&#160;</p>
+                                                <ol>
+                                                    <li value="1">
+                                                        <p>Enter the following command to update the farm properties.</p>
+                                                        <p id="code">$farm = Get-SPFarm</p>
+                                                        <p id="code">$farm.Properties["OktaApiKey"] = "OktaAPIKey"</p>
+                                                        <p id="code">$farm.Properties["OktaBaseUrl"] = "https://oktaorg.okta.com""</p>
+                                                        <p id="code">$farm.Properties["OktaLoginProviderName"] = "Okta"</p>
+                                                        <p id="code">$farm.Properties["OktaClaimProviderDisplayName"] = "Okta"</p>
+                                                    </li>
+                                                    <p>&#160;</p>
+                                                    <li value="2">
+                                                        <p><b>Optional</b>: If you are enabling C2WTS, execute the following command. If not, go to the next step.</p>
+                                                        <p id="code">$farm.Properties["MapUpnToWindowsUser"] = $true</p>
+                                                    </li>
+                                                    <p>&#160;</p>
+                                                    <li value="3">
+                                                        <p>To specify <code>UniqueUserIdentifierClaimType</code> execute one of the following command.</p>
+                                                        <p id="code">$farm.Properties["UniqueUserIdentifierClaimType"] = "Email"</p>
+                                                        <p>OR</p>
+                                                        <p id="code">$farm.Properties["UniqueUserIdentifierClaimType"] = "UserName"</p>
+                                                    </li>
+                                                    <p>&#160;</p>
+                                                    <li value="4">
+                                                        <p>Enter the following command to update the farm values.</p>
+                                                        <p id="code">$farm.Update()</p>
+                                                    </li>
+                                                </ol>
+                                                <p>&#160;</p>
+                                                <h3>3. Configure search scope values</h3>
+                                                <p>You must also set several configuration values in the SharePoint web application for the Okta People Picker to use search scope.</p>
+                                                <p>&#160;</p>
+                                                <p id="code">$webApplication = Get-SPWebApplication</p>
+                                                <p id="code">$ webApplication.Properties["UserSearchScope"] = "OKTA"</p>
+                                                <p>OR</p>
+                                                <p id="code">$ webApplication.Properties["UserSearchScope"] = "APP"</p>
+                                                <p id="code">$ webApplication.Properties["UserSearchScopeAppId"] = "{AppID}"  //app instance id in Okta org</p>
+                                                <p id="code">$webApplication.Update();</p>
+                                                <p>&#160;</p>
+                                                <div class="noteOkta">
+                                                    <img src="../../../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Important Note" alt="Important Note" />
+                                                    <p class="noteHeading">Important</p>
                                                     <ul>
-                                                        <li value="1">User account that has permissions to modify the SharePoint farm</li>
-                                                        <li value="2">
-                                                            <p>SharePoint Management Shell or SharePoint PowerShell snap-in to run PowerShell commands. Add the required snap-in to an existing PowerShell prompt by entering the following the command:</p>
-                                                            <p id="code">Add-PSSnapIn Microsoft.Sharepoint.Powershell</p>
-                                                        </li>
+                                                        <li value="1">When App ID is not provided or is invalid, <code>UserSearchScope</code> fallback to using OKTA (org level search) as search scope.</li>
+                                                        <li value="2">People Picker does not verify if the App ID specified belongs to an app instance WS-Federated with this SharePoint web application. The verification must be done manually.</li>
                                                     </ul>
-                                                    <h2>Procedure</h2>
-                                                    <h3>1. Set configuration values in SharePoint farm</h3>
-                                                    <p>You need to set several configuration values in the SharePoint farm to install the Okta People Picker. These values are used to configure People Picker functionality and define the Okta org that you are integrating with this SharePoint environment.</p>
-                                                    <table style="width: 100%;">
-                                                        <col />
-                                                        <col />
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Property</th>
-                                                                <th>Value</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>Okta API Key</td>
-                                                                <td>Read-only administrator API key generated during prerequisite steps</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><code>BaseUrl</code>
-                                                                </td>
-                                                                <td>Your Okta org domain, example: <code>https://oktaorg.okta.com</code></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><code>OktaClaimProviderDisplayName</code>
-                                                                </td>
-                                                                <td>Set to Okta by default. Can be set to a different value if you prefer a different display name for the Okta People Picker</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><code>MapUpnToWindowsUser</code>
-                                                                </td>
-                                                                <td>Configuration flag to enable or disable C2WTS protocol translation</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><code>UniqueUserIdentifierClaimType</code>
-                                                                </td>
-                                                                <td>
-                                                                    <p>To define the unique user identifier claim. Identifier claim type on the Okta trusted token issuer must be unique and immutable, and must match the <code>UniqueUserIdentifierClaimType</code>. Set to <code>Email</code> or <code>UserName</code>, depending on what you want to use as identifier claim.</p>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <p>&#160;</p>
-                                                    <h3>2. Run the appropriate commands</h3>
-                                                    <p>Replace the variables below with the appropriate values as defined above and enter the following commands.</p>
-                                                    <div class="noteOkta">
-                                                        <img src="../../../../Resources/Images/assets/Icons/Notes/icon-lightbulb.png" class="noteImgFloat" title="Tip" alt="Tip" />
-                                                        <p class="noteHeading">Tip</p>
-                                                        <p class="noteContent">Type in the commands rather than copy and paste.</p>
-                                                    </div>
-                                                    <p>&#160;</p>
-                                                    <ol>
-                                                        <li value="1">
-                                                            <p>Enter the following command to update the farm properties.</p>
-                                                            <p id="code">$farm = Get-SPFarm</p>
-                                                            <p id="code">$farm.Properties["OktaApiKey"] = "OktaAPIKey"</p>
-                                                            <p id="code">$farm.Properties["OktaBaseUrl"] = "https://oktaorg.okta.com""</p>
-                                                            <p id="code">$farm.Properties["OktaLoginProviderName"] = "Okta"</p>
-                                                            <p id="code">$farm.Properties["OktaClaimProviderDisplayName"] = "Okta"</p>
-                                                        </li>
-                                                        <p>&#160;</p>
-                                                        <li value="2">
-                                                            <p><b>Optional</b>: If you are enabling C2WTS, execute the following command. If not, go to the next step.</p>
-                                                            <p id="code">$farm.Properties["MapUpnToWindowsUser"] = $true</p>
-                                                        </li>
-                                                        <p>&#160;</p>
-                                                        <li value="3">
-                                                            <p>To specify <code>UniqueUserIdentifierClaimType</code> execute one of the following command.</p>
-                                                            <p id="code">$farm.Properties["UniqueUserIdentifierClaimType"] = "Email"</p>
-                                                            <p>OR</p>
-                                                            <p id="code">$farm.Properties["UniqueUserIdentifierClaimType"] = "UserName"</p>
-                                                        </li>
-                                                        <p>&#160;</p>
-                                                        <li value="4">
-                                                            <p>Enter the following command to update the farm values.</p>
-                                                            <p id="code">$farm.Update()</p>
-                                                        </li>
-                                                    </ol>
-                                                    <p>&#160;</p>
-                                                    <h3>3. Configure search scope values</h3>
-                                                    <p>You must also set several configuration values in the SharePoint web application for the Okta People Picker to use search scope.</p>
-                                                    <p>&#160;</p>
-                                                    <p id="code">$webApplication = Get-SPWebApplication</p>
-                                                    <p id="code">$ webApplication.Properties["UserSearchScope"] = "OKTA"</p>
-                                                    <p>OR</p>
-                                                    <p id="code">$ webApplication.Properties["UserSearchScope"] = "APP"</p>
-                                                    <p id="code">$ webApplication.Properties["UserSearchScopeAppId"] = "{AppID}"  //app instance id in Okta org</p>
-                                                    <p id="code">$webApplication.Update();</p>
-                                                    <p>&#160;</p>
-                                                    <div class="noteOkta">
-                                                        <img src="../../../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Important Note" alt="Important Note" />
-                                                        <p class="noteHeading">Important</p>
-                                                        <ul>
-                                                            <li value="1">When App ID is not provided or is invalid, <code>UserSearchScope</code> fallback to using OKTA (org level search) as search scope.</li>
-                                                            <li value="2">People Picker does not verify if the App ID specified belongs to an app instance WS-Federated with this SharePoint web application. The verification must be done manually.</li>
-                                                        </ul>
-                                                    </div>
-                                                    <p>&#160;</p>
-                                                    <p>When you have multiple web applications in the same farm, make sure to check the value of <code>$webApplication</code> before setting the properties, so that you can set value on the proper web application you need.</p>
-                                                    <p>&#160;</p>
-                                                    <h4>Example: Set <code>UserSearchScope</code> and <code>UserSearchScopeAppId</code> for <code>$webApplication[1]</code></h4>
-                                                    <p>&#160;</p>
-                                                    <p id="code">PS C:\Users\administrator.SP10&gt; $w[1].properties</p>
-                                                    <table style="width: 100%;">
-                                                        <col />
-                                                        <col />
-                                                        <tbody>
-                                                            <tr>
-                                                                <td id="code">Name</td>
-                                                                <td id="code">Value</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td id="code">------</td>
-                                                                <td id="code">------</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <p id="code">UserSearchScope                       </p>
-                                                                </td>
-                                                                <td id="code">OKTA</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <p id="code">UserSearchScopeAppID</p>
-                                                                </td>
-                                                                <td>
-                                                                    <p id="code">               0oalx5qLAHqqLVtNv0w4</p>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <p id="code"><![CDATA[                                  ]]></p>
-                                                    <p id="code">PS C:\Users\administrator.SP10&gt; $w[1].properties["UserSearchScope"] = "APP"</p>
-                                                    <p id="code">&#160;</p>
-                                                    <p id="code">PS C:\Users\administrator.SP10&gt; $w[1].properties["UserSearchScopeAppID"] = "0oalx5qLAHqqLVtNv0w4"</p>
-                                                    <p id="code">&#160;</p>
-                                                    <p id="code">PS C:\Users\administrator.SP10&gt; $w[1].properties</p>
-                                                    <p id="code">&#160;</p>
-                                                    <table style="width: 100%;">
-                                                        <col />
-                                                        <col />
-                                                        <tbody>
-                                                            <tr>
-                                                                <td id="code">Name</td>
-                                                                <td id="code">Value</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td id="code">------</td>
-                                                                <td id="code">------</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <p id="code">UserSearchScope                       </p>
-                                                                </td>
-                                                                <td id="code">APP</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <p id="code">UserSearchScopeAppID</p>
-                                                                </td>
-                                                                <td>
-                                                                    <p id="code">                  0oalx5qLAHqqLVtNv0w4</p>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <p id="code">&#160;</p>
-                                                    <p id="code">PS C:\Users\administrator.SP10&gt; $w[1].update()</p>
-                                                    <p>&#160;</p>
-                                                    <h3>4. Optional: Filter Active Directory imports</h3>
-                                                    <p>Okta People Picker shows users imported from Active Directory twice: as an Okta user and as an AD-domain user. You have the ability to see and manage only the original AD users. You can also specify that certain domains retain the original behavior. Enabling this feature requires setting certain <code>$farm</code> object properties in SharePoint.</p>
-                                                    <p>If you import from Active Directory, you can take advantage of the People Picker Active Directory filtering option, which allows for filtering AD imports.</p>
-                                                    <p>To enable this feature, use the following properties:</p>
-                                                    <p id="code">$farm = Get-SPFarm</p>
-                                                    <p id="code">$farm.Properties["FilterActiveDirectoryClaims"] = $true</p>
-                                                    <p id="code">$farm.Properties["AllowedActiveDirectoryDomains"] = "foo.com", "bar.com"</p>
-                                                    <p id="code">$farm.Update()</p>
-                                                    <p>&#160;</p>
-                                                    <div class="noteOkta">
-                                                        <img src="../../../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Info" alt="Info" />
-                                                        <p class="noteHeading">Note</p>
-                                                        <p class="noteContent">Active Directory domain filtering is only available with OKTA search scope.</p>
-                                                    </div>
+                                                </div>
+                                                <p>&#160;</p>
+                                                <p>When you have multiple web applications in the same farm, make sure to check the value of <code>$webApplication</code> before setting the properties, so that you can set value on the proper web application you need.</p>
+                                                <p>&#160;</p>
+                                                <h4>Example: Set <code>UserSearchScope</code> and <code>UserSearchScopeAppId</code> for <code>$webApplication[1]</code></h4>
+                                                <p>&#160;</p>
+                                                <p id="code">PS C:\Users\administrator.SP10&gt; $w[1].properties</p>
+                                                <table style="width: 100%;">
+                                                    <col />
+                                                    <col />
+                                                    <tbody>
+                                                        <tr>
+                                                            <td id="code">Name</td>
+                                                            <td id="code">Value</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td id="code">------</td>
+                                                            <td id="code">------</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <p id="code">UserSearchScope                       </p>
+                                                            </td>
+                                                            <td id="code">OKTA</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <p id="code">UserSearchScopeAppID</p>
+                                                            </td>
+                                                            <td>
+                                                                <p id="code">               0oalx5qLAHqqLVtNv0w4</p>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <p id="code"><![CDATA[                                  ]]></p>
+                                                <p id="code">PS C:\Users\administrator.SP10&gt; $w[1].properties["UserSearchScope"] = "APP"</p>
+                                                <p id="code">&#160;</p>
+                                                <p id="code">PS C:\Users\administrator.SP10&gt; $w[1].properties["UserSearchScopeAppID"] = "0oalx5qLAHqqLVtNv0w4"</p>
+                                                <p id="code">&#160;</p>
+                                                <p id="code">PS C:\Users\administrator.SP10&gt; $w[1].properties</p>
+                                                <p id="code">&#160;</p>
+                                                <table style="width: 100%;">
+                                                    <col />
+                                                    <col />
+                                                    <tbody>
+                                                        <tr>
+                                                            <td id="code">Name</td>
+                                                            <td id="code">Value</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td id="code">------</td>
+                                                            <td id="code">------</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <p id="code">UserSearchScope                       </p>
+                                                            </td>
+                                                            <td id="code">APP</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <p id="code">UserSearchScopeAppID</p>
+                                                            </td>
+                                                            <td>
+                                                                <p id="code">                  0oalx5qLAHqqLVtNv0w4</p>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <p id="code">&#160;</p>
+                                                <p id="code">PS C:\Users\administrator.SP10&gt; $w[1].update()</p>
+                                                <p>&#160;</p>
+                                                <h3>4. Optional: Filter Active Directory imports</h3>
+                                                <p>Okta People Picker shows users imported from Active Directory twice: as an Okta user and as an AD-domain user. You have the ability to see and manage only the original AD users. You can also specify that certain domains retain the original behavior. Enabling this feature requires setting certain <code>$farm</code> object properties in SharePoint.</p>
+                                                <p>If you import from Active Directory, you can take advantage of the People Picker Active Directory filtering option, which allows for filtering AD imports.</p>
+                                                <p>To enable this feature, use the following properties:</p>
+                                                <p id="code">$farm = Get-SPFarm</p>
+                                                <p id="code">$farm.Properties["FilterActiveDirectoryClaims"] = $true</p>
+                                                <p id="code">$farm.Properties["AllowedActiveDirectoryDomains"] = "foo.com", "bar.com"</p>
+                                                <p id="code">$farm.Update()</p>
+                                                <p>&#160;</p>
+                                                <div class="noteOkta">
+                                                    <img src="../../../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Info" alt="Info" />
+                                                    <p class="noteHeading">Note</p>
+                                                    <p class="noteContent">Active Directory domain filtering is only available with OKTA search scope.</p>
                                                 </div>
                                                 <!-- Back to Top button --><a href="#" class="sf-back-to-top"><span class="arrow"></span>Top</a>
                                             </div>
@@ -575,7 +558,7 @@
                                     <script src="../../../../Resources/Scripts/coveo-resources/js/Coveo.MadcapFlare.Okta.js" id="coveoInitscript" defer="defer">
                                     </script>
                                 </div>
-                            </div>
+                            </main>
                         </div>
                     </div><a data-close="true"></a>
                 </div>

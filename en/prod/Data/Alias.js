@@ -565,13 +565,9 @@ xmlAliasData += '    <Map Name=\"ext-asana-method-createuser\" Link=\"Topics/Wor
 xmlAliasData += '    <Map Name=\"ext-asana-method-deactivateuser\" Link=\"Topics/Workflows/connector-reference/asana/actions/deactivateuser.htm\" ResolvedId=\"30016\" />';
 xmlAliasData += '    <Map Name=\"ext-asana-method-httprequest\" Link=\"Topics/Workflows/connector-reference/asana/actions/httprequest.htm\" ResolvedId=\"30017\" />';
 xmlAliasData += '    <Map Name=\"ext-asana-method-listtasks\" Link=\"Topics/Workflows/connector-reference/asana/actions/listtasks.htm\" ResolvedId=\"30018\" />';
-xmlAliasData += '    <Map Name=\"ext-asana-method-readuser\" Link=\"Topics/Workflows/connector-reference/asana/actions/readuser.htm\" ResolvedId=\"30022\" />';
-xmlAliasData += '    <Map Name=\"ext-asana-method-readusertasks\" Link=\"Topics/Workflows/connector-reference/asana/actions/readusertasks.htm\" ResolvedId=\"30023\" />';
 xmlAliasData += '    <Map Name=\"ext-asana-method-removeuserfromteam\" Link=\"Topics/Workflows/connector-reference/asana/actions/removeuserfromteam.htm\" ResolvedId=\"30024\" />';
 xmlAliasData += '    <Map Name=\"ext-asana-method-removeusersfromproject\" Link=\"Topics/Workflows/connector-reference/asana/actions/removeusersfromproject.htm\" ResolvedId=\"30025\" />';
-xmlAliasData += '    <Map Name=\"ext-asana-method-searchusers\" Link=\"Topics/Workflows/connector-reference/asana/actions/searchusers.htm\" ResolvedId=\"30029\" />';
 xmlAliasData += '    <Map Name=\"ext-asana-method-updateuser\" Link=\"Topics/Workflows/connector-reference/asana/actions/updateuser.htm\" ResolvedId=\"30032\" />';
-xmlAliasData += '    <Map Name=\"ext-asana-misc-authorization\" Link=\"Topics/Workflows/connector-reference/asana/overviews/authorization.htm\" ResolvedId=\"30033\" />';
 xmlAliasData += '    <Map Name=\"ext-atlassianadmin\" Link=\"Topics/Workflows/connector-reference/atlassianadmin/atlassianadmin.htm\" ResolvedId=\"30034\" />';
 xmlAliasData += '    <Map Name=\"ext-atlassianadmin-method-addusertogroup\" Link=\"Topics/Workflows/connector-reference/atlassianadmin/actions/addusertogroup.htm\" ResolvedId=\"30035\" />';
 xmlAliasData += '    <Map Name=\"ext-atlassianadmin-method-creategroup\" Link=\"Topics/Workflows/connector-reference/atlassianadmin/actions/creategroup.htm\" ResolvedId=\"30036\" />';
