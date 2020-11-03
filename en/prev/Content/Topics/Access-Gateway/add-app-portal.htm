@@ -109,6 +109,11 @@
                         <nav class="title-bar tab-bar sticky" data-sticky="" data-options="marginTop:0" style="width:100%" data-sticky-on="only screen and (max-width: 1024px)" data-mc-ignore="true"><a class="skip-to-content fluid-skip showOnFocus" href="#">Skip To Main Content</a>
                             <div class="middle title-bar-section outer-row clearfix">
                                 <div class="menu-icon-container relative clearfix">
+                                    <div class="central-dropdown" style="display:none;" id="#centralSmallScreen"><a class="central-account-drop"><span class="central-account-image"></span><span class="central-account-text">Account</span></a>
+                                        <div class="central-dropdown-content"><a class="MCCentralLink central-dropdown-content-settings">Settings</a>
+                                            <hr class="central-separator" /><a class="MCCentralLink central-dropdown-content-logout">Logout</a>
+                                        </div>
+                                    </div>
                                     <button class="menu-icon" aria-label="Show Navigation Panel" data-toggle="offCanvas"><span></span>
                                     </button>
                                 </div>
@@ -121,6 +126,11 @@
                                         <li class="placeholder" style="visibility:hidden"><a>placeholder</a>
                                         </li>
                                     </ul>
+                                    <div class="central-dropdown" style="display:none;" id="#centralTop"><a class="central-account-drop"><span class="central-account-image"></span><span class="central-account-text">Account</span></a>
+                                        <div class="central-dropdown-content"><a class="MCCentralLink central-dropdown-content-settings">Settings</a>
+                                            <hr class="central-separator" /><a class="MCCentralLink central-dropdown-content-logout">Logout</a>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="nav-search-wrapper">
                                     <div class="nav-search row">
@@ -146,6 +156,11 @@
                                             </div>
                                         </form>
                                     </div>
+                                    <div class="central-dropdown" style="display:none;"><a class="central-account-drop"><span class="central-account-image"></span><span class="central-account-text">Account</span></a>
+                                        <div class="central-dropdown-content"><a class="MCCentralLink central-dropdown-content-settings">Settings</a>
+                                            <hr class="central-separator" /><a class="MCCentralLink central-dropdown-content-logout">Logout</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </nav>
@@ -158,7 +173,7 @@
                                     </ul>
                                 </div>
                             </nav>
-                            <main id="main" class="body-container">
+                            <div class="body-container">
                                 <div data-mc-content-body="True">
                                     <!-- Google Tag Manager (noscript) -->
                                     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KXMLV58" height="0" width="0" style="display:none;visibility:hidden"></iframe>
@@ -279,107 +294,109 @@
                                             </div>
                                             <div class="body-main">
                                                 <!-- Main content body -->
-                                                <h1>Add portal application</h1>
-                                                <p><span class="okta-feature-namesAccess Gateway">Access Gateway</span> applications can use policy and specialized policy configuration to create portal applications. In a portal some, or the bulk of traffic, is handled by a single back end, but other traffic is routed to specific back ends based on access policy and URI requests.<br /><br />This guide details how to configure a header based application to route traffic to different back ends based on specific URI requests.</p>
-                                                <h2>Architecture</h2>
-                                                <p>
-                                                    <img src="../../Resources/Images/access-gateway/add-app-portal-add-arch.png" />
-                                                    <br />In this architecture an end user 
+                                                <div role="main" id="mc-main-content">
+                                                    <h1>Add portal application</h1>
+                                                    <p><span class="okta-feature-namesAccess Gateway">Access Gateway</span> applications can use policy and specialized policy configuration to create portal applications. In a portal some, or the bulk of traffic, is handled by a single back end, but other traffic is routed to specific back ends based on access policy and URI requests.<br /><br />This guide details how to configure a header based application to route traffic to different back ends based on specific URI requests.</p>
+                                                    <h2>Architecture</h2>
+                                                    <p>
+                                                        <img src="../../Resources/Images/access-gateway/add-app-portal-add-arch.png" />
+                                                        <br />In this architecture an end user 
         requests a resource which is composed of the core URL, in this example <span style="font-family: 'Courier New';">www.myportal.com</span>, and specific resources, everything to the right of the <span style="font-family: 'Courier New';">/</span>. <span class="okta-feature-namesAccess Gateway">Access Gateway</span>, using policy and additional configuration, then routes requests to one of several back ends. In this example any requests of the form <span style="font-family: 'Courier New';">www.myportal.com/2nd</span> would be routed to <span style="font-family: 'Courier New';">2ndbackend.myportal.com</span>. Likewise, requests of type <span style="font-family: 'Courier New';">www.myportal.com/3rd</span> to <span style="font-family: 'Courier New';">3rdbackend.myportal.com</span> and all others to <span style="font-family: 'Courier New';">backend.myportal.com</span>. This guide will take you through the configuration of the header application and associated resources to configure such a portal application.</p>
-                                                <h2><a name="Before"></a>Before you begin</h2>
-                                                <ul>
-                                                    <li value="1">Determine the external URL used by the application, in this example <span style="font-family: 'Courier New';">www.myportal.com</span></li>
-                                                    <li value="2">Determine the universe of possible URIs, and their associated back ends. <br />In this example:<br /> <span style="font-family: 'Courier New';">www.myportal.com/2nd</span> &gt; <span style="font-family: 'Courier New';">2ndbackend.myportal.com</span>.<br /><span style="font-family: 'Courier New';">www.myportal.com/3rd</span> &gt; <span style="font-family: 'Courier New';">3rdbackend.myportal.com</span>.<br /> And all others to <span style="font-family: 'Courier New';">backend.myportal.com</span>. </li>
-                                                    <li value="3">Determine all required header attributes required for authentication.</li>
-                                                </ul>
-                                                <h2><a name="Tasks"></a>Typical workflow</h2>
-                                                <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
-                                                    <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
-                                                    <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
-                                                    <thead>
-                                                        <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
-                                                            <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
-                                                                <p><span style="font-family: 'Proxima Nova';">Task</span>
-                                                                </p>
-                                                            </th>
-                                                            <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">
-                                                                <p><span style="font-family: 'Proxima Nova';"><span style="font-family: 'Proxima Nova';">Description</span></span>
-                                                                </p>
-                                                            </th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
-                                                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><a href="add-app-portal-group.htm">Create a containing group</a>
-                                                            </td>
-                                                            <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
-                                                                <ul>
-                                                                    <li value="1">Best practice, create an optional group to be assigned to the application. </li>
-                                                                </ul>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
-                                                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><a href="add-app-portal-create.htm">Create header application</a>
-                                                            </td>
-                                                            <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
-                                                                <ul>
-                                                                    <li value="1">Create a header application which defaults to the shared common back end. </li>
-                                                                </ul>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
-                                                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><a href="add-app-portal-cert.htm" class="MCXref xref">Assign certificate to a portal application</a>
-                                                            </td>
-                                                            <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
-                                                                <ul>
-                                                                    <li value="1">Assign an optional certificate to the application.</li>
-                                                                </ul>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
-                                                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><a href="add-app-portal-attributes.htm" class="MCXref xref">Add additional attributes</a>
-                                                            </td>
-                                                            <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
-                                                                <ul>
-                                                                    <li value="1">Add optional, but often necessary, additional attributes to the application.</li>
-                                                                </ul>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
-                                                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><a href="add-app-portal-policy.htm">Add required access policy</a>
-                                                            </td>
-                                                            <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
-                                                                <ul>
-                                                                    <li value="1">Add all required policy for all serviced URIs</li>
-                                                                </ul>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
-                                                            <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2"><a href="add-app-portal-test.htm">Test the application</a>
-                                                            </td>
-                                                            <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">
-                                                                <ul>
-                                                                    <li value="1">Test the application using header and policy simulation.</li>
-                                                                </ul>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                                <div>
-                                                    <h2><a name="Next_Steps"></a>Related topics</h2>
+                                                    <h2><a name="Before"></a>Before you begin</h2>
                                                     <ul>
-                                                        <li value="1">See <a href="admin-app-types.htm"><span class="okta-feature-namesAccess Gateway">Access Gateway</span> supported application and version information</a> for details of supported application and version information. </li>
-                                                        <li value="2">See <a href="add-generic-header-app.htm" class="MCXref xref">Add a generic header application</a>.</li>
-                                                        <li value="3">See <a href="add-sample-header-app-okta.htm" class="MCXref xref">Add a sample header application</a>.</li>
-                                                        <li value="4">See <a href="add-sample-policy-app-okta.htm" class="MCXref xref">Add a sample policy application</a>.</li>
-                                                        <li value="5">See <a href="troubleshoot-application.htm" class="MCXref xref">Troubleshoot applications</a>.</li>
-                                                        <li value="6">Add or review application essential settings. See <a href="about-application-essentials.htm" class="MCXref xref">About application essentials</a> and <a href="managing-application-essentials.htm" class="MCXref xref">Manage application essentials</a>.</li>
-                                                        <li value="7">Add application behaviors. See <a href="about-application-behaviors.htm" class="MCXref xref">About application behaviors</a>.</li>
-                                                        <li value="8">Add fine grained policy to further protect resources. See <a href="about-application-policy.htm" class="MCXref xref">About application policy</a> and <a href="managing-application-policy.htm" class="MCXref xref">Manage access control application policy </a>for an overview on user policy and for examples respectively.</li>
-                                                        <li value="9">Extend existing policy using custom configuration. See <a href="advanced-oag-policy.htm" class="MCXref xref">Advanced Access Gateway policy</a>.</li>
-                                                        <li value="10">Associate a certificate with this application. See <a href="manage-certificates.htm" class="MCXref xref">Manage certificates</a>.</li>
-                                                        <li value="11">Add supplemental database or LDAP based data stores.&#160;See <a href="admin-settings-datastores-administer.htm" class="MCXref xref">Administer data stores</a>.</li>
+                                                        <li value="1">Determine the external URL used by the application, in this example <span style="font-family: 'Courier New';">www.myportal.com</span></li>
+                                                        <li value="2">Determine the universe of possible URIs, and their associated back ends. <br />In this example:<br /> <span style="font-family: 'Courier New';">www.myportal.com/2nd</span> &gt; <span style="font-family: 'Courier New';">2ndbackend.myportal.com</span>.<br /><span style="font-family: 'Courier New';">www.myportal.com/3rd</span> &gt; <span style="font-family: 'Courier New';">3rdbackend.myportal.com</span>.<br /> And all others to <span style="font-family: 'Courier New';">backend.myportal.com</span>. </li>
+                                                        <li value="3">Determine all required header attributes required for authentication.</li>
                                                     </ul>
+                                                    <h2><a name="Tasks"></a>Typical workflow</h2>
+                                                    <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+                                                        <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                        <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                        <thead>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                                                                <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                                                                    <p><span style="font-family: 'Proxima Nova';">Task</span>
+                                                                    </p>
+                                                                </th>
+                                                                <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">
+                                                                    <p><span style="font-family: 'Proxima Nova';"><span style="font-family: 'Proxima Nova';">Description</span></span>
+                                                                    </p>
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><a href="add-app-portal-group.htm">Create a containing group</a>
+                                                                </td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                                                                    <ul>
+                                                                        <li value="1">Best practice, create an optional group to be assigned to the application. </li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><a href="add-app-portal-create.htm">Create header application</a>
+                                                                </td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
+                                                                    <ul>
+                                                                        <li value="1">Create a header application which defaults to the shared common back end. </li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><a href="add-app-portal-cert.htm" class="MCXref xref">Assign certificate to a portal application</a>
+                                                                </td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                                                                    <ul>
+                                                                        <li value="1">Assign an optional certificate to the application.</li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><a href="add-app-portal-attributes.htm" class="MCXref xref">Add additional attributes</a>
+                                                                </td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
+                                                                    <ul>
+                                                                        <li value="1">Add optional, but often necessary, additional attributes to the application.</li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><a href="add-app-portal-policy.htm">Add required access policy</a>
+                                                                </td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                                                                    <ul>
+                                                                        <li value="1">Add all required policy for all serviced URIs</li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2"><a href="add-app-portal-test.htm">Test the application</a>
+                                                                </td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">
+                                                                    <ul>
+                                                                        <li value="1">Test the application using header and policy simulation.</li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <div>
+                                                        <h2><a name="Next_Steps"></a>Related topics</h2>
+                                                        <ul>
+                                                            <li value="1">See <a href="admin-app-types.htm"><span class="okta-feature-namesAccess Gateway">Access Gateway</span> supported application and version information</a> for details of supported application and version information. </li>
+                                                            <li value="2">See <a href="add-generic-header-app.htm" class="MCXref xref">Add a generic header application</a>.</li>
+                                                            <li value="3">See <a href="add-sample-header-app-okta.htm" class="MCXref xref">Add a sample header application</a>.</li>
+                                                            <li value="4">See <a href="add-sample-policy-app-okta.htm" class="MCXref xref">Add a sample policy application</a>.</li>
+                                                            <li value="5">See <a href="troubleshoot-application.htm" class="MCXref xref">Troubleshoot applications</a>.</li>
+                                                            <li value="6">Add or review application essential settings. See <a href="about-application-essentials.htm" class="MCXref xref">About application essentials</a> and <a href="managing-application-essentials.htm" class="MCXref xref">Manage application essentials</a>.</li>
+                                                            <li value="7">Add application behaviors. See <a href="about-application-behaviors.htm" class="MCXref xref">About application behaviors</a>.</li>
+                                                            <li value="8">Add fine grained policy to further protect resources. See <a href="about-application-policy.htm" class="MCXref xref">About application policy</a> and <a href="managing-application-policy.htm" class="MCXref xref">Manage access control application policy </a>for an overview on user policy and for examples respectively.</li>
+                                                            <li value="9">Extend existing policy using custom configuration. See <a href="advanced-oag-policy.htm" class="MCXref xref">Advanced Access Gateway policy</a>.</li>
+                                                            <li value="10">Associate a certificate with this application. See <a href="manage-certificates.htm" class="MCXref xref">Manage certificates</a>.</li>
+                                                            <li value="11">Add supplemental database or LDAP based data stores.&#160;See <a href="admin-settings-datastores-administer.htm" class="MCXref xref">Administer data stores</a>.</li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
                                                 <!-- Back to Top button --><a href="#" class="sf-back-to-top"><span class="arrow"></span>Top</a>
                                             </div>
@@ -469,7 +486,7 @@
                                     <script src="../../Resources/Scripts/coveo-resources/js/Coveo.MadcapFlare.Okta.js" id="coveoInitscript" defer="defer">
                                     </script>
                                 </div>
-                            </main>
+                            </div>
                         </div>
                     </div><a data-close="true"></a>
                 </div>
