@@ -301,6 +301,7 @@ xmlAliasData += '    <Map Name=\"csh_FIDO2_WebAuthn\" Link=\"Topics/Security/MFA
 xmlAliasData += '    <Map Name=\"csh_dirintmain\" Link=\"Topics/Directory/directory-integrations-main.htm\" ResolvedId=\"1113\" />';
 xmlAliasData += '    <Map Name=\"csh_superadmin\" Link=\"Topics/Security/administrators-assign-admins.htm\" ResolvedId=\"1114\" />';
 xmlAliasData += '    <Map Name=\"csh_mfa\" Link=\"Topics/Security/MFA.htm\" ResolvedId=\"1115\" />';
+xmlAliasData += '    <Map Name=\"csh_threat_insight\" Link=\"Topics/Security/threat-insight/ti-index.htm\" ResolvedId=\"1116\" />';
 xmlAliasData += '    <Map Name=\"ext_ad_importusers\" Link=\"Topics/Directory/ad-agent-manage-users-groups.htm\" ResolvedId=\"1117\" />';
 xmlAliasData += '    <Map Name=\"ext_end_user_states\" Link=\"Topics/users-groups-profiles/usgp-end-user-states.htm\" ResolvedId=\"1118\" />';
 xmlAliasData += '    <Map Name=\"ext_csv_import\" Link=\"Topics/users-groups-profiles/usgp-import-users-csv.htm\" ResolvedId=\"1119\" />';
@@ -355,6 +356,8 @@ xmlAliasData += '    <Map Name=\"ext_okta_verify\" Link=\"Topics/Mobile/okta-ver
 xmlAliasData += '    <Map Name=\"csh-suspicious-activity-reporting\" Link=\"Topics/Security/suspicious-activity-reporting.htm\" ResolvedId=\"1177\" />';
 xmlAliasData += '    <Map Name=\"csh_eDirectory\" Link=\"Topics/Directory/ldap-agent-manage-integration.htm\" ResolvedId=\"1178\" />';
 xmlAliasData += '    <Map Name=\"csh-security-health-check\" Link=\"Topics/Security/healthinsight/healthinsight.htm\" ResolvedId=\"1193\" />';
+xmlAliasData += '    <Map Name=\"csh-threat-insight\" Link=\"Topics/Security/threat-insight/ti-index.htm\" ResolvedId=\"1192\" />';
+xmlAliasData += '    <Map Name=\"ext_threatinsight\" Link=\"Topics/Security/threat-insight/ti-index.htm\" ResolvedId=\"1195\" />';
 xmlAliasData += '    <Map Name=\"ext_asa\" Link=\"Topics/Adv_Server_Access/docs/setup/getting-started.htm\" ResolvedId=\"1196\" />';
 xmlAliasData += '    <Map Name=\"ext_advars\" Link=\"Topics/Directory/ad-agent-appsettings.htm\" ResolvedId=\"1197\" />';
 xmlAliasData += '    <Map Name=\"ext_googletrbl\" Link=\"Topics/Provisioning/Google/troubleshooting.htm\" ResolvedId=\"1198\" />';
@@ -440,6 +443,7 @@ xmlAliasData += '    <Map Name=\"ext_integrate_Rally\" Link=\"Topics/Provisionin
 xmlAliasData += '    <Map Name=\"ext_integrate_RingCentral\" Link=\"Topics/Provisioning/RingCentral/rngc-main.htm\" ResolvedId=\"1280\" />';
 xmlAliasData += '    <Map Name=\"ext-ad-agent-domain-rename\" Link=\"Topics/Directory/ad-agent-rename-domain-name.htm\" ResolvedId=\"1281\" />';
 xmlAliasData += '    <Map Name=\"csh-OPP\" Link=\"Topics/Provisioning/opp/OPP-main.htm\" ResolvedId=\"1282\" />';
+xmlAliasData += '    <Map Name=\"csh-ad-import-settings\" Link=\"Topics/Directory/ad-agent-configure-import.htm\" ResolvedId=\"1283\" />';
 xmlAliasData += '    <Map Name=\"csh-blacklist-proxies-tor\" Link=\"Topics/Security/healthinsight/blacklist-proxies-tor.htm\" ResolvedId=\"1284\" />';
 xmlAliasData += '    <Map Name=\"ext-ldap-get-started\" Link=\"Topics/Directory/ldap-agent-get-started.htm\" ResolvedId=\"1285\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Single_Logout\" Link=\"Topics/Apps/Apps_Single_Logout.htm\" ResolvedId=\"1286\" />';
