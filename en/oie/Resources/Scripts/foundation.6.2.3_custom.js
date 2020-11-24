@@ -1964,7 +1964,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         duration: _this.options.animationDuration,
                         easing: _this.options.animationEasing
                     };
-                $(window).one('load', function () {
+                $(function () {
                     if (_this.options.deepLinking) {
                         if (location.hash) {
                             _this.scrollToLoc(location.hash);
@@ -1972,10 +1972,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     }
                     _this.calcPoints();
                     _this._updateActive();
-                });
 
-                $(this.scrollContainer).off(scrollListener).on(scrollListener, function (e) {
-                    _this._updateActive();
+                    $(_this.scrollContainer).off(scrollListener).on(scrollListener, function (e) {
+                        _this._updateActive();
+                    });
                 });
 
                 this.$element.on({
