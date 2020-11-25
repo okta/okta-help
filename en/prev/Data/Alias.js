@@ -1031,6 +1031,7 @@ xmlAliasData += '    <Map Name=\"ext-salesforce-method-search\" Link=\"Topics/Wo
 xmlAliasData += '    <Map Name=\"ext-salesforce-method-searchleads\" Link=\"Topics/Workflows/connector-reference/salesforce2_29/actions/searchleads.htm\" ResolvedId=\"30535\" />';
 xmlAliasData += '    <Map Name=\"ext-salesforce-method-searchrecords\" Link=\"Topics/Workflows/connector-reference/salesforce2_29/actions/searchrecords.htm\" ResolvedId=\"30536\" />';
 xmlAliasData += '    <Map Name=\"ext-salesforce-method-searchusers\" Link=\"Topics/Workflows/connector-reference/salesforce2_29/actions/searchusers.htm\" ResolvedId=\"30537\" />';
+xmlAliasData += '    <Map Name=\"ext-salesforce-method-transferleads\" Link=\"Topics/Workflows/connector-reference/salesforce2_29/actions/transferleads.htm\" ResolvedId=\"30538\" />';
 xmlAliasData += '    <Map Name=\"ext-salesforce-method-unfreezeuser\" Link=\"Topics/Workflows/connector-reference/salesforce2_29/actions/unfreezeuser.htm\" ResolvedId=\"30539\" />';
 xmlAliasData += '    <Map Name=\"ext-salesforce-method-update\" Link=\"Topics/Workflows/connector-reference/salesforce2_29/actions/update.htm\" ResolvedId=\"30540\" />';
 xmlAliasData += '    <Map Name=\"ext-salesforce-method-updatecustompicklistvalue\" Link=\"Topics/Workflows/connector-reference/salesforce2_29/actions/updatecustompicklistvalue.htm\" ResolvedId=\"30541\" />';
@@ -1181,15 +1182,12 @@ xmlAliasData += '    <Map Name=\"ext-smartsheet-method-newcommentwebhook\" Link=
 xmlAliasData += '    <Map Name=\"ext-smartsheet-misc-authorization\" Link=\"Topics/Workflows/connector-reference/smartsheet/overviews/authorization.htm\" ResolvedId=\"30693\" />';
 xmlAliasData += '    <Map Name=\"ext-smartsheet-misc-errors\" Link=\"Topics/Workflows/connector-reference/smartsheet/overviews/errors.htm\" ResolvedId=\"30694\" />';
 xmlAliasData += '    <Map Name=\"ext-zendesk\" Link=\"Topics/Workflows/connector-reference/zendesk/zendesk.htm\" ResolvedId=\"30695\" />';
-xmlAliasData += '    <Map Name=\"ext-zendesk-method-addusertoorganization\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_addusertoorganization.htm\" ResolvedId=\"30696\" />';
 xmlAliasData += '    <Map Name=\"ext-zendesk-method-commentonticket\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_commentonticket.htm\" ResolvedId=\"30697\" />';
 xmlAliasData += '    <Map Name=\"ext-zendesk-method-createticket\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_createticket.htm\" ResolvedId=\"30699\" />';
 xmlAliasData += '    <Map Name=\"ext-zendesk-method-createuser\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_createuser.htm\" ResolvedId=\"30700\" />';
 xmlAliasData += '    <Map Name=\"ext-zendesk-method-httprequest\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_httprequest.htm\" ResolvedId=\"30703\" />';
-xmlAliasData += '    <Map Name=\"ext-zendesk-method-readorganization\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_readorganization.htm\" ResolvedId=\"30708\" />';
 xmlAliasData += '    <Map Name=\"ext-zendesk-method-readticket\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_readticket.htm\" ResolvedId=\"30710\" />';
 xmlAliasData += '    <Map Name=\"ext-zendesk-method-readuser\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_readuser.htm\" ResolvedId=\"30712\" />';
-xmlAliasData += '    <Map Name=\"ext-zendesk-method-removeuserfromorganization\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_removeuserfromorganization.htm\" ResolvedId=\"30713\" />';
 xmlAliasData += '    <Map Name=\"ext-zendesk-method-searchtickets\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_searchtickets.htm\" ResolvedId=\"30715\" />';
 xmlAliasData += '    <Map Name=\"ext-zendesk-method-searchusers\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_searchusers.htm\" ResolvedId=\"30716\" />';
 xmlAliasData += '    <Map Name=\"ext-zendesk-method-updateticket\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_updateticket.htm\" ResolvedId=\"30721\" />';
@@ -1399,5 +1397,7 @@ xmlAliasData += '    <Map Name=\"ext-tableid-runtime\" Link=\"Topics/Workflows/b
 xmlAliasData += '    <Map Name=\"ext-connections-page\" Link=\"Topics/Workflows/build/view-connections-page.htm\" ResolvedId=\"30295\" />';
 xmlAliasData += '    <Map Name=\"ext-docusign-main\" Link=\"Topics/Provisioning/docusign/docu-main.htm\" ResolvedId=\"15005\" />';
 xmlAliasData += '    <Map Name=\"ext-use-cases-learn-about\" Link=\"Topics/Workflows/use-cases-workflows-learn-about.htm\" ResolvedId=\"30299\" />';
+xmlAliasData += '    <Map Name=\"ext-ultipro-main\" Link=\"Topics/Provisioning/ultipro/ultipro-main.htm\" ResolvedId=\"15006\" />';
+xmlAliasData += '    <Map Name=\"ext-oag-firewall-rules\" Link=\"Topics/Access-Gateway/about-oag-prereqs.htm\" ResolvedId=\"3002\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
