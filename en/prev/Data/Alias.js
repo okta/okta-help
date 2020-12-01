@@ -254,7 +254,7 @@ xmlAliasData += '    <Map Name=\"csh-java-ldap-agent\" Link=\"Topics/Directory/l
 xmlAliasData += '    <Map Name=\"check-point-radius-intg\" Link=\"Topics/integrations/check-point-radius-intg.htm\" ResolvedId=\"1058\" />';
 xmlAliasData += '    <Map Name=\"vmware-horizon-radius-intg\" Link=\"Topics/integrations/vmware-horizon-radius-intg.htm\" ResolvedId=\"1059\" />';
 xmlAliasData += '    <Map Name=\"beyondtrust-radius-intg\" Link=\"Topics/integrations/beyondtrust-powerbroker-password-safe-radius-intg.htm\" ResolvedId=\"1061\" />';
-xmlAliasData += '    <Map Name=\"ldapuserattribute\" Link=\"Topics/Directory/ldap-agent-manage-integration.htm\" ResolvedId=\"1063\" />';
+xmlAliasData += '    <Map Name=\"ldapuserattribute\" Link=\"Topics/Directory/ldap-agent-modify-integration-settings.htm\" ResolvedId=\"1063\" />';
 xmlAliasData += '    <Map Name=\"ver-hist_dt-macOS-desktop\" Link=\"Topics/Settings/Version_Histories/Ver_History_Device_Trust_MacOS.htm\" ResolvedId=\"1064\" />';
 xmlAliasData += '    <Map Name=\"ext_widget_redirect\" Link=\"Topics/Settings/sign-in-widget-redirect.htm\" ResolvedId=\"1065\" />';
 xmlAliasData += '    <Map Name=\"ext_mfa_windows_hello\" Link=\"Topics/Security/MFA.htm#WindowsHello\" ResolvedId=\"1066\" />';
@@ -507,8 +507,6 @@ xmlAliasData += '    <Map Name=\"ext-export-import-flows\" Link=\"Topics/Workflo
 xmlAliasData += '    <Map Name=\"ext-create-table\" Link=\"Topics/Workflows/build/create-table.htm\" ResolvedId=\"1348\" />';
 xmlAliasData += '    <Map Name=\"ext-import-from-csv\" Link=\"Topics/Workflows/build/import-from-csv.htm\" ResolvedId=\"1349\" />';
 xmlAliasData += '    <Map Name=\"ext-save-data-flow-history\" Link=\"Topics/Workflows/execute/save-data-with-flow-history.htm\" ResolvedId=\"1350\" />';
-xmlAliasData += '    <Map Name=\"csh-sso-ext-macos\" Link=\"Topics/device-trust/device-trust-landing.htm\" ResolvedId=\"1351\" />';
-xmlAliasData += '    <Map Name=\"csh-sso-ext-ios\" Link=\"Topics/device-trust/device-trust-landing.htm\" ResolvedId=\"1352\" />';
 xmlAliasData += '    <Map Name=\"csh-ver-hist-okta-verify-windows\" Link=\"Topics/Settings/Version_Histories/Ver_History_DeviceTrust_Installer_Windows.htm\" ResolvedId=\"1353\" />';
 xmlAliasData += '    <Map Name=\"ext_cofigure_ldap_okta_settings\" Link=\"Topics/Directory/ldap-agent-configure-LDAP-import-settings.htm\" ResolvedId=\"15000\" />';
 xmlAliasData += '    <Map Name=\"ext-netmotion-mobility-radius-intg\" Link=\"Topics/integrations/netmotion-radius-intg.htm\" ResolvedId=\"3000\" />';
@@ -532,7 +530,6 @@ xmlAliasData += '    <Map Name=\"ext-tutorials-import-flat-file\" Link=\"Topics/
 xmlAliasData += '    <Map Name=\"ext-tutorials-id-creation\" Link=\"Topics/Workflows/Tutorials/idcreation-walkthrough/idcreation-walkthrough.htm\" ResolvedId=\"10017\" />';
 xmlAliasData += '    <Map Name=\"ext-tutorials-time-based-actions\" Link=\"Topics/Workflows/Tutorials/timebasedactions-walkthrough/timebasedactions-walkthrough.htm\" ResolvedId=\"10018\" />';
 xmlAliasData += '    <Map Name=\"ext_ldap_prerequisites\" Link=\"Topics/Directory/ldap-agent-prerequisites.htm\" ResolvedId=\"15001\" />';
-xmlAliasData += '    <Map Name=\"csh-device-mgmt-desktop-mdm-setup\" Link=\"Topics/device-trust/device-trust-landing.htm\" ResolvedId=\"12000\" />';
 xmlAliasData += '    <Map Name=\"ext_prov_lcm_prov_app\" Link=\"Topics/Provisioning/lcm/lcm-provision-application.htm\" ResolvedId=\"6000\" />';
 xmlAliasData += '    <Map Name=\"ext-about-flow-alias\" Link=\"Topics/Workflows/learn/about-flow-alias.htm\" ResolvedId=\"10019\" />';
 xmlAliasData += '    <Map Name=\"about-flow-client-token\" Link=\"Topics/Workflows/learn/about-flow-client-token.htm\" ResolvedId=\"10020\" />';
@@ -1188,6 +1185,7 @@ xmlAliasData += '    <Map Name=\"ext-zendesk-method-createuser\" Link=\"Topics/W
 xmlAliasData += '    <Map Name=\"ext-zendesk-method-httprequest\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_httprequest.htm\" ResolvedId=\"30703\" />';
 xmlAliasData += '    <Map Name=\"ext-zendesk-method-readticket\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_readticket.htm\" ResolvedId=\"30710\" />';
 xmlAliasData += '    <Map Name=\"ext-zendesk-method-readuser\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_readuser.htm\" ResolvedId=\"30712\" />';
+xmlAliasData += '    <Map Name=\"ext-zendesk-method-removeuserfromorganization\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_removeuserfromorganization.htm\" ResolvedId=\"30713\" />';
 xmlAliasData += '    <Map Name=\"ext-zendesk-method-searchtickets\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_searchtickets.htm\" ResolvedId=\"30715\" />';
 xmlAliasData += '    <Map Name=\"ext-zendesk-method-searchusers\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_searchusers.htm\" ResolvedId=\"30716\" />';
 xmlAliasData += '    <Map Name=\"ext-zendesk-method-updateticket\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_updateticket.htm\" ResolvedId=\"30721\" />';
@@ -1399,5 +1397,23 @@ xmlAliasData += '    <Map Name=\"ext-docusign-main\" Link=\"Topics/Provisioning/
 xmlAliasData += '    <Map Name=\"ext-use-cases-learn-about\" Link=\"Topics/Workflows/use-cases-workflows-learn-about.htm\" ResolvedId=\"30299\" />';
 xmlAliasData += '    <Map Name=\"ext-ultipro-main\" Link=\"Topics/Provisioning/ultipro/ultipro-main.htm\" ResolvedId=\"15006\" />';
 xmlAliasData += '    <Map Name=\"ext-oag-firewall-rules\" Link=\"Topics/Access-Gateway/about-oag-prereqs.htm\" ResolvedId=\"3002\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_about_logging\" Link=\"Topics/Access-Gateway/about-logging.htm\" ResolvedId=\"3003\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_log_forward\" Link=\"Topics/Access-Gateway/admin-settings-logging.htm\" ResolvedId=\"3005\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_about_auth_mod\" Link=\"Topics/Access-Gateway/admin-settings-authmod.htm\" ResolvedId=\"3006\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_about_datastore\" Link=\"Topics/Access-Gateway/integrate-app-datastores.htm\" ResolvedId=\"3007\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_add_kerberos_service\" Link=\"Topics/Access-Gateway/add-app-kerberos-add-ker-service.htm\" ResolvedId=\"3008\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_add_identity_provider\" Link=\"Topics/Access-Gateway/admin-settings-identity.htm\" ResolvedId=\"3009\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_policy_about\" Link=\"Topics/Access-Gateway/about-application-policy.htm\" ResolvedId=\"3010\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_policy_manage\" Link=\"Topics/Access-Gateway/managing-oag-policy.htm\" ResolvedId=\"3011\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_policy_advanced\" Link=\"Topics/Access-Gateway/advanced-oag-policy.htm\" ResolvedId=\"3012\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_policy_dev\" Link=\"Topics/Access-Gateway/advanced-oag-policy-development.htm\" ResolvedId=\"3013\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_policy_examples\" Link=\"Topics/Access-Gateway/advanced-oag-policy-examples.htm\" ResolvedId=\"3014\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_app_essentials_about\" Link=\"Topics/Access-Gateway/about-application-essentials.htm\" ResolvedId=\"3015\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_app_essentials_manage\" Link=\"Topics/Access-Gateway/managing-application-essentials.htm\" ResolvedId=\"3016\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_advanced_about\" Link=\"Topics/Access-Gateway/about-application-advanced.htm\" ResolvedId=\"3017\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_behaviors_about\" Link=\"Topics/Access-Gateway/about-application-behaviors.htm\" ResolvedId=\"3018\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_behaviors_manage\" Link=\"Topics/Access-Gateway/managing-application-behaviors.htm\" ResolvedId=\"3019\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_attributes_about\" Link=\"Topics/Access-Gateway/about-application-attributes.htm\" ResolvedId=\"3020\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_attributes_manage\" Link=\"Topics/Access-Gateway/managing-application-attributes.htm\" ResolvedId=\"3021\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
