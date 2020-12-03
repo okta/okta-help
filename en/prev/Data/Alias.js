@@ -18,6 +18,7 @@ xmlAliasData += '    <Map Name=\"Directory_Groups\" Link=\"Topics/users-groups-p
 xmlAliasData += '    <Map Name=\"Directory_Directory_Integrations\" Link=\"Topics/Directory/directory-integrations-main.htm\" ResolvedId=\"1001\" />';
 xmlAliasData += '    <Map Name=\"Applications_Applications\" Link=\"Topics/Apps/Apps_Apps.htm#Applications_Applications\" ResolvedId=\"1180\" />';
 xmlAliasData += '    <Map Name=\"Reports_Reports\" Link=\"Topics/Reports/Reports.htm#Reports_Reports\" ResolvedId=\"1190\" />';
+xmlAliasData += '    <Map Name=\"Settings_Account\" Link=\"Topics/Settings/Settings_Account.htm\" ResolvedId=\"1210\" />';
 xmlAliasData += '    <Map Name=\"Settings_Appearance\" Link=\"Topics/Settings/Settings_Appearance.htm#Settings_Appearance\" ResolvedId=\"1220\" />';
 xmlAliasData += '    <Map Name=\"Settings_Customization\" Link=\"Topics/Settings/Settings_Customization.htm#Settings_Customization1\" ResolvedId=\"1230\" />';
 xmlAliasData += '    <Map Name=\"Settings_Emails_SMS\" Link=\"Topics/Settings/Settings_Email.htm#Settings_Emails_SMS1\" ResolvedId=\"1240\" />';
@@ -706,6 +707,7 @@ xmlAliasData += '    <Map Name=\"ext-gmail-method-sendemail2\" Link=\"Topics/Wor
 xmlAliasData += '    <Map Name=\"ext-gmail-method-sendemailwithattachment\" Link=\"Topics/Workflows/connector-reference/gmail/actions/sendemailwithattachment.htm\" ResolvedId=\"30173\" />';
 xmlAliasData += '    <Map Name=\"ext-gmail-method-setautoreply\" Link=\"Topics/Workflows/connector-reference/gmail/actions/setautoreply.htm\" ResolvedId=\"30174\" />';
 xmlAliasData += '    <Map Name=\"ext-gmail-misc-transferofownership\" Link=\"Topics/Workflows/connector-reference/gmail/actions/transferofownership.htm\" ResolvedId=\"30175\" />';
+xmlAliasData += '    <Map Name=\"ext-gmail-method-updateusergmailsettings\" Link=\"Topics/Workflows/connector-reference/gmail/actions/updateusergmailsettings.htm\" ResolvedId=\"30176\" />';
 xmlAliasData += '    <Map Name=\"ext-gmail-method-labeladdedorremoved\" Link=\"Topics/Workflows/connector-reference/gmail/events/labeladdedorremoved.htm\" ResolvedId=\"30177\" />';
 xmlAliasData += '    <Map Name=\"ext-gmail-method-newemail\" Link=\"Topics/Workflows/connector-reference/gmail/events/newemail.htm\" ResolvedId=\"30178\" />';
 xmlAliasData += '    <Map Name=\"ext-gmail-misc-authorization\" Link=\"Topics/Workflows/connector-reference/gmail/overviews/authorization.htm\" ResolvedId=\"30179\" />';
@@ -1179,10 +1181,12 @@ xmlAliasData += '    <Map Name=\"ext-smartsheet-method-newcommentwebhook\" Link=
 xmlAliasData += '    <Map Name=\"ext-smartsheet-misc-authorization\" Link=\"Topics/Workflows/connector-reference/smartsheet/overviews/authorization.htm\" ResolvedId=\"30693\" />';
 xmlAliasData += '    <Map Name=\"ext-smartsheet-misc-errors\" Link=\"Topics/Workflows/connector-reference/smartsheet/overviews/errors.htm\" ResolvedId=\"30694\" />';
 xmlAliasData += '    <Map Name=\"ext-zendesk\" Link=\"Topics/Workflows/connector-reference/zendesk/zendesk.htm\" ResolvedId=\"30695\" />';
+xmlAliasData += '    <Map Name=\"ext-zendesk-method-addusertoorganization\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_addusertoorganization.htm\" ResolvedId=\"30696\" />';
 xmlAliasData += '    <Map Name=\"ext-zendesk-method-commentonticket\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_commentonticket.htm\" ResolvedId=\"30697\" />';
 xmlAliasData += '    <Map Name=\"ext-zendesk-method-createticket\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_createticket.htm\" ResolvedId=\"30699\" />';
 xmlAliasData += '    <Map Name=\"ext-zendesk-method-createuser\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_createuser.htm\" ResolvedId=\"30700\" />';
 xmlAliasData += '    <Map Name=\"ext-zendesk-method-httprequest\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_httprequest.htm\" ResolvedId=\"30703\" />';
+xmlAliasData += '    <Map Name=\"ext-zendesk-method-readorganization\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_readorganization.htm\" ResolvedId=\"30708\" />';
 xmlAliasData += '    <Map Name=\"ext-zendesk-method-readticket\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_readticket.htm\" ResolvedId=\"30710\" />';
 xmlAliasData += '    <Map Name=\"ext-zendesk-method-readuser\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_readuser.htm\" ResolvedId=\"30712\" />';
 xmlAliasData += '    <Map Name=\"ext-zendesk-method-removeuserfromorganization\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_removeuserfromorganization.htm\" ResolvedId=\"30713\" />';
