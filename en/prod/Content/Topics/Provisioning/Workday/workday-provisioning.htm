@@ -331,7 +331,7 @@
                                                             <p>In the second configuration, Workday­-driven IT Provisioning Okta integrates with Workday to drive IT provisioning. When the Workday user is imported into Okta, they continue to be managed by Workday. Updates and terminations made in Workday are reflected in Okta and downstream apps. This arrangement enables Workday to manage employee and contractor access to apps. Workday­-driven IT provisioning is a superset of the functionality provided in Import from Workday, so the rest of this document focuses on configuring Workday­-driven IT provisioning, but is relevant to Import from Workday scenarios as well.</p>
                                                             <p><b>Notes</b>: </p>
                                                             <ul>
-                                                                <li value="1">If Profile Master is enabled, Okta only imports users who have the <b>First Day Of Work</b> and <b>Hire Date</b> attributes or fields populated in Workday.</li>
+                                                                <li value="1">If Profile Source is enabled, Okta only imports users who have the <b>First Day Of Work</b> and <b>Hire Date</b> attributes or fields populated in Workday.</li>
                                                                 <li value="2">If you are using Active Directory, and have Profile Push enabled,&#160;refer to Install and configure the Okta Active Direction (AD)&#160;Agent (specifically <a href="../../Directory/ad-agent-configure-provisioning.htm" class="MCXref xref">Configure Active Directory provisioning settings</a>), for more information.</li>
                                                             </ul>
                                                             <p>With Workday­-driven IT provisioning, Okta supports the following worker lifecycle events:</p>
@@ -593,7 +593,7 @@ domain list. For example, <strong>Get and Put</strong>  vs <strong>Get</strong> 
                                                                 </li>
                                                             </ol>
                                                             <h3>Enable Workday Provisioning Features in Okta</h3>
-                                                            <p>Select <b>To Okta</b> in the left panel, enable Profile Master, and set up import rules:
+                                                            <p>Select <b>To Okta</b> in the left panel, enable Profile Source, and set up import rules:
 
 </p>
                                                             <h4>Scheduled Imports</h4>
@@ -609,11 +609,11 @@ For the <a href="#Workday_driven_IT">Workday­-driven IT Provisioning</a> scenar
                                                                 <img src="../../../Resources/Images/workdayprovisioning2.png" alt="workdayprovisioning2" />
                                                             </p>
                                                             <p>We recommend that you first import your users manually, and based on the results of that import, you can schedule your imports accordingly; that is, if your import takes a long time, you may need to adjust your import schedule.</p>
-                                                            <h4><a name="Workday"></a>Workday as Profile Master</h4>
+                                                            <h4><a name="Workday"></a>Workday as Profile Source</h4>
                                                             <p>
                                                                 <img src="../../../Resources/Images/workdayprovisioning3.png" alt="workdayprovisioning3.png" />
                                                             </p>
-                                                            <p>Workday as a Profile Master should also be enabled in the Workday­driven IT provisioning scenario so that Workday manages the Okta users. Furthermore, Workday should be listed as the highest priority Profile Master, specifically above the Active Directory (AD) instance to which it will create users.</p>
+                                                            <p>Workday as a Profile Source should also be enabled in the Workday­driven IT provisioning scenario so that Workday manages the Okta users. Furthermore, Workday should be listed as the highest priority Profile Source, specifically above the Active Directory (AD) instance to which it will create users.</p>
                                                             <p>
                                                                 <img src="../../../Resources/Images/workday11.png" alt="workday11.png" />
                                                             </p>
@@ -632,7 +632,7 @@ For the <a href="#Workday_driven_IT">Workday­-driven IT Provisioning</a> scenar
                                                                     <p>The Pre-Start Interval is ignored for termination date and attribute values imported via Custom Reports. If you need to set a Pre-Start Interval for new hires, but don't want other updates to happen ahead of time, then create and import attributes from Custom Reports into Okta, instead of using the base Workday profile attributes in Okta. You can also use Group Membership Rules based off of the Custom Report attribute(s) for group assignment in Okta.</p>
                                                                 </li>
                                                                 <li value="4">
-                                                                    <p>You must have <strong>Profile Mastering</strong> enabled to use the Pre­Start Interval option.</p>
+                                                                    <p>You must have <strong>Profile Sourcing</strong> enabled to use the Pre­Start Interval option.</p>
                                                                 </li>
                                                                 <li value="5">
                                                                     <p>A best practice is to configure the interval to encompass the largest amount of time likely to be required before the Pre­Hire Date (i.e., the greatest amount of time needed for
@@ -759,7 +759,7 @@ For the <a href="#Workday_driven_IT">Workday­-driven IT Provisioning</a> scenar
                                                             </div>
                                                             <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Map Attributes to an AD User Profile</a></span>
                                                                 <div class="MCDropDownBody dropDownBody">
-                                                                    <p>Workday as a Master typically involves creating AD users. Some of the attribute mappings from Okta user to AD user exist by default, but others need to be created manually. The screenshot below shows the recommended mappings for typical use cases:</p>
+                                                                    <p>Workday as a Source typically involves creating AD users. Some of the attribute mappings from Okta user to AD user exist by default, but others need to be created manually. The screenshot below shows the recommended mappings for typical use cases:</p>
                                                                     <p>
                                                                         <img src="../../../Resources/Images/AD_1.png" alt="AD_1.png" />
                                                                     </p>
@@ -777,7 +777,7 @@ For the <a href="#Workday_driven_IT">Workday­-driven IT Provisioning</a> scenar
                                                                     <p>The Manager (UPN) attribute is important for linking managers in AD. The full custom expression for Manager (UPN) is as follows:</p><pre xml:space="preserve">hasWorkdayUser()?(findWorkdayUser().managerUserName + "@" + target_app.namingContext):null</pre>
                                                                     <p>In plain­ English, the custom expression is doing the following: If Workday profile exists for this Okta user, then find the managerUserName attribute of the Workday profile was imported into Okta and append @[AD domain] to populate the Manager (UPN) attribute.</p>
                                                                     <p>Okta uses the Manager (UPN) attribute to find the Active Directory user in AD that is this Okta user’s manager, and links the two AD users together. This custom expression can be modified to construct the Manager (UPN) attribute differently to suit special AD environments.</p>
-                                                                    <p>Two other situations can result in additional custom expressions appearing in the Provision to AD profile mappings. The first is when UD is turned on for a pre­existing Workday as a Master deployment. The second is when the Workday integration is added to Okta first, before AD is added. In both cases, the Workday attributes of Business Title, Location, Supervisory Organization, Business Unit, and Employee ID are mapped directly to their corresponding AD attributes directly via custom expression.</p>
+                                                                    <p>Two other situations can result in additional custom expressions appearing in the Provision to AD profile mappings. The first is when UD is turned on for a pre­existing Workday as a Source deployment. The second is when the Workday integration is added to Okta first, before AD is added. In both cases, the Workday attributes of Business Title, Location, Supervisory Organization, Business Unit, and Employee ID are mapped directly to their corresponding AD attributes directly via custom expression.</p>
                                                                 </div>
                                                             </div><a name="WDcustomattributes"></a>
                                                             <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Workday2"></a><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" aria-expanded="false">Workday Custom Attributes</a></span>
