@@ -1,0 +1,1 @@
+define({data:[{code:'en', full:'English‎', target:'en/okta_help.htm'},{code:'ja-jp', full:'日本語 (日本)‎', target:'ja-jp/Default.htm'}]});
