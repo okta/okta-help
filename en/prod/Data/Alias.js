@@ -7,8 +7,6 @@ xmlAliasData += '    <Map Name=\"Security_Authentication_AD\" Link=\"Topics/Secu
 xmlAliasData += '    <Map Name=\"Security_Authentication_LDAP\" Link=\"Topics/Security/Security_Authentication.htm\" ResolvedId=\"1030\" />';
 xmlAliasData += '    <Map Name=\"Security_Authentication_SymantecVIP\" Link=\"Topics/Security/MFA.htm#Security_Authentication_SymantecVIP\" ResolvedId=\"1050\" />';
 xmlAliasData += '    <Map Name=\"Security_Authentication_Yubikey\" Link=\"Topics/Settings/settings-customization-general.htm#jitpro\" ResolvedId=\"1080\" />';
-xmlAliasData += '    <Map Name=\"Security_Authentication_RSA\" Link=\"Topics/Security/MFA_OnPrem.htm#Security_Authentication_RSA\" ResolvedId=\"1060\" />';
-xmlAliasData += '    <Map Name=\"Security_Authentication_OnPrem\" Link=\"Topics/Security/MFA_OnPrem.htm#Authentication_OnPrem\" ResolvedId=\"1070\" />';
 xmlAliasData += '    <Map Name=\"Security_Authentication_JIT\" Link=\"Topics/Security/MFA.htm#YubiKey\" ResolvedId=\"1040\" />';
 xmlAliasData += '    <Map Name=\"Security_IdP\" Link=\"Topics/Security/Identity_Providers.htm#Security_IDP\" ResolvedId=\"1090\" />';
 xmlAliasData += '    <Map Name=\"Security_Network\" Link=\"Topics/Security/Security_Network.htm\" ResolvedId=\"1100\" />';
@@ -157,7 +155,6 @@ xmlAliasData += '    <Map Name=\"ext_sophos_radius_intg\" Link=\"Topics/integrat
 xmlAliasData += '    <Map Name=\"ext_vmware_horizon_radius_intg\" Link=\"Topics/integrations/vmware-horizon-radius-intg.htm\" ResolvedId=\"200092\" />';
 xmlAliasData += '    <Map Name=\"ext_embed_your_end_user_portal\" Link=\"Topics/Dashboard/Embedding_Your_End_User_Portal.htm\" ResolvedId=\"200093\" />';
 xmlAliasData += '    <Map Name=\"ext_okta_ends_browser_support_for_TLS_1_1\" Link=\"Topics/Miscellaneous/okta-ends-browser-support-for-TLS-1.1.htm\" ResolvedId=\"200094\" />';
-xmlAliasData += '    <Map Name=\"ext_Platforms_Browser_OS_Support\" Link=\"Topics/Miscellaneous/Platforms_Browser_OS_Support.htm\" ResolvedId=\"200095\" />';
 xmlAliasData += '    <Map Name=\"ext_access_managed_mobile_apps\" Link=\"Topics/Mobile/access-managed-mobile-apps.htm\" ResolvedId=\"200104\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Okta_Mobile\" Link=\"Topics/Mobile/Apps_Okta_Mobile.htm\" ResolvedId=\"200106\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_OMM\" Link=\"Topics/Mobile/Apps_OMM.htm\" ResolvedId=\"200107\" />';
@@ -482,7 +479,6 @@ xmlAliasData += '    <Map Name=\"ext_oag_app_sample_cookie\" Link=\"Topics/Acces
 xmlAliasData += '    <Map Name=\"ext_oag_app_sample_header\" Link=\"Topics/Access-Gateway/add-sample-header-app-okta.htm\" ResolvedId=\"1320\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_app_sample_policy\" Link=\"Topics/Access-Gateway/add-sample-policy-app-okta.htm\" ResolvedId=\"1321\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_app_sample_proxy\" Link=\"Topics/Access-Gateway/add-sample-proxy-app-okta.htm\" ResolvedId=\"1322\" />';
-xmlAliasData += '    <Map Name=\"ext-IDP-factor\" Link=\"Topics/Security/MFA_Custom_Factor.htm\" ResolvedId=\"1323\" />';
 xmlAliasData += '    <Map Name=\"ext-ad-override-username\" Link=\"Topics/users-groups-profiles/usgp-override-username-format.htm\" ResolvedId=\"1324\" />';
 xmlAliasData += '    <Map Name=\"ext-Security-Policies-eu-control\" Link=\"Topics/Security/Security_Policies.htm#EndUserControlMFAPrompts\" ResolvedId=\"1325\" />';
 xmlAliasData += '    <Map Name=\"ext-get-started\" Link=\"Topics/Security/admin-get-started.htm\" ResolvedId=\"1326\" />';
