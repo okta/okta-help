@@ -1,6 +1,10 @@
 var xmlAliasData = "";
 xmlAliasData += '<?xml version=\"1.0\" encoding=\"utf-8\"?>';
 xmlAliasData += '<CatapultAliasFile>';
+xmlAliasData += '    <Map Name=\"csh_threat_insight\" Link=\"Topics/Security/threat-insight/ti-index.htm\" ResolvedId=\"1116\" />';
+xmlAliasData += '    <Map Name=\"csh-threat-insight\" Link=\"Topics/Security/threat-insight/ti-index.htm\" ResolvedId=\"1192\" />';
+xmlAliasData += '    <Map Name=\"ext_threatinsight\" Link=\"Topics/Security/threat-insight/ti-index.htm\" ResolvedId=\"1195\" />';
+xmlAliasData += '    <Map Name=\"csh-ad-import-settings\" Link=\"Topics/Directory/ad-agent-configure-import.htm\" ResolvedId=\"1283\" />';
 xmlAliasData += '    <Map Name=\"csh-oie\" Link=\"Topics/identity-engine/oie-index.htm\" ResolvedId=\"1328\" />';
 xmlAliasData += '    <Map Name=\"ext-oie\" Link=\"Topics/identity-engine/oie-index.htm\" ResolvedId=\"1329\" />';
 xmlAliasData += '    <Map Name=\"csh-oie-release-notes\" Link=\"Topics/identity-engine/oie-release-notes.htm\" ResolvedId=\"1333\" />';
@@ -9,7 +13,6 @@ xmlAliasData += '    <Map Name=\"csh-sso-ext-ios\" Link=\"Topics/identity-engine
 xmlAliasData += '    <Map Name=\"csh-oie-rn\" Link=\"Topics/identity-engine/oie-release-notes.htm\" ResolvedId=\"2001\" />';
 xmlAliasData += '    <Map Name=\"csh-oie-upgrade\" Link=\"Topics/identity-engine/oie-upgrade.htm\" ResolvedId=\"2002\" />';
 xmlAliasData += '    <Map Name=\"csh-features\" Link=\"Topics/identity-engine/oie-features.htm\" ResolvedId=\"2003\" />';
-xmlAliasData += '    <Map Name=\"csh-user-ov-reset-register\" Link=\"Topics/end-user/ov-reset-register.htm\" ResolvedId=\"4018\" />';
 xmlAliasData += '    <Map Name=\"csh-device-mgmt-desktop-mdm-setup\" Link=\"Topics/identity-engine/oie-index.htm\" ResolvedId=\"12000\" />';
 xmlAliasData += '    <Map Name=\"csh-about-authenticators\" Link=\"Topics/identity-engine/authenticators/about-authenticators.htm\" ResolvedId=\"2004\" />';
 xmlAliasData += '    <Map Name=\"csh-device-mgmt-mobile-mdm-setup\" Link=\"Topics/identity-engine/oie-index.htm\" ResolvedId=\"12001\" />';
