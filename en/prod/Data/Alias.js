@@ -1404,6 +1404,7 @@ xmlAliasData += '    <Map Name=\"ext-use-cases-learn-about\" Link=\"Topics/Workf
 xmlAliasData += '    <Map Name=\"ext-ultipro-main\" Link=\"Topics/Provisioning/ultipro/ultipro-main.htm\" ResolvedId=\"15006\" />';
 xmlAliasData += '    <Map Name=\"ext-oag-firewall-rules\" Link=\"Topics/Access-Gateway/about-oag-prereqs.htm\" ResolvedId=\"3002\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_about_logging\" Link=\"Topics/Access-Gateway/about-logging.htm\" ResolvedId=\"3003\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_about_log_storage\" Link=\"Topics/Access-Gateway/about-log-storage.htm\" ResolvedId=\"3004\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_log_forward\" Link=\"Topics/Access-Gateway/admin-settings-logging.htm\" ResolvedId=\"3005\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_about_auth_mod\" Link=\"Topics/Access-Gateway/admin-settings-authmod.htm\" ResolvedId=\"3006\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_about_datastore\" Link=\"Topics/Access-Gateway/integrate-app-datastores.htm\" ResolvedId=\"3007\" />';

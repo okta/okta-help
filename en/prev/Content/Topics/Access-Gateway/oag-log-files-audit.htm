@@ -310,6 +310,7 @@
                                                             <li><a href="#Authenti" class="MCXref xref">Authentication and Authorization</a> events such as authentication, authorization, and policy. </li>
                                                             <li><a href="#Certificate" class="MCXref xref">Certificate events</a> related event activity. </li>
                                                             <li><a href="#Connecti" class="MCXref xref">Connectivity and validation</a> between <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> and external resources such as back-end applications, data stores, and similar conditions.</li>
+                                                            <li><a href="#LogVerbosity" class="MCXref xref">Log Verbosity</a> change related events. </li>
                                                             <li><a href="#top" class="MCXref xref">System status</a> events such as system up, system down, identify provider connection status, EBS subsystem up, valid or invalid NGINX configuration, and others.</li>
                                                             <li><a href="#Kerberos" class="MCXref xref">Kerberos</a> related activity such as create, update or delete. </li>
                                                             <li><a href="#TrustedDomains" class="MCXref xref">Trusted Domains</a> related activity such as create, update, delete, or synchronize as well as exceptions during trusted domain operations.</li>
@@ -1014,6 +1015,55 @@
                                                             </ul>
                                                             <li>Structured data:<ul><li>None</li></ul></li>
                                                             <li>Corrective action :<ul><li>Ensure that the certificate being uploaded is valid and try again.</li></ul></li>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <h2><a name="LogVerbosity"></a>Log Verbosity</h2>
+                                                        <p>Events generated when the logging verbosity level is changed. See<a href="admin-settings-logging-log-level.htm" class="MCXref xref">Manage log verbosity </a> and <a href="about-log-levels.htm" class="MCXref xref">About logging levels</a></p>
+                                                        <div>
+                                                            <h3>Log verbosity change event</h3>
+                                                            <p>Description: An administrator changed the current log verbosity. This event signals the start of the change process..</p>
+                                                            <p>Messages: </p>
+                                                            <ul>
+                                                                <li>Allow access to resource</li>
+                                                            </ul>
+                                                            <p>Examples:</p>
+                                                            <ul>
+                                                                <li><span class="code">2020-08-26T21:24:03.678-05:00 oag01.okta.com ACCESS_GATEWAY ACCESS AUTHZ POLICY INFO USER_AUTHZ [SESSION_ID="_3fd5e31193bff51983c9f81c8092cc9f23a1339446" SUBJECT="admin@oag.okta.com" RESOURCE="/api/v1/setting/loglevel" METHOD="PUT" POLICY="api" POLICY_TYPE="PROTECTED" DURATION="0" APP="Local OAG Admin Console" APP_TYPE="ADMINUI_APP" APP_DOMAIN="gw-admin.[domain.tld]" RESULT="ALLOW" REASON="N/A - SESSIONID=_3fd5e31193bff51983c9f81c8092cc9f23a1339446 X-Authorization=admin@oag.okta.com username=admin RelayDomain=gw-admin.gateway.info oag_username=admin@oag.okta.com UserName=admin@oag.okta.com SourceAuthNType=urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport RemoteIP=192.168.1.84 USER_AGENT=Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:80.0) Gecko/20100101 Firefox/80.0 creationTime=1598494932480 maxInactiveInterval=3600000 maxActiveInterval=28800000 lastAccessedTime=1598495024962 " REMOTE_IP="192.168.1.84" USER_AGENT="PostmanRuntime/7.26.3"] allow access to resource</span>
+                                                                </li>
+                                                            </ul>
+                                                            <li>Structured data:<ul><li><span class="code">SESSION_ID</span> - Valid or invalid.</li><li><span class="code">RESOURCE</span> - Always loglevel.</li><li><span class="code">METHOD</span> - Always PUT.</li><li><span class="code">POLICY</span> - Always api.</li><li><span class="code">POLICY_TYPE</span> - Always protected .</li><li><span class="code">DURATION</span> - Always 0.</li><li><span class="code">APP</span> - Always Local OAG <span class="mc-variable okta-feature-names.Administrator_dashboard variable">Admin Console</span> .</li><li><span class="code">APP_TYPE</span> - Always ADMINUI_APP.</li><li><span class="code">APP_DOMAIN</span> - Domain where the log verbosity level was changed.</li><li><span class="code">RESULT</span> - Always allow.</li><li><span class="code">REASON</span> - Not applicable followed by session information.</li><li><span class="code">REMOTE_ID</span> - IP&#160;Address off client.</li><li><span class="code">USER_AGENT</span> - Always Postman runtime.</li></ul></li>
+                                                            <li>Corrective action :<ul><li> None, informational. </li></ul></li>
+                                                        </div>
+                                                        <div>
+                                                            <h3>Create and communicate a change in log verbosity (available in ics_all.log and via sys loggers)</h3>
+                                                            <p>Events issued when the <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> admin instance generates and communicates with all high availability nodes about a change in log verbosity.</p>
+                                                            <ul>
+                                                                <li><strong>Messages</strong>:<br />application_template_service<br />application_template_service event for file_with_path:/opt/oag/events/loglevel.local.UPDATE.json <br />application_template_service event for file:loglevel.local.UPDATE.json<br />application_template_service Acquiring lock<br />application_template_service reading JSON from file '/opt/oag/events/loglevel.local.UPDATE.json'<br />application_template_service Local log level set to <i>'[<b>level</b>]'</i> where <i style="font-weight: bold;">level</i> represents the new log verbosity level. <br /><br /></li>
+                                                                <li><strong>Examples</strong>:<br /><code>2020-08-26T21:24:03.000-05:00 [DNS name of administration node] application_template_service ['/opt/oag/events/loglevel.local.UPDATE.json']</code><br /><code>2020-08-26T21:24:03.000-05:00 oag01.okta.com application_template_service event for file_with_path:/opt/oag/events/loglevel.local.UPDATE.json </code><br /><code>2020-08-26T21:24:03.000-05:00 oag01.okta.com application_template_service event for file:loglevel.local.UPDATE.json </code><br /><code>2020-08-26T21:24:03.000-05:00 oag01.okta.com application_template_service Acquiring lock</code><br /><code>2020-08-26T21:24:03.000-05:00 oag01.okta.com application_template_service reading JSON from file '/opt/oag/events/loglevel.local.UPDATE.json'</code><br /><code>2020-08-26T21:24:03.000-05:00 oag01.okta.com application_template_service Local log level set to 'info'</code></li>
+                                                                <li>Structured data: none</li>
+                                                            </ul>
+                                                            <li>Corrective action :<ul><li> None, informational. </li></ul></li>
+                                                        </div>
+                                                        <div>
+                                                            <h3>Restart Syslog (available in ics_all.log and via sys loggers)</h3>
+                                                            <p>Events emitted when <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> has successfully communicated the change in verbosity and is restarting the SYSLOG agent. </p>
+                                                            <ul>
+                                                                <li><strong>Messages:</strong> Restart and restart complete.</li>
+                                                                <li><strong>Examples</strong>:<br /><code>2020-08-26T21:24:04.000-05:00 [DNS name of HA node] OAG syslog-ng: Access-Gateway SYSLOG-NG restart</code><br /><code>2020-08-26T21:24:04.000-05:00 oag01.okta.com OAG syslog-ng: Access-Gateway SYSLOG-NG restart completed</code><br /></li>
+                                                                <li>Structured data: none</li>
+                                                            </ul>
+                                                            <li>Corrective action :<ul><li> None, informational. </li></ul></li>
+                                                        </div>
+                                                        <div>
+                                                            <h3>Verbosity update complete (available in ics_all.log and via sys loggers)</h3>
+                                                            <p>Events issued when <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> has completed the change to log verbosity</p>
+                                                            <ul>
+                                                                <li><strong>Message:</strong> Application_template_service loglevel event:update template...</li>
+                                                                <li><strong>Examples</strong>:<br /><code>2020-08-26T21:24:04.000-05:00 [DNS name of administration node] application_template_service loglevel event:update template for file:loglevel.local.UPDATE.json </code><br /></li>
+                                                                <li>Structured data: none</li>
+                                                            </ul>
+                                                            <li>Corrective action :<ul><li> None, informational. </li></ul></li>
                                                         </div>
                                                     </div>
                                                     <h2><a name="top"></a>System status</h2>
