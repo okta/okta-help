@@ -155,6 +155,7 @@ xmlAliasData += '    <Map Name=\"ext_sophos_radius_intg\" Link=\"Topics/integrat
 xmlAliasData += '    <Map Name=\"ext_vmware_horizon_radius_intg\" Link=\"Topics/integrations/vmware-horizon-radius-intg.htm\" ResolvedId=\"200092\" />';
 xmlAliasData += '    <Map Name=\"ext_embed_your_end_user_portal\" Link=\"Topics/Dashboard/Embedding_Your_End_User_Portal.htm\" ResolvedId=\"200093\" />';
 xmlAliasData += '    <Map Name=\"ext_okta_ends_browser_support_for_TLS_1_1\" Link=\"Topics/Miscellaneous/okta-ends-browser-support-for-TLS-1.1.htm\" ResolvedId=\"200094\" />';
+xmlAliasData += '    <Map Name=\"ext_Platforms_Browser_OS_Support\" Link=\"Topics/Miscellaneous/Platforms_Browser_OS_Support.htm\" ResolvedId=\"200095\" />';
 xmlAliasData += '    <Map Name=\"ext_access_managed_mobile_apps\" Link=\"Topics/Mobile/access-managed-mobile-apps.htm\" ResolvedId=\"200104\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Okta_Mobile\" Link=\"Topics/Mobile/Apps_Okta_Mobile.htm\" ResolvedId=\"200106\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_OMM\" Link=\"Topics/Mobile/Apps_OMM.htm\" ResolvedId=\"200107\" />';
@@ -817,7 +818,7 @@ xmlAliasData += '    <Map Name=\"ext-googledrive-method-newcomment\" Link=\"Topi
 xmlAliasData += '    <Map Name=\"ext-googledrive-misc-authorization\" Link=\"Topics/Workflows/connector-reference/googledrive/overview/authorization.htm\" ResolvedId=\"30281\" />';
 xmlAliasData += '    <Map Name=\"ext-googledrive-misc-transferofownership\" Link=\"Topics/Workflows/connector-reference/googledrive/overview/transferofownership.htm\" ResolvedId=\"30282\" />';
 xmlAliasData += '    <Map Name=\"ext-googlesheets229\" Link=\"Topics/Workflows/connector-reference/googlesheets_new/googlesheets2_29.htm\" ResolvedId=\"30283\" />';
-xmlAliasData += '    <Map Name=\"ext-ext-googlesheets229-method-clearrow\" Link=\"Topics/Workflows/connector-reference/googlesheets_new/actions/clearrow.htm\" ResolvedId=\"30284\" />';
+xmlAliasData += '    <Map Name=\"ext-googlesheets229-method-clearrow\" Link=\"Topics/Workflows/connector-reference/googlesheets_new/actions/clearrow.htm\" ResolvedId=\"30284\" />';
 xmlAliasData += '    <Map Name=\"ext-googlesheets229-method-copyspreadsheet\" Link=\"Topics/Workflows/connector-reference/googlesheets_new/actions/copyspreadsheet.htm\" ResolvedId=\"30285\" />';
 xmlAliasData += '    <Map Name=\"ext-googlesheets229-method-copyworksheet\" Link=\"Topics/Workflows/connector-reference/googlesheets_new/actions/copyworksheet.htm\" ResolvedId=\"30286\" />';
 xmlAliasData += '    <Map Name=\"ext-googlesheets229-method-createrow\" Link=\"Topics/Workflows/connector-reference/googlesheets/actions/createrow.htm\" ResolvedId=\"30309\" />';
@@ -1424,6 +1425,7 @@ xmlAliasData += '    <Map Name=\"ext_oag_behaviors_about\" Link=\"Topics/Access-
 xmlAliasData += '    <Map Name=\"ext_oag_behaviors_manage\" Link=\"Topics/Access-Gateway/managing-application-behaviors.htm\" ResolvedId=\"3019\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_attributes_about\" Link=\"Topics/Access-Gateway/about-application-attributes.htm\" ResolvedId=\"3020\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_attributes_manage\" Link=\"Topics/Access-Gateway/managing-application-attributes.htm\" ResolvedId=\"3021\" />';
+xmlAliasData += '    <Map Name=\"ext-agent-support-policies\" Link=\"Topics/Directory/agent-support-policies.htm\" ResolvedId=\"15007\" />';
 xmlAliasData += '    <Map Name=\"csh-blocklist-proxies-tor\" Link=\"Topics/Security/healthinsight/blocklist-proxies-tor.htm\" ResolvedId=\"11000\" />';
 xmlAliasData += '    <Map Name=\"csh-blocklist-zones\" Link=\"Topics/Security/healthinsight/blocklist-network-zone.htm\" ResolvedId=\"11001\" />';
 xmlAliasData += '    <Map Name=\"ext-control-method-callable\" Link=\"Topics/Workflows/learn/about-scheduled-child-flows.htm\" ResolvedId=\"30302\" />';
