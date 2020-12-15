@@ -1460,5 +1460,6 @@ xmlAliasData += '    <Map Name=\"ext-repair-invalid-flow\" Link=\"Topics/Workflo
 xmlAliasData += '    <Map Name=\"ext-check-execution-history\" Link=\"Topics/Workflows/execute/check-execution-history.htm\" ResolvedId=\"30945\" />';
 xmlAliasData += '    <Map Name=\"ext-invalid-flows\" Link=\"Topics/Workflows/execute/inactive-flows.htm\" ResolvedId=\"30946\" />';
 xmlAliasData += '    <Map Name=\"ext-http-method-accept\" Link=\"Topics/Workflows/function-reference/HTTP/http_accept.htm\" ResolvedId=\"30947\" />';
+xmlAliasData += '    <Map Name=\"ext-configure-connection\" Link=\"Topics/Workflows/build/configure-connection.htm\" ResolvedId=\"30000\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
