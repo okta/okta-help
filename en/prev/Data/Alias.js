@@ -6,7 +6,6 @@ xmlAliasData += '    <Map Name=\"Security_Policies\" Link=\"Topics/Security/Secu
 xmlAliasData += '    <Map Name=\"Security_Authentication_AD\" Link=\"Topics/Security/Security_Authentication.htm\" ResolvedId=\"1020\" />';
 xmlAliasData += '    <Map Name=\"Security_Authentication_LDAP\" Link=\"Topics/Security/Security_Authentication.htm\" ResolvedId=\"1030\" />';
 xmlAliasData += '    <Map Name=\"Security_Authentication_SymantecVIP\" Link=\"Topics/Security/MFA.htm#Security_Authentication_SymantecVIP\" ResolvedId=\"1050\" />';
-xmlAliasData += '    <Map Name=\"Security_Authentication_Yubikey\" Link=\"Topics/Settings/settings-customization-general.htm#jitpro\" ResolvedId=\"1080\" />';
 xmlAliasData += '    <Map Name=\"Security_Authentication_JIT\" Link=\"Topics/Security/MFA.htm#YubiKey\" ResolvedId=\"1040\" />';
 xmlAliasData += '    <Map Name=\"Security_IdP\" Link=\"Topics/Security/Identity_Providers.htm#Security_IDP\" ResolvedId=\"1090\" />';
 xmlAliasData += '    <Map Name=\"Security_Network\" Link=\"Topics/Security/Security_Network.htm\" ResolvedId=\"1100\" />';
@@ -49,7 +48,6 @@ xmlAliasData += '    <Map Name=\"mfa-onprem\" Link=\"Topics/Security/MFA_OnPrem.
 xmlAliasData += '    <Map Name=\"ad-pw-sync-agent\" Link=\"Topics/Directory/Installing_Configuring_Active_Directory_Password_Sync_Agent.htm\" ResolvedId=\"1019\" />';
 xmlAliasData += '    <Map Name=\"dt-win-desktop\" Link=\"Topics/Mobile/Okta_Mobile_Device_Trust_Windows-desktop.htm\" ResolvedId=\"1021\" />';
 xmlAliasData += '    <Map Name=\"okta-cisco-radius-intg\" Link=\"Topics/integrations/cisco-radius-intg.htm\" ResolvedId=\"1022\" />';
-xmlAliasData += '    <Map Name=\"chs-custom-url\" Link=\"Topics/Settings/settings-customization-general.htm#Configur5\" ResolvedId=\"1023\" />';
 xmlAliasData += '    <Map Name=\"Security_Behavior_Detection\" Link=\"Topics/Security/proc-security-behavior-detection.htm\" ResolvedId=\"1024\" />';
 xmlAliasData += '    <Map Name=\"okta-palo-alto-radius-intg\" Link=\"Topics/integrations/palo-alto-radius-intg.htm\" ResolvedId=\"1025\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-opp-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_OPP_Agent.htm\" ResolvedId=\"1026\" />';
@@ -59,7 +57,6 @@ xmlAliasData += '    <Map Name=\"okta-mfa-win-cred-prov\" Link=\"Topics/Security
 xmlAliasData += '    <Map Name=\"citrix-netscaler-radius-int\" Link=\"Topics/integrations/citrix-netscaler-radius-int.htm\" ResolvedId=\"1031\" />';
 xmlAliasData += '    <Map Name=\"custom-error-pages\" Link=\"Topics/Settings/custom-error-pages.htm\" ResolvedId=\"1032\" />';
 xmlAliasData += '    <Map Name=\"custom-sign-in-page\" Link=\"Topics/Settings/custom-okta-hosted-sign-in-page.htm\" ResolvedId=\"1033\" />';
-xmlAliasData += '    <Map Name=\"csh-custom-domain\" Link=\"Topics/Settings/settings-customization-general.htm#Configur5\" ResolvedId=\"1034\" />';
 xmlAliasData += '    <Map Name=\"fortinet-radius-intg\" Link=\"Topics/integrations/fortinet-radius-intg.htm\" ResolvedId=\"1036\" />';
 xmlAliasData += '    <Map Name=\"okta-f5-intg\" Link=\"Topics/integrations/f5-radius-intg.htm\" ResolvedId=\"1037\" />';
 xmlAliasData += '    <Map Name=\"dt-safari\" Link=\"Topics/Mobile/Okta_Device_Trust_Jamf_macOS_Devices.htm\" ResolvedId=\"1038\" />';
@@ -223,7 +220,6 @@ xmlAliasData += '    <Map Name=\"ext_The_Help_Desk_Admin_Role\" Link=\"Topics/Se
 xmlAliasData += '    <Map Name=\"ext_The_User_Admin_Role\" Link=\"Topics/Security/administrators-group-admin.htm\" ResolvedId=\"200176\" />';
 xmlAliasData += '    <Map Name=\"ext_custom_error_pages\" Link=\"Topics/Settings/custom-error-pages.htm\" ResolvedId=\"200177\" />';
 xmlAliasData += '    <Map Name=\"ext_custom_okta_hosted_sign_in_page\" Link=\"Topics/Settings/custom-okta-hosted-sign-in-page.htm\" ResolvedId=\"200178\" />';
-xmlAliasData += '    <Map Name=\"ext_custom_url_domain\" Link=\"Topics/Settings/settings-customization-general.htm#Configur5\" ResolvedId=\"200179\" />';
 xmlAliasData += '    <Map Name=\"ext_end_user_okta_account_chooser\" Link=\"Topics/Settings/end-user-okta-account-chooser.htm\" ResolvedId=\"200180\" />';
 xmlAliasData += '    <Map Name=\"ext_End_User_Password_Reset\" Link=\"Topics/Settings/End_User_Password_Reset.htm\" ResolvedId=\"200181\" />';
 xmlAliasData += '    <Map Name=\"ext_localize_interface_emails\" Link=\"Topics/Settings/localize-interface-emails.htm\" ResolvedId=\"200182\" />';
@@ -299,7 +295,6 @@ xmlAliasData += '    <Map Name=\"ext_Apps_App_Integration_Wizard-oidc\" Link=\"T
 xmlAliasData += '    <Map Name=\"ext_API_Access-claims\" Link=\"Topics/Security/API_Access.htm#create_claims\" ResolvedId=\"1104\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Apps_Page-assign\" Link=\"Topics/Apps/Apps_Apps_Page.htm#Assigning\" ResolvedId=\"1105\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_Administrators\" Link=\"Topics/Security/Administrators.htm\" ResolvedId=\"1106\" />';
-xmlAliasData += '    <Map Name=\"ext_Settings_Customization-interstitial\" Link=\"Topics/Settings/settings-customization-general.htm#CustomInterStitialPage\" ResolvedId=\"1107\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-integration-types\" Link=\"Topics/device-trust/SAML/Mobile/integrate-okta-dt-with-ws1-mobile.htm\" ResolvedId=\"1108\" />';
 xmlAliasData += '    <Map Name=\"adv_server_access\" Link=\"Topics/Adv_Server_Access/docs/asa-overview.htm\" ResolvedId=\"1109\" />';
 xmlAliasData += '    <Map Name=\"csh-attribute-statements-saml\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SAML.htm#SAMLAttributeStatements\" ResolvedId=\"1111\" />';
@@ -1489,5 +1484,13 @@ xmlAliasData += '    <Map Name=\"ext-smartrecruiters\" Link=\"Topics/Workflows/c
 xmlAliasData += '    <Map Name=\"ext-salesforce229-getallpermissionsetlicenses\" Link=\"Topics/Workflows/connector-reference/salesforce2_29/actions/getallpermissionsetlicenses.htm\" ResolvedId=\"30957\" />';
 xmlAliasData += '    <Map Name=\"ext-salesforce229-listuserpermissionassignments\" Link=\"Topics/Workflows/connector-reference/salesforce2_29/actions/listuserpermissionassignments.htm\" ResolvedId=\"30958\" />';
 xmlAliasData += '    <Map Name=\"ext-salesforce229-removeuserentitlements\" Link=\"Topics/Workflows/connector-reference/salesforce2_29/actions/removeuserentitlements.htm\" ResolvedId=\"30959\" />';
+xmlAliasData += '    <Map Name=\"ext-http-method-authorization\" Link=\"Topics/Workflows/function-reference/HTTP/http_authorization.htm\" ResolvedId=\"30960\" />';
+xmlAliasData += '    <Map Name=\"ext-http-method-close\" Link=\"Topics/Workflows/function-reference/HTTP/http_close.htm\" ResolvedId=\"30961\" />';
+xmlAliasData += '    <Map Name=\"ext-http-method-delete\" Link=\"Topics/Workflows/function-reference/HTTP/http_delete.htm\" ResolvedId=\"30962\" />';
+xmlAliasData += '    <Map Name=\"ext-http-method-errors\" Link=\"Topics/Workflows/function-reference/HTTP/http_errors.htm\" ResolvedId=\"30963\" />';
+xmlAliasData += '    <Map Name=\"ext-http-method-get\" Link=\"Topics/Workflows/function-reference/HTTP/http_get.htm\" ResolvedId=\"30964\" />';
+xmlAliasData += '    <Map Name=\"ext-http-method-post\" Link=\"Topics/Workflows/function-reference/HTTP/http_post.htm\" ResolvedId=\"30965\" />';
+xmlAliasData += '    <Map Name=\"ext-http-method-put\" Link=\"Topics/Workflows/function-reference/HTTP/http_put.htm\" ResolvedId=\"30966\" />';
+xmlAliasData += '    <Map Name=\"ext-http-method-raw\" Link=\"Topics/Workflows/function-reference/HTTP/http_raw.htm\" ResolvedId=\"30967\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
