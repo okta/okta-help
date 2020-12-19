@@ -537,7 +537,7 @@ xmlAliasData += '    <Map Name=\"ext-tutorials-time-based-actions\" Link=\"Topic
 xmlAliasData += '    <Map Name=\"ext_ldap_prerequisites\" Link=\"Topics/Directory/ldap-agent-prerequisites.htm\" ResolvedId=\"15001\" />';
 xmlAliasData += '    <Map Name=\"ext_prov_lcm_prov_app\" Link=\"Topics/Provisioning/lcm/lcm-provision-application.htm\" ResolvedId=\"6000\" />';
 xmlAliasData += '    <Map Name=\"ext-about-flow-alias\" Link=\"Topics/Workflows/learn/about-flow-alias.htm\" ResolvedId=\"10019\" />';
-xmlAliasData += '    <Map Name=\"about-flow-client-token\" Link=\"Topics/Workflows/learn/about-flow-client-token.htm\" ResolvedId=\"10020\" />';
+xmlAliasData += '    <Map Name=\"ext-about-flow-client-token\" Link=\"Topics/Workflows/learn/about-flow-client-token.htm\" ResolvedId=\"10020\" />';
 xmlAliasData += '    <Map Name=\"ext-resume-paused-flow\" Link=\"Topics/Workflows/execute/resume-paused-flow.htm\" ResolvedId=\"10021\" />';
 xmlAliasData += '    <Map Name=\"ext-invoke-api-endpoint-flow\" Link=\"Topics/Workflows/learn/about-invoke-api-endpoint-flow.htm\" ResolvedId=\"10022\" />';
 xmlAliasData += '    <Map Name=\"ext-build-flows\" Link=\"Topics/Workflows/build/build-flows.htm\" ResolvedId=\"10023\" />';
@@ -1492,5 +1492,7 @@ xmlAliasData += '    <Map Name=\"ext-http-method-get\" Link=\"Topics/Workflows/f
 xmlAliasData += '    <Map Name=\"ext-http-method-post\" Link=\"Topics/Workflows/function-reference/HTTP/http_post.htm\" ResolvedId=\"30965\" />';
 xmlAliasData += '    <Map Name=\"ext-http-method-put\" Link=\"Topics/Workflows/function-reference/HTTP/http_put.htm\" ResolvedId=\"30966\" />';
 xmlAliasData += '    <Map Name=\"ext-http-method-raw\" Link=\"Topics/Workflows/function-reference/HTTP/http_raw.htm\" ResolvedId=\"30967\" />';
+xmlAliasData += '    <Map Name=\"ext-excelonline-method-readworksheetinfo\" Link=\"Topics/Workflows/connector-reference/excelonline/actions/readworksheetinfo.htm\" ResolvedId=\"30968\" />';
+xmlAliasData += '    <Map Name=\"ext-excelonline-misc-revoke\" Link=\"Topics/Workflows/connector-reference/excelonline/overviews/revoke.htm\" ResolvedId=\"30969\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
