@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="_Skins_okta_html5_topnav_nav_poc" data-mc-search-type="Stem" data-mc-help-system-file-name="okta_help.xml" data-mc-path-to-help-system="../../../../" data-mc-has-content-body="True" data-mc-searchable="True" data-mc-conditions="Primary.do-not-publish" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic;Default" data-mc-preload-images="false" data-mc-in-preview-mode="false">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="_Skins_okta_html5_topnav_nav_poc" data-mc-search-type="Stem" data-mc-help-system-file-name="okta_help.xml" data-mc-path-to-help-system="../../../../" data-mc-has-content-body="True" data-mc-conditions="MultiProdPubish.OIE+Core" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic;Default" data-mc-preload-images="false" data-mc-in-preview-mode="false">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="robots" content="noindex, nofollow" />
         <meta name="typeofcontent" content="documentation" />
         <meta name="audience" content="admin" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Provide your own Certificate Authority</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>About Security Behavior Detection</title>
         <meta charset="utf-8" />
         <meta name="description" content="" />
         <meta name="author" content="" />
@@ -53,7 +53,7 @@
 }
 
 </style>
-        <link href="../../../Resources/TableStyles/standard-shaded-rows.css" rel="stylesheet" data-mc-stylesheet-type="table" />
+        <link href="../../../Resources/TableStyles/standard.css" rel="stylesheet" data-mc-stylesheet-type="table" />
         <script src="../../../../Resources/Scripts/jquery.min.js" type="text/javascript">
         </script>
         <script src="../../../../Resources/Scripts/require.min.js" type="text/javascript">
@@ -263,93 +263,69 @@
                                             <div class="body-main">
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
-                                                    <h1>Provide your own Certificate Authority</h1>
-                                                    <p>To provide your own Certificate Authority (CA), your environment requires a PKI infrastructure that is integrated with your MDM solution to distribute Okta-provided client certificates to targeted devices. The <span class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span> app uses the PKI certificates to sign the <i>managementHint</i> to prove that devices are managed.</p>
-                                                    <p>In addition to distributing certificates, your MDM takes care of renewing certificates before they expire and revoking certificates from your MDM server and managed devices when devices are no longer managed.</p>
-                                                    <h2>Overview</h2>
+                                                    <h1>About Security Behavior Detection </h1>
+                                                    <p>Deciding when to require a second MFA factor is a common challenge for admins.  With this feature, admins can configure the system so that individual end users are only prompted for an additional MFA factor when there is a change in behavior that the admin defines. </p>
+                                                    <p>There are two components of Security Behavior Detection that admins can configure:</p>
                                                     <ul>
-                                                        <li><b>Manage devices with your MDM:</b> Okta tested this feature  with Microsoft Intune (for Windows) and  VMware Workspace ONE Intelligent Hub (for macOS).</li>
-                                                        <li><b>Deploy client certificates to managed devices:</b> To prove that devices are managed by your organization, you must configure your MDM to deploy certificates, signed by your organization's Certificate Authority, to your registered Windows and macOS devices. Deploy certificates for digital signature but not for other purposes, such as encryption.</li>
-                                                        <li><b>Upload CA certificates to Okta:</b> From the Okta Admin Console, upload the root of trust of your CA certificate to Okta. During the SSO flow, Okta Verify presents the signed token to Okta to indicate proof of possession of the certificate client certificate. Okta then uses the root of trust to validate that the device belongs to your organization.</li>
+                                                        <li>Define the behavior to track</li>
+                                                        <li>Define an action to take if there is a change in trackable behavior for an end user</li>
                                                     </ul>
-                                                    <h2>Before you begin</h2>
-                                                    <ul>
-                                                        <li>Make sure SCEP&#160;profiles are targeted at the USER level, not the DEVICE level. This ensures that the certificate is deployed to the login keychain and accessible to <span class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span>. Your SCEP policy requires a user context. Multiple users using the same device is supported but only if each user is from a separate org. The enrolled user must be managed by your MDM and possess a certificate. </li>
-                                                        <li>Use your own PKI infrastructure or use one of the following supported 3rd party CAs:<ul><li>Symantec</li><li>Verisign</li><li>OpenTrust</li><li>Microsoft AD Certificate Services</li></ul></li>
-                                                    </ul>
-                                                    <h2>Start this procedure</h2>
-                                                    <p>To complete this procedure, complete these three tasks:</p>
-                                                    <ul>
-                                                        <li><a href="#Task" class="MCXref xref">Task 1: Configure the SCEP&#160;payload</a>
-                                                        </li>
-                                                        <li><a href="#Task2" class="MCXref xref">Task 2: In Okta, add your Certificate Authority</a>
-                                                        </li>
-                                                        <li><a href="#Task4" class="MCXref xref">Task 3: In Okta, configure management attestation</a>
-                                                        </li>
-                                                    </ul>
-                                                    <h3><a name="Task"></a>Task 1: Configure the SCEP&#160;payload</h3>
-                                                    <p>Ensure that the SCEP&#160;payload is configured as follows:</p>
-                                                    <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
-                                                        <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
-                                                        <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
-                                                        <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
-                                                        <thead>
-                                                            <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
-                                                                <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
-                                                                    <p>Key</p>
-                                                                </th>
-                                                                <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
-                                                                    <p>Type</p>
-                                                                </th>
-                                                                <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">
-                                                                    <p>Value</p>
-                                                                </th>
-                                                            </tr>
-                                                        </thead>
+                                                    <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                                                        <col class="TableStyle-standard-Column-Column1" />
+                                                        <col class="TableStyle-standard-Column-Column1" />
                                                         <tbody>
-                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
-                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><b>KeyUsage</b>
-                                                                </td>
-                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Integer</td>
-                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Set to <b>signing</b> so Okta Verify can sign the certificate with the SCEP private key</td>
+                                                            <tr class="TableStyle-standard-Body-Body1">
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body1" style="font-weight: bold;background-color: #f5f5f5;">Components</td>
+                                                                <td class="TableStyle-standard-BodyD-Column1-Body1" style="font-weight: bold;background-color: #f5f5f5;">Examples</td>
                                                             </tr>
-                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
-                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><b>AllowAllAppAccess</b>
+                                                            <tr class="TableStyle-standard-Body-Body2">
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body2"><b>Trackable Behaviors</b>
                                                                 </td>
-                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Boolean</td>
-                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">Set to <b>true</b> so Okta Verify can sign requests without prompting users to sign in. Otherwise users are prompted to allow Okta Verify to access the key.</td>
+                                                                <td class="TableStyle-standard-BodyD-Column1-Body2">
+                                                                    <ul>
+                                                                        <li>Sign in from a new country, state, or city</li>
+                                                                        <li>Sign in from a new location more than a specified distance from previous successful sign ins</li>
+                                                                        <li>Sign in from a new device</li>
+                                                                        <li>Sign in from a new IP address</li>
+                                                                        <li>Sign in from a location deemed unfeasible for a user to travel to across two successive sign-in attempts</li>
+                                                                    </ul>
+                                                                </td>
                                                             </tr>
-                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
-                                                                <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1"><b>KeysExtractable</b>
+                                                            <tr class="TableStyle-standard-Body-Body1">
+                                                                <td class="TableStyle-standard-BodyC-Column1-Body1"><b>Actions to take</b>
                                                                 </td>
-                                                                <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1">Boolean</td>
-                                                                <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body1">Set to <b>false</b> so that it cannot be copied to another device easily.</td>
+                                                                <td class="TableStyle-standard-BodyA-Column1-Body1">
+                                                                    <ul>
+                                                                        <li data-mc-conditions="MultiProdPubish.OIE">Set user IP location</li>
+                                                                        <li data-mc-conditions="MultiProdPubish.OIE">Set authenticate via</li>
+                                                                        <li data-mc-conditions="MultiProdPubish.OIE">Set behavior</li>
+                                                                        <li data-mc-conditions="MultiProdPubish.OIE">Set risk</li>
+                                                                        <li>Permit access</li>
+                                                                        <li>Require the end user to validate with an additional multifactor authentication factor</li>
+                                                                        <li data-mc-conditions="MultiProdPubish.OIE">Set factor lifetime</li>
+                                                                        <li data-mc-conditions="MultiProdPubish.OIE">Set session expiry</li>
+                                                                    </ul>
+                                                                </td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
-                                                    <h3><a name="Task2"></a>Task 2: In Okta, add your Certificate Authority</h3>
-                                                    <ol>
-                                                        <li value="1">In the <span class="mc-variable okta-feature-names.Administrator_dashboard variable">Admin Console</span>, go to <b>Security</b> &gt; <b>Device Management</b>.</li>
-                                                        <li value="2">Click <b>Certificate Authority</b> tab.</li>
-                                                        <li value="3">Click <b>Add Certificate Authority</b>.</li>
-                                                        <li value="4">In the <b>Add Certificate Authority</b> dialog box, browse to your certificate. 
-            <p>The certificate is uploaded automatically. A message appears if the upload is successful. To view  details, click <b>View root certificate chain details</b>.</p></li>
-                                                        <li value="5">Click <b>Close</b>.</li>
-                                                    </ol>
-                                                    <h3><a name="Task4"></a>Task 3: In Okta, configure management attestation</h3>
-                                                    <ol>
-                                                        <li value="1">In the <span class="mc-variable okta-feature-names.Administrator_dashboard variable">Admin Console</span>, go to <b>Security</b> &gt;<b>Device Management</b>.</li>
-                                                        <li value="2">Click the <b>Device Management</b> tab.</li>
-                                                        <li value="3">Click <b>Add Platform</b>.</li>
-                                                        <li value="4">Select <b>Desktop (Windows and macOS only)</b>.</li>
-                                                        <li value="5">Click <b>Next</b>.</li>
-                                                        <li value="6">In Configure management attestation, select <b>Use my own certificate authority</b>.</li>
-                                                        <li value="7">Click <b>Save</b>.</li>
-                                                    </ol>
-                                                    <h2>Related topics</h2>
-                                                    <p>&lt;Link 1 - xref&gt;</p>
-                                                    <p>&lt;Link 2 - xref&gt;</p>
-                                                    <p>&lt;Link 3 - xref&gt;</p>
+                                                    <h2>Security Behavior Detection considerations</h2>
+                                                    <ul>
+                                                        <li>You can't deny access if a behavior condition is selected in a sign-on policy rule.</li>
+                                                        <li>You can reset the behavior profile for an end user. This reset clears all tracked behavior history for the end user, but continues tracking new behavior.</li>
+                                                        <li>You must include the new behavior in a sign-on policy in order for behavior detection to take effect. Defining a behavior does not trigger any actions unless it is added to a policy.</li>
+                                                        <li>
+                                                            <p>Location policies are based on a third party geolocation database. Okta updates geolocation IP data once a week  to minimize potential inaccuracies with location data. Occasionally, the geolocation data that Okta receives is either incorrect or unavailable.</p>
+                                                        </li>
+                                                    </ul>
+                                                    <h2>Related topics </h2>
+                                                    <p><a href="type-behavior-detection.htm" class="MCXref xref">Security Behavior Detection types</a>
+                                                    </p>
+                                                    <p><a href="logs-behavior-detection.htm" class="MCXref xref">Security Behavior Detection System Log events</a>
+                                                    </p>
+                                                    <p><a href="configure-behavior-detection.htm" class="MCXref xref">Security Behavior Detection configuration</a>
+                                                    </p>
+                                                    <p>Security Policies</p>
                                                 </div>
                                                 <!-- Back to Top button --><a href="#" class="sf-back-to-top"><span class="arrow"></span>Top</a>
                                             </div>
