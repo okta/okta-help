@@ -6,7 +6,6 @@ const location = {
   hash: document.location.hash,
   href: document.location.href,
 };
-
 // Construct alias url with cshid
 let aliasUrl = getAliasUrl(location);
 

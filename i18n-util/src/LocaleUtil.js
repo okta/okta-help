@@ -1,10 +1,12 @@
 const LOCALE_COOKIE_KEY = 'okta_help_user_lang';
-
-const getLocale = () => {
+import { getUrlParameter } from './UrlUtil';
+ 
+const  getLocale = () => {
   // map to convert locales to folder names within h.o.c
+  // only end-user docs have translations
   const supportedLocaleToFolderMap = {
-    'en-US': 'en',
-    'ja-JP': 'ja',
+    'en-US': 'en-us',
+    'ja-JP': 'ja-jp',
   };
 
   // map to convert locales without country code
@@ -15,7 +17,7 @@ const getLocale = () => {
   };
 
   // check locale passed in query param
-  let locale = document.location.hash.split('?locale=')[1];
+  let locale = getUrlParameter('locale');
   if (!locale) {
     // check locale in cookie
     if (document.cookie.indexOf(LOCALE_COOKIE_KEY) !== -1) {
@@ -25,7 +27,7 @@ const getLocale = () => {
       locale = navigator.language;
     }
   }
-  
+
   // convert locales without country code
   // Ex en gets converted to en-US
   if (localesWithoutCountryMap[locale]) {
@@ -34,12 +36,20 @@ const getLocale = () => {
 
   setLocaleCookie(locale);
 
-  // convert locale value to folder path
-  locale = supportedLocaleToFolderMap[locale];
-
-  // default to en
-  if (!locale) {
+  // only end-user docs have translations
+  // TODO remove check once admin docs also have translations OKTA-356320
+  const type = getUrlParameter('type');
+  if (type === 'end-user') {
+    // convert locale value to folder path
+    locale = supportedLocaleToFolderMap[locale];
+  } else {
+    // always return en for admin docs
     locale = 'en';
+  }
+
+  if (!locale) {
+    // TODO add better default logic for unsupported locales OKTA-356251
+    locale = type ? 'en-us': 'en';
   }
   
   return locale;
@@ -56,7 +66,7 @@ const setLocaleCookie = (locale) => {
   }
 };
 
-module.exports = {
+export {
   getLocale,
   setLocaleCookie
-}; 
+};

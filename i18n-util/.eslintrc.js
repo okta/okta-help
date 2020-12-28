@@ -1,7 +1,13 @@
 module.exports = {
-  "env": {
-    "browser": true,
-    "es2021": true
+  'env': {
+    'browser': true,
+    'es2021': true
+  },
+  'parser': 'babel-eslint',
+  'parserOptions': {
+    ecmaVersion: 2018,
+    'sourceType': 'module',
+    'allowImportExportEverywhere': true
   },
   overrides: [
     {
@@ -17,10 +23,6 @@ module.exports = {
         'linebreak-style': ['error', 'unix'],
         quotes: ['error', 'single', { avoidEscape: true, allowTemplateLiterals: true }],
         semi: ['error', 'always'],
-      },
-      parserOptions: {
-        ecmaVersion: 2018,
-        "sourceType": "module"
       },
     },
   ],
