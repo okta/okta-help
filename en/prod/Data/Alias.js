@@ -1308,7 +1308,7 @@ xmlAliasData += '    <Map Name=\"ext-control-method-times\" Link=\"Topics/Workfl
 xmlAliasData += '    <Map Name=\"ext-control-method-until\" Link=\"Topics/Workflows/function-reference/Flow-Control/flocontrol_until.htm\" ResolvedId=\"30779\" />';
 xmlAliasData += '    <Map Name=\"ext-control-method-wait\" Link=\"Topics/Workflows/function-reference/Flow-Control/flocontrol_wait.htm\" ResolvedId=\"30780\" />';
 xmlAliasData += '    <Map Name=\"ext-httpfunctions-method-accept\" Link=\"Topics/Workflows/function-reference/HTTP/http_accept.htm\" ResolvedId=\"30781\" />';
-xmlAliasData += '    <Map Name=\"ext-httpfunctions-method-authorization\" Link=\"Topics/Workflows/function-reference/HTTP/http_authorization.htm\" ResolvedId=\"30782\" />';
+xmlAliasData += '    <Map Name=\"ext-httpfunctions-misc-authorization\" Link=\"Topics/Workflows/function-reference/HTTP/http_authorization.htm\" ResolvedId=\"30782\" />';
 xmlAliasData += '    <Map Name=\"ext-httpfunctions-method-close\" Link=\"Topics/Workflows/function-reference/HTTP/http_close.htm\" ResolvedId=\"30783\" />';
 xmlAliasData += '    <Map Name=\"ext-httpfunctions-method-delete\" Link=\"Topics/Workflows/function-reference/HTTP/http_delete.htm\" ResolvedId=\"30784\" />';
 xmlAliasData += '    <Map Name=\"ext-httpfunctions-method-errors\" Link=\"Topics/Workflows/function-reference/HTTP/http_errors.htm\" ResolvedId=\"30785\" />';
@@ -1537,7 +1537,7 @@ xmlAliasData += '    <Map Name=\"ext-smartrecruiters\" Link=\"Topics/Workflows/c
 xmlAliasData += '    <Map Name=\"ext-salesforce229-getallpermissionsetlicenses\" Link=\"Topics/Workflows/connector-reference/salesforce2_29/actions/getallpermissionsetlicenses.htm\" ResolvedId=\"30957\" />';
 xmlAliasData += '    <Map Name=\"ext-salesforce229-listuserpermissionassignments\" Link=\"Topics/Workflows/connector-reference/salesforce2_29/actions/listuserpermissionassignments.htm\" ResolvedId=\"30958\" />';
 xmlAliasData += '    <Map Name=\"ext-salesforce229-removeuserentitlements\" Link=\"Topics/Workflows/connector-reference/salesforce2_29/actions/removeuserentitlements.htm\" ResolvedId=\"30959\" />';
-xmlAliasData += '    <Map Name=\"ext-http-method-authorization\" Link=\"Topics/Workflows/function-reference/HTTP/http_authorization.htm\" ResolvedId=\"30960\" />';
+xmlAliasData += '    <Map Name=\"ext-http-misc-authorization\" Link=\"Topics/Workflows/function-reference/HTTP/http_authorization.htm\" ResolvedId=\"30960\" />';
 xmlAliasData += '    <Map Name=\"ext-http-method-close\" Link=\"Topics/Workflows/function-reference/HTTP/http_close.htm\" ResolvedId=\"30961\" />';
 xmlAliasData += '    <Map Name=\"ext-http-method-delete\" Link=\"Topics/Workflows/function-reference/HTTP/http_delete.htm\" ResolvedId=\"30962\" />';
 xmlAliasData += '    <Map Name=\"ext-http-method-errors\" Link=\"Topics/Workflows/function-reference/HTTP/http_errors.htm\" ResolvedId=\"30963\" />';
