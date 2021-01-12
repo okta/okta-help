@@ -1,6 +1,14 @@
 var xmlAliasData = "";
 xmlAliasData += '<?xml version=\"1.0\" encoding=\"utf-8\"?>';
 xmlAliasData += '<CatapultAliasFile>';
+xmlAliasData += '    <Map Name=\"Security_Network\" Link=\"Topics/Security/Security_Network.htm\" ResolvedId=\"1100\" />';
+xmlAliasData += '    <Map Name=\"Security_Behavior_Detection\" Link=\"Topics/Security/proc-security-behavior-detection.htm\" ResolvedId=\"1024\" />';
+xmlAliasData += '    <Map Name=\"ext_proc_security_behavior_detection\" Link=\"Topics/Security/proc-security-behavior-detection.htm\" ResolvedId=\"200165\" />';
+xmlAliasData += '    <Map Name=\"ext_Security_Network\" Link=\"Topics/Security/Security_Network.htm\" ResolvedId=\"200172\" />';
+xmlAliasData += '    <Map Name=\"csh_threat_insight\" Link=\"Topics/Security/threat-insight/ti-index.htm\" ResolvedId=\"1116\" />';
+xmlAliasData += '    <Map Name=\"ext_Location_Zones\" Link=\"Topics/Security/Security_Network.htm\" ResolvedId=\"1151\" />';
+xmlAliasData += '    <Map Name=\"csh-threat-insight\" Link=\"Topics/Security/threat-insight/ti-index.htm\" ResolvedId=\"1192\" />';
+xmlAliasData += '    <Map Name=\"ext_threatinsight\" Link=\"Topics/Security/threat-insight/ti-index.htm\" ResolvedId=\"1195\" />';
 xmlAliasData += '    <Map Name=\"csh-oie\" Link=\"Topics/identity-engine/oie-index.htm\" ResolvedId=\"1328\" />';
 xmlAliasData += '    <Map Name=\"ext-oie\" Link=\"Topics/identity-engine/oie-index.htm\" ResolvedId=\"1329\" />';
 xmlAliasData += '    <Map Name=\"csh-oie-release-notes\" Link=\"Topics/identity-engine/oie-release-notes.htm\" ResolvedId=\"1333\" />';
