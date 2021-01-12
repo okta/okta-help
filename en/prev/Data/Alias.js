@@ -1550,5 +1550,8 @@ xmlAliasData += '    <Map Name=\"ext-excelonline-method-readworksheetinfo\" Link
 xmlAliasData += '    <Map Name=\"ext-excelonline-misc-revoke\" Link=\"Topics/Workflows/connector-reference/excelonline/overviews/revoke.htm\" ResolvedId=\"30969\" />';
 xmlAliasData += '    <Map Name=\"ext-advancedserveraccess\" Link=\"Topics/Workflows/connector-reference/advancedserveraccess/advancedserveraccess.htm\" ResolvedId=\"16000\" />';
 xmlAliasData += '    <Map Name=\"ext-advancedserveraccess-method-createpreauthorization\" Link=\"Topics/Workflows/connector-reference/advancedserveraccess/actions/createpreauthorization.htm\" ResolvedId=\"16001\" />';
+xmlAliasData += '    <Map Name=\"ext-ad-agent-install\" Link=\"Topics/Directory/ad-agent-new-integration.htm\" ResolvedId=\"15008\" />';
+xmlAliasData += '    <Map Name=\"ext-ldap-agent-install\" Link=\"Topics/Directory/ldap-agent-install-configure.htm\" ResolvedId=\"15009\" />';
+xmlAliasData += '    <Map Name=\"ext-ad-agent-import-users\" Link=\"Topics/Directory/ad-agent-import-users-on-demand.htm\" ResolvedId=\"15010\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
