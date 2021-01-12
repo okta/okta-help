@@ -403,7 +403,8 @@ xmlAliasData += '    <Map Name=\"ext_AD_register_domains\" Link=\"Topics/Directo
 xmlAliasData += '    <Map Name=\"ext_google-provisioning\" Link=\"Topics/Provisioning/Google/google-provisioning.htm\" ResolvedId=\"1239\" />';
 xmlAliasData += '    <Map Name=\"ext-password-sync-main\" Link=\"Topics/Directory/password-sync-main.htm\" ResolvedId=\"1241\" />';
 xmlAliasData += '    <Map Name=\"ext_prov_con_okta_prov\" Link=\"Topics/Provisioning/lcm/con-okta-prov.htm\" ResolvedId=\"1242\" />';
-xmlAliasData += '    <Map Name=\"ext_prov_okta_lcm_user_provision\" Link=\"Topics/Provisioning/lcm/okta-lcm-user-provision.htm\" ResolvedId=\"1243\" />';
+xmlAliasData += '    <Map Name=\"ext_prov_okta_lcm_user_provision\" Link=\"Topics/Provisioning/lcm/lcm-user-provision.htm\" ResolvedId=\"1243\" />';
+xmlAliasData += '    <Map Name=\"csh-webauthn\" Link=\"Topics/Security/mfa-webauthn.htm\" ResolvedId=\"1247\" />';
 xmlAliasData += '    <Map Name=\"csh-administrators\" Link=\"Topics/Security/Administrators.htm\" ResolvedId=\"1248\" />';
 xmlAliasData += '    <Map Name=\"csh-admin-role-groupmembership\" Link=\"Topics/Security/administrators-group-membership-admin.htm\" ResolvedId=\"1249\" />';
 xmlAliasData += '    <Map Name=\"csh-eu-import-safeguard\" Link=\"Topics/users-groups-profiles/usgp-import-safeguard.htm\" ResolvedId=\"1251\" />';
