@@ -306,7 +306,7 @@ MadCap.WebHelp=MadCap.CreateNamespace("WebHelp");MadCap.WebHelp.HelpSystem=funct
 
 (function ()
 {
-var helpSystemName = "okta_help.htm";
+var helpSystemName = "Default.htm";
 
     MadCap.OpenHelp = function (id, skinName, searchQuery, firstPick, pathToHelpSystem)
     {
