@@ -1,1 +1,1 @@
-define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../Content/Topics/end-user/dashboard-new-overview.htm'],s:['+'],p:[['+',13]]});
+define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../Content/Topics/Apps/Apps_Adding_an_App_from_the_Browser_Plugin.htm'],s:['$'],p:[['$',72]]});
