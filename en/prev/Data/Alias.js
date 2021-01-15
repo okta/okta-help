@@ -74,7 +74,6 @@ xmlAliasData += '    <Map Name=\"ver-hist-mfa-adfs\" Link=\"Topics/Settings/Vers
 xmlAliasData += '    <Map Name=\"ver-hist-pingfed-adapter\" Link=\"Topics/Settings/Version_Histories/Ver_History_Okta_PingFederate_Adapter.htm\" ResolvedId=\"1052\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-op-mfa-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_On-Prem_MFA_Agent.htm\" ResolvedId=\"1053\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-radius-server\" Link=\"Topics/Settings/Version_Histories/Ver_History_RADIUS_Server_Agent.htm\" ResolvedId=\"1054\" />';
-xmlAliasData += '    <Map Name=\"ver-hist-saml-java-toolkit\" Link=\"Topics/Settings/Version_Histories/Ver_History_SAML_Toolkit_For_Java.htm\" ResolvedId=\"1055\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-sharepoint-pp-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_Sharepoint_People_Picker_Agent.htm\" ResolvedId=\"1056\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-sso-iwa-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_SSO_IWA_Agent.htm\" ResolvedId=\"1057\" />';
 xmlAliasData += '    <Map Name=\"pulse-radius-intg\" Link=\"Topics/integrations/pulse-secure-radius-intg.htm\" ResolvedId=\"1035\" />';
@@ -242,7 +241,6 @@ xmlAliasData += '    <Map Name=\"ext_Ver_History_Okta_PingFederate_Adapter\" Lin
 xmlAliasData += '    <Map Name=\"ext_Ver_History_On_Prem_MFA_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_On-Prem_MFA_Agent.htm\" ResolvedId=\"200206\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_OPP_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_OPP_Agent.htm\" ResolvedId=\"200207\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_RADIUS_Server_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_RADIUS_Server_Agent.htm\" ResolvedId=\"200208\" />';
-xmlAliasData += '    <Map Name=\"ext_Ver_History_SAML_Toolkit_For_Java\" Link=\"Topics/Settings/Version_Histories/Ver_History_SAML_Toolkit_For_Java.htm\" ResolvedId=\"200209\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_Sharepoint_People_Picker_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_Sharepoint_People_Picker_Agent.htm\" ResolvedId=\"200210\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_SSO_IWA_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_SSO_IWA_Agent.htm\" ResolvedId=\"200211\" />';
 xmlAliasData += '    <Map Name=\"csh-java-ldap-agent\" Link=\"Topics/Directory/ldap-agent-manage-integration.htm\" ResolvedId=\"10000\" />';
@@ -1556,5 +1554,9 @@ xmlAliasData += '    <Map Name=\"ext-ldap-agent-install\" Link=\"Topics/Director
 xmlAliasData += '    <Map Name=\"ext-ad-agent-import-users\" Link=\"Topics/Directory/ad-agent-import-users-on-demand.htm\" ResolvedId=\"15010\" />';
 xmlAliasData += '    <Map Name=\"ext-o365-adv\" Link=\"Topics/Apps/Office365/advanced.htm\" ResolvedId=\"1062\" />';
 xmlAliasData += '    <Map Name=\"ext-o365-pro-depro\" Link=\"Topics/Apps/Apps_Okta_Enhancements_Office_365_Integration.htm\" ResolvedId=\"1091\" />';
+xmlAliasData += '    <Map Name=\"ext-about-updated-deprecated-cards\" Link=\"Topics/Workflows/learn/about-updated-deprecated-cards.htm\" ResolvedId=\"30970\" />';
+xmlAliasData += '    <Map Name=\"csh-apps-aiw-main\" Link=\"Topics/Apps/Apps_App_Integration_Wizard.htm\" ResolvedId=\"6001\" />';
+xmlAliasData += '    <Map Name=\"csh-apps-aiw-oidc-login-uri\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_OIDC.htm#OIDC-login-redirect-uri\" ResolvedId=\"6002\" />';
+xmlAliasData += '    <Map Name=\"csh-apps-aiw-oidc-logout-uri\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_OIDC.htm#OIDC-logout-redirect-uri\" ResolvedId=\"6003\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
