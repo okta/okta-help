@@ -288,7 +288,7 @@ xmlAliasData += '    <Map Name=\"ext_Security_Administrators\" Link=\"Topics/Sec
 xmlAliasData += '    <Map Name=\"csh-dt-integration-types\" Link=\"Topics/device-trust/SAML/Mobile/integrate-okta-dt-with-ws1-mobile.htm\" ResolvedId=\"1108\" />';
 xmlAliasData += '    <Map Name=\"adv_server_access\" Link=\"Topics/Adv_Server_Access/docs/asa-overview.htm\" ResolvedId=\"1109\" />';
 xmlAliasData += '    <Map Name=\"csh-attribute-statements-saml\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SAML.htm#SAMLAttributeStatements\" ResolvedId=\"1111\" />';
-xmlAliasData += '    <Map Name=\"csh_FIDO2_WebAuthn\" Link=\"Topics/Security/MFA.htm#WebAuthentication\" ResolvedId=\"1112\" />';
+xmlAliasData += '    <Map Name=\"csh_FIDO2_WebAuthn\" Link=\"Topics/Security/mfa-webauthn.htm\" ResolvedId=\"1112\" />';
 xmlAliasData += '    <Map Name=\"csh_dirintmain\" Link=\"Topics/Directory/directory-integrations-main.htm\" ResolvedId=\"1113\" />';
 xmlAliasData += '    <Map Name=\"csh_superadmin\" Link=\"Topics/Security/administrators-assign-admins.htm\" ResolvedId=\"1114\" />';
 xmlAliasData += '    <Map Name=\"csh_mfa\" Link=\"Topics/Security/MFA.htm\" ResolvedId=\"1115\" />';
@@ -1558,5 +1558,10 @@ xmlAliasData += '    <Map Name=\"ext-about-updated-deprecated-cards\" Link=\"Top
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-main\" Link=\"Topics/Apps/Apps_App_Integration_Wizard.htm\" ResolvedId=\"6001\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-oidc-login-uri\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_OIDC.htm#OIDC-login-redirect-uri\" ResolvedId=\"6002\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-oidc-logout-uri\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_OIDC.htm#OIDC-logout-redirect-uri\" ResolvedId=\"6003\" />';
+xmlAliasData += '    <Map Name=\"ext-github-method-getpullrequest\" Link=\"Topics/Workflows/connector-reference/github/actions/getpullrequest.htm\" ResolvedId=\"30971\" />';
+xmlAliasData += '    <Map Name=\"ext-github-method-createanissue\" Link=\"Topics/Workflows/connector-reference/github/actions/createanissue.htm\" ResolvedId=\"30972\" />';
+xmlAliasData += '    <Map Name=\"ext-github-method-updateissue\" Link=\"Topics/Workflows/connector-reference/github/actions/updateissue.htm\" ResolvedId=\"30973\" />';
+xmlAliasData += '    <Map Name=\"ext-github-method-updatepullrequest\" Link=\"Topics/Workflows/connector-reference/github/actions/updatepullrequest.htm\" ResolvedId=\"30974\" />';
+xmlAliasData += '    <Map Name=\"ext-github-method-updateissuemetadata\" Link=\"Topics/Workflows/connector-reference/github/actions/updateissuemetadata.htm\" ResolvedId=\"30975\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
