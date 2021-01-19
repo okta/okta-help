@@ -5,7 +5,7 @@ let languageGetter;
 const setup = () => {
   // reset values
   jest.clearAllMocks();
-  document.location.hash = '';
+  window.location.hash = '';
   document.cookie = `${LOCALE_COOKIE_KEY}= ; expires = Thu, 01 Jan 1970 00:00:00 GMT`;
   languageGetter = jest.spyOn(window.navigator, 'language', 'get');
 };
@@ -15,7 +15,8 @@ describe('Locale Priority', () => {
     setup();
   });
   test('query param locale is higher than browser and cookie locale', () => {
-    document.location.hash = '#somehash?locale=en&type=end-user';
+    // issues with mocking window.location.href, setting window.location.hash instead here.
+    window.location.hash = '?id=somehas&locale=en&type=end-user';
     languageGetter.mockReturnValue('ja-JP');
     setLocaleCookie('ja-JP');
     expect(getLocale()).toBe('en-us');
@@ -55,7 +56,8 @@ describe('LocaleUtil.getLocale', () => {
     setup();
   });
   test('test getLocale from query param', () => {
-    document.location.hash = '#somehash?locale=en&type=end-user';
+    // issues with mocking window.location.href, setting window.location.hash instead here.
+    window.location.hash = '?id=somehas&locale=en&type=end-user';
     setLocaleCookie('ja-JP');
     expect(getLocale()).toBe('en-us');
   });
@@ -76,7 +78,8 @@ describe('LocaleUtil.getLocale with country code for admin', () => {
     setup();
   });
   test('test getLocale from query param', () => {
-    document.location.hash = '#somehash?locale=en-US';
+    // issues with mocking window.location.href, setting window.location.hash instead here.
+    window.location.hash = '?id=somehas&locale=en-US';
     setLocaleCookie('ja-JP');
     expect(getLocale()).toBe('en');
   });
@@ -87,13 +90,15 @@ describe('LocaleUtil.getLocale with country code for enduser docs', () => {
     setup();
   });
   test('test getLocale from query param ', () => {
-    document.location.hash = '#somehash?locale=en-US&type=end-user';
+    // issues with mocking window.location.href, setting window.location.hash instead here.
+    window.location.hash = '?id=somehash?locale=en-US&type=end-user';
     setLocaleCookie('ja-JP');
     expect(getLocale()).toBe('en-us');
   });
 
   test('test getLocale from query param', () => {
-    document.location.hash = '#somehash?type=end-user&locale=ja';
+    // issues with mocking window.location.href, setting window.location.hash instead here.
+    window.location.hash = '?id=somehash?type=end-user&locale=ja';
     setLocaleCookie('en-US');
     expect(getLocale()).toBe('ja-jp');
   });
