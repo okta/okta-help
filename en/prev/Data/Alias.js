@@ -1433,6 +1433,7 @@ xmlAliasData += '    <Map Name=\"ext-agent-support-policies\" Link=\"Topics/Dire
 xmlAliasData += '    <Map Name=\"csh-blocklist-proxies-tor\" Link=\"Topics/Security/healthinsight/blocklist-proxies-tor.htm\" ResolvedId=\"11000\" />';
 xmlAliasData += '    <Map Name=\"csh-blocklist-zones\" Link=\"Topics/Security/healthinsight/blocklist-network-zone.htm\" ResolvedId=\"11001\" />';
 xmlAliasData += '    <Map Name=\"ext-control-method-callable\" Link=\"Topics/Workflows/learn/about-scheduled-child-flows.htm\" ResolvedId=\"30302\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_app_cert_valid\" Link=\"Topics/Access-Gateway/managing-application-behaviors.htm#ClientCertValidation\" ResolvedId=\"3022\" />';
 xmlAliasData += '    <Map Name=\"ext-github-method-updateuser\" Link=\"Topics/Workflows/connector-reference/github/actions/updateuser.htm\" ResolvedId=\"30307\" />';
 xmlAliasData += '    <Map Name=\"ext-github-method-searchusers\" Link=\"Topics/Workflows/connector-reference/github/actions/searchusers.htm\" ResolvedId=\"30919\" />';
 xmlAliasData += '    <Map Name=\"ext-github-method-searchteams\" Link=\"Topics/Workflows/connector-reference/github/actions/searchteams.htm\" ResolvedId=\"30920\" />';
