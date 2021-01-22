@@ -17,8 +17,6 @@ xmlAliasData += '    <Map Name=\"csh-features\" Link=\"Topics/identity-engine/oi
 xmlAliasData += '    <Map Name=\"csh-device-mgmt-desktop-mdm-setup\" Link=\"Topics/identity-engine/devices/config-desktop.htm\" ResolvedId=\"12000\" />';
 xmlAliasData += '    <Map Name=\"csh-about-authenticators\" Link=\"Topics/identity-engine/authenticators/about-authenticators.htm\" ResolvedId=\"2004\" />';
 xmlAliasData += '    <Map Name=\"csh-first-party-apps\" Link=\"Topics/Settings/first-party-apps.htm\" ResolvedId=\"7000\" />';
-xmlAliasData += '    <Map Name=\"csh-limit-access-dashboard\" Link=\"Topics/Settings/limit-access-dashboard.htm\" ResolvedId=\"7001\" />';
-xmlAliasData += '    <Map Name=\"csh-new-end-user-experience\" Link=\"Topics/Settings/new-end-user-experience.htm\" ResolvedId=\"7002\" />';
 xmlAliasData += '    <Map Name=\"csh-device-mgmt-mobile-mdm-setup\" Link=\"Topics/identity-engine/devices/config-device-mgmt-mobile.htm\" ResolvedId=\"12001\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
