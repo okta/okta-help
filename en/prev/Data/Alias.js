@@ -721,7 +721,6 @@ xmlAliasData += '    <Map Name=\"ext-gmail-method-newemail\" Link=\"Topics/Workf
 xmlAliasData += '    <Map Name=\"ext-gmail-misc-authorization\" Link=\"Topics/Workflows/connector-reference/gmail/overviews/authorization.htm\" ResolvedId=\"30179\" />';
 xmlAliasData += '    <Map Name=\"ext-gmail-misc-errors\" Link=\"Topics/Workflows/connector-reference/gmail/overviews/errors.htm\" ResolvedId=\"30180\" />';
 xmlAliasData += '    <Map Name=\"ext-googlecalendar\" Link=\"Topics/Workflows/connector-reference/googlecalendar/googlecalendar.htm\" ResolvedId=\"30181\" />';
-xmlAliasData += '    <Map Name=\"ext-googlecalendar-method-availabletimeslots\" Link=\"Topics/Workflows/connector-reference/googlecalendar/actions/availabletimeslots.htm\" ResolvedId=\"30182\" />';
 xmlAliasData += '    <Map Name=\"ext-googlecalendar-method-createnewevent\" Link=\"Topics/Workflows/connector-reference/googlecalendar/actions/createnewevent.htm\" ResolvedId=\"30183\" />';
 xmlAliasData += '    <Map Name=\"ext-googlecalendar-method-createreminder\" Link=\"Topics/Workflows/connector-reference/googlecalendar/actions/createreminder.htm\" ResolvedId=\"30184\" />';
 xmlAliasData += '    <Map Name=\"ext-googlecalendar-method-createtransferrequest\" Link=\"Topics/Workflows/connector-reference/googlecalendar/actions/createtransferrequest.htm\" ResolvedId=\"30185\" />';
@@ -800,7 +799,6 @@ xmlAliasData += '    <Map Name=\"ext-googledrive-method-createfolder\" Link=\"To
 xmlAliasData += '    <Map Name=\"ext-googledrive-method-createpermission\" Link=\"Topics/Workflows/connector-reference/googledrive/actions/createpermission.htm\" ResolvedId=\"30259\" />';
 xmlAliasData += '    <Map Name=\"ext-googledrive-method-createtransferrequest\" Link=\"Topics/Workflows/connector-reference/googledrive/actions/createtransferrequest.htm\" ResolvedId=\"30260\" />';
 xmlAliasData += '    <Map Name=\"ext-googledrive-method-deletefile\" Link=\"Topics/Workflows/connector-reference/googledrive/actions/deletefile.htm\" ResolvedId=\"30261\" />';
-xmlAliasData += '    <Map Name=\"ext-googledrive-method-downloadfile\" Link=\"Topics/Workflows/connector-reference/googledrive/actions/downloadfile.htm\" ResolvedId=\"30262\" />';
 xmlAliasData += '    <Map Name=\"ext-googledrive-method-getfilepermissions\" Link=\"Topics/Workflows/connector-reference/googledrive/actions/getfilepermissions.htm\" ResolvedId=\"30263\" />';
 xmlAliasData += '    <Map Name=\"ext-googledrive-method-movefileorfolder\" Link=\"Topics/Workflows/connector-reference/googledrive/actions/movefileorfolder.htm\" ResolvedId=\"30264\" />';
 xmlAliasData += '    <Map Name=\"ext-googledrive-method-readfileinfo\" Link=\"Topics/Workflows/connector-reference/googledrive/actions/readfileinfo.htm\" ResolvedId=\"30265\" />';
@@ -1402,8 +1400,6 @@ xmlAliasData += '    <Map Name=\"ext-rngc-provisioning\" Link=\"Topics/Provision
 xmlAliasData += '    <Map Name=\"ext-gsuite-provisioning\" Link=\"Topics/Provisioning/Google/google-provisioning.htm\" ResolvedId=\"8009\" />';
 xmlAliasData += '    <Map Name=\"ext-workplace-provisioning\" Link=\"Topics/Provisioning/workplace/workplace-by-facebook-provisioning.htm\" ResolvedId=\"8010\" />';
 xmlAliasData += '    <Map Name=\"csh-first-party-apps\" Link=\"Topics/Settings/first-party-apps.htm\" ResolvedId=\"7000\" />';
-xmlAliasData += '    <Map Name=\"csh-limit-access-dashboard\" Link=\"Topics/Settings/limit-access-dashboard.htm\" ResolvedId=\"7001\" />';
-xmlAliasData += '    <Map Name=\"csh-new-end-user-experience\" Link=\"Topics/Settings/new-end-user-experience.htm\" ResolvedId=\"7002\" />';
 xmlAliasData += '    <Map Name=\"ext-tableid-runtime\" Link=\"Topics/Workflows/build/provide-tableid-runtime.htm\" ResolvedId=\"30293\" />';
 xmlAliasData += '    <Map Name=\"ext-connections-page\" Link=\"Topics/Workflows/build/view-connections-page.htm\" ResolvedId=\"30295\" />';
 xmlAliasData += '    <Map Name=\"ext-docusign-main\" Link=\"Topics/Provisioning/docusign/docu-main.htm\" ResolvedId=\"15005\" />';
@@ -1507,5 +1503,14 @@ xmlAliasData += '    <Map Name=\"ext-github-method-updateissue\" Link=\"Topics/W
 xmlAliasData += '    <Map Name=\"ext-github-method-updatepullrequest\" Link=\"Topics/Workflows/connector-reference/github/actions/updatepullrequest.htm\" ResolvedId=\"30974\" />';
 xmlAliasData += '    <Map Name=\"ext-github-method-updateissuemetadata\" Link=\"Topics/Workflows/connector-reference/github/actions/updateissuemetadata.htm\" ResolvedId=\"30975\" />';
 xmlAliasData += '    <Map Name=\"ext-manage-group-push\" Link=\"Topics/users-groups-profiles/usgp-group-push-main.htm\" ResolvedId=\"15011\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_app_samlpt_group\" Link=\"Topics/Access-Gateway/add-app-saml-pass-thru-group.htm\" ResolvedId=\"3023\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_app_samlpt_obtain\" Link=\"Topics/Access-Gateway/add-app-saml-obtain-saml-info.htm\" ResolvedId=\"3024\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_app_samlpt_addokta\" Link=\"Topics/Access-Gateway/add-app-saml-pass-thru-add-okta.htm\" ResolvedId=\"3025\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_app_samlpt_addoag\" Link=\"Topics/Access-Gateway/add-app-saml-pass-thru-add-oag.htm\" ResolvedId=\"3026\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_app_samlpt_addbook\" Link=\"Topics/Access-Gateway/add-app-saml-pass-thru-add-bookmark.htm\" ResolvedId=\"3027\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_app_samlpt_hide\" Link=\"Topics/Access-Gateway/add-app-saml-pass-thru-hide.htm\" ResolvedId=\"3028\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_app_samlpt_test\" Link=\"Topics/Access-Gateway/add-app-saml-pass-thru-test.htm\" ResolvedId=\"3029\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_app_samlpt_arch\" Link=\"Topics/Access-Gateway/add-app-saml-pass-thru-arch.htm\" ResolvedId=\"3030\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_app_samlpt_info\" Link=\"Topics/Access-Gateway/add-app-saml-obtain-saml-info.htm\" ResolvedId=\"3031\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
