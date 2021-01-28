@@ -40,7 +40,7 @@ xmlAliasData += '    <Map Name=\"Device_Trust\" Link=\"Topics/device-trust/devic
 xmlAliasData += '    <Map Name=\"ver-hist_dt-win-desktop\" Link=\"Topics/Settings/Version_Histories/Ver_History_DeviceTrust_Installer_Windows.htm\" ResolvedId=\"1008\" />';
 xmlAliasData += '    <Map Name=\"Device_Trust_Mobile\" Link=\"Topics/device-trust/device-trust-landing.htm\" ResolvedId=\"1009\" />';
 xmlAliasData += '    <Map Name=\"Device_Trust_EAS_iOS\" Link=\"Topics/Mobile/Okta_Mobile_Device_Trust_O365_EAS_iOS.htm\" ResolvedId=\"1010\" />';
-xmlAliasData += '    <Map Name=\"App_SignOn_Policies\" Link=\"Topics/Security/App_Based_Signon.htm\" ResolvedId=\"1011\" />';
+xmlAliasData += '    <Map Name=\"App_SignOn_Policies\" Link=\"Topics/Security/policies/about-app-signon-policies.htm\" ResolvedId=\"1011\" />';
 xmlAliasData += '    <Map Name=\"okta-android-installers\" Link=\"Topics/Mobile/Okta_Mobile_Obtaining_Okta_Android_Installers.htm\" ResolvedId=\"1012\" />';
 xmlAliasData += '    <Map Name=\"Service_Mode\" Link=\"Topics/Reference/ref-service-op-mode.htm\" ResolvedId=\"1014\" />';
 xmlAliasData += '    <Map Name=\"conf-desktop-sso\" Link=\"Topics/Directory/Configuring_Desktop_SSO.htm\" ResolvedId=\"1015\" />';
@@ -194,7 +194,8 @@ xmlAliasData += '    <Map Name=\"ext_Administrators\" Link=\"Topics/Security/Adm
 xmlAliasData += '    <Map Name=\"ext_AmaznWS_App\" Link=\"Topics/integrations/aws-radius-intg.htm\" ResolvedId=\"200147\" />';
 xmlAliasData += '    <Map Name=\"ext_API\" Link=\"Topics/Security/API.htm\" ResolvedId=\"200148\" />';
 xmlAliasData += '    <Map Name=\"ext_API_Access\" Link=\"Topics/Security/API_Access.htm\" ResolvedId=\"200149\" />';
-xmlAliasData += '    <Map Name=\"ext_App_Based_Signon\" Link=\"Topics/Security/App_Based_Signon.htm\" ResolvedId=\"200150\" />';
+xmlAliasData += '    <Map Name=\"ext_App_Based_Signon\" Link=\"Topics/Security/policies/about-app-signon-policies.htm\" ResolvedId=\"200150\" />';
+xmlAliasData += '    <Map Name=\"ext_App_Based_Signon_revised\" Link=\"Topics/Security/policies/about-app-signon-policies.htm\" ResolvedId=\"200151\" />';
 xmlAliasData += '    <Map Name=\"ext_Firewall_Whitelisting\" Link=\"Topics/Security/Firewall_Whitelisting.htm\" ResolvedId=\"200152\" />';
 xmlAliasData += '    <Map Name=\"ext_Generating_a_Random_Password\" Link=\"Topics/Security/Generating_a_Random_Password.htm\" ResolvedId=\"200153\" />';
 xmlAliasData += '    <Map Name=\"ext_Identity_Providers\" Link=\"Topics/Security/Identity_Providers.htm\" ResolvedId=\"200154\" />';
@@ -213,7 +214,7 @@ xmlAliasData += '    <Map Name=\"ext_Security_Authentication\" Link=\"Topics/Sec
 xmlAliasData += '    <Map Name=\"ext_Security_Duo\" Link=\"Topics/Security/Security_Duo.htm\" ResolvedId=\"200170\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_General\" Link=\"Topics/Security/Security_General.htm\" ResolvedId=\"200171\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_Network\" Link=\"Topics/Security/Security_Network.htm\" ResolvedId=\"200172\" />';
-xmlAliasData += '    <Map Name=\"ext_Security_Policies\" Link=\"Topics/Security/Security_Policies.htm\" ResolvedId=\"200173\" />';
+xmlAliasData += '    <Map Name=\"ext_Security_Policies\" Link=\"Topics/Security/policies/policies-home.htm\" ResolvedId=\"200173\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_Using_Sync_Password\" Link=\"Topics/Directory/Security_Using_Sync_Password.htm\" ResolvedId=\"200174\" />';
 xmlAliasData += '    <Map Name=\"ext_The_Help_Desk_Admin_Role\" Link=\"Topics/Security/administrators-help-desk-admin.htm\" ResolvedId=\"200175\" />';
 xmlAliasData += '    <Map Name=\"ext_The_User_Admin_Role\" Link=\"Topics/Security/administrators-group-admin.htm\" ResolvedId=\"200176\" />';
@@ -282,7 +283,7 @@ xmlAliasData += '    <Map Name=\"csh-dt-android-other-mngApp\" Link=\"Topics/Mob
 xmlAliasData += '    <Map Name=\"csh-dt-ios-other-mngApp\" Link=\"Topics/Mobile/Okta_Device_Trust_Native_Apps_Safari_MDM_Devices.htm\" ResolvedId=\"1093\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-ios-intune\" Link=\"Topics/Mobile/Okta_Device_Trust_Native_Apps_Safari_MDM_Devices.htm\" ResolvedId=\"1094\" />';
 xmlAliasData += '    <Map Name=\"csh_MFA_Reset\" Link=\"Topics/Security/MFA.htm#MFA_Reset\" ResolvedId=\"1095\" />';
-xmlAliasData += '    <Map Name=\"csh_security_policies\" Link=\"Topics/Security/Security_Policies.htm\" ResolvedId=\"1096\" />';
+xmlAliasData += '    <Map Name=\"csh_security_policies\" Link=\"Topics/Security/policies/policies-home.htm\" ResolvedId=\"1096\" />';
 xmlAliasData += '    <Map Name=\"csh_notification_new\" Link=\"Topics/Security/Security_General.htm#SecurityNotificationEmails\" ResolvedId=\"1097\" />';
 xmlAliasData += '    <Map Name=\"csh_notification_enroll\" Link=\"Topics/Security/Security_General.htm#SecurityNotificationEmails\" ResolvedId=\"1098\" />';
 xmlAliasData += '    <Map Name=\"csh_notification_reset\" Link=\"Topics/Security/Security_General.htm#SecurityNotificationEmails\" ResolvedId=\"1099\" />';
@@ -392,7 +393,7 @@ xmlAliasData += '    <Map Name=\"ext-workflow-overview\" Link=\"Topics/Directory
 xmlAliasData += '    <Map Name=\"csh-SMS-customization\" Link=\"Topics/Settings/Settings_SMS.htm\" ResolvedId=\"1218\" />';
 xmlAliasData += '    <Map Name=\"Okta_RADIUS_App\" Link=\"Topics/Security/Okta_Radius_App.htm\" ResolvedId=\"1221\" />';
 xmlAliasData += '    <Map Name=\"integrations\" Link=\"Topics/integrations/integrations.htm\" ResolvedId=\"1222\" />';
-xmlAliasData += '    <Map Name=\"App_Based_Signon\" Link=\"Topics/Security/App_Based_Signon.htm\" ResolvedId=\"1223\" />';
+xmlAliasData += '    <Map Name=\"App_Based_Signon\" Link=\"Topics/Security/policies/about-app-signon-policies.htm\" ResolvedId=\"1223\" />';
 xmlAliasData += '    <Map Name=\"Apps_Apps_Page\" Link=\"Topics/Apps/Apps_Apps_Page.htm\" ResolvedId=\"1224\" />';
 xmlAliasData += '    <Map Name=\"ext-custom-user-types\" Link=\"Topics/users-groups-profiles/usgp-usertypes-about.htm\" ResolvedId=\"1225\" />';
 xmlAliasData += '    <Map Name=\"ext-assign-apps\" Link=\"Topics/users-groups-profiles/usgp-assign-apps.htm\" ResolvedId=\"1226\" />';
