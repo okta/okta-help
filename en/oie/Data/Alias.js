@@ -6,6 +6,7 @@ xmlAliasData += '    <Map Name=\"ext_proc_security_behavior_detection\" Link=\"T
 xmlAliasData += '    <Map Name=\"csh_threat_insight\" Link=\"Topics/Security/threat-insight/ti-index.htm\" ResolvedId=\"1116\" />';
 xmlAliasData += '    <Map Name=\"csh-threat-insight\" Link=\"Topics/Security/threat-insight/ti-index.htm\" ResolvedId=\"1192\" />';
 xmlAliasData += '    <Map Name=\"ext_threatinsight\" Link=\"Topics/Security/threat-insight/ti-index.htm\" ResolvedId=\"1195\" />';
+xmlAliasData += '    <Map Name=\"csh-ad-import-settings\" Link=\"Topics/Directory/ad-agent-configure-import.htm\" ResolvedId=\"1283\" />';
 xmlAliasData += '    <Map Name=\"csh-oie\" Link=\"Topics/identity-engine/oie-index.htm\" ResolvedId=\"1328\" />';
 xmlAliasData += '    <Map Name=\"ext-oie\" Link=\"Topics/identity-engine/oie-index.htm\" ResolvedId=\"1329\" />';
 xmlAliasData += '    <Map Name=\"csh-oie-release-notes\" Link=\"Topics/identity-engine/oie-release-notes.htm\" ResolvedId=\"1333\" />';
