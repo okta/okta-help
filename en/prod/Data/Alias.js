@@ -722,6 +722,7 @@ xmlAliasData += '    <Map Name=\"ext-gmail-method-newemail\" Link=\"Topics/Workf
 xmlAliasData += '    <Map Name=\"ext-gmail-misc-authorization\" Link=\"Topics/Workflows/connector-reference/gmail/overviews/authorization.htm\" ResolvedId=\"30179\" />';
 xmlAliasData += '    <Map Name=\"ext-gmail-misc-errors\" Link=\"Topics/Workflows/connector-reference/gmail/overviews/errors.htm\" ResolvedId=\"30180\" />';
 xmlAliasData += '    <Map Name=\"ext-googlecalendar\" Link=\"Topics/Workflows/connector-reference/googlecalendar/googlecalendar.htm\" ResolvedId=\"30181\" />';
+xmlAliasData += '    <Map Name=\"ext-googlecalendar-method-availabletimeslots\" Link=\"Topics/Workflows/connector-reference/googlecalendar/actions/availabletimeslots.htm\" ResolvedId=\"30182\" />';
 xmlAliasData += '    <Map Name=\"ext-googlecalendar-method-createnewevent\" Link=\"Topics/Workflows/connector-reference/googlecalendar/actions/createnewevent.htm\" ResolvedId=\"30183\" />';
 xmlAliasData += '    <Map Name=\"ext-googlecalendar-method-createreminder\" Link=\"Topics/Workflows/connector-reference/googlecalendar/actions/createreminder.htm\" ResolvedId=\"30184\" />';
 xmlAliasData += '    <Map Name=\"ext-googlecalendar-method-createtransferrequest\" Link=\"Topics/Workflows/connector-reference/googlecalendar/actions/createtransferrequest.htm\" ResolvedId=\"30185\" />';
@@ -1492,6 +1493,7 @@ xmlAliasData += '    <Map Name=\"csh-admin-exp-redesign\" Link=\"Topics/Dashboar
 xmlAliasData += '    <Map Name=\"ext-ad-agent-install\" Link=\"Topics/Directory/ad-agent-new-integration.htm\" ResolvedId=\"15008\" />';
 xmlAliasData += '    <Map Name=\"ext-ldap-agent-install\" Link=\"Topics/Directory/ldap-agent-install-configure.htm\" ResolvedId=\"15009\" />';
 xmlAliasData += '    <Map Name=\"ext-ad-agent-import-users\" Link=\"Topics/Directory/ad-agent-import-users-on-demand.htm\" ResolvedId=\"15010\" />';
+xmlAliasData += '    <Map Name=\"ext-event-hooks-preview\" Link=\"Topics/automation-hooks/event-hooks-preview.htm\" ResolvedId=\"11002\" />';
 xmlAliasData += '    <Map Name=\"ext-o365-adv\" Link=\"Topics/Apps/Office365/advanced.htm\" ResolvedId=\"1062\" />';
 xmlAliasData += '    <Map Name=\"ext-o365-pro-depro\" Link=\"Topics/Apps/Apps_Okta_Enhancements_Office_365_Integration.htm\" ResolvedId=\"1091\" />';
 xmlAliasData += '    <Map Name=\"ext-about-updated-deprecated-cards\" Link=\"Topics/Workflows/learn/about-updated-deprecated-cards.htm\" ResolvedId=\"30970\" />';
@@ -1513,5 +1515,7 @@ xmlAliasData += '    <Map Name=\"ext_oag_app_samlpt_hide\" Link=\"Topics/Access-
 xmlAliasData += '    <Map Name=\"ext_oag_app_samlpt_test\" Link=\"Topics/Access-Gateway/add-app-saml-pass-thru-test.htm\" ResolvedId=\"3029\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_app_samlpt_arch\" Link=\"Topics/Access-Gateway/add-app-saml-pass-thru-arch.htm\" ResolvedId=\"3030\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_app_samlpt_info\" Link=\"Topics/Access-Gateway/add-app-saml-obtain-saml-info.htm\" ResolvedId=\"3031\" />';
+xmlAliasData += '    <Map Name=\"ext-utility-method-exportflo\" Link=\"Topics/Workflows/build/export-import-flows.htm\" ResolvedId=\"30997\" />';
+xmlAliasData += '    <Map Name=\"ext-utility-method-exportgroup\" Link=\"Topics/Workflows/build/export-import-flows.htm\" ResolvedId=\"30998\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
