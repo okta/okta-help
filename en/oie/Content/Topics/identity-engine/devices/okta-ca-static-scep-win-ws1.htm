@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="_Skins_okta_html5_topnav_nav_poc" data-mc-search-type="Stem" data-mc-help-system-file-name="okta_help.xml" data-mc-path-to-help-system="../../../../" data-mc-has-content-body="True" data-mc-searchable="True" data-mc-toc-path="Devices" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic;Default" data-mc-preload-images="false" data-mc-in-preview-mode="false">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="_Skins_okta_html5_topnav_nav_poc" data-mc-search-type="Stem" data-mc-help-system-file-name="okta_help.xml" data-mc-path-to-help-system="../../../../" data-mc-has-content-body="True" data-mc-searchable="True" data-mc-toc-path="Device Trust|Configure desktop devices|Configure a Certificate Authority" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic;Default" data-mc-preload-images="false" data-mc-in-preview-mode="false">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="robots" content="noindex, nofollow" />
         <meta name="typeofcontent" content="documentation" />
         <meta name="audience" content="admin" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Administer devices | Okta</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Configure Okta as a Certificate Authority for Windows using Workspace ONE | Okta</title>
         <meta charset="utf-8" />
         <meta name="description" content="" />
         <meta name="author" content="" />
@@ -16,6 +16,8 @@
         <!-- End Google Tag Manager -->
         <!-- Google Tag Manager -->
         <!-- End Google Tag Manager -->
+        <!-- Pendo Script (Per Chris Bank) -->
+        <!-- End Pendo Script -->
         <link href="../../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
         <link href="../../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
         <link href="../../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
@@ -74,6 +76,26 @@
 			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 			})(window,document,'script','dataLayer','GTM-KXMLV58');
 			/* ]]> */
+		</script>
+        <script>
+		/* <![CDATA[ */
+		(function(apiKey){
+			(function(p,e,n,d,o){var v,w,x,y,z;o=p[d]=p[d]||{};o._q=o._q||[];
+			v=['initialize','identify','updateOptions','pageLoad','track'];for(w=0,x=v.length;w<x;++w)(function(m){
+			o[m]=o[m]||function(){o._q[m===v[0]?'unshift':'push']([m].concat([].slice.call(arguments,0)));};})(v[w]);
+			y=e.createElement(n);y.async=!0;y.src='https://cdn.pendo.io/agent/static/'+apiKey+'/pendo.js';
+			z=e.getElementsByTagName(n)[0];z.parentNode.insertBefore(y,z);})(window,document,'script','pendo');
+
+        pendo.initialize({
+            visitor: {
+                id:              'VISITOR-UNIQUE-ID'
+            },	
+            account: {
+                id:           'ACCOUNT-UNIQUE-ID'
+            }
+        });
+		})('a9bd3885-93ae-46ab-700b-dd29e613c19d');
+		/* ]]> */
 		</script>
     </head>
     <body>
@@ -270,15 +292,148 @@
                                             <div class="body-main">
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
-                                                    <h1>Administer devices</h1>
-                                                    <p>You can administer the registered devices in your org through the Devices page.</p>
-                                                    <h2>Topics</h2>
+                                                    <h1>Configure Okta as a Certificate Authority for Windows using <span class="mc-variable Mobile.WS1 variable">Workspace ONE</span></h1>
+                                                    <p>Configuring  a Certificate Authority (CA) allows you to issue client certificates to your targeted Windows devices. This topic describes how to create a static SCEP&#160;profile in <span class="mc-variable Mobile.WS1 variable">Workspace ONE</span> and generate a SCEP&#160;URL in Okta.</p>
+                                                    <p>
+                                                    </p>
+                                                    <div class="noteOkta">
+                                                        <img src="../../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Note" alt="Note" />
+                                                        <p class="noteContent">To configure a delegated (dynamic) SCEP challenge type for Windows using Microsoft Intune, see <a href="okta-ca-delegated-scep-win-intune.htm" class="MCXref xref">Configure Okta as a Certificate Authority for Windows using Intune</a></p>
+                                                    </div>
+                                                    <p>
+                                                    </p>
+                                                    <h2>Before you begin</h2>
+                                                    <p>Make sure you have access to the Okta Admin Console.</p>
+                                                    <h2>Start this procedure</h2>
                                                     <ul>
-                                                        <li><a href="view-device-state.htm" class="MCXref xref">View device state and context</a>
+                                                        <li><a href="#Task1" class="MCXref xref">Task 1: In Okta, download the x509 certificate</a>
                                                         </li>
-                                                        <li><a href="manage-device-lifecycle.htm" class="MCXref xref">Manage device lifecycle</a>
+                                                        <li><a href="#Task2" class="MCXref xref">Task 2: In Okta, configure management attestation, generate a SCEP&#160;URL and a Secret Key</a>
+                                                        </li>
+                                                        <li><a href="#Task3" class="MCXref xref">Task 3: In Workspace ONE, create a static SCEP&#160;profile	</a>
+                                                        </li>
+                                                        <li><a href="#Task4" class="MCXref xref">Task 4: In Workspace ONE, Add/Edit a Certificate Template</a>
+                                                        </li>
+                                                        <li><a href="#Task5" class="MCXref xref">Task 5: In Workspace ONE, define a device profile to deploy the Okta Intermediate CA to the Intermediate Store on devices</a>
+                                                        </li>
+                                                        <li>
+                                                            <p><a href="#Task6" class="MCXref xref">Task 6: In Workspace ONE, define a user profile to deploy the Okta CA-issued client certificate to the Personal Store on devices for management attestation</a>
+                                                            </p>
+                                                        </li>
+                                                        <li>
+                                                            <p><a href="#Task7" class="MCXref xref">Task 7: On a Windows computer, verify the certificate installation</a>
+                                                            </p>
                                                         </li>
                                                     </ul>
+                                                    <h3><a name="Task1"></a>Task 1: In Okta, download the x509 certificate</h3>
+                                                    <p>The x509 certificate you download from Okta is the Organization Intermediate certificate.</p>
+                                                    <ol>
+                                                        <li value="1">In the <span class="mc-variable okta-feature-names.Administrator_dashboard variable">Admin Console</span>, go to <b>Security</b> &gt; <b> Device Management</b>.</li>
+                                                        <li value="2">Click the <b>Certificate Authority</b> tab.</li>
+                                                        <li value="3">Click the Download icon for Okta CA in the <b>Action</b> column to download the x509 certificate. You will upload the certificate to <span class="mc-variable Mobile.WS1 variable">Workspace ONE</span> in <a href="#Task5">Task 5</a>.</li>
+                                                    </ol>
+                                                    <h3><a name="Task2"></a>Task 2: In Okta, configure management attestation, generate a SCEP&#160;URL and a Secret Key</h3>
+                                                    <ol>
+                                                        <li value="1">In the <span class="mc-variable okta-feature-names.Administrator_dashboard variable">Admin Console</span>, go to <b>Security</b> &gt; <b>Device Management</b>.
+			</li>
+                                                        <li value="2">
+				Click the <b>Device Management</b> tab.
+				
+				
+				
+			<div class="noteOkta"><img src="../../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Note" alt="Note" /><p class="noteContent">Don't click the Certificate Authority tab. It's not used in this procedure.</p></div></li>
+                                                        <li value="3">Click <b>Add Platform</b>.</li>
+                                                        <li value="4">Select <b>Desktop (Windows and macOS only)</b>.</li>
+                                                        <li value="5">Click <b>Next</b>.</li>
+                                                        <li value="6">In <b>Configure management attestation</b>:<ol style="list-style-type: lower-alpha;"><li value="1"><b>Certificate authority:</b> Select <b>Use Okta as certificate authority</b>.</li><li value="2"><b>SCEP URL challenge type:</b> Select <b>Static SCEP URL</b>.</li><li value="3">Click <b>Generate</b>.</li><li value="4">Copy and save the Okta SCEP URL and the Secret key. You will paste these in <span class="mc-variable Mobile.WS1 variable">Workspace ONE</span> in <a href="#Task3">Task 3</a>.
+						
+						
+						
+			<div class="noteOkta"><img src="../../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Note" alt="Note" /><p class="noteContent">Make sure to save the SCEP URL and Secret Key as this is the only time they will appear in Okta.</p></div></li><li value="5">Click <b>Save</b>.</li></ol></li>
+                                                    </ol>
+                                                    <h3><a name="Task3"></a>Task 3: In <span class="mc-variable Mobile.WS1 variable">Workspace ONE</span>, create a static SCEP&#160;profile	</h3>
+                                                    <p>Configure the Okta CA as a Certificate Authority in <span class="mc-variable Mobile.WS1 variable">Workspace ONE</span> so you can push certificate profiles through the management channel.</p>
+                                                    <ol>
+                                                        <li value="1">
+				Log in to <span class="mc-variable Mobile.WS1 variable">Workspace ONE</span> as an administrator.
+			</li>
+                                                        <li value="2">
+				Click <b>Devices</b>.
+</li>
+                                                        <li value="3">Expand <b>Certificates</b>.				
+				
+				
+			</li>
+                                                        <li value="4">Select the  <b>Certificate Authorities</b> tab.</li>
+                                                        <li value="5">Click <b>+ Add</b> and configure settings: <ol style="list-style-type: lower-alpha;"><li value="1">Enter a name and (optionally) a description.</li><li value="2"><b>Authority type:</b> Generic SCEP. </li><li value="3"><b>SCEP&#160;Provider:</b>&#160;Basic is entered automatically and can't be changed.</li><li value="4"><b>SCEP URL:</b> Copy and paste the SCEP&#160;URL you generated in <a href="#Task2">Task 2</a>. </li><li value="5"><b>Challenge Type:</b> Static.</li><li value="6"><b>Static Challenge:</b> Copy and paste the Secret Key you generated in <a href="#Task2">Task 2</a>. </li><li value="7"><b>Max Retries When Pending:</b> Accept the default (5) or specify a different number of retries the system allows while the authority is pending.</li><li value="8"><b>Enable Proxy:</b> Accept the default (Disabled) or select Enabled if appropriate for your environment. If you select Enabled, <span class="mc-variable Mobile.WS1-UEM-short variable">Workspace ONE UEM</span> acts as a proxy between the device and the SCEP endpoint defined in the CA configuration.</li></ol></li>
+                                                        <li value="6">Click <b>Test Connection</b>. If you select <b>Save</b> before <b>Test Connection</b>, the error <b>Test is unsuccessful</b> appears.</li>
+                                                        <li value="7">After the <b>Test is successful</b> message appears, click <b>Save and Add Template</b>.
+			
+			<p>If the test doesn't succeed, make sure that the SCEP URL you pasted in this task is the same URL you generated in <a href="#Task2">Task 2</a>.</p></li>
+                                                    </ol>
+                                                    <h3><a name="Task4"></a>Task 4: In <span class="mc-variable Mobile.WS1 variable">Workspace ONE</span>, Add/Edit a Certificate Template</h3>
+                                                    <p>In this task you'll add a CA&#160;request template after you create a static SCEP&#160;profile in <a href="#Task3">Task 3</a>.</p>
+                                                    <ol>
+                                                        <li value="1">If not already, 
+				log in to <span class="mc-variable Mobile.WS1 variable">Workspace ONE</span> as an administrator.
+			</li>
+                                                        <li value="2">In Certificate Template, configure settings: <ol style="list-style-type: lower-alpha;"><li value="1">Enter a name and (optionally) a description.</li><li value="2"><b>Certificate Authority:</b> Select the CA you created in <a href="#Task3">Task 3</a>. </li><li value="3"><b>Issuing Template:</b>&#160;<span> Leave blank or configure as appropriate for your implementation</span>.</li><li value="4"><b>Subject Name:</b> CN = {EmailUserName} managementAttestation {DeviceUid}</li><li value="5"><b>Private Key Length:</b> 2048</li><li value="6"><b>Private Key Type:</b> Signing</li><li value="7"><b>SAN Type:</b>&#160;N/A.</li><li value="8"><b>Automatic certificate renewal:</b> <span>Disabled</span></li><li value="9"><b>Publish Private Key:</b> <span>Disabled</span></li></ol></li>
+                                                        <li value="3">Click <b>Save</b>.</li>
+                                                    </ol>
+                                                    <h3><a name="Task5"></a>Task 5: In <span class="mc-variable Mobile.WS1 variable">Workspace ONE</span>, define a device profile to deploy the Okta Intermediate CA to the Intermediate Store on devices</h3>
+                                                    <ol>
+                                                        <ol>
+                                                            <li value="1">
+				If not already, log in to <span class="mc-variable Mobile.WS1 variable">Workspace ONE</span> as an administrator.
+			</li>
+                                                            <li value="2">
+				Click <b>Devices</b>.
+</li>
+                                                            <li value="3">Expand <b>Profiles and Resources</b>.	</li>
+                                                            <li value="4">Click <b>Profiles</b>.</li>
+                                                            <li value="5">In the <b>Add</b>	drop down, select <b>Add profile</b>.</li>
+                                                            <li value="6">Select <b>Windows &gt; Windows Desktop &gt;&#160;Device Profile</b>.</li>
+                                                            <li value="7">In the <b>General</b> tab, configure settings:<ol style="list-style-type: lower-alpha;"><li value="1">Enter a name and (optionally) a description.</li><li value="2"><b>Deployment:</b> Managed</li><li value="3"><b>Assignment Type:</b> Accept the default or configure as appropriate for your implementation.</li><li value="4"><b>Allow Removal:</b> Accept the default or configure as appropriate for your implementation.</li><li value="5"><b>Managed By:</b> Enter the person or group with administrative access to the profile.</li><li value="6"><b>Smart Groups:</b> Begin typing the name of the group and then select it from the list.</li><li value="7"><b>Exclusions:</b> Allows you to exclude groups from the profile. Accept the default or configure as appropriate for your implementation.</li><li value="8"><b>Additional Assignment Criteria</b>: Allows you to schedule a deployment schedule.</li><li value="9"><p><b>Removal Date:</b>&#160;Allows you to specify a date when the profile is removed from the device.</p></li></ol></li>
+                                                            <li value="8">Click <b>Credentials</b> in the left pane and configure settings:<ol style="list-style-type: lower-alpha;"><li value="1"><b>Credential Source:</b> Upload.</li><li value="2"><b>Certificate:</b>&#160;Click <b>Upload</b> and browse to the certificate you downloaded in <a href="#Task1">Task 1</a>.</li><li value="3"><b>Key Location:</b> Accept the default or configure as appropriate for your implementation.</li><li value="4"><b>Certificate Store:</b> Intermediate.</li></ol></li>
+                                                            <li value="9">Click <b>Save and Publish</b>.</li>
+                                                        </ol>
+                                                    </ol>
+                                                    <h3><a name="Task6"></a>Task 6: In <span class="mc-variable Mobile.WS1 variable">Workspace ONE</span>, define a user profile to deploy the Okta CA-issued client certificate to the Personal Store on devices for management attestation</h3>
+                                                    <p>This task creates the management payload that pushes the client certificate information and credential to the client, allowing the client to connect to Okta and request a new client certificate. The client certificate is used for management attestation as part of <span class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span>-enabled flows.</p>
+                                                    <ol>
+                                                        <ol>
+                                                            <li value="1">If not already, 
+				log in to <span class="mc-variable Mobile.WS1 variable">Workspace ONE</span> as an administrator.
+			</li>
+                                                            <li value="2">
+					Click <b>Devices</b>.
+				</li>
+                                                            <li value="3">Expand <b>Profiles and Resources</b>.	</li>
+                                                            <li value="4">Click <b>Profiles</b>.</li>
+                                                            <li value="5">In the <b>Add</b>	drop down, select <b>Add profile</b>.</li>
+                                                            <li value="6">Select <b>Windows &gt; Windows Desktop &gt;&#160;User Profile</b>.</li>
+                                                            <li value="7">In the <b>General</b> tab, configure settings:<ol style="list-style-type: lower-alpha;"><li value="1">Enter a name and (optionally) a description.</li><li value="2"><b>Deployment:</b> Managed</li><li value="3"><b>Assignment Type:</b> Accept the default or configure as appropriate for your implementation.</li><li value="4"><b>Allow Removal:</b> Accept the default or configure as appropriate for your implementation.</li><li value="5"><b>Managed By:</b> Enter the person or group with administrative access to the profile.</li><li value="6"><b>Smart Groups:</b> Enter the same group(s) that you specified in <a href="#Task5">Task 5</a>.</li><li value="7"><b>Exclusions:</b> Allows you to exclude groups from the profile. Accept the default or configure as appropriate for your implementation.</li><li value="8"><b>Additional Assignment Criteria</b>: Allows you to schedule a deployment schedule.</li><li value="9"><p><b>Removal Date:</b>&#160;Allows you to specify a date when the profile is removed from the device.</p></li></ol></li>
+                                                            <li value="8">Click <b>Credentials</b> in the left pane and configure settings:<ol style="list-style-type: lower-alpha;"><li value="1"><b>Credential Source:</b> Defined Certificate Authority.</li><li value="2"><b>Certificate Authority:</b>&#160;Select the same Certificate Authority that you configured in <a href="#Task3">Task 3</a>	.</li><li value="3"><b>Key Location:</b> Select <b>TPM if Present</b> to support devices with or without TPM.</li><li value="4"><b>Certificate Store:</b> Personal.</li></ol></li>
+                                                            <li value="9">Click <b>Save and Publish</b>.</li>
+                                                        </ol>
+                                                    </ol>
+                                                    <h3><a name="Task7"></a>Task 7: On a Windows computer, verify the certificate installation</h3>
+                                                    <h4>Verify client certificate installation</h4>
+                                                    <ol>
+                                                        <li value="1">On the Windows computer, click <b>Start</b> and type <b>cert</b> and then click <b>Manage user certificates</b>.</li>
+                                                        <li value="2">Look in <b>Personal &gt; Certificates</b>.</li>
+                                                    </ol>
+                                                    <h4>Verify Certificate Authority</h4>
+                                                    <ol>
+                                                        <li value="1">On the Windows computer, click <b>Start</b> and type <b>cert</b> and then click <b>Manage user certificates</b>.</li>
+                                                        <li value="2">Look in <b>Intermediate Certificate Authority &gt; Certificates</b>.</li>
+                                                        <li value="3">In <b>Issued To</b>, find and double click <b>Organization Intermediate Authority</b>.</li>
+                                                        <li value="4">See Issued By: Organization Root Authority.</li>
+                                                    </ol>
+                                                    <h2><span>Next step </span>
+                                                    </h2>
+                                                    <p><a href="add-app-signon-policy-desktop.htm" class="MCXref xref">Add an app sign on policy for Device Trust on Identity engine</a>
+                                                    </p>
                                                 </div>
                                                 <!-- Back to Top button --><a href="#" class="sf-back-to-top"><span class="arrow"></span>Top</a>
                                             </div>
@@ -332,14 +487,14 @@
                                     </div>
                                     <!-- ***************************** Scripts ************************************* -->
                                     <!-- Foundation -->
-                                    <script src="../../../Resources/Scripts/js/app.js">
-                                    </script>
                                     <script src="../../../Resources/Scripts/js/vendor/what-input.js">
                                     </script>
                                     <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.4-rc1/js/foundation.min.js">
                                     </script>
                                     <!-- Ours -->
                                     <script type="text/javascript" src="../../../Resources/Scripts/back-to-top.js">
+                                    </script>
+                                    <script src="../../../Resources/Scripts/js/app.js">
                                     </script>
                                     <!--         <script type="text/javascript" src="../Scripts/get-feedback.js">
         </script> -->
