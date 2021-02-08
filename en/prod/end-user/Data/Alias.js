@@ -25,5 +25,9 @@ xmlAliasData += '    <Map Name=\"csh-user-action-ov-sign-in\" Link=\"Topics/end-
 xmlAliasData += '    <Map Name=\"csh-user-dashboard-overview\" Link=\"Topics/end-user/dashboard-overview.htm\" ResolvedId=\"4021\" />';
 xmlAliasData += '    <Map Name=\"csh-user-ov-review-signin\" Link=\"Topics/end-user/ov-review-signin.htm\" ResolvedId=\"4022\" />';
 xmlAliasData += '    <Map Name=\"csh-user-ov-new-install\" Link=\"Topics/end-user/ov-new-install.htm\" ResolvedId=\"4023\" />';
+xmlAliasData += '    <Map Name=\"csh-ov-delete-account-ios\" Link=\"Topics/end-user/ov-mng-account-ios.htm#Delete\" ResolvedId=\"12002\" />';
+xmlAliasData += '    <Map Name=\"csh-user-ov-manage-account-ios\" Link=\"Topics/end-user/ov-mng-account-ios.htm\" ResolvedId=\"12003\" />';
+xmlAliasData += '    <Map Name=\"csh-user-ov-manage-account\" Link=\"Topics/end-user/ov-mng-account.htm\" ResolvedId=\"12004\" />';
+xmlAliasData += '    <Map Name=\"csh-user-ov-setup-ios\" Link=\"Topics/end-user/ov-setup-ios.htm\" ResolvedId=\"12005\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
