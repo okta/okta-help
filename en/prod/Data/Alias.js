@@ -629,7 +629,6 @@ xmlAliasData += '    <Map Name=\"ext-box-method-updategroupmembership\" Link=\"T
 xmlAliasData += '    <Map Name=\"ext-box-method-updatetask\" Link=\"Topics/Workflows/connector-reference/box/actions/updatetask.htm\" ResolvedId=\"30083\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-updatetaskassignment\" Link=\"Topics/Workflows/connector-reference/box/actions/updatetaskassignment.htm\" ResolvedId=\"30084\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-updateuser\" Link=\"Topics/Workflows/connector-reference/box/actions/updateuser.htm\" ResolvedId=\"30085\" />';
-xmlAliasData += '    <Map Name=\"ext-box-method-uploadfile\" Link=\"Topics/Workflows/connector-reference/box/actions/uploadfile.htm\" ResolvedId=\"30086\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-filecreated\" Link=\"Topics/Workflows/connector-reference/box/events/filecreated.htm\" ResolvedId=\"30087\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-filecreatedonfolder\" Link=\"Topics/Workflows/connector-reference/box/events/filecreatedonfolder.htm\" ResolvedId=\"30088\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-fileupdated\" Link=\"Topics/Workflows/connector-reference/box/events/fileupdated.htm\" ResolvedId=\"30089\" />';
@@ -1023,7 +1022,6 @@ xmlAliasData += '    <Map Name=\"ext-salesforce229-method-getallpublicgroups\" L
 xmlAliasData += '    <Map Name=\"ext-salesforce229-method-getallroles\" Link=\"Topics/Workflows/connector-reference/salesforce2_29/actions/getallroles.htm\" ResolvedId=\"30526\" />';
 xmlAliasData += '    <Map Name=\"ext-salesforce229-method-getmultiselectvalues\" Link=\"Topics/Workflows/connector-reference/salesforce2_29/actions/getmultiselectvalues.htm\" ResolvedId=\"30527\" />';
 xmlAliasData += '    <Map Name=\"ext-salesforce229-method-httprequest\" Link=\"Topics/Workflows/connector-reference/salesforce2_29/actions/httprequest.htm\" ResolvedId=\"30528\" />';
-xmlAliasData += '    <Map Name=\"ext-salesforce229-method-read\" Link=\"Topics/Workflows/connector-reference/salesforce2_29/actions/read.htm\" ResolvedId=\"30529\" />';
 xmlAliasData += '    <Map Name=\"ext-salesforce229-method-readpicklistvalues\" Link=\"Topics/Workflows/connector-reference/salesforce2_29/actions/readpicklistvalues.htm\" ResolvedId=\"30530\" />';
 xmlAliasData += '    <Map Name=\"ext-salesforce229-method-readrecord\" Link=\"Topics/Workflows/connector-reference/salesforce2_29/actions/readrecord.htm\" ResolvedId=\"30531\" />';
 xmlAliasData += '    <Map Name=\"ext-salesforce229-method-readrelatedrecords\" Link=\"Topics/Workflows/connector-reference/salesforce2_29/actions/readrelatedrecords.htm\" ResolvedId=\"30532\" />';
@@ -1397,6 +1395,7 @@ xmlAliasData += '    <Map Name=\"ext-rngc-provisioning\" Link=\"Topics/Provision
 xmlAliasData += '    <Map Name=\"ext-gsuite-provisioning\" Link=\"Topics/Provisioning/Google/google-provisioning.htm\" ResolvedId=\"8009\" />';
 xmlAliasData += '    <Map Name=\"ext-workplace-provisioning\" Link=\"Topics/Provisioning/workplace/workplace-by-facebook-provisioning.htm\" ResolvedId=\"8010\" />';
 xmlAliasData += '    <Map Name=\"csh-first-party-apps\" Link=\"Topics/Settings/first-party-apps.htm\" ResolvedId=\"7000\" />';
+xmlAliasData += '    <Map Name=\"csh-limit-access-dashboard\" Link=\"Topics/Settings/limit-access-dashboard.htm\" ResolvedId=\"7001\" />';
 xmlAliasData += '    <Map Name=\"ext-tableid-runtime\" Link=\"Topics/Workflows/build/provide-tableid-runtime.htm\" ResolvedId=\"30293\" />';
 xmlAliasData += '    <Map Name=\"ext-connections-page\" Link=\"Topics/Workflows/build/view-connections-page.htm\" ResolvedId=\"30295\" />';
 xmlAliasData += '    <Map Name=\"ext-docusign-main\" Link=\"Topics/Provisioning/docusign/docu-main.htm\" ResolvedId=\"15005\" />';
@@ -1510,6 +1509,7 @@ xmlAliasData += '    <Map Name=\"ext_oag_app_samlpt_hide\" Link=\"Topics/Access-
 xmlAliasData += '    <Map Name=\"ext_oag_app_samlpt_test\" Link=\"Topics/Access-Gateway/add-app-saml-pass-thru-test.htm\" ResolvedId=\"3029\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_app_samlpt_arch\" Link=\"Topics/Access-Gateway/add-app-saml-pass-thru-arch.htm\" ResolvedId=\"3030\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_app_samlpt_info\" Link=\"Topics/Access-Gateway/add-app-saml-obtain-saml-info.htm\" ResolvedId=\"3031\" />';
+xmlAliasData += '    <Map Name=\"ext-github-method-createpullrequest\" Link=\"Topics/Workflows/connector-reference/github/actions/createpullrequest.htm\" ResolvedId=\"30996\" />';
 xmlAliasData += '    <Map Name=\"ext-utility-method-exportflo\" Link=\"Topics/Workflows/build/export-import-flows.htm\" ResolvedId=\"30997\" />';
 xmlAliasData += '    <Map Name=\"ext-utility-method-exportgroup\" Link=\"Topics/Workflows/build/export-import-flows.htm\" ResolvedId=\"30998\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_app_ps_config_pcode\" Link=\"Topics/Access-Gateway/add-app-ps-config-pcode.htm\" ResolvedId=\"3032\" />';
@@ -1540,5 +1540,14 @@ xmlAliasData += '    <Map Name=\"ext_oag_about_dns\" Link=\"Topics/Access-Gatewa
 xmlAliasData += '    <Map Name=\"ext_oag_config_idp_okta\" Link=\"Topics/Access-Gateway/configure-idp-okta.htm\" ResolvedId=\"3057\" />';
 xmlAliasData += '    <Map Name=\"ext_secur_browser_support\" Link=\"Topics/Miscellaneous/Platforms_Browser_OS_Support.htm\" ResolvedId=\"3058\" />';
 xmlAliasData += '    <Map Name=\"ext_secur_manage_ea_bata\" Link=\"Topics/Security/manage-EA-and-beta-features.htm\" ResolvedId=\"3059\" />';
+xmlAliasData += '    <Map Name=\"ext-bamboohr-provisioning\" Link=\"Topics/Provisioning/bamboohr/bamboohr-main.htm\" ResolvedId=\"8011\" />';
+xmlAliasData += '    <Map Name=\"ext-github-method-updatefilecontent\" Link=\"Topics/Workflows/connector-reference/github/actions/updatefilecontent.htm\" ResolvedId=\"31003\" />';
+xmlAliasData += '    <Map Name=\"ext-github-method-createbranch\" Link=\"Topics/Workflows/connector-reference/github/actions/createbranch.htm\" ResolvedId=\"31004\" />';
+xmlAliasData += '    <Map Name=\"ext-github-method-createfilecontent\" Link=\"Topics/Workflows/connector-reference/github/actions/createfilecontent.htm\" ResolvedId=\"31005\" />';
+xmlAliasData += '    <Map Name=\"ext-github-method-createuser\" Link=\"Topics/Workflows/connector-reference/github/actions/createuser.htm\" ResolvedId=\"31006\" />';
+xmlAliasData += '    <Map Name=\"ext-github-method-readissue\" Link=\"Topics/Workflows/connector-reference/github/actions/readissue.htm\" ResolvedId=\"31007\" />';
+xmlAliasData += '    <Map Name=\"ext-github-method-readrepository\" Link=\"Topics/Workflows/connector-reference/github/actions/readrepository.htm\" ResolvedId=\"31008\" />';
+xmlAliasData += '    <Map Name=\"ext-github-method-searchbranches\" Link=\"Topics/Workflows/connector-reference/github/actions/searchbranches.htm\" ResolvedId=\"31009\" />';
+xmlAliasData += '    <Map Name=\"csh-prioritize-profile-sources\" Link=\"Topics/users-groups-profiles/usgp-prioritize-profile-master.htm\" ResolvedId=\"15012\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
