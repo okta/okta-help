@@ -5,6 +5,8 @@ xmlAliasData += '    <Map Name=\"Directory_People\" Link=\"Topics/users-groups-p
 xmlAliasData += '    <Map Name=\"Directory_Profile_Editor\" Link=\"Topics/Directory/ad-agent-configure-user-profiles-attributes.htm\" ResolvedId=\"1150\" />';
 xmlAliasData += '    <Map Name=\"ad-pw-sync-agent\" Link=\"Topics/Directory/Installing_Configuring_Active_Directory_Password_Sync_Agent.htm\" ResolvedId=\"1019\" />';
 xmlAliasData += '    <Map Name=\"Security_Behavior_Detection\" Link=\"Topics/Security/proc-security-behavior-detection.htm\" ResolvedId=\"1024\" />';
+xmlAliasData += '    <Map Name=\"ver-hist-ad-pw-sync-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_Active_Directory_Password_Sync_Agent.htm\" ResolvedId=\"1041\" />';
+xmlAliasData += '    <Map Name=\"ver-hist-ad-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_AD_Agent.htm\" ResolvedId=\"1042\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Active_Directory_Agent_appSettings_Definition\" Link=\"Topics/Directory/ad-agent-appsettings.htm\" ResolvedId=\"200009\" />';
 xmlAliasData += '    <Map Name=\"ext_AD_Move_user_across_OU\" Link=\"Topics/Directory/ad-agent-ou-updates.htm\" ResolvedId=\"200053\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_AD_Field_Mappings\" Link=\"Topics/Directory/Directory_AD_Field_Mappings.htm\" ResolvedId=\"200061\" />';
@@ -17,6 +19,8 @@ xmlAliasData += '    <Map Name=\"ext_User_Lifecycle_Overview\" Link=\"Topics/use
 xmlAliasData += '    <Map Name=\"ext_Platforms_Browser_OS_Support\" Link=\"Topics/Miscellaneous/Platforms_Browser_OS_Support.htm\" ResolvedId=\"200095\" />';
 xmlAliasData += '    <Map Name=\"ext_ref_supported_languages\" Link=\"Topics/Reference/ref-supported-languages.htm\" ResolvedId=\"200134\" />';
 xmlAliasData += '    <Map Name=\"ext_proc_security_behavior_detection\" Link=\"Topics/Security/proc-security-behavior-detection.htm\" ResolvedId=\"200165\" />';
+xmlAliasData += '    <Map Name=\"ext_Ver_History_Active_Directory_Password_Sync_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_Active_Directory_Password_Sync_Agent.htm\" ResolvedId=\"200194\" />';
+xmlAliasData += '    <Map Name=\"ext_Ver_History_AD_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_AD_Agent.htm\" ResolvedId=\"200196\" />';
 xmlAliasData += '    <Map Name=\"csh_threat_insight\" Link=\"Topics/Security/threat-insight/ti-index.htm\" ResolvedId=\"1116\" />';
 xmlAliasData += '    <Map Name=\"ext_ad_importusers\" Link=\"Topics/Directory/ad-agent-manage-users-groups.htm\" ResolvedId=\"1117\" />';
 xmlAliasData += '    <Map Name=\"ext_AD_profmaster\" Link=\"Topics/Directory/Directory_AD_Enable_Profile_Master.htm\" ResolvedId=\"1127\" />';
@@ -47,6 +51,7 @@ xmlAliasData += '    <Map Name=\"csh-device-mgmt-desktop-mdm-setup\" Link=\"Topi
 xmlAliasData += '    <Map Name=\"csh-about-authenticators\" Link=\"Topics/identity-engine/authenticators/about-authenticators.htm\" ResolvedId=\"2004\" />';
 xmlAliasData += '    <Map Name=\"csh-first-party-apps\" Link=\"Topics/Settings/first-party-apps.htm\" ResolvedId=\"7000\" />';
 xmlAliasData += '    <Map Name=\"csh-limit-access-dashboard\" Link=\"Topics/Settings/limit-access-dashboard.htm\" ResolvedId=\"7001\" />';
+xmlAliasData += '    <Map Name=\"csh-new-end-user-experience\" Link=\"Topics/Settings/new-end-user-experience.htm\" ResolvedId=\"7002\" />';
 xmlAliasData += '    <Map Name=\"csh-device-mgmt-mobile-mdm-setup\" Link=\"Topics/identity-engine/devices/config-device-mgmt-mobile.htm\" ResolvedId=\"12001\" />';
 xmlAliasData += '    <Map Name=\"ext-agent-support-policies\" Link=\"Topics/Directory/agent-support-policies.htm\" ResolvedId=\"15007\" />';
 xmlAliasData += '    <Map Name=\"ext-ad-agent-install\" Link=\"Topics/Directory/ad-agent-new-integration.htm\" ResolvedId=\"15008\" />';
