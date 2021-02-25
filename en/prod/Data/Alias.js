@@ -1488,14 +1488,6 @@ xmlAliasData += '    <Map Name=\"ext_oag_app_samlpt_hide\" Link=\"Topics/Access-
 xmlAliasData += '    <Map Name=\"ext_oag_app_samlpt_test\" Link=\"Topics/Access-Gateway/add-app-saml-pass-thru-test.htm\" ResolvedId=\"3029\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_app_samlpt_arch\" Link=\"Topics/Access-Gateway/add-app-saml-pass-thru-arch.htm\" ResolvedId=\"3030\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_app_samlpt_info\" Link=\"Topics/Access-Gateway/add-app-saml-obtain-saml-info.htm\" ResolvedId=\"3031\" />';
-xmlAliasData += '    <Map Name=\"ext-shopify-method-addaddresstocustomer\" Link=\"Topics/Workflows/connector-reference/shopify/actions/addaddresstocustomer.htm\" ResolvedId=\"30976\" />';
-xmlAliasData += '    <Map Name=\"ext-shopify-method-createcustomer\" Link=\"Topics/Workflows/connector-reference/shopify/actions/createcustomer.htm\" ResolvedId=\"30977\" />';
-xmlAliasData += '    <Map Name=\"ext-shopify-method-customapiaction\" Link=\"Topics/Workflows/connector-reference/shopify/actions/customapiaction.htm\" ResolvedId=\"30978\" />';
-xmlAliasData += '    <Map Name=\"ext-shopify-method-readcustomer\" Link=\"Topics/Workflows/connector-reference/shopify/actions/readcustomer.htm\" ResolvedId=\"30980\" />';
-xmlAliasData += '    <Map Name=\"ext-shopify-method-updatecustomer\" Link=\"Topics/Workflows/connector-reference/shopify/actions/updatecustomer.htm\" ResolvedId=\"30981\" />';
-xmlAliasData += '    <Map Name=\"ext-shopify-method-searchcustomers\" Link=\"Topics/Workflows/connector-reference/shopify/actions/searchcustomers.htm\" ResolvedId=\"30982\" />';
-xmlAliasData += '    <Map Name=\"ext-shopify-misc-authorization\" Link=\"Topics/Workflows/connector-reference/shopify/overviews/authorization.htm\" ResolvedId=\"30983\" />';
-xmlAliasData += '    <Map Name=\"ext-shopify\" Link=\"Topics/Workflows/connector-reference/shopify/shopify.htm\" ResolvedId=\"30984\" />';
 xmlAliasData += '    <Map Name=\"ext-mixpanel-method-createevent\" Link=\"Topics/Workflows/connector-reference/mixpanel/actions/createevent.htm\" ResolvedId=\"30985\" />';
 xmlAliasData += '    <Map Name=\"ext-mixpanel-method-createprofile\" Link=\"Topics/Workflows/connector-reference/mixpanel/actions/createprofile.htm\" ResolvedId=\"30986\" />';
 xmlAliasData += '    <Map Name=\"ext-mixpanel-method-customapiaction\" Link=\"Topics/Workflows/connector-reference/mixpanel/actions/customapiaction.htm\" ResolvedId=\"30987\" />';
