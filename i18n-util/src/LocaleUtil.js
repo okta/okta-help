@@ -39,7 +39,7 @@ const  getLocale = () => {
   // only end-user docs have translations
   // TODO remove check once admin docs also have translations OKTA-356320
   const type = getUrlParameter('type');
-  if (type === 'end-user') {
+  if (type) {
     // convert locale value to folder path
     locale = supportedLocaleToFolderMap[locale];
   } else {
