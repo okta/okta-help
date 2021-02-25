@@ -346,7 +346,7 @@ Windows, these accounts are initially disabled.</li>
                                                     <h4>Connection establishment</h4>
                                                     <p>In order to establish an RDP connection, the  <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> client:</p>
                                                     <ol>
-                                                        <li value="1">Communicates with  <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> platform to get short-lived credentials it can use to authenticate to the Access Broker.</li>
+                                                        <li value="1">Communicates with the <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> platform to get short-lived credentials it can use to authenticate to the access broker.</li>
                                                         <li value="2">Optionally establishes an SSH tunnel through any intermediate bastion servers. If any bastion also uses  <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span>
 for authentication, short-lived credentials are fetched transparently.</li>
                                                         <li value="3">Connects to the  <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> broker (over the SSH tunnels, if applicable) and authenticates using the short-lived
@@ -362,50 +362,51 @@ the client is now listening. It then opens the Windows Terminal Services client 
                                                     <p>The RDP client connects to the local TCP port and is forwarded to the RDP service on the server. The RDP server is able
 to automatically authenticate as the user without any further prompting.</p>
                                                     <p>When the user logs out, the agent will automatically disable their account.</p>
-                                                    <h2>Configuration</h2>
-                                                    <h3>Server configuration</h3>
-                                                    <p>Server configuration follows the same principles as it does on Linux.</p>
-                                                    <p>In order to enroll the server using an enrollment token, write the token to:</p><pre><code>C:\windows\system32\config\systemprofile\AppData\Local\scaleft\enrollment.token
-</code></pre>
+                                                    <h2>Server Configuration</h2>
+                                                    <p>Windows server configuration follows the same principles as it does on Linux.</p>
+                                                    <p>To enroll the server using an enrollment token, write the token to:</p><span class="code">C:\windows\system32\config\systemprofile\AppData\Local\scaleft\enrollment.token
+</span>
                                                     <p>Alternatively, if you're using AWS you can associate your AWS account with an <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> project. See <a href="cloud-deployment.htm" class="MCXref xref">Deploy cloud servers</a>.</p>
                                                     <p> <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> Server Tools installers are available <a href="https://dist.scaleft.com/server-tools/windows/">here</a>.</p>
                                                     <p> <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> Server Tools can be automatically installed on AWS using the following userdata script. If you are using an
 enrollment token be sure to replace the value of <code>$enrollment_token</code>. If you have associated your AWS account with your
- <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> project, you can omit the first half of the script which is responsible for writing the enrollment token.</p><pre><code class="language-ps1">&lt;powershell&gt;
-# Write the Enrollment Token
-$enrollment_token = "ENROLLMENT TOKEN GOES HERE"
-$enrollment_token_path = "C:\windows\system32\config\systemprofile\AppData\Local\scaleft\enrollment.token"
+ <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> project, you can omit the first half of the script which is responsible for writing the enrollment token.</p>
+                                                    <p class="code">&lt;powershell&gt;
+</p>
+                                                    <p class="code"># Write the Enrollment Token
+</p>
+                                                    <p class="code">$enrollment_token = "ENROLLMENT TOKEN GOES HERE"</p>
+                                                    <p class="code">$enrollment_token_path = "C:\windows\system32\config\systemprofile\AppData\Local\scaleft\enrollment.token"
 New-Item -ItemType directory -Path (Split-Path $enrollment_token_path -Parent)
-$enrollment_token | Out-File $enrollment_token_path -Encoding "ASCII"
-
-# Install  <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> Server Tools
-$installer_url = "https://dist. <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span>.com/server-tools/windows/latest/ <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span>-Server-Tools-latest.msi"
-$installer_path = [System.IO.Path]::ChangeExtension([System.IO.Path]::GetTempFileName(), ".msi")
+$enrollment_token | Out-File $enrollment_token_path -Encoding "ASCII"</p>
+                                                    <p class="code">&#160;</p>
+                                                    <p class="code"># Install  <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> Server Tools</p>
+                                                    <p class="code">$installer_url = "https://dist.scaleft.com/server-tools/windows/latest/ScaleFT-Server-Tools-latest.msi"
+</p>
+                                                    <p class="code">$installer_path = [System.IO.Path]::ChangeExtension([System.IO.Path]::GetTempFileName(), ".msi")
 (New-Object System.Net.WebClient).DownloadFile($installer_url, $installer_path)
-msiexec.exe /qb /I $installer_path
-&lt;/powershell&gt;
-</code></pre>
+msiexec.exe /qb /I $installer_path</p>
+                                                    <p class="code">&lt;/powershell&gt;</p>
                                                     <h3>Connect to a server</h3>
                                                     <p>To RDP to a server using  <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> run:</p><pre><code>sft rdp &lt;server-name&gt;
 </code></pre>
                                                     <p>If you need to traverse one or more bastions use <code>--via</code> arguments, such as:</p><pre><code>sft rdp --via &lt;first.bastion&gt; --via &lt;second.bastion&gt; &lt;server&gt;
 </code></pre>
-                                                    <h2>Advanced server configuration</h2>
                                                     <h3>Paths</h3>
-                                                    <h5>State Directory</h5>
-                                                    <p><code>C:\Windows\System32\config\systemprofile\AppData\Local\scaleft</code>
-                                                    </p>
-                                                    <h5>Config File</h5>
-                                                    <p><code>C:\Windows\System32\config\systemprofile\AppData\Local\scaleft\sftd.yaml</code>
-                                                    </p>
-                                                    <h5>Log Directory</h5>
-                                                    <p><code>C:\Windows\System32\config\systemprofile\AppData\Local\scaleft\Logs</code>
-                                                    </p>
-                                                    <h5>Enrollment Token</h5>
-                                                    <p><code>C:\windows\system32\config\systemprofile\AppData\Local\scaleft\enrollment.token</code>
-                                                    </p>
-                                                    <h3>Configuration</h3>
-                                                    <p>The configuration format used by the agent is the same on Windows as it is on Linux.</p>
+                                                    <ul>
+                                                        <li>
+                                                            <p><b>State directory:</b>&#160;C:\Windows\System32\config\systemprofile\AppData\Local\scaleft</p>
+                                                        </li>
+                                                        <li>
+                                                            <p><b>Config file:</b> C:\Windows\System32\config\systemprofile\AppData\Local\scaleft\sftd.yaml</p>
+                                                        </li>
+                                                        <li>
+                                                            <p><b>Log directory:</b> C:\Windows\System32\config\systemprofile\AppData\Local\scaleft\Logs</p>
+                                                        </li>
+                                                        <li>
+                                                            <p><b>Enrollment token:</b> C:\windows\system32\config\systemprofile\AppData\Local\scaleft\enrollment.token</p>
+                                                        </li>
+                                                    </ul>
                                                     <h2>Related topics</h2>
                                                     <p><a href="setup/enrolling-a-server.htm" class="MCXref xref">Enroll a server</a>
                                                     </p>
