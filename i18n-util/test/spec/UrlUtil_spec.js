@@ -37,6 +37,12 @@ describe('UrlUtil.getRedirectUrl', () => {
     expect(result).toEqual('help.foo.com/end-user/en-us/okta_help.htm#cshid=csh-user-ov-overview');
   });
 
+  test('generates redirect url correctly for oie docs with locale query param', () => {
+    setup('help.foo.com/okta_help.htm?id=csh-about-authenticators&locale=ja&type=oie');
+    const result = getRedirectUrl();
+    expect(result).toEqual('help.foo.com/oie/ja-jp/okta_help.htm#cshid=csh-about-authenticators');
+  });
+
 });
 
 describe('UrlUtil.getUrlParameter', () => {
