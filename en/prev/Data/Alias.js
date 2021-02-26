@@ -5,8 +5,11 @@ xmlAliasData += '    <Map Name=\"csh_security_general\" Link=\"Topics/Security/S
 xmlAliasData += '    <Map Name=\"Security_Policies\" Link=\"Topics/Security/policies/configure-signon-policies.htm#Security_Policies1\" ResolvedId=\"1260\" />';
 xmlAliasData += '    <Map Name=\"Security_Authentication_AD\" Link=\"Topics/Security/Security_Authentication.htm\" ResolvedId=\"1020\" />';
 xmlAliasData += '    <Map Name=\"Security_Authentication_LDAP\" Link=\"Topics/Security/Security_Authentication.htm\" ResolvedId=\"1030\" />';
+xmlAliasData += '    <Map Name=\"Security_Authentication_SymantecVIP\" Link=\"Topics/Security/mfa/symantec-vip.htm\" ResolvedId=\"1050\" />';
+xmlAliasData += '    <Map Name=\"Security_Authentication_Yubikey\" Link=\"Topics/Security/mfa/yubikey.htm\" ResolvedId=\"1080\" />';
 xmlAliasData += '    <Map Name=\"Security_Authentication_RSA\" Link=\"Topics/Security/MFA_OnPrem.htm\" ResolvedId=\"1060\" />';
 xmlAliasData += '    <Map Name=\"Security_Authentication_OnPrem\" Link=\"Topics/Security/MFA_OnPrem.htm\" ResolvedId=\"1070\" />';
+xmlAliasData += '    <Map Name=\"Security_Authentication_JIT\" Link=\"Topics/Security/mfa/yubikey.htm\" ResolvedId=\"1040\" />';
 xmlAliasData += '    <Map Name=\"Security_IdP\" Link=\"Topics/Security/Identity_Providers.htm#Security_IDP\" ResolvedId=\"1090\" />';
 xmlAliasData += '    <Map Name=\"Security_Network\" Link=\"Topics/Security/Security_Network.htm\" ResolvedId=\"1100\" />';
 xmlAliasData += '    <Map Name=\"Security_Administrators\" Link=\"Topics/Security/Administrators.htm\" ResolvedId=\"1110\" />';
@@ -31,6 +34,8 @@ xmlAliasData += '    <Map Name=\"create-access-policies\" Link=\"Topics/Security
 xmlAliasData += '    <Map Name=\"Production_Relnotes\" Link=\"Topics/ReleaseNotes/production.htm\" ResolvedId=\"1002\" />';
 xmlAliasData += '    <Map Name=\"Preview_relnotes\" Link=\"Topics/ReleaseNotes/preview.htm\" ResolvedId=\"1003\" />';
 xmlAliasData += '    <Map Name=\"Security_Duo\" Link=\"Topics/Security/Security_Duo.htm\" ResolvedId=\"1004\" />';
+xmlAliasData += '    <Map Name=\"Security_FactorTypes\" Link=\"Topics/Security/mfa/mfa-factors.htm\" ResolvedId=\"1005\" />';
+xmlAliasData += '    <Map Name=\"Security_FactorPolicies\" Link=\"Topics/Security/policies/about-mfa-policies.htm\" ResolvedId=\"1006\" />';
 xmlAliasData += '    <Map Name=\"Device_Trust\" Link=\"Topics/device-trust/device-trust-landing.htm\" ResolvedId=\"1007\" />';
 xmlAliasData += '    <Map Name=\"ver-hist_dt-win-desktop\" Link=\"Topics/Settings/Version_Histories/Ver_History_DeviceTrust_Installer_Windows.htm\" ResolvedId=\"1008\" />';
 xmlAliasData += '    <Map Name=\"Device_Trust_Mobile\" Link=\"Topics/device-trust/device-trust-landing.htm\" ResolvedId=\"1009\" />';
@@ -252,6 +257,7 @@ xmlAliasData += '    <Map Name=\"beyondtrust-radius-intg\" Link=\"Topics/integra
 xmlAliasData += '    <Map Name=\"ldapuserattribute\" Link=\"Topics/Directory/ldap-agent-modify-integration-settings.htm\" ResolvedId=\"1063\" />';
 xmlAliasData += '    <Map Name=\"ver-hist_dt-macOS-desktop\" Link=\"Topics/Settings/Version_Histories/Ver_History_Device_Trust_MacOS.htm\" ResolvedId=\"1064\" />';
 xmlAliasData += '    <Map Name=\"ext_widget_redirect\" Link=\"Topics/Settings/sign-in-widget-redirect.htm\" ResolvedId=\"1065\" />';
+xmlAliasData += '    <Map Name=\"ext_mfa_windows_hello\" Link=\"Topics/Security/mfa/mfa-factors.htm\" ResolvedId=\"1066\" />';
 xmlAliasData += '    <Map Name=\"csh-okta-verify\" Link=\"Topics/Mobile/okta-verify-overview.htm\" ResolvedId=\"1068\" />';
 xmlAliasData += '    <Map Name=\"csh-okta-verify-fips\" Link=\"Topics/Mobile/ov-admin-config.htm#fips\" ResolvedId=\"1067\" />';
 xmlAliasData += '    <Map Name=\"ext_Assign_Admin\" Link=\"Topics/Security/administrators-assign-admins.htm\" ResolvedId=\"1069\" />';
@@ -276,6 +282,7 @@ xmlAliasData += '    <Map Name=\"csh-dt-ios-mobileIron\" Link=\"Topics/Mobile/Ok
 xmlAliasData += '    <Map Name=\"csh-dt-android-other-mngApp\" Link=\"Topics/Mobile/dt-mdm-managed-android-devices.htm\" ResolvedId=\"1092\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-ios-other-mngApp\" Link=\"Topics/Mobile/Okta_Device_Trust_Native_Apps_Safari_MDM_Devices.htm\" ResolvedId=\"1093\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-ios-intune\" Link=\"Topics/Mobile/Okta_Device_Trust_Native_Apps_Safari_MDM_Devices.htm\" ResolvedId=\"1094\" />';
+xmlAliasData += '    <Map Name=\"csh_MFA_Reset\" Link=\"Topics/Security/mfa/mfa-reset-users.htm\" ResolvedId=\"1095\" />';
 xmlAliasData += '    <Map Name=\"csh_security_policies\" Link=\"Topics/Security/policies/policies-home.htm\" ResolvedId=\"1096\" />';
 xmlAliasData += '    <Map Name=\"csh_notification_new\" Link=\"Topics/Security/Security_General.htm#SecurityNotificationEmails\" ResolvedId=\"1097\" />';
 xmlAliasData += '    <Map Name=\"csh_notification_enroll\" Link=\"Topics/Security/Security_General.htm#SecurityNotificationEmails\" ResolvedId=\"1098\" />';
@@ -320,6 +327,7 @@ xmlAliasData += '    <Map Name=\"ext-o365-deploy\" Link=\"Topics/Apps/Office365-
 xmlAliasData += '    <Map Name=\"ext-o365-main\" Link=\"Topics/Apps/Office365/o365-main.htm\" ResolvedId=\"1143\" />';
 xmlAliasData += '    <Map Name=\"ext-add-o365\" Link=\"Topics/Apps/Office365-Deployment/add-o365.htm\" ResolvedId=\"1144\" />';
 xmlAliasData += '    <Map Name=\"ext_Admin_Assignment\" Link=\"Topics/Security/administrators-assign-admins.htm\" ResolvedId=\"1145\" />';
+xmlAliasData += '    <Map Name=\"ext_MFA_U2F\" Link=\"Topics/Security/mfa/u2f-security-key.htm\" ResolvedId=\"1146\" />';
 xmlAliasData += '    <Map Name=\"ext_Configure_App_Approval\" Link=\"Topics/Apps/Access_Request_Workflow.htm#ConfigureAppApproval\" ResolvedId=\"1147\" />';
 xmlAliasData += '    <Map Name=\"ext_Device_Trust_MacOS\" Link=\"Topics/Mobile/Okta_Device_Trust_Jamf_macOS_Devices.htm\" ResolvedId=\"1148\" />';
 xmlAliasData += '    <Map Name=\"ext_Create_Group_Rules\" Link=\"Topics/users-groups-profiles/usgp-about-group-rules.htm\" ResolvedId=\"1149\" />';
@@ -333,6 +341,7 @@ xmlAliasData += '    <Map Name=\"csh-dt-secret-key-ios\" Link=\"Topics/Mobile/Ok
 xmlAliasData += '    <Map Name=\"csh-dt-secret-key-android\" Link=\"Topics/Mobile/dt-mdm-managed-android-devices.htm\" ResolvedId=\"1159\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-main\" Link=\"Topics/device-trust/device-trust-landing.htm\" ResolvedId=\"1160\" />';
 xmlAliasData += '    <Map Name=\"ext_csvintegration\" Link=\"Topics/Directory/csv-integration-main.htm\" ResolvedId=\"1162\" />';
+xmlAliasData += '    <Map Name=\"ext_MFAVoice\" Link=\"Topics/Security/mfa/voicecall.htm\" ResolvedId=\"1163\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-integrations-ios\" Link=\"Topics/device-trust/SAML/Mobile/integrate-okta-dt-with-ws1-mobile.htm\" ResolvedId=\"1164\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-integrations-android\" Link=\"Topics/device-trust/SAML/Mobile/integrate-okta-dt-with-ws1-mobile.htm\" ResolvedId=\"1165\" />';
 xmlAliasData += '    <Map Name=\"ext_inlinehooks\" Link=\"Topics/automation-hooks/inline-hooks-main.htm\" ResolvedId=\"1166\" />';
