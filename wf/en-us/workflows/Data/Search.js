@@ -1,1 +1,0 @@
-define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../Content/Topics/Workflows/Tutorials/addbasicapi-walkthrough/addbasicapi-walkthrough.htm'],s:['$'],p:[['$',242]]});
