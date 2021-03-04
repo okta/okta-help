@@ -1551,5 +1551,6 @@ xmlAliasData += '    <Map Name=\"ext_oag_pre_req_firewall_rules\" Link=\"Topics/
 xmlAliasData += '    <Map Name=\"ext_oag_about_policy_types_not\" Link=\"Topics/Access-Gateway/learn-about-oag-policy-types.htm#Not\" ResolvedId=\"3064\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_about_policy_types_prot\" Link=\"Topics/Access-Gateway/learn-about-oag-policy-types.htm#Protecte\" ResolvedId=\"3065\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_about_support_vpn\" Link=\"Topics/Access-Gateway/about-oag-support-vpn.htm\" ResolvedId=\"3066\" />';
+xmlAliasData += '    <Map Name=\"csh-okta-verify-number-challenge-v1\" Link=\"Topics/Mobile/ov-admin-config.htm#enable-number-challenge\" ResolvedId=\"12007\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
