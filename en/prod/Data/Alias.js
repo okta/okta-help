@@ -1067,7 +1067,6 @@ xmlAliasData += '    <Map Name=\"ext-slack\" Link=\"Topics/Workflows/connector-r
 xmlAliasData += '    <Map Name=\"ext-slack-method-archivechannel\" Link=\"Topics/Workflows/connector-reference/slack/actions/archivechannel.htm\" ResolvedId=\"30591\" />';
 xmlAliasData += '    <Map Name=\"ext-slack-method-createchannel2\" Link=\"Topics/Workflows/connector-reference/slack/actions/createchannel2.htm\" ResolvedId=\"30592\" />';
 xmlAliasData += '    <Map Name=\"ext-slack-method-httprequest\" Link=\"Topics/Workflows/connector-reference/slack/actions/httprequest.htm\" ResolvedId=\"30593\" />';
-xmlAliasData += '    <Map Name=\"ext-slack-method-inviteusertochannel\" Link=\"Topics/Workflows/connector-reference/slack/actions/inviteusertochannel.htm\" ResolvedId=\"30594\" />';
 xmlAliasData += '    <Map Name=\"ext-slack-method-inviteusertochannel2\" Link=\"Topics/Workflows/connector-reference/slack/actions/inviteusertochannel2.htm\" ResolvedId=\"30595\" />';
 xmlAliasData += '    <Map Name=\"ext-slack-method-joinchannel\" Link=\"Topics/Workflows/connector-reference/slack/actions/joinchannel.htm\" ResolvedId=\"30596\" />';
 xmlAliasData += '    <Map Name=\"ext-slack-method-leavechannel\" Link=\"Topics/Workflows/connector-reference/slack/actions/leavechannel.htm\" ResolvedId=\"30597\" />';
@@ -1552,5 +1551,9 @@ xmlAliasData += '    <Map Name=\"ext_oag_about_policy_types_not\" Link=\"Topics/
 xmlAliasData += '    <Map Name=\"ext_oag_about_policy_types_prot\" Link=\"Topics/Access-Gateway/learn-about-oag-policy-types.htm#Protecte\" ResolvedId=\"3065\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_about_support_vpn\" Link=\"Topics/Access-Gateway/about-oag-support-vpn.htm\" ResolvedId=\"3066\" />';
 xmlAliasData += '    <Map Name=\"csh-okta-verify-number-challenge-v1\" Link=\"Topics/Mobile/ov-admin-config.htm#enable-number-challenge\" ResolvedId=\"12007\" />';
+xmlAliasData += '    <Map Name=\"ext-create-access-policies\" Link=\"Topics/Security/API_Access.htm#create-access-policies\" ResolvedId=\"1138\" />';
+xmlAliasData += '    <Map Name=\"ext-salesforce229-method-getallpermissionsetlicenses\" Link=\"Topics/Workflows/connector-reference/salesforce/actions/getallpermissionsetlicenses.htm\" ResolvedId=\"16013\" />';
+xmlAliasData += '    <Map Name=\"ext-salesforce229-method-listuserpermissionassignments\" Link=\"Topics/Workflows/connector-reference/salesforce/actions/listuserpermissionassignments.htm\" ResolvedId=\"16014\" />';
+xmlAliasData += '    <Map Name=\"ext-salesforce229-method-removeuserentitlements\" Link=\"Topics/Workflows/connector-reference/salesforce/actions/removeuserentitlements.htm\" ResolvedId=\"16015\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
