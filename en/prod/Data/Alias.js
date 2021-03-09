@@ -205,7 +205,7 @@ xmlAliasData += '    <Map Name=\"ext_MFA\" Link=\"Topics/Security/MFA.htm\" Reso
 xmlAliasData += '    <Map Name=\"ext_MFA_App_Level\" Link=\"Topics/Security/MFA_App_Level.htm\" ResolvedId=\"200158\" />';
 xmlAliasData += '    <Map Name=\"ext_MFA_OnPrem\" Link=\"Topics/Security/MFA_OnPrem.htm\" ResolvedId=\"200160\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_3PartyWhitelist\" Link=\"Topics/Security/Okta-allow-cookies.htm\" ResolvedId=\"200161\" />';
-xmlAliasData += '    <Map Name=\"ext_Okta_Radius_App\" Link=\"Topics/Security/Okta_Radius_App.htm\" ResolvedId=\"200162\" />';
+xmlAliasData += '    <Map Name=\"ext_Okta_Radius_App\" Link=\"Topics/integrations/Okta_Radius_App.htm\" ResolvedId=\"200162\" />';
 xmlAliasData += '    <Map Name=\"ext_proc_mfa_win_creds_rdp\" Link=\"Topics/Security/proc-mfa-win-creds-rdp.htm\" ResolvedId=\"200163\" />';
 xmlAliasData += '    <Map Name=\"ext_proc_security_behavior_detection\" Link=\"Topics/Security/proc-security-behavior-detection.htm\" ResolvedId=\"200165\" />';
 xmlAliasData += '    <Map Name=\"ext_Security\" Link=\"Topics/Security/Security_at_Okta.htm\" ResolvedId=\"200167\" />';
@@ -391,7 +391,7 @@ xmlAliasData += '    <Map Name=\"ext-inline-hooks\" Link=\"Topics/automation-hoo
 xmlAliasData += '    <Map Name=\"ext-event-hooks\" Link=\"Topics/automation-hooks/event-hooks-main.htm\" ResolvedId=\"1216\" />';
 xmlAliasData += '    <Map Name=\"ext-workflow-overview\" Link=\"Topics/Directory/workflow-overview.htm\" ResolvedId=\"1217\" />';
 xmlAliasData += '    <Map Name=\"csh-SMS-customization\" Link=\"Topics/Settings/Settings_SMS.htm\" ResolvedId=\"1218\" />';
-xmlAliasData += '    <Map Name=\"Okta_RADIUS_App\" Link=\"Topics/Security/Okta_Radius_App.htm\" ResolvedId=\"1221\" />';
+xmlAliasData += '    <Map Name=\"Okta_RADIUS_App\" Link=\"Topics/integrations/Okta_Radius_App.htm\" ResolvedId=\"1221\" />';
 xmlAliasData += '    <Map Name=\"integrations\" Link=\"Topics/integrations/integrations.htm\" ResolvedId=\"1222\" />';
 xmlAliasData += '    <Map Name=\"App_Based_Signon\" Link=\"Topics/Security/policies/about-app-signon-policies.htm\" ResolvedId=\"1223\" />';
 xmlAliasData += '    <Map Name=\"Apps_Apps_Page\" Link=\"Topics/Apps/Apps_Apps_Page.htm\" ResolvedId=\"1224\" />';
