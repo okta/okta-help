@@ -22,6 +22,7 @@ xmlAliasData += '    <Map Name=\"ext_AD_Move_user_across_OU\" Link=\"Topics/Dire
 xmlAliasData += '    <Map Name=\"ext_Attribute_Level_Mastering\" Link=\"Topics/users-groups-profiles/usgp-about-attribute-mastering.htm\" ResolvedId=\"200055\" />';
 xmlAliasData += '    <Map Name=\"ext_Custom_Attributes_with_AD\" Link=\"Topics/users-groups-profiles/usgp-add-custom-attribute.htm\" ResolvedId=\"200058\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_AD_Field_Mappings\" Link=\"Topics/Directory/Directory_AD_Field_Mappings.htm\" ResolvedId=\"200061\" />';
+xmlAliasData += '    <Map Name=\"ext_Directory_FAQ_Okta_and_AD_Groups\" Link=\"Topics/Directory/Directory_FAQ_Okta_and_AD_Groups.htm\" ResolvedId=\"200064\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_Groups\" Link=\"Topics/users-groups-profiles/usgp-about-groups.htm\" ResolvedId=\"200065\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_People\" Link=\"Topics/users-groups-profiles/usgp-people.htm\" ResolvedId=\"200068\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_Profile_Editor\" Link=\"Topics/users-groups-profiles/usgp-user-profiles-main.htm\" ResolvedId=\"200069\" />';
@@ -103,5 +104,6 @@ xmlAliasData += '    <Map Name=\"ext-ad-agent-import-users\" Link=\"Topics/Direc
 xmlAliasData += '    <Map Name=\"ext-manage-group-push\" Link=\"Topics/users-groups-profiles/usgp-group-push-main.htm\" ResolvedId=\"15011\" />';
 xmlAliasData += '    <Map Name=\"ext_secur_browser_support\" Link=\"Topics/Miscellaneous/Platforms_Browser_OS_Support.htm\" ResolvedId=\"3058\" />';
 xmlAliasData += '    <Map Name=\"csh-prioritize-profile-sources\" Link=\"Topics/users-groups-profiles/usgp-prioritize-profile-master.htm\" ResolvedId=\"15012\" />';
+xmlAliasData += '    <Map Name=\"csh-risk-scoring\" Link=\"Topics/Security/Security_Risk_Scoring.htm\" ResolvedId=\"12008\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
