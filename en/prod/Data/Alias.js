@@ -346,7 +346,6 @@ xmlAliasData += '    <Map Name=\"csh-dt-integrations-ios\" Link=\"Topics/device-
 xmlAliasData += '    <Map Name=\"csh-dt-integrations-android\" Link=\"Topics/device-trust/SAML/Mobile/integrate-okta-dt-with-ws1-mobile.htm\" ResolvedId=\"1165\" />';
 xmlAliasData += '    <Map Name=\"ext_inlinehooks\" Link=\"Topics/automation-hooks/inline-hooks-main.htm\" ResolvedId=\"1166\" />';
 xmlAliasData += '    <Map Name=\"okta-radius-agent-history\" Link=\"Topics/Settings/Version_Histories/Ver_History_RADIUS_Server_Agent.htm\" ResolvedId=\"1167\" />';
-xmlAliasData += '    <Map Name=\"csh-actionable-notifications\" Link=\"Topics/Mobile/okta-verify-sign-in.htm#iOSPush\" ResolvedId=\"1168\" />';
 xmlAliasData += '    <Map Name=\"Security_General\" Link=\"Topics/Security/Security_General.htm\" ResolvedId=\"1169\" />';
 xmlAliasData += '    <Map Name=\"ext_match-user\" Link=\"Topics/users-groups-profiles/usgp-matching-imported-users.htm\" ResolvedId=\"1171\" />';
 xmlAliasData += '    <Map Name=\"ext_eu_reset_password_selfserve\" Link=\"Topics/users-groups-profiles/usgp-manage-password-reset.htm\" ResolvedId=\"1172\" />';
@@ -1551,9 +1550,10 @@ xmlAliasData += '    <Map Name=\"ext_oag_about_policy_types_not\" Link=\"Topics/
 xmlAliasData += '    <Map Name=\"ext_oag_about_policy_types_prot\" Link=\"Topics/Access-Gateway/learn-about-oag-policy-types.htm#Protecte\" ResolvedId=\"3065\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_about_support_vpn\" Link=\"Topics/Access-Gateway/about-oag-support-vpn.htm\" ResolvedId=\"3066\" />';
 xmlAliasData += '    <Map Name=\"csh-okta-verify-number-challenge-v1\" Link=\"Topics/Mobile/ov-admin-config.htm#enable-number-challenge\" ResolvedId=\"12007\" />';
-xmlAliasData += '    <Map Name=\"ext-create-access-policies\" Link=\"Topics/Security/API_Access.htm#create-access-policies\" ResolvedId=\"1138\" />';
-xmlAliasData += '    <Map Name=\"ext-salesforce229-method-getallpermissionsetlicenses\" Link=\"Topics/Workflows/connector-reference/salesforce/actions/getallpermissionsetlicenses.htm\" ResolvedId=\"16013\" />';
-xmlAliasData += '    <Map Name=\"ext-salesforce229-method-listuserpermissionassignments\" Link=\"Topics/Workflows/connector-reference/salesforce/actions/listuserpermissionassignments.htm\" ResolvedId=\"16014\" />';
-xmlAliasData += '    <Map Name=\"ext-salesforce229-method-removeuserentitlements\" Link=\"Topics/Workflows/connector-reference/salesforce/actions/removeuserentitlements.htm\" ResolvedId=\"16015\" />';
+xmlAliasData += '    <Map Name=\"ext-create-access-policies\" Link=\"Topics/Security/API_Access.htm#create-access-policies\" ResolvedId=\"-2147483648\" />';
+xmlAliasData += '    <Map Name=\"ext-salesforce229-method-getallpermissionsetlicenses\" Link=\"Topics/Workflows/connector-reference/salesforce/actions/getallpermissionsetlicenses.htm\" ResolvedId=\"31006\" />';
+xmlAliasData += '    <Map Name=\"ext-salesforce229-method-listuserpermissionassignments\" Link=\"Topics/Workflows/connector-reference/salesforce/actions/listuserpermissionassignments.htm\" ResolvedId=\"31031\" />';
+xmlAliasData += '    <Map Name=\"ext-salesforce229-method-removeuserentitlements\" Link=\"Topics/Workflows/connector-reference/salesforce/actions/removeuserentitlements.htm\" ResolvedId=\"31030\" />';
+xmlAliasData += '    <Map Name=\"csh-risk-scoring\" Link=\"Topics/Security/Security_Risk_Scoring.htm\" ResolvedId=\"12008\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
