@@ -338,6 +338,8 @@
                                                             <li><a href="#Certificate" class="MCXref xref">Certificate events</a> related event activity. </li>
                                                             <li><a href="#Connecti" class="MCXref xref">Connectivity and validation</a> between <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> and external resources such as back-end applications, data stores, and similar conditions.</li>
                                                             <li><a href="#LogVerbosity" class="MCXref xref">Log Verbosity</a> change related events. </li>
+                                                            <li><a href="#Password" class="MCXref xref">Password</a> related events.</li>
+                                                            <li><a href="#SupportVPN" class="MCXref xref">Support VPN</a> related events.</li>
                                                             <li><a href="#top" class="MCXref xref">System status</a> events such as system up, system down, identify provider connection status, EBS subsystem up, valid or invalid NGINX configuration, and others.</li>
                                                             <li><a href="#Kerberos" class="MCXref xref">Kerberos</a> related activity such as create, update or delete. </li>
                                                             <li><a href="#TrustedDomains" class="MCXref xref">Trusted Domains</a> related activity such as create, update, delete, or synchronize as well as exceptions during trusted domain operations.</li>
@@ -980,7 +982,38 @@
                                                     </div>
                                                     <div>
                                                         <h2><a name="Certificate"></a>Certificate events</h2>
-                                                        <p>Events logged when adding, updating, or assigning certificates. See <a href="about-oag-certificates.htm" class="MCXref xref">About Access Gateway certificates</a> and <a href="manage-certificates.htm" class="MCXref xref">Manage certificates and certificate chains</a> for more information. </p>
+                                                        <p>Events logged when adding, updating, or assigning certificates. See <a href="about-oag-certificates.htm" class="MCXref xref">About Access Gateway certificates</a> and <a href="manage-certificates.htm" class="MCXref xref">Manage certificates and certificate chains</a> for more information. This includes both traditional certificates, or those actions associated with certificate chain authentication.</p>
+                                                        <div>
+                                                            <h3>Can't read certificate</h3>
+                                                            <p>Description: While adding or updating a certificate using the <span class="mc-variable okta-feature-names.Access_Gateway_CMD variable">Access Gateway Management console</span>, an invalid certificate was provided. </p>
+                                                            <p>Messages: </p>
+                                                            <ul>
+                                                                <li>Failed to read certificate.</li>
+                                                            </ul>
+                                                            <p>Examples:</p>
+                                                            <ul>
+                                                                <li><span class="code">2020-08-10 15:42:30.583 ERROR 1336 --- [ XNIO-2 task-11] com.okta.oag.service.CertificateService : Failed to read certificate from file /opt/oag/nginx/ssl//test.crt. Error: /opt/oag/nginx/ssl/test.crt (Permission denied) 
+					This is generated while reading certificate and any certificate is lacking read permission.</span>
+                                                                </li>
+                                                            </ul>
+                                                            <li>Structured data:<ul><li>None</li></ul></li>
+                                                            <li>Corrective action :<ul><li>Ensure that the certificate being uploaded is valid and check permissions.</li></ul></li>
+                                                        </div>
+                                                        <div>
+                                                            <h3>Invalid certificate format</h3>
+                                                            <p>Description: While adding or updating a certificate using the <span class="mc-variable okta-feature-names.Access_Gateway_CMD variable">Access Gateway Management console</span>, an invalid certificate was provided. </p>
+                                                            <p>Messages: </p>
+                                                            <ul>
+                                                                <li>Error: Could not parse certificate.</li>
+                                                            </ul>
+                                                            <p>Examples:</p>
+                                                            <ul>
+                                                                <li><span class="code">2020-08-10 15:41:51.682 ERROR 1336 --- [ XNIO-2 task-11] com.okta.oag.service.CertificateService : Failed parse certificate file /opt/oag/nginx/ssl//test.crt. Error: Could not parse certificate: java.io.IOException: Empty input This is generated when certificate file being read is not a valid PEM format certificate file i.e. parsing error.</span>
+                                                                </li>
+                                                            </ul>
+                                                            <li>Structured data:<ul><li>None</li></ul></li>
+                                                            <li>Corrective action :<ul><li>Ensure that the certificate being uploaded is valid and try again.</li></ul></li>
+                                                        </div>
                                                         <div>
                                                             <h3>Invalid protected web resource value</h3>
                                                             <p>Description: While adding an application using the <span class="mc-variable okta-feature-names.Access&#160;Gateway_UI variable">Access Gateway Admin UI console</span>, an attempt was made to generate a self-signed certificate based on an invalid <b>Protected web resource</b> file.</p>
@@ -1013,35 +1046,20 @@
                                                             <li>Corrective action :<ul><li> Examine the value of the associated applications <b>Protected web resource</b>, correct any errors, and try again.</li></ul></li>
                                                         </div>
                                                         <div>
-                                                            <h3>Can't read certificate</h3>
-                                                            <p>Description: While adding or updating a certificate using the <span class="mc-variable okta-feature-names.Access_Gateway_CMD variable">Access Gateway Management console</span>, an invalid certificate was provided. </p>
+                                                            <h3>Certificate revocation list settings updated</h3>
+                                                            <p>Description: Settings associated with certificate revocation lists were updated. </p>
                                                             <p>Messages: </p>
                                                             <ul>
-                                                                <li>Failed to read certificate.</li>
+                                                                <li>CRL config updated.</li>
                                                             </ul>
                                                             <p>Examples:</p>
                                                             <ul>
-                                                                <li><span class="code">2020-08-10 15:42:30.583 ERROR 1336 --- [ XNIO-2 task-11] com.okta.oag.service.CertificateService : Failed to read certificate from file /opt/oag/nginx/ssl//test.crt. Error: /opt/oag/nginx/ssl/test.crt (Permission denied) 
-					This is generated while reading certificate and any certificate is lacking read permission.</span>
+                                                                <li><span class="code">2020-08-10 15:36:49.769 ERROR 1336 --- [ XNIO-2 task-2] c.i.s.web.rest.ExceptionHandlerAdvice  : handleExceptions
+					org.springframework.boot.configurationprocessor.json.JSONException: No value for relayDomain</span>
                                                                 </li>
                                                             </ul>
                                                             <li>Structured data:<ul><li>None</li></ul></li>
-                                                            <li>Corrective action :<ul><li>Ensure that the certificate being uploaded is valid and check permissions.</li></ul></li>
-                                                        </div>
-                                                        <div>
-                                                            <h3>Invalid certificate format</h3>
-                                                            <p>Description: While adding or updating a certificate using the <span class="mc-variable okta-feature-names.Access_Gateway_CMD variable">Access Gateway Management console</span>, an invalid certificate was provided. </p>
-                                                            <p>Messages: </p>
-                                                            <ul>
-                                                                <li>Error: Could not parse certificate.</li>
-                                                            </ul>
-                                                            <p>Examples:</p>
-                                                            <ul>
-                                                                <li><span class="code">2020-08-10 15:41:51.682 ERROR 1336 --- [ XNIO-2 task-11] com.okta.oag.service.CertificateService : Failed parse certificate file /opt/oag/nginx/ssl//test.crt. Error: Could not parse certificate: java.io.IOException: Empty input This is generated when certificate file being read is not a valid PEM format certificate file i.e. parsing error.</span>
-                                                                </li>
-                                                            </ul>
-                                                            <li>Structured data:<ul><li>None</li></ul></li>
-                                                            <li>Corrective action :<ul><li>Ensure that the certificate being uploaded is valid and try again.</li></ul></li>
+                                                            <li>Corrective action :<ul><li>None</li></ul></li>
                                                         </div>
                                                     </div>
                                                     <div>
@@ -1091,6 +1109,111 @@
                                                                 <li>Structured data: none</li>
                                                             </ul>
                                                             <li>Corrective action :<ul><li> None, informational. </li></ul></li>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <h2><a name="Password"></a>Password</h2>
+                                                        <p>Events logged when changing passwords.</p>
+                                                        <div>
+                                                            <h3>Reset password</h3>
+                                                            <p>Description: Password successfully changed. </p>
+                                                            <p>Messages: </p>
+                                                            <ul>
+                                                                <li>Password reset successful</li>
+                                                            </ul>
+                                                            <p>Examples:</p>
+                                                            <ul>
+                                                                <li><span class="code">2021-02-23T12:55:29.267-06:00 oag.adminX.com ADMIN_CONSOLE PASSWORD_RESET ADMIN_CONSOLE INFO PASSWORD_RESET [USER="oag-mgmt" USERNAME="oag-mgmt"] Password reset</span>
+                                                                </li>
+                                                            </ul>
+                                                            <p>Structured data:<ul><li><span class="code">USER</span> - User performing nomination actions, always <b>oag-mgmt</b></li><li><span class="code">USERNAME</span> - Always <b>oag-mgmt</b></li></ul></p>
+                                                            <p>Corrective action:<ul><li> N/A</li></ul></p>
+                                                        </div>
+                                                        <div>
+                                                            <h3>Reset failed</h3>
+                                                            <p>Description: Attempt to change password failed.</p>
+                                                            <p>Messages: </p>
+                                                            <ul>
+                                                                <li>Password reset failed.</li>
+                                                                <li>
+                                                                    <p>Password reset failed. Password did not meet minimum requirement</p>
+                                                                </li>
+                                                            </ul>
+                                                            <p>Examples:</p>
+                                                            <ul>
+                                                                <li><span class="code">2021-02-22T19:33:51.702-06:00 oag.adminX.com ADMIN_CONSOLE PASSWORD_RESET ADMIN_CONSOLE ERROR PASSWORD_RESET [USER="oag-mgmt" USERNAME="oag-mgmt"] Password reset failed</span>
+                                                                </li>
+                                                            </ul>
+                                                            <p>Structured data:<ul><li><span class="code">USER</span> - User performing nomination actions, always <b>oag-mgmt</b></li><li><span class="code">USERNAME</span> - Always <b>oag-mgmt</b></li></ul></p>
+                                                            <p>Corrective action:<ul><li>Passsword likely failed requirements, try again. </li></ul></p>
+                                                        </div>
+                                                        <div>
+                                                            <h3>Invalid password entered</h3>
+                                                            <p>Description: Log in failed, incorrect password entered.</p>
+                                                            <p>Messages: </p>
+                                                            <ul>
+                                                                <li>Incorrect password entered</li>
+                                                            </ul>
+                                                            <p>Examples:</p>
+                                                            <ul>
+                                                                <li><span class="code">2021-02-22T19:33:19.903-06:00 oag.adminX.com ADMIN_CONSOLE PASSWORD_RESET ADMIN_CONSOLE ERROR PASSWORD_RESET [USER="oag-mgmt" USERNAME="oag-mgmt"] Incorrect password entered</span>
+                                                                </li>
+                                                            </ul>
+                                                            <p>Structured data:<ul><li><span class="code">USER</span> - User performing nomination actions, always <b>oag-mgmt</b></li><li><span class="code">USERNAME</span> - Always <b>oag-mgmt</b></li></ul></p>
+                                                            <p>Corrective action:<ul><li>Reenter password and try again. </li></ul></p>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <h2><a name="SupportVPN"></a>Support VPN</h2>
+                                                        <p>Events logged when enabling and disabling the support VPN.</p>
+                                                        <div>
+                                                            <h3>Enable support connection</h3>
+                                                            <p>Description: Support connection being enabled.</p>
+                                                            <p>Messages: </p>
+                                                            <ul>
+                                                                <li>Enabling support connection</li>
+                                                            </ul>
+                                                            <p>Examples:</p>
+                                                            <ul>
+                                                                <li><span class="code">2021-02-23T12:55:29.267-06:00 OAG ADMIN_CONSOLE SUPPORT_CONNECTION ENABLE INFO ENABLE_SUPPORT_CONNECTION [USER="oag-mgmt"] Enabling support connection</span>
+                                                                </li>
+                                                            </ul>
+                                                            <p>Structured data:<ul><li><span class="code">USER</span> - User requesting enable support connection</li></ul></p>
+                                                            <p>Corrective action:<ul><li> N/A</li></ul></p>
+                                                        </div>
+                                                        <div>
+                                                            <h3>Disable support connection</h3>
+                                                            <p>Description: Support connection being disabled.</p>
+                                                            <p>Messages: </p>
+                                                            <ul>
+                                                                <li>Disabling support connection</li>
+                                                            </ul>
+                                                            <p>Examples:</p>
+                                                            <ul>
+                                                                <li><span class="code">2021-02-23T12:55:29.267-06:00 OAG ADMIN_CONSOLE SUPPORT_CONNECTION DISABLE INFO ENABLE_SUPPORT_CONNECTION [USER="oag-mgmt"] Disabling support connection</span>
+                                                                </li>
+                                                            </ul>
+                                                            <p>Structured data:<ul><li><span class="code">USER</span> - User requesting disable support connection</li></ul></p>
+                                                            <p>Corrective action:<ul><li> N/A</li></ul></p>
+                                                        </div>
+                                                        <div>
+                                                            <h3>Error during enable/disable support connection operation</h3>
+                                                            <p>Description: During an enable or disable operation, an error occurred. </p>
+                                                            <p>Messages: </p>
+                                                            <ul>
+                                                                <li>Exception when checking connection status on the system:</li>
+                                                            </ul>
+                                                            <p>Examples:</p>
+                                                            <ul>
+                                                                <li><span class="code">2021-02-23T12:55:29.267-06:00 OAG ADMIN_CONSOLE SUPPORT CONNECTION CHECK STATUS ERROR [USER="oag-mgmt"] Exception when checking connection status on the system: &lt;exception content&gt;</span>
+                                                                </li>
+                                                            </ul>
+                                                            <p>Structured data:<ul><li><span class="code">USER</span> - User requesting support connection operation.</li><li>exception contents - Additional information about the error</li></ul></p>
+                                                            <p><span class="code">Corrective action</span>
+                                                                <ul>
+                                                                    <li> N/A</li>
+                                                                </ul>
+                                                            </p>
                                                         </div>
                                                     </div>
                                                     <h2><a name="top"></a>System status</h2>

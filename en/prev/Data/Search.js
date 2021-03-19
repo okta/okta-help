@@ -1,1 +1,1 @@
-define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../Content/Resources/Snippets/access-gateway/ref-arch-gen-2dc.htm'],s:['$'],p:[['$',2]]});
+define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../Content/Resources/Stylesheets/foundation-icons/preview.html'],s:['$'],p:[['$',2]]});
