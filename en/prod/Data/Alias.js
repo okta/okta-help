@@ -181,7 +181,6 @@ xmlAliasData += '    <Map Name=\"ext_glossary\" Link=\"Topics/Reference/glossary
 xmlAliasData += '    <Map Name=\"ext_ref_apps_events\" Link=\"Topics/Reference/ref-apps-events.htm\" ResolvedId=\"200132\" />';
 xmlAliasData += '    <Map Name=\"ext_ref_service_op_mode\" Link=\"Topics/Reference/ref-service-op-mode.htm\" ResolvedId=\"200133\" />';
 xmlAliasData += '    <Map Name=\"ext_ref_supported_languages\" Link=\"Topics/Reference/ref-supported-languages.htm\" ResolvedId=\"200134\" />';
-xmlAliasData += '    <Map Name=\"ext_announcements\" Link=\"Topics/ReleaseNotes/announcements.htm\" ResolvedId=\"200135\" />';
 xmlAliasData += '    <Map Name=\"ext_early_access\" Link=\"Topics/ReleaseNotes/early-access.htm\" ResolvedId=\"200138\" />';
 xmlAliasData += '    <Map Name=\"ext_mobile_release_status\" Link=\"Topics/ReleaseNotes/mobile-release-status.htm\" ResolvedId=\"200139\" />';
 xmlAliasData += '    <Map Name=\"ext_okta_relnotes\" Link=\"Topics/ReleaseNotes/okta-relnotes.htm\" ResolvedId=\"200140\" />';
