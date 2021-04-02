@@ -1050,7 +1050,6 @@ xmlAliasData += '    <Map Name=\"ext-servicenow-method-newtask\" Link=\"Topics/W
 xmlAliasData += '    <Map Name=\"ext-servicenow-method-newticket\" Link=\"Topics/Workflows/connector-reference/servicenow/events/newticket.htm\" ResolvedId=\"30586\" />';
 xmlAliasData += '    <Map Name=\"ext-servicenow-method-updatedcustomrecord\" Link=\"Topics/Workflows/connector-reference/servicenow/events/updatedcustomrecord.htm\" ResolvedId=\"30587\" />';
 xmlAliasData += '    <Map Name=\"ext-servicenow-method-updatedincident\" Link=\"Topics/Workflows/connector-reference/servicenow/events/updatedincident.htm\" ResolvedId=\"30588\" />';
-xmlAliasData += '    <Map Name=\"ext-servicenow-misc-authorization\" Link=\"Topics/Workflows/connector-reference/servicenow/overviews/authorization.htm\" ResolvedId=\"30589\" />';
 xmlAliasData += '    <Map Name=\"ext-slack\" Link=\"Topics/Workflows/connector-reference/slack/slack.htm\" ResolvedId=\"30590\" />';
 xmlAliasData += '    <Map Name=\"ext-slack-method-archivechannel\" Link=\"Topics/Workflows/connector-reference/slack/actions/archivechannel.htm\" ResolvedId=\"30591\" />';
 xmlAliasData += '    <Map Name=\"ext-slack-method-createchannel2\" Link=\"Topics/Workflows/connector-reference/slack/actions/createchannel2.htm\" ResolvedId=\"30592\" />';
@@ -1442,6 +1441,7 @@ xmlAliasData += '    <Map Name=\"ext-shopify-method-customapiaction\" Link=\"Top
 xmlAliasData += '    <Map Name=\"ext-shopify-method-readcustomer\" Link=\"Topics/Workflows/connector-reference/shopify/actions/readcustomer.htm\" ResolvedId=\"30980\" />';
 xmlAliasData += '    <Map Name=\"ext-shopify-method-updatecustomer\" Link=\"Topics/Workflows/connector-reference/shopify/actions/updatecustomer.htm\" ResolvedId=\"30981\" />';
 xmlAliasData += '    <Map Name=\"ext-shopify-method-searchcustomers\" Link=\"Topics/Workflows/connector-reference/shopify/actions/searchcustomers.htm\" ResolvedId=\"30982\" />';
+xmlAliasData += '    <Map Name=\"ext-shopify-misc-authorization\" Link=\"Topics/Workflows/connector-reference/shopify/overviews/authorization.htm\" ResolvedId=\"30983\" />';
 xmlAliasData += '    <Map Name=\"ext-shopify\" Link=\"Topics/Workflows/connector-reference/shopify/shopify.htm\" ResolvedId=\"30984\" />';
 xmlAliasData += '    <Map Name=\"ext-mixpanel-method-createevent\" Link=\"Topics/Workflows/connector-reference/mixpanel/actions/createevent.htm\" ResolvedId=\"30985\" />';
 xmlAliasData += '    <Map Name=\"ext-mixpanel-method-createprofile\" Link=\"Topics/Workflows/connector-reference/mixpanel/actions/createprofile.htm\" ResolvedId=\"30986\" />';
@@ -1509,13 +1509,13 @@ xmlAliasData += '    <Map Name=\"ext_oag_man_app_behave_poldeny\" Link=\"Topics/
 xmlAliasData += '    <Map Name=\"ext_oag_pre_req_firewall_rules\" Link=\"Topics/Access-Gateway/deploy-pre-install-reqs.htm\" ResolvedId=\"3063\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_about_policy_types_not\" Link=\"Topics/Access-Gateway/learn-about-oag-policy-types.htm#Not\" ResolvedId=\"3064\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_about_policy_types_prot\" Link=\"Topics/Access-Gateway/learn-about-oag-policy-types.htm#Protecte\" ResolvedId=\"3065\" />';
-xmlAliasData += '    <Map Name=\"ext-hubspotcrm-method-associateacontactwithanotherobject\" Link=\"Topics/Workflows/connector-reference/hubspotcrm/actions/associateacontactwithanotherobject.htm\" ResolvedId=\"16002\" />';
+xmlAliasData += '    <Map Name=\"ext-hubspotcrm-method-associateacontactwithobject\" Link=\"Topics/Workflows/connector-reference/hubspotcrm/actions/associateacontactwithanotherobject.htm\" ResolvedId=\"16002\" />';
 xmlAliasData += '    <Map Name=\"ext-hubspotcrm-method-createcontact\" Link=\"Topics/Workflows/connector-reference/hubspotcrm/actions/createcontact.htm\" ResolvedId=\"16003\" />';
-xmlAliasData += '    <Map Name=\"ext-hubspotcrm-method-customapiaction\" Link=\"Topics/Workflows/connector-reference/hubspotcrm/actions/customapiaction.htm\" ResolvedId=\"16004\" />';
+xmlAliasData += '    <Map Name=\"ext-hubspotcrm-method-httprequest\" Link=\"Topics/Workflows/connector-reference/hubspotcrm/actions/customapiaction.htm\" ResolvedId=\"16004\" />';
 xmlAliasData += '    <Map Name=\"ext-hubspotcrm-method-deletecontact\" Link=\"Topics/Workflows/connector-reference/hubspotcrm/actions/deletecontact.htm\" ResolvedId=\"16005\" />';
 xmlAliasData += '    <Map Name=\"ext-hubspotcrm-method-readcompany\" Link=\"Topics/Workflows/connector-reference/hubspotcrm/actions/readcompany.htm\" ResolvedId=\"16006\" />';
 xmlAliasData += '    <Map Name=\"ext-hubspotcrm-method-readcontact\" Link=\"Topics/Workflows/connector-reference/hubspotcrm/actions/readcontact.htm\" ResolvedId=\"16007\" />';
-xmlAliasData += '    <Map Name=\"ext-hubspotcrm-method-removeassociationbetweencontactandanotherobject\" Link=\"Topics/Workflows/connector-reference/hubspotcrm/actions/removeassociationbetweencontactandanotherobject.htm\" ResolvedId=\"16008\" />';
+xmlAliasData += '    <Map Name=\"ext-hubspotcrm-method-removeassociationfromcontact\" Link=\"Topics/Workflows/connector-reference/hubspotcrm/actions/removeassociationbetweencontactandanotherobject.htm\" ResolvedId=\"16008\" />';
 xmlAliasData += '    <Map Name=\"ext-hubspotcrm-method-searchcompanies\" Link=\"Topics/Workflows/connector-reference/hubspotcrm/actions/searchcompanies.htm\" ResolvedId=\"16009\" />';
 xmlAliasData += '    <Map Name=\"ext-hubspotcrm-method-searchcontacts\" Link=\"Topics/Workflows/connector-reference/hubspotcrm/actions/searchcontacts.htm\" ResolvedId=\"16010\" />';
 xmlAliasData += '    <Map Name=\"ext-hubspotcrm-method-updatecontact\" Link=\"Topics/Workflows/connector-reference/hubspotcrm/actions/updatecontact.htm\" ResolvedId=\"16011\" />';
@@ -1541,5 +1541,8 @@ xmlAliasData += '    <Map Name=\"ext-salesforce229-method-removeuserentitlements
 xmlAliasData += '    <Map Name=\"csh-risk-scoring\" Link=\"Topics/Security/Security_Risk_Scoring.htm\" ResolvedId=\"12008\" />';
 xmlAliasData += '    <Map Name=\"ext-apps-bookmark-app\" Link=\"Topics/Apps/Apps_Bookmark_App.htm\" ResolvedId=\"8012\" />';
 xmlAliasData += '    <Map Name=\"csh-duo\" Link=\"Topics/Security/Security_Duo.htm\" ResolvedId=\"2005\" />';
+xmlAliasData += '    <Map Name=\"csh-actionable-notifications\" Link=\"Topics/Mobile/okta-verify-sign-in.htm\" ResolvedId=\"1168\" />';
+xmlAliasData += '    <Map Name=\"ext-jiraservicedesk-misc-authorization\" Link=\"Topics/Workflows/connector-reference/jiraservicedesk/overviews/authorization.htm\" ResolvedId=\"31038\" />';
+xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-misc-authorization\" Link=\"Topics/Workflows/connector-reference/zendesk/overviews/authorization.htm\" ResolvedId=\"31039\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
