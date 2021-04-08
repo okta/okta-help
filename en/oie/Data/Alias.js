@@ -18,6 +18,7 @@ xmlAliasData += '    <Map Name=\"csh-custom-domain\" Link=\"Topics/Settings/sett
 xmlAliasData += '    <Map Name=\"ver-hist-ad-pw-sync-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_Active_Directory_Password_Sync_Agent.htm\" ResolvedId=\"1041\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-ad-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_AD_Agent.htm\" ResolvedId=\"1042\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Active_Directory_Agent_appSettings_Definition\" Link=\"Topics/Directory/ad-agent-appsettings.htm\" ResolvedId=\"200009\" />';
+xmlAliasData += '    <Map Name=\"ext_Dashboard\" Link=\"Topics/Dashboard/Dashboard.htm\" ResolvedId=\"200037\" />';
 xmlAliasData += '    <Map Name=\"ext_Importing_People\" Link=\"Topics/users-groups-profiles/usgp-import-users-main.htm\" ResolvedId=\"200040\" />';
 xmlAliasData += '    <Map Name=\"ext_About_Universal_Directory\" Link=\"Topics/users-groups-profiles/usgp-user-profiles-main.htm\" ResolvedId=\"200052\" />';
 xmlAliasData += '    <Map Name=\"ext_AD_Move_user_across_OU\" Link=\"Topics/Directory/ad-agent-ou-updates.htm\" ResolvedId=\"200053\" />';
@@ -41,9 +42,11 @@ xmlAliasData += '    <Map Name=\"ext_Platforms_Browser_OS_Support\" Link=\"Topic
 xmlAliasData += '    <Map Name=\"ext_ref_supported_languages\" Link=\"Topics/Reference/ref-supported-languages.htm\" ResolvedId=\"200134\" />';
 xmlAliasData += '    <Map Name=\"ext_proc_security_behavior_detection\" Link=\"Topics/Security/proc-security-behavior-detection.htm\" ResolvedId=\"200165\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_General\" Link=\"Topics/Security/Security_General.htm\" ResolvedId=\"200171\" />';
+xmlAliasData += '    <Map Name=\"ext_Security_Using_Sync_Password\" Link=\"Topics/Directory/Security_Using_Sync_Password.htm\" ResolvedId=\"200174\" />';
 xmlAliasData += '    <Map Name=\"ext_custom_error_pages\" Link=\"Topics/Settings/custom-error-pages.htm\" ResolvedId=\"200177\" />';
 xmlAliasData += '    <Map Name=\"ext_custom_okta_hosted_sign_in_page\" Link=\"Topics/Settings/custom-okta-hosted-sign-in-page.htm\" ResolvedId=\"200178\" />';
 xmlAliasData += '    <Map Name=\"ext_custom_url_domain\" Link=\"Topics/Settings/settings-customization-general.htm\" ResolvedId=\"200179\" />';
+xmlAliasData += '    <Map Name=\"ext_ref_email_variables\" Link=\"Topics/Settings/settings-customization-variables.htm\" ResolvedId=\"200183\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings\" Link=\"Topics/Settings/Settings.htm\" ResolvedId=\"200184\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Add_Custom_Email_Templates_Multiple_Languages\" Link=\"Topics/Settings/Settings_Email.htm#Add\" ResolvedId=\"200186\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Appearance\" Link=\"Topics/Settings/Settings_Appearance.htm\" ResolvedId=\"200187\" />';
@@ -57,6 +60,7 @@ xmlAliasData += '    <Map Name=\"csh_notification_reset\" Link=\"Topics/Security
 xmlAliasData += '    <Map Name=\"ext_Settings_Customization-interstitial\" Link=\"Topics/Settings/settings-customization-general.htm\" ResolvedId=\"1107\" />';
 xmlAliasData += '    <Map Name=\"csh_threat_insight\" Link=\"Topics/Security/threat-insight/ti-index.htm\" ResolvedId=\"1116\" />';
 xmlAliasData += '    <Map Name=\"ext_ad_importusers\" Link=\"Topics/Directory/ad-agent-manage-users-groups.htm\" ResolvedId=\"1117\" />';
+xmlAliasData += '    <Map Name=\"ext_end_user_states\" Link=\"Topics/users-groups-profiles/usgp-end-user-states.htm\" ResolvedId=\"1118\" />';
 xmlAliasData += '    <Map Name=\"ext_csv_import\" Link=\"Topics/users-groups-profiles/usgp-import-users-csv.htm\" ResolvedId=\"1119\" />';
 xmlAliasData += '    <Map Name=\"ext_AD_profmaster\" Link=\"Topics/Directory/Directory_AD_Enable_Profile_Master.htm\" ResolvedId=\"1127\" />';
 xmlAliasData += '    <Map Name=\"ext_app_map\" Link=\"Topics/users-groups-profiles/usgp-map-attributes-provisioning.htm\" ResolvedId=\"1128\" />';
@@ -101,6 +105,7 @@ xmlAliasData += '    <Map Name=\"ext_Directory_Attribute_Mapping\" Link=\"Topics
 xmlAliasData += '    <Map Name=\"ext-install-multiple-AD-agents\" Link=\"Topics/Directory/ad-agent-install-multiple.htm\" ResolvedId=\"1264\" />';
 xmlAliasData += '    <Map Name=\"ext-ad-agent-domain-rename\" Link=\"Topics/Directory/ad-agent-rename-domain-name.htm\" ResolvedId=\"1281\" />';
 xmlAliasData += '    <Map Name=\"csh-ad-import-settings\" Link=\"Topics/Directory/ad-agent-configure-import.htm\" ResolvedId=\"1283\" />';
+xmlAliasData += '    <Map Name=\"csh-dashboard\" Link=\"Topics/Dashboard/Dashboard.htm\" ResolvedId=\"1297\" />';
 xmlAliasData += '    <Map Name=\"ext-expression-language\" Link=\"Topics/Settings/settings-customization-variables.htm\" ResolvedId=\"1295\" />';
 xmlAliasData += '    <Map Name=\"csh-notification-changed-password\" Link=\"Topics/Security/healthinsight/notifications-changed-password.htm\" ResolvedId=\"1301\" />';
 xmlAliasData += '    <Map Name=\"ext-ad-override-username\" Link=\"Topics/users-groups-profiles/usgp-override-username-format.htm\" ResolvedId=\"1324\" />';
@@ -123,6 +128,7 @@ xmlAliasData += '    <Map Name=\"csh-new-end-user-experience\" Link=\"Topics/Set
 xmlAliasData += '    <Map Name=\"csh-device-mgmt-mobile-mdm-setup\" Link=\"Topics/identity-engine/devices/config-device-mgmt-mobile.htm\" ResolvedId=\"12001\" />';
 xmlAliasData += '    <Map Name=\"ext-agent-support-policies\" Link=\"Topics/Directory/agent-support-policies.htm\" ResolvedId=\"15007\" />';
 xmlAliasData += '    <Map Name=\"csh-blocklist-zones\" Link=\"Topics/Security/healthinsight/blocklist-network-zone.htm\" ResolvedId=\"11001\" />';
+xmlAliasData += '    <Map Name=\"csh-admin-exp-redesign\" Link=\"Topics/Dashboard/admin-exp-redesign.htm\" ResolvedId=\"13002\" />';
 xmlAliasData += '    <Map Name=\"ext-ad-agent-install\" Link=\"Topics/Directory/ad-agent-new-integration.htm\" ResolvedId=\"15008\" />';
 xmlAliasData += '    <Map Name=\"ext-ad-agent-import-users\" Link=\"Topics/Directory/ad-agent-import-users-on-demand.htm\" ResolvedId=\"15010\" />';
 xmlAliasData += '    <Map Name=\"ext-manage-group-push\" Link=\"Topics/users-groups-profiles/usgp-group-push-main.htm\" ResolvedId=\"15011\" />';
@@ -131,5 +137,15 @@ xmlAliasData += '    <Map Name=\"csh-prioritize-profile-sources\" Link=\"Topics/
 xmlAliasData += '    <Map Name=\"csh-risk-scoring\" Link=\"Topics/Security/Security_Risk_Scoring.htm\" ResolvedId=\"12008\" />';
 xmlAliasData += '    <Map Name=\"csh-directory-integrations-main\" Link=\"Topics/identity-engine/directories/directory-integrations-main.htm\" ResolvedId=\"15013\" />';
 xmlAliasData += '    <Map Name=\"csh-add-mfa-policy-rule\" Link=\"Topics/identity-engine/policies/add-mfa-policy-rule.htm\" ResolvedId=\"12010\" />';
+xmlAliasData += '    <Map Name=\"csh-general-security\" Link=\"Topics/Security/Security_General.htm\" ResolvedId=\"2006\" />';
+xmlAliasData += '    <Map Name=\"csh-oie-policies\" Link=\"Topics/identity-engine/policies/about-policies.htm\" ResolvedId=\"2008\" />';
+xmlAliasData += '    <Map Name=\"csh-oie-osop\" Link=\"Topics/identity-engine/policies/about-okta-sign-on-policies.htm\" ResolvedId=\"2009\" />';
+xmlAliasData += '    <Map Name=\"csh-configure-phone\" Link=\"Topics/identity-engine/authenticators/configure-phone.htm\" ResolvedId=\"2010\" />';
+xmlAliasData += '    <Map Name=\"csh-configure-email\" Link=\"Topics/identity-engine/authenticators/configure-email-authenticator.htm\" ResolvedId=\"2011\" />';
+xmlAliasData += '    <Map Name=\"csh-configure-ov\" Link=\"Topics/identity-engine/authenticators/configure-okta-verify.htm\" ResolvedId=\"2012\" />';
+xmlAliasData += '    <Map Name=\"csh-configure-password\" Link=\"Topics/identity-engine/authenticators/‌configure-password.htm\" ResolvedId=\"2013\" />';
+xmlAliasData += '    <Map Name=\"csh-configure-sq\" Link=\"Topics/identity-engine/authenticators/configure-security-question.htm\" ResolvedId=\"2014\" />';
+xmlAliasData += '    <Map Name=\"csh-configure-webauthn\" Link=\"Topics/identity-engine/authenticators/configure-webauthn.htm\" ResolvedId=\"2015\" />';
+xmlAliasData += '    <Map Name=\"csh-threatinsight\" Link=\"Topics/Security/threat-insight/ti-index.htm\" ResolvedId=\"2022\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
