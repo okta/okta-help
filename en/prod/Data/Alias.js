@@ -76,7 +76,6 @@ xmlAliasData += '    <Map Name=\"ver-hist-jira-auth-toolkit\" Link=\"Topics/Sett
 xmlAliasData += '    <Map Name=\"ver-hist-ldap-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_LDAP_Agent.htm\" ResolvedId=\"1048\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-mfa-cred-win\" Link=\"Topics/Settings/Version_Histories/Ver_History_Okta_MFA_Credential_Provider_for_Windows.htm\" ResolvedId=\"1049\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-mfa-adfs\" Link=\"Topics/Settings/Version_Histories/Ver_History_Okta_MFA_Provider_for_ADFS.htm\" ResolvedId=\"1051\" />';
-xmlAliasData += '    <Map Name=\"ver-hist-pingfed-adapter\" Link=\"Topics/Settings/Version_Histories/Ver_History_Okta_PingFederate_Adapter.htm\" ResolvedId=\"1052\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-op-mfa-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_On-Prem_MFA_Agent.htm\" ResolvedId=\"1053\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-radius-server\" Link=\"Topics/Settings/Version_Histories/Ver_History_RADIUS_Server_Agent.htm\" ResolvedId=\"1054\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-sharepoint-pp-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_Sharepoint_People_Picker_Agent.htm\" ResolvedId=\"1056\" />';
@@ -222,6 +221,7 @@ xmlAliasData += '    <Map Name=\"ext_custom_okta_hosted_sign_in_page\" Link=\"To
 xmlAliasData += '    <Map Name=\"ext_custom_url_domain\" Link=\"Topics/Settings/settings-customization-general.htm\" ResolvedId=\"200179\" />';
 xmlAliasData += '    <Map Name=\"ext_end_user_okta_account_chooser\" Link=\"Topics/Settings/end-user-okta-account-chooser.htm\" ResolvedId=\"200180\" />';
 xmlAliasData += '    <Map Name=\"ext_End_User_Password_Reset\" Link=\"Topics/Settings/End_User_Password_Reset.htm\" ResolvedId=\"200181\" />';
+xmlAliasData += '    <Map Name=\"ext_ref_email_variables\" Link=\"Topics/Settings/settings-customization-variables.htm\" ResolvedId=\"200183\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings\" Link=\"Topics/Settings/Settings.htm\" ResolvedId=\"200184\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Account\" Link=\"Topics/Settings/Settings_Account.htm\" ResolvedId=\"200185\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Add_Custom_Email_Templates_Multiple_Languages\" Link=\"Topics/Settings/Settings_Email.htm#Add\" ResolvedId=\"200186\" />';
@@ -243,7 +243,6 @@ xmlAliasData += '    <Map Name=\"ext_Ver_History_JIRA_Authenticator_Toolkit\" Li
 xmlAliasData += '    <Map Name=\"ext_Ver_History_LDAP_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_LDAP_Agent.htm\" ResolvedId=\"200202\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_Okta_MFA_Credential_Provider_for_Windows\" Link=\"Topics/Settings/Version_Histories/Ver_History_Okta_MFA_Credential_Provider_for_Windows.htm\" ResolvedId=\"200203\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_Okta_MFA_Provider_for_ADFS\" Link=\"Topics/Settings/Version_Histories/Ver_History_Okta_MFA_Provider_for_ADFS.htm\" ResolvedId=\"200204\" />';
-xmlAliasData += '    <Map Name=\"ext_Ver_History_Okta_PingFederate_Adapter\" Link=\"Topics/Settings/Version_Histories/Ver_History_Okta_PingFederate_Adapter.htm\" ResolvedId=\"200205\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_On_Prem_MFA_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_On-Prem_MFA_Agent.htm\" ResolvedId=\"200206\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_OPP_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_OPP_Agent.htm\" ResolvedId=\"200207\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_RADIUS_Server_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_RADIUS_Server_Agent.htm\" ResolvedId=\"200208\" />';
@@ -951,7 +950,6 @@ xmlAliasData += '    <Map Name=\"ext-okta-method-usersignedout\" Link=\"Topics/W
 xmlAliasData += '    <Map Name=\"ext-okta-method-usersuspended\" Link=\"Topics/Workflows/connector-reference/okta/events/usersuspended.htm\" ResolvedId=\"30471\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-userunsuspended\" Link=\"Topics/Workflows/connector-reference/okta/events/userunsuspended.htm\" ResolvedId=\"30472\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-misc-authorization\" Link=\"Topics/Workflows/connector-reference/okta/overviews/authorization.htm\" ResolvedId=\"30473\" />';
-xmlAliasData += '    <Map Name=\"ext-okta-misc-revoke\" Link=\"Topics/Workflows/connector-reference/okta/overviews/revoke.htm\" ResolvedId=\"30474\" />';
 xmlAliasData += '    <Map Name=\"ext-onetrust\" Link=\"Topics/Workflows/connector-reference/onetrust/onetrust.htm\" ResolvedId=\"30475\" />';
 xmlAliasData += '    <Map Name=\"ext-onetrust-method-createuser\" Link=\"Topics/Workflows/connector-reference/onetrust/actions/createuser.htm\" ResolvedId=\"30476\" />';
 xmlAliasData += '    <Map Name=\"ext-onetrust-method-customapiaction\" Link=\"Topics/Workflows/connector-reference/onetrust/actions/customapiaction.htm\" ResolvedId=\"30477\" />';
@@ -1406,7 +1404,6 @@ xmlAliasData += '    <Map Name=\"ext-http-method-post\" Link=\"Topics/Workflows/
 xmlAliasData += '    <Map Name=\"ext-http-method-put\" Link=\"Topics/Workflows/function-reference/HTTP/http_put.htm\" ResolvedId=\"30966\" />';
 xmlAliasData += '    <Map Name=\"ext-http-method-raw\" Link=\"Topics/Workflows/function-reference/HTTP/http_raw.htm\" ResolvedId=\"30967\" />';
 xmlAliasData += '    <Map Name=\"ext-excelonline-method-getworksheetinfo\" Link=\"Topics/Workflows/connector-reference/excelonline/actions/readworksheetinfo.htm\" ResolvedId=\"30968\" />';
-xmlAliasData += '    <Map Name=\"ext-excelonline-misc-revoke\" Link=\"Topics/Workflows/connector-reference/excelonline/overviews/revoke.htm\" ResolvedId=\"30969\" />';
 xmlAliasData += '    <Map Name=\"ext-advancedserveraccess\" Link=\"Topics/Workflows/connector-reference/advancedserveraccess/advancedserveraccess.htm\" ResolvedId=\"16000\" />';
 xmlAliasData += '    <Map Name=\"ext-advancedserveraccess-method-createpreauthorization\" Link=\"Topics/Workflows/connector-reference/advancedserveraccess/actions/createpreauthorization.htm\" ResolvedId=\"16001\" />';
 xmlAliasData += '    <Map Name=\"csh-admin-exp-redesign\" Link=\"Topics/Dashboard/admin-exp-redesign.htm\" ResolvedId=\"13002\" />';
@@ -1454,6 +1451,7 @@ xmlAliasData += '    <Map Name=\"ext-mixpanel\" Link=\"Topics/Workflows/connecto
 xmlAliasData += '    <Map Name=\"ext-mixpanel-misc-authorization\" Link=\"Topics/Workflows/connector-reference/mixpanel/overviews/authorization.htm\" ResolvedId=\"30994\" />';
 xmlAliasData += '    <Map Name=\"ext-mixpanel-method-updateprofile\" Link=\"Topics/Workflows/connector-reference/mixpanel/actions/updateprofile.htm\" ResolvedId=\"30995\" />';
 xmlAliasData += '    <Map Name=\"ext-github-method-createpullrequest\" Link=\"Topics/Workflows/connector-reference/github/actions/createpullrequest.htm\" ResolvedId=\"30996\" />';
+xmlAliasData += '    <Map Name=\"ext-utility-method-exportgroup\" Link=\"Topics/Workflows/function-reference/Folders/folders_exportfolder.htm\" ResolvedId=\"30997\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_app_ps_config_pcode\" Link=\"Topics/Access-Gateway/add-app-ps-config-pcode.htm\" ResolvedId=\"3032\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_app_ps_config_psoft\" Link=\"Topics/Access-Gateway/add-app-ps-config-psoft.htm\" ResolvedId=\"3033\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_app_ps_add_app\" Link=\"Topics/Access-Gateway/add-app-ps-app.htm\" ResolvedId=\"3034\" />';
@@ -1509,6 +1507,7 @@ xmlAliasData += '    <Map Name=\"ext_oag_man_app_behave_poldeny\" Link=\"Topics/
 xmlAliasData += '    <Map Name=\"ext_oag_pre_req_firewall_rules\" Link=\"Topics/Access-Gateway/deploy-pre-install-reqs.htm\" ResolvedId=\"3063\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_about_policy_types_not\" Link=\"Topics/Access-Gateway/learn-about-oag-policy-types.htm#Not\" ResolvedId=\"3064\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_about_policy_types_prot\" Link=\"Topics/Access-Gateway/learn-about-oag-policy-types.htm#Protecte\" ResolvedId=\"3065\" />';
+xmlAliasData += '    <Map Name=\"ext-utility-method-exportflo\" Link=\"Topics/Workflows/function-reference/Flows/flows_exportflow.htm\" ResolvedId=\"31017\" />';
 xmlAliasData += '    <Map Name=\"ext-hubspotcrm-method-associateacontactwithobject\" Link=\"Topics/Workflows/connector-reference/hubspotcrm/actions/associateacontactwithanotherobject.htm\" ResolvedId=\"16002\" />';
 xmlAliasData += '    <Map Name=\"ext-hubspotcrm-method-createcontact\" Link=\"Topics/Workflows/connector-reference/hubspotcrm/actions/createcontact.htm\" ResolvedId=\"16003\" />';
 xmlAliasData += '    <Map Name=\"ext-hubspotcrm-method-httprequest\" Link=\"Topics/Workflows/connector-reference/hubspotcrm/actions/customapiaction.htm\" ResolvedId=\"16004\" />';
@@ -1544,5 +1543,16 @@ xmlAliasData += '    <Map Name=\"csh-duo\" Link=\"Topics/Security/Security_Duo.h
 xmlAliasData += '    <Map Name=\"csh-actionable-notifications\" Link=\"Topics/Mobile/okta-verify-sign-in.htm\" ResolvedId=\"1168\" />';
 xmlAliasData += '    <Map Name=\"ext-jiraservicedesk-misc-authorization\" Link=\"Topics/Workflows/connector-reference/jiraservicedesk/overviews/authorization.htm\" ResolvedId=\"31038\" />';
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-misc-authorization\" Link=\"Topics/Workflows/connector-reference/zendesk/overviews/authorization.htm\" ResolvedId=\"31039\" />';
+xmlAliasData += '    <Map Name=\"csh-general-security\" Link=\"Topics/Security/Security_General.htm\" ResolvedId=\"2006\" />';
+xmlAliasData += '    <Map Name=\"csh-configure-yubikey\" Link=\"Topics/Security/mfa/yubikey.htm\" ResolvedId=\"2016\" />';
+xmlAliasData += '    <Map Name=\"csh-configure-googleauth\" Link=\"Topics/Security/mfa/google-authenticator.htm\" ResolvedId=\"2017\" />';
+xmlAliasData += '    <Map Name=\"csh-configure-duo\" Link=\"Topics/Security/Security_Duo.htm\" ResolvedId=\"2018\" />';
+xmlAliasData += '    <Map Name=\"csh-configure-symantec-vip\" Link=\"Topics/Security/mfa/symantec-vip.htm\" ResolvedId=\"2019\" />';
+xmlAliasData += '    <Map Name=\"csh-configure-custom-otp\" Link=\"Topics/Security/mfa-totp-seed.htm\" ResolvedId=\"2020\" />';
+xmlAliasData += '    <Map Name=\"csh-configure-custom-idp\" Link=\"Topics/Security/MFA_Custom_Factor.htm\" ResolvedId=\"2021\" />';
+xmlAliasData += '    <Map Name=\"csh-threatinsight\" Link=\"Topics/Security/threat-insight/ti-index.htm\" ResolvedId=\"2022\" />';
+xmlAliasData += '    <Map Name=\"csh-configure-onprem\" Link=\"Topics/Security/MFA_OnPrem.htm\" ResolvedId=\"2023\" />';
+xmlAliasData += '    <Map Name=\"ext-customize-card\" Link=\"Topics/Workflows/build/customize-card.htm\" ResolvedId=\"31040\" />';
+xmlAliasData += '    <Map Name=\"ext-workflows-system-limits\" Link=\"Topics/Workflows/workflows-system-limits.htm\" ResolvedId=\"31041\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
