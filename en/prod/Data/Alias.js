@@ -551,7 +551,7 @@ xmlAliasData += '    <Map Name=\"ext-airtable-method-readrow\" Link=\"Topics/Wor
 xmlAliasData += '    <Map Name=\"ext-airtable-method-searchrows\" Link=\"Topics/Workflows/connector-reference/airtable/actions/searchrows.htm\" ResolvedId=\"30007\" />';
 xmlAliasData += '    <Map Name=\"ext-airtable-method-updaterow\" Link=\"Topics/Workflows/connector-reference/airtable/actions/updaterow.htm\" ResolvedId=\"30008\" />';
 xmlAliasData += '    <Map Name=\"ext-airtable-method-newrowintable\" Link=\"Topics/Workflows/connector-reference/airtable/events/newrowintable.htm\" ResolvedId=\"30009\" />';
-xmlAliasData += '    <Map Name=\"ext-asana-method-asana\" Link=\"Topics/Workflows/connector-reference/asana/asana.htm\" ResolvedId=\"30010\" />';
+xmlAliasData += '    <Map Name=\"ext-asana\" Link=\"Topics/Workflows/connector-reference/asana/asana.htm\" ResolvedId=\"30010\" />';
 xmlAliasData += '    <Map Name=\"ext-asana-method-addtask\" Link=\"Topics/Workflows/connector-reference/asana/actions/addtask.htm\" ResolvedId=\"30011\" />';
 xmlAliasData += '    <Map Name=\"ext-asana-method-adduserstoproject\" Link=\"Topics/Workflows/connector-reference/asana/actions/adduserstoproject.htm\" ResolvedId=\"30012\" />';
 xmlAliasData += '    <Map Name=\"ext-asana-method-addusertoteam\" Link=\"Topics/Workflows/connector-reference/asana/actions/addusertoteam.htm\" ResolvedId=\"30013\" />';
@@ -588,7 +588,7 @@ xmlAliasData += '    <Map Name=\"ext-atlassianadmin-method-searchgroups\" Link=\
 xmlAliasData += '    <Map Name=\"ext-atlassianadmin-method-updategroup\" Link=\"Topics/Workflows/connector-reference/atlassianadmin/actions/updategroup.htm\" ResolvedId=\"30045\" />';
 xmlAliasData += '    <Map Name=\"ext-atlassianadmin-method-updateuser\" Link=\"Topics/Workflows/connector-reference/atlassianadmin/actions/updateuser.htm\" ResolvedId=\"30046\" />';
 xmlAliasData += '    <Map Name=\"ext-atlassianadmin-misc-authorization\" Link=\"Topics/Workflows/connector-reference/atlassianadmin/overviews/authorization.htm\" ResolvedId=\"30047\" />';
-xmlAliasData += '    <Map Name=\"ext-awslambda-method-awslambda\" Link=\"Topics/Workflows/connector-reference/awslambda/awslambda.htm\" ResolvedId=\"30048\" />';
+xmlAliasData += '    <Map Name=\"ext-awslambda\" Link=\"Topics/Workflows/connector-reference/awslambda/awslambda.htm\" ResolvedId=\"30048\" />';
 xmlAliasData += '    <Map Name=\"ext-awslambda-method-invoke\" Link=\"Topics/Workflows/connector-reference/awslambda/actions/invoke.htm\" ResolvedId=\"30049\" />';
 xmlAliasData += '    <Map Name=\"ext-awslambda-method-listfunctions\" Link=\"Topics/Workflows/connector-reference/awslambda/actions/listfunctions.htm\" ResolvedId=\"30050\" />';
 xmlAliasData += '    <Map Name=\"ext-awslambda-misc-authorization\" Link=\"Topics/Workflows/connector-reference/awslambda/overviews/authorization.htm\" ResolvedId=\"30051\" />';
@@ -950,6 +950,7 @@ xmlAliasData += '    <Map Name=\"ext-okta-method-usersignedout\" Link=\"Topics/W
 xmlAliasData += '    <Map Name=\"ext-okta-method-usersuspended\" Link=\"Topics/Workflows/connector-reference/okta/events/usersuspended.htm\" ResolvedId=\"30471\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-userunsuspended\" Link=\"Topics/Workflows/connector-reference/okta/events/userunsuspended.htm\" ResolvedId=\"30472\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-misc-authorization\" Link=\"Topics/Workflows/connector-reference/okta/overviews/authorization.htm\" ResolvedId=\"30473\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-misc-revoke\" Link=\"Topics/Workflows/connector-reference/okta/overviews/revoke.htm\" ResolvedId=\"30474\" />';
 xmlAliasData += '    <Map Name=\"ext-onetrust\" Link=\"Topics/Workflows/connector-reference/onetrust/onetrust.htm\" ResolvedId=\"30475\" />';
 xmlAliasData += '    <Map Name=\"ext-onetrust-method-createuser\" Link=\"Topics/Workflows/connector-reference/onetrust/actions/createuser.htm\" ResolvedId=\"30476\" />';
 xmlAliasData += '    <Map Name=\"ext-onetrust-method-customapiaction\" Link=\"Topics/Workflows/connector-reference/onetrust/actions/customapiaction.htm\" ResolvedId=\"30477\" />';
@@ -1404,6 +1405,7 @@ xmlAliasData += '    <Map Name=\"ext-http-method-post\" Link=\"Topics/Workflows/
 xmlAliasData += '    <Map Name=\"ext-http-method-put\" Link=\"Topics/Workflows/function-reference/HTTP/http_put.htm\" ResolvedId=\"30966\" />';
 xmlAliasData += '    <Map Name=\"ext-http-method-raw\" Link=\"Topics/Workflows/function-reference/HTTP/http_raw.htm\" ResolvedId=\"30967\" />';
 xmlAliasData += '    <Map Name=\"ext-excelonline-method-getworksheetinfo\" Link=\"Topics/Workflows/connector-reference/excelonline/actions/readworksheetinfo.htm\" ResolvedId=\"30968\" />';
+xmlAliasData += '    <Map Name=\"ext-excelonline-misc-revoke\" Link=\"Topics/Workflows/connector-reference/excelonline/overviews/revoke.htm\" ResolvedId=\"30969\" />';
 xmlAliasData += '    <Map Name=\"ext-advancedserveraccess\" Link=\"Topics/Workflows/connector-reference/advancedserveraccess/advancedserveraccess.htm\" ResolvedId=\"16000\" />';
 xmlAliasData += '    <Map Name=\"ext-advancedserveraccess-method-createpreauthorization\" Link=\"Topics/Workflows/connector-reference/advancedserveraccess/actions/createpreauthorization.htm\" ResolvedId=\"16001\" />';
 xmlAliasData += '    <Map Name=\"csh-admin-exp-redesign\" Link=\"Topics/Dashboard/admin-exp-redesign.htm\" ResolvedId=\"13002\" />';
@@ -1554,5 +1556,9 @@ xmlAliasData += '    <Map Name=\"csh-threatinsight\" Link=\"Topics/Security/thre
 xmlAliasData += '    <Map Name=\"csh-configure-onprem\" Link=\"Topics/Security/MFA_OnPrem.htm\" ResolvedId=\"2023\" />';
 xmlAliasData += '    <Map Name=\"ext-customize-card\" Link=\"Topics/Workflows/build/customize-card.htm\" ResolvedId=\"31040\" />';
 xmlAliasData += '    <Map Name=\"ext-workflows-system-limits\" Link=\"Topics/Workflows/workflows-system-limits.htm\" ResolvedId=\"31041\" />';
+xmlAliasData += '    <Map Name=\"ext-asa-install-sft\" Link=\"Topics/Adv_Server_Access/docs/sft.htm\" ResolvedId=\"1138\" />';
+xmlAliasData += '    <Map Name=\"ext-asa-enroll-sft-overview\" Link=\"Topics/Adv_Server_Access/docs/enroll-clients.htm\" ResolvedId=\"1205\" />';
+xmlAliasData += '    <Map Name=\"ext-asa-enroll-sft\" Link=\"Topics/Adv_Server_Access/docs/setup/enrolling-a-client.htm\" ResolvedId=\"1219\" />';
+xmlAliasData += '    <Map Name=\"ext-asa-enroll-sft-silent\" Link=\"Topics/Adv_Server_Access/docs/silent-client-enroll.htm\" ResolvedId=\"1245\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
