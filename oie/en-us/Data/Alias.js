@@ -2,6 +2,8 @@ var xmlAliasData = "";
 xmlAliasData += '<?xml version=\"1.0\" encoding=\"utf-8\"?>';
 xmlAliasData += '<CatapultAliasFile>';
 xmlAliasData += '    <Map Name=\"csh_security_general\" Link=\"Topics/Security/Security_General.htm\" ResolvedId=\"1000\" />';
+xmlAliasData += '    <Map Name=\"Security_Authentication_AD\" Link=\"Topics/Security/Security_Authentication.htm\" ResolvedId=\"1020\" />';
+xmlAliasData += '    <Map Name=\"Security_Authentication_LDAP\" Link=\"Topics/Security/Security_Authentication.htm\" ResolvedId=\"1030\" />';
 xmlAliasData += '    <Map Name=\"Directory_Groups\" Link=\"Topics/users-groups-profiles/usgp-about-groups.htm#Directory_Groups\" ResolvedId=\"1140\" />';
 xmlAliasData += '    <Map Name=\"Settings_Appearance\" Link=\"Topics/Settings/Settings_Appearance.htm#Settings_Appearance\" ResolvedId=\"1220\" />';
 xmlAliasData += '    <Map Name=\"Settings_Customization\" Link=\"Topics/Settings/Settings_Customization.htm#Settings_Customization1\" ResolvedId=\"1230\" />';
@@ -41,6 +43,7 @@ xmlAliasData += '    <Map Name=\"ext_Using_Selective_Profile_Push\" Link=\"Topic
 xmlAliasData += '    <Map Name=\"ext_Platforms_Browser_OS_Support\" Link=\"Topics/Miscellaneous/Platforms_Browser_OS_Support.htm\" ResolvedId=\"200095\" />';
 xmlAliasData += '    <Map Name=\"ext_ref_supported_languages\" Link=\"Topics/Reference/ref-supported-languages.htm\" ResolvedId=\"200134\" />';
 xmlAliasData += '    <Map Name=\"ext_proc_security_behavior_detection\" Link=\"Topics/Security/proc-security-behavior-detection.htm\" ResolvedId=\"200165\" />';
+xmlAliasData += '    <Map Name=\"ext_Security_Authentication\" Link=\"Topics/Security/Security_Authentication.htm\" ResolvedId=\"200169\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_General\" Link=\"Topics/Security/Security_General.htm\" ResolvedId=\"200171\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_Using_Sync_Password\" Link=\"Topics/Directory/Security_Using_Sync_Password.htm\" ResolvedId=\"200174\" />';
 xmlAliasData += '    <Map Name=\"ext_custom_error_pages\" Link=\"Topics/Settings/custom-error-pages.htm\" ResolvedId=\"200177\" />';
