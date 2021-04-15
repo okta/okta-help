@@ -1,52 +1,51 @@
-$(document).foundation()
-
 document.addEventListener('DOMContentLoaded', function() {
-  const navbar = document.querySelector('.navbar');
-  let searchButtonDesktop = document.createElement('button');
-  searchButtonDesktop.className = "search-btn";
-  navbar.append(searchButtonDesktop);
-  
-  searchButtonDesktop.addEventListener('click', function() {
-    const input = document.querySelector('.coveo-headline-wrapper #standaloneSearchbox .magic-box .magic-box-input > input');
-    const mainSection = document.querySelector('.main-section');
+  /*** Add search-bar visibility functionality ***/
+  /** Add .hide-search class if page do not include the search bar **/
+  if (!document.querySelector('.coveo-headline-wrapper')) {
+    document.querySelector('.main-section').classList.add('hide-search');
+  } else {
+    const navbar = document.querySelector('.navbar');
+    /** create search button **/
+    let searchButtonDesktop = document.createElement('button');
+    searchButtonDesktop.className = "search-btn";
+    navbar.append(searchButtonDesktop);
+    
+    /** check for a click event on desktop search-button (toggle .hide-search class) **/
+    searchButtonDesktop.addEventListener('click', function() {
+      const input = document.querySelector('.coveo-headline-wrapper #standaloneSearchbox .magic-box .magic-box-input > input');
+      const mainSection = document.querySelector('.main-section');
 
-    if(input && mainSection && !mainSection.classList.contains('show-search') && !mainSection.classList.contains('hide-search')) {
-      mainSection.classList.add('show-search');
-      input.focus();
-    } else if(input && mainSection && mainSection.classList.contains('show-search')) {
-      mainSection.classList.remove('show-search');
-      mainSection.classList.add('hide-search');
-      input.blur();
-    } else if(input && mainSection && mainSection.classList.contains('hide-search')) {
-      mainSection.classList.remove('hide-search');
-      mainSection.classList.add('show-search');
-      input.focus();
-    }
-  });
-  
-  const menuBtn = document.querySelector('button.menu-icon');
-  let searchButtonMobile = document.createElement('button');
-  searchButtonMobile.className = "search-btn search-btn-mobile";
-  menuBtn.before(searchButtonMobile);
+      if(input && mainSection && mainSection.classList.contains('hide-search')) {
+        mainSection.classList.remove('hide-search');
+        input.focus();
+      } else if(input && mainSection && !mainSection.classList.contains('hide-search')){
+        mainSection.classList.add('hide-search');
+        input.blur();
+      }
+    });
 
-  searchButtonMobile.addEventListener('click', function() {
-    const input = document.querySelector('.coveo-headline-wrapper #standaloneSearchbox .magic-box .magic-box-input > input');
-    const mainSection = document.querySelector('.main-section');
+    const menuBtn = document.querySelector('button.menu-icon');
+    /** create search button **/
+    let searchButtonMobile = document.createElement('button');
+    searchButtonMobile.className = "search-btn search-btn-mobile";
+    menuBtn.before(searchButtonMobile);
 
-    if(input && mainSection && !mainSection.classList.contains('show-search') && !mainSection.classList.contains('hide-search')) {
-      mainSection.classList.add('show-search');
-      input.focus();
-    } else if(input && mainSection && mainSection.classList.contains('show-search')) {
-      mainSection.classList.remove('show-search');
-      mainSection.classList.add('hide-search');
-      input.blur();
-    } else if(input && mainSection && mainSection.classList.contains('hide-search')) {
-      mainSection.classList.remove('hide-search');
-      mainSection.classList.add('show-search');
-      input.focus();
-    }
-  });
+    /** check for a click event on mobile search-button (toggle .hide-search class) **/
+    searchButtonMobile.addEventListener('click', function() {
+      const input = document.querySelector('.coveo-headline-wrapper #standaloneSearchbox .magic-box .magic-box-input > input');
+      const mainSection = document.querySelector('.main-section');
 
+      if(input && mainSection && mainSection.classList.contains('hide-search')) {
+        mainSection.classList.remove('hide-search');
+        input.focus();
+      } else if(input && mainSection && !mainSection.classList.contains('hide-search')){
+        mainSection.classList.add('hide-search');
+        input.blur();
+      }
+    });
+  }
+
+  /*** Makes tiles(cards) fully clickable, even if you don’t change the code(html). ***/
   const tiles = document.querySelectorAll('.tiles > div');
   tiles.forEach(function(tile) {
     const link = tile.querySelector('a');
@@ -57,3 +56,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 });
+
+$(document).foundation()
