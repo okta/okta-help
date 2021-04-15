@@ -704,7 +704,6 @@ xmlAliasData += '    <Map Name=\"ext-gmail-method-newemail\" Link=\"Topics/Workf
 xmlAliasData += '    <Map Name=\"ext-gmail-misc-authorization\" Link=\"Topics/Workflows/connector-reference/gmail/overviews/authorization.htm\" ResolvedId=\"30179\" />';
 xmlAliasData += '    <Map Name=\"ext-gmail-misc-errors\" Link=\"Topics/Workflows/connector-reference/gmail/overviews/errors.htm\" ResolvedId=\"30180\" />';
 xmlAliasData += '    <Map Name=\"ext-googlecalendar\" Link=\"Topics/Workflows/connector-reference/googlecalendar/googlecalendar.htm\" ResolvedId=\"30181\" />';
-xmlAliasData += '    <Map Name=\"ext-googlecalendar-method-availabletimeslots\" Link=\"Topics/Workflows/connector-reference/googlecalendar/actions/availabletimeslots.htm\" ResolvedId=\"30182\" />';
 xmlAliasData += '    <Map Name=\"ext-googlecalendar-method-createnewevent\" Link=\"Topics/Workflows/connector-reference/googlecalendar/actions/createnewevent.htm\" ResolvedId=\"30183\" />';
 xmlAliasData += '    <Map Name=\"ext-googlecalendar-method-createreminder\" Link=\"Topics/Workflows/connector-reference/googlecalendar/actions/createreminder.htm\" ResolvedId=\"30184\" />';
 xmlAliasData += '    <Map Name=\"ext-googlecalendar-method-createtransferrequest\" Link=\"Topics/Workflows/connector-reference/googlecalendar/actions/createtransferrequest.htm\" ResolvedId=\"30185\" />';
@@ -1523,6 +1522,10 @@ xmlAliasData += '    <Map Name=\"ext-hubspotcrm-method-updatecontact\" Link=\"To
 xmlAliasData += '    <Map Name=\"ext-hubspotcrm\" Link=\"Topics/Workflows/connector-reference/hubspotcrm/hubspotcrm.htm\" ResolvedId=\"16012\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_about_support_vpn\" Link=\"Topics/Access-Gateway/about-oag-support-vpn.htm\" ResolvedId=\"3066\" />';
 xmlAliasData += '    <Map Name=\"csh-okta-verify-number-challenge-v1\" Link=\"Topics/Mobile/ov-admin-config.htm#enable-number-challenge\" ResolvedId=\"12007\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-deletelinkedobjectvalue\" Link=\"Topics/Workflows/connector-reference/okta/actions/deletelinkedobjectvalue.htm\" ResolvedId=\"30308\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-getassociatedlinkedobjectvalues\" Link=\"Topics/Workflows/connector-reference/okta/actions/getassociatedlinkedobjectvalues.htm\" ResolvedId=\"30315\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-getprimarylinkedobjectvalue\" Link=\"Topics/Workflows/connector-reference/okta/actions/getprimarylinkedobjectvalue.htm\" ResolvedId=\"30318\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-setlinkedobjectvalueforprimary\" Link=\"Topics/Workflows/connector-reference/okta/actions/setlinkedobjectvalueforprimary.htm\" ResolvedId=\"30998\" />';
 xmlAliasData += '    <Map Name=\"ext-sendgrid\" Link=\"Topics/Workflows/connector-reference/sendgrid/sendgrid.htm\" ResolvedId=\"31023\" />';
 xmlAliasData += '    <Map Name=\"ext-sendgrid-method-addcontacttolist\" Link=\"Topics/Workflows/connector-reference/sendgrid/actions/addcontacttolist.htm\" ResolvedId=\"31022\" />';
 xmlAliasData += '    <Map Name=\"ext-sendgrid-method-createcontact\" Link=\"Topics/Workflows/connector-reference/sendgrid/actions/createcontact.htm\" ResolvedId=\"31019\" />';
