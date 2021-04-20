@@ -593,16 +593,14 @@ xmlAliasData += '    <Map Name=\"ext-awslambda-method-listfunctions\" Link=\"Top
 xmlAliasData += '    <Map Name=\"ext-awslambda-misc-authorization\" Link=\"Topics/Workflows/connector-reference/awslambda/overviews/authorization.htm\" ResolvedId=\"30051\" />';
 xmlAliasData += '    <Map Name=\"ext-box\" Link=\"Topics/Workflows/connector-reference/box/box.htm\" ResolvedId=\"30052\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-addusertogroup\" Link=\"Topics/Workflows/connector-reference/box/actions/addusertogroup.htm\" ResolvedId=\"30055\" />';
-xmlAliasData += '    <Map Name=\"ext-box-method-assigntask\" Link=\"Topics/Workflows/connector-reference/box/actions/assigntask.htm\" ResolvedId=\"30056\" />';
-xmlAliasData += '    <Map Name=\"ext-box-method-createfolder\" Link=\"Topics/Workflows/connector-reference/box/actions/createfolder.htm\" ResolvedId=\"30058\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-createnewuser\" Link=\"Topics/Workflows/connector-reference/box/actions/createnewuser.htm\" ResolvedId=\"30059\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-createpersonalboxfolder\" Link=\"Topics/Workflows/connector-reference/box/actions/createpersonalboxfolder.htm\" ResolvedId=\"30060\" />';
-xmlAliasData += '    <Map Name=\"ext-box-method-createsharelink\" Link=\"Topics/Workflows/connector-reference/box/actions/createsharelink.htm\" ResolvedId=\"30061\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-customapiaction\" Link=\"Topics/Workflows/connector-reference/box/actions/customapiaction.htm\" ResolvedId=\"30062\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-deactivateuser\" Link=\"Topics/Workflows/connector-reference/box/actions/deactivateuser.htm\" ResolvedId=\"30063\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-deletefile\" Link=\"Topics/Workflows/connector-reference/box/actions/deletefile.htm\" ResolvedId=\"30064\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-deletefolder\" Link=\"Topics/Workflows/connector-reference/box/actions/deletefolder.htm\" ResolvedId=\"30065\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-deleteuser\" Link=\"Topics/Workflows/connector-reference/box/actions/deleteuser.htm\" ResolvedId=\"30066\" />';
+xmlAliasData += '    <Map Name=\"ext-box-method-downloadfile\" Link=\"Topics/Workflows/connector-reference/box/actions/downloadfile.htm\" ResolvedId=\"30067\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-getgroupmembership\" Link=\"Topics/Workflows/connector-reference/box/actions/getgroupmembership.htm\" ResolvedId=\"30068\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-getuser\" Link=\"Topics/Workflows/connector-reference/box/actions/getuser.htm\" ResolvedId=\"30069\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-listgroupsmembers\" Link=\"Topics/Workflows/connector-reference/box/actions/listgroupsmembers.htm\" ResolvedId=\"30070\" />';
@@ -613,6 +611,7 @@ xmlAliasData += '    <Map Name=\"ext-box-method-searchforuser\" Link=\"Topics/Wo
 xmlAliasData += '    <Map Name=\"ext-box-method-transferuserfolders\" Link=\"Topics/Workflows/connector-reference/box/actions/transferuserfolders.htm\" ResolvedId=\"30079\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-updategroupmembership\" Link=\"Topics/Workflows/connector-reference/box/actions/updategroupmembership.htm\" ResolvedId=\"30082\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-updateuser\" Link=\"Topics/Workflows/connector-reference/box/actions/updateuser.htm\" ResolvedId=\"30085\" />';
+xmlAliasData += '    <Map Name=\"ext-box-method-uploadfile\" Link=\"Topics/Workflows/connector-reference/box/actions/uploadfile.htm\" ResolvedId=\"30086\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-filecreated\" Link=\"Topics/Workflows/connector-reference/box/events/filecreated.htm\" ResolvedId=\"30087\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-filecreatedonfolder\" Link=\"Topics/Workflows/connector-reference/box/events/filecreatedonfolder.htm\" ResolvedId=\"30088\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-fileupdated\" Link=\"Topics/Workflows/connector-reference/box/events/fileupdated.htm\" ResolvedId=\"30089\" />';
