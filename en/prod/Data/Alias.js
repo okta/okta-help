@@ -509,7 +509,6 @@ xmlAliasData += '    <Map Name=\"ext-save-data-flow-history\" Link=\"Topics/Work
 xmlAliasData += '    <Map Name=\"csh-ver-hist-okta-verify-windows\" Link=\"Topics/Settings/Version_Histories/Ver_History_DeviceTrust_Installer_Windows.htm\" ResolvedId=\"1353\" />';
 xmlAliasData += '    <Map Name=\"ext_cofigure_ldap_okta_settings\" Link=\"Topics/Directory/ldap-agent-configure-LDAP-import-settings.htm\" ResolvedId=\"15000\" />';
 xmlAliasData += '    <Map Name=\"ext-netmotion-mobility-radius-intg\" Link=\"Topics/integrations/netmotion-radius-intg.htm\" ResolvedId=\"3000\" />';
-xmlAliasData += '    <Map Name=\"ext-mfa-totp\" Link=\"Topics/Security/mfa-totp-seed.htm\" ResolvedId=\"2000\" />';
 xmlAliasData += '    <Map Name=\"ext-connectors-reference\" Link=\"Topics/Workflows/connector-reference/connector-reference.htm\" ResolvedId=\"10002\" />';
 xmlAliasData += '    <Map Name=\"ext-functions-reference\" Link=\"Topics/Workflows/function-reference/functions.htm\" ResolvedId=\"10003\" />';
 xmlAliasData += '    <Map Name=\"ext-text-compose\" Link=\"Topics/Workflows/function-reference/Text/text_compose.htm\" ResolvedId=\"10004\" />';
@@ -1032,6 +1031,7 @@ xmlAliasData += '    <Map Name=\"ext-servicenow-method-readincident\" Link=\"Top
 xmlAliasData += '    <Map Name=\"ext-servicenow-method-readuser\" Link=\"Topics/Workflows/connector-reference/servicenow/actions/readuser.htm\" ResolvedId=\"30571\" />';
 xmlAliasData += '    <Map Name=\"ext-servicenow-method-readusersingroup\" Link=\"Topics/Workflows/connector-reference/servicenow/actions/readusersingroup.htm\" ResolvedId=\"30572\" />';
 xmlAliasData += '    <Map Name=\"ext-servicenow-method-removeuserfromgroup\" Link=\"Topics/Workflows/connector-reference/servicenow/actions/removeuserfromgroup.htm\" ResolvedId=\"30573\" />';
+xmlAliasData += '    <Map Name=\"ext-servicenow-method-searchgroups\" Link=\"Topics/Workflows/connector-reference/servicenow/actions/searchgroups.htm\" ResolvedId=\"30575\" />';
 xmlAliasData += '    <Map Name=\"ext-servicenow-method-searchincidents\" Link=\"Topics/Workflows/connector-reference/servicenow/actions/searchincidents.htm\" ResolvedId=\"30576\" />';
 xmlAliasData += '    <Map Name=\"ext-servicenow-method-searchusers\" Link=\"Topics/Workflows/connector-reference/servicenow/actions/searchusers.htm\" ResolvedId=\"30577\" />';
 xmlAliasData += '    <Map Name=\"ext-servicenow-method-updateincident\" Link=\"Topics/Workflows/connector-reference/servicenow/actions/updateincident.htm\" ResolvedId=\"30579\" />';
@@ -1548,7 +1548,6 @@ xmlAliasData += '    <Map Name=\"csh-configure-yubikey\" Link=\"Topics/Security/
 xmlAliasData += '    <Map Name=\"csh-configure-googleauth\" Link=\"Topics/Security/mfa/google-authenticator.htm\" ResolvedId=\"2017\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-duo\" Link=\"Topics/Security/Security_Duo.htm\" ResolvedId=\"2018\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-symantec-vip\" Link=\"Topics/Security/mfa/symantec-vip.htm\" ResolvedId=\"2019\" />';
-xmlAliasData += '    <Map Name=\"csh-configure-custom-otp\" Link=\"Topics/Security/mfa-totp-seed.htm\" ResolvedId=\"2020\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-custom-idp\" Link=\"Topics/Security/MFA_Custom_Factor.htm\" ResolvedId=\"2021\" />';
 xmlAliasData += '    <Map Name=\"csh-threatinsight\" Link=\"Topics/Security/threat-insight/ti-index.htm\" ResolvedId=\"2022\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-onprem\" Link=\"Topics/Security/MFA_OnPrem.htm\" ResolvedId=\"2023\" />';
@@ -1560,5 +1559,8 @@ xmlAliasData += '    <Map Name=\"ext-asa-enroll-sft\" Link=\"Topics/Adv_Server_A
 xmlAliasData += '    <Map Name=\"ext-asa-enroll-sft-silent\" Link=\"Topics/Adv_Server_Access/docs/silent-client-enroll.htm\" ResolvedId=\"1245\" />';
 xmlAliasData += '    <Map Name=\"csh-deploy-sharepoint\" Link=\"Topics/DeploymentGuides/Sharepoint/Guide/deploy-sharepoint.htm\" ResolvedId=\"1246\" />';
 xmlAliasData += '    <Map Name=\"csh-admin-access-recent-apps\" Link=\"Topics/Settings/plugin-access-recent-apps.htm\" ResolvedId=\"7003\" />';
+xmlAliasData += '    <Map Name=\"csh-custom-otp-auth\" Link=\"Topics/Security/mfa-totp-seed.htm\" ResolvedId=\"12011\" />';
+xmlAliasData += '    <Map Name=\"csh-configure-custom-otp\" Link=\"Topics/Security/mfa-totp-seed.htm\" ResolvedId=\"2020\" />';
+xmlAliasData += '    <Map Name=\"ext-mfa-totp\" Link=\"Topics/Security/mfa-totp-seed.htm\" ResolvedId=\"2000\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
