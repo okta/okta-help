@@ -10,7 +10,6 @@ xmlAliasData += '    <Map Name=\"Security_Authentication_Yubikey\" Link=\"Topics
 xmlAliasData += '    <Map Name=\"Security_Authentication_RSA\" Link=\"Topics/Security/MFA_OnPrem.htm\" ResolvedId=\"1060\" />';
 xmlAliasData += '    <Map Name=\"Security_Authentication_OnPrem\" Link=\"Topics/Security/MFA_OnPrem.htm\" ResolvedId=\"1070\" />';
 xmlAliasData += '    <Map Name=\"Security_Authentication_JIT\" Link=\"Topics/Security/mfa/yubikey.htm\" ResolvedId=\"1040\" />';
-xmlAliasData += '    <Map Name=\"Security_IdP\" Link=\"Topics/Security/Identity_Providers.htm#Security_IDP\" ResolvedId=\"1090\" />';
 xmlAliasData += '    <Map Name=\"Security_Network\" Link=\"Topics/Security/Security_Network.htm\" ResolvedId=\"1100\" />';
 xmlAliasData += '    <Map Name=\"Security_Administrators\" Link=\"Topics/Security/Administrators.htm\" ResolvedId=\"1110\" />';
 xmlAliasData += '    <Map Name=\"Security_API\" Link=\"Topics/Security/API.htm#Security_API\" ResolvedId=\"1120\" />';
@@ -1562,5 +1561,6 @@ xmlAliasData += '    <Map Name=\"csh-admin-access-recent-apps\" Link=\"Topics/Se
 xmlAliasData += '    <Map Name=\"csh-custom-otp-auth\" Link=\"Topics/Security/mfa-totp-seed.htm\" ResolvedId=\"12011\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-custom-otp\" Link=\"Topics/Security/mfa-totp-seed.htm\" ResolvedId=\"2020\" />';
 xmlAliasData += '    <Map Name=\"ext-mfa-totp\" Link=\"Topics/Security/mfa-totp-seed.htm\" ResolvedId=\"2000\" />';
+xmlAliasData += '    <Map Name=\"ext-asa-install-gateway\" Link=\"Topics/Adv_Server_Access/docs/install-gateway.htm\" ResolvedId=\"1299\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
