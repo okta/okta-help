@@ -1,0 +1,1 @@
+define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../Content/Topics/betas/closed/connector-builder/about-building-blocks.htm'],s:['+'],p:[['+',5]]});
