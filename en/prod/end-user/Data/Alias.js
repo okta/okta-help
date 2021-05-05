@@ -15,7 +15,6 @@ xmlAliasData += '    <Map Name=\"csh-user-plugin-overview\" Link=\"Topics/end-us
 xmlAliasData += '    <Map Name=\"csh-user-plugin-switch-accounts\" Link=\"Topics/end-user/plugin-switch-accounts.htm\" ResolvedId=\"4010\" />';
 xmlAliasData += '    <Map Name=\"csh-user-dashboard-notifications\" Link=\"Topics/end-user/dashboard-notifications.htm\" ResolvedId=\"4011\" />';
 xmlAliasData += '    <Map Name=\"csh-user-plugin-config-settings\" Link=\"Topics/end-user/plugin-config-settings.htm\" ResolvedId=\"4012\" />';
-xmlAliasData += '    <Map Name=\"csh-user-plugin-access-recent-apps\" Link=\"Topics/end-user/plugin-access-recent-apps.htm\" ResolvedId=\"4013\" />';
 xmlAliasData += '    <Map Name=\"csh-user-dashboard-set-language\" Link=\"Topics/end-user/dashboard-set-language.htm\" ResolvedId=\"4014\" />';
 xmlAliasData += '    <Map Name=\"csh-user-plugin-keyboard\" Link=\"Topics/end-user/plugin-keyboard.htm\" ResolvedId=\"4015\" />';
 xmlAliasData += '    <Map Name=\"csh-user-home\" Link=\"Topics/end-user/end-user-home.htm\" ResolvedId=\"4016\" />';
@@ -30,5 +29,6 @@ xmlAliasData += '    <Map Name=\"csh-ov-delete-account-ios\" Link=\"Topics/end-u
 xmlAliasData += '    <Map Name=\"csh-user-ov-manage-account-ios\" Link=\"Topics/end-user/ov-mng-account-ios.htm\" ResolvedId=\"12003\" />';
 xmlAliasData += '    <Map Name=\"csh-user-ov-manage-account\" Link=\"Topics/end-user/ov-mng-account.htm\" ResolvedId=\"12004\" />';
 xmlAliasData += '    <Map Name=\"csh-user-ov-setup-ios\" Link=\"Topics/end-user/ov-setup-ios.htm\" ResolvedId=\"12005\" />';
+xmlAliasData += '    <Map Name=\"ext-self-register-for-end-users\" Link=\"Topics/users-groups-profiles/usgp-self-register-for-end-users.htm\" ResolvedId=\"15014\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
