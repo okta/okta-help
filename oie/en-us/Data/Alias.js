@@ -141,6 +141,7 @@ xmlAliasData += '    <Map Name=\"csh-risk-scoring\" Link=\"Topics/Security/Secur
 xmlAliasData += '    <Map Name=\"csh-directory-integrations-main\" Link=\"Topics/identity-engine/directories/directory-integrations-main.htm\" ResolvedId=\"15013\" />';
 xmlAliasData += '    <Map Name=\"csh-add-mfa-policy-rule\" Link=\"Topics/identity-engine/policies/add-mfa-policy-rule.htm\" ResolvedId=\"12010\" />';
 xmlAliasData += '    <Map Name=\"csh-general-security\" Link=\"Topics/Security/Security_General.htm\" ResolvedId=\"2006\" />';
+xmlAliasData += '    <Map Name=\"csh-user-enumeration\" Link=\"Topics/Security/Security_General.htm#UserEnumeration\" ResolvedId=\"2007\" />';
 xmlAliasData += '    <Map Name=\"csh-oie-policies\" Link=\"Topics/identity-engine/policies/about-policies.htm\" ResolvedId=\"2008\" />';
 xmlAliasData += '    <Map Name=\"csh-oie-osop\" Link=\"Topics/identity-engine/policies/about-okta-sign-on-policies.htm\" ResolvedId=\"2009\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-phone\" Link=\"Topics/identity-engine/authenticators/configure-phone.htm\" ResolvedId=\"2010\" />';
