@@ -1543,6 +1543,7 @@ xmlAliasData += '    <Map Name=\"csh-actionable-notifications\" Link=\"Topics/Mo
 xmlAliasData += '    <Map Name=\"ext-jiraservicedesk-misc-authorization\" Link=\"Topics/Workflows/connector-reference/jiraservicedesk/overviews/authorization.htm\" ResolvedId=\"31038\" />';
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-misc-authorization\" Link=\"Topics/Workflows/connector-reference/zendesk/overviews/authorization.htm\" ResolvedId=\"31039\" />';
 xmlAliasData += '    <Map Name=\"csh-general-security\" Link=\"Topics/Security/Security_General.htm\" ResolvedId=\"2006\" />';
+xmlAliasData += '    <Map Name=\"csh-user-enumeration\" Link=\"Topics/Security/Security_General.htm#UserEnumeration\" ResolvedId=\"2007\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-yubikey\" Link=\"Topics/Security/mfa/yubikey.htm\" ResolvedId=\"2016\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-googleauth\" Link=\"Topics/Security/mfa/google-authenticator.htm\" ResolvedId=\"2017\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-duo\" Link=\"Topics/Security/Security_Duo.htm\" ResolvedId=\"2018\" />';
@@ -1562,5 +1563,6 @@ xmlAliasData += '    <Map Name=\"csh-custom-otp-auth\" Link=\"Topics/Security/mf
 xmlAliasData += '    <Map Name=\"csh-configure-custom-otp\" Link=\"Topics/Security/mfa-totp-seed.htm\" ResolvedId=\"2020\" />';
 xmlAliasData += '    <Map Name=\"ext-mfa-totp\" Link=\"Topics/Security/mfa-totp-seed.htm\" ResolvedId=\"2000\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-install-gateway\" Link=\"Topics/Adv_Server_Access/docs/install-gateway.htm\" ResolvedId=\"1299\" />';
+xmlAliasData += '    <Map Name=\"ext-idp-inbound-saml\" Link=\"Topics/Security/idp-inbound-saml-workflow.htm\" ResolvedId=\"1364\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
