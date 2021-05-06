@@ -151,5 +151,6 @@ xmlAliasData += '    <Map Name=\"csh-configure-password\" Link=\"Topics/identity
 xmlAliasData += '    <Map Name=\"csh-configure-sq\" Link=\"Topics/identity-engine/authenticators/configure-security-question.htm\" ResolvedId=\"2014\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-webauthn\" Link=\"Topics/identity-engine/authenticators/configure-webauthn.htm\" ResolvedId=\"2015\" />';
 xmlAliasData += '    <Map Name=\"csh-threatinsight\" Link=\"Topics/Security/threat-insight/ti-index.htm\" ResolvedId=\"2022\" />';
+xmlAliasData += '    <Map Name=\"csh-delete-legacy-dt\" Link=\"Topics/identity-engine/devices/dt-oie-main.htm\" ResolvedId=\"12012\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
