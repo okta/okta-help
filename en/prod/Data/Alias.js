@@ -475,8 +475,8 @@ xmlAliasData += '    <Map Name=\"ext_oag_app_orcl_hyperion\" Link=\"Topics/Acces
 xmlAliasData += '    <Map Name=\"ext_oag_app_orcl_plm\" Link=\"Topics/Access-Gateway/add-oracle-plm.htm\" ResolvedId=\"1316\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_app_orcl_webcenter\" Link=\"Topics/Access-Gateway/add-oracle-webcenter.htm\" ResolvedId=\"1317\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_app_orcl_wls\" Link=\"Topics/Access-Gateway/add-oracle-wls.htm\" ResolvedId=\"1318\" />';
-xmlAliasData += '    <Map Name=\"ext_oag_app_sample_cookie\" Link=\"Topics/Access-Gateway/add-sample-cookie-app-okta.htm\" ResolvedId=\"1319\" />';
-xmlAliasData += '    <Map Name=\"ext_oag_app_sample_header\" Link=\"Topics/Access-Gateway/add-sample-header-app-okta.htm\" ResolvedId=\"1320\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_app_sample_cookie\" Link=\"Topics/Access-Gateway/add-sample-cookie.htm\" ResolvedId=\"1319\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_app_sample_header\" Link=\"Topics/Access-Gateway/add-sample-header.htm\" ResolvedId=\"1320\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_app_sample_policy\" Link=\"Topics/Access-Gateway/add-sample-policy-app-okta.htm\" ResolvedId=\"1321\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_app_sample_proxy\" Link=\"Topics/Access-Gateway/add-sample-proxy-app-okta.htm\" ResolvedId=\"1322\" />';
 xmlAliasData += '    <Map Name=\"ext-IDP-factor\" Link=\"Topics/Security/MFA_Custom_Factor.htm\" ResolvedId=\"1323\" />';
@@ -1540,6 +1540,7 @@ xmlAliasData += '    <Map Name=\"csh-risk-scoring\" Link=\"Topics/Security/Secur
 xmlAliasData += '    <Map Name=\"ext-apps-bookmark-app\" Link=\"Topics/Apps/Apps_Bookmark_App.htm\" ResolvedId=\"8012\" />';
 xmlAliasData += '    <Map Name=\"csh-duo\" Link=\"Topics/Security/Security_Duo.htm\" ResolvedId=\"2005\" />';
 xmlAliasData += '    <Map Name=\"csh-actionable-notifications\" Link=\"Topics/Mobile/okta-verify-sign-in.htm\" ResolvedId=\"1168\" />';
+xmlAliasData += '    <Map Name=\"ext-evidentidverify-misc-authorization\" Link=\"Topics/Workflows/connector-reference/evidentidverify/overviews/authorization.htm\" ResolvedId=\"31037\" />';
 xmlAliasData += '    <Map Name=\"ext-jiraservicedesk-misc-authorization\" Link=\"Topics/Workflows/connector-reference/jiraservicedesk/overviews/authorization.htm\" ResolvedId=\"31038\" />';
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-misc-authorization\" Link=\"Topics/Workflows/connector-reference/zendesk/overviews/authorization.htm\" ResolvedId=\"31039\" />';
 xmlAliasData += '    <Map Name=\"csh-general-security\" Link=\"Topics/Security/Security_General.htm\" ResolvedId=\"2006\" />';
