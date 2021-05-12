@@ -10,6 +10,7 @@ xmlAliasData += '    <Map Name=\"Security_Authentication_Yubikey\" Link=\"Topics
 xmlAliasData += '    <Map Name=\"Security_Authentication_RSA\" Link=\"Topics/Security/MFA_OnPrem.htm\" ResolvedId=\"1060\" />';
 xmlAliasData += '    <Map Name=\"Security_Authentication_OnPrem\" Link=\"Topics/Security/MFA_OnPrem.htm\" ResolvedId=\"1070\" />';
 xmlAliasData += '    <Map Name=\"Security_Authentication_JIT\" Link=\"Topics/Security/mfa/yubikey.htm\" ResolvedId=\"1040\" />';
+xmlAliasData += '    <Map Name=\"Security_IdP\" Link=\"Topics/Security/Identity_Providers.htm\" ResolvedId=\"1090\" />';
 xmlAliasData += '    <Map Name=\"Security_Network\" Link=\"Topics/Security/Security_Network.htm\" ResolvedId=\"1100\" />';
 xmlAliasData += '    <Map Name=\"Security_Administrators\" Link=\"Topics/Security/Administrators.htm\" ResolvedId=\"1110\" />';
 xmlAliasData += '    <Map Name=\"Security_API\" Link=\"Topics/Security/API.htm#Security_API\" ResolvedId=\"1120\" />';
@@ -477,8 +478,8 @@ xmlAliasData += '    <Map Name=\"ext_oag_app_orcl_webcenter\" Link=\"Topics/Acce
 xmlAliasData += '    <Map Name=\"ext_oag_app_orcl_wls\" Link=\"Topics/Access-Gateway/add-oracle-wls.htm\" ResolvedId=\"1318\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_app_sample_cookie\" Link=\"Topics/Access-Gateway/add-sample-cookie.htm\" ResolvedId=\"1319\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_app_sample_header\" Link=\"Topics/Access-Gateway/add-sample-header.htm\" ResolvedId=\"1320\" />';
-xmlAliasData += '    <Map Name=\"ext_oag_app_sample_policy\" Link=\"Topics/Access-Gateway/add-sample-policy-app-okta.htm\" ResolvedId=\"1321\" />';
-xmlAliasData += '    <Map Name=\"ext_oag_app_sample_proxy\" Link=\"Topics/Access-Gateway/add-sample-proxy-app-okta.htm\" ResolvedId=\"1322\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_app_sample_policy\" Link=\"Topics/Access-Gateway/add-sample-policy.htm\" ResolvedId=\"1321\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_app_sample_proxy\" Link=\"Topics/Access-Gateway/add-sample-proxy.htm\" ResolvedId=\"1322\" />';
 xmlAliasData += '    <Map Name=\"ext-IDP-factor\" Link=\"Topics/Security/MFA_Custom_Factor.htm\" ResolvedId=\"1323\" />';
 xmlAliasData += '    <Map Name=\"ext-ad-override-username\" Link=\"Topics/users-groups-profiles/usgp-override-username-format.htm\" ResolvedId=\"1324\" />';
 xmlAliasData += '    <Map Name=\"ext-Security-Policies-eu-control\" Link=\"Topics/Security/policies/configure-signon-policies.htm#EndUserControlMFAPrompts\" ResolvedId=\"1325\" />';
@@ -1538,6 +1539,9 @@ xmlAliasData += '    <Map Name=\"ext-salesforce229-method-listuserpermissionassi
 xmlAliasData += '    <Map Name=\"ext-salesforce229-method-removeuserentitlements\" Link=\"Topics/Workflows/connector-reference/salesforce/actions/removeuserentitlements.htm\" ResolvedId=\"31030\" />';
 xmlAliasData += '    <Map Name=\"csh-risk-scoring\" Link=\"Topics/Security/Security_Risk_Scoring.htm\" ResolvedId=\"12008\" />';
 xmlAliasData += '    <Map Name=\"ext-apps-bookmark-app\" Link=\"Topics/Apps/Apps_Bookmark_App.htm\" ResolvedId=\"8012\" />';
+xmlAliasData += '    <Map Name=\"ext-list-method-split\" Link=\"Topics/Workflows/function-reference/List/list_split.htm\" ResolvedId=\"31032\" />';
+xmlAliasData += '    <Map Name=\"ext-list-method-concat\" Link=\"Topics/Workflows/function-reference/List/list_concat.htm\" ResolvedId=\"31033\" />';
+xmlAliasData += '    <Map Name=\"ext-list-method-stats\" Link=\"Topics/Workflows/function-reference/List/list_stats.htm\" ResolvedId=\"31034\" />';
 xmlAliasData += '    <Map Name=\"csh-duo\" Link=\"Topics/Security/Security_Duo.htm\" ResolvedId=\"2005\" />';
 xmlAliasData += '    <Map Name=\"csh-actionable-notifications\" Link=\"Topics/Mobile/okta-verify-sign-in.htm\" ResolvedId=\"1168\" />';
 xmlAliasData += '    <Map Name=\"ext-evidentidverify-misc-authorization\" Link=\"Topics/Workflows/connector-reference/evidentidverify/overviews/authorization.htm\" ResolvedId=\"31037\" />';
@@ -1565,5 +1569,11 @@ xmlAliasData += '    <Map Name=\"csh-configure-custom-otp\" Link=\"Topics/Securi
 xmlAliasData += '    <Map Name=\"ext-mfa-totp\" Link=\"Topics/Security/mfa-totp-seed.htm\" ResolvedId=\"2000\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-install-gateway\" Link=\"Topics/Adv_Server_Access/docs/install-gateway.htm\" ResolvedId=\"1299\" />';
 xmlAliasData += '    <Map Name=\"ext-idp-inbound-saml\" Link=\"Topics/Security/idp-inbound-saml-workflow.htm\" ResolvedId=\"1364\" />';
+xmlAliasData += '    <Map Name=\"ext-csv-method-decode\" Link=\"Topics/Workflows/function-reference/CSV/csv_decode.htm\" ResolvedId=\"1366\" />';
+xmlAliasData += '    <Map Name=\"ext-csv-method-encode\" Link=\"Topics/Workflows/function-reference/CSV/csv_encode.htm\" ResolvedId=\"1367\" />';
+xmlAliasData += '    <Map Name=\"ext-list-method-swap\" Link=\"Topics/Workflows/function-reference/List/list_swap.htm\" ResolvedId=\"1368\" />';
+xmlAliasData += '    <Map Name=\"ext-object-method-collapse\" Link=\"Topics/Workflows/function-reference/Object/object_collapse.htm\" ResolvedId=\"1369\" />';
+xmlAliasData += '    <Map Name=\"ext-object-method-split\" Link=\"Topics/Workflows/function-reference/Object/object_split.htm\" ResolvedId=\"1370\" />';
+xmlAliasData += '    <Map Name=\"ext-list-method-mapobjects\" Link=\"Topics/Workflows/function-reference/List/list_mapobjects.htm\" ResolvedId=\"1371\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
