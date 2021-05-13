@@ -11,5 +11,6 @@ xmlAliasData += '    <Map Name=\"ext-asa-install-sft\" Link=\"Topics/Adv_Server_
 xmlAliasData += '    <Map Name=\"ext-asa-enroll-sft-overview\" Link=\"Topics/Adv_Server_Access/docs/enroll-clients.htm\" ResolvedId=\"1205\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-enroll-sft\" Link=\"Topics/Adv_Server_Access/docs/setup/enrolling-a-client.htm\" ResolvedId=\"1219\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-enroll-sft-silent\" Link=\"Topics/Adv_Server_Access/docs/silent-client-enroll.htm\" ResolvedId=\"1245\" />';
+xmlAliasData += '    <Map Name=\"ext-asa-install-gateway\" Link=\"Topics/Adv_Server_Access/docs/install-gateway.htm\" ResolvedId=\"1299\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
