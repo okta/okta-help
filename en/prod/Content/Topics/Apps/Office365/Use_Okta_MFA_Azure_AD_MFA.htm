@@ -342,22 +342,32 @@
                                                     </ul>
                                                     <h2>Known issues</h2>
                                                     <div data-mc-conditions="MultiProdPubish.Core">
-                                                        <p style="font-weight: bold;">Users can enter infinite sign-in loop when Okta sign-on policy is weaker than the Azure AD&#160;policy</p>
-                                                        <ol style="list-style-type: upper-alpha;">
+                                                        <h3>Users can enter infinite sign-in loop</h3>
+                                                        <p>End users can enter an infinite sign-in loop in the following scenarios:</p>
+                                                        <ol>
                                                             <li value="1">
-                                                                <p>This happens if neither the org-level or the app-level sign-on policy requires MFA.
-        </p>
-                                                                <p>In this case, Okta does not prompt the user for the MFA. However, Azure AD Conditional Access requires MFA and expects Okta to pass the completed MFA claim. Consequently, the user gets stuck in the infinite authentication loop.</p>
+                                                                <p style="font-weight: bold;">Okta sign-on policy is weaker than the Azure AD&#160;policy:</p>
+                                                                <ol style="list-style-type: lower-alpha;">
+                                                                    <li value="1">
+                                                                        <p style="font-weight: normal;"><b>Neither the org-level nor the app-level sign-on policy requires MFA
+</b>
+                                                                        </p>
+                                                                        <p>        In this case, Okta does not prompt the user for the MFA. However, Azure AD Conditional Access requires MFA and expects Okta to pass the completed MFA claim. Consequently, the user gets stuck in the infinite authentication loop.</p>
+                                                                    </li>
+                                                                    <li value="2">
+                                                                        <p><b>The sign-on policy doesn’t require MFA when the user signs in from an "In Zone" network but requires  MFA when the user signs in from a network that is "Not in Zone"
+</b>
+                                                                        </p>
+                                                                        <p>        In this case, if the user is signing in from a network that’s <b>In Zone</b>, they will not be prompted for the MFA. However, Azure AD Conditional Access requires MFA and expects Okta to pass the completed MFA claim. Consequently, the user gets stuck in the infinite authentication loop.</p>
+                                                                    </li>
+                                                                </ol>
                                                             </li>
                                                             <li value="2">
-                                                                <p>This can also happen when the sign-on policy doesn’t require the MFA when the user signs in from an in Zone network but requires the MFA when the user signs in from a network that is Not in Zone.
-        </p>
-                                                                <p>In this case, if the user is signing in from a network that’s In Zone, he or she will not be prompted for the MFA. However, Azure AD Conditional Access requires MFA and expects Okta to pass the completed MFA claim. Consequently, the user gets stuck in the infinite authentication loop.
-</p>
+                                                                <p style="font-weight: bold;">The user doesn't immediately access Office 365 after MFA</p>
+                                                                <p>If the user completes MFA&#160;in Okta but does not immediately access the Office 365 app, Okta does not pass the MFA&#160;claim. This can lead to the user entering the infinite authentication loop.</p>
                                                             </li>
                                                         </ol>
-                                                        <p><b>Okta inadvertently passes successful MFA claim to Microsoft when user is excluded from the MFA requirement</b>
-                                                        </p>
+                                                        <h3>Okta inadvertently passes successful MFA claim to Microsoft when user is excluded from the MFA requirement</h3>
                                                         <p>This happens when the Office 365 sign-on policy excludes certain end users (individuals or groups) from the MFA requirement.
         </p>
                                                         <p>				In this case, the user is not prompted for the MFA. However, Okta sends a successful MFA claim to Azure AD Conditional Access as the policy is set up to allow this user to sign in without completing the MFA. Azure AD Conditional Access accepts the Okta MFA claim and allows the user to sign in without requiring them to complete the MFA.
@@ -370,7 +380,7 @@
                                                                 <p>Configure MFA&#160;in Okta</p>
                                                                 <p style="font-weight: normal;">Do either or both of the following, depending on your implementation:</p>
                                                                 <ol style="list-style-type: lower-alpha;font-weight: normal;">
-                                                                    <li value="1">Configure an org-level sign on policy as described in <a href="../../Security/MFA.htm" target="_blank" class="MCXref xref">©  2021 Okta, Inc All Rights Reserved. Various trademarks held by their respective owners.</a>.</li>
+                                                                    <li value="1">Configure an org-level sign on policy as described in <a href="../../Security/mfa/mfa-home.htm" target="_blank" class="MCXref xref">Multifactor Authentication (MFA)</a>.</li>
                                                                     <li value="2">Configure an app sign on policy for your WS-Federation Office 365 app instance as described in <a href="../../Security/O365_Client-Access-Policies.htm" class="MCXref xref">Get started with Office 365 sign on policies</a>.</li>
                                                                 </ol>
                                                             </li>
