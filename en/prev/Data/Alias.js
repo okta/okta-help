@@ -1742,5 +1742,12 @@ xmlAliasData += '    <Map Name=\"ext-list-method-swap\" Link=\"Topics/Workflows/
 xmlAliasData += '    <Map Name=\"ext-object-method-collapse\" Link=\"Topics/Workflows/function-reference/Object/object_collapse.htm\" ResolvedId=\"1369\" />';
 xmlAliasData += '    <Map Name=\"ext-object-method-split\" Link=\"Topics/Workflows/function-reference/Object/object_split.htm\" ResolvedId=\"1370\" />';
 xmlAliasData += '    <Map Name=\"ext-list-method-mapobjects\" Link=\"Topics/Workflows/function-reference/List/list_mapobjects.htm\" ResolvedId=\"1371\" />';
+xmlAliasData += '    <Map Name=\"ext-sendgrid-method-sendemail\" Link=\"Topics/Workflows/connector-reference/sendgrid/actions/sendemail.htm\" ResolvedId=\"31050\" />';
+xmlAliasData += '    <Map Name=\"ext-googlecalendar-method-addusertocalendar\" Link=\"Topics/Workflows/connector-reference/googlecalendar/actions/addusertocalendar.htm\" ResolvedId=\"31051\" />';
+xmlAliasData += '    <Map Name=\"ext-googlecalendar-method-removeuserfromcalendar\" Link=\"Topics/Workflows/connector-reference/googlecalendar/actions/removeuserfromcalendar.htm\" ResolvedId=\"31052\" />';
+xmlAliasData += '    <Map Name=\"ext-dropboxforbusiness-method-downloadfile\" Link=\"Topics/Workflows/connector-reference/dropboxforbusiness/actions/downloadfile.htm\" ResolvedId=\"31053\" />';
+xmlAliasData += '    <Map Name=\"ext-dropboxforbusiness-method-searchfilesorfolders\" Link=\"Topics/Workflows/connector-reference/dropboxforbusiness/actions/searchfilesorfolders.htm\" ResolvedId=\"31054\" />';
+xmlAliasData += '    <Map Name=\"ext-dropboxforbusiness-method-uploadfile\" Link=\"Topics/Workflows/connector-reference/dropboxforbusiness/actions/uploadfile.htm\" ResolvedId=\"31055\" />';
+xmlAliasData += '    <Map Name=\"ext-googlecalendar-method-searchrooms\" Link=\"Topics/Workflows/connector-reference/googlecalendar/actions/searchrooms.htm\" ResolvedId=\"31056\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
