@@ -1749,5 +1749,8 @@ xmlAliasData += '    <Map Name=\"ext-dropboxforbusiness-method-downloadfile\" Li
 xmlAliasData += '    <Map Name=\"ext-dropboxforbusiness-method-searchfilesorfolders\" Link=\"Topics/Workflows/connector-reference/dropboxforbusiness/actions/searchfilesorfolders.htm\" ResolvedId=\"31054\" />';
 xmlAliasData += '    <Map Name=\"ext-dropboxforbusiness-method-uploadfile\" Link=\"Topics/Workflows/connector-reference/dropboxforbusiness/actions/uploadfile.htm\" ResolvedId=\"31055\" />';
 xmlAliasData += '    <Map Name=\"ext-googlecalendar-method-searchrooms\" Link=\"Topics/Workflows/connector-reference/googlecalendar/actions/searchrooms.htm\" ResolvedId=\"31056\" />';
+xmlAliasData += '    <Map Name=\"ext-asa-deploy-server\" Link=\"Topics/Adv_Server_Access/docs/sftd.htm\" ResolvedId=\"1374\" />';
+xmlAliasData += '    <Map Name=\"ext-asa-create-project\" Link=\"Topics/Adv_Server_Access/docs/setup/create-a-project.htm\" ResolvedId=\"1375\" />';
+xmlAliasData += '    <Map Name=\"ext-asa-groups\" Link=\"Topics/Adv_Server_Access/docs/setup/groups.htm\" ResolvedId=\"1376\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
