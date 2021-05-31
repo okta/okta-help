@@ -6,7 +6,10 @@ module.exports = {
   entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'i18n-util.bundle.[fullhash].js'
+    filename: 'i18n-util.bundle.[fullhash].js',
+    environment: {
+      arrowFunction: false
+    }
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -18,5 +21,16 @@ module.exports = {
       Do not manually edit this file. This file is autogerated. 
       Refer i18n-util/readme.md to see how this file is generated for production.
     `)
-  ]
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.(js)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+        }
+      }
+    ]
+  }
 };
