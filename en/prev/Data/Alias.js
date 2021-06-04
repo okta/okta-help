@@ -1752,5 +1752,8 @@ xmlAliasData += '    <Map Name=\"ext-googlecalendar-method-searchrooms\" Link=\"
 xmlAliasData += '    <Map Name=\"ext-asa-deploy-server\" Link=\"Topics/Adv_Server_Access/docs/sftd.htm\" ResolvedId=\"1374\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-create-project\" Link=\"Topics/Adv_Server_Access/docs/setup/create-a-project.htm\" ResolvedId=\"1375\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-groups\" Link=\"Topics/Adv_Server_Access/docs/setup/groups.htm\" ResolvedId=\"1376\" />';
+xmlAliasData += '    <Map Name=\"ext-asa-supported-os\" Link=\"Topics/Adv_Server_Access/docs/supported-os.htm\" ResolvedId=\"1377\" />';
+xmlAliasData += '    <Map Name=\"ext-asa-ssh-keys\" Link=\"Topics/Adv_Server_Access/docs/sshkeys.htm\" ResolvedId=\"1378\" />';
+xmlAliasData += '    <Map Name=\"ext-asa-sftd-config\" Link=\"Topics/Adv_Server_Access/docs/sftd-configure.htm\" ResolvedId=\"1379\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
