@@ -214,13 +214,13 @@
                                     </noscript>
                                     <!-- End Google Tag Manager (noscript) -->
                                     <!-- Coveo config parameters -->
-                                    <div id="coveo_org_id" style="Display:None"><span class="mc-variable okta-coveo-config.OrgId variable">oktaproduction9ounvcxa</span>
+                                    <div id="coveo_org_id" style="Display:None"><span class="mc-variable okta-coveo-config.OrgId variable">oktanonproduction1il1gtac7</span>
                                     </div>
                                     <div id="coveo_rest_uri" style="Display:None"><span class="mc-variable okta-coveo-config.PlatformRestUri variable">https://platform.cloud.coveo.com/rest/search</span>
                                     </div>
-                                    <div id="coveo_search_url" style="Display:None"><span class="mc-variable okta-coveo-config.SearchPageUrl variable">https://support.okta.com/help/s/global-search/%40uri</span>
+                                    <div id="coveo_search_url" style="Display:None"><span class="mc-variable okta-coveo-config.SearchPageUrl variable">https://fulluat-okta.cs4.force.com/help/s/global-search/%40uri</span>
                                     </div>
-                                    <div id="coveo_token_url" style="Display:None"><span class="mc-variable okta-coveo-config.SearchTokenServiceUrl variable">https://support.okta.com/help/services/apexrest/PublicSearchToken?site=help</span>
+                                    <div id="coveo_token_url" style="Display:None"><span class="mc-variable okta-coveo-config.SearchTokenServiceUrl variable">https://u7efr6th1i.execute-api.us-west-2.amazonaws.com/dev/token/?site=help</span>
                                     </div>
                                     <!-- End Coveo config parameters -->
                                     <!-- ************************* Coveo Search bar ************************************* -->
@@ -330,7 +330,6 @@
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
                                                     <h1>View and manage session logs</h1>
-                                                    <p class="earlyaccess">This is an Early Access feature. To enable it, contact <a href="https://support.okta.com/help/s/">Okta Support</a>.</p>
                                                     <p>You can view and manage SSH session recording logs. You can use various commands to export, decode, verify, and view the logs.</p>
                                                     <p>When a session ends, a recording of the session is saved to /var/log/sft/sessions. The filename contains a UTC&#160;timestamp, the <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> team name, and the username of the session user in the format <b>timestamp-teamname-username.asa</b>. For example, a sample session log filename is 20200903T153818.5108-mycompany-myuser.asa</p>
                                                     <p>Before a session ends, the logs are stored in temporary storage (usually /tmp on Linux).</p>
@@ -372,7 +371,10 @@
                                                     </p>
                                                     <h2><a name="Decode"></a>Decode a log</h2>
                                                     <p>All input/output in a log file is Base64 encoded. You can use the following command to take the raw Base64 encoded log data and decode it:</p>
-                                                    <p class="code"><span class="code">sft session-logs export timestamp-teamname-username.asa | jq -r '.frames[] | .logRequest.io.data' | base64 -d</span>
+                                                    <p class="code"><span class="code">sft session-logs export timestamp-teamname-username.asa | jq -r '.frames[] |&#160;.logRequest.io.data' | base64 -d</span>
+                                                    </p>
+                                                    <p>The output of the preceding command includes both incoming and outgoing characters, which can result in the log containing duplicates of every character. For a cleaner log, use the following command to include only outgoing characters:</p>
+                                                    <p class="code"><span class="code">sft session-logs export timestamp-teamname-username.asa | jq -r '.frames[] | select (.logRequest.io.direction == "OUTGOING") | .logRequest.io.data' | base64 -d</span>
                                                     </p>
                                                     <h2><a name="Print"></a>Print session to stdout</h2>
                                                     <p>You can export the log to asciinema format and use the cat command to print the session&#160;to stdout as follows:</p>
