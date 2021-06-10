@@ -294,6 +294,11 @@
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
                                                     <h1>Enforce Okta <span class="mc-variable okta-feature-names.Device_Trust variable">Device Trust</span> for Jamf Pro managed macOS devices</h1>
+                                                    <div class="noteOkta">
+                                                        <img src="../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Note" alt="Note" />
+                                                        <p class="noteHeading">Note</p>
+                                                        <p class="noteContent"> Okta Device Registration Task v1.3.1 was released  to support Python 3. If you require the Python 2.x script, see <a href="https://okta.okta.com/static/devicetrust/MacOktaDeviceRegistrationTaskSetup.1.2.1.py">Device Registration Task v1.2.1</a>.<br />See the <a href="#Prerequi" class="MCXref xref">Prerequisites</a> and <a href="#PartE" class="MCXref xref">STEP 3. Install Python 3 and Device Trust dependencies</a> sections below, to learn how this change affects your deployment.</p>
+                                                    </div>
                                                     <p><span class="mc-variable okta-feature-names.Okta_Device_Trust variable">Okta Device Trust</span> for Jamf Pro managed macOS devices allows you to prevent unmanaged macOS&#160;devices from accessing corporate SAML and WS-Fed cloud apps. <span class="mc-variable okta-feature-names.Okta_Device_Trust variable">Okta Device Trust</span> ensures that only known and secured devices can access your Okta-managed applications.</p>
                                                     <p>
                                                     </p>
@@ -307,7 +312,7 @@
                                                                 <li>This solution works with:
                 <ul><li>Apple computers running <a href="Okta_Mobile_VerHistory.htm">Okta-supported versions</a> of macOS.</li><li>Jamf Pro MDM solution</li><li>The following browsers and native apps capable of accessing the Okta Keychain on the managed computer when performing the federated authentication flow to Okta:
 						<ul><li>Browsers: Chrome and Safari browsers</li><li>Modern Auth-enabled native apps:
-					<ul><li>Box</li><li>Google Drive</li><li>Microsoft Office</li><li>Skype for Business</li><li>Slack</li></ul></li></ul></li></ul></li>
+					<ul><li>Box</li><li>Google Drive</li><li>Microsoft Office</li><li>Skype for Business</li><li>Slack</li></ul></li></ul></li><li> The Okta Device Registration Task is a Python script that completes various tasks (for example, enrollment, and registration). Depending on your OS, complete one of the following, to make sure you use the appropriate version of this script:<ul><li> If you have macOS 10.15.xx (Catalina) or 11.xx (Big Sur), use registration version 1.3.1 or later, which is based on Python 3.</li><li>If you have  macOS 10.14.xx (Mojave) and are currently using registration script 1.2.1 or earlier, continue to use it as-is, or upgrade to Catalina or Big Sur before using Python 3.</li></ul></li><p>See <a href="#PartE" class="MCXref xref">STEP 3. Install Python 3 and Device Trust dependencies</a> for additional information.</p></ul></li>
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -452,8 +457,43 @@
                                                             <div style="line-height:120%;">
                                                                 <br />
                                                             </div>
-                                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /><br /></a></span>
+                                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /><span style="font-size: 14pt;">STEP 3. Install Python 3 and Device Trust dependencies</span></a><MadCap:dropDownHotspot><br /></MadCap:dropDownHotspot></span>
                                                                 <div class="MCDropDownBody dropDownBody"><a name="PartE"></a>
+                                                                    <p>If Python 3 is already installed, go to step 2.</p>
+                                                                    <ol>
+                                                                        <li value="1">
+                                                                            <p>There are different ways to install Python 3. This step provides installation instructions using the macOS  Xcode command line tool. Okta recommends that you use your preferred method.<br /></p>
+                                                                            <p>Optional. Run the following script on your macOS machine to update your macOS environment to Python 3:
+								</p>
+                                                                            <p id="code">#!/bin/sh</p>
+                                                                            <p id="code">echo "Checking for the existence of the Apple Command Line Developer Tools"</p>
+                                                                            <p id="code">/usr/bin/xcode-select -p &amp;&gt; /dev/null</p>
+                                                                            <p id="code">if [[ $? -ne 0 ]]; then</p>
+                                                                            <p id="code">echo "Apple Command Line Developer Tools not found."</p>
+                                                                            <p id="code">touch /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress;</p>
+                                                                            <p id="code">installationPKG=$(/usr/sbin/softwareupdate --list | /usr/bin/grep -B 1 -E 'Command Line Tools' | /usr/bin/tail -2 | /usr/bin/awk -F'*' '/^ *\\*/ {print $2}' | /usr/bin/sed -e 's/^ *Label: //' -e 's/^ *//' | /usr/bin/tr -d '\n')</p>
+                                                                            <p id="code">echo "Installing ${installationPKG}"</p>
+                                                                            <p id="code">/usr/sbin/softwareupdate --install "${installationPKG}" --verbose</p>
+                                                                            <p id="code">else</p>
+                                                                            <p id="code">echo "Apple Command Line Developer Tools are already installed."</p>
+                                                                            <p id="code">fi</p>
+                                                                            <p id="code">exit</p>
+                                                                        </li>
+                                                                    </ol>
+                                                                    <ol data-mc-continue="true">
+                                                                        <li value="2">
+                                                                            <p>Install the Device Trust Dependencies. The updated macOS Device Registration Task requires “python3“ and “pip3“ alias on the device to point to the correct Python 3 installation.</p>
+                                                                            <p>Run the following script to install the required Device Trust dependencies:</p>
+                                                                            <p id="code">#!/bin/sh</p>
+                                                                            <p id="code">echo "Running pip3 install --upgrade pip"</p>
+                                                                            <p id="code">sudo pip3 install --upgrade pip</p>
+                                                                            <p id="code">echo "Running pip3 install pyobjc-framework-SystemConfiguration"</p>
+                                                                            <p id="code">sudo pip3 install pyobjc-framework-SystemConfiguration</p>
+                                                                            <p id="code">echo "pip3 install pyOpenSSL"</p>
+                                                                            <p id="code">sudo pip3 install pyOpenSSL</p>
+                                                                            <p id="code">exit</p>
+                                                                        </li>
+                                                                    </ol>
                                                                 </div>
                                                             </div>
                                                             <div style="line-height:120%;">
@@ -499,6 +539,17 @@
                                                                             <li value="1">Go to <b>Computers &gt;&#160;Policies</b>.</li>
                                                                             <li value="2">Click <b>+ New</b>.</li>
                                                                             <li value="3">Click <b>General</b> in the left pane.</li>
+                                                                            <li value="4">Enter a policy a name in the Display Name field.</li>
+                                                                            <li value="5">&#160;Select the following Trigger events that will initiate the policy:
+								<ul><li><b>Enrollment Complete</b> – the script runs immediately after devices complete the enrollment process.</li><li><b>Recurring Check-in</b> – the script runs according to the recurring check-in frequency configured in <b>Jamf Pro</b>.</li></ul></li>
+                                                                            <li value="6">Set the <b>Execution Frequency</b> to <b>Once per computer per user</b>.
+                                <p><b>Note:</b>&#160;There are other approaches that you can implement in Jamf Pro to trigger deployment of the script (for example,  Extension Attributes, which allow you to validate that the certificate is on the device and to deploy the certificate if it is missing).</p></li>
+                                                                            <li value="7">Click <b>Save</b>.</li>
+                                                                            <li value="8">Click <b>Scripts</b> in the left pane, and then click <b>Configure</b>.</li>
+                                                                            <li value="9">Locate the script you created for this policy in step 3, and then click <b>Add</b>.</li>
+                                                                            <li value="10">Click <b>Scope</b>.</li>
+                                                                            <li value="11">In <b>Target Computers</b> and/or <b>Target Users</b>, specify the computers and users to whom the policy will apply.</li>
+                                                                            <li value="12">Click <b>Save</b>.</li>
                                                                         </ol>
                                                                         <li value="6"> <a name="disable-keychain-syncing"></a>Recommended. To prevent iCloud from transferring the Okta keychain from <span class="mc-variable okta-feature-names.Device_Trust variable">Device Trust</span>-secured macOS devices to other Apple devices, you should create a Configuration Profile in Jamf Pro that disables <b>Allow iCloud Keychain syncing</b>.  
 							
@@ -1010,11 +1061,27 @@
 				
 				
 									<p id="code">python ~/Library/Okta/okta_device_trust.py version</p><li><p>Verify that you added the TeamID&#160;of the app to the Python 3 script before you deployed the script?</p></li></p>
+                                                                                    <p>If the TeamID of the app is missing from the script, an access prompt displays when attempting to sign on from a third-party app that previously worked with Device Trust in your environment.<br /><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/devices_dt_troubleshoot_TeamID_1.png" data-mc-popup-alt="Access prompt example"><img class="MCPopupThumbnail img imgthumbnail" data-mc-width="426" data-mc-height="160" src="../../Resources/Images/devices_dt_troubleshoot_TeamID_1_thumb_220_220.png" alt="Access prompt example" title="An example of an access prompt from a third-party app" tabindex="" /></a></p>
+                                                                                    <p>Add the TeamID of the app to the Python 3 script, and then redeploy the policy. <br />This image indicates the section of the script to edit, to specify the apps you want to whitelist:<br /><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/devices_dt_troubleshoot_TeamID_2.png" data-mc-popup-alt="Python 3 script section"><img class="MCPopupThumbnail img imgthumbnail" data-mc-width="1059" data-mc-height="229" src="../../Resources/Images/devices_dt_troubleshoot_TeamID_2_thumb_220_220.png" alt="Python 3 script section" title="Section of the Python 3 script to edit, to specify the apps to whitelist." tabindex="" /></a></p>
                                                                                 </ul>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /><br /></a></span>
+                                                                        <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Python 3 dependency packages</a><MadCap:dropDownHotspot><br /></MadCap:dropDownHotspot></span>
                                                                             <div class="MCDropDownBody dropDownBody">
+                                                                                <p>Are the Python 3 dependency packages installed correctly?</p>
+                                                                                <p>If  a module not found error (for example, "ModuleNotFoundError: No module named 'Systemconfiguration'") occurs, confirm that the dependencies from [link to 'install the device trust dependencies"] are set up correctly. </p>
+                                                                                <p>Run the following script from Jamf on the computer:</p>
+                                                                                <p id="code">#!/bin/sh</p>
+                                                                                <p id="code">echo "Python location"</p>
+                                                                                <p id="code">python3 -c "import sys; print(sys.executable)"</p>
+                                                                                <p id="code">echo "Python version"</p>
+                                                                                <p id="code">python3 --version</p>
+                                                                                <p id="code">echo "Python3 Dependency version"</p>
+                                                                                <p id="code">echo "********************"</p>
+                                                                                <p id="code">python3 -m pip show pyobjc-framework-SystemConfiguration</p>
+                                                                                <p id="code">echo "********************"</p>
+                                                                                <p id="code">python3 -m pip show pyOpenSSL</p>
+                                                                                <p id="code">echo "********************"</p>
                                                                             </div>
                                                                         </div>
                                                                         <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Certificate</a></span>

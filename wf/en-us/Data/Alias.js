@@ -109,7 +109,6 @@ xmlAliasData += '    <Map Name=\"ext-box-method-deactivateuser\" Link=\"Topics/W
 xmlAliasData += '    <Map Name=\"ext-box-method-deletefile\" Link=\"Topics/Workflows/connector-reference/box/actions/deletefile.htm\" ResolvedId=\"30064\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-deletefolder\" Link=\"Topics/Workflows/connector-reference/box/actions/deletefolder.htm\" ResolvedId=\"30065\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-deleteuser\" Link=\"Topics/Workflows/connector-reference/box/actions/deleteuser.htm\" ResolvedId=\"30066\" />';
-xmlAliasData += '    <Map Name=\"ext-box-method-downloadfile\" Link=\"Topics/Workflows/connector-reference/box/actions/downloadfile.htm\" ResolvedId=\"30067\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-getgroupmembership\" Link=\"Topics/Workflows/connector-reference/box/actions/getgroupmembership.htm\" ResolvedId=\"30068\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-getuser\" Link=\"Topics/Workflows/connector-reference/box/actions/getuser.htm\" ResolvedId=\"30069\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-listgroupsmembers\" Link=\"Topics/Workflows/connector-reference/box/actions/listgroupsmembers.htm\" ResolvedId=\"30070\" />';
@@ -120,7 +119,6 @@ xmlAliasData += '    <Map Name=\"ext-box-method-searchforuser\" Link=\"Topics/Wo
 xmlAliasData += '    <Map Name=\"ext-box-method-transferuserfolders\" Link=\"Topics/Workflows/connector-reference/box/actions/transferuserfolders.htm\" ResolvedId=\"30079\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-updategroupmembership\" Link=\"Topics/Workflows/connector-reference/box/actions/updategroupmembership.htm\" ResolvedId=\"30082\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-updateuser\" Link=\"Topics/Workflows/connector-reference/box/actions/updateuser.htm\" ResolvedId=\"30085\" />';
-xmlAliasData += '    <Map Name=\"ext-box-method-uploadfile\" Link=\"Topics/Workflows/connector-reference/box/actions/uploadfile.htm\" ResolvedId=\"30086\" />';
 xmlAliasData += '    <Map Name=\"ext-box-misc-authorization\" Link=\"Topics/Workflows/connector-reference/box/overviews/authorization.htm\" ResolvedId=\"30095\" />';
 xmlAliasData += '    <Map Name=\"ext-datagrail\" Link=\"Topics/Workflows/connector-reference/datagrail/datagrail.htm\" ResolvedId=\"30096\" />';
 xmlAliasData += '    <Map Name=\"ext-datagrail-method-createprivacyrequest\" Link=\"Topics/Workflows/connector-reference/datagrail/actions/createprivacyrequest.htm\" ResolvedId=\"30097\" />';
@@ -226,7 +224,6 @@ xmlAliasData += '    <Map Name=\"ext-googlecloudfunctions-method-httprequest\" L
 xmlAliasData += '    <Map Name=\"ext-googlecloudfunctions-method-invokefunction\" Link=\"Topics/Workflows/connector-reference/googlecloudfunctions/actions/invokefunction.htm\" ResolvedId=\"30205\" />';
 xmlAliasData += '    <Map Name=\"ext-googlecloudfunctions-misc-authorization\" Link=\"Topics/Workflows/connector-reference/googlecloudfunctions/overviews/authorization.htm\" ResolvedId=\"30206\" />';
 xmlAliasData += '    <Map Name=\"ext-googledirectory\" Link=\"Topics/Workflows/connector-reference/googledirectory/googledirectory.htm\" ResolvedId=\"30207\" />';
-xmlAliasData += '    <Map Name=\"ext-googledirectory-method-activateuser\" Link=\"Topics/Workflows/connector-reference/googledirectory/actions/activateuser.htm\" ResolvedId=\"30208\" />';
 xmlAliasData += '    <Map Name=\"ext-googledirectory-method-addaddresstouser\" Link=\"Topics/Workflows/connector-reference/googledirectory/actions/addaddresstouser.htm\" ResolvedId=\"30209\" />';
 xmlAliasData += '    <Map Name=\"ext-googledirectory-method-addemailtouser\" Link=\"Topics/Workflows/connector-reference/googledirectory/actions/addemailtouser.htm\" ResolvedId=\"30210\" />';
 xmlAliasData += '    <Map Name=\"ext-googledirectory-method-addexternalidtouser\" Link=\"Topics/Workflows/connector-reference/googledirectory/actions/addexternalidtouser.htm\" ResolvedId=\"30211\" />';
@@ -724,6 +721,7 @@ xmlAliasData += '    <Map Name=\"ext-object-method-unset\" Link=\"Topics/Workflo
 xmlAliasData += '    <Map Name=\"ext-object-method-values\" Link=\"Topics/Workflows/function-reference/Object/object_values.htm\" ResolvedId=\"30866\" />';
 xmlAliasData += '    <Map Name=\"ext-object-method-zip\" Link=\"Topics/Workflows/function-reference/Object/object_zip.htm\" ResolvedId=\"30867\" />';
 xmlAliasData += '    <Map Name=\"ext-stash-method-createrow\" Link=\"Topics/Workflows/function-reference/Tables/stash_createrow.htm\" ResolvedId=\"30869\" />';
+xmlAliasData += '    <Map Name=\"ext-stash-method-createtable\" Link=\"Topics/Workflows/function-reference/Tables/stash_createtable.htm\" ResolvedId=\"30870\" />';
 xmlAliasData += '    <Map Name=\"ext-stash-method-deleterow\" Link=\"Topics/Workflows/function-reference/Tables/stash_deleterow.htm\" ResolvedId=\"30871\" />';
 xmlAliasData += '    <Map Name=\"ext-stash-method-exporttocsv\" Link=\"Topics/Workflows/function-reference/Tables/stash_exporttocsv.htm\" ResolvedId=\"30872\" />';
 xmlAliasData += '    <Map Name=\"ext-stash-method-importfromcsv\" Link=\"Topics/Workflows/function-reference/Tables/stash_importfromcsv.htm\" ResolvedId=\"30874\" />';
@@ -837,7 +835,6 @@ xmlAliasData += '    <Map Name=\"ext-github-method-updateissuemetadata\" Link=\"
 xmlAliasData += '    <Map Name=\"ext-shopify-method-addaddresstocustomer\" Link=\"Topics/Workflows/connector-reference/shopify/actions/addaddresstocustomer.htm\" ResolvedId=\"30976\" />';
 xmlAliasData += '    <Map Name=\"ext-shopify-method-createcustomer\" Link=\"Topics/Workflows/connector-reference/shopify/actions/createcustomer.htm\" ResolvedId=\"30977\" />';
 xmlAliasData += '    <Map Name=\"ext-shopify-method-customapiaction\" Link=\"Topics/Workflows/connector-reference/shopify/actions/customapiaction.htm\" ResolvedId=\"30978\" />';
-xmlAliasData += '    <Map Name=\"ext-shopify-method-deletecustomer\" Link=\"Topics/Workflows/connector-reference/shopify/actions/deletecustomer.htm\" ResolvedId=\"30979\" />';
 xmlAliasData += '    <Map Name=\"ext-shopify-method-readcustomer\" Link=\"Topics/Workflows/connector-reference/shopify/actions/readcustomer.htm\" ResolvedId=\"30980\" />';
 xmlAliasData += '    <Map Name=\"ext-shopify-method-updatecustomer\" Link=\"Topics/Workflows/connector-reference/shopify/actions/updatecustomer.htm\" ResolvedId=\"30981\" />';
 xmlAliasData += '    <Map Name=\"ext-shopify-method-searchcustomers\" Link=\"Topics/Workflows/connector-reference/shopify/actions/searchcustomers.htm\" ResolvedId=\"30982\" />';
@@ -855,12 +852,6 @@ xmlAliasData += '    <Map Name=\"ext-mixpanel-misc-authorization\" Link=\"Topics
 xmlAliasData += '    <Map Name=\"ext-mixpanel-method-updateprofile\" Link=\"Topics/Workflows/connector-reference/mixpanel/actions/updateprofile.htm\" ResolvedId=\"30995\" />';
 xmlAliasData += '    <Map Name=\"ext-github-method-createpullrequest\" Link=\"Topics/Workflows/connector-reference/github/actions/createpullrequest.htm\" ResolvedId=\"30996\" />';
 xmlAliasData += '    <Map Name=\"ext-utility-method-exportgroup\" Link=\"Topics/Workflows/function-reference/Folders/folders_exportfolder.htm\" ResolvedId=\"30997\" />';
-xmlAliasData += '    <Map Name=\"ext-okta-method-applicationactivated\" Link=\"Topics/Workflows/connector-reference/okta/events/applicationactivated.htm\" ResolvedId=\"30311\" />';
-xmlAliasData += '    <Map Name=\"ext-okta-method-applicationcreated\" Link=\"Topics/Workflows/connector-reference/okta/events/applicationcreated.htm\" ResolvedId=\"30320\" />';
-xmlAliasData += '    <Map Name=\"ext-okta-method-applicationdeactivated\" Link=\"Topics/Workflows/connector-reference/okta/events/applicationdeactivated.htm\" ResolvedId=\"30999\" />';
-xmlAliasData += '    <Map Name=\"ext-okta-method-applicationdeleted\" Link=\"Topics/Workflows/connector-reference/okta/events/applicationdeleted.htm\" ResolvedId=\"31000\" />';
-xmlAliasData += '    <Map Name=\"ext-okta-method-applicationupdated\" Link=\"Topics/Workflows/connector-reference/okta/events/applicationupdated.htm\" ResolvedId=\"31001\" />';
-xmlAliasData += '    <Map Name=\"ext-okta-method-userpasswordimported\" Link=\"Topics/Workflows/connector-reference/okta/events/userpasswordimported.htm\" ResolvedId=\"31002\" />';
 xmlAliasData += '    <Map Name=\"ext-github-method-updatefilecontent\" Link=\"Topics/Workflows/connector-reference/github/actions/updatefilecontent.htm\" ResolvedId=\"31003\" />';
 xmlAliasData += '    <Map Name=\"ext-github-method-createbranch\" Link=\"Topics/Workflows/connector-reference/github/actions/createbranch.htm\" ResolvedId=\"31004\" />';
 xmlAliasData += '    <Map Name=\"ext-github-method-createfilecontent\" Link=\"Topics/Workflows/connector-reference/github/actions/createfilecontent.htm\" ResolvedId=\"31005\" />';
@@ -922,10 +913,6 @@ xmlAliasData += '    <Map Name=\"ext-onetrust-method-createdatasubject\" Link=\"
 xmlAliasData += '    <Map Name=\"ext-onetrust-method-readdatasubject\" Link=\"Topics/Workflows/connector-reference/onetrust/actions/readdatasubject.htm\" ResolvedId=\"1361\" />';
 xmlAliasData += '    <Map Name=\"ext-onetrust-method-searchdatasubjects\" Link=\"Topics/Workflows/connector-reference/onetrust/actions/searchdatasubjects.htm\" ResolvedId=\"1362\" />';
 xmlAliasData += '    <Map Name=\"ext-onetrust-method-updatedatasubject\" Link=\"Topics/Workflows/connector-reference/onetrust/actions/updatedatasubject.htm\" ResolvedId=\"1363\" />';
-xmlAliasData += '    <Map Name=\"ext-okta-method-usermfa\" Link=\"Topics/Workflows/connector-reference/okta/events/usermfa.htm\" ResolvedId=\"31044\" />';
-xmlAliasData += '    <Map Name=\"ext-okta-method-usermfafactoractivated\" Link=\"Topics/Workflows/connector-reference/okta/events/usermfafactoractivated.htm\" ResolvedId=\"31045\" />';
-xmlAliasData += '    <Map Name=\"ext-okta-method-usermfafactordeactivated\" Link=\"Topics/Workflows/connector-reference/okta/events/usermfafactordeactivated.htm\" ResolvedId=\"31046\" />';
-xmlAliasData += '    <Map Name=\"ext-okta-method-usermfafactorresetall\" Link=\"Topics/Workflows/connector-reference/okta/events/usermfafactorresetall.htm\" ResolvedId=\"31047\" />';
 xmlAliasData += '    <Map Name=\"ext-list-method-swap\" Link=\"Topics/Workflows/function-reference/List/list_swap.htm\" ResolvedId=\"1368\" />';
 xmlAliasData += '    <Map Name=\"ext-object-method-collapse\" Link=\"Topics/Workflows/function-reference/Object/object_collapse.htm\" ResolvedId=\"1369\" />';
 xmlAliasData += '    <Map Name=\"ext-object-method-split\" Link=\"Topics/Workflows/function-reference/Object/object_split.htm\" ResolvedId=\"1370\" />';
