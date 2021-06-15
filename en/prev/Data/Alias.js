@@ -45,7 +45,7 @@ xmlAliasData += '    <Map Name=\"okta-android-installers\" Link=\"Topics/Mobile/
 xmlAliasData += '    <Map Name=\"Service_Mode\" Link=\"Topics/Reference/ref-service-op-mode.htm\" ResolvedId=\"1014\" />';
 xmlAliasData += '    <Map Name=\"conf-desktop-sso\" Link=\"Topics/Directory/Configuring_Desktop_SSO.htm\" ResolvedId=\"1015\" />';
 xmlAliasData += '    <Map Name=\"ServicePrincipalName\" Link=\"Topics/Directory/ad-dsso-create-service-account.htm\" ResolvedId=\"1013\" />';
-xmlAliasData += '    <Map Name=\"ad-agent\" Link=\"Topics/Settings/end-user-quick-access-apps.htm\" ResolvedId=\"1016\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_basic_health_check\" Link=\"Topics/Access-Gateway/basic-health-check.htm\" ResolvedId=\"3070\" />';
 xmlAliasData += '    <Map Name=\"okta-radius-agent-install\" Link=\"Topics/integrations/Agent_Installing_the_Okta_Radius_Agent.htm\" ResolvedId=\"1017\" />';
 xmlAliasData += '    <Map Name=\"mfa-onprem\" Link=\"Topics/Security/MFA_OnPrem.htm\" ResolvedId=\"1018\" />';
 xmlAliasData += '    <Map Name=\"ad-pw-sync-agent\" Link=\"Topics/Directory/Installing_Configuring_Active_Directory_Password_Sync_Agent.htm\" ResolvedId=\"1019\" />';
@@ -695,8 +695,6 @@ xmlAliasData += '    <Map Name=\"ext-gmail-misc-transferofownership\" Link=\"Top
 xmlAliasData += '    <Map Name=\"ext-gmail-method-updateusergmailsettings\" Link=\"Topics/Workflows/connector-reference/gmail/actions/updateusergmailsettings.htm\" ResolvedId=\"30176\" />';
 xmlAliasData += '    <Map Name=\"ext-gmail-method-labeladdedorremoved\" Link=\"Topics/Workflows/connector-reference/gmail/events/labeladdedorremoved.htm\" ResolvedId=\"30177\" />';
 xmlAliasData += '    <Map Name=\"ext-gmail-method-newemail\" Link=\"Topics/Workflows/connector-reference/gmail/events/newemail.htm\" ResolvedId=\"30178\" />';
-xmlAliasData += '    <Map Name=\"ext-gmail-misc-authorization\" Link=\"Topics/Workflows/connector-reference/gmail/overviews/authorization.htm\" ResolvedId=\"30179\" />';
-xmlAliasData += '    <Map Name=\"ext-gmail-misc-errors\" Link=\"Topics/Workflows/connector-reference/gmail/overviews/errors.htm\" ResolvedId=\"30180\" />';
 xmlAliasData += '    <Map Name=\"ext-googlecalendar\" Link=\"Topics/Workflows/connector-reference/googlecalendar/googlecalendar.htm\" ResolvedId=\"30181\" />';
 xmlAliasData += '    <Map Name=\"ext-googlecalendar-method-createnewevent\" Link=\"Topics/Workflows/connector-reference/googlecalendar/actions/createnewevent.htm\" ResolvedId=\"30183\" />';
 xmlAliasData += '    <Map Name=\"ext-googlecalendar-method-createreminder\" Link=\"Topics/Workflows/connector-reference/googlecalendar/actions/createreminder.htm\" ResolvedId=\"30184\" />';
@@ -1587,5 +1585,11 @@ xmlAliasData += '    <Map Name=\"ext-asa-groups\" Link=\"Topics/Adv_Server_Acces
 xmlAliasData += '    <Map Name=\"ext-asa-supported-os\" Link=\"Topics/Adv_Server_Access/docs/supported-os.htm\" ResolvedId=\"1377\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-ssh-keys\" Link=\"Topics/Adv_Server_Access/docs/sshkeys.htm\" ResolvedId=\"1378\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-sftd-config\" Link=\"Topics/Adv_Server_Access/docs/sftd-configure.htm\" ResolvedId=\"1379\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_about_cap_planning\" Link=\"Topics/Access-Gateway/about-cap-planning.htm\" ResolvedId=\"3067\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_manage_deployment\" Link=\"Topics/Access-Gateway/manage-deployment.htm\" ResolvedId=\"3068\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_about_lb\" Link=\"Topics/Access-Gateway/about-load-balancers.htm\" ResolvedId=\"3069\" />';
+xmlAliasData += '    <Map Name=\"oag_ext_trouble_shooting_guide\" Link=\"Topics/Access-Gateway/trouble-shooting-guide.htm\" ResolvedId=\"3071\" />';
+xmlAliasData += '    <Map Name=\"oag_ext_about_log_levels\" Link=\"Topics/Access-Gateway/about-log-levels.htm\" ResolvedId=\"3072\" />';
+xmlAliasData += '    <Map Name=\"ad_agent\" Link=\"Topics/Settings/end-user-quick-access-apps.htm\" ResolvedId=\"3073\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
