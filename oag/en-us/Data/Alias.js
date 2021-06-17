@@ -15,7 +15,7 @@ xmlAliasData += '    <Map Name=\"Device_Trust_Mobile\" Link=\"Topics/device-trus
 xmlAliasData += '    <Map Name=\"App_SignOn_Policies\" Link=\"Topics/Security/policies/about-app-signon-policies.htm\" ResolvedId=\"1011\" />';
 xmlAliasData += '    <Map Name=\"okta-android-installers\" Link=\"Topics/Mobile/Okta_Mobile_Obtaining_Okta_Android_Installers.htm\" ResolvedId=\"1012\" />';
 xmlAliasData += '    <Map Name=\"conf-desktop-sso\" Link=\"Topics/Directory/Configuring_Desktop_SSO.htm\" ResolvedId=\"1015\" />';
-xmlAliasData += '    <Map Name=\"ad-agent\" Link=\"Topics/Settings/end-user-quick-access-apps.htm\" ResolvedId=\"1016\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_basic_health_check\" Link=\"Topics/Access-Gateway/basic-health-check.htm\" ResolvedId=\"3070\" />';
 xmlAliasData += '    <Map Name=\"dt-win-desktop\" Link=\"Topics/Mobile/Okta_Mobile_Device_Trust_Windows-desktop.htm\" ResolvedId=\"1021\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-opp-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_OPP_Agent.htm\" ResolvedId=\"1026\" />';
 xmlAliasData += '    <Map Name=\"conf-desktop-sso-test-iwa\" Link=\"Topics/Directory/ad-iwa-test-agent.htm\" ResolvedId=\"1028\" />';
@@ -276,5 +276,11 @@ xmlAliasData += '    <Map Name=\"csh-okta-verify-number-challenge-v1\" Link=\"To
 xmlAliasData += '    <Map Name=\"csh-actionable-notifications\" Link=\"Topics/Mobile/okta-verify-sign-in.htm\" ResolvedId=\"1168\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-yubikey\" Link=\"Topics/Security/mfa/yubikey.htm\" ResolvedId=\"2016\" />';
 xmlAliasData += '    <Map Name=\"csh-admin-access-recent-apps\" Link=\"Topics/Settings/plugin-access-recent-apps.htm\" ResolvedId=\"7003\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_about_cap_planning\" Link=\"Topics/Access-Gateway/about-cap-planning.htm\" ResolvedId=\"3067\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_manage_deployment\" Link=\"Topics/Access-Gateway/manage-deployment.htm\" ResolvedId=\"3068\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_about_lb\" Link=\"Topics/Access-Gateway/about-load-balancers.htm\" ResolvedId=\"3069\" />';
+xmlAliasData += '    <Map Name=\"oag_ext_trouble_shooting_guide\" Link=\"Topics/Access-Gateway/trouble-shooting-guide.htm\" ResolvedId=\"3071\" />';
+xmlAliasData += '    <Map Name=\"oag_ext_about_log_levels\" Link=\"Topics/Access-Gateway/about-log-levels.htm\" ResolvedId=\"3072\" />';
+xmlAliasData += '    <Map Name=\"ad_agent\" Link=\"Topics/Settings/end-user-quick-access-apps.htm\" ResolvedId=\"3073\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);

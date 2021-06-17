@@ -371,6 +371,7 @@ xmlAliasData += '    <Map Name=\"ext-office365mail-method-getmessage\" Link=\"To
 xmlAliasData += '    <Map Name=\"ext-office365mail-method-replytoemail\" Link=\"Topics/Workflows/connector-reference/office365mail/actions/replytoemail.htm\" ResolvedId=\"30412\" />';
 xmlAliasData += '    <Map Name=\"ext-office365mail-method-sendemail2\" Link=\"Topics/Workflows/connector-reference/office365mail/actions/sendemail2.htm\" ResolvedId=\"30413\" />';
 xmlAliasData += '    <Map Name=\"ext-office365mail-method-newemail\" Link=\"Topics/Workflows/connector-reference/office365mail/events/newemail.htm\" ResolvedId=\"30414\" />';
+xmlAliasData += '    <Map Name=\"ext-office365mail-misc-authorization\" Link=\"Topics/Workflows/connector-reference/office365mail/overviews/authorization.htm\" ResolvedId=\"30415\" />';
 xmlAliasData += '    <Map Name=\"ext-okta\" Link=\"Topics/Workflows/connector-reference/okta/okta.htm\" ResolvedId=\"30416\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-activateuser\" Link=\"Topics/Workflows/connector-reference/okta/actions/activateuser.htm\" ResolvedId=\"30417\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-addnewusertogroup\" Link=\"Topics/Workflows/connector-reference/okta/actions/addnewusertogroup.htm\" ResolvedId=\"30418\" />';
@@ -917,5 +918,8 @@ xmlAliasData += '    <Map Name=\"ext-list-method-swap\" Link=\"Topics/Workflows/
 xmlAliasData += '    <Map Name=\"ext-object-method-collapse\" Link=\"Topics/Workflows/function-reference/Object/object_collapse.htm\" ResolvedId=\"1369\" />';
 xmlAliasData += '    <Map Name=\"ext-object-method-split\" Link=\"Topics/Workflows/function-reference/Object/object_split.htm\" ResolvedId=\"1370\" />';
 xmlAliasData += '    <Map Name=\"ext-list-method-mapobjects\" Link=\"Topics/Workflows/function-reference/List/list_mapobjects.htm\" ResolvedId=\"1371\" />';
+xmlAliasData += '    <Map Name=\"ext-googlecalendar-method-addusertocalendar\" Link=\"Topics/Workflows/connector-reference/googlecalendar/actions/addusertocalendar.htm\" ResolvedId=\"31051\" />';
+xmlAliasData += '    <Map Name=\"ext-googlecalendar-method-removeuserfromcalendar\" Link=\"Topics/Workflows/connector-reference/googlecalendar/actions/removeuserfromcalendar.htm\" ResolvedId=\"31052\" />';
+xmlAliasData += '    <Map Name=\"ext-googlecalendar-method-searchrooms\" Link=\"Topics/Workflows/connector-reference/googlecalendar/actions/searchrooms.htm\" ResolvedId=\"31056\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
