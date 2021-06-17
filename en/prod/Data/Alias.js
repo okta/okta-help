@@ -1579,6 +1579,9 @@ xmlAliasData += '    <Map Name=\"ext-list-method-swap\" Link=\"Topics/Workflows/
 xmlAliasData += '    <Map Name=\"ext-object-method-collapse\" Link=\"Topics/Workflows/function-reference/Object/object_collapse.htm\" ResolvedId=\"1369\" />';
 xmlAliasData += '    <Map Name=\"ext-object-method-split\" Link=\"Topics/Workflows/function-reference/Object/object_split.htm\" ResolvedId=\"1370\" />';
 xmlAliasData += '    <Map Name=\"ext-list-method-mapobjects\" Link=\"Topics/Workflows/function-reference/List/list_mapobjects.htm\" ResolvedId=\"1371\" />';
+xmlAliasData += '    <Map Name=\"ext-googlecalendar-method-addusertocalendar\" Link=\"Topics/Workflows/connector-reference/googlecalendar/actions/addusertocalendar.htm\" ResolvedId=\"31051\" />';
+xmlAliasData += '    <Map Name=\"ext-googlecalendar-method-removeuserfromcalendar\" Link=\"Topics/Workflows/connector-reference/googlecalendar/actions/removeuserfromcalendar.htm\" ResolvedId=\"31052\" />';
+xmlAliasData += '    <Map Name=\"ext-googlecalendar-method-searchrooms\" Link=\"Topics/Workflows/connector-reference/googlecalendar/actions/searchrooms.htm\" ResolvedId=\"31056\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-deploy-server\" Link=\"Topics/Adv_Server_Access/docs/sftd.htm\" ResolvedId=\"1374\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-create-project\" Link=\"Topics/Adv_Server_Access/docs/setup/create-a-project.htm\" ResolvedId=\"1375\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-groups\" Link=\"Topics/Adv_Server_Access/docs/setup/groups.htm\" ResolvedId=\"1376\" />';
