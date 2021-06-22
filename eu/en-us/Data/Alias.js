@@ -40,5 +40,6 @@ xmlAliasData += '    <Map Name=\"csh-ov-sign-in-push-ios\" Link=\"Topics/end-use
 xmlAliasData += '    <Map Name=\"csh-ov-user-trbl\" Link=\"Topics/end-user/ov-user-trbl.htm\" ResolvedId=\"4031\" />';
 xmlAliasData += '    <Map Name=\"csh-ov-ios-trbl\" Link=\"Topics/end-user/ov-ios-trbl.htm\" ResolvedId=\"4032\" />';
 xmlAliasData += '    <Map Name=\"csh-ov-sign-in-android\" Link=\"Topics/end-user/ov-sign-in-android.htm\" ResolvedId=\"4033\" />';
+xmlAliasData += '    <Map Name=\"csh-ov-setup-android\" Link=\"Topics/end-user/ov-setup-android.htm\" ResolvedId=\"4034\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
