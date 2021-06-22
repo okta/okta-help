@@ -695,6 +695,7 @@ xmlAliasData += '    <Map Name=\"ext-gmail-misc-transferofownership\" Link=\"Top
 xmlAliasData += '    <Map Name=\"ext-gmail-method-updateusergmailsettings\" Link=\"Topics/Workflows/connector-reference/gmail/actions/updateusergmailsettings.htm\" ResolvedId=\"30176\" />';
 xmlAliasData += '    <Map Name=\"ext-gmail-method-labeladdedorremoved\" Link=\"Topics/Workflows/connector-reference/gmail/events/labeladdedorremoved.htm\" ResolvedId=\"30177\" />';
 xmlAliasData += '    <Map Name=\"ext-gmail-method-newemail\" Link=\"Topics/Workflows/connector-reference/gmail/events/newemail.htm\" ResolvedId=\"30178\" />';
+xmlAliasData += '    <Map Name=\"ext-gmail-misc-authorization\" Link=\"Topics/Workflows/connector-reference/gmail/overviews/authorization.htm\" ResolvedId=\"30179\" />';
 xmlAliasData += '    <Map Name=\"ext-googlecalendar\" Link=\"Topics/Workflows/connector-reference/googlecalendar/googlecalendar.htm\" ResolvedId=\"30181\" />';
 xmlAliasData += '    <Map Name=\"ext-googlecalendar-method-createnewevent\" Link=\"Topics/Workflows/connector-reference/googlecalendar/actions/createnewevent.htm\" ResolvedId=\"30183\" />';
 xmlAliasData += '    <Map Name=\"ext-googlecalendar-method-createreminder\" Link=\"Topics/Workflows/connector-reference/googlecalendar/actions/createreminder.htm\" ResolvedId=\"30184\" />';
@@ -1054,7 +1055,6 @@ xmlAliasData += '    <Map Name=\"ext-slack-method-respondtocommanddelayed\" Link
 xmlAliasData += '    <Map Name=\"ext-slack-method-searchchannels\" Link=\"Topics/Workflows/connector-reference/slack/actions/searchchannels.htm\" ResolvedId=\"30602\" />';
 xmlAliasData += '    <Map Name=\"ext-slack-method-senddirectmessage2\" Link=\"Topics/Workflows/connector-reference/slack/actions/senddirectmessage2.htm\" ResolvedId=\"30604\" />';
 xmlAliasData += '    <Map Name=\"ext-slack-method-sendmessagetochannel2\" Link=\"Topics/Workflows/connector-reference/slack/actions/sendmessagetochannel2.htm\" ResolvedId=\"30606\" />';
-xmlAliasData += '    <Map Name=\"ext-slack-method-sendslackbotmessage\" Link=\"Topics/Workflows/connector-reference/slack/actions/sendslackbotmessage.htm\" ResolvedId=\"30607\" />';
 xmlAliasData += '    <Map Name=\"ext-slack-method-botevent\" Link=\"Topics/Workflows/connector-reference/slack/events/botevent.htm\" ResolvedId=\"30608\" />';
 xmlAliasData += '    <Map Name=\"ext-slack-method-newmessageinchannel\" Link=\"Topics/Workflows/connector-reference/slack/events/newmessageinchannel.htm\" ResolvedId=\"30609\" />';
 xmlAliasData += '    <Map Name=\"ext-slack-method-newmessageinprivatechannel\" Link=\"Topics/Workflows/connector-reference/slack/events/newmessageinprivatechannel.htm\" ResolvedId=\"30610\" />';
@@ -1594,5 +1594,6 @@ xmlAliasData += '    <Map Name=\"ext_oag_about_lb\" Link=\"Topics/Access-Gateway
 xmlAliasData += '    <Map Name=\"oag_ext_trouble_shooting_guide\" Link=\"Topics/Access-Gateway/trouble-shooting-guide.htm\" ResolvedId=\"3071\" />';
 xmlAliasData += '    <Map Name=\"oag_ext_about_log_levels\" Link=\"Topics/Access-Gateway/about-log-levels.htm\" ResolvedId=\"3072\" />';
 xmlAliasData += '    <Map Name=\"ad_agent\" Link=\"Topics/Settings/end-user-quick-access-apps.htm\" ResolvedId=\"3073\" />';
+xmlAliasData += '    <Map Name=\"ext-asa-enroll-server\" Link=\"Topics/Adv_Server_Access/docs/setup/enrolling-a-server.htm\" ResolvedId=\"1391\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
