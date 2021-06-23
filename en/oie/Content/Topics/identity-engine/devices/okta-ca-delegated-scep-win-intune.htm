@@ -297,89 +297,93 @@
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
                                                     <h1>Configure Okta as a Certificate Authority for Windows using Intune</h1>
-                                                    <p>Configuring  a Certificate Authority (CA) allows you to issue client certificates to your targeted Windows devices. This topic describes how to create a SCEP&#160;profile in Microsoft&#160;Intune  and generate a SCEP&#160;URL in Okta.</p>
-                                                    <p>&#160;</p>
                                                     <div class="noteOkta">
                                                         <img src="../../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Note" alt="Note" />
-                                                        <p class="noteContent">To configure a static SCEP challenge type for Windows using <span class="mc-variable Mobile.WS1 variable">Workspace ONE</span>, see <a href="okta-ca-static-scep-win-ws1.htm" class="MCXref xref">Configure Okta as a Certificate Authority for Windows using Workspace ONE</a></p>
+                                                        <p class="noteContent">See <a href="okta-ca-static-scep-win-ws1.htm" class="MCXref xref">Configure Okta as a Certificate Authority for Windows using Workspace ONE</a>, for how to configure a static SCEP challenge type for Windows using <span class="mc-variable Mobile.WS1 variable">Workspace ONE</span>.</p>
                                                     </div>
-                                                    <p>&#160;</p>
-                                                    <h2>Before you begin<![CDATA[        ]]></h2>
+                                                    <p>Configure  a Certificate Authority (CA) to issue client certificates to your targeted Windows devices. This procedure describes how to create a Simple Certificate Enrollment Protocol (SCEP)&#160;profile in Microsoft&#160;Intune  and generate a SCEP&#160;URL in Okta.</p>
+                                                    <h2>Prerequisites<![CDATA[        ]]></h2>
                                                     <ul>
-                                                        <li>Okta tested this configuration using AD CS and NDES integrated with Microsoft Intune</li>
-                                                        <li>Deploy certificates for digital signature and but not for other purposes, such as encryption</li>
-                                                    </ul>
-                                                    <p>Make sure you have access to the following:</p>
-                                                    <ul>
+                                                        <li>Certificates deployed for digital signature, but not for other purposes (for example, encryption)</li>
                                                         <li>Okta Admin Console</li>
                                                         <li>Microsoft Endpoint Configuration Manager Admin Center (MECM, formerly SCCM)</li>
                                                         <li>Microsoft Azure</li>
                                                     </ul>
-                                                    <h2>Start this procedure</h2>
+                                                    <h2>Start this Procedure</h2>
+                                                    <div class="noteOkta">
+                                                        <img src="../../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Note" alt="Note" />
+                                                        <p class="noteContent">Okta tested this configuration using Microsoft Active Directory Certificate Services (AD CS) and Network Device Enrollment Service (NDES) integrated with Microsoft Intune</p>
+                                                    </div>
                                                     <ul>
-                                                        <li><a href="#Task" class="MCXref xref">Task 1: In Okta, download the x509 certificate</a>
+                                                        <li><a href="#Task" class="MCXref xref">Task 1:&#160;Download the x509 certificate in Okta</a>
                                                         </li>
-                                                        <li><a href="#Task2" class="MCXref xref">Task 2: In MECM, create a Trusted Certificate profile</a>
+                                                        <li><a href="#Task2" class="MCXref xref">Task 2:&#160;Create a Trusted Certificate profile in MECM</a>
                                                         </li>
-                                                        <li><a href="#Task4" class="MCXref xref">Task 3: In Microsoft Azure, register AAD app credentials for Okta</a>
+                                                        <li><a href="#Task4" class="MCXref xref">Task 3:&#160;Register AAD app credentials for Okta in Microsoft Azure</a>
                                                         </li>
-                                                        <li><a href="#Task3" class="MCXref xref">Task 4: In Okta, configure management attestation and generate a SCEP URL</a>
+                                                        <li><a href="#Task3" class="MCXref xref">Task 4:&#160;Configure management attestation and generate a SCEP URL in Okta</a>
                                                         </li>
-                                                        <li><a href="#Task5" class="MCXref xref">Task 5: In MECM, create a SCEP profile</a>
+                                                        <li><a href="#Task5" class="MCXref xref">Task 5:&#160;Create a SCEP profile in MECM</a>
                                                         </li>
-                                                        <li><a href="#Task6" class="MCXref xref">Task 6: On a Windows computer, verify the certificate installation</a>
-                                                            <br />
+                                                        <li><a href="#Task6" class="MCXref xref">Task 6:&#160;Verify the certificate installation on a Windows computer</a>
                                                         </li>
                                                     </ul>
-                                                    <h3><a name="Task"></a>Task 1: In Okta, download the x509 certificate</h3>
+                                                    <h3><a name="Task"></a>Task 1:&#160;Download the x509 certificate in <span class="mc-variable okta-variables.ProductName variable">Okta</span></h3>
                                                     <ol>
                                                         <li value="1">In the <span class="mc-variable okta-feature-names.Administrator_dashboard variable">Admin Console</span>, go to <b>Security</b> &gt; <b> Device Management</b>.</li>
                                                         <li value="2">Click the <b>Certificate Authority</b> tab.</li>
-                                                        <li value="3">Click the Download icon for Okta CA in the <b>Action</b> column to download the x509 certificate. You will upload the certificate to Microsoft Endpoint Configuration Manager (MECM) in <a href="#Task2">Task 2</a>.</li>
+                                                        <li value="3">In the <b>Actions</b> column, click the <b>Download x509 certificate</b> icon.<br />You will upload the certificate to Microsoft Endpoint Configuration Manager (MECM) in <a href="#Task2"><a href="#Task2" class="MCXref xref">Task 2:&#160;Create a Trusted Certificate profile in MECM</a></a>.</li>
                                                     </ol>
-                                                    <h3><a name="Task2"></a>Task 2: In MECM, create a Trusted Certificate profile</h3>
+                                                    <h3><a name="Task2"></a>Task 2:&#160;Create a Trusted Certificate profile in MECM</h3>
                                                     <ol>
                                                         <li value="1">In Microsoft Endpoint Configuration Manager, go to <b>Devices</b>.</li>
                                                         <li value="2">Click <b>Configuration profiles</b>.</li>
                                                         <li value="3">Click <b>+ Create profile</b>.</li>
                                                         <li value="4">In <b>Create a profile</b>, select:<ol style="list-style-type: lower-alpha;"><li value="1"><b>Platform:</b> Windows 10 and later</li><li value="2"><b>Profile:</b> Trusted certificate</li><li value="3">Click <b>Create</b>.</li></ol></li>
-                                                        <li value="5">In the Trusted certificate wizard:<ol style="list-style-type: lower-alpha;"><li value="1">Enter a name and (optionally) a description.</li><li value="2">Click <b>Next</b>.</li><li value="3">Select the x509 certificate that you downloaded from Okta in <a href="#Task">Task 1</a>.</li><li value="4">In <b>Destination store</b>, select <b>Computer certificate store - Intermediate</b>.</li><li value="5">Click <b>Next</b>.</li><li value="6">Assign the Trusted certificate profile to one or more user groups. The user group(s) must be the same to which you assign the <b>SCEP profile</b> in <a href="#Task5">Task 5</a></li><div class="noteOkta"><img src="../../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Note" alt="Note" /><p class="noteContent">Make sure the user group(s) specified in both profiles are the same.</p></div><li value="7">Click <b>Next</b>.</li><li value="8">Set Applicability Rules.</li><li value="9">Click <b>Next</b>.</li><li value="10">Review the configuration, and then click <b>Create</b>.</li></ol></li>
+                                                        <li value="5">In the Trusted certificate wizard:<ol style="list-style-type: lower-alpha;"><li value="1">Enter a name and (optionally) a description.</li><li value="2">Click <b>Next</b>.</li><li value="3">Select the x509 certificate that you downloaded from Okta in <a href="#Task"><a href="#Task" class="MCXref xref">Task 1:&#160;Download the x509 certificate in Okta</a></a>.</li><li value="4">In <b>Destination store</b>, select <b>Computer certificate store - Intermediate</b>.</li><li value="5">Click <b>Next</b>.</li><li value="6">Assign the trusted certificate profile to one or more user groups. The user group(s) must be the same as the group(s) you will assign the <b>SCEP profile</b> to in <a href="#Task5" class="MCXref xref">Task 5:&#160;Create a SCEP profile in MECM</a>.</li><div class="noteOkta"><img src="../../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Note" alt="Note" /><p class="noteContent">Make sure the user group(s) specified in both profiles are the same.</p></div><li value="7">Click <b>Next</b>.</li><li value="8">Set Applicability Rules.</li><li value="9">Click <b>Next</b>.</li><li value="10">Review the configuration, and then click <b>Create</b>.</li></ol></li>
                                                     </ol>
-                                                    <h3><a name="Task4"></a>Task 3: In Microsoft Azure, register AAD app credentials for <span class="mc-variable okta-variables.ProductName variable">Okta</span></h3>
+                                                    <h3><a name="Task4"></a>Task 3:&#160;Register AAD app credentials for <span class="mc-variable okta-variables.ProductName variable">Okta</span> in Microsoft Azure</h3>
                                                     <ol>
                                                         <li value="1">In Microsoft Azure, go to <b>App registrations</b>.</li>
                                                         <li value="2">Click <b>New registration</b>.</li>
                                                         <li value="3">Enter a user-facing display name for <span class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span>.</li>
                                                         <li value="4">In <b>Supported account types</b>, select <b>Accounts in this organizational directory only (Okta only - Single tenant)</b>.</li>
                                                         <li value="5">Click <b>Register</b>.</li>
-                                                        <li value="6">In the app page under Essentials, copy and make a note of the following values. You will paste these values in the Okta Admin Console in <a href="#Task3">Task 4</a>.<ul><li>Application (client) ID</li><li>Directory (tenant) ID</li><li>Object ID</li></ul></li>
+                                                        <li value="6">In the <b>app</b> page under <b>Essentials</b>, copy and make a note of the <b>Application (client) ID</b>. <br />You will paste this value in the Okta Admin Console in <a href="#Task3" class="MCXref xref">Task 4:&#160;Configure management attestation and generate a SCEP URL in Okta</a>.</li>
                                                         <li value="7">Add a client secret:<ol style="list-style-type: lower-alpha;"><li value="1">In the left pane, click <b>Certificates &amp; secrets</b>.</li><li value="2">Under <b>Client secrets</b>, click <b>+ New client secret</b>.</li><li value="3">In <b>Add a client secret</b>:<ul><li>Add a Description (optional).</li><li>Specify an expiration period.</li></ul></li><li value="4">Click <b>Add</b>.The secret appears under <b>Client secrets</b>.</li><li value="5">In the <b>Client secrets</b> section, copy and make a note of the <b>Value</b>.</li></ol></li>
                                                         <li value="8">Set API permissions:<ol style="list-style-type: lower-alpha;"><li value="1">In the left pane, click <b>API permissions</b>.</li><li value="2">Click  <b>+ Add a permission</b>.</li><li value="3">In <b>Request API permissions</b> scroll down and click the <b>Intune</b> tile.</li><li value="4">Under <b>What type of permissions does your application require?</b> click <b>Application permissions</b>.</li><li value="5">In the <b>Select permissions</b> search field, search for scep, and then select <b>scep_challenge_provider</b> in the search results.</li><li value="6">Click <b>Add permissions</b>.</li><li value="7">In the <b>Configured permissions</b> section, click <b>Grant admin consent for Okta</b> and then click <b>Yes</b> in the message that appears.</li><li value="8">Click <b>scep_challenge_provider permissions</b>.</li><li value="9">Close the left pane.</li></ol></li>
                                                     </ol>
-                                                    <h3><a name="Task3"></a>Task 4: In Okta, configure management attestation and generate a SCEP URL</h3>
+                                                    <h3><a name="Task3"></a>Task 4:&#160;Configure management attestation and generate a SCEP URL in Okta</h3>
                                                     <ol>
-                                                        <li value="1">In the <span class="mc-variable okta-feature-names.Administrator_dashboard variable">Admin Console</span>, go to <b>Security</b> &gt;<b>Device Management</b>.</li>
-                                                        <li value="2">Click the <b>Device Managemen</b>t tab.</li>
+                                                        <li value="1">In the <span class="mc-variable okta-feature-names.Administrator_dashboard variable">Admin Console</span>, go to <b>Security</b> &gt;<b> Device Management</b>.</li>
+                                                        <li value="2">Click the <b>Device Management</b> tab.</li>
                                                         <li value="3">Click <b>Add Platform</b>.
 			<div class="noteOkta"><img src="../../../Resources/Images/assets/Icons/Notes/Help2.png" class="noteImgFloat" title="Note" alt="Note" /><p class="noteContent">If you add more than one configuration for the same type of platform, see this <a href="known-issues.htm#remediation-message">Known Issue</a>.</p></div></li>
                                                         <li value="4">In <b>Select platform</b>, select <b>Desktop (Windows and macOS only)</b>.</li>
                                                         <li value="5">Click <b>Next</b>.</li>
-                                                        <li value="6">In Configure management attestation:<ol style="list-style-type: lower-alpha;"><li value="1"><b>Certificate authority:</b> Select Use Okta as certificate authority</li><li value="2"><b>SCEP URL challenge type:</b> Select <b>Delegated SCEP URL (Microsoft Intune only)</b>.</li><li value="3">In the following fields, enter the values that you copied from Microsoft Azure in <a href="#Task4">Task 3</a>:<ul><li>AAD client ID</li><li>AAD tenant</li><li>AAD secret</li></ul></li><li value="4">Generate, copy, and make a note of the Okta SCEP URL. You will paste the URL in Microsoft Endpoint Configuration Manager in <a href="#Task5">Task 5</a>.<div class="noteOkta"><img src="../../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Important Note" alt="Important Note" /><p class="noteContent">Important: Make sure to make a note of the SCEP URL as this is the only time it will appear in Okta.</p></div></li></ol></li>
+                                                        <li value="6">In Configure management attestation, configure the following:
+					<ol style="list-style-type: lower-alpha;"><li value="1"><b>Certificate authority:</b> Select Use Okta as certificate authority</li><li value="2"><b>SCEP URL challenge type:</b> Select <b>Delegated SCEP URL (Microsoft Intune only)</b>.</li><li value="3">Enter the values that you copied from Microsoft Azure into the following fields:
+							<ul><li>AAD client ID 
+							<br />Use the value you copied from step 6 of <a href="#Task4" class="MCXref xref">Task 3:&#160;Register AAD app credentials for Okta in Microsoft Azure</a></li><li>AAD tenant 
+							<br />Enter your AAD tenant name followed by <b>.onMicrosoft.com</b>.</li><li>AAD secret
+						<br />Use the value you copied from step 7e of <a href="#Task4" class="MCXref xref">Task 3:&#160;Register AAD app credentials for Okta in Microsoft Azure</a></li></ul></li><p>For example:</p><p><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../../Resources/Images/admin-console_security-devman_addplatform.png" data-mc-popup-alt="The screenshot provides an example of the management attestation."><img class="MCPopupThumbnail img imgthumbnail" data-mc-width="718" data-mc-height="319" src="../../../Resources/Images/admin-console_security-devman_addplatform_thumb_220_220.png" alt="The screenshot provides an example of the management attestation." title="The screenshot provides an example of the management attestation." tabindex="" /></a></p><li value="4">Generate, copy, and take note of the Okta SCEP URL. 
+				<br />You will paste the URL in Microsoft Endpoint Configuration Manager in <a href="#Task5"><a href="#Task5" class="MCXref xref">Task 5:&#160;Create a SCEP profile in MECM</a></a>.
+				<div class="noteOkta"><img src="../../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Important Note" alt="Important Note" /><p class="noteContent">Take note of the SCEP URL. This is the only time it will appear in Okta.</p></div></li></ol></li>
                                                     </ol>
-                                                    <h3><a name="Task5"></a>Task 5: In MECM, create a SCEP profile</h3>
+                                                    <h3><a name="Task5"></a>Task 5:&#160;Create a SCEP profile in MECM</h3>
                                                     <ol>
                                                         <li value="1">In Microsoft Endpoint Configuration Manager, go to <b>Devices</b>.</li>
                                                         <li value="2">Click <b>Configuration profiles</b>.</li>
                                                         <li value="3">Click <b>+ Create profile</b>.</li>
                                                         <li value="4">In <b>Create a profile</b>:<ol style="list-style-type: lower-alpha;"><li value="1"><b>Platform:</b> Windows 10 and later</li><li value="2"><b>Profile:</b> SCEP certificate</li><li value="3">Click <b>Create</b>.</li></ol></li>
                                                         <li value="5">In the SCEP certificate wizard enter a name and (optionally) a description.</li>
-                                                        <li value="6">Click <b>Next</b> and configure settings:<ol style="list-style-type: lower-alpha;"><li value="1"><b>Certificate type:</b> User</li><li value="2"><b>Subject name format </b>(recommended; other formats will also work): CN={{UserPrincipalName}} ManagementAttestation {{AAD_Device_ID}}</li><li value="3"><b>Key storage provider:</b> Enroll to Trusted Platform Module (TPM) KSP&#160;if present, otherwise Software KSP</li><li value="4"><b>Key usage:</b> Digital signature</li><li value="5"><b>Key length:</b> 2048</li><li value="6"><b>Hash algorithm:</b> Select SHA-2</li></ol></li>
+                                                        <li value="6">Click <b>Next</b> and configure the following settings:<ul><li><b>Certificate type:</b> User</li><li><b>Subject name format </b>(recommended; other formats will also work): CN={{UserPrincipalName}} ManagementAttestation {{AAD_Device_ID}}</li><li><b>Key storage provider:</b> Enroll to Trusted Platform Module (TPM) KSP&#160;if present, otherwise Software KSP</li><li><b>Key usage:</b> Digital signature</li><li><b>Key length:</b> 2048</li><li><b>Hash algorithm:</b> Select SHA-2</li></ul></li>
                                                         <li value="7">Click <b>+ Root Certificate</b>.</li>
-                                                        <li value="8">In the <b>Root Certificate</b> pane, select the trusted certificate that you created earlier in <a href="#Task2">Task 2</a>, and then click <b>OK</b>.</li>
+                                                        <li value="8">In the <b>Root Certificate</b> pane, select the trusted certificate that you created earlier in <a href="#Task2"><a href="#Task2" class="MCXref xref">Task 2:&#160;Create a Trusted Certificate profile in MECM</a></a>, and then click <b>OK</b>.</li>
                                                         <li value="9">Under <b>Extended key usage</b>, set <b>Predefined value</b>s to <b>Client Authentication</b>.</li>
-                                                        <li value="10">Copy the SCEP URL you generated in <a href="#Task3">Task 4</a> and paste it in the SCEP Server URLs field.</li>
+                                                        <li value="10">Copy the SCEP URL you generated in <a href="#Task3"><a href="#Task3" class="MCXref xref">Task 4:&#160;Configure management attestation and generate a SCEP URL in Okta</a></a> and paste it in the SCEP Server URLs field.</li>
                                                         <li value="11">Click <b>Next</b>.</li>
-                                                        <li value="12">Assign the SCEP certificate to the same user group(s) to which you assigned the <b>Trusted certificate profile</b> in <a href="#Task2">Task 2</a>.</li>
+                                                        <li value="12">Assign the SCEP certificate to the same user group(s) to which you assigned the <b>Trusted certificate profile</b> in <a href="#Task2"><a href="#Task2" class="MCXref xref">Task 2:&#160;Create a Trusted Certificate profile in MECM</a></a>.</li>
                                                         <div class="noteOkta">
                                                             <img src="../../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Note" alt="Note" />
                                                             <p class="noteContent">Make sure the user group(s) specified in both profiles are the same.</p>
@@ -389,30 +393,38 @@
                                                         <li value="15">Click <b>Next</b>.</li>
                                                         <li value="16">Review the configuration, and then click <b>Create</b>.</li>
                                                     </ol>
-                                                    <h3><a name="Task6"></a>Task 6: On a Windows computer, verify the certificate installation</h3>
-                                                    <h4>Verify client certificate installation</h4>
+                                                    <h3><a name="Task6"></a>Task 6:&#160;Verify the certificate installation on a Windows computer</h3>
                                                     <ol>
-                                                        <li value="1">On the Windows computer, click <b>Start</b> and type <b>cert</b> and then click <b>Manage user certificates</b>.</li>
-                                                        <li value="2">Look in <b>Personal &gt; Certificates</b>.</li>
-                                                    </ol>
-                                                    <h4>Verify Certificate Authority</h4>
-                                                    <ol>
-                                                        <li value="1">On the Windows computer, click <b>Start</b> and type <b>cert</b> and then click <b>Manage user certificates</b>.</li>
-                                                        <li value="2">Look in <b>Intermediate Certificate Authority &gt; Certificates</b>.</li>
-                                                        <li value="3">In <b>Issued To</b>, find and double click on Organization Intermediate Authority.</li>
-                                                        <li value="4">See Issuer: Organization Root Authority.</li>
-                                                    </ol>
-                                                    <p>If you don't find the certificate, check logs as described in <a href="#Verify" class="MCXref xref">Verify successful SCEP certificate installation and flow</a>.</p>
-                                                    <h4><a name="Verify"></a>Verify successful SCEP certificate installation and flow</h4>
-                                                    <ol>
-                                                        <li value="1">On the Windows computer, click <b>Start</b> and type Event and then click <b>Event Viewer</b>.</li>
-                                                        <li value="2">Look in <b>Applications and Service Logs &gt; Microsoft &gt; Windows &gt; DeviceManagement-Enterprise &gt; Admin</b>.</li>
-                                                        <li value="3">In the <b>General</b> tab, find:<ul><li><b>SCEP: Certificate installed successfully</b>.</li><li><b>SCEP: Certificate request generated successfully</b></li></ul></li>
+                                                        <li value="1">Verify the client certificate installation:</li>
+                                                        <ol style="list-style-type: lower-alpha;">
+                                                            <li value="1">On the Windows computer, click <b>Start</b> and type <b>cert</b> and then click <b>Manage user certificates</b>.</li>
+                                                            <li value="2">Look in <b>Personal &gt; Certificates</b>.</li>
+                                                        </ol>
+                                                        <li value="2">
+                                                            <p>Verify the Certificate Authority:</p>
+                                                        </li>
+                                                        <ol style="list-style-type: lower-alpha;">
+                                                            <li value="1">On the Windows computer, click <b>Start</b> and type <b>cert</b> and then click <b>Manage user certificates</b>.</li>
+                                                            <li value="2">Look in <b>Intermediate Certificate Authority </b>&gt;<b> Certificates</b>.</li>
+                                                            <li value="3">In <b>Issued To</b>, find and double-click <b>Organization Intermediate Authority</b>.</li>
+                                                            <li value="4">See Issuer: Organization Root Authority.</li>
+                                                        </ol>
+                                                        <p>If you don't find the certificate, check the logs as described in <a href="#Verify" class="MCXref xref">Verify successful SCEP certificate installation and flow:</a>.</p>
+                                                        <li value="3">
+                                                            <p><a name="Verify"></a>Verify successful SCEP certificate installation and flow:</p>
+                                                        </li>
+                                                        <ol style="list-style-type: lower-alpha;">
+                                                            <li value="1">On the Windows computer, click <b>Start</b>, type <b>Event</b>, and then click <b>Event Viewer</b>.</li>
+                                                            <li value="2">Look in <b>Applications and Service Logs </b>&gt;<b> Microsof</b>t &gt;<b> Window</b>s &gt;<b> DeviceManagement-Enterprise </b>&gt;<b> Admin</b>.</li>
+                                                            <li value="3">In the <b>General</b> tab, find:<ul><li><b>SCEP: Certificate installed successfully</b>.</li><li><b>SCEP: Certificate request generated successfully</b></li></ul></li>
+                                                        </ol>
                                                     </ol>
                                                     <h2><span>Next step </span>
                                                     </h2>
-                                                    <p><a href="add-app-signon-policy-desktop.htm" class="MCXref xref">Add an app sign on policy rule</a>
-                                                    </p>
+                                                    <ul>
+                                                        <li><a href="add-app-signon-policy-desktop.htm" class="MCXref xref">Add an app sign on policy rule</a>
+                                                        </li>
+                                                    </ul>
                                                 </div>
                                                 <!-- Back to Top button --><a href="#" class="sf-back-to-top"><span class="arrow"></span>Top</a>
                                             </div>
