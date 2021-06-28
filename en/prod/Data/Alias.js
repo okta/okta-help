@@ -1595,5 +1595,7 @@ xmlAliasData += '    <Map Name=\"oag_ext_trouble_shooting_guide\" Link=\"Topics/
 xmlAliasData += '    <Map Name=\"oag_ext_about_log_levels\" Link=\"Topics/Access-Gateway/about-log-levels.htm\" ResolvedId=\"3072\" />';
 xmlAliasData += '    <Map Name=\"ad_agent\" Link=\"Topics/Settings/end-user-quick-access-apps.htm\" ResolvedId=\"3073\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-enroll-server\" Link=\"Topics/Adv_Server_Access/docs/setup/enrolling-a-server.htm\" ResolvedId=\"1391\" />';
+xmlAliasData += '    <Map Name=\"ext-smartrecruiters-misc-authorization\" Link=\"Topics/Workflows/connector-reference/smartrecruiters/overviews/authorization.htm\" ResolvedId=\"11003\" />';
+xmlAliasData += '    <Map Name=\"ext-duosecurityadmin-misc-authorization\" Link=\"Topics/Workflows/connector-reference/duosecurityadmin/overviews/authorization.htm\" ResolvedId=\"11004\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
