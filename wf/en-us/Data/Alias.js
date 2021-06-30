@@ -968,5 +968,7 @@ xmlAliasData += '    <Map Name=\"ext-list-method-mapobjects\" Link=\"Topics/Work
 xmlAliasData += '    <Map Name=\"ext-googlecalendar-method-addusertocalendar\" Link=\"Topics/Workflows/connector-reference/googlecalendar/actions/addusertocalendar.htm\" ResolvedId=\"31051\" />';
 xmlAliasData += '    <Map Name=\"ext-googlecalendar-method-removeuserfromcalendar\" Link=\"Topics/Workflows/connector-reference/googlecalendar/actions/removeuserfromcalendar.htm\" ResolvedId=\"31052\" />';
 xmlAliasData += '    <Map Name=\"ext-googlecalendar-method-searchrooms\" Link=\"Topics/Workflows/connector-reference/googlecalendar/actions/searchrooms.htm\" ResolvedId=\"31056\" />';
+xmlAliasData += '    <Map Name=\"ext-smartrecruiters-misc-authorization\" Link=\"Topics/Workflows/connector-reference/smartrecruiters/overviews/authorization.htm\" ResolvedId=\"11003\" />';
+xmlAliasData += '    <Map Name=\"ext-duosecurityadmin-misc-authorization\" Link=\"Topics/Workflows/connector-reference/duosecurityadmin/overviews/authorization.htm\" ResolvedId=\"11004\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
