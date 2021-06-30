@@ -198,5 +198,6 @@ xmlAliasData += '    <Map Name=\"ext-passwordless-auth\" Link=\"Topics/identity-
 xmlAliasData += '    <Map Name=\"ext-create-mfa-policy\" Link=\"Topics/identity-engine/policies/create-mfa-policy.htm\" ResolvedId=\"1381\" />';
 xmlAliasData += '    <Map Name=\"ext-about-osop\" Link=\"Topics/identity-engine/policies/about-okta-sign-on-policies.htm\" ResolvedId=\"1382\" />';
 xmlAliasData += '    <Map Name=\"csh-asop-sq\" Link=\"Topics/identity-engine/policies/add-app-sign-on-policy-rule.htm#sq-asop\" ResolvedId=\"18000\" />';
+xmlAliasData += '    <Map Name=\"ext-oie-policies\" Link=\"Topics/identity-engine/policies/about-policies.htm\" ResolvedId=\"1393\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
