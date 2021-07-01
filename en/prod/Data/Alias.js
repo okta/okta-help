@@ -326,7 +326,6 @@ xmlAliasData += '    <Map Name=\"ext-o365-main\" Link=\"Topics/Apps/Office365/o3
 xmlAliasData += '    <Map Name=\"ext-add-o365\" Link=\"Topics/Apps/Office365-Deployment/add-o365.htm\" ResolvedId=\"1144\" />';
 xmlAliasData += '    <Map Name=\"ext_Admin_Assignment\" Link=\"Topics/Security/administrators-assign-admins.htm\" ResolvedId=\"1145\" />';
 xmlAliasData += '    <Map Name=\"ext_MFA_U2F\" Link=\"Topics/Security/mfa/u2f-security-key.htm\" ResolvedId=\"1146\" />';
-xmlAliasData += '    <Map Name=\"ext_Configure_App_Approval\" Link=\"Topics/Apps/Access_Request_Workflow.htm#ConfigureAppApproval\" ResolvedId=\"1147\" />';
 xmlAliasData += '    <Map Name=\"ext_Device_Trust_MacOS\" Link=\"Topics/Mobile/Okta_Device_Trust_Jamf_macOS_Devices.htm\" ResolvedId=\"1148\" />';
 xmlAliasData += '    <Map Name=\"ext_Create_Group_Rules\" Link=\"Topics/users-groups-profiles/usgp-about-group-rules.htm\" ResolvedId=\"1149\" />';
 xmlAliasData += '    <Map Name=\"ext_Location_Zones\" Link=\"Topics/Security/Security_Network.htm\" ResolvedId=\"1151\" />';
@@ -1597,5 +1596,6 @@ xmlAliasData += '    <Map Name=\"ad_agent\" Link=\"Topics/Settings/end-user-quic
 xmlAliasData += '    <Map Name=\"ext-asa-enroll-server\" Link=\"Topics/Adv_Server_Access/docs/setup/enrolling-a-server.htm\" ResolvedId=\"1391\" />';
 xmlAliasData += '    <Map Name=\"ext-smartrecruiters-misc-authorization\" Link=\"Topics/Workflows/connector-reference/smartrecruiters/overviews/authorization.htm\" ResolvedId=\"11003\" />';
 xmlAliasData += '    <Map Name=\"ext-duosecurityadmin-misc-authorization\" Link=\"Topics/Workflows/connector-reference/duosecurityadmin/overviews/authorization.htm\" ResolvedId=\"11004\" />';
+xmlAliasData += '    <Map Name=\"csh-o365-deploy\" Link=\"Topics/Apps/Office365-Deployment/deploy-main.htm\" ResolvedId=\"1392\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
