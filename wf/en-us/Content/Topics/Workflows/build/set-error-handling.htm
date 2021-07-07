@@ -50,6 +50,7 @@
 }
 
 </style>
+        <link href="../../../Resources/TableStyles/standard-no-header.css" rel="stylesheet" data-mc-stylesheet-type="table" />
         <script src="../../../../Resources/Scripts/jquery.min.js" type="text/javascript">
         </script>
         <script src="../../../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
@@ -302,12 +303,52 @@
                                                     <div data-content-id="hoc-main-content">
                                                         <h1>Set error handling for cards in Flows</h1>
                                                         <p>You can set values for error handling on most cards in Workflows.</p>
+                                                        <div class="note_cautionOkta">
+                                                            <img src="../../../Resources/Images/assets/Icons/Notes/Alert.png" class="noteImgFloat" title="Caution" alt="Caution" />
+                                                            <p class="noteContent">Retries for cards in Flows only take place as a result of <code>HTTP 429 Too Many Requests</code> errors. You will not be able to set error handling for other HTTP errors.</p>
+                                                        </div>
                                                         <ol>
                                                             <li value="1">Click the <b>Other options</b> gear icon on a card and select <b>Error handling</b>.</li>
                                                             <li value="2">In the <b>Retry</b> dropdown, select a value for the number of times to re-execute a card if an error occurs. The default is <code>0 times</code>.</li>
                                                             <li value="3">In the <b>After</b> dropdown, select a value for the amount of time that the card will pause between retries. You may need to select a period of several minutes if a card produces an error often because an application is unavailable and more time is needed to ensure you can resume the Flow without further interruption. The default is <code>1 minute</code>.</li>
                                                             <li value="4">In the <b>Then</b> dropdown, select an option for what the card must do if it fails to execute. The options are <code>Halt Flow</code>, <code>Return Values</code>, or <code>Run another Flow</code>.<ul><li>Halt Flow: Stop the Flow with an error.</li><li>Return Values: Stop the Flow with an error but send a custom message to the caller (if any when it's part of an API Endpoint Flow ). You can add fields or custom fields and enter values or drag and drop outputs from earlier stages in the Flow.</li><li>Run another Flow: Stop the Flow with an error, but run a child Flow. If your child Flow accepts inputs, call a Flow by clicking <b>Choose Flow</b> and selecting a child flow from the <b>Select flow</b> dialog. The Flow that's called will be able to get the error details using the <b>Error</b> output field on the child Flow card. See <a href="../learn/about-scheduled-child-flows.htm" class="MCXref xref">About scheduled and child Flows</a>.</li></ul></li>
                                                         </ol>
+                                                        <h2>Exceptions to automatic retries</h2>
+                                                        <p>There are cases when HTTP status codes that are returned by an action card will halt retries. When one of the following HTTP status codes is returned, retries will not be triggered:</p>
+                                                        <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard-no-header.css');" class="TableStyle-srb_no_header" cellspacing="0">
+                                                            <col class="TableStyle-srb_no_header-Column-Column1" />
+                                                            <col class="TableStyle-srb_no_header-Column-Column1" />
+                                                            <col class="TableStyle-srb_no_header-Column-Column1" />
+                                                            <col class="TableStyle-srb_no_header-Column-Column1" />
+                                                            <tbody>
+                                                                <tr class="TableStyle-srb_no_header-Body-Body1">
+                                                                    <td class="TableStyle-srb_no_header-BodyF-Column1-Body1">400</td>
+                                                                    <td class="TableStyle-srb_no_header-BodyF-Column1-Body1">401</td>
+                                                                    <td class="TableStyle-srb_no_header-BodyF-Column1-Body1">402</td>
+                                                                    <td class="TableStyle-srb_no_header-BodyD-Column1-Body1">403</td>
+                                                                </tr>
+                                                                <tr class="TableStyle-srb_no_header-Body-Body2">
+                                                                    <td class="TableStyle-srb_no_header-BodyF-Column1-Body2">404</td>
+                                                                    <td class="TableStyle-srb_no_header-BodyF-Column1-Body2">405</td>
+                                                                    <td class="TableStyle-srb_no_header-BodyF-Column1-Body2">409</td>
+                                                                    <td class="TableStyle-srb_no_header-BodyD-Column1-Body2">413</td>
+                                                                </tr>
+                                                                <tr class="TableStyle-srb_no_header-Body-Body1">
+                                                                    <td class="TableStyle-srb_no_header-BodyF-Column1-Body1">421</td>
+                                                                    <td class="TableStyle-srb_no_header-BodyF-Column1-Body1">422</td>
+                                                                    <td class="TableStyle-srb_no_header-BodyF-Column1-Body1">500</td>
+                                                                    <td class="TableStyle-srb_no_header-BodyD-Column1-Body1">503</td>
+                                                                </tr>
+                                                                <tr class="TableStyle-srb_no_header-Body-Body2">
+                                                                    <td class="TableStyle-srb_no_header-BodyC-Column1-Body2">504</td>
+                                                                    <td class="TableStyle-srb_no_header-BodyC-Column1-Body2">&#160;</td>
+                                                                    <td class="TableStyle-srb_no_header-BodyC-Column1-Body2">&#160;</td>
+                                                                    <td class="TableStyle-srb_no_header-BodyA-Column1-Body2">&#160;</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <p>These HTTP status codes generally indicate that another retry will not change the outcome of the request. See <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes" target="_blank">HTTP status codes</a>.</p>
+                                                        <p>If you need to build a flow where retries must take place after one of these HTTP status codes is returned, use the If Error function card. See <a href="../function-reference/Error-Handling/errorhandling_trycatch.htm" class="MCXref xref">If Error</a>.</p>
                                                     </div>
                                                 </div>
                                                 <!-- Back to Top button --><a href="#" class="sf-back-to-top"><span class="arrow"></span>Top</a>
@@ -339,7 +380,8 @@
         </div> -->
                                     <div class="footer2">
                                         <div>
-                                            <p class="copyright">©  <span class="mc-variable okta-variables.Year variable">2021</span> <span class="mc-variable okta-variables.CompanyName variable">Okta, Inc</span> All Rights Reserved. Various trademarks held by their respective owners.</p>
+                                            <p class="copyright">©  <span class="mc-variable okta-variables.Year variable">2021</span> <span class="mc-variable okta-variables.CompanyName variable">Okta, Inc</span>. All Rights Reserved. Various trademarks held by their respective owners.
+	</p>
                                         </div>
                                         <!--             <div>
                 <ul>
