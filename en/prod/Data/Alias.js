@@ -1605,5 +1605,11 @@ xmlAliasData += '    <Map Name=\"ext-smartrecruiters-misc-authorization\" Link=\
 xmlAliasData += '    <Map Name=\"ext-duosecurityadmin-misc-authorization\" Link=\"Topics/Workflows/connector-reference/duosecurityadmin/overviews/authorization.htm\" ResolvedId=\"11004\" />';
 xmlAliasData += '    <Map Name=\"csh-o365-deploy\" Link=\"Topics/Apps/Office365-Deployment/deploy-main.htm\" ResolvedId=\"1392\" />';
 xmlAliasData += '    <Map Name=\"ext-sendgrid-misc-authorization\" Link=\"Topics/Workflows/connector-reference/sendgrid/overviews/authorization.htm\" ResolvedId=\"11005\" />';
+xmlAliasData += '    <Map Name=\"ext-freshservice\" Link=\"Topics/Workflows/connector-reference/freshservice/freshservice.htm\" ResolvedId=\"1394\" />';
+xmlAliasData += '    <Map Name=\"ext-freshservice-method-createuser\" Link=\"Topics/Workflows/connector-reference/freshservice/actions/createuser.htm\" ResolvedId=\"1395\" />';
+xmlAliasData += '    <Map Name=\"ext-freshservice-method-customapiaction\" Link=\"Topics/Workflows/connector-reference/freshservice/actions/customapiaction.htm\" ResolvedId=\"1396\" />';
+xmlAliasData += '    <Map Name=\"ext-freshservice-method-deactivateuser\" Link=\"Topics/Workflows/connector-reference/freshservice/actions/deactivateuser.htm\" ResolvedId=\"1397\" />';
+xmlAliasData += '    <Map Name=\"ext-freshservice-method-readuser\" Link=\"Topics/Workflows/connector-reference/freshservice/actions/readuser.htm\" ResolvedId=\"1398\" />';
+xmlAliasData += '    <Map Name=\"ext-freshservice-method-updateuser\" Link=\"Topics/Workflows/connector-reference/freshservice/actions/updateuser.htm\" ResolvedId=\"1400\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
