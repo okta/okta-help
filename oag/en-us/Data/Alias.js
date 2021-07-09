@@ -6,7 +6,6 @@ xmlAliasData += '    <Map Name=\"ext_oaginboundsaml\" Link=\"Topics/Access-Gatew
 xmlAliasData += '    <Map Name=\"ext_OAG_RESTORE\" Link=\"Topics/Access-Gateway/backup-restore.htm\" ResolvedId=\"1256\" />';
 xmlAliasData += '    <Map Name=\"ext_OAG_BACKUPMISSING\" Link=\"Topics/Access-Gateway/backup-faq.htm#WhereAreMyBackups\" ResolvedId=\"1257\" />';
 xmlAliasData += '    <Map Name=\"ext_OAG_BACKUPDOWNLOAD\" Link=\"Topics/Access-Gateway/backup-manage.htm#DownloadBackup\" ResolvedId=\"1265\" />';
-xmlAliasData += '    <Map Name=\"csh-index\" Link=\"index.htm\" ResolvedId=\"1298\" />';
 xmlAliasData += '    <Map Name=\"ext-oag-manage-cert\" Link=\"Topics/Access-Gateway/manage-certificates.htm\" ResolvedId=\"1294\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_set_log_levels\" Link=\"Topics/Access-Gateway/about-logging.htm\" ResolvedId=\"1300\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_app_jde\" Link=\"Topics/Access-Gateway/add-app-jde.htm\" ResolvedId=\"1303\" />';
@@ -37,7 +36,6 @@ xmlAliasData += '    <Map Name=\"ext_oag_log_forward\" Link=\"Topics/Access-Gate
 xmlAliasData += '    <Map Name=\"ext_oag_about_auth_mod\" Link=\"Topics/Access-Gateway/admin-settings-authmod.htm\" ResolvedId=\"3006\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_about_datastore\" Link=\"Topics/Access-Gateway/integrate-app-datastores.htm\" ResolvedId=\"3007\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_add_kerberos_service\" Link=\"Topics/Access-Gateway/add-app-kerberos-add-ker-service.htm\" ResolvedId=\"3008\" />';
-xmlAliasData += '    <Map Name=\"ext_oag_add_identity_provider\" Link=\"Topics/Access-Gateway/admin-settings-identity.htm\" ResolvedId=\"3009\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_policy_about\" Link=\"Topics/Access-Gateway/about-application-policy.htm\" ResolvedId=\"3010\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_policy_manage\" Link=\"Topics/Access-Gateway/managing-oag-policy.htm\" ResolvedId=\"3011\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_policy_advanced\" Link=\"Topics/Access-Gateway/advanced-oag-policy.htm\" ResolvedId=\"3012\" />';

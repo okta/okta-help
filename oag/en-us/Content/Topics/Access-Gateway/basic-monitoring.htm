@@ -3,8 +3,7 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="robots" content="noindex, nofollow" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="description" content="To better secure the Access Gateway Management Console, change the oag-mgmt user password using Access Gateway Administration." /><title>First sign in to Access Gateway Management console | Okta</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Basic REST&#160;API&#160;monitoring | Okta</title>
         <meta charset="utf-8" />
         <meta name="description" content="" />
         <meta name="author" content="" />
@@ -47,6 +46,7 @@
 }
 
 </style>
+        <link href="../../Resources/TableStyles/standard-shaded-rows.css" rel="stylesheet" data-mc-stylesheet-type="table" />
         <script src="../../../Resources/Scripts/jquery.min.js" type="text/javascript">
         </script>
         <script src="../../../Resources/Scripts/require.min.js" type="text/javascript">
@@ -296,49 +296,109 @@
                                             <div class="body-main">
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
-                                                    <h1>First sign in to <span class="mc-variable okta-feature-names.Access_Gateway_CMD variable">Access Gateway Management console</span></h1>
-                                                    <!-- div MadCap:conditions="Primary.do-not-publish">
-            <p>The first time you sign in to the <MadCap:variable name="okta-feature-names.Access Gateway CMD" />, we recommend that you change the password for the <em>oag-mgmt</em> user. </p>
-            <p>
-                <br />
-            </p>
-            <div class="noteOkta">
-                <img src="../../Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Note" alt="Note" />
-                <p class="noteContent">
-                    <br />When using SSH to access the <MadCap:variable name="okta-feature-names.Access Gateway CMD" /> some features may be disabled.</p>
-            </div>
-            <p>
-                <br />
-            </p>
-        </div -->
+                                                    <h1>Basic REST&#160;API&#160;monitoring</h1>
+                                                    <p>The <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> Monitoring REST&#160;API&#160;endpoint can be used to determine the current health of an <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> cluster or stand alone instance. </p>
+                                                    <div class="noteOkta">
+                                                        <img src="../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Important Note" alt="Important Note" />
+                                                        <p class="noteContent">The monitoring REST&#160;API&#160;endpoint is disabled by default. See <a href="manage-monitoring.htm#Enable">Enable or Disable monitoring</a> in the <a href="manage-monitoring.htm">Managing REST API&#160;monitoring</a> documentation for more information. </p>
+                                                    </div>
+                                                    <h2>Request</h2>
+                                                    <p>To request basic monitor information you make a get request to the instances <span class="code">/basic_status</span> endpoint. </p>
+                                                    <p>Include the following:</p>
+                                                    <ul>
+                                                        <li><span class="code">Host</span> - Always <span id="code">monitoring.rest.service.oag</span>. </li>
+                                                    </ul>
+                                                    <p>The following curl example requests current status using the default endpoint.</p><pre id="code" xml:space="preserve">
+curl -k -X GET -H "Host:monitoring.rest.service.oag" https://gw.gateway.com/basic_status
+</pre>
+                                                    <h2>On success</h2>
+                                                    <p>On success the following results are returned:</p><pre xml:space="preserve" id="code">Active connections: <b>{total active and waiting connections}</b>
+server accepts handled requests
+<b>{server accepts} {handled accepts} {total requests}</b>
+Reading: <b>{reads}</b> Writing: <b>{writes}</b> Waiting: <b>{waits}</b></pre>
+                                                    <p>Defined as:</p>
+                                                    <table style="mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+                                                        <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                        <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                        <thead>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                                                                <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Field</th>
+                                                                <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">Value</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1" style="font-weight: bold;">Active connections</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                                                                    <p>The current number of active client connections including Waiting connections.</p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2" style="font-weight: bold;">server accepts</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
+                                                                    <p>The total number of accepted client connections.</p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1" style="font-weight: bold;">handled</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">The total number of handled connections. <br />Generally, the parameter value is the same as server accepts unless some resource limits have been reached.</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2" style="font-weight: bold;">requests</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">The total number of client requests</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1" style="font-weight: bold;">Reading</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">The current number of connections where <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> is reading the request header.</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2" style="font-weight: bold;">Writing</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
+                                                                    <p>The current number of connections where nginx is writing the response back to the client.</p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1" style="font-weight: bold;">Waiting</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body1">The current number of idle client connections waiting for a request.</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <p>For example:</p><pre xml:space="preserve" id="code">Active connections: 291
+server accepts handled requests
+16630948 16630948 31070465
+Reading: 6 Writing: 179 Waiting: 106</pre>
+                                                    <h2>Other return results</h2>
                                                     <div>
-                                                        <p data-mc-conditions="Primary.live-site-only">
-                                                            <br />The first time you sign in to the <span class="mc-variable okta-feature-names.Access_Gateway_CMD variable">Access Gateway Management console</span> you will be required to change the <a href="learn-about-default-credentials.htm">default-password</a>. Okta recommends that the first time you log into the <span class="mc-variable okta-feature-names.Access&#160;Gateway_UI variable">Access Gateway Admin UI console</span> you also change the Admin UI password.</p>
-                                                        <div>
-                                                            <div class="noteOkta">
-                                                                <img src="../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Important Note" alt="Important Note" />
-                                                                <p class="noteContent">You may cancel the change password process at any time by entering <b>[ctrl][c]</b>. <br />Please note you will be required to change the password on next sign in. </p>
-                                                            </div>
-                                                            <ol>
-                                                                <li value="1">
-                                                                    <p>Start <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> and open a terminal window. <br />Note that different virtual environments provide differing mechanisms for opening terminals.</p>
-                                                                </li>
-                                                                <li value="2">
-                    Sign in as:
-                    <ol><li value="1"><strong>Username</strong>: <b>oag-mgmt</b></li><li value="2"><strong>Password</strong>: <a href="learn-about-default-credentials.htm">&lt;default-password&gt;</a></li></ol><br />                Password requirements will then be displayed and resemble:<pre xml:space="preserve">
-Password requirements:
-1. Minimum length of the password should be 8
+                                                        <h3>400 Unknown host</h3>
+                                                        <p>The status endpoint is disabled.</p>
+                                                        <p>Example:</p><pre xml:space="preserve" id="code">
+&lt;html&gt;&lt;head&gt;&lt;title&gt;Access Gateway&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+. . .
+&lt;p&gt;Status code: 400. . .
+The request . . .  is not being served by this Access Gateway.&lt;/p&gt;
 . . . 
-Changing password for user oag-mgmt.
-Current password: <a href="learn-about-default-credentials.htm">&lt;default-password&gt;</a>
-New password:********</pre><p>See <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> password policies for minimum password requirements.</p></li>
-                                                                <li value="3">Enter the new password.<br /><pre xml:space="preserve">
-New password:********</pre></li>
-                                                                <li value="4">Repeat the new password.<br /><pre xml:space="preserve">
-Retype password:********</pre></li>
-                                                            </ol>
-                                                        </div>
-                                                        <p>On successful password change, you will be redirected to the <span class="mc-variable okta-feature-names.Access_Gateway_CMD variable">Access Gateway Management console</span> main page.</p>
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+                                                    </div>
+                                                    <div>
+                                                        <h3>403 Forbidden</h3>
+                                                        <p>The client IP address has not been authorized to access the endpoint.</p>
+                                                        <p>Example:</p><pre xml:space="preserve" id="code">
+&lt;html&gt;&lt;head&gt;&lt;title&gt;403 Forbidden&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+. . . 
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+                                                    </div>
+                                                    <h3>Related topics</h3>
+                                                    <div>
+                                                        <p><a href="command-line-console-reference.htm" class="MCXref xref"> Command Line Management Console reference</a>
+                                                        </p>
+                                                        <p><a href="manage-monitoring.htm" class="MCXref xref">Managing REST API&#160;monitoring</a>
+                                                        </p>
+                                                        <p><a href="oag-log-files-rest-monitoring.htm" class="MCXref xref">REST&#160;Monitoring management events</a>
+                                                        </p>
                                                     </div>
                                                 </div>
                                                 <!-- Back to Top button --><a href="#" class="sf-back-to-top"><span class="arrow"></span>Top</a>
