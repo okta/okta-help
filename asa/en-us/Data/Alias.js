@@ -5,7 +5,6 @@ xmlAliasData += '    <Map Name=\"adv_server_access\" Link=\"Topics/Adv_Server_Ac
 xmlAliasData += '    <Map Name=\"ext_asa_main\" Link=\"Topics/Adv_Server_Access/docs/asa-overview.htm\" ResolvedId=\"1174\" />';
 xmlAliasData += '    <Map Name=\"ext_asa\" Link=\"Topics/Adv_Server_Access/docs/setup/getting-started.htm\" ResolvedId=\"1196\" />';
 xmlAliasData += '    <Map Name=\"ext_asa_on_demand_users\" Link=\"Topics/Adv_Server_Access/docs/on-demand-users.htm\" ResolvedId=\"1273\" />';
-xmlAliasData += '    <Map Name=\"csh-index\" Link=\"index.htm\" ResolvedId=\"1298\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-concepts\" Link=\"Topics/Adv_Server_Access/docs/concepts.htm\" ResolvedId=\"1289\" />';
 xmlAliasData += '    <Map Name=\"ext_asa_service_users\" Link=\"Topics/Adv_Server_Access/docs/service-users.htm\" ResolvedId=\"1302\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-install-sft\" Link=\"Topics/Adv_Server_Access/docs/sft.htm\" ResolvedId=\"1138\" />';
