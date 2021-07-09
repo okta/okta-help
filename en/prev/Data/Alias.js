@@ -1611,5 +1611,6 @@ xmlAliasData += '    <Map Name=\"ext-freshservice-method-customapiaction\" Link=
 xmlAliasData += '    <Map Name=\"ext-freshservice-method-deactivateuser\" Link=\"Topics/Workflows/connector-reference/freshservice/actions/deactivateuser.htm\" ResolvedId=\"1397\" />';
 xmlAliasData += '    <Map Name=\"ext-freshservice-method-readuser\" Link=\"Topics/Workflows/connector-reference/freshservice/actions/readuser.htm\" ResolvedId=\"1398\" />';
 xmlAliasData += '    <Map Name=\"ext-freshservice-method-updateuser\" Link=\"Topics/Workflows/connector-reference/freshservice/actions/updateuser.htm\" ResolvedId=\"1400\" />';
+xmlAliasData += '    <Map Name=\"ext-datagrail-misc-authorization\" Link=\"Topics/Workflows/connector-reference/datagrail/overviews/authorization.htm\" ResolvedId=\"11006\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
