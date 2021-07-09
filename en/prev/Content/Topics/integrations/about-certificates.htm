@@ -346,9 +346,9 @@
                                                         <h2><a name="Backgrou"></a>Background</h2>
                                                         <p>In general, Secure Socket Layer(SSL/X509)&#160;certificates are used to:</p>
                                                         <ul>
-                                                            <li>Establish a secure connection between a browser and a server.</li>
+                                                            <li>Establish a secure connection between a client and a server. <br />For example:<ul style="list-style-type: circle;"><li>Client - A browser or VPN client</li><li>Server - &lt;your-org&gt;.okta.com or the Okta RADIUS agent</li></ul></li>
                                                             <li>Encrypt communication to ensure that sensitive information is safe.</li>
-                                                            <li>Authenticate an organization's identity. </li>
+                                                            <li>Authenticate an organization's identity.</li>
                                                         </ul>
                                                     </div>
                                                     <div>
@@ -372,8 +372,8 @@
                                                     </p>
                                                     <h2><a name="Creating"></a>Creating certificate chains</h2>
                                                     <p>Certificate chains are groupings of certificates. Okta typically in requires all certificate changes be in Privacy Enhanced Mail (PEM) format.</p>
-                                                    <p>Certificate chains are  the contents of all certificates concatenated together in order from END certificate to trusted root certificate. If there are multiple intermediate certificates then they also must be included in the chain. Certificates can be concatenate together using an editor or command line tools. </p>
-                                                    <p>For example under linux, to concatenate a primary certificate, an intermediate certificate and a private key:</p><pre id="code">
+                                                    <p>Certificate chains are  the contents of all certificates concatenated together in order from END certificate to trusted root certificate. If there are multiple intermediate certificates then they also must be included in the chain. Certificates can be concatenated together using an editor or command line tools. </p>
+                                                    <p>For example under Linux, to concatenate a primary certificate, an intermediate certificate and a private key:</p><pre id="code">
 cat primary.pem intermediate.pem primarykey.pem &gt; certificate-chain.com		</pre>
                                                     <p>When chained, groupings of certificates resemble:<br /></p><pre xml:space="preserve">
 -----BEGIN CERTIFICATE-----
@@ -390,10 +390,10 @@ cat primary.pem intermediate.pem primarykey.pem &gt; certificate-chain.com		</pr
 ----- END RSA PRIVATE KEY-----		</pre>
                                                     <div class="noteOkta">
                                                         <img src="../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Note" alt="Note" />
-                                                        <p class="noteContent">When creating certificate chains, only certificates not already present in Okta are required. Most trusted root certificates are already available in Okta.</p>
+                                                        <p>You must create a chain containing each certificate including the trusted root CA, all intermediate certificates and the end certificate. For EAP-TTLS or EAP-GCT&#160;also include the associated private key.<br />PIV certificate chains do not require a private key.</p>
                                                     </div>
                                                     <h2><a name="Converti"></a>Converting between certificate formats</h2>
-                                                    <p>Okta requires certificates in PEM&#160;format. &#160;If you have received or generated certificates in another format they must be converted to PEM before being concatenated and then uploaded. Various tools can be used to convert a certificate from one format to another, including <span class="code">openssl</span>. <br />The following examples show converting various formats to .PEM.</p>
+                                                    <p>Generally, Okta requires certificates in <span class="code">PEM</span>&#160;format. &#160;If you have received or generated certificates in another format they may need to be converted to <span class="code">PEM</span> before being concatenated and then uploaded. Various tools can be used to convert a certificate from one format to another, including <span class="code">openssl</span>. <br />The following examples show converting various formats to .PEM.</p>
                                                     <div>
                                                         <h3>CRT to PEM</h3>
                                                         <p id="code">openssl x509 -in cert.crt -outform PEM -out cert.pem</p>
@@ -401,9 +401,17 @@ cat primary.pem intermediate.pem primarykey.pem &gt; certificate-chain.com		</pr
                                                     <div>
                                                         <h3>CER to PEM</h3>
                                                         <p id="code">openssl x509 -in cert.cer -outform DER&#160;-out cert.pem</p>
-                                                        <p>Multiple additional input and conversions also exist. See the <a href="https://www.openssl.org/">openssl</a> documentation and the <a href="https://www.openssl.org/docs/manmaster/man1/openssl.html">openssl man page</a> for more information. </p>
-                                                        <p>&#160;</p>
                                                     </div>
+                                                    <p>Additionally, EAP-TTLS and EAP-GTC protocols support <span class="code">pfx</span> and <span class="code">p12</span> formats, which allow the specification of a password to protect an associated private key.</p>
+                                                    <div>
+                                                        <h3>Convert to PFX</h3>
+                                                        <p id="code">openssl pkcs12 -export -out certificate.pfx -inkey privateKey.key -in certificate.crt</p>
+                                                    </div>
+                                                    <div>
+                                                        <h3>Sample command to convert to P12</h3>
+                                                        <p id="code">openssl pkcs12 -export -out certificate.p12 -inkey privateKey.key -in certificate.crt</p>
+                                                    </div>
+                                                    <p>Multiple additional input and conversions also exist. See the <a href="https://www.openssl.org/">openssl</a> documentation and the <a href="https://www.openssl.org/docs/manmaster/man1/openssl.html">openssl man page</a> for more information. </p>
                                                 </div>
                                                 <!-- Back to Top button --><a href="#" class="sf-back-to-top"><span class="arrow"></span>Top</a>
                                             </div>
