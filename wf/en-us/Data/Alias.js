@@ -850,6 +850,11 @@ xmlAliasData += '    <Map Name=\"ext-mixpanel-misc-authorization\" Link=\"Topics
 xmlAliasData += '    <Map Name=\"ext-mixpanel-method-updateprofile\" Link=\"Topics/Workflows/connector-reference/mixpanel/actions/updateprofile.htm\" ResolvedId=\"30995\" />';
 xmlAliasData += '    <Map Name=\"ext-github-method-createpullrequest\" Link=\"Topics/Workflows/connector-reference/github/actions/createpullrequest.htm\" ResolvedId=\"30996\" />';
 xmlAliasData += '    <Map Name=\"ext-utility-method-exportgroup\" Link=\"Topics/Workflows/function-reference/Folders/folders_exportfolder.htm\" ResolvedId=\"30997\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-applicationactivated\" Link=\"Topics/Workflows/connector-reference/okta/events/applicationactivated.htm\" ResolvedId=\"30311\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-applicationcreated\" Link=\"Topics/Workflows/connector-reference/okta/events/applicationcreated.htm\" ResolvedId=\"30320\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-applicationdeactivated\" Link=\"Topics/Workflows/connector-reference/okta/events/applicationdeactivated.htm\" ResolvedId=\"30999\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-applicationdeleted\" Link=\"Topics/Workflows/connector-reference/okta/events/applicationdeleted.htm\" ResolvedId=\"31000\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-applicationupdated\" Link=\"Topics/Workflows/connector-reference/okta/events/applicationupdated.htm\" ResolvedId=\"31001\" />';
 xmlAliasData += '    <Map Name=\"ext-github-method-updatefilecontent\" Link=\"Topics/Workflows/connector-reference/github/actions/updatefilecontent.htm\" ResolvedId=\"31003\" />';
 xmlAliasData += '    <Map Name=\"ext-github-method-createbranch\" Link=\"Topics/Workflows/connector-reference/github/actions/createbranch.htm\" ResolvedId=\"31004\" />';
 xmlAliasData += '    <Map Name=\"ext-github-method-createfilecontent\" Link=\"Topics/Workflows/connector-reference/github/actions/createfilecontent.htm\" ResolvedId=\"31005\" />';
