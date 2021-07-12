@@ -79,6 +79,7 @@ xmlAliasData += '    <Map Name=\"ext_Ver_History_AD_Agent\" Link=\"Topics/Settin
 xmlAliasData += '    <Map Name=\"check-point-radius-intg\" Link=\"Topics/integrations/check-point-radius-intg.htm\" ResolvedId=\"1058\" />';
 xmlAliasData += '    <Map Name=\"vmware-horizon-radius-intg\" Link=\"Topics/integrations/vmware-horizon-radius-intg.htm\" ResolvedId=\"1059\" />';
 xmlAliasData += '    <Map Name=\"beyondtrust-radius-intg\" Link=\"Topics/integrations/beyondtrust-powerbroker-password-safe-radius-intg.htm\" ResolvedId=\"1061\" />';
+xmlAliasData += '    <Map Name=\"automations\" Link=\"Topics/automation-hooks/automations-main.htm\" ResolvedId=\"1078\" />';
 xmlAliasData += '    <Map Name=\"csh_notification_new\" Link=\"Topics/Security/Security_General.htm#SecurityNotificationEmails\" ResolvedId=\"1097\" />';
 xmlAliasData += '    <Map Name=\"csh_notification_enroll\" Link=\"Topics/Security/Security_General.htm#SecurityNotificationEmails\" ResolvedId=\"1098\" />';
 xmlAliasData += '    <Map Name=\"csh_notification_reset\" Link=\"Topics/Security/Security_General.htm#SecurityNotificationEmails\" ResolvedId=\"1099\" />';
@@ -96,6 +97,7 @@ xmlAliasData += '    <Map Name=\"ext_Create_Group_Rules\" Link=\"Topics/users-gr
 xmlAliasData += '    <Map Name=\"ext_Radius_Autopush\" Link=\"Topics/integrations/radius-autopush.htm\" ResolvedId=\"1152\" />';
 xmlAliasData += '    <Map Name=\"ext_Groups_Assign_Users\" Link=\"Topics/users-groups-profiles/usgp-about-group-rules.htm\" ResolvedId=\"1153\" />';
 xmlAliasData += '    <Map Name=\"ext_Group_Rules\" Link=\"Topics/users-groups-profiles/usgp-about-group-rules.htm\" ResolvedId=\"1154\" />';
+xmlAliasData += '    <Map Name=\"ext_inlinehooks\" Link=\"Topics/automation-hooks/inline-hooks-main.htm\" ResolvedId=\"1166\" />';
 xmlAliasData += '    <Map Name=\"Security_General\" Link=\"Topics/Security/Security_General.htm\" ResolvedId=\"1169\" />';
 xmlAliasData += '    <Map Name=\"ext_match-user\" Link=\"Topics/users-groups-profiles/usgp-matching-imported-users.htm\" ResolvedId=\"1171\" />';
 xmlAliasData += '    <Map Name=\"csh-suspicious-activity-reporting\" Link=\"Topics/Security/suspicious-activity-reporting.htm\" ResolvedId=\"1177\" />';
@@ -116,6 +118,9 @@ xmlAliasData += '    <Map Name=\"ext_healthinsight\" Link=\"Topics/Security/heal
 xmlAliasData += '    <Map Name=\"ext_sar\" Link=\"Topics/Security/suspicious-activity-reporting.htm\" ResolvedId=\"1211\" />';
 xmlAliasData += '    <Map Name=\"csh_custom_user_types\" Link=\"Topics/users-groups-profiles/usgp-user-types-known issues.htm\" ResolvedId=\"1213\" />';
 xmlAliasData += '    <Map Name=\"csh_custom_user_types_about\" Link=\"Topics/users-groups-profiles/usgp-usertypes-about.htm\" ResolvedId=\"1214\" />';
+xmlAliasData += '    <Map Name=\"ext-inline-hooks\" Link=\"Topics/automation-hooks/inline-hooks-main.htm\" ResolvedId=\"1215\" />';
+xmlAliasData += '    <Map Name=\"ext-event-hooks\" Link=\"Topics/automation-hooks/event-hooks-main.htm\" ResolvedId=\"1216\" />';
+xmlAliasData += '    <Map Name=\"ext-workflow-overview\" Link=\"Topics/Directory/workflow-overview.htm\" ResolvedId=\"1217\" />';
 xmlAliasData += '    <Map Name=\"csh-SMS-customization\" Link=\"Topics/Settings/Settings_SMS.htm\" ResolvedId=\"1218\" />';
 xmlAliasData += '    <Map Name=\"Okta_RADIUS_App\" Link=\"Topics/integrations/Okta_Radius_App.htm\" ResolvedId=\"1221\" />';
 xmlAliasData += '    <Map Name=\"integrations\" Link=\"Topics/integrations/integrations.htm\" ResolvedId=\"1222\" />';
@@ -163,6 +168,7 @@ xmlAliasData += '    <Map Name=\"csh-blocklist-zones\" Link=\"Topics/Security/he
 xmlAliasData += '    <Map Name=\"csh-admin-exp-redesign\" Link=\"Topics/Dashboard/admin-exp-redesign.htm\" ResolvedId=\"13002\" />';
 xmlAliasData += '    <Map Name=\"ext-ad-agent-install\" Link=\"Topics/Directory/ad-agent-new-integration.htm\" ResolvedId=\"15008\" />';
 xmlAliasData += '    <Map Name=\"ext-ad-agent-import-users\" Link=\"Topics/Directory/ad-agent-import-users-on-demand.htm\" ResolvedId=\"15010\" />';
+xmlAliasData += '    <Map Name=\"ext-event-hooks-preview\" Link=\"Topics/automation-hooks/event-hooks-preview.htm\" ResolvedId=\"11002\" />';
 xmlAliasData += '    <Map Name=\"ext-manage-group-push\" Link=\"Topics/users-groups-profiles/usgp-group-push-main.htm\" ResolvedId=\"15011\" />';
 xmlAliasData += '    <Map Name=\"ext_secur_browser_support\" Link=\"Topics/Miscellaneous/Platforms_Browser_OS_Support.htm\" ResolvedId=\"3058\" />';
 xmlAliasData += '    <Map Name=\"csh-prioritize-profile-sources\" Link=\"Topics/users-groups-profiles/usgp-prioritize-profile-source.htm\" ResolvedId=\"15012\" />';
@@ -188,5 +194,6 @@ xmlAliasData += '    <Map Name=\"ext-create-mfa-policy\" Link=\"Topics/identity-
 xmlAliasData += '    <Map Name=\"ext-about-osop\" Link=\"Topics/identity-engine/policies/about-okta-sign-on-policies.htm\" ResolvedId=\"1382\" />';
 xmlAliasData += '    <Map Name=\"csh-asop-sq\" Link=\"Topics/identity-engine/policies/add-app-sign-on-policy-rule.htm#sq-asop\" ResolvedId=\"18000\" />';
 xmlAliasData += '    <Map Name=\"ext-oie-policies\" Link=\"Topics/identity-engine/policies/about-policies.htm\" ResolvedId=\"1393\" />';
+xmlAliasData += '    <Map Name=\"csh-asop-scenarios\" Link=\"Topics/identity-engine/policies/asop-authentication-scenarios.htm\" ResolvedId=\"-2147483648\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
