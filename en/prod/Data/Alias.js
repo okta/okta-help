@@ -599,6 +599,7 @@ xmlAliasData += '    <Map Name=\"ext-box-method-deactivateuser\" Link=\"Topics/W
 xmlAliasData += '    <Map Name=\"ext-box-method-deletefile\" Link=\"Topics/Workflows/connector-reference/box/actions/deletefile.htm\" ResolvedId=\"30064\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-deletefolder\" Link=\"Topics/Workflows/connector-reference/box/actions/deletefolder.htm\" ResolvedId=\"30065\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-deleteuser\" Link=\"Topics/Workflows/connector-reference/box/actions/deleteuser.htm\" ResolvedId=\"30066\" />';
+xmlAliasData += '    <Map Name=\"ext-box-method-downloadfile\" Link=\"Topics/Workflows/connector-reference/box/actions/downloadfile.htm\" ResolvedId=\"30067\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-getgroupmembership\" Link=\"Topics/Workflows/connector-reference/box/actions/getgroupmembership.htm\" ResolvedId=\"30068\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-getuser\" Link=\"Topics/Workflows/connector-reference/box/actions/getuser.htm\" ResolvedId=\"30069\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-listgroupsmembers\" Link=\"Topics/Workflows/connector-reference/box/actions/listgroupsmembers.htm\" ResolvedId=\"30070\" />';
@@ -609,6 +610,7 @@ xmlAliasData += '    <Map Name=\"ext-box-method-searchforuser\" Link=\"Topics/Wo
 xmlAliasData += '    <Map Name=\"ext-box-method-transferuserfolders\" Link=\"Topics/Workflows/connector-reference/box/actions/transferuserfolders.htm\" ResolvedId=\"30079\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-updategroupmembership\" Link=\"Topics/Workflows/connector-reference/box/actions/updategroupmembership.htm\" ResolvedId=\"30082\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-updateuser\" Link=\"Topics/Workflows/connector-reference/box/actions/updateuser.htm\" ResolvedId=\"30085\" />';
+xmlAliasData += '    <Map Name=\"ext-box-method-uploadfile\" Link=\"Topics/Workflows/connector-reference/box/actions/uploadfile.htm\" ResolvedId=\"30086\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-filecreated\" Link=\"Topics/Workflows/connector-reference/box/events/filecreated.htm\" ResolvedId=\"30087\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-filecreatedonfolder\" Link=\"Topics/Workflows/connector-reference/box/events/filecreatedonfolder.htm\" ResolvedId=\"30088\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-fileupdated\" Link=\"Topics/Workflows/connector-reference/box/events/fileupdated.htm\" ResolvedId=\"30089\" />';
@@ -775,6 +777,7 @@ xmlAliasData += '    <Map Name=\"ext-googledrive-method-createfolder\" Link=\"To
 xmlAliasData += '    <Map Name=\"ext-googledrive-method-createpermission\" Link=\"Topics/Workflows/connector-reference/googledrive/actions/createpermission.htm\" ResolvedId=\"30259\" />';
 xmlAliasData += '    <Map Name=\"ext-googledrive-method-createtransferrequest\" Link=\"Topics/Workflows/connector-reference/googledrive/actions/createtransferrequest.htm\" ResolvedId=\"30260\" />';
 xmlAliasData += '    <Map Name=\"ext-googledrive-method-deletefile\" Link=\"Topics/Workflows/connector-reference/googledrive/actions/deletefile.htm\" ResolvedId=\"30261\" />';
+xmlAliasData += '    <Map Name=\"ext-googledrive-method-downloadfile\" Link=\"Topics/Workflows/connector-reference/googledrive/actions/downloadfile.htm\" ResolvedId=\"30262\" />';
 xmlAliasData += '    <Map Name=\"ext-googledrive-method-getfilepermissions\" Link=\"Topics/Workflows/connector-reference/googledrive/actions/getfilepermissions.htm\" ResolvedId=\"30263\" />';
 xmlAliasData += '    <Map Name=\"ext-googledrive-method-movefileorfolder\" Link=\"Topics/Workflows/connector-reference/googledrive/actions/movefileorfolder.htm\" ResolvedId=\"30264\" />';
 xmlAliasData += '    <Map Name=\"ext-googledrive-method-readfileinfo\" Link=\"Topics/Workflows/connector-reference/googledrive/actions/readfileinfo.htm\" ResolvedId=\"30265\" />';
@@ -872,8 +875,6 @@ xmlAliasData += '    <Map Name=\"ext-office365admin-method-readgroup\" Link=\"To
 xmlAliasData += '    <Map Name=\"ext-office365admin-method-readuser\" Link=\"Topics/Workflows/connector-reference/office365admin/actions/readuser.htm\" ResolvedId=\"30399\" />';
 xmlAliasData += '    <Map Name=\"ext-office365admin-method-removelicensefromuser\" Link=\"Topics/Workflows/connector-reference/office365admin/actions/removelicensefromuser.htm\" ResolvedId=\"30400\" />';
 xmlAliasData += '    <Map Name=\"ext-office365admin-method-removeuserfromgroup\" Link=\"Topics/Workflows/connector-reference/office365admin/actions/removeuserfromgroup.htm\" ResolvedId=\"30401\" />';
-xmlAliasData += '    <Map Name=\"ext-office365admin-method-searchgroups\" Link=\"Topics/Workflows/connector-reference/office365admin/actions/searchgroups.htm\" ResolvedId=\"30402\" />';
-xmlAliasData += '    <Map Name=\"ext-office365admin-method-searchusers\" Link=\"Topics/Workflows/connector-reference/office365admin/actions/searchusers.htm\" ResolvedId=\"30403\" />';
 xmlAliasData += '    <Map Name=\"ext-office365admin-method-updategroup\" Link=\"Topics/Workflows/connector-reference/office365admin/actions/updategroup.htm\" ResolvedId=\"30404\" />';
 xmlAliasData += '    <Map Name=\"ext-office365admin-method-updateuser\" Link=\"Topics/Workflows/connector-reference/office365admin/actions/updateuser.htm\" ResolvedId=\"30405\" />';
 xmlAliasData += '    <Map Name=\"ext-office365admin-misc-authorization\" Link=\"Topics/Workflows/connector-reference/office365admin/overviews/authorization.htm\" ResolvedId=\"30406\" />';
@@ -1612,5 +1613,8 @@ xmlAliasData += '    <Map Name=\"ext-freshservice-method-readuser\" Link=\"Topic
 xmlAliasData += '    <Map Name=\"ext-freshservice-method-updateuser\" Link=\"Topics/Workflows/connector-reference/freshservice/actions/updateuser.htm\" ResolvedId=\"1400\" />';
 xmlAliasData += '    <Map Name=\"ext-datagrail-misc-authorization\" Link=\"Topics/Workflows/connector-reference/datagrail/overviews/authorization.htm\" ResolvedId=\"11006\" />';
 xmlAliasData += '    <Map Name=\"ext-freshservice-misc-authorization\" Link=\"Topics/Workflows/connector-reference/freshservice/overviews/authorization.htm\" ResolvedId=\"31057\" />';
+xmlAliasData += '    <Map Name=\"ext-stash-method-cleartableaction\" Link=\"Topics/Workflows/function-reference/Tables/stash_cleartableaction.htm\" ResolvedId=\"31058\" />';
+xmlAliasData += '    <Map Name=\"csh-apps-learn-about\" Link=\"Topics/Apps/apps-overview-learn-about.htm\" ResolvedId=\"6004\" />';
+xmlAliasData += '    <Map Name=\"ext-apps-learn-about\" Link=\"Topics/Apps/apps-overview-learn-about.htm\" ResolvedId=\"6005\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
