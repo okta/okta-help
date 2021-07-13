@@ -1004,7 +1004,6 @@ xmlAliasData += '    <Map Name=\"ext-salesforce229-method-searchrecords\" Link=\
 xmlAliasData += '    <Map Name=\"ext-salesforce229-method-searchusers\" Link=\"Topics/Workflows/connector-reference/salesforce/actions/searchusers.htm\" ResolvedId=\"30537\" />';
 xmlAliasData += '    <Map Name=\"ext-salesforce229-method-transferleads\" Link=\"Topics/Workflows/connector-reference/salesforce/actions/transferleads.htm\" ResolvedId=\"30538\" />';
 xmlAliasData += '    <Map Name=\"ext-salesforce229-method-unfreezeuser\" Link=\"Topics/Workflows/connector-reference/salesforce/actions/unfreezeuser.htm\" ResolvedId=\"30539\" />';
-xmlAliasData += '    <Map Name=\"ext-salesforce229-method-update\" Link=\"Topics/Workflows/connector-reference/salesforce/actions/update.htm\" ResolvedId=\"30540\" />';
 xmlAliasData += '    <Map Name=\"ext-salesforce229-method-updatecustompicklistvalue\" Link=\"Topics/Workflows/connector-reference/salesforce/actions/updatecustompicklistvalue.htm\" ResolvedId=\"30541\" />';
 xmlAliasData += '    <Map Name=\"ext-salesforce229-method-updatepicklistvalues\" Link=\"Topics/Workflows/connector-reference/salesforce/actions/updatepicklistvalues.htm\" ResolvedId=\"30542\" />';
 xmlAliasData += '    <Map Name=\"ext-salesforce229-method-updaterecord\" Link=\"Topics/Workflows/connector-reference/salesforce/actions/updaterecord.htm\" ResolvedId=\"30543\" />';
@@ -1612,5 +1611,6 @@ xmlAliasData += '    <Map Name=\"ext-freshservice-method-deactivateuser\" Link=\
 xmlAliasData += '    <Map Name=\"ext-freshservice-method-readuser\" Link=\"Topics/Workflows/connector-reference/freshservice/actions/readuser.htm\" ResolvedId=\"1398\" />';
 xmlAliasData += '    <Map Name=\"ext-freshservice-method-updateuser\" Link=\"Topics/Workflows/connector-reference/freshservice/actions/updateuser.htm\" ResolvedId=\"1400\" />';
 xmlAliasData += '    <Map Name=\"ext-datagrail-misc-authorization\" Link=\"Topics/Workflows/connector-reference/datagrail/overviews/authorization.htm\" ResolvedId=\"11006\" />';
+xmlAliasData += '    <Map Name=\"ext-freshservice-misc-authorization\" Link=\"Topics/Workflows/connector-reference/freshservice/overviews/authorization.htm\" ResolvedId=\"31057\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
