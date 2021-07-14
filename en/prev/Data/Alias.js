@@ -875,6 +875,8 @@ xmlAliasData += '    <Map Name=\"ext-office365admin-method-readgroup\" Link=\"To
 xmlAliasData += '    <Map Name=\"ext-office365admin-method-readuser\" Link=\"Topics/Workflows/connector-reference/office365admin/actions/readuser.htm\" ResolvedId=\"30399\" />';
 xmlAliasData += '    <Map Name=\"ext-office365admin-method-removelicensefromuser\" Link=\"Topics/Workflows/connector-reference/office365admin/actions/removelicensefromuser.htm\" ResolvedId=\"30400\" />';
 xmlAliasData += '    <Map Name=\"ext-office365admin-method-removeuserfromgroup\" Link=\"Topics/Workflows/connector-reference/office365admin/actions/removeuserfromgroup.htm\" ResolvedId=\"30401\" />';
+xmlAliasData += '    <Map Name=\"ext-office365admin-method-searchgroups\" Link=\"Topics/Workflows/connector-reference/office365admin/actions/searchgroups.htm\" ResolvedId=\"30402\" />';
+xmlAliasData += '    <Map Name=\"ext-office365admin-method-searchusers\" Link=\"Topics/Workflows/connector-reference/office365admin/actions/searchusers.htm\" ResolvedId=\"30403\" />';
 xmlAliasData += '    <Map Name=\"ext-office365admin-method-updategroup\" Link=\"Topics/Workflows/connector-reference/office365admin/actions/updategroup.htm\" ResolvedId=\"30404\" />';
 xmlAliasData += '    <Map Name=\"ext-office365admin-method-updateuser\" Link=\"Topics/Workflows/connector-reference/office365admin/actions/updateuser.htm\" ResolvedId=\"30405\" />';
 xmlAliasData += '    <Map Name=\"ext-office365admin-misc-authorization\" Link=\"Topics/Workflows/connector-reference/office365admin/overviews/authorization.htm\" ResolvedId=\"30406\" />';
@@ -1041,6 +1043,7 @@ xmlAliasData += '    <Map Name=\"ext-servicenow-method-newtask\" Link=\"Topics/W
 xmlAliasData += '    <Map Name=\"ext-servicenow-method-newticket\" Link=\"Topics/Workflows/connector-reference/servicenow/events/newticket.htm\" ResolvedId=\"30586\" />';
 xmlAliasData += '    <Map Name=\"ext-servicenow-method-updatedcustomrecord\" Link=\"Topics/Workflows/connector-reference/servicenow/events/updatedcustomrecord.htm\" ResolvedId=\"30587\" />';
 xmlAliasData += '    <Map Name=\"ext-servicenow-method-updatedincident\" Link=\"Topics/Workflows/connector-reference/servicenow/events/updatedincident.htm\" ResolvedId=\"30588\" />';
+xmlAliasData += '    <Map Name=\"ext-servicenow-misc-authorization\" Link=\"Topics/Workflows/connector-reference/servicenow/overviews/authorization.htm\" ResolvedId=\"30589\" />';
 xmlAliasData += '    <Map Name=\"ext-slack\" Link=\"Topics/Workflows/connector-reference/slack/slack.htm\" ResolvedId=\"30590\" />';
 xmlAliasData += '    <Map Name=\"ext-slack-method-archivechannel\" Link=\"Topics/Workflows/connector-reference/slack/actions/archivechannel.htm\" ResolvedId=\"30591\" />';
 xmlAliasData += '    <Map Name=\"ext-slack-method-createchannel2\" Link=\"Topics/Workflows/connector-reference/slack/actions/createchannel2.htm\" ResolvedId=\"30592\" />';
@@ -1616,5 +1619,9 @@ xmlAliasData += '    <Map Name=\"ext-freshservice-misc-authorization\" Link=\"To
 xmlAliasData += '    <Map Name=\"ext-stash-method-cleartableaction\" Link=\"Topics/Workflows/function-reference/Tables/stash_cleartableaction.htm\" ResolvedId=\"31058\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-learn-about\" Link=\"Topics/Apps/apps-overview-learn-about.htm\" ResolvedId=\"6004\" />';
 xmlAliasData += '    <Map Name=\"ext-apps-learn-about\" Link=\"Topics/Apps/apps-overview-learn-about.htm\" ResolvedId=\"6005\" />';
+xmlAliasData += '    <Map Name=\"ext-workflows-releasenotes\" Link=\"Topics/ReleaseNotes/Workflows/workflows-release-notes.htm\" ResolvedId=\"31059\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_main\" Link=\"Topics/Access-Gateway/ag-main.htm\" ResolvedId=\"3074\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_releasenotes\" Link=\"Topics/ReleaseNotes/access-gateway-release-notes.htm\" ResolvedId=\"3075\" />';
+xmlAliasData += '    <Map Name=\"ext-asa-releasenotes\" Link=\"Topics/ReleaseNotes/advanced-server-access-release-notes.htm\" ResolvedId=\"1402\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
