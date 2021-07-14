@@ -4,5 +4,7 @@ xmlAliasData += '<CatapultAliasFile>';
 xmlAliasData += '    <Map Name=\"csh-cstm-admin-roles\" Link=\"Topics/betas/closed/custom-admin-role/custom-admin-roles.htm\" ResolvedId=\"13000\" />';
 xmlAliasData += '    <Map Name=\"csh-best-practice-cstm-admin-roles\" Link=\"Topics/betas/closed/custom-admin-role/best-practices-custom-admin-roles.htm\" ResolvedId=\"13001\" />';
 xmlAliasData += '    <Map Name=\"csh-create-cstm-admin-role\" Link=\"Topics/betas/closed/custom-admin-role/create-custom-admin-roles.htm\" ResolvedId=\"13004\" />';
+xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-user-permissions\" Link=\"Topics/betas/closed/custom-admin-role/about-user-and-group-permissions.htm#User_permissions_\" ResolvedId=\"1404\" />';
+xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-group-permissions\" Link=\"Topics/betas/closed/custom-admin-role/about-user-and-group-permissions.htm#Group_permissions\" ResolvedId=\"1405\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
