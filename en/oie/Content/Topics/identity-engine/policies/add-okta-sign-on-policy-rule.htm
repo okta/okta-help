@@ -327,9 +327,25 @@
                                                         </li>
                                                     </ol>
                                                     <h2><a name="Keepmesignedin"></a>Keep me signed in</h2>
-                                                    <p data-mc-conditions="Primary.live-site-only">On the sign-in widget, the <b>Keep me signed in</b> check box retains the end user’s identifier and authenticator verification information on their device for the amount of time designated by the sign-on policy. </p>
-                                                    <p data-mc-conditions="Primary.live-site-only">Authenticator verifications are cleared for end users when they sign out or when their session expires.  Users who select the <b>Keep me signed in</b> check box are still required to pass MFA at least once on their current device.</p>
+                                                    <p>On the sign-in widget, the <b>Keep me signed in</b> check box retains the end user’s identifier and authenticator verification information on their device for the amount of time designated by the sign-on policy. </p>
+                                                    <p>Authenticator verifications are cleared for end users when they sign out or when their session expires.  Users who select the <b>Keep me signed in</b> check box are still required to pass MFA at least once on their current device.</p>
+                                                    <p>Okta allows admins to create Okta sign-on policies to minimize login friction for the user. Admins can allow the use of Persistent Cookies, which maintains the user's Okta session cookie on the device even after the browser session is quit. Admins can also specify how often a user is prompted for a second factor when signing in to Okta. End users can opt in to this functionality by selecting <b>Keep me signed in</b>.</p>
+                                                    <h3>Required secondary factor</h3>
                                                     <ul>
+                                                        <li>
+                                                            <p>When the Okta sign-on policy rule is set to Require secondary factor, once Per Device:</p>
+                                                        </li>
+                                                        <ul>
+                                                            <li>
+                                                                <p>If users select <b>Keep me signed in</b>, they aren’t prompted for a second authenticator if their session expires or they sign out, providing they haven’t cleared the device cookies and the device token is still valid.</p>
+                                                            </li>
+                                                        </ul>
+                                                        <li>
+                                                            <p>When the Okta sign-on policy is set to <b>Require secondary factor</b> once <b>Per Session</b> and the <b>Factor Lifetime</b> is set:</p>
+                                                        </li>
+                                                        <ul>
+                                                            <li>Users won’t be prompted to verify additional authenticators based on the <b>Factor Lifetime</b> that is set in the Okta sign-on policy. For example, if the <b>Factor Lifetime</b> is set to 10 days, after 10 days the user is prompted for secondary authenticators. When the user’s session expires, or after they sign out of the session, they’re prompted for primary authenticator.</li>
+                                                        </ul>
                                                         <li>
                                                             <p>When the Okta sign-on policy is set to Password / IDP / any factor allowed by app sign-on policy rules:</p>
                                                         </li>
@@ -347,6 +363,23 @@
                                                             </li>
                                                         </ul>
                                                     </ul>
+                                                    <h3>About persistent cookies</h3>
+                                                    <p>When a persistent cookie is set for an Okta sign-on policy rule, <b>Keep me signed in</b> functionality persists the session cookie in the browser so the user stays signed in after the browser closes.</p>
+                                                    <p><b>Note:</b> Sign-on policy persistent cookies can only be configured by setting the <code>usePersistentCookie</code> option in the Okta API. See <a href="https://developer.okta.com/docs/guides/shared-sso-android-ios/ios/session-and-persistent-sso/">Session and persistent Single Sign-On</a>.</p>
+                                                    <p>When the <code>usePersistentCookie</code> is configured:</p>
+                                                    <ul>
+                                                        <li>
+                                                            <p>The API sets a cookie that lasts across browser sessions. If a user quits their browser and reopens the browser, the browser session is persisted unless the user has signed out.</p>
+                                                        </li>
+                                                    </ul>
+                                                    <ul>
+                                                        <li>
+                                                            <p>The persistent cookie is valid until the session expires according to settings in the Okta sign-on policy.</p>
+                                                        </li>
+                                                        <li>
+                                                            <p>Persistent cookies are never set for Okta Administrator users.</p>
+                                                        </li>
+                                                    </ul>
                                                     <h2>Notes about Okta sign-on policy rules</h2>
                                                     <ul>
                                                         <li>Ensure that any restrictive rules are placed at the top of the Priority list.</li>
@@ -357,6 +390,7 @@
                                                         <li>
                                                             <p>An end user’s session expires according to the <b>Session expires after</b> setting in the Okta sign-on policy. At this point, end users must re-authenticate according to the <span class="mc-variable okta-variables.ProductName variable">Okta</span> sign-on policy rules, regardless of whether they selected the Keep me signed in option when signing in.</p>
                                                         </li>
+                                                        <li>When the <b>AND Authenticates via</b> condition is set to <b>LDAP</b>, the <code>AND</code>&#160;<b>Primary Factor</b> is selection has no effect. LDAP&#160;interface bind requests may still require a username and password with MFA&#160;information. See <a href="../../Directory/LDAP-interface-MFA.htm" class="MCXref xref">Use multifactor authentication with the LDAP Interface</a>.</li>
                                                     </ul>
                                                     <h2>Related topics</h2>
                                                     <p><a href="about-okta-sign-on-policies.htm" class="MCXref xref">Okta sign-on policies</a>

@@ -307,12 +307,30 @@
                                                             <ul>
                                                                 <li>Whether users and USGs reside in the <b>same</b> or <b>different</b> AD domains.</li>
                                                                 <li>If <b>different</b> domains, whether both domains exist in Okta and are connected by a trust relationship.</li>
+                                                                <li>Whether users come in to Okta through <i>sign-in</i> (JIT) or <i>import.</i></li>
                                                             </ul>
                                                             <h4>Assumptions</h4>
                                                             <ul>
+                                                                <li><b>JIT Provisioning</b> and <b>USG Support</b> options are selected in <b>Import and Account Settings</b>.</li>
                                                                 <li>If the option <b>Schedule import</b> is selected, the option <b>Do not import new Users</b> is <u>not</u> selected.</li>
                                                             </ul>
                                                             <p>Okta does not support Domain Local Groups containing members from multiple domains. Universal Security Groups with cross-domain membership are supported if there is a two-way trust established between the domains. Universal Security Groups do not support cross-forest membership. </p>
+                                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Sign-in (JIT) scenarios</a></span>
+                                                                <div class="MCDropDownBody dropDownBody">
+                                                                    <h4><i>What happens when a user who is a member of a USG that does <u>not</u> already exist in Okta signs-in to Okta?</i>
+                                                                    </h4>
+                                                                    <ul>
+                                                                        <li>If the user and the USG belong to the <b>same</b> domain but the USG does not already exist in Okta, Okta creates or updates the user's profile in Okta, brings in the USG, and syncs the user's membership to the USG.</li>
+                                                                        <li>If the user and the USG belong to <b>different</b> domains and both domains exist in Okta but the USG does not already exist in Okta, Okta creates or updates the user's profile in Okta but does not bring the USG in to Okta.</li>
+                                                                    </ul>
+                                                                    <h4><i>What happens when a user who is a member of a USG that <u>already</u> exists in Okta signs-in to Okta?</i>
+                                                                    </h4>
+                                                                    <ul>
+                                                                        <li>If the user and the USG belong to the <b>same</b> domain and the USG exists in Okta, Okta creates or updates the user's profile in Okta and syncs the user's membership to the USG.</li>
+                                                                        <li>If the user and the USG belong to <b>different</b> domains and the USG exists in Okta, Okta syncs the user's membership to the USG at sign-in only if the two domains are connected by a trust relationship. If the domains have no trust relationship, Okta does not recognize the user's membership in the USG.</li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
                                                             <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Import scenarios</a></span>
                                                                 <div class="MCDropDownBody dropDownBody">
                                                                     <h4><i>What happens during an import of groups and users?</i>
@@ -350,6 +368,13 @@
                                                         </div>
                                                     </div>
                                                     <br />
+                                                    <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />When are Distribution Groups brought in to Okta?
+                </a></span>
+                                                        <div class="MCDropDownBody dropDownBody">
+                                                            <p>Distribution Groups are brought into Okta during incremental and full imports and not during Just-in-Time (JIT) provisioning. </p>
+                                                            <p>When users sign in and the JIT&#160;provisioning flow is enabled, <span class="mc-variable okta-variables.ProductName variable">Okta</span> imports security group memberships but not distribution groups. JIT provisioning doesn't synchronize distribution group membership for user accounts. Users don't inherit membership in any parent security group when they are members of a child distribution group. To regularly update distribution group memberships from AD to <span class="mc-variable okta-variables.ProductName variable">Okta</span>, schedule an import. </p>
+                                                        </div>
+                                                    </div>
                                                     <br />
                                                     <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /></a><a id="DGsSynced" name="DGsSynced"></a><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" aria-expanded="false">When are Distribution Group memberships synced in Okta?
                 </a></span>
@@ -365,6 +390,12 @@
                                                         <div class="MCDropDownBody dropDownBody">
                                                             <p>Okta treats DGs and USGs the <b>same</b> in this respect:</p>
                                                             <p>During imports, Okta does not sync group memberships to DGs or USGs that reside in a different domain than the domain being imported.</p>
+                                                            <p>Okta treats DGs and USGs <b>differently</b> in this respect:</p>
+                                                            <ul>
+                                                                <li>If a user and a <b>USG</b> of which it is a member belong to the same domain, Okta syncs the user to the USG during Just-in-Time (JIT) provisioning <u>and</u> imports</li>
+                                                                <li>If a user and a <b>DG</b> of which it is a member belong to the same domain, Okta syncs the user to the DG only during imports, <u>not during JIT</u>.</li>
+                                                            </ul>
+                                                            <p>When users sign in and the JIT&#160;provisioning flow is enabled, Okta imports security group memberships but not distribution groups. JIT provisioning doesn't synchronize distribution group membership for user accounts. Users don't inherit membership in any parent security group when they are members of a child distribution group. To regularly update distribution group memberships from AD to <span class="mc-variable okta-variables.ProductName variable">Okta</span>, schedule an import. </p>
                                                             <p>When the <b>Skip users during import</b> check box  is selected as a provisioning option on the <b>To Okta</b> page,  group memberships are not  imported for Distribution or Universal Security Groups. See <a href="ad-agent-configure-import.htm" class="MCXref xref">Configure Active Directory  import and account settings</a>.</p>
                                                         </div>
                                                     </div>
@@ -376,6 +407,15 @@
                                                             <p>Some organizations administer an employee off-boarding process that involves moving users or groups to an out-of-scope OU. As detailed below, Okta never imports users and groups in out-of-scope OUs, and denies sign-in to all such users.</p>
                                                             <p>
                                                             </p>
+                                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Sign-in (JIT) scenarios</a></span>
+                                                                <div class="MCDropDownBody dropDownBody">
+                                                                    <p>Okta denies sign-in to all users in out-of-scope OUs, regardless of their enablement status in Active Directory.</p>
+                                                                    <ul>
+                                                                        <li>When a user in an <b>out-of-scope OU</b> who is <i>enabled</i> in AD tries to sign-in to Okta, Okta detects the user's AD status, preserves them as active in Okta, but denies their sign-in attempt.</li>
+                                                                        <li>When a user in an <b>out-of-scope OU </b>who is <i>disabled</i> in AD tries to sign-in Okta, Okta detects their AD status, deactivates them in Okta, and denies their sign-in attempt.</li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
                                                             <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Import scenarios</a></span>
                                                                 <div class="MCDropDownBody dropDownBody">
                                                                     <p>Okta performs <i>incremental</i> and <i>full</i> imports.</p>
@@ -394,6 +434,16 @@
                                                         </div>
                                                     </div>
                                                     <br />
+                                                    <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />How does JIT provisioning treat nested groups outside of OU and object filter scopes?</a></span>
+                                                        <div class="MCDropDownBody dropDownBody">
+                                                            <p>Membership&#160;inconsistencies can occur between “regular” imports and JIT provisioning. These membership&#160;anomalies&#160;may occur when using nested groups.
+</p>
+                                                            <p>During regular imports, Okta does not detect a child group that is outside the scope of an AD OU or LDAP object filter. If a parent group is within an OU/object filter scope but its child groups are not, Okta incorrectly resolves the parent group membership during import.
+&#160;</p>
+                                                            <p>
+JIT provisioning will correctly resolve these memberships to the parent group because its function detects only "flat" memberships.</p>
+                                                        </div>
+                                                    </div>
                                                     <br />
                                                     <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />What permissions does the Okta AD Agent Management Utility require?</a></span>
                                                         <div class="MCDropDownBody dropDownBody">

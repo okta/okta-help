@@ -322,7 +322,6 @@
                                                         <p>Various subsystems including Okta RADIUS agents uses certificates to:</p>
                                                         <ul>
                                                             <li>Secure communications when using the Extensible Authentication Protocol /Tunneled Transport Layer Security protocol or EAP/TTLS. </li>
-                                                            <li>Secure communications using Smart Card/PIV (personal identity verification).</li>
                                                         </ul>
                                                     </div>
                                                     <h2>Certificate issuers and types</h2>
@@ -338,12 +337,12 @@
                                                     </p>
                                                     <h2><a name="Creating"></a>Creating certificate chains</h2>
                                                     <p>Certificate chains are groupings of certificates. Okta typically in requires all certificate changes be in Privacy Enhanced Mail (PEM) format.</p>
-                                                    <p>Certificate chains are  the contents of all certificates concatenated together in order from END certificate to trusted root certificate. If there are multiple intermediate certificates then they also must be included in the chain. Certificates can be concatenated together using an editor or command line tools. </p>
-                                                    <p>For example under Linux, to concatenate a primary certificate, an intermediate certificate and a private key:</p><pre id="code">
-cat primary.pem intermediate.pem primarykey.pem &gt; certificate-chain.com		</pre>
+                                                    <p>Certificate chains are  the contents of all certificates concatenated together in order from entity certificate to trusted root certificate. If there are multiple intermediate certificates then they also must be included in the chain. Certificates can be concatenated together using an editor or command line tools. </p>
+                                                    <p>For example under Linux, to concatenate an entity certificate, an intermediate certificate and the entities private key:</p><pre id="code" xml:space="preserve">
+cat entity.pem intermediate.pem entity-primarykey.pem &gt; certificate-chain.pem		</pre>
                                                     <p>When chained, groupings of certificates resemble:<br /></p><pre xml:space="preserve">
 -----BEGIN CERTIFICATE-----
-.... (primary certificate contents)
+.... (entity certificate contents)
 -----END CERTIFICATE-----
 -----BEGIN CERTIFICATE-----
 .... (Intermediate certificate contents)
@@ -352,11 +351,11 @@ cat primary.pem intermediate.pem primarykey.pem &gt; certificate-chain.com		</pr
 .... (Trusted root certificate contents)
 -----END CERTIFICATE-----
 -----BEGIN RSA PRIVATE KEY-----
-.... (key contents)
------ END RSA PRIVATE KEY-----		</pre>
+.... (entity private key contents)
+-----END RSA PRIVATE KEY-----		</pre>
                                                     <div class="noteOkta">
                                                         <img src="../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Note" alt="Note" />
-                                                        <p>You must create a chain containing each certificate including the trusted root CA, all intermediate certificates and the end certificate. For EAP-TTLS or EAP-GCT&#160;also include the associated private key.<br />PIV certificate chains do not require a private key.</p>
+                                                        <p>You must create a chain containing each certificate, starting with all intermediate certificates followed by the entity certificate, but excluding the trusted CA root certificate. For EAP-TTLS or EAP-GCT&#160;also include the entity private key.<br /></p>
                                                     </div>
                                                     <h2><a name="Converti"></a>Converting between certificate formats</h2>
                                                     <p>Generally, Okta requires certificates in <span class="code">PEM</span>&#160;format. &#160;If you have received or generated certificates in another format they may need to be converted to <span class="code">PEM</span> before being concatenated and then uploaded. Various tools can be used to convert a certificate from one format to another, including <span class="code">openssl</span>. <br />The following examples show converting various formats to .PEM.</p>
