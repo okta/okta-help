@@ -109,6 +109,7 @@ xmlAliasData += '    <Map Name=\"ext-box-method-deactivateuser\" Link=\"Topics/W
 xmlAliasData += '    <Map Name=\"ext-box-method-deletefile\" Link=\"Topics/Workflows/connector-reference/box/actions/deletefile.htm\" ResolvedId=\"30064\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-deletefolder\" Link=\"Topics/Workflows/connector-reference/box/actions/deletefolder.htm\" ResolvedId=\"30065\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-deleteuser\" Link=\"Topics/Workflows/connector-reference/box/actions/deleteuser.htm\" ResolvedId=\"30066\" />';
+xmlAliasData += '    <Map Name=\"ext-box-method-downloadfile\" Link=\"Topics/Workflows/connector-reference/box/actions/downloadfile.htm\" ResolvedId=\"30067\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-getgroupmembership\" Link=\"Topics/Workflows/connector-reference/box/actions/getgroupmembership.htm\" ResolvedId=\"30068\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-getuser\" Link=\"Topics/Workflows/connector-reference/box/actions/getuser.htm\" ResolvedId=\"30069\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-listgroupsmembers\" Link=\"Topics/Workflows/connector-reference/box/actions/listgroupsmembers.htm\" ResolvedId=\"30070\" />';
@@ -119,6 +120,7 @@ xmlAliasData += '    <Map Name=\"ext-box-method-searchforuser\" Link=\"Topics/Wo
 xmlAliasData += '    <Map Name=\"ext-box-method-transferuserfolders\" Link=\"Topics/Workflows/connector-reference/box/actions/transferuserfolders.htm\" ResolvedId=\"30079\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-updategroupmembership\" Link=\"Topics/Workflows/connector-reference/box/actions/updategroupmembership.htm\" ResolvedId=\"30082\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-updateuser\" Link=\"Topics/Workflows/connector-reference/box/actions/updateuser.htm\" ResolvedId=\"30085\" />';
+xmlAliasData += '    <Map Name=\"ext-box-method-uploadfile\" Link=\"Topics/Workflows/connector-reference/box/actions/uploadfile.htm\" ResolvedId=\"30086\" />';
 xmlAliasData += '    <Map Name=\"ext-box-misc-authorization\" Link=\"Topics/Workflows/connector-reference/box/overviews/authorization.htm\" ResolvedId=\"30095\" />';
 xmlAliasData += '    <Map Name=\"ext-datagrail\" Link=\"Topics/Workflows/connector-reference/datagrail/datagrail.htm\" ResolvedId=\"30096\" />';
 xmlAliasData += '    <Map Name=\"ext-datagrail-method-createprivacyrequest\" Link=\"Topics/Workflows/connector-reference/datagrail/actions/createprivacyrequest.htm\" ResolvedId=\"30097\" />';
@@ -262,6 +264,7 @@ xmlAliasData += '    <Map Name=\"ext-googledrive-method-createfolder\" Link=\"To
 xmlAliasData += '    <Map Name=\"ext-googledrive-method-createpermission\" Link=\"Topics/Workflows/connector-reference/googledrive/actions/createpermission.htm\" ResolvedId=\"30259\" />';
 xmlAliasData += '    <Map Name=\"ext-googledrive-method-createtransferrequest\" Link=\"Topics/Workflows/connector-reference/googledrive/actions/createtransferrequest.htm\" ResolvedId=\"30260\" />';
 xmlAliasData += '    <Map Name=\"ext-googledrive-method-deletefile\" Link=\"Topics/Workflows/connector-reference/googledrive/actions/deletefile.htm\" ResolvedId=\"30261\" />';
+xmlAliasData += '    <Map Name=\"ext-googledrive-method-downloadfile\" Link=\"Topics/Workflows/connector-reference/googledrive/actions/downloadfile.htm\" ResolvedId=\"30262\" />';
 xmlAliasData += '    <Map Name=\"ext-googledrive-method-getfilepermissions\" Link=\"Topics/Workflows/connector-reference/googledrive/actions/getfilepermissions.htm\" ResolvedId=\"30263\" />';
 xmlAliasData += '    <Map Name=\"ext-googledrive-method-movefileorfolder\" Link=\"Topics/Workflows/connector-reference/googledrive/actions/movefileorfolder.htm\" ResolvedId=\"30264\" />';
 xmlAliasData += '    <Map Name=\"ext-googledrive-method-readfileinfo\" Link=\"Topics/Workflows/connector-reference/googledrive/actions/readfileinfo.htm\" ResolvedId=\"30265\" />';
@@ -514,6 +517,7 @@ xmlAliasData += '    <Map Name=\"ext-servicenow-method-updateuser\" Link=\"Topic
 xmlAliasData += '    <Map Name=\"ext-servicenow-method-uploadattachment\" Link=\"Topics/Workflows/connector-reference/servicenow/actions/uploadattachment.htm\" ResolvedId=\"30581\" />';
 xmlAliasData += '    <Map Name=\"ext-servicenow-method-newincident\" Link=\"Topics/Workflows/connector-reference/servicenow/events/newincident.htm\" ResolvedId=\"30583\" />';
 xmlAliasData += '    <Map Name=\"ext-servicenow-method-updatedincident\" Link=\"Topics/Workflows/connector-reference/servicenow/events/updatedincident.htm\" ResolvedId=\"30588\" />';
+xmlAliasData += '    <Map Name=\"ext-servicenow-misc-authorization\" Link=\"Topics/Workflows/connector-reference/servicenow/overviews/authorization.htm\" ResolvedId=\"30589\" />';
 xmlAliasData += '    <Map Name=\"ext-slack\" Link=\"Topics/Workflows/connector-reference/slack/slack.htm\" ResolvedId=\"30590\" />';
 xmlAliasData += '    <Map Name=\"ext-slack-method-archivechannel\" Link=\"Topics/Workflows/connector-reference/slack/actions/archivechannel.htm\" ResolvedId=\"30591\" />';
 xmlAliasData += '    <Map Name=\"ext-slack-method-createchannel2\" Link=\"Topics/Workflows/connector-reference/slack/actions/createchannel2.htm\" ResolvedId=\"30592\" />';
@@ -939,5 +943,7 @@ xmlAliasData += '    <Map Name=\"ext-freshservice-method-readuser\" Link=\"Topic
 xmlAliasData += '    <Map Name=\"ext-freshservice-method-updateuser\" Link=\"Topics/Workflows/connector-reference/freshservice/actions/updateuser.htm\" ResolvedId=\"1400\" />';
 xmlAliasData += '    <Map Name=\"ext-datagrail-misc-authorization\" Link=\"Topics/Workflows/connector-reference/datagrail/overviews/authorization.htm\" ResolvedId=\"11006\" />';
 xmlAliasData += '    <Map Name=\"ext-freshservice-misc-authorization\" Link=\"Topics/Workflows/connector-reference/freshservice/overviews/authorization.htm\" ResolvedId=\"31057\" />';
+xmlAliasData += '    <Map Name=\"ext-stash-method-cleartableaction\" Link=\"Topics/Workflows/function-reference/Tables/stash_cleartableaction.htm\" ResolvedId=\"31058\" />';
+xmlAliasData += '    <Map Name=\"ext-workflows-releasenotes\" Link=\"Topics/ReleaseNotes/Workflows/workflows-release-notes.htm\" ResolvedId=\"31059\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
