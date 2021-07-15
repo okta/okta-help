@@ -185,17 +185,34 @@
                                     </noscript>
                                     <!-- End Google Tag Manager (noscript) -->
                                     <!-- Coveo config parameters -->
-                                    <div id="coveo_org_id" style="Display:None"><span class="mc-variable okta-coveo-config.OrgId variable">oktanonproduction1il1gtac7</span>
+                                    <div id="coveo_org_id" style="Display:None"><span class="mc-variable okta-coveo-config.OrgId variable">oktaproduction9ounvcxa</span>
                                     </div>
                                     <div id="coveo_rest_uri" style="Display:None"><span class="mc-variable okta-coveo-config.PlatformRestUri variable">https://platform.cloud.coveo.com/rest/search</span>
                                     </div>
-                                    <div id="coveo_search_url" style="Display:None"><span class="mc-variable okta-coveo-config.SearchPageUrl variable">https://fulluat-okta.cs4.force.com/help/s/global-search/%40uri</span>
+                                    <div id="coveo_search_url" style="Display:None"><span class="mc-variable okta-coveo-config.SearchPageUrl variable">https://support.okta.com/help/s/global-search/%40uri</span>
                                     </div>
-                                    <div id="coveo_token_url" style="Display:None"><span class="mc-variable okta-coveo-config.SearchTokenServiceUrl variable">https://u7efr6th1i.execute-api.us-west-2.amazonaws.com/dev/token/?site=help</span>
+                                    <div id="coveo_token_url" style="Display:None"><span class="mc-variable okta-coveo-config.SearchTokenServiceUrl variable">https://support.okta.com/help/services/apexrest/PublicSearchToken?site=help</span>
                                     </div>
                                     <!-- End Coveo config parameters -->
                                     <!-- ************************* Coveo Search bar ************************************* -->
                                     <!-- set margin and size in /Content/Resources/Scripts/coveo-resources/css/Coveo.Okta.StandaloneSearchbox.min.css to make room for replacing Flare-generated top-nav with HTML code (see below)-->
+                                    <div id="OLC_Coveo_Headline" class="coveo-headline-wrapper" data-mc-conditions="MultiProdPubish.SearchBar">
+                                        <div class="slds-p-vertical_small">
+                                            <!--Search Bar-->
+                                            <div class="slds-grid slds-grid_align-center">
+                                                <div id="customSelect" class="CoveoCustomSelect slds-float_right">
+                                                </div>
+                                                <div id="standaloneSearchbox">
+                                                    <div class="CoveoAnalytics" data-search-hub="OktaCommunityFullSearch">
+                                                    </div>
+                                                    <div class="CoveoTab" data-id="Help" data-caption="Help" style="display:none">
+                                                    </div>
+                                                    <div class="CoveoSearchbox" data-enable-omnibox="true" data-enable-query-suggest-addon="true">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="replace_top_nav">
                                         <!--<div class="title-bar-layout outer-row">-->
                                         <!--<div class="navigation-wrapper nocontent">
@@ -281,7 +298,7 @@
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
                                                     <h1>About load balancers</h1>
-                                                    <p> <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>is often deployed in a high availability scenario using a load balancer.  </p>
+                                                    <p> <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>is often deployed in a high availability scenario using a load balancer. In such scenarios the load balancer must know the health of each worker instance.</p>
                                                     <p>
                                                         <img src="../../Resources/Images/access-gateway/about-load-balancers-01.png" id="img_new" alt="Typical Access Gateway Load Balancer Architecture" />
                                                     </p>
@@ -289,7 +306,7 @@
                                                     <ul>
                                                         <li><a href="#Load" class="MCXref xref">Load balancer configuration</a>
                                                         </li>
-                                                        <li><a href="#Node" class="MCXref xref">Node Health Check</a>
+                                                        <li><a href="#Node" class="MCXref xref">Worker node up check</a>
                                                         </li>
                                                         <li><a href="#Cluster" class="MCXref xref">Cluster upgrades and load balancers</a>
                                                         </li>
@@ -306,9 +323,14 @@
                                                         <p class="noteHeading">Note</p>
                                                         <p class="noteContent">When configuring a load balancer, the <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> admin node is typically not included as part of the worker pool. </p>
                                                     </div>
-                                                    <h2><a name="Node"></a>Node Health Check</h2>
+                                                    <h2><a name="Node"></a>Worker node up check</h2>
                                                     <p>&#160;</p>
-                                                    <p>Load balancers must be able to determine if <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> cluster members are healthy. <br />To perform a health check send an HTTP request with the following:</p>
+                                                    <p>Load balancers must be able to determine if <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> cluster members are up. </p>
+                                                    <div class="noteOkta">
+                                                        <img src="../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Important Note" alt="Important Note" />
+                                                        <p class="noteContent">This check ONLY determines if the worker node itself is up and functioning. It does NOT determine if down stream resources are up and available. </p>
+                                                    </div>
+                                                    <p>To perform a upcheck send an HTTP request with the following:</p>
                                                     <table style="mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
                                                         <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
                                                         <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
@@ -336,7 +358,7 @@
                                                         </tbody>
                                                     </table>
                                                     <p>For example:</p>
-                                                    <p><span class="code">curl -X GET -v -k https://10.0.0.225/status -H 'Host:gw.<i>yourhost</i>.com'</span>
+                                                    <p><span class="code">curl -X GET -v -k https://10.0.0.225/status -H 'Host:gw.<i>yourhost.tld</i>'</span>
                                                         <br />Where:</p>
                                                     <ul>
                                                         <li><span class="code">-X&#160;GET</span>&#160;- Make a get request</li>
