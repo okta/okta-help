@@ -264,10 +264,10 @@ xmlAliasData += '    <Map Name=\"csh-sso-ext-macos\" Link=\"Topics/identity-engi
 xmlAliasData += '    <Map Name=\"csh-sso-ext-ios\" Link=\"Topics/identity-engine/devices/config-credential-sso-ext-ios.htm\" ResolvedId=\"1352\" />';
 xmlAliasData += '    <Map Name=\"ext_cofigure_ldap_okta_settings\" Link=\"Topics/Directory/ldap-agent-configure-LDAP-import-settings.htm\" ResolvedId=\"15000\" />';
 xmlAliasData += '    <Map Name=\"ext-netmotion-mobility-radius-intg\" Link=\"Topics/integrations/netmotion-radius-intg.htm\" ResolvedId=\"3000\" />';
-xmlAliasData += '    <Map Name=\"csh-features\" Link=\"Topics/identity-engine/oie-features.htm\" ResolvedId=\"2003\" />';
 xmlAliasData += '    <Map Name=\"ext_ldap_prerequisites\" Link=\"Topics/Directory/ldap-agent-prerequisites.htm\" ResolvedId=\"15001\" />';
 xmlAliasData += '    <Map Name=\"csh-device-mgmt-desktop-mdm-setup\" Link=\"Topics/identity-engine/devices/config-desktop.htm\" ResolvedId=\"12000\" />';
 xmlAliasData += '    <Map Name=\"ext_prov_lcm_prov_app\" Link=\"Topics/Provisioning/lcm/lcm-provision-application.htm\" ResolvedId=\"6000\" />';
+xmlAliasData += '    <Map Name=\"ext_expose_app_groups\" Link=\"Topics/Directory/ldap-interface-expose-groups.htm\" ResolvedId=\"15002\" />';
 xmlAliasData += '    <Map Name=\"ext-ad-dsso-main\" Link=\"Topics/Directory/ad-desktop-sso-main.htm\" ResolvedId=\"15003\" />';
 xmlAliasData += '    <Map Name=\"ext-hide-sensitive-attributes\" Link=\"Topics/users-groups-profiles/usgp-hide-sensitive-attributes.htm\" ResolvedId=\"15004\" />';
 xmlAliasData += '    <Map Name=\"ext-box-provisioning\" Link=\"Topics/Provisioning/Box/box-provision.htm\" ResolvedId=\"8000\" />';
@@ -339,10 +339,12 @@ xmlAliasData += '    <Map Name=\"ext-passwordless-auth\" Link=\"Topics/identity-
 xmlAliasData += '    <Map Name=\"ext-create-mfa-policy\" Link=\"Topics/identity-engine/policies/create-mfa-policy.htm\" ResolvedId=\"1381\" />';
 xmlAliasData += '    <Map Name=\"ext-about-osop\" Link=\"Topics/identity-engine/policies/about-okta-sign-on-policies.htm\" ResolvedId=\"1382\" />';
 xmlAliasData += '    <Map Name=\"csh-asop-sq\" Link=\"Topics/identity-engine/policies/add-app-sign-on-policy-rule.htm#sq-asop\" ResolvedId=\"18000\" />';
+xmlAliasData += '    <Map Name=\"ext-get-started-oie\" Link=\"Topics/identity-engine/oie-get-started.htm\" ResolvedId=\"1383\" />';
 xmlAliasData += '    <Map Name=\"csh-o365-deploy\" Link=\"Topics/Apps/Office365-Deployment/deploy-main.htm\" ResolvedId=\"1392\" />';
 xmlAliasData += '    <Map Name=\"ext-oie-policies\" Link=\"Topics/identity-engine/policies/about-policies.htm\" ResolvedId=\"1393\" />';
 xmlAliasData += '    <Map Name=\"csh-asop-scenarios\" Link=\"Topics/identity-engine/policies/asop-authentication-scenarios.htm\" ResolvedId=\"1401\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-learn-about\" Link=\"Topics/Apps/apps-overview-learn-about.htm\" ResolvedId=\"6004\" />';
 xmlAliasData += '    <Map Name=\"ext-apps-learn-about\" Link=\"Topics/Apps/apps-overview-learn-about.htm\" ResolvedId=\"6005\" />';
+xmlAliasData += '    <Map Name=\"ext-oie-limitations\" Link=\"Topics/identity-engine/oie-limitations.htm\" ResolvedId=\"1403\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
