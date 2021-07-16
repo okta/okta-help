@@ -356,5 +356,6 @@ xmlAliasData += '    <Map Name=\"csh-apps-learn-about\" Link=\"Topics/Apps/apps-
 xmlAliasData += '    <Map Name=\"ext-apps-learn-about\" Link=\"Topics/Apps/apps-overview-learn-about.htm\" ResolvedId=\"6005\" />';
 xmlAliasData += '    <Map Name=\"ext-oie-limitations\" Link=\"Topics/identity-engine/oie-limitations.htm\" ResolvedId=\"1403\" />';
 xmlAliasData += '    <Map Name=\"ext-oie-whats-new\" Link=\"Topics/identity-engine/oie-whats-new.htm\" ResolvedId=\"1408\" />';
+xmlAliasData += '    <Map Name=\"csh-o365-sso\" Link=\"Topics/Apps/Office365/o365-sign-on-policies-main.htm\" ResolvedId=\"1409\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
