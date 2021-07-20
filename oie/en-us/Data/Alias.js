@@ -9,6 +9,7 @@ xmlAliasData += '    <Map Name=\"Security_IdP\" Link=\"Topics/Security/Identity_
 xmlAliasData += '    <Map Name=\"Security_Administrators\" Link=\"Topics/Security/Administrators.htm\" ResolvedId=\"1110\" />';
 xmlAliasData += '    <Map Name=\"Security_API\" Link=\"Topics/Security/API.htm#Security_API\" ResolvedId=\"1120\" />';
 xmlAliasData += '    <Map Name=\"Directory_Groups\" Link=\"Topics/users-groups-profiles/usgp-about-groups.htm#Directory_Groups\" ResolvedId=\"1140\" />';
+xmlAliasData += '    <Map Name=\"Applications_Applications\" Link=\"Topics/Apps/Apps_Apps.htm#Applications_Applications\" ResolvedId=\"1180\" />';
 xmlAliasData += '    <Map Name=\"Settings_Account\" Link=\"Topics/Settings/Settings_Account.htm\" ResolvedId=\"1210\" />';
 xmlAliasData += '    <Map Name=\"Settings_Appearance\" Link=\"Topics/Settings/Settings_Appearance.htm#Settings_Appearance\" ResolvedId=\"1220\" />';
 xmlAliasData += '    <Map Name=\"Settings_Customization\" Link=\"Topics/Settings/Settings_Customization.htm#Settings_Customization1\" ResolvedId=\"1230\" />';
@@ -44,6 +45,7 @@ xmlAliasData += '    <Map Name=\"pulse-radius-intg\" Link=\"Topics/integrations/
 xmlAliasData += '    <Map Name=\"ext_Access_Request_Workflow\" Link=\"Topics/Apps/apps-selfservice-main.htm\" ResolvedId=\"200008\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Active_Directory_Agent_appSettings_Definition\" Link=\"Topics/Directory/ad-agent-appsettings.htm\" ResolvedId=\"200009\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Adding_an_App_from_the_Browser_Plugin\" Link=\"Topics/Apps/Apps_Adding_an_App_from_the_Browser_Plugin.htm\" ResolvedId=\"200010\" />';
+xmlAliasData += '    <Map Name=\"ext_Apps_Apps\" Link=\"Topics/Apps/Apps_Apps.htm\" ResolvedId=\"200012\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Apps_Page\" Link=\"Topics/Apps/Apps_Apps_Page.htm\" ResolvedId=\"200013\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_App_Integration_Wizard\" Link=\"Topics/Apps/Apps_App_Integration_Wizard.htm\" ResolvedId=\"200015\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Browser_Plugin\" Link=\"Topics/Browser-Plugin/browser-plugin-main.htm\" ResolvedId=\"200016\" />';
@@ -260,6 +262,7 @@ xmlAliasData += '    <Map Name=\"csh-sso-ext-macos\" Link=\"Topics/identity-engi
 xmlAliasData += '    <Map Name=\"csh-sso-ext-ios\" Link=\"Topics/identity-engine/devices/config-credential-sso-ext-ios.htm\" ResolvedId=\"1352\" />';
 xmlAliasData += '    <Map Name=\"ext_cofigure_ldap_okta_settings\" Link=\"Topics/Directory/ldap-agent-configure-LDAP-import-settings.htm\" ResolvedId=\"15000\" />';
 xmlAliasData += '    <Map Name=\"ext-netmotion-mobility-radius-intg\" Link=\"Topics/integrations/netmotion-radius-intg.htm\" ResolvedId=\"3000\" />';
+xmlAliasData += '    <Map Name=\"csh-oie-rn\" Link=\"Topics/ReleaseNotes/oie-relnotes.htm\" ResolvedId=\"2001\" />';
 xmlAliasData += '    <Map Name=\"ext_ldap_prerequisites\" Link=\"Topics/Directory/ldap-agent-prerequisites.htm\" ResolvedId=\"15001\" />';
 xmlAliasData += '    <Map Name=\"csh-device-mgmt-desktop-mdm-setup\" Link=\"Topics/identity-engine/devices/config-desktop.htm\" ResolvedId=\"12000\" />';
 xmlAliasData += '    <Map Name=\"ext_prov_lcm_prov_app\" Link=\"Topics/Provisioning/lcm/lcm-provision-application.htm\" ResolvedId=\"6000\" />';
