@@ -349,23 +349,23 @@
                                                             <p>
                                                                 <img src="../../Resources/Images/okta-adfs35.png" />
                                                             </p>
-                                                            <p>If you are installing in a Federation Server Farm, do not check <b>Register Okta ADFS Adapter</b>. <br />Refer to the manual registration procedure detailed in the <a href="#Farm">Farm Installation Addendum</a>.</p>
+                                                            <p>If you are installing in a Federation Server Farm, do not check <b>Register Okta ADFS Adapter</b>. <br />Refer to the manual registration procedure detailed in the <a href="adfs-okta-int-farm.htm">Farm Installation Addendum</a>.</p>
                                                         </li>
                                                         <li value="8">
                        Specify the drive and folder where you want to install the Okta MFA Adapter.
 <p><img src="../../Resources/Images/okta-adfs12.png" /></p></li>
                                                         <li value="9">
                       The install completes, c lick <b>Close</b>.</li>
-                                                        <li value="10">If you are installing in a Federation Server Farm,do not check <b>Register Okta ADFS Adapter</b>. Refer to the manual registration procedure detailed in the <a href="#Farm">Farm Installation Addendum</a>.</li>
+                                                        <li value="10">If you are installing in a Federation Server Farm, do not check <b>Register Okta ADFS Adapter</b>. Refer to the manual registration procedure detailed in the <a href="adfs-okta-int-farm.htm">Farm Installation Addendum</a>.</li>
                                                         <li value="11"><b>ADFS 2019 only</b>
                                                             <br />If you are installing in ADFS 2019, perform the following in a powershell window.<ol style="list-style-type: lower-alpha;"><li value="1">Open a powershell window as administrator.</li><li value="2">Execute the following commands:<br /><pre id="code" xml:space="preserve">$oktaCustomerName = "your customer name" 
 $oktaUrl = "https://$oktaCustomerName.okta.com" 
 $oktaCdnUrl = "https://*.oktacdn.com" 				
-</pre><br /></li><li value="3">if no custom Content Security Policy (<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP">CSP</a>)&#160;exists execute:<br /><pre id="code" xml:space="preserve">
-Set-AdfsResponseHeaders -SetHeaderName Content-Security-Policy `
-                        -SetHeaderValue "default-src 'self' `
-                         'unsafe-inline' 'unsafe-eval'; `
-                         $oktaCdnUrl $oktaUrl"			
+</pre><br /></li><li value="3">if no custom Content Security Policy (<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP">CSP</a>)&#160;exists execute:<br /><pre id="code" xml:space="preserve">$CSP = ((Get-AdfsResponseHeaders | Select -ExpandProperty ResponseHeaders).'Content-Security-Policy')
+$CSP = $CSP + '; frame-src ' + $apihostname + ' ' + $oktaCdnUrl
+Set-AdfsResponseHeaders -SetHeaderName Content-Security-Policy -SetHeaderValue $CSP CORS
+Set-AdfsResponseHeaders -EnableCORS $true
+Set-AdfsResponseHeaders -CORSTrustedOrigins https://$($oktaUrl)
 </pre><br /></li><li value="4">if a custom Content Security Policy exists execute:<br /><pre id="code" xml:space="preserve">
 $CSP = ((Get-AdfsResponseHeaders | Select -ExpandProperty ResponseHeaders).'Content-Security-Policy')
 if (-not ([string]::IsNullOrEmpty($CSP)))

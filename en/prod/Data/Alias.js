@@ -374,7 +374,7 @@ xmlAliasData += '    <Map Name=\"csh-strong-password\" Link=\"Topics/Security/he
 xmlAliasData += '    <Map Name=\"csh-new-eu-dashboard\" Link=\"Topics/Settings/new-end-user-dashboard.htm\" ResolvedId=\"1183\" />';
 xmlAliasData += '    <Map Name=\"csh-agentless-dsso\" Link=\"Topics/Directory/Configuring_Agentless_SSO.htm\" ResolvedId=\"1202\" />';
 xmlAliasData += '    <Map Name=\"csh-agentless-migration\" Link=\"Topics/Directory/configure-agentless-sso-migration.htm\" ResolvedId=\"1203\" />';
-xmlAliasData += '    <Map Name=\"NEW\" Link=\"Topics/Directory/configure-agentless-sso-migration.htm\" ResolvedId=\"1204\" />';
+xmlAliasData += '    <Map Name=\"ext-csh-agentless-migration\" Link=\"Topics/Directory/configure-agentless-sso-migration.htm\" ResolvedId=\"1204\" />';
 xmlAliasData += '    <Map Name=\"csh-saml-authentication\" Link=\"Topics/Security/healthinsight/saml-authentication.htm\" ResolvedId=\"1206\" />';
 xmlAliasData += '    <Map Name=\"csh-healthinsight\" Link=\"Topics/Security/healthinsight/healthinsight.htm\" ResolvedId=\"1207\" />';
 xmlAliasData += '    <Map Name=\"ext-healthinsight\" Link=\"Topics/Security/healthinsight/healthinsight.htm\" ResolvedId=\"1208\" />';
@@ -540,6 +540,7 @@ xmlAliasData += '    <Map Name=\"ext-about-templates\" Link=\"Topics/Workflows/t
 xmlAliasData += '    <Map Name=\"ext-add-template\" Link=\"Topics/Workflows/templates/add-template.htm\" ResolvedId=\"10027\" />';
 xmlAliasData += '    <Map Name=\"ext-templates-list\" Link=\"Topics/Workflows/templates/templates-list.htm\" ResolvedId=\"10028\" />';
 xmlAliasData += '    <Map Name=\"ext-workflows-templates\" Link=\"Topics/Workflows/templates/workflows-templates.htm\" ResolvedId=\"10029\" />';
+xmlAliasData += '    <Map Name=\"ext_expose_app_groups\" Link=\"Topics/Directory/ldap-interface-expose-groups.htm\" ResolvedId=\"15002\" />';
 xmlAliasData += '    <Map Name=\"ext-airtable\" Link=\"Topics/Workflows/connector-reference/airtable/airtable.htm\" ResolvedId=\"30001\" />';
 xmlAliasData += '    <Map Name=\"ext-airtable-method-createrow\" Link=\"Topics/Workflows/connector-reference/airtable/actions/createrow.htm\" ResolvedId=\"30002\" />';
 xmlAliasData += '    <Map Name=\"ext-airtable-method-customapiaction\" Link=\"Topics/Workflows/connector-reference/airtable/actions/customapiaction.htm\" ResolvedId=\"30003\" />';
@@ -1586,7 +1587,6 @@ xmlAliasData += '    <Map Name=\"ext-okta-method-usermfafactorresetall\" Link=\"
 xmlAliasData += '    <Map Name=\"ext-list-method-swap\" Link=\"Topics/Workflows/function-reference/List/list_swap.htm\" ResolvedId=\"1368\" />';
 xmlAliasData += '    <Map Name=\"ext-object-method-collapse\" Link=\"Topics/Workflows/function-reference/Object/object_collapse.htm\" ResolvedId=\"1369\" />';
 xmlAliasData += '    <Map Name=\"ext-object-method-split\" Link=\"Topics/Workflows/function-reference/Object/object_split.htm\" ResolvedId=\"1370\" />';
-xmlAliasData += '    <Map Name=\"ext-list-method-mapobjects\" Link=\"Topics/Workflows/function-reference/List/list_mapobjects.htm\" ResolvedId=\"1371\" />';
 xmlAliasData += '    <Map Name=\"ext-sendgrid-method-sendemail\" Link=\"Topics/Workflows/connector-reference/sendgrid/actions/sendemail.htm\" ResolvedId=\"31050\" />';
 xmlAliasData += '    <Map Name=\"ext-googlecalendar-method-addusertocalendar\" Link=\"Topics/Workflows/connector-reference/googlecalendar/actions/addusertocalendar.htm\" ResolvedId=\"31051\" />';
 xmlAliasData += '    <Map Name=\"ext-googlecalendar-method-removeuserfromcalendar\" Link=\"Topics/Workflows/connector-reference/googlecalendar/actions/removeuserfromcalendar.htm\" ResolvedId=\"31052\" />';
@@ -1616,12 +1616,16 @@ xmlAliasData += '    <Map Name=\"ext-freshservice-method-readuser\" Link=\"Topic
 xmlAliasData += '    <Map Name=\"ext-freshservice-method-updateuser\" Link=\"Topics/Workflows/connector-reference/freshservice/actions/updateuser.htm\" ResolvedId=\"1400\" />';
 xmlAliasData += '    <Map Name=\"ext-datagrail-misc-authorization\" Link=\"Topics/Workflows/connector-reference/datagrail/overviews/authorization.htm\" ResolvedId=\"11006\" />';
 xmlAliasData += '    <Map Name=\"ext-freshservice-misc-authorization\" Link=\"Topics/Workflows/connector-reference/freshservice/overviews/authorization.htm\" ResolvedId=\"31057\" />';
-xmlAliasData += '    <Map Name=\"ext-stash-method-cleartableaction\" Link=\"Topics/Workflows/function-reference/Tables/stash_cleartableaction.htm\" ResolvedId=\"31058\" />';
+xmlAliasData += '    <Map Name=\"ext-stash-method-cleartable\" Link=\"Topics/Workflows/function-reference/Tables/stash_cleartable.htm\" ResolvedId=\"31058\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-learn-about\" Link=\"Topics/Apps/apps-overview-learn-about.htm\" ResolvedId=\"6004\" />';
 xmlAliasData += '    <Map Name=\"ext-apps-learn-about\" Link=\"Topics/Apps/apps-overview-learn-about.htm\" ResolvedId=\"6005\" />';
 xmlAliasData += '    <Map Name=\"ext-workflows-releasenotes\" Link=\"Topics/ReleaseNotes/Workflows/workflows-release-notes.htm\" ResolvedId=\"31059\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_main\" Link=\"Topics/Access-Gateway/ag-main.htm\" ResolvedId=\"3074\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_releasenotes\" Link=\"Topics/ReleaseNotes/access-gateway-release-notes.htm\" ResolvedId=\"3075\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-releasenotes\" Link=\"Topics/ReleaseNotes/advanced-server-access-release-notes.htm\" ResolvedId=\"1402\" />';
+xmlAliasData += '    <Map Name=\"ext-admin-landing\" Link=\"index-admin.htm\" ResolvedId=\"1407\" />';
+xmlAliasData += '    <Map Name=\"csh-o365-sso-classic\" Link=\"Topics/Security/O365_Client-Access-Policies.htm\" ResolvedId=\"1410\" />';
+xmlAliasData += '    <Map Name=\"ext-improved-ndbd\" Link=\"Topics/Security/behavior-detection/improved-new-device-behavior-detection.htm\" ResolvedId=\"2025\" />';
+xmlAliasData += '    <Map Name=\"csh-improved-ndbd\" Link=\"Topics/Security/behavior-detection/improved-new-device-behavior-detection.htm\" ResolvedId=\"2024\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
