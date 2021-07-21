@@ -297,55 +297,104 @@
                                             <div class="body-main">
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
-                                                    <div data-content-id="hoc-main-content">
-                                                        <h1>Use case: Send custom end-user notifications</h1>
-                                                        <h2>Summary</h2>
-                                                        <p><b>Problem</b>: Okta provides out of the box emails for common scenarios such as account activation, and password reset, but there are a limited number of triggers and customization options available.</p>
-                                                        <p><b>Solution</b>: When specific lifecycle events occur in Okta, email the end user using an API-driven email service. For example:</p>
-                                                        <ul>
-                                                            <li>
-                                                                <p>When a user is activated, send a welcome email or an email with an activation token.</p>
-                                                            </li>
-                                                            <li>
-                                                                <p>When a user is activated, notify an admin or partner manager.</p>
-                                                            </li>
-                                                            <li>
-                                                                <p>When a user profile is updated, notify the user that key fields have been updated.</p>
-                                                            </li>
-                                                            <li>
-                                                                <p>When a user becomes inactive, notify the user that they need to log in.</p>
-                                                            </li>
-                                                        </ul>
-                                                        <p><b>Example Applications</b>: SendGrid, Gmail, and Office 365 Mail. For the full list of available Workflows connectors, see <a href="connector-reference/connector-reference.htm" class="MCXref xref">Connectors</a>.</p>
-                                                        <h2>Sample Flow 1</h2>
-                                                        <p>
-                                                            <img src="resources/images/use-case-custom-user-notifications1.png" />
-                                                        </p>
-                                                        <h2>Sample Flow 2</h2>
-                                                        <p>
-                                                            <img src="resources/images/use-case-custom-user-notifications2.png" />
-                                                        </p>
-                                                        <h2>Sample Flow 3</h2>
-                                                        <p>
-                                                            <img src="resources/images/use-case-custom-user-notifications3.png" />
-                                                        </p>
-                                                        <h2>Sample Flow 4</h2>
-                                                        <p>
-                                                            <img src="resources/images/use-case-custom-user-notifications4.png" />
-                                                        </p>
-                                                        <h2>Sample Flow 5</h2>
-                                                        <p>
-                                                            <img src="resources/images/use-case-custom-user-notifications5.png" />
-                                                        </p>
-                                                        <h2>Guidelines and limitations</h2>
-                                                        <ul>
-                                                            <li>
-                                                                <p>Okta out-of-the-box emails cannot be customized or replaced using Workflows.</p>
-                                                            </li>
-                                                            <li>
-                                                                <p>Emails can only be triggered for events with available event hooks.</p>
-                                                            </li>
-                                                        </ul>
+                                                    <div>
+                                                        <p id="redirectMessage" />
+                                                        <script type="text/javascript">/* <![CDATA[ */
+		
+			function conditionalRedirect(who, fromURL) {
+
+				//console.log("Attempting to determine if redirect is required");
+				var sitePrefix = "https://help.okta.com/en/prod/";
+			    var targetPrefix = "https://help.okta.com/"+who+"/en-us/";
+			    var redirectTarget = fromURL.toString();
+	
+			    var sitePrefixJA = "https://help.okta.com/ja-jp/prod/";
+			    if (fromURL.toString().startsWith(sitePrefixJA)) {
+			        sitePrefix=sitePrefixJA;
+			        targetPrefix = "https://help.okta.com/"+who+"/ja-jp/";
+				}
+	
+				console.log("Checking if we should redirect");
+				console.log("fromURL=" + fromURL);
+				console.log("sitePrefix=" + sitePrefix);
+				console.log("targetPrefix=" + targetPrefix);
+				console.log("redirectTarget(pre)=" + redirectTarget);
+				redirectTarget = redirectTarget.replace(sitePrefix, targetPrefix);
+				console.log("redirectTarget(post)=" + redirectTarget);
+				if (fromURL.toString().startsWith(sitePrefix)) {
+				   console.log("Redirecting to " + redirectTarget);
+				   document.getElementById('redirectMessage').innerHTML = 
+			                               "<center><b>"+fromURL + "</b> has moved.  "+
+			                               "<br />Redirecting to <b>"+redirectTarget+"</b> in 7 seconds.</center>";
+			       setTimeout(function() { window.location.replace(redirectTarget); }, 7000);
+				   //window.location.replace(redirectTarget);
+				   return redirectTarget;
+				} else {
+					console.log("Not redirecting.");
+					return fromURL;
+				}
+			}
+		/* ]]> */</script>
+                                                        <script type="text/javascript">/* <![CDATA[ */	
+			var fromUrl = window.location;
+			// testing only. 
+			// remove the following line, and the MC review condition to release
+			//fromUrl = new URL('https://help.okta.com/en/prod/Content/Topics/Workflows/connector-reference/googlesheets/actions/readrow.htm');
+			var targetURL = conditionalRedirect("wf", fromUrl);
+				
+		/* ]]> */</script>
+                                                    </div>
+                                                    <div data-mc-conditions="MultiProdPubish.PYPContent">
+                                                        <div data-content-id="hoc-main-content">
+                                                            <h1>Use case: Send custom end-user notifications</h1>
+                                                            <h2>Summary</h2>
+                                                            <p><b>Problem</b>: Okta provides out of the box emails for common scenarios such as account activation, and password reset, but there are a limited number of triggers and customization options available.</p>
+                                                            <p><b>Solution</b>: When specific lifecycle events occur in Okta, email the end user using an API-driven email service. For example:</p>
+                                                            <ul>
+                                                                <li>
+                                                                    <p>When a user is activated, send a welcome email or an email with an activation token.</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p>When a user is activated, notify an admin or partner manager.</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p>When a user profile is updated, notify the user that key fields have been updated.</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p>When a user becomes inactive, notify the user that they need to log in.</p>
+                                                                </li>
+                                                            </ul>
+                                                            <p><b>Example Applications</b>: SendGrid, Gmail, and Office 365 Mail. For the full list of available Workflows connectors, see <a href="connector-reference/connector-reference.htm" class="MCXref xref">Connectors</a>.</p>
+                                                            <h2>Sample Flow 1</h2>
+                                                            <p>
+                                                                <img src="resources/images/use-case-custom-user-notifications1.png" />
+                                                            </p>
+                                                            <h2>Sample Flow 2</h2>
+                                                            <p>
+                                                                <img src="resources/images/use-case-custom-user-notifications2.png" />
+                                                            </p>
+                                                            <h2>Sample Flow 3</h2>
+                                                            <p>
+                                                                <img src="resources/images/use-case-custom-user-notifications3.png" />
+                                                            </p>
+                                                            <h2>Sample Flow 4</h2>
+                                                            <p>
+                                                                <img src="resources/images/use-case-custom-user-notifications4.png" />
+                                                            </p>
+                                                            <h2>Sample Flow 5</h2>
+                                                            <p>
+                                                                <img src="resources/images/use-case-custom-user-notifications5.png" />
+                                                            </p>
+                                                            <h2>Guidelines and limitations</h2>
+                                                            <ul>
+                                                                <li>
+                                                                    <p>Okta out-of-the-box emails cannot be customized or replaced using Workflows.</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p>Emails can only be triggered for events with available event hooks.</p>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <!-- Back to Top button --><a href="#" class="sf-back-to-top"><span class="arrow"></span>Top</a>

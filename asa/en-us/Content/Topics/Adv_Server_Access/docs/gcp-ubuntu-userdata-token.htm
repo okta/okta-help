@@ -298,162 +298,211 @@
                                             <div class="body-main">
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
-                                                    <h1>Deploy an&#160;Ubuntu or Debian Google Cloud Platform server with user data and an enrollment token</h1>
-                                                    <p>This guide provides the information you need to deploy an&#160;Ubuntu or Debian Google Cloud Platform server with <b>systemd</b> using user data and an <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> enrollment token.  Depending on your target server and enrollment type some topics in this guide may not apply to you, such as if your team's project will not be using enrollment tokens or if you plan to add a different server type to your project.&#160;Modify your steps as needed to fit your team or refer to another cloud deployment guide.</p>
-                                                    <p>Creating a cloud server with user data means that the  <span class="disableGlossary"><span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> agent</span> is simultaneously installed when you create a server with a cloud provider.&#160;Using user data to install software on a new cloud server can be done through any cloud provider, although user data helps dictate the specific software that you want on your servers. Installing the <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> agent on a cloud server doesn't have to be done when the cloud server is created, but running the installation as a startup script alongside a server's creation ensures that your cloud deployment is as safe and secure as possible. </p>
-                                                    <ul>
-                                                        <li><a href="#Prerequi" class="MCXref xref">Prerequisites</a>
-                                                        </li>
-                                                        <li><a href="#Token" class="MCXref xref">Create an Advanced Server Access enrollment token</a>
-                                                        </li>
-                                                        <li><a href="#Platform" class="MCXref xref">Create a Google Cloud Platform project</a>
-                                                        </li>
-                                                        <li><a href="#Create" class="MCXref xref">Create and enroll a virtual machine using user data</a>
-                                                        </li>
-                                                        <li><a href="#Next" class="MCXref xref">Next steps</a>
-                                                        </li>
-                                                    </ul>
-                                                    <h2><a name="Prerequi"></a>Prerequisites</h2>
-                                                    <p>You need the following to deploy a Google Cloud Platform server:</p>
-                                                    <h3>Google Cloud Platform</h3>
-                                                    <table style="width: 100%;border-collapse: collapse;border-spacing: 0px 0px;border-left-style: solid;border-left-width: 1px;border-left-color: #dcdcdc;border-right-style: solid;border-right-width: 1px;border-right-color: #dcdcdc;border-top-style: solid;border-top-width: 1px;border-top-color: #dcdcdc;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #dcdcdc;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
-                                                        <col style="width: 350px;" class="TableStyle-standard-Column-Column1" />
-                                                        <col class="TableStyle-standard-Column-Column1" />
-                                                        <thead>
-                                                            <tr class="TableStyle-standard-Head-Header1">
-                                                                <th class="TableStyle-standard-HeadF-Column1-Header1">Requirement</th>
-                                                                <th class="TableStyle-standard-HeadD-Column1-Header1">Description</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr class="TableStyle-standard-Body-Body1">
-                                                                <td class="TableStyle-standard-BodyC-Column1-Body1">Google Cloud Platform account</td>
-                                                                <td class="TableStyle-standard-BodyA-Column1-Body1">A Google Cloud Platform account is needed to access the GCP console, where you create virtual machines for your team. </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <h3>Advanced Server Access</h3>
-                                                    <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
-                                                        <col class="TableStyle-standard-Column-Column1" style="width: 350px;" />
-                                                        <col class="TableStyle-standard-Column-Column1" />
-                                                        <thead>
-                                                            <tr class="TableStyle-standard-Head-Header1">
-                                                                <th class="TableStyle-standard-HeadF-Column1-Header1">Requirement</th>
-                                                                <th class="TableStyle-standard-HeadD-Column1-Header1">Description</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr class="TableStyle-standard-Body-Body1">
-                                                                <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> team</td>
-                                                                <td class="TableStyle-standard-BodyD-Column1-Body1">This is the top-level object that is representing an organization within <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span>.</td>
-                                                            </tr>
-                                                            <tr class="TableStyle-standard-Body-Body2">
-                                                                <td class="TableStyle-standard-BodyC-Column1-Body2"><span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> project</td>
-                                                                <td class="TableStyle-standard-BodyA-Column1-Body2">This is the authorization-<span class="disableGlossary">scope</span> of your team, organizing your users, groups, and servers.</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <h2><a name="Token"></a>Create an <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> enrollment token</h2>
-                                                    <ol>
-                                                        <li value="1">On the <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> dashboard, click <b>Projects</b>.</li>
-                                                        <li value="2">Select the project you want to add the server to.</li>
-                                                        <li value="3">
-                                                            <p>Select the <b>Enrollment</b> tab, then click <b>Create Enrollment Token</b>.</p>
-                                                            <p><b>Note:</b> You can use the same enrollment token every time you add a server to your team. If you have already created an enrollment token, skip this step.</p>
-                                                        </li>
-                                                        <li value="4">Enter a description for the token, then click <b>Submit</b>.</li>
-                                                        <li value="5">After the token has been successfully created, copy the string of characters from the <b>Token</b> field and store it in a safe location.</li>
-                                                    </ol>
-                                                    <h2><a name="Platform"></a>Create a Google Cloud Platform project</h2>
-                                                    <ol>
-                                                        <li value="1">Navigate to the Google Cloud Platform console and sign in to your account.</li>
-                                                        <li value="2">
-                                                            <p>Use the <b>Select a project</b> dropdown at the top of the page to click the <b>New Project</b> button.</p>
-                                                        </li>
-                                                        <li value="3">Create a new name for your project and use the <b>Location</b> field to set its parent organization or folder .</li>
-                                                        <li value="4">Click <b>Create</b> when you've finished creating your project.</li>
-                                                        <li value="5">
-                                                            <p>From the dashboard of your new project, copy the <b>Project ID</b>&#160;number from the <b>Project Info</b> section and store it in a safe location.</p>
-                                                            <p><b>Note:</b>&#160;To find your project's dashboard, use the <b>Select a project</b> box at the top of the console.</p>
-                                                        </li>
-                                                    </ol>
-                                                    <h2><a name="Create"></a>Create and enroll a virtual machine using user data</h2>
-                                                    <ol>
-                                                        <li value="1">From the Google Cloud Platform Console, select&#160;<b>Compute Engine</b> and then <b>VM&#160;instances.</b></li>
-                                                        <li value="2">If prompted, select your new project from the <b>Select a project</b> drop-down box.</li>
-                                                        <li value="3">Click <b>Create</b>.<br /></li>
-                                                        <li value="4">Create a name for your new server and set its region and zone. These options determine where your server is located.</li>
-                                                        <li value="5">Click <b>Management, security, disks, networking, sole tenancy</b> to expand it.</li>
-                                                        <li value="6">
-                                                            <p>Paste the following into the <b>Startup Script</b> text field:</p>
-                                                            <p class="code">#!/bin/bash</p>
-                                                            <p class="code">
+                                                    <div>
+                                                        <p id="redirectMessage" />
+                                                        <script type="text/javascript">/* <![CDATA[ */
+		
+			function conditionalRedirect(who, fromURL) {
+
+				//console.log("Attempting to determine if redirect is required");
+				var sitePrefix = "https://help.okta.com/en/prod/";
+			    var targetPrefix = "https://help.okta.com/"+who+"/en-us/";
+			    var redirectTarget = fromURL.toString();
+	
+			    var sitePrefixJA = "https://help.okta.com/ja-jp/prod/";
+			    if (fromURL.toString().startsWith(sitePrefixJA)) {
+			        sitePrefix=sitePrefixJA;
+			        targetPrefix = "https://help.okta.com/"+who+"/ja-jp/";
+				}
+	
+				console.log("Checking if we should redirect");
+				console.log("fromURL=" + fromURL);
+				console.log("sitePrefix=" + sitePrefix);
+				console.log("targetPrefix=" + targetPrefix);
+				console.log("redirectTarget(pre)=" + redirectTarget);
+				redirectTarget = redirectTarget.replace(sitePrefix, targetPrefix);
+				console.log("redirectTarget(post)=" + redirectTarget);
+				if (fromURL.toString().startsWith(sitePrefix)) {
+				   console.log("Redirecting to " + redirectTarget);
+				   document.getElementById('redirectMessage').innerHTML = 
+			                               "<center><b>"+fromURL + "</b> has moved.  "+
+			                               "<br />Redirecting to <b>"+redirectTarget+"</b> in 7 seconds.</center>";
+			       setTimeout(function() { window.location.replace(redirectTarget); }, 7000);
+				   //window.location.replace(redirectTarget);
+				   return redirectTarget;
+				} else {
+					console.log("Not redirecting.");
+					return fromURL;
+				}
+			}
+		/* ]]> */</script>
+                                                        <script type="text/javascript">/* <![CDATA[ */	
+			var fromUrl = window.location;
+			// testing only. 
+			// remove the following line, and the MC review condition to release
+			//fromUrl = new URL('https://help.okta.com/en/prod/Content/Topics/Adv_Server_Access/docs/sftd.htm');
+			var targetURL = conditionalRedirect("asa", fromUrl);
+				
+		/* ]]> */</script>
+                                                    </div>
+                                                    <div data-mc-conditions="MultiProdPubish.PYPContent">
+                                                        <h1>Deploy an&#160;Ubuntu or Debian Google Cloud Platform server with user data and an enrollment token</h1>
+                                                        <p>This guide provides the information you need to deploy an&#160;Ubuntu or Debian Google Cloud Platform server with <b>systemd</b> using user data and an <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> enrollment token.  Depending on your target server and enrollment type some topics in this guide may not apply to you, such as if your team's project will not be using enrollment tokens or if you plan to add a different server type to your project.&#160;Modify your steps as needed to fit your team or refer to another cloud deployment guide.</p>
+                                                        <p>Creating a cloud server with user data means that the  <span class="disableGlossary"><span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> agent</span> is simultaneously installed when you create a server with a cloud provider.&#160;Using user data to install software on a new cloud server can be done through any cloud provider, although user data helps dictate the specific software that you want on your servers. Installing the <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> agent on a cloud server doesn't have to be done when the cloud server is created, but running the installation as a startup script alongside a server's creation ensures that your cloud deployment is as safe and secure as possible. </p>
+                                                        <ul>
+                                                            <li><a href="#Prerequi" class="MCXref xref">Prerequisites</a>
+                                                            </li>
+                                                            <li><a href="#Token" class="MCXref xref">Create an Advanced Server Access enrollment token</a>
+                                                            </li>
+                                                            <li><a href="#Platform" class="MCXref xref">Create a Google Cloud Platform project</a>
+                                                            </li>
+                                                            <li><a href="#Create" class="MCXref xref">Create and enroll a virtual machine using user data</a>
+                                                            </li>
+                                                            <li><a href="#Next" class="MCXref xref">Next steps</a>
+                                                            </li>
+                                                        </ul>
+                                                        <h2><a name="Prerequi"></a>Prerequisites</h2>
+                                                        <p>You need the following to deploy a Google Cloud Platform server:</p>
+                                                        <h3>Google Cloud Platform</h3>
+                                                        <table style="width: 100%;border-collapse: collapse;border-spacing: 0px 0px;border-left-style: solid;border-left-width: 1px;border-left-color: #dcdcdc;border-right-style: solid;border-right-width: 1px;border-right-color: #dcdcdc;border-top-style: solid;border-top-width: 1px;border-top-color: #dcdcdc;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #dcdcdc;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                                                            <col style="width: 350px;" class="TableStyle-standard-Column-Column1" />
+                                                            <col class="TableStyle-standard-Column-Column1" />
+                                                            <thead>
+                                                                <tr class="TableStyle-standard-Head-Header1">
+                                                                    <th class="TableStyle-standard-HeadF-Column1-Header1">Requirement</th>
+                                                                    <th class="TableStyle-standard-HeadD-Column1-Header1">Description</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr class="TableStyle-standard-Body-Body1">
+                                                                    <td class="TableStyle-standard-BodyC-Column1-Body1">Google Cloud Platform account</td>
+                                                                    <td class="TableStyle-standard-BodyA-Column1-Body1">A Google Cloud Platform account is needed to access the GCP console, where you create virtual machines for your team. </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <h3>Advanced Server Access</h3>
+                                                        <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                                                            <col class="TableStyle-standard-Column-Column1" style="width: 350px;" />
+                                                            <col class="TableStyle-standard-Column-Column1" />
+                                                            <thead>
+                                                                <tr class="TableStyle-standard-Head-Header1">
+                                                                    <th class="TableStyle-standard-HeadF-Column1-Header1">Requirement</th>
+                                                                    <th class="TableStyle-standard-HeadD-Column1-Header1">Description</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr class="TableStyle-standard-Body-Body1">
+                                                                    <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> team</td>
+                                                                    <td class="TableStyle-standard-BodyD-Column1-Body1">This is the top-level object that is representing an organization within <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span>.</td>
+                                                                </tr>
+                                                                <tr class="TableStyle-standard-Body-Body2">
+                                                                    <td class="TableStyle-standard-BodyC-Column1-Body2"><span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> project</td>
+                                                                    <td class="TableStyle-standard-BodyA-Column1-Body2">This is the authorization-<span class="disableGlossary">scope</span> of your team, organizing your users, groups, and servers.</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <h2><a name="Token"></a>Create an <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> enrollment token</h2>
+                                                        <ol>
+                                                            <li value="1">On the <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> dashboard, click <b>Projects</b>.</li>
+                                                            <li value="2">Select the project you want to add the server to.</li>
+                                                            <li value="3">
+                                                                <p>Select the <b>Enrollment</b> tab, then click <b>Create Enrollment Token</b>.</p>
+                                                                <p><b>Note:</b> You can use the same enrollment token every time you add a server to your team. If you have already created an enrollment token, skip this step.</p>
+                                                            </li>
+                                                            <li value="4">Enter a description for the token, then click <b>Submit</b>.</li>
+                                                            <li value="5">After the token has been successfully created, copy the string of characters from the <b>Token</b> field and store it in a safe location.</li>
+                                                        </ol>
+                                                        <h2><a name="Platform"></a>Create a Google Cloud Platform project</h2>
+                                                        <ol>
+                                                            <li value="1">Navigate to the Google Cloud Platform console and sign in to your account.</li>
+                                                            <li value="2">
+                                                                <p>Use the <b>Select a project</b> dropdown at the top of the page to click the <b>New Project</b> button.</p>
+                                                            </li>
+                                                            <li value="3">Create a new name for your project and use the <b>Location</b> field to set its parent organization or folder .</li>
+                                                            <li value="4">Click <b>Create</b> when you've finished creating your project.</li>
+                                                            <li value="5">
+                                                                <p>From the dashboard of your new project, copy the <b>Project ID</b>&#160;number from the <b>Project Info</b> section and store it in a safe location.</p>
+                                                                <p><b>Note:</b>&#160;To find your project's dashboard, use the <b>Select a project</b> box at the top of the console.</p>
+                                                            </li>
+                                                        </ol>
+                                                        <h2><a name="Create"></a>Create and enroll a virtual machine using user data</h2>
+                                                        <ol>
+                                                            <li value="1">From the Google Cloud Platform Console, select&#160;<b>Compute Engine</b> and then <b>VM&#160;instances.</b></li>
+                                                            <li value="2">If prompted, select your new project from the <b>Select a project</b> drop-down box.</li>
+                                                            <li value="3">Click <b>Create</b>.<br /></li>
+                                                            <li value="4">Create a name for your new server and set its region and zone. These options determine where your server is located.</li>
+                                                            <li value="5">Click <b>Management, security, disks, networking, sole tenancy</b> to expand it.</li>
+                                                            <li value="6">
+                                                                <p>Paste the following into the <b>Startup Script</b> text field:</p>
+                                                                <p class="code">#!/bin/bash</p>
+                                                                <p class="code">
 
 echo "Add an enrollment token"</p>
-                                                            <p class="code">
+                                                                <p class="code">
 sudo mkdir -p /var/lib/sftd</p>
-                                                            <p class="code">
+                                                                <p class="code">
 echo "&lt;enrollment-token&gt;" | sudo tee /var/lib/sftd/enrollment.token</p>
-                                                            <p class="code">
+                                                                <p class="code">
 					
 export DEBIAN_FRONTEND=noninteractive</p>
-                                                            <p class="code">
+                                                                <p class="code">
 					
 echo "Add a basic sftd configuration"</p>
-                                                            <p class="code">
+                                                                <p class="code">
 sudo mkdir -p /etc/sft/</p>
-                                                            <p class="code">
+                                                                <p class="code">
 sftcfg=$(cat &lt;&lt;EOF</p>
-                                                            <p class="code">
+                                                                <p class="code">
 ---</p>
-                                                            <p class="code">
+                                                                <p class="code">
 # CanonicalName: Specifies the name clients should use/see when connecting to this host.</p>
-                                                            <p class="code">
+                                                                <p class="code">
 CanonicalName:            "ubuntu-target"</p>
-                                                            <p class="code">
+                                                                <p class="code">
 EOF</p>
-                                                            <p class="code">
+                                                                <p class="code">
 )</p>
-                                                            <p class="code">
+                                                                <p class="code">
 					
 echo -e "$sftcfg" | sudo tee /etc/sft/sftd.yaml</p>
-                                                            <p class="code">
+                                                                <p class="code">
 					
 echo "Retrieve information about new packages"</p>
-                                                            <p class="code">
+                                                                <p class="code">
 sudo apt-get update</p>
-                                                            <p class="code">
+                                                                <p class="code">
 					
 sudo apt-get install -y curl</p>
-                                                            <p class="code">
+                                                                <p class="code">
 					
 echo "Add the ScaleFT testing apt repo to your /etc/apt/sources.list system config file"</p>
-                                                            <p class="code">
+                                                                <p class="code">
 echo "deb http://pkg.scaleft.com/deb/ linux main" | sudo tee -a /etc/apt/sources.list</p>
-                                                            <p class="code">
+                                                                <p class="code">
 					
 echo "Trust the repository signing key"</p>
-                                                            <p class="code">
+                                                                <p class="code">
 curl -C - https://dist.scaleft.com/pki/scaleft_deb_key.asc | sudo apt-key add -</p>
-                                                            <p class="code">
+                                                                <p class="code">
 					
 echo "Retrieve information about new packages"</p>
-                                                            <p class="code">
+                                                                <p class="code">
 sudo apt-get update</p>
-                                                            <p class="code">
+                                                                <p class="code">
 					
 echo "Install sftd"</p>
-                                                            <p class="code">
+                                                                <p class="code">
 sudo apt-get install scaleft-server-tools</p>
-                                                            <p><b>Note:</b> This script creates an <b>sftd.yaml</b> file for your server and uses <b>ubuntu-target</b> as its canonical name. Modify and generate this information as needed to fit your team and project environments.</p>
-                                                        </li>
-                                                        <li value="7">Replace <b>&lt;enrollment_token&gt;</b> in the user data field with the enrollment token that you created earlier.</li>
-                                                        <li value="8">Click <b>Create</b>.</li>
-                                                    </ol>
-                                                    <p>After your server is finished being created on the <b>VM&#160;instances</b> page, confirm that the server is listed in the <b>Server</b> tab of your <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> project before you attempt to connect to it.</p>
-                                                    <h2><a name="Next"></a>Next steps</h2>
-                                                    <p><a href="verify-server-enrolled.htm" class="MCXref xref">Verify server enrollment</a>
-                                                    </p>
+                                                                <p><b>Note:</b> This script creates an <b>sftd.yaml</b> file for your server and uses <b>ubuntu-target</b> as its canonical name. Modify and generate this information as needed to fit your team and project environments.</p>
+                                                            </li>
+                                                            <li value="7">Replace <b>&lt;enrollment_token&gt;</b> in the user data field with the enrollment token that you created earlier.</li>
+                                                            <li value="8">Click <b>Create</b>.</li>
+                                                        </ol>
+                                                        <p>After your server is finished being created on the <b>VM&#160;instances</b> page, confirm that the server is listed in the <b>Server</b> tab of your <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> project before you attempt to connect to it.</p>
+                                                        <h2><a name="Next"></a>Next steps</h2>
+                                                        <p><a href="verify-server-enrolled.htm" class="MCXref xref">Verify server enrollment</a>
+                                                        </p>
+                                                    </div>
                                                 </div>
                                                 <!-- Back to Top button --><a href="#" class="sf-back-to-top"><span class="arrow"></span>Top</a>
                                             </div>

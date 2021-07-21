@@ -20,5 +20,9 @@ xmlAliasData += '    <Map Name=\"ext-asa-ssh-keys\" Link=\"Topics/Adv_Server_Acc
 xmlAliasData += '    <Map Name=\"ext-asa-sftd-config\" Link=\"Topics/Adv_Server_Access/docs/sftd-configure.htm\" ResolvedId=\"1379\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-enroll-server\" Link=\"Topics/Adv_Server_Access/docs/setup/enrolling-a-server.htm\" ResolvedId=\"1391\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-releasenotes\" Link=\"Topics/ReleaseNotes/advanced-server-access-release-notes.htm\" ResolvedId=\"1402\" />';
+xmlAliasData += '    <Map Name=\"ext-asa-set-prjatt\" Link=\"Topics/Adv_Server_Access/docs/set-project-level-attributes-in-adv-server-access.htm\" ResolvedId=\"1016\" />';
+xmlAliasData += '    <Map Name=\"ext-asa-client\" Link=\"Topics/Adv_Server_Access/docs/client.htm\" ResolvedId=\"1418\" />';
+xmlAliasData += '    <Map Name=\"ext-asa-seshcap\" Link=\"Topics/Adv_Server_Access/docs/enable-session-capture.htm\" ResolvedId=\"1419\" />';
+xmlAliasData += '    <Map Name=\"ext-asa-ssh\" Link=\"Topics/Adv_Server_Access/docs/setup/ssh.htm\" ResolvedId=\"1420\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);

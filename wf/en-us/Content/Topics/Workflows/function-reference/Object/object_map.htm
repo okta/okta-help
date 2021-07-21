@@ -301,52 +301,101 @@
                                             <div class="body-main">
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
-                                                    <div data-content-id="hoc-main-content">
-                                                        <p>
-                                                            <h1>Map to List</h1>
-                                                            <p>Iterates through&#160;an object key-by-key using a child Flow, creating&#160;a list as output, with one item in the list per key in the object. For each key in the input object, the child Flow is called with the&#160;<strong>key</strong> name and&#160;<strong>value</strong> for that key - you can select those using the dropdown in the child Flow inputs after selecting a child Flow using the Choose Flow button.</p>
+                                                    <div>
+                                                        <p id="redirectMessage" />
+                                                        <script type="text/javascript">/* <![CDATA[ */
+		
+			function conditionalRedirect(who, fromURL) {
+
+				//console.log("Attempting to determine if redirect is required");
+				var sitePrefix = "https://help.okta.com/en/prod/";
+			    var targetPrefix = "https://help.okta.com/"+who+"/en-us/";
+			    var redirectTarget = fromURL.toString();
+	
+			    var sitePrefixJA = "https://help.okta.com/ja-jp/prod/";
+			    if (fromURL.toString().startsWith(sitePrefixJA)) {
+			        sitePrefix=sitePrefixJA;
+			        targetPrefix = "https://help.okta.com/"+who+"/ja-jp/";
+				}
+	
+				console.log("Checking if we should redirect");
+				console.log("fromURL=" + fromURL);
+				console.log("sitePrefix=" + sitePrefix);
+				console.log("targetPrefix=" + targetPrefix);
+				console.log("redirectTarget(pre)=" + redirectTarget);
+				redirectTarget = redirectTarget.replace(sitePrefix, targetPrefix);
+				console.log("redirectTarget(post)=" + redirectTarget);
+				if (fromURL.toString().startsWith(sitePrefix)) {
+				   console.log("Redirecting to " + redirectTarget);
+				   document.getElementById('redirectMessage').innerHTML = 
+			                               "<center><b>"+fromURL + "</b> has moved.  "+
+			                               "<br />Redirecting to <b>"+redirectTarget+"</b> in 7 seconds.</center>";
+			       setTimeout(function() { window.location.replace(redirectTarget); }, 7000);
+				   //window.location.replace(redirectTarget);
+				   return redirectTarget;
+				} else {
+					console.log("Not redirecting.");
+					return fromURL;
+				}
+			}
+		/* ]]> */</script>
+                                                        <script type="text/javascript">/* <![CDATA[ */	
+			var fromUrl = window.location;
+			// testing only. 
+			// remove the following line, and the MC review condition to release
+			//fromUrl = new URL('https://help.okta.com/en/prod/Content/Topics/Workflows/connector-reference/googlesheets/actions/readrow.htm');
+			var targetURL = conditionalRedirect("wf", fromUrl);
+				
+		/* ]]> */</script>
+                                                    </div>
+                                                    <div data-mc-conditions="MultiProdPubish.PYPContent">
+                                                        <div data-content-id="hoc-main-content">
                                                             <p>
-                                                                <img src="../../../../Resources/Images/Workflows/object-map.png" id="img_new" style="max-height: 50%;" />
+                                                                <h1>Map to List</h1>
+                                                                <p>Iterates through&#160;an object key-by-key using a child Flow, creating&#160;a list as output, with one item in the list per key in the object. For each key in the input object, the child Flow is called with the&#160;<strong>key</strong> name and&#160;<strong>value</strong> for that key - you can select those using the dropdown in the child Flow inputs after selecting a child Flow using the Choose Flow button.</p>
+                                                                <p>
+                                                                    <img src="../../../../Resources/Images/Workflows/object-map.png" id="img_new" style="max-height: 50%;" />
+                                                                </p>
+                                                                <p>The output of the child Flow should match whatever type is specified for <em>new list</em>. There will be one output list item for each key/value pair in the input object.</p>
+                                                                <h4>Input Fields</h4>
+                                                                <ul>
+                                                                    <li>
+                                                                        <p><strong>object</strong> (<em>required</em>): the object or list of objects you want to pick values from</p>
+                                                                    </li>
+                                                                    <li>
+                                                                        <p><strong>flow</strong>&#160;(<em>required</em>): the&#160;child Flow to process each key/value pair</p>
+                                                                    </li>
+                                                                    <li>
+                                                                        <p><strong>(dynamically generated)</strong>: &#160;the inputs defined by the child Flow</p>
+                                                                    </li>
+                                                                    <li>
+                                                                        <p><strong>concurrency</strong>: how many keys to process in parallel</p>
+                                                                    </li>
+                                                                </ul>
+                                                                <h4>Output Fields</h4>
+                                                                <ul>
+                                                                    <li><strong>new list</strong>:&#160;the new list&#160;formed by the key/value pairs from the child Flow.</li>
+                                                                </ul>
+                                                                <h4>Example</h4>
+                                                                <p>Suppose you wanted to convert an object into a list of objects, where each key/value pair is converted to an object that has "propertyname" and "propertyvalue" keys - this is a common pattern among cloud APIs. &#160;Suppose the propertyname also needs to be prefixed with "custom:". &#160;You can do that with the following child Flow - it accepts <strong>key,</strong>&#160;<strong>value</strong>, and a constant <strong>prefix</strong> (which is the same across all iterations - the parent Flow should pass this in), and returns back an object with 2 keys:</p>
+                                                                <p>
+                                                                    <img src="../../../../Resources/Images/Workflows/object-map-list.png" id="img_new" style="max-height: 50%;" />
+                                                                </p>
+                                                                <p>That Flow, when used with Map to List, will turn this object:</p>
+                                                                <p>
+                                                                    <img src="../../../../Resources/Images/Workflows/object-map-list-2.png" style="max-width: 50%;" />
+                                                                </p>
+                                                                <p>into this list:</p>
+                                                                <p>
+                                                                    <img src="../../../../Resources/Images/Workflows/object-map-3.png" id="img_new" style="max-width: 50%;" />
+                                                                </p>
                                                             </p>
-                                                            <p>The output of the child Flow should match whatever type is specified for <em>new list</em>. There will be one output list item for each key/value pair in the input object.</p>
-                                                            <h4>Input Fields</h4>
-                                                            <ul>
-                                                                <li>
-                                                                    <p><strong>object</strong> (<em>required</em>): the object or list of objects you want to pick values from</p>
-                                                                </li>
-                                                                <li>
-                                                                    <p><strong>flow</strong>&#160;(<em>required</em>): the&#160;child Flow to process each key/value pair</p>
-                                                                </li>
-                                                                <li>
-                                                                    <p><strong>(dynamically generated)</strong>: &#160;the inputs defined by the child Flow</p>
-                                                                </li>
-                                                                <li>
-                                                                    <p><strong>concurrency</strong>: how many keys to process in parallel</p>
-                                                                </li>
-                                                            </ul>
-                                                            <h4>Output Fields</h4>
-                                                            <ul>
-                                                                <li><strong>new list</strong>:&#160;the new list&#160;formed by the key/value pairs from the child Flow.</li>
-                                                            </ul>
-                                                            <h4>Example</h4>
-                                                            <p>Suppose you wanted to convert an object into a list of objects, where each key/value pair is converted to an object that has "propertyname" and "propertyvalue" keys - this is a common pattern among cloud APIs. &#160;Suppose the propertyname also needs to be prefixed with "custom:". &#160;You can do that with the following child Flow - it accepts <strong>key,</strong>&#160;<strong>value</strong>, and a constant <strong>prefix</strong> (which is the same across all iterations - the parent Flow should pass this in), and returns back an object with 2 keys:</p>
-                                                            <p>
-                                                                <img src="../../../../Resources/Images/Workflows/object-map-list.png" id="img_new" style="max-height: 50%;" />
+                                                            <h2>See Also</h2>
+                                                            <p><a href="../functions.htm" class="MCXref xref">Functions</a>
                                                             </p>
-                                                            <p>That Flow, when used with Map to List, will turn this object:</p>
-                                                            <p>
-                                                                <img src="../../../../Resources/Images/Workflows/object-map-list-2.png" style="max-width: 50%;" />
+                                                            <p><a href="../../workflows-elements.htm" class="MCXref xref">About the elements of Okta Workflows</a>
                                                             </p>
-                                                            <p>into this list:</p>
-                                                            <p>
-                                                                <img src="../../../../Resources/Images/Workflows/object-map-3.png" id="img_new" style="max-width: 50%;" />
-                                                            </p>
-                                                        </p>
-                                                        <h2>See Also</h2>
-                                                        <p><a href="../functions.htm" class="MCXref xref">Functions</a>
-                                                        </p>
-                                                        <p><a href="../../workflows-elements.htm" class="MCXref xref">About the elements of Okta Workflows</a>
-                                                        </p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <!-- Back to Top button --><a href="#" class="sf-back-to-top"><span class="arrow"></span>Top</a>

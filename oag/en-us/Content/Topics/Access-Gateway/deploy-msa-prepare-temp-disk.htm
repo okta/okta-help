@@ -297,18 +297,65 @@
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
                                                     <div>
-                                                        <h1>Prepare temporary VM disk</h1>
+                                                        <p id="redirectMessage" />
+                                                        <script type="text/javascript">/* <![CDATA[ */
+		
+			function conditionalRedirect(who, fromURL) {
+
+				//console.log("Attempting to determine if redirect is required");
+				var sitePrefix = "https://help.okta.com/en/prod/";
+			    var targetPrefix = "https://help.okta.com/"+who+"/en-us/";
+			    var redirectTarget = fromURL.toString();
+	
+			    var sitePrefixJA = "https://help.okta.com/ja-jp/prod/";
+			    if (fromURL.toString().startsWith(sitePrefixJA)) {
+			        sitePrefix=sitePrefixJA;
+			        targetPrefix = "https://help.okta.com/"+who+"/ja-jp/";
+				}
+	
+				console.log("Checking if we should redirect");
+				console.log("fromURL=" + fromURL);
+				console.log("sitePrefix=" + sitePrefix);
+				console.log("targetPrefix=" + targetPrefix);
+				console.log("redirectTarget(pre)=" + redirectTarget);
+				redirectTarget = redirectTarget.replace(sitePrefix, targetPrefix);
+				console.log("redirectTarget(post)=" + redirectTarget);
+				if (fromURL.toString().startsWith(sitePrefix)) {
+				   console.log("Redirecting to " + redirectTarget);
+				   document.getElementById('redirectMessage').innerHTML = 
+			                               "<center><b>"+fromURL + "</b> has moved.  "+
+			                               "<br />Redirecting to <b>"+redirectTarget+"</b> in 7 seconds.</center>";
+			       setTimeout(function() { window.location.replace(redirectTarget); }, 7000);
+				   //window.location.replace(redirectTarget);
+				   return redirectTarget;
+				} else {
+					console.log("Not redirecting.");
+					return fromURL;
+				}
+			}
+		/* ]]> */</script>
+                                                        <script type="text/javascript">/* <![CDATA[ */	
+            var fromUrl = window.location;
+			// testing only. 
+			// remove the following line, and the MC review condition to release
+            //fromUrl = new URL('https://help.okta.com/en/prod/Content/Topics/Access-Gateway/add-app-websocket.htm');
+            var targetURL = conditionalRedirect("oag", fromUrl);
+		/* ]]> */</script>
+                                                    </div>
+                                                    <div data-mc-conditions="MultiProdPubish.PYPContent">
                                                         <div>
-                                                            <p>To prepare a disk mounted on a Microsoft Azure VM:</p>
-                                                        </div>
-                                                        <div>
-                                                            <ol>
-                                                                <li value="1">At the command line, connect to the new vm using the IP&#160;address from the prior task and ssh.<br /><span class="code">ssh okta@AA.BB.CC.DD.</span><br /></li>
-                                                                <li value="2">Find the disk using  <span class="code">dmesg| grep "SCSI disk"</span> command.					<p>For example:</p><pre xml:space="preserve" id="code"># dmesg | grep "SCSI disk"
+                                                            <h1>Prepare temporary VM disk</h1>
+                                                            <div>
+                                                                <p>To prepare a disk mounted on a Microsoft Azure VM:</p>
+                                                            </div>
+                                                            <div>
+                                                                <ol>
+                                                                    <li value="1">At the command line, connect to the new vm using the IP&#160;address from the prior task and ssh.<br /><span class="code">ssh okta@AA.BB.CC.DD.</span><br /></li>
+                                                                    <li value="2">Find the disk using  <span class="code">dmesg| grep "SCSI disk"</span> command.					<p>For example:</p><pre xml:space="preserve" id="code"># dmesg | grep "SCSI disk"
 [    2.234786] sd 3:0:1:0: [sdb] Attached SCSI disk
 [    2.243805] sd 0:0:0:0: [sda] Attached SCSI disk
 <b>[   2.503937] sd 5:0:0:0: [sdc] Attached SCSI disk</b></pre></li>
-                                                                <li value="3">Create a primary disk partition  using the <span class="code">sudo fdisk /dev/sdc</span> command  as shown below				:<p>For example:</p><pre xml:space="preserve" id="code"><b>sudo fdisk /dev/sdc</b>
+                                                                    <li value="3">Create a primary disk partition  using the <span class="code">sudo fdisk /dev/sdc</span> command  as shown below				:<p>For example:</p><pre xml:space="preserve" id="code"><b>sudo fdisk /dev/sdc</b>
 . . . 
 Command (m for help) <b>n</b>
 Partition type
@@ -322,29 +369,30 @@ Command (m for help): <b>w</b>
 . . .
 Syncing disks.
 </pre></li>
-                                                                <li value="4">Create a pfile system on the disk the <span class="code">sudo mkfs -t ext4 /dev/sdc1</span> command  as shown below			:<p>For example:</p><pre xml:space="preserve" id="code"><b>sudo mkfs -t ext4 /dev/sdc1</b>
+                                                                    <li value="4">Create a pfile system on the disk the <span class="code">sudo mkfs -t ext4 /dev/sdc1</span> command  as shown below			:<p>For example:</p><pre xml:space="preserve" id="code"><b>sudo mkfs -t ext4 /dev/sdc1</b>
 mke2ds 1.44.1 . . . 
 . . .
 Writing superblocsl and filesystem accounting information: done
 </pre></li>
-                                                                <li value="5">Create a mount point for the new disk using <span class="code">mkdir</span> as shown below:<br /><pre xml:space="preserve" id="code"><b>sudo mkdir /datadrive</b>
+                                                                    <li value="5">Create a mount point for the new disk using <span class="code">mkdir</span> as shown below:<br /><pre xml:space="preserve" id="code"><b>sudo mkdir /datadrive</b>
 </pre></li>
-                                                                <li value="6">Mount the disk to the new mount point using <span class="code">mount</span> as shown below:<br /><pre xml:space="preserve" id="code"><b>sudo mount /dev/sdc1 /datadrive</b>
+                                                                    <li value="6">Mount the disk to the new mount point using <span class="code">mount</span> as shown below:<br /><pre xml:space="preserve" id="code"><b>sudo mount /dev/sdc1 /datadrive</b>
 </pre></li>
-                                                                <li value="7">Determine the UUID&#160;of the disk using the <span class="code">blkid</span> command as shown below:<br /><pre id="code"><b>sudo -i blkid  | grep sdc1</b>
+                                                                    <li value="7">Determine the UUID&#160;of the disk using the <span class="code">blkid</span> command as shown below:<br /><pre id="code"><b>sudo -i blkid  | grep sdc1</b>
 /dev/sdc1: <b>UUID="1fcbf355-d641-4fcf-8817-0b4b492413ac"</b> TYPE="ext4" PARTUUID="75642bad-01"</pre></li>
-                                                                <li value="8">Using an editor such as  <span class="code">nano</span> or vi add a new entry to /etc/fstab which should resemble:<br /><pre id="code" xml:space="preserve"><b>sudo nano /etc/fstab</b>
+                                                                    <li value="8">Using an editor such as  <span class="code">nano</span> or vi add a new entry to /etc/fstab which should resemble:<br /><pre id="code" xml:space="preserve"><b>sudo nano /etc/fstab</b>
 <b>UUID="1fcbf355-d641-4fcf-8817-0b4b492413ac"</b>      <b>/datadrive   ext4   defaults,nofail   1 2</b></pre></li>
-                                                                <li value="9">Reboot the VM, reconnect and verify that the new file system is mounted:<br /><pre id="code" xml:space="preserve"><b>sudo shutdown -r now</b>
+                                                                    <li value="9">Reboot the VM, reconnect and verify that the new file system is mounted:<br /><pre id="code" xml:space="preserve"><b>sudo shutdown -r now</b>
 ssh okta@ip address
 df -h |&#160;grep sdc1</pre><p>The new device should show approximate 467GB free.</p></li>
-                                                            </ol>
+                                                                </ol>
+                                                            </div>
+                                                            <h3>Related topics</h3>
+                                                            <ul>
+                                                                <li>For more information on Managing Resource groups using the MS&#160;Azure CLI see <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resources-cli">Manage Azure resources using Azure CLI.</a></li>
+                                                                <li>For more information on Managing Resource groups using the MS&#160;Azure UI see <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resource-groups-portal">Manage Azure resource groups using the Azure portal</a>.</li>
+                                                            </ul>
                                                         </div>
-                                                        <h3>Related topics</h3>
-                                                        <ul>
-                                                            <li>For more information on Managing Resource groups using the MS&#160;Azure CLI see <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resources-cli">Manage Azure resources using Azure CLI.</a></li>
-                                                            <li>For more information on Managing Resource groups using the MS&#160;Azure UI see <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resource-groups-portal">Manage Azure resource groups using the Azure portal</a>.</li>
-                                                        </ul>
                                                     </div>
                                                 </div>
                                                 <!-- Back to Top button --><a href="#" class="sf-back-to-top"><span class="arrow"></span>Top</a>

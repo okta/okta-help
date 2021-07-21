@@ -297,57 +297,106 @@
                                             <div class="body-main">
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
-                                                    <h1>High availability for gateways</h1>
-                                                    <p>Gateways use a variety of techniques to ensure high availability, which provides improved reliability over traditional SSH bastions. </p>
-                                                    <h2>Topics</h2>
-                                                    <ul>
-                                                        <li><a href="#Gateway" class="MCXref xref">Gateway load balancing</a>
-                                                        </li>
-                                                        <li><a href="#Gateway2" class="MCXref xref">Gateway status checks</a>
-                                                        </li>
-                                                        <li><a href="#Temporar" class="MCXref xref">Create temporary access to a server without using a gateway</a>
-                                                        </li>
-                                                        <li><a href="#Troubles" class="MCXref xref">Troubleshoot gateways</a>
-                                                        </li>
-                                                        <li><a href="#Related" class="MCXref xref">Related topics</a>
-                                                        </li>
-                                                    </ul>
-                                                    <h2><a name="Gateway"></a>Gateway load balancing</h2>
-                                                    <p>If you have multiple gateways that can be used by a project, then one of those gateways is selected at random each time a client attempts to access a server. This has the effect of automatically load balancing requests across all gateways that are valid for a project. If one gateway goes down, other gateways can continue to serve requests. However, without additional configuration, requests sent to the downed gateway will fail.</p>
-                                                    <p>To ensure that requests are properly handled, you should configure gateway load balancing similarly to how you'd configure a web application server behind a load balancer. Configure standard load balancing by doing the following:</p>
-                                                    <ol>
-                                                        <li value="1">Ensure that clients can connect to the load balancer on port 7234 or another port that you configure.</li>
-                                                        <li value="2">Ensure that the load balancer can connect to all your gateways on port 7234 or another port that you configure.</li>
-                                                        <li value="3">Ensure that your gateway can connect to your target servers using SSH on port 22.</li>
-                                                        <li value="4">Configure all of your gateways to use the same AccessAddress. This must be the address that's used to access the load balancer, which is usually a domain name or static IP. Different ports are treated as different addresses.<ul><li>In addition to being necessary for clients to know how to connect to the gateway, this setting must be accurate so that the host certificate used to prove the gateway’s identity to the client is considered valid. </li><li>Host certificates for multiple gateways are also considered to be valid if they share the same default address, which is detected using cloud instance metadata if using <span class="mc-variable _3rd_Party_Integrations.Amazon_Web_Services variable">Amazon Web Services</span> (AWS) or Google Cloud Platform (GCP).</li></ul></li>
-                                                    </ol>
-                                                    <p>After setting up your gateways behind a load balancer, it's recommended that you add additional health checks to remove gateways from the load balancer pool if they're not healthy or reachable.  Some examples of good health checks are:</p>
-                                                    <ul>
-                                                        <li>Ensure that the gateway is listening on the correct port (7234 by default).</li>
-                                                        <li>Ensure that the gateway has sufficient storage to store logs if using local storage, or to temporarily store logs before moving to cloud storage.</li>
-                                                        <li>Ensure that gateway memory and CPU utilization are not excessive.</li>
-                                                    </ul>
-                                                    <p>See your cloud provider and load balancer documentation for how to implement health checks for your platform and tools.</p>
-                                                    <h2><a name="Gateway2"></a>Gateway status checks</h2>
-                                                    <p>Gateways automatically send data about their health to <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span>, which you can use to manage them. You can see the most recent health data for a gateway by viewing its details in the <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> dashboard.</p>
-                                                    <p>In addition to helping manage your gateways, gateway status checks control whether a particular gateway is selected when a user attempts to access a server using a gateway.</p>
-                                                    <p>Gateways report their status every two minutes. If more than five minutes have passed since a gateway last reported its status, it's automatically removed from the pool.  If more than five minutes have passed since any gateway has reported their status, then connections are sent to the gateway that most recently reported its status in the past 24 hours. If no gateway has reported their status in the past 24 hours, then the connection fails.</p>
-                                                    <h2><a name="Temporar"></a>Create temporary access to a server without using a gateway</h2>
-                                                    <p>In the unlikely event that all of the mechanisms used to support high availability fail and you need to allow restricted access to a server without going through a gateway, you can do the following to allow temporary, audited server access:</p>
-                                                    <ol>
-                                                        <li value="1">Create a temporary group that contains only the users who need to be granted temporary access.</li>
-                                                        <li value="2">Remove all groups from the project that the server to access is enrolled in.</li>
-                                                        <li value="3">Add the temporary group to the project.</li>
-                                                    </ol>
-                                                    <p>The new authorization configuration is synchronized to your servers. This process can take a few minutes, after which members of the temporary group can access the server. After the incident is resolved, you can restore the old configuration.</p>
-                                                    <p><b>Note:</b> Any connections made to the server using this method do not pass through a gateway, and these sessions are not logged. However, who connected to the server and when the connection took place are still logged to the <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> events log.</p>
-                                                    <h2><a name="Troubles"></a>Troubleshoot gateways</h2>
-                                                    <p>You can configure <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> to allow authorized users to SSH to a gateway to troubleshoot it. To do so, use the <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> server agent to manage access to the gateway and enroll the gateway in a project that doesn't require gateways. Provided the server is active and accessible, users who belong to the gateways project can connect to the server that contains the gateway using SSH.</p>
-                                                    <h2><a name="Related"></a>Related topics</h2>
-                                                    <p><a href="install-gateway.htm" class="MCXref xref">Install an Advanced Server Access gateway</a>
-                                                    </p>
-                                                    <p><a href="setup/create-a-project.htm" class="MCXref xref">Create a project</a>
-                                                    </p>
+                                                    <div>
+                                                        <p id="redirectMessage" />
+                                                        <script type="text/javascript">/* <![CDATA[ */
+		
+			function conditionalRedirect(who, fromURL) {
+
+				//console.log("Attempting to determine if redirect is required");
+				var sitePrefix = "https://help.okta.com/en/prod/";
+			    var targetPrefix = "https://help.okta.com/"+who+"/en-us/";
+			    var redirectTarget = fromURL.toString();
+	
+			    var sitePrefixJA = "https://help.okta.com/ja-jp/prod/";
+			    if (fromURL.toString().startsWith(sitePrefixJA)) {
+			        sitePrefix=sitePrefixJA;
+			        targetPrefix = "https://help.okta.com/"+who+"/ja-jp/";
+				}
+	
+				console.log("Checking if we should redirect");
+				console.log("fromURL=" + fromURL);
+				console.log("sitePrefix=" + sitePrefix);
+				console.log("targetPrefix=" + targetPrefix);
+				console.log("redirectTarget(pre)=" + redirectTarget);
+				redirectTarget = redirectTarget.replace(sitePrefix, targetPrefix);
+				console.log("redirectTarget(post)=" + redirectTarget);
+				if (fromURL.toString().startsWith(sitePrefix)) {
+				   console.log("Redirecting to " + redirectTarget);
+				   document.getElementById('redirectMessage').innerHTML = 
+			                               "<center><b>"+fromURL + "</b> has moved.  "+
+			                               "<br />Redirecting to <b>"+redirectTarget+"</b> in 7 seconds.</center>";
+			       setTimeout(function() { window.location.replace(redirectTarget); }, 7000);
+				   //window.location.replace(redirectTarget);
+				   return redirectTarget;
+				} else {
+					console.log("Not redirecting.");
+					return fromURL;
+				}
+			}
+		/* ]]> */</script>
+                                                        <script type="text/javascript">/* <![CDATA[ */	
+			var fromUrl = window.location;
+			// testing only. 
+			// remove the following line, and the MC review condition to release
+			//fromUrl = new URL('https://help.okta.com/en/prod/Content/Topics/Adv_Server_Access/docs/sftd.htm');
+			var targetURL = conditionalRedirect("asa", fromUrl);
+				
+		/* ]]> */</script>
+                                                    </div>
+                                                    <div data-mc-conditions="MultiProdPubish.PYPContent">
+                                                        <h1>High availability for gateways</h1>
+                                                        <p>Gateways use a variety of techniques to ensure high availability, which provides improved reliability over traditional SSH bastions. </p>
+                                                        <h2>Topics</h2>
+                                                        <ul>
+                                                            <li><a href="#Gateway" class="MCXref xref">Gateway load balancing</a>
+                                                            </li>
+                                                            <li><a href="#Gateway2" class="MCXref xref">Gateway status checks</a>
+                                                            </li>
+                                                            <li><a href="#Temporar" class="MCXref xref">Create temporary access to a server without using a gateway</a>
+                                                            </li>
+                                                            <li><a href="#Troubles" class="MCXref xref">Troubleshoot gateways</a>
+                                                            </li>
+                                                            <li><a href="#Related" class="MCXref xref">Related topics</a>
+                                                            </li>
+                                                        </ul>
+                                                        <h2><a name="Gateway"></a>Gateway load balancing</h2>
+                                                        <p>If you have multiple gateways that can be used by a project, then one of those gateways is selected at random each time a client attempts to access a server. This has the effect of automatically load balancing requests across all gateways that are valid for a project. If one gateway goes down, other gateways can continue to serve requests. However, without additional configuration, requests sent to the downed gateway will fail.</p>
+                                                        <p>To ensure that requests are properly handled, you should configure gateway load balancing similarly to how you'd configure a web application server behind a load balancer. Configure standard load balancing by doing the following:</p>
+                                                        <ol>
+                                                            <li value="1">Ensure that clients can connect to the load balancer on port 7234 or another port that you configure.</li>
+                                                            <li value="2">Ensure that the load balancer can connect to all your gateways on port 7234 or another port that you configure.</li>
+                                                            <li value="3">Ensure that your gateway can connect to your target servers using SSH on port 22.</li>
+                                                            <li value="4">Configure all of your gateways to use the same AccessAddress. This must be the address that's used to access the load balancer, which is usually a domain name or static IP. Different ports are treated as different addresses.<ul><li>In addition to being necessary for clients to know how to connect to the gateway, this setting must be accurate so that the host certificate used to prove the gateway’s identity to the client is considered valid. </li><li>Host certificates for multiple gateways are also considered to be valid if they share the same default address, which is detected using cloud instance metadata if using <span class="mc-variable _3rd_Party_Integrations.Amazon_Web_Services variable">Amazon Web Services</span> (AWS) or Google Cloud Platform (GCP).</li></ul></li>
+                                                        </ol>
+                                                        <p>After setting up your gateways behind a load balancer, it's recommended that you add additional health checks to remove gateways from the load balancer pool if they're not healthy or reachable.  Some examples of good health checks are:</p>
+                                                        <ul>
+                                                            <li>Ensure that the gateway is listening on the correct port (7234 by default).</li>
+                                                            <li>Ensure that the gateway has sufficient storage to store logs if using local storage, or to temporarily store logs before moving to cloud storage.</li>
+                                                            <li>Ensure that gateway memory and CPU utilization are not excessive.</li>
+                                                        </ul>
+                                                        <p>See your cloud provider and load balancer documentation for how to implement health checks for your platform and tools.</p>
+                                                        <h2><a name="Gateway2"></a>Gateway status checks</h2>
+                                                        <p>Gateways automatically send data about their health to <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span>, which you can use to manage them. You can see the most recent health data for a gateway by viewing its details in the <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> dashboard.</p>
+                                                        <p>In addition to helping manage your gateways, gateway status checks control whether a particular gateway is selected when a user attempts to access a server using a gateway.</p>
+                                                        <p>Gateways report their status every two minutes. If more than five minutes have passed since a gateway last reported its status, it's automatically removed from the pool.  If more than five minutes have passed since any gateway has reported their status, then connections are sent to the gateway that most recently reported its status in the past 24 hours. If no gateway has reported their status in the past 24 hours, then the connection fails.</p>
+                                                        <h2><a name="Temporar"></a>Create temporary access to a server without using a gateway</h2>
+                                                        <p>In the unlikely event that all of the mechanisms used to support high availability fail and you need to allow restricted access to a server without going through a gateway, you can do the following to allow temporary, audited server access:</p>
+                                                        <ol>
+                                                            <li value="1">Create a temporary group that contains only the users who need to be granted temporary access.</li>
+                                                            <li value="2">Remove all groups from the project that the server to access is enrolled in.</li>
+                                                            <li value="3">Add the temporary group to the project.</li>
+                                                        </ol>
+                                                        <p>The new authorization configuration is synchronized to your servers. This process can take a few minutes, after which members of the temporary group can access the server. After the incident is resolved, you can restore the old configuration.</p>
+                                                        <p><b>Note:</b> Any connections made to the server using this method do not pass through a gateway, and these sessions are not logged. However, who connected to the server and when the connection took place are still logged to the <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> events log.</p>
+                                                        <h2><a name="Troubles"></a>Troubleshoot gateways</h2>
+                                                        <p>You can configure <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> to allow authorized users to SSH to a gateway to troubleshoot it. To do so, use the <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> server agent to manage access to the gateway and enroll the gateway in a project that doesn't require gateways. Provided the server is active and accessible, users who belong to the gateways project can connect to the server that contains the gateway using SSH.</p>
+                                                        <h2><a name="Related"></a>Related topics</h2>
+                                                        <p><a href="install-gateway.htm" class="MCXref xref">Install an Advanced Server Access gateway</a>
+                                                        </p>
+                                                        <p><a href="setup/create-a-project.htm" class="MCXref xref">Create a project</a>
+                                                        </p>
+                                                    </div>
                                                 </div>
                                                 <!-- Back to Top button --><a href="#" class="sf-back-to-top"><span class="arrow"></span>Top</a>
                                             </div>

@@ -297,41 +297,90 @@
                                             <div class="body-main">
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
-                                                    <h1>Gateways and bastions</h1>
-                                                    <p>Gateways are inserted at project ingress when you connect using SSH&#160;to a server on a project that has gateways enabled. To ensure that any combination of gateways and bastions that you use match your networking requirements, it's useful to understand the connection ordering behavior between gateways and bastions. For example, you might have a situation where you have a single network bastion that you can't use as a gateway.</p>
-                                                    <p>There are three general possibilities when using gateways and bastions:</p>
-                                                    <ul>
-                                                        <li><a href="#Gateways" class="MCXref xref">Gateways without bastions</a>
-                                                        </li>
-                                                        <li><a href="#Gateways2" class="MCXref xref">Gateways with bastions configured in Advanced Server Access</a>
-                                                        </li>
-                                                        <li><a href="#Gateways3" class="MCXref xref">Gateways with bastions configured using the command line</a>
-                                                        </li>
-                                                    </ul>
-                                                    <h2><a name="Gateways"></a>Gateways without bastions</h2>
-                                                    <p>In this basic scenario, a gateway is always traversed before connecting to a server on a project where gateways are enabled.</p>
-                                                    <h2><a name="Gateways2"></a>Gateways with bastions configured in <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span></h2>
-                                                    <p>The following situations may occur when you specify the <b>Bastion</b> option in a server's server agent configuration. See <a href="sftd-configure.htm" class="MCXref xref">Configure and use the Advanced Server Access server agent</a>. These servers are considered to be bastions managed by <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> since they are not specified manually by users from the command line.</p>
-                                                    <h3>Server and bastion are on the same project that requires a gateway</h3>
-                                                    <p>If the server and bastion both belong to the same project that requires a gateway, then the gateway is inserted prior to the bastion. The client connects to the gateway, then the bastion, and then to the target server.</p>
-                                                    <h3>Server and bastion are on different projects</h3>
-                                                    <h4>Server project requires a gateway, bastion project does not</h4>
-                                                    <p>The gateway is inserted between the bastion and the target server. The client connects to the bastion, then the gateway, and then to the target server.</p>
-                                                    <h4>Server project does not require a gateway, bastion project does</h4>
-                                                    <p>The gateway is inserted prior to the bastion. The client connects to the gateway, then the bastion, and then to the target server.</p>
-                                                    <h4>Server and bastion projects both require gateways</h4>
-                                                    <p>Gateways are inserted both before the bastion and before the server. For example, if the gateway selector for the bastion project matches gateway A and the gateway selector for the server’s project  matches gateway B, then the client connects to gateway A, then the bastion, then gateway B, and then to the target server. In this example, only gateway B records the session.</p>
-                                                    <p><b>Note:</b> Gateway A and B can be the same gateway. This can result in a cycle, if the gateway selectors for both projects allow it. This isn't harmful, but it's recommended that projects are configured appropriately to avoid unnecessary network hops.</p>
-                                                    <h2><a name="Gateways3"></a>Gateways with bastions configured using the command line</h2>
-                                                    <p>In addition to bastions that are automatically used by properly configuring the <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> server agent, clients can specify bastions to use by using the <span class="code">--via</span> or <span class="code">--bastion</span> flags with the <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> client. See <a href="client.htm" class="MCXref xref">Use the Advanced Server Access client</a>.</p>
-                                                    <p>The behavior of bastions configured using the command line flags is the same as that for bastions that are configured in <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span>. Bastions specified using the command line are always added before bastions that were configured through their server agent configuration. For example, suppose you have BastionA, a bastion specified using the command line, and BastionB, a bastion  specified through its server agent configuration. If you attempt to reach a target through both bastions, then the connection would go from the client to BastionA, then BastionB, and then to the target server. Depending on the project configuration, gateways would be inserted at project ingress.</p>
-                                                    <h2>Related topics</h2>
-                                                    <p><a href="install-gateway.htm" class="MCXref xref">Install an Advanced Server Access gateway</a>
-                                                    </p>
-                                                    <p><a href="gateways.htm" class="MCXref xref">Advantages of Advanced Server Access gateways</a>
-                                                    </p>
-                                                    <p><a href="session-capture.htm" class="MCXref xref">Session capture</a>
-                                                    </p>
+                                                    <div>
+                                                        <p id="redirectMessage" />
+                                                        <script type="text/javascript">/* <![CDATA[ */
+		
+			function conditionalRedirect(who, fromURL) {
+
+				//console.log("Attempting to determine if redirect is required");
+				var sitePrefix = "https://help.okta.com/en/prod/";
+			    var targetPrefix = "https://help.okta.com/"+who+"/en-us/";
+			    var redirectTarget = fromURL.toString();
+	
+			    var sitePrefixJA = "https://help.okta.com/ja-jp/prod/";
+			    if (fromURL.toString().startsWith(sitePrefixJA)) {
+			        sitePrefix=sitePrefixJA;
+			        targetPrefix = "https://help.okta.com/"+who+"/ja-jp/";
+				}
+	
+				console.log("Checking if we should redirect");
+				console.log("fromURL=" + fromURL);
+				console.log("sitePrefix=" + sitePrefix);
+				console.log("targetPrefix=" + targetPrefix);
+				console.log("redirectTarget(pre)=" + redirectTarget);
+				redirectTarget = redirectTarget.replace(sitePrefix, targetPrefix);
+				console.log("redirectTarget(post)=" + redirectTarget);
+				if (fromURL.toString().startsWith(sitePrefix)) {
+				   console.log("Redirecting to " + redirectTarget);
+				   document.getElementById('redirectMessage').innerHTML = 
+			                               "<center><b>"+fromURL + "</b> has moved.  "+
+			                               "<br />Redirecting to <b>"+redirectTarget+"</b> in 7 seconds.</center>";
+			       setTimeout(function() { window.location.replace(redirectTarget); }, 7000);
+				   //window.location.replace(redirectTarget);
+				   return redirectTarget;
+				} else {
+					console.log("Not redirecting.");
+					return fromURL;
+				}
+			}
+		/* ]]> */</script>
+                                                        <script type="text/javascript">/* <![CDATA[ */	
+			var fromUrl = window.location;
+			// testing only. 
+			// remove the following line, and the MC review condition to release
+			//fromUrl = new URL('https://help.okta.com/en/prod/Content/Topics/Adv_Server_Access/docs/sftd.htm');
+			var targetURL = conditionalRedirect("asa", fromUrl);
+				
+		/* ]]> */</script>
+                                                    </div>
+                                                    <div data-mc-conditions="MultiProdPubish.PYPContent">
+                                                        <h1>Gateways and bastions</h1>
+                                                        <p>Gateways are inserted at project ingress when you connect using SSH&#160;to a server on a project that has gateways enabled. To ensure that any combination of gateways and bastions that you use match your networking requirements, it's useful to understand the connection ordering behavior between gateways and bastions. For example, you might have a situation where you have a single network bastion that you can't use as a gateway.</p>
+                                                        <p>There are three general possibilities when using gateways and bastions:</p>
+                                                        <ul>
+                                                            <li><a href="#Gateways" class="MCXref xref">Gateways without bastions</a>
+                                                            </li>
+                                                            <li><a href="#Gateways2" class="MCXref xref">Gateways with bastions configured in Advanced Server Access</a>
+                                                            </li>
+                                                            <li><a href="#Gateways3" class="MCXref xref">Gateways with bastions configured using the command line</a>
+                                                            </li>
+                                                        </ul>
+                                                        <h2><a name="Gateways"></a>Gateways without bastions</h2>
+                                                        <p>In this basic scenario, a gateway is always traversed before connecting to a server on a project where gateways are enabled.</p>
+                                                        <h2><a name="Gateways2"></a>Gateways with bastions configured in <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span></h2>
+                                                        <p>The following situations may occur when you specify the <b>Bastion</b> option in a server's server agent configuration. See <a href="sftd-configure.htm" class="MCXref xref">Configure and use the Advanced Server Access server agent</a>. These servers are considered to be bastions managed by <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> since they are not specified manually by users from the command line.</p>
+                                                        <h3>Server and bastion are on the same project that requires a gateway</h3>
+                                                        <p>If the server and bastion both belong to the same project that requires a gateway, then the gateway is inserted prior to the bastion. The client connects to the gateway, then the bastion, and then to the target server.</p>
+                                                        <h3>Server and bastion are on different projects</h3>
+                                                        <h4>Server project requires a gateway, bastion project does not</h4>
+                                                        <p>The gateway is inserted between the bastion and the target server. The client connects to the bastion, then the gateway, and then to the target server.</p>
+                                                        <h4>Server project does not require a gateway, bastion project does</h4>
+                                                        <p>The gateway is inserted prior to the bastion. The client connects to the gateway, then the bastion, and then to the target server.</p>
+                                                        <h4>Server and bastion projects both require gateways</h4>
+                                                        <p>Gateways are inserted both before the bastion and before the server. For example, if the gateway selector for the bastion project matches gateway A and the gateway selector for the server’s project  matches gateway B, then the client connects to gateway A, then the bastion, then gateway B, and then to the target server. In this example, only gateway B records the session.</p>
+                                                        <p><b>Note:</b> Gateway A and B can be the same gateway. This can result in a cycle, if the gateway selectors for both projects allow it. This isn't harmful, but it's recommended that projects are configured appropriately to avoid unnecessary network hops.</p>
+                                                        <h2><a name="Gateways3"></a>Gateways with bastions configured using the command line</h2>
+                                                        <p>In addition to bastions that are automatically used by properly configuring the <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> server agent, clients can specify bastions to use by using the <span class="code">--via</span> or <span class="code">--bastion</span> flags with the <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> client. See <a href="client.htm" class="MCXref xref">Use the Advanced Server Access client</a>.</p>
+                                                        <p>The behavior of bastions configured using the command line flags is the same as that for bastions that are configured in <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span>. Bastions specified using the command line are always added before bastions that were configured through their server agent configuration. For example, suppose you have BastionA, a bastion specified using the command line, and BastionB, a bastion  specified through its server agent configuration. If you attempt to reach a target through both bastions, then the connection would go from the client to BastionA, then BastionB, and then to the target server. Depending on the project configuration, gateways would be inserted at project ingress.</p>
+                                                        <h2>Related topics</h2>
+                                                        <p><a href="install-gateway.htm" class="MCXref xref">Install an Advanced Server Access gateway</a>
+                                                        </p>
+                                                        <p><a href="gateways.htm" class="MCXref xref">Advantages of Advanced Server Access gateways</a>
+                                                        </p>
+                                                        <p><a href="session-capture.htm" class="MCXref xref">Session capture</a>
+                                                        </p>
+                                                    </div>
                                                 </div>
                                                 <!-- Back to Top button --><a href="#" class="sf-back-to-top"><span class="arrow"></span>Top</a>
                                             </div>
