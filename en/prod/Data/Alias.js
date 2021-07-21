@@ -421,13 +421,11 @@ xmlAliasData += '    <Map Name=\"ext_OPP_create_connectors\" Link=\"Topics/Provi
 xmlAliasData += '    <Map Name=\"ext_OPP_build\" Link=\"Topics/Provisioning/opp/OPP-build-SCIM-using-SDK.htm\" ResolvedId=\"1258\" />';
 xmlAliasData += '    <Map Name=\"ext_OPP_test\" Link=\"Topics/Provisioning/opp/OPP-test-SCIM-server.htm\" ResolvedId=\"1262\" />';
 xmlAliasData += '    <Map Name=\"ext_OAG_RESTORE\" Link=\"Topics/Access-Gateway/backup-restore.htm\" ResolvedId=\"1256\" />';
-xmlAliasData += '    <Map Name=\"ext_OAG_BACKUPMISSING\" Link=\"Topics/Access-Gateway/backup-faq.htm#WhereAreMyBackups\" ResolvedId=\"1257\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_Manage_Profile_Attributes\" Link=\"Topics/users-groups-profiles/usgp-user-profile-attributes-main.htm\" ResolvedId=\"200067\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_AD_agent\" Link=\"Topics/Directory/ad-agent-main.htm\" ResolvedId=\"200060\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_Attribute_Mapping\" Link=\"Topics/Directory/ad-agent-configure-user-profiles-attributes.htm\" ResolvedId=\"200062\" />';
 xmlAliasData += '    <Map Name=\"ext_OPP_provision\" Link=\"Topics/Provisioning/opp/OPP-provision-SCIM-messages.htm\" ResolvedId=\"1263\" />';
 xmlAliasData += '    <Map Name=\"ext-install-multiple-AD-agents\" Link=\"Topics/Directory/ad-agent-install-multiple.htm\" ResolvedId=\"1264\" />';
-xmlAliasData += '    <Map Name=\"ext_OAG_BACKUPDOWNLOAD\" Link=\"Topics/Access-Gateway/backup-manage.htm#DownloadBackup\" ResolvedId=\"1265\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_App_Integration_Wizard-saml\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SAML.htm\" ResolvedId=\"1266\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_App_Integration_Wizard-scim\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SCIM.htm\" ResolvedId=\"1267\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_App_Integration_Wizard-swa\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SWA.htm\" ResolvedId=\"1268\" />';
@@ -1345,7 +1343,6 @@ xmlAliasData += '    <Map Name=\"ext-agent-support-policies\" Link=\"Topics/Dire
 xmlAliasData += '    <Map Name=\"csh-blocklist-proxies-tor\" Link=\"Topics/Security/healthinsight/blocklist-proxies-tor.htm\" ResolvedId=\"11000\" />';
 xmlAliasData += '    <Map Name=\"csh-blocklist-zones\" Link=\"Topics/Security/healthinsight/blocklist-network-zone.htm\" ResolvedId=\"11001\" />';
 xmlAliasData += '    <Map Name=\"ext-control-method-callable\" Link=\"Topics/Workflows/learn/about-scheduled-child-flows.htm\" ResolvedId=\"30302\" />';
-xmlAliasData += '    <Map Name=\"ext_oag_app_cert_valid\" Link=\"Topics/Access-Gateway/managing-application-behaviors.htm#ClientCertValidation\" ResolvedId=\"3022\" />';
 xmlAliasData += '    <Map Name=\"ext-github-method-updateuser\" Link=\"Topics/Workflows/connector-reference/github/actions/updateuser.htm\" ResolvedId=\"30307\" />';
 xmlAliasData += '    <Map Name=\"ext-github-method-searchusers\" Link=\"Topics/Workflows/connector-reference/github/actions/searchusers.htm\" ResolvedId=\"30919\" />';
 xmlAliasData += '    <Map Name=\"ext-github-method-searchteams\" Link=\"Topics/Workflows/connector-reference/github/actions/searchteams.htm\" ResolvedId=\"30920\" />';
@@ -1500,11 +1497,7 @@ xmlAliasData += '    <Map Name=\"ext-awssso-method-removeallawsentitlements\" Li
 xmlAliasData += '    <Map Name=\"ext-awssso-method-removeawsentitlements\" Link=\"Topics/Workflows/connector-reference/awssso/actions/removeawsentitlements.htm\" ResolvedId=\"31016\" />';
 xmlAliasData += '    <Map Name=\"csh-prioritize-profile-sources\" Link=\"Topics/users-groups-profiles/usgp-prioritize-profile-source.htm\" ResolvedId=\"15012\" />';
 xmlAliasData += '    <Map Name=\"ext_sec_admin_assign_admins\" Link=\"Topics/Security/administrators-assign-admins.htm\" ResolvedId=\"3060\" />';
-xmlAliasData += '    <Map Name=\"ext_oag_man_app_behave_postlogin\" Link=\"Topics/Access-Gateway/managing-application-behaviors.htm#Post_logout_URL\" ResolvedId=\"3061\" />';
-xmlAliasData += '    <Map Name=\"ext_oag_man_app_behave_poldeny\" Link=\"Topics/Access-Gateway/managing-application-behaviors.htm#Policy_Denied\" ResolvedId=\"3062\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_pre_req_firewall_rules\" Link=\"Topics/Access-Gateway/deploy-pre-install-reqs.htm\" ResolvedId=\"3063\" />';
-xmlAliasData += '    <Map Name=\"ext_oag_about_policy_types_not\" Link=\"Topics/Access-Gateway/learn-about-oag-policy-types.htm#Not\" ResolvedId=\"3064\" />';
-xmlAliasData += '    <Map Name=\"ext_oag_about_policy_types_prot\" Link=\"Topics/Access-Gateway/learn-about-oag-policy-types.htm#Protecte\" ResolvedId=\"3065\" />';
 xmlAliasData += '    <Map Name=\"ext-utility-method-exportflo\" Link=\"Topics/Workflows/function-reference/Flows/flows_exportflow.htm\" ResolvedId=\"31017\" />';
 xmlAliasData += '    <Map Name=\"ext-hubspotcrm-method-associateacontactwithobject\" Link=\"Topics/Workflows/connector-reference/hubspotcrm/actions/associateacontactwithanotherobject.htm\" ResolvedId=\"16002\" />';
 xmlAliasData += '    <Map Name=\"ext-hubspotcrm-method-createcontact\" Link=\"Topics/Workflows/connector-reference/hubspotcrm/actions/createcontact.htm\" ResolvedId=\"16003\" />';
