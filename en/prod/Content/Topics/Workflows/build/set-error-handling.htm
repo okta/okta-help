@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="_Skins_okta_html5_topnav_nav_poc" data-mc-search-type="Stem" data-mc-help-system-file-name="okta_help.xml" data-mc-path-to-help-system="../../../../" data-mc-has-content-body="True" data-mc-searchable="True" data-mc-toc-path="Workflows|Build Flows" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic;Default" data-mc-preload-images="false" data-mc-in-preview-mode="false">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="_Skins_okta_html5_topnav_nav_poc" data-mc-search-type="Stem" data-mc-help-system-file-name="okta_help.xml" data-mc-path-to-help-system="../../../../" data-mc-has-content-body="True" data-mc-searchable="True" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic;Default" data-mc-preload-images="false" data-mc-in-preview-mode="false">
     <!-- ******************************************************************************** -->
     <!-- IMPORTANT: replicate changes in this file to other master pages, as appropriate. -->
     <!-- ******************************************************************************** -->
@@ -309,10 +309,6 @@
                                         <div>
                                             <div class="is-not-in-mobile">
                                                 <!-- Breadcrumbs -->
-                                                <div class="nocontent">
-                                                    <div class="MCBreadcrumbsBox_0 breadcrumbs" role="navigation" aria-label="Breadcrumbs" data-mc-breadcrumbs-divider="  &gt;  " data-mc-breadcrumbs-count="3" data-mc-toc="True">
-                                                    </div>
-                                                </div>
                                             </div>
                                             <div class="toolbar-main">
                                                 <!-- Expand/Collapse All for drop-downs, next/prev buttons -->
@@ -333,55 +329,104 @@
                                             <div class="body-main">
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
-                                                    <div data-content-id="hoc-main-content">
-                                                        <h1>Set error handling for cards in Flows</h1>
-                                                        <p>You can set values for error handling on most cards in Workflows.</p>
-                                                        <div class="note_cautionOkta">
-                                                            <img src="../../../Resources/Images/assets/Icons/Notes/Alert.png" class="noteImgFloat" title="Caution" alt="Caution" />
-                                                            <p class="noteContent">Retries for cards in Flows only take place as a result of <code>HTTP 429 Too Many Requests</code> errors. You will not be able to set error handling for other HTTP errors.</p>
+                                                    <div>
+                                                        <p id="redirectMessage" />
+                                                        <script type="text/javascript">/* <![CDATA[ */
+		
+			function conditionalRedirect(who, fromURL) {
+
+				//console.log("Attempting to determine if redirect is required");
+				var sitePrefix = "https://help.okta.com/en/prod/";
+			    var targetPrefix = "https://help.okta.com/"+who+"/en-us/";
+			    var redirectTarget = fromURL.toString();
+	
+			    var sitePrefixJA = "https://help.okta.com/ja-jp/prod/";
+			    if (fromURL.toString().startsWith(sitePrefixJA)) {
+			        sitePrefix=sitePrefixJA;
+			        targetPrefix = "https://help.okta.com/"+who+"/ja-jp/";
+				}
+	
+				console.log("Checking if we should redirect");
+				console.log("fromURL=" + fromURL);
+				console.log("sitePrefix=" + sitePrefix);
+				console.log("targetPrefix=" + targetPrefix);
+				console.log("redirectTarget(pre)=" + redirectTarget);
+				redirectTarget = redirectTarget.replace(sitePrefix, targetPrefix);
+				console.log("redirectTarget(post)=" + redirectTarget);
+				if (fromURL.toString().startsWith(sitePrefix)) {
+				   console.log("Redirecting to " + redirectTarget);
+				   document.getElementById('redirectMessage').innerHTML = 
+			                               "<center><b>"+fromURL + "</b> has moved.  "+
+			                               "<br />Redirecting to <b>"+redirectTarget+"</b> in 7 seconds.</center>";
+			       setTimeout(function() { window.location.replace(redirectTarget); }, 7000);
+				   //window.location.replace(redirectTarget);
+				   return redirectTarget;
+				} else {
+					console.log("Not redirecting.");
+					return fromURL;
+				}
+			}
+		/* ]]> */</script>
+                                                        <script type="text/javascript">/* <![CDATA[ */	
+			var fromUrl = window.location;
+			// testing only. 
+			// remove the following line, and the MC review condition to release
+			//fromUrl = new URL('https://help.okta.com/en/prod/Content/Topics/Workflows/connector-reference/googlesheets/actions/readrow.htm');
+			var targetURL = conditionalRedirect("wf", fromUrl);
+				
+		/* ]]> */</script>
+                                                    </div>
+                                                    <div data-mc-conditions="MultiProdPubish.PYPContent">
+                                                        <div data-content-id="hoc-main-content">
+                                                            <h1>Set error handling for cards in Flows</h1>
+                                                            <p>You can set values for error handling on most cards in Workflows.</p>
+                                                            <div class="note_cautionOkta">
+                                                                <img src="../../../Resources/Images/assets/Icons/Notes/Alert.png" class="noteImgFloat" title="Caution" alt="Caution" />
+                                                                <p class="noteContent">Retries for cards in Flows only take place as a result of <code>HTTP 429 Too Many Requests</code> errors. You will not be able to set error handling for other HTTP errors.</p>
+                                                            </div>
+                                                            <ol>
+                                                                <li value="1">Click the <b>Other options</b> gear icon on a card and select <b>Error handling</b>.</li>
+                                                                <li value="2">In the <b>Retry</b> dropdown, select a value for the number of times to re-execute a card if an error occurs. The default is <code>0 times</code>.</li>
+                                                                <li value="3">In the <b>After</b> dropdown, select a value for the amount of time that the card will pause between retries. You may need to select a period of several minutes if a card produces an error often because an application is unavailable and more time is needed to ensure you can resume the Flow without further interruption. The default is <code>1 minute</code>.</li>
+                                                                <li value="4">In the <b>Then</b> dropdown, select an option for what the card must do if it fails to execute. The options are <code>Halt Flow</code>, <code>Return Values</code>, or <code>Run another Flow</code>.<ul><li>Halt Flow: Stop the Flow with an error.</li><li>Return Values: Stop the Flow with an error but send a custom message to the caller (if any when it's part of an API Endpoint Flow ). You can add fields or custom fields and enter values or drag and drop outputs from earlier stages in the Flow.</li><li>Run another Flow: Stop the Flow with an error, but run a child Flow. If your child Flow accepts inputs, call a Flow by clicking <b>Choose Flow</b> and selecting a child flow from the <b>Select flow</b> dialog. The Flow that's called will be able to get the error details using the <b>Error</b> output field on the child Flow card. See <a href="../learn/about-scheduled-child-flows.htm" class="MCXref xref">About scheduled and child Flows</a>.</li></ul></li>
+                                                            </ol>
+                                                            <h2>Exceptions to automatic retries</h2>
+                                                            <p>There are cases when HTTP status codes that are returned by an action card will halt retries. When one of the following HTTP status codes is returned, retries will not be triggered:</p>
+                                                            <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard-no-header.css');" class="TableStyle-srb_no_header" cellspacing="0">
+                                                                <col class="TableStyle-srb_no_header-Column-Column1" />
+                                                                <col class="TableStyle-srb_no_header-Column-Column1" />
+                                                                <col class="TableStyle-srb_no_header-Column-Column1" />
+                                                                <col class="TableStyle-srb_no_header-Column-Column1" />
+                                                                <tbody>
+                                                                    <tr class="TableStyle-srb_no_header-Body-Body1">
+                                                                        <td class="TableStyle-srb_no_header-BodyF-Column1-Body1">400</td>
+                                                                        <td class="TableStyle-srb_no_header-BodyF-Column1-Body1">401</td>
+                                                                        <td class="TableStyle-srb_no_header-BodyF-Column1-Body1">402</td>
+                                                                        <td class="TableStyle-srb_no_header-BodyD-Column1-Body1">403</td>
+                                                                    </tr>
+                                                                    <tr class="TableStyle-srb_no_header-Body-Body2">
+                                                                        <td class="TableStyle-srb_no_header-BodyF-Column1-Body2">404</td>
+                                                                        <td class="TableStyle-srb_no_header-BodyF-Column1-Body2">405</td>
+                                                                        <td class="TableStyle-srb_no_header-BodyF-Column1-Body2">409</td>
+                                                                        <td class="TableStyle-srb_no_header-BodyD-Column1-Body2">413</td>
+                                                                    </tr>
+                                                                    <tr class="TableStyle-srb_no_header-Body-Body1">
+                                                                        <td class="TableStyle-srb_no_header-BodyF-Column1-Body1">421</td>
+                                                                        <td class="TableStyle-srb_no_header-BodyF-Column1-Body1">422</td>
+                                                                        <td class="TableStyle-srb_no_header-BodyF-Column1-Body1">500</td>
+                                                                        <td class="TableStyle-srb_no_header-BodyD-Column1-Body1">503</td>
+                                                                    </tr>
+                                                                    <tr class="TableStyle-srb_no_header-Body-Body2">
+                                                                        <td class="TableStyle-srb_no_header-BodyC-Column1-Body2">504</td>
+                                                                        <td class="TableStyle-srb_no_header-BodyC-Column1-Body2">&#160;</td>
+                                                                        <td class="TableStyle-srb_no_header-BodyC-Column1-Body2">&#160;</td>
+                                                                        <td class="TableStyle-srb_no_header-BodyA-Column1-Body2">&#160;</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <p>These HTTP status codes generally indicate that another retry will not change the outcome of the request. See <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes" target="_blank">HTTP status codes</a>.</p>
+                                                            <p>If you need to build a flow where retries must take place after one of these HTTP status codes is returned, use the If Error function card. See <a href="../function-reference/Error-Handling/errorhandling_trycatch.htm" class="MCXref xref">If Error</a>.</p>
                                                         </div>
-                                                        <ol>
-                                                            <li value="1">Click the <b>Other options</b> gear icon on a card and select <b>Error handling</b>.</li>
-                                                            <li value="2">In the <b>Retry</b> dropdown, select a value for the number of times to re-execute a card if an error occurs. The default is <code>0 times</code>.</li>
-                                                            <li value="3">In the <b>After</b> dropdown, select a value for the amount of time that the card will pause between retries. You may need to select a period of several minutes if a card produces an error often because an application is unavailable and more time is needed to ensure you can resume the Flow without further interruption. The default is <code>1 minute</code>.</li>
-                                                            <li value="4">In the <b>Then</b> dropdown, select an option for what the card must do if it fails to execute. The options are <code>Halt Flow</code>, <code>Return Values</code>, or <code>Run another Flow</code>.<ul><li>Halt Flow: Stop the Flow with an error.</li><li>Return Values: Stop the Flow with an error but send a custom message to the caller (if any when it's part of an API Endpoint Flow ). You can add fields or custom fields and enter values or drag and drop outputs from earlier stages in the Flow.</li><li>Run another Flow: Stop the Flow with an error, but run a child Flow. If your child Flow accepts inputs, call a Flow by clicking <b>Choose Flow</b> and selecting a child flow from the <b>Select flow</b> dialog. The Flow that's called will be able to get the error details using the <b>Error</b> output field on the child Flow card. See <a href="../learn/about-scheduled-child-flows.htm" class="MCXref xref">About scheduled and child Flows</a>.</li></ul></li>
-                                                        </ol>
-                                                        <h2>Exceptions to automatic retries</h2>
-                                                        <p>There are cases when HTTP status codes that are returned by an action card will halt retries. When one of the following HTTP status codes is returned, retries will not be triggered:</p>
-                                                        <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard-no-header.css');" class="TableStyle-srb_no_header" cellspacing="0">
-                                                            <col class="TableStyle-srb_no_header-Column-Column1" />
-                                                            <col class="TableStyle-srb_no_header-Column-Column1" />
-                                                            <col class="TableStyle-srb_no_header-Column-Column1" />
-                                                            <col class="TableStyle-srb_no_header-Column-Column1" />
-                                                            <tbody>
-                                                                <tr class="TableStyle-srb_no_header-Body-Body1">
-                                                                    <td class="TableStyle-srb_no_header-BodyF-Column1-Body1">400</td>
-                                                                    <td class="TableStyle-srb_no_header-BodyF-Column1-Body1">401</td>
-                                                                    <td class="TableStyle-srb_no_header-BodyF-Column1-Body1">402</td>
-                                                                    <td class="TableStyle-srb_no_header-BodyD-Column1-Body1">403</td>
-                                                                </tr>
-                                                                <tr class="TableStyle-srb_no_header-Body-Body2">
-                                                                    <td class="TableStyle-srb_no_header-BodyF-Column1-Body2">404</td>
-                                                                    <td class="TableStyle-srb_no_header-BodyF-Column1-Body2">405</td>
-                                                                    <td class="TableStyle-srb_no_header-BodyF-Column1-Body2">409</td>
-                                                                    <td class="TableStyle-srb_no_header-BodyD-Column1-Body2">413</td>
-                                                                </tr>
-                                                                <tr class="TableStyle-srb_no_header-Body-Body1">
-                                                                    <td class="TableStyle-srb_no_header-BodyF-Column1-Body1">421</td>
-                                                                    <td class="TableStyle-srb_no_header-BodyF-Column1-Body1">422</td>
-                                                                    <td class="TableStyle-srb_no_header-BodyF-Column1-Body1">500</td>
-                                                                    <td class="TableStyle-srb_no_header-BodyD-Column1-Body1">503</td>
-                                                                </tr>
-                                                                <tr class="TableStyle-srb_no_header-Body-Body2">
-                                                                    <td class="TableStyle-srb_no_header-BodyC-Column1-Body2">504</td>
-                                                                    <td class="TableStyle-srb_no_header-BodyC-Column1-Body2">&#160;</td>
-                                                                    <td class="TableStyle-srb_no_header-BodyC-Column1-Body2">&#160;</td>
-                                                                    <td class="TableStyle-srb_no_header-BodyA-Column1-Body2">&#160;</td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                        <p>These HTTP status codes generally indicate that another retry will not change the outcome of the request. See <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes" target="_blank">HTTP status codes</a>.</p>
-                                                        <p>If you need to build a flow where retries must take place after one of these HTTP status codes is returned, use the If Error function card. See <a href="../function-reference/Error-Handling/errorhandling_trycatch.htm" class="MCXref xref">If Error</a>.</p>
                                                     </div>
                                                 </div>
                                                 <!-- Back to Top button --><a href="#" class="sf-back-to-top"><span class="arrow"></span>Top</a>

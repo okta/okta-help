@@ -327,50 +327,98 @@
                                             <div class="body-main">
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
-                                                    <h1>About client certificate validation behavior</h1>
-                                                    <p class="earlyaccess">Certificate validation behavior is an Early Access feature. To enable it, contact <a href="https://support.okta.com/help/s/">Okta Support</a>.</p>
-                                                    <h3>Topics</h3>
-                                                    <ul>
-                                                        <li><a href="#Backgrou" class="MCXref xref">Background</a>
-                                                        </li>
-                                                        <li><a href="#and" class="MCXref xref">Access Gateway and certificate chains</a>
-                                                        </li>
-                                                    </ul>
                                                     <div>
-                                                        <h2><a name="Backgrou"></a>Background</h2>
-                                                        <p><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> makes use of certificates in various ways:</p>
-                                                        <ul>
-                                                            <li>To establish and manage SSL/TLS. See <a href="about-oag-certificates.htm" class="MCXref xref">About Access Gateway certificates</a>.</li>
-                                                            <li>As an additional authentication method when validating requests.</li>
-                                                        </ul>
-                                                        <p>In the second scenario, a certificate chain is loaded into <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> and requests containing a client certificate are validated against valid end user certificates from that chain. </p>
-                                                        <p>In general, certificate chains are composed of:</p>
-                                                        <p>
-                                                            <img src="../../Resources/Images/access-gateway/cert-chain.png" id="img_new" />
-                                                        </p>
-                                                        <ul>
-                                                            <li>A root certificate, provided by a known certificate authority such as <a href="http://www.digicert.com/">DigiCert</a>, <a href="https://www.thawte.com/">Thawte</a> or a similar provider. </li>
-                                                            <li>one or more Intermediate certificates, typically assigned to a company and signed by a root CA. There can and often are multiple intermediate certificates. For example by department or division within a given company.</li>
-                                                            <li>End entity certificates, the final certificate assigned to a given entity. End entity certificates are used for validation. </li>
-                                                        </ul>
-                                                        <h2><a name="and"></a><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> and certificate chains</h2>
-                                                        <p><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> uses certificate chains to validate applications using <a href="about-application-behaviors.htm">behaviors</a>. The aspects of the process are:</p>
-                                                        <ul>
-                                                            <li>Manage certificate chains - The <span class="mc-variable okta-feature-names.Access_Gateway_CMD variable">Access Gateway Management console</span> is used to add, view, and otherwise manage certificate chains. </li>
-                                                            <li>Update certificate revocation lists- <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> periodically refreshes Certificate Revocation Lists (CRLs) using the lifetime and refresh intervals specified in the management console. See <a href="cert-chain-operations.htm#Manage">Manage CRL&#160;settings</a> in <a href="cert-chain-operations.htm" class="MCXref xref">Certificate chain operations</a>.</li>
-                                                            <li>Specify certificate validation - Applications validate against certificates using the valid certificate behavior. See <a href="managing-application-behaviors.htm#ClientCertValidation">Certificate validation behavior</a> in <a href="managing-application-behaviors.htm" class="MCXref xref">Manage application behaviors</a></li>
-                                                        </ul>
-                                                        <p>At run-time, when enabled, application requests are validated against one of the certificate validation behaviors, including:</p>
-                                                        <ul>
-                                                            <li>Default behavior, no certificate based validation occurs.</li>
-                                                            <li>On certificate validation failure: <ul style="list-style-type: circle;"><li>Forward the request to a custom URL/URI.</li><li>Display a blank page but return a 405 status code.</li><li>Display an invalid certificate error page.</li></ul></li>
-                                                        </ul>
+                                                        <p id="redirectMessage" />
+                                                        <script type="text/javascript">/* <![CDATA[ */
+		
+			function conditionalRedirect(who, fromURL) {
+
+				//console.log("Attempting to determine if redirect is required");
+				var sitePrefix = "https://help.okta.com/en/prod/";
+			    var targetPrefix = "https://help.okta.com/"+who+"/en-us/";
+			    var redirectTarget = fromURL.toString();
+	
+			    var sitePrefixJA = "https://help.okta.com/ja-jp/prod/";
+			    if (fromURL.toString().startsWith(sitePrefixJA)) {
+			        sitePrefix=sitePrefixJA;
+			        targetPrefix = "https://help.okta.com/"+who+"/ja-jp/";
+				}
+	
+				console.log("Checking if we should redirect");
+				console.log("fromURL=" + fromURL);
+				console.log("sitePrefix=" + sitePrefix);
+				console.log("targetPrefix=" + targetPrefix);
+				console.log("redirectTarget(pre)=" + redirectTarget);
+				redirectTarget = redirectTarget.replace(sitePrefix, targetPrefix);
+				console.log("redirectTarget(post)=" + redirectTarget);
+				if (fromURL.toString().startsWith(sitePrefix)) {
+				   console.log("Redirecting to " + redirectTarget);
+				   document.getElementById('redirectMessage').innerHTML = 
+			                               "<center><b>"+fromURL + "</b> has moved.  "+
+			                               "<br />Redirecting to <b>"+redirectTarget+"</b> in 7 seconds.</center>";
+			       setTimeout(function() { window.location.replace(redirectTarget); }, 7000);
+				   //window.location.replace(redirectTarget);
+				   return redirectTarget;
+				} else {
+					console.log("Not redirecting.");
+					return fromURL;
+				}
+			}
+		/* ]]> */</script>
+                                                        <script type="text/javascript">/* <![CDATA[ */	
+            var fromUrl = window.location;
+			// testing only. 
+			// remove the following line, and the MC review condition to release
+            //fromUrl = new URL('https://help.okta.com/en/prod/Content/Topics/Access-Gateway/add-app-websocket.htm');
+            var targetURL = conditionalRedirect("oag", fromUrl);
+		/* ]]> */</script>
                                                     </div>
-                                                    <h2>Related topics</h2>
-                                                    <p><a href="cert-chain-operations.htm" class="MCXref xref">Certificate chain operations</a>
-                                                    </p>
-                                                    <p><a href="managing-application-behaviors.htm#ClientCertValidation">Certificate validation behavior</a>
-                                                    </p>
+                                                    <div data-mc-conditions="MultiProdPubish.PYPContent">
+                                                        <h1>About client certificate validation behavior</h1>
+                                                        <p class="earlyaccess">Certificate validation behavior is an Early Access feature. To enable it, contact <a href="https://support.okta.com/help/s/">Okta Support</a>.</p>
+                                                        <h3>Topics</h3>
+                                                        <ul>
+                                                            <li><a href="#Backgrou" class="MCXref xref">Background</a>
+                                                            </li>
+                                                            <li><a href="#and" class="MCXref xref">Access Gateway and certificate chains</a>
+                                                            </li>
+                                                        </ul>
+                                                        <div>
+                                                            <h2><a name="Backgrou"></a>Background</h2>
+                                                            <p><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> makes use of certificates in various ways:</p>
+                                                            <ul>
+                                                                <li>To establish and manage SSL/TLS. See <a href="about-oag-certificates.htm" class="MCXref xref">About Access Gateway certificates</a>.</li>
+                                                                <li>As an additional authentication method when validating requests.</li>
+                                                            </ul>
+                                                            <p>In the second scenario, a certificate chain is loaded into <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> and requests containing a client certificate are validated against valid end user certificates from that chain. </p>
+                                                            <p>In general, certificate chains are composed of:</p>
+                                                            <p>
+                                                                <img src="../../Resources/Images/access-gateway/cert-chain.png" id="img_new" />
+                                                            </p>
+                                                            <ul>
+                                                                <li>A root certificate, provided by a known certificate authority such as <a href="http://www.digicert.com/">DigiCert</a>, <a href="https://www.thawte.com/">Thawte</a> or a similar provider. </li>
+                                                                <li>one or more Intermediate certificates, typically assigned to a company and signed by a root CA. There can and often are multiple intermediate certificates. For example by department or division within a given company.</li>
+                                                                <li>End entity certificates, the final certificate assigned to a given entity. End entity certificates are used for validation. </li>
+                                                            </ul>
+                                                            <h2><a name="and"></a><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> and certificate chains</h2>
+                                                            <p><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> uses certificate chains to validate applications using <a href="about-application-behaviors.htm">behaviors</a>. The aspects of the process are:</p>
+                                                            <ul>
+                                                                <li>Manage certificate chains - The <span class="mc-variable okta-feature-names.Access_Gateway_CMD variable">Access Gateway Management console</span> is used to add, view, and otherwise manage certificate chains. </li>
+                                                                <li>Update certificate revocation lists- <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> periodically refreshes Certificate Revocation Lists (CRLs) using the lifetime and refresh intervals specified in the management console. See <a href="cert-chain-operations.htm#Manage">Manage CRL&#160;settings</a> in <a href="cert-chain-operations.htm" class="MCXref xref">Certificate chain operations</a>.</li>
+                                                                <li>Specify certificate validation - Applications validate against certificates using the valid certificate behavior. See <a href="managing-application-behaviors.htm#ClientCertValidation">Certificate validation behavior</a> in <a href="managing-application-behaviors.htm" class="MCXref xref">Manage application behaviors</a></li>
+                                                            </ul>
+                                                            <p>At run-time, when enabled, application requests are validated against one of the certificate validation behaviors, including:</p>
+                                                            <ul>
+                                                                <li>Default behavior, no certificate based validation occurs.</li>
+                                                                <li>On certificate validation failure: <ul style="list-style-type: circle;"><li>Forward the request to a custom URL/URI.</li><li>Display a blank page but return a 405 status code.</li><li>Display an invalid certificate error page.</li></ul></li>
+                                                            </ul>
+                                                        </div>
+                                                        <h2>Related topics</h2>
+                                                        <p><a href="cert-chain-operations.htm" class="MCXref xref">Certificate chain operations</a>
+                                                        </p>
+                                                        <p><a href="managing-application-behaviors.htm#ClientCertValidation">Certificate validation behavior</a>
+                                                        </p>
+                                                    </div>
                                                 </div>
                                                 <!-- Back to Top button --><a href="#" class="sf-back-to-top"><span class="arrow"></span>Top</a>
                                             </div>
