@@ -544,7 +544,6 @@ xmlAliasData += '    <Map Name=\"ext-slack-method-respondtocommanddelayed\" Link
 xmlAliasData += '    <Map Name=\"ext-slack-method-searchchannels\" Link=\"Topics/Workflows/connector-reference/slack/actions/searchchannels.htm\" ResolvedId=\"30602\" />';
 xmlAliasData += '    <Map Name=\"ext-slack-method-senddirectmessage2\" Link=\"Topics/Workflows/connector-reference/slack/actions/senddirectmessage2.htm\" ResolvedId=\"30604\" />';
 xmlAliasData += '    <Map Name=\"ext-slack-method-sendmessagetochannel2\" Link=\"Topics/Workflows/connector-reference/slack/actions/sendmessagetochannel2.htm\" ResolvedId=\"30606\" />';
-xmlAliasData += '    <Map Name=\"ext-slack-method-botevent\" Link=\"Topics/Workflows/connector-reference/slack/events/botevent.htm\" ResolvedId=\"30608\" />';
 xmlAliasData += '    <Map Name=\"ext-slack-method-newmessageinchannel\" Link=\"Topics/Workflows/connector-reference/slack/events/newmessageinchannel.htm\" ResolvedId=\"30609\" />';
 xmlAliasData += '    <Map Name=\"ext-slack-method-newmessageinprivatechannel\" Link=\"Topics/Workflows/connector-reference/slack/events/newmessageinprivatechannel.htm\" ResolvedId=\"30610\" />';
 xmlAliasData += '    <Map Name=\"ext-slack-method-newpinnedmessage\" Link=\"Topics/Workflows/connector-reference/slack/events/newpinnedmessage.htm\" ResolvedId=\"30611\" />';

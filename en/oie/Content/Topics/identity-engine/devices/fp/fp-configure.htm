@@ -314,7 +314,7 @@ by setting up <span class="mc-variable okta-feature-names.Device_Trust variable"
                                                         <p class="noteContent">When you configure <span class="mc-variable okta-feature-names.Okta_FastPass variable">Okta FastPass</span> passwordless authentication, you must change your Okta sign-on policy by removing the default global password requirement as described in this procedure. This change  removes responsibility for defining and enforcing authentication criteria from your global  Okta sign-on policy and transfers it to each of your app sign-on policies. Before you remove this global requirement in your Okta sign-on policy, make sure to protect all of your apps with a strong app sign-on policy. </p>
                                                     </div>
                                                     <h2>Before you begin </h2>
-                                                    <p>Perform the procedures in: </p>
+                                                    <p>Complete the following procedures: </p>
                                                     <ul>
                                                         <li><a href="../../authenticators/about-authenticators.htm" class="MCXref xref">Multifactor Authentication</a>
                                                         </li>
@@ -322,9 +322,9 @@ by setting up <span class="mc-variable okta-feature-names.Device_Trust variable"
                                                         </li>
                                                         <li><a href="../../policies/about-okta-sign-on-policies.htm" class="MCXref xref">Okta sign-on policies</a>
                                                         </li>
-                                                        <li><a href="../dt-main.htm" class="MCXref xref">Device Trust</a><![CDATA[            ]]></li>
+                                                        <li><a href="../dt-main.htm" class="MCXref xref">Device Trust on Identity Engine</a><![CDATA[            ]]></li>
                                                     </ul>
-                                                    <h2>Start this procedure</h2>
+                                                    <h2>Topics</h2>
                                                     <p><a href="#Task" class="MCXref xref">Task 1: Create an app sign-on policy that provides managed devices with passwordless access to apps</a>
                                                     </p>
                                                     <p><a href="#Task2" class="MCXref xref">Task 2: Create an Okta Sign On policy to support passwordless authentication</a>
@@ -345,46 +345,314 @@ by setting up <span class="mc-variable okta-feature-names.Device_Trust variable"
                                                         <li value="4">
                                                             <p>Scroll to the <b>Sign On Policy</b> section, and then click <b>Add Rule</b>.</p>
                                                         </li>
-                                                        <li value="5">Create rules in the following order. Note that the most restrictive rule (Rule 1) is at the top and the least restrictive rule (Rule 3) is at the bottom. Use the following example rules as a guide: 
-        <ul><li><strong><a href="#Rule">Example rule 1:</a></strong> Allow users on managed, registered devices with secure hardware to gain seamless access to the app. Users are prompted to re-authenticate only if it’s been more than 1 hour since they last authenticated.</li><li><strong><a href="#Rule2">Example rule 2:</a></strong> Allow users on registered, unmanaged devices access to the app after they provide a password and any other factor except phone or email.</li><li><strong><a href="#Rule3">Example rule 3:</a></strong> Catch-all rule, Deny all access to the resource.</li></ul></li>
-                                                        <p>
-                                                        </p>
-                                                        <p><a name="Rule"></a><strong>Example rule 1:</strong> Allow users on managed, registered devices with secure hardware to gain seamless access to the app. Users are prompted to re-authenticate only if it’s been more than 1 hour since they last authenticated.</p>
+                                                        <li value="5">Create policy rules. <br />Note that the most restrictive rule (Rule 1) is at the top and the least restrictive rule (Rule 3) is at the bottom. Use the following example rules as a guide when setting up your rules: 
+        <ul><li><a href="#Rule">Example rule 1</a>: Allow users on managed, registered devices with secure hardware to gain seamless access to the app. Users are prompted to re-authenticate only if it’s been more than 1 hour since they last authenticated.</li><li><a href="#Rule2">Example rule 2</a>: Allow users on registered, unmanaged devices access to the app after they provide a password and any other factor except phone or email.</li><li><a href="#Rule3">Example rule 3</a>: Catch-all rule, Deny all access to the resource.</li></ul></li>
+                                                        <h4><a name="Rule"></a>Example rule 1</h4>
+                                                        <p>Allow users on managed, registered devices with secure hardware to gain seamless access to the app. Users are prompted to re-authenticate only if it’s been more than 1 hour since they last authenticated.</p>
                                                         <p>Users matching this rule can use any two <a href="../../oie-whats-new.htm#Factor" class="MCXref xref">
-            Compare Identity Engine and Classic Engine</a> to access the app. If users want to access the app without entering a password, they must enable biometric authentication in <span class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span>. If they have enabled biometrics in <span class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span>, they're still prompted for their password (a knowledge factor).</p> </ol>
+            Compare Identity Engine and Classic Engine</a> to access the app. If users want to access the app without entering a password, they must enable biometric authentication in <span class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span>. If they have enabled biometrics in <span class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span>, they're still prompted for their password (a knowledge factor).</p>
+                                                        <ol style="list-style-type: lower-alpha;">
+                                                            <li value="1">
+                    Configure IF conditions, to specify when the rule is applied.
+</li>
+                                                            <table style="width: 100%;mc-table-style: url('../../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                                                                <col style="width: 28%;" class="TableStyle-standard-Column-Column1" />
+                                                                <col class="TableStyle-standard-Column-Column1" />
+                                                                <col class="TableStyle-standard-Column-Column1" />
+                                                                <thead>
+                                                                    <tr class="TableStyle-standard-Head-Header1">
+                                                                        <th class="TableStyle-standard-HeadF-Column1-Header1"><b>IF</b>
+                                                                        </th>
+                                                                        <th class="TableStyle-standard-HeadF-Column1-Header1">Description</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr class="TableStyle-standard-Body-Body1">
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1"><b><span class="code">IF</span>&#160;User's user type is</b>
+                                                                        </td>
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1">For simplicity, select <b>Any user type</b>. Only users assigned the app can access the app.</td>
+                                                                    </tr>
+                                                                    <tr class="TableStyle-standard-Body-Body2">
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body2"><b><span class="code">AND</span>&#160;User's group membership includes</b>
+                                                                        </td>
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body2">For simplicity, select <b>Any group</b>. Only groups assigned the app can access the app.</td>
+                                                                    </tr>
+                                                                    <tr class="TableStyle-standard-Body-Body1">
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1"><b><span class="code">AND</span>&#160;User's IP&#160;is</b>
+                                                                        </td>
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1">For simplicity, select <b>Any IP</b>.</td>
+                                                                    </tr>
+                                                                    <tr class="TableStyle-standard-Body-Body2">
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body2"><b><span class="code">AND</span> Device state is</b>
+                                                                        </td>
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body2">Select <b>Registered</b>.</td>
+                                                                    </tr>
+                                                                    <tr class="TableStyle-standard-Body-Body1">
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1"><b><span class="code">AND</span>&#160;Device management is</b>
+                                                                        </td>
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1">Select <b>Managed</b>.</td>
+                                                                    </tr>
+                                                                    <tr class="TableStyle-standard-Body-Body2">
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body2"><b><span class="code">AND</span>&#160;Device platform is</b>
+                                                                        </td>
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body2">By default, the rule applies to <b>Any platform</b>. Accept the default or select specific platforms.</td>
+                                                                    </tr>
+                                                                    <tr class="TableStyle-standard-Body-Body1">
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1"><b><span class="code">AND</span>&#160;Risk is</b>
+                                                                        </td>
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1">For simplicity, select <b>Any</b>. See <a href="https://help.okta.com/en/prod/Content/Topics/Security/Security_Risk_Scoring.htm">Risk Scoring</a>.</td>
+                                                                    </tr>
+                                                                    <tr class="TableStyle-standard-Body-Body2">
+                                                                        <td class="TableStyle-standard-BodyC-Column1-Body2"><b><span class="code">AND</span>&#160;The following custom expression is true</b>
+                                                                        </td>
+                                                                        <td class="TableStyle-standard-BodyC-Column1-Body2">Optional. Specify additional conditions with Expression Language (EL). See <a href="https://help.okta.com/en/oie/Content/Topics/Security/behavior-detection/about-behavior-policy-rule.htm">About behavior and app sign-on policy rules</a> and <a href="https://developer.okta.com/docs/reference/okta-expression-language/">Okta Expression Language.</a></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <li value="2">
+					Configure
+THEN&#160;conditions, to specify how authentication is enforced.</li>
+                                                            <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                                                                <col style="width: 28%;" class="TableStyle-standard-Column-Column1" />
+                                                                <col class="TableStyle-standard-Column-Column1" />
+                                                                <col class="TableStyle-standard-Column-Column1" />
+                                                                <thead>
+                                                                    <tr class="TableStyle-standard-Head-Header1">
+                                                                        <th class="TableStyle-standard-HeadF-Column1-Header1"><b>THEN</b>
+                                                                        </th>
+                                                                        <th class="TableStyle-standard-HeadF-Column1-Header1">Description</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr class="TableStyle-standard-Body-Body1">
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1"><b><span class="code">THEN</span>&#160;Access is</b>
+                                                                        </td>
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1">Select <b>Allowed after successful authentication</b>.</td>
+                                                                    </tr>
+                                                                    <tr class="TableStyle-standard-Body-Body2">
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body2"><b><span class="code">AND</span>&#160;User must authenticate</b>
+                                                                        </td>
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body2">Select <b>Any 2 factor types</b>.</td>
+                                                                    </tr>
+                                                                    <tr class="TableStyle-standard-Body-Body1">
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1"><b><span class="code">AND</span>&#160;Possession factor restraints are</b>
+                                                                        </td>
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1">These options aren't available if only <b>Password</b> is selected in <b>User must authenticate with</b>. Use these settings to specify possession factor characteristics.<ul><li><b>Phishing-resistant:</b> Don't select.</li><li><b>Hardware protection:</b> Select to require that keys are stored in a hardware-backed keystore (TPM, Secure Enclave).</li><li><b>Device bound (excludes phone and email):</b> Select to require factor keys to be stored securely on the device.</li></ul></td>
+                                                                    </tr>
+                                                                    <tr class="TableStyle-standard-Body-Body2">
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body2"><code>AND</code>&#160;<b>Access with </b><span style="font-weight: bold;" class="mc-variable okta-feature-names.Okta_FastPass variable">Okta FastPass</span> <b> is granted</b></td>
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body2">To require end users to prove that they're physically present when using <span class="mc-variable okta-feature-names.Okta_FastPass variable">Okta FastPass</span> to authenticate, select:<ul><li><b>If the user approves a prompt in </b><span style="font-weight: bold;" class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span><b> or provides biometrics (meets NIST&#160;AAL2 requirements)</b></li></ul>See <a href="../../policies/add-okta-sign-on-policy-rule.htm" class="MCXref xref">Add an Okta sign-on policy rule</a> for more information about this setting.</td>
+                                                                    </tr>
+                                                                    <tr class="TableStyle-standard-Body-Body1">
+                                                                        <td class="TableStyle-standard-BodyC-Column1-Body1"><b>Re-authentication frequency is</b>
+                                                                        </td>
+                                                                        <td class="TableStyle-standard-BodyC-Column1-Body1">Set to <b>Re-authenticate after:</b> 1 hour.</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <li value="3">		
+				Click <b>Save</b>.
+					<![CDATA[			]]></li>
+                                                        </ol> </ol>
                                                     <ol data-mc-continue="true">
-                                                        <li value="6">Configure IF conditions, to specify when the rule is applied. 
-        <table style="width: 100%;mc-table-style: url('../../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0"><col style="width: 28%;" class="TableStyle-standard-Column-Column1" /><col class="TableStyle-standard-Column-Column1" /><col class="TableStyle-standard-Column-Column1" /><thead><tr class="TableStyle-standard-Head-Header1"><th class="TableStyle-standard-HeadF-Column1-Header1"><b>IF</b></th><th class="TableStyle-standard-HeadF-Column1-Header1">Description</th></tr></thead><tbody><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyF-Column1-Body1"><b><span class="code">IF</span>&#160;User's user type is</b></td><td class="TableStyle-standard-BodyF-Column1-Body1">For simplicity, select <b>Any user type</b>. Only users assigned the app can access the app.</td></tr><tr class="TableStyle-standard-Body-Body2"><td class="TableStyle-standard-BodyF-Column1-Body2"><b><span class="code">AND</span>&#160;User's group membership includes</b></td><td class="TableStyle-standard-BodyF-Column1-Body2">For simplicity, select <b>Any group</b>. Only groups assigned the app can access the app.</td></tr><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyF-Column1-Body1"><b><span class="code">AND</span>&#160;User's IP&#160;is</b></td><td class="TableStyle-standard-BodyF-Column1-Body1">For simplicity, select <b>Any IP</b>.</td></tr><tr class="TableStyle-standard-Body-Body2"><td class="TableStyle-standard-BodyF-Column1-Body2"><b><span class="code">AND</span> Device state is</b></td><td class="TableStyle-standard-BodyF-Column1-Body2">Select <b>Registered</b>.</td></tr><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyF-Column1-Body1"><b><span class="code">AND</span>&#160;Device management is</b></td><td class="TableStyle-standard-BodyF-Column1-Body1">Select <b>Managed</b>.</td></tr><tr class="TableStyle-standard-Body-Body2"><td class="TableStyle-standard-BodyF-Column1-Body2"><b><span class="code">AND</span>&#160;Device platform is</b></td><td class="TableStyle-standard-BodyF-Column1-Body2">By default, the rule applies to <b>Any platform</b>. Accept the default or select specific platforms.</td></tr><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyF-Column1-Body1"><b><span class="code">AND</span>&#160;Risk is</b></td><td class="TableStyle-standard-BodyF-Column1-Body1">For simplicity, select <b>Any</b>. See <a href="https://help.okta.com/en/prod/Content/Topics/Security/Security_Risk_Scoring.htm">Risk Scoring</a>.</td></tr><tr class="TableStyle-standard-Body-Body2"><td class="TableStyle-standard-BodyC-Column1-Body2"><b><span class="code">AND</span>&#160;The following custom expression is true</b></td><td class="TableStyle-standard-BodyC-Column1-Body2">Optional. Specify additional conditions with Expression Language (EL). See <a href="https://help.okta.com/en/oie/Content/Topics/Security/behavior-detection/about-behavior-policy-rule.htm">About behavior and app sign-on policy rules</a> and <a href="https://developer.okta.com/docs/reference/okta-expression-language/">Okta Expression Language.</a></td></tr></tbody></table></li>
-                                                    </ol>
-                                                    <ol data-mc-continue="true">
-                                                        <li value="7">Configure THEN&#160;conditions, to specify how authentication is enforced.				<table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0"><col style="width: 28%;" class="TableStyle-standard-Column-Column1" /><col class="TableStyle-standard-Column-Column1" /><col class="TableStyle-standard-Column-Column1" /><thead><tr class="TableStyle-standard-Head-Header1"><th class="TableStyle-standard-HeadF-Column1-Header1"><b>THEN</b></th><th class="TableStyle-standard-HeadF-Column1-Header1">Description</th></tr></thead><tbody><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyF-Column1-Body1"><b><span class="code">THEN</span>&#160;Access is</b></td><td class="TableStyle-standard-BodyF-Column1-Body1">Select <b>Allowed after successful authentication</b>.</td></tr><tr class="TableStyle-standard-Body-Body2"><td class="TableStyle-standard-BodyF-Column1-Body2"><b><span class="code">AND</span>&#160;User must authenticate</b></td><td class="TableStyle-standard-BodyF-Column1-Body2">Select <b>Any 2 factor types</b>.</td></tr><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyF-Column1-Body1"><b><span class="code">AND</span>&#160;Possession factor restraints are</b></td><td class="TableStyle-standard-BodyF-Column1-Body1">These options aren't available if only <b>Password</b> is selected in <b>User must authenticate with</b>. Use these settings to specify possession factor characteristics.<ul><li><b>Phishing-resistant:</b> Don't select.</li><li><b>Hardware protection:</b> Select to require that keys are stored in a hardware-backed keystore (TPM, Secure Enclave).</li><li><b>Device bound (excludes phone and email):</b> Select to require factor keys to be stored securely on the device.</li></ul></td></tr><tr class="TableStyle-standard-Body-Body2"><td class="TableStyle-standard-BodyF-Column1-Body2"><code>AND</code>&#160;<b>Access with </b><span style="font-weight: bold;" class="mc-variable okta-feature-names.Okta_FastPass variable">Okta FastPass</span> <b> is granted</b></td><td class="TableStyle-standard-BodyF-Column1-Body2">To require end users to prove that they're physically present when using <span class="mc-variable okta-feature-names.Okta_FastPass variable">Okta FastPass</span> to authenticate, select:<ul><li><b>If the user approves a prompt in </b><span style="font-weight: bold;" class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span><b> or provides biometrics (meets NIST&#160;AAL2 requirements)</b></li></ul>See <a href="../../policies/add-okta-sign-on-policy-rule.htm" class="MCXref xref">Add an Okta sign-on policy rule</a> for more information about this setting.</td></tr><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyC-Column1-Body1"><b>Re-authentication frequency is</b></td><td class="TableStyle-standard-BodyC-Column1-Body1">Set to <b>Re-authenticate after:</b> 1 hour.</td></tr></tbody></table></li>
-                                                        <li value="8">Click <b>Save</b>.</li>
-                                                    </ol>
-                                                    <ol data-mc-continue="true">
-                                                        <p><a name="Rule2"></a><strong>Example rule 2:</strong> Allow users on registered, unmanaged devices access to the app after they provide a password and any other factor except phone or email.</p>
+                                                        <h4><a name="Rule2"></a>Example rule 2 </h4>
+                                                        <p>Allow users on registered, unmanaged devices access to the app after they provide a password and any other factor except phone or email.</p>
                                                         <p>In addition to providing a password, users matching this rule can choose any enrolled authenticator (except Phone and Email). If you select the option <span style="font-weight: bold;" class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span><b> user interaction</b> in this rule, users who choose <span class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span> as the enrolled authenticator are prompted to provide user verification (biometrics).</p>
-                                                        <li value="9">Configure IF conditions, to specify when the rule is applied. 
-        <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0"><col style="width: 28%;" class="TableStyle-standard-Column-Column1" /><col class="TableStyle-standard-Column-Column1" /><col class="TableStyle-standard-Column-Column1" /><thead><tr class="TableStyle-standard-Head-Header1"><th class="TableStyle-standard-HeadF-Column1-Header1"><p><b>IF</b></p></th><th class="TableStyle-standard-HeadF-Column1-Header1"><p>Description</p></th></tr></thead><tbody><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyF-Column1-Body1"><b><span class="code">IF</span>&#160;User's user type is</b></td><td class="TableStyle-standard-BodyF-Column1-Body1">For simplicity, select <b>Any</b>. Only users assigned the app can access the app.</td></tr><tr class="TableStyle-standard-Body-Body2"><td class="TableStyle-standard-BodyF-Column1-Body2"><b><span class="code">AND</span>&#160;User's group membership includes</b></td><td class="TableStyle-standard-BodyF-Column1-Body2">For simplicity, select <b>Any</b>. Only groups assigned the app can access the app.</td></tr><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyF-Column1-Body1"><b><span class="code">AND</span>&#160;User's IP&#160;is</b></td><td class="TableStyle-standard-BodyF-Column1-Body1">For simplicity, select <b>Any IP</b>.</td></tr><tr class="TableStyle-standard-Body-Body2"><td class="TableStyle-standard-BodyF-Column1-Body2"><b><span class="code">AND</span> Device state is</b></td><td class="TableStyle-standard-BodyF-Column1-Body2">Select <b>Registered</b>.</td></tr><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyF-Column1-Body1"><b><span class="code">AND</span>&#160;Device management is</b></td><td class="TableStyle-standard-BodyF-Column1-Body1">Select <b>Not managed</b>.</td></tr><tr class="TableStyle-standard-Body-Body2"><td class="TableStyle-standard-BodyF-Column1-Body2"><b><span class="code">AND</span>&#160;Device platform is</b></td><td class="TableStyle-standard-BodyF-Column1-Body2">By default, the rule applies to any platform. Accept the default or select specific platforms.</td></tr><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyF-Column1-Body1"><b><span class="code">AND</span>&#160;Risk is</b></td><td class="TableStyle-standard-BodyF-Column1-Body1">For simplicity, select <b>Any</b>. See <a href="https://help.okta.com/en/prod/Content/Topics/Security/Security_Risk_Scoring.htm">Risk Scoring</a>.</td></tr><tr class="TableStyle-standard-Body-Body2"><td class="TableStyle-standard-BodyC-Column1-Body2"><b><span class="code">AND</span>&#160;The following custom expression is true</b></td><td class="TableStyle-standard-BodyC-Column1-Body2">Optional. Specify additional conditions with Expression Language (EL). See <a href="https://help.okta.com/en/oie/Content/Topics/Security/behavior-detection/about-behavior-policy-rule.htm">About behavior and app sign-on policy rules</a> and <a href="https://developer.okta.com/docs/reference/okta-expression-language/">Okta Expression Language.</a></td></tr></tbody></table></li>
+                                                        <ol style="list-style-type: lower-alpha;">
+                                                            <li value="1">
+                                                                <p>Configure IF conditions, to specify when the rule is applied. </p>
+                                                            </li>
+                                                            <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                                                                <col style="width: 28%;" class="TableStyle-standard-Column-Column1" />
+                                                                <col class="TableStyle-standard-Column-Column1" />
+                                                                <col class="TableStyle-standard-Column-Column1" />
+                                                                <thead>
+                                                                    <tr class="TableStyle-standard-Head-Header1">
+                                                                        <th class="TableStyle-standard-HeadF-Column1-Header1">
+                                                                            <p><b>IF</b>
+                                                                            </p>
+                                                                        </th>
+                                                                        <th class="TableStyle-standard-HeadF-Column1-Header1">
+                                                                            <p>Description</p>
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr class="TableStyle-standard-Body-Body1">
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1"><b><span class="code">IF</span>&#160;User's user type is</b>
+                                                                        </td>
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1">For simplicity, select <b>Any</b>. Only users assigned the app can access the app.</td>
+                                                                    </tr>
+                                                                    <tr class="TableStyle-standard-Body-Body2">
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body2"><b><span class="code">AND</span>&#160;User's group membership includes</b>
+                                                                        </td>
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body2">For simplicity, select <b>Any</b>. Only groups assigned the app can access the app.</td>
+                                                                    </tr>
+                                                                    <tr class="TableStyle-standard-Body-Body1">
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1"><b><span class="code">AND</span>&#160;User's IP&#160;is</b>
+                                                                        </td>
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1">For simplicity, select <b>Any IP</b>.</td>
+                                                                    </tr>
+                                                                    <tr class="TableStyle-standard-Body-Body2">
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body2"><b><span class="code">AND</span> Device state is</b>
+                                                                        </td>
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body2">Select <b>Registered</b>.</td>
+                                                                    </tr>
+                                                                    <tr class="TableStyle-standard-Body-Body1">
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1"><b><span class="code">AND</span>&#160;Device management is</b>
+                                                                        </td>
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1">Select <b>Not managed</b>.</td>
+                                                                    </tr>
+                                                                    <tr class="TableStyle-standard-Body-Body2">
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body2"><b><span class="code">AND</span>&#160;Device platform is</b>
+                                                                        </td>
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body2">By default, the rule applies to any platform. Accept the default or select specific platforms.</td>
+                                                                    </tr>
+                                                                    <tr class="TableStyle-standard-Body-Body1">
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1"><b><span class="code">AND</span>&#160;Risk is</b>
+                                                                        </td>
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1">For simplicity, select <b>Any</b>. See <a href="https://help.okta.com/en/prod/Content/Topics/Security/Security_Risk_Scoring.htm">Risk Scoring</a>.</td>
+                                                                    </tr>
+                                                                    <tr class="TableStyle-standard-Body-Body2">
+                                                                        <td class="TableStyle-standard-BodyC-Column1-Body2"><b><span class="code">AND</span>&#160;The following custom expression is true</b>
+                                                                        </td>
+                                                                        <td class="TableStyle-standard-BodyC-Column1-Body2">Optional. Specify additional conditions with Expression Language (EL). See <a href="https://help.okta.com/en/oie/Content/Topics/Security/behavior-detection/about-behavior-policy-rule.htm">About behavior and app sign-on policy rules</a> and <a href="https://developer.okta.com/docs/reference/okta-expression-language/">Okta Expression Language.</a></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <li value="2">
+                                                                <p>Configure THEN&#160;conditions, to specify how authentication is enforced.	</p>
+                                                            </li>
+                                                            <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                                                                <col style="width: 28%;" class="TableStyle-standard-Column-Column1" />
+                                                                <col class="TableStyle-standard-Column-Column1" />
+                                                                <col class="TableStyle-standard-Column-Column1" />
+                                                                <thead>
+                                                                    <tr class="TableStyle-standard-Head-Header1">
+                                                                        <th class="TableStyle-standard-HeadF-Column1-Header1"><b>THEN</b>
+                                                                        </th>
+                                                                        <th class="TableStyle-standard-HeadF-Column1-Header1">Description</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr class="TableStyle-standard-Body-Body1">
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1"><b><span class="code">THEN</span>&#160;Access is</b>
+                                                                        </td>
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1">Select <b>Allowed after successful authentication</b>.&gt;</td>
+                                                                    </tr>
+                                                                    <tr class="TableStyle-standard-Body-Body2">
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body2"><b><span class="code">AND</span>&#160;User must authenticate</b>
+                                                                        </td>
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body2">Select <b>Password + Another factor</b>.</td>
+                                                                    </tr>
+                                                                    <tr class="TableStyle-standard-Body-Body1">
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1"><b><span class="code">AND</span>&#160;Possession factor restraints are</b>
+                                                                        </td>
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1">Use these settings to specify possession factor characteristics.<ul><li><b>Phishing-resistant:</b> Don't select</li><li><b>Hardware protection:</b> Don't select</li><li><b>Device bound (excludes phone and email):</b> Select to require factor keys to be stored securely on the device.</li></ul></td>
+                                                                    </tr>
+                                                                    <tr class="TableStyle-standard-Body-Body2">
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body2"><code>AND</code>&#160;<span style="font-weight: bold;" class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span><b> user interaction</b></td>
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body2">Select <b>Always required</b>.</td>
+                                                                    </tr>
+                                                                    <tr class="TableStyle-standard-Body-Body1">
+                                                                        <td class="TableStyle-standard-BodyC-Column1-Body1"><b>Re-authentication frequency is</b>
+                                                                        </td>
+                                                                        <td class="TableStyle-standard-BodyC-Column1-Body1">Two re-authentication settings appear when <b>Password + Another Factor</b> is selected. They allow you to specify one re-authentication interval for the password and another interval for the other factor. In this example, you are requiring users to re-authenticate with their password if it has been more than 4 hours since they last entered their password, and with a possession factor if it's been more than 15 minutes since they last authenticated with a possession factor:<ul><li><b>Password re-authentication frequency is:</b> For this example, set <b>Re-authenticate after</b> to 4 hours.</li><li><b>Re-authentication frequency for all other factors is:</b> For this example, set <b>Re-authenticate after</b> to 15 minutes.</li></ul></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <li value="3">
+                                                                <p>Click <b>Save</b>.</p>
+                                                            </li>
+                                                        </ol>
                                                     </ol>
                                                     <ol data-mc-continue="true">
-                                                        <li value="10">Configure THEN&#160;conditions, to specify how authentication is enforced.			<table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0"><col style="width: 28%;" class="TableStyle-standard-Column-Column1" /><col class="TableStyle-standard-Column-Column1" /><col class="TableStyle-standard-Column-Column1" /><thead><tr class="TableStyle-standard-Head-Header1"><th class="TableStyle-standard-HeadF-Column1-Header1"><b>THEN</b></th><th class="TableStyle-standard-HeadF-Column1-Header1">Description</th></tr></thead><tbody><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyF-Column1-Body1"><b><span class="code">THEN</span>&#160;Access is</b></td><td class="TableStyle-standard-BodyF-Column1-Body1">Select <b>Allowed after successful authentication</b>.&gt;</td></tr><tr class="TableStyle-standard-Body-Body2"><td class="TableStyle-standard-BodyF-Column1-Body2"><b><span class="code">AND</span>&#160;User must authenticate</b></td><td class="TableStyle-standard-BodyF-Column1-Body2">Select <b>Password + Another factor</b>.</td></tr><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyF-Column1-Body1"><b><span class="code">AND</span>&#160;Possession factor restraints are</b></td><td class="TableStyle-standard-BodyF-Column1-Body1">Use these settings to specify possession factor characteristics.<ul><li><b>Phishing-resistant:</b> Don't select</li><li><b>Hardware protection:</b> Don't select</li><li><b>Device bound (excludes phone and email):</b> Select to require factor keys to be stored securely on the device.</li></ul></td></tr><tr class="TableStyle-standard-Body-Body2"><td class="TableStyle-standard-BodyF-Column1-Body2"><code>AND</code>&#160;<span style="font-weight: bold;" class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span><b> user interaction</b></td><td class="TableStyle-standard-BodyF-Column1-Body2">Select <b>Always required</b>.</td></tr><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyC-Column1-Body1"><b>Re-authentication frequency is</b></td><td class="TableStyle-standard-BodyC-Column1-Body1">Two re-authentication settings appear when <b>Password + Another Factor</b> is selected. They allow you to specify one re-authentication interval for the password and another interval for the other factor. In this example, you are requiring users to re-authenticate with their password if it has been more than 4 hours since they last entered their password, and with a possession factor if it's been more than 15 minutes since they last authenticated with a possession factor:<ul><li><b>Password re-authentication frequency is:</b> For this example, set <b>Re-authenticate after</b> to 4 hours.</li><li><b>Re-authentication frequency for all other factors is:</b> For this example, set <b>Re-authenticate after</b> to 15 minutes.</li></ul></td></tr></tbody></table></li>
-                                                        <li value="11">Click <b>Save</b>.
-				</li>
+                                                        <h4><a name="Rule3"></a>Example rule 3</h4>
+                                                        <p>Catch-all rule, Deny all access to the resource.</p>
+                                                        <ol style="list-style-type: lower-alpha;">
+                                                            <li value="1">
+                                                                <p style="text-align: left;">Configure IF conditions, to specify when the rule is applied. </p>
+                                                            </li>
+                                                            <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                                                                <col style="width: 28%;" class="TableStyle-standard-Column-Column1" />
+                                                                <col class="TableStyle-standard-Column-Column1" />
+                                                                <col class="TableStyle-standard-Column-Column1" />
+                                                                <thead>
+                                                                    <tr class="TableStyle-standard-Head-Header1">
+                                                                        <th class="TableStyle-standard-HeadF-Column1-Header1"><b>IF</b>
+                                                                        </th>
+                                                                        <th class="TableStyle-standard-HeadF-Column1-Header1">Description</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr class="TableStyle-standard-Body-Body1">
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1"><b><span class="code">IF</span>&#160;User's user type is</b>
+                                                                        </td>
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1">Select <b>Any</b>. </td>
+                                                                    </tr>
+                                                                    <tr class="TableStyle-standard-Body-Body2">
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body2"><b><span class="code">AND</span>&#160;User's group membership includes</b>
+                                                                        </td>
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body2">Select <b>Any</b>. </td>
+                                                                    </tr>
+                                                                    <tr class="TableStyle-standard-Body-Body1">
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1"><b><span class="code">AND</span>&#160;User's IP&#160;is</b>
+                                                                        </td>
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1">Select <b>Any IP</b>.</td>
+                                                                    </tr>
+                                                                    <tr class="TableStyle-standard-Body-Body2">
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body2"><b><span class="code">AND</span> Device state is</b>
+                                                                        </td>
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body2">Select <b>Any</b>. </td>
+                                                                    </tr>
+                                                                    <tr class="TableStyle-standard-Body-Body1">
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1">Select <b>Any</b>. </td>
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1">Select <b>Any platform</b>. </td>
+                                                                    </tr>
+                                                                    <tr class="TableStyle-standard-Body-Body2">
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body2"><b><span class="code">AND</span>&#160;Risk is</b>
+                                                                        </td>
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body2">Select <b>Any</b>. </td>
+                                                                    </tr>
+                                                                    <tr class="TableStyle-standard-Body-Body1">
+                                                                        <td class="TableStyle-standard-BodyC-Column1-Body1"><b><span class="code">AND</span>&#160;The following custom expression is true</b>
+                                                                        </td>
+                                                                        <td class="TableStyle-standard-BodyC-Column1-Body1">Leave blank.</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <li value="2">
+                                                                <p>Configure THEN&#160;conditions, to specify how authentication is enforced:	</p>
+                                                            </li>
+                                                            <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                                                                <col style="width: 28%;" class="TableStyle-standard-Column-Column1" />
+                                                                <col class="TableStyle-standard-Column-Column1" />
+                                                                <col class="TableStyle-standard-Column-Column1" />
+                                                                <thead>
+                                                                    <tr class="TableStyle-standard-Head-Header1">
+                                                                        <th class="TableStyle-standard-HeadF-Column1-Header1"><b>THEN</b>
+                                                                        </th>
+                                                                        <th class="TableStyle-standard-HeadF-Column1-Header1">Description</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr class="TableStyle-standard-Body-Body1">
+                                                                        <td class="TableStyle-standard-BodyC-Column1-Body1"><b><span class="code">THEN</span>&#160;Access is</b>
+                                                                        </td>
+                                                                        <td class="TableStyle-standard-BodyC-Column1-Body1">Select <b>Denied</b>.</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <li value="3">
+                                                                <p>Click <b>Save</b>.<br /></p>
+                                                                <p>After you create the rules, your policy rule summary looks like this (note the priority order):</p>
+                                                                <p>
+                                                                    <br /><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../images/app-signon-policy-pwrdless.png" data-mc-popup-alt="The image displays an example of a sign-on policy for passwordless authentication."><img class="MCPopupThumbnail img imgthumbnail" data-mc-width="1000" data-mc-height="1018" src="../../images/app-signon-policy-pwrdless_thumb_220_220.png" alt="The image displays an example of a sign-on policy for passwordless authentication." tabindex="" id="imgimg_new" /></a><![CDATA[
+]]><br /></p>
+                                                            </li>
+                                                        </ol>
                                                     </ol>
-                                                    <ol data-mc-continue="true">
-                                                        <p><a name="Rule3"></a><strong>Example rule 3:</strong> Catch-all rule, Deny all access to the resource.</p>
-                                                        <li value="12">Configure IF conditions, to specify when the rule is applied. 
-        <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0"><col style="width: 28%;" class="TableStyle-standard-Column-Column1" /><col class="TableStyle-standard-Column-Column1" /><col class="TableStyle-standard-Column-Column1" /><thead><tr class="TableStyle-standard-Head-Header1"><th class="TableStyle-standard-HeadF-Column1-Header1"><b>IF</b></th><th class="TableStyle-standard-HeadF-Column1-Header1">Description</th></tr></thead><tbody><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyF-Column1-Body1"><b><span class="code">IF</span>&#160;User's user type is</b></td><td class="TableStyle-standard-BodyF-Column1-Body1">Select <b>Any</b>. </td></tr><tr class="TableStyle-standard-Body-Body2"><td class="TableStyle-standard-BodyF-Column1-Body2"><b><span class="code">AND</span>&#160;User's group membership includes</b></td><td class="TableStyle-standard-BodyF-Column1-Body2">Select <b>Any</b>. </td></tr><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyF-Column1-Body1"><b><span class="code">AND</span>&#160;User's IP&#160;is</b></td><td class="TableStyle-standard-BodyF-Column1-Body1">Select <b>Any IP</b>.</td></tr><tr class="TableStyle-standard-Body-Body2"><td class="TableStyle-standard-BodyF-Column1-Body2"><b><span class="code">AND</span> Device state is</b></td><td class="TableStyle-standard-BodyF-Column1-Body2">Select <b>Any</b>. </td></tr><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyF-Column1-Body1">Select <b>Any</b>. </td><td class="TableStyle-standard-BodyF-Column1-Body1">Select <b>Any platform</b>. </td></tr><tr class="TableStyle-standard-Body-Body2"><td class="TableStyle-standard-BodyF-Column1-Body2"><b><span class="code">AND</span>&#160;Risk is</b></td><td class="TableStyle-standard-BodyF-Column1-Body2">Select <b>Any</b>. </td></tr><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyC-Column1-Body1"><b><span class="code">AND</span>&#160;The following custom expression is true</b></td><td class="TableStyle-standard-BodyC-Column1-Body1">Leave blank.</td></tr></tbody></table></li>
-                                                    </ol>
-                                                    <ol data-mc-continue="true">
-                                                        <li value="13">Configure THEN&#160;conditions, to specify how authentication is enforced:				<table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0"><col style="width: 28%;" class="TableStyle-standard-Column-Column1" /><col class="TableStyle-standard-Column-Column1" /><col class="TableStyle-standard-Column-Column1" /><thead><tr class="TableStyle-standard-Head-Header1"><th class="TableStyle-standard-HeadF-Column1-Header1"><b>THEN</b></th><th class="TableStyle-standard-HeadF-Column1-Header1">Description</th></tr></thead><tbody><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyC-Column1-Body1"><b><span class="code">THEN</span>&#160;Access is</b></td><td class="TableStyle-standard-BodyC-Column1-Body1">Select <b>Denied</b>.</td></tr></tbody></table></li>
-                                                        <li value="14">Click <b>Save</b>.
-				</li>
-                                                        <p>After you create the rules, your policy rule summary looks like this (note the priority order):</p>
-                                                        <p><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../images/app-signon-policy-pwrdless.png" data-mc-popup-alt="The image displays an example of a sign-on policy for passwordless authentication."><img class="MCPopupThumbnail img imgthumbnail" data-mc-width="1000" data-mc-height="1018" src="../../images/app-signon-policy-pwrdless_thumb_220_220.png" alt="The image displays an example of a sign-on policy for passwordless authentication." tabindex="" id="imgimg_new" /></a>
-                                                        </p>
-                                                    </ol>
-                                                    <h3>Example 1: device access is denied</h3>
+                                                    <h3>Example policy 1: device access is denied</h3>
                                                     <p>In this policy, a device that is part of user group B and:</p>
                                                     <ul>
                                                         <li>
@@ -465,7 +733,7 @@ by setting up <span class="mc-variable okta-feature-names.Device_Trust variable"
                                                             <p>The Okta Verify <b>Sign in with Okta Verify</b> button is used  to sign in, instead of entering their username.</p>
                                                         </li>
                                                     </ul>
-                                                    <h3><span class="h3">Example 2: device access is granted</span>
+                                                    <h3><span class="h3">Example policy 2: device access is granted</span>
                                                     </h3>
                                                     <p>In this policy, example 1 is modified. An additional rule was added for user group B that allows a device with any device state to obtain access. Rule 4 is true for this device, so it is granted access.</p>
                                                     <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
