@@ -1,6 +1,6 @@
 var xmlAliasData = "";
 xmlAliasData += '<?xml version=\"1.0\" encoding=\"utf-8\"?>';
-xmlAliasData += '<CatapultAliasFile conditions=\"MultiProdPubish.ProjectLink\">';
+xmlAliasData += '<CatapultAliasFile>';
 xmlAliasData += '    <Map Name=\"ext-ov-user-overview\" Link=\"Topics/end-user/ov-overview.htm\" ResolvedId=\"1330\" />';
 xmlAliasData += '    <Map Name=\"csh-user-ov-overview\" Link=\"Topics/end-user/ov-overview.htm\" ResolvedId=\"4000\" />';
 xmlAliasData += '    <Map Name=\"csh-user-ov-sign-in\" Link=\"Topics/end-user/ov-overview.htm\" ResolvedId=\"4001\" />';
@@ -41,5 +41,6 @@ xmlAliasData += '    <Map Name=\"csh-ov-user-trbl\" Link=\"Topics/end-user/ov-us
 xmlAliasData += '    <Map Name=\"csh-ov-ios-trbl\" Link=\"Topics/end-user/ov-ios-trbl.htm\" ResolvedId=\"4032\" />';
 xmlAliasData += '    <Map Name=\"csh-ov-sign-in-android\" Link=\"Topics/end-user/ov-sign-in-android.htm\" ResolvedId=\"4033\" />';
 xmlAliasData += '    <Map Name=\"csh-ov-setup-android\" Link=\"Topics/end-user/ov-setup-android.htm\" ResolvedId=\"4034\" />';
+xmlAliasData += '    <Map Name=\"ext-ov-launch-dashboard-android\" Link=\"Topics/end-user/ov-launch-dashboard-android.htm\" ResolvedId=\"4035\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
