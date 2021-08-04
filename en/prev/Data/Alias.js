@@ -1600,6 +1600,13 @@ xmlAliasData += '    <Map Name=\"ext_oag_about_lb\" Link=\"Topics/Access-Gateway
 xmlAliasData += '    <Map Name=\"oag_ext_trouble_shooting_guide\" Link=\"Topics/Access-Gateway/trouble-shooting-guide.htm\" ResolvedId=\"3071\" />';
 xmlAliasData += '    <Map Name=\"oag_ext_about_log_levels\" Link=\"Topics/Access-Gateway/about-log-levels.htm\" ResolvedId=\"3072\" />';
 xmlAliasData += '    <Map Name=\"ad_agent\" Link=\"Topics/Settings/end-user-quick-access-apps.htm\" ResolvedId=\"3073\" />';
+xmlAliasData += '    <Map Name=\"ext-slack-method-newchannelcreated\" Link=\"Topics/Workflows/connector-reference/slack/events/newchannelcreated.htm\" ResolvedId=\"1384\" />';
+xmlAliasData += '    <Map Name=\"ext-slack-method-getusersinchannel\" Link=\"Topics/Workflows/connector-reference/slack/actions/getusersinchannel.htm\" ResolvedId=\"1385\" />';
+xmlAliasData += '    <Map Name=\"ext-slack-method-removeuserfromchannel\" Link=\"Topics/Workflows/connector-reference/slack/actions/removeuserfromchannel.htm\" ResolvedId=\"1386\" />';
+xmlAliasData += '    <Map Name=\"ext-slack-method-renamechannel\" Link=\"Topics/Workflows/connector-reference/slack/actions/renamechannel.htm\" ResolvedId=\"1387\" />';
+xmlAliasData += '    <Map Name=\"ext-slack-method-sendephemeralmessage\" Link=\"Topics/Workflows/connector-reference/slack/actions/sendephemeralmessage.htm\" ResolvedId=\"1388\" />';
+xmlAliasData += '    <Map Name=\"ext-slack-method-sendfiletochannel\" Link=\"Topics/Workflows/connector-reference/slack/actions/sendfiletochannel.htm\" ResolvedId=\"1389\" />';
+xmlAliasData += '    <Map Name=\"ext-slack-method-sendfiletouser\" Link=\"Topics/Workflows/connector-reference/slack/actions/sendfiletouser.htm\" ResolvedId=\"1390\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-enroll-server\" Link=\"Topics/Adv_Server_Access/docs/setup/enrolling-a-server.htm\" ResolvedId=\"1391\" />';
 xmlAliasData += '    <Map Name=\"ext-smartrecruiters-misc-authorization\" Link=\"Topics/Workflows/connector-reference/smartrecruiters/overviews/authorization.htm\" ResolvedId=\"11003\" />';
 xmlAliasData += '    <Map Name=\"ext-duosecurityadmin-misc-authorization\" Link=\"Topics/Workflows/connector-reference/duosecurityadmin/overviews/authorization.htm\" ResolvedId=\"11004\" />';
@@ -1639,5 +1646,6 @@ xmlAliasData += '    <Map Name=\"ext-asa-ssh\" Link=\"Topics/Adv_Server_Access/d
 xmlAliasData += '    <Map Name=\"ext-workflows-error-types\" Link=\"Topics/Workflows/workflows-error-types.htm\" ResolvedId=\"1421\" />';
 xmlAliasData += '    <Map Name=\"ext-workflows-known-issues\" Link=\"Topics/Workflows/workflows-known-issues.htm\" ResolvedId=\"1422\" />';
 xmlAliasData += '    <Map Name=\"ext-advancedserveraccess-misc-authorization\" Link=\"Topics/Workflows/connector-reference/advancedserveraccess/overviews/authorization.htm\" ResolvedId=\"11025\" />';
+xmlAliasData += '    <Map Name=\"ext_secpol_lockout\" Link=\"Topics/Security/policies/configure-password-policies.htm#Lockout\" ResolvedId=\"18001\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
