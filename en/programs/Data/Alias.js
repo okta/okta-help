@@ -1,6 +1,17 @@
 var xmlAliasData = "";
 xmlAliasData += '<?xml version=\"1.0\" encoding=\"utf-8\"?>';
 xmlAliasData += '<CatapultAliasFile>';
-xmlAliasData += '    <Map Name=\"ext_expose_app_groups\" Link=\"Topics/Directory/ldap-interface-expose-groups.htm\" ResolvedId=\"15002\" />';
+xmlAliasData += '    <Map Name=\"ext_okta_relnotes\" Link=\"Topics/ReleaseNotes/okta-relnotes.htm\" ResolvedId=\"200140\" />';
+xmlAliasData += '    <Map Name=\"csh-index\" Link=\"index.htm\" ResolvedId=\"1298\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-verify-relnotes\" Link=\"Topics/ReleaseNotes/okta-verify-release-notes.htm\" ResolvedId=\"1327\" />';
+xmlAliasData += '    <Map Name=\"ext-connector-builder\" Link=\"Topics/betas/closed/connector-builder/connector-builder.htm\" ResolvedId=\"30304\" />';
+xmlAliasData += '    <Map Name=\"csh-cstm-admin-roles\" Link=\"Topics/betas/closed/custom-admin-role/custom-admin-roles.htm\" ResolvedId=\"13000\" />';
+xmlAliasData += '    <Map Name=\"csh-best-practice-cstm-admin-roles\" Link=\"Topics/betas/closed/custom-admin-role/best-practices-custom-admin-roles.htm\" ResolvedId=\"13001\" />';
+xmlAliasData += '    <Map Name=\"csh-create-cstm-admin-role\" Link=\"Topics/betas/closed/custom-admin-role/create-custom-admin-roles.htm\" ResolvedId=\"13004\" />';
+xmlAliasData += '    <Map Name=\"ext-cbv2-plan-limitations\" Link=\"Topics/betas/closed/connector-builder/developer-plan-limits.htm\" ResolvedId=\"31042\" />';
+xmlAliasData += '    <Map Name=\"ext-dev-plan-limits\" Link=\"Topics/betas/closed/connector-builder/developer-plan-limits.htm\" ResolvedId=\"31043\" />';
+xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-user-permissions\" Link=\"Topics/betas/closed/custom-admin-role/about-user-and-group-permissions.htm#User_permissions_\" ResolvedId=\"1404\" />';
+xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-group-permissions\" Link=\"Topics/betas/closed/custom-admin-role/about-user-and-group-permissions.htm#Group_permissions\" ResolvedId=\"1405\" />';
+xmlAliasData += '    <Map Name=\"ext-admin-landing\" Link=\"index-admin.htm\" ResolvedId=\"1407\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);

@@ -1,1 +1,1 @@
-define({'/Content/docs_home_beta.htm':{i:[0],t:['Admin Documentation'],b:['']}});
+define({'/Content/docs_home.htm':{i:[0],t:['Admin Documentation'],b:['']}});
