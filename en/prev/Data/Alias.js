@@ -1621,6 +1621,7 @@ xmlAliasData += '    <Map Name=\"ext-freshservice-method-searchusers\" Link=\"To
 xmlAliasData += '    <Map Name=\"ext-freshservice-method-updateuser\" Link=\"Topics/Workflows/connector-reference/freshservice/actions/updateuser.htm\" ResolvedId=\"1400\" />';
 xmlAliasData += '    <Map Name=\"ext-datagrail-misc-authorization\" Link=\"Topics/Workflows/connector-reference/datagrail/overviews/authorization.htm\" ResolvedId=\"11006\" />';
 xmlAliasData += '    <Map Name=\"ext-freshservice-misc-authorization\" Link=\"Topics/Workflows/connector-reference/freshservice/overviews/authorization.htm\" ResolvedId=\"31057\" />';
+xmlAliasData += '    <Map Name=\"ext-stash-method-cleartable\" Link=\"Topics/Workflows/function-reference/Tables/stash_cleartable.htm\" ResolvedId=\"31058\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-learn-about\" Link=\"Topics/Apps/apps-overview-learn-about.htm\" ResolvedId=\"6004\" />';
 xmlAliasData += '    <Map Name=\"ext-apps-learn-about\" Link=\"Topics/Apps/apps-overview-learn-about.htm\" ResolvedId=\"6005\" />';
 xmlAliasData += '    <Map Name=\"ext-workflows-releasenotes\" Link=\"Topics/ReleaseNotes/Workflows/workflows-release-notes.htm\" ResolvedId=\"31059\" />';
@@ -1634,6 +1635,8 @@ xmlAliasData += '    <Map Name=\"ext-freshservice-method-deleteticket\" Link=\"T
 xmlAliasData += '    <Map Name=\"ext-freshservice-method-readticket\" Link=\"Topics/Workflows/connector-reference/freshservice/actions/readticket.htm\" ResolvedId=\"1413\" />';
 xmlAliasData += '    <Map Name=\"ext-freshservice-method-searchtickets\" Link=\"Topics/Workflows/connector-reference/freshservice/actions/searchtickets.htm\" ResolvedId=\"1414\" />';
 xmlAliasData += '    <Map Name=\"ext-freshservice-method-updateticket\" Link=\"Topics/Workflows/connector-reference/freshservice/actions/updateticket.htm\" ResolvedId=\"1415\" />';
+xmlAliasData += '    <Map Name=\"ext-freshservice-method-newticket\" Link=\"Topics/Workflows/connector-reference/freshservice/events/newticket.htm\" ResolvedId=\"1416\" />';
+xmlAliasData += '    <Map Name=\"ext-freshservice-method-ticketupdated\" Link=\"Topics/Workflows/connector-reference/freshservice/events/ticketupdated.htm\" ResolvedId=\"1417\" />';
 xmlAliasData += '    <Map Name=\"ext-improved-ndbd\" Link=\"Topics/Security/behavior-detection/improved-new-device-behavior-detection.htm\" ResolvedId=\"2025\" />';
 xmlAliasData += '    <Map Name=\"csh-improved-ndbd\" Link=\"Topics/Security/behavior-detection/improved-new-device-behavior-detection.htm\" ResolvedId=\"2024\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_tutor_configHA\" Link=\"Topics/Access-Gateway/one-day-tutorial-configHA.htm\" ResolvedId=\"-2147483648\" />';
