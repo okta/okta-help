@@ -57,7 +57,9 @@ xmlAliasData += '    <Map Name=\"ext_Apps_Configure_Template_App\" Link=\"Topics
 xmlAliasData += '    <Map Name=\"ext_Apps_Enable_O365_Chiclets\" Link=\"Topics/Apps/Apps_Enable_O365_Chiclets.htm\" ResolvedId=\"200020\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_O365_Silent_Activation\" Link=\"Topics/Apps/Apps_O365_Silent_Activation.htm\" ResolvedId=\"200026\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Overview_of_Managing_Apps_and_SSO\" Link=\"Topics/Apps/Apps_Overview_of_Managing_Apps_and_SSO.htm\" ResolvedId=\"200028\" />';
+xmlAliasData += '    <Map Name=\"ext_Apps_Revealing_the_Password\" Link=\"Topics/Apps/Apps_Revealing_the_Password.htm\" ResolvedId=\"200029\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Using_the_Confluence_On_Premises_SAML_App\" Link=\"Topics/Apps/Apps_Using_the_Confluence_On_Premises_SAML_App.htm\" ResolvedId=\"200031\" />';
+xmlAliasData += '    <Map Name=\"ext_Apps_VPN_Notification\" Link=\"Topics/Apps/Apps_VPN_Notification.htm\" ResolvedId=\"200032\" />';
 xmlAliasData += '    <Map Name=\"ext_Provisioning_Deprovisioning_Overview\" Link=\"Topics/Apps/Provisioning_Deprovisioning_Overview.htm\" ResolvedId=\"200034\" />';
 xmlAliasData += '    <Map Name=\"ext_Configure_Cust_Portal_Leverage_OktaPlugin\" Link=\"Topics/Dashboard/Configure_Cust_Portal_Leverage_OktaPlugin.htm\" ResolvedId=\"200036\" />';
 xmlAliasData += '    <Map Name=\"ext_Dashboard\" Link=\"Topics/Dashboard/Dashboard.htm\" ResolvedId=\"200037\" />';
@@ -144,7 +146,6 @@ xmlAliasData += '    <Map Name=\"csh_notification_enroll\" Link=\"Topics/Securit
 xmlAliasData += '    <Map Name=\"csh_notification_reset\" Link=\"Topics/Security/Security_General.htm#SecurityNotificationEmails\" ResolvedId=\"1099\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_App_Integration_Wizard-oidc\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_OIDC.htm\" ResolvedId=\"1103\" />';
 xmlAliasData += '    <Map Name=\"ext_API_Access-claims\" Link=\"Topics/Security/API_Access.htm#create_claims\" ResolvedId=\"1104\" />';
-xmlAliasData += '    <Map Name=\"ext_Apps_Apps_Page-assign\" Link=\"Topics/Apps/Apps_Apps_Page.htm#Assigning\" ResolvedId=\"1105\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_Administrators\" Link=\"Topics/Security/Administrators.htm\" ResolvedId=\"1106\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Customization-interstitial\" Link=\"Topics/Settings/settings-customization-general.htm\" ResolvedId=\"1107\" />';
 xmlAliasData += '    <Map Name=\"csh-attribute-statements-saml\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SAML.htm#SAMLAttributeStatements\" ResolvedId=\"1111\" />';
@@ -226,7 +227,6 @@ xmlAliasData += '    <Map Name=\"csh-administrators\" Link=\"Topics/Security/Adm
 xmlAliasData += '    <Map Name=\"csh-admin-role-groupmembership\" Link=\"Topics/Security/administrators-group-membership-admin.htm\" ResolvedId=\"1249\" />';
 xmlAliasData += '    <Map Name=\"csh-eu-import-safeguard\" Link=\"Topics/users-groups-profiles/usgp-import-safeguard.htm\" ResolvedId=\"1251\" />';
 xmlAliasData += '    <Map Name=\"csh-o365-sa\" Link=\"Topics/Apps/Apps_O365_Silent_Activation.htm\" ResolvedId=\"1252\" />';
-xmlAliasData += '    <Map Name=\"ext-apps-page-show-application-embed-links\" Link=\"Topics/Apps/Apps_Apps_Page.htm#Show\" ResolvedId=\"1253\" />';
 xmlAliasData += '    <Map Name=\"csh-config-asso\" Link=\"Topics/Directory/Configuring_Agentless_SSO.htm\" ResolvedId=\"1254\" />';
 xmlAliasData += '    <Map Name=\"ext_OPP_configure\" Link=\"Topics/Provisioning/opp/OPP-main.htm\" ResolvedId=\"1259\" />';
 xmlAliasData += '    <Map Name=\"ext_OPP_create_connectors\" Link=\"Topics/Provisioning/opp/OPP-create-SCIM-connectors.htm\" ResolvedId=\"1261\" />';
