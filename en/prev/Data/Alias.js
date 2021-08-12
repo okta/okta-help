@@ -1637,9 +1637,9 @@ xmlAliasData += '    <Map Name=\"ext-freshservice-method-newticket\" Link=\"Topi
 xmlAliasData += '    <Map Name=\"ext-freshservice-method-ticketupdated\" Link=\"Topics/Workflows/connector-reference/freshservice/events/ticketupdated.htm\" ResolvedId=\"1417\" />';
 xmlAliasData += '    <Map Name=\"ext-improved-ndbd\" Link=\"Topics/Security/behavior-detection/improved-new-device-behavior-detection.htm\" ResolvedId=\"2025\" />';
 xmlAliasData += '    <Map Name=\"csh-improved-ndbd\" Link=\"Topics/Security/behavior-detection/improved-new-device-behavior-detection.htm\" ResolvedId=\"2024\" />';
-xmlAliasData += '    <Map Name=\"ext_oag_tutor_configHA\" Link=\"Topics/Access-Gateway/one-day-tutorial-configHA.htm\" ResolvedId=\"-2147483648\" />';
-xmlAliasData += '    <Map Name=\"ext_oag_manage_certs_tf\" Link=\"Topics/Access-Gateway/managing-certificates-taskflow.htm\" ResolvedId=\"-2147483648\" />';
-xmlAliasData += '    <Map Name=\"ext_oag_troubleshooting\" Link=\"Topics/Access-Gateway/troubleshooting.htm\" ResolvedId=\"-2147483648\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_tutor_configHA\" Link=\"Topics/Access-Gateway/one-day-tutorial-configHA.htm\" ResolvedId=\"3076\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_manage_certs_tf\" Link=\"Topics/Access-Gateway/managing-certificates-taskflow.htm\" ResolvedId=\"3077\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_troubleshooting\" Link=\"Topics/Access-Gateway/troubleshooting.htm\" ResolvedId=\"3078\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-set-prjatt\" Link=\"Topics/Adv_Server_Access/docs/set-project-level-attributes-in-adv-server-access.htm\" ResolvedId=\"1016\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-client\" Link=\"Topics/Adv_Server_Access/docs/client.htm\" ResolvedId=\"1418\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-seshcap\" Link=\"Topics/Adv_Server_Access/docs/enable-session-capture.htm\" ResolvedId=\"1419\" />';
