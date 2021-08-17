@@ -16,7 +16,7 @@ xmlAliasData += '    <Map Name=\"Security_Administrators\" Link=\"Topics/Securit
 xmlAliasData += '    <Map Name=\"Security_API\" Link=\"Topics/Security/API.htm#Security_API\" ResolvedId=\"1120\" />';
 xmlAliasData += '    <Map Name=\"Directory_Groups\" Link=\"Topics/users-groups-profiles/usgp-about-groups.htm#Directory_Groups\" ResolvedId=\"1140\" />';
 xmlAliasData += '    <Map Name=\"Directory_Directory_Integrations\" Link=\"Topics/Directory/directory-integrations-main.htm\" ResolvedId=\"1001\" />';
-xmlAliasData += '    <Map Name=\"Applications_Applications\" Link=\"Topics/Apps/Apps_Apps.htm#Applications_Applications\" ResolvedId=\"1180\" />';
+xmlAliasData += '    <Map Name=\"Applications_Applications\" Link=\"Topics/Apps/apps-overview-add-apps.htm\" ResolvedId=\"1180\" />';
 xmlAliasData += '    <Map Name=\"Reports_Reports\" Link=\"Topics/Reports/Reports.htm#Reports_Reports\" ResolvedId=\"1190\" />';
 xmlAliasData += '    <Map Name=\"Settings_Account\" Link=\"Topics/Settings/Settings_Account.htm\" ResolvedId=\"1210\" />';
 xmlAliasData += '    <Map Name=\"Settings_Appearance\" Link=\"Topics/Settings/Settings_Appearance.htm#Settings_Appearance\" ResolvedId=\"1220\" />';
@@ -288,6 +288,7 @@ xmlAliasData += '    <Map Name=\"csh_notification_reset\" Link=\"Topics/Security
 xmlAliasData += '    <Map Name=\"csh-dt-applies-to-okta-mobile\" Link=\"Topics/device-trust/device-trust-landing.htm\" ResolvedId=\"1101\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_App_Integration_Wizard-oidc\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_OIDC.htm\" ResolvedId=\"1103\" />';
 xmlAliasData += '    <Map Name=\"ext_API_Access-claims\" Link=\"Topics/Security/API_Access.htm#create_claims\" ResolvedId=\"1104\" />';
+xmlAliasData += '    <Map Name=\"ext_Apps_Apps_Page-assign\" Link=\"Topics/Apps/apps-assign-applications.htm\" ResolvedId=\"1105\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_Administrators\" Link=\"Topics/Security/Administrators.htm\" ResolvedId=\"1106\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Customization-interstitial\" Link=\"Topics/Settings/settings-customization-general.htm\" ResolvedId=\"1107\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-integration-types\" Link=\"Topics/device-trust/SAML/Mobile/integrate-okta-dt-with-ws1-mobile.htm\" ResolvedId=\"1108\" />';
@@ -412,6 +413,7 @@ xmlAliasData += '    <Map Name=\"csh-administrators\" Link=\"Topics/Security/Adm
 xmlAliasData += '    <Map Name=\"csh-admin-role-groupmembership\" Link=\"Topics/Security/administrators-group-membership-admin.htm\" ResolvedId=\"1249\" />';
 xmlAliasData += '    <Map Name=\"csh-eu-import-safeguard\" Link=\"Topics/users-groups-profiles/usgp-import-safeguard.htm\" ResolvedId=\"1251\" />';
 xmlAliasData += '    <Map Name=\"csh-o365-sa\" Link=\"Topics/Apps/Apps_O365_Silent_Activation.htm\" ResolvedId=\"1252\" />';
+xmlAliasData += '    <Map Name=\"ext-apps-page-show-application-embed-links\" Link=\"Topics/Apps/apps-show-embed-links.htm\" ResolvedId=\"1253\" />';
 xmlAliasData += '    <Map Name=\"csh-config-asso\" Link=\"Topics/Directory/Configuring_Agentless_SSO.htm\" ResolvedId=\"1254\" />';
 xmlAliasData += '    <Map Name=\"csh-ov-signin\" Link=\"Topics/Mobile/okta-verify-sign-in.htm\" ResolvedId=\"1255\" />';
 xmlAliasData += '    <Map Name=\"ext_OPP_configure\" Link=\"Topics/Provisioning/opp/OPP-main.htm\" ResolvedId=\"1259\" />';
@@ -485,7 +487,7 @@ xmlAliasData += '    <Map Name=\"ext-profile-attribute-mastering\" Link=\"Topics
 xmlAliasData += '    <Map Name=\"ext-about-events\" Link=\"Topics/Workflows/learn/about-events.htm\" ResolvedId=\"1331\" />';
 xmlAliasData += '    <Map Name=\"ext_okta_active_directory_agent_OLD\" Link=\"Topics/Directory/ad-agent-main.htm\" ResolvedId=\"200077\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_IntegrationOverview\" Link=\"Topics/Directory/directory-integrations-main.htm\" ResolvedId=\"200066\" />';
-xmlAliasData += '    <Map Name=\"ext-federation-broker-mode\" Link=\"Topics/Apps/apps-fbm-enable.htm\" ResolvedId=\"1334\" />';
+xmlAliasData += '    <Map Name=\"ext-federation-broker-mode\" Link=\"Topics/Apps/apps-fbm-main.htm\" ResolvedId=\"1334\" />';
 xmlAliasData += '    <Map Name=\"ext-about-elements\" Link=\"Topics/Workflows/workflows-elements.htm\" ResolvedId=\"1335\" />';
 xmlAliasData += '    <Map Name=\"ext-applications-connections\" Link=\"Topics/Workflows/learn/about-applications-connections.htm\" ResolvedId=\"1336\" />';
 xmlAliasData += '    <Map Name=\"ext-about-apps-functions\" Link=\"Topics/Workflows/learn/about-application-function-actions.htm\" ResolvedId=\"1337\" />';
@@ -1093,7 +1095,6 @@ xmlAliasData += '    <Map Name=\"ext-smartsheet-method-monitorupdatedrows\" Link
 xmlAliasData += '    <Map Name=\"ext-smartsheet-misc-authorization\" Link=\"Topics/Workflows/connector-reference/smartsheet/overviews/authorization.htm\" ResolvedId=\"30693\" />';
 xmlAliasData += '    <Map Name=\"ext-smartsheet-misc-errors\" Link=\"Topics/Workflows/connector-reference/smartsheet/overviews/errors.htm\" ResolvedId=\"30694\" />';
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2\" Link=\"Topics/Workflows/connector-reference/zendesk/zendesk.htm\" ResolvedId=\"30695\" />';
-xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-addusertoorganization\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_addusertoorganization.htm\" ResolvedId=\"30696\" />';
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-commentonticket\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_commentonticket.htm\" ResolvedId=\"30697\" />';
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-createticket\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_createticket.htm\" ResolvedId=\"30699\" />';
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-createuser\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_createuser.htm\" ResolvedId=\"30700\" />';
@@ -1101,7 +1102,6 @@ xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-downloadattachment\" L
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-httprequest\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_httprequest.htm\" ResolvedId=\"30703\" />';
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-newcommentonticketwebhook\" Link=\"Topics/Workflows/connector-reference/zendesk/events/newcommentonticket.htm\" ResolvedId=\"30704\" />';
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-newticketwebhook\" Link=\"Topics/Workflows/connector-reference/zendesk/events/newticket.htm\" ResolvedId=\"30707\" />';
-xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-readorganization\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_readorganization.htm\" ResolvedId=\"30708\" />';
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-readticket\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_readticket.htm\" ResolvedId=\"30710\" />';
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-readticketattachments\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_readticketattachments.htm\" ResolvedId=\"30711\" />';
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-readuser\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_readuser.htm\" ResolvedId=\"30712\" />';
@@ -1648,5 +1648,6 @@ xmlAliasData += '    <Map Name=\"ext-workflows-error-types\" Link=\"Topics/Workf
 xmlAliasData += '    <Map Name=\"ext-workflows-known-issues\" Link=\"Topics/Workflows/workflows-known-issues.htm\" ResolvedId=\"1422\" />';
 xmlAliasData += '    <Map Name=\"ext-advancedserveraccess-misc-authorization\" Link=\"Topics/Workflows/connector-reference/advancedserveraccess/overviews/authorization.htm\" ResolvedId=\"11025\" />';
 xmlAliasData += '    <Map Name=\"ext_secpol_lockout\" Link=\"Topics/Security/policies/configure-password-policies.htm#Lockout\" ResolvedId=\"18001\" />';
+xmlAliasData += '    <Map Name=\"ext-migrate-iwa-dsso\" Link=\"Topics/Directory/ad-dsso-iwa-migrate.htm\" ResolvedId=\"15015\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
