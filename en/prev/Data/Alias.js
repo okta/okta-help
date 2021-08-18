@@ -1396,6 +1396,8 @@ xmlAliasData += '    <Map Name=\"ext-http-method-put\" Link=\"Topics/Workflows/f
 xmlAliasData += '    <Map Name=\"ext-http-method-raw\" Link=\"Topics/Workflows/function-reference/HTTP/http_raw.htm\" ResolvedId=\"30967\" />';
 xmlAliasData += '    <Map Name=\"ext-excelonline-method-getworksheetinfo\" Link=\"Topics/Workflows/connector-reference/excelonline/actions/readworksheetinfo.htm\" ResolvedId=\"30968\" />';
 xmlAliasData += '    <Map Name=\"ext-excelonline-misc-revoke\" Link=\"Topics/Workflows/connector-reference/excelonline/overviews/revoke.htm\" ResolvedId=\"30969\" />';
+xmlAliasData += '    <Map Name=\"csh-cstm-admin-roles\" Link=\"Topics/Security/custom-admin-role/custom-admin-roles.htm\" ResolvedId=\"13000\" />';
+xmlAliasData += '    <Map Name=\"csh-best-practice-cstm-admin-roles\" Link=\"Topics/Security/custom-admin-role/best-practices-custom-admin-roles.htm\" ResolvedId=\"13001\" />';
 xmlAliasData += '    <Map Name=\"ext-advancedserveraccess\" Link=\"Topics/Workflows/connector-reference/advancedserveraccess/advancedserveraccess.htm\" ResolvedId=\"16000\" />';
 xmlAliasData += '    <Map Name=\"ext-advancedserveraccess-method-createpreauthorization\" Link=\"Topics/Workflows/connector-reference/advancedserveraccess/actions/createpreauthorization.htm\" ResolvedId=\"16001\" />';
 xmlAliasData += '    <Map Name=\"csh-admin-exp-redesign\" Link=\"Topics/Dashboard/admin-exp-redesign.htm\" ResolvedId=\"13002\" />';
@@ -1424,6 +1426,7 @@ xmlAliasData += '    <Map Name=\"ext_oag_app_samlpt_hide\" Link=\"Topics/Access-
 xmlAliasData += '    <Map Name=\"ext_oag_app_samlpt_test\" Link=\"Topics/Access-Gateway/add-app-saml-pass-thru-test.htm\" ResolvedId=\"3029\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_app_samlpt_arch\" Link=\"Topics/Access-Gateway/add-app-saml-pass-thru-arch.htm\" ResolvedId=\"3030\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_app_samlpt_info\" Link=\"Topics/Access-Gateway/add-app-saml-obtain-saml-info.htm\" ResolvedId=\"3031\" />';
+xmlAliasData += '    <Map Name=\"csh-create-cstm-admin-role\" Link=\"Topics/Security/custom-admin-role/about-creating-custom-admin-roles.htm\" ResolvedId=\"13004\" />';
 xmlAliasData += '    <Map Name=\"ext-shopify-method-addaddresstocustomer\" Link=\"Topics/Workflows/connector-reference/shopify/actions/addaddresstocustomer.htm\" ResolvedId=\"30976\" />';
 xmlAliasData += '    <Map Name=\"ext-shopify-method-createcustomer\" Link=\"Topics/Workflows/connector-reference/shopify/actions/createcustomer.htm\" ResolvedId=\"30977\" />';
 xmlAliasData += '    <Map Name=\"ext-shopify-method-customapiaction\" Link=\"Topics/Workflows/connector-reference/shopify/actions/customapiaction.htm\" ResolvedId=\"30978\" />';
@@ -1626,6 +1629,9 @@ xmlAliasData += '    <Map Name=\"ext-workflows-releasenotes\" Link=\"Topics/Rele
 xmlAliasData += '    <Map Name=\"ext_oag_main\" Link=\"Topics/Access-Gateway/ag-main.htm\" ResolvedId=\"3074\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_releasenotes\" Link=\"Topics/ReleaseNotes/access-gateway-release-notes.htm\" ResolvedId=\"3075\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-releasenotes\" Link=\"Topics/ReleaseNotes/advanced-server-access-release-notes.htm\" ResolvedId=\"1402\" />';
+xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-user-permissions\" Link=\"Topics/Security/custom-admin-role/about-role-permissions.htm#User_permissions_\" ResolvedId=\"1404\" />';
+xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-group-permissions\" Link=\"Topics/Security/custom-admin-role/about-role-permissions.htm#Group_permissions\" ResolvedId=\"1405\" />';
+xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-app-permissions\" Link=\"Topics/Security/custom-admin-role/about-role-permissions.htm#Application_permissions\" ResolvedId=\"1406\" />';
 xmlAliasData += '    <Map Name=\"ext-admin-landing\" Link=\"index-admin.htm\" ResolvedId=\"1407\" />';
 xmlAliasData += '    <Map Name=\"csh-o365-sso-classic\" Link=\"Topics/Security/O365_Client-Access-Policies.htm\" ResolvedId=\"1410\" />';
 xmlAliasData += '    <Map Name=\"ext-freshservice-method-createticket\" Link=\"Topics/Workflows/connector-reference/freshservice/actions/createticket.htm\" ResolvedId=\"1411\" />';
@@ -1648,6 +1654,10 @@ xmlAliasData += '    <Map Name=\"ext-workflows-error-types\" Link=\"Topics/Workf
 xmlAliasData += '    <Map Name=\"ext-workflows-known-issues\" Link=\"Topics/Workflows/workflows-known-issues.htm\" ResolvedId=\"1422\" />';
 xmlAliasData += '    <Map Name=\"ext-advancedserveraccess-misc-authorization\" Link=\"Topics/Workflows/connector-reference/advancedserveraccess/overviews/authorization.htm\" ResolvedId=\"11025\" />';
 xmlAliasData += '    <Map Name=\"ext_secpol_lockout\" Link=\"Topics/Security/policies/configure-password-policies.htm#Lockout\" ResolvedId=\"18001\" />';
+xmlAliasData += '    <Map Name=\"csh-create-cstm-admin-resource-set\" Link=\"Topics/Security/custom-admin-role/create-admin-role-assignment-by-resource-set.htm\" ResolvedId=\"1432\" />';
+xmlAliasData += '    <Map Name=\"csh-create-cstm-admin-by-role\" Link=\"Topics/Security/custom-admin-role/create-admin-role-assignment-by-role.htm\" ResolvedId=\"1433\" />';
+xmlAliasData += '    <Map Name=\"csh-create-cstm-admin-admin\" Link=\"Topics/Security/custom-admin-role/create-admin-role-assignment-by-admin.htm\" ResolvedId=\"1434\" />';
 xmlAliasData += '    <Map Name=\"ext-migrate-iwa-dsso\" Link=\"Topics/Directory/ad-dsso-iwa-migrate.htm\" ResolvedId=\"15015\" />';
+xmlAliasData += '    <Map Name=\"ext-idp-smart-card-workflow\" Link=\"Topics/Security/idp-smart-card-workflow.htm\" ResolvedId=\"3079\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
