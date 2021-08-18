@@ -580,7 +580,6 @@ xmlAliasData += '    <Map Name=\"ext-smartsheet-method-monitornewrows\" Link=\"T
 xmlAliasData += '    <Map Name=\"ext-smartsheet-method-monitorupdatedrows\" Link=\"Topics/Workflows/connector-reference/smartsheet/events/monitorupdatedrows.htm\" ResolvedId=\"30691\" />';
 xmlAliasData += '    <Map Name=\"ext-smartsheet-misc-authorization\" Link=\"Topics/Workflows/connector-reference/smartsheet/overviews/authorization.htm\" ResolvedId=\"30693\" />';
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2\" Link=\"Topics/Workflows/connector-reference/zendesk/zendesk.htm\" ResolvedId=\"30695\" />';
-xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-addusertoorganization\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_addusertoorganization.htm\" ResolvedId=\"30696\" />';
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-commentonticket\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_commentonticket.htm\" ResolvedId=\"30697\" />';
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-createticket\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_createticket.htm\" ResolvedId=\"30699\" />';
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-createuser\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_createuser.htm\" ResolvedId=\"30700\" />';
@@ -588,7 +587,6 @@ xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-downloadattachment\" L
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-httprequest\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_httprequest.htm\" ResolvedId=\"30703\" />';
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-newcommentonticketwebhook\" Link=\"Topics/Workflows/connector-reference/zendesk/events/newcommentonticket.htm\" ResolvedId=\"30704\" />';
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-newticketwebhook\" Link=\"Topics/Workflows/connector-reference/zendesk/events/newticket.htm\" ResolvedId=\"30707\" />';
-xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-readorganization\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_readorganization.htm\" ResolvedId=\"30708\" />';
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-readticket\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_readticket.htm\" ResolvedId=\"30710\" />';
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-readticketattachments\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_readticketattachments.htm\" ResolvedId=\"30711\" />';
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-readuser\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_readuser.htm\" ResolvedId=\"30712\" />';
