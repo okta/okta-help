@@ -1447,7 +1447,6 @@ xmlAliasData += '    <Map Name=\"ext-mixpanel\" Link=\"Topics/Workflows/connecto
 xmlAliasData += '    <Map Name=\"ext-mixpanel-misc-authorization\" Link=\"Topics/Workflows/connector-reference/mixpanel/overviews/authorization.htm\" ResolvedId=\"30994\" />';
 xmlAliasData += '    <Map Name=\"ext-mixpanel-method-updateprofile\" Link=\"Topics/Workflows/connector-reference/mixpanel/actions/updateprofile.htm\" ResolvedId=\"30995\" />';
 xmlAliasData += '    <Map Name=\"ext-github-method-createpullrequest\" Link=\"Topics/Workflows/connector-reference/github/actions/createpullrequest.htm\" ResolvedId=\"30996\" />';
-xmlAliasData += '    <Map Name=\"ext-utility-method-exportgroup\" Link=\"Topics/Workflows/function-reference/Folders/folders_exportfolder.htm\" ResolvedId=\"30997\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_app_ps_config_pcode\" Link=\"Topics/Access-Gateway/add-app-ps-config-pcode.htm\" ResolvedId=\"3032\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_app_ps_config_psoft\" Link=\"Topics/Access-Gateway/add-app-ps-config-psoft.htm\" ResolvedId=\"3033\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_app_ps_add_app\" Link=\"Topics/Access-Gateway/add-app-ps-app.htm\" ResolvedId=\"3034\" />';
@@ -1499,7 +1498,6 @@ xmlAliasData += '    <Map Name=\"ext-awssso-method-removeawsentitlements\" Link=
 xmlAliasData += '    <Map Name=\"csh-prioritize-profile-sources\" Link=\"Topics/users-groups-profiles/usgp-prioritize-profile-source.htm\" ResolvedId=\"15012\" />';
 xmlAliasData += '    <Map Name=\"ext_sec_admin_assign_admins\" Link=\"Topics/Security/administrators-assign-admins.htm\" ResolvedId=\"3060\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_pre_req_firewall_rules\" Link=\"Topics/Access-Gateway/deploy-pre-install-reqs.htm\" ResolvedId=\"3063\" />';
-xmlAliasData += '    <Map Name=\"ext-utility-method-exportflo\" Link=\"Topics/Workflows/function-reference/Flows/flows_exportflow.htm\" ResolvedId=\"31017\" />';
 xmlAliasData += '    <Map Name=\"ext-hubspotcrm-method-associateacontactwithobject\" Link=\"Topics/Workflows/connector-reference/hubspotcrm/actions/associateacontactwithanotherobject.htm\" ResolvedId=\"16002\" />';
 xmlAliasData += '    <Map Name=\"ext-hubspotcrm-method-createcontact\" Link=\"Topics/Workflows/connector-reference/hubspotcrm/actions/createcontact.htm\" ResolvedId=\"16003\" />';
 xmlAliasData += '    <Map Name=\"ext-hubspotcrm-method-httprequest\" Link=\"Topics/Workflows/connector-reference/hubspotcrm/actions/customapiaction.htm\" ResolvedId=\"16004\" />';
@@ -1658,6 +1656,6 @@ xmlAliasData += '    <Map Name=\"csh-create-cstm-admin-resource-set\" Link=\"Top
 xmlAliasData += '    <Map Name=\"csh-create-cstm-admin-by-role\" Link=\"Topics/Security/custom-admin-role/create-admin-role-assignment-by-role.htm\" ResolvedId=\"1433\" />';
 xmlAliasData += '    <Map Name=\"csh-create-cstm-admin-admin\" Link=\"Topics/Security/custom-admin-role/create-admin-role-assignment-by-admin.htm\" ResolvedId=\"1434\" />';
 xmlAliasData += '    <Map Name=\"ext-migrate-iwa-dsso\" Link=\"Topics/Directory/ad-dsso-iwa-migrate.htm\" ResolvedId=\"15015\" />';
-xmlAliasData += '    <Map Name=\"ext-idp-smart-card-workflow\" Link=\"Topics/Security/idp-smart-card-workflow.htm\" ResolvedId=\"3079\" />';
+xmlAliasData += '    <Map Name=\"ext-idp-smart-card-workflow\" Link=\"Topics/Security/idp-smart-card-workflow.htm\" ResolvedId=\"2026\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
