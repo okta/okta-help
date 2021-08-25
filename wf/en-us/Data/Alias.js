@@ -580,6 +580,7 @@ xmlAliasData += '    <Map Name=\"ext-smartsheet-method-monitornewrows\" Link=\"T
 xmlAliasData += '    <Map Name=\"ext-smartsheet-method-monitorupdatedrows\" Link=\"Topics/Workflows/connector-reference/smartsheet/events/monitorupdatedrows.htm\" ResolvedId=\"30691\" />';
 xmlAliasData += '    <Map Name=\"ext-smartsheet-misc-authorization\" Link=\"Topics/Workflows/connector-reference/smartsheet/overviews/authorization.htm\" ResolvedId=\"30693\" />';
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2\" Link=\"Topics/Workflows/connector-reference/zendesk/zendesk.htm\" ResolvedId=\"30695\" />';
+xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-addusertoorganization\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_addusertoorganization.htm\" ResolvedId=\"30696\" />';
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-commentonticket\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_commentonticket.htm\" ResolvedId=\"30697\" />';
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-createticket\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_createticket.htm\" ResolvedId=\"30699\" />';
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-createuser\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_createuser.htm\" ResolvedId=\"30700\" />';
@@ -587,12 +588,15 @@ xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-downloadattachment\" L
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-httprequest\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_httprequest.htm\" ResolvedId=\"30703\" />';
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-newcommentonticketwebhook\" Link=\"Topics/Workflows/connector-reference/zendesk/events/newcommentonticket.htm\" ResolvedId=\"30704\" />';
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-newticketwebhook\" Link=\"Topics/Workflows/connector-reference/zendesk/events/newticket.htm\" ResolvedId=\"30707\" />';
+xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-readorganization\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_readorganization.htm\" ResolvedId=\"30708\" />';
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-readticket\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_readticket.htm\" ResolvedId=\"30710\" />';
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-readticketattachments\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_readticketattachments.htm\" ResolvedId=\"30711\" />';
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-readuser\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_readuser.htm\" ResolvedId=\"30712\" />';
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-removeuserfromorganization\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_removeuserfromorganization.htm\" ResolvedId=\"30713\" />';
+xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-searchorganizations\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_searchorganizations.htm\" ResolvedId=\"30714\" />';
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-searchtickets\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_searchtickets.htm\" ResolvedId=\"30715\" />';
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-searchusers\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_searchusers.htm\" ResolvedId=\"30716\" />';
+xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-updateorganization\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_updateorganization.htm\" ResolvedId=\"30720\" />';
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-updateticket\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_updateticket.htm\" ResolvedId=\"30721\" />';
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-updateuser\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_updateuser.htm\" ResolvedId=\"30722\" />';
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-method-uploadattachment\" Link=\"Topics/Workflows/connector-reference/zendesk/actions/zendesk_uploadattachment.htm\" ResolvedId=\"30723\" />';
@@ -919,6 +923,8 @@ xmlAliasData += '    <Map Name=\"ext-salesforce229-method-removeuserentitlements
 xmlAliasData += '    <Map Name=\"ext-list-method-split\" Link=\"Topics/Workflows/function-reference/List/list_split.htm\" ResolvedId=\"31032\" />';
 xmlAliasData += '    <Map Name=\"ext-list-method-concat\" Link=\"Topics/Workflows/function-reference/List/list_concat.htm\" ResolvedId=\"31033\" />';
 xmlAliasData += '    <Map Name=\"ext-list-method-stats\" Link=\"Topics/Workflows/function-reference/List/list_stats.htm\" ResolvedId=\"31034\" />';
+xmlAliasData += '    <Map Name=\"ext-airtable-misc-authorization\" Link=\"Topics/Workflows/connector-reference/airtable/overviews/authorization.htm\" ResolvedId=\"31035\" />';
+xmlAliasData += '    <Map Name=\"ext-docusign-misc-authorization\" Link=\"Topics/Workflows/connector-reference/docusign/overviews/authorization.htm\" ResolvedId=\"31036\" />';
 xmlAliasData += '    <Map Name=\"ext-evidentidverify-misc-authorization\" Link=\"Topics/Workflows/connector-reference/evidentidverify/overviews/authorization.htm\" ResolvedId=\"31037\" />';
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-misc-authorization\" Link=\"Topics/Workflows/connector-reference/zendesk/overviews/authorization.htm\" ResolvedId=\"31039\" />';
 xmlAliasData += '    <Map Name=\"ext-customize-card\" Link=\"Topics/Workflows/build/customize-card.htm\" ResolvedId=\"31040\" />';
@@ -978,5 +984,6 @@ xmlAliasData += '    <Map Name=\"ext-freshservice-method-ticketupdated\" Link=\"
 xmlAliasData += '    <Map Name=\"ext-workflows-error-types\" Link=\"Topics/Workflows/workflows-error-types.htm\" ResolvedId=\"1421\" />';
 xmlAliasData += '    <Map Name=\"ext-workflows-known-issues\" Link=\"Topics/Workflows/workflows-known-issues.htm\" ResolvedId=\"1422\" />';
 xmlAliasData += '    <Map Name=\"ext-advancedserveraccess-misc-authorization\" Link=\"Topics/Workflows/connector-reference/advancedserveraccess/overviews/authorization.htm\" ResolvedId=\"11025\" />';
+xmlAliasData += '    <Map Name=\"ext-gmail-method-customapiaction\" Link=\"Topics/Workflows/connector-reference/gmail/actions/customapiaction.htm\" ResolvedId=\"1442\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
