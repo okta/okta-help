@@ -1,0 +1,1 @@
+define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../Content/Topics/betas/closed/log-streams/about-log-streams.htm'],s:['12'],p:[['12',1]]});
