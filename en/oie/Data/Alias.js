@@ -312,6 +312,8 @@ xmlAliasData += '    <Map Name=\"ext-ultipro-main\" Link=\"Topics/Provisioning/u
 xmlAliasData += '    <Map Name=\"csh-device-mgmt-mobile-mdm-setup\" Link=\"Topics/identity-engine/devices/config-device-mgmt-mobile.htm\" ResolvedId=\"12001\" />';
 xmlAliasData += '    <Map Name=\"ext-agent-support-policies\" Link=\"Topics/Directory/agent-support-policies.htm\" ResolvedId=\"15007\" />';
 xmlAliasData += '    <Map Name=\"csh-blocklist-zones\" Link=\"Topics/Security/healthinsight/blocklist-network-zone.htm\" ResolvedId=\"11001\" />';
+xmlAliasData += '    <Map Name=\"csh-cstm-admin-roles\" Link=\"Topics/Security/custom-admin-role/custom-admin-roles.htm\" ResolvedId=\"13000\" />';
+xmlAliasData += '    <Map Name=\"csh-best-practice-cstm-admin-roles\" Link=\"Topics/Security/custom-admin-role/best-practices-custom-admin-roles.htm\" ResolvedId=\"13001\" />';
 xmlAliasData += '    <Map Name=\"csh-admin-exp-redesign\" Link=\"Topics/Dashboard/admin-exp-redesign.htm\" ResolvedId=\"13002\" />';
 xmlAliasData += '    <Map Name=\"ext-ad-agent-install\" Link=\"Topics/Directory/ad-agent-new-integration.htm\" ResolvedId=\"15008\" />';
 xmlAliasData += '    <Map Name=\"ext-ldap-agent-install\" Link=\"Topics/Directory/ldap-agent-install-configure.htm\" ResolvedId=\"15009\" />';
@@ -322,6 +324,7 @@ xmlAliasData += '    <Map Name=\"csh-apps-aiw-main\" Link=\"Topics/Apps/Apps_App
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-oidc-login-uri\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_OIDC.htm#OIDC-login-redirect-uri\" ResolvedId=\"6002\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-oidc-logout-uri\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_OIDC.htm#OIDC-logout-redirect-uri\" ResolvedId=\"6003\" />';
 xmlAliasData += '    <Map Name=\"ext-manage-group-push\" Link=\"Topics/users-groups-profiles/usgp-group-push-main.htm\" ResolvedId=\"15011\" />';
+xmlAliasData += '    <Map Name=\"csh-create-cstm-admin-role\" Link=\"Topics/Security/custom-admin-role/about-creating-custom-admin-roles.htm\" ResolvedId=\"13004\" />';
 xmlAliasData += '    <Map Name=\"ext_secur_browser_support\" Link=\"Topics/Miscellaneous/Platforms_Browser_OS_Support.htm\" ResolvedId=\"3058\" />';
 xmlAliasData += '    <Map Name=\"ext-bamboohr-provisioning\" Link=\"Topics/Provisioning/bamboohr/bamboohr-main.htm\" ResolvedId=\"8011\" />';
 xmlAliasData += '    <Map Name=\"csh-prioritize-profile-sources\" Link=\"Topics/users-groups-profiles/usgp-prioritize-profile-source.htm\" ResolvedId=\"15012\" />';
@@ -366,9 +369,15 @@ xmlAliasData += '    <Map Name=\"csh-asop-scenarios\" Link=\"Topics/identity-eng
 xmlAliasData += '    <Map Name=\"csh-apps-learn-about\" Link=\"Topics/Apps/apps-overview-learn-about.htm\" ResolvedId=\"6004\" />';
 xmlAliasData += '    <Map Name=\"ext-apps-learn-about\" Link=\"Topics/Apps/apps-overview-learn-about.htm\" ResolvedId=\"6005\" />';
 xmlAliasData += '    <Map Name=\"ext-oie-limitations\" Link=\"Topics/identity-engine/oie-limitations.htm\" ResolvedId=\"1403\" />';
+xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-user-permissions\" Link=\"Topics/Security/custom-admin-role/about-role-permissions.htm#User_permissions_\" ResolvedId=\"1404\" />';
+xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-group-permissions\" Link=\"Topics/Security/custom-admin-role/about-role-permissions.htm#Group_permissions\" ResolvedId=\"1405\" />';
+xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-app-permissions\" Link=\"Topics/Security/custom-admin-role/about-role-permissions.htm#Application_permissions\" ResolvedId=\"1406\" />';
 xmlAliasData += '    <Map Name=\"ext-oie-whats-new\" Link=\"Topics/identity-engine/oie-whats-new.htm\" ResolvedId=\"1408\" />';
 xmlAliasData += '    <Map Name=\"ext-improved-ndbd\" Link=\"Topics/Security/behavior-detection/improved-new-device-behavior-detection.htm\" ResolvedId=\"2025\" />';
 xmlAliasData += '    <Map Name=\"csh-improved-ndbd\" Link=\"Topics/Security/behavior-detection/improved-new-device-behavior-detection.htm\" ResolvedId=\"2024\" />';
 xmlAliasData += '    <Map Name=\"csh-aasopr-widp\" Link=\"Topics/identity-engine/policies/add-app-sign-on-policy-rule-with-identity-provider.htm\" ResolvedId=\"18002\" />';
+xmlAliasData += '    <Map Name=\"csh-create-cstm-admin-resource-set\" Link=\"Topics/Security/custom-admin-role/create-admin-role-assignment-by-resource-set.htm\" ResolvedId=\"1432\" />';
+xmlAliasData += '    <Map Name=\"csh-create-cstm-admin-by-role\" Link=\"Topics/Security/custom-admin-role/create-admin-role-assignment-by-role.htm\" ResolvedId=\"1433\" />';
+xmlAliasData += '    <Map Name=\"csh-create-cstm-admin-admin\" Link=\"Topics/Security/custom-admin-role/create-admin-role-assignment-by-admin.htm\" ResolvedId=\"1434\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
