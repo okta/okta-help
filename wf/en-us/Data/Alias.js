@@ -926,6 +926,7 @@ xmlAliasData += '    <Map Name=\"ext-list-method-stats\" Link=\"Topics/Workflows
 xmlAliasData += '    <Map Name=\"ext-airtable-misc-authorization\" Link=\"Topics/Workflows/connector-reference/airtable/overviews/authorization.htm\" ResolvedId=\"31035\" />';
 xmlAliasData += '    <Map Name=\"ext-docusign-misc-authorization\" Link=\"Topics/Workflows/connector-reference/docusign/overviews/authorization.htm\" ResolvedId=\"31036\" />';
 xmlAliasData += '    <Map Name=\"ext-evidentidverify-misc-authorization\" Link=\"Topics/Workflows/connector-reference/evidentidverify/overviews/authorization.htm\" ResolvedId=\"31037\" />';
+xmlAliasData += '    <Map Name=\"ext-jiraservicedesk-misc-authorization\" Link=\"Topics/Workflows/connector-reference/jiraservicedesk/overviews/authorization.htm\" ResolvedId=\"31038\" />';
 xmlAliasData += '    <Map Name=\"ext-zendeskoauth2-misc-authorization\" Link=\"Topics/Workflows/connector-reference/zendesk/overviews/authorization.htm\" ResolvedId=\"31039\" />';
 xmlAliasData += '    <Map Name=\"ext-customize-card\" Link=\"Topics/Workflows/build/customize-card.htm\" ResolvedId=\"31040\" />';
 xmlAliasData += '    <Map Name=\"ext-workflows-system-limits\" Link=\"Topics/Workflows/workflows-system-limits.htm\" ResolvedId=\"31041\" />';
@@ -985,5 +986,6 @@ xmlAliasData += '    <Map Name=\"ext-workflows-error-types\" Link=\"Topics/Workf
 xmlAliasData += '    <Map Name=\"ext-workflows-known-issues\" Link=\"Topics/Workflows/workflows-known-issues.htm\" ResolvedId=\"1422\" />';
 xmlAliasData += '    <Map Name=\"ext-advancedserveraccess-misc-authorization\" Link=\"Topics/Workflows/connector-reference/advancedserveraccess/overviews/authorization.htm\" ResolvedId=\"11025\" />';
 xmlAliasData += '    <Map Name=\"ext-gmail-method-customapiaction\" Link=\"Topics/Workflows/connector-reference/gmail/actions/customapiaction.htm\" ResolvedId=\"1442\" />';
+xmlAliasData += '    <Map Name=\"ext-googlesheets-method-customapiaction\" Link=\"Topics/Workflows/connector-reference/googlesheets/actions/customapiaction.htm\" ResolvedId=\"1454\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
