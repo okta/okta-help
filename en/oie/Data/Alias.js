@@ -61,7 +61,6 @@ xmlAliasData += '    <Map Name=\"ext_Apps_Configure_Template_App\" Link=\"Topics
 xmlAliasData += '    <Map Name=\"ext_Apps_Configuring_WS_Federation\" Link=\"Topics/Apps/Apps_Configuring WS-Federation.htm\" ResolvedId=\"200019\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Enable_O365_Chiclets\" Link=\"Topics/Apps/Apps_Enable_O365_Chiclets.htm\" ResolvedId=\"200020\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Moving_Microsoft\" Link=\"Topics/Apps/Apps_Moving_Microsoft.htm\" ResolvedId=\"200024\" />';
-xmlAliasData += '    <Map Name=\"ext_Apps_O365_Admin_Consent\" Link=\"Topics/Apps/Apps_O365_Admin_Consent.htm\" ResolvedId=\"200025\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_O365_Silent_Activation\" Link=\"Topics/Apps/Apps_O365_Silent_Activation.htm\" ResolvedId=\"200026\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Overview_of_Managing_Apps_and_SSO\" Link=\"Topics/Apps/Apps_Overview_of_Managing_Apps_and_SSO.htm\" ResolvedId=\"200028\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Revealing_the_Password\" Link=\"Topics/Apps/Apps_Revealing_the_Password.htm\" ResolvedId=\"200029\" />';
@@ -373,6 +372,7 @@ xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-user-permissions\" Link=\"T
 xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-group-permissions\" Link=\"Topics/Security/custom-admin-role/about-role-permissions.htm#Group_permissions\" ResolvedId=\"1405\" />';
 xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-app-permissions\" Link=\"Topics/Security/custom-admin-role/about-role-permissions.htm#Application_permissions\" ResolvedId=\"1406\" />';
 xmlAliasData += '    <Map Name=\"ext-oie-whats-new\" Link=\"Topics/identity-engine/oie-whats-new.htm\" ResolvedId=\"1408\" />';
+xmlAliasData += '    <Map Name=\"csh-o365-sso\" Link=\"Topics/Apps/Office365/o365-sign-on-policies-main.htm\" ResolvedId=\"1409\" />';
 xmlAliasData += '    <Map Name=\"ext-improved-ndbd\" Link=\"Topics/Security/behavior-detection/improved-new-device-behavior-detection.htm\" ResolvedId=\"2025\" />';
 xmlAliasData += '    <Map Name=\"csh-improved-ndbd\" Link=\"Topics/Security/behavior-detection/improved-new-device-behavior-detection.htm\" ResolvedId=\"2024\" />';
 xmlAliasData += '    <Map Name=\"csh-aasopr-widp\" Link=\"Topics/identity-engine/policies/add-app-sign-on-policy-rule-with-identity-provider.htm\" ResolvedId=\"18002\" />';
