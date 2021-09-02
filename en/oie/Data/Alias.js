@@ -383,5 +383,7 @@ xmlAliasData += '    <Map Name=\"csh-create-cstm-admin-by-role\" Link=\"Topics/S
 xmlAliasData += '    <Map Name=\"csh-create-cstm-admin-admin\" Link=\"Topics/Security/custom-admin-role/create-admin-role-assignment-by-admin.htm\" ResolvedId=\"1434\" />';
 xmlAliasData += '    <Map Name=\"csh-branding\" Link=\"Topics/Settings/branding.htm\" ResolvedId=\"13003\" />';
 xmlAliasData += '    <Map Name=\"ext-about-authenticators\" Link=\"Topics/identity-engine/authenticators/about-authenticators.htm\" ResolvedId=\"18003\" />';
+xmlAliasData += '    <Map Name=\"ext-about-mfa-enrol-policies\" Link=\"Topics/identity-engine/policies/about-mfa-enrollment-policies.htm\" ResolvedId=\"1458\" />';
+xmlAliasData += '    <Map Name=\"ext-config-sspr\" Link=\"Topics/identity-engine/authenticators/configure-sspr.htm\" ResolvedId=\"5000\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
