@@ -97,8 +97,8 @@ xmlAliasData += '    <Map Name=\"oag_ext_trouble_shooting_guide\" Link=\"Topics/
 xmlAliasData += '    <Map Name=\"oag_ext_about_log_levels\" Link=\"Topics/Access-Gateway/about-log-levels.htm\" ResolvedId=\"3072\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_main\" Link=\"Topics/Access-Gateway/ag-main.htm\" ResolvedId=\"3074\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_releasenotes\" Link=\"Topics/ReleaseNotes/access-gateway-release-notes.htm\" ResolvedId=\"3075\" />';
-xmlAliasData += '    <Map Name=\"ext_oag_tutor_configHA\" Link=\"Topics/Access-Gateway/one-day-tutorial-configHA.htm\" ResolvedId=\"-2147483648\" />';
-xmlAliasData += '    <Map Name=\"ext_oag_manage_certs_tf\" Link=\"Topics/Access-Gateway/managing-certificates-taskflow.htm\" ResolvedId=\"-2147483648\" />';
-xmlAliasData += '    <Map Name=\"ext_oag_troubleshooting\" Link=\"Topics/Access-Gateway/troubleshooting.htm\" ResolvedId=\"-2147483648\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_tutor_configHA\" Link=\"Topics/Access-Gateway/one-day-tutorial-configHA.htm\" ResolvedId=\"3076\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_manage_certs_tf\" Link=\"Topics/Access-Gateway/managing-certificates-taskflow.htm\" ResolvedId=\"3077\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_troubleshooting\" Link=\"Topics/Access-Gateway/troubleshooting.htm\" ResolvedId=\"3078\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
