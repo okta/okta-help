@@ -45,5 +45,9 @@ xmlAliasData += '    <Map Name=\"ext-ov-launch-dashboard-android\" Link=\"Topics
 xmlAliasData += '    <Map Name=\"ext-ov-launch-dashboard-ios\" Link=\"Topics/end-user/ov-launch-dashboard-ios.htm\" ResolvedId=\"4036\" />';
 xmlAliasData += '    <Map Name=\"ext-ov-ios-trbl-push\" Link=\"Topics/end-user/ov-ios-trbl-push.htm\" ResolvedId=\"4037\" />';
 xmlAliasData += '    <Map Name=\"ext-eu-settings\" Link=\"Topics/end-user/eu-settings.htm\" ResolvedId=\"1431\" />';
+xmlAliasData += '    <Map Name=\"ext-ov-disable-touchid-macos\" Link=\"Topics/end-user/ov-config-biometrics-disable-touchid-macos.htm\" ResolvedId=\"17000\" />';
+xmlAliasData += '    <Map Name=\"ext-ov-enable-touchid-macos\" Link=\"Topics/end-user/ov-config-biometrics-enable-touchid-macos.htm\" ResolvedId=\"17001\" />';
+xmlAliasData += '    <Map Name=\"ext-ov-add-acct-while-accessing-app-macos\" Link=\"Topics/end-user/ov-new-install-while-accessing-app-macos.htm\" ResolvedId=\"17003\" />';
+xmlAliasData += '    <Map Name=\"ext-ov-add-acct-while-signin-macos\" Link=\"Topics/end-user/ov-new-install-signin-macos.htm\" ResolvedId=\"17002\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
