@@ -1696,5 +1696,6 @@ xmlAliasData += '    <Map Name=\"ext-opsgenie-method-buildparticipantobject\" Li
 xmlAliasData += '    <Map Name=\"ext-opsgenie-method-buildtimerestrictionsobject\" Link=\"Topics/Workflows/connector-reference/opsgenie/actions/buildtimerestrictionsobject.htm\" ResolvedId=\"1444\" />';
 xmlAliasData += '    <Map Name=\"ext-googledrive-method-customapiaction\" Link=\"Topics/Workflows/connector-reference/googledrive/actions/customapiaction.htm\" ResolvedId=\"1453\" />';
 xmlAliasData += '    <Map Name=\"ext-googlesheets-method-customapiaction\" Link=\"Topics/Workflows/connector-reference/googlesheets/actions/customapiaction.htm\" ResolvedId=\"1454\" />';
+xmlAliasData += '    <Map Name=\"ext-idp-smart-card-expression\" Link=\"Topics/Security/idp-enable-smart-card.htm\" ResolvedId=\"3079\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
