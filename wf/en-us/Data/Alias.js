@@ -977,6 +977,15 @@ xmlAliasData += '    <Map Name=\"ext-datagrail-misc-authorization\" Link=\"Topic
 xmlAliasData += '    <Map Name=\"ext-freshservice-misc-authorization\" Link=\"Topics/Workflows/connector-reference/freshservice/overviews/authorization.htm\" ResolvedId=\"31057\" />';
 xmlAliasData += '    <Map Name=\"ext-stash-method-cleartable\" Link=\"Topics/Workflows/function-reference/Tables/stash_cleartable.htm\" ResolvedId=\"31058\" />';
 xmlAliasData += '    <Map Name=\"ext-workflows-releasenotes\" Link=\"Topics/ReleaseNotes/Workflows/workflows-release-notes.htm\" ResolvedId=\"31059\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-activategrouprule\" Link=\"Topics/Workflows/connector-reference/okta/actions/activategrouprule.htm\" ResolvedId=\"11007\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-creategroup\" Link=\"Topics/Workflows/connector-reference/okta/actions/creategroup.htm\" ResolvedId=\"11008\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-creategrouprule\" Link=\"Topics/Workflows/connector-reference/okta/actions/creategrouprule.htm\" ResolvedId=\"11009\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-deactivategrouprule\" Link=\"Topics/Workflows/connector-reference/okta/actions/deactivategrouprule.htm\" ResolvedId=\"11010\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-deletegroup\" Link=\"Topics/Workflows/connector-reference/okta/actions/deletegroup.htm\" ResolvedId=\"11011\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-deletegrouprule\" Link=\"Topics/Workflows/connector-reference/okta/actions/deletegrouprule.htm\" ResolvedId=\"11012\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-readgrouprule\" Link=\"Topics/Workflows/connector-reference/okta/actions/readgrouprule.htm\" ResolvedId=\"11013\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-updategroup\" Link=\"Topics/Workflows/connector-reference/okta/actions/updategroup.htm\" ResolvedId=\"11015\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-updategrouprule\" Link=\"Topics/Workflows/connector-reference/okta/actions/updategrouprule.htm\" ResolvedId=\"11016\" />';
 xmlAliasData += '    <Map Name=\"ext-freshservice-method-createticket\" Link=\"Topics/Workflows/connector-reference/freshservice/actions/createticket.htm\" ResolvedId=\"1411\" />';
 xmlAliasData += '    <Map Name=\"ext-freshservice-method-deleteticket\" Link=\"Topics/Workflows/connector-reference/freshservice/actions/deleteticket.htm\" ResolvedId=\"1412\" />';
 xmlAliasData += '    <Map Name=\"ext-freshservice-method-readticket\" Link=\"Topics/Workflows/connector-reference/freshservice/actions/readticket.htm\" ResolvedId=\"1413\" />';
