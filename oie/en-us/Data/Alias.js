@@ -128,7 +128,6 @@ xmlAliasData += '    <Map Name=\"ext_custom_error_pages\" Link=\"Topics/Settings
 xmlAliasData += '    <Map Name=\"ext_custom_okta_hosted_sign_in_page\" Link=\"Topics/Settings/custom-okta-hosted-sign-in-page.htm\" ResolvedId=\"200178\" />';
 xmlAliasData += '    <Map Name=\"ext_custom_url_domain\" Link=\"Topics/Settings/settings-customization-general.htm\" ResolvedId=\"200179\" />';
 xmlAliasData += '    <Map Name=\"ext_ref_email_variables\" Link=\"Topics/Settings/settings-customization-variables.htm\" ResolvedId=\"200183\" />';
-xmlAliasData += '    <Map Name=\"ext_Settings\" Link=\"Topics/Settings/Settings.htm\" ResolvedId=\"200184\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Account\" Link=\"Topics/Settings/Settings_Account.htm\" ResolvedId=\"200185\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Add_Custom_Email_Templates_Multiple_Languages\" Link=\"Topics/Settings/Settings_Email.htm#Add\" ResolvedId=\"200186\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Appearance\" Link=\"Topics/Settings/Settings_Appearance.htm\" ResolvedId=\"200187\" />';
@@ -409,5 +408,6 @@ xmlAliasData += '    <Map Name=\"ext-config-mobile\" Link=\"Topics/identity-engi
 xmlAliasData += '    <Map Name=\"ext-configure-threatinsight\" Link=\"Topics/Security/threat-insight/configure-threatinsight.htm\" ResolvedId=\"17009\" />';
 xmlAliasData += '    <Map Name=\"ext-fp-configure\" Link=\"Topics/identity-engine/devices/fp/fp-configure.htm\" ResolvedId=\"17010\" />';
 xmlAliasData += '    <Map Name=\"ext-fp-enable\" Link=\"Topics/identity-engine/devices/fp/fp-enable.htm\" ResolvedId=\"17011\" />';
+xmlAliasData += '    <Map Name=\"ext-edr-integration-main\" Link=\"Topics/identity-engine/devices/edr-integration-main.htm\" ResolvedId=\"17012\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
