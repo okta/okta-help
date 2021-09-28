@@ -73,7 +73,7 @@ xmlAliasData += '    <Map Name=\"ext_oag_about_pol_types\" Link=\"Topics/Access-
 xmlAliasData += '    <Map Name=\"ext_oag_manage_certs\" Link=\"Topics/Access-Gateway/manage-certificates.htm\" ResolvedId=\"3044\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_ha_manage_conf\" Link=\"Topics/Access-Gateway/high-availability-manage-configure.htm\" ResolvedId=\"3045\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_snmp_monitor_oview\" Link=\"Topics/Access-Gateway/snmp-monitoring-overview.htm\" ResolvedId=\"3046\" />';
-xmlAliasData += '    <Map Name=\"ext_oag_backup_intro\" Link=\"Topics/Access-Gateway/backup-intro.htm\" ResolvedId=\"3047\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_backup_intro\" Link=\"Topics/Access-Gateway/task-backup-intro.htm\" ResolvedId=\"3047\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_cap_plan_size\" Link=\"Topics/Access-Gateway/capacity-planning-sizing.htm\" ResolvedId=\"3048\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_arch\" Link=\"Topics/Access-Gateway/architecture.htm\" ResolvedId=\"3049\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_deploy_prereq\" Link=\"Topics/Access-Gateway/deploy-pre-install-reqs.htm\" ResolvedId=\"3050\" />';
