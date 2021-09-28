@@ -46,7 +46,6 @@ xmlAliasData += '    <Map Name=\"ext-invoke-api-endpoint-flow\" Link=\"Topics/Wo
 xmlAliasData += '    <Map Name=\"ext-build-flows\" Link=\"Topics/Workflows/build/build-flows.htm\" ResolvedId=\"10023\" />';
 xmlAliasData += '    <Map Name=\"ext-learn-workflows\" Link=\"Topics/Workflows/learn/learn-workflows.htm\" ResolvedId=\"10024\" />';
 xmlAliasData += '    <Map Name=\"ext-run-flows\" Link=\"Topics/Workflows/execute/run-flows.htm\" ResolvedId=\"10025\" />';
-xmlAliasData += '    <Map Name=\"ext-about-templates\" Link=\"Topics/Workflows/templates/about-templates.htm\" ResolvedId=\"10026\" />';
 xmlAliasData += '    <Map Name=\"ext-add-template\" Link=\"Topics/Workflows/templates/add-template.htm\" ResolvedId=\"10027\" />';
 xmlAliasData += '    <Map Name=\"ext-templates-list\" Link=\"Topics/Workflows/templates/templates-list.htm\" ResolvedId=\"10028\" />';
 xmlAliasData += '    <Map Name=\"ext-workflows-templates\" Link=\"Topics/Workflows/templates/workflows-templates.htm\" ResolvedId=\"10029\" />';
