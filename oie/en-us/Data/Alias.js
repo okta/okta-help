@@ -381,6 +381,7 @@ xmlAliasData += '    <Map Name=\"csh-aasopr-widp\" Link=\"Topics/identity-engine
 xmlAliasData += '    <Map Name=\"csh-create-cstm-admin-resource-set\" Link=\"Topics/Security/custom-admin-role/create-admin-role-assignment-by-resource-set.htm\" ResolvedId=\"1432\" />';
 xmlAliasData += '    <Map Name=\"csh-create-cstm-admin-by-role\" Link=\"Topics/Security/custom-admin-role/create-admin-role-assignment-by-role.htm\" ResolvedId=\"1433\" />';
 xmlAliasData += '    <Map Name=\"csh-create-cstm-admin-admin\" Link=\"Topics/Security/custom-admin-role/create-admin-role-assignment-by-admin.htm\" ResolvedId=\"1434\" />';
+xmlAliasData += '    <Map Name=\"ext-migrate-iwa-dsso\" Link=\"Topics/Directory/ad-dsso-iwa-migrate.htm\" ResolvedId=\"15015\" />';
 xmlAliasData += '    <Map Name=\"csh-branding\" Link=\"Topics/Settings/branding.htm\" ResolvedId=\"13003\" />';
 xmlAliasData += '    <Map Name=\"ext-about-authenticators\" Link=\"Topics/identity-engine/authenticators/about-authenticators.htm\" ResolvedId=\"18003\" />';
 xmlAliasData += '    <Map Name=\"ext-about-mfa-enrol-policies\" Link=\"Topics/identity-engine/policies/about-mfa-enrollment-policies.htm\" ResolvedId=\"1458\" />';
@@ -411,5 +412,6 @@ xmlAliasData += '    <Map Name=\"ext-fp-enable\" Link=\"Topics/identity-engine/d
 xmlAliasData += '    <Map Name=\"ext-edr-integration-main\" Link=\"Topics/identity-engine/devices/edr-integration-main.htm\" ResolvedId=\"17012\" />';
 xmlAliasData += '    <Map Name=\"csh-fp-configure\" Link=\"Topics/identity-engine/devices/fp/fp-configure.htm\" ResolvedId=\"17013\" />';
 xmlAliasData += '    <Map Name=\"ext-cfg-routing-rules\" Link=\"Topics/Security/configure-routing-rules.htm\" ResolvedId=\"1491\" />';
+xmlAliasData += '    <Map Name=\"csh-pass-mfa-claim\" Link=\"Topics/Apps/Office365/Use_Okta_MFA_Azure_AD_MFA.htm\" ResolvedId=\"1492\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
