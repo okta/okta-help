@@ -413,5 +413,6 @@ xmlAliasData += '    <Map Name=\"ext-edr-integration-main\" Link=\"Topics/identi
 xmlAliasData += '    <Map Name=\"csh-fp-configure\" Link=\"Topics/identity-engine/devices/fp/fp-configure.htm\" ResolvedId=\"17013\" />';
 xmlAliasData += '    <Map Name=\"ext-cfg-routing-rules\" Link=\"Topics/Security/configure-routing-rules.htm\" ResolvedId=\"1491\" />';
 xmlAliasData += '    <Map Name=\"csh-pass-mfa-claim\" Link=\"Topics/Apps/Office365/Use_Okta_MFA_Azure_AD_MFA.htm\" ResolvedId=\"1492\" />';
+xmlAliasData += '    <Map Name=\"ext-custom-footer\" Link=\"Topics/Settings/customizations-footer.htm\" ResolvedId=\"5001\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
