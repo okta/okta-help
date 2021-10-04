@@ -1551,5 +1551,6 @@ xmlAliasData += '    <Map Name=\"ext-usgp-about-attribute-mappings\" Link=\"Topi
 xmlAliasData += '    <Map Name=\"ext-configure-threatinsight\" Link=\"Topics/Security/threat-insight/configure-threatinsight.htm\" ResolvedId=\"17009\" />';
 xmlAliasData += '    <Map Name=\"ext-cfg-routing-rules\" Link=\"Topics/Security/configure-routing-rules.htm\" ResolvedId=\"1491\" />';
 xmlAliasData += '    <Map Name=\"csh-pass-mfa-claim\" Link=\"Topics/Apps/Office365/Use_Okta_MFA_Azure_AD_MFA.htm\" ResolvedId=\"1492\" />';
+xmlAliasData += '    <Map Name=\"ext-custom-footer\" Link=\"Topics/Settings/customizations-footer.htm\" ResolvedId=\"5001\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
