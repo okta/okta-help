@@ -326,7 +326,7 @@
                                                         <div>
                                                             <h1>Copy disk</h1>
                                                             <div>
-                                                                <p>Uploading and configuring a disk image is a time consuming process. When configuring an <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> cluster, a disk is required per instance. Okta recommends the best practice of creating and uploading a disk and then replicating that disk as many times as required using snapshots.</p>
+                                                                <p>Uploading and configuring a disk image is a time consuming process. When configuring an <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> cluster, a disk is required per instance. Okta recommends the best practice of creating and uploading a disk(primary) and then replicating that disk as many times as required using snapshots (copies for cluster members).</p>
                                                                 <p>
                                                                     <br />During this task you will:</p>
                                                                 <ul>
@@ -335,12 +335,10 @@
                                                                     <li>Repeat the disk creation as required for your <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> cluster</li>
                                                                 </ul>
                                                             </div>
-                                                            <p>&#160;</p>
                                                             <div class="note_cautionOkta">
                                                                 <p class="noteHeading">Caution</p>
                                                                 <p class="noteContent">Ensure that you have run the <b>az disk revoke-access</b> command or its UI equivalent, before replicating the disk. Failure to revoke prior access to the disk can cause commands to time out or fail  due to the disk being unavailable. </p>
                                                             </div>
-                                                            <p>&#160;</p>
                                                             <ul class="tabs" data-tabs="data-tabs" id="production-tabs">
                                                                 <li class="tabs-title is-active"><a href="#console-panel" aria-selected="true">Console</a>
                                                                 </li>
@@ -365,7 +363,7 @@
                                                                         <li value="1">Select <b>Create a resource</b> in the left menu.</li>
                                                                         <li value="2">In the search box, enter <b>managed disk</b> and then select <b>Managed Disks</b> from the list.<br />The Managed Disks page opens.</li>
                                                                         <li value="3">Click <b>Create</b>.</li>
-                                                                        <li value="4">Enter a name for the new disk.<br />Okta recommends using a name that represents the disks intended use. For example, Okta-AccessGateway-2020.5.0-Admin, Okta-AccessGateway-2020.5.0-Worker1, Okta-AccessGateway-2020.5.0-Worker2, and so on. </li>
+                                                                        <li value="4">Enter a name for the new disk.<br />Okta recommends using a name that represents the disks intended use. For example, Okta-AccessGateway-2021.5.0-Admin, Okta-AccessGateway-2021.5.0-Worker1, Okta-AccessGateway-2021.5.0-Worker2, and so on. </li>
                                                                         <li value="5">Choose a <b>Resource group</b> for the disk.<br />Okta recommends you use the Resource Group used to hold the parent disk.</li>
                                                                         <li value="6">For <b>Account type</b>, select either <b>Standard (HDD)</b> or <b>Premium (SSD) storage</b>. <br />Okta recommends you use the Premium storage for disk and Standard storage for snapshots. </li>
                                                                         <li value="7">In <b>Source type</b>, ensure <b>Snapshot</b> is selected.</li>
@@ -389,9 +387,9 @@
                    --source &lt;diskid&gt; \
                    --name &lt;disk-name&gt;</b></pre><br /><p>Where: </p><ul><li><b>&lt;resource-group&gt;</b> is the name of the previously created resource group. For example, AccessGateway.</li><li><b>&lt;disk-id&gt;</b> is the value of the ID field from the <span class="code">az disk list</span>.</li><li><b>&lt;disk-name&gt;</b> is the name of the snapshot being created. For example, AccessGateway-2020.05.0-Snapshot.</li></ul><p>&#160;</p><p>For example:<br /></p><pre xml:space="preserve" id="code"><b>az snapshot create --resource-group AccessGateway \
    --source /subscriptions/8bc9effd-. . ..AG2020-05-00 \
-   --name AccessGateway2020-05-00.snapshot</b></pre><p>&#160;</p><p>Which produces the following results:<br /><pre xml:space="preserve" id="code">{<br />    . . . <br />   encryptionSettingsCollection": null,
+   --name Okta-AccessGatewayDisk.snapshot</b></pre><p>&#160;</p><p>Which produces the following results:<br /><pre xml:space="preserve" id="code">{<br />    . . . <br />   encryptionSettingsCollection": null,
    hyperVgeneration": "V1",
-   <b>"id": "/subscriptions/8bc9effd-.../snapshots/OAG2020-05-0.snapshot",</b>
+   <b>"id": "/subscriptions/8bc9effd-.../snapshots/. . . .snapshot",</b>
    . . . 
 }</pre><p>&#160;</p></p></p>
                                                                         </li>
@@ -399,12 +397,12 @@
                                                                             <p>Use the <span style="font-family: 'Courier New'; font-weight: bold;">az disk create</span> command to create a disk from an existing snapshot<br /><pre xml:space="preserve" id="code"><b>az disk create --resource-group &lt;resource-group&gt; \
                 --name &lt;disk-name&gt;
                 --source &lt;snapshot-id&gt;</b></pre><br /><p>Where: </p><ul><li><b>&lt;resource-group&gt;</b> is the name of the previously created resource group. For example, AccessGateway.</li><li><b>&lt;snapshot-id&gt;</b> is the value of the ID field from the <span class="code">az snapshot create</span>. <br />You can use <span class="code">az snapshot list --resource-group &lt;resource-group&gt;</span> to list the known snapshots.</li><li><b>&lt;disk-name&gt;</b> is the name of the disk being created. For example, AccessGateway-2020.05.0-Admin.</li></ul><p>&#160;</p><p>For example:<br /></p><pre xml:space="preserve" id="code"><b>az disk create --resource-group AccessGateway \
-   --source /subscriptions/8bc9effd-.../snapshots/OAG2020-05-0.snapshot \
-   --name AccessGateway2020.05.0-Admin</b></pre><p>&#160;</p><p>Which produces the following results:<br /><pre xml:space="preserve" id="code">{
+   --source /subscriptions/8bc9effd-.../snapshots/OAG. . . .snapshot \
+   --name AccessGateway. . . -Admin</b></pre><p>&#160;</p><p>Which produces the following results:<br /><pre xml:space="preserve" id="code">{
     "creationData": {
     "createOption": "Copy",
     . . . 
-    <b>"id": "/subscriptions/8bc9effd-...e/disks/AccessGateway2020.05.00-Admin"</b>,
+    <b>"id": "/subscriptions/8bc9effd-...e/disks/AccessGateway. . .-Admin"</b>,
     "location":"eastus"
     . . .
 } 
