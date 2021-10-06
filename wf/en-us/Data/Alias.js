@@ -832,8 +832,6 @@ xmlAliasData += '    <Map Name=\"ext-smartrecruiters-method-searchgroups\" Link=
 xmlAliasData += '    <Map Name=\"ext-smartrecruiters-method-searchusers\" Link=\"Topics/Workflows/connector-reference/smartrecruiters/actions/searchusers.htm\" ResolvedId=\"30954\" />';
 xmlAliasData += '    <Map Name=\"ext-smartrecruiters-method-updateuser\" Link=\"Topics/Workflows/connector-reference/smartrecruiters/actions/updateuser.htm\" ResolvedId=\"30955\" />';
 xmlAliasData += '    <Map Name=\"ext-smartrecruiters\" Link=\"Topics/Workflows/connector-reference/smartrecruiters/smartrecruiters.htm\" ResolvedId=\"30956\" />';
-xmlAliasData += '    <Map Name=\"ext-salesforce229-getallpermissionsetlicenses\" Link=\"Topics/Workflows/connector-reference/salesforce/actions/getallpermissionsetlicenses.htm\" ResolvedId=\"30957\" />';
-xmlAliasData += '    <Map Name=\"ext-salesforce229-listuserpermissionassignments\" Link=\"Topics/Workflows/connector-reference/salesforce/actions/listuserpermissionassignments.htm\" ResolvedId=\"30958\" />';
 xmlAliasData += '    <Map Name=\"ext-salesforce229-removeuserentitlements\" Link=\"Topics/Workflows/connector-reference/salesforce/actions/removeuserentitlements.htm\" ResolvedId=\"30959\" />';
 xmlAliasData += '    <Map Name=\"ext-http-misc-authorization\" Link=\"Topics/Workflows/function-reference/HTTP/http_authorization.htm\" ResolvedId=\"30960\" />';
 xmlAliasData += '    <Map Name=\"ext-http-method-close\" Link=\"Topics/Workflows/function-reference/HTTP/http_close.htm\" ResolvedId=\"30961\" />';
