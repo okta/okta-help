@@ -1569,5 +1569,8 @@ xmlAliasData += '    <Map Name=\"ext-jamfproclassicapi3d816a0a0b7a410fa88c3de81a
 xmlAliasData += '    <Map Name=\"csh-pass-mfa-claim\" Link=\"Topics/Apps/Office365/Use_Okta_MFA_Azure_AD_MFA.htm\" ResolvedId=\"1492\" />';
 xmlAliasData += '    <Map Name=\"ext-jamfproclassicapi3d816a0a0b7a410fa88c3de81a4aeccb-method-addusertostaticusergroup\" Link=\"Topics/Workflows/connector-reference/jamf/actions/addusertostaticusergroup.htm\" ResolvedId=\"1470\" />';
 xmlAliasData += '    <Map Name=\"ext-custom-footer\" Link=\"Topics/Settings/customizations-footer.htm\" ResolvedId=\"5001\" />';
+xmlAliasData += '    <Map Name=\"csh-apps-aiw-oidc\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_OIDC.htm\" ResolvedId=\"6006\" />';
+xmlAliasData += '    <Map Name=\"csh-apps-aiw-saml\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SAML.htm\" ResolvedId=\"6007\" />';
+xmlAliasData += '    <Map Name=\"csh-apps-aiw-swa\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SWA.htm\" ResolvedId=\"6008\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
