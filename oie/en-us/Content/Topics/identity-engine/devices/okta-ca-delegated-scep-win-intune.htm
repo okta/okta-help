@@ -388,49 +388,11 @@
                                                         </li>
                                                         <div class="noteOkta">
                                                             <img src="../../../Resources/Images/assets/Icons/Notes/Help2.png" class="noteImgFloat" title="Note" alt="Note" />
-                                                            <p class="noteContent">In the past, in Microsoft Azure portal, you could click <b>+ Add a permission</b>, click <b>Azure Active Directory Graph</b>, and then repeat steps 8c to 8g to set the permissions. Now, Microsoft Azure portal no longer supports Azure Active Directory Graph. As a workaround, you will use a PowerShell script to set the Azure Active Directory Graph Application.Read.All permissions.</p>
+                                                            <p class="noteContent">In the past, in Microsoft Azure portal, you could click <b>+ Add a permission</b>, click <b>Azure Active Directory Graph</b>, and then repeat steps 8c to 8g to set the permissions. Now, Microsoft Azure portal no longer supports Azure Active Directory Graph. As a workaround, you will use a PowerShell script to set the <b>Azure Active Directory Graph</b> Application.Read.All permissions.</p>
                                                         </div>
                                                         <ol style="list-style-type: lower-alpha;">
-                                                            <li value="1">Open a Powershell window, and then run the following command:<br /><p id="code">Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass</p></li>
-                                                            <li value="2">Copy, save the following script as a PS1 file, and then run it:
-					<br /></li>
-                                                            <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
-                                                                <div style="mc-code-lang: PowerShell;" class="codeSnippetBody" data-mc-continue="True" data-mc-line-number-start="1" data-mc-use-line-numbers="True"><pre><span class="codeSnippetLineNumbers" style="border-right: #AAA 2px solid;" aria-hidden="true">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-</span><code>&#160;<span style="color: #969896; "># install Azure AD commandlets</span>&#160;<br />&#160;<span style="color: #a71d5d; font-weight: bold; ">If</span>(-not(<span style="color: #a71d5d; font-weight: bold; ">Get-InstalledModule</span> -Name AzureAD -ErrorAction silentlycontinue))<br />&#160;{<br />&#160;&#160;&#160;&#160;<span style="color: #a71d5d; font-weight: bold; ">Install-Module</span> -Name AzureAD -Force<br />&#160;}<br /><br /><span style="color: #a71d5d; font-weight: bold; ">Connect-AzureAD</span><br /><br /><span style="font-weight: bold; ">$aadAppDisplayName</span> = <span style="color: #a71d5d; font-weight: bold; ">Read-Host</span> -Prompt <span style="color: #df5000; ">'Input Display name for the Aad Application'</span><br /><br /><span style="font-weight: bold; ">$targetSp</span> = <span style="color: #a71d5d; font-weight: bold; ">Get-AzureADServicePrincipal</span> -<span style="color: #a71d5d; font-weight: bold; ">Filter</span> <span style="color: #df5000; ">"DisplayName eq 'Windows Azure Active Directory'"</span><br /><span style="color: #a71d5d; font-weight: bold; ">Write-Host</span> <span style="font-weight: bold; ">$targetSp</span>.AppId<br /><span style="font-weight: bold; ">$RoleAssignment</span> =<span style="font-weight: bold; ">$targetSp</span>.AppRoles | <span style="color: #a71d5d; font-weight: bold; ">Where-Object</span> { <span style="font-weight: bold; ">$_</span>.Value <span style="color: #795da3; ">-eq</span> <span style="color: #df5000; ">'Application.Read.All'</span> }<br /><span style="color: #a71d5d; font-weight: bold; ">Write-Host</span> <span style="font-weight: bold; ">$RoleAssignment</span>.Id<br /><span style="font-weight: bold; ">$ResourceAccessObjects</span> = <span style="color: #a71d5d; font-weight: bold; ">New-Object</span> <span style="color: #df5000; ">'System.Collections.Generic.List[Microsoft.Open.AzureAD.Model.ResourceAccess]'</span><br /><span style="font-weight: bold; ">$resourceAccess</span> = <span style="color: #a71d5d; font-weight: bold; ">New-Object</span> -TypeName <span style="color: #df5000; ">"Microsoft.Open.AzureAD.Model.ResourceAccess"</span><br /><span style="font-weight: bold; ">$resourceAccess</span>.Id = <span style="font-weight: bold; ">$RoleAssignment</span>.Id<br /><span style="font-weight: bold; ">$resourceAccess</span>.Type = <span style="color: #df5000; ">'Role'</span><br /><span style="font-weight: bold; ">$ResourceAccessObjects</span>.Add(<span style="font-weight: bold; ">$resourceAccess</span>)<br /><span style="font-weight: bold; ">$requiredResourceAccess</span> = <span style="color: #a71d5d; font-weight: bold; ">New-Object</span> -TypeName <span style="color: #df5000; ">"Microsoft.Open.AzureAD.Model.RequiredResourceAccess"</span><br /><span style="font-weight: bold; ">$requiredResourceAccess</span>.ResourceAppId = <span style="font-weight: bold; ">$targetSp</span>.AppId<br /><span style="font-weight: bold; ">$requiredResourceAccess</span>.ResourceAccess = <span style="font-weight: bold; ">$ResourceAccessObjects</span><br /><span style="font-weight: bold; ">$app</span> = <span style="color: #a71d5d; font-weight: bold; ">Get-AzureADApplication</span> -SearchString <span style="font-weight: bold; ">$aadAppDisplayName</span><br /><span style="color: #a71d5d; font-weight: bold; ">Write-Host</span> <span style="color: #df5000; ">'Application:'</span><br /><span style="color: #a71d5d; font-weight: bold; ">Write-Host</span> <span style="font-weight: bold; ">$app</span>.objectId<br /><span style="font-weight: bold; ">$spForApp</span> = <span style="color: #a71d5d; font-weight: bold; ">Get-AzureADServicePrincipal</span> -<span style="color: #a71d5d; font-weight: bold; ">Filter</span> <span style="color: #df5000; ">"DisplayName eq '$aadAppDisplayName'"</span><br /><span style="color: #a71d5d; font-weight: bold; ">Write-Host</span> <span style="color: #df5000; ">'SP for Application:'</span><br /><span style="color: #a71d5d; font-weight: bold; ">Write-Host</span> <span style="font-weight: bold; ">$spForApp</span>.ObjectId<br /><span style="color: #a71d5d; font-weight: bold; ">Set-AzureADApplication</span> -ObjectId <span style="font-weight: bold; ">$app</span>.objectId -RequiredResourceAccess <span style="font-weight: bold; ">$requiredResourceAccess</span><br /><span style="color: #a71d5d; font-weight: bold; ">New-AzureADServiceAppRoleAssignment</span> -ObjectId <span style="font-weight: bold; ">$spForApp</span>.objectId -Id <span style="font-weight: bold; ">$RoleAssignment</span>.Id -PrincipalId <span style="font-weight: bold; ">$spForApp</span>.ObjectId -ResourceId <span style="font-weight: bold; ">$targetSp</span>.ObjectId</code></pre>
-                                                                </div>
-                                                            </div>
-                                                            <li value="3">When the Windows PowerShell credential request dialog appears, enter your Microsoft Azure login credentials, and then click <b>OK</b>.</li>
-                                                            <li value="4">Enter your app name. This is the Name you provided in step 3a.</li>
-                                                            <li value="5">Verify that the script was successful.</li>
+                                                            <li value="1">Create and run a PowerShell script that sets the <b>Azure Active Directory Graph</b> Application.Read.All permissions.<br />If required, see the following PowerShell resources:<ul><li><a href="https://docs.microsoft.com/en-us/powershell/module/azuread/set-azureadapplication?view=azureadps-2.0" target="_blank" title="https://docs.microsoft.com/en-us/powershell/module/azuread/set-azureadapplication?view=azureadps-2.0" alt="Microsoft PowerShell Support for Set-AzureADDApplication">https://docs.microsoft.com/en-us/powershell/module/azuread/set-azureadapplication?view=azureadps-2.0</a> for information about using Set-AzureADApplication with the -RequiredResourceAccess option.</li><li><a href="https://docs.microsoft.com/en-us/powershell/module/azuread/new-azureadserviceapproleassignment?view=azureadps-2.0" target="_blank" title="https://docs.microsoft.com/en-us/powershell/module/azuread/new-azureadserviceapproleassignment?view=azureadps-2.0" alt="Microsoft PowerShell support for New-AzureADServiceAppRoleAssignment">https://docs.microsoft.com/en-us/powershell/module/azuread/new-azureadserviceapproleassignment?view=azureadps-2.0</a> for information about using New-AzureADServiceAppRoleAssignment.</li></ul></li>
+                                                            <li value="2">Verify that the script was successful. Go to the Microsoft Azure portal and verify that the <b>Azure Active Directory Graph</b> Application.Read.All permission is assigned to the application in the API permission blade.</li>
                                                         </ol>
                                                     </ol>
                                                     <h3><a name="Task4"></a>Task 4: Configure management attestation and generate a SCEP URL in <span class="mc-variable okta-variables.ProductName variable">Okta</span></h3>
