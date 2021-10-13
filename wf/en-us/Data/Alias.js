@@ -870,6 +870,7 @@ xmlAliasData += '    <Map Name=\"ext-mixpanel\" Link=\"Topics/Workflows/connecto
 xmlAliasData += '    <Map Name=\"ext-mixpanel-misc-authorization\" Link=\"Topics/Workflows/connector-reference/mixpanel/overviews/authorization.htm\" ResolvedId=\"30994\" />';
 xmlAliasData += '    <Map Name=\"ext-mixpanel-method-updateprofile\" Link=\"Topics/Workflows/connector-reference/mixpanel/actions/updateprofile.htm\" ResolvedId=\"30995\" />';
 xmlAliasData += '    <Map Name=\"ext-github-method-createpullrequest\" Link=\"Topics/Workflows/connector-reference/github/actions/createpullrequest.htm\" ResolvedId=\"30996\" />';
+xmlAliasData += '    <Map Name=\"ext-utility-method-exportgroup\" Link=\"Topics/Workflows/function-reference/Folders/folders_exportfolder.htm\" ResolvedId=\"30997\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-applicationactivated\" Link=\"Topics/Workflows/connector-reference/okta/events/applicationactivated.htm\" ResolvedId=\"30311\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-applicationcreated\" Link=\"Topics/Workflows/connector-reference/okta/events/applicationcreated.htm\" ResolvedId=\"30320\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-applicationdeactivated\" Link=\"Topics/Workflows/connector-reference/okta/events/applicationdeactivated.htm\" ResolvedId=\"30999\" />';
@@ -889,6 +890,7 @@ xmlAliasData += '    <Map Name=\"ext-awssso-method-listawsentitlements\" Link=\"
 xmlAliasData += '    <Map Name=\"ext-awssso-method-listinstancesaction\" Link=\"Topics/Workflows/connector-reference/awssso/actions/listinstancesaction.htm\" ResolvedId=\"31014\" />';
 xmlAliasData += '    <Map Name=\"ext-awssso-method-removeallawsentitlements\" Link=\"Topics/Workflows/connector-reference/awssso/actions/removeallawsentitlements.htm\" ResolvedId=\"31015\" />';
 xmlAliasData += '    <Map Name=\"ext-awssso-method-removeawsentitlements\" Link=\"Topics/Workflows/connector-reference/awssso/actions/removeawsentitlements.htm\" ResolvedId=\"31016\" />';
+xmlAliasData += '    <Map Name=\"ext-utility-method-exportflo\" Link=\"Topics/Workflows/function-reference/Flows/flows_exportflow.htm\" ResolvedId=\"31017\" />';
 xmlAliasData += '    <Map Name=\"ext-hubspotcrm-method-associateacontactwithobject\" Link=\"Topics/Workflows/connector-reference/hubspotcrm/actions/associateacontactwithanotherobject.htm\" ResolvedId=\"16002\" />';
 xmlAliasData += '    <Map Name=\"ext-hubspotcrm-method-createcontact\" Link=\"Topics/Workflows/connector-reference/hubspotcrm/actions/createcontact.htm\" ResolvedId=\"16003\" />';
 xmlAliasData += '    <Map Name=\"ext-hubspotcrm-method-httprequest\" Link=\"Topics/Workflows/connector-reference/hubspotcrm/actions/customapiaction.htm\" ResolvedId=\"16004\" />';
