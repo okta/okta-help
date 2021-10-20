@@ -789,7 +789,7 @@ xmlAliasData += '    <Map Name=\"ext-workflows-error-messages\" Link=\"Topics/Wo
 xmlAliasData += '    <Map Name=\"ext-tableid-runtime\" Link=\"Topics/Workflows/build/provide-tableid-runtime.htm\" ResolvedId=\"30293\" />';
 xmlAliasData += '    <Map Name=\"ext-connections-page\" Link=\"Topics/Workflows/build/view-connections-page.htm\" ResolvedId=\"30295\" />';
 xmlAliasData += '    <Map Name=\"ext-use-cases-learn-about\" Link=\"Topics/Workflows/use-cases-workflows-learn-about.htm\" ResolvedId=\"30299\" />';
-xmlAliasData += '    <Map Name=\"ext-control-method-callable\" Link=\"Topics/Workflows/learn/about-scheduled-child-flows.htm\" ResolvedId=\"30302\" />';
+xmlAliasData += '    <Map Name=\"ext-control-method-callable\" Link=\"Topics/Workflows/learn/about-scheduled-helper-flows.htm\" ResolvedId=\"30302\" />';
 xmlAliasData += '    <Map Name=\"ext-github-method-updateuser\" Link=\"Topics/Workflows/connector-reference/github/actions/updateuser.htm\" ResolvedId=\"30307\" />';
 xmlAliasData += '    <Map Name=\"ext-github-method-searchusers\" Link=\"Topics/Workflows/connector-reference/github/actions/searchusers.htm\" ResolvedId=\"30919\" />';
 xmlAliasData += '    <Map Name=\"ext-github-method-searchteams\" Link=\"Topics/Workflows/connector-reference/github/actions/searchteams.htm\" ResolvedId=\"30920\" />';
