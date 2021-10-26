@@ -1,5 +1,1 @@
-<<<<<<< Updated upstream
-define({'/Content/Topics/betas/closed/log-streams/about-log-streams.htm':{i:[1],t:['Log Streaming'],b:['']},'/Content/Topics/betas/closed/log-streams/add-aws-eb-log-stream.htm':{i:[2],t:['Add an AWS EventBridge log stream'],b:['']},'/Content/Topics/betas/closed/log-streams/edit-target-status.htm':{i:[3],t:['Edit your log stream’s status'],b:['']},'/Content/docs_home.htm':{i:[0],t:['Admin Docs Home'],b:['']}});
-=======
 define({'/Content/Topics/betas/closed/log-streams/about-log-streams.htm':{i:[1],t:['Log Streaming'],b:['']},'/Content/Topics/betas/closed/log-streams/add-aws-eb-log-stream.htm':{i:[2],t:['Add an AWS EventBridge log stream'],b:['']},'/Content/Topics/betas/closed/log-streams/edit-target-status.htm':{i:[3],t:['Edit the status of your log stream'],b:['']},'/Content/docs_home.htm':{i:[0],t:['Admin Docs Home'],b:['']}});
->>>>>>> Stashed changes
