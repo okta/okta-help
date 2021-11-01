@@ -496,7 +496,6 @@ xmlAliasData += '    <Map Name=\"ext-about-fields\" Link=\"Topics/Workflows/lear
 xmlAliasData += '    <Map Name=\"ext-about-lists\" Link=\"Topics/Workflows/learn/about-lists.htm\" ResolvedId=\"1341\" />';
 xmlAliasData += '    <Map Name=\"ext-about-numbers-text\" Link=\"Topics/Workflows/learn/about-numbers-text.htm\" ResolvedId=\"1342\" />';
 xmlAliasData += '    <Map Name=\"ext-about-tables\" Link=\"Topics/Workflows/learn/about-tables.htm\" ResolvedId=\"1343\" />';
-xmlAliasData += '    <Map Name=\"ext-about-invoke-api-flow\" Link=\"Topics/Workflows/learn/about-invoke-api-endpoint-flow.htm\" ResolvedId=\"1344\" />';
 xmlAliasData += '    <Map Name=\"ext-set-monitor-options\" Link=\"Topics/Workflows/build/set-monitor-options.htm\" ResolvedId=\"1345\" />';
 xmlAliasData += '    <Map Name=\"ext-set-schedule-options\" Link=\"Topics/Workflows/build/set-schedule-options.htm\" ResolvedId=\"1346\" />';
 xmlAliasData += '    <Map Name=\"ext-export-import-flows\" Link=\"Topics/Workflows/build/export-import-flows.htm\" ResolvedId=\"1347\" />';
@@ -523,7 +522,6 @@ xmlAliasData += '    <Map Name=\"ext_prov_lcm_prov_app\" Link=\"Topics/Provision
 xmlAliasData += '    <Map Name=\"ext-about-flow-alias\" Link=\"Topics/Workflows/learn/about-flow-alias.htm\" ResolvedId=\"10019\" />';
 xmlAliasData += '    <Map Name=\"ext-about-flow-client-token\" Link=\"Topics/Workflows/learn/about-flow-client-token.htm\" ResolvedId=\"10020\" />';
 xmlAliasData += '    <Map Name=\"ext-resume-paused-flow\" Link=\"Topics/Workflows/execute/resume-paused-flow.htm\" ResolvedId=\"10021\" />';
-xmlAliasData += '    <Map Name=\"ext-invoke-api-endpoint-flow\" Link=\"Topics/Workflows/learn/about-invoke-api-endpoint-flow.htm\" ResolvedId=\"10022\" />';
 xmlAliasData += '    <Map Name=\"ext-build-flows\" Link=\"Topics/Workflows/build/build-flows.htm\" ResolvedId=\"10023\" />';
 xmlAliasData += '    <Map Name=\"ext-learn-workflows\" Link=\"Topics/Workflows/learn/learn-workflows.htm\" ResolvedId=\"10024\" />';
 xmlAliasData += '    <Map Name=\"ext-run-flows\" Link=\"Topics/Workflows/execute/run-flows.htm\" ResolvedId=\"10025\" />';
@@ -1166,7 +1164,7 @@ xmlAliasData += '    <Map Name=\"ext_oag_attributes_manage\" Link=\"Topics/Acces
 xmlAliasData += '    <Map Name=\"ext-agent-support-policies\" Link=\"Topics/Directory/agent-support-policies.htm\" ResolvedId=\"15007\" />';
 xmlAliasData += '    <Map Name=\"csh-blocklist-proxies-tor\" Link=\"Topics/Security/healthinsight/blocklist-proxies-tor.htm\" ResolvedId=\"11000\" />';
 xmlAliasData += '    <Map Name=\"csh-blocklist-zones\" Link=\"Topics/Security/healthinsight/blocklist-network-zone.htm\" ResolvedId=\"11001\" />';
-xmlAliasData += '    <Map Name=\"ext-control-method-callable\" Link=\"Topics/Workflows/learn/about-scheduled-helper-flows.htm\" ResolvedId=\"30302\" />';
+xmlAliasData += '    <Map Name=\"ext-control-method-callable\" Link=\"Topics/Workflows/learn/about-parent-flows.htm\" ResolvedId=\"30302\" />';
 xmlAliasData += '    <Map Name=\"ext-github-method-updateuser\" Link=\"Topics/Workflows/connector-reference/github/actions/updateuser.htm\" ResolvedId=\"30307\" />';
 xmlAliasData += '    <Map Name=\"ext-github-method-searchusers\" Link=\"Topics/Workflows/connector-reference/github/actions/searchusers.htm\" ResolvedId=\"30919\" />';
 xmlAliasData += '    <Map Name=\"ext-github-method-searchteams\" Link=\"Topics/Workflows/connector-reference/github/actions/searchteams.htm\" ResolvedId=\"30920\" />';
@@ -1572,5 +1570,7 @@ xmlAliasData += '    <Map Name=\"csh-apps-aiw-oidc\" Link=\"Topics/Apps/Apps_App
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-saml\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SAML.htm\" ResolvedId=\"6007\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-swa\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SWA.htm\" ResolvedId=\"6008\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-scim\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SCIM.htm\" ResolvedId=\"6009\" />';
+xmlAliasData += '    <Map Name=\"administrator-email-settings\" Link=\"Topics/Security/custom-admin-role/administrator-email-settings.htm#top\" ResolvedId=\"19000\" />';
+xmlAliasData += '    <Map Name=\"edit-resources-standard-role\" Link=\"Topics/Security/custom-admin-role/edit-resources-standard-role.htm\" ResolvedId=\"19001\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
