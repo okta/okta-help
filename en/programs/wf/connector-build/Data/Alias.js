@@ -197,12 +197,5 @@ xmlAliasData += '    <Map Name=\"ext-connectorbuilder-deploy\" Link=\"Topics/bet
 xmlAliasData += '    <Map Name=\"ext-connector-builder-test\" Link=\"Topics/betas/closed/connector-builder/test-flows.htm\" ResolvedId=\"35013\" />';
 xmlAliasData += '    <Map Name=\"ext-connectorbuilder-flows-learn\" Link=\"Topics/betas/closed/connector-builder/about-flows.htm\" ResolvedId=\"35014\" />';
 xmlAliasData += '    <Map Name=\"ext-connectorbuilder-functions-learn\" Link=\"Topics/betas/closed/connector-builder/about-functions.htm\" ResolvedId=\"35015\" />';
-xmlAliasData += '    <Map Name=\"ext-math-method-gt\" Link=\"Topics/Workflows/function-reference/Number/number_larger.htm\" ResolvedId=\"31064\" />';
-xmlAliasData += '    <Map Name=\"ext-math-method-increment\" Link=\"Topics/Workflows/function-reference/Number/number_increment.htm\" ResolvedId=\"31065\" />';
-xmlAliasData += '    <Map Name=\"ext-math-method-lt\" Link=\"Topics/Workflows/function-reference/Number/number_smaller.htm\" ResolvedId=\"31066\" />';
-xmlAliasData += '    <Map Name=\"ext-control-method-tonumber\" Link=\"Topics/Workflows/function-reference/Control/control_tonumber.htm\" ResolvedId=\"31067\" />';
-xmlAliasData += '    <Map Name=\"ext-control-method-tostring\" Link=\"Topics/Workflows/function-reference/Control/control_tostring.htm\" ResolvedId=\"31068\" />';
-xmlAliasData += '    <Map Name=\"ext-control-method-typeof\" Link=\"Topics/Workflows/function-reference/Control/control_typeof.htm\" ResolvedId=\"31069\" />';
-xmlAliasData += '    <Map Name=\"ext-crypto-method-md5\" Link=\"Topics/Workflows/function-reference/Encryption/encryption_md5.htm\" ResolvedId=\"31070\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
