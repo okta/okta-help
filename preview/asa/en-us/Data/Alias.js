@@ -24,5 +24,9 @@ xmlAliasData += '    <Map Name=\"ext-asa-set-prjatt\" Link=\"Topics/Adv_Server_A
 xmlAliasData += '    <Map Name=\"ext-asa-client\" Link=\"Topics/Adv_Server_Access/docs/client.htm\" ResolvedId=\"1418\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-seshcap\" Link=\"Topics/Adv_Server_Access/docs/enable-session-capture.htm\" ResolvedId=\"1419\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-ssh\" Link=\"Topics/Adv_Server_Access/docs/setup/ssh.htm\" ResolvedId=\"1420\" />';
+xmlAliasData += '    <Map Name=\"csh-ad-connections\" Link=\"Topics/Adv_Server_Access/docs/ad-connections.htm\" ResolvedId=\"20000\" />';
+xmlAliasData += '    <Map Name=\"csh-ad-sync-assignment\" Link=\"Topics/Adv_Server_Access/docs/ad-sync-assignment.htm\" ResolvedId=\"20001\" />';
+xmlAliasData += '    <Map Name=\"csh-ad-sync-activate\" Link=\"Topics/Adv_Server_Access/docs/ad-sync-activate.htm\" ResolvedId=\"20002\" />';
+xmlAliasData += '    <Map Name=\"csh-ad-sync\" Link=\"Topics/Adv_Server_Access/docs/ad-sync.htm\" ResolvedId=\"20003\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);

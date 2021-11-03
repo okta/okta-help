@@ -51,5 +51,6 @@ xmlAliasData += '    <Map Name=\"ext-ov-add-acct-while-signin-macos\" Link=\"Top
 xmlAliasData += '    <Map Name=\"csh-ov-new-install-qr-ios\" Link=\"Topics/end-user/ov-new-install-qr-ios.htm\" ResolvedId=\"4038\" />';
 xmlAliasData += '    <Map Name=\"csh-ov-new-install-qr-android\" Link=\"Topics/end-user/ov-new-install-qr-android.htm\" ResolvedId=\"4039\" />';
 xmlAliasData += '    <Map Name=\"ext-ov-setup-macos\" Link=\"Topics/end-user/ov-setup-macOS.htm\" ResolvedId=\"17027\" />';
+xmlAliasData += '    <Map Name=\"csh-user-ov-manage-account-android\" Link=\"Topics/end-user/ov-mng-account-android.htm\" ResolvedId=\"4040\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
