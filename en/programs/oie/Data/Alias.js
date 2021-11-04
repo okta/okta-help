@@ -162,6 +162,5 @@ xmlAliasData += '    <Map Name=\"csh-apps-aiw-oidc\" Link=\"Topics/Apps/Apps_App
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-saml\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SAML.htm\" ResolvedId=\"6007\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-swa\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SWA.htm\" ResolvedId=\"6008\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-scim\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SCIM.htm\" ResolvedId=\"6009\" />';
-xmlAliasData += '    <Map Name=\"ext-sign-in-flows\" Link=\"Topics/identity-engine-upgrade/sign-in-flows.htm\" ResolvedId=\"18004\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
