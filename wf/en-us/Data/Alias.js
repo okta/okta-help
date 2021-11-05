@@ -405,6 +405,7 @@ xmlAliasData += '    <Map Name=\"ext-okta-method-readuser\" Link=\"Topics/Workfl
 xmlAliasData += '    <Map Name=\"ext-okta-method-removeuserfromapplication\" Link=\"Topics/Workflows/connector-reference/okta/actions/removeuserfromapplication.htm\" ResolvedId=\"30434\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-removeuserfromgroup\" Link=\"Topics/Workflows/connector-reference/okta/actions/removeuserfromgroup.htm\" ResolvedId=\"30435\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-searchgroups\" Link=\"Topics/Workflows/connector-reference/okta/actions/searchgroups.htm\" ResolvedId=\"30436\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-searchusers\" Link=\"Topics/Workflows/connector-reference/okta/actions/findusers.htm\" ResolvedId=\"30437\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-suspenduser\" Link=\"Topics/Workflows/connector-reference/okta/actions/suspenduser.htm\" ResolvedId=\"30438\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-unsuspenduser\" Link=\"Topics/Workflows/connector-reference/okta/actions/unsuspenduser.htm\" ResolvedId=\"30439\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-updateapplicationcredentialsforassigneduser\" Link=\"Topics/Workflows/connector-reference/okta/actions/updateapplicationcredentialsforassigneduser.htm\" ResolvedId=\"30440\" />';
