@@ -416,6 +416,7 @@ xmlAliasData += '    <Map Name=\"csh-apps-aiw-oidc\" Link=\"Topics/Apps/Apps_App
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-saml\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SAML.htm\" ResolvedId=\"6007\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-swa\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SWA.htm\" ResolvedId=\"6008\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-scim\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SCIM.htm\" ResolvedId=\"6009\" />';
+xmlAliasData += '    <Map Name=\"csh-log-streams\" Link=\"Topics/Reports/log-streaming/about-log-streams.htm\" ResolvedId=\"13005\" />';
 xmlAliasData += '    <Map Name=\"ext-set-default-app-redirect\" Link=\"Topics/identity-engine/procedures/set-up-default-app-redirect.htm\" ResolvedId=\"6010\" />';
 xmlAliasData += '    <Map Name=\"administrator-email-settings\" Link=\"Topics/Security/custom-admin-role/administrator-email-settings.htm#top\" ResolvedId=\"19000\" />';
 xmlAliasData += '    <Map Name=\"edit-resources-standard-role\" Link=\"Topics/Security/custom-admin-role/edit-resources-standard-role.htm\" ResolvedId=\"19001\" />';
@@ -425,5 +426,7 @@ xmlAliasData += '    <Map Name=\"csh-usgp-map-attributes\" Link=\"Topics/users-g
 xmlAliasData += '    <Map Name=\"csh-AD-agent-main\" Link=\"Topics/Directory/ad-agent-main.htm\" ResolvedId=\"20006\" />';
 xmlAliasData += '    <Map Name=\"csh-csv-integration-main\" Link=\"Topics/Directory/csv-integration-main.htm\" ResolvedId=\"20007\" />';
 xmlAliasData += '    <Map Name=\"csh-assign-apps\" Link=\"Topics/users-groups-profiles/usgp-assign-apps.htm\" ResolvedId=\"20008\" />';
+xmlAliasData += '    <Map Name=\"ext-oie-version\" Link=\"Topics/identity-engine/oie-verify-version.htm\" ResolvedId=\"2027\" />';
+xmlAliasData += '    <Map Name=\"log-streaming\" Link=\"Topics/Reports/log-streaming/about-log-streams.htm\" ResolvedId=\"1500\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
