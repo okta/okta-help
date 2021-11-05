@@ -405,7 +405,6 @@ xmlAliasData += '    <Map Name=\"ext-okta-method-readuser\" Link=\"Topics/Workfl
 xmlAliasData += '    <Map Name=\"ext-okta-method-removeuserfromapplication\" Link=\"Topics/Workflows/connector-reference/okta/actions/removeuserfromapplication.htm\" ResolvedId=\"30434\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-removeuserfromgroup\" Link=\"Topics/Workflows/connector-reference/okta/actions/removeuserfromgroup.htm\" ResolvedId=\"30435\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-searchgroups\" Link=\"Topics/Workflows/connector-reference/okta/actions/searchgroups.htm\" ResolvedId=\"30436\" />';
-xmlAliasData += '    <Map Name=\"ext-okta-method-searchusers\" Link=\"Topics/Workflows/connector-reference/okta/actions/searchusers.htm\" ResolvedId=\"30437\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-suspenduser\" Link=\"Topics/Workflows/connector-reference/okta/actions/suspenduser.htm\" ResolvedId=\"30438\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-unsuspenduser\" Link=\"Topics/Workflows/connector-reference/okta/actions/unsuspenduser.htm\" ResolvedId=\"30439\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-updateapplicationcredentialsforassigneduser\" Link=\"Topics/Workflows/connector-reference/okta/actions/updateapplicationcredentialsforassigneduser.htm\" ResolvedId=\"30440\" />';
@@ -984,6 +983,7 @@ xmlAliasData += '    <Map Name=\"ext-okta-method-deactivategrouprule\" Link=\"To
 xmlAliasData += '    <Map Name=\"ext-okta-method-deletegroup\" Link=\"Topics/Workflows/connector-reference/okta/actions/deletegroup.htm\" ResolvedId=\"11011\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-deletegrouprule\" Link=\"Topics/Workflows/connector-reference/okta/actions/deletegrouprule.htm\" ResolvedId=\"11012\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-readgrouprule\" Link=\"Topics/Workflows/connector-reference/okta/actions/readgrouprule.htm\" ResolvedId=\"11013\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-searchgrouprules\" Link=\"Topics/Workflows/connector-reference/okta/actions/searchgrouprules.htm\" ResolvedId=\"11014\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-updategroup\" Link=\"Topics/Workflows/connector-reference/okta/actions/updategroup.htm\" ResolvedId=\"11015\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-updategrouprule\" Link=\"Topics/Workflows/connector-reference/okta/actions/updategrouprule.htm\" ResolvedId=\"11016\" />';
 xmlAliasData += '    <Map Name=\"ext-freshservice-method-createticket\" Link=\"Topics/Workflows/connector-reference/freshservice/actions/createticket.htm\" ResolvedId=\"1411\" />';
@@ -1086,6 +1086,17 @@ xmlAliasData += '    <Map Name=\"ext-gmail-method-addsendasalias\" Link=\"Topics
 xmlAliasData += '    <Map Name=\"ext-gmail-method-deletesendasalias\" Link=\"Topics/Workflows/connector-reference/gmail/actions/deletesendasalias.htm\" ResolvedId=\"33005\" />';
 xmlAliasData += '    <Map Name=\"ext-googledirectory-method-signoutuser\" Link=\"Topics/Workflows/connector-reference/googledirectory/actions/signoutuser.htm\" ResolvedId=\"33006\" />';
 xmlAliasData += '    <Map Name=\"ext-googledirectory-method-turnoffmfa\" Link=\"Topics/Workflows/connector-reference/googledirectory/actions/turnoffmfa.htm\" ResolvedId=\"33007\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-assigngrouptoapplication\" Link=\"Topics/Workflows/connector-reference/okta/actions/assigngrouptoapplication.htm\" ResolvedId=\"33008\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-listapplicationsassignedtogroup\" Link=\"Topics/Workflows/connector-reference/okta/actions/listapplicationsassignedtogroup.htm\" ResolvedId=\"33009\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-listapplicationsassignedtouser\" Link=\"Topics/Workflows/connector-reference/okta/actions/listapplicationsassignedtouser.htm\" ResolvedId=\"33010\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-listgroupsassignedtoapplication\" Link=\"Topics/Workflows/connector-reference/okta/actions/listgroupsassignedtoapplication.htm\" ResolvedId=\"33011\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-readapplication\" Link=\"Topics/Workflows/connector-reference/okta/actions/readapplication.htm\" ResolvedId=\"33012\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-readassignedgroupforapplication\" Link=\"Topics/Workflows/connector-reference/okta/actions/readassignedgroupforapplication.htm\" ResolvedId=\"33013\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-removegroupfromapplication\" Link=\"Topics/Workflows/connector-reference/okta/actions/removegroupfromapplication.htm\" ResolvedId=\"33014\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-resetpassword\" Link=\"Topics/Workflows/connector-reference/okta/actions/resetpassword.htm\" ResolvedId=\"33015\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-searchapplications\" Link=\"Topics/Workflows/connector-reference/okta/actions/searchapplications.htm\" ResolvedId=\"33016\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-accesscertificationdecisionsubmitted\" Link=\"Topics/Workflows/connector-reference/okta/events/accesscertificationdecisionsubmitted.htm\" ResolvedId=\"31071\" />';
 xmlAliasData += '    <Map Name=\"ext-flow-limit\" Link=\"Topics/Workflows/flow-limits.htm\" ResolvedId=\"31063\" />';
+xmlAliasData += '    <Map Name=\"ext-best-practices-building\" Link=\"Topics/Workflows/architecture-best-practices.htm\" ResolvedId=\"31072\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
