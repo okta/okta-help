@@ -15,6 +15,7 @@ xmlAliasData += '    <Map Name=\"Settings_Account\" Link=\"Topics/Settings/Setti
 xmlAliasData += '    <Map Name=\"Settings_Appearance\" Link=\"Topics/Settings/Settings_Appearance.htm#Settings_Appearance\" ResolvedId=\"1220\" />';
 xmlAliasData += '    <Map Name=\"Settings_Customization\" Link=\"Topics/Settings/Settings_Customization.htm#Settings_Customization1\" ResolvedId=\"1230\" />';
 xmlAliasData += '    <Map Name=\"Settings_Emails_SMS\" Link=\"Topics/Settings/Settings_Email.htm#Settings_Emails_SMS1\" ResolvedId=\"1240\" />';
+xmlAliasData += '    <Map Name=\"Settings_Downloads\" Link=\"Topics/Settings/Settings_Downloads.htm#Settings_Downloads\" ResolvedId=\"1250\" />';
 xmlAliasData += '    <Map Name=\"Directory_People\" Link=\"Topics/users-groups-profiles/usgp-people.htm#Directory_People1\" ResolvedId=\"1130\" />';
 xmlAliasData += '    <Map Name=\"Directory_Profile_Editor\" Link=\"Topics/Directory/ad-agent-configure-user-profiles-attributes.htm\" ResolvedId=\"1150\" />';
 xmlAliasData += '    <Map Name=\"Directory_Profile_Masters\" Link=\"Topics/users-groups-profiles/usgp-about-profile-sourcing.htm#Directory_Profile_Masters1\" ResolvedId=\"1170\" />';
@@ -133,6 +134,7 @@ xmlAliasData += '    <Map Name=\"ext_Settings_Add_Custom_Email_Templates_Multipl
 xmlAliasData += '    <Map Name=\"ext_Settings_Appearance\" Link=\"Topics/Settings/Settings_Appearance.htm\" ResolvedId=\"200187\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Configure_A_Custom_Email_Domain\" Link=\"Topics/Settings/Settings_Configure_A_Custom_Email_Domain.htm\" ResolvedId=\"200188\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Customization\" Link=\"Topics/Settings/Settings_Customization.htm\" ResolvedId=\"200189\" />';
+xmlAliasData += '    <Map Name=\"ext_Settings_Downloads\" Link=\"Topics/Settings/Settings_Downloads.htm\" ResolvedId=\"200190\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Email\" Link=\"Topics/Settings/Settings_Email.htm\" ResolvedId=\"200191\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_Active_Directory_Password_Sync_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_Active_Directory_Password_Sync_Agent.htm\" ResolvedId=\"200194\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_AD_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_AD_Agent.htm\" ResolvedId=\"200196\" />';
@@ -351,6 +353,7 @@ xmlAliasData += '    <Map Name=\"csh-configure-custom-idp\" Link=\"Topics/Securi
 xmlAliasData += '    <Map Name=\"csh-threatinsight\" Link=\"Topics/Security/threat-insight/ti-index.htm\" ResolvedId=\"2022\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-onprem\" Link=\"Topics/Security/MFA_OnPrem.htm\" ResolvedId=\"2023\" />';
 xmlAliasData += '    <Map Name=\"csh-deploy-sharepoint\" Link=\"Topics/DeploymentGuides/Sharepoint/Guide/deploy-sharepoint.htm\" ResolvedId=\"1246\" />';
+xmlAliasData += '    <Map Name=\"csh-admin-access-recent-apps\" Link=\"Topics/Settings/plugin-access-recent-apps.htm\" ResolvedId=\"7003\" />';
 xmlAliasData += '    <Map Name=\"ext-idp-inbound-saml\" Link=\"Topics/Security/idp-inbound-saml-workflow.htm\" ResolvedId=\"1364\" />';
 xmlAliasData += '    <Map Name=\"csh-captcha\" Link=\"Topics/Security/Security_General.htm#captcha\" ResolvedId=\"1365\" />';
 xmlAliasData += '    <Map Name=\"csh-delete-legacy-dt\" Link=\"Topics/identity-engine/devices/dt-main.htm\" ResolvedId=\"12012\" />';
