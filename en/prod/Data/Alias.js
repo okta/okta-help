@@ -601,14 +601,6 @@ xmlAliasData += '    <Map Name=\"ext-box-method-transferuserfolders\" Link=\"Top
 xmlAliasData += '    <Map Name=\"ext-box-method-updategroupmembership\" Link=\"Topics/Workflows/connector-reference/box/actions/updategroupmembership.htm\" ResolvedId=\"30082\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-updateuser\" Link=\"Topics/Workflows/connector-reference/box/actions/updateuser.htm\" ResolvedId=\"30085\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-uploadfile\" Link=\"Topics/Workflows/connector-reference/box/actions/uploadfile.htm\" ResolvedId=\"30086\" />';
-xmlAliasData += '    <Map Name=\"ext-box-method-filecreated\" Link=\"Topics/Workflows/connector-reference/box/events/filecreated.htm\" ResolvedId=\"30087\" />';
-xmlAliasData += '    <Map Name=\"ext-box-method-filecreatedonfolder\" Link=\"Topics/Workflows/connector-reference/box/events/filecreatedonfolder.htm\" ResolvedId=\"30088\" />';
-xmlAliasData += '    <Map Name=\"ext-box-method-fileupdated\" Link=\"Topics/Workflows/connector-reference/box/events/fileupdated.htm\" ResolvedId=\"30089\" />';
-xmlAliasData += '    <Map Name=\"ext-box-method-foldercreated\" Link=\"Topics/Workflows/connector-reference/box/events/foldercreated.htm\" ResolvedId=\"30090\" />';
-xmlAliasData += '    <Map Name=\"ext-box-method-folderupdated\" Link=\"Topics/Workflows/connector-reference/box/events/folderupdated.htm\" ResolvedId=\"30091\" />';
-xmlAliasData += '    <Map Name=\"ext-box-method-newcomment\" Link=\"Topics/Workflows/connector-reference/box/events/newcomment.htm\" ResolvedId=\"30092\" />';
-xmlAliasData += '    <Map Name=\"ext-box-method-newtask\" Link=\"Topics/Workflows/connector-reference/box/events/newtask.htm\" ResolvedId=\"30093\" />';
-xmlAliasData += '    <Map Name=\"ext-box-method-newtaskassignment\" Link=\"Topics/Workflows/connector-reference/box/events/newtaskassignment.htm\" ResolvedId=\"30094\" />';
 xmlAliasData += '    <Map Name=\"ext-box-misc-authorization\" Link=\"Topics/Workflows/connector-reference/box/overviews/authorization.htm\" ResolvedId=\"30095\" />';
 xmlAliasData += '    <Map Name=\"ext-datagrail\" Link=\"Topics/Workflows/connector-reference/datagrail/datagrail.htm\" ResolvedId=\"30096\" />';
 xmlAliasData += '    <Map Name=\"ext-datagrail-method-createprivacyrequest\" Link=\"Topics/Workflows/connector-reference/datagrail/actions/createprivacyrequest.htm\" ResolvedId=\"30097\" />';
@@ -1409,7 +1401,7 @@ xmlAliasData += '    <Map Name=\"ext_oag_manage_deployment\" Link=\"Topics/Acces
 xmlAliasData += '    <Map Name=\"ext_oag_about_lb\" Link=\"Topics/Access-Gateway/about-load-balancers.htm\" ResolvedId=\"3069\" />';
 xmlAliasData += '    <Map Name=\"oag_ext_trouble_shooting_guide\" Link=\"Topics/Access-Gateway/trouble-shooting-guide.htm\" ResolvedId=\"3071\" />';
 xmlAliasData += '    <Map Name=\"oag_ext_about_log_levels\" Link=\"Topics/Access-Gateway/about-log-levels.htm\" ResolvedId=\"3072\" />';
-xmlAliasData += '    <Map Name=\"ad_agent\" Link=\"Topics/Settings/end-user-quick-access-apps.htm\" ResolvedId=\"3073\" />';
+xmlAliasData += '    <Map Name=\"csh-custom-redirect\" Link=\"Topics/Settings/settings-redirect-to-custom-page.htm\" ResolvedId=\"5002\" />';
 xmlAliasData += '    <Map Name=\"ext-slack-method-newchannelcreated\" Link=\"Topics/Workflows/connector-reference/slack/events/newchannelcreated.htm\" ResolvedId=\"1384\" />';
 xmlAliasData += '    <Map Name=\"ext-slack-method-getusersinchannel\" Link=\"Topics/Workflows/connector-reference/slack/actions/getusersinchannel.htm\" ResolvedId=\"1385\" />';
 xmlAliasData += '    <Map Name=\"ext-slack-method-removeuserfromchannel\" Link=\"Topics/Workflows/connector-reference/slack/actions/removeuserfromchannel.htm\" ResolvedId=\"1386\" />';
