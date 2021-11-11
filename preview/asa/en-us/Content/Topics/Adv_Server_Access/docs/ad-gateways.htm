@@ -54,7 +54,29 @@
 }
 
 </style>
-        <link rel="canonical" href="https://help.okta.com/asa/en-us/Content/Topics/Adv_Server_Access/docs/ad-gateway-configure.htm" />
+        <style>/*&lt;meta /&gt;*/
+
+.button.select-language-button
+{
+	-pie-background: linear-gradient(#ffffff, #ffffff);
+}
+
+.button.previous-topic-button
+{
+	-pie-background: linear-gradient(#ffffff, #ececec);
+}
+
+.button.next-topic-button
+{
+	-pie-background: linear-gradient(#ffffff, #ececec);
+}
+
+.needs-pie
+{
+	behavior: url('../../../../Resources/Scripts/PIE-no-motw.htc');
+}
+
+</style>
         <script src="../../../../Resources/Scripts/jquery.min.js" type="text/javascript">
         </script>
         <script src="../../../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
@@ -291,7 +313,6 @@
                                                 </div>
                                             </div>
                                             <div class="toolbar-main">
-                                                <!-- Expand/Collapse All for drop-downs -->
                                                 <div class="buttons popup-container clearfix topicToolbarProxy _Skins_okta_toolbar_no_expand mc-component nocontent" style="mc-topic-toolbar-items: ;">
                                                     <div class="button-group-container-left">
                                                         <button class="button needs-pie select-language-button" title="Change language">
@@ -324,26 +345,33 @@
                                                     <div data-mc-conditions="MultiProdPubish.PYPContent">
                                                         <h1>Configure gateways for Active Directory support</h1>
                                                         <p class="earlyaccess">This is an Early Access feature. To enable it, contact <a href="https://support.okta.com/help/s/">Okta Support</a>.</p>
-                                                        <p>AD-Joined allows  <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> to synchronize available servers and forward RDP connections  within the domain. For security or networking reasons, you may want to create separate gateways for server discovery and Remote Desktop Protocol (RDP) connections.</p>
+                                                        <p>AD-Joined allows  <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> to synchronize available servers and forward Remote Desktop Protocol (RDP) connections  within the domain. This requires that you install and configure a gateway for use with the Active Directory (AD) domain. For security or networking reasons, you may want to create separate gateways for server discovery and RDP connections.</p>
+                                                        <h2>Before you begin</h2>
+                                                        <ul>
+                                                            <li><a href="install-gateway.htm" class="MCXref xref">Install an Advanced Server Access gateway</a> (v1.55.1 required)
+                </li>
+                                                            <li><a href="gateway-configure.htm" class="MCXref xref">Configure an Advanced Server Access gateway</a>
+                                                            </li>
+                                                        </ul>
                                                         <h2>Synchronize servers</h2>
-                                                        <p>Server discovery is an important part of AD-Joined. This allows <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> to synchronize a list of available servers with an Active Directory (AD) domain.</p>
-                                                        <p>When creating a connection through the <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> admin dashboard, you must specify a gateway that is able to communicate with the domain controller. If you don't specify a domain controller when creating a connection, the gateway performs an SRV record lookup to identify an LDAP server to communicate with. For information on SRV records, see <a href="https://docs.microsoft.com/en-us/troubleshoot/windows-server/networking/verify-srv-dns-records-have-been-created" target="_blank">here</a>.</p>
+                                                        <p>Server discovery is an important part of AD-Joined. This allows <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> to synchronize a list of available servers with an AD domain.</p>
+                                                        <p>When creating a connection through the <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> admin dashboard, you must specify a gateway that is able to communicate with the domain controller. If you don't specify a domain controller when creating a connection, the gateway performs an SRV record lookup to identify an LDAP server to communicate with. For information on SRV records, see the <a href="https://docs.microsoft.com/en-us/troubleshoot/windows-server/networking/verify-srv-dns-records-have-been-created" target="_blank">Microsoft documentation</a>.</p>
                                                         <p>By default, all gateways should be ready to discover servers within the domain. Gateways use LDAP queries to locate servers within a domain. These queries allow a gateway to assign servers to existing <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> projects. For details, see <a href="ad-sync.htm" class="MCXref xref">Server discovery</a>.</p>
                                                         <p>For details, see <a href="gateway-configure.htm#LDAP" class="MCXref xref">Lightweight Directory Access Protocol (LDAP)</a>.</p>
                                                         <div class="noteOkta">
                                                             <p class="noteContent">If you need to troubleshoot your gateway connection to an AD domain, run the <code>--log-level debug</code> command.</p>
                                                         </div>
                                                         <h2>Forward RDP connections</h2>
-                                                        <p>AD-Joined allows a user to connect to a Windows server with an existing AD account. For best results, Okta recommends configuring your network to route target server connections through an <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> gateway. In order to do this, you may need to configure your network and the gateway.</p>
+                                                        <p>AD-Joined provides the ability to launch RDP connections to a Windows server with an existing AD account. Okta recommends configuring your network and gateway to restrict direct access to AD servers; doing so allows you to use <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> for things like Multifactor Authentication and auditing, and ensures the security of your network. You may need to perform additional network and gateway configuration.</p>
                                                         <h3>Network configuration</h3>
-                                                        <p><span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> gateways listen for client connections on port 4421. You must configure your network so that clients can connect to the gateway on this port. </p>
+                                                        <p><span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> gateways listen for client connections on port 7234. You must configure your network so that clients can connect to the gateway on this port. </p>
                                                         <p>The exact setup for proxying connections through the gateway depends on your specific network configuration, but two possible options are to:</p>
                                                         <ul>
                                                             <li>Create firewall rules to limit traffic on port 3389 (used for RDP connections) to only gateway hosts with known static IPs.</li>
                                                             <li>Add target servers to a private network and limit inbound access to only an <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> gateway.</li>
                                                         </ul>
                                                         <h3>Gateway configuration</h3>
-                                                        <p style="font-weight: normal;">After you configure your network to route connections, you'll need to configure your gateway to forward RDP connections. The gateway rejects all RDP connections, unless you configure either a readable directory or disable certificate validation. </p>
+                                                        <p style="font-weight: normal;">After you configure your network to route connections, you need to configure your gateway to forward RDP connections. The gateway rejects all RDP connections, unless you configure either a readable directory or disable certificate validation. Additionally, the gateways configured for RDP connections with AD-Joined must be installed on a system running Ubuntu 20.04.</p>
                                                         <p style="font-weight: normal;">During the EA release, gateways limit the maximum number of concurrent sessions. By default, this is set to 20 connections, but you can adjust this from gateway configuration file.</p>
                                                         <p style="font-weight: normal;">For details, see <a href="gateway-configure.htm#RDP" class="MCXref xref">Remote Desktop Protocol (RDP)</a>.</p>
                                                         <div class="noteOkta">
@@ -358,6 +386,33 @@
                                         <!--<div class="is-not-in-mobile">
                 <MadCap:menuProxy data-mc-skin="/Project/Skins/okta-right-menu.flskn" mc-linked-toc="/Project/TOCs/okta-TOC.fltoc" style="mc-context-sensitive: True;mc-include-parent: True;mc-include-siblings: False;mc-include-children: True;" />
             </div>-->
+                                    </div>
+                                    <div class="toolbar-main">
+                                        <div class="buttons popup-container clearfix topicToolbarProxy _Skins_okta_toolbar_no_expand mc-component nocontent" style="mc-topic-toolbar-items: ;">
+                                            <div class="button-group-container-left">
+                                                <button class="button needs-pie select-language-button" title="Change language">
+                                                    <div>
+                                                        <div role="img" class="button-icon-wrapper" aria-label="Change language">
+                                                            <div class="button-icon"> </div>
+                                                        </div>
+                                                    </div>
+                                                </button>
+                                                <button class="button needs-pie previous-topic-button" title="Previous topic" disabled="true">
+                                                    <div>
+                                                        <div role="img" class="button-icon-wrapper" aria-label="Navigate previous">
+                                                            <div class="button-icon"> </div>
+                                                        </div>
+                                                    </div>
+                                                </button>
+                                                <button class="button needs-pie next-topic-button" title="Next topic" disabled="true">
+                                                    <div>
+                                                        <div role="img" class="button-icon-wrapper" aria-label="Navigate next">
+                                                            <div class="button-icon"> </div>
+                                                        </div>
+                                                    </div>
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
                                     <!-- ***************************** Footer rows ********************************* -->
                                     <!--         <div class="footer2">

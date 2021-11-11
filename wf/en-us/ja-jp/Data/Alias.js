@@ -4,7 +4,6 @@ xmlAliasData += '<CatapultAliasFile>';
 xmlAliasData += '    <Map Name=\"ext-Okta-workflows\" Link=\"Topics/Workflows/workflows-main.htm\" ResolvedId=\"1228\" />';
 xmlAliasData += '    <Map Name=\"ext-connect-your-apps\" Link=\"Topics/Workflows/workflow-connect-your-applications.htm\" ResolvedId=\"1229\" />';
 xmlAliasData += '    <Map Name=\"ext-build-a-flow\" Link=\"Topics/Workflows/workflows-build-a-flow.htm\" ResolvedId=\"1231\" />';
-xmlAliasData += '    <Map Name=\"csh-index\" Link=\"index.htm\" ResolvedId=\"1298\" />';
 xmlAliasData += '    <Map Name=\"ext-about-events\" Link=\"Topics/Workflows/learn/about-events.htm\" ResolvedId=\"1331\" />';
 xmlAliasData += '    <Map Name=\"ext-about-elements\" Link=\"Topics/Workflows/workflows-elements.htm\" ResolvedId=\"1335\" />';
 xmlAliasData += '    <Map Name=\"ext-applications-connections\" Link=\"Topics/Workflows/learn/about-applications-connections.htm\" ResolvedId=\"1336\" />';
