@@ -2,7 +2,6 @@ var xmlAliasData = "";
 xmlAliasData += '<?xml version=\"1.0\" encoding=\"utf-8\"?>';
 xmlAliasData += '<CatapultAliasFile>';
 xmlAliasData += '    <Map Name=\"Security_Policies\" Link=\"Topics/Security/policies/configure-signon-policies.htm#Security_Policies1\" ResolvedId=\"1260\" />';
-xmlAliasData += '    <Map Name=\"Settings_Downloads\" Link=\"Topics/Settings/Settings_Downloads.htm#Settings_Downloads\" ResolvedId=\"1250\" />';
 xmlAliasData += '    <Map Name=\"Security_FactorTypes\" Link=\"Topics/Security/mfa/mfa-factors.htm\" ResolvedId=\"1005\" />';
 xmlAliasData += '    <Map Name=\"Security_FactorPolicies\" Link=\"Topics/Security/policies/about-mfa-policies.htm\" ResolvedId=\"1006\" />';
 xmlAliasData += '    <Map Name=\"Device_Trust\" Link=\"Topics/device-trust/device-trust-landing.htm\" ResolvedId=\"1007\" />';
@@ -62,7 +61,6 @@ xmlAliasData += '    <Map Name=\"ext_MFA\" Link=\"Topics/Security/MFA.htm\" Reso
 xmlAliasData += '    <Map Name=\"ext_MFA_App_Level\" Link=\"Topics/Security/MFA_App_Level.htm\" ResolvedId=\"200158\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_Policies\" Link=\"Topics/Security/policies/policies-home.htm\" ResolvedId=\"200173\" />';
 xmlAliasData += '    <Map Name=\"ext_end_user_okta_account_chooser\" Link=\"Topics/Settings/end-user-okta-account-chooser.htm\" ResolvedId=\"200180\" />';
-xmlAliasData += '    <Map Name=\"ext_Settings_Downloads\" Link=\"Topics/Settings/Settings_Downloads.htm\" ResolvedId=\"200190\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_ADFS_Adapter\" Link=\"Topics/Settings/Version_Histories/Ver_History_Okta_MFA_Provider_for_ADFS.htm\" ResolvedId=\"200195\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_Archive_JIRA_Authenticator_Toolkit\" Link=\"Topics/Settings/Version_Histories/Ver_History_Archive_JIRA_Authenticator_Toolkit.htm\" ResolvedId=\"200197\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_Confluence_Authenticator_Toolkit\" Link=\"Topics/Settings/Version_Histories/Ver_History_Confluence_Authenticator_Toolkit.htm\" ResolvedId=\"200199\" />';
@@ -132,7 +130,7 @@ xmlAliasData += '    <Map Name=\"ext_integrate_SuccessFactors\" Link=\"Topics/Pr
 xmlAliasData += '    <Map Name=\"ext_integrate_Slack\" Link=\"Topics/Provisioning/Slack/slck-main.htm\" ResolvedId=\"1277\" />';
 xmlAliasData += '    <Map Name=\"ext_integrate_Dropbox\" Link=\"Topics/Provisioning/Dropbox/drbx-main.htm\" ResolvedId=\"1278\" />';
 xmlAliasData += '    <Map Name=\"ext_integrate_Rally\" Link=\"Topics/Provisioning/rally/rally-main.htm\" ResolvedId=\"1279\" />';
-xmlAliasData += '    <Map Name=\"ext_integrate_RingCentral\" Link=\"Topics/Provisioning/RingCentral/rngc-main.htm\" ResolvedId=\"1280\" />';
+xmlAliasData += '    <Map Name=\"ext_integrate_RingCentral\" Link=\"Topics/Provisioning/ringcentral/rngc-main.htm\" ResolvedId=\"1280\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Single_Logout\" Link=\"Topics/Apps/Apps_Single_Logout.htm\" ResolvedId=\"1286\" />';
 xmlAliasData += '    <Map Name=\"ext-Security-Policies-eu-control\" Link=\"Topics/Security/policies/configure-signon-policies.htm#EndUserControlMFAPrompts\" ResolvedId=\"1325\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-verify-relnotes\" Link=\"Topics/ReleaseNotes/okta-verify-release-notes.htm\" ResolvedId=\"1327\" />';
@@ -145,7 +143,7 @@ xmlAliasData += '    <Map Name=\"ext-servicenow-provisioning\" Link=\"Topics/Pro
 xmlAliasData += '    <Map Name=\"ext-aws-deployment\" Link=\"Topics/DeploymentGuides/AWS/aws-deployment.htm\" ResolvedId=\"8005\" />';
 xmlAliasData += '    <Map Name=\"ext-rally-provisioning\" Link=\"Topics/Provisioning/rally/rally-main.htm\" ResolvedId=\"8006\" />';
 xmlAliasData += '    <Map Name=\"ext-drbx-provisioning\" Link=\"Topics/Provisioning/Dropbox/drbx-main.htm\" ResolvedId=\"8007\" />';
-xmlAliasData += '    <Map Name=\"ext-rngc-provisioning\" Link=\"Topics/Provisioning/RingCentral/rngc-main.htm\" ResolvedId=\"8008\" />';
+xmlAliasData += '    <Map Name=\"ext-rngc-provisioning\" Link=\"Topics/Provisioning/ringcentral/rngc-main.htm\" ResolvedId=\"8008\" />';
 xmlAliasData += '    <Map Name=\"ext-gsuite-provisioning\" Link=\"Topics/Provisioning/Google/google-provisioning.htm\" ResolvedId=\"8009\" />';
 xmlAliasData += '    <Map Name=\"ext-workplace-provisioning\" Link=\"Topics/Provisioning/workplace/workplace-by-facebook-provisioning.htm\" ResolvedId=\"8010\" />';
 xmlAliasData += '    <Map Name=\"ext-docusign-main\" Link=\"Topics/Provisioning/docusign/docu-main.htm\" ResolvedId=\"15005\" />';
@@ -158,7 +156,6 @@ xmlAliasData += '    <Map Name=\"csh-okta-verify-number-challenge-v1\" Link=\"To
 xmlAliasData += '    <Map Name=\"ext-apps-bookmark-app\" Link=\"Topics/Apps/Apps_Bookmark_App.htm\" ResolvedId=\"8012\" />';
 xmlAliasData += '    <Map Name=\"csh-actionable-notifications\" Link=\"Topics/Mobile/okta-verify-sign-in.htm\" ResolvedId=\"1168\" />';
 xmlAliasData += '    <Map Name=\"csh-deploy-sharepoint\" Link=\"Topics/DeploymentGuides/Sharepoint/Guide/deploy-sharepoint.htm\" ResolvedId=\"1246\" />';
-xmlAliasData += '    <Map Name=\"ad_agent\" Link=\"Topics/Settings/end-user-quick-access-apps.htm\" ResolvedId=\"3073\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-oidc\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_OIDC.htm\" ResolvedId=\"6006\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-saml\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SAML.htm\" ResolvedId=\"6007\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-swa\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SWA.htm\" ResolvedId=\"6008\" />';
