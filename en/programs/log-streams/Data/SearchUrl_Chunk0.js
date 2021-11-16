@@ -1,1 +1,1 @@
-define({"../Content/Topics/betas/closed/log-streams/about-log-streams.htm":1,"../Content/Topics/betas/closed/log-streams/add-aws-eb-log-stream.htm":2,"../Content/Topics/betas/closed/log-streams/edit-target-status.htm":3,"../Content/docs_home.htm":0,});
+define({"../Content/Topics/betas/closed/log-streams/about-log-streams.htm":1,"../Content/Topics/betas/closed/log-streams/edit-target-status.htm":2,"../Content/docs_home.htm":0,});

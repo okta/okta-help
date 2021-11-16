@@ -1,1 +1,1 @@
-define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../Content/Topics/betas/closed/identity-governance/access-certification/iga-ac-create-campaign.htm'],s:['+'],p:[['+',2]]});
+define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../Content/Topics/betas/closed/identity-governance/access-certification/iga-ac-about-reviewing-campaigns.htm'],s:['+'],p:[['+',2]]});

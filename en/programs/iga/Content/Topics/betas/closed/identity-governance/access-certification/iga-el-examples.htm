@@ -76,6 +76,7 @@
 }
 
 </style>
+        <link href="../../../../../Resources/TableStyles/standard.css" rel="stylesheet" data-mc-stylesheet-type="table" />
         <script src="../../../../../../Resources/Scripts/jquery.min.js" type="text/javascript">
         </script>
         <script src="../../../../../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
@@ -328,48 +329,131 @@
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
                                                     <h1>Examples of Okta Expression Language</h1>
-                                                    <p>Here are some examples of the Okta Expression Language (EL) that you can use to define users and reviewers while scheduling an access certification campaign.
+                                                    <p>Okta Expression Language (EL) allows you to reference, transform, and combine user attributes and group information. See &lt;Okta EL dev docs&gt;. While creating or modifying an access certification campaign, you can use Okta EL expressions to define:
 </p>
+                                                    <ul>
+                                                        <li>
+                                                            <p>Users in order to restrict your campaign to a subset of users.</p>
+                                                        </li>
+                                                        <li>
+                                                            <p>Reviewers to customize reviewers for each user.</p>
+                                                        </li>
+                                                    </ul>
+                                                    <p>Tips</p>
+                                                    <ul>
+                                                        <li>
+                                                            <p>Review the Okta Expression Language documentation to familiarize yourself with the syntax.</p>
+                                                        </li>
+                                                        <li>
+                                                            <p>Use the ternary operator <code>[Condition] ? [Value if TRUE] : [Value if FALSE]</code> to build conditions for defining the dynamic reviewers.</p>
+                                                        </li>
+                                                        <li>
+                                                            <p>Ensure that your expression evaluates to a boolean when defining users:</p>
+                                                            <ul style="list-style-type: circle;">
+                                                                <li>
+                                                                    <p>True to include the users.</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p>False to exclude them from the campaign.</p>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li>
+                                                            <p>When defining reviewers:</p>
+                                                            <ul style="list-style-type: circle;">
+                                                                <li>
+                                                                    <p>Ensure that your expression evaluates to either the user ID or the username of a single Okta User. If the expression does not, the Fallback reviewer defined in the campaign builder will be assigned to review all items for that user.</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p>It’s helpful to think of reviewer logic into IF/THEN terms for each user when building your expressions. For example, for user A, if condition P is true, then assign reviewer B.</p>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li>
+                                                            <p>Start with simple expressions and gradually add in conditions to make sure your expression works as expected.</p>
+                                                        </li>
+                                                        <li>
+                                                            <p>Test your expression using the Preview functionality on the Users and Reviewers pane.</p>
+                                                        </li>
+                                                        <li>
+                                                            <p>Use any value stored on a user’s profile and group to restrict the scope of a campaign.</p>
+                                                        </li>
+                                                        <li>
+                                                            <p>Use either the Group ID or Group Name to reference a group in your expression. We recommend that you use Group ID as it doesn’t change.</p>
+                                                        </li>
+                                                        <li>
+                                                            <p>Use</p>
+                                                            <ul style="list-style-type: circle;">
+                                                                <li>
+                                                                    <p><code>&amp;&amp;</code> to denote the And operator.</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><code>||</code> to denote the Or operator.</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><code>!</code> to denote the Not operator.</p>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
                                                     <h3><a name="users"></a>Define user scope</h3>
                                                     <p>Use Okta Expression Language to limit the scope of the access certification campaign to a set of users based on their profile attributes and group membership. Your custom expression must evaluate to true to include the users or false to exclude them from the campaign.</p>
-                                                    <p><b>Tips</b>
+                                                    <p>Ensure that your expression evaluates to a boolean: <b>True</b> to include the users or <b>False</b> to exclude them from the campaign.</p>
+                                                    <p><b>Sample expressions</b>
                                                     </p>
-                                                    <p>Here are some common functions:</p>
-                                                    <ul>
-                                                        <li>The <code>&amp;&amp;</code> operator to designate the AND operator.</li>
-                                                        <li>The <code>||</code> operator to designate the OR operator.</li>
-                                                        <li>The <code>!</code> operator to designate the NOT operator.</li>
-                                                        <li>Use the double equals sign <code>==</code> to check for equality and <code>!=</code> for inequality.</li>
-                                                    </ul>
-                                                    <p><b>Scenario one</b>
-                                                    </p>
-                                                    <p>As an admin, you want to restrict the campaign to users who aren’t full time employees within a certain region and within certain departments (For example, EMEA Sales and Customer Success teams).</p>
-                                                    <p>Ensure that you have the following setup:</p>
-                                                    <ul>
-                                                        <li>Department is a user attribute<ul style="list-style-type: circle;"><li>All sales departments must have the word ‘sales’ in their name. For example, Enterprise Sales, Commercial Sales, and Sales Operations, and so on.</li><li>Customer Success is the listed department for all Customer Success team members.</li></ul></li>
-                                                        <li>Regions are set up as user groups:<ul style="list-style-type: circle;"><li>NORAM</li><li>APAC</li><li>EMEA (Group ID: 00g1uyj4QGjE56aWG8g5)</li><li>LATAM</li></ul></li>
-                                                        <li>Employee types are set up as user groups:<ul style="list-style-type: circle;"><li>Full-time employees (Group ID: 00gwntvj8AjhyHqtG8g4)</li><li>Interns (Group ID: 00gwntxYdhXNv4S7H8g4)</li><li>Contractors (Group ID: 00g1emaKYZTWRYYRRTSK)</li><li>Part-Time employees (Group ID: 00garwpuyxHaWOkdV0g4)</li></ul></li>
-                                                    </ul>
-                                                    <p>You can leverage either the Group ID or Group Name. We recommend that you use Group ID as it doesn’t change. Here, the Group Name is leveraged to show how it’s possible.</p>
-                                                    <p>You can explicitly include employee types you want. In this case Interns, Contractors, and Part-time employees groups:</p><code>(String.stringContains(user.department, "Sales") || user.department == “CUSTOMER SUCCESS”) &amp;&amp; user.isMemberOfGroupName(“EMEA”) &amp;&amp; user.isMemberOfAnyGroup(“00gwntxYdhXNv4S7H8g4”, “00g1emaKYZTWRYYRRTSK”, “00garwpuyxHaWOkdV0g4”)</code>
-                                                    <p>However, if your employee types may change, you may want to exclude one group, the Full-time employees group:</p><code>(String.stringContains(user.department, "Sales") || user.department == “CUSTOMER SUCCESS”) &amp;&amp; user.isMemberOfGroupName(“EMEA”) &amp;&amp; !user.isMemberOfGroup(“00gwntvj8AjhyHqtG8g4”)</code>
-                                                    <p style="font-weight: bold;">Scenario two</p>
-                                                    <p>As an admin, you want to run a campaign that excludes all C-suite members, such as CEO, CTO, CSO, and more from the campaign and all finance team members (identified by a user attribute) from the campaign.</p>
-                                                    <p>You can select Exclude users checkbox and enter names of users you want to exclude. However, we recommend that you use EL to exclude them to avoid errors caused by entering each user manually. </p>
-                                                    <p>To use EL, ensure that you have the following setup:</p>
-                                                    <ul>
-                                                        <li>
-                                                            <p>Department is a user attribute and all finance members have ‘Finance’ listed as their department.</p>
-                                                        </li>
-                                                        <li>
-                                                            <p>Executive Staff is a user group (Group ID: 007haGtKYZTWghj67STSK) that contains all C-suite members.</p>
-                                                        </li>
-                                                    </ul>
-                                                    <p><code>!user.isMemberOfGroup(“007haGtKYZTWghj67STSK”) &amp;&amp;  user.department != “FINANCE”</code>
-                                                    </p>
-                                                    <p style="font-weight: bold;">Scenario three</p>
-                                                    <p>At your company, you use Okta for AWS Federation and have specific user groups, such as AWS EC2 Admin (Group ID: 00g1emaKYZTWghj67STSK) which grant access to specific roles. The AWS EC2 Admin group grants members a role that includes administrative privileges to AWS. All other users in the org have read-only access to AWS. Since these members of AWS EC2 Admin have a high level of access, you may want to set up an access certification campaign that only evaluates users with admin privileges to AWS.</p>
-                                                    <p>Use the following EL expression to define the user scope:</p><code>user.isMemberOfGroupName(“00g1emaKYZTWghj67STSK”)</code>
+                                                    <p>&#160;</p>
+                                                    <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                                                        <col class="TableStyle-standard-Column-Column1" />
+                                                        <col class="TableStyle-standard-Column-Column1" />
+                                                        <thead>
+                                                            <tr class="TableStyle-standard-Head-Header1">
+                                                                <th class="TableStyle-standard-HeadF-Column1-Header1">Use case</th>
+                                                                <th class="TableStyle-standard-HeadD-Column1-Header1">Sample expression</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr class="TableStyle-standard-Body-Body1">
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body1">&#160;</td>
+                                                                <td class="TableStyle-standard-BodyD-Column1-Body1">&#160;</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-standard-Body-Body2">
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body2">&#160;</td>
+                                                                <td class="TableStyle-standard-BodyD-Column1-Body2">&#160;</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-standard-Body-Body1">
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body1">&#160;</td>
+                                                                <td class="TableStyle-standard-BodyD-Column1-Body1">&#160;</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-standard-Body-Body2">
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body2">&#160;</td>
+                                                                <td class="TableStyle-standard-BodyD-Column1-Body2">&#160;</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-standard-Body-Body1">
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body1">&#160;</td>
+                                                                <td class="TableStyle-standard-BodyD-Column1-Body1">&#160;</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-standard-Body-Body2">
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body2">&#160;</td>
+                                                                <td class="TableStyle-standard-BodyD-Column1-Body2">&#160;</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-standard-Body-Body1">
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body1">&#160;</td>
+                                                                <td class="TableStyle-standard-BodyD-Column1-Body1">&#160;</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-standard-Body-Body2">
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body2">&#160;</td>
+                                                                <td class="TableStyle-standard-BodyD-Column1-Body2">&#160;</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-standard-Body-Body1">
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body1">&#160;</td>
+                                                                <td class="TableStyle-standard-BodyD-Column1-Body1">&#160;</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-standard-Body-Body2">
+                                                                <td class="TableStyle-standard-BodyC-Column1-Body2">&#160;</td>
+                                                                <td class="TableStyle-standard-BodyA-Column1-Body2">&#160;</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
                                                     <h3><a name="reviewers"></a> Define dynamic reviewers</h3>
                                                     <p>Use Okta Expression Language to restrict the set of reviewers assigned to review the users’ access. You can specify reviewers based on their profile attributes and group memberships. Your custom expression must evaluate to the Okta User ID of the user who should be assigned as the reviewer.</p>
                                                     <p><b>Tips</b>
