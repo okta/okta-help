@@ -390,7 +390,7 @@ xmlAliasData += '    <Map Name=\"ext-config-sspr\" Link=\"Topics/identity-engine
 xmlAliasData += '    <Map Name=\"csh-fp-disable\" Link=\"Topics/identity-engine/devices/fp/fp-disable.htm\" ResolvedId=\"17014\" />';
 xmlAliasData += '    <Map Name=\"csh-fp-enable\" Link=\"Topics/identity-engine/devices/fp/fp-enable.htm\" ResolvedId=\"17015\" />';
 xmlAliasData += '    <Map Name=\"csh-fp-main\" Link=\"Topics/identity-engine/devices/fp/fp-main.htm\" ResolvedId=\"17016\" />';
-xmlAliasData += '    <Map Name=\"csh-fp-policy-custom-expression\" Link=\"Topics/identity-engine/devices/fp/fp-policy_custom_expression.htm\" ResolvedId=\"17017\" />';
+xmlAliasData += '    <Map Name=\"csh-fp-policy-custom-expression\" Link=\"Topics/identity-engine/devices/el-device-attributes.htm\" ResolvedId=\"17017\" />';
 xmlAliasData += '    <Map Name=\"csh-device-registration\" Link=\"Topics/identity-engine/devices/device-registration.htm\" ResolvedId=\"17019\" />';
 xmlAliasData += '    <Map Name=\"csh-okta-ca-dynamic-scep-macos-jamf\" Link=\"Topics/identity-engine/devices/okta-ca-dynamic-scep-macos-jamf.htm\" ResolvedId=\"17020\" />';
 xmlAliasData += '    <Map Name=\"csh-edr-integration-available-signals\" Link=\"Topics/identity-engine/devices/edr-integration-available-signals.htm\" ResolvedId=\"17026\" />';
