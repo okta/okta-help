@@ -1943,7 +1943,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                 this.$targets.each(function () {
                     var $tar = $(this),
-                        pt = Math.round($tar.offset().top - _this.options.threshold);
+                        pt = Math.round($tar.position().top - _this.options.threshold);
                     $tar.targetPoint = pt;
                     _this.points.push(pt);
                 });
@@ -1999,14 +1999,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
              */
 
         }, {
-            key: 'scrollToLoc',
-            value: function scrollToLoc(loc) {
-                var top = (this.scrollContainer == window) ? $(loc).offset().top : $(loc)[0].offsetTop;
-                var scrollPos = Math.round(top - this.options.threshold / 2 - this.options.barOffset);
-                var $container = this.scrollContainer == window ? $('html, body') : $(this.scrollContainer);
+                key: 'scrollToLoc',
+                value: function scrollToLoc(loc) {
+                    var self = this;
+                    var top = (this.scrollContainer == window) ? $(loc).offset().top : $(loc)[0].offsetTop;
+                    var scrollPos = Math.round(top - this.options.threshold / 2 - this.options.barOffset);
+                    var $container = this.scrollContainer == window ? $('html, body') : $(this.scrollContainer);
 
-                $container.stop(true).animate({ scrollTop: scrollPos }, this.options.animationDuration, this.options.animationEasing);
-            }
+                    $container.stop(true).animate({
+                        scrollTop: scrollPos
+                    }, this.options.animationDuration, this.options.animationEasing, function () {
+                        self._updateActive();
+                    });
+                }
 
             /**
              * Calls necessary functions to update Magellan upon DOM change
