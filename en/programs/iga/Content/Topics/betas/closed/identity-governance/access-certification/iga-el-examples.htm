@@ -351,6 +351,8 @@
                                                     <p>Use Okta Expression Language to limit the scope of the access certification campaign to a set of users based on their profile attributes and group membership. Your custom expression must evaluate to true to include the users or false to exclude them from the campaign.</p>
                                                     <p>Ensure that your expression evaluates to a boolean: <b>True</b> to include the users or <b>False</b> to exclude them from the campaign.</p>
                                                     <p>See <a href="https://developer.okta.com/docs/reference/okta-expression-language/" target="_blank">Okta Expression Language</a> for more information.</p>
+                                                    <div><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="static/IGA-access-cert-2.png" data-mc-popup-alt="Image illustrating how to define users with the Okta Experssion Language"><img class="MCPopupThumbnail img imgthumbnail" data-mc-width="1999" data-mc-height="960" src="static/IGA-access-cert-2_thumb_220_220.png" alt="Image illustrating how to define users with the Okta Experssion Language" tabindex="" /></a>
+                                                    </div>
                                                     <p><b>Sample expressions</b>
                                                     </p>
                                                     <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
@@ -415,6 +417,9 @@ Alternatively, use:
                                                     <h3><a name="reviewers"></a> Define dynamic reviewers</h3>
                                                     <p>Use Okta EL to customize the reviewer for each user. For example, you may want to set a user’s manager to review their access, or designate a review for different teams or departments. Before creating EL expressions, see <a href="#Tips" class="MCXref xref">Tips</a>.</p>
                                                     <p>Ensure that your expression evaluates to either the user ID or the username of a single Okta user. If the expression doesn’t return a user or is invalid, then the Fallback reviewer you defined while creating the campaign will be assigned to review all items for that user.</p>
+                                                    <p>It’s helpful to think of reviewer logic into IF/THEN terms for each user when building your expressions. For example, for user A, if condition P is true, then assign reviewer B.</p>
+                                                    <div><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="static/IGA-access-cert-3.png" data-mc-popup-alt="Image illustrating how to define reviewers for a user with the Okta Experssion Language"><img class="MCPopupThumbnail img imgthumbnail" data-mc-width="1999" data-mc-height="980" src="static/IGA-access-cert-3_thumb_220_220.png" alt="Image illustrating how to define reviewers for a user with the Okta Experssion Language" tabindex="" /></a>
+                                                    </div>
                                                     <p><b>Sample expressions</b>
                                                     </p>
                                                     <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
@@ -438,51 +443,54 @@ Alternatively, use:
                                                                 </td>
                                                             </tr>
                                                             <tr class="TableStyle-standard-Body-Body2">
-                                                                <td class="TableStyle-standard-BodyF-Column1-Body2">Assign a user's manager to only users in Department 1, and a specific reviewer for all other users.</td>
-                                                                <td class="TableStyle-standard-BodyD-Column1-Body2"><code>user.department("[Department 1]" ? user.managerId : "[User ID or username]"
-</code>
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body2">Assign a user’s manager to only users with a certain profile attribute (in this case, department is Department 1), and a specific reviewer for all other users.</td>
+                                                                <td class="TableStyle-standard-BodyD-Column1-Body2"><code>user.department("[Department 1]" ? user.managerId : "[User ID or username]"</code>
                                                                 </td>
                                                             </tr>
                                                             <tr class="TableStyle-standard-Body-Body1">
                                                                 <td class="TableStyle-standard-BodyF-Column1-Body1">
                 
-                    Include users who are members of a particular group.
-                
-            </td>
-                                                                <td class="TableStyle-standard-BodyD-Column1-Body1"><span class="code">user.isMemberOfGroupName("[Group Name]")</span> or <span class="code">user.isMemberOfGroup("[Group ID]")</span></td>
-                                                            </tr>
-                                                            <tr class="TableStyle-standard-Body-Body2">
-                                                                <td class="TableStyle-standard-BodyF-Column1-Body2">
-               
-                    Include all users except members of certain groups.
-                
-            </td>
-                                                                <td class="TableStyle-standard-BodyD-Column1-Body2"><span class="code">!user.isMemberOfGroupName("[Group Name]")</span> or <span class="code">!user.isMemberOfGroup("[Group ID]")</span></td>
-                                                            </tr>
-                                                            <tr class="TableStyle-standard-Body-Body1">
-                                                                <td class="TableStyle-standard-BodyF-Column1-Body1">
-                    Include users who are a member of both groups.
-                
-            </td>
-                                                                <td class="TableStyle-standard-BodyD-Column1-Body1"><span class="code">user.isMemberOfGroup("[Group ID]") &amp;&amp;  user.isMemberOfGroup("[Group ID]")</span>
+                    Assign a reviewer for users who are members of a particular group.
+</td>
+                                                                <td class="TableStyle-standard-BodyD-Column1-Body1"><span class="code">user.isMemberOfGroupName("[Group Name]") ? "[User ID or username of user who should be assigned as a reviewer for members of the group]" : "[User ID or username of the user who should be assigned as a reviewer for users who aren't in the group]"
+
+</span>
                                                                 </td>
                                                             </tr>
                                                             <tr class="TableStyle-standard-Body-Body2">
                                                                 <td class="TableStyle-standard-BodyF-Column1-Body2">
                
-                    Include users who are a member of at least one of the two groups.
-                
-            </td>
+                    Assign a reviewer all users except those who are members of certain groups.</td>
+                                                                <td class="TableStyle-standard-BodyD-Column1-Body2">
+                                                                    <p><span class="code">!user.isMemberOfGroupName("[Group Name]") ? "[User ID or username of user who should be assigned as a reviewer for members of the group]" : "[User ID or username of the user who should be assigned as a reviewer for users who aren't in the group]"
+</span>
+                                                                    </p>
+                                                                    <p>or
+</p>
+                                                                    <p><span class="code"> !user.isMemberOfGroupName("[Group Name]") ? "[User ID or username of user who should be assigned as a reviewer for members of the group]" : "[User ID or username of the user who should be assigned as a reviewer for users who aren't in the group]" </span>
+                                                                    </p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="TableStyle-standard-Body-Body1">
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body1">
+                    Assign a reviewer for users who are members of two groups. <![CDATA[                
+            ]]></td>
+                                                                <td class="TableStyle-standard-BodyD-Column1-Body1"><span class="code">( user.isMemberOfGroup("[Group ID]") &amp;&amp;  user.isMemberOfGroup("[Group ID]") ) ? "[User ID or username of the reviewer for members of both groups]" : "[User ID or username of the user who should be assigned as a reviewer for users who aren't in the group]"</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="TableStyle-standard-Body-Body2">
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body2">
+               
+                    Assign a reviewer for users who are a member of at least one of the two groups.</td>
                                                                 <td class="TableStyle-standard-BodyD-Column1-Body2"><![CDATA[ 
-]]><span class="code">user.isMemberOfGroup("[Group ID]") ||  user.isMemberOfGroup("[Group ID]")</span></td>
+]]><span class="code">( user.isMemberOfGroup("[Group ID]") ||  user.isMemberOfGroup("[Group ID]") ) ? "[User ID or username of the  reviewer for members of the group]" : "[User ID or username of the user who should be assigned as a reviewer for users who aren't in the group]"
+
+</span></td>
                                                             </tr>
                                                             <tr class="TableStyle-standard-Body-Body1">
                                                                 <td class="TableStyle-standard-BodyC-Column1-Body1">
-                    Include users who are a member of one group, but not a member of another group.
-                
-            </td>
-                                                                <td class="TableStyle-standard-BodyA-Column1-Body1"><span class="code">user.isMemberOfGroup("[Group ID]") &amp;&amp;  !user.isMemberOfGroup("[Group ID]")
-</span>
+                    Assign a reviewer for users who are a member of one group, but not a member of another group.</td>
+                                                                <td class="TableStyle-standard-BodyA-Column1-Body1"><span class="code">( user.isMemberOfGroup("[Group ID]") &amp;&amp;  !user.isMemberOfGroup("[Group ID]")) ? "[User ID or username of the  reviewer for members of the group]" : "[User ID or username of the reviewer for users who aren't in the group]" : "[User ID or username of the user who should be assigned as a reviewer for users who aren't in the group]"</span>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
