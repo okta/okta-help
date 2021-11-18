@@ -1560,6 +1560,7 @@ xmlAliasData += '    <Map Name=\"ext-cfg-routing-rules\" Link=\"Topics/Security/
 xmlAliasData += '    <Map Name=\"ext-jamfproclassicapi3d816a0a0b7a410fa88c3de81a4aeccb\" Link=\"Topics/Workflows/connector-reference/jamf/jamf.htm\" ResolvedId=\"32000\" />';
 xmlAliasData += '    <Map Name=\"csh-pass-mfa-claim\" Link=\"Topics/Apps/Office365/Use_Okta_MFA_Azure_AD_MFA.htm\" ResolvedId=\"1492\" />';
 xmlAliasData += '    <Map Name=\"ext-jamfproclassicapi3d816a0a0b7a410fa88c3de81a4aeccb-method-addusertostaticusergroup\" Link=\"Topics/Workflows/connector-reference/jamf/actions/addusertostaticusergroup.htm\" ResolvedId=\"1470\" />';
+xmlAliasData += '    <Map Name=\"ext-flow-charts\" Link=\"Topics/Workflows/learn/about-flow-charts.htm\" ResolvedId=\"32002\" />';
 xmlAliasData += '    <Map Name=\"ext-microsoftteams-method-addmembertochannel\" Link=\"Topics/Workflows/connector-reference/microsoftteams/actions/addmembertochannel.htm\" ResolvedId=\"1493\" />';
 xmlAliasData += '    <Map Name=\"ext-microsoftteams-method-createchannel\" Link=\"Topics/Workflows/connector-reference/microsoftteams/actions/createchannel.htm\" ResolvedId=\"1494\" />';
 xmlAliasData += '    <Map Name=\"ext-microsoftteams-method-listchannelmembers\" Link=\"Topics/Workflows/connector-reference/microsoftteams/actions/listchannelmembers.htm\" ResolvedId=\"1495\" />';
