@@ -1115,7 +1115,6 @@ xmlAliasData += '    <Map Name=\"ext-zoom-misc-authorization\" Link=\"Topics/Wor
 xmlAliasData += '    <Map Name=\"ext-ad-dsso-main\" Link=\"Topics/Directory/ad-desktop-sso-main.htm\" ResolvedId=\"15003\" />';
 xmlAliasData += '    <Map Name=\"ext-error-handling\" Link=\"Topics/Workflows/build/set-error-handling.htm\" ResolvedId=\"30287\" />';
 xmlAliasData += '    <Map Name=\"ext-workflows-error-messages\" Link=\"Topics/Workflows/execute/workflows-error-messages.htm\" ResolvedId=\"30289\" />';
-xmlAliasData += '    <Map Name=\"ext-hide-sensitive-attributes\" Link=\"Topics/users-groups-profiles/usgp-hide-sensitive-attributes.htm\" ResolvedId=\"15004\" />';
 xmlAliasData += '    <Map Name=\"ext-box-provisioning\" Link=\"Topics/Provisioning/Box/box-provision.htm\" ResolvedId=\"8000\" />';
 xmlAliasData += '    <Map Name=\"ext-workday-provisioning\" Link=\"Topics/Provisioning/Workday/workday-provisioning.htm\" ResolvedId=\"8001\" />';
 xmlAliasData += '    <Map Name=\"ext-sfec-provisioning\" Link=\"Topics/Provisioning/sfec/sfec-main.htm\" ResolvedId=\"8002\" />';
@@ -1604,5 +1603,6 @@ xmlAliasData += '    <Map Name=\"csh-csv-integration-main\" Link=\"Topics/Direct
 xmlAliasData += '    <Map Name=\"csh-assign-apps\" Link=\"Topics/users-groups-profiles/usgp-assign-apps.htm\" ResolvedId=\"20008\" />';
 xmlAliasData += '    <Map Name=\"ext-best-practices-building\" Link=\"Topics/Workflows/architecture-best-practices.htm\" ResolvedId=\"31072\" />';
 xmlAliasData += '    <Map Name=\"log-streaming\" Link=\"Topics/Reports/log-streaming/about-log-streams.htm\" ResolvedId=\"1500\" />';
+xmlAliasData += '    <Map Name=\"ext-add-self-service-password-reset\" Link=\"Topics/users-groups-profiles/usgp-add-self-service-password-reset.htm\" ResolvedId=\"15017\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
