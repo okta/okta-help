@@ -291,7 +291,6 @@ xmlAliasData += '    <Map Name=\"csh-device-mgmt-desktop-mdm-setup\" Link=\"Topi
 xmlAliasData += '    <Map Name=\"ext_prov_lcm_prov_app\" Link=\"Topics/Provisioning/lcm/lcm-provision-application.htm\" ResolvedId=\"6000\" />';
 xmlAliasData += '    <Map Name=\"ext_expose_app_groups\" Link=\"Topics/Directory/ldap-interface-expose-groups.htm\" ResolvedId=\"15002\" />';
 xmlAliasData += '    <Map Name=\"ext-ad-dsso-main\" Link=\"Topics/Directory/ad-desktop-sso-main.htm\" ResolvedId=\"15003\" />';
-xmlAliasData += '    <Map Name=\"ext-hide-sensitive-attributes\" Link=\"Topics/users-groups-profiles/usgp-hide-sensitive-attributes.htm\" ResolvedId=\"15004\" />';
 xmlAliasData += '    <Map Name=\"ext-box-provisioning\" Link=\"Topics/Provisioning/Box/box-provision.htm\" ResolvedId=\"8000\" />';
 xmlAliasData += '    <Map Name=\"ext-workday-provisioning\" Link=\"Topics/Provisioning/Workday/workday-provisioning.htm\" ResolvedId=\"8001\" />';
 xmlAliasData += '    <Map Name=\"ext-sfec-provisioning\" Link=\"Topics/Provisioning/sfec/sfec-main.htm\" ResolvedId=\"8002\" />';
@@ -432,5 +431,6 @@ xmlAliasData += '    <Map Name=\"csh-csv-integration-main\" Link=\"Topics/Direct
 xmlAliasData += '    <Map Name=\"csh-assign-apps\" Link=\"Topics/users-groups-profiles/usgp-assign-apps.htm\" ResolvedId=\"20008\" />';
 xmlAliasData += '    <Map Name=\"ext-oie-version\" Link=\"Topics/identity-engine/oie-verify-version.htm\" ResolvedId=\"2027\" />';
 xmlAliasData += '    <Map Name=\"log-streaming\" Link=\"Topics/Reports/log-streaming/about-log-streams.htm\" ResolvedId=\"1500\" />';
+xmlAliasData += '    <Map Name=\"csh-about-asop\" Link=\"Topics/identity-engine/policies/about-app-sign-on-policies.htm\" ResolvedId=\"6011\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
