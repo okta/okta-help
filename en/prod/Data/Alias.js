@@ -1605,5 +1605,6 @@ xmlAliasData += '    <Map Name=\"ext-best-practices-building\" Link=\"Topics/Wor
 xmlAliasData += '    <Map Name=\"log-streaming\" Link=\"Topics/Reports/log-streaming/about-log-streams.htm\" ResolvedId=\"1500\" />';
 xmlAliasData += '    <Map Name=\"ext-add-self-service-password-reset\" Link=\"Topics/users-groups-profiles/usgp-add-self-service-password-reset.htm\" ResolvedId=\"15017\" />';
 xmlAliasData += '    <Map Name=\"ext-end-user-set-language\" Link=\"Topics/Settings/end-user-set-language.htm\" ResolvedId=\"1502\" />';
+xmlAliasData += '    <Map Name=\"ext-integration-on-prem-mfa-logging\" Link=\"Topics/Security/MFA_OnPrem-logging.htm\" ResolvedId=\"3080\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
