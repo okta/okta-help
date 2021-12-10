@@ -1,7 +1,6 @@
 var xmlAliasData = "";
 xmlAliasData += '<?xml version=\"1.0\" encoding=\"utf-8\"?>';
 xmlAliasData += '<CatapultAliasFile>';
-xmlAliasData += '    <Map Name=\"ext_oag_basic_health_check\" Link=\"Topics/Access-Gateway/basic-health-check.htm\" ResolvedId=\"3070\" />';
 xmlAliasData += '    <Map Name=\"ext_User_Lifecycle_Overview\" Link=\"Topics/users-groups-profiles/usgp-main.htm\" ResolvedId=\"200082\" />';
 xmlAliasData += '    <Map Name=\"ext_oaginboundsaml\" Link=\"Topics/Access-Gateway/add-admin-app-okta.htm\" ResolvedId=\"1201\" />';
 xmlAliasData += '    <Map Name=\"ext_OAG_RESTORE\" Link=\"Topics/Access-Gateway/backup-restore.htm\" ResolvedId=\"1256\" />';
@@ -26,6 +25,10 @@ xmlAliasData += '    <Map Name=\"ext_oag_app_orcl_hyperion\" Link=\"Topics/Acces
 xmlAliasData += '    <Map Name=\"ext_oag_app_orcl_plm\" Link=\"Topics/Access-Gateway/add-oracle-plm.htm\" ResolvedId=\"1316\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_app_orcl_webcenter\" Link=\"Topics/Access-Gateway/add-oracle-webcenter.htm\" ResolvedId=\"1317\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_app_orcl_wls\" Link=\"Topics/Access-Gateway/add-oracle-wls.htm\" ResolvedId=\"1318\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_app_sample_cookie\" Link=\"Topics/Access-Gateway/add-sample-cookie-app-okta.htm\" ResolvedId=\"1319\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_app_sample_header\" Link=\"Topics/Access-Gateway/add-sample-header-app-okta.htm\" ResolvedId=\"1320\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_app_sample_policy\" Link=\"Topics/Access-Gateway/add-sample-policy-app-okta.htm\" ResolvedId=\"1321\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_app_sample_proxy\" Link=\"Topics/Access-Gateway/add-sample-proxy-app-okta.htm\" ResolvedId=\"1322\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_pre_req\" Link=\"Topics/Access-Gateway/about-oag-prereqs.htm\" ResolvedId=\"3001\" />';
 xmlAliasData += '    <Map Name=\"ext-oag-firewall-rules\" Link=\"Topics/Access-Gateway/about-oag-prereqs.htm\" ResolvedId=\"3002\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_about_logging\" Link=\"Topics/Access-Gateway/about-logging.htm\" ResolvedId=\"3003\" />';
@@ -89,15 +92,5 @@ xmlAliasData += '    <Map Name=\"ext_oag_pre_req_firewall_rules\" Link=\"Topics/
 xmlAliasData += '    <Map Name=\"ext_oag_about_policy_types_not\" Link=\"Topics/Access-Gateway/learn-about-oag-policy-types.htm#Not\" ResolvedId=\"3064\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_about_policy_types_prot\" Link=\"Topics/Access-Gateway/learn-about-oag-policy-types.htm#Protecte\" ResolvedId=\"3065\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_about_support_vpn\" Link=\"Topics/Access-Gateway/about-oag-support-vpn.htm\" ResolvedId=\"3066\" />';
-xmlAliasData += '    <Map Name=\"ext_oag_about_cap_planning\" Link=\"Topics/Access-Gateway/about-cap-planning.htm\" ResolvedId=\"3067\" />';
-xmlAliasData += '    <Map Name=\"ext_oag_manage_deployment\" Link=\"Topics/Access-Gateway/manage-deployment.htm\" ResolvedId=\"3068\" />';
-xmlAliasData += '    <Map Name=\"ext_oag_about_lb\" Link=\"Topics/Access-Gateway/about-load-balancers.htm\" ResolvedId=\"3069\" />';
-xmlAliasData += '    <Map Name=\"oag_ext_trouble_shooting_guide\" Link=\"Topics/Access-Gateway/trouble-shooting-guide.htm\" ResolvedId=\"3071\" />';
-xmlAliasData += '    <Map Name=\"oag_ext_about_log_levels\" Link=\"Topics/Access-Gateway/about-log-levels.htm\" ResolvedId=\"3072\" />';
-xmlAliasData += '    <Map Name=\"ext_oag_main\" Link=\"Topics/Access-Gateway/ag-main.htm\" ResolvedId=\"3074\" />';
-xmlAliasData += '    <Map Name=\"ext_oag_releasenotes\" Link=\"Topics/ReleaseNotes/access-gateway-release-notes.htm\" ResolvedId=\"3075\" />';
-xmlAliasData += '    <Map Name=\"ext_oag_tutor_configHA\" Link=\"Topics/Access-Gateway/one-day-tutorial-configHA.htm\" ResolvedId=\"-2147483648\" />';
-xmlAliasData += '    <Map Name=\"ext_oag_manage_certs_tf\" Link=\"Topics/Access-Gateway/managing-certificates-taskflow.htm\" ResolvedId=\"-2147483648\" />';
-xmlAliasData += '    <Map Name=\"ext_oag_troubleshooting\" Link=\"Topics/Access-Gateway/troubleshooting.htm\" ResolvedId=\"-2147483648\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
