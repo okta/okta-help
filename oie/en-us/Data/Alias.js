@@ -432,5 +432,6 @@ xmlAliasData += '    <Map Name=\"ext-oie-version\" Link=\"Topics/identity-engine
 xmlAliasData += '    <Map Name=\"log-streaming\" Link=\"Topics/Reports/log-streaming/about-log-streams.htm\" ResolvedId=\"1500\" />';
 xmlAliasData += '    <Map Name=\"csh-about-asop\" Link=\"Topics/identity-engine/policies/about-app-sign-on-policies.htm\" ResolvedId=\"6011\" />';
 xmlAliasData += '    <Map Name=\"ext-integration-on-prem-mfa-logging\" Link=\"Topics/Security/MFA_OnPrem-logging.htm\" ResolvedId=\"3080\" />';
+xmlAliasData += '    <Map Name=\"ext-devices-lifecycle\" Link=\"Topics/identity-engine/devices/devices-lifecycle.htm\" ResolvedId=\"17028\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
