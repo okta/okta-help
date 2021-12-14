@@ -52,5 +52,7 @@ xmlAliasData += '    <Map Name=\"csh-ov-new-install-qr-ios\" Link=\"Topics/end-u
 xmlAliasData += '    <Map Name=\"csh-ov-new-install-qr-android\" Link=\"Topics/end-user/ov-new-install-qr-android.htm\" ResolvedId=\"4039\" />';
 xmlAliasData += '    <Map Name=\"ext-sign-in-flows\" Link=\"Topics/end-user/sign-in-experience-changes.htm\" ResolvedId=\"18004\" />';
 xmlAliasData += '    <Map Name=\"csh-user-ov-manage-account-android\" Link=\"Topics/end-user/ov-mng-account-android.htm\" ResolvedId=\"4040\" />';
+xmlAliasData += '    <Map Name=\"csh-plugin-safari-permissions\" Link=\"Topics/end-user/plugin-safari-permissions.htm\" ResolvedId=\"1501\" />';
+xmlAliasData += '    <Map Name=\"ext-dashboard-app-drawer\" Link=\"Topics/end-user/dashboard-app-drawer.htm\" ResolvedId=\"1503\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
