@@ -12,7 +12,6 @@ xmlAliasData += '    <Map Name=\"Security_API\" Link=\"Topics/Security/API.htm#S
 xmlAliasData += '    <Map Name=\"Directory_Groups\" Link=\"Topics/users-groups-profiles/usgp-about-groups.htm#Directory_Groups\" ResolvedId=\"1140\" />';
 xmlAliasData += '    <Map Name=\"Applications_Applications\" Link=\"Topics/Apps/apps-overview-add-apps.htm\" ResolvedId=\"1180\" />';
 xmlAliasData += '    <Map Name=\"Settings_Account\" Link=\"Topics/Settings/Settings_Account.htm\" ResolvedId=\"1210\" />';
-xmlAliasData += '    <Map Name=\"Settings_Appearance\" Link=\"Topics/Settings/Settings_Appearance.htm#Settings_Appearance\" ResolvedId=\"1220\" />';
 xmlAliasData += '    <Map Name=\"Settings_Customization\" Link=\"Topics/Settings/Settings_Customization.htm#Settings_Customization1\" ResolvedId=\"1230\" />';
 xmlAliasData += '    <Map Name=\"Settings_Emails_SMS\" Link=\"Topics/Settings/Settings_Email.htm#Settings_Emails_SMS1\" ResolvedId=\"1240\" />';
 xmlAliasData += '    <Map Name=\"Settings_Downloads\" Link=\"Topics/Settings/Settings_Downloads.htm#Settings_Downloads\" ResolvedId=\"1250\" />';
@@ -62,6 +61,7 @@ xmlAliasData += '    <Map Name=\"ext_Apps_Configure_Template_App\" Link=\"Topics
 xmlAliasData += '    <Map Name=\"ext_Apps_Configuring_WS_Federation\" Link=\"Topics/Apps/Apps_Configuring WS-Federation.htm\" ResolvedId=\"200019\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Enable_O365_Chiclets\" Link=\"Topics/Apps/Apps_Enable_O365_Chiclets.htm\" ResolvedId=\"200020\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Moving_Microsoft\" Link=\"Topics/Apps/Apps_Moving_Microsoft.htm\" ResolvedId=\"200024\" />';
+xmlAliasData += '    <Map Name=\"ext_Apps_O365_Admin_Consent\" Link=\"Topics/Apps/Apps_O365_Admin_Consent.htm\" ResolvedId=\"200025\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_O365_Silent_Activation\" Link=\"Topics/Apps/Apps_O365_Silent_Activation.htm\" ResolvedId=\"200026\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Overview_of_Managing_Apps_and_SSO\" Link=\"Topics/Apps/Apps_Overview_of_Managing_Apps_and_SSO.htm\" ResolvedId=\"200028\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Revealing_the_Password\" Link=\"Topics/Apps/Apps_Revealing_the_Password.htm\" ResolvedId=\"200029\" />';
@@ -131,7 +131,6 @@ xmlAliasData += '    <Map Name=\"ext_custom_url_domain\" Link=\"Topics/Settings/
 xmlAliasData += '    <Map Name=\"ext_ref_email_variables\" Link=\"Topics/Settings/settings-customization-variables.htm\" ResolvedId=\"200183\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Account\" Link=\"Topics/Settings/Settings_Account.htm\" ResolvedId=\"200185\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Add_Custom_Email_Templates_Multiple_Languages\" Link=\"Topics/Settings/Settings_Email.htm#Add\" ResolvedId=\"200186\" />';
-xmlAliasData += '    <Map Name=\"ext_Settings_Appearance\" Link=\"Topics/Settings/Settings_Appearance.htm\" ResolvedId=\"200187\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Configure_A_Custom_Email_Domain\" Link=\"Topics/Settings/Settings_Configure_A_Custom_Email_Domain.htm\" ResolvedId=\"200188\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Customization\" Link=\"Topics/Settings/Settings_Customization.htm\" ResolvedId=\"200189\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Downloads\" Link=\"Topics/Settings/Settings_Downloads.htm\" ResolvedId=\"200190\" />';
