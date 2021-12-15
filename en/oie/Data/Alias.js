@@ -272,6 +272,7 @@ xmlAliasData += '    <Map Name=\"csh-browser-plugin-main\" Link=\"Topics/Browser
 xmlAliasData += '    <Map Name=\"ext-expression-language\" Link=\"Topics/Settings/settings-customization-variables.htm\" ResolvedId=\"1295\" />';
 xmlAliasData += '    <Map Name=\"ext_plugin_installation\" Link=\"Topics/Browser-Plugin/plugin-installation.htm\" ResolvedId=\"1292\" />';
 xmlAliasData += '    <Map Name=\"ext_browser_plugin_main\" Link=\"Topics/Browser-Plugin/browser-plugin-main.htm\" ResolvedId=\"1293\" />';
+xmlAliasData += '    <Map Name=\"ext-recent-signin-activity\" Link=\"Topics/Security/recent-signin-activity.htm\" ResolvedId=\"1296\" />';
 xmlAliasData += '    <Map Name=\"csh-notification-changed-password\" Link=\"Topics/Security/healthinsight/notifications-changed-password.htm\" ResolvedId=\"1301\" />';
 xmlAliasData += '    <Map Name=\"ext-IDP-factor\" Link=\"Topics/Security/MFA_Custom_Factor.htm\" ResolvedId=\"1323\" />';
 xmlAliasData += '    <Map Name=\"ext-ad-override-username\" Link=\"Topics/users-groups-profiles/usgp-override-username-format.htm\" ResolvedId=\"1324\" />';
