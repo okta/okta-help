@@ -1074,6 +1074,7 @@ xmlAliasData += '    <Map Name=\"ext-jamfproclassicapi3d816a0a0b7a410fa88c3de81a
 xmlAliasData += '    <Map Name=\"ext-jamfproclassicapi3d816a0a0b7a410fa88c3de81a4aeccb-misc-authorization\" Link=\"Topics/Workflows/connector-reference/jamf/overviews/authorization.htm\" ResolvedId=\"1488\" />';
 xmlAliasData += '    <Map Name=\"ext-jamfproclassicapi3d816a0a0b7a410fa88c3de81a4aeccb\" Link=\"Topics/Workflows/connector-reference/jamf/jamf.htm\" ResolvedId=\"32000\" />';
 xmlAliasData += '    <Map Name=\"ext-jamfproclassicapi3d816a0a0b7a410fa88c3de81a4aeccb-method-addusertostaticusergroup\" Link=\"Topics/Workflows/connector-reference/jamf/actions/addusertostaticusergroup.htm\" ResolvedId=\"1470\" />';
+xmlAliasData += '    <Map Name=\"ext-folder-view\" Link=\"Topics/Workflows/learn/about-folder-view.htm\" ResolvedId=\"32001\" />';
 xmlAliasData += '    <Map Name=\"ext-flow-charts\" Link=\"Topics/Workflows/learn/about-flow-charts.htm\" ResolvedId=\"32002\" />';
 xmlAliasData += '    <Map Name=\"ext-microsoftteams-method-addmembertochannel\" Link=\"Topics/Workflows/connector-reference/microsoftteams/actions/addmembertochannel.htm\" ResolvedId=\"1493\" />';
 xmlAliasData += '    <Map Name=\"ext-microsoftteams-method-createchannel\" Link=\"Topics/Workflows/connector-reference/microsoftteams/actions/createchannel.htm\" ResolvedId=\"1494\" />';
