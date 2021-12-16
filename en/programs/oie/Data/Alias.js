@@ -18,9 +18,7 @@ xmlAliasData += '    <Map Name=\"ver-hist-arch-jira-auth-toolkit\" Link=\"Topics
 xmlAliasData += '    <Map Name=\"ver-hist-confluence-auth-toolkit\" Link=\"Topics/Settings/Version_Histories/Ver_History_Confluence_Authenticator_Toolkit.htm\" ResolvedId=\"1046\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-jira-auth-toolkit\" Link=\"Topics/Settings/Version_Histories/Ver_History_JIRA_Authenticator_Toolkit.htm\" ResolvedId=\"1047\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-ldap-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_LDAP_Agent.htm\" ResolvedId=\"1048\" />';
-xmlAliasData += '    <Map Name=\"ver-hist-mfa-cred-win\" Link=\"Topics/Settings/Version_Histories/Ver_History_Okta_MFA_Credential_Provider_for_Windows.htm\" ResolvedId=\"1049\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-mfa-adfs\" Link=\"Topics/Settings/Version_Histories/Ver_History_Okta_MFA_Provider_for_ADFS.htm\" ResolvedId=\"1051\" />';
-xmlAliasData += '    <Map Name=\"ver-hist-op-mfa-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_On-Prem_MFA_Agent.htm\" ResolvedId=\"1053\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-sharepoint-pp-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_Sharepoint_People_Picker_Agent.htm\" ResolvedId=\"1056\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-sso-iwa-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_SSO_IWA_Agent.htm\" ResolvedId=\"1057\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_and_SSO_Verifying_IE_Plugin_Enablement\" Link=\"Topics/Apps/Apps_and_SSO_Verifying_IE_Plugin_Enablement.htm\" ResolvedId=\"200011\" />';
@@ -67,9 +65,7 @@ xmlAliasData += '    <Map Name=\"ext_Ver_History_Confluence_Authenticator_Toolki
 xmlAliasData += '    <Map Name=\"ext_Ver_History_DeviceTrust_Installer_Windows\" Link=\"Topics/Settings/Version_Histories/Ver_History_DeviceTrust_Installer_Windows.htm\" ResolvedId=\"200200\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_JIRA_Authenticator_Toolkit\" Link=\"Topics/Settings/Version_Histories/Ver_History_JIRA_Authenticator_Toolkit.htm\" ResolvedId=\"200201\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_LDAP_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_LDAP_Agent.htm\" ResolvedId=\"200202\" />';
-xmlAliasData += '    <Map Name=\"ext_Ver_History_Okta_MFA_Credential_Provider_for_Windows\" Link=\"Topics/Settings/Version_Histories/Ver_History_Okta_MFA_Credential_Provider_for_Windows.htm\" ResolvedId=\"200203\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_Okta_MFA_Provider_for_ADFS\" Link=\"Topics/Settings/Version_Histories/Ver_History_Okta_MFA_Provider_for_ADFS.htm\" ResolvedId=\"200204\" />';
-xmlAliasData += '    <Map Name=\"ext_Ver_History_On_Prem_MFA_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_On-Prem_MFA_Agent.htm\" ResolvedId=\"200206\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_Sharepoint_People_Picker_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_Sharepoint_People_Picker_Agent.htm\" ResolvedId=\"200210\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_SSO_IWA_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_SSO_IWA_Agent.htm\" ResolvedId=\"200211\" />';
 xmlAliasData += '    <Map Name=\"ver-hist_dt-macOS-desktop\" Link=\"Topics/Settings/Version_Histories/Ver_History_Device_Trust_MacOS.htm\" ResolvedId=\"1064\" />';
@@ -130,7 +126,7 @@ xmlAliasData += '    <Map Name=\"ext_integrate_SuccessFactors\" Link=\"Topics/Pr
 xmlAliasData += '    <Map Name=\"ext_integrate_Slack\" Link=\"Topics/Provisioning/Slack/slck-main.htm\" ResolvedId=\"1277\" />';
 xmlAliasData += '    <Map Name=\"ext_integrate_Dropbox\" Link=\"Topics/Provisioning/Dropbox/drbx-main.htm\" ResolvedId=\"1278\" />';
 xmlAliasData += '    <Map Name=\"ext_integrate_Rally\" Link=\"Topics/Provisioning/rally/rally-main.htm\" ResolvedId=\"1279\" />';
-xmlAliasData += '    <Map Name=\"ext_integrate_RingCentral\" Link=\"Topics/Provisioning/ringcentral/rngc-main.htm\" ResolvedId=\"1280\" />';
+xmlAliasData += '    <Map Name=\"ext_integrate_RingCentral\" Link=\"Topics/Provisioning/RingCentral/rngc-main.htm\" ResolvedId=\"1280\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Single_Logout\" Link=\"Topics/Apps/Apps_Single_Logout.htm\" ResolvedId=\"1286\" />';
 xmlAliasData += '    <Map Name=\"ext-Security-Policies-eu-control\" Link=\"Topics/Security/policies/configure-signon-policies.htm#EndUserControlMFAPrompts\" ResolvedId=\"1325\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-verify-relnotes\" Link=\"Topics/ReleaseNotes/okta-verify-release-notes.htm\" ResolvedId=\"1327\" />';
@@ -143,7 +139,7 @@ xmlAliasData += '    <Map Name=\"ext-servicenow-provisioning\" Link=\"Topics/Pro
 xmlAliasData += '    <Map Name=\"ext-aws-deployment\" Link=\"Topics/DeploymentGuides/AWS/aws-deployment.htm\" ResolvedId=\"8005\" />';
 xmlAliasData += '    <Map Name=\"ext-rally-provisioning\" Link=\"Topics/Provisioning/rally/rally-main.htm\" ResolvedId=\"8006\" />';
 xmlAliasData += '    <Map Name=\"ext-drbx-provisioning\" Link=\"Topics/Provisioning/Dropbox/drbx-main.htm\" ResolvedId=\"8007\" />';
-xmlAliasData += '    <Map Name=\"ext-rngc-provisioning\" Link=\"Topics/Provisioning/ringcentral/rngc-main.htm\" ResolvedId=\"8008\" />';
+xmlAliasData += '    <Map Name=\"ext-rngc-provisioning\" Link=\"Topics/Provisioning/RingCentral/rngc-main.htm\" ResolvedId=\"8008\" />';
 xmlAliasData += '    <Map Name=\"ext-gsuite-provisioning\" Link=\"Topics/Provisioning/Google/google-provisioning.htm\" ResolvedId=\"8009\" />';
 xmlAliasData += '    <Map Name=\"ext-workplace-provisioning\" Link=\"Topics/Provisioning/workplace/workplace-by-facebook-provisioning.htm\" ResolvedId=\"8010\" />';
 xmlAliasData += '    <Map Name=\"ext-docusign-main\" Link=\"Topics/Provisioning/docusign/docu-main.htm\" ResolvedId=\"15005\" />';
@@ -153,7 +149,6 @@ xmlAliasData += '    <Map Name=\"csh-apps-aiw-oidc-login-uri\" Link=\"Topics/App
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-oidc-logout-uri\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_OIDC.htm#OIDC-logout-redirect-uri\" ResolvedId=\"6003\" />';
 xmlAliasData += '    <Map Name=\"ext-bamboohr-provisioning\" Link=\"Topics/Provisioning/bamboohr/bamboohr-main.htm\" ResolvedId=\"8011\" />';
 xmlAliasData += '    <Map Name=\"csh-okta-verify-number-challenge-v1\" Link=\"Topics/Mobile/ov-admin-config.htm#enable-number-challenge\" ResolvedId=\"12007\" />';
-xmlAliasData += '    <Map Name=\"ext-apps-bookmark-app\" Link=\"Topics/Apps/Apps_Bookmark_App.htm\" ResolvedId=\"8012\" />';
 xmlAliasData += '    <Map Name=\"csh-actionable-notifications\" Link=\"Topics/Mobile/okta-verify-sign-in.htm\" ResolvedId=\"1168\" />';
 xmlAliasData += '    <Map Name=\"csh-deploy-sharepoint\" Link=\"Topics/DeploymentGuides/Sharepoint/Guide/deploy-sharepoint.htm\" ResolvedId=\"1246\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-oidc\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_OIDC.htm\" ResolvedId=\"6006\" />';
