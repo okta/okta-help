@@ -347,7 +347,6 @@ xmlAliasData += '    <Map Name=\"csh-configure-ov\" Link=\"Topics/identity-engin
 xmlAliasData += '    <Map Name=\"csh-configure-password\" Link=\"Topics/identity-engine/authenticators/‌configure-password.htm\" ResolvedId=\"2013\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-sq\" Link=\"Topics/identity-engine/authenticators/configure-security-question.htm\" ResolvedId=\"2014\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-webauthn\" Link=\"Topics/identity-engine/authenticators/configure-webauthn.htm\" ResolvedId=\"2015\" />';
-xmlAliasData += '    <Map Name=\"csh-configure-googleauth\" Link=\"Topics/Security/mfa/google-authenticator.htm\" ResolvedId=\"2017\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-duo\" Link=\"Topics/Security/Security_Duo.htm\" ResolvedId=\"2018\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-custom-idp\" Link=\"Topics/Security/MFA_Custom_Factor.htm\" ResolvedId=\"2021\" />';
 xmlAliasData += '    <Map Name=\"csh-threatinsight\" Link=\"Topics/Security/threat-insight/ti-index.htm\" ResolvedId=\"2022\" />';
