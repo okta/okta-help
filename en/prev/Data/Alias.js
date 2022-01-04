@@ -1579,6 +1579,7 @@ xmlAliasData += '    <Map Name=\"ext-gmail-method-deletesendasalias\" Link=\"Top
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-scim\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SCIM.htm\" ResolvedId=\"6009\" />';
 xmlAliasData += '    <Map Name=\"ext-googledirectory-method-signoutuser\" Link=\"Topics/Workflows/connector-reference/googledirectory/actions/signoutuser.htm\" ResolvedId=\"33006\" />';
 xmlAliasData += '    <Map Name=\"ext-googledirectory-method-turnoffmfa\" Link=\"Topics/Workflows/connector-reference/googledirectory/actions/turnoffmfa.htm\" ResolvedId=\"33007\" />';
+xmlAliasData += '    <Map Name=\"csh-agent-auto-update-main\" Link=\"Topics/Directory/agent-auto-update-main.htm\" ResolvedId=\"15016\" />';
 xmlAliasData += '    <Map Name=\"csh-log-streams\" Link=\"Topics/Reports/log-streaming/about-log-streams.htm\" ResolvedId=\"13005\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-assigngrouptoapplication\" Link=\"Topics/Workflows/connector-reference/okta/actions/assigngrouptoapplication.htm\" ResolvedId=\"33008\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-listapplicationsassignedtogroup\" Link=\"Topics/Workflows/connector-reference/okta/actions/listapplicationsassignedtogroup.htm\" ResolvedId=\"33009\" />';
