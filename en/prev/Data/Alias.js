@@ -429,7 +429,7 @@ xmlAliasData += '    <Map Name=\"ext_Apps_App_Integration_Wizard-saml\" Link=\"T
 xmlAliasData += '    <Map Name=\"ext_Apps_App_Integration_Wizard-scim\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SCIM.htm\" ResolvedId=\"1267\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_App_Integration_Wizard-swa\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SWA.htm\" ResolvedId=\"1268\" />';
 xmlAliasData += '    <Map Name=\"ext-workflows-limits\" Link=\"Topics/Workflows/workflows-limits-learn-about.htm\" ResolvedId=\"1269\" />';
-xmlAliasData += '    <Map Name=\"csh-okta-verify-admins\" Link=\"Topics/Mobile/okta-verify-admins.htm\" ResolvedId=\"1271\" />';
+xmlAliasData += '    <Map Name=\"csh-okta-verify-admins\" Link=\"Topics/Mobile/okta-verify-overview.htm\" ResolvedId=\"1271\" />';
 xmlAliasData += '    <Map Name=\"ext_asa_on_demand_users\" Link=\"Topics/Adv_Server_Access/docs/on-demand-users.htm\" ResolvedId=\"1273\" />';
 xmlAliasData += '    <Map Name=\"ext_integrate_SuccessFactors\" Link=\"Topics/Provisioning/sfec/sfec-main.htm\" ResolvedId=\"1275\" />';
 xmlAliasData += '    <Map Name=\"ext_integrate_Slack\" Link=\"Topics/Provisioning/Slack/slck-main.htm\" ResolvedId=\"1277\" />';
