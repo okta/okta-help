@@ -121,7 +121,7 @@ xmlAliasData += '    <Map Name=\"ext_OPP_provision\" Link=\"Topics/Provisioning/
 xmlAliasData += '    <Map Name=\"ext_Apps_App_Integration_Wizard-saml\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SAML.htm\" ResolvedId=\"1266\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_App_Integration_Wizard-scim\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SCIM.htm\" ResolvedId=\"1267\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_App_Integration_Wizard-swa\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SWA.htm\" ResolvedId=\"1268\" />';
-xmlAliasData += '    <Map Name=\"csh-okta-verify-admins\" Link=\"Topics/Mobile/okta-verify-admins.htm\" ResolvedId=\"1271\" />';
+xmlAliasData += '    <Map Name=\"csh-okta-verify-admins\" Link=\"Topics/Mobile/okta-verify-overview.htm\" ResolvedId=\"1271\" />';
 xmlAliasData += '    <Map Name=\"ext_integrate_SuccessFactors\" Link=\"Topics/Provisioning/sfec/sfec-main.htm\" ResolvedId=\"1275\" />';
 xmlAliasData += '    <Map Name=\"ext_integrate_Slack\" Link=\"Topics/Provisioning/Slack/slck-main.htm\" ResolvedId=\"1277\" />';
 xmlAliasData += '    <Map Name=\"ext_integrate_Dropbox\" Link=\"Topics/Provisioning/Dropbox/drbx-main.htm\" ResolvedId=\"1278\" />';
@@ -131,7 +131,6 @@ xmlAliasData += '    <Map Name=\"ext_Apps_Single_Logout\" Link=\"Topics/Apps/App
 xmlAliasData += '    <Map Name=\"ext-Security-Policies-eu-control\" Link=\"Topics/Security/policies/configure-signon-policies.htm#EndUserControlMFAPrompts\" ResolvedId=\"1325\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-verify-relnotes\" Link=\"Topics/ReleaseNotes/okta-verify-release-notes.htm\" ResolvedId=\"1327\" />';
 xmlAliasData += '    <Map Name=\"csh-ver-hist-okta-verify-windows\" Link=\"Topics/Settings/Version_Histories/Ver_History_DeviceTrust_Installer_Windows.htm\" ResolvedId=\"1353\" />';
-xmlAliasData += '    <Map Name=\"ext-box-provisioning\" Link=\"Topics/Provisioning/Box/box-provision.htm\" ResolvedId=\"8000\" />';
 xmlAliasData += '    <Map Name=\"ext-workday-provisioning\" Link=\"Topics/Provisioning/Workday/workday-provisioning.htm\" ResolvedId=\"8001\" />';
 xmlAliasData += '    <Map Name=\"ext-sfec-provisioning\" Link=\"Topics/Provisioning/sfec/sfec-main.htm\" ResolvedId=\"8002\" />';
 xmlAliasData += '    <Map Name=\"ext-sfdc-provisioning\" Link=\"Topics/Provisioning/Salesforce/sfdc-provision.htm\" ResolvedId=\"8003\" />';
@@ -150,11 +149,13 @@ xmlAliasData += '    <Map Name=\"csh-apps-aiw-oidc-logout-uri\" Link=\"Topics/Ap
 xmlAliasData += '    <Map Name=\"ext-bamboohr-provisioning\" Link=\"Topics/Provisioning/bamboohr/bamboohr-main.htm\" ResolvedId=\"8011\" />';
 xmlAliasData += '    <Map Name=\"csh-okta-verify-number-challenge-v1\" Link=\"Topics/Mobile/ov-admin-config.htm#enable-number-challenge\" ResolvedId=\"12007\" />';
 xmlAliasData += '    <Map Name=\"csh-actionable-notifications\" Link=\"Topics/Mobile/okta-verify-sign-in.htm\" ResolvedId=\"1168\" />';
+xmlAliasData += '    <Map Name=\"csh-configure-googleauth\" Link=\"Topics/Security/mfa/google-authenticator.htm\" ResolvedId=\"2017\" />';
 xmlAliasData += '    <Map Name=\"csh-deploy-sharepoint\" Link=\"Topics/DeploymentGuides/Sharepoint/Guide/deploy-sharepoint.htm\" ResolvedId=\"1246\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-oidc\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_OIDC.htm\" ResolvedId=\"6006\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-saml\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SAML.htm\" ResolvedId=\"6007\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-swa\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SWA.htm\" ResolvedId=\"6008\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-scim\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SCIM.htm\" ResolvedId=\"6009\" />';
+xmlAliasData += '    <Map Name=\"csh-agent-auto-update-main\" Link=\"Topics/Directory/agent-auto-update-main.htm\" ResolvedId=\"15016\" />';
 xmlAliasData += '    <Map Name=\"csh-log-streams\" Link=\"Topics/Reports/log-streaming/about-log-streams.htm\" ResolvedId=\"13005\" />';
 xmlAliasData += '    <Map Name=\"log-streaming\" Link=\"Topics/Reports/log-streaming/about-log-streams.htm\" ResolvedId=\"1500\" />';
 xmlAliasData += '</CatapultAliasFile>';
