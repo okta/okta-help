@@ -50,6 +50,7 @@ xmlAliasData += '    <Map Name=\"ext-ov-add-acct-while-accessing-app-macos\" Lin
 xmlAliasData += '    <Map Name=\"ext-ov-add-acct-while-signin-macos\" Link=\"Topics/end-user/ov-new-install-signin-macos.htm\" ResolvedId=\"17002\" />';
 xmlAliasData += '    <Map Name=\"csh-ov-new-install-qr-ios\" Link=\"Topics/end-user/ov-new-install-qr-ios.htm\" ResolvedId=\"4038\" />';
 xmlAliasData += '    <Map Name=\"csh-ov-new-install-qr-android\" Link=\"Topics/end-user/ov-new-install-qr-android.htm\" ResolvedId=\"4039\" />';
+xmlAliasData += '    <Map Name=\"ext-ov-setup-macos\" Link=\"Topics/end-user/ov-setup-macos.htm\" ResolvedId=\"17027\" />';
 xmlAliasData += '    <Map Name=\"ext-sign-in-flows\" Link=\"Topics/end-user/sign-in-experience-changes.htm\" ResolvedId=\"18004\" />';
 xmlAliasData += '    <Map Name=\"csh-user-ov-manage-account-android\" Link=\"Topics/end-user/ov-mng-account-android.htm\" ResolvedId=\"4040\" />';
 xmlAliasData += '    <Map Name=\"csh-plugin-safari-permissions\" Link=\"Topics/end-user/plugin-safari-permissions.htm\" ResolvedId=\"1501\" />';
