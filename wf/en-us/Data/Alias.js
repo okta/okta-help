@@ -1098,6 +1098,8 @@ xmlAliasData += '    <Map Name=\"ext-okta-method-readassignedgroupforapplication
 xmlAliasData += '    <Map Name=\"ext-okta-method-removegroupfromapplication\" Link=\"Topics/Workflows/connector-reference/okta/actions/removegroupfromapplication.htm\" ResolvedId=\"33014\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-resetpassword\" Link=\"Topics/Workflows/connector-reference/okta/actions/resetpassword.htm\" ResolvedId=\"33015\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-searchapplications\" Link=\"Topics/Workflows/connector-reference/okta/actions/searchapplications.htm\" ResolvedId=\"33016\" />';
+xmlAliasData += '    <Map Name=\"ext-flow-backup-setup\" Link=\"Topics/Workflows/build/flow-backup-setup.htm\" ResolvedId=\"31061\" />';
+xmlAliasData += '    <Map Name=\"ext-flow-backup-about\" Link=\"Topics/Workflows/learn/about-flow-backup.htm\" ResolvedId=\"31062\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-accesscertificationdecisionsubmitted\" Link=\"Topics/Workflows/connector-reference/okta/events/accesscertificationdecisionsubmitted.htm\" ResolvedId=\"31071\" />';
 xmlAliasData += '    <Map Name=\"ext-flow-limit\" Link=\"Topics/Workflows/flow-limits.htm\" ResolvedId=\"31063\" />';
 xmlAliasData += '    <Map Name=\"ext-best-practices-building\" Link=\"Topics/Workflows/architecture-best-practices.htm\" ResolvedId=\"31072\" />';
