@@ -254,7 +254,7 @@ xmlAliasData += '    <Map Name=\"vmware-horizon-radius-intg\" Link=\"Topics/inte
 xmlAliasData += '    <Map Name=\"beyondtrust-radius-intg\" Link=\"Topics/integrations/beyondtrust-powerbroker-password-safe-radius-intg.htm\" ResolvedId=\"1061\" />';
 xmlAliasData += '    <Map Name=\"ldapuserattribute\" Link=\"Topics/Directory/ldap-agent-modify-integration-settings.htm\" ResolvedId=\"1063\" />';
 xmlAliasData += '    <Map Name=\"ver-hist_dt-macOS-desktop\" Link=\"Topics/Settings/Version_Histories/Ver_History_Device_Trust_MacOS.htm\" ResolvedId=\"1064\" />';
-xmlAliasData += '    <Map Name=\"ext_widget_redirect\" Link=\"Topics/Settings/sign-in-widget-redirect.htm\" ResolvedId=\"1065\" />';
+xmlAliasData += '    <Map Name=\"ext_widget_redirect\" Link=\"Topics/Settings/settings-redirect-to-custom-page.htm\" ResolvedId=\"1065\" />';
 xmlAliasData += '    <Map Name=\"ext_mfa_windows_hello\" Link=\"Topics/Security/mfa/mfa-factors.htm\" ResolvedId=\"1066\" />';
 xmlAliasData += '    <Map Name=\"csh-okta-verify\" Link=\"Topics/Mobile/okta-verify-overview.htm\" ResolvedId=\"1068\" />';
 xmlAliasData += '    <Map Name=\"csh-okta-verify-fips\" Link=\"Topics/Mobile/ov-admin-config.htm#fips\" ResolvedId=\"1067\" />';
