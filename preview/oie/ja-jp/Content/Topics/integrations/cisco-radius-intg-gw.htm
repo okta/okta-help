@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?> <html MadCap:onlyLocalStylesheets="False" MadCap:fileTags="Tags/okta-authors.Al Saganich" xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:conditions="MultiProdPubish.OIE+Core">
+    <head>
+        <title>[[[Undefined variable Heading.Level1]]] | Okta</title>         <meta name="description" content="Citrix Netscaler Gatewayとの統合を構成してOkta RADIUSサーバーに対する多要素認証を有効にし、エンド・ユーザーにシームレスな認証を提供します。" />     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/></head>
+    <body>
+        <h1>Cisco ASAゲートウェイを構成する</h1>
+        <p> このタスクでは、RADIUSサーバー・プロファイルの定義、Okta RADIUS Agentの認証プロファイルの定義、ゲートウェイへのOkta RADIUS認証プロファイルの適用、Okta RADIUS認証プロファイルを使用するためのポータルの構成を行います。 <br /></p>
+        <h3>手順</h3>
+        <ol>
+            <li>                 <MadCap:xref href="#Define">AAAサーバー・グループを定義する</MadCap:xref>             </li>
+            <li>                 <MadCap:xref href="#Add">AAAサーバー・グループにAAAサーバーを追加します。</MadCap:xref>             </li>
+            <li>                 <MadCap:xref href="#Modify">AAAサーバー・グループを使用するようにAnyConnect接続プロファイルを変更する</MadCap:xref>             </li>
+            <li>                 <MadCap:xref href="#Modify2">AnyConnectクライアント・プロファイルを変更してタイムアウトを延長する</MadCap:xref>             </li>
+        </ol>
+        <h2>開始する前に</h2>
+        <ul>
+            <li>共通のUDPポートと秘密鍵の値が利用可能であることを確認します。</li>
+        </ul>
+        <h2>             <a name="Define"> </a>AAAサーバー・グループを定義する</h2>
+        <ol>
+            <li>十分な権限でVPNアプライアンスのCisco ASDMコンソールにサインインします。</li>
+            <li>以下に示すように、<b>[構成] &gt; [リモート・アクセスVPN] &gt; [AAA/ローカル・ユーザー] &gt; [AAAサーバー・グループ]</b>に移動します。<p><img src="../../Resources/Images/cisco_4.png" /></p></li>
+            <li><b>[追加]</b>をクリックし、新しいグループを作成します。以下に示すように、<b>[AAAサーバー・グループの追加]</b>画面が開きます。<p><img src="../../Resources/Images/cisco_5.png" /></p></li>
+            <li>
+                <p>以下を除き、デフォルト設定のままにします。</p>
+                <ul>
+                    <li>
+                        <p>[AAAサーバー・グループ]：MFAサーバーのグループを識別する名前を指定します。</p>
+                    </li>
+                    <li>
+                        <p>[プロトコル]：必要に応じてRADIUSを選択します。</p>
+                    </li>
+                </ul>
+            </li>
+        </ol>
+        <h2>             <a name="Add"> </a>AAAサーバー・グループにAAAサーバーを追加します。</h2>
+        <ol>
+            <li>
+                <p><b>[OK]</b>をクリックして、上記の手順2に示したCisco ASDMコンソールに戻ります。</p>
+            </li>
+            <li>
+                <p><b>[リモート・アクセスVPN]</b> をクリックして、<b>[AAA/ローカル・ユーザー] &gt; [AAAサーバー・グループ]</b>に移動します。前の手順で作成したサーバー・グループを選択します。</p>
+            </li>
+            <li>
+                <p><b>[追加]</b>をクリックします。以下の画面が開きます。</p>
+                <p>                     <img src="../../Resources/Images/cisco_6.png" />                 </p>
+            </li>
+            <li>以下を除き、デフォルト設定のままにします。 				<ul><li>[インターフェイス名]： MFAサーバーとの通信を処理するインターフェイスを選択します。</li><li>[サーバー名またはIPアドレス]：Okta RADIUS Agentの名前またはIPアドレスを指定します。</li><li>[タイムアウト]（秒）：60秒</li><li>[サーバー認証ポート]：Oktaでアプリをセットアップする際、上記の手順3で構成したポート番号を入力します。この例ではポート1812を使用しています。</li><li>[サーバー・アカウンティング・ポート]：1646。この値は使用されませんが、セットアップを完了するには入力する必要があります。</li><li>[再試行間隔]：デフォルトの60秒のままにします</li><li>[サーバー・シークレット・キー]：Oktaでアプリをセットアップする際に上記の手順3で定義したシークレットが入力されます。 </li><li>[共通パスワード]：空白のままにします</li><li><b>[Microsoft CHAPv2を有効にする]</b>のチェックを外します（重要）。</li></ul></li>
+            <li>完了したら、<b>[OK]</b>をクリックします。</li>
+            <li>
+                <p><b>[適用]</b> をクリックして構成を保存します。</p>
+            </li>
+        </ol>
+        <h2>             <a name="Modify"> </a>AAAサーバー・グループを使用するようにAnyConnect接続プロファイルを変更する</h2>
+        <p>この手順では、競合または矛盾している認可/認証/アカウンティング設定がないかについても確認します。</p>
+        <ol>
+            <li>  以下に示すように、VPNアプライアンスのCisco ASDMコンソールで、<b>[構成] &gt; [リモート・アクセスVPN] &gt; [ネットワーク(クライアント)アクセス ] &gt; [AnyConnect接続プロファイル]</b>に移動します。 <p><img src="../../Resources/Images/cisco_7.png" /></p></li>
+            <li>
+                <p><b>[接続プロファイル]</b>セクションで目的の接続プロファイルを反転表示し、プロファイル名のリストの上にある<b>[編集]</b>をクリックします。以下の画面が開きます。</p>
+                <p>                     <img src="../../Resources/Images/cisco_8.png" />                 </p>
+            </li>
+            <li><b>[認証]</b>セクションで、<b>[方法]</b>を <em>[AAA]</em>に設定します。 </li>
+            <li>以前に作成または変更したAAAサーバー・グループを選択し、左側の列の</b>[詳細設定]<b>をクリックします。以下の画面が開きます。<p><img src="../../Resources/Images/cisco_8b.png" /></p></li>
+            <li>
+                <p>左側の<b>[セカンダリ認証]</b>をクリックし、[セカンダリ認証サーバー・グループ]が定義されていないことを確認します。</p>
+                <div class="noteOkta">                     <img src="../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="情報" alt="情報" />                     <p class="noteHeading">注</p>
+                    <p class="noteContent">現在の構成は「多段階認証」とも呼ばれます。</p>
+                </div>
+                <p>[セカンダリ認証サーバー・グループ]を使用して、別のフローでMFAを実行する代替構成が存在します。この構成では、「セカンダリ」認証はメインのAAAサーバー・グループのサーバーによって、RADIUSチャレンジ/レスポンス・メッセージを使用して処理されます。</p>
+                <p> その構成では、プライマリAAAサーバー・グループは、1つのAAAサーバー・グループに対してプライマリ認証（ユーザー名/パスワード）を実行するように構成されています。 このAAAサーバー・グループは、プライマリ認証を実行するために<b>のみ</b> 構成されているOkta RADIUS Server Agentに対して検証することができます。セカンダリAAAサーバー・グループは、2番目のAAAサーバー・グループに対してセカンダリ認証を行うように構成されています。このAAAサーバー・グループは通常、プライマリ認証を実行<b>しない</b>ように明示的に構成されているアプリを搭載したOkta RADIUSサーバーであり、登録されている要素（プッシュ、Verify OTP、SMS OTPなど）を検証するためにのみ使用されます。</p>
+                <p>この代替構成を使用する理由として、以下の2点が挙げられます。</p>
+                <ul>
+                    <li>プライマリ認証サーバーが、Oktaでは提供できない追加のアカウンティング、認可、または接続の詳細を提供している</li>
+                    <li>コンプライアンス上の理由により、マルチステップ以外のMFAエクスペリエンスを使う必要がある</li>
+                </ul>
+            </li>
+            <li>左側の<b>[認可]</b>をクリックし、以下のように<b>[サーバー・グループ]</b>の値が<b>[なし]</b>に設定されていることを確認します。<p><img src="../../Resources/Images/cisco_8c.png" /></p><div class="noteOkta"><img src="../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="情報" alt="情報" /><p class="noteHeading">注</p><p class="noteContent">別の認可サーバー・グループを追加で利用する構成が存在する可能性がありますが、そうした構成はこのガイドの範囲外となります。この設定が、Okta RADIUS Server Agentの情報が入力されたAAAサーバー・グループを指していたために、Oktaで問題が発生したケースがありました。このような場合、余分なアクセス要求メッセージがOkta RADIUS Serverに送信されます。</p></div></li>
+            <li>左側の<b>[アカウンティング]</b>をクリックし、以下のように<b>[アカウンティング・サーバー・グループ]</b>の値が<b>[なし]</b>に設定されていることを確認します。<div class="noteOkta"><img src="../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="情報" alt="情報" /><p class="noteHeading">注</p><p class="noteContent">一意でわかりやすいアカウンティング・サーバー・グループが役立つ場合があります。Okta RADIUS Serverエージェントを使用するAAAサーバー・グループは、RADIUSアカウンティング・メッセージをサポートしていません。</p></div></li>
+            <li><b>[OK]</b>をクリックして設定を保存します。</li>
+        </ol>
+        <h2>             <a name="Modify2"> </a>AnyConnectクライアント・プロファイルを変更してタイムアウトを延長する</h2>
+        <ol>
+            <li>Cisco ASA管理コンソールで、<b>[構成 ] </b>ボタンをクリックし、<b>[リモート・アクセスVPN]</b>ボタンをクリックします。</li>
+            <li>以下のように、<b>[ ネットワーク(クライアント)アクセス] &gt; [AnyConnectクライアント・プロファイル]</b>に移動し、目的のクライアント・プロファイルを反転表示して、<b>[編集]</b>をクリックします。<p><img src="../../Resources/Images/cisco_9.png" /></p></li>
+            <li>表示される画面で、以下のように <b>[設定(パート2)]</b>を選択します。<p><img src="../../Resources/Images/cisco_9d.png" /></p></li>
+            <li>
+                <p>下にスクロールして[認証タイムアウト(秒)]を探し、値を<b>60</b>に設定します。</p>
+            </li>
+            <li><b>[OK]</b>をクリックして設定を保存します。 </li>
+            <li>
+                <p><b>[コミット]</b>をクリックして、Okta RADIUS構成をCisco ASA管理コンソール内に保存します。</p>
+            </li>
+        </ol>
+    </body>
+</html>

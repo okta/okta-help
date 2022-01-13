@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?> <html MadCap:onlyLocalStylesheets="False" MadCap:fileTags="Tags/okta-authors.Al Saganich" xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:conditions="MultiProdPubish.OIE+Core">
+    <head>
+        <title>[[[Undefined variable Heading.Level1]]] | Okta</title>         <meta name="description" content="Citrix Netscaler Gatewayとの統合を構成してOkta RADIUSサーバーに対する多要素認証を有効にし、エンド・ユーザーにシームレスな認証を提供します。" />     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/></head>
+    <body>
+        <h1>Sophos USMゲートウェイを構成する</h1>
+        <p>このタスクでは、Sophos UTM RADIUS OINアプリを使用するようにSophos USMを構成します。</p>
+        <h3>手順</h3>
+        <p>この構成には4つのパートがあります。</p>
+        <ol>
+            <li>                 <MadCap:xref href="#Enable">ユーザーの自動作成を有効にする</MadCap:xref>             </li>
+            <li>                 <MadCap:xref href="#Configur">新しい認証サーバーを構成する</MadCap:xref>             </li>
+            <li>                 <MadCap:xref href="#Create">RADIUSバックエンド・グループを作成する</MadCap:xref>             </li>
+            <li>                 <MadCap:xref href="#Allow">リソースへのグループのアクセスを許可する</MadCap:xref>             </li>
+        </ol>
+        <h2>開始する前に</h2>
+        <ul>
+            <li>共通のUDPポートと秘密鍵の値が利用可能であることを確認します。</li>
+        </ul>
+        <h2>             <a name="Enable"> </a>ユーザーの自動作成を有効にする</h2>
+        <ol>
+            <li>十分な権限でSophos UTM WebAdminコンソールにサインインします。</li>
+            <li><b>[定義とユーザー] &gt; [認証サービス]</b>に移動し、<b>[追加]</b>をクリックして新しいRADIUSサーバーを定義します。&amp; </li>
+            <li>以下に示すように、<b>[グローバル設定]</b>タブで、</b>[ユーザーを自動的に作成]<b>チェックボックスをオンにします。 <p><img src="../../Resources/Images/sophos_4.png" /></p></li>
+            <li>
+                <p>上記のように、<b>[ファシリティーのユーザーの自動作成]</b>で、環境に適したファシリティーにチェックを入れます。</p>
+                <p>                     <b>推奨：</b><b>[クライアント認証]</b>と<b>[エンド・ユーザー・ポータル]</b>を選択してください。</p>
+            </li>
+        </ol>
+        <h2>             <a name="Configur"> </a>新しい認証サーバーを構成する</h2>
+        <ol>
+            <li>Sophos UTM WebAdminコンソールで <b>[定義とユーザー] &gt; [認証サービス]</b>に移動し、<b>[サーバー]</b>タブを選択します。&amp;以下の画面が開きます。<p><img src="../../Resources/Images/sophos_5.png" /></p></li>
+            <li>
+                <p><b>[新しい認証サーバー...]</b>ボタンをクリックします。 </p>
+            </li>
+            <li>以下の情報を入力します。<ul><li><b>[バックエンド]：</b>[RADIUS]</li><li><b>[位置]：</b>[トップ]</li></ul><p>サーバー</p><ul><li><b>[名前]：</b>一意で適切な名前（OktaMFAなど）</li><li><b>[タイプ]：</b>[ホスト]</li><li><b>[IPv4アドレス]：</b>Okta RADIUS Server AgentのIPアドレス</li></ul><p>詳細設定</p><ul><li><b>[インターフェイス]：</b>環境に適したインターフェイス</li></ul><ul><li><b>[ポート]：</b>上記のパート2、手順3で定義したUDPポート（1815など）</li><li><b>[共有シークレット]：</b>上記のパート2、手順3で定義した秘密鍵</li></ul><p>詳細設定</p><ul><li><b>[認証タイムアウト(秒)]：</b>60</li></ul></li>
+            <li>完了したら、<b>[保存]</b>をクリックします。</li>
+        </ol>
+        <h2>             <a name="Create"> </a>RADIUSバックエンド・グループを作成する</h2>
+        <ol>
+            <li>Sophos UTM WebAdminコンソールで、<b>[定義とユーザー] &gt; [ユーザーとグループ] </b>に移動し、<b>[グループ]</b>タブを選択します。&amp;&amp;以下の画面が開きます。<p><img src="../../Resources/Images/sophos_8.png" /></p></li>
+            <li><b>[新しいグループ…]</b>をクリックします。</li>
+            <li><b>[グループを追加]</b>セクションに以下の情報を入力します。<ul><li><b>[グループ名]：</b>一意で適切な名前（<em>Okta RADIUS Users</em>など）</li><li><b>[グループ・タイプ]</b>：[バックエンド・メンバーシップ]</li><li><b>[バックエンド]：</b>[RADIUS] </li></ul></li>
+            <li>
+                <p><b>[保存]</b>をクリックして設定を保存します。</p>
+            </li>
+        </ol>
+        <h2>             <a name="Allow"> </a>リソースへのグループのアクセスを許可する</h2>
+        <ol>
+            <li>Sophos UTM WebAdminコンソールで、<b>[リモート・アクセス]</b>に移動し、目的の接続方法を選択します。以下の画面が開きます。<p><img src="../../Resources/Images/sophos_10.png" /></p></li>
+            <li><b>[新しいHTML5 VPNポータル接続...]</b>をクリックするか、既存の接続を使用します。</li>
+            <li>
+                <p>手順3で作成したグループを<b>[ユーザーとグループ]</b>または<b>[許可されたユーザー(ユーザー・ポータル)]</b>リストに追加します。</p>
+            </li>
+        </ol>
+        <div>
+            <h2>次の手順</h2>
+            <p>                 <MadCap:xref href="sophos-radius-intg-config-opt.htm">Sophos UTMのオプション設定</MadCap:xref>             </p>
+        </div>
+    </body>
+</html>
