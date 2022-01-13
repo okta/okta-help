@@ -118,6 +118,7 @@ xmlAliasData += '    <Map Name=\"ext-box-method-transferuserfolders\" Link=\"Top
 xmlAliasData += '    <Map Name=\"ext-box-method-updategroupmembership\" Link=\"Topics/Workflows/connector-reference/box/actions/updategroupmembership.htm\" ResolvedId=\"30082\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-updateuser\" Link=\"Topics/Workflows/connector-reference/box/actions/updateuser.htm\" ResolvedId=\"30085\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-uploadfile\" Link=\"Topics/Workflows/connector-reference/box/actions/uploadfile.htm\" ResolvedId=\"30086\" />';
+xmlAliasData += '    <Map Name=\"ext-box-method-foldercreated\" Link=\"Topics/Workflows/connector-reference/box/events/foldercreated.htm\" ResolvedId=\"30090\" />';
 xmlAliasData += '    <Map Name=\"ext-box-misc-authorization\" Link=\"Topics/Workflows/connector-reference/box/overviews/authorization.htm\" ResolvedId=\"30095\" />';
 xmlAliasData += '    <Map Name=\"ext-datagrail\" Link=\"Topics/Workflows/connector-reference/datagrail/datagrail.htm\" ResolvedId=\"30096\" />';
 xmlAliasData += '    <Map Name=\"ext-datagrail-method-createprivacyrequest\" Link=\"Topics/Workflows/connector-reference/datagrail/actions/createprivacyrequest.htm\" ResolvedId=\"30097\" />';
@@ -1103,5 +1104,10 @@ xmlAliasData += '    <Map Name=\"ext-flow-backup-about\" Link=\"Topics/Workflows
 xmlAliasData += '    <Map Name=\"ext-okta-method-accesscertificationdecisionsubmitted\" Link=\"Topics/Workflows/connector-reference/okta/events/accesscertificationdecisionsubmitted.htm\" ResolvedId=\"31071\" />';
 xmlAliasData += '    <Map Name=\"ext-flow-limit\" Link=\"Topics/Workflows/flow-limits.htm\" ResolvedId=\"31063\" />';
 xmlAliasData += '    <Map Name=\"ext-best-practices-building\" Link=\"Topics/Workflows/architecture-best-practices.htm\" ResolvedId=\"31072\" />';
+xmlAliasData += '    <Map Name=\"ext-box-method-collaborationcreated\" Link=\"Topics/Workflows/connector-reference/box/events/collaborationcreated.htm\" ResolvedId=\"33017\" />';
+xmlAliasData += '    <Map Name=\"ext-box-method-fileuploaded\" Link=\"Topics/Workflows/connector-reference/box/events/fileuploaded.htm\" ResolvedId=\"33018\" />';
+xmlAliasData += '    <Map Name=\"ext-box-method-filemoved\" Link=\"Topics/Workflows/connector-reference/box/events/filemoved.htm\" ResolvedId=\"33019\" />';
+xmlAliasData += '    <Map Name=\"ext-box-method-sharedlinkcreated\" Link=\"Topics/Workflows/connector-reference/box/events/sharedlinkcreated.htm\" ResolvedId=\"33020\" />';
+xmlAliasData += '    <Map Name=\"ext-box-method-sharedlinkupdated\" Link=\"Topics/Workflows/connector-reference/box/events/sharedlinkupdated.htm\" ResolvedId=\"33021\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
