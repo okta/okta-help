@@ -1109,6 +1109,7 @@ xmlAliasData += '    <Map Name=\"ext-box-method-fileuploaded\" Link=\"Topics/Wor
 xmlAliasData += '    <Map Name=\"ext-box-method-filemoved\" Link=\"Topics/Workflows/connector-reference/box/events/filemoved.htm\" ResolvedId=\"33019\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-sharedlinkcreated\" Link=\"Topics/Workflows/connector-reference/box/events/sharedlinkcreated.htm\" ResolvedId=\"33020\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-sharedlinkupdated\" Link=\"Topics/Workflows/connector-reference/box/events/sharedlinkupdated.htm\" ResolvedId=\"33021\" />';
+xmlAliasData += '    <Map Name=\"ext-office365calendar-misc-authorization\" Link=\"Topics/Workflows/connector-reference/office365calendar/overviews/authorization.htm\" ResolvedId=\"33022\" />';
 xmlAliasData += '    <Map Name=\"ext-office365calendar\" Link=\"Topics/Workflows/connector-reference/office365calendar/office365calendar.htm\" ResolvedId=\"33023\" />';
 xmlAliasData += '    <Map Name=\"ext-office365calendar-method-createevent\" Link=\"Topics/Workflows/connector-reference/office365calendar/actions/createevent.htm\" ResolvedId=\"33025\" />';
 xmlAliasData += '    <Map Name=\"ext-office365calendar-method-customapiaction\" Link=\"Topics/Workflows/connector-reference/office365calendar/actions/customapiaction.htm\" ResolvedId=\"33026\" />';
