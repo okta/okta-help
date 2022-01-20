@@ -437,7 +437,7 @@ xmlAliasData += '    <Map Name=\"ext-okta-method-userreactivated\" Link=\"Topics
 xmlAliasData += '    <Map Name=\"ext-okta-method-userremovedfromapplicationmembership\" Link=\"Topics/Workflows/connector-reference/okta/events/userremovedfromapplicationmembership.htm\" ResolvedId=\"30466\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-userremovedfromgroupmembership\" Link=\"Topics/Workflows/connector-reference/okta/events/userremovedfromgroupmembership.htm\" ResolvedId=\"30467\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-userreportedsuspiciousactivitybeta\" Link=\"Topics/Workflows/connector-reference/okta/events/userreportedsuspiciousactivitybeta.htm\" ResolvedId=\"30468\" />';
-xmlAliasData += '    <Map Name=\"ext-okta-method-usersignedin\" Link=\"Topics/Workflows/connector-reference/okta/events/usersignedin.htm\" ResolvedId=\"30469\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-usersignedin\" Link=\"Topics/Workflows/connector-reference/okta/events/usersignedinattempt.htm\" ResolvedId=\"33055\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-usersignedout\" Link=\"Topics/Workflows/connector-reference/okta/events/usersignedout.htm\" ResolvedId=\"30470\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-usersuspended\" Link=\"Topics/Workflows/connector-reference/okta/events/usersuspended.htm\" ResolvedId=\"30471\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-userunsuspended\" Link=\"Topics/Workflows/connector-reference/okta/events/userunsuspended.htm\" ResolvedId=\"30472\" />';
@@ -1109,5 +1109,6 @@ xmlAliasData += '    <Map Name=\"ext-box-method-fileuploaded\" Link=\"Topics/Wor
 xmlAliasData += '    <Map Name=\"ext-box-method-filemoved\" Link=\"Topics/Workflows/connector-reference/box/events/filemoved.htm\" ResolvedId=\"33019\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-sharedlinkcreated\" Link=\"Topics/Workflows/connector-reference/box/events/sharedlinkcreated.htm\" ResolvedId=\"33020\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-sharedlinkupdated\" Link=\"Topics/Workflows/connector-reference/box/events/sharedlinkupdated.htm\" ResolvedId=\"33021\" />';
+xmlAliasData += '    <Map Name=\"ext-office365mail-method-customapiaction\" Link=\"Topics/Workflows/connector-reference/office365mail/actions/customapiaction.htm\" ResolvedId=\"33054\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
