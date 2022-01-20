@@ -660,5 +660,6 @@ xmlAliasData += '    <Map Name=\"ext-add-self-service-password-reset\" Link=\"To
 xmlAliasData += '    <Map Name=\"ext-end-user-set-language\" Link=\"Topics/Settings/end-user-set-language.htm\" ResolvedId=\"1502\" />';
 xmlAliasData += '    <Map Name=\"ext-integration-on-prem-mfa-logging\" Link=\"Topics/Security/MFA_OnPrem-logging.htm\" ResolvedId=\"3080\" />';
 xmlAliasData += '    <Map Name=\"ext-org2org-intg\" Link=\"Topics/Provisioning/org2org/org2org-integrate.htm\" ResolvedId=\"13006\" />';
+xmlAliasData += '    <Map Name=\"csh-org2org-integration\" Link=\"Topics/Provisioning/org2org/org2org-main.htm\" ResolvedId=\"1505\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
