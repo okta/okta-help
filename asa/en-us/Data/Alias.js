@@ -29,5 +29,6 @@ xmlAliasData += '    <Map Name=\"csh-ad-sync-activate\" Link=\"Topics/Adv_Server
 xmlAliasData += '    <Map Name=\"csh-ad-sync\" Link=\"Topics/Adv_Server_Access/docs/ad-sync.htm\" ResolvedId=\"20003\" />';
 xmlAliasData += '    <Map Name=\"csh-asa-install-server\" Link=\"Topics/Adv_Server_Access/docs/install-agent.htm\" ResolvedId=\"20009\" />';
 xmlAliasData += '    <Map Name=\"csh-asa-enroll-server\" Link=\"Topics/Adv_Server_Access/docs/setup/enrolling-a-server.htm\" ResolvedId=\"20010\" />';
+xmlAliasData += '    <Map Name=\"csh-asa-overview\" Link=\"Topics/Adv_Server_Access/docs/asa-overview.htm\" ResolvedId=\"20011\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
