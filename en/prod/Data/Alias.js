@@ -661,5 +661,7 @@ xmlAliasData += '    <Map Name=\"ext-end-user-set-language\" Link=\"Topics/Setti
 xmlAliasData += '    <Map Name=\"ext-integration-on-prem-mfa-logging\" Link=\"Topics/Security/MFA_OnPrem-logging.htm\" ResolvedId=\"3080\" />';
 xmlAliasData += '    <Map Name=\"ext-org2org-intg\" Link=\"Topics/Provisioning/org2org/org2org-integrate.htm\" ResolvedId=\"13006\" />';
 xmlAliasData += '    <Map Name=\"csh-org2org-integration\" Link=\"Topics/Provisioning/org2org/org2org-main.htm\" ResolvedId=\"1505\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_about_oag_lb\" Link=\"Topics/Access-Gateway/about-oag-load-balancers.htm\" ResolvedId=\"3081\" />';
+xmlAliasData += '    <Map Name=\"csh-facebook-work\" Link=\"Topics/Provisioning/workplace/workplace-by-facebook-provisioning.htm\" ResolvedId=\"1507\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
