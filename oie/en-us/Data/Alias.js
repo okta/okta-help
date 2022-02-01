@@ -440,5 +440,8 @@ xmlAliasData += '    <Map Name=\"ext-org2org-intg\" Link=\"Topics/Provisioning/o
 xmlAliasData += '    <Map Name=\"csh-org2org-integration\" Link=\"Topics/Provisioning/org2org/org2org-main.htm\" ResolvedId=\"1505\" />';
 xmlAliasData += '    <Map Name=\"csh-email-verification\" Link=\"Topics/identity-engine/policies/create-profile-enrollment-policy-sr.htm#Create\" ResolvedId=\"1506\" />';
 xmlAliasData += '    <Map Name=\"csh-facebook-work\" Link=\"Topics/Provisioning/workplace/workplace-by-facebook-provisioning.htm\" ResolvedId=\"1507\" />';
+xmlAliasData += '    <Map Name=\"ext-lcm-assign-app-user\" Link=\"Topics/Provisioning/lcm/lcm-assign-app-user.htm\" ResolvedId=\"1508\" />';
+xmlAliasData += '    <Map Name=\"ext-lcm-assign-app-groups\" Link=\"Topics/Provisioning/lcm/lcm-assign-app-groups.htm\" ResolvedId=\"1509\" />';
+xmlAliasData += '    <Map Name=\"csh-about-ip-zones\" Link=\"Topics/Security/network/about-ip-zones.htm\" ResolvedId=\"21000\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
