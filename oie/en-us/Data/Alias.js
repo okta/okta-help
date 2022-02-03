@@ -149,7 +149,6 @@ xmlAliasData += '    <Map Name=\"check-point-radius-intg\" Link=\"Topics/integra
 xmlAliasData += '    <Map Name=\"vmware-horizon-radius-intg\" Link=\"Topics/integrations/vmware-horizon-radius-intg.htm\" ResolvedId=\"1059\" />';
 xmlAliasData += '    <Map Name=\"beyondtrust-radius-intg\" Link=\"Topics/integrations/beyondtrust-powerbroker-password-safe-radius-intg.htm\" ResolvedId=\"1061\" />';
 xmlAliasData += '    <Map Name=\"ldapuserattribute\" Link=\"Topics/Directory/ldap-agent-modify-integration-settings.htm\" ResolvedId=\"1063\" />';
-xmlAliasData += '    <Map Name=\"ext_widget_redirect\" Link=\"Topics/Settings/settings-redirect-to-custom-page.htm\" ResolvedId=\"1065\" />';
 xmlAliasData += '    <Map Name=\"ext_Assign_Admin\" Link=\"Topics/Security/administrators-assign-admins.htm\" ResolvedId=\"1069\" />';
 xmlAliasData += '    <Map Name=\"ext_Assign_Group_Admin\" Link=\"Topics/Security/administrators-assign-admins.htm\" ResolvedId=\"1072\" />';
 xmlAliasData += '    <Map Name=\"ext_Assign_HD_Admin\" Link=\"Topics/Security/administrators-configure-help-desk-admin.htm\" ResolvedId=\"1073\" />';
@@ -363,7 +362,6 @@ xmlAliasData += '    <Map Name=\"ext-passwordless-auth\" Link=\"Topics/identity-
 xmlAliasData += '    <Map Name=\"ext-create-mfa-policy\" Link=\"Topics/identity-engine/policies/create-mfa-policy.htm\" ResolvedId=\"1381\" />';
 xmlAliasData += '    <Map Name=\"ext-about-osop\" Link=\"Topics/identity-engine/policies/about-okta-sign-on-policies.htm\" ResolvedId=\"1382\" />';
 xmlAliasData += '    <Map Name=\"csh-asop-sq\" Link=\"Topics/identity-engine/policies/add-app-sign-on-policy-rule.htm#sq-asop\" ResolvedId=\"18000\" />';
-xmlAliasData += '    <Map Name=\"csh-custom-redirect\" Link=\"Topics/Settings/settings-redirect-to-custom-page.htm\" ResolvedId=\"5002\" />';
 xmlAliasData += '    <Map Name=\"ext-get-started-oie\" Link=\"Topics/identity-engine/oie-get-started.htm\" ResolvedId=\"1383\" />';
 xmlAliasData += '    <Map Name=\"csh-o365-deploy\" Link=\"Topics/Apps/Office365-Deployment/deploy-main.htm\" ResolvedId=\"1392\" />';
 xmlAliasData += '    <Map Name=\"ext-oie-policies\" Link=\"Topics/identity-engine/policies/about-policies.htm\" ResolvedId=\"1393\" />';
@@ -438,6 +436,7 @@ xmlAliasData += '    <Map Name=\"ext-integration-on-prem-mfa-logging\" Link=\"To
 xmlAliasData += '    <Map Name=\"ext-devices-lifecycle\" Link=\"Topics/identity-engine/devices/devices-lifecycle.htm\" ResolvedId=\"17028\" />';
 xmlAliasData += '    <Map Name=\"ext-org2org-intg\" Link=\"Topics/Provisioning/org2org/org2org-integrate.htm\" ResolvedId=\"13006\" />';
 xmlAliasData += '    <Map Name=\"csh-org2org-integration\" Link=\"Topics/Provisioning/org2org/org2org-main.htm\" ResolvedId=\"1505\" />';
+xmlAliasData += '    <Map Name=\"csh-custom-otp\" Link=\"Topics/identity-engine/authenticators/custom-otp.htm\" ResolvedId=\"4041\" />';
 xmlAliasData += '    <Map Name=\"csh-email-verification\" Link=\"Topics/identity-engine/policies/create-profile-enrollment-policy-sr.htm#Create\" ResolvedId=\"1506\" />';
 xmlAliasData += '    <Map Name=\"csh-facebook-work\" Link=\"Topics/Provisioning/workplace/workplace-by-facebook-provisioning.htm\" ResolvedId=\"1507\" />';
 xmlAliasData += '    <Map Name=\"ext-lcm-assign-app-user\" Link=\"Topics/Provisioning/lcm/lcm-assign-app-user.htm\" ResolvedId=\"1508\" />';
