@@ -1474,6 +1474,11 @@ xmlAliasData += '    <Map Name=\"ext-opsgenie-method-deleteschedulerotation\" Li
 xmlAliasData += '    <Map Name=\"ext-opsgenie-method-readschedule\" Link=\"Topics/Workflows/connector-reference/opsgenie/actions/readschedule.htm\" ResolvedId=\"1439\" />';
 xmlAliasData += '    <Map Name=\"ext-migrate-iwa-dsso\" Link=\"Topics/Directory/ad-dsso-iwa-migrate.htm\" ResolvedId=\"15015\" />';
 xmlAliasData += '    <Map Name=\"csh-branding\" Link=\"Topics/Settings/branding.htm\" ResolvedId=\"13003\" />';
+xmlAliasData += '    <Map Name=\"ext-office365admin-method-assignroletouser\" Link=\"Topics/Workflows/connector-reference/office365admin/actions/assignroletouser.htm\" ResolvedId=\"1445\" />';
+xmlAliasData += '    <Map Name=\"ext-office365admin-method-readdirectoryroles\" Link=\"Topics/Workflows/connector-reference/office365admin/actions/readdirectoryroles.htm\" ResolvedId=\"1446\" />';
+xmlAliasData += '    <Map Name=\"ext-office365admin-method-readuserroles\" Link=\"Topics/Workflows/connector-reference/office365admin/actions/readuserroles.htm\" ResolvedId=\"1447\" />';
+xmlAliasData += '    <Map Name=\"ext-office365admin-method-searchgroupmembers\" Link=\"Topics/Workflows/connector-reference/office365admin/actions/searchgroupmembers.htm\" ResolvedId=\"1448\" />';
+xmlAliasData += '    <Map Name=\"ext-office365admin-method-unassignrolefromuser\" Link=\"Topics/Workflows/connector-reference/office365admin/actions/unassignarolefromuser.htm\" ResolvedId=\"1449\" />';
 xmlAliasData += '    <Map Name=\"ext-idp-smart-card-workflow\" Link=\"Topics/Security/idp-smart-card-workflow.htm\" ResolvedId=\"2026\" />';
 xmlAliasData += '    <Map Name=\"ext-pagerduty-method-addusertoteam\" Link=\"Topics/Workflows/connector-reference/pagerduty/actions/addusertoteam.htm\" ResolvedId=\"1450\" />';
 xmlAliasData += '    <Map Name=\"ext-pagerduty-method-listteammembers\" Link=\"Topics/Workflows/connector-reference/pagerduty/actions/listteammembers.htm\" ResolvedId=\"1451\" />';
@@ -1634,5 +1639,6 @@ xmlAliasData += '    <Map Name=\"ext-lcm-assign-app-user\" Link=\"Topics/Provisi
 xmlAliasData += '    <Map Name=\"ext-lcm-assign-app-groups\" Link=\"Topics/Provisioning/lcm/lcm-assign-app-groups.htm\" ResolvedId=\"1509\" />';
 xmlAliasData += '    <Map Name=\"csh-about-ip-zones\" Link=\"Topics/Security/network/about-ip-zones.htm\" ResolvedId=\"21000\" />';
 xmlAliasData += '    <Map Name=\"ext-about-save-data-flow-history\" Link=\"Topics/Workflows/learn/about-save-data-with-flow-history.htm\" ResolvedId=\"31080\" />';
+xmlAliasData += '    <Map Name=\"csh-inlinehooks\" Link=\"Topics/automation-hooks/inline-hooks-main.htm\" ResolvedId=\"6012\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
