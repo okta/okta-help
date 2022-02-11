@@ -23,7 +23,6 @@ xmlAliasData += '    <Map Name=\"API_Access\" Link=\"Topics/Security/API_Access.
 xmlAliasData += '    <Map Name=\"create-scopes\" Link=\"Topics/Security/API_Access.htm#create-scopes\" ResolvedId=\"1272\" />';
 xmlAliasData += '    <Map Name=\"create-claims\" Link=\"Topics/Security/API_Access.htm#create-claims\" ResolvedId=\"1274\" />';
 xmlAliasData += '    <Map Name=\"create-access-policies\" Link=\"Topics/Security/API_Access.htm#create-access-policies\" ResolvedId=\"1276\" />';
-xmlAliasData += '    <Map Name=\"Security_Duo\" Link=\"Topics/Security/Security_Duo.htm\" ResolvedId=\"1004\" />';
 xmlAliasData += '    <Map Name=\"ServicePrincipalName\" Link=\"Topics/Directory/ad-dsso-create-service-account.htm\" ResolvedId=\"1013\" />';
 xmlAliasData += '    <Map Name=\"okta-radius-agent-install\" Link=\"Topics/integrations/Agent_Installing_the_Okta_Radius_Agent.htm\" ResolvedId=\"1017\" />';
 xmlAliasData += '    <Map Name=\"mfa-onprem\" Link=\"Topics/Security/MFA_OnPrem.htm\" ResolvedId=\"1018\" />';
@@ -105,6 +104,7 @@ xmlAliasData += '    <Map Name=\"ext_palo_alto_radius_intg\" Link=\"Topics/integ
 xmlAliasData += '    <Map Name=\"ext_sophos_radius_intg\" Link=\"Topics/integrations/sophos-radius-intg.htm\" ResolvedId=\"200091\" />';
 xmlAliasData += '    <Map Name=\"ext_vmware_horizon_radius_intg\" Link=\"Topics/integrations/vmware-horizon-radius-intg.htm\" ResolvedId=\"200092\" />';
 xmlAliasData += '    <Map Name=\"ext_Platforms_Browser_OS_Support\" Link=\"Topics/Miscellaneous/Platforms_Browser_OS_Support.htm\" ResolvedId=\"200095\" />';
+xmlAliasData += '    <Map Name=\"ext_Okta_Mobile_VerHistory\" Link=\"Topics/Miscellaneous/Platforms_Browser_OS_Support.htm\" ResolvedId=\"200125\" />';
 xmlAliasData += '    <Map Name=\"ext_glossary\" Link=\"Topics/Reference/glossary.htm\" ResolvedId=\"200131\" />';
 xmlAliasData += '    <Map Name=\"ext_ref_supported_languages\" Link=\"Topics/Reference/ref-supported-languages.htm\" ResolvedId=\"200134\" />';
 xmlAliasData += '    <Map Name=\"ext_Reports_SysLog\" Link=\"Topics/Reports/Reports_SysLog.htm\" ResolvedId=\"200145\" />';
@@ -121,7 +121,6 @@ xmlAliasData += '    <Map Name=\"ext_Okta_Radius_App\" Link=\"Topics/integration
 xmlAliasData += '    <Map Name=\"ext_proc_mfa_win_creds_rdp\" Link=\"Topics/Security/proc-mfa-win-creds-rdp.htm\" ResolvedId=\"200163\" />';
 xmlAliasData += '    <Map Name=\"ext_proc_security_behavior_detection\" Link=\"Topics/Security/proc-security-behavior-detection.htm\" ResolvedId=\"200165\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_Authentication\" Link=\"Topics/Security/Security_Authentication.htm\" ResolvedId=\"200169\" />';
-xmlAliasData += '    <Map Name=\"ext_Security_Duo\" Link=\"Topics/Security/Security_Duo.htm\" ResolvedId=\"200170\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_General\" Link=\"Topics/Security/Security_General.htm\" ResolvedId=\"200171\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_Using_Sync_Password\" Link=\"Topics/Directory/Security_Using_Sync_Password.htm\" ResolvedId=\"200174\" />';
 xmlAliasData += '    <Map Name=\"ext_The_Help_Desk_Admin_Role\" Link=\"Topics/Security/administrators-help-desk-admin.htm\" ResolvedId=\"200175\" />';
@@ -335,7 +334,6 @@ xmlAliasData += '    <Map Name=\"csh-risk-scoring\" Link=\"Topics/Security/Secur
 xmlAliasData += '    <Map Name=\"csh-okta-verify-show-ov-button-siw\" Link=\"Topics/identity-engine/authenticators/configure-okta-verify-options.htm#sign-in\" ResolvedId=\"12009\" />';
 xmlAliasData += '    <Map Name=\"csh-directory-integrations-main\" Link=\"Topics/identity-engine/directories/directory-integrations-main.htm\" ResolvedId=\"15013\" />';
 xmlAliasData += '    <Map Name=\"ext-apps-bookmark-app\" Link=\"Topics/Apps/Apps_Bookmark_App.htm\" ResolvedId=\"8012\" />';
-xmlAliasData += '    <Map Name=\"csh-duo\" Link=\"Topics/Security/Security_Duo.htm\" ResolvedId=\"2005\" />';
 xmlAliasData += '    <Map Name=\"csh-add-mfa-policy-rule\" Link=\"Topics/identity-engine/policies/add-mfa-policy-rule.htm\" ResolvedId=\"12010\" />';
 xmlAliasData += '    <Map Name=\"csh-general-security\" Link=\"Topics/Security/Security_General.htm\" ResolvedId=\"2006\" />';
 xmlAliasData += '    <Map Name=\"csh-user-enumeration\" Link=\"Topics/Security/Security_General.htm#UserEnumeration\" ResolvedId=\"2007\" />';
@@ -347,7 +345,6 @@ xmlAliasData += '    <Map Name=\"csh-configure-ov\" Link=\"Topics/identity-engin
 xmlAliasData += '    <Map Name=\"csh-configure-password\" Link=\"Topics/identity-engine/authenticators/‌configure-password.htm\" ResolvedId=\"2013\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-sq\" Link=\"Topics/identity-engine/authenticators/configure-security-question.htm\" ResolvedId=\"2014\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-webauthn\" Link=\"Topics/identity-engine/authenticators/configure-webauthn.htm\" ResolvedId=\"2015\" />';
-xmlAliasData += '    <Map Name=\"csh-configure-duo\" Link=\"Topics/Security/Security_Duo.htm\" ResolvedId=\"2018\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-custom-idp\" Link=\"Topics/Security/MFA_Custom_Factor.htm\" ResolvedId=\"2021\" />';
 xmlAliasData += '    <Map Name=\"csh-threatinsight\" Link=\"Topics/Security/threat-insight/ti-index.htm\" ResolvedId=\"2022\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-onprem\" Link=\"Topics/Security/MFA_OnPrem.htm\" ResolvedId=\"2023\" />';
@@ -443,5 +440,6 @@ xmlAliasData += '    <Map Name=\"ext-lcm-assign-app-user\" Link=\"Topics/Provisi
 xmlAliasData += '    <Map Name=\"ext-lcm-assign-app-groups\" Link=\"Topics/Provisioning/lcm/lcm-assign-app-groups.htm\" ResolvedId=\"1509\" />';
 xmlAliasData += '    <Map Name=\"csh-about-ip-zones\" Link=\"Topics/Security/network/about-ip-zones.htm\" ResolvedId=\"21000\" />';
 xmlAliasData += '    <Map Name=\"csh-inlinehooks\" Link=\"Topics/automation-hooks/inline-hooks-main.htm\" ResolvedId=\"6012\" />';
+xmlAliasData += '    <Map Name=\"csh-duo-security-oie\" Link=\"Topics/identity-engine/authenticators/configure-duo-security.htm\" ResolvedId=\"18006\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
