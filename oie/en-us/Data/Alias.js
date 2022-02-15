@@ -441,5 +441,6 @@ xmlAliasData += '    <Map Name=\"ext-lcm-assign-app-groups\" Link=\"Topics/Provi
 xmlAliasData += '    <Map Name=\"csh-about-ip-zones\" Link=\"Topics/Security/network/about-ip-zones.htm\" ResolvedId=\"21000\" />';
 xmlAliasData += '    <Map Name=\"csh-inlinehooks\" Link=\"Topics/automation-hooks/inline-hooks-main.htm\" ResolvedId=\"6012\" />';
 xmlAliasData += '    <Map Name=\"csh-duo-security-oie\" Link=\"Topics/identity-engine/authenticators/configure-duo-security.htm\" ResolvedId=\"18006\" />';
+xmlAliasData += '    <Map Name=\"csh-configure-authenticators\" Link=\"Topics/identity-engine/authenticators/configure-authenticators.htm\" ResolvedId=\"18007\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
