@@ -117,7 +117,7 @@ xmlAliasData += '    <Map Name=\"ext_application_inventory\" Link=\"Topics/Devic
 xmlAliasData += '    <Map Name=\"ext_configure_vpn_profiles\" Link=\"Topics/Devices/configure-vpn-profiles.htm\" ResolvedId=\"200045\" />';
 xmlAliasData += '    <Map Name=\"ext_devices\" Link=\"Topics/Devices/devices.htm\" ResolvedId=\"200047\" />';
 xmlAliasData += '    <Map Name=\"ext_devices_Configure_Wifi\" Link=\"Topics/Devices/devices_Configure_Wifi.htm\" ResolvedId=\"200048\" />';
-xmlAliasData += '    <Map Name=\"ext_devices_Mobile_Policies\" Link=\"Topics/Devices/devices_Mobile_Policies.htm\" ResolvedId=\"200051\" />';
+xmlAliasData += '    <Map Name=\"ext_devices_Mobile_Policies\" Link=\"Topics/Devices/devices_configure_omm_policies.htm\" ResolvedId=\"200051\" />';
 xmlAliasData += '    <Map Name=\"ext_About_Universal_Directory\" Link=\"Topics/users-groups-profiles/usgp-user-profiles-main.htm\" ResolvedId=\"200052\" />';
 xmlAliasData += '    <Map Name=\"ext_AD_Move_user_across_OU\" Link=\"Topics/Directory/ad-agent-ou-updates.htm\" ResolvedId=\"200053\" />';
 xmlAliasData += '    <Map Name=\"ext_Agent_Installing_the_Okta_Radius_Agent\" Link=\"Topics/integrations/Agent_Installing_the_Okta_Radius_Agent.htm\" ResolvedId=\"200054\" />';
