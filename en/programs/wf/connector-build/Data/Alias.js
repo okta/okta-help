@@ -206,5 +206,7 @@ xmlAliasData += '    <Map Name=\"ext-control-method-tonumber\" Link=\"Topics/Wor
 xmlAliasData += '    <Map Name=\"ext-control-method-tostring\" Link=\"Topics/Workflows/function-reference/Control/control_tostring.htm\" ResolvedId=\"31068\" />';
 xmlAliasData += '    <Map Name=\"ext-control-method-typeof\" Link=\"Topics/Workflows/function-reference/Control/control_typeof.htm\" ResolvedId=\"31069\" />';
 xmlAliasData += '    <Map Name=\"ext-crypto-method-md5\" Link=\"Topics/Workflows/function-reference/Encryption/encryption_md5.htm\" ResolvedId=\"31070\" />';
+xmlAliasData += '    <Map Name=\"ext-httpfunctions-method-paginate\" Link=\"Topics/Workflows/function-reference/HTTP/http_paginate.htm\" ResolvedId=\"31078\" />';
+xmlAliasData += '    <Map Name=\"ext-http-method-paginate\" Link=\"Topics/Workflows/function-reference/HTTP/http_paginate.htm\" ResolvedId=\"31079\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
