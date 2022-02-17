@@ -1014,12 +1014,7 @@ xmlAliasData += '    <Map Name=\"ext-servicenow-method-searchusers\" Link=\"Topi
 xmlAliasData += '    <Map Name=\"ext-servicenow-method-updateincident\" Link=\"Topics/Workflows/connector-reference/servicenow/actions/updateincident.htm\" ResolvedId=\"30579\" />';
 xmlAliasData += '    <Map Name=\"ext-servicenow-method-updateuser\" Link=\"Topics/Workflows/connector-reference/servicenow/actions/updateuser.htm\" ResolvedId=\"30580\" />';
 xmlAliasData += '    <Map Name=\"ext-servicenow-method-uploadattachment\" Link=\"Topics/Workflows/connector-reference/servicenow/actions/uploadattachment.htm\" ResolvedId=\"30581\" />';
-xmlAliasData += '    <Map Name=\"ext-servicenow-method-newcustomrecord\" Link=\"Topics/Workflows/connector-reference/servicenow/events/newcustomrecord.htm\" ResolvedId=\"30582\" />';
 xmlAliasData += '    <Map Name=\"ext-servicenow-method-newincident\" Link=\"Topics/Workflows/connector-reference/servicenow/events/newincident.htm\" ResolvedId=\"30583\" />';
-xmlAliasData += '    <Map Name=\"ext-servicenow-method-newrequest\" Link=\"Topics/Workflows/connector-reference/servicenow/events/newrequest.htm\" ResolvedId=\"30584\" />';
-xmlAliasData += '    <Map Name=\"ext-servicenow-method-newtask\" Link=\"Topics/Workflows/connector-reference/servicenow/events/newtask.htm\" ResolvedId=\"30585\" />';
-xmlAliasData += '    <Map Name=\"ext-servicenow-method-newticket\" Link=\"Topics/Workflows/connector-reference/servicenow/events/newticket.htm\" ResolvedId=\"30586\" />';
-xmlAliasData += '    <Map Name=\"ext-servicenow-method-updatedcustomrecord\" Link=\"Topics/Workflows/connector-reference/servicenow/events/updatedcustomrecord.htm\" ResolvedId=\"30587\" />';
 xmlAliasData += '    <Map Name=\"ext-servicenow-method-updatedincident\" Link=\"Topics/Workflows/connector-reference/servicenow/events/updatedincident.htm\" ResolvedId=\"30588\" />';
 xmlAliasData += '    <Map Name=\"ext-servicenow-misc-authorization\" Link=\"Topics/Workflows/connector-reference/servicenow/overviews/authorization.htm\" ResolvedId=\"30589\" />';
 xmlAliasData += '    <Map Name=\"ext-slack\" Link=\"Topics/Workflows/connector-reference/slack/slack.htm\" ResolvedId=\"30590\" />';
@@ -1640,5 +1635,7 @@ xmlAliasData += '    <Map Name=\"ext-lcm-assign-app-groups\" Link=\"Topics/Provi
 xmlAliasData += '    <Map Name=\"csh-about-ip-zones\" Link=\"Topics/Security/network/about-ip-zones.htm\" ResolvedId=\"21000\" />';
 xmlAliasData += '    <Map Name=\"ext-about-save-data-flow-history\" Link=\"Topics/Workflows/learn/about-save-data-with-flow-history.htm\" ResolvedId=\"31080\" />';
 xmlAliasData += '    <Map Name=\"csh-inlinehooks\" Link=\"Topics/automation-hooks/inline-hooks-main.htm\" ResolvedId=\"6012\" />';
+xmlAliasData += '    <Map Name=\"ext-asatest1_3fb8e134224d4d6ab7215d080e3b752d-method-createaproject\" Link=\"Topics/Workflows/connector-reference/advancedserveraccess/actions/createaproject.htm\" ResolvedId=\"31081\" />';
+xmlAliasData += '    <Map Name=\"ext-asatest1_3fb8e134224d4d6ab7215d080e3b752d-method-addgrouptoproject\" Link=\"Topics/Workflows/connector-reference/advancedserveraccess/actions/addgrouptoproject.htm\" ResolvedId=\"31082\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
