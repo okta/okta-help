@@ -8,7 +8,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="coveo:connector" content="List" />
         <meta name="coveo:method" content="asynceach" />
-        <meta name="coveo:method-description" content="Process a list by calling a child Flowfor each item." />
+        <meta name="coveo:method-description" content="Process a list by calling a helper flow for each item." />
         <meta name="coveo:method-type" content="action" /><title>For Each - Ignore Errors | Okta</title>
         <meta charset="utf-8" />
         <meta name="description" content="" />
@@ -38,17 +38,40 @@
 
 .button.select-language-button
 {
-	-pie-background: url('../../../../../Skins/Default/Stylesheets/Images/globe-19.png') no-repeat center center, linear-gradient(#ffffff, #ffffff);
+	-pie-background: linear-gradient(#ffffff, #ffffff);
 }
 
 .button.previous-topic-button
 {
-	-pie-background: url('../../../../../Skins/Default/Stylesheets/Images/navigate-previous.png') no-repeat center center, linear-gradient(#ffffff, #ececec);
+	-pie-background: linear-gradient(#ffffff, #ececec);
 }
 
 .button.next-topic-button
 {
-	-pie-background: url('../../../../../Skins/Default/Stylesheets/Images/navigate-next.png') no-repeat center center, linear-gradient(#ffffff, #ececec);
+	-pie-background: linear-gradient(#ffffff, #ececec);
+}
+
+.needs-pie
+{
+	behavior: url('../../../../../Resources/Scripts/PIE-no-motw.htc');
+}
+
+</style>
+        <style>/*&lt;meta /&gt;*/
+
+.button.select-language-button
+{
+	-pie-background: linear-gradient(#ffffff, #ffffff);
+}
+
+.button.previous-topic-button
+{
+	-pie-background: linear-gradient(#ffffff, #ececec);
+}
+
+.button.next-topic-button
+{
+	-pie-background: linear-gradient(#ffffff, #ececec);
 }
 
 .needs-pie
@@ -59,6 +82,8 @@
 </style>
         <link rel="canonical" href="https://help.okta.com/wf/en-us/Content/Topics/Workflows/function-reference/List/list_asynceach.htm" />
         <script src="../../../../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../../../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
         </script>
         <script src="../../../../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
         </script>
@@ -292,17 +317,28 @@
                                                 </div>
                                             </div>
                                             <div class="toolbar-main">
-                                                <!-- Expand/Collapse All for drop-downs -->
                                                 <div class="buttons popup-container clearfix topicToolbarProxy _Skins_okta_toolbar_no_expand mc-component nocontent" style="mc-topic-toolbar-items: ;">
                                                     <div class="button-group-container-left">
                                                         <button class="button needs-pie select-language-button" title="Change language">
-                                                            <img alt="Change language" src="../../../../../Skins/Default/Stylesheets/Images/transparent.gif" class="invisible-label" />
+                                                            <div>
+                                                                <div role="img" class="button-icon-wrapper" aria-label="Change language">
+                                                                    <div class="button-icon"> </div>
+                                                                </div>
+                                                            </div>
                                                         </button>
-                                                        <button class="button needs-pie previous-topic-button" title="Previous topic">
-                                                            <img alt="Navigate previous" src="../../../../../Skins/Default/Stylesheets/Images/transparent.gif" class="invisible-label" />
+                                                        <button class="button needs-pie previous-topic-button" title="Previous topic" disabled="true">
+                                                            <div>
+                                                                <div role="img" class="button-icon-wrapper" aria-label="Navigate previous">
+                                                                    <div class="button-icon"> </div>
+                                                                </div>
+                                                            </div>
                                                         </button>
-                                                        <button class="button needs-pie next-topic-button" title="Next topic">
-                                                            <img alt="Navigate next" src="../../../../../Skins/Default/Stylesheets/Images/transparent.gif" class="invisible-label" />
+                                                        <button class="button needs-pie next-topic-button" title="Next topic" disabled="true">
+                                                            <div>
+                                                                <div role="img" class="button-icon-wrapper" aria-label="Navigate next">
+                                                                    <div class="button-icon"> </div>
+                                                                </div>
+                                                            </div>
                                                         </button>
                                                     </div>
                                                 </div>
@@ -314,38 +350,38 @@
                                                         <div data-content-id="hoc-main-content">
                                                             <p>
                                                                 <h1>For Each - Ignore Errors</h1>
-                                                                <p>Process a list&#160;by calling a child Flow for each item. &#160;This function is almost identical to the <a href="list_each.htm" class="MCXref xref">For Each</a> function,&#160;with one important difference: &#160;For Each will stop processing more items if an error occurs when processing one of the items in the child Flow. On the other hand, this function continues to process all items&#160;even if some hit errors in the child Flow. Here's how to think about it:</p>
+                                                                <p>Process a list&#160;by calling a helper flow for each item. This function is almost identical to the <a href="list_each.htm" class="MCXref xref">For Each</a> function,&#160;with one important difference: For Each will stop processing more items if an error occurs when processing one of the items in the helper flow. On the other hand, this function continues to process all items&#160;even if some hit errors in the helper flow. Here's how to think about it:</p>
                                                                 <ul>
                                                                     <li>
-                                                                        <p>Use <strong>For Each</strong> if your Flow is only successful when every child item is processed successfully.</p>
+                                                                        <p>Use <strong>For Each</strong> if your flow is only successful when every helper item is processed successfully.</p>
                                                                     </li>
                                                                     <li>
                                                                         <p>Use <strong>For Each - Ignore Errors</strong> if some items are expected to have errors during normal operation.</p>
                                                                     </li>
                                                                 </ul>
-                                                                <p>As an example of a Flow where some items are expected to have errors - suppose you are sending an email out to a list of email addresses. &#160;Some of those email addresses will probably be out of date, so you may receive an error when trying to send to them. &#160;But that error shouldn't stop you from sending to the rest of the email addresses on your list. &#160;So in this case, For Each - Ignore Errors is a great fit. &#160;You can still replay the child executions, for example, if you want to retry any of the errors. For more details on using this card, please see the <a href="list_each.htm" class="MCXref xref">For Each</a> topic.</p>
+                                                                <p>As an example of a flow where some items are expected to have errors - suppose you are sending an email out to a list of email addresses. Some of those email addresses will probably be out of date, so you may receive an error when trying to send to them. But that error shouldn't stop you from sending to the rest of the email addresses on your list. So in this case, For Each - Ignore Errors is a great fit. You can still replay the helper executions, for example, if you want to retry any of the errors. For more details on using this card, please see the <a href="list_each.htm" class="MCXref xref">For Each</a> topic.</p>
                                                                 <h4>Input Fields</h4>
                                                                 <ul>
                                                                     <li>
-                                                                        <p><strong>list</strong> (List of Objects): The&#160;list to operate on</p>
+                                                                        <p><strong>list</strong> (List of Objects): List to operate on</p>
                                                                     </li>
                                                                     <li>
-                                                                        <p><strong>flow</strong> (Object): The child Flow that will be called once for each item in the list</p>
+                                                                        <p><strong>flow</strong> (Object): Helper flow that will be called once for each item in the list</p>
                                                                     </li>
                                                                     <li>
-                                                                        <p><strong>with the following values</strong>&#160;(dynamically generated): The inputs defined by the child Flow - these will populate when you select the child Flow using the Choose Flow dialog</p>
+                                                                        <p><strong>with the following values</strong>&#160;(dynamically generated): Inputs defined by the helper flow - these will populate when you select the helper flow using the <b>Choose Flow</b> dialog</p>
                                                                     </li>
                                                                     <li>
-                                                                        <p><strong>concurrency</strong> (Number): The number&#160;of items in the list to process in parallel. &#160;If it is important that the items are processed in sequence, use 1. &#160;Otherwise&#160;a higher number like 5 or 10 will cause your Flow to complete sooner.</p>
+                                                                        <p><strong>concurrency</strong> (Number): Number&#160;of items in the list to process in parallel. If it is important that the items are processed in sequence, use 1. Otherwise&#160;a higher number like 5 or 10 will cause your flow to complete sooner.</p>
                                                                     </li>
                                                                 </ul>
                                                                 <h4>Output Fields</h4>
                                                                 <p>There are no output fields in this card.</p>
                                                             </p>
-                                                            <h2>See Also</h2>
+                                                            <h2>Related topics</h2>
                                                             <p><a href="../../learn/about-lists.htm" class="MCXref xref">About lists</a>
                                                             </p>
-                                                            <p><a href="../functions.htm" class="MCXref xref">Functions</a>
+                                                            <p><a href="../functions.htm" class="MCXref xref">Functions in Workflows</a>
                                                             </p>
                                                             <p><a href="../../workflows-elements.htm" class="MCXref xref">About the elements of Okta Workflows</a>
                                                             </p>
@@ -359,6 +395,33 @@
                                         <!--<div class="is-not-in-mobile">
                 <MadCap:menuProxy data-mc-skin="/Project/Skins/okta-right-menu.flskn" mc-linked-toc="/Project/TOCs/okta-TOC.fltoc" style="mc-context-sensitive: True;mc-include-parent: True;mc-include-siblings: False;mc-include-children: True;" />
             </div>-->
+                                    </div>
+                                    <div class="toolbar-main">
+                                        <div class="buttons popup-container clearfix topicToolbarProxy _Skins_okta_toolbar_no_expand mc-component nocontent" style="mc-topic-toolbar-items: ;">
+                                            <div class="button-group-container-left">
+                                                <button class="button needs-pie select-language-button" title="Change language">
+                                                    <div>
+                                                        <div role="img" class="button-icon-wrapper" aria-label="Change language">
+                                                            <div class="button-icon"> </div>
+                                                        </div>
+                                                    </div>
+                                                </button>
+                                                <button class="button needs-pie previous-topic-button" title="Previous topic" disabled="true">
+                                                    <div>
+                                                        <div role="img" class="button-icon-wrapper" aria-label="Navigate previous">
+                                                            <div class="button-icon"> </div>
+                                                        </div>
+                                                    </div>
+                                                </button>
+                                                <button class="button needs-pie next-topic-button" title="Next topic" disabled="true">
+                                                    <div>
+                                                        <div role="img" class="button-icon-wrapper" aria-label="Navigate next">
+                                                            <div class="button-icon"> </div>
+                                                        </div>
+                                                    </div>
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
                                     <!-- ***************************** Footer rows ********************************* -->
                                     <!--         <div class="footer2">
@@ -381,7 +444,7 @@
         </div> -->
                                     <div class="footer2">
                                         <div>
-                                            <p class="copyright">©  <span class="mc-variable okta-variables.Year variable">2021</span> <span class="mc-variable okta-variables.CompanyName variable">Okta, Inc</span>. All Rights Reserved. Various trademarks held by their respective owners.
+                                            <p class="copyright">©  <span class="mc-variable okta-variables.Year variable">2022</span> <span class="mc-variable okta-variables.CompanyName variable">Okta, Inc</span>. All Rights Reserved. Various trademarks held by their respective owners.
 	</p>
                                         </div>
                                         <!--             <div>

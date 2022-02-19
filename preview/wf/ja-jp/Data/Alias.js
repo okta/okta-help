@@ -4,7 +4,6 @@ xmlAliasData += '<CatapultAliasFile>';
 xmlAliasData += '    <Map Name=\"ext-Okta-workflows\" Link=\"Topics/Workflows/workflows-main.htm\" ResolvedId=\"1228\" />';
 xmlAliasData += '    <Map Name=\"ext-connect-your-apps\" Link=\"Topics/Workflows/workflow-connect-your-applications.htm\" ResolvedId=\"1229\" />';
 xmlAliasData += '    <Map Name=\"ext-build-a-flow\" Link=\"Topics/Workflows/workflows-build-a-flow.htm\" ResolvedId=\"1231\" />';
-xmlAliasData += '    <Map Name=\"csh-index\" Link=\"index.htm\" ResolvedId=\"1298\" />';
 xmlAliasData += '    <Map Name=\"ext-about-events\" Link=\"Topics/Workflows/learn/about-events.htm\" ResolvedId=\"1331\" />';
 xmlAliasData += '    <Map Name=\"ext-about-elements\" Link=\"Topics/Workflows/workflows-elements.htm\" ResolvedId=\"1335\" />';
 xmlAliasData += '    <Map Name=\"ext-applications-connections\" Link=\"Topics/Workflows/learn/about-applications-connections.htm\" ResolvedId=\"1336\" />';
@@ -46,7 +45,6 @@ xmlAliasData += '    <Map Name=\"ext-invoke-api-endpoint-flow\" Link=\"Topics/Wo
 xmlAliasData += '    <Map Name=\"ext-build-flows\" Link=\"Topics/Workflows/build/build-flows.htm\" ResolvedId=\"10023\" />';
 xmlAliasData += '    <Map Name=\"ext-learn-workflows\" Link=\"Topics/Workflows/learn/learn-workflows.htm\" ResolvedId=\"10024\" />';
 xmlAliasData += '    <Map Name=\"ext-run-flows\" Link=\"Topics/Workflows/execute/run-flows.htm\" ResolvedId=\"10025\" />';
-xmlAliasData += '    <Map Name=\"ext-about-templates\" Link=\"Topics/Workflows/templates/about-templates.htm\" ResolvedId=\"10026\" />';
 xmlAliasData += '    <Map Name=\"ext-add-template\" Link=\"Topics/Workflows/templates/add-template.htm\" ResolvedId=\"10027\" />';
 xmlAliasData += '    <Map Name=\"ext-templates-list\" Link=\"Topics/Workflows/templates/templates-list.htm\" ResolvedId=\"10028\" />';
 xmlAliasData += '    <Map Name=\"ext-workflows-templates\" Link=\"Topics/Workflows/templates/workflows-templates.htm\" ResolvedId=\"10029\" />';
@@ -196,7 +194,6 @@ xmlAliasData += '    <Map Name=\"ext-gmail-misc-transferofownership\" Link=\"Top
 xmlAliasData += '    <Map Name=\"ext-gmail-method-labeladdedorremoved\" Link=\"Topics/Workflows/connector-reference/gmail/events/labeladdedorremoved.htm\" ResolvedId=\"30177\" />';
 xmlAliasData += '    <Map Name=\"ext-gmail-method-newemail\" Link=\"Topics/Workflows/connector-reference/gmail/events/newemail.htm\" ResolvedId=\"30178\" />';
 xmlAliasData += '    <Map Name=\"ext-gmail-misc-authorization\" Link=\"Topics/Workflows/connector-reference/gmail/overviews/authorization.htm\" ResolvedId=\"30179\" />';
-xmlAliasData += '    <Map Name=\"ext-gmail-misc-errors\" Link=\"Topics/Workflows/connector-reference/gmail/overviews/errors.htm\" ResolvedId=\"30180\" />';
 xmlAliasData += '    <Map Name=\"ext-googlecalendar\" Link=\"Topics/Workflows/connector-reference/googlecalendar/googlecalendar.htm\" ResolvedId=\"30181\" />';
 xmlAliasData += '    <Map Name=\"ext-googlecalendar-method-createnewevent\" Link=\"Topics/Workflows/connector-reference/googlecalendar/actions/createnewevent.htm\" ResolvedId=\"30183\" />';
 xmlAliasData += '    <Map Name=\"ext-googlecalendar-method-createreminder\" Link=\"Topics/Workflows/connector-reference/googlecalendar/actions/createreminder.htm\" ResolvedId=\"30184\" />';
@@ -467,7 +464,6 @@ xmlAliasData += '    <Map Name=\"ext-salesforce229-method-createmultiplerecords\
 xmlAliasData += '    <Map Name=\"ext-salesforce229-method-createrecord\" Link=\"Topics/Workflows/connector-reference/salesforce/actions/createrecord.htm\" ResolvedId=\"30513\" />';
 xmlAliasData += '    <Map Name=\"ext-salesforce229-method-createuser\" Link=\"Topics/Workflows/connector-reference/salesforce/actions/createuser.htm\" ResolvedId=\"30514\" />';
 xmlAliasData += '    <Map Name=\"ext-salesforce229-method-deactivateuser\" Link=\"Topics/Workflows/connector-reference/salesforce/actions/deactivateuser.htm\" ResolvedId=\"30515\" />';
-xmlAliasData += '    <Map Name=\"ext-salesforce229-method-downloaddocument\" Link=\"Topics/Workflows/connector-reference/salesforce/actions/downloaddocument.htm\" ResolvedId=\"30517\" />';
 xmlAliasData += '    <Map Name=\"ext-salesforce229-method-executequery\" Link=\"Topics/Workflows/connector-reference/salesforce/actions/executequery.htm\" ResolvedId=\"30519\" />';
 xmlAliasData += '    <Map Name=\"ext-salesforce229-method-freezeuser\" Link=\"Topics/Workflows/connector-reference/salesforce/actions/freezeuser.htm\" ResolvedId=\"30521\" />';
 xmlAliasData += '    <Map Name=\"ext-salesforce229-method-getallfeaturelicenses\" Link=\"Topics/Workflows/connector-reference/salesforce/actions/getallfeaturelicenses.htm\" ResolvedId=\"30522\" />';
@@ -524,7 +520,6 @@ xmlAliasData += '    <Map Name=\"ext-slack-method-respondtocommanddelayed\" Link
 xmlAliasData += '    <Map Name=\"ext-slack-method-searchchannels\" Link=\"Topics/Workflows/connector-reference/slack/actions/searchchannels.htm\" ResolvedId=\"30602\" />';
 xmlAliasData += '    <Map Name=\"ext-slack-method-senddirectmessage2\" Link=\"Topics/Workflows/connector-reference/slack/actions/senddirectmessage2.htm\" ResolvedId=\"30604\" />';
 xmlAliasData += '    <Map Name=\"ext-slack-method-sendmessagetochannel2\" Link=\"Topics/Workflows/connector-reference/slack/actions/sendmessagetochannel2.htm\" ResolvedId=\"30606\" />';
-xmlAliasData += '    <Map Name=\"ext-slack-method-sendslackbotmessage\" Link=\"Topics/Workflows/connector-reference/slack/actions/sendslackbotmessage.htm\" ResolvedId=\"30607\" />';
 xmlAliasData += '    <Map Name=\"ext-slack-method-botevent\" Link=\"Topics/Workflows/connector-reference/slack/events/botevent.htm\" ResolvedId=\"30608\" />';
 xmlAliasData += '    <Map Name=\"ext-slack-method-newmessageinchannel\" Link=\"Topics/Workflows/connector-reference/slack/events/newmessageinchannel.htm\" ResolvedId=\"30609\" />';
 xmlAliasData += '    <Map Name=\"ext-slack-method-newmessageinprivatechannel\" Link=\"Topics/Workflows/connector-reference/slack/events/newmessageinprivatechannel.htm\" ResolvedId=\"30610\" />';
@@ -764,7 +759,6 @@ xmlAliasData += '    <Map Name=\"ext-workflows-error-messages\" Link=\"Topics/Wo
 xmlAliasData += '    <Map Name=\"ext-tableid-runtime\" Link=\"Topics/Workflows/build/provide-tableid-runtime.htm\" ResolvedId=\"30293\" />';
 xmlAliasData += '    <Map Name=\"ext-connections-page\" Link=\"Topics/Workflows/build/view-connections-page.htm\" ResolvedId=\"30295\" />';
 xmlAliasData += '    <Map Name=\"ext-use-cases-learn-about\" Link=\"Topics/Workflows/use-cases-workflows-learn-about.htm\" ResolvedId=\"30299\" />';
-xmlAliasData += '    <Map Name=\"ext-control-method-callable\" Link=\"Topics/Workflows/learn/about-scheduled-child-flows.htm\" ResolvedId=\"30302\" />';
 xmlAliasData += '    <Map Name=\"ext-github-method-updateuser\" Link=\"Topics/Workflows/connector-reference/github/actions/updateuser.htm\" ResolvedId=\"30307\" />';
 xmlAliasData += '    <Map Name=\"ext-github-method-searchusers\" Link=\"Topics/Workflows/connector-reference/github/actions/searchusers.htm\" ResolvedId=\"30919\" />';
 xmlAliasData += '    <Map Name=\"ext-github-method-searchteams\" Link=\"Topics/Workflows/connector-reference/github/actions/searchteams.htm\" ResolvedId=\"30920\" />';
@@ -825,6 +819,14 @@ xmlAliasData += '    <Map Name=\"ext-github-method-getpullrequest\" Link=\"Topic
 xmlAliasData += '    <Map Name=\"ext-github-method-createanissue\" Link=\"Topics/Workflows/connector-reference/github/actions/createanissue.htm\" ResolvedId=\"30972\" />';
 xmlAliasData += '    <Map Name=\"ext-github-method-updatepullrequest\" Link=\"Topics/Workflows/connector-reference/github/actions/updatepullrequest.htm\" ResolvedId=\"30974\" />';
 xmlAliasData += '    <Map Name=\"ext-github-method-updateissuemetadata\" Link=\"Topics/Workflows/connector-reference/github/actions/updateissuemetadata.htm\" ResolvedId=\"30975\" />';
+xmlAliasData += '    <Map Name=\"ext-shopify-method-addaddresstocustomer\" Link=\"Topics/Workflows/connector-reference/shopify/actions/addaddresstocustomer.htm\" ResolvedId=\"30976\" />';
+xmlAliasData += '    <Map Name=\"ext-shopify-method-createcustomer\" Link=\"Topics/Workflows/connector-reference/shopify/actions/createcustomer.htm\" ResolvedId=\"30977\" />';
+xmlAliasData += '    <Map Name=\"ext-shopify-method-customapiaction\" Link=\"Topics/Workflows/connector-reference/shopify/actions/customapiaction.htm\" ResolvedId=\"30978\" />';
+xmlAliasData += '    <Map Name=\"ext-shopify-method-readcustomer\" Link=\"Topics/Workflows/connector-reference/shopify/actions/readcustomer.htm\" ResolvedId=\"30980\" />';
+xmlAliasData += '    <Map Name=\"ext-shopify-method-updatecustomer\" Link=\"Topics/Workflows/connector-reference/shopify/actions/updatecustomer.htm\" ResolvedId=\"30981\" />';
+xmlAliasData += '    <Map Name=\"ext-shopify-method-searchcustomers\" Link=\"Topics/Workflows/connector-reference/shopify/actions/searchcustomers.htm\" ResolvedId=\"30982\" />';
+xmlAliasData += '    <Map Name=\"ext-shopify-misc-authorization\" Link=\"Topics/Workflows/connector-reference/shopify/overviews/authorization.htm\" ResolvedId=\"30983\" />';
+xmlAliasData += '    <Map Name=\"ext-shopify\" Link=\"Topics/Workflows/connector-reference/shopify/shopify.htm\" ResolvedId=\"30984\" />';
 xmlAliasData += '    <Map Name=\"ext-mixpanel-method-createevent\" Link=\"Topics/Workflows/connector-reference/mixpanel/actions/createevent.htm\" ResolvedId=\"30985\" />';
 xmlAliasData += '    <Map Name=\"ext-mixpanel-method-createprofile\" Link=\"Topics/Workflows/connector-reference/mixpanel/actions/createprofile.htm\" ResolvedId=\"30986\" />';
 xmlAliasData += '    <Map Name=\"ext-mixpanel-method-customapiaction\" Link=\"Topics/Workflows/connector-reference/mixpanel/actions/customapiaction.htm\" ResolvedId=\"30987\" />';

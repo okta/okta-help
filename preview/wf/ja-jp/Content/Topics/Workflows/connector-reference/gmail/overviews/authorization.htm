@@ -9,7 +9,7 @@
         <meta name="coveo:method-description" content="When you add a Gmail card to a Flow for the first time you'll be prompted to create a connection." />
         <meta name="coveo:method-name" content="authorization" />
         <meta name="coveo:method-type" content="authorization" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>[[[Undefined variable Heading.Level1]]] | Okta</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>認可 | Okta</title>
         <meta charset="utf-8" />
         <meta name="description" content="" />
         <meta name="author" content="" />
@@ -38,17 +38,40 @@
 
 .button.select-language-button
 {
-	-pie-background: url('../../../../../../Skins/Default/Stylesheets/Images/globe-19.png') no-repeat center center, linear-gradient(#ffffff, #ffffff);
+	-pie-background: linear-gradient(#ffffff, #ffffff);
 }
 
 .button.previous-topic-button
 {
-	-pie-background: url('../../../../../../Skins/Default/Stylesheets/Images/navigate-previous.png') no-repeat center center, linear-gradient(#ffffff, #ececec);
+	-pie-background: linear-gradient(#ffffff, #ececec);
 }
 
 .button.next-topic-button
 {
-	-pie-background: url('../../../../../../Skins/Default/Stylesheets/Images/navigate-next.png') no-repeat center center, linear-gradient(#ffffff, #ececec);
+	-pie-background: linear-gradient(#ffffff, #ececec);
+}
+
+.needs-pie
+{
+	behavior: url('../../../../../../Resources/Scripts/PIE-no-motw.htc');
+}
+
+</style>
+        <style>/*&lt;meta /&gt;*/
+
+.button.select-language-button
+{
+	-pie-background: linear-gradient(#ffffff, #ffffff);
+}
+
+.button.previous-topic-button
+{
+	-pie-background: linear-gradient(#ffffff, #ececec);
+}
+
+.button.next-topic-button
+{
+	-pie-background: linear-gradient(#ffffff, #ececec);
 }
 
 .needs-pie
@@ -58,6 +81,8 @@
 
 </style>
         <script src="../../../../../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../../../../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
         </script>
         <script src="../../../../../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
         </script>
@@ -291,17 +316,28 @@
                                                 </div>
                                             </div>
                                             <div class="toolbar-main">
-                                                <!-- Expand/Collapse All for drop-downs -->
                                                 <div class="buttons popup-container clearfix topicToolbarProxy _Skins_okta_toolbar_no_expand mc-component nocontent" style="mc-topic-toolbar-items: ;">
                                                     <div class="button-group-container-left">
                                                         <button class="button needs-pie select-language-button" title="言語の変更">
-                                                            <img alt="言語の変更" src="../../../../../../Skins/Default/Stylesheets/Images/transparent.gif" class="invisible-label" />
+                                                            <div>
+                                                                <div role="img" class="button-icon-wrapper" aria-label="言語の変更">
+                                                                    <div class="button-icon"> </div>
+                                                                </div>
+                                                            </div>
                                                         </button>
-                                                        <button class="button needs-pie previous-topic-button" title="前へ移動">
-                                                            <img alt="前へ移動" src="../../../../../../Skins/Default/Stylesheets/Images/transparent.gif" class="invisible-label" />
+                                                        <button class="button needs-pie previous-topic-button" title="前へ移動" disabled="true">
+                                                            <div>
+                                                                <div role="img" class="button-icon-wrapper" aria-label="前へ移動">
+                                                                    <div class="button-icon"> </div>
+                                                                </div>
+                                                            </div>
                                                         </button>
-                                                        <button class="button needs-pie next-topic-button" title="次へ移動">
-                                                            <img alt="次へ移動" src="../../../../../../Skins/Default/Stylesheets/Images/transparent.gif" class="invisible-label" />
+                                                        <button class="button needs-pie next-topic-button" title="次へ移動" disabled="true">
+                                                            <div>
+                                                                <div role="img" class="button-icon-wrapper" aria-label="次へ移動">
+                                                                    <div class="button-icon"> </div>
+                                                                </div>
+                                                            </div>
                                                         </button>
                                                     </div>
                                                 </div>
@@ -309,106 +345,160 @@
                                             <div class="body-main">
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
-                                                    <div data-content-id="hoc-main-content">
-                                                        <h1>認可</h1>
-                                                        <p>Gmailカードを初めてフローに追加する際は、新しい接続を作成するよう求められます。アカウントを接続することにより、アカウント情報の保存およびコネクタを使用した次回のフロー構築時の接続の再利用が可能になります。 </p>
-                                                        <div class="noteOkta">
-                                                            <img src="../../../../../Resources/Images/assets/Icons/Notes/icon-lightbulb.png" class="noteImgFloat" title="ヒント" alt="ヒント" />
-                                                            <p class="noteHeading">ヒント</p>
-                                                            <p class="noteContent">複数の接続を作成し、[Connections (接続)]ページから管理することができます。</p>
+                                                    <div>
+                                                        <p id="redirectMessage" />
+                                                        <script type="text/javascript">/* <![CDATA[ */
+		
+			function conditionalRedirect(who, fromURL) {
+
+				//console.log("Attempting to determine if redirect is required");
+				var sitePrefix = "https://help.okta.com/en/prod/";
+			    var targetPrefix = "https://help.okta.com/"+who+"/en-us/";
+			    var redirectTarget = fromURL.toString();
+	
+			    var sitePrefixJA = "https://help.okta.com/ja-jp/prod/";
+			    if (fromURL.toString().startsWith(sitePrefixJA)) {
+			        sitePrefix=sitePrefixJA;
+			        targetPrefix = "https://help.okta.com/"+who+"/ja-jp/";
+				}
+	
+				console.log("Checking if we should redirect");
+				console.log("fromURL=" + fromURL);
+				console.log("sitePrefix=" + sitePrefix);
+				console.log("targetPrefix=" + targetPrefix);
+				console.log("redirectTarget(pre)=" + redirectTarget);
+				redirectTarget = redirectTarget.replace(sitePrefix, targetPrefix);
+				console.log("redirectTarget(post)=" + redirectTarget);
+				if (fromURL.toString().startsWith(sitePrefix)) {
+				   console.log("Redirecting to " + redirectTarget);
+				   document.getElementById('redirectMessage').innerHTML = 
+			                               "<center><b>"+fromURL + "</b> has moved.  "+
+			                               "<br />Redirecting to <b>"+redirectTarget+"</b> in a few seconds.</center>";
+			       setTimeout(function() { window.location.replace(redirectTarget); }, 3000);
+				   //window.location.replace(redirectTarget);
+				   return redirectTarget;
+				} else {
+					console.log("Not redirecting.");
+					return fromURL;
+				}
+			}
+		/* ]]> */</script>
+                                                        <script type="text/javascript">/* <![CDATA[ */	
+			var fromUrl = window.location;
+			// testing only. 
+			// remove the following line, and the MC review condition to release
+			//fromUrl = new URL('https://help.okta.com/en/prod/Content/Topics/Workflows/connector-reference/googlesheets/actions/readrow.htm');
+			var targetURL = conditionalRedirect("wf", fromUrl);
+				
+		/* ]]> */</script>
+                                                    </div>
+                                                    <div data-mc-conditions="MultiProdPubish.PYPContent">
+                                                        <div data-content-id="hoc-main-content">
+                                                            <h1>認可</h1>
+                                                            <p>Gmailカードを初めてフローに追加する際は、新しい接続を作成するよう求められます。アカウントをセットアップすると、アカウントの情報を保存して、そのコネクタで次にフローを構築するとき、その接続を再利用できます。 </p>
+                                                            <div class="noteOkta">
+                                                                <img src="../../../../../Resources/Images/assets/Icons/Notes/icon-lightbulb.png" class="noteImgFloat" title="ヒント" alt="ヒント" />
+                                                                <p class="noteHeading">ヒント</p>
+                                                                <p class="noteContent">複数の接続を作成し、[Connections (接続)]ページから管理することができます。</p>
+                                                            </div>
+                                                            <p>イベントまたはアクションカードから新規接続を作成するには、次の手順を実行します。</p>
+                                                            <ol>
+                                                                <li value="1">
+                                                                    <p><strong>[New Connection (新規接続)]</strong>をクリックします。</p>
+                                                                </li>
+                                                                <li value="2">
+                                                                    <p>Google Workspaceアカウントの<strong>[Connection Nickname (接続ニックネーム)]</strong>を入力します。ニックネームは実際のアカウントの名前にすることも汎用的なニックネームにすることもできます。</p>
+                                                                </li>
+                                                            </ol>
+                                                            <ol data-mc-continue="true">
+                                                                <li value="3">
+                                                                    <p>OAuthウィンドウで、Googleアカウントおよびパスワード情報を入力します。</p>
+                                                                </li>
+                                                                <li value="4">
+                                                                    <p>カードで［<strong>Allow（許可）</strong>］をクリックして、Googleアカウントへのアクセスを承認します。</p>
+                                                                </li>
+                                                            </ol>
+                                                            <div class="note_cautionOkta">
+                                                                <img src="../../../../../Resources/Images/assets/Icons/Notes/Alert.png" class="noteImgFloat" title="注意" alt="注意" />
+                                                                <p class="noteContent">Gmailコネクタ用に新しい接続を作成するとき、接続の断続的な停止が起きることがあります。Gmailコネクタのイベントまたはアクションカードを含む、既存の接続やフローは影響を受けません。「<a href="https://support.okta.com/help/s/article/Okta-Workflows-Gmail-connection-returning-This-app-is-blocked-error-message?language=en_US">Gmail接続が『このアプリはブロックされています』エラーメッセージを返す</a>」を参照してください。</p>
+                                                            </div>
+                                                            <h2>アカウントタイプとGmailコネクタに関するガイダンス</h2>
+                                                            <ul>
+                                                                <li>
+                                                                    <p>Google WorkspaceユーザーのみがGmailコネクタの正しい接続を作成できます。</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p>gmail.comまたはgooglemail.comアカウントを使用すると、Gmailコネクタの接続は実行時に失敗し、Gmailコネクタカードは想定通りに機能せず、Gmailカードを含むフローは 正常に動作しません。</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p> Gmailコネクタの接続を作成するためにプロジェクトサービスアカウントは使用できません。</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p>Gmailコネクタで機能する接続を作成し、以下のカードを使用するために、Google Workspaceユーザーにプロジェクトのサービスアカウントユーザーのロールを割り当てる必要はありません。</p>
+                                                                    <ul>
+                                                                        <li>
+                                                                            <p>メールの読み取り</p>
+                                                                        </li>
+                                                                        <li>
+                                                                            <p>メールの送信</p>
+                                                                        </li>
+                                                                        <li>
+                                                                            <p>添付ファイル付きのメールの送信</p>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                                <li>
+                                                                    <p>以下のカードを使用するためには、Google Workspaceユーザーにプロジェクトのサービスアカウントユーザーのロールを割り当てる必要があります。</p>
+                                                                    <ul>
+                                                                        <li>
+                                                                            <p>代理人の追加</p>
+                                                                        </li>
+                                                                        <li>
+                                                                            <p>メールの転送</p>
+                                                                        </li>
+                                                                        <li>
+                                                                            <p>自動返信の設定</p>
+                                                                        </li>
+                                                                        <li>
+                                                                            <p>ユーザーのGmail設定の更新</p>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                                <li>
+                                                                    <p>WorkflowsでGoogle Sign InをOkta Browser Pluginとともに使用する場合、Okta Browser Pluginを使用するアカウントを切り替えてからでないとアカウントを切り替えることはできません。</p>
+                                                                </li>
+                                                            </ul>
+                                                            <h2>サポートされているスコープ</h2>
+                                                            <ul class="code">
+                                                                <li>
+                                                                    <p>https://www.googleapis.com/auth/userinfo.profile</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p>https://www.googleapis.com/auth/userinfo.email</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p>openid</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p>https://www.googleapis.com/auth/gmail.settings.basic</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p>https://www.googleapis.com/auth/gmail.settings.sharing</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p>https://www.googleapis.com/auth/cloud-platform</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p>https://www.googleapis.com/auth/gmail.send</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p>https://www.googleapis.com/auth/gmail.readonly</p>
+                                                                </li>
+                                                            </ul>
+                                                            <h2>免責事項</h2>
+                                                            <p>Google APIから受信した情報をアプリで使用する、または他のアプリに移転する場合、<a href="https://urldefense.com/v3/__https://developers.google.com/terms/api-services-user-data-policy*additional_requirements_for_specific_api_scopes__;Iw!!PwKahg!qr5R54_K5MBfBVhfy8uRpmShcOchuuORpgU0qSaLlaVrlbUWJrKZD-1RNU1Z_d9njg$">Google APIサービスのユーザーデータポリシー</a>に準拠する必要があります。これには限定使用の要件も含まれます。</p>
+                                                            <p>Oktaのデータプライバシーと実践のポリシーについては、<a href="https://www.okta.com/privacy-policy/" target="_blank">Oktaプライバシーポリシー</a>を参照してください。</p>
                                                         </div>
-                                                        <p>イベントまたはアクションカードから新規接続を作成するには、次の手順を実行します。</p>
-                                                        <ol>
-                                                            <li value="1">
-                                                                <p><strong>[New Connection (新規接続)]</strong>をクリックします。</p>
-                                                            </li>
-                                                            <li value="2">
-                                                                <p>(missing or bad snippet)アカウントの<strong>[Connection Nickname (接続ニックネーム)]</strong>を入力します。ニックネームは実際のアカウントの名前にすることも汎用的なニックネームにすることもできます。</p>
-                                                            </li>
-                                                        </ol>
-                                                        <ol data-mc-continue="true">
-                                                            <li value="3">
-                                                                <p>OAuthウィンドウで、Googleアカウントおよびパスワード情報を入力します。</p>
-                                                            </li>
-                                                            <li value="4">
-                                                                <p>カードで<strong>[Allow (許可)]</strong>をクリックすることにより、Googleアカウントへのアクセスを認可します。</p>
-                                                            </li>
-                                                        </ol>
-                                                        <h2>アカウントタイプとGmailコネクタに関するガイダンス</h2>
-                                                        <ul>
-                                                            <li>
-                                                                <p>Google WorkspaceユーザーのみがGmailコネクタの正しい接続を作成できます。</p>
-                                                            </li>
-                                                            <li>
-                                                                <p>gmail.comまたはgooglemail.comアカウントを使用すると、Gmailコネクタの接続は実行時に失敗し、Gmailコネクタカードは想定通りに機能せず、Gmailカードを含むフローは 正常に動作しません。</p>
-                                                            </li>
-                                                            <li>
-                                                                <p>Gmailコネクタの接続を作成するためにプロジェクトサービスアカウントは使用できません。</p>
-                                                            </li>
-                                                            <li>
-                                                                <p>Gmailコネクタで機能する接続を作成し、以下のカードを使用するために、Google Workspaceユーザーにプロジェクトのサービスアカウントユーザーのロールを割り当てる必要はありません。</p>
-                                                                <ul>
-                                                                    <li>
-                                                                        <p>メールの読み取り</p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <p>メールの送信</p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <p>添付ファイル付きのメールの送信</p>
-                                                                    </li>
-                                                                </ul>
-                                                            </li>
-                                                            <li>
-                                                                <p>以下のカードを使用するためには、Google Workspaceユーザーにプロジェクトのサービスアカウントユーザーのロールを割り当てる必要があります。</p>
-                                                                <ul>
-                                                                    <li>
-                                                                        <p>代理人の追加</p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <p>メールの転送</p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <p>自動返信の設定</p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <p>ユーザーのGmail設定の更新</p>
-                                                                    </li>
-                                                                </ul>
-                                                            </li>
-                                                            <li>
-                                                                <p>WorkflowsでGoogle Sign InをOkta Browser Pluginとともに使用する場合、Okta Browser Pluginを使用するアカウントを切り替えてからでないとアカウントを切り替えることはできません。</p>
-                                                            </li>
-                                                        </ul>
-                                                        <h2>サポートされているスコープ</h2>
-                                                        <ul class="code">
-                                                            <li>
-                                                                <p>https://www.googleapis.com/auth/userinfo.profile</p>
-                                                            </li>
-                                                            <li>
-                                                                <p>https://www.googleapis.com/auth/userinfo.email</p>
-                                                            </li>
-                                                            <li>
-                                                                <p>openid</p>
-                                                            </li>
-                                                            <li>
-                                                                <p>https://www.googleapis.com/auth/gmail.settings.basic</p>
-                                                            </li>
-                                                            <li>
-                                                                <p>https://www.googleapis.com/auth/gmail.settings.sharing</p>
-                                                            </li>
-                                                            <li>
-                                                                <p>https://www.googleapis.com/auth/cloud-platform</p>
-                                                            </li>
-                                                            <li>
-                                                                <p>https://www.googleapis.com/auth/gmail.send</p>
-                                                            </li>
-                                                            <li>
-                                                                <p>https://www.googleapis.com/auth/gmail.readonly</p>
-                                                            </li>
-                                                        </ul>
-                                                        <h2>免責事項</h2>
-                                                        <p>Gmail APIから受け取る情報のアプリでの使用はGoogleの限定的使用要件に従います。</p>
                                                     </div>
                                                 </div>
                                                 <!-- Back to Top button --><a href="#" class="sf-back-to-top"><span class="arrow"></span>Top</a>
@@ -418,6 +508,33 @@
                                         <!--<div class="is-not-in-mobile">
                 <MadCap:menuProxy data-mc-skin="/Project/Skins/okta-right-menu.flskn" mc-linked-toc="/Project/TOCs/okta-TOC.fltoc" style="mc-context-sensitive: True;mc-include-parent: True;mc-include-siblings: False;mc-include-children: True;" />
             </div>-->
+                                    </div>
+                                    <div class="toolbar-main">
+                                        <div class="buttons popup-container clearfix topicToolbarProxy _Skins_okta_toolbar_no_expand mc-component nocontent" style="mc-topic-toolbar-items: ;">
+                                            <div class="button-group-container-left">
+                                                <button class="button needs-pie select-language-button" title="言語の変更">
+                                                    <div>
+                                                        <div role="img" class="button-icon-wrapper" aria-label="言語の変更">
+                                                            <div class="button-icon"> </div>
+                                                        </div>
+                                                    </div>
+                                                </button>
+                                                <button class="button needs-pie previous-topic-button" title="前へ移動" disabled="true">
+                                                    <div>
+                                                        <div role="img" class="button-icon-wrapper" aria-label="前へ移動">
+                                                            <div class="button-icon"> </div>
+                                                        </div>
+                                                    </div>
+                                                </button>
+                                                <button class="button needs-pie next-topic-button" title="次へ移動" disabled="true">
+                                                    <div>
+                                                        <div role="img" class="button-icon-wrapper" aria-label="次へ移動">
+                                                            <div class="button-icon"> </div>
+                                                        </div>
+                                                    </div>
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
                                     <!-- ***************************** Footer rows ********************************* -->
                                     <!--         <div class="footer2">
@@ -440,7 +557,7 @@
         </div> -->
                                     <div class="footer2">
                                         <div>
-                                            <p class="copyright">©  <span class="mc-variable okta-variables.Year variable">2021</span> <span class="mc-variable okta-variables.CompanyName variable">Okta, Inc</span>. All Rights Reserved. Various trademarks held by their respective owners.
+                                            <p class="copyright">©  <span class="mc-variable okta-variables.Year variable">2022</span> <span class="mc-variable okta-variables.CompanyName variable">Okta, Inc</span>. All Rights Reserved. Various trademarks held by their respective owners.
 	</p>
                                         </div>
                                         <!--             <div>
