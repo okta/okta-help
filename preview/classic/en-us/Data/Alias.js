@@ -117,7 +117,7 @@ xmlAliasData += '    <Map Name=\"ext_application_inventory\" Link=\"Topics/Devic
 xmlAliasData += '    <Map Name=\"ext_configure_vpn_profiles\" Link=\"Topics/Devices/configure-vpn-profiles.htm\" ResolvedId=\"200045\" />';
 xmlAliasData += '    <Map Name=\"ext_devices\" Link=\"Topics/Devices/devices.htm\" ResolvedId=\"200047\" />';
 xmlAliasData += '    <Map Name=\"ext_devices_Configure_Wifi\" Link=\"Topics/Devices/devices_Configure_Wifi.htm\" ResolvedId=\"200048\" />';
-xmlAliasData += '    <Map Name=\"ext_devices_Mobile_Policies\" Link=\"Topics/Devices/devices_Mobile_Policies.htm\" ResolvedId=\"200051\" />';
+xmlAliasData += '    <Map Name=\"ext_devices_Mobile_Policies\" Link=\"Topics/Devices/devices_configure_omm_policies.htm\" ResolvedId=\"200051\" />';
 xmlAliasData += '    <Map Name=\"ext_About_Universal_Directory\" Link=\"Topics/users-groups-profiles/usgp-user-profiles-main.htm\" ResolvedId=\"200052\" />';
 xmlAliasData += '    <Map Name=\"ext_AD_Move_user_across_OU\" Link=\"Topics/Directory/ad-agent-ou-updates.htm\" ResolvedId=\"200053\" />';
 xmlAliasData += '    <Map Name=\"ext_Agent_Installing_the_Okta_Radius_Agent\" Link=\"Topics/integrations/Agent_Installing_the_Okta_Radius_Agent.htm\" ResolvedId=\"200054\" />';
@@ -158,7 +158,6 @@ xmlAliasData += '    <Map Name=\"ext_okta_ends_browser_support_for_TLS_1_1\" Lin
 xmlAliasData += '    <Map Name=\"ext_Platforms_Browser_OS_Support\" Link=\"Topics/Miscellaneous/Platforms_Browser_OS_Support.htm\" ResolvedId=\"200095\" />';
 xmlAliasData += '    <Map Name=\"ext_access_managed_mobile_apps\" Link=\"Topics/Mobile/access-managed-mobile-apps.htm\" ResolvedId=\"200104\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Okta_Mobile\" Link=\"Topics/Mobile/Apps_Okta_Mobile.htm\" ResolvedId=\"200106\" />';
-xmlAliasData += '    <Map Name=\"ext_Apps_OMM\" Link=\"Topics/Mobile/Apps_OMM.htm\" ResolvedId=\"200107\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_OMM_End_User\" Link=\"Topics/Mobile/Apps_OMM_End_User.htm\" ResolvedId=\"200108\" />';
 xmlAliasData += '    <Map Name=\"ext_device_trust_mobile\" Link=\"Topics/device-trust/device-trust-landing.htm\" ResolvedId=\"200111\" />';
 xmlAliasData += '    <Map Name=\"ext_device_trust\" Link=\"Topics/device-trust/device-trust-landing.htm\" ResolvedId=\"200112\" />';
@@ -172,7 +171,7 @@ xmlAliasData += '    <Map Name=\"ext_Okta_Mobile_Device_Trust_Windows_desktop\" 
 xmlAliasData += '    <Map Name=\"ext_Okta_Mobile_Obtaining_Okta_Android_Installers\" Link=\"Topics/Mobile/Okta_Mobile_Obtaining_Okta_Android_Installers.htm\" ResolvedId=\"200122\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_Mobile_Preconfigure_with_Managed_Configurations\" Link=\"Topics/Mobile/Okta_Mobile_Preconfigure_with_Managed_Configurations.htm\" ResolvedId=\"200123\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_Mobile_Safari_Extension\" Link=\"Topics/Mobile/Okta_Mobile_Safari_Extension.htm\" ResolvedId=\"200124\" />';
-xmlAliasData += '    <Map Name=\"ext_Okta_Mobile_VerHistory\" Link=\"Topics/Mobile/Okta_Mobile_VerHistory.htm\" ResolvedId=\"200125\" />';
+xmlAliasData += '    <Map Name=\"ext_Okta_Mobile_VerHistory\" Link=\"Topics/Miscellaneous/Platforms_Browser_OS_Support.htm\" ResolvedId=\"200125\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_Verify_Using\" Link=\"Topics/Mobile/okta-verify-overview.htm\" ResolvedId=\"200127\" />';
 xmlAliasData += '    <Map Name=\"ext_Set_up_Android_Enterprise\" Link=\"Topics/Mobile/Set_up_Android_Enterprise.htm\" ResolvedId=\"200128\" />';
 xmlAliasData += '    <Map Name=\"ext_The_Mobile_App_Store\" Link=\"Topics/Mobile/The_Mobile_App_Store.htm\" ResolvedId=\"200129\" />';
@@ -666,5 +665,6 @@ xmlAliasData += '    <Map Name=\"csh-facebook-work\" Link=\"Topics/Provisioning/
 xmlAliasData += '    <Map Name=\"ext-lcm-assign-app-user\" Link=\"Topics/Provisioning/lcm/lcm-assign-app-user.htm\" ResolvedId=\"1508\" />';
 xmlAliasData += '    <Map Name=\"ext-lcm-assign-app-groups\" Link=\"Topics/Provisioning/lcm/lcm-assign-app-groups.htm\" ResolvedId=\"1509\" />';
 xmlAliasData += '    <Map Name=\"csh-about-ip-zones\" Link=\"Topics/Security/network/about-ip-zones.htm\" ResolvedId=\"21000\" />';
+xmlAliasData += '    <Map Name=\"csh-inlinehooks\" Link=\"Topics/automation-hooks/inline-hooks-main.htm\" ResolvedId=\"6012\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
