@@ -327,17 +327,6 @@ xmlAliasData += '    <Map Name=\"ext-jiraservicedesk-method-unsubscribefromreque
 xmlAliasData += '    <Map Name=\"ext-jiraservicedesk-method-newrequest\" Link=\"Topics/Workflows/connector-reference/jiraservicedesk/events/newrequest.htm\" ResolvedId=\"30372\" />';
 xmlAliasData += '    <Map Name=\"ext-jiraservicedesk-method-newrequestinqueue\" Link=\"Topics/Workflows/connector-reference/jiraservicedesk/events/newrequestinqueue.htm\" ResolvedId=\"30373\" />';
 xmlAliasData += '    <Map Name=\"ext-jiraservicedesk-method-requestupdated\" Link=\"Topics/Workflows/connector-reference/jiraservicedesk/events/requestupdated.htm\" ResolvedId=\"30374\" />';
-xmlAliasData += '    <Map Name=\"ext-marketo229\" Link=\"Topics/Workflows/connector-reference/marketo/marketo.htm\" ResolvedId=\"30375\" />';
-xmlAliasData += '    <Map Name=\"ext-marketo229-method-addleadstolist\" Link=\"Topics/Workflows/connector-reference/marketo/actions/addleadstolist.htm\" ResolvedId=\"30376\" />';
-xmlAliasData += '    <Map Name=\"ext-marketo229-method-createlead\" Link=\"Topics/Workflows/connector-reference/marketo/actions/createlead.htm\" ResolvedId=\"30377\" />';
-xmlAliasData += '    <Map Name=\"ext-marketo229-method-customapicall\" Link=\"Topics/Workflows/connector-reference/marketo/actions/customapicall.htm\" ResolvedId=\"30378\" />';
-xmlAliasData += '    <Map Name=\"ext-marketo229-method-readlead\" Link=\"Topics/Workflows/connector-reference/marketo/actions/readlead.htm\" ResolvedId=\"30379\" />';
-xmlAliasData += '    <Map Name=\"ext-marketo229-method-readlist\" Link=\"Topics/Workflows/connector-reference/marketo/actions/readlist.htm\" ResolvedId=\"30380\" />';
-xmlAliasData += '    <Map Name=\"ext-marketo229-method-readlistleads\" Link=\"Topics/Workflows/connector-reference/marketo/actions/readlistleads.htm\" ResolvedId=\"30381\" />';
-xmlAliasData += '    <Map Name=\"ext-marketo229-method-searchleads\" Link=\"Topics/Workflows/connector-reference/marketo/actions/searchleads.htm\" ResolvedId=\"30382\" />';
-xmlAliasData += '    <Map Name=\"ext-marketo229-method-searchlists\" Link=\"Topics/Workflows/connector-reference/marketo/actions/searchlists.htm\" ResolvedId=\"30383\" />';
-xmlAliasData += '    <Map Name=\"ext-marketo229-method-updatelead\" Link=\"Topics/Workflows/connector-reference/marketo/actions/updatelead.htm\" ResolvedId=\"30384\" />';
-xmlAliasData += '    <Map Name=\"ext-marketo229-misc-authorization\" Link=\"Topics/Workflows/connector-reference/marketo/overviews/authorization.htm\" ResolvedId=\"30385\" />';
 xmlAliasData += '    <Map Name=\"ext-office365admin\" Link=\"Topics/Workflows/connector-reference/office365admin/office365admin.htm\" ResolvedId=\"30386\" />';
 xmlAliasData += '    <Map Name=\"ext-office365admin-method-addusertogroup\" Link=\"Topics/Workflows/connector-reference/office365admin/actions/addusertogroup.htm\" ResolvedId=\"30387\" />';
 xmlAliasData += '    <Map Name=\"ext-office365admin-method-assignlicensetouser\" Link=\"Topics/Workflows/connector-reference/office365admin/actions/assignlicensetouser.htm\" ResolvedId=\"30388\" />';
@@ -366,6 +355,7 @@ xmlAliasData += '    <Map Name=\"ext-office365mail-method-getmessage\" Link=\"To
 xmlAliasData += '    <Map Name=\"ext-office365mail-method-replytoemail\" Link=\"Topics/Workflows/connector-reference/office365mail/actions/replytoemail.htm\" ResolvedId=\"30412\" />';
 xmlAliasData += '    <Map Name=\"ext-office365mail-method-sendemail2\" Link=\"Topics/Workflows/connector-reference/office365mail/actions/sendemail2.htm\" ResolvedId=\"30413\" />';
 xmlAliasData += '    <Map Name=\"ext-office365mail-method-newemail\" Link=\"Topics/Workflows/connector-reference/office365mail/events/newemail.htm\" ResolvedId=\"30414\" />';
+xmlAliasData += '    <Map Name=\"ext-office365mail-misc-authorization\" Link=\"Topics/Workflows/connector-reference/office365mail/overviews/authorization.htm\" ResolvedId=\"30415\" />';
 xmlAliasData += '    <Map Name=\"ext-okta\" Link=\"Topics/Workflows/connector-reference/okta/okta.htm\" ResolvedId=\"30416\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-activateuser\" Link=\"Topics/Workflows/connector-reference/okta/actions/activateuser.htm\" ResolvedId=\"30417\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-addnewusertogroup\" Link=\"Topics/Workflows/connector-reference/okta/actions/addnewusertogroup.htm\" ResolvedId=\"30418\" />';
