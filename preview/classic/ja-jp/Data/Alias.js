@@ -167,6 +167,7 @@ xmlAliasData += '    <Map Name=\"ext_Okta_Mobile_Device_Trust_OMM_iOS\" Link=\"T
 xmlAliasData += '    <Map Name=\"ext_Okta_Mobile_Device_Trust_Windows_desktop\" Link=\"Topics/Mobile/Okta_Mobile_Device_Trust_Windows-desktop.htm\" ResolvedId=\"200121\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_Mobile_Obtaining_Okta_Android_Installers\" Link=\"Topics/Mobile/Okta_Mobile_Obtaining_Okta_Android_Installers.htm\" ResolvedId=\"200122\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_Mobile_Preconfigure_with_Managed_Configurations\" Link=\"Topics/Mobile/Okta_Mobile_Preconfigure_with_Managed_Configurations.htm\" ResolvedId=\"200123\" />';
+xmlAliasData += '    <Map Name=\"ext_Okta_Mobile_Safari_Extension\" Link=\"Topics/Mobile/Okta_Mobile_Safari_Extension.htm\" ResolvedId=\"200124\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_Mobile_VerHistory\" Link=\"Topics/Mobile/Okta_Mobile_VerHistory.htm\" ResolvedId=\"200125\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_Verify_Using\" Link=\"Topics/Mobile/okta-verify-overview.htm\" ResolvedId=\"200127\" />';
 xmlAliasData += '    <Map Name=\"ext_Set_up_Android_Enterprise\" Link=\"Topics/Mobile/Set_up_Android_Enterprise.htm\" ResolvedId=\"200128\" />';
@@ -174,7 +175,6 @@ xmlAliasData += '    <Map Name=\"ext_The_Mobile_App_Store\" Link=\"Topics/Mobile
 xmlAliasData += '    <Map Name=\"ext_glossary\" Link=\"Topics/Reference/glossary.htm\" ResolvedId=\"200131\" />';
 xmlAliasData += '    <Map Name=\"ext_ref_apps_events\" Link=\"Topics/Reference/ref-apps-events.htm\" ResolvedId=\"200132\" />';
 xmlAliasData += '    <Map Name=\"ext_ref_supported_languages\" Link=\"Topics/Reference/ref-supported-languages.htm\" ResolvedId=\"200134\" />';
-xmlAliasData += '    <Map Name=\"ext_announcements\" Link=\"Topics/ReleaseNotes/announcements.htm\" ResolvedId=\"200135\" />';
 xmlAliasData += '    <Map Name=\"ext_early_access\" Link=\"Topics/ReleaseNotes/early-access.htm\" ResolvedId=\"200138\" />';
 xmlAliasData += '    <Map Name=\"ext_mobile_release_status\" Link=\"Topics/ReleaseNotes/mobile-release-status.htm\" ResolvedId=\"200139\" />';
 xmlAliasData += '    <Map Name=\"ext_okta_relnotes\" Link=\"Topics/ReleaseNotes/okta-relnotes.htm\" ResolvedId=\"200140\" />';
@@ -214,6 +214,8 @@ xmlAliasData += '    <Map Name=\"ext_The_User_Admin_Role\" Link=\"Topics/Securit
 xmlAliasData += '    <Map Name=\"ext_custom_error_pages\" Link=\"Topics/Settings/custom-error-pages.htm\" ResolvedId=\"200177\" />';
 xmlAliasData += '    <Map Name=\"ext_custom_okta_hosted_sign_in_page\" Link=\"Topics/Settings/custom-okta-hosted-sign-in-page.htm\" ResolvedId=\"200178\" />';
 xmlAliasData += '    <Map Name=\"ext_custom_url_domain\" Link=\"Topics/Settings/settings-customization-general.htm\" ResolvedId=\"200179\" />';
+xmlAliasData += '    <Map Name=\"ext_end_user_okta_account_chooser\" Link=\"Topics/Settings/end-user-okta-account-chooser.htm\" ResolvedId=\"200180\" />';
+xmlAliasData += '    <Map Name=\"ext_End_User_Password_Reset\" Link=\"Topics/Settings/End_User_Password_Reset.htm\" ResolvedId=\"200181\" />';
 xmlAliasData += '    <Map Name=\"ext_ref_email_variables\" Link=\"Topics/Settings/settings-customization-variables.htm\" ResolvedId=\"200183\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings\" Link=\"Topics/Settings/Settings.htm\" ResolvedId=\"200184\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Account\" Link=\"Topics/Settings/Settings_Account.htm\" ResolvedId=\"200185\" />';
@@ -280,6 +282,7 @@ xmlAliasData += '    <Map Name=\"csh_notification_reset\" Link=\"Topics/Security
 xmlAliasData += '    <Map Name=\"csh-dt-applies-to-okta-mobile\" Link=\"Topics/device-trust/device-trust-landing.htm\" ResolvedId=\"1101\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_App_Integration_Wizard-oidc\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_OIDC.htm\" ResolvedId=\"1103\" />';
 xmlAliasData += '    <Map Name=\"ext_API_Access-claims\" Link=\"Topics/Security/API_Access.htm#create_claims\" ResolvedId=\"1104\" />';
+xmlAliasData += '    <Map Name=\"ext_Apps_Apps_Page-assign\" Link=\"Topics/Apps/Apps_Apps_Page.htm#Assigning\" ResolvedId=\"1105\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_Administrators\" Link=\"Topics/Security/Administrators.htm\" ResolvedId=\"1106\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Customization-interstitial\" Link=\"Topics/Settings/settings-customization-general.htm\" ResolvedId=\"1107\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-integration-types\" Link=\"Topics/device-trust/SAML/Mobile/integrate-okta-dt-with-ws1-mobile.htm\" ResolvedId=\"1108\" />';
@@ -393,6 +396,7 @@ xmlAliasData += '    <Map Name=\"csh-administrators\" Link=\"Topics/Security/Adm
 xmlAliasData += '    <Map Name=\"csh-admin-role-groupmembership\" Link=\"Topics/Security/administrators-group-membership-admin.htm\" ResolvedId=\"1249\" />';
 xmlAliasData += '    <Map Name=\"csh-eu-import-safeguard\" Link=\"Topics/users-groups-profiles/usgp-import-safeguard.htm\" ResolvedId=\"1251\" />';
 xmlAliasData += '    <Map Name=\"csh-o365-sa\" Link=\"Topics/Apps/Apps_O365_Silent_Activation.htm\" ResolvedId=\"1252\" />';
+xmlAliasData += '    <Map Name=\"ext-apps-page-show-application-embed-links\" Link=\"Topics/Apps/Apps_Apps_Page.htm#Show\" ResolvedId=\"1253\" />';
 xmlAliasData += '    <Map Name=\"csh-config-asso\" Link=\"Topics/Directory/Configuring_Agentless_SSO.htm\" ResolvedId=\"1254\" />';
 xmlAliasData += '    <Map Name=\"ext_OPP_configure\" Link=\"Topics/Provisioning/opp/OPP-main.htm\" ResolvedId=\"1259\" />';
 xmlAliasData += '    <Map Name=\"ext_OPP_create_connectors\" Link=\"Topics/Provisioning/opp/OPP-create-SCIM-connectors.htm\" ResolvedId=\"1261\" />';
