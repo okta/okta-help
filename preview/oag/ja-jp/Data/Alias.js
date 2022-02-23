@@ -30,14 +30,12 @@ xmlAliasData += '    <Map Name=\"ext_oag_about_logging\" Link=\"Topics/Access-Ga
 xmlAliasData += '    <Map Name=\"ext_oag_log_forward\" Link=\"Topics/Access-Gateway/admin-settings-logging.htm\" ResolvedId=\"3005\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_about_auth_mod\" Link=\"Topics/Access-Gateway/admin-settings-authmod.htm\" ResolvedId=\"3006\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_about_datastore\" Link=\"Topics/Access-Gateway/integrate-app-datastores.htm\" ResolvedId=\"3007\" />';
-xmlAliasData += '    <Map Name=\"ext_oag_policy_about\" Link=\"Topics/Access-Gateway/about-application-policy.htm\" ResolvedId=\"3010\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_policy_manage\" Link=\"Topics/Access-Gateway/managing-oag-policy.htm\" ResolvedId=\"3011\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_policy_advanced\" Link=\"Topics/Access-Gateway/advanced-oag-policy.htm\" ResolvedId=\"3012\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_policy_dev\" Link=\"Topics/Access-Gateway/advanced-oag-policy-development.htm\" ResolvedId=\"3013\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_policy_examples\" Link=\"Topics/Access-Gateway/advanced-oag-policy-examples.htm\" ResolvedId=\"3014\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_app_essentials_about\" Link=\"Topics/Access-Gateway/about-application-essentials.htm\" ResolvedId=\"3015\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_advanced_about\" Link=\"Topics/Access-Gateway/about-application-advanced.htm\" ResolvedId=\"3017\" />';
-xmlAliasData += '    <Map Name=\"ext_oag_behaviors_about\" Link=\"Topics/Access-Gateway/about-application-behaviors.htm\" ResolvedId=\"3018\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_attributes_about\" Link=\"Topics/Access-Gateway/about-application-attributes.htm\" ResolvedId=\"3020\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_attributes_manage\" Link=\"Topics/Access-Gateway/managing-application-attributes.htm\" ResolvedId=\"3021\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_admin_log_audit_oview\" Link=\"Topics/Access-Gateway/admin-logging-auditing-overview.htm\" ResolvedId=\"3042\" />';
@@ -48,10 +46,8 @@ xmlAliasData += '    <Map Name=\"ext_oag_snmp_monitor_oview\" Link=\"Topics/Acce
 xmlAliasData += '    <Map Name=\"ext_oag_cap_plan_size\" Link=\"Topics/Access-Gateway/capacity-planning-sizing.htm\" ResolvedId=\"3048\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_arch\" Link=\"Topics/Access-Gateway/architecture.htm\" ResolvedId=\"3049\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_deploy_prereq\" Link=\"Topics/Access-Gateway/deploy-pre-install-reqs.htm\" ResolvedId=\"3050\" />';
-xmlAliasData += '    <Map Name=\"ext_oag_about_oag_policy\" Link=\"Topics/Access-Gateway/learn-about-oag-policy.htm\" ResolvedId=\"3051\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_app_attrs\" Link=\"Topics/Access-Gateway/application-attributes.htm\" ResolvedId=\"3053\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_integrate_apps\" Link=\"Topics/Access-Gateway/integrate-apps-with-oag.htm\" ResolvedId=\"3055\" />';
-xmlAliasData += '    <Map Name=\"ext_oag_config_idp_okta\" Link=\"Topics/Access-Gateway/configure-idp-okta.htm\" ResolvedId=\"3057\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_pre_req_firewall_rules\" Link=\"Topics/Access-Gateway/deploy-pre-install-reqs.htm\" ResolvedId=\"3063\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_about_policy_types_not\" Link=\"Topics/Access-Gateway/learn-about-oag-policy-types.htm#Not\" ResolvedId=\"3064\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_about_policy_types_prot\" Link=\"Topics/Access-Gateway/learn-about-oag-policy-types.htm#Protecte\" ResolvedId=\"3065\" />';
