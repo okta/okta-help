@@ -6,7 +6,7 @@
         <meta name="typeofcontent" content="documentation" />
         <meta name="audience" content="admin workflows" />
         <meta name="description" content="アドバンストサーバーアクセスのユーザー管理機能は、自動的に有効になり、管理者はエンドユーザーのライフサイクルを安全にプロビジョニングおよび管理することができます。" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>アドバンストサーバーアクセスのユーザー管理 | Okta</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Linuxでのユーザー管理 | Okta</title>
         <meta charset="utf-8" />
         <meta name="description" content="" />
         <meta name="author" content="" />
@@ -77,6 +77,7 @@
 }
 
 </style>
+        <link rel="canonical" href="https://help.okta.com/asa/en-us/Content/Topics/Adv_Server_Access/docs/user-management-linux.htm" />
         <script src="../../../../Resources/Scripts/jquery.min.js" type="text/javascript">
         </script>
         <script src="../../../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
@@ -355,6 +356,22 @@
                                                     <p><b>usermod</b>、<b>groupadd</b>、<b>groupmod</b>などの標準ツールは、ユーザーとグループの更新を管理するのに使用します。</p>
                                                     <h3>ユーザを削除する</h3>
                                                     <p>ユーザーは<b>userdel</b>で削除されます。</p>
+                                                    <h3>承認済みのメインファイル</h3>
+                                                    <p class="earlyaccess">これは早期アクセス機能です。有効にする場合は、<a href="https://support.okta.com/help/s/">Oktaサポート</a>にお問い合わせください。</p>
+                                                    <p>Okta PolicySyncはOpenSSH daemon (sshd) <span class="code">AuthorizedPrincipalsFile</span>構成オプションを使用します。<a href="https://www.freebsd.org/cgi/man.cgi?query=sshd_config&amp;apropos=0&amp;sektion=0&amp;manpath=FreeBSD+11.0-RELEASE+and+Ports&amp;arch=default&amp;format=html" target="_blank">sshd_config</a>を参照して、<span class="code">AuthorizedPrincipalsFile</span>の詳細をご覧ください。</p>
+                                                    <p>PolicySyncが有効になると、アドバンストサーバーアクセスのサーバーエージェントは各ユーザーのhomeディレクトリにファイル<span class="code">.asa_authorized_principals</span>を作成します。場所はユーザーがアクセスできる各サーバー上です。このファイルが作成される場所は、アドバンストサーバーアクセスのサーバーエージェントの<span class="code">sftd.yaml</span>構成ファイルにある<span class="code">AuthorizedPrincipalsFile</span>オプションを設定して変更できます。 場所を構成するには、サポートされているユーザーごとのトークンのひとつを使用する必要があります。 </p>
+                                                    <ul>
+                                                        <li><span class="code">%h</span>：これはユーザーのhomeディレクトリパスに拡張されます。</li>
+                                                        <li><span class="code">%u</span>：これはユーザーのユーザー名に拡張されます。</li>
+                                                        <li><span class="code">%U</span>：これはユーザーのUIDに拡張されます。</li>
+                                                    </ul>
+                                                    <p>例えば、アドバンストサーバーアクセスで認証済みのメインファイルをユーザーのhomeディレクトリに作成するよう構成するには、以下をサーバーの<span class="code">sftd.yaml</span>構成ファイルに追加します。</p>
+                                                    <p class="code">AuthorizedPrincipalsFile: "%h/.asa_authorized_principals"</p>
+                                                    <p>アドバンストサーバーアクセスのサーバーエージェントはまた、サーバーの<span class="code">sshd_config</span>ファイルを <span class="code">sftd.yaml</span>で定義されたAuthorizedPrincipalsFile指令で更新します。</p>
+                                                    <div class="noteOkta">
+                                                        <img src="../../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="注" alt="注" />
+                                                        <p class="noteContent">アドバンストサーバーアクセスのサーバーエージェント<span class="code">sftd</span>は<span class="code">sshd_config</span>を変更しますが、手動変更または自動変更を問わず、変更しないことを推奨します。<span class="code">sshd_config</span>の内容を変更すると、構成が非対応になったり破損したりする可能性があります。</p>
+                                                    </div>
                                                     <h2>関連項目</h2>
                                                     <p><a href="user-management.htm" class="MCXref xref">ユーザー管理</a>
                                                     </p>
