@@ -442,5 +442,6 @@ xmlAliasData += '    <Map Name=\"csh-inlinehooks\" Link=\"Topics/automation-hook
 xmlAliasData += '    <Map Name=\"csh-duo-security-oie\" Link=\"Topics/identity-engine/authenticators/configure-duo-security.htm\" ResolvedId=\"18006\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-authenticators\" Link=\"Topics/identity-engine/authenticators/configure-authenticators.htm\" ResolvedId=\"18007\" />';
 xmlAliasData += '    <Map Name=\"ext-velocity-variables\" Link=\"Topics/Settings/velocity-variables.htm\" ResolvedId=\"5003\" />';
+xmlAliasData += '    <Map Name=\"ext-create-auth-policy\" Link=\"Topics/identity-engine/policies/add-app-sign-on-policy-rule.htm\" ResolvedId=\"5004\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
