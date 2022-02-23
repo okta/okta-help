@@ -158,7 +158,6 @@ xmlAliasData += '    <Map Name=\"ext_okta_ends_browser_support_for_TLS_1_1\" Lin
 xmlAliasData += '    <Map Name=\"ext_Platforms_Browser_OS_Support\" Link=\"Topics/Miscellaneous/Platforms_Browser_OS_Support.htm\" ResolvedId=\"200095\" />';
 xmlAliasData += '    <Map Name=\"ext_access_managed_mobile_apps\" Link=\"Topics/Mobile/access-managed-mobile-apps.htm\" ResolvedId=\"200104\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Okta_Mobile\" Link=\"Topics/Mobile/Apps_Okta_Mobile.htm\" ResolvedId=\"200106\" />';
-xmlAliasData += '    <Map Name=\"ext_Apps_OMM\" Link=\"Topics/Mobile/Apps_OMM.htm\" ResolvedId=\"200107\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_OMM_End_User\" Link=\"Topics/Mobile/Apps_OMM_End_User.htm\" ResolvedId=\"200108\" />';
 xmlAliasData += '    <Map Name=\"ext_device_trust_mobile\" Link=\"Topics/device-trust/device-trust-landing.htm\" ResolvedId=\"200111\" />';
 xmlAliasData += '    <Map Name=\"ext_device_trust\" Link=\"Topics/device-trust/device-trust-landing.htm\" ResolvedId=\"200112\" />';
@@ -1635,7 +1634,6 @@ xmlAliasData += '    <Map Name=\"ext-lcm-assign-app-groups\" Link=\"Topics/Provi
 xmlAliasData += '    <Map Name=\"csh-about-ip-zones\" Link=\"Topics/Security/network/about-ip-zones.htm\" ResolvedId=\"21000\" />';
 xmlAliasData += '    <Map Name=\"ext-about-save-data-flow-history\" Link=\"Topics/Workflows/learn/about-save-data-with-flow-history.htm\" ResolvedId=\"31080\" />';
 xmlAliasData += '    <Map Name=\"csh-inlinehooks\" Link=\"Topics/automation-hooks/inline-hooks-main.htm\" ResolvedId=\"6012\" />';
-xmlAliasData += '    <Map Name=\"ext-asatest1_3fb8e134224d4d6ab7215d080e3b752d-method-createaproject\" Link=\"Topics/Workflows/connector-reference/advancedserveraccess/actions/createaproject.htm\" ResolvedId=\"31081\" />';
-xmlAliasData += '    <Map Name=\"ext-asatest1_3fb8e134224d4d6ab7215d080e3b752d-method-addgrouptoproject\" Link=\"Topics/Workflows/connector-reference/advancedserveraccess/actions/addgrouptoproject.htm\" ResolvedId=\"31082\" />';
+xmlAliasData += '    <Map Name=\"ext-velocity-variables\" Link=\"Topics/Settings/velocity-variables.htm\" ResolvedId=\"5003\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
