@@ -199,6 +199,7 @@ xmlAliasData += '    <Map Name=\"ext-connectorbuilder-flows-learn\" Link=\"Topic
 xmlAliasData += '    <Map Name=\"ext-connectorbuilder-functions-learn\" Link=\"Topics/betas/closed/connector-builder/about-functions.htm\" ResolvedId=\"35015\" />';
 xmlAliasData += '    <Map Name=\"ext-connectorbuilder-settings-learn\" Link=\"Topics/betas/closed/connector-builder/settings-learn.htm\" ResolvedId=\"35016\" />';
 xmlAliasData += '    <Map Name=\"ext-connectorbuilder-oauth-parameters\" Link=\"Topics/betas/closed/connector-builder/auth-parameters.htm\" ResolvedId=\"35017\" />';
+xmlAliasData += '    <Map Name=\"ext-connectorbuilder-validation-errors\" Link=\"Topics/betas/closed/connector-builder/cb-validation-errors.htm\" ResolvedId=\"35018\" />';
 xmlAliasData += '    <Map Name=\"ext-math-method-gt\" Link=\"Topics/Workflows/function-reference/Number/number_larger.htm\" ResolvedId=\"31064\" />';
 xmlAliasData += '    <Map Name=\"ext-math-method-increment\" Link=\"Topics/Workflows/function-reference/Number/number_increment.htm\" ResolvedId=\"31065\" />';
 xmlAliasData += '    <Map Name=\"ext-math-method-lt\" Link=\"Topics/Workflows/function-reference/Number/number_smaller.htm\" ResolvedId=\"31066\" />';
