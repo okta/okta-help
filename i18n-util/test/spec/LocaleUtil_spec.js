@@ -48,10 +48,13 @@ describe('LocaleUtil.setLocaleCookie', () => {
     // Verify that the cookie value has been set to ja-JP
     const locale = getCookieValue(LOCALE_COOKIE_KEY);
     expect(locale).toEqual('ja-JP')
+    // Verify that the cookie entry has an index value
     expect(document.cookie.indexOf('okta_help_user_lang=ja-JP')).toBe(0);
     // Reset the cookie value
     setLocaleCookie('en-US');
     expect(getLocale()).toBe('en-us');
+    // Previously this test checked for a -1 value
+    // but by removing the conditional statement
     expect(document.cookie.indexOf('okta_help_user_lang=en-US')).toBe(0);
   });
 });
