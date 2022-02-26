@@ -1,4 +1,4 @@
-import { getLocale, setLocaleCookie } from '../../src/LocaleUtil';
+import { getLocale, getCookieValue, setLocaleCookie } from '../../src/LocaleUtil';
 
 const LOCALE_COOKIE_KEY = 'okta_help_user_lang';
 let languageGetter;
@@ -24,14 +24,13 @@ describe('Locale Priority', () => {
   test('cookie locale is higher than browser locale', () => {
     languageGetter.mockReturnValue('ja-JP');
     setLocaleCookie('en-US');
-    expect(getLocale()).toBe('en');
+    expect(getLocale()).toBe('en-us');
   });
   test('browser locale is picked if query and hash is not set', () => {
     languageGetter.mockReturnValue('ja-JP');
-    expect(getLocale()).toBe('en');
+    expect(getLocale()).toBe('ja-jp');
   });
 });
-
 
 describe('LocaleUtil.setLocaleCookie', () => {
   beforeEach(() => {
@@ -39,15 +38,24 @@ describe('LocaleUtil.setLocaleCookie', () => {
   });
   test('test setLocaleCookie with "en"', () => {
     setLocaleCookie('en-US');
-    expect(getLocale()).toBe('en');
+    expect(getLocale()).toBe('en-us');
   });
-  test('test setLocaleCookie with "en" if "okta_help_user_lang" set to ja before', () => {
+
+  // What is the intention of this test?
+  test('test setLocaleCookie with "en-US" if "okta_help_user_lang" set to ja before', () => {
     document.cookie = 'cookie1=test';
     document.cookie = `${LOCALE_COOKIE_KEY}=ja-JP`;
-
+    // Verify that the cookie value has been set to ja-JP
+    const locale = getCookieValue(LOCALE_COOKIE_KEY);
+    expect(locale).toEqual('ja-JP')
+    // Verify that the cookie entry has an index value
+    expect(document.cookie.indexOf('okta_help_user_lang=ja-JP')).toBe(0);
+    // Reset the cookie value
     setLocaleCookie('en-US');
-    expect(getLocale()).toBe('en');
-    expect(document.cookie.indexOf('okta_help_user_lang=en-US')).toBe(-1);
+    expect(getLocale()).toBe('en-us');
+    // Previously this test checked for a -1 value
+    // but by removing the conditional statement
+    expect(document.cookie.indexOf('okta_help_user_lang=en-US')).toBe(0);
   });
 });
 
@@ -64,12 +72,12 @@ describe('LocaleUtil.getLocale', () => {
 
   test('test getLocale from cookie', () => {
     setLocaleCookie('ja-JP');
-    expect(getLocale()).toBe('en');
+    expect(getLocale()).toBe('ja-jp');
   });
 
   test('test getLocale from browser', () => {
     languageGetter.mockReturnValue('ja-JP');
-    expect(getLocale()).toBe('en');
+    expect(getLocale()).toBe('ja-jp');
   });
 });
 
@@ -81,7 +89,7 @@ describe('LocaleUtil.getLocale with country code for admin', () => {
     // issues with mocking window.location.href, setting window.location.hash instead here.
     window.location.hash = '?id=somehas&locale=en-US';
     setLocaleCookie('ja-JP');
-    expect(getLocale()).toBe('en');
+    expect(getLocale()).toBe('en-us');
   });
 });
 
