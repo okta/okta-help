@@ -1,6 +1,6 @@
 const LOCALE_COOKIE_KEY = 'okta_help_user_lang';
 import { getUrlParameter } from './UrlUtil';
-
+ 
 const  getLocale = () => {
   // map to convert locales to folder names within h.o.c
   // only end-user docs have translations
@@ -36,9 +36,22 @@ const  getLocale = () => {
 
   setLocaleCookie(locale);
 
+  // only end-user docs have translations
   // TODO remove check once admin docs also have translations OKTA-356320
-  locale = supportedLocaleToFolderMap[locale];
+  const type = getUrlParameter('type');
+  if (type) {
+    // convert locale value to folder path
+    locale = supportedLocaleToFolderMap[locale];
+  } else {
+    // always return en for admin docs
+    locale = 'en';
+  }
 
+  if (!locale) {
+    // TODO add better default logic for unsupported locales OKTA-356251
+    locale = type ? 'en-us': 'en';
+  }
+  
   return locale;
 };
 
@@ -47,15 +60,13 @@ const getCookieValue = (cookieName) => {
   return b ? b.pop() : '';
 };
 
-// Removed the conditional statement > don't we always want to reset
-// the cookie when calling this function?
-// If not, then let's doc/test the scenarios
 const setLocaleCookie = (locale) => {
-  document.cookie = `${LOCALE_COOKIE_KEY}=${locale}`;
+  if (document.cookie.indexOf(LOCALE_COOKIE_KEY) === -1) {
+    document.cookie = `${LOCALE_COOKIE_KEY}=${locale}`;
+  }
 };
 
 export {
   getLocale,
-  setLocaleCookie,
-  getCookieValue
+  setLocaleCookie
 };
