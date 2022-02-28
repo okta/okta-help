@@ -16,14 +16,15 @@ const getRedirectUrl = () =>  {
   // Currently type is only used for end-user docs. In the future it will be used for admin docs
   const type = getUrlParameter('type');
   const id = getUrlParameter('id');
-  /** 
-   * env is only added to support the current version of admin docs that dont have any translations
-   * and are under en/prod folder. https://github.com/okta/okta-help/tree/gh-pages/en/prod
+  /**
+   * "host": `https://help.okta.com`
+   * "type": `oie` | `wf` | `asa` | `eu` | `oag`
+   *    "type" is not provided for links to "Classic" engine content
+   * "locale": `en-us` | `ja-jp`
    * **/
-  const env = 'prod';
   const redirectUrl = type ?
     `${host}/${type}/${locale}/${fileName}#cshid=${id}`:
-    `${host}/${locale}/${env}/${fileName}#cshid=${id}`;
+    `${host}/${locale}/${fileName}#cshid=${id}`;
   return redirectUrl;
 
 };
@@ -31,4 +32,4 @@ const getRedirectUrl = () =>  {
 export {
   getRedirectUrl,
   getUrlParameter
-}; 
+};
