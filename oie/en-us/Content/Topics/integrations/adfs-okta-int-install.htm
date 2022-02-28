@@ -369,23 +369,20 @@
                       The install completes, c lick <b>Close</b>.</li>
                                                         <li value="9">If you are installing in a Federation Server Farm, do not check <b>Register Okta ADFS Adapter</b>. Refer to the manual registration procedure detailed in the <a href="adfs-okta-int-farm.htm">Farm Installation Addendum</a>.</li>
                                                         <li value="10"><b>ADFS 2019 only</b>
-                                                            <br />If you are installing in ADFS 2019, perform the following in a powershell window.<ol style="list-style-type: lower-alpha;"><li value="1">Open a powershell window as administrator.</li><li value="2">Execute the following commands:<br /><pre id="code" xml:space="preserve">$oktaCustomerName = "your customer name" 
-$oktaUrl = "https://$oktaCustomerName.okta.com" 
-$oktaCdnUrl = "https://*.oktacdn.com" 				
-</pre><br /></li><li value="3">if no custom Content Security Policy (<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP">CSP</a>)&#160;exists execute:<br /><pre id="code" xml:space="preserve">$CSP = ((Get-AdfsResponseHeaders | Select -ExpandProperty ResponseHeaders).'Content-Security-Policy')
-$CSP = $CSP + '; frame-src ' + $apihostname + ' ' + $oktaCdnUrl
-Set-AdfsResponseHeaders -SetHeaderName Content-Security-Policy -SetHeaderValue $CSP CORS
-Set-AdfsResponseHeaders -EnableCORS $true
-Set-AdfsResponseHeaders -CORSTrustedOrigins https://$($oktaUrl)
-</pre><br /></li><li value="4">if a custom Content Security Policy exists execute:<br /><pre id="code" xml:space="preserve">
-$CSP = ((Get-AdfsResponseHeaders | Select -ExpandProperty ResponseHeaders).'Content-Security-Policy')
-if (-not ([string]::IsNullOrEmpty($CSP)))
-{
-   $CSP += "; "
-}
-$CSP += "frame-src $oktaCdnUrl $oktaUrl"
-Set-AdfsResponseHeaders -SetHeaderName Content-Security-Policy -SetHeaderValue $CSP
-</pre><br /></li></ol></li>
+                                                            <br />If you are installing in ADFS 2019, execute the following in a powershell window.<ol style="list-style-type: lower-alpha;"><li value="1">Open a powershell as administrator.</li><li value="2">Modify script for your okta domain and execute:<br /><div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a><div class="codeSnippetCaption"><p>powershell script</p></div><div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="True"><pre><span class="codeSnippetLineNumbers" style="border-right: #AAA 2px solid;" aria-hidden="true">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</span><code># Please change the value of &lt;customer_subdomain&gt;<br />$oktaUrl = "https://&lt;customer_subdomain&gt;.okta.com"&#160;<br />$oktaCdnUrl = "https://*.oktacdn.com"<br />&#160;&#160;&#160;&#160;<br />$CSP = ((Get-AdfsResponseHeaders | Select -ExpandProperty ResponseHeaders).'Content-Security-Policy')<br />if (-not ([string]::IsNullOrEmpty($CSP)))<br />{<br />&#160;&#160;&#160;&#160;$CSP += "; "<br />}<br />$CSP += 'default-src ' + $oktaUrl + ' ' + $oktaCdnUrl + '; frame-src ' + $oktaUrl + ' ' + $oktaCdnUrl + '; img-src ' + $oktaUrl + ' ' + $oktaCdnUrl<br />Set-AdfsResponseHeaders -SetHeaderName Content-Security-Policy -SetHeaderValue $CSP<br />Set-AdfsResponseHeaders -EnableCORS $true<br />Set-AdfsResponseHeaders -CORSTrustedOrigins $($oktaUrl)</code></pre></div></div></li></ol></li>
                                                     </ol>
                                                     <div>
                                                         <h2>Next steps</h2>

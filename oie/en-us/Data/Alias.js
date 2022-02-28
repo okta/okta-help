@@ -331,7 +331,7 @@ xmlAliasData += '    <Map Name=\"csh-okta-verify-number-challenge\" Link=\"Topic
 xmlAliasData += '    <Map Name=\"ext_sec_admin_assign_admins\" Link=\"Topics/Security/administrators-assign-admins.htm\" ResolvedId=\"3060\" />';
 xmlAliasData += '    <Map Name=\"ext-create-access-policies\" Link=\"Topics/Security/API_Access.htm#create-access-policies\" ResolvedId=\"9000\" />';
 xmlAliasData += '    <Map Name=\"csh-risk-scoring\" Link=\"Topics/Security/Security_Risk_Scoring.htm\" ResolvedId=\"12008\" />';
-xmlAliasData += '    <Map Name=\"csh-okta-verify-show-ov-button-siw\" Link=\"Topics/identity-engine/authenticators/configure-okta-verify-options.htm#sign-in\" ResolvedId=\"12009\" />';
+xmlAliasData += '    <Map Name=\"csh-okta-verify-show-ov-button-siw\" Link=\"Topics/identity-engine/authenticators/configure-okta-verify-options.htm\" ResolvedId=\"12009\" />';
 xmlAliasData += '    <Map Name=\"csh-directory-integrations-main\" Link=\"Topics/identity-engine/directories/directory-integrations-main.htm\" ResolvedId=\"15013\" />';
 xmlAliasData += '    <Map Name=\"ext-apps-bookmark-app\" Link=\"Topics/Apps/Apps_Bookmark_App.htm\" ResolvedId=\"8012\" />';
 xmlAliasData += '    <Map Name=\"csh-add-mfa-policy-rule\" Link=\"Topics/identity-engine/policies/add-mfa-policy-rule.htm\" ResolvedId=\"12010\" />';
@@ -379,9 +379,11 @@ xmlAliasData += '    <Map Name=\"csh-create-cstm-admin-by-role\" Link=\"Topics/S
 xmlAliasData += '    <Map Name=\"csh-create-cstm-admin-admin\" Link=\"Topics/Security/custom-admin-role/create-admin-role-assignment-by-admin.htm\" ResolvedId=\"1434\" />';
 xmlAliasData += '    <Map Name=\"ext-migrate-iwa-dsso\" Link=\"Topics/Directory/ad-dsso-iwa-migrate.htm\" ResolvedId=\"15015\" />';
 xmlAliasData += '    <Map Name=\"csh-branding\" Link=\"Topics/Settings/branding.htm\" ResolvedId=\"13003\" />';
+xmlAliasData += '    <Map Name=\"ext-idp-smart-card-workflow\" Link=\"Topics/Security/idp-smart-card-workflow.htm\" ResolvedId=\"2026\" />';
 xmlAliasData += '    <Map Name=\"ext-about-authenticators\" Link=\"Topics/identity-engine/authenticators/about-authenticators.htm\" ResolvedId=\"18003\" />';
 xmlAliasData += '    <Map Name=\"ext-about-mfa-enrol-policies\" Link=\"Topics/identity-engine/policies/about-mfa-enrollment-policies.htm\" ResolvedId=\"1458\" />';
 xmlAliasData += '    <Map Name=\"ext-config-sspr\" Link=\"Topics/identity-engine/authenticators/configure-sspr.htm\" ResolvedId=\"5000\" />';
+xmlAliasData += '    <Map Name=\"ext-idp-smart-card-expression\" Link=\"Topics/Security/idp-enable-smart-card.htm\" ResolvedId=\"3079\" />';
 xmlAliasData += '    <Map Name=\"csh-fp-disable\" Link=\"Topics/identity-engine/devices/fp/fp-disable.htm\" ResolvedId=\"17014\" />';
 xmlAliasData += '    <Map Name=\"csh-fp-enable\" Link=\"Topics/identity-engine/devices/fp/fp-enable.htm\" ResolvedId=\"17015\" />';
 xmlAliasData += '    <Map Name=\"csh-fp-main\" Link=\"Topics/identity-engine/devices/fp/fp-main.htm\" ResolvedId=\"17016\" />';
@@ -442,5 +444,9 @@ xmlAliasData += '    <Map Name=\"csh-about-ip-zones\" Link=\"Topics/Security/net
 xmlAliasData += '    <Map Name=\"csh-inlinehooks\" Link=\"Topics/automation-hooks/inline-hooks-main.htm\" ResolvedId=\"6012\" />';
 xmlAliasData += '    <Map Name=\"csh-duo-security-oie\" Link=\"Topics/identity-engine/authenticators/configure-duo-security.htm\" ResolvedId=\"18006\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-authenticators\" Link=\"Topics/identity-engine/authenticators/configure-authenticators.htm\" ResolvedId=\"18007\" />';
+xmlAliasData += '    <Map Name=\"ext-velocity-variables\" Link=\"Topics/Settings/velocity-variables.htm\" ResolvedId=\"5003\" />';
+xmlAliasData += '    <Map Name=\"ext-create-auth-policy\" Link=\"Topics/identity-engine/policies/add-app-sign-on-policy-rule.htm\" ResolvedId=\"5004\" />';
+xmlAliasData += '    <Map Name=\"ext-deploy-guides\" Link=\"Topics/identity-engine/guides/deploy-guides-home.htm\" ResolvedId=\"4043\" />';
+xmlAliasData += '    <Map Name=\"ext-branding-variables\" Link=\"Topics/Settings/branding-variables.htm\" ResolvedId=\"5006\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
