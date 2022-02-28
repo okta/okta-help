@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="_Skins_okta_html5_topnav_nav_poc" data-mc-search-type="Stem" data-mc-help-system-file-name="okta_help.xml" data-mc-path-to-help-system="../../../../" data-mc-has-content-body="True" data-mc-searchable="True" data-mc-toc-path="Security|Multifactor Authentication|[%=System.LinkedHeader%]" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic;Default" data-mc-preload-images="false" data-mc-in-preview-mode="false">
+    <!-- ******************************************************************************** -->
+    <!-- IMPORTANT: replicate changes in this file to other master pages, as appropriate. -->
+    <!-- ******************************************************************************** -->
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="robots" content="noindex, nofollow" />
         <meta name="typeofcontent" content="documentation" />
         <meta name="audience" content="admin" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Email Authentication (MFA) | Okta</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Email authentication (MFA) | Okta</title>
         <meta charset="utf-8" />
         <meta name="description" content="" />
         <meta name="author" content="" />
@@ -31,19 +35,29 @@
         <link rel="stylesheet" href="https://static.cloud.coveo.com/searchui/v2.5395/css/CoveoFullSearchNewDesign.css" />
         <style>/*&lt;meta /&gt;*/
 
+.button.expand-all-button
+{
+	-pie-background: linear-gradient(#fff, #fff);
+}
+
 .button.select-language-button
 {
-	-pie-background: linear-gradient(#ffffff, #ffffff);
+	-pie-background: linear-gradient(#fff, #fff);
 }
 
 .button.previous-topic-button
 {
-	-pie-background: linear-gradient(#ffffff, #ececec);
+	-pie-background: linear-gradient(#fff, #fff);
 }
 
 .button.next-topic-button
 {
-	-pie-background: linear-gradient(#ffffff, #ececec);
+	-pie-background: linear-gradient(#fff, #fff);
+}
+
+.button.collapse-all-button
+{
+	-pie-background: linear-gradient(#fff, #fff);
 }
 
 .needs-pie
@@ -311,8 +325,15 @@
                                                 </div>
                                             </div>
                                             <div class="toolbar-main">
-                                                <div class="buttons popup-container clearfix topicToolbarProxy _Skins_okta_toolbar_no_expand mc-component nocontent" style="mc-topic-toolbar-items: ;">
+                                                <div class="buttons popup-container clearfix topicToolbarProxy _Skins_okta_toolbar_nav_poc mc-component nocontent" style="mc-topic-toolbar-items: ;">
                                                     <div class="button-group-container-left">
+                                                        <button class="button needs-pie expand-all-button" data-state1-class="expand-all-button" data-state2-class="collapse-all-button" data-state2-title="Collapse all" title="Expand all" data-state1-title="Expand all">
+                                                            <div>
+                                                                <div role="img" class="button-icon-wrapper" aria-label="Expand all">
+                                                                    <div class="button-icon"> </div>
+                                                                </div>
+                                                            </div>
+                                                        </button>
                                                         <button class="button needs-pie select-language-button" title="Change language">
                                                             <div>
                                                                 <div role="img" class="button-icon-wrapper" aria-label="Change language">
@@ -340,46 +361,30 @@
                                             <div class="body-main">
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
-                                                    <h1>Email Authentication (MFA)</h1><a name="Email"></a><a name="email_factor"></a>
-                                                    <p>The Email Authentication factor allows users to authenticate themselves by clicking an email magic link or using a six-digit code as a one-time password (OTP). <span class="mc-variable okta-variables.ProductName variable">Okta</span> sends these authentication methods in an email message to the user's primary email address (and secondary address if available), which helps verify that the person making the sign-in attempt is the intended user. If the user doesn't click the email magic link or use the OTP within the challenge lifetime, the user isn't authenticated.</p>
-                                                    <p>This method provides a simple way for users to authenticate, but there are some issues to consider if you implement this factor:</p>
+                                                    <h1>Email authentication (MFA)</h1><a name="Email"></a><a name="email_factor"></a>
+                                                    <p>End users receive a one-time password (OTP) code in an email message to enter during Okta sign in.
+</p>
+                                                    <h2>Configure Email for MFA</h2>
+                                                    <p style="text-align: left;">To use email as an MFA factor, select <b>Email Authentication</b> in the <b>Factor Types</b> tab and then select <b>Activate</b>.</p>
+                                                    <p style="text-align: left;">
+                                                        <img src="../../../Resources/Images/Security/activate_button.png" title="Activate factor" alt="Activate an authentication factor" />
+                                                    </p>
                                                     <ul>
-                                                        <li>Email isn't always transmitted using secure protocols; unauthorized third parties can intercept unencrypted messages. Consider assigning a shorter challenge lifetime to your email magic links and OTP codes to mitigate this risk.</li>
-                                                        <li>The default OTP lifetime is five minutes. You can increase the lifetime in five-minute increments up to 30 minutes in the email factor settings. The generally accepted best practice is 10 minutes or less.</li>
-                                                        <li>Email messages may arrive in the user's spam or junk folder. Remind your users to check these folders if their email authentication message doesn't arrive.
-            </li>
-                                                        <li>Networking issues may delay email messages. If the email authentication message arrives after the challenge lifetime has expired, users must request another email authentication message.
-            </li>
+                                                        <li>After activating email as a factor, configure its usage and authentication details in one or more policies under the <b>Factor Enrollment</b> tab. </li>
+                                                        <li>Factor policy configuration is described generally under <a href="#MultifactorPolicies">Multifactor Policies</a>. When Email is set to <b>Required</b> as an <b>Effective factor</b>, end users specified in the policy are automatically enrolled in MFA using the primary email addresses in their user profiles.</li>
                                                     </ul>
-                                                    <h2>Activate Email Authentication</h2>
-                                                    <ol>
-                                                        <li value="1">In the <span class="mc-variable okta-feature-names.Administrator_dashboard variable">Admin Console</span>, go to <span class="uicontrol">Security</span> &gt; <span class="uicontrol">Multifactor</span>.</li>
-                                                        <li value="2">On the <span class="uicontrol">Factor Types</span> tab, click <span class="uicontrol">Email Authentication</span>.</li>
-                                                        <li value="3">Click <span class="uicontrol">Inactive</span>, then select <span class="uicontrol">Activate</span>.</li>
-                                                    </ol>
-                                                    <h2>Configure Email Authentication</h2>
-                                                    <ol>
-                                                        <li value="1">In the <span class="mc-variable okta-feature-names.Administrator_dashboard variable">Admin Console</span>, go to <span class="uicontrol">Security</span> &gt; <span class="uicontrol">Multifactor</span>.</li>
-                                                        <li value="2">On the <span class="uicontrol">Factor Types</span> tab, click <span class="uicontrol">Email Authentication</span>.</li>
-                                                        <li value="3">Click <span class="uicontrol">Edit</span> beside <span class="uicontrol">Email Authentication Settings</span>.</li>
-                                                        <li value="4">From the <span class="uicontrol">Email OTP token lifetime (minutes)</span> drop-down list, select the length of time you want the email magic link and OTP to be valid for.</li>
-                                                        <li value="5">Click <span class="uicontrol">Save</span>.</li>
-                                                        <li value="6">Click the <span class="uicontrol">Factor Enrollment</span> tab. See <a href="../policies/configure-mfa-policies.htm" class="MCXref xref">Configure an MFA&#160;enrollment policy</a> and follow the instructions for creating an MFA enrollment policy and adding an MFA enrollment policy rule.</li>
-                                                    </ol>
                                                     <div class="noteOkta">
-                                                        <p class="noteContent">When the <span class="uicontrol">Email Authentication</span> factor is set to <span class="uicontrol">Required</span> as an <span class="uicontrol">Eligible factor</span> in the MFA enrollment policy, the end users specified in the policy are automatically enrolled in MFA using the primary email addresses listed in their user profiles.</p>
+                                                        <img src="../../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Important Note" alt="Important Note" />
+                                                        <p class="noteHeading">Note</p>
+                                                        <ul>
+                                                            <li>Okta Mobile Android currently does not support email as an MFA factor.</li>
+                                                            <li>When you activate email as a Factor Type, the default OTP lifetime is 5 minutes. You can increase the lifetime in 5-minute increments up to 30 minutes in the email factor settings. The generally accepted best practice is 10 minutes or less.</li>
+                                                            <li>Using email as a factor is not always a best practice for several reasons, including the following:
+					<ul><li>Email can be compromised by third parties.</li><li>Email is not always transmitted over secure protocols.</li><li>Email can also be used, depending on the recovery flow, for primary credential recovery.</li><li>Email can land in spam folders or be delayed by networking issues.</li></ul></li>
+                                                            <li>You can also use email as a means of account recovery and set the expiration time for the security token. See Security Policies.</li>
+                                                        </ul>
                                                     </div>
-                                                    <h2>Related topics</h2>
-                                                    <p><a href="about-mfa.htm" class="MCXref xref">About Multifactor Authentication (MFA)</a>
-                                                    </p>
-                                                    <p><a href="mfa-factors.htm" class="MCXref xref">MFA&#160;factor configuration</a>
-                                                    </p>
-                                                    <p><a href="mfa-home.htm" class="MCXref xref">Multifactor Authentication (MFA)</a>
-                                                    </p>
-                                                    <p><a href="../policies/about-mfa-policies.htm" class="MCXref xref">About MFA enrollment policies</a>
-                                                    </p>
-                                                    <p><a href="../policies/configure-mfa-policies.htm" class="MCXref xref">Configure an MFA&#160;enrollment policy</a>
-                                                    </p>
+                                                    <br />
                                                 </div>
                                                 <!-- Back to Top button --><a href="#" class="sf-back-to-top"><span class="arrow"></span>Top</a>
                                             </div>
@@ -389,7 +394,7 @@
                 <MadCap:menuProxy data-mc-skin="/Project/Skins/okta-right-menu.flskn" mc-linked-toc="/Project/TOCs/okta-TOC.fltoc" style="mc-context-sensitive: True;mc-include-parent: True;mc-include-siblings: False;mc-include-children: True;" />
             </div>-->
                                     </div>
-                                    <div class="toolbar-main">
+                                    <div class="toolbar-bottom">
                                         <div class="buttons popup-container clearfix topicToolbarProxy _Skins_okta_toolbar_no_expand mc-component nocontent" style="mc-topic-toolbar-items: ;">
                                             <div class="button-group-container-left">
                                                 <button class="button needs-pie select-language-button" title="Change language">
@@ -437,7 +442,7 @@
         </div> -->
                                     <div class="footer2">
                                         <div>
-                                            <p class="copyright">©  <span class="mc-variable okta-variables.Year variable">2022</span> <span class="mc-variable okta-variables.CompanyName variable">Okta, Inc</span>. All Rights Reserved. Various trademarks held by their respective owners.
+                                            <p class="copyright">©  <span class="mc-variable okta-variables.Year variable">2021</span> <span class="mc-variable okta-variables.CompanyName variable">Okta, Inc</span>. All Rights Reserved. Various trademarks held by their respective owners.
 	</p>
                                         </div>
                                         <!--             <div>
