@@ -130,3 +130,13 @@ describe('LocaleUtil.getLocale with country code for oie docs', () => {
     expect(getLocale()).toBe('ja-jp');
   });
 });
+
+describe('Locale Priority', () => {
+  beforeEach(() => {
+    setup();
+  });
+  test('return "en-us" if browser reports "undefined"', () => {
+    languageGetter.mockReturnValue(undefined);
+    expect(getLocale()).toBe('en-us');
+  });
+});

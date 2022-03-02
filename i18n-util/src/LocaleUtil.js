@@ -28,6 +28,7 @@ const  getLocale = () => {
     }
   }
 
+
   // convert locales without country code
   // Ex en gets converted to en-US
   if (localesWithoutCountryMap[locale]) {
@@ -38,6 +39,12 @@ const  getLocale = () => {
 
   // TODO remove check once admin docs also have translations OKTA-356320
   locale = supportedLocaleToFolderMap[locale];
+
+  // ugly tourniquet to stop bleeding of 'undefined'
+  // into URLs
+  if (locale === undefined || locale === null) {
+    locale = 'en-us';
+  }
 
   return locale;
 };
