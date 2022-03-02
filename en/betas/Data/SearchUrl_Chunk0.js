@@ -1,1 +1,1 @@
-define({"../Content/Topics/betas/open/event-hooks-preview.htm":0,"../Content/Topics/betas/open/mfa-enrollment-user-report.htm":1,"../Content/docs_home.htm":2,});
+define({"../Content/Topics/betas/open/event-hooks-preview.htm":0,"../Content/Topics/betas/open/mfa-enrollment-user-report.htm":1,"../Content/Topics/password-optional/password-optional-disabled.htm":2,"../Content/docs_home.htm":3,});
