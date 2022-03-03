@@ -676,7 +676,7 @@ xmlAliasData += '    <Map Name=\"ext-list-method-collapse\" Link=\"Topics/Workfl
 xmlAliasData += '    <Map Name=\"ext-list-method-construct\" Link=\"Topics/Workflows/function-reference/List/list_construct.htm\" ResolvedId=\"30798\" />';
 xmlAliasData += '    <Map Name=\"ext-list-method-difference\" Link=\"Topics/Workflows/function-reference/List/list_difference.htm\" ResolvedId=\"30799\" />';
 xmlAliasData += '    <Map Name=\"ext-list-method-each\" Link=\"Topics/Workflows/function-reference/List/list_each.htm\" ResolvedId=\"30800\" />';
-xmlAliasData += '    <Map Name=\"ext-list-method-errors\" Link=\"Topics/Workflows/function-reference/List/list_errors.htm\" ResolvedId=\"30801\" />';
+xmlAliasData += '    <Map Name=\"ext-list-method-errors\" Link=\"Topics/Workflows/execute/list_errors.htm\" ResolvedId=\"30801\" />';
 xmlAliasData += '    <Map Name=\"ext-list-method-filter\" Link=\"Topics/Workflows/function-reference/List/list_filter.htm\" ResolvedId=\"30802\" />';
 xmlAliasData += '    <Map Name=\"ext-list-method-filterby\" Link=\"Topics/Workflows/function-reference/List/list_filterby.htm\" ResolvedId=\"30803\" />';
 xmlAliasData += '    <Map Name=\"ext-list-method-find\" Link=\"Topics/Workflows/function-reference/List/list_find.htm\" ResolvedId=\"30804\" />';
