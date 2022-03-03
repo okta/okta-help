@@ -128,7 +128,7 @@ xmlAliasData += '    <Map Name=\"ext_The_User_Admin_Role\" Link=\"Topics/Securit
 xmlAliasData += '    <Map Name=\"ext_custom_error_pages\" Link=\"Topics/Settings/custom-error-pages.htm\" ResolvedId=\"200177\" />';
 xmlAliasData += '    <Map Name=\"ext_custom_okta_hosted_sign_in_page\" Link=\"Topics/Settings/custom-okta-hosted-sign-in-page.htm\" ResolvedId=\"200178\" />';
 xmlAliasData += '    <Map Name=\"ext_custom_url_domain\" Link=\"Topics/Settings/settings-customization-general.htm\" ResolvedId=\"200179\" />';
-xmlAliasData += '    <Map Name=\"ext_ref_email_variables\" Link=\"Topics/Settings/settings-customization-variables.htm\" ResolvedId=\"200183\" />';
+xmlAliasData += '    <Map Name=\"ext_ref_email_variables\" Link=\"Topics/Settings/velocity-variables.htm\" ResolvedId=\"200183\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Account\" Link=\"Topics/Settings/Settings_Account.htm\" ResolvedId=\"200185\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Add_Custom_Email_Templates_Multiple_Languages\" Link=\"Topics/Settings/Settings_Email.htm#Add\" ResolvedId=\"200186\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Configure_A_Custom_Email_Domain\" Link=\"Topics/Settings/Settings_Configure_A_Custom_Email_Domain.htm\" ResolvedId=\"200188\" />';
@@ -268,7 +268,7 @@ xmlAliasData += '    <Map Name=\"csh-dashboard\" Link=\"Topics/Dashboard/Dashboa
 xmlAliasData += '    <Map Name=\"ext-vend-spec-attr-group\" Link=\"Topics/integrations/fortinet-radius-intg.htm\" ResolvedId=\"1288\" />';
 xmlAliasData += '    <Map Name=\"csh-admin-plugin-settings\" Link=\"Topics/Browser-Plugin/admin-plugin-settings.htm\" ResolvedId=\"1291\" />';
 xmlAliasData += '    <Map Name=\"csh-browser-plugin-main\" Link=\"Topics/Browser-Plugin/browser-plugin-main.htm\" ResolvedId=\"1290\" />';
-xmlAliasData += '    <Map Name=\"ext-expression-language\" Link=\"Topics/Settings/settings-customization-variables.htm\" ResolvedId=\"1295\" />';
+xmlAliasData += '    <Map Name=\"ext-expression-language\" Link=\"Topics/Settings/velocity-variables.htm\" ResolvedId=\"1295\" />';
 xmlAliasData += '    <Map Name=\"ext_plugin_installation\" Link=\"Topics/Browser-Plugin/plugin-installation.htm\" ResolvedId=\"1292\" />';
 xmlAliasData += '    <Map Name=\"ext_browser_plugin_main\" Link=\"Topics/Browser-Plugin/browser-plugin-main.htm\" ResolvedId=\"1293\" />';
 xmlAliasData += '    <Map Name=\"ext-recent-signin-activity\" Link=\"Topics/Security/recent-signin-activity.htm\" ResolvedId=\"1296\" />';
@@ -304,7 +304,6 @@ xmlAliasData += '    <Map Name=\"ext-rngc-provisioning\" Link=\"Topics/Provision
 xmlAliasData += '    <Map Name=\"ext-gsuite-provisioning\" Link=\"Topics/Provisioning/Google/google-provisioning.htm\" ResolvedId=\"8009\" />';
 xmlAliasData += '    <Map Name=\"ext-workplace-provisioning\" Link=\"Topics/Provisioning/workplace/workplace-by-facebook-provisioning.htm\" ResolvedId=\"8010\" />';
 xmlAliasData += '    <Map Name=\"csh-about-authenticators\" Link=\"Topics/identity-engine/authenticators/about-authenticators.htm\" ResolvedId=\"2004\" />';
-xmlAliasData += '    <Map Name=\"csh-first-party-apps\" Link=\"Topics/Settings/first-party-apps.htm\" ResolvedId=\"7000\" />';
 xmlAliasData += '    <Map Name=\"csh-new-end-user-experience\" Link=\"Topics/Settings/new-end-user-experience.htm\" ResolvedId=\"7002\" />';
 xmlAliasData += '    <Map Name=\"ext-docusign-main\" Link=\"Topics/Provisioning/docusign/docu-main.htm\" ResolvedId=\"15005\" />';
 xmlAliasData += '    <Map Name=\"ext-ultipro-main\" Link=\"Topics/Provisioning/ultipro/ultipro-main.htm\" ResolvedId=\"15006\" />';
@@ -358,7 +357,6 @@ xmlAliasData += '    <Map Name=\"ext-create-profile-enrollment\" Link=\"Topics/i
 xmlAliasData += '    <Map Name=\"ext-passwordless-auth\" Link=\"Topics/identity-engine/procedures/configure-passwordless-auth.htm\" ResolvedId=\"1380\" />';
 xmlAliasData += '    <Map Name=\"ext-create-mfa-policy\" Link=\"Topics/identity-engine/policies/create-mfa-policy.htm\" ResolvedId=\"1381\" />';
 xmlAliasData += '    <Map Name=\"ext-about-osop\" Link=\"Topics/identity-engine/policies/about-okta-sign-on-policies.htm\" ResolvedId=\"1382\" />';
-xmlAliasData += '    <Map Name=\"csh-asop-sq\" Link=\"Topics/identity-engine/policies/add-app-sign-on-policy-rule.htm#sq-asop\" ResolvedId=\"18000\" />';
 xmlAliasData += '    <Map Name=\"ext-get-started-oie\" Link=\"Topics/identity-engine/oie-get-started.htm\" ResolvedId=\"1383\" />';
 xmlAliasData += '    <Map Name=\"csh-o365-deploy\" Link=\"Topics/Apps/Office365-Deployment/deploy-main.htm\" ResolvedId=\"1392\" />';
 xmlAliasData += '    <Map Name=\"ext-oie-policies\" Link=\"Topics/identity-engine/policies/about-policies.htm\" ResolvedId=\"1393\" />';
@@ -373,7 +371,7 @@ xmlAliasData += '    <Map Name=\"ext-oie-whats-new\" Link=\"Topics/identity-engi
 xmlAliasData += '    <Map Name=\"csh-o365-sso\" Link=\"Topics/Apps/Office365/o365-sign-on-policies-main.htm\" ResolvedId=\"1409\" />';
 xmlAliasData += '    <Map Name=\"ext-improved-ndbd\" Link=\"Topics/Security/behavior-detection/improved-new-device-behavior-detection.htm\" ResolvedId=\"2025\" />';
 xmlAliasData += '    <Map Name=\"csh-improved-ndbd\" Link=\"Topics/Security/behavior-detection/improved-new-device-behavior-detection.htm\" ResolvedId=\"2024\" />';
-xmlAliasData += '    <Map Name=\"csh-aasopr-widp\" Link=\"Topics/identity-engine/policies/add-app-sign-on-policy-rule-with-identity-provider.htm\" ResolvedId=\"18002\" />';
+xmlAliasData += '    <Map Name=\"csh-aasopr-widp\" Link=\"Topics/identity-engine/policies/add-app-sign-on-policy-rule.htm\" ResolvedId=\"18002\" />';
 xmlAliasData += '    <Map Name=\"csh-create-cstm-admin-resource-set\" Link=\"Topics/Security/custom-admin-role/create-admin-role-assignment-by-resource-set.htm\" ResolvedId=\"1432\" />';
 xmlAliasData += '    <Map Name=\"csh-create-cstm-admin-by-role\" Link=\"Topics/Security/custom-admin-role/create-admin-role-assignment-by-role.htm\" ResolvedId=\"1433\" />';
 xmlAliasData += '    <Map Name=\"csh-create-cstm-admin-admin\" Link=\"Topics/Security/custom-admin-role/create-admin-role-assignment-by-admin.htm\" ResolvedId=\"1434\" />';
@@ -435,18 +433,24 @@ xmlAliasData += '    <Map Name=\"ext-integration-on-prem-mfa-logging\" Link=\"To
 xmlAliasData += '    <Map Name=\"ext-devices-lifecycle\" Link=\"Topics/identity-engine/devices/devices-lifecycle.htm\" ResolvedId=\"17028\" />';
 xmlAliasData += '    <Map Name=\"ext-org2org-intg\" Link=\"Topics/Provisioning/org2org/org2org-integrate.htm\" ResolvedId=\"13006\" />';
 xmlAliasData += '    <Map Name=\"csh-org2org-integration\" Link=\"Topics/Provisioning/org2org/org2org-main.htm\" ResolvedId=\"1505\" />';
+xmlAliasData += '    <Map Name=\"csh-mfa-enroll-report\" Link=\"Topics/Reports/mfa-enrollment-user-report.htm\" ResolvedId=\"9001\" />';
+xmlAliasData += '    <Map Name=\"csh-user-acct-report\" Link=\"Topics/Reports/access/user-account-report.htm\" ResolvedId=\"9003\" />';
 xmlAliasData += '    <Map Name=\"csh-custom-otp\" Link=\"Topics/identity-engine/authenticators/custom-otp.htm\" ResolvedId=\"4041\" />';
 xmlAliasData += '    <Map Name=\"csh-email-verification\" Link=\"Topics/identity-engine/policies/create-profile-enrollment-policy-sr.htm#Create\" ResolvedId=\"1506\" />';
 xmlAliasData += '    <Map Name=\"csh-facebook-work\" Link=\"Topics/Provisioning/workplace/workplace-by-facebook-provisioning.htm\" ResolvedId=\"1507\" />';
 xmlAliasData += '    <Map Name=\"ext-lcm-assign-app-user\" Link=\"Topics/Provisioning/lcm/lcm-assign-app-user.htm\" ResolvedId=\"1508\" />';
 xmlAliasData += '    <Map Name=\"ext-lcm-assign-app-groups\" Link=\"Topics/Provisioning/lcm/lcm-assign-app-groups.htm\" ResolvedId=\"1509\" />';
 xmlAliasData += '    <Map Name=\"csh-about-ip-zones\" Link=\"Topics/Security/network/about-ip-zones.htm\" ResolvedId=\"21000\" />';
+xmlAliasData += '    <Map Name=\"ext-access-reports\" Link=\"Topics/Reports/access/access-reports.htm\" ResolvedId=\"9005\" />';
 xmlAliasData += '    <Map Name=\"csh-inlinehooks\" Link=\"Topics/automation-hooks/inline-hooks-main.htm\" ResolvedId=\"6012\" />';
 xmlAliasData += '    <Map Name=\"csh-duo-security-oie\" Link=\"Topics/identity-engine/authenticators/configure-duo-security.htm\" ResolvedId=\"18006\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-authenticators\" Link=\"Topics/identity-engine/authenticators/configure-authenticators.htm\" ResolvedId=\"18007\" />';
 xmlAliasData += '    <Map Name=\"ext-velocity-variables\" Link=\"Topics/Settings/velocity-variables.htm\" ResolvedId=\"5003\" />';
 xmlAliasData += '    <Map Name=\"ext-create-auth-policy\" Link=\"Topics/identity-engine/policies/add-app-sign-on-policy-rule.htm\" ResolvedId=\"5004\" />';
+xmlAliasData += '    <Map Name=\"ext-share-auth-policy\" Link=\"Topics/identity-engine/policies/share-auth-policies.htm\" ResolvedId=\"5005\" />';
 xmlAliasData += '    <Map Name=\"ext-deploy-guides\" Link=\"Topics/identity-engine/guides/deploy-guides-home.htm\" ResolvedId=\"4043\" />';
 xmlAliasData += '    <Map Name=\"ext-branding-variables\" Link=\"Topics/Settings/branding-variables.htm\" ResolvedId=\"5006\" />';
+xmlAliasData += '    <Map Name=\"csh-api\" Link=\"Topics/Security/API.htm\" ResolvedId=\"1510\" />';
+xmlAliasData += '    <Map Name=\"csh-customization\" Link=\"Topics/Settings/settings-customization-general.htm\" ResolvedId=\"1512\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
