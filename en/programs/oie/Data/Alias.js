@@ -138,7 +138,6 @@ xmlAliasData += '    <Map Name=\"ext-drbx-provisioning\" Link=\"Topics/Provision
 xmlAliasData += '    <Map Name=\"ext-rngc-provisioning\" Link=\"Topics/Provisioning/RingCentral/rngc-main.htm\" ResolvedId=\"8008\" />';
 xmlAliasData += '    <Map Name=\"ext-gsuite-provisioning\" Link=\"Topics/Provisioning/Google/google-provisioning.htm\" ResolvedId=\"8009\" />';
 xmlAliasData += '    <Map Name=\"ext-workplace-provisioning\" Link=\"Topics/Provisioning/workplace/workplace-by-facebook-provisioning.htm\" ResolvedId=\"8010\" />';
-xmlAliasData += '    <Map Name=\"csh-first-party-apps\" Link=\"Topics/Settings/first-party-apps.htm\" ResolvedId=\"7000\" />';
 xmlAliasData += '    <Map Name=\"ext-docusign-main\" Link=\"Topics/Provisioning/docusign/docu-main.htm\" ResolvedId=\"15005\" />';
 xmlAliasData += '    <Map Name=\"ext-ultipro-main\" Link=\"Topics/Provisioning/ultipro/ultipro-main.htm\" ResolvedId=\"15006\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-main\" Link=\"Topics/Apps/Apps_App_Integration_Wizard.htm\" ResolvedId=\"6001\" />';
