@@ -257,13 +257,11 @@ xmlAliasData += '    <Map Name=\"csh-oie\" Link=\"Topics/identity-engine/oie-ind
 xmlAliasData += '    <Map Name=\"ext-oie\" Link=\"Topics/identity-engine/oie-index.htm\" ResolvedId=\"1329\" />';
 xmlAliasData += '    <Map Name=\"ext-profile-attribute-mastering\" Link=\"Topics/users-groups-profiles/usgp-sourcing-main.htm\" ResolvedId=\"1332\" />';
 xmlAliasData += '    <Map Name=\"ext_okta_active_directory_agent_OLD\" Link=\"Topics/Directory/ad-agent-main.htm\" ResolvedId=\"200077\" />';
-xmlAliasData += '    <Map Name=\"csh-oie-release-notes\" Link=\"Topics/ReleaseNotes/oie-relnotes.htm\" ResolvedId=\"1333\" />';
 xmlAliasData += '    <Map Name=\"ext-federation-broker-mode\" Link=\"Topics/Apps/apps-fbm-main.htm\" ResolvedId=\"1334\" />';
 xmlAliasData += '    <Map Name=\"csh-sso-ext-macos\" Link=\"Topics/identity-engine/devices/config-credential-sso-ext-macos.htm\" ResolvedId=\"1351\" />';
 xmlAliasData += '    <Map Name=\"csh-sso-ext-ios\" Link=\"Topics/identity-engine/devices/config-credential-sso-ext-ios.htm\" ResolvedId=\"1352\" />';
 xmlAliasData += '    <Map Name=\"ext_cofigure_ldap_okta_settings\" Link=\"Topics/Directory/ldap-agent-configure-LDAP-import-settings.htm\" ResolvedId=\"15000\" />';
 xmlAliasData += '    <Map Name=\"ext-netmotion-mobility-radius-intg\" Link=\"Topics/integrations/netmotion-radius-intg.htm\" ResolvedId=\"3000\" />';
-xmlAliasData += '    <Map Name=\"csh-oie-rn\" Link=\"Topics/ReleaseNotes/oie-relnotes.htm\" ResolvedId=\"2001\" />';
 xmlAliasData += '    <Map Name=\"ext_ldap_prerequisites\" Link=\"Topics/Directory/ldap-agent-prerequisites.htm\" ResolvedId=\"15001\" />';
 xmlAliasData += '    <Map Name=\"csh-device-mgmt-desktop-mdm-setup\" Link=\"Topics/identity-engine/devices/config-desktop.htm\" ResolvedId=\"12000\" />';
 xmlAliasData += '    <Map Name=\"ext_prov_lcm_prov_app\" Link=\"Topics/Provisioning/lcm/lcm-provision-application.htm\" ResolvedId=\"6000\" />';
