@@ -31,8 +31,6 @@ xmlAliasData += '    <Map Name=\"API_Access\" Link=\"Topics/Security/API_Access.
 xmlAliasData += '    <Map Name=\"create-scopes\" Link=\"Topics/Security/API_Access.htm#create-scopes\" ResolvedId=\"1272\" />';
 xmlAliasData += '    <Map Name=\"create-claims\" Link=\"Topics/Security/API_Access.htm#create-claims\" ResolvedId=\"1274\" />';
 xmlAliasData += '    <Map Name=\"create-access-policies\" Link=\"Topics/Security/API_Access.htm#create-access-policies\" ResolvedId=\"1276\" />';
-xmlAliasData += '    <Map Name=\"Production_Relnotes\" Link=\"Topics/ReleaseNotes/production.htm\" ResolvedId=\"1002\" />';
-xmlAliasData += '    <Map Name=\"Preview_relnotes\" Link=\"Topics/ReleaseNotes/preview.htm\" ResolvedId=\"1003\" />';
 xmlAliasData += '    <Map Name=\"Security_Duo\" Link=\"Topics/Security/Security_Duo.htm\" ResolvedId=\"1004\" />';
 xmlAliasData += '    <Map Name=\"Security_FactorTypes\" Link=\"Topics/Security/mfa/mfa-factors.htm\" ResolvedId=\"1005\" />';
 xmlAliasData += '    <Map Name=\"Security_FactorPolicies\" Link=\"Topics/Security/policies/about-mfa-policies.htm\" ResolvedId=\"1006\" />';
@@ -104,7 +102,6 @@ xmlAliasData += '    <Map Name=\"ext_Apps_Revealing_the_Password\" Link=\"Topics
 xmlAliasData += '    <Map Name=\"ext_Apps_Silently_Installing_the_Browser_Plugin\" Link=\"Topics/Apps/Apps_Silently_Installing_the_Browser_Plugin.htm\" ResolvedId=\"200030\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Using_the_Confluence_On_Premises_SAML_App\" Link=\"Topics/Apps/Apps_Using_the_Confluence_On_Premises_SAML_App.htm\" ResolvedId=\"200031\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_VPN_Notification\" Link=\"Topics/Apps/Apps_VPN_Notification.htm\" ResolvedId=\"200032\" />';
-xmlAliasData += '    <Map Name=\"ext_CASB_config_guide\" Link=\"Topics/Apps/CASB-config-guide.htm\" ResolvedId=\"200033\" />';
 xmlAliasData += '    <Map Name=\"ext_Provisioning_Deprovisioning_Overview\" Link=\"Topics/Apps/Provisioning_Deprovisioning_Overview.htm\" ResolvedId=\"200034\" />';
 xmlAliasData += '    <Map Name=\"ext_Configure_Cust_Portal_Leverage_OktaPlugin\" Link=\"Topics/Dashboard/Configure_Cust_Portal_Leverage_OktaPlugin.htm\" ResolvedId=\"200036\" />';
 xmlAliasData += '    <Map Name=\"ext_Dashboard\" Link=\"Topics/Dashboard/Dashboard.htm\" ResolvedId=\"200037\" />';
@@ -173,13 +170,9 @@ xmlAliasData += '    <Map Name=\"ext_Okta_Verify_Using\" Link=\"Topics/Mobile/ok
 xmlAliasData += '    <Map Name=\"ext_Set_up_Android_Enterprise\" Link=\"Topics/Mobile/Set_up_Android_Enterprise.htm\" ResolvedId=\"200128\" />';
 xmlAliasData += '    <Map Name=\"ext_The_Mobile_App_Store\" Link=\"Topics/Mobile/The_Mobile_App_Store.htm\" ResolvedId=\"200129\" />';
 xmlAliasData += '    <Map Name=\"ext_glossary\" Link=\"Topics/Reference/glossary.htm\" ResolvedId=\"200131\" />';
-xmlAliasData += '    <Map Name=\"ext_ref_apps_events\" Link=\"Topics/Reference/ref-apps-events.htm\" ResolvedId=\"200132\" />';
 xmlAliasData += '    <Map Name=\"ext_ref_supported_languages\" Link=\"Topics/Reference/ref-supported-languages.htm\" ResolvedId=\"200134\" />';
-xmlAliasData += '    <Map Name=\"ext_early_access\" Link=\"Topics/ReleaseNotes/early-access.htm\" ResolvedId=\"200138\" />';
 xmlAliasData += '    <Map Name=\"ext_mobile_release_status\" Link=\"Topics/ReleaseNotes/mobile-release-status.htm\" ResolvedId=\"200139\" />';
 xmlAliasData += '    <Map Name=\"ext_okta_relnotes\" Link=\"Topics/ReleaseNotes/okta-relnotes.htm\" ResolvedId=\"200140\" />';
-xmlAliasData += '    <Map Name=\"ext_preview\" Link=\"Topics/ReleaseNotes/preview.htm\" ResolvedId=\"200141\" />';
-xmlAliasData += '    <Map Name=\"ext_production\" Link=\"Topics/ReleaseNotes/production.htm\" ResolvedId=\"200142\" />';
 xmlAliasData += '    <Map Name=\"ext_Reports\" Link=\"Topics/Reports/Reports.htm\" ResolvedId=\"200143\" />';
 xmlAliasData += '    <Map Name=\"ext_Reports_RogueAccounts\" Link=\"Topics/Reports/Reports.htm\" ResolvedId=\"200144\" />';
 xmlAliasData += '    <Map Name=\"ext_Reports_SysLog\" Link=\"Topics/Reports/Reports_SysLog.htm\" ResolvedId=\"200145\" />';
@@ -215,7 +208,6 @@ xmlAliasData += '    <Map Name=\"ext_custom_error_pages\" Link=\"Topics/Settings
 xmlAliasData += '    <Map Name=\"ext_custom_okta_hosted_sign_in_page\" Link=\"Topics/Settings/custom-okta-hosted-sign-in-page.htm\" ResolvedId=\"200178\" />';
 xmlAliasData += '    <Map Name=\"ext_custom_url_domain\" Link=\"Topics/Settings/settings-customization-general.htm\" ResolvedId=\"200179\" />';
 xmlAliasData += '    <Map Name=\"ext_end_user_okta_account_chooser\" Link=\"Topics/Settings/end-user-okta-account-chooser.htm\" ResolvedId=\"200180\" />';
-xmlAliasData += '    <Map Name=\"ext_End_User_Password_Reset\" Link=\"Topics/Settings/End_User_Password_Reset.htm\" ResolvedId=\"200181\" />';
 xmlAliasData += '    <Map Name=\"ext_ref_email_variables\" Link=\"Topics/Settings/settings-customization-variables.htm\" ResolvedId=\"200183\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings\" Link=\"Topics/Settings/Settings.htm\" ResolvedId=\"200184\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Account\" Link=\"Topics/Settings/Settings_Account.htm\" ResolvedId=\"200185\" />';
@@ -257,7 +249,6 @@ xmlAliasData += '    <Map Name=\"dt-integrations\" Link=\"Topics/Mobile/Okta_Dev
 xmlAliasData += '    <Map Name=\"ext_Assign_Group_Admin\" Link=\"Topics/Security/administrators-assign-admins.htm\" ResolvedId=\"1072\" />';
 xmlAliasData += '    <Map Name=\"ext_Assign_HD_Admin\" Link=\"Topics/Security/administrators-configure-help-desk-admin.htm\" ResolvedId=\"1073\" />';
 xmlAliasData += '    <Map Name=\"ext_Verify_IE_Plugin\" Link=\"Topics/Apps/Apps_and_SSO_Verifying_IE_Plugin_Enablement.htm\" ResolvedId=\"1074\" />';
-xmlAliasData += '    <Map Name=\"ext_eu_comm\" Link=\"Topics/Settings/End_User_Communication.htm\" ResolvedId=\"1075\" />';
 xmlAliasData += '    <Map Name=\"ext_skip_group_import_o365\" Link=\"Topics/Apps/Office365/Skip_Group_Import_Office365.htm\" ResolvedId=\"1076\" />';
 xmlAliasData += '    <Map Name=\"ext_o365_dep_guide\" Link=\"Topics/Apps/Office365-Deployment/deploy-main.htm\" ResolvedId=\"1077\" />';
 xmlAliasData += '    <Map Name=\"automations\" Link=\"Topics/automation-hooks/automations-main.htm\" ResolvedId=\"1078\" />';
