@@ -1,1 +1,1 @@
-define({r:1,st:'NGram',n:1,t:[0],m:[],u:['../Content/Topics/Apps/Access_Request_Workflow.htm'],s:['\t'],p:[['\t',3]]});
+define({r:1,st:'NGram',n:1,t:[0],m:[],u:['../Content/Topics/Access-Gateway/about-access-gateway-applications.htm'],s:['\t'],p:[['\t',3]]});
