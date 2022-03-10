@@ -225,7 +225,7 @@
                                     <div id="coveo_token_url" style="Display:None"><span class="mc-variable okta-coveo-config.SearchTokenServiceUrl variable">https://support.okta.com/help/services/apexrest/PublicSearchToken?site=help</span>
                                     </div>
                                     <!-- End Coveo config parameters -->
-                                    <!-- ************************* Coveo Search bar ************************************* -->
+                                    <!-- ************** Coveo Search bar ************************************* -->
                                     <!-- set margin and size in /Content/Resources/Scripts/coveo-resources/css/Coveo.Okta.StandaloneSearchbox.min.css to make room for replacing Flare-generated top-nav with HTML code (see below)-->
                                     <div id="OLC_Coveo_Headline" class="coveo-headline-wrapper" data-mc-conditions="MultiProdPubish.SearchBar">
                                         <div class="slds-p-vertical_small">
@@ -289,10 +289,6 @@
                                     </div>
                                     <!-- **********************  Main content row  ********************** -->
                                     <div class="okta-topics">
-                                        <!-- *** Col1: Left Nav Col *** ****commented out, with new left accordion implementation***-->
-                                        <!--<div class="is-not-in-mobile">
-                <MadCap:menuProxy data-mc-skin="/Project/Skins/okta-left-menu.flskn" mc-linked-toc="/Project/TOCs/left-nav-TOC.fltoc" style="mc-toc-depth: 2;mc-context-sensitive: False;mc-include-parent: True;mc-include-siblings: True;mc-include-children: True;" />
-            </div>-->
                                         <!-- *** Col1: Body Col *** -->
                                         <div>
                                             <div class="is-not-in-mobile">
@@ -809,6 +805,31 @@ For the <a href="#Workday_driven_IT">Workday­-driven IT Provisioning</a> scenar
 					<a href="https://community.workday.com/sites/default/files/file-hosting/productionapi/Human_Resources/v29.2/Put_Universal_Identifier.html" target="_blank">Workday's API</a>. Without a <strong>Universal ID</strong>, <span class="mc-variable okta-variables.ProductName variable">Okta</span> will be unable to detect that a contractor has been converted to full-time.  This may lead to duplicate workers in some cases.</li>
                                                         <li>Mapping Universal ID from Workday to <span class="mc-variable okta-variables.ProductName variable">Okta</span> is optional and is not required for this feature to work.</li>
                                                     </ul>
+                                                    <h4>Universal ID</h4>
+                                                    <p>On the Workday side, Contractor and Full-Time workers are two separate entities with two separate Workday IDs. Universal ID configuration allows you to link these together by setting the same secondary ID for both (Universal ID).</p>
+                                                    <p> If your Workday Provisioning integration is configured with pre-hire interval, but Universal ID is not configured, Okta will pull in the Contractor worker, and while fetching pre-hires the future Full-Time user (pre-hire) will also be pulled in. As a result, Okta will create a duplicate entry in the <span class="uicontrol">Import</span> tab.  This happens because those two workers in Workday have different Workday IDs, and Okta can't detect they are the same user.</p>
+                                                    <p>When Universal ID is configured in Workday, as part of the Contractor to Full-Time conversion feature, Okta detects if there are any workers coming in as pre-hires that have the same Universal ID as the currently active and existing workers. If there are such pre-hires, we filter them out while the currently existing workers with the same Universal ID are present.</p>
+                                                    <p>When the Contractor worker is deactivated and the import from Workday is running, a Full-Time user will be the one we select, as the Contractor is no longer an option.</p>
+                                                    <div class="noteOkta">
+                                                        <p class="noteContent">Upon conversion, the Okta user is deactivated and then reactivated. This is expected behavior, from Okta’s perspective, the Contractor worker is terminated and new Full-Time worker is hired.</p>
+                                                        <p>This was implemented to support cases when a Contractor worker is terminated, but the hire date of the Full-Time user is not the same day.</p>
+                                                        <p>For example: A Contractor was converted to Full-Time, but they wanted to take a week off before the start date as Full-Time worker. The Full-Time worker will not be imported until their actual start date.</p>
+                                                        <p>For the conversion to work automatically, you need to enable the minimum set of configuration options on <span class="uicontrol">Provisioning</span><![CDATA[  ]]><span class="uicontrol">To Okta</span> tab, as follows:</p>
+                                                        <p>User Creation &amp; Matching:</p>
+                                                        <blockquote>
+                                                            <p>Auto-confirm exact matches</p>
+                                                            <p>Auto-confirm new users</p>
+                                                        </blockquote>
+                                                        <p>Profile &amp; Lifecycle Sourcing:</p>
+                                                        <blockquote>
+                                                            <p>Reactivate suspended Okta users (optional, depends on your setup)</p>
+                                                            <p>Reactivate deactivated Okta user</p>
+                                                        </blockquote>
+                                                    </div>
+                                                    <p>&#160;</p>
+                                                    <div class="noteOkta">
+                                                        <p class="noteContent">There might be a gap between Contractor user deactivation and Full-Time user reactivation. This is usually caused by the timezone difference between Workday’s termination/hire dates for user and the time zone that Workday tenant is operating. Currently, Okta supports only Time Zone-Aware terminations, but doesn’t consider the time zone when importing new hires.</p>
+                                                    </div>
                                                     <p>To learn how to configure <strong>Universal ID</strong> for your Workday tenant (note that you need a Workday Community account to access these articles) see:</p>
                                                     <ul>
                                                         <li><a href="https://doc.workday.com/reader/3DMnG~27o049IYFWETFtTQ/BFComPGujVu9T193LKZJ0Q" target="_blank">Create ID Definitions and Sequence Generators</a>.</li>
@@ -1214,10 +1235,6 @@ Terminate_Employee_Voluntary_Commute</pre>
                                                 <!-- Back to Top button --><a href="#" class="sf-back-to-top"><span class="arrow"></span>Top</a>
                                             </div>
                                         </div>
-                                        <!-- *** Col2: Right menu Col ***  ****commented out temporarily until redesign for "on this page" implementation, redundant to new left accordion implementation***-->
-                                        <!--<div class="is-not-in-mobile">
-                <MadCap:menuProxy data-mc-skin="/Project/Skins/okta-right-menu.flskn" mc-linked-toc="/Project/TOCs/okta-TOC.fltoc" style="mc-context-sensitive: True;mc-include-parent: True;mc-include-siblings: False;mc-include-children: True;" />
-            </div>-->
                                     </div>
                                     <div class="toolbar-main">
                                         <div class="buttons popup-container clearfix topicToolbarProxy _Skins_okta_toolbar_no_expand mc-component nocontent" style="mc-topic-toolbar-items: ;">
@@ -1246,50 +1263,18 @@ Terminate_Employee_Voluntary_Commute</pre>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- ***************************** Footer rows ********************************* -->
-                                    <!--         <div class="footer2">
-            <div>
-                <ul>
-                    <li><a href="https://fulluat-okta.cs67.force.com/help/s/article/Okta-Community-FAQs">Community FAQ</a>
-                    </li>
-                    <li><a href="https://support.okta.com/help/s/article/Okta-Community-Terms-and-Conditions">Terms &amp; Conditions</a>
-                    </li>
-                    <li>Trust</li>
-                    <li><a href="https://www.okta.com/contact/">Contact</a>
-                    </li>
-                    <li>Feedback</li>
-                </ul>
-            </div>
-            <div>
-                <p class="try-okta-button"><a role="button" href="https://www.okta.com/free-trial/">Try Okta For Free</a>
-                </p>
-            </div>
-        </div> -->
+                                    <!-- *********************** Footer rows ********************************* -->
                                     <div class="footer2">
                                         <div>
                                             <p class="copyright">©  <span class="mc-variable okta-variables.Year variable">2022</span> <span class="mc-variable okta-variables.CompanyName variable">Okta, Inc</span>. All Rights Reserved. Various trademarks held by their respective owners.
 	</p>
                                         </div>
-                                        <!--             <div>
-                <ul>
-                    <li><a href="https://twitter.com/okta"><img src="../Images/okta-assets/twitter.png" /></a>
-                    </li>
-                    <li><a href="https://www.facebook.com/OktaIdentity"><img src="../Images/okta-assets/facebook.png" /></a>
-                    </li>
-                    <li><a href="https://www.linkedin.com/company/okta-inc-/"><img src="../Images/okta-assets/linkedin.png" /></a>
-                    </li>
-                    <li><a href="https://www.youtube.com/user/OktaInc"><img src="../Images/okta-assets/youtube.png" /></a>
-                    </li>
-                    <li><a href="https://www.okta.com"><img src="../Images/okta-assets/okta.png" /></a>
-                    </li>
-                </ul>
-            </div> -->
                                     </div>
                                     <!-- Qualtrics setup to use with script below, replacing getfeedback -->
                                     <div id="ZN_6fGBJ8J3VcIBymN">
                                         <!--DO NOT REMOVE-CONTENTS PLACED HERE-->
                                     </div>
-                                    <!-- ***************************** Scripts ************************************* -->
+                                    <!-- ********************** Scripts ************************************* -->
                                     <!-- Foundation -->
                                     <script src="../../../Resources/Scripts/js/app.js">
                                     </script>
@@ -1297,10 +1282,6 @@ Terminate_Employee_Voluntary_Commute</pre>
                                     </script>
                                     <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.4-rc1/js/foundation.min.js">
                                     </script>
-                                    <!-- Ours -->
-                                    <!--         <script type="text/javascript" src="../Scripts/back-to-top.js">
-        </script>
- -->
                                     <script type="text/javascript" src="../../../Resources/Scripts/js/vendor/qualtrics.js">
                                     </script>
                                     <!-- Coveo -->

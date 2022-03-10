@@ -670,5 +670,10 @@ xmlAliasData += '    <Map Name=\"ext-branding-variables\" Link=\"Topics/Settings
 xmlAliasData += '    <Map Name=\"csh-api\" Link=\"Topics/Security/API.htm\" ResolvedId=\"1510\" />';
 xmlAliasData += '    <Map Name=\"csh-trusted-origins\" Link=\"Topics/Security/API-trusted-origins.htm\" ResolvedId=\"1511\" />';
 xmlAliasData += '    <Map Name=\"csh-customization\" Link=\"Topics/Settings/settings-customization-general.htm\" ResolvedId=\"1512\" />';
+xmlAliasData += '    <Map Name=\"ext-apps-about-swa\" Link=\"Topics/Apps/apps-about-swa.htm\" ResolvedId=\"15018\" />';
+xmlAliasData += '    <Map Name=\"ext-apps-about-saml\" Link=\"Topics/Apps/apps-about-saml.htm\" ResolvedId=\"15019\" />';
+xmlAliasData += '    <Map Name=\"ext-ad-agent-import-groups\" Link=\"Topics/Directory/ad-agent-import-groups.htm\" ResolvedId=\"15020\" />';
+xmlAliasData += '    <Map Name=\"ext-branding\" Link=\"Topics/Settings/branding.htm\" ResolvedId=\"15022\" />';
+xmlAliasData += '    <Map Name=\"ext-settings-configure-browser-plugin\" Link=\"Topics/Settings/settings-configure-browser-plugin.htm\" ResolvedId=\"15023\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
