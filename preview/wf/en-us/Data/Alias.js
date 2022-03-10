@@ -15,6 +15,7 @@ xmlAliasData += '    <Map Name=\"ext-about-fields\" Link=\"Topics/Workflows/lear
 xmlAliasData += '    <Map Name=\"ext-about-lists\" Link=\"Topics/Workflows/learn/about-lists.htm\" ResolvedId=\"1341\" />';
 xmlAliasData += '    <Map Name=\"ext-about-numbers-text\" Link=\"Topics/Workflows/learn/about-numbers-text.htm\" ResolvedId=\"1342\" />';
 xmlAliasData += '    <Map Name=\"ext-about-tables\" Link=\"Topics/Workflows/learn/about-tables.htm\" ResolvedId=\"1343\" />';
+xmlAliasData += '    <Map Name=\"ext-about-invoke-api-flow\" Link=\"Topics/Workflows/learn/about-invoke-api-endpoint-flow.htm\" ResolvedId=\"1344\" />';
 xmlAliasData += '    <Map Name=\"ext-set-monitor-options\" Link=\"Topics/Workflows/build/set-monitor-options.htm\" ResolvedId=\"1345\" />';
 xmlAliasData += '    <Map Name=\"ext-set-schedule-options\" Link=\"Topics/Workflows/build/set-schedule-options.htm\" ResolvedId=\"1346\" />';
 xmlAliasData += '    <Map Name=\"ext-export-import-flows\" Link=\"Topics/Workflows/build/export-import-flows.htm\" ResolvedId=\"1347\" />';
@@ -41,6 +42,7 @@ xmlAliasData += '    <Map Name=\"ext-tutorials-time-based-actions\" Link=\"Topic
 xmlAliasData += '    <Map Name=\"ext-about-flow-alias\" Link=\"Topics/Workflows/learn/about-flow-alias.htm\" ResolvedId=\"10019\" />';
 xmlAliasData += '    <Map Name=\"ext-about-flow-client-token\" Link=\"Topics/Workflows/learn/about-flow-client-token.htm\" ResolvedId=\"10020\" />';
 xmlAliasData += '    <Map Name=\"ext-resume-paused-flow\" Link=\"Topics/Workflows/execute/resume-paused-flow.htm\" ResolvedId=\"10021\" />';
+xmlAliasData += '    <Map Name=\"ext-invoke-api-endpoint-flow\" Link=\"Topics/Workflows/execute/flow-api-endpoint.htm\" ResolvedId=\"10022\" />';
 xmlAliasData += '    <Map Name=\"ext-build-flows\" Link=\"Topics/Workflows/build/build-flows.htm\" ResolvedId=\"10023\" />';
 xmlAliasData += '    <Map Name=\"ext-learn-workflows\" Link=\"Topics/Workflows/learn/learn-workflows.htm\" ResolvedId=\"10024\" />';
 xmlAliasData += '    <Map Name=\"ext-run-flows\" Link=\"Topics/Workflows/execute/run-flows.htm\" ResolvedId=\"10025\" />';
@@ -676,7 +678,7 @@ xmlAliasData += '    <Map Name=\"ext-list-method-collapse\" Link=\"Topics/Workfl
 xmlAliasData += '    <Map Name=\"ext-list-method-construct\" Link=\"Topics/Workflows/function-reference/List/list_construct.htm\" ResolvedId=\"30798\" />';
 xmlAliasData += '    <Map Name=\"ext-list-method-difference\" Link=\"Topics/Workflows/function-reference/List/list_difference.htm\" ResolvedId=\"30799\" />';
 xmlAliasData += '    <Map Name=\"ext-list-method-each\" Link=\"Topics/Workflows/function-reference/List/list_each.htm\" ResolvedId=\"30800\" />';
-xmlAliasData += '    <Map Name=\"ext-list-method-errors\" Link=\"Topics/Workflows/function-reference/List/list_errors.htm\" ResolvedId=\"30801\" />';
+xmlAliasData += '    <Map Name=\"ext-list-method-errors\" Link=\"Topics/Workflows/execute/list_errors.htm\" ResolvedId=\"30801\" />';
 xmlAliasData += '    <Map Name=\"ext-list-method-filter\" Link=\"Topics/Workflows/function-reference/List/list_filter.htm\" ResolvedId=\"30802\" />';
 xmlAliasData += '    <Map Name=\"ext-list-method-filterby\" Link=\"Topics/Workflows/function-reference/List/list_filterby.htm\" ResolvedId=\"30803\" />';
 xmlAliasData += '    <Map Name=\"ext-list-method-find\" Link=\"Topics/Workflows/function-reference/List/list_find.htm\" ResolvedId=\"30804\" />';
