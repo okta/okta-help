@@ -1,7 +1,6 @@
 var xmlAliasData = "";
 xmlAliasData += '<?xml version=\"1.0\" encoding=\"utf-8\"?>';
 xmlAliasData += '<CatapultAliasFile>';
-xmlAliasData += '    <Map Name=\"csh-index\" Link=\"index.htm\" ResolvedId=\"1298\" />';
 xmlAliasData += '    <Map Name=\"csh_security_general\" Link=\"Topics/Security/Security_General.htm\" ResolvedId=\"1000\" />';
 xmlAliasData += '    <Map Name=\"Security_Authentication_AD\" Link=\"Topics/Security/Security_Authentication.htm\" ResolvedId=\"1020\" />';
 xmlAliasData += '    <Map Name=\"Security_Authentication_LDAP\" Link=\"Topics/Security/Security_Authentication.htm\" ResolvedId=\"1030\" />';
@@ -452,5 +451,6 @@ xmlAliasData += '    <Map Name=\"ext-apps-about-swa\" Link=\"Topics/Apps/apps-ab
 xmlAliasData += '    <Map Name=\"ext-apps-about-saml\" Link=\"Topics/Apps/apps-about-saml.htm\" ResolvedId=\"15019\" />';
 xmlAliasData += '    <Map Name=\"ext-ad-agent-import-groups\" Link=\"Topics/Directory/ad-agent-import-groups.htm\" ResolvedId=\"15020\" />';
 xmlAliasData += '    <Map Name=\"ext-branding\" Link=\"Topics/Settings/branding.htm\" ResolvedId=\"15022\" />';
+xmlAliasData += '    <Map Name=\"ext-preset-auth-policies\" Link=\"Topics/identity-engine/policies/about-preset-auth-policies.htm\" ResolvedId=\"5007\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
