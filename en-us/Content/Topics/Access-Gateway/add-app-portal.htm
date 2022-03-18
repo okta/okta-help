@@ -4,7 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="typeofcontent" content="documentation" />
         <meta name="audience" content="admin" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>[[[Undefined variable Heading.Level1]]]</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Add portal application</title>
         <meta charset="utf-8" />
         <meta name="description" content="" />
         <meta name="author" content="" />
@@ -324,51 +324,234 @@
                                             <div class="body-main">
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
-                                                    <div style="margin-top:40px;" data-mc-conditions="MultiProdPubish.Core">
-                                                        <p id="redirectMessage" />
-                                                        <script type="text/javascript">/* <![CDATA[ */
-		
-			function conditionalRedirect(who, fromURL) {
-
-				//console.log("Attempting to determine if redirect is required");
-				var sitePrefix = "https://help.okta.com/en/prod/";
-			    var targetPrefix = "https://help.okta.com/"+who+"/en-us/";
-			    var redirectTarget = fromURL.toString();
-	
-			    var sitePrefixJA = "https://help.okta.com/ja-jp/prod/";
-			    if (fromURL.toString().startsWith(sitePrefixJA)) {
-			        sitePrefix=sitePrefixJA;
-			        targetPrefix = "https://help.okta.com/"+who+"/ja-jp/";
-				}
-	
-				console.log("Checking if we should redirect");
-				console.log("fromURL=" + fromURL);
-				console.log("sitePrefix=" + sitePrefix);
-				console.log("targetPrefix=" + targetPrefix);
-				console.log("redirectTarget(pre)=" + redirectTarget);
-				redirectTarget = redirectTarget.replace(sitePrefix, targetPrefix);
-				console.log("redirectTarget(post)=" + redirectTarget);
-				if (fromURL.toString().startsWith(sitePrefix)) {
-				   console.log("Redirecting to " + redirectTarget);
-				   document.getElementById('redirectMessage').innerHTML = 
-			                               "<center><b>"+fromURL + "</b> has moved.  "+
-			                               "<br />Redirecting to <b>"+redirectTarget+"</b> in a few seconds.</center>";
-			       setTimeout(function() { window.location.replace(redirectTarget); }, 3000);
-				   //window.location.replace(redirectTarget);
-				   return redirectTarget;
-				} else {
-					console.log("Not redirecting.");
-					return fromURL;
-				}
-			}
-		/* ]]> */</script>
-                                                        <script type="text/javascript">/* <![CDATA[ */	
-            var fromUrl = window.location;
-			// testing only. 
-			// remove the following line, and the MC review condition to release
-            //fromUrl = new URL('https://help.okta.com/en/prod/Content/Topics/Access-Gateway/add-app-websocket.htm');
-            var targetURL = conditionalRedirect("oag", fromUrl);
-		/* ]]> */</script>
+                                                    <h1>Add portal application</h1>
+                                                    <p><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> applications can use policy and specialized policy configuration to create portal applications. In a portal some, or the bulk of traffic, is handled by a single back end, but other traffic is routed to specific back ends based on access policy and URI requests.<br /><br />This guide details how to configure a header based application to route traffic to different back ends based on specific URI requests.</p>
+                                                    <h2>Architecture</h2>
+                                                    <p>
+                                                        <img src="../../Resources/Images/access-gateway/add-app-portal-add-arch.png" id="img_new" />
+                                                        <br />In this architecture an end user 
+        requests a resource which is composed of the core URL, in this example <span style="font-family: 'Courier New';">www.myportal.com</span>, and specific resources, everything to the right of the <span style="font-family: 'Courier New';">/</span>. <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>, using policy and additional configuration, then routes requests to one of several back ends. In this example any requests of the form <span style="font-family: 'Courier New';">www.myportal.com/2nd</span> would be routed to <span style="font-family: 'Courier New';" class="boolean">2ndbackend.myportal.com</span><span class="boolean">.</span> Likewise, requests of type <span style="font-family: 'Courier New';">www.myportal.com/3rd</span> to <span style="font-family: 'Courier New';">3rdbackend.myportal.com</span> and all others to <span style="font-family: 'Courier New';">backend.myportal.com</span>. This guide will take you through the configuration of the header application and associated resources to configure such a portal application.</p>
+                                                    <div>
+                                                        <h3>Rewriting concepts and examples</h3>
+                                                        <p>Portal applications use custom policy, along with configuration, to define rules  to access multiple back ends. Typically there is a default policy which redirects all URI's not referenced in other policy to the default back end application. Additional policy statements, along with their configuration, rewrite requests and redirect to other back end applications. <br /><br /><b>Examples and expectations</b>:</p>
+                                                        <p>The following examples describe user requests, what we would normally expect as the behavior behind the request, and provide examples of the inbound and outbound rewrites.<br /></p>
+                                                        <table style="mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+                                                            <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                            <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                            <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                            <thead>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                                                                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">User request</th>
+                                                                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Expected behavior</th>
+                                                                    <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">
+                                                                        <p>Inbound &amp; outbound rewrites</p>
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><span class="code">myportal.com/</span>
+                                                                    </td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Redirect to <span class="code">backend.myportal.com</span>. </td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1"><span class="code">backend.myportal.com</span>
+                                                                        <br /><span class="code">myportal.com/<br></br></span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><span class="code">myportal.com/abc.htm</span>
+                                                                    </td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Redirect to <span class="code">backend.myportal.com/abc.htm</span>. </td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2"><span class="code">backend.myportal.com/abc.htm</span>
+                                                                        <br /><span class="code">myportal.com/abc.htm<br></br></span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><span class="code">myportal.com/2nd</span>
+                                                                    </td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Redirect to <span class="code">2ndbackend.myportal.com</span> based on <span class="code">/2nd</span>. </td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1"><span class="code">2ndbackend.myportal.com</span>
+                                                                        <br /><span class="code">myportal.com/2nd<br></br></span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><span class="code">myportal.com/2nd/efg.html</span>
+                                                                    </td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Redirect to <span class="code">2ndbackend.myportal.com</span> based on <span class="code">/2nd</span>. <br />Strip <span class="code">/2nd</span> on inbound rewrite. Add <span class="code">/2nd</span> back on out bound rewrite.</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2"><span class="code">2ndbackend.myportal.com/efg.htm<br />myportal.com/2nd/efg.htm</span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><span class="code">myportal.com/3rd</span>
+                                                                    </td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Redirect to <span class="code">3rdbackend.myportal.com</span> based on <span class="code">/3rd</span>. </td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1"><span class="code">3rdbackend.myportal.com</span>
+                                                                        <br /><span class="code">myportal.com/3rd<br></br></span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2"><span class="code">myportal.com/3rd/hij.html</span>
+                                                                    </td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">Redirect to <span class="code">3rdbackend.myportal.com</span> based on <span class="code">/3rd</span>. <br />Strip <span class="code">/3rd</span> on inbound rewrite. Add <span class="code">/3rd</span> back on out bound rewrite.</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2"><span class="code">3rdbackend.myportal.com/hij.htm<br />myportal.com/3rd/hij.htm</span>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <p>More specifically:</p>
+                                                        <table class="TableStyle-srb_header_alt_shade" style="mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" cellspacing="0">
+                                                            <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                            <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                            <thead>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                                                                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                                                                        <p>Policy </p>
+                                                                    </th>
+                                                                    <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">
+                                                                        <p>Description</p>
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                                                                        <p>Default</p>
+                                                                    </td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                                                                        <p>
+                                                                            <img src="../../Resources/Images/access-gateway/add-app-portal-default_1200x390.png" style="width: 1200;height: 390;" id="img_new" />
+                                                                            <br />The default policy is applied to all requests which don't match some other specific policy. The default policy causes requests to be rewritten against the default application domain and then forwarded to the back end application.  After the request is serviced the result is rewritten back to the original domain and returned. </p>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                                                                        <p>Re-write policy 2nd<br /></p>
+                                                                    </td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
+                                                                        <p>
+                                                                            <img src="../../Resources/Images/access-gateway/add-app-portal-2nd_1200x418.png" style="width: 1200;height: 418;" id="img_new" />
+                                                                            <br />Each subsequent back end includes a policy and advanced configuration to re-write requests as required. The policy itself specifies the URI root that triggers it. In this example URI would be <span style="font-family: 'Courier New';">/2nd</span>. Rewriting rules would the remove the URI as well as redirect to a secondary back end application(<span style="font-family: 'Courier New';">2ndbackend.myportal.com</span> in this example).</p>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                                                                        <p>Re-write policy 3rd<br /></p>
+                                                                    </td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                                                                        <p>
+                                                                            <img src="../../Resources/Images/access-gateway/add-app-portal-3rd_1200x353.png" style="width: 1200;height: 353;" id="img_new" />
+                                                                            <br />Each subsequent back end includes a policy and advanced configuration to re-write requests as required. The policy itself specifies the URI root that triggers it. In this example URI would be <span style="font-family: 'Courier New';">/3rd</span>. Rewriting rules would the remove the URI as well as redirect to a secondary back end application(<span style="font-family: 'Courier New';">3rdbackend.myportal.com</span> in this example).</p>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">
+                                                                        <p>&#160;</p>
+                                                                    </td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">
+                                                                        <p>&#160;</p>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <h2><a name="Before"></a>Before you begin</h2>
+                                                    <ul>
+                                                        <li>Determine the external URL used by the application, in this example <span style="font-family: 'Courier New';">www.myportal.com</span></li>
+                                                        <li>Determine the universe of possible URIs, and their associated back ends. <br />In this example:<br /> <span style="font-family: 'Courier New';">www.myportal.com/2nd</span> &gt; <span style="font-family: 'Courier New';">2ndbackend.myportal.com</span>.<br /><span style="font-family: 'Courier New';">www.myportal.com/3rd</span> &gt; <span style="font-family: 'Courier New';">3rdbackend.myportal.com</span>.<br /> And all others to <span style="font-family: 'Courier New';">backend.myportal.com</span>. </li>
+                                                        <li>Determine all required header attributes required for authentication.</li>
+                                                    </ul>
+                                                    <h2><a name="Tasks"></a>Typical workflow</h2>
+                                                    <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+                                                        <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                        <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                        <thead>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                                                                <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                                                                    <p><span style="font-family: 'Proxima Nova';">Task</span>
+                                                                    </p>
+                                                                </th>
+                                                                <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">
+                                                                    <p><span style="font-family: 'Proxima Nova';"><span style="font-family: 'Proxima Nova';">Description</span></span>
+                                                                    </p>
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><a href="add-app-portal-group.htm">Create a containing group</a>
+                                                                </td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                                                                    <ul>
+                                                                        <li>Best practice, create an optional group to be assigned to the application. </li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><a href="add-app-portal-create.htm">Create header application</a>
+                                                                </td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
+                                                                    <ul>
+                                                                        <li>Create a header application which defaults to the shared common back end. </li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><a href="add-app-portal-cert.htm" class="MCXref xref">Assign certificate to a portal application</a>
+                                                                </td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                                                                    <ul>
+                                                                        <li>Assign an optional certificate to the application.</li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><a href="add-app-portal-attributes.htm" class="MCXref xref">Add additional attributes</a>
+                                                                </td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
+                                                                    <ul>
+                                                                        <li>Add optional, but often necessary, additional attributes to the application.</li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><a href="add-app-portal-policy.htm">Add required access policy</a>
+                                                                </td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                                                                    <ul>
+                                                                        <li>Add all required policy for all serviced URIs</li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2"><a href="add-app-portal-test.htm">Test the application</a>
+                                                                </td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">
+                                                                    <ul>
+                                                                        <li>Test the application using header and policy simulation.</li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <div>
+                                                        <h2><a name="Next_Steps"></a>Related topics</h2>
+                                                        <p><a href="about-application-essentials.htm" class="MCXref xref">About application essentials</a>
+                                                        </p>
+                                                        <p><a href="about-application-policy.htm" class="MCXref xref">About application policy</a>
+                                                        </p>
+                                                        <p><a href="admin-app-types.htm"><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> supported application and version information</a> </p>
+                                                        <p><a href="add-generic-header-app.htm" class="MCXref xref">Add a generic header application</a>
+                                                        </p>
+                                                        <p><a href="add-sample-policy.htm" class="MCXref xref">Add a sample policy application</a>
+                                                        </p>
+                                                        <p><a href="advanced-oag-policy.htm" class="MCXref xref">Advanced Access Gateway policy</a>
+                                                        </p>
+                                                        <p><a href="about-application-behaviors.htm" class="MCXref xref">About application behaviors</a>.</p>
+                                                        <p><a href="task-manage-app-essentials.htm" class="MCXref xref">Manage application essentials</a>
+                                                        </p>
+                                                        <p><a href="managing-application-policy.htm" class="MCXref xref">Manage access control application policy </a>
+                                                        </p>
+                                                        <p><a href="troubleshoot-application.htm" class="MCXref xref">Troubleshoot applications</a>
+                                                        </p>
                                                     </div>
                                                 </div>
                                                 <!-- Back to Top button --><a href="#" class="sf-back-to-top"><span class="arrow"></span>Top</a>

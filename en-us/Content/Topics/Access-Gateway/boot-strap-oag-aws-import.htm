@@ -4,7 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="typeofcontent" content="documentation" />
         <meta name="audience" content="admin" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>[[[Undefined variable Heading.Level1]]] | Okta</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Import an OVA to AWS | Okta</title>
         <meta charset="utf-8" />
         <meta name="description" content="" />
         <meta name="author" content="" />
@@ -323,52 +323,84 @@
                                             <div class="body-main">
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
-                                                    <div style="margin-top:40px;" data-mc-conditions="MultiProdPubish.Core">
-                                                        <p id="redirectMessage" />
-                                                        <script type="text/javascript">/* <![CDATA[ */
-		
-			function conditionalRedirect(who, fromURL) {
-
-				//console.log("Attempting to determine if redirect is required");
-				var sitePrefix = "https://help.okta.com/en/prod/";
-			    var targetPrefix = "https://help.okta.com/"+who+"/en-us/";
-			    var redirectTarget = fromURL.toString();
-	
-			    var sitePrefixJA = "https://help.okta.com/ja-jp/prod/";
-			    if (fromURL.toString().startsWith(sitePrefixJA)) {
-			        sitePrefix=sitePrefixJA;
-			        targetPrefix = "https://help.okta.com/"+who+"/ja-jp/";
-				}
-	
-				console.log("Checking if we should redirect");
-				console.log("fromURL=" + fromURL);
-				console.log("sitePrefix=" + sitePrefix);
-				console.log("targetPrefix=" + targetPrefix);
-				console.log("redirectTarget(pre)=" + redirectTarget);
-				redirectTarget = redirectTarget.replace(sitePrefix, targetPrefix);
-				console.log("redirectTarget(post)=" + redirectTarget);
-				if (fromURL.toString().startsWith(sitePrefix)) {
-				   console.log("Redirecting to " + redirectTarget);
-				   document.getElementById('redirectMessage').innerHTML = 
-			                               "<center><b>"+fromURL + "</b> has moved.  "+
-			                               "<br />Redirecting to <b>"+redirectTarget+"</b> in a few seconds.</center>";
-			       setTimeout(function() { window.location.replace(redirectTarget); }, 3000);
-				   //window.location.replace(redirectTarget);
-				   return redirectTarget;
-				} else {
-					console.log("Not redirecting.");
-					return fromURL;
-				}
-			}
-		/* ]]> */</script>
-                                                        <script type="text/javascript">/* <![CDATA[ */	
-            var fromUrl = window.location;
-			// testing only. 
-			// remove the following line, and the MC review condition to release
-            //fromUrl = new URL('https://help.okta.com/en/prod/Content/Topics/Access-Gateway/add-app-websocket.htm');
-            var targetURL = conditionalRedirect("oag", fromUrl);
-		/* ]]> */</script>
+                                                    <h1>Import an OVA to AWS</h1>
+                                                    <p>Import the OVA using previously created roles.</p>
+                                                    <div>
+                                                        <ul class="tabs" data-tabs="data-tabs" id="production-tabs">
+                                                            <li class="tabs-title"><a href="#console-panel">Console</a>
+                                                            </li>
+                                                            <li class="tabs-title is-active" aria-selected="true"><a href="#command-panel">Command Line</a>
+                                                            </li>
+                                                        </ul>
+                                                        <div class="tabs-content" data-tabs-content="production-tabs">
+                                                            <div class="tabs-panel" id="console-panel">
+                                                                <div class="noteOkta">
+                                                                    <img src="../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Info" alt="Info" />
+                                                                    <p class="noteHeading">Note</p>
+                                                                    <p class="noteContent">AWS requires the use of the <b style="font-style: italic;">vmimport</b> identity to import a VM.</p>
+                                                                    <p class="noteContent">There is no AWS Console equivalent to the command line <b>import-image</b> command. </p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="tabs-panel is-active" id="command-panel">
+                                                                <p>Using the <b style="font-style: italic;">vmimport</b> identity to convert the OVA image to an AMI image:</p>
+                                                                <ol>
+                                                                    <li value="1">Create a json file representing the locations for the containers used during the import.<br /><pre xml:space="preserve" id="code">
+[
+    {
+        "Description": "<b>DESCRIPTION</b>",
+        "Format": "ova",
+        "UserBucket": {
+            "S3Bucket": "<b>BUCKET_NAME</b>",
+            "S3Key": "<b>FILE_NAME</b>"
+        }
+    }
+]</pre><figcaption>containers.json</figcaption><br /><p>Replacing:<br /><b>BUCKET_NAME</b> with the bucket name. For example "<b style="font-style: italic;">access-gateway-bucket</b>".<br /><b>DESCRIPTION</b> with an appropriate description. For example, "<b style="font-style: italic;">Okta Access Gateway</b>".<br /><b>FILE_NAME</b> with the specific name of the OVA file. For example "<b style="font-style: italic;">Okta-AccessGateway.ova</b>".</p></li>
+                                                                    <li value="2">Begin the import process using a command similar to: : <br /><pre xml:space="preserve" id="code"><b>aws ec2 import-image --description "Okta Access Gateway" --license-type "BYOL" --disk-containers "file://~/Downloads/containers.json"</b> </pre></li>
+                                                                    <li value="3">
+                                                                        <p>Examine the output of command and note the task id associated with the import process. <br /><pre id="code">
+{
+	"Status": "active", 
+	"LicenseType": "BYOL", 
+	"Description": "AG2019.ova.", 
+	"SnapshotDetails": [...], 
+	"Progress": "2", 
+	"StatusMessage": "pending", 
+	    "<b>ImportTaskId": "import-ami-08800a79da64acae7"</b>
+}
+</pre></p>
+                                                                    </li>
+                                                                    <li value="4">
+                                                                        <p>Examine the progress of the import using the task id <br /><span style="font-family: 'Courier New';">aws ec2 describe-import-image-tasks --import-task-ids <b style="font-style: italic;">TASK_ID</b></span><![CDATA[
+]]><br />Where task id is the value from the prior step. For example:<br /><span style="font-family: 'Courier New';"><b>aws ec2 describe-import-image-tasks --import-task-ids import<i>-ami-08800a79da64acae7</i></b></span></p>
+                                                                        <p>Import progress is noted in the Progress json element and represents a percentage from 0-100%.<br /></p>
+                                                                        <ol style="list-style-type: lower-alpha;">
+                                                                            <li value="1">
+                                                                                <p>Monitor the import until it reaches status completed.  For example:<br /><pre xml:space="preserve" id="code"><code>{
+    "ImportImageTasks": [
+	{
+		"Status": "completed", 
+		"LicenseType": "BYOL", 
+		"Description": "AG2019.ova.",
+		ImageId": "<b>ami-0c20c537e7f8dd6a5</b>"
+}</code></pre><br />Note the <b style="font-style: italic;">ImageId</b> field, it will be used to confirm the image import in the AWS console.</p>
+                                                                            </li>
+                                                                        </ol>
+                                                                    </li>
+                                                                    <li value="5">
+                                                                        <p>Confirm that the import completed in the AWS console<br /><ol style="list-style-type: lower-alpha;"><li value="1"><p>Return to the AWS&#160;console</p></li><li value="2"><p>Navigate to <b>Services &gt; EC2</b>.</p></li><li value="3"><p>In the left hand navigation pane select <b>Images &gt; AMI</b>. </p></li><li value="4"><p>Examine the image list, searching for the image with matching id.<br /><br /><br /><img src="../../Resources/Images/access-gateway/okta-aws-import.1_902x121.png" alt="AWS AMI Image list" id="img_new" style="width: 902;height: 121;" /><br /></p></li></ol></p>
+                                                                    </li>
+                                                                </ol>
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <h3>Related topics</h3>
+                                                            <p>For more information on uploading files to S3 buckets see <a href="https://docs.aws.amazon.com/AmazonS3/latest/gsg/PuttingAnObjectInABucket.html" target="_blank">Putting an Object into an S3 bucket</a> in the Amazon Web&#160;Services documentation.</p>
+                                                            <p>For more information on the AWS S3 cp command see <a href="https://docs.aws.amazon.com/cli/latest/reference/s3/cp.html" target="_blank">S3 cp command</a> in the Amazon Web Service documentation</p>
+                                                        </div>
                                                     </div>
+                                                    <h2>Next steps</h2>
+                                                    <p><a href="boot-strap-oag-aws-launch.htm" class="MCXref xref">Launch as AWS instance</a>
+                                                    </p>
                                                 </div>
                                                 <!-- Back to Top button --><a href="#" class="sf-back-to-top"><span class="arrow"></span>Top</a>
                                             </div>
