@@ -4,7 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="typeofcontent" content="documentation" />
         <meta name="audience" content="admin" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>[[[Undefined variable Heading.Level1]]] | Okta</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Selective upgrade workflow  | Okta</title>
         <meta charset="utf-8" />
         <meta name="description" content="" />
         <meta name="author" content="" />
@@ -323,6 +323,142 @@
                                             <div class="body-main">
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
+                                                    <h1>Selective upgrade workflow </h1>
+                                                    <p>Selective upgrade is the process of upgrading Okta <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> nodes from their current version to the current released version, or from an earlier version to a later one. </p>
+                                                    <p>In this task we will upgrade <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> from its current version to a later intermediate version, but not typically the latest version. <br /></p>
+                                                    <p><b>Available since <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span></b> version
+    <span class="mc-variable oag-versions.2021-09 variable">2021.9.3</span></p>
+                                                    <div>
+                                                        <h2>Topics</h2>
+                                                        <ul>
+                                                            <li><a href="#Prerequisites" class="MCXref xref">Before you begin</a>
+                                                            </li>
+                                                            <li><a href="#Perform" class="MCXref xref">Perform selective upgrade</a>
+                                                            </li>
+                                                        </ul>
+                                                        <div>
+                                                            <h2><a name="Prerequisites"></a>Before you begin</h2>
+                                                            <p>Verify that:</p>
+                                                            <div>
+                                                                <ul style="list-style-type: square;">
+                                                                    <li>
+                                                                        <p>You have access to the <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> Command Line console. </p>
+                                                                    </li>
+                                                                    <li>
+                                                                        <p>Each <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> node can reach <span class="code">yum.oag.okta.com</span>. <br />You can test connectivity to the <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> yum repository using the <span class="mc-variable okta-feature-names.Access_Gateway_CMD variable">Access Gateway Management console</span>. &#160;<br />To test connectivity:</p>
+                                                                        <ol>
+                                                                            <li value="1">Using secure shell  connect to the <span class="mc-variable okta-feature-names.Access_Gateway_CMD variable">Access Gateway Management console</span><br /><span class="code">ssh oag-mgmt@admin </span></li>
+                                                                            <li value="2">Select <b>1-Network</b>.</li>
+                                                                            <li value="3">Select <b>7- Connectivity test</b>.</li>
+                                                                            <li value="4">Enter host: <b>yum.oag.okta.com </b>.</li>
+                                                                            <li value="5">Enter port: <b>443</b>.</li>
+                                                                        </ol>
+                                                                        <p>Review connection <b>yum.oag.okta.com</b> confirmation message. In case of an error, confirm that the host <b>yum.oag.okta.com</b> is reachable using port <b>443</b> from the network where <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> is deployed. </p>
+                                                                        <p>&#160;</p>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <h2><a name="Perform"></a>Perform selective upgrade</h2>
+                                                        <div>
+                                                            <div>
+                                                                <p>The following selective operations are supported:</p>
+                                                                <ol>
+                                                                    <li value="1"><a href="#Upgrade">Upgrade to the latest <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> version</a>.</li>
+                                                                    <li value="2"><a href="#Select">Upgrade to the selected <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> version</a>.</li>
+                                                                </ol>
+                                                            </div>
+                                                            <div>
+                                                                <h3><a name="Upgrade"></a>Upgrade to the latest <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> version</h3>
+                                                                <div>
+                                                                    <p>On the  node that will be upgraded:</p>
+                                                                    <ol>
+                                                                        <li value="1">Connect to the target instance <span class="mc-variable okta-feature-names.Access_Gateway_CMD variable">Access Gateway Management console</span>.<br /><pre xml:space="preserve" id="code">ssh oag-mgmt@[node.tld]</pre></li>
+                                                                        <li value="2">Select <b>5 - System</b>.</li>
+                                                                        <li value="3">Select <b>4- Upgrade</b>. <br />                            The upgrade menu will display and resemble:<br /><pre xml:space="preserve" id="code">Upgrade Access Gateway <br />1 - Upgrade to the latest Access Gateway version. . . 
+2 - View list of Access Gateway versions to upgrade. . . 
+
+x - Exit
+</pre></li>
+                                                                        <li value="4">Enter <span class="code">1 - Upgrade to the latest Access Gateway version ...</span>.</li>
+                                                                        <li value="5">The upgrade confirmation dialog will display and resemble:<br />Enter <b>1</b> to confirm and begin upgrade.<br />Enter <b>X</b> to exit, and cancel upgrade.<pre xml:space="preserve" id="code">Upgrade to Okta Access Gateway 202X.Y.Z-abcdefg
+    NOTE: Confirming the operation will start the upgrade process.
+    The system configuration will be automatically backed up before theupdate.
+     It is strongly recommended that to take a system snapshot before proceeding.
+
+1 - Confirm
+X - Exit
+Choice:
+</pre></li>
+                                                                        <li value="6">Enter <b>1</b> to continue.<br />Entering <b>x</b> aborts the upgrade and returns to the prior menu. </li>
+                                                                        <li value="7">The upgrade will begin and show results resembling those below. Enter any key to continue.
+								<pre xml:space="preserve" id="code">Update in progress...
+okta-datastores-202X.Y.Z-abcdefg.x86 64
+. . .
+Installed:
+okta-monitoring-rest-202X.Y.Z-abcdefg.x86_64
+Complete!
+Dependencies resolved.
+. . . 
+Complete!
+Upgrade to Okta Access Gateway 202X.Y.Z-abcdefg successful.
+Press any key to continue to results review.
+</pre></li>
+                                                                        <li value="8">The view yum page will display.  <br />Enter <b>y</b> to view the yum upgrade log.<br />Enter <b>x</b> - to exit and return to the main upgrade menu.
+                        </li>
+                                                                    </ol>
+                                                                </div>
+                                                            </div>
+                                                            <div>
+                                                                <h3><a name="Select"></a>Upgrade to the selected <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> version</h3>
+                                                                <p>On the  node that will be upgraded:</p>
+                                                                <ol>
+                                                                    <li value="1">Connect to the target instance <span class="mc-variable okta-feature-names.Access_Gateway_CMD variable">Access Gateway Management console</span>.<br /><pre xml:space="preserve" id="code">ssh oag-mgmt@[node.tld]</pre></li>
+                                                                    <li value="2">Select <b>5 - System</b>.</li>
+                                                                    <li value="3">Select <b>4- Upgrade</b>. <br />                            The upgrade menu will display and resemble:<br /><pre xml:space="preserve" id="code">Upgrade Access Gateway <br />1 - Upgrade to the latest Access Gateway version. . . 
+2 - View list of Access Gateway versions to upgrade. . . 
+
+x - Exit
+</pre></li>
+                                                                    <li value="4">Enter <span class="code">2 - View list of Access Gateway versions. . .</span><br />The list of available versions will display and resemble:<br /><pre id="code" xml:space="preserve">Available versions
+    <b>Okta Access Gateway 2021.A.x-abcdefg</b>
+    Okta Access Gateway 2021.B.x-abcdefg
+    Okta Access Gateway 2021.C.x-abcdefg
+    Okta Access Gateway 2021.D.x-abcdefg
+    Okta Access Gateway 2021.E.x-abcdefg
+
+Up/Down - scroll list
+Return - select
+x - exit
+</pre><br /></li>
+                                                                    <li value="5">Use the <b>[up]</b>/<b>[down]</b> or arrows to select a target and hit <b>[return]</b> to begin the upgrade process.</li>
+                                                                    <li value="6">The upgrade confirmation dialog will display and resemble:<br />Enter <b>1</b> to confirm and begin upgrade.<br />Enter <b>X</b> to exit, and cancel upgrade.<pre xml:space="preserve" id="code">Upgrade to Okta Access Gateway 202X.Y.Z-abcdefg
+    NOTE: Confirming the operation will start the upgrade process.
+    The system configuration will be automatically backed up before theupdate.
+     It is strongly recommended that to take a system snapshot before proceeding.
+
+1 - Confirm
+X - Exit
+Choice:
+</pre></li>
+                                                                    <li value="7">The upgrade will begin and show results resembling those below. Enter any key to continue.
+								<pre xml:space="preserve" id="code">Update in progress...
+okta-datastores-202X.Y.Z-abcdefg.x86 64
+. . .
+Complete!
+Upgrade to Okta Access Gateway 202X.Y.Z-abcdefg successful.
+</pre></li>
+                                                                    <li value="8">The view yum page will display.  <br />Enter <b>y</b> to view the yum upgrade log.<br />Enter x - to exit and return to the main upgrade menu.
+                        </li>
+                                                                </ol>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <h3>Related topics</h3>
+                                                        <p><a href="about-selective-upgrade.htm" class="MCXref xref">About Access Gateway selective upgrade</a>
+                                                        </p>
+                                                    </div>
                                                 </div>
                                                 <!-- Back to Top button --><a href="#" class="sf-back-to-top"><span class="arrow"></span>Top</a>
                                             </div>
