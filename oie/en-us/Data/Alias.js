@@ -23,6 +23,7 @@ xmlAliasData += '    <Map Name=\"API_Access\" Link=\"Topics/Security/API_Access.
 xmlAliasData += '    <Map Name=\"create-scopes\" Link=\"Topics/Security/API_Access.htm#create-scopes\" ResolvedId=\"1272\" />';
 xmlAliasData += '    <Map Name=\"create-claims\" Link=\"Topics/Security/API_Access.htm#create-claims\" ResolvedId=\"1274\" />';
 xmlAliasData += '    <Map Name=\"create-access-policies\" Link=\"Topics/Security/API_Access.htm#create-access-policies\" ResolvedId=\"1276\" />';
+xmlAliasData += '    <Map Name=\"ver-hist_dt-win-desktop\" Link=\"Topics/Settings/Version_Histories/Ver_History_DeviceTrust_Installer_Windows.htm\" ResolvedId=\"1008\" />';
 xmlAliasData += '    <Map Name=\"ServicePrincipalName\" Link=\"Topics/Directory/ad-dsso-create-service-account.htm\" ResolvedId=\"1013\" />';
 xmlAliasData += '    <Map Name=\"okta-radius-agent-install\" Link=\"Topics/integrations/Agent_Installing_the_Okta_Radius_Agent.htm\" ResolvedId=\"1017\" />';
 xmlAliasData += '    <Map Name=\"mfa-onprem\" Link=\"Topics/Security/MFA_OnPrem.htm\" ResolvedId=\"1018\" />';
@@ -43,9 +44,11 @@ xmlAliasData += '    <Map Name=\"okta-f5-intg\" Link=\"Topics/integrations/f5-ra
 xmlAliasData += '    <Map Name=\"sophos-radius-intg\" Link=\"Topics/integrations/sophos-radius-intg.htm\" ResolvedId=\"1039\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-ad-pw-sync-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_Active_Directory_Password_Sync_Agent.htm\" ResolvedId=\"1041\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-ad-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_AD_Agent.htm\" ResolvedId=\"1042\" />';
+xmlAliasData += '    <Map Name=\"ver-hist-adfs-adapter\" Link=\"Topics/Settings/Version_Histories/Ver_History_Okta_MFA_Provider_for_ADFS.htm\" ResolvedId=\"1043\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-browser-plugin\" Link=\"Topics/Settings/Version_Histories/Ver_History_Browser_Plugin.htm\" ResolvedId=\"1045\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-ldap-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_LDAP_Agent.htm\" ResolvedId=\"1048\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-mfa-cred-win\" Link=\"Topics/Settings/Version_Histories/Ver_History_Okta_MFA_Credential_Provider_for_Windows.htm\" ResolvedId=\"1049\" />';
+xmlAliasData += '    <Map Name=\"ver-hist-mfa-adfs\" Link=\"Topics/Settings/Version_Histories/Ver_History_Okta_MFA_Provider_for_ADFS.htm\" ResolvedId=\"1051\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-op-mfa-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_On-Prem_MFA_Agent.htm\" ResolvedId=\"1053\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-radius-server\" Link=\"Topics/Settings/Version_Histories/Ver_History_RADIUS_Server_Agent.htm\" ResolvedId=\"1054\" />';
 xmlAliasData += '    <Map Name=\"pulse-radius-intg\" Link=\"Topics/integrations/pulse-secure-radius-intg.htm\" ResolvedId=\"1035\" />';
@@ -136,10 +139,13 @@ xmlAliasData += '    <Map Name=\"ext_Settings_Customization\" Link=\"Topics/Sett
 xmlAliasData += '    <Map Name=\"ext_Settings_Downloads\" Link=\"Topics/Settings/Settings_Downloads.htm\" ResolvedId=\"200190\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Email\" Link=\"Topics/Settings/Settings_Email.htm\" ResolvedId=\"200191\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_Active_Directory_Password_Sync_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_Active_Directory_Password_Sync_Agent.htm\" ResolvedId=\"200194\" />';
+xmlAliasData += '    <Map Name=\"ext_Ver_History_ADFS_Adapter\" Link=\"Topics/Settings/Version_Histories/Ver_History_Okta_MFA_Provider_for_ADFS.htm\" ResolvedId=\"200195\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_AD_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_AD_Agent.htm\" ResolvedId=\"200196\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_Browser_Plugin\" Link=\"Topics/Settings/Version_Histories/Ver_History_Browser_Plugin.htm\" ResolvedId=\"200198\" />';
+xmlAliasData += '    <Map Name=\"ext_Ver_History_DeviceTrust_Installer_Windows\" Link=\"Topics/Settings/Version_Histories/Ver_History_DeviceTrust_Installer_Windows.htm\" ResolvedId=\"200200\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_LDAP_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_LDAP_Agent.htm\" ResolvedId=\"200202\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_Okta_MFA_Credential_Provider_for_Windows\" Link=\"Topics/Settings/Version_Histories/Ver_History_Okta_MFA_Credential_Provider_for_Windows.htm\" ResolvedId=\"200203\" />';
+xmlAliasData += '    <Map Name=\"ext_Ver_History_Okta_MFA_Provider_for_ADFS\" Link=\"Topics/Settings/Version_Histories/Ver_History_Okta_MFA_Provider_for_ADFS.htm\" ResolvedId=\"200204\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_On_Prem_MFA_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_On-Prem_MFA_Agent.htm\" ResolvedId=\"200206\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_OPP_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_OPP_Agent.htm\" ResolvedId=\"200207\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_RADIUS_Server_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_RADIUS_Server_Agent.htm\" ResolvedId=\"200208\" />';
@@ -148,6 +154,7 @@ xmlAliasData += '    <Map Name=\"check-point-radius-intg\" Link=\"Topics/integra
 xmlAliasData += '    <Map Name=\"vmware-horizon-radius-intg\" Link=\"Topics/integrations/vmware-horizon-radius-intg.htm\" ResolvedId=\"1059\" />';
 xmlAliasData += '    <Map Name=\"beyondtrust-radius-intg\" Link=\"Topics/integrations/beyondtrust-powerbroker-password-safe-radius-intg.htm\" ResolvedId=\"1061\" />';
 xmlAliasData += '    <Map Name=\"ldapuserattribute\" Link=\"Topics/Directory/ldap-agent-modify-integration-settings.htm\" ResolvedId=\"1063\" />';
+xmlAliasData += '    <Map Name=\"ver-hist_dt-macOS-desktop\" Link=\"Topics/Settings/Version_Histories/Ver_History_Device_Trust_MacOS.htm\" ResolvedId=\"1064\" />';
 xmlAliasData += '    <Map Name=\"ext_Assign_HD_Admin\" Link=\"Topics/Security/administrators-configure-help-desk-admin.htm\" ResolvedId=\"1073\" />';
 xmlAliasData += '    <Map Name=\"ext_skip_group_import_o365\" Link=\"Topics/Apps/Office365/Skip_Group_Import_Office365.htm\" ResolvedId=\"1076\" />';
 xmlAliasData += '    <Map Name=\"ext_o365_dep_guide\" Link=\"Topics/Apps/Office365-Deployment/deploy-main.htm\" ResolvedId=\"1077\" />';
@@ -280,6 +287,7 @@ xmlAliasData += '    <Map Name=\"csh-oie-release-notes\" Link=\"Topics/ReleaseNo
 xmlAliasData += '    <Map Name=\"ext-federation-broker-mode\" Link=\"Topics/Apps/apps-fbm-main.htm\" ResolvedId=\"1334\" />';
 xmlAliasData += '    <Map Name=\"csh-sso-ext-macos\" Link=\"Topics/identity-engine/devices/config-credential-sso-ext-macos.htm\" ResolvedId=\"1351\" />';
 xmlAliasData += '    <Map Name=\"csh-sso-ext-ios\" Link=\"Topics/identity-engine/devices/config-credential-sso-ext-ios.htm\" ResolvedId=\"1352\" />';
+xmlAliasData += '    <Map Name=\"csh-ver-hist-okta-verify-windows\" Link=\"Topics/Settings/Version_Histories/Ver_History_DeviceTrust_Installer_Windows.htm\" ResolvedId=\"1353\" />';
 xmlAliasData += '    <Map Name=\"ext_cofigure_ldap_okta_settings\" Link=\"Topics/Directory/ldap-agent-configure-LDAP-import-settings.htm\" ResolvedId=\"15000\" />';
 xmlAliasData += '    <Map Name=\"ext-netmotion-mobility-radius-intg\" Link=\"Topics/integrations/netmotion-radius-intg.htm\" ResolvedId=\"3000\" />';
 xmlAliasData += '    <Map Name=\"csh-oie-rn\" Link=\"Topics/ReleaseNotes/oie-relnotes.htm\" ResolvedId=\"2001\" />';
@@ -452,5 +460,6 @@ xmlAliasData += '    <Map Name=\"ext-apps-about-saml\" Link=\"Topics/Apps/apps-a
 xmlAliasData += '    <Map Name=\"ext-ad-agent-import-groups\" Link=\"Topics/Directory/ad-agent-import-groups.htm\" ResolvedId=\"15020\" />';
 xmlAliasData += '    <Map Name=\"ext-branding\" Link=\"Topics/Settings/branding.htm\" ResolvedId=\"15022\" />';
 xmlAliasData += '    <Map Name=\"ext-preset-auth-policies\" Link=\"Topics/identity-engine/policies/about-preset-auth-policies.htm\" ResolvedId=\"5007\" />';
+xmlAliasData += '    <Map Name=\"ext-configure-phone\" Link=\"Topics/identity-engine/authenticators/configure-phone.htm\" ResolvedId=\"5008\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
