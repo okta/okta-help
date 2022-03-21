@@ -4,7 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="typeofcontent" content="documentation" />
         <meta name="audience" content="admin" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>[[[Undefined variable Heading.Level1]]] | Okta</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Configure Prometheus | Okta</title>
         <meta charset="utf-8" />
         <meta name="description" content="" />
         <meta name="author" content="" />
@@ -323,51 +323,42 @@
                                             <div class="body-main">
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
-                                                    <div style="margin-top:40px;" data-mc-conditions="MultiProdPubish.Core">
-                                                        <p id="redirectMessage" />
-                                                        <script type="text/javascript">/* <![CDATA[ */
-		
-			function conditionalRedirect(who, fromURL) {
-
-				//console.log("Attempting to determine if redirect is required");
-				var sitePrefix = "https://help.okta.com/en/prod/";
-			    var targetPrefix = "https://help.okta.com/"+who+"/en-us/";
-			    var redirectTarget = fromURL.toString();
-	
-			    var sitePrefixJA = "https://help.okta.com/ja-jp/prod/";
-			    if (fromURL.toString().startsWith(sitePrefixJA)) {
-			        sitePrefix=sitePrefixJA;
-			        targetPrefix = "https://help.okta.com/"+who+"/ja-jp/";
-				}
-	
-				console.log("Checking if we should redirect");
-				console.log("fromURL=" + fromURL);
-				console.log("sitePrefix=" + sitePrefix);
-				console.log("targetPrefix=" + targetPrefix);
-				console.log("redirectTarget(pre)=" + redirectTarget);
-				redirectTarget = redirectTarget.replace(sitePrefix, targetPrefix);
-				console.log("redirectTarget(post)=" + redirectTarget);
-				if (fromURL.toString().startsWith(sitePrefix)) {
-				   console.log("Redirecting to " + redirectTarget);
-				   document.getElementById('redirectMessage').innerHTML = 
-			                               "<center><b>"+fromURL + "</b> has moved.  "+
-			                               "<br />Redirecting to <b>"+redirectTarget+"</b> in a few seconds.</center>";
-			       setTimeout(function() { window.location.replace(redirectTarget); }, 3000);
-				   //window.location.replace(redirectTarget);
-				   return redirectTarget;
-				} else {
-					console.log("Not redirecting.");
-					return fromURL;
-				}
-			}
-		/* ]]> */</script>
-                                                        <script type="text/javascript">/* <![CDATA[ */	
-            var fromUrl = window.location;
-			// testing only. 
-			// remove the following line, and the MC review condition to release
-            //fromUrl = new URL('https://help.okta.com/en/prod/Content/Topics/Access-Gateway/add-app-websocket.htm');
-            var targetURL = conditionalRedirect("oag", fromUrl);
-		/* ]]> */</script>
+                                                    <h1>Configure Prometheus</h1>
+                                                    <p><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> currently supports monitoring metrics using <a href="https://prometheus.io/" target="_blank">Prometheus</a>. </p>
+                                                    <p>During this task you will configure <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> targets for Prometheus.</p>
+                                                    <div>
+                                                        <h2>Before you begin</h2>
+                                                        <p>You must configure <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> to support monitoring. See <a href="monitoring-metrics-configure.htm" class="MCXref xref">Configure metrics monitoring</a>.</p>
+                                                        <p>Download and install Prometheus. See the getting <a href="https://prometheus.io/docs/prometheus/latest/getting_started/" target="_blank">started section</a> in the Prometheus documentation. <br />Other methods also are supported such as <span class="code">brew install prometheus</span>. </p>
+                                                    </div>
+                                                    <div>
+                                                        <h2>Define <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> targets for Prometheus</h2>
+                                                        <div class="noteOkta">
+                                                            <img src="../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Important Note" alt="Important Note" />
+                                                            <p class="noteHeading">Important</p>
+                                                            <p class="noteContent">Prometheus can be installed in a number of different locations. This page assume an install directory of <span class="code">/usr/local/prometheus/2.32.1</span>.</p>
+                                                        </div>
+                                                        <p>To configure prometheus to monitor <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span></p>
+                                                        <ol>
+                                                            <li value="1">Determine the IP address of all instances of <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> being monitored. See <a href="deploy-post-install-determineOAG-ip.htm" class="MCXref xref">Determine Access Gateway IP&#160;address</a>.</li>
+                                                            <li value="2">Open a command prompt and navigate to the directory containing the prometheus yml file.<br /><span class="code">cd /usr/local/prometheus/2.32.1.<br></br>ls prometheus.yml<br></br>. . . </span><br /></li>
+                                                            <li value="3">Using your preferred text editor open the configuration file.<br /><span class="code">nano prometheus.yml</span></li>
+                                                            <li value="4">Within the scrape_configs: section, add a new <b>static_configs:</b> subsection and a set of appropriate targets. <br />The updates should resemble:<br /><pre xml:space="preserve">
+scrape_configs:
+    - job_name: "prometheus"
+        scrape_interval: 5s
+        #
+        # Other configuration
+        # . . . 
+        <b>static_configs:
+           - targets: ['192.168.x.x:8889']
+           - targets: ['192.168.x.y:8889']
+           - targets: ['192.168.x.z:8889']
+</b></pre></li>
+                                                            <li value="5">Add as many targets as required.</li>
+                                                            <li value="6">Save the changes and exit the editor.</li>
+                                                            <li value="7">Restart prometheus normally using a command similar to:<br /><span class="code">bin/prometheus -config=prometheus.yml</span></li>
+                                                        </ol>
                                                     </div>
                                                 </div>
                                                 <!-- Back to Top button --><a href="#" class="sf-back-to-top"><span class="arrow"></span>Top</a>
