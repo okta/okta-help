@@ -4,7 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="typeofcontent" content="documentation" />
         <meta name="audience" content="Okta Identity Engine Admins" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Manage EDR integration plugins for Windows | Okta</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Manage endpoint security integration plugins for Windows | Okta</title>
         <meta charset="utf-8" />
         <meta name="description" content="" />
         <meta name="author" content="" />
@@ -329,32 +329,36 @@
                                             <div class="body-main">
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
-                                                    <h1>Manage EDR integration plugins for Windows</h1>
-                                                    <p>Endpoint detection and response (EDR) plugins extend the functionality of the Okta endpoint security integration feature by enabling <span class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span> to collect trust signals from your EDR client running on the same device. You can configure plugins using PowerShell scripts. Currently, you can use these scripts to install and uninstall the plugins on a device-by-device basis.</p>
+                                                    <h1>Manage endpoint security integration plugins for Windows</h1>
+                                                    <p>Endpoint security integration plugins extend the functionality of the <span class="mc-variable okta-variables.ProductName variable">Okta</span> endpoint security integration feature by enabling <span class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span> to collect trust signals from the Windows device it's running on. </p>
+                                                    <p>You can use your MEM (for example, by using PowerShell scripts) to configure the plugins on your Windows device. On Windows devices, the plugins are located here: <code>%PROGRAMDATA%\Okta\OktaVerify\Plugins</code>. This allows you to specify which device signals to collect. Currently, you can run these scripts to install and uninstall the plugins on a device-by-device basis.</p>
                                                     <ul>
                                                         <li><a href="#Before" class="MCXref xref">Before you begin</a>
                                                         </li>
-                                                        <li><a href="#Install2" class="MCXref xref">Install the Windows Security Center (WSC) EDR plugin</a>
+                                                        <li><a href="#Install2" class="MCXref xref">Install the Windows Security Center (WSC) endpoint security integration plugin</a>
                                                         </li>
-                                                        <li><a href="#Install" class="MCXref xref">Install the CrowdStrike EDR&#160;plugin</a>
+                                                        <li><a href="#Install" class="MCXref xref">Install the CrowdStrike endpoint security integration&#160;plugin</a>
                                                         </li>
-                                                        <li><a href="#Uninstal" class="MCXref xref">Uninstall an EDR integration plugin</a>
+                                                        <li><a href="#Uninstal" class="MCXref xref">Uninstall an endpoint security integration integration plugin</a>
                                                         </li>
                                                     </ul>
                                                     <h2><a name="Before"></a>Before you begin</h2>
                                                     <ul>
-                                                        <li>EDR integration is enabled for your org</li>
-                                                        <li>Windows devices are: 
-				<ul><li>Configured for Okta Device Trust
-						<p>See <a href="dt-main.htm" class="MCXref xref">Device Trust on Identity Engine</a><a href="dt-main.htm">.</a></p></li><li>Registered with Okta
-						<p>See <a href="device-registration.htm" class="MCXref xref">Device registration</a>.</p></li><li>Windows 10 (1709), 32 or 64-bit</li><li>Supported client versions: 
-						<ul><li>Windows <span class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span> beta client version 1.3.100.3 or later</li><li>CrowdStrike Falcon Agent 6.14 or later</li></ul></li></ul></li>
+                                                        <li>Set up endpoint security integrations</li>
+                                                        <p>See <a href="edr-integration-get-started.htm" class="MCXref xref">Get started with endpoint security integrations</a>.</p>
+                                                        <li>Enable Okta FastPass</li>
+                                                        <p>See <a href="fp/fp-enable.htm" class="MCXref xref">Enable Okta FastPass</a>.</p>
+                                                        <li>Verify that Windows devices are registered with <span class="mc-variable okta-variables.ProductName variable">Okta</span><p>See <a href="device-registration.htm" class="MCXref xref">Device registration</a>.</p></li>
+                                                        <li>Verify that the client versions are supported: 
+				<ul><li>Windows <span class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span> 3.0 or later </li><p><span class="mc-variable okta-variables.ProductName variable">Okta</span> recommends the latest version.</p><li>CrowdStrike Falcon Agent 6.14 or later</li></ul></li>
+                                                        <p>
+                                                            <div class="noteOkta">
+                                                                <p class="noteContent">Windows Security Center is not supported on Windows servers.</p>
+                                                            </div>
+                                                        </p>
                                                     </ul>
-                                                    <ul>
-                                                        <li>Keep in mind:<ul><li>Before installing a new version of the EDR plugin, make sure to completely uninstall the current version. </li><li>Plugins are installed at the following location on Windows computers: <code>%PROGRAMDATA%\Okta\OktaVerify\Plugins</code>.</li></ul></li>
-                                                    </ul>
-                                                    <h2><a name="Install2"></a>Install the Windows Security Center (WSC) EDR plugin</h2>
-                                                    <p>By default, the WSC plugin is installed automatically when <span class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span> is installed. If you need to reinstall the plugin later for any reason, use this script.</p>
+                                                    <h2><a name="Install2"></a>Install the Windows Security Center (WSC) endpoint security integration plugin</h2>
+                                                    <p>By default, the WSC plugin is installed automatically when <span class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span> is installed. If you need to reinstall the plugin later for any reason, uninstall the current version, and then use this script.</p>
                                                     <div id="code">
                                                         <p>$content = "{`r`n`t`"name`": `"com.okta.windowsSecurityCenter`",`r`n`t`"description`": `"Okta provided integration collecting signals through the Windows Security Center APIs.`",`r`n`t`"type`": `"DEFAULT`",`r`n`t`"format`": `"JSON`",`r`n`t`"availabilityChecks`": [`r`n`t`t{`r`n`t`t`t`"type`": `"SERVICE_RUNNING`",`r`n`t`t`t`"value`": `"wscsvc`"`r`n`t`t}`r`n`t]`r`n}"</p>
                                                         <p>$path = $env:ProgramData + "\Okta\OktaVerify\Plugins\"</p>
@@ -365,14 +369,14 @@
                                                         <p>}</p>
                                                         <p>$content | Out-File -FilePath $filePath</p>
                                                     </div>
-                                                    <h2><a name="Install"></a>Install the CrowdStrike EDR&#160;plugin</h2>
-                                                    <p>Unlike the WSC EDR&#160;plugin, the CrowdStrike plugin is <u>not</u> installed automatically when <span class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span> is installed. There are two main installation scenarios:</p>
+                                                    <h2><a name="Install"></a>Install the CrowdStrike endpoint security integration&#160;plugin</h2>
+                                                    <p>The CrowdStrike plugin is not installed automatically when <span class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span> is installed. Based on your installation scenario, uninstall the current version if one exists, and then choose the appropriate installation procedure:</p>
                                                     <ul>
                                                         <li>
-                                                            <p style="font-weight: bold;">Deploying <span class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span> to end user Windows computers</p>
+                                                            <p style="font-weight: bold;">Deploying <span class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span> to end user Windows devices</p>
                                                         </li>
-                                                        <p>In this case, you <b>don't use the PowerShell script</b>. Instead, use the command line provided by your management tool (GPO, MDM software) to include the <code>EnableZTAPlugin</code> flag in the installation command. 
-			<p>See <a href="ov-install-options-windows.htm" target="_blank" class="MCXref xref">Install Okta Verify on Windows devices</a> for installation options.</p></p>
+                                                        <p>Use the command line provided by your management tool (GPO, MDM software) to include the <code>EnableZTAPlugin</code> flag in the installation command. In this case, you <b>don't use the PowerShell script</b>. <![CDATA[
+			]]><p>See <a href="ov-install-options-windows.htm" target="_blank" class="MCXref xref">Install Okta Verify on Windows devices</a> for installation options.</p></p>
                                                     </ul>
                                                     <ul>
                                                         <li><b>All other scenarios</b>
@@ -397,10 +401,13 @@
                                                             <p>[System.IO.File]::WriteAllText($filePath, $content)</p>
                                                         </div>
                                                     </blockquote>
-                                                    <h2><a name="Uninstal"></a>Uninstall an EDR integration plugin</h2>
-                                                    <p>To uninstall an EDR integration plugin from Windows computers for any reason, use this PowerShell script. Make sure you replace <code>your.domain.wsc.json</code> with the actual file name. The installer uses the following two file names by default:
-			
-		<ul><li><b>Windows Security Center</b>: <code>com.okta.windowsSecurityCenter.json</code></li><li><b>CrowdStrike</b>: <code>com.okta.ztaDefault.json</code></li></ul></p>
+                                                    <h2><a name="Uninstal"></a>Uninstall an endpoint security integration integration plugin</h2>
+                                                    <p>To uninstall an endpoint security integration plugin from Windows computers for any reason, use this PowerShell script. Make sure you replace <code>your.domain.wsc.json</code> with the actual file name. The installer uses the following two file names by default:
+</p>
+                                                    <ul>
+                                                        <li><b>Windows Security Center</b>: <code>com.okta.windowsSecurityCenter.json</code></li>
+                                                        <li><b>CrowdStrike</b>: <code>com.okta.ztaDefault.json</code></li>
+                                                    </ul>
                                                     <div id="code">
                                                         <p>$path = $env:ProgramData + "\Okta\OktaVerify\Plugins\your.domain.wsc.json"</p>
                                                         <p>if ((Test-Path $path))</p>
