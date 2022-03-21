@@ -4,7 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="typeofcontent" content="documentation" />
         <meta name="audience" content="admin" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>[[[Undefined variable Heading.Level1]]]</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Add an Oracle PeopleSoft application</title>
         <meta charset="utf-8" />
         <meta name="description" content="" />
         <meta name="author" content="" />
@@ -324,51 +324,180 @@
                                             <div class="body-main">
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
-                                                    <div style="margin-top:40px;" data-mc-conditions="MultiProdPubish.Core">
-                                                        <p id="redirectMessage" />
-                                                        <script type="text/javascript">/* <![CDATA[ */
-		
-			function conditionalRedirect(who, fromURL) {
-
-				//console.log("Attempting to determine if redirect is required");
-				var sitePrefix = "https://help.okta.com/en/prod/";
-			    var targetPrefix = "https://help.okta.com/"+who+"/en-us/";
-			    var redirectTarget = fromURL.toString();
-	
-			    var sitePrefixJA = "https://help.okta.com/ja-jp/prod/";
-			    if (fromURL.toString().startsWith(sitePrefixJA)) {
-			        sitePrefix=sitePrefixJA;
-			        targetPrefix = "https://help.okta.com/"+who+"/ja-jp/";
-				}
-	
-				console.log("Checking if we should redirect");
-				console.log("fromURL=" + fromURL);
-				console.log("sitePrefix=" + sitePrefix);
-				console.log("targetPrefix=" + targetPrefix);
-				console.log("redirectTarget(pre)=" + redirectTarget);
-				redirectTarget = redirectTarget.replace(sitePrefix, targetPrefix);
-				console.log("redirectTarget(post)=" + redirectTarget);
-				if (fromURL.toString().startsWith(sitePrefix)) {
-				   console.log("Redirecting to " + redirectTarget);
-				   document.getElementById('redirectMessage').innerHTML = 
-			                               "<center><b>"+fromURL + "</b> has moved.  "+
-			                               "<br />Redirecting to <b>"+redirectTarget+"</b> in a few seconds.</center>";
-			       setTimeout(function() { window.location.replace(redirectTarget); }, 3000);
-				   //window.location.replace(redirectTarget);
-				   return redirectTarget;
-				} else {
-					console.log("Not redirecting.");
-					return fromURL;
-				}
-			}
-		/* ]]> */</script>
-                                                        <script type="text/javascript">/* <![CDATA[ */	
-            var fromUrl = window.location;
-			// testing only. 
-			// remove the following line, and the MC review condition to release
-            //fromUrl = new URL('https://help.okta.com/en/prod/Content/Topics/Access-Gateway/add-app-websocket.htm');
-            var targetURL = conditionalRedirect("oag", fromUrl);
-		/* ]]> */</script>
+                                                    <h1>Add an Oracle PeopleSoft application</h1>
+                                                    <p>The purpose of this page is to walk through the process of setting up an Oracle PeopleSoft application with Okta through the <span class="mc-variable okta-feature-names.Access&#160;Gateway_UI variable">Access Gateway Admin UI console</span> and various Oracle PeopleSoft tools.</p>
+                                                    <h2>Architecture</h2>
+                                                    <table>
+                                                        <col />
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <p>
+                                                                        <img src="../../Resources/Images/access-gateway/peoplesoft-arch.png" alt="PeopleSoft Architecture" />
+                                                                    </p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><b>Flow</b>
+                                                                    <ol>
+                                                                        <li value="1">User signs in.</li>
+                                                                        <li value="2">Send user identity to <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>.</li>
+                                                                        <li value="3"><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> redirects request and sends PS_USER as header field, to Oracle PeopleSoft.</li>
+                                                                        <li value="4">Peoplesoft application responds to request.</li>
+                                                                        <li value="5"><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> rewrites response and returns result to requester. </li>
+                                                                    </ol>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>For details see <a href="add-app-ps-ref-arch.htm" class="MCXref xref">Oracle PeopleSoft reference architecture</a>.</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <div>
+                                                        <p><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> works with all major PeopleSoft modules including:</p>
+                                                        <ul>
+                                                            <li>
+                                                                <p>CRM: <b>/crm/*</b></p>
+                                                            </li>
+                                                            <li>
+                                                                <p>HCM: <b>/hcm/*</b></p>
+                                                            </li>
+                                                            <li>
+                                                                <p>Learning: <b>/elm/*</b></p>
+                                                            </li>
+                                                            <li>
+                                                                <p>Financial: <b>/fscm/*</b></p>
+                                                            </li>
+                                                            <li>
+                                                                <p>Campus: <b>/camp/*</b></p>
+                                                            </li>
+                                                        </ul>
+                                                        <p>Ensure you use the correct path for your specific module. <br /></p>
+                                                    </div>
+                                                    <div class="noteOkta">
+                                                        <img src="../../Resources/Images/assets/Icons/Notes/icon-lightbulb.png" class="noteImgFloat" title="Tip" alt="Tip" />
+                                                        <p class="noteHeading">Tip</p>
+                                                        <p class="noteContent">This application is part of a class of applications which exchange user information using header variables. See <a href="add-generic-header-app.htm" class="MCXref xref">Add a generic header application</a> for more information about the <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> generic header application. <br /><br /><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> also provides a sample header application. See <a href="add-sample-header.htm" class="MCXref xref">Add a sample header application</a>.</p>
+                                                    </div>
+                                                    <h2><a name="Before"></a>Before you begin</h2>
+                                                    <p>Ensure that:</p>
+                                                    <ul>
+                                                        <li>You have access to the PeopleTools desktop client.</li>
+                                                        <li>You have access to the PeopleSoft web portal and can access it as super user.</li>
+                                                        <li>Your specific version of Oracle PeopleSoft is supported. Supported versions include:
+            <ul><li>v9.2.00 or later.</li></ul></li>
+                                                        <li>Appropriate DNS&#160;entries for both the header application and the external exposed new URL exist.<br /><table style="mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0"><col class="TableStyle-srb_header_alt_shade-Column-Column1" /><col class="TableStyle-srb_header_alt_shade-Column-Column1" /><thead><tr class="TableStyle-srb_header_alt_shade-Head-Header1"><th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Value</th><th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">Description</th></tr></thead><tbody><tr class="TableStyle-srb_header_alt_shade-Body-Body1"><td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><b>https://ps-external.example.com</b></td><td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Legacy application URL. </td></tr><tr class="TableStyle-srb_header_alt_shade-Body-Body2"><td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2"><b>https://ps-internal.example.com</b></td><td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">Protected application URL. </td></tr></tbody></table></li>
+                                                    </ul>
+                                                    <h2><a name="Tasks"></a>Typical workflow</h2>
+                                                    <div class="noteOkta">
+                                                        <img src="../../Resources/Images/assets/Icons/Notes/icon-lightbulb.png" class="noteImgFloat" title="Tip" alt="Tip" />
+                                                        <p class="noteHeading">Tip</p>
+                                                        <p class="noteContent">The PeopleSoft admin and <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> admin tasks can be, and often are, performed in parallel. The following general ordering is recommended.
+                <ol><li value="1">Configure PeopleCode</li><li value="2">Create PUBUSER and configure the PeopleSoft gateway.</li><li value="3">Update the PeopleSoft virtual addressing field.</li><li value="4">Restart PeopleSoft<br /></li></ol><br />				The details of each task are described in thier respective sub tasks.</p>
+                                                    </div>
+                                                    <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+                                                        <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                        <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                        <col class="TableStyle-srb_header_alt_shade-Column-Column1" style="width: -320px;" />
+                                                        <thead>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                                                                <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                                                                    <p>Task</p>
+                                                                </th>
+                                                                <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                                                                    <p>Description</p>
+                                                                </th>
+                                                                <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">
+                                                                    <p>Who</p>
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><a href="task-add-okta-group.htm">Create a containing group</a>
+                                                                </td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                                                                    <ul>
+                                                                        <li>Best practice, create an optional group to be assigned to the application. </li>
+                                                                    </ul>
+                                                                </td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                                                                    <p><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> admin</p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                                                                    <p><a href="add-app-ps-config-pcode.htm">Configure PeopleCode</a>
+                                                                    </p>
+                                                                </td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                                                                    <ul>
+                                                                        <li>Using PeopleTools, make changes to support header-based authentication from the <b>PS_USER</b> header. </li>
+                                                                    </ul>
+                                                                </td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
+                                                                    <p>PeopleSoft admin</p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                                                                    <p><a href="add-app-ps-config-psoft.htm">Configure PeopleSoft</a> </p>
+                                                                </td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                                                                    <ul>
+                                                                        <li>Configure PeopleSoft to support SSO, add the required user, configure the associated web profile and set <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> as the proxy address.</li>
+                                                                    </ul>
+                                                                </td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                                                                    <p>Peoplesoft Admin</p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><a href="add-app-ps-app.htm">Create application</a>
+                                                                </td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                                                                    <ul>
+                                                                        <li>Create the <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> PeopleSoft application. </li>
+                                                                    </ul>
+                                                                </td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
+                                                                    <p><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> admin</p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1"><a href="add-app-ps-test.htm">Test the application</a>
+                                                                </td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1">
+                                                                    <ul>
+                                                                        <li>Test the application.</li>
+                                                                    </ul>
+                                                                </td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body1">
+                                                                    <p><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> admin and PeopleSoft admin</p>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <div>
+                                                        <h2><a name="Next_Steps"></a>Related topics</h2>
+                                                        <p><a href="about-application-essentials.htm" class="MCXref xref">About application essentials</a>
+                                                        </p>
+                                                        <p><a href="about-application-policy.htm" class="MCXref xref">About application policy</a>
+                                                        </p>
+                                                        <p><a href="admin-app-types.htm"><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> supported application and version information</a> </p>
+                                                        <p><a href="add-generic-header-app.htm" class="MCXref xref">Add a generic header application</a>
+                                                        </p>
+                                                        <p><a href="add-sample-policy.htm" class="MCXref xref">Add a sample policy application</a>
+                                                        </p>
+                                                        <p><a href="advanced-oag-policy.htm" class="MCXref xref">Advanced Access Gateway policy</a>
+                                                        </p>
+                                                        <p><a href="about-application-behaviors.htm" class="MCXref xref">About application behaviors</a>.</p>
+                                                        <p><a href="task-manage-app-essentials.htm" class="MCXref xref">Manage application essentials</a>
+                                                        </p>
+                                                        <p><a href="managing-application-policy.htm" class="MCXref xref">Manage access control application policy </a>
+                                                        </p>
+                                                        <p><a href="troubleshoot-application.htm" class="MCXref xref">Troubleshoot applications</a>
+                                                        </p>
                                                     </div>
                                                 </div>
                                                 <!-- Back to Top button --><a href="#" class="sf-back-to-top"><span class="arrow"></span>Top</a>

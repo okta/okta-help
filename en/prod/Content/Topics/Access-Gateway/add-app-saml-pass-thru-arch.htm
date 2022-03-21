@@ -4,7 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="typeofcontent" content="documentation" />
         <meta name="audience" content="admin" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>[[[Undefined variable Heading.Level1]]] | Okta</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>SAML pass through reference architecture | Okta</title>
         <meta charset="utf-8" />
         <meta name="description" content="" />
         <meta name="author" content="" />
@@ -324,52 +324,141 @@
                                             <div class="body-main">
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
-                                                    <div style="margin-top:40px;" data-mc-conditions="MultiProdPubish.Core">
-                                                        <p id="redirectMessage" />
-                                                        <script type="text/javascript">/* <![CDATA[ */
-		
-			function conditionalRedirect(who, fromURL) {
-
-				//console.log("Attempting to determine if redirect is required");
-				var sitePrefix = "https://help.okta.com/en/prod/";
-			    var targetPrefix = "https://help.okta.com/"+who+"/en-us/";
-			    var redirectTarget = fromURL.toString();
-	
-			    var sitePrefixJA = "https://help.okta.com/ja-jp/prod/";
-			    if (fromURL.toString().startsWith(sitePrefixJA)) {
-			        sitePrefix=sitePrefixJA;
-			        targetPrefix = "https://help.okta.com/"+who+"/ja-jp/";
-				}
-	
-				console.log("Checking if we should redirect");
-				console.log("fromURL=" + fromURL);
-				console.log("sitePrefix=" + sitePrefix);
-				console.log("targetPrefix=" + targetPrefix);
-				console.log("redirectTarget(pre)=" + redirectTarget);
-				redirectTarget = redirectTarget.replace(sitePrefix, targetPrefix);
-				console.log("redirectTarget(post)=" + redirectTarget);
-				if (fromURL.toString().startsWith(sitePrefix)) {
-				   console.log("Redirecting to " + redirectTarget);
-				   document.getElementById('redirectMessage').innerHTML = 
-			                               "<center><b>"+fromURL + "</b> has moved.  "+
-			                               "<br />Redirecting to <b>"+redirectTarget+"</b> in a few seconds.</center>";
-			       setTimeout(function() { window.location.replace(redirectTarget); }, 3000);
-				   //window.location.replace(redirectTarget);
-				   return redirectTarget;
-				} else {
-					console.log("Not redirecting.");
-					return fromURL;
-				}
-			}
-		/* ]]> */</script>
-                                                        <script type="text/javascript">/* <![CDATA[ */	
-            var fromUrl = window.location;
-			// testing only. 
-			// remove the following line, and the MC review condition to release
-            //fromUrl = new URL('https://help.okta.com/en/prod/Content/Topics/Access-Gateway/add-app-websocket.htm');
-            var targetURL = conditionalRedirect("oag", fromUrl);
-		/* ]]> */</script>
+                                                    <h1>SAML pass through reference architecture</h1>
+                                                    <p>This reference architecture describes the components, flow and similar requires for integrating SAML&#160;pass through applications and  <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> .</p>
+                                                    <h3>Topics:</h3>
+                                                    <ul>
+                                                        <li><a href="#Architec" class="MCXref xref">Architecture</a>
+                                                        </li>
+                                                        <li><a href="#Flow" class="MCXref xref">Flow</a>
+                                                        </li>
+                                                        <li><a href="#Componen" class="MCXref xref">Components and requirements</a>
+                                                        </li>
+                                                    </ul>
+                                                    <h2><a name="Architec"></a>Architecture</h2>
+                                                    <div>
+                                                        <p>
+                                                            <img src="../../Resources/Images/access-gateway/add-app-saml-pas-thru-arch.png" />
+                                                        </p>
+                                                        <p>The SAML pass through architecture is composed of:
+</p>
+                                                        <ul>
+                                                            <li>Split DNS - Internal users access the SAML aware application using the same DNS name as internet based users, however the address provided is either the IP&#160;address of <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> (external or internet based) or the IP&#160;address of the SAML aware application (internal users).</li>
+                                                            <li>Okta SAML application - An Okta based application, used behind the scenes and hidden from the user.</li>
+                                                            <li>Access Gateway and application - proxies SAML&#160;requests. The application itself is hidden from users as it is not used directly.</li>
+                                                            <li>Okta bookmark application - Used by those who access the application from within their Okta org.</li>
+                                                        </ul>
                                                     </div>
+                                                    <h2><a name="Flow"></a>Flow</h2>
+                                                    <div>
+                                                        <p>
+                                                            <img src="../../Resources/Images/access-gateway/add-app-saml-pas-thru-flow.png" />
+                                                        </p>
+                                                        <table style="mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+                                                            <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                            <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                            <thead>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                                                                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">External internet user</th>
+                                                                    <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">Internal user</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1">
+                                                                        <ol>
+                                                                            <li value="1">The user requests application access
+.</li>
+                                                                            <li value="2"><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> intercepts request and redirects to Okta for a SAML assertion.</li>
+                                                                            <li value="3">The user sends SAML authorization request to Okta, logs into Okta following Okta policies.
+</li>
+                                                                            <li value="4">Okta Generates a SAML assertion for <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>.
+</li>
+                                                                            <li value="5">The user presents SAML Assertion to <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>; <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> creates an <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> session cookie.
+
+</li>
+                                                                            <li value="6"><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> proxies request to SAML&#160;application.
+</li>
+                                                                            <li value="7">Application requests SAML assertion from Okta.
+
+</li>
+                                                                            <li value="8"><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>proxies SAML AuthN Request to browser.
+</li>
+                                                                            <li value="9">Browser sends SAML authorization request to Okta.
+</li>
+                                                                            <li value="10">
+Okta Generates SAML assertion based on access Policy.<br />Because the user is already logged into Okta no re-authentication is required.
+</li>
+                                                                            <li value="11">The browser sends the SAML assertion to <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>.</li>
+                                                                            <li value="12"><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>proxies SAML assertion to the app.</li>
+                                                                            <li value="13">
+The app reads the SAML Assertion, creates a local session and passes content to <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span><![CDATA[
+]]></li>
+                                                                            <li value="14"><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> passes the application session and content to user.</li>
+                                                                        </ol>
+                                                                    </td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body1">
+                                                                        <ol>
+                                                                            <li value="1">User Requests application access.
+</li>
+                                                                            <li value="2">App Requests SAML Assertion from Okta.</li>
+                                                                            <li value="3">
+Browser sends SAML AuthN Request to Okta.</li>
+                                                                            <li value="4">
+Okta authenticates user and Generates SAML assertion based on access policy.
+
+</li>
+                                                                            <li value="5">Browser sends SAML assertion to application.</li>
+                                                                            <li value="6">APP Reads SAML assertion, creates a local session and passes content to User.</li>
+                                                                        </ol>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <h2><a name="Componen"></a>Components and requirements</h2>
+                                                    <table style="mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+                                                        <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                        <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                        <thead>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                                                                <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Component</th>
+                                                                <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">Description and requirements</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><span class="mc-variable okta-feature-names.Access_Gateway_Full variable">Okta Access Gateway</span>
+                                                                </td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">All versions of <span class="mc-variable okta-feature-names.Access_Gateway_Full variable">Okta Access Gateway</span> support SAML&#160;pass through.</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                                                                    <p><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>app</p>
+                                                                </td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
+                                                                    <p>Application defined within <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>, but hidden from everyday users. </p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Okta SAML&#160;app</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">A&#160;hidden application used by Okta.</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Okta Bookmark app</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">A book mark application listed in the Okta org.</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">SAML Application</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">An internal SAML application, but using the same name as external references, differentiated by split DNS. </td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">External URL</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">External URL specified by the <b>Public Domain field</b> within <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>. &#160;Identical DNS to the internal SAML app, differentiated by external DNS.<br />For example: <span class="code">https://saml-app.example.com</span></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <p>&#160;</p>
                                                 </div>
                                                 <!-- Back to Top button --><a href="#" class="sf-back-to-top"><span class="arrow"></span>Top</a>
                                             </div>
