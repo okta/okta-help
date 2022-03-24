@@ -15,6 +15,7 @@ xmlAliasData += '    <Map Name=\"ext-about-fields\" Link=\"Topics/Workflows/lear
 xmlAliasData += '    <Map Name=\"ext-about-lists\" Link=\"Topics/Workflows/learn/about-lists.htm\" ResolvedId=\"1341\" />';
 xmlAliasData += '    <Map Name=\"ext-about-numbers-text\" Link=\"Topics/Workflows/learn/about-numbers-text.htm\" ResolvedId=\"1342\" />';
 xmlAliasData += '    <Map Name=\"ext-about-tables\" Link=\"Topics/Workflows/learn/about-tables.htm\" ResolvedId=\"1343\" />';
+xmlAliasData += '    <Map Name=\"ext-about-invoke-api-flow\" Link=\"Topics/Workflows/learn/about-invoke-api-endpoint-flow.htm\" ResolvedId=\"1344\" />';
 xmlAliasData += '    <Map Name=\"ext-set-monitor-options\" Link=\"Topics/Workflows/build/set-monitor-options.htm\" ResolvedId=\"1345\" />';
 xmlAliasData += '    <Map Name=\"ext-set-schedule-options\" Link=\"Topics/Workflows/build/set-schedule-options.htm\" ResolvedId=\"1346\" />';
 xmlAliasData += '    <Map Name=\"ext-export-import-flows\" Link=\"Topics/Workflows/build/export-import-flows.htm\" ResolvedId=\"1347\" />';
@@ -41,6 +42,7 @@ xmlAliasData += '    <Map Name=\"ext-tutorials-time-based-actions\" Link=\"Topic
 xmlAliasData += '    <Map Name=\"ext-about-flow-alias\" Link=\"Topics/Workflows/learn/about-flow-alias.htm\" ResolvedId=\"10019\" />';
 xmlAliasData += '    <Map Name=\"ext-about-flow-client-token\" Link=\"Topics/Workflows/learn/about-flow-client-token.htm\" ResolvedId=\"10020\" />';
 xmlAliasData += '    <Map Name=\"ext-resume-paused-flow\" Link=\"Topics/Workflows/execute/resume-paused-flow.htm\" ResolvedId=\"10021\" />';
+xmlAliasData += '    <Map Name=\"ext-invoke-api-endpoint-flow\" Link=\"Topics/Workflows/execute/flow-api-endpoint.htm\" ResolvedId=\"10022\" />';
 xmlAliasData += '    <Map Name=\"ext-build-flows\" Link=\"Topics/Workflows/build/build-flows.htm\" ResolvedId=\"10023\" />';
 xmlAliasData += '    <Map Name=\"ext-learn-workflows\" Link=\"Topics/Workflows/learn/learn-workflows.htm\" ResolvedId=\"10024\" />';
 xmlAliasData += '    <Map Name=\"ext-run-flows\" Link=\"Topics/Workflows/execute/run-flows.htm\" ResolvedId=\"10025\" />';
@@ -1143,14 +1145,22 @@ xmlAliasData += '    <Map Name=\"ext-microsoftteams-method-searchchats\" Link=\"
 xmlAliasData += '    <Map Name=\"ext-microsoftteams-method-sendmessageinchat\" Link=\"Topics/Workflows/connector-reference/microsoftteams/actions/sendmessageinchat.htm\" ResolvedId=\"33052\" />';
 xmlAliasData += '    <Map Name=\"ext-microsoftteams-method-sendmessagetochannel\" Link=\"Topics/Workflows/connector-reference/microsoftteams/actions/sendmessagetochannel.htm\" ResolvedId=\"33053\" />';
 xmlAliasData += '    <Map Name=\"ext-office365mail-method-customapiaction\" Link=\"Topics/Workflows/connector-reference/office365mail/actions/customapiaction.htm\" ResolvedId=\"33054\" />';
+xmlAliasData += '    <Map Name=\"ext-amazons329-method-copyobject\" Link=\"Topics/Workflows/connector-reference/awss3/actions/copyobject.htm\" ResolvedId=\"33056\" />';
 xmlAliasData += '    <Map Name=\"ext-amazons329-method-createbucket\" Link=\"Topics/Workflows/connector-reference/awss3/actions/createbucket.htm\" ResolvedId=\"33057\" />';
+xmlAliasData += '    <Map Name=\"ext-amazons329-method-customapiaction\" Link=\"Topics/Workflows/connector-reference/awss3/actions/customapiaction.htm\" ResolvedId=\"33058\" />';
 xmlAliasData += '    <Map Name=\"ext-amazons329-method-deleteobject\" Link=\"Topics/Workflows/connector-reference/awss3/actions/deleteobject.htm\" ResolvedId=\"33060\" />';
 xmlAliasData += '    <Map Name=\"ext-amazons329-method-deletebucket\" Link=\"Topics/Workflows/connector-reference/awss3/actions/deletebucket.htm\" ResolvedId=\"33059\" />';
 xmlAliasData += '    <Map Name=\"ext-amazons329-method-downloadobject\" Link=\"Topics/Workflows/connector-reference/awss3/actions/downloadobject.htm\" ResolvedId=\"33061\" />';
 xmlAliasData += '    <Map Name=\"ext-amazons329-method-readobject\" Link=\"Topics/Workflows/connector-reference/awss3/actions/readobject.htm\" ResolvedId=\"33062\" />';
 xmlAliasData += '    <Map Name=\"ext-amazons329-method-readobjecttags\" Link=\"Topics/Workflows/connector-reference/awss3/actions/readobjecttags.htm\" ResolvedId=\"33063\" />';
+xmlAliasData += '    <Map Name=\"ext-amazons329-method-searchbuckets\" Link=\"Topics/Workflows/connector-reference/awss3/actions/searchbuckets.htm\" ResolvedId=\"33064\" />';
+xmlAliasData += '    <Map Name=\"ext-amazons329-method-searchobjects\" Link=\"Topics/Workflows/connector-reference/awss3/actions/searchobjects.htm\" ResolvedId=\"33065\" />';
+xmlAliasData += '    <Map Name=\"ext-amazons329-method-tagobject\" Link=\"Topics/Workflows/connector-reference/awss3/actions/tagobject.htm\" ResolvedId=\"33066\" />';
 xmlAliasData += '    <Map Name=\"ext-amazons329-misc-authorization\" Link=\"Topics/Workflows/connector-reference/awss3/overviews/authorization.htm\" ResolvedId=\"33068\" />';
 xmlAliasData += '    <Map Name=\"ext-amazons329\" Link=\"Topics/Workflows/connector-reference/awss3/awss3.htm\" ResolvedId=\"33069\" />';
 xmlAliasData += '    <Map Name=\"ext-about-save-data-flow-history\" Link=\"Topics/Workflows/learn/about-save-data-with-flow-history.htm\" ResolvedId=\"31080\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-searchsystemlogs\" Link=\"Topics/Workflows/connector-reference/okta/actions/searchsystemlogs.htm\" ResolvedId=\"33078\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-useraccountlocked\" Link=\"Topics/Workflows/connector-reference/okta/events/useraccountlocked.htm\" ResolvedId=\"33079\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-useraccountunlocked\" Link=\"Topics/Workflows/connector-reference/okta/events/useraccountunlocked.htm\" ResolvedId=\"33080\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
