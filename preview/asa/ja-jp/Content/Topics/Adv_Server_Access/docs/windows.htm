@@ -4,8 +4,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="typeofcontent" content="documentation" />
         <meta name="audience" content="admin workflows" />
-        <meta name="description" content="RDPを使用してユーザーを安全にサーバーに接続するように、Okta アドバンストサーバーアクセスのWindowsクライアントを構成します。" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Windows | Okta</title>
+        <meta name="description" content="RDPを使用してユーザーを安全にサーバーに接続するように、OktaアドバンストサーバーアクセスのWindowsクライアントを構成します。" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Windows Internals | Okta</title>
         <meta charset="utf-8" />
         <meta name="description" content="" />
         <meta name="author" content="" />
@@ -328,63 +328,54 @@
                                             <div class="body-main">
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
-                                                    <h1>Windows</h1>
-                                                    <p>Windowsでアドバンストサーバーアクセスを使用するには、アドバンストサーバーアクセスのツールをサーバーにインストールし、クライアントにクライアントツールをインストールする必要があります。手順については以下をご覧ください。</p>
-                                                    <p>アドバンストサーバーアクセスのサーバーツールがサーバーにインストールされ、サーバーが登録されると、アドバンストサーバーアクセスのエージェント（<code>sftd</code>）は次の２つのことを行います。</p>
-                                                    <ol>
-                                                        <li value="1">Linuxの場合と同様、サーバーへのアクセスを必要とするすべてのアドバンストサーバーアクセスのユーザーにローカルアカウントを作成します。Windowsの場合、これらのアカウントは最初は無効に設定されています。</li>
-                                                        <li value="2">ポート4421でリッスンする追加のAccess Brokerを実行します。</li>
-                                                    </ol>
-                                                    <p>Access BrokerはTLS 1.2を使用して、アドバンストサーバーアクセスのプラットフォームでのみ発行可能なクライアント証明書を用いてすべてのクライアントを認証します。</p>
-                                                    <h4>接続の確立</h4>
-                                                    <p>RDP接続を確立するために、アドバンストサーバーアクセスのクライアントは次を実行します。</p>
-                                                    <ol>
-                                                        <li value="1">アドバンストサーバーアクセスのプラットフォームと通信して、アクセスブローカーへの認証に使用できる短時間のみ有効な資格情報を取得します。</li>
-                                                        <li value="2">オプションとして、中間要塞サーバを介してSSHトンネルを確立します。いずれかの要塞が認証のためにアドバンストサーバーアクセスも使用する場合、短時間のみ有効な資格情報を透過的に取得します。</li>
-                                                        <li value="3">アドバンストサーバーアクセスのブローカー（該当する場合はSSHトンネルを経由) に接続して、プラットフォームに提供された短時間のみ有効な証明書を使用して認証します。また、クライアントは、中間者攻撃（man-in-the-middle attack）から防御するために、プラットフォームの提供する証明書に対し、サーバーのホスト証明書を比べて認証します。</li>
-                                                        <li value="4">クライアントはサーバー上のユーザーアカウントへのアクセスを要求します。この時点でブローカーは、エージェントがユーザーアカウントを有効にするよう要求します。</li>
-                                                        <li value="5">ブローカーを介してプロキシされたRDP接続をネゴシエートします。その後、クライアントはクライアントのランダムポート上でTCPサーバーを起動でき、このポートはブローカーを介してサーバー上のRDPサービスへプロキシされます。</li>
-                                                        <li value="6">クライアントは、現在クライアントがリスニングしているランダムなローカルポートを含む、接続情報の掲載されたRDP接続ファイルに書き込みます。その後、この構成でWindowsターミナル サービスのクライアントを開きます。</li>
-                                                    </ol>
-                                                    <p>RDPクライアントはローカルTCPに接続し、サーバー上のRDPサービスに転送されます。RDPサーバーは確認メッセージを表示せずに、ユーザーを自動的に認証できるようになります。</p>
-                                                    <p>ユーザーがログアウトすると、エージェントはユーザーのアカウントを自動的に無効化します。</p>
-                                                    <h2>サーバー構成</h2>
-                                                    <p>Windowsサーバーの構成は、Linuxの場合と同じ原則に従います。</p>
-                                                    <p>登録トークンを使用してサーバーを登録するには、トークンを次の場所に書き込みます。</p><span class="code">C:\windows\system32\config\systemprofile\AppData\Local\scaleft\enrollment.token </span>
-                                                    <p>または、AWSを使用している場合は、AWSアカウントをアドバンストサーバーアクセスのプロジェクトに関連付けることもできます。「<a href="cloud-deployment.htm" class="MCXref xref"> クラウドサーバーを展開する</a>」をご覧ください。</p>
-                                                    <p> アドバンストサーバーアクセスのサーバーツールのインストーラーは<a href="https://dist.scaleft.com/server-tools/windows/">ここから</a>入手可能です。</p>
-                                                    <p> アドバンストサーバーアクセスのサーバーツールは、次のuserdataスクリプトを使用してAWSに自動的にインストールすることができます。登録トークンを使用している場合は、必ず<code>$enrollment_token</code>の値を置き換えてください。AWSアカウントをアドバンストサーバーアクセスのプロジェクトに関連付けている場合、登録トークンを書き込む処理を担当するスクリプトの前半を省略することができます。</p>
-                                                    <p class="code">&lt;powershell&gt; </p>
-                                                    <p class="code"># 登録トークンを書き込む </p>
-                                                    <p class="code">$enrollment_token = "ENROLLMENT TOKEN GOES HERE"</p>
-                                                    <p class="code">$enrollment_token_path = "C:\windows\system32\config\systemprofile\AppData\Local\scaleft\enrollment.token" New-Item -ItemType directory -Path (Split-Path $enrollment_token_path -Parent) $enrollment_token | Out-File $enrollment_token_path -Encoding "ASCII"</p>
-                                                    <p class="code"> </p>
-                                                    <p class="code"># アドバンストサーバーアクセスサーバーツールをインストールする</p>
-                                                    <p class="code">$installer_url = "https://dist.scaleft.com/server-tools/windows/latest/ScaleFT-Server-Tools-latest.msi" </p>
-                                                    <p class="code">$installer_path = [System.IO.Path]::ChangeExtension([System.IO.Path]::GetTempFileName(), ".msi") (New-Object System.Net.WebClient).DownloadFile($installer_url, $installer_path) msiexec.exe /qb /I $installer_path</p>
-                                                    <p class="code">&lt;/powershell&gt;</p>
-                                                    <h3>サーバーに接続する</h3>
-                                                    <p>アドバンストサーバーアクセスを使用してRDPからサーバーに接続するには、次を実行します。</p><pre> <code>sft rdp &lt;server-name&gt; </code> </pre>
-                                                    <p>１つまたは複数の要塞を経由する必要がある場合は、次のような<code>--via</code> 引数を使用します。</p><pre> <code>sft rdp --via &lt;first.bastion&gt; --via &lt;second.bastion&gt; &lt;server&gt; </code> </pre>
-                                                    <div class="noteOkta">
-                                                        <img src="../../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="注" alt="注" />
-                                                        <p class="noteContent"><b>注</b>：Windows RDPクライアントを使用してWindowsサーバーをに接続すると、タイトルバーにループバックIPアドレスが表示されることがあります（例127.0.0.1）。</p>
-                                                    </div>
-                                                    <h3>パス</h3>
+                                                    <h1>Windows Internals</h1>
+                                                    <h2>開始する前に</h2>
                                                     <ul>
-                                                        <li>
-                                                            <p><b>State directory:</b> C:\Windows\System32\config\systemprofile\AppData\Local\scaleft</p>
+                                                        <li><a href="install-agent.htm" class="MCXref xref">アドバンストサーバーアクセスの サーバーエージェントをインストールする</a>
                                                         </li>
-                                                        <li>
-                                                            <p><b>Config file:</b> C:\Windows\System32\config\systemprofile\AppData\Local\scaleft\sftd.yaml</p>
-                                                        </li>
-                                                        <li>
-                                                            <p><b>Log directory:</b> C:\Windows\System32\config\systemprofile\AppData\Local\scaleft\Logs</p>
-                                                        </li>
-                                                        <li>
-                                                            <p><b>Enrollment token:</b> C:\windows\system32\config\systemprofile\AppData\Local\scaleft\enrollment.token</p>
+                                                        <li><a href="sft.htm" class="MCXref xref">アドバンストサーバーアクセスのクライアントをインストールする</a>
                                                         </li>
                                                     </ul>
+                                                    <div>
+                                                        <p>サーバーエージェントをインストールしてサーバーを登録した後、サーバーエージェントは、関連プロジェクトの一部であるアドバンストサーバーアクセスのすべてのユーザーに対し、ローカルサーバーのアカウントを作成します。Windowsでは、接続がアクティブにならない限り、これらのアカウントは無効になっています。</p>
+                                                        <p>Windowsでは、関連するアクセスブローカープロセスがリモートデスクトッププロトコル (RDP) 接続のプロキシの設定を担います。ポート4421を使用して、サーバーへのRDP接続を正常に行うには、このプロセスが必要です。詳細については、「<a href="sftd-configure.htm#access" class="MCXref xref"> </a>」を参照してください。</p>
+                                                    </div>
+                                                    <div>
+                                                        <h2>サーバー構成</h2>
+                                                        <p>Windowsの場合、アドバンストサーバーアクセスのサーバーエージェントは<span class="code">LocalSystem</span>アカウントで実行されます。アドバンストサーバーアクセスの<span class="disableGlossary">サーバーエージェント</span>は、構成ファイルを手動で作成することで制御できます。Windowsの場合、このファイルは<span class="code">%LocalAppData%\scaleft\sftd.yaml</span>で手動で作成します。詳細については、「<a href="sftd-configure.htm" class="MCXref xref">アドバンストサーバーアクセスのサーバーエージェントを設定して使用する</a>」を参照してください。</p>
+                                                    </div>
+                                                    <div>
+                                                        <h2>接続および認証</h2>
+                                                        <p>WindowsへのRDP接続を開く際、アドバンストサーバーアクセスのクライアントは、アドバンストサーバー、任意の要塞、サーバー上で実行されているアクセスブローカーサービスに関するいくつかのアクションを実行します。 </p>
+                                                        <ol>
+                                                            <li value="1">クライアントはアドバンストサーバーアクセスと通信して短時間のみ有効な資格情報を受け取ります。<br />必要に応じて、クライアントは中間要塞サーバを介してSSHトンネルを確立することもできます。</li>
+                                                            <li value="2">クライアントは、サーバー上で実行されているアクセスブローカープロセスに接続し、短時間のみ有効な証明書を使用して認証します。</li>
+                                                            <li value="3">クライアントは、アドバンストサーバーアクセスによって供給された情報と照合して、ホスト証明書を認証します。<br />これは、中間者攻撃からの防御に役立ちます。</li>
+                                                            <li value="4">クライアントはサーバー上の関連アカウントへのアクセスを要求します。<br />サーバー上で、アクセスブローカーはサーバーエージェントにアカウントを有効にするための要求を送信します。</li>
+                                                            <li value="5">クライアントは、アクセスブローカーを介してプロキシされたRDP 接続をネゴシエートします。<br /></li>
+                                                            <li value="6">クライアントはクライアントデバイス上のランダムポートのTCPサーバーを開始します。<br />通信は、アクセスブローカーを経由して、サーバー上で実行されているRDP サービスにプロキシされます。</li>
+                                                            <li value="7">クライアントはRDP接続を作成し、この構成でWindowsターミナルサービスのクライアントを開きます。</li>
+                                                            <li value="8">RDPクライアントはローカルTCPに接続し、サーバー上のRDPサービスに転送されます。<br /></li>
+                                                        </ol>
+                                                        <p>RDPクライアントは自動的にユーザーとして認証します。</p>
+                                                    </div>
+                                                    <div>
+                                                        <h2>サーバー接続</h2>
+                                                        <p>RDP接続は<code>rdp</code>コマンド（<code>sft rdp &lt;server-name&gt; </code>）で開くことができます。1つ以上の要塞を横断する必要がある場合、<code>--via</code> arguments: <code>sft rdp --via &lt;first.bastion&gt; --via &lt;second.bastion&gt; &lt;server&gt; </code>を含めることができます。詳細については、「<a href="client.htm" class="MCXref xref">アドバンストサーバーアクセスのクライアントを使用する</a>」を参照してください。</p>
+                                                        <div class="noteOkta">
+                                                            <p class="noteContent">Windows RDPクライアントを接続する場合、タイトルバーにループバックIPアドレス（例：127.0.0.1）が表示されます。</p>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <h2>パス</h2>
+                                                        <p>アドバンストサーバーアクセスのサーバーエージェントのインストールに関連する情報は、AppData\Local\フォルダに保存されています。</p>
+                                                        <ul>
+                                                            <li><b>ステートディレクトリ</b>： <code>%LocalAppData%\scaleft</code></li>
+                                                            <li><b>構成ファイル</b>：<code>%LocalAppData%\scaleft\sftd.yaml</code><br /><b>注意</b>：構成ファイルを手動で作成する必要があります。</li>
+                                                            <li><b>ログディレクトリ</b>：<code>%LocalAppData%\scaleft\Logs</code><br /><b>注意</b>：ログファイルは5MBごとにローテーションされ、最新の10個のログファイルのみが保存されます。</li>
+                                                            <li><b>登録トークン</b>：<code>%LocalAppData%\scaleft\enrollment.token</code></li>
+                                                        </ul>
+                                                    </div>
                                                     <h2>関連項目</h2>
                                                     <p><a href="setup/enrolling-a-server.htm" class="MCXref xref">サーバーを登録する</a>
                                                     </p>
