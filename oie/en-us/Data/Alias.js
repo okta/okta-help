@@ -461,5 +461,6 @@ xmlAliasData += '    <Map Name=\"ext-ad-agent-import-groups\" Link=\"Topics/Dire
 xmlAliasData += '    <Map Name=\"ext-branding\" Link=\"Topics/Settings/branding.htm\" ResolvedId=\"15022\" />';
 xmlAliasData += '    <Map Name=\"ext-preset-auth-policies\" Link=\"Topics/identity-engine/policies/about-preset-auth-policies.htm\" ResolvedId=\"5007\" />';
 xmlAliasData += '    <Map Name=\"ext-configure-phone\" Link=\"Topics/identity-engine/authenticators/configure-phone.htm\" ResolvedId=\"5008\" />';
+xmlAliasData += '    <Map Name=\"ext-usgp-add-users\" Link=\"Topics/users-groups-profiles/usgp-add-users.htm\" ResolvedId=\"1516\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);

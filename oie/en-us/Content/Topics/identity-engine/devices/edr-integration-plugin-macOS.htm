@@ -331,7 +331,7 @@
                                                 <div role="main" id="mc-main-content">
                                                     <h1>Manage endpoint security integration plugins for macOS</h1>
                                                     <p>Endpoint security integration plugins extend the functionality of the Okta endpoint security integration feature.</p>
-                                                    <p>To enable  plugins on macOS devices, you need to configure and deploy a <a href="managed-app-configs-macOS.htm">managed app configuration</a> using your device management solution. The configuration enables <span class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span> to collect trust signals from your EDR client running on the same device.</p>
+                                                    <p>To enable plugins on macOS devices, you need to configure and deploy a <a href="managed-app-configs-macOS.htm">managed app configuration</a> using your device management solution. The configuration enables <span class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span> to collect trust signals from your EDR client running on the same device.</p>
                                                     <div class="noteOkta">
                                                         <p class="noteContent">Currently, Okta EDR integration for macOS only supports CrowdStrike ZTA. Support for other EDR solutions is planned for the future.</p>
                                                     </div>
@@ -356,20 +356,22 @@
                                                         <p>Verify that:</p>
                                                         <ul>
                                                             <li>EDR integration is enabled for your org</li>
-                                                            <li>macOS&#160;devices are: <ul><li>Configured for <a href="dt-main.htm"><span class="mc-variable okta-feature-names.Okta_Device_Trust variable">Okta Device Trust</span></a></li><li> <a href="device-registration.htm" target="_blank">Registered</a> with Okta</li><li>Managed by a device management solution that supports managed app configuration</li><li>Are running: <ul><li>macOS version 10.15 (Catalina) or later</li><li><span class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span> 1.9.0 or later</li><li>CrowdStrike Falcon Agent 6.20 or later</li></ul></li></ul></li>
+                                                            <li>macOS devices are:<ul><li>Configured for <a href="dt-main.htm"><span class="mc-variable okta-feature-names.Okta_Device_Trust variable">Okta Device Trust</span></a></li><li> <a href="device-registration.htm" target="_blank">Registered</a> with Okta</li><li>Managed by a device management solution that supports managed app configuration</li><li>Are running: <ul><li>macOS version 10.15 (Catalina) or later</li><li><span class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span> 1.9.0 or later</li><li>CrowdStrike Falcon Agent 6.20 or later</li></ul></li></ul></li>
                                                             <li>You are familiar with these <span class="mc-variable _3rd_Party_Integrations.Jamf_Pro variable">Jamf Pro</span> documents:<ul><li><a href="https://docs.jamf.com/10.26.0/jamf-pro/administrator-guide/Computer_Configuration_Profiles.html">Computer Configuration Profiles</a></li><li><a href="https://docs.jamf.com/technical-papers/jamf-pro/json-schema/10.19.0/Overview.html">Managing Settings for Computer Applications using JSON Schema and Jamf Pro</a></li></ul></li>
                                                         </ul>
                                                     </div>
                                                     <h2><a name="PLIST"></a>Managed app configuration</h2>
-                                                    <p>The managed app configuration contains information that <span class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span> uses to create the EDR integration plugin.  Entries in the configuration correspond to the EDR&#160;vendors that you  integrate with Okta.&#160;When users try to access a protected resource, <span class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span> reads the entry to  collect signals from the EDR. For example, the entry for CrowdStrike looks like this:</p>
-                                                    <div id="code">
-                                                        <p>{</p>
-                                                        <p>"name": "com.crowdstrike.zta",</p>
-                                                        <p>"description": "File based EDR integration between Okta Verify and the Crowdstrike Falcon agent.",</p>
-                                                        <p>"location": "/Library/Application Support/Crowdstrike/ZeroTrustAssessment/OVSignals.zta",</p>
-                                                        <p>"type": "FILE",</p>
-                                                        <p>"format": "JWT"</p>
-                                                        <p>}</p>
+                                                    <p>The managed app configuration contains information that <span class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span> uses to create the EDR integration plugin. Entries in the configuration correspond to the EDR vendors that you integrate with Okta. When users try to access a protected resource, <span class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span> reads the entry to collect signals from the EDR. For example, the entry for CrowdStrike looks like this:</p>
+                                                    <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
+                                                        <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="True"><pre><span class="codeSnippetLineNumbers" style="border-right: #AAA 2px solid;" aria-hidden="true">1
+2
+3
+4
+5
+6
+7
+</span><code>{<br />"name": "com.crowdstrike.zta",<br />"description": "File based EDR integration between Okta Verify and the Crowdstrike Falcon agent.",<br />"location": "/Library/Application Support/Crowdstrike/ZeroTrustAssessment/OVSignals.zta",<br />"type": "FILE",<br />"format": "JWT"<br />}</code></pre>
+                                                        </div>
                                                     </div>
                                                     <div class="noteOkta">
                                                         <p class="noteContent">Currently, as shown in the example entry, this EDR integration supports only "type": "FILE" and Crowdstrike.</p>
@@ -381,53 +383,77 @@
                                                     <p>In this example, you upload the managed app configurations and two distinct Preference Domains (bundle IDs) to <span class="mc-variable _3rd_Party_Integrations.Jamf_Pro variable">Jamf Pro</span>. The configuration must have the following properties:</p>
                                                     <ul>
                                                         <li>Identical entries but different names that correspond to their distinct Preference Domain (bundleID) in <span class="mc-variable _3rd_Party_Integrations.Jamf_Pro variable">Jamf Pro</span>.</li>
-                                                        <li>The configuration must include an entry with an array of all the integration names attached to:<ul><li><b>Key:</b> <span class="code">OktaVerify.Plugins</span></li></ul></li>
+                                                        <li>The configuration must include an entry with an array of all the integration names attached to:
+				<ul><li><b>Key:</b> <span class="code">OktaVerify.Plugins</span></li></ul></li>
                                                         <li>All other entries in the PLIST must be keys corresponding to dictionaries formatted as shown in the CrowdStrike entry example. The key should match the ”name” entry in the dictionary. For example, <span class="code">"OktaVerify.Plugins" = ["com.crowdstrike.zta"]</span>.</li>
                                                     </ul>
                                                     <h3><a name="Start"></a>Start this procedure</h3>
                                                     <ol>
-                                                        <li value="1">In <span class="mc-variable _3rd_Party_Integrations.Jamf_Pro variable">Jamf Pro</span>, go to <b>Computers &gt; Configuration Profiles &gt; + New</b>.</li>
-                                                        <li value="2">In the left pane, scroll down and select <b>Application &amp;&#160;Custom Settings</b>.</li>
+                                                        <li value="1">In <span class="mc-variable _3rd_Party_Integrations.Jamf_Pro variable">Jamf Pro</span>, go to <span class="uicontrol">Computers</span> &gt; <span class="uicontrol">Configuration Profiles</span> &gt; <span class="uicontrol">+ New</span>.</li>
+                                                        <li value="2">In the left pane, scroll down and select <span class="uicontrol">Application &amp; Custom Settings</span>.</li>
                                                         <li value="3">Choose a method for uploading the PLIST files to <span class="mc-variable _3rd_Party_Integrations.Jamf_Pro variable">Jamf Pro</span>:</li>
                                                         <ul>
-                                                            <li><b>External Applications</b>. Choose <b>Custom Schema</b>. See <a href="https://docs.jamf.com/technical-papers/jamf-pro/json-schema/10.19.0/Overview.html">Managing Settings for Computer Applications using JSON Schema and Jamf Pro</a><a href="https://docs.jamf.com/technical-papers/jamf-pro/json-schema/10.19.0/Overview.html">.</a></li>
-                                                            <li><b>Upload</b>. See <a href="https://docs.jamf.com/10.26.0/jamf-pro/administrator-guide/Computer_Configuration_Profiles.html">Computer Configuration Profiles</a>.</li>
+                                                            <li><span class="uicontrol">External Applications</span>. Choose <span class="uicontrol">Custom Schema</span>. See <a href="https://docs.jamf.com/technical-papers/jamf-pro/json-schema/10.19.0/Overview.html">Managing Settings for Computer Applications using JSON Schema and Jamf Pro</a><a href="https://docs.jamf.com/technical-papers/jamf-pro/json-schema/10.19.0/Overview.html">.</a></li>
+                                                            <li><span class="uicontrol">Upload</span>. See <a href="https://docs.jamf.com/10.26.0/jamf-pro/administrator-guide/Computer_Configuration_Profiles.html">Computer Configuration Profiles</a>.</li>
                                                         </ul>
-                                                        <li value="4">In your chosen upload method, enter two identical PLIST&#160;payloads. Each payload must have a distinct Preference Domain:<ul><li><b>First payload Preference Domain</b>: <span class="code">com.okta.mobile</span></li><li><b>Second payload Preference Domain</b>: <span class="code">com.okta.mobile.auth-service-extension</span></li><li><b>PLIST payload</b>. For example, here's a payload for integrating with CrowdStrike ZTA using <span class="mc-variable _3rd_Party_Integrations.Jamf_Pro variable">Jamf Pro</span>:</li><p>&#160;</p><div id="code"><p>&lt;?xml version="1.0" encoding="UTF-8"?&gt;</p><p>&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;</p><p>&lt;plist version="1.0"&gt;</p><p>&lt;managedAppConfiguration&gt;</p><p>&lt;dict&gt;</p><p>&lt;key&gt;OktaVerify.Plugins&lt;/key&gt;</p><p>&lt;array&gt;</p><p>&lt;string&gt;com.crowdstrike.zta&lt;/string&gt;</p><p>&lt;/array&gt;</p><p>&lt;key&gt;com.crowdstrike.zta&lt;/key&gt;</p><p>&lt;dict&gt;</p><p>&lt;key&gt;description&lt;/key&gt;</p><p>&lt;string&gt;description&lt;/string&gt;</p><p>&lt;key&gt;format&lt;/key&gt;</p><p>&lt;string&gt;JWT&lt;/string&gt;</p><p>&lt;key&gt;location&lt;/key&gt;</p><p>&lt;string&gt;/Library/Application Support/Crowdstrike/ZeroTrustAssessment/data.zta&lt;/string&gt;</p><p>&lt;key&gt;name&lt;/key&gt;</p><p>&lt;string&gt;com.crowdstrike.zta&lt;/string&gt;</p><p>&lt;key&gt;type&lt;/key&gt;</p><p>&lt;string&gt;file&lt;/string&gt;</p><p>&lt;/dict&gt;</p><p>&lt;/dict&gt;</p><p>&lt;/managedAppConfiguration&gt;</p><p>&lt;/plist&gt;</p></div></ul></li>
-                                                        <p>&#160;</p>
+                                                        <li value="4">In your chosen upload method, enter two identical PLIST payloads. Each payload must have a distinct Preference Domain:<ul><li><b>First payload Preference Domain</b>: <span class="code">com.okta.mobile</span></li><li><b>Second payload Preference Domain</b>: <span class="code">com.okta.mobile.auth-service-extension</span></li><li><b>PLIST payload</b>. For example, here's a payload for integrating with CrowdStrike ZTA using <span class="mc-variable _3rd_Party_Integrations.Jamf_Pro variable">Jamf Pro</span>:</li><p><div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a><div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="True"><pre><span class="codeSnippetLineNumbers" style="border-right: #AAA 2px solid;" aria-hidden="true">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+</span><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;<br />&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;<br />&lt;plist version="1.0"&gt;<br />&lt;managedAppConfiguration&gt;<br />&lt;dict&gt;<br />&lt;key&gt;OktaVerify.Plugins&lt;/key&gt;<br />&lt;array&gt;<br />&lt;string&gt;com.crowdstrike.zta&lt;/string&gt;<br />&lt;/array&gt;<br />&lt;key&gt;com.crowdstrike.zta&lt;/key&gt;<br />&lt;dict&gt;<br />&lt;key&gt;description&lt;/key&gt;<br />&lt;string&gt;description&lt;/string&gt;<br />&lt;key&gt;format&lt;/key&gt;<br />&lt;string&gt;JWT&lt;/string&gt;<br />&lt;key&gt;location&lt;/key&gt;<br />&lt;string&gt;/Library/Application Support/Crowdstrike/ZeroTrustAssessment/data.zta&lt;/string&gt;<br />&lt;key&gt;name&lt;/key&gt;<br />&lt;string&gt;com.crowdstrike.zta&lt;/string&gt;<br />&lt;key&gt;type&lt;/key&gt;<br />&lt;string&gt;file&lt;/string&gt;<br />&lt;/dict&gt;<br />&lt;/dict&gt;<br />&lt;/managedAppConfiguration&gt;<br />&lt;/plist&gt;</code></pre></div></div></p></ul></li>
                                                         <p>
                                                             <div class="noteOkta">
                                                                 <p class="noteContent">Currently the <span class="code">description</span> field in the PLIST is not used. You can use it to show a message to end users about the signals Okta collects and the benefits of this feature. </p>
                                                             </div>
                                                         </p>
-                                                        <p>&#160;</p>
-                                                        <li value="5">Go to the <b>Scope</b> tab and assign the configuration profile to the relevant end-user devices.</li>
+                                                        <li value="5">Go to the <span class="uicontrol">Scope</span> tab and assign the configuration profile to the relevant end-user devices.</li>
                                                     </ol>
                                                     <h2><a name="Verify"></a>Verify managed app configuration deployment</h2>
                                                     <p>There are a few ways to verify that the managed app configuration was deployed successfully to a given device. </p>
-                                                    <h3>Option 1:&#160;Check System Preferences</h3>
+                                                    <h3>Option 1: Check System Preferences</h3>
                                                     <ol>
-                                                        <li value="1">On the macOS&#160;device, open System Preferences. </li>
+                                                        <li value="1">On the macOS device, click the <span class="uicontrol">System Preferences</span> icon on the dock and hold it. </li>
                                                         <li value="2">
-                                                            <p>Open Profiles.</p>
+                                                            <p>Click <span class="uicontrol">Profiles</span>.</p>
                                                         </li>
                                                         <li value="3">
-                                                            <p>Under Device (Managed), verify that there's an entry for the profile you created in <span class="mc-variable _3rd_Party_Integrations.Jamf_Pro variable">Jamf Pro</span> is listed. For example, an entry may contain the information similar to this:</p>
+                                                            <p>Under <span class="uicontrol">Device (Managed)</span>, verify that there's an entry for the profile you created in <span class="mc-variable _3rd_Party_Integrations.Jamf_Pro variable">Jamf Pro</span> is listed. For example, an entry may contain the information similar to this:</p>
                                                             <ul>
-                                                                <li><b>Description:</b> deploy app config to macOS&#160;<span class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span> shared container.</li>
-                                                                <li><b>Signed:</b> JSS&#160;Built-In Signing Certificate</li>
-                                                                <li><b>Installed:</b>&#160;April 1, 2021 at 11:55 AM</li>
-                                                                <li><b>Settings:</b>&#160;Custom Settings</li>
+                                                                <li><b>Description:</b> deploy app config to macOS <span class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span> shared container.</li>
+                                                                <li><b>Signed</b>: JSS Built-In Signing Certificate</li>
+                                                                <li><b>Installed</b>: April 1, 2021 at 11:55 AM</li>
+                                                                <li><b>Settings</b>: Custom Settings</li>
                                                             </ul>
                                                         </li>
                                                     </ol>
                                                     <h3>Option 2: Look in <span class="code">/Library/Managed Preferences</span></h3>
                                                     <div class="noteOkta">
-                                                        <p class="noteContent">Make sure to open Library/Managed Preferences and not  Users Library folder.</p>
+                                                        <p class="noteContent">Make sure to open Library/Managed Preferences and not Users Library folder.</p>
                                                     </div>
                                                     <ol>
                                                         <li value="1">
-                                                            <p>On the macOS&#160;device, go to <span class="code">/Library/Managed Preferences</span>.</p>
+                                                            <p>On the macOS device, go to <span class="code">/Library/Managed Preferences</span>.</p>
                                                         </li>
                                                         <li value="2">
                                                             <p>Verify that the PLIST file is present in these locations:</p>
