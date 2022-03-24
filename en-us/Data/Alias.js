@@ -682,5 +682,6 @@ xmlAliasData += '    <Map Name=\"ext-apps-about-saml\" Link=\"Topics/Apps/apps-a
 xmlAliasData += '    <Map Name=\"ext-ad-agent-import-groups\" Link=\"Topics/Directory/ad-agent-import-groups.htm\" ResolvedId=\"15020\" />';
 xmlAliasData += '    <Map Name=\"ext-branding\" Link=\"Topics/Settings/branding.htm\" ResolvedId=\"15022\" />';
 xmlAliasData += '    <Map Name=\"ext-settings-configure-browser-plugin\" Link=\"Topics/Settings/settings-configure-browser-plugin.htm\" ResolvedId=\"15023\" />';
+xmlAliasData += '    <Map Name=\"ext-usgp-add-users\" Link=\"Topics/users-groups-profiles/usgp-add-users.htm\" ResolvedId=\"1516\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
