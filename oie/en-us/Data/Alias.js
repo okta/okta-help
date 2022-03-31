@@ -457,6 +457,8 @@ xmlAliasData += '    <Map Name=\"ext-deploy-guides\" Link=\"Topics/identity-engi
 xmlAliasData += '    <Map Name=\"ext-branding-variables\" Link=\"Topics/Settings/branding-variables.htm\" ResolvedId=\"5006\" />';
 xmlAliasData += '    <Map Name=\"csh-api\" Link=\"Topics/Security/API.htm\" ResolvedId=\"1510\" />';
 xmlAliasData += '    <Map Name=\"csh-customization\" Link=\"Topics/Settings/settings-customization-general.htm\" ResolvedId=\"1512\" />';
+xmlAliasData += '    <Map Name=\"ext-passwordless\" Link=\"Topics/password-optional/password-optional-disabled.htm\" ResolvedId=\"1514\" />';
+xmlAliasData += '    <Map Name=\"csh-passwordless\" Link=\"Topics/password-optional/password-optional-disabled.htm\" ResolvedId=\"1515\" />';
 xmlAliasData += '    <Map Name=\"ext-apps-about-swa\" Link=\"Topics/Apps/apps-about-swa.htm\" ResolvedId=\"15018\" />';
 xmlAliasData += '    <Map Name=\"ext-apps-about-saml\" Link=\"Topics/Apps/apps-about-saml.htm\" ResolvedId=\"15019\" />';
 xmlAliasData += '    <Map Name=\"ext-ad-agent-import-groups\" Link=\"Topics/Directory/ad-agent-import-groups.htm\" ResolvedId=\"15020\" />';
