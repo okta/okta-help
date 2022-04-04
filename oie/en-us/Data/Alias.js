@@ -469,5 +469,6 @@ xmlAliasData += '    <Map Name=\"ext-usgp-add-users\" Link=\"Topics/users-groups
 xmlAliasData += '    <Map Name=\"ext-custom-email-magic-link\" Link=\"Topics/Settings/settings-customize-email-magic-link.htm\" ResolvedId=\"6013\" />';
 xmlAliasData += '    <Map Name=\"ext-add-inline-hook\" Link=\"Topics/automation-hooks/add-inline-hooks.htm\" ResolvedId=\"5009\" />';
 xmlAliasData += '    <Map Name=\"ext-manage-auth-policies\" Link=\"Topics/identity-engine/policies/manage-auth-policies.htm\" ResolvedId=\"17033\" />';
+xmlAliasData += '    <Map Name=\"ext-mfa-usage\" Link=\"Topics/Reports/mfa-usage-report.htm\" ResolvedId=\"5010\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
