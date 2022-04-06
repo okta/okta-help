@@ -1,7 +1,6 @@
 var xmlAliasData = "";
 xmlAliasData += '<?xml version=\"1.0\" encoding=\"utf-8\"?>';
 xmlAliasData += '<CatapultAliasFile>';
-xmlAliasData += '    <Map Name=\"ext_Manage_Early_Access_features\" Link=\"Topics/Security/manage-EA-and-beta-features.htm\" ResolvedId=\"200156\" />';
 xmlAliasData += '    <Map Name=\"ext-Okta-workflows\" Link=\"Topics/Workflows/workflows-main.htm\" ResolvedId=\"1228\" />';
 xmlAliasData += '    <Map Name=\"ext-connect-your-apps\" Link=\"Topics/Workflows/workflow-connect-your-applications.htm\" ResolvedId=\"1229\" />';
 xmlAliasData += '    <Map Name=\"ext-build-a-flow\" Link=\"Topics/Workflows/workflows-build-a-flow.htm\" ResolvedId=\"1231\" />';
@@ -882,7 +881,6 @@ xmlAliasData += '    <Map Name=\"ext-okta-method-applicationdeactivated\" Link=\
 xmlAliasData += '    <Map Name=\"ext-okta-method-applicationdeleted\" Link=\"Topics/Workflows/connector-reference/okta/events/applicationdeleted.htm\" ResolvedId=\"31000\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-applicationupdated\" Link=\"Topics/Workflows/connector-reference/okta/events/applicationupdated.htm\" ResolvedId=\"31001\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-userpasswordimported\" Link=\"Topics/Workflows/connector-reference/okta/events/userpasswordimported.htm\" ResolvedId=\"31002\" />';
-xmlAliasData += '    <Map Name=\"ext_secur_manage_ea_bata\" Link=\"Topics/Security/manage-EA-and-beta-features.htm\" ResolvedId=\"3059\" />';
 xmlAliasData += '    <Map Name=\"ext-github-method-updatefilecontent\" Link=\"Topics/Workflows/connector-reference/github/actions/updatefilecontent.htm\" ResolvedId=\"31003\" />';
 xmlAliasData += '    <Map Name=\"ext-github-method-createbranch\" Link=\"Topics/Workflows/connector-reference/github/actions/createbranch.htm\" ResolvedId=\"31004\" />';
 xmlAliasData += '    <Map Name=\"ext-github-method-createfilecontent\" Link=\"Topics/Workflows/connector-reference/github/actions/createfilecontent.htm\" ResolvedId=\"31005\" />';
