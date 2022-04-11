@@ -33,3 +33,4 @@ This command will open a GUI. The tests can be run in browsers that you have ins
 
 FWIW, there is also a headless mode that can be run using the `yarn run cy:run` command.
 
+In some situations, Cypress will take screenshots to use as diffs for subsequent runs. For the time being, I'm hiding this directory from commits. 
