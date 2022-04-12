@@ -331,30 +331,29 @@
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
                                                     <h1><a name="top"></a>Risk scoring</h1>
-                                                    <p>Risk scoring uses a data-driven risk engine to determine whether each sign-in event is likely to represent unusual activity. Okta assigns a risk level to each sign in attempt by evaluating information such as the following:</p>
+                                                    <p>Risk scoring uses a data-driven risk engine to determine whether each sign-in event is likely to represent malicious activity. Okta assigns a risk level to each sign in attempt by evaluating information such as the following:</p>
                                                     <ul>
                                                         <li>The IP address used to make the sign-in request.</li>
                                                         <li>Behavioral information about the user who made the sign-in request. </li>
                                                         <li>Previous successful and failed sign-in attempts</li>
                                                         <li>Routing information associated with the request</li>
                                                     </ul>
-                                                    <p>You can use this risk assessment information when you configure  sign-on policy rules to take different actions based on the risk level of the sign-in event.  For example, you can configure a sign-on policy to require multifactor authentication if the sign-in attempt is identified as high risk.</p>
-                                                    <p>The risk engine automatically identifies all new user sign-on attempts as high risk. With each subsequent successful sign-on attempt, the risk engine gathers more information about the user’s sign-on activity and patterns and reduces the user's risk level. </p>
+                                                    <p>You can use this risk assessment information when you configure  sign-on policy rules to take different actions based on the risk level of the sign-in event.  For example, if you configure Okta sign-on policies to evaluate risk conditions, Okta uses information—such as the device details and location—to determine the risk level of the sign-in attempt. You can configure the policy to then take different actions based on the risk level assigned to the sign-in attempt. If a sign-in attempt is evaluated and identified as  "high" risk, you might require additional authentication  before granting access.</p>
+                                                    <p>The risk engine automatically identifies all new user sign-on attempts as "high" risk events. With each subsequent successful sign-on attempt, the risk engine gathers more information about the user’s sign-on activity and patterns and evaluates subsequent sign-in attempts relative to this baseline.</p>
                                                     <div class="noteOkta" data-mc-conditions="MultiProdPubish.OIE">
                                                         <div class="noteOkta">
                                                             <img src="../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Note" alt="Note" />
                                                             <p class="noteContent" data-mc-conditions="MultiProdPubish.OIE">For accurate risk evaluation and mitigation, trusted apps need to send a valid deviceToken to Okta.</p>
                                                         </div>
                                                     </div>
-                                                    <p>Risk scoring is designed to complement, not replace existing security tools and should not be used to:</p>
+                                                    <p>Risk scoring is designed to complement, not replace, existing security tools and should not be used to:</p>
                                                     <ul>
                                                         <li>Substitute bot management or automation detection</li>
                                                         <li>Replace Web Application Firewalls (WAFs)</li>
                                                         <li>Assist with any type of security compliance</li>
                                                     </ul>
-                                                    <p>You can also combine risk scoring with the<span class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span> <a href="../identity-engine/authenticators/configure-okta-verify-options.htm#Number">push notification number challenge</a> feature to add even more protection to sign-in activity. For example, if you configure Okta sign-on policies to evaluate risk conditions, Okta uses information—such as the device details and location—to determine the risk level of the sign-in attempt. You can configure the policy to then take different actions based on the risk level assigned to the sign-in attempt. For more information about the Okta Verify push notification number challenge, see <a href="../identity-engine/authenticators/configure-okta-verify-options.htm" class="MCXref xref">Configure Okta Verify options</a>.</p>
                                                     <h2><a name="Systemlog"></a>Risk-related information in System Log events</h2>
-                                                    <p>System Logs events record information about how the risk level was determined for each authentication attempt. For example, the risk level assigned to a sign-in event might be based on any combination of the following factors:</p>
+                                                    <p>System Log events record information about how the risk level was determined for each authentication attempt. For example, the risk level for a sign-in event might be based on any combination of the following factors:</p>
                                                     <ul>
                                                         <li>Anomalous location</li>
                                                         <li>Anomalous device</li>
@@ -363,13 +362,17 @@
                                                     <p>To see details about the risk evaluation for an event, navigate to <span class="code">DebugContext</span> and <span class="code">DebugData</span>. For example: </p>
                                                     <p><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../Resources/Images/Security/DebugData-risk.png" data-mc-popup-alt="Risk evaluation in the System Log under DebugData"><img class="MCPopupThumbnail img imgthumbnail" data-mc-width="820" data-mc-height="314" src="../../Resources/Images/Security/DebugData-risk_thumb_220_220.png" alt="Risk evaluation in the System Log under DebugData" tabindex="" /></a>
                                                     </p>
-                                                    <p>In this example, the risk level for this sign-on attempt is Medium because the user signed on using a new device, as indicated by an Anomalous Device was detected.</p>
+                                                    <p>In this example, the risk level for this sign-on attempt is <span class="code">MEDIUM</span> because the user signed on using a new device, as indicated by <span class="code">reasons=Anomalous Device</span>.</p>
                                                     <p>You might notice that the <span class="code">ThreatSuspected</span> field is <span class="code">false</span> even though the risk level is Medium. If this sign-on attempt had been from an IP address suspected of potentially malicious activity, the  <span class="code">ThreatSuspected</span> field would display <span class="code">true</span>. </p>
                                                     <p>You can also query the System Log to view all events with a specific risk level. For example, to see a list of events identified as MEDIUM risk level, you can filter the System Log using the following query: </p>
                                                     <p class="code">debugContext.debugData.risk eq "{level=MEDIUM}"</p>
+                                                    <p>To see a list of events identified as HIGH risk level, you can filter the System Log using the following query: </p>
+                                                    <p class="code">debugContext.debugData.risk eq "{level=HIGH}"</p>
+                                                    <p>To see a list of events identified as LOW risk level, you can filter the System Log using the following query: </p>
+                                                    <p class="code">debugContext.debugData.risk eq "{level=LOW}"</p>
                                                     <p>By default, Okta  evaluates all sign-in requests for risk and changes in user behavior. If you don't configure rules to specifically evaluate the risk level of sign-in requests, the results of the risk and behavior evaluation are added to the <span class="code">DebugContext</span> in the System Log in a separate <span class="code">LogOnlySecurityData</span> field. <MadCap:conditionalText data-mc-conditions="MultiProdPubish.OIE"> See <a href="../identity-engine/oie-risk-behavior-eval.htm" class="MCXref xref">Risk and behavior evaluation</a></MadCap:conditionalText></p>
                                                     <h2><a name="Configureriskscoring"></a>Configure risk scoring</h2>
-                                                    <p>You can add risk scoring as a condition for any application or Okta sign-on policy rule. If you add risk scoring to a rule by selecting the <b>AND Risk is</b> condition, you can select a risk level  of <b>Low</b>, <b>Medium</b>, or <b>High</b>. </p>
+                                                    <p>You can add risk scoring as a condition for any application or Okta sign-on policy rule by setting the <b>AND Risk is</b> field for a rule to <b>Low</b>, <b>Medium</b>, or <b>High</b>. </p>
                                                     <p>Rules have the risk level set to <b>Any</b> by default.</p>
                                                     <p>To configure risk scoring:</p>
                                                     <ol>
