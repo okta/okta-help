@@ -53,6 +53,7 @@ xmlAliasData += '    <Map Name=\"ver-hist-mfa-cred-win\" Link=\"Topics/Settings/
 xmlAliasData += '    <Map Name=\"ver-hist-mfa-adfs\" Link=\"Topics/Settings/Version_Histories/Ver_History_Okta_MFA_Provider_for_ADFS.htm\" ResolvedId=\"1051\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-op-mfa-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_On-Prem_MFA_Agent.htm\" ResolvedId=\"1053\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-radius-server\" Link=\"Topics/Settings/Version_Histories/Ver_History_RADIUS_Server_Agent.htm\" ResolvedId=\"1054\" />';
+xmlAliasData += '    <Map Name=\"ver-hist-sharepoint-pp-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_Sharepoint_People_Picker_Agent.htm\" ResolvedId=\"1056\" />';
 xmlAliasData += '    <Map Name=\"pulse-radius-intg\" Link=\"Topics/integrations/pulse-secure-radius-intg.htm\" ResolvedId=\"1035\" />';
 xmlAliasData += '    <Map Name=\"ext_Access_Request_Workflow\" Link=\"Topics/Apps/apps-selfservice-main.htm\" ResolvedId=\"200008\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Active_Directory_Agent_appSettings_Definition\" Link=\"Topics/Directory/ad-agent-appsettings.htm\" ResolvedId=\"200009\" />';
@@ -153,6 +154,7 @@ xmlAliasData += '    <Map Name=\"ext_Ver_History_Okta_MFA_Provider_for_ADFS\" Li
 xmlAliasData += '    <Map Name=\"ext_Ver_History_On_Prem_MFA_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_On-Prem_MFA_Agent.htm\" ResolvedId=\"200206\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_OPP_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_OPP_Agent.htm\" ResolvedId=\"200207\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_RADIUS_Server_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_RADIUS_Server_Agent.htm\" ResolvedId=\"200208\" />';
+xmlAliasData += '    <Map Name=\"ext_Ver_History_Sharepoint_People_Picker_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_Sharepoint_People_Picker_Agent.htm\" ResolvedId=\"200210\" />';
 xmlAliasData += '    <Map Name=\"csh-java-ldap-agent\" Link=\"Topics/Directory/ldap-agent-manage-integration.htm\" ResolvedId=\"10000\" />';
 xmlAliasData += '    <Map Name=\"check-point-radius-intg\" Link=\"Topics/integrations/check-point-radius-intg.htm\" ResolvedId=\"1058\" />';
 xmlAliasData += '    <Map Name=\"vmware-horizon-radius-intg\" Link=\"Topics/integrations/vmware-horizon-radius-intg.htm\" ResolvedId=\"1059\" />';
@@ -473,5 +475,6 @@ xmlAliasData += '    <Map Name=\"ext-add-inline-hook\" Link=\"Topics/automation-
 xmlAliasData += '    <Map Name=\"ext-manage-auth-policies\" Link=\"Topics/identity-engine/policies/manage-auth-policies.htm\" ResolvedId=\"17033\" />';
 xmlAliasData += '    <Map Name=\"ext-mfa-usage\" Link=\"Topics/Reports/mfa-usage-report.htm\" ResolvedId=\"5010\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-saml-advanced\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SAML.htm#Show_Advanced_Settings\" ResolvedId=\"6014\" />';
+xmlAliasData += '    <Map Name=\"csh-browser-support\" Link=\"Topics/Miscellaneous/Platforms_Browser_OS_Support.htm\" ResolvedId=\"6015\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
