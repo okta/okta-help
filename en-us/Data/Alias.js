@@ -197,6 +197,7 @@ xmlAliasData += '    <Map Name=\"ext_Firewall_Whitelisting\" Link=\"Topics/Secur
 xmlAliasData += '    <Map Name=\"ext_Generating_a_Random_Password\" Link=\"Topics/Security/Generating_a_Random_Password.htm\" ResolvedId=\"200153\" />';
 xmlAliasData += '    <Map Name=\"ext_Identity_Providers\" Link=\"Topics/Security/Identity_Providers.htm\" ResolvedId=\"200154\" />';
 xmlAliasData += '    <Map Name=\"ext_Identity_Provider_Discovery\" Link=\"Topics/Security/Identity_Provider_Discovery.htm\" ResolvedId=\"200155\" />';
+xmlAliasData += '    <Map Name=\"ext_Manage_Early_Access_features\" Link=\"Topics/Security/manage-EA-and-beta-features.htm\" ResolvedId=\"200156\" />';
 xmlAliasData += '    <Map Name=\"ext_MFA\" Link=\"Topics/Security/MFA.htm\" ResolvedId=\"200157\" />';
 xmlAliasData += '    <Map Name=\"ext_MFA_App_Level\" Link=\"Topics/Security/MFA_App_Level.htm\" ResolvedId=\"200158\" />';
 xmlAliasData += '    <Map Name=\"ext_MFA_OnPrem\" Link=\"Topics/Security/MFA_OnPrem.htm\" ResolvedId=\"200160\" />';
@@ -569,6 +570,7 @@ xmlAliasData += '    <Map Name=\"ext_oag_integrate_apps\" Link=\"Topics/Access-G
 xmlAliasData += '    <Map Name=\"ext_oag_about_dns\" Link=\"Topics/Access-Gateway/about-oag-dns.htm\" ResolvedId=\"3056\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_config_idp_okta\" Link=\"Topics/Access-Gateway/configure-idp-okta.htm\" ResolvedId=\"3057\" />';
 xmlAliasData += '    <Map Name=\"ext_secur_browser_support\" Link=\"Topics/Miscellaneous/Platforms_Browser_OS_Support.htm\" ResolvedId=\"3058\" />';
+xmlAliasData += '    <Map Name=\"ext_secur_manage_ea_bata\" Link=\"Topics/Security/manage-EA-and-beta-features.htm\" ResolvedId=\"3059\" />';
 xmlAliasData += '    <Map Name=\"ext-bamboohr-provisioning\" Link=\"Topics/Provisioning/bamboohr/bamboohr-main.htm\" ResolvedId=\"8011\" />';
 xmlAliasData += '    <Map Name=\"csh-prioritize-profile-sources\" Link=\"Topics/users-groups-profiles/usgp-prioritize-profile-source.htm\" ResolvedId=\"15012\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_man_app_behave_postlogin\" Link=\"Topics/Access-Gateway/task-define-application-behaviors.htm#Post_logout_URL\" ResolvedId=\"3061\" />';
@@ -584,7 +586,6 @@ xmlAliasData += '    <Map Name=\"ext-apps-bookmark-app\" Link=\"Topics/Apps/Apps
 xmlAliasData += '    <Map Name=\"csh-duo\" Link=\"Topics/Security/Security_Duo.htm\" ResolvedId=\"2005\" />';
 xmlAliasData += '    <Map Name=\"csh-actionable-notifications\" Link=\"Topics/Mobile/okta-verify-sign-in.htm\" ResolvedId=\"1168\" />';
 xmlAliasData += '    <Map Name=\"csh-general-security\" Link=\"Topics/Security/Security_General.htm\" ResolvedId=\"2006\" />';
-xmlAliasData += '    <Map Name=\"csh-user-enumeration\" Link=\"Topics/Security/Security_General.htm#UserEnumeration\" ResolvedId=\"2007\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-yubikey\" Link=\"Topics/Security/mfa/yubikey.htm\" ResolvedId=\"2016\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-googleauth\" Link=\"Topics/Security/mfa/google-authenticator.htm\" ResolvedId=\"2017\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-duo\" Link=\"Topics/Security/Security_Duo.htm\" ResolvedId=\"2018\" />';
@@ -683,5 +684,7 @@ xmlAliasData += '    <Map Name=\"ext-settings-configure-browser-plugin\" Link=\"
 xmlAliasData += '    <Map Name=\"ext-usgp-add-users\" Link=\"Topics/users-groups-profiles/usgp-add-users.htm\" ResolvedId=\"1516\" />';
 xmlAliasData += '    <Map Name=\"ext-add-inline-hook\" Link=\"Topics/automation-hooks/add-inline-hooks.htm\" ResolvedId=\"5009\" />';
 xmlAliasData += '    <Map Name=\"ext-mfa-usage\" Link=\"Topics/Reports/mfa-usage-report.htm\" ResolvedId=\"5010\" />';
+xmlAliasData += '    <Map Name=\"csh-apps-aiw-saml-advanced\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SAML.htm#Show_Advanced_Settings\" ResolvedId=\"6014\" />';
+xmlAliasData += '    <Map Name=\"csh-browser-support\" Link=\"Topics/Miscellaneous/Platforms_Browser_OS_Support.htm\" ResolvedId=\"6015\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
