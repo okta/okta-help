@@ -17,12 +17,28 @@ describe('Test H.O.C.', () => {
 
   it('Classic/V1 release notes (en-US)', () => {
     cy.visit('en-us/Content/Topics/ReleaseNotes/okta-relnotes.htm')
-
+    cy.get('p[class="tile-title"]')
+      .should(($p) => {
+        expect($p).to.have.length(9)
+      })
+    cy.get('p[class="tile-title"] > a')
+      .each(($el) => {
+        cy.wrap($el)
+          .should('have.attr', 'href')
+      })
   })
 
   it('OIE release notes (en-US)', () => {
     cy.visit('oie/en-us/Content/Topics/ReleaseNotes/oie-relnotes.htm')
-
+    cy.get('p[class="tile-title"]')
+      .should(($p) => {
+        expect($p).to.have.length(3)
+      })
+    cy.get('p[class="tile-title"] > a')
+      .each(($el) => {
+        cy.wrap($el)
+          .should('have.attr', 'href')
+      })
   })
 
   it('Product documentation landing page (en-US)', () => {
@@ -48,12 +64,19 @@ describe('Test H.O.C.', () => {
     cy.get('div.dropdown-content > div > a')
       .should(($a) => {
         expect($a).to.have.length(9)
-        expect($a).to.have.attr('href')
+      })
+      .each(($el) => {
+        cy.wrap($el)
+          .should('have.attr', 'href')
       })
     // All eight tiles on landing page have links
     cy.get('div.body-main div.tiles div h3 a')
       .should(($div) => {
         expect($div).to.have.length(8)
+      })
+      .each(($el) => {
+        cy.wrap($el)
+          .should('have.attr', 'href')
       })
   })
 
@@ -80,12 +103,19 @@ describe('Test H.O.C.', () => {
     cy.get('div.dropdown-content > div > a')
       .should(($a) => {
         expect($a).to.have.length(9)
-        expect($a).to.have.attr('href')
+      })
+      .each(($el) => {
+        cy.wrap($el)
+          .should('have.attr', 'href')
       })
     // All eight tiles on landing page have links
     cy.get('div.body-main div.tiles div h3 a')
       .should(($div) => {
         expect($div).to.have.length(8)
+      })
+      .each(($el) => {
+        cy.wrap($el)
+          .should('have.attr', 'href')
       })
   })
 
@@ -120,12 +150,19 @@ describe('Test H.O.C.', () => {
     cy.get('div.dropdown-content > div > a')
       .should(($a) => {
         expect($a).to.have.length(9)
-        expect($a).to.have.attr('href')
+      })
+      .each(($el) => {
+        cy.wrap($el)
+          .should('have.attr', 'href')
       })
     // All nine tiles on landing page have links
     cy.get('div.body-main div.tiles div h3 a')
       .should(($div) => {
         expect($div).to.have.length(9)
+      })
+      .each(($el) => {
+        cy.wrap($el)
+          .should('have.attr', 'href')
       })
   })
 
@@ -162,10 +199,18 @@ describe('Test H.O.C.', () => {
         expect($a).to.have.length(9)
         expect($a).to.have.attr('href')
       })
+      .each(($el) => {
+        cy.wrap($el)
+          .should('have.attr', 'href')
+      })
     // All nine tiles on landing page have links
     cy.get('div.body-main div.tiles div h3 a')
       .should(($div) => {
         expect($div).to.have.length(9)
+      })
+      .each(($el) => {
+        cy.wrap($el)
+          .should('have.attr', 'href')
       })
   })
 
@@ -202,6 +247,10 @@ describe('Test H.O.C.', () => {
         expect($a).to.have.length(9)
         expect($a).to.have.attr('href')
       })
+      .each(($el) => {
+        cy.wrap($el)
+          .should('have.attr', 'href')
+      })
   })
 
   it('OIE landing page (ja-JP)', () => {
@@ -236,6 +285,10 @@ describe('Test H.O.C.', () => {
       .should(($a) => {
         expect($a).to.have.length(9)
         expect($a).to.have.attr('href')
+      })
+      .each(($el) => {
+        cy.wrap($el)
+          .should('have.attr', 'href')
       })
   })
 
@@ -272,6 +325,10 @@ describe('Test H.O.C.', () => {
         expect($a).to.have.length(9)
         expect($a).to.have.attr('href')
       })
+      .each(($el) => {
+        cy.wrap($el)
+          .should('have.attr', 'href')
+      })
   })
 
   it('ASA landing page (ja-JP)', () => {
@@ -306,6 +363,10 @@ describe('Test H.O.C.', () => {
       .should(($a) => {
         expect($a).to.have.length(9)
         expect($a).to.have.attr('href')
+      })
+      .each(($el) => {
+        cy.wrap($el)
+          .should('have.attr', 'href')
       })
   })
 
@@ -342,6 +403,10 @@ describe('Test H.O.C.', () => {
         expect($a).to.have.length(9)
         expect($a).to.have.attr('href')
       })
+      .each(($el) => {
+        cy.wrap($el)
+          .should('have.attr', 'href')
+      })
   })
 
   it('Workflows landing page (en-US)', () => {
@@ -377,6 +442,10 @@ describe('Test H.O.C.', () => {
         expect($a).to.have.length(9)
         expect($a).to.have.attr('href')
       })
+      .each(($el) => {
+        cy.wrap($el)
+          .should('have.attr', 'href')
+      })
   })
 
   it('Workflows landing page (ja-JP)', () => {
@@ -410,7 +479,10 @@ describe('Test H.O.C.', () => {
     cy.get('div.dropdown-content > div > a')
       .should(($a) => {
         expect($a).to.have.length(9)
-        expect($a).to.have.attr('href')
+      })
+      .each(($el) => {
+        cy.wrap($el)
+          .should('have.attr', 'href')
       })
   })
 
@@ -445,7 +517,10 @@ describe('Test H.O.C.', () => {
     cy.get('div.dropdown-content > div > a')
       .should(($a) => {
         expect($a).to.have.length(6)
-        expect($a).to.have.attr('href')
+      })
+      .each(($el) => {
+        cy.wrap($el)
+          .should('have.attr', 'href')
       })
   })
 
@@ -480,7 +555,10 @@ describe('Test H.O.C.', () => {
     cy.get('div.dropdown-content > div > a')
       .should(($a) => {
         expect($a).to.have.length(6)
-        expect($a).to.have.attr('href')
+      })
+      .each(($el) => {
+        cy.wrap($el)
+          .should('have.attr', 'href')
       })
   })
 
