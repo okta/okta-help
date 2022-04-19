@@ -12,6 +12,20 @@ describe('Browser loads English', () => {
     cy.visit('okta_help.htm?id=csh-index', {
       onBeforeLoad: (window) => {
         Object.defineProperty(window.navigator, 'language', {
+          value: 'ko-KR'
+        })
+        Object.defineProperty(window.navigator, 'languages', {
+          value: ['ko-KR']
+        })
+      }
+    })
+    cy.url().should('include', 'en-us/Content/index.htm')
+  })
+
+  it('when browser language is invalid', () => {
+    cy.visit('okta_help.htm?id=csh-index', {
+      onBeforeLoad: (window) => {
+        Object.defineProperty(window.navigator, 'language', {
           value: 'boo!'
         })
         Object.defineProperty(window.navigator, 'languages', {
