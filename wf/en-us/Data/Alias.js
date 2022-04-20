@@ -381,6 +381,7 @@ xmlAliasData += '    <Map Name=\"ext-office365admin-method-updateuser\" Link=\"T
 xmlAliasData += '    <Map Name=\"ext-office365admin-misc-authorization\" Link=\"Topics/Workflows/connector-reference/office365admin/overviews/authorization.htm\" ResolvedId=\"30406\" />';
 xmlAliasData += '    <Map Name=\"ext-office365mail\" Link=\"Topics/Workflows/connector-reference/office365mail/office365mail.htm\" ResolvedId=\"30407\" />';
 xmlAliasData += '    <Map Name=\"ext-office365mail-method-deleteemail\" Link=\"Topics/Workflows/connector-reference/office365mail/actions/deleteemail.htm\" ResolvedId=\"30408\" />';
+xmlAliasData += '    <Map Name=\"ext-office365mail-method-downloadmessageattachment\" Link=\"Topics/Workflows/connector-reference/office365mail/actions/downloadmessageattachment.htm\" ResolvedId=\"33081\" />';
 xmlAliasData += '    <Map Name=\"ext-office365mail-method-forwardemail\" Link=\"Topics/Workflows/connector-reference/office365mail/actions/forwardemail.htm\" ResolvedId=\"30410\" />';
 xmlAliasData += '    <Map Name=\"ext-office365mail-method-getmessage\" Link=\"Topics/Workflows/connector-reference/office365mail/actions/getmessage.htm\" ResolvedId=\"30411\" />';
 xmlAliasData += '    <Map Name=\"ext-office365mail-method-replytoemail\" Link=\"Topics/Workflows/connector-reference/office365mail/actions/replytoemail.htm\" ResolvedId=\"30412\" />';
@@ -822,7 +823,6 @@ xmlAliasData += '    <Map Name=\"ext-atlassianadmin-method-removeuserfromgroup\"
 xmlAliasData += '    <Map Name=\"ext-flow-history\" Link=\"Topics/Workflows/execute/see-history-flow-changed.htm\" ResolvedId=\"30719\" />';
 xmlAliasData += '    <Map Name=\"ext-clear-all-data\" Link=\"Topics/Workflows/execute/clear-all-data-flow-history.htm\" ResolvedId=\"30943\" />';
 xmlAliasData += '    <Map Name=\"ext-repair-invalid-flow\" Link=\"Topics/Workflows/execute/repair-invalid-flow.htm\" ResolvedId=\"30944\" />';
-xmlAliasData += '    <Map Name=\"ext-check-execution-history\" Link=\"Topics/Workflows/execute/check-execution-history.htm\" ResolvedId=\"30945\" />';
 xmlAliasData += '    <Map Name=\"ext-invalid-flows\" Link=\"Topics/Workflows/execute/inactive-flows.htm\" ResolvedId=\"30946\" />';
 xmlAliasData += '    <Map Name=\"ext-http-method-accept\" Link=\"Topics/Workflows/function-reference/HTTP/http_accept.htm\" ResolvedId=\"30947\" />';
 xmlAliasData += '    <Map Name=\"ext-configure-connection\" Link=\"Topics/Workflows/build/configure-connection.htm\" ResolvedId=\"30000\" />';
@@ -1188,6 +1188,7 @@ xmlAliasData += '    <Map Name=\"ext-office365admin-method-listcontactfolders\" 
 xmlAliasData += '    <Map Name=\"ext-office365admin-method-revokeusersigninsessions\" Link=\"Topics/Workflows/connector-reference/office365admin/actions/revokeusersigninsessions.htm\" ResolvedId=\"33073\" />';
 xmlAliasData += '    <Map Name=\"ext-office365admin-method-searchcontacts\" Link=\"Topics/Workflows/connector-reference/office365admin/actions/searchcontacts.htm\" ResolvedId=\"33074\" />';
 xmlAliasData += '    <Map Name=\"ext-office365admin-method-readusermanager\" Link=\"Topics/Workflows/connector-reference/office365admin/actions/readusermanager.htm\" ResolvedId=\"33075\" />';
+xmlAliasData += '    <Map Name=\"ext-office365mail-method-searchemails\" Link=\"Topics/Workflows/connector-reference/office365mail/actions/searchemails.htm\" ResolvedId=\"33077\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-searchsystemlogs\" Link=\"Topics/Workflows/connector-reference/okta/actions/searchsystemlogs.htm\" ResolvedId=\"33078\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-useraccountlocked\" Link=\"Topics/Workflows/connector-reference/okta/events/useraccountlocked.htm\" ResolvedId=\"33079\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-useraccountunlocked\" Link=\"Topics/Workflows/connector-reference/okta/events/useraccountunlocked.htm\" ResolvedId=\"33080\" />';
