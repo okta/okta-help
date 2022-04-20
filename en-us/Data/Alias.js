@@ -604,7 +604,7 @@ xmlAliasData += '    <Map Name=\"ext_oag_manage_deployment\" Link=\"Topics/Acces
 xmlAliasData += '    <Map Name=\"ext_oag_about_lb\" Link=\"Topics/Access-Gateway/about-load-balancers.htm\" ResolvedId=\"3069\" />';
 xmlAliasData += '    <Map Name=\"oag_ext_trouble_shooting_guide\" Link=\"Topics/Access-Gateway/trouble-shooting-guide.htm\" ResolvedId=\"3071\" />';
 xmlAliasData += '    <Map Name=\"oag_ext_about_log_levels\" Link=\"Topics/Access-Gateway/about-log-levels.htm\" ResolvedId=\"3072\" />';
-xmlAliasData += '    <Map Name=\"csh-custom-redirect\" Link=\"Topics/Settings/settings-redirect-to-custom-page.htm\" ResolvedId=\"5002\" />';
+xmlAliasData += '    <Map Name=\"csh-custom-redirect\" Link=\"Topics/Settings/settings-customization-general.htm\" ResolvedId=\"5002\" />';
 xmlAliasData += '    <Map Name=\"csh-o365-deploy\" Link=\"Topics/Apps/Office365-Deployment/deploy-main.htm\" ResolvedId=\"1392\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-learn-about\" Link=\"Topics/Apps/apps-overview-learn-about.htm\" ResolvedId=\"6004\" />';
 xmlAliasData += '    <Map Name=\"ext-apps-learn-about\" Link=\"Topics/Apps/apps-overview-learn-about.htm\" ResolvedId=\"6005\" />';
