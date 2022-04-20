@@ -17,6 +17,7 @@ describe('Test H.O.C.', () => {
 
   it('Classic/V1 release notes (en-US)', () => {
     cy.visit('en-us/Content/Topics/ReleaseNotes/okta-relnotes.htm')
+    // The relnotes page has nine tiles, each with a link
     cy.get('p[class="tile-title"]')
       .should(($p) => {
         expect($p).to.have.length(9)
@@ -30,6 +31,7 @@ describe('Test H.O.C.', () => {
 
   it('OIE release notes (en-US)', () => {
     cy.visit('oie/en-us/Content/Topics/ReleaseNotes/oie-relnotes.htm')
+    // The relnotes page has three tiles, each with a link
     cy.get('p[class="tile-title"]')
       .should(($p) => {
         expect($p).to.have.length(3)
@@ -57,10 +59,12 @@ describe('Test H.O.C.', () => {
       .should(($div) => {
         expect($div).to.have.length(5)
       })
+    // The page header has a menu bar
     cy.get('div.dropdown-content')
       .eq(0)
       .should('be.hidden')
       .invoke('show')
+    // The menu bar contains nine links
     cy.get('div.dropdown-content > div > a')
       .should(($a) => {
         expect($a).to.have.length(9)
@@ -96,10 +100,12 @@ describe('Test H.O.C.', () => {
       .should(($div) => {
         expect($div).to.have.length(5)
       })
+    // The page header has a menu bar
     cy.get('div.dropdown-content')
       .eq(0)
       .should('be.hidden')
       .invoke('show')
+    // The menu bar contains nine links
     cy.get('div.dropdown-content > div > a')
       .should(($a) => {
         expect($a).to.have.length(9)
@@ -133,6 +139,7 @@ describe('Test H.O.C.', () => {
     // Left-side nav pane (TOC)
     cy.get('ul.sidenav')
       .should('be.visible')
+    // Each TOC entry contains a link
     cy.get('ul.sidenav a')
       .each(($el) => {
         cy.wrap($el)
@@ -143,10 +150,12 @@ describe('Test H.O.C.', () => {
       .should(($div) => {
         expect($div).to.have.length(5)
       })
+    // The page header has a menu bar
     cy.get('div.dropdown-content')
       .eq(0)
       .should('be.hidden')
       .invoke('show')
+    // The menu bar has nine links
     cy.get('div.dropdown-content > div > a')
       .should(($a) => {
         expect($a).to.have.length(9)
@@ -180,6 +189,7 @@ describe('Test H.O.C.', () => {
     // Left-side nav pane (TOC)
     cy.get('ul.sidenav')
       .should('be.visible')
+    // Each TOC entry has a link
     cy.get('ul.sidenav a')
       .each(($el) => {
         cy.wrap($el)
@@ -190,14 +200,15 @@ describe('Test H.O.C.', () => {
       .should(($div) => {
         expect($div).to.have.length(5)
       })
+    // The page header has a menu bar
     cy.get('div.dropdown-content')
       .eq(0)
       .should('be.hidden')
       .invoke('show')
+    // The menu bar has nine links
     cy.get('div.dropdown-content > div > a')
       .should(($a) => {
         expect($a).to.have.length(9)
-        expect($a).to.have.attr('href')
       })
       .each(($el) => {
         cy.wrap($el)
@@ -238,14 +249,15 @@ describe('Test H.O.C.', () => {
       .should(($div) => {
         expect($div).to.have.length(5)
       })
+    // The page header has a menu bar
     cy.get('div.dropdown-content')
       .eq(0)
       .should('be.hidden')
       .invoke('show')
+    // The menu bar has nine links
     cy.get('div.dropdown-content > div > a')
       .should(($a) => {
         expect($a).to.have.length(9)
-        expect($a).to.have.attr('href')
       })
       .each(($el) => {
         cy.wrap($el)
@@ -267,6 +279,7 @@ describe('Test H.O.C.', () => {
     // Left-side nav pane (TOC)
     cy.get('ul.sidenav')
       .should('be.visible')
+    // Each TOC entry has a link
     cy.get('ul.sidenav a')
       .each(($el) => {
         cy.wrap($el)
@@ -277,14 +290,15 @@ describe('Test H.O.C.', () => {
       .should(($div) => {
         expect($div).to.have.length(5)
       })
+    // The page header has a menu bar
     cy.get('div.dropdown-content')
       .eq(0)
       .should('be.hidden')
       .invoke('show')
+    // The menu bar has nine links
     cy.get('div.dropdown-content > div > a')
       .should(($a) => {
         expect($a).to.have.length(9)
-        expect($a).to.have.attr('href')
       })
       .each(($el) => {
         cy.wrap($el)
@@ -306,6 +320,7 @@ describe('Test H.O.C.', () => {
     // Left-side nav pane (TOC)
     cy.get('ul.sidenav')
       .should('be.visible')
+    // Each TOC entry has a link
     cy.get('ul.sidenav a')
       .each(($el) => {
         cy.wrap($el)
@@ -316,14 +331,15 @@ describe('Test H.O.C.', () => {
       .should(($div) => {
         expect($div).to.have.length(5)
       })
+    // The page header has a menu bar
     cy.get('div.dropdown-content')
       .eq(0)
       .should('be.hidden')
       .invoke('show')
+    // The menu bar has nine links
     cy.get('div.dropdown-content > div > a')
       .should(($a) => {
         expect($a).to.have.length(9)
-        expect($a).to.have.attr('href')
       })
       .each(($el) => {
         cy.wrap($el)
@@ -345,6 +361,7 @@ describe('Test H.O.C.', () => {
     // Left-side nav pane (TOC)
     cy.get('ul.sidenav')
       .should('be.visible')
+    // Each TOC entry has a link
     cy.get('ul.sidenav a')
       .each(($el) => {
         cy.wrap($el)
@@ -355,14 +372,15 @@ describe('Test H.O.C.', () => {
       .should(($div) => {
         expect($div).to.have.length(5)
       })
+    // The page header has a menu bar
     cy.get('div.dropdown-content')
       .eq(0)
       .should('be.hidden')
       .invoke('show')
+    // The menu bar has nine links
     cy.get('div.dropdown-content > div > a')
       .should(($a) => {
         expect($a).to.have.length(9)
-        expect($a).to.have.attr('href')
       })
       .each(($el) => {
         cy.wrap($el)
@@ -384,6 +402,7 @@ describe('Test H.O.C.', () => {
     // Left-side nav pane (TOC)
     cy.get('ul.sidenav')
       .should('be.visible')
+    // Each TOC entry has a link
     cy.get('ul.sidenav a')
       .each(($el) => {
         cy.wrap($el)
@@ -394,14 +413,15 @@ describe('Test H.O.C.', () => {
       .should(($div) => {
         expect($div).to.have.length(5)
       })
+    // The page header has a menu bar
     cy.get('div.dropdown-content')
       .eq(0)
       .should('be.hidden')
       .invoke('show')
+    // The menu bar has nine links
     cy.get('div.dropdown-content > div > a')
       .should(($a) => {
         expect($a).to.have.length(9)
-        expect($a).to.have.attr('href')
       })
       .each(($el) => {
         cy.wrap($el)
@@ -423,6 +443,7 @@ describe('Test H.O.C.', () => {
     // Left-side nav pane (TOC)
     cy.get('ul.sidenav')
       .should('be.visible')
+    // Each TOC entry is a link
     cy.get('ul.sidenav a')
       .each(($el) => {
         cy.wrap($el)
@@ -433,14 +454,15 @@ describe('Test H.O.C.', () => {
       .should(($div) => {
         expect($div).to.have.length(5)
       })
+    // The page header has a menu bar
     cy.get('div.dropdown-content')
       .eq(0)
       .should('be.hidden')
       .invoke('show')
+    // The menu bar has nine links
     cy.get('div.dropdown-content > div > a')
       .should(($a) => {
         expect($a).to.have.length(9)
-        expect($a).to.have.attr('href')
       })
       .each(($el) => {
         cy.wrap($el)
@@ -462,6 +484,7 @@ describe('Test H.O.C.', () => {
     // Left-side nav pane (TOC)
     cy.get('ul.sidenav')
       .should('be.visible')
+    // Each TOC entry has a link
     cy.get('ul.sidenav a')
       .each(($el) => {
         cy.wrap($el)
@@ -472,10 +495,12 @@ describe('Test H.O.C.', () => {
       .should(($div) => {
         expect($div).to.have.length(5)
       })
+    // The page header has a menu bar
     cy.get('div.dropdown-content')
       .eq(0)
       .should('be.hidden')
       .invoke('show')
+    // The menu bar has nine links
     cy.get('div.dropdown-content > div > a')
       .should(($a) => {
         expect($a).to.have.length(9)
@@ -500,6 +525,7 @@ describe('Test H.O.C.', () => {
     // Left-side nav pane (TOC)
     cy.get('ul.sidenav')
       .should('be.visible')
+    // Each TOC entry is a link
     cy.get('ul.sidenav a')
       .each(($el) => {
         cy.wrap($el)
@@ -510,10 +536,12 @@ describe('Test H.O.C.', () => {
       .should(($div) => {
         expect($div).to.have.length(4)
       })
+    // The page header has a menu bar
     cy.get('div.dropdown-content')
       .eq(0)
       .should('be.hidden')
       .invoke('show')
+    // The menu bar has six links
     cy.get('div.dropdown-content > div > a')
       .should(($a) => {
         expect($a).to.have.length(6)
@@ -538,6 +566,7 @@ describe('Test H.O.C.', () => {
     // Left-side nav pane (TOC)
     cy.get('ul.sidenav')
       .should('be.visible')
+    // Each TOC entry has a link
     cy.get('ul.sidenav a')
       .each(($el) => {
         cy.wrap($el)
@@ -548,10 +577,12 @@ describe('Test H.O.C.', () => {
       .should(($div) => {
         expect($div).to.have.length(4)
       })
+    // The page header has a menu bar
     cy.get('div.dropdown-content')
       .eq(0)
       .should('be.hidden')
       .invoke('show')
+    // The menu bar has six links
     cy.get('div.dropdown-content > div > a')
       .should(($a) => {
         expect($a).to.have.length(6)
