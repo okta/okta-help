@@ -366,6 +366,7 @@ xmlAliasData += '    <Map Name=\"ext-passwordless-auth\" Link=\"Topics/identity-
 xmlAliasData += '    <Map Name=\"ext-create-mfa-policy\" Link=\"Topics/identity-engine/policies/create-mfa-policy.htm\" ResolvedId=\"1381\" />';
 xmlAliasData += '    <Map Name=\"ext-about-osop\" Link=\"Topics/identity-engine/policies/about-okta-sign-on-policies.htm\" ResolvedId=\"1382\" />';
 xmlAliasData += '    <Map Name=\"csh-asop-sq\" Link=\"Topics/identity-engine/policies/add-app-sign-on-policy-rule.htm#Security\" ResolvedId=\"18000\" />';
+xmlAliasData += '    <Map Name=\"csh-custom-redirect\" Link=\"Topics/Settings/settings-customization-general.htm\" ResolvedId=\"5002\" />';
 xmlAliasData += '    <Map Name=\"ext-get-started-oie\" Link=\"Topics/identity-engine/oie-get-started.htm\" ResolvedId=\"1383\" />';
 xmlAliasData += '    <Map Name=\"csh-o365-deploy\" Link=\"Topics/Apps/Office365-Deployment/deploy-main.htm\" ResolvedId=\"1392\" />';
 xmlAliasData += '    <Map Name=\"ext-oie-policies\" Link=\"Topics/identity-engine/policies/about-policies.htm\" ResolvedId=\"1393\" />';
@@ -443,7 +444,9 @@ xmlAliasData += '    <Map Name=\"ext-devices-lifecycle\" Link=\"Topics/identity-
 xmlAliasData += '    <Map Name=\"ext-org2org-intg\" Link=\"Topics/Provisioning/org2org/org2org-integrate.htm\" ResolvedId=\"13006\" />';
 xmlAliasData += '    <Map Name=\"csh-org2org-integration\" Link=\"Topics/Provisioning/org2org/org2org-main.htm\" ResolvedId=\"1505\" />';
 xmlAliasData += '    <Map Name=\"csh-mfa-enroll-report\" Link=\"Topics/Reports/mfa-enrollment-user-report.htm\" ResolvedId=\"9001\" />';
+xmlAliasData += '    <Map Name=\"csh-group-member-report\" Link=\"Topics/Reports/access/group-membership-report.htm\" ResolvedId=\"9002\" />';
 xmlAliasData += '    <Map Name=\"csh-user-acct-report\" Link=\"Topics/Reports/access/user-account-report.htm\" ResolvedId=\"9003\" />';
+xmlAliasData += '    <Map Name=\"csh-user-app-access-report\" Link=\"Topics/Reports/access/user-app-access-report.htm\" ResolvedId=\"9004\" />';
 xmlAliasData += '    <Map Name=\"csh-custom-otp\" Link=\"Topics/identity-engine/authenticators/custom-otp.htm\" ResolvedId=\"4041\" />';
 xmlAliasData += '    <Map Name=\"csh-email-verification\" Link=\"Topics/identity-engine/policies/create-profile-enrollment-policy-sr.htm#Create\" ResolvedId=\"1506\" />';
 xmlAliasData += '    <Map Name=\"csh-facebook-work\" Link=\"Topics/Provisioning/workplace/workplace-by-facebook-provisioning.htm\" ResolvedId=\"1507\" />';
