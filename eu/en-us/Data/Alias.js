@@ -58,5 +58,7 @@ xmlAliasData += '    <Map Name=\"ext-dashboard-app-drawer\" Link=\"Topics/end-us
 xmlAliasData += '    <Map Name=\"ext-plugin-download-install\" Link=\"Topics/end-user/plugin-download_install.htm\" ResolvedId=\"4042\" />';
 xmlAliasData += '    <Map Name=\"ext-restart-macos\" Link=\"Topics/end-user/ov-restart-macos.htm\" ResolvedId=\"17029\" />';
 xmlAliasData += '    <Map Name=\"ext-update-macos-version\" Link=\"Topics/end-user/ov-update-version-macos.htm\" ResolvedId=\"17030\" />';
+xmlAliasData += '    <Map Name=\"ext-csh-user-dashboard-overview\" Link=\"Topics/end-user/dashboard-overview.htm\" ResolvedId=\"15021\" />';
+xmlAliasData += '    <Map Name=\"csh-ov-setup-win\" Link=\"Topics/end-user/ov-setup-windows.htm\" ResolvedId=\"21001\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
