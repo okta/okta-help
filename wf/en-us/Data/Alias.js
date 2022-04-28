@@ -1203,5 +1203,6 @@ xmlAliasData += '    <Map Name=\"ext-jamfproclassicapi3d816a0a0b7a410fa88c3de81a
 xmlAliasData += '    <Map Name=\"ext-jamfproclassicapi3d816a0a0b7a410fa88c3de81a4aeccb-method-removemobiledevicefromstaticgroup16lm7oyoiin\" Link=\"Topics/Workflows/connector-reference/jamf/actions/removemobiledevicefromstaticmobiledevicegroup.htm\" ResolvedId=\"33095\" />';
 xmlAliasData += '    <Map Name=\"ext-connectorbuilder-dynamic-fields\" Link=\"Topics/Workflows/connector-builder/about-dynamic-fields.htm\" ResolvedId=\"31084\" />';
 xmlAliasData += '    <Map Name=\"ext-connectorbuilder-create-new-connector\" Link=\"Topics/Workflows/connector-builder/create-new-connector.htm\" ResolvedId=\"31085\" />';
+xmlAliasData += '    <Map Name=\"ext-securecodewarrior\" Link=\"Topics/Workflows/connector-reference/securecodewarrior/securecodewarrior.htm\" ResolvedId=\"31089\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
