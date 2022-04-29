@@ -620,7 +620,7 @@ xmlAliasData += '    <Map Name=\"csh-improved-ndbd\" Link=\"Topics/Security/beha
 xmlAliasData += '    <Map Name=\"ext_oag_tutor_configHA\" Link=\"Topics/Access-Gateway/one-day-tutorial-configHA.htm\" ResolvedId=\"3076\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_manage_certs_tf\" Link=\"Topics/Access-Gateway/managing-certificates-taskflow.htm\" ResolvedId=\"3077\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_troubleshooting\" Link=\"Topics/Access-Gateway/troubleshooting.htm\" ResolvedId=\"3078\" />';
-xmlAliasData += '    <Map Name=\"ext_secpol_lockout\" Link=\"Topics/Security/policies/configure-password-policies.htm#Lockout\" ResolvedId=\"18001\" />';
+xmlAliasData += '    <Map Name=\"ext_secpol_lockout\" Link=\"Topics/Security/policies/configure-password-policies.htm#lockout\" ResolvedId=\"18001\" />';
 xmlAliasData += '    <Map Name=\"csh-create-cstm-admin-resource-set\" Link=\"Topics/Security/custom-admin-role/create-admin-role-assignment-by-resource-set.htm\" ResolvedId=\"1432\" />';
 xmlAliasData += '    <Map Name=\"csh-create-cstm-admin-by-role\" Link=\"Topics/Security/custom-admin-role/create-admin-role-assignment-by-role.htm\" ResolvedId=\"1433\" />';
 xmlAliasData += '    <Map Name=\"csh-create-cstm-admin-admin\" Link=\"Topics/Security/custom-admin-role/create-admin-role-assignment-by-admin.htm\" ResolvedId=\"1434\" />';
@@ -686,5 +686,6 @@ xmlAliasData += '    <Map Name=\"ext-add-inline-hook\" Link=\"Topics/automation-
 xmlAliasData += '    <Map Name=\"ext-mfa-usage\" Link=\"Topics/Reports/mfa-usage-report.htm\" ResolvedId=\"5010\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-saml-advanced\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SAML.htm#Show_Advanced_Settings\" ResolvedId=\"6014\" />';
 xmlAliasData += '    <Map Name=\"csh-browser-support\" Link=\"Topics/Miscellaneous/Platforms_Browser_OS_Support.htm\" ResolvedId=\"6015\" />';
+xmlAliasData += '    <Map Name=\"ext-ip-address-allow-listing\" Link=\"Topics/Security/ip-address-allow-listing.htm\" ResolvedId=\"18009\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
