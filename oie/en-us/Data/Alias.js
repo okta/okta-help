@@ -462,6 +462,7 @@ xmlAliasData += '    <Map Name=\"ext-share-auth-policy\" Link=\"Topics/identity-
 xmlAliasData += '    <Map Name=\"ext-deploy-guides\" Link=\"Topics/identity-engine/guides/deploy-guides-home.htm\" ResolvedId=\"4043\" />';
 xmlAliasData += '    <Map Name=\"ext-branding-variables\" Link=\"Topics/Settings/branding-variables.htm\" ResolvedId=\"5006\" />';
 xmlAliasData += '    <Map Name=\"csh-api\" Link=\"Topics/Security/API.htm\" ResolvedId=\"1510\" />';
+xmlAliasData += '    <Map Name=\"csh-trusted-origins\" Link=\"Topics/Security/API-trusted-origins.htm\" ResolvedId=\"1511\" />';
 xmlAliasData += '    <Map Name=\"csh-customization\" Link=\"Topics/Settings/settings-customization-general.htm\" ResolvedId=\"1512\" />';
 xmlAliasData += '    <Map Name=\"ext-passwordless\" Link=\"Topics/password-optional/password-optional-disabled.htm\" ResolvedId=\"1514\" />';
 xmlAliasData += '    <Map Name=\"csh-passwordless\" Link=\"Topics/password-optional/password-optional-disabled.htm\" ResolvedId=\"1515\" />';
@@ -478,5 +479,6 @@ xmlAliasData += '    <Map Name=\"ext-manage-auth-policies\" Link=\"Topics/identi
 xmlAliasData += '    <Map Name=\"ext-mfa-usage\" Link=\"Topics/Reports/mfa-usage-report.htm\" ResolvedId=\"5010\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-saml-advanced\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SAML.htm#Show_Advanced_Settings\" ResolvedId=\"6014\" />';
 xmlAliasData += '    <Map Name=\"csh-browser-support\" Link=\"Topics/Miscellaneous/Platforms_Browser_OS_Support.htm\" ResolvedId=\"6015\" />';
+xmlAliasData += '    <Map Name=\"ext-ip-address-allow-listing\" Link=\"Topics/Security/ip-address-allow-listing.htm\" ResolvedId=\"18009\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
