@@ -330,20 +330,18 @@
                                                 <div role="main" id="mc-main-content">
                                                     <h1><span class="mc-variable okta-feature-names.PolicySync variable">PolicySync</span>: Attribute-Based Access Control</h1>
                                                     <p class="earlyaccess">This is an Early Access feature. To enable it, contact <a href="https://support.okta.com/help/s/">Okta Support</a>.</p>
-                                                    <p><span class="mc-variable workflows_connectors.Advanced_Server_Access variable">Advanced Server Access</span> admins often assign resources to projects that are grouped by product or team. For example, you might have separate projects for your accounting, marketing, and engineering teams. The standard method used to grant users access to a server in <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> is to enroll the server in a project, assign the users to a group, and then add that group to the project. This grants the members of the group access to all of the servers that are enrolled in the project.</p>
+                                                    <p><span class="mc-variable workflows_connectors.Advanced_Server_Access variable">Advanced Server Access</span> teams often assign resources to projects that are grouped by product or team. For example, you might have separate projects for your accounting, marketing, and engineering teams. The standard method used to grant users access to a server in <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> is to enroll the server in a project, assign the users to a group, and then add that group to the project. This grants the members of the group access to all of the servers that are enrolled in the project.</p>
                                                     <p>There is often a need to grant users access to a subset of servers in a project. For example, you might have a team of database administrators (DBAs) that need access to all of the database servers, regardless of which project a server is enrolled in. However, creating a separate project that only contains database servers would break the model of grouping resources by teams.  </p>
                                                     <p><span class="mc-variable okta-variables.ProductName variable">Okta</span> <span class="mc-variable okta-feature-names.PolicySync variable">PolicySync</span> enables <span class="mc-variable workflows_connectors.Advanced_Server_Access variable">Advanced Server Access</span> administrators to apply attribute-based access controls (ABAC) to user groups, which can be used to provide role-based access to resources. This is accomplished by applying labels to servers and selectors to groups, similar to how clients use label selectors to identify objects in Kubernetes.</p>
                                                     <ul>
-                                                        <li><a href="#Main" class="MCXref xref">Main concepts of PolicySync</a>
+                                                        <li><a href="#Main" class="MCXref xref">PolicySync concepts</a>
                                                         </li>
                                                         <li><a href="#Use" class="MCXref xref">Use labels and selectors for granular server access</a>
                                                         </li>
                                                         <li><a href="#Related" class="MCXref xref">Related topics</a>
                                                         </li>
                                                     </ul>
-                                                    <h2><a name="Prerequi"></a>
-                                                    </h2>
-                                                    <h2><a name="Main"></a>Main concepts of <span class="mc-variable okta-feature-names.PolicySync variable">PolicySync</span></h2>
+                                                    <h2><a name="Main"></a><span class="mc-variable okta-feature-names.PolicySync variable">PolicySync</span> concepts</h2>
                                                     <p>There are three main concepts used with <span class="mc-variable okta-feature-names.PolicySync variable">PolicySync</span>:&#160;authorized principals files, labels, and selectors. The following sections detail each of these concepts.</p>
                                                     <h3><a name="Authoriz"></a>Authorized principals file</h3>
                                                     <p><span class="mc-variable okta-variables.ProductName variable">Okta</span>&#160;<span class="mc-variable okta-feature-names.PolicySync variable">PolicySync</span> uses the OpenSSH daemon (sshd) <span class="code">AuthorizedPrincipalsFile</span> configuration option. See <a href="https://www.freebsd.org/cgi/man.cgi?query=sshd_config&amp;apropos=0&amp;sektion=0&amp;manpath=FreeBSD+11.0-RELEASE+and+Ports&amp;arch=default&amp;format=html" target="_blank">sshd_config</a> for more information on <span class="code">AuthorizedPrincipalsFile</span>.</p>
@@ -361,27 +359,14 @@
                                                         <p class="noteContent">While the <span class="mc-variable workflows_connectors.Advanced_Server_Access variable">Advanced Server Access</span> server agent, <span class="code">sftd</span>, modifies <span class="code">sshd_config</span>, it's highly recommended that you do not modify it, either manually or through automation. Modifying the contents of <span class="code">sshd_config</span> can lead to unsupported or broken configurations.</p>
                                                     </div>
                                                     <h3><a name="Labels"></a>Labels</h3>
-                                                    <p>Because labels can originate from multiple sources, <span class="mc-variable workflows_connectors.Advanced_Server_Access variable">Advanced Server Access</span> automatically adds a prefix to identify the source of the label. For example, if a <span class="code">build:trunk</span> label originated from the <span class="mc-variable workflows_connectors.Advanced_Server_Access variable">Advanced Server Access</span> API, an <span class="code">api</span> prefix would be added to appear as <span class="code">api.build:trunk</span>. This avoids conflicts when multiple sources use the same key (for example, if a label was specified by both the API and an <span class="mc-variable workflows_connectors.Advanced_Server_Access variable">Advanced Server Access</span>  server agent configuration file (<span class="code">sftd.yaml</span>)).</p>
+                                                    <p>Labels are applied to individual servers and allow <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> teams to categorize and sort server access. Labels are stored in a <span class="code">key:value</span> format to allow more flexibility for teams. For example, a server might have two labels, <span class="code">env:prod</span> and <span class="code">region:US</span>.</p>
+                                                    <p>Because labels can originate from multiple sources, <span class="mc-variable workflows_connectors.Advanced_Server_Access variable">Advanced Server Access</span> automatically adds a prefix to identify the source of the label. For example, if the <span class="code">env:prod</span> label originated from the <span class="mc-variable workflows_connectors.Advanced_Server_Access variable">Advanced Server Access</span> API, the <span class="code">api</span> prefix would be added to appear as <span class="code">api.env:prod</span>. This avoids conflicts if the same label was added from multiple sources (for example, if a label was specified by both the API and an <span class="mc-variable workflows_connectors.Advanced_Server_Access variable">Advanced Server Access</span>  server agent configuration file).</p>
                                                     <h3><a name="Server"></a>Server selectors</h3>
-                                                    <p>Server selectors on project groups have the following characteristics:</p>
+                                                    <p>Server selectors are applied to groups and control which servers are available to members of the group. Server selectors have the following characteristics:</p>
                                                     <ul>
-                                                        <li>
-                                                            <p>Users in a group with selectors only have access to servers that meet all of the requirements of that selector.</p>
-                                                        </li>
-                                                        <li>
-                                                            <p>Users who belong to multiple groups have access to servers that belong to the union of the selectors of those groups.</p>
-                                                        </li>
-                                                        <li>
-                                                            <p>Selector keys can optionally specify the label's source.</p>
-                                                            <ul>
-                                                                <li>
-                                                                    <p>If the source is included, then only servers that include that label from that source will match. For example, if you use the selector <span class="code">sftd.role=db</span>, then only servers whose sftd.yaml configuration file contains the label <span class="code">role: db</span> will match.</p>
-                                                                </li>
-                                                                <li>
-                                                                    <p>If the source is omitted, then any server that contains the specified label will match. For example, if you use the selector role=db, then any servers with the label <span class="code">aws.role: db</span> or <span class="code">sftd.role: db</span> will match.</p>
-                                                                </li>
-                                                            </ul>
-                                                        </li>
+                                                        <li>Users in a group with selectors only have access to servers that meet all of the requirements of that selector.</li>
+                                                        <li>Users who belong to multiple groups have access to servers that belong to the union of the selectors of those groups.</li>
+                                                        <li>Selector keys can optionally specify the label's source.<ul><li>If the source is included, then only servers that include that label from that source will match. For example, if you use the selector <span class="code">sftd.role=db</span>, only servers whose sftd.yaml configuration file contains the label <span class="code">role: db</span> will match.</li></ul><ul><li>If the source is omitted, then any server that contains the specified label will match. For example, if you use the selector <span class="code">role=db</span>, any servers with the label <span class="code">aws.role: db</span> or <span class="code">sftd.role: db</span> will match.</li></ul></li>
                                                     </ul>
                                                     <div class="note_cautionOkta">
                                                         <p class="noteContent">Carefully consider the configuration of your labels and selectors. You must ensure that your users have access to bastions in their projects to ensure that they can connect to the servers.</p>
@@ -397,23 +382,26 @@
                                                             <p>The servers in the project must be running <span class="mc-variable workflows_connectors.Advanced_Server_Access variable">Advanced Server Access</span> server agent version 1.52.1 or later.</p>
                                                         </li>
                                                     </ul>
-                                                    <h3><a name="Add"></a>Add a label to a server</h3>
-                                                    <p>You can define server labels to share with <span class="mc-variable workflows_connectors.Advanced_Server_Access variable">Advanced Server Access</span>. You must add labels to the server agent configuration file (sftd.yaml). See <a href="sftd-configure.htm" class="MCXref xref">Configure and use the Advanced Server Access server agent</a>.</p>
-                                                    <div class="noteOkta">
-                                                        <p class="noteContent">You must indent these options within a <span class="code">Labels</span> YAML dictionary using two spaces:</p>
-                                                        <p class="noteContent code">Labels:
-                            <br />&#160;&#160;<code>label_1: value_1</code><br />&#160;&#160;<code>label_2: value_2</code><br /></p>
-                                                    </div>
-                                                    <h3><a name="Add2"></a>Add a selector to a project group</h3>
-                                                    <p>You assign selectors at the project group level. To assign a selector:</p>
+                                                    <h3><a name="addLabel"></a>Add a label to a server</h3>
+                                                    <p>Teams can add labels from the <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> dashboard. Additionally, teams can also add labels directly to the server agent configuration file (sftd.yaml). See <a href="sftd-configure.htm#Policy" class="MCXref xref">PolicySync Labels</a>.</p>
                                                     <ol>
-                                                        <li value="1">Click <span class="uicontrol">Projects</span>.</li>
-                                                        <li value="2">Click the project that contains the group.</li>
-                                                        <li value="3">Switch to the <span class="uicontrol">Groups</span> tab.</li>
-                                                        <li value="4"> Click the gear <img src="../img/icon-gear.png" alt="gear icon" /> beside the project and select <span class="uicontrol">Edit</span>. </li>
-                                                        <li value="5">Ensure that <span class="uicontrol">Specific Servers</span> is selected in the <span class="uicontrol">Server Access</span> section.</li>
-                                                        <li value="6">Enter one or more server selectors in the <span class="uicontrol">Server Selector Tags</span> section, pressing <span class="uicontrol" style="font-weight: normal;">Enter</span> on your keyboard after entering each selector.</li>
-                                                        <li value="7">Click <span class="uicontrol">Submit</span>.</li>
+                                                        <li value="1">Open the <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> dashboard.</li>
+                                                        <li value="2">Click <span class="uicontrol">Projects</span> and open a project.</li>
+                                                        <li value="3">Go to the <span class="uicontrol">Servers</span> tab.</li>
+                                                        <li value="4"> Click the gear <img src="../img/icon-gear.png" alt="gear icon" /> beside a server and select <span class="uicontrol">Edit Labels</span>.</li>
+                                                        <li value="5">Enter one or more labels in the <span class="uicontrol">Add or Remove Labels</span> field, pressing <span class="userinput" style="font-weight: normal;">Enter</span> on your keyboard after entering each label.<br />Note: Labels must follow the <span class="code">key:value</span> format.</li>
+                                                        <li value="6">Click <span class="uicontrol">Submit</span> to save the labels.</li>
+                                                    </ol>
+                                                    <h3><a name="addSelect"></a>Add a server selector to a project group</h3>
+                                                    <p>Teams can assign selectors at the project group level. To assign a selector:</p>
+                                                    <ol>
+                                                        <li value="1">Open the <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> dashboard.</li>
+                                                        <li value="2">Click <span class="uicontrol">Projects</span> and open a project.</li>
+                                                        <li value="3">Go to the <span class="uicontrol">Groups</span> tab.</li>
+                                                        <li value="4"> Click the gear <img src="../img/icon-gear.png" alt="gear icon" /> beside a server and select <span class="uicontrol">Edit</span>.</li>
+                                                        <li value="5">Under Server Access, select <span class="uicontrol">Specific Servers</span>.</li>
+                                                        <li value="6">Enter one or more labels in the <span class="uicontrol">Server Selector Tags</span> field, pressing <span class="userinput" style="font-weight: normal;">Enter</span> on your keyboard after entering each label.<br />Note: Labels must follow the <span class="code">key:value</span> format.</li>
+                                                        <li value="7">Click <span class="uicontrol">Update Group</span> to save the selectors.</li>
                                                     </ol>
                                                     <h2><a name="Related"></a>Related topics</h2>
                                                     <p><a href="sftd-configure.htm" class="MCXref xref">Configure and use the Advanced Server Access server agent</a>
