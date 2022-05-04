@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="_Skins_okta_html5_topnav_nav_poc" data-mc-search-type="Stem" data-mc-help-system-file-name="okta_help.xml" data-mc-path-to-help-system="../../../../" data-mc-has-content-body="True" data-mc-toc-path="Deploy servers|[%=System.LinkedHeader%]" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic;Default" data-mc-preload-images="false" data-mc-in-preview-mode="false">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="_Skins_okta_html5_topnav_nav_poc" data-mc-search-type="Stem" data-mc-help-system-file-name="okta_help.xml" data-mc-path-to-help-system="../../../../" data-mc-has-content-body="True" data-mc-searchable="True" data-mc-toc-path="[%=System.LinkedHeader%]|[%=System.LinkedHeader%]" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic;Default" data-mc-preload-images="false" data-mc-in-preview-mode="false">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="typeofcontent" content="documentation" />
         <meta name="audience" content="admin workflows" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="description" content="Deploy Advanced Server Access to Ubuntu/Debian GCP instances using user data and a linked cloud account." /><title>Deploy a GCP server with a cloud account | Okta</title>
+        <meta name="description" content="Explains how to delete a passwordless certificate for an Advanced Server Access team." /><title>Delete a certificate | Okta</title>
         <meta charset="utf-8" />
         <meta name="description" content="" />
         <meta name="author" content="" />
@@ -76,8 +76,6 @@
 }
 
 </style>
-        <link href="../../../Resources/TableStyles/standard.css" rel="stylesheet" data-mc-stylesheet-type="table" />
-        <link rel="canonical" href="https://help.okta.com/asa/en-us/Content/Topics/Adv_Server_Access/docs/gcp-ubuntu-userdata-cloud.htm" />
         <script src="../../../../Resources/Scripts/jquery.min.js" type="text/javascript">
         </script>
         <script src="../../../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
@@ -329,135 +327,19 @@
                                             <div class="body-main">
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
-                                                    <h1>Deploy a GCP server with a cloud account</h1>
-                                                    <p>This topic explains how to deploy an&#160;Ubuntu or Debian Google Cloud Platform (GCP) server with systemd using user data and a linked GCP project.  You may need to modify this process to fit your specific needs</p>
-                                                    <p>Creating a cloud server with user data means that the <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> server agent is simultaneously installed when you create a server with a cloud provider.&#160;Using user data to install software on a new cloud server can be done through any cloud provider. Installing the <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> Agent on a cloud server doesn't have to be done when the cloud server is created, but running the installation as a startup script alongside a server's creation ensures that your cloud deployment is as safe and secure as possible. </p>
-                                                    <ul>
-                                                        <li><a href="#Prerequi" class="MCXref xref">Prerequisites</a>
-                                                        </li>
-                                                        <li><a href="#Token" class="MCXref xref">Create a GCP project</a>
-                                                        </li>
-                                                        <li><a href="#Attach" class="MCXref xref">Enroll your GCP project in Advanced Server Access</a>
-                                                        </li>
-                                                        <li><a href="#Create" class="MCXref xref">Create  a virtual machine with user data</a>
-                                                        </li>
-                                                        <li><a href="#Next" class="MCXref xref">Next steps</a>
-                                                        </li>
-                                                    </ul>
-                                                    <h2><a name="Prerequi"></a>Prerequisites</h2>
-                                                    <h3>Google Cloud Platform</h3>
-                                                    <table style="width: 100%;border-collapse: collapse;border-spacing: 0px 0px;border-left-style: solid;border-left-width: 1px;border-left-color: #dcdcdc;border-right-style: solid;border-right-width: 1px;border-right-color: #dcdcdc;border-top-style: solid;border-top-width: 1px;border-top-color: #dcdcdc;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #dcdcdc;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
-                                                        <col class="TableStyle-standard-Column-Column1" />
-                                                        <col class="TableStyle-standard-Column-Column1" />
-                                                        <thead>
-                                                            <tr class="TableStyle-standard-Head-Header1">
-                                                                <th class="TableStyle-standard-HeadF-Column1-Header1">
-                                                                    <p>Requirement</p>
-                                                                </th>
-                                                                <th class="TableStyle-standard-HeadD-Column1-Header1">
-                                                                    <p>Description</p>
-                                                                </th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr class="TableStyle-standard-Body-Body1">
-                                                                <td class="TableStyle-standard-BodyC-Column1-Body1">Google Cloud Platform account</td>
-                                                                <td class="TableStyle-standard-BodyA-Column1-Body1">A Google Cloud Platform account is needed to access the GCP console, where you create virtual machines for your team. </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <h3>Advanced Server Access</h3>
-                                                    <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
-                                                        <col class="TableStyle-standard-Column-Column1" />
-                                                        <col class="TableStyle-standard-Column-Column1" />
-                                                        <thead>
-                                                            <tr class="TableStyle-standard-Head-Header1">
-                                                                <th class="TableStyle-standard-HeadF-Column1-Header1">
-                                                                    <p>Requirement</p>
-                                                                </th>
-                                                                <th class="TableStyle-standard-HeadD-Column1-Header1">
-                                                                    <p>Description</p>
-                                                                </th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr class="TableStyle-standard-Body-Body1">
-                                                                <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> team</td>
-                                                                <td class="TableStyle-standard-BodyD-Column1-Body1">The top-level object that represents an <span class="mc-variable okta-variables.ProductName variable">Okta</span> org within <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span>.</td>
-                                                            </tr>
-                                                            <tr class="TableStyle-standard-Body-Body2">
-                                                                <td class="TableStyle-standard-BodyC-Column1-Body2"><span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> project</td>
-                                                                <td class="TableStyle-standard-BodyA-Column1-Body2">The authorization-<span class="disableGlossary">scope</span> of your team, organizing your users, groups, and servers.</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <h2><a name="Token"></a>Create a GCP project</h2>
-                                                    <ol>
-                                                        <li value="1">Navigate to the Google Cloud Platform console and sign in to your account.</li>
-                                                        <li value="2">From the <span class="uicontrol">Select a project</span> menu, click <span class="uicontrol">New Project</span>.</li>
-                                                        <li value="3">Create a new name for your project and use the <span class="uicontrol">Location</span> field to set its parent organization or folder .</li>
-                                                        <li value="4">Click <span class="uicontrol">Create</span> when you've finished creating your project.</li>
-                                                        <li value="5">From the dashboard of your new project, copy the <span class="uicontrol">Project ID</span>&#160;number from the <span class="uicontrol">Project Info</span> section and store it in a safe location.
-                <p>Note:&#160;To locate the project dashboard, use the <span class="uicontrol">Select a project</span> field at the top of the console.</p></li>
-                                                    </ol>
-                                                    <h2><a name="Attach"></a>Enroll your GCP project in <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span></h2>
-                                                    <ol>
-                                                        <li value="1">
-				From the Google Cloud Platform console, use the <span class="uicontrol">Select a Project</span> dropdown to see a list of your projects. 
-			</li>
-                                                        <li value="2">Locate the ID&#160;of your Google Cloud Platform project in the ID column, and save it in a secure location.</li>
-                                                        <li value="3">Navigate to the Advanced Server Access dashboard and select <span class="uicontrol">Projects</span>.</li>
-                                                        <li value="4">Click the project that you want to link a cloud account to.</li>
-                                                        <li value="5">Switch to the <span class="uicontrol">Enrollment</span> tab. </li>
-                                                        <li value="6">Click <span class="uicontrol">Add Cloud Account</span>.</li>
-                                                        <li value="7">Select <span class="uicontrol">Google Cloud Platform (GCP)</span> as your cloud provider.</li>
-                                                        <li value="8">Enter your Google Cloud Platform project ID&#160;into the <span class="uicontrol">Account ID</span>&#160;field.</li>
-                                                        <li value="9">Click <span class="uicontrol">Submit</span> to finish enrolling your Google Cloud Platform project.</li>
-                                                    </ol>
-                                                    <h2><a name="Create"></a>Create  a virtual machine with user data</h2>
-                                                    <ol>
-                                                        <li value="1">From the GCP console, select&#160;<span class="uicontrol">Compute Engine</span> and then <span class="uicontrol">VM&#160;instances</span>.</li>
-                                                        <li value="2">If prompted, select your new project from the <span class="uicontrol">Select a project</span> dropdown.</li>
-                                                        <li value="3">Click <span class="uicontrol">Create</span>.<br /></li>
-                                                        <li value="4">Enter a name for your new server and set its region and zone. These values determine where your server is located.</li>
-                                                        <li value="5">Click <span class="uicontrol">Management, security, disks, networking, sole tenancy</span> to expand it.</li>
-                                                        <li value="6">Enter the following into the <span class="uicontrol">Startup Script</span> field:                    <pre xml:space="preserve"><p class="code">#!/bin/bash
-
-sudo mkdir -p /var/lib/sftd					
-export DEBIAN_FRONTEND=noninteractive
-					
-echo "Add a basic sftd configuration"
-sudo mkdir -p /etc/sft/
-sftcfg=$(cat &lt;&lt;EOF
----
-# CanonicalName: Specifies the name clients should use/see when connecting to this host.
-CanonicalName:            "ubuntu-target"
-EOF
-)
-					
-echo -e "$sftcfg" | sudo tee /etc/sft/sftd.yaml
-					
-echo "Retrieve information about new packages"
-sudo apt-get update
-					
-sudo apt-get install -y curl
-					
-echo "Add the ScaleFT testing apt repo to your /etc/apt/sources.list system config file"
-echo "deb http://pkg.scaleft.com/deb/ linux main" | sudo tee -a /etc/apt/sources.list
-					
-echo "Trust the repository signing key"
-curl -C - https://dist.scaleft.com/pki/scaleft_deb_key.asc | sudo apt-key add -
-					
-echo "Retrieve information about new packages"
-sudo apt-get update
-					
-echo "Install sftd"
-sudo apt-get install scaleft-server-tools</p></pre></li>
-                                                        <li value="7">Click <span class="uicontrol">Create</span>.</li>
-                                                    </ol>
-                                                    <h2><a name="Next"></a>Next steps</h2>
-                                                    <p><a href="verify-server-enrolled.htm" class="MCXref xref">Verify server enrollment</a>
-                                                    </p>
+                                                    <div data-mc-conditions="MultiProdPubish.PYPContent">
+                                                        <h1>Delete a certificate</h1>
+                                                        <p class="earlyaccess">This is an Early Access feature. To enable it, contact <a href="https://support.okta.com/help/s/">Okta Support</a>.</p>
+                                                        <p>Teams may want to delete expired or unnecessary certificates from the ASA dashboard. To reduce the chance of losing server access, teams can’t delete a certificate that is currently associated with any AD connections. Teams must first update the connections to use another certificate or authentication method. See <a href="ad-certs-add.htm" class="MCXref xref">Add a certificate to an Active Directory connection</a>.</p>
+                                                        <ol>
+                                                            <li value="1">Open the <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> dashboard.</li>
+                                                            <li value="2">In the user menu, click <span class="uicontrol">Team Settings</span>.</li>
+                                                            <li value="3">Go to the <span class="uicontrol">Passwordless Certificates</span> tab.&#160;</li>
+                                                            <li value="4">Identify the created certificate record.</li>
+                                                            <li value="5">Click <img src="../img/icon-gear.png" alt="gear icon" /> &gt; <span class="uicontrol">Delete</span>.</li>
+                                                            <li value="6">In the confirmation window, click <span class="uicontrol">Delete</span>.&#160;</li>
+                                                        </ol>
+                                                    </div>
                                                 </div>
                                                 <!-- Back to Top button --><a href="#" class="sf-back-to-top"><span class="arrow"></span>Top</a>
                                             </div>
