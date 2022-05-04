@@ -1201,8 +1201,17 @@ xmlAliasData += '    <Map Name=\"ext-jamfproclassicapi3d816a0a0b7a410fa88c3de81a
 xmlAliasData += '    <Map Name=\"ext-jamfproclassicapi3d816a0a0b7a410fa88c3de81a4aeccb-method-deletemobiledevicegroupnqhepfdal3c\" Link=\"Topics/Workflows/connector-reference/jamf/actions/deletemobiledevicegroup.htm\" ResolvedId=\"33093\" />';
 xmlAliasData += '    <Map Name=\"ext-jamfproclassicapi3d816a0a0b7a410fa88c3de81a4aeccb-method-addmobiledevicetostaticgroupm2dkr9idtzg\" Link=\"Topics/Workflows/connector-reference/jamf/actions/addmobiledevicetostaticmobiledevicegroup.htm\" ResolvedId=\"33094\" />';
 xmlAliasData += '    <Map Name=\"ext-jamfproclassicapi3d816a0a0b7a410fa88c3de81a4aeccb-method-removemobiledevicefromstaticgroup16lm7oyoiin\" Link=\"Topics/Workflows/connector-reference/jamf/actions/removemobiledevicefromstaticmobiledevicegroup.htm\" ResolvedId=\"33095\" />';
+xmlAliasData += '    <Map Name=\"ext-execution-limits\" Link=\"Topics/Workflows/learn/about-execution-limits.htm\" ResolvedId=\"31083\" />';
 xmlAliasData += '    <Map Name=\"ext-connectorbuilder-dynamic-fields\" Link=\"Topics/Workflows/connector-builder/about-dynamic-fields.htm\" ResolvedId=\"31084\" />';
 xmlAliasData += '    <Map Name=\"ext-connectorbuilder-create-new-connector\" Link=\"Topics/Workflows/connector-builder/create-new-connector.htm\" ResolvedId=\"31085\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-deviceactivated\" Link=\"Topics/Workflows/connector-reference/okta/events/deviceactivated.htm\" ResolvedId=\"33101\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-deviceaddedtouser\" Link=\"Topics/Workflows/connector-reference/okta/events/deviceaddedtouser.htm\" ResolvedId=\"33107\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-devicedeactivated\" Link=\"Topics/Workflows/connector-reference/okta/events/devicedeactivated.htm\" ResolvedId=\"33108\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-devicedelete\" Link=\"Topics/Workflows/connector-reference/okta/events/devicedeleted.htm\" ResolvedId=\"33109\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-deviceenrolled\" Link=\"Topics/Workflows/connector-reference/okta/events/deviceenrolled.htm\" ResolvedId=\"33110\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-devicesuspended\" Link=\"Topics/Workflows/connector-reference/okta/events/devicesuspended.htm\" ResolvedId=\"33112\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-deviceunsuspended\" Link=\"Topics/Workflows/connector-reference/okta/events/deviceunsuspended.htm\" ResolvedId=\"33113\" />';
 xmlAliasData += '    <Map Name=\"ext-securecodewarrior\" Link=\"Topics/Workflows/connector-reference/securecodewarrior/securecodewarrior.htm\" ResolvedId=\"31089\" />';
+xmlAliasData += '    <Map Name=\"ext-connectorbuilder-testconnections\" Link=\"Topics/Workflows/connector-builder/test-connections.htm\" ResolvedId=\"31090\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
