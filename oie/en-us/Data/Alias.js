@@ -141,6 +141,7 @@ xmlAliasData += '    <Map Name=\"ext_Settings_Configure_A_Custom_Email_Domain\" 
 xmlAliasData += '    <Map Name=\"ext_Settings_Customization\" Link=\"Topics/Settings/Settings_Customization.htm\" ResolvedId=\"200189\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Downloads\" Link=\"Topics/Settings/Settings_Downloads.htm\" ResolvedId=\"200190\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Email\" Link=\"Topics/Settings/Settings_Email.htm\" ResolvedId=\"200191\" />';
+xmlAliasData += '    <Map Name=\"ext_Settings_Manage_Dashboard_Tabs_for_End_Users\" Link=\"Topics/Settings/Settings_Manage_Dashboard_Tabs_for_End_Users.htm\" ResolvedId=\"200192\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_Active_Directory_Password_Sync_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_Active_Directory_Password_Sync_Agent.htm\" ResolvedId=\"200194\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_ADFS_Adapter\" Link=\"Topics/Settings/Version_Histories/Ver_History_Okta_MFA_Provider_for_ADFS.htm\" ResolvedId=\"200195\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_AD_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_AD_Agent.htm\" ResolvedId=\"200196\" />';
