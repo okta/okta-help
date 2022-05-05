@@ -362,7 +362,6 @@ xmlAliasData += '    <Map Name=\"csh-captcha\" Link=\"Topics/Security/Security_G
 xmlAliasData += '    <Map Name=\"csh-delete-legacy-dt\" Link=\"Topics/identity-engine/devices/dt-main.htm\" ResolvedId=\"12012\" />';
 xmlAliasData += '    <Map Name=\"ext-about-asop\" Link=\"Topics/identity-engine/policies/about-app-sign-on-policies.htm\" ResolvedId=\"1372\" />';
 xmlAliasData += '    <Map Name=\"ext-create-profile-enrollment\" Link=\"Topics/identity-engine/policies/create-profile-enrollment-policy-sr.htm\" ResolvedId=\"1373\" />';
-xmlAliasData += '    <Map Name=\"ext-passwordless-auth\" Link=\"Topics/identity-engine/procedures/configure-passwordless-auth.htm\" ResolvedId=\"1380\" />';
 xmlAliasData += '    <Map Name=\"ext-create-mfa-policy\" Link=\"Topics/identity-engine/policies/create-mfa-policy.htm\" ResolvedId=\"1381\" />';
 xmlAliasData += '    <Map Name=\"ext-about-osop\" Link=\"Topics/identity-engine/policies/about-okta-sign-on-policies.htm\" ResolvedId=\"1382\" />';
 xmlAliasData += '    <Map Name=\"csh-asop-sq\" Link=\"Topics/identity-engine/policies/add-app-sign-on-policy-rule.htm#Security\" ResolvedId=\"18000\" />';
@@ -464,6 +463,7 @@ xmlAliasData += '    <Map Name=\"ext-branding-variables\" Link=\"Topics/Settings
 xmlAliasData += '    <Map Name=\"csh-api\" Link=\"Topics/Security/API.htm\" ResolvedId=\"1510\" />';
 xmlAliasData += '    <Map Name=\"csh-trusted-origins\" Link=\"Topics/Security/API-trusted-origins.htm\" ResolvedId=\"1511\" />';
 xmlAliasData += '    <Map Name=\"csh-customization\" Link=\"Topics/Settings/settings-customization-general.htm\" ResolvedId=\"1512\" />';
+xmlAliasData += '    <Map Name=\"csh-trusted-origins-iframe\" Link=\"Topics/API/trusted-origins-iframe.htm\" ResolvedId=\"1513\" />';
 xmlAliasData += '    <Map Name=\"ext-passwordless\" Link=\"Topics/password-optional/password-optional-disabled.htm\" ResolvedId=\"1514\" />';
 xmlAliasData += '    <Map Name=\"csh-passwordless\" Link=\"Topics/password-optional/password-optional-disabled.htm\" ResolvedId=\"1515\" />';
 xmlAliasData += '    <Map Name=\"ext-apps-about-swa\" Link=\"Topics/Apps/apps-about-swa.htm\" ResolvedId=\"15018\" />';
@@ -479,9 +479,8 @@ xmlAliasData += '    <Map Name=\"ext-manage-auth-policies\" Link=\"Topics/identi
 xmlAliasData += '    <Map Name=\"ext-mfa-usage\" Link=\"Topics/Reports/mfa-usage-report.htm\" ResolvedId=\"5010\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-saml-advanced\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SAML.htm#Show_Advanced_Settings\" ResolvedId=\"6014\" />';
 xmlAliasData += '    <Map Name=\"csh-browser-support\" Link=\"Topics/Miscellaneous/Platforms_Browser_OS_Support.htm\" ResolvedId=\"6015\" />';
+xmlAliasData += '    <Map Name=\"csh-symantec-vip\" Link=\"Topics/identity-engine/authenticators/symantec-vip.htm\" ResolvedId=\"18008\" />';
 xmlAliasData += '    <Map Name=\"ext-ip-address-allow-listing\" Link=\"Topics/Security/ip-address-allow-listing.htm\" ResolvedId=\"18009\" />';
-xmlAliasData += '    <Map Name=\"ext-apps-about-oidc\" Link=\"Topics/Apps/apps-about-oidc.htm\" ResolvedId=\"11050\" />';
-xmlAliasData += '    <Map Name=\"ext-ad-agent-prerequisites\" Link=\"Topics/Directory/ad-agent-prerequisites.htm\" ResolvedId=\"11051\" />';
-xmlAliasData += '    <Map Name=\"ext-ad-agent-register-multipledomains\" Link=\"Topics/Directory/ad-agent-register-multipledomains.htm\" ResolvedId=\"11052\" />';
+xmlAliasData += '    <Map Name=\"csh-pe-policies\" Link=\"Topics/identity-engine/policies/about-profile-enrollment-policies.htm\" ResolvedId=\"6016\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
