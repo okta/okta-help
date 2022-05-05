@@ -676,6 +676,7 @@ xmlAliasData += '    <Map Name=\"ext-branding-variables\" Link=\"Topics/Settings
 xmlAliasData += '    <Map Name=\"csh-api\" Link=\"Topics/Security/API.htm\" ResolvedId=\"1510\" />';
 xmlAliasData += '    <Map Name=\"csh-trusted-origins\" Link=\"Topics/Security/API-trusted-origins.htm\" ResolvedId=\"1511\" />';
 xmlAliasData += '    <Map Name=\"csh-customization\" Link=\"Topics/Settings/settings-customization-general.htm\" ResolvedId=\"1512\" />';
+xmlAliasData += '    <Map Name=\"csh-trusted-origins-iframe\" Link=\"Topics/API/trusted-origins-iframe.htm\" ResolvedId=\"1513\" />';
 xmlAliasData += '    <Map Name=\"ext-apps-about-swa\" Link=\"Topics/Apps/apps-about-swa.htm\" ResolvedId=\"15018\" />';
 xmlAliasData += '    <Map Name=\"ext-apps-about-saml\" Link=\"Topics/Apps/apps-about-saml.htm\" ResolvedId=\"15019\" />';
 xmlAliasData += '    <Map Name=\"ext-ad-agent-import-groups\" Link=\"Topics/Directory/ad-agent-import-groups.htm\" ResolvedId=\"15020\" />';
@@ -687,8 +688,5 @@ xmlAliasData += '    <Map Name=\"ext-mfa-usage\" Link=\"Topics/Reports/mfa-usage
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-saml-advanced\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SAML.htm#Show_Advanced_Settings\" ResolvedId=\"6014\" />';
 xmlAliasData += '    <Map Name=\"csh-browser-support\" Link=\"Topics/Miscellaneous/Platforms_Browser_OS_Support.htm\" ResolvedId=\"6015\" />';
 xmlAliasData += '    <Map Name=\"ext-ip-address-allow-listing\" Link=\"Topics/Security/ip-address-allow-listing.htm\" ResolvedId=\"18009\" />';
-xmlAliasData += '    <Map Name=\"ext-apps-about-oidc\" Link=\"Topics/Apps/apps-about-oidc.htm\" ResolvedId=\"11050\" />';
-xmlAliasData += '    <Map Name=\"ext-ad-agent-prerequisites\" Link=\"Topics/Directory/ad-agent-prerequisites.htm\" ResolvedId=\"11051\" />';
-xmlAliasData += '    <Map Name=\"ext-ad-agent-register-multipledomains\" Link=\"Topics/Directory/ad-agent-register-multipledomains.htm\" ResolvedId=\"11052\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
