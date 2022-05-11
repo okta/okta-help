@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="_Skins_okta_html5_topnav_nav_poc" data-mc-search-type="Stem" data-mc-help-system-file-name="okta_help.xml" data-mc-path-to-help-system="../../../../" data-mc-has-content-body="True" data-mc-searchable="True" data-mc-toc-path="[%=System.LinkedTitle%]" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic;Default" data-mc-preload-images="false" data-mc-in-preview-mode="false">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="_Skins_okta_html5_topnav_nav_poc" data-mc-search-type="Stem" data-mc-help-system-file-name="okta_help.xml" data-mc-path-to-help-system="../../../../" data-mc-has-content-body="True" data-mc-searchable="True" data-mc-toc-path="[%=System.LinkedHeader%]" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic;Default" data-mc-preload-images="false" data-mc-in-preview-mode="false">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="typeofcontent" content="documentation" />
         <meta name="audience" content="admin workflows" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="description" content="Learn how to link Active Directory accounts to an existing Okta/Advanced Server Access User Profile." /><title>Configure Active Directory account mapping</title>
+        <meta name="description" content="Learn how to link Active Directory accounts to an existing Okta/Advanced Server Access User Profile." /><title>Configure Active Directory account mapping | Okta</title>
         <meta charset="utf-8" />
         <meta name="description" content="" />
         <meta name="author" content="" />
@@ -329,8 +329,6 @@
                                                 <div role="main" id="mc-main-content">
                                                     <div data-mc-conditions="MultiProdPubish.PYPContent">
                                                         <h1>Configure Active Directory account mapping</h1>
-                                                        <p class="earlyaccess">This is an Early Access feature. To enable it, contact <a href="https://support.okta.com/help/s/">Okta Support</a>.</p>
-                                                        <p data-mc-conditions="Primary.live-site-only">During the Early Access release,  admins must complete several tasks  to map Active Directory (AD) accounts into <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span>. Some steps in this process are only required during Early Access; when AD-Joined becomes more widely available, these changes will be proactively deployed to all teams.</p>
                                                         <h2>Before you begin</h2>
                                                         <ul>
                                                             <li>Integrate an AD domain into your <span class="mc-variable okta-variables.ProductName variable">Okta</span> org</li>
@@ -363,14 +361,34 @@
                                                             <h2><a name="populate-AD-attributes-for-ASA-users"></a>Map AD attributes to Okta profiles</h2>
                                                             <p>Next, you need to map AD attributes to your Okta user profiles. In the  Admin Console, open the Profile Editor, locate your AD directory integration, and click <span class="uicontrol">Mappings</span>. You need to use an Okta expression to map the AD attributes to a string array. Locate the field you just created and enter the following expression in the left column.<br /><code>Arrays.add(Arrays.toCsvString({}),appuser.userName)</code></p>
                                                         </div>
-                                                        <div data-mc-conditions="Primary.live-site-only">
-                                                            <h2><a name="add-attributes-to-the-ASA-user-profile-template"></a>Add attribute to the <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> profile template</h2>
-                                                            <p>Now you add a new attribute to the default <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> user profile. From the Admin Console, use the Profile Editor to add an attribute to the default <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> user profile with the following settings:</p>
+                                                        <div>
+                                                            <h2><a name="add-attributes-to-the-ASA-user-profile-template"></a>Add attributes to the <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> profile template</h2>
+                                                            <div class="noteOkta">
+                                                                <p class="noteContent">This process isn't required for new teams. Existing teams can contact <span class="mc-variable okta-variables.ProductName variable">Okta</span> support for assistance.</p>
+                                                            </div>
+                                                            <p>Next, you must add two attributes to the default <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> user profile. These attributes are used to specify any AD user accounts available to a user. Both attributes are required and must use the exact settings specified. </p>
+                                                            <p>In the Admin Console, use the Profile Editor to add attributes to the default <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> user profile. </p>
                                                             <div>
-                                                                <p class="code"><span class="uicontrol">Data type</span>: string array</p>
-                                                                <p class="code" style="font-weight: normal;"><span class="uicontrol">External name</span>: activeDirectoryIdentity</p>
-                                                                <p class="code" style="font-weight: normal;"><span class="uicontrol">External namespace</span>: urn:scim:schemas:scaleft:user:1.0</p>
-                                                                <p class="code" style="font-weight: normal;"><span class="uicontrol">Scope</span>: User personal</p>
+                                                                <h3>Active Directory Identity</h3>
+                                                                <ul>
+                                                                    <li><span class="uicontrol">Display name</span>: <span class="code">Active Directory Identity</span></li>
+                                                                    <li><span class="uicontrol">Description</span>: <span class="code">Comma-separated list of AD accounts available to an <span class="mc-variable okta-variables.ProductName variable">Okta</span> user. Users must manually enter a password when using these accounts.</span></li>
+                                                                    <li><span class="uicontrol">Data type</span>: <span class="code">string array</span></li>
+                                                                    <li><span class="uicontrol">External name</span>: <span class="code">activeDirectoryIdentity</span></li>
+                                                                    <li><span class="uicontrol">External namespace</span>: <span class="code">urn:scim:schemas:scaleft:user:1.0</span></li>
+                                                                    <li><span class="uicontrol">Scope</span>: <span class="code">User personal</span></li>
+                                                                </ul>
+                                                            </div>
+                                                            <div>
+                                                                <h3>Active Directory Passwordless Identity</h3>
+                                                                <ul>
+                                                                    <li><span class="uicontrol">Display name</span>: <span class="code">Active Directory Passwordless Identity</span></li>
+                                                                    <li><span class="uicontrol">Description</span>: <span class="code">Comma-separated list of AD accounts available to an <span class="mc-variable okta-variables.ProductName variable">Okta</span> user. Users don't need to enter a password when using these accounts.</span></li>
+                                                                    <li><span class="uicontrol">Data type</span>: <span class="code">string array</span></li>
+                                                                    <li><span class="uicontrol">External name</span>: <span class="code">activeDirectoryPasswordlessIdentity</span></li>
+                                                                    <li><span class="uicontrol">External namespace</span>: <span class="code">urn:scim:schemas:scaleft:user:1.0</span></li>
+                                                                    <li><span class="uicontrol">Scope</span>: <span class="code">User personal</span></li>
+                                                                </ul>
                                                             </div>
                                                             <div class="noteOkta">
                                                                 <p class="noteContent">Make sure to enter the <span class="uicontrol">External name</span> and <span class="uicontrol">External namespace</span> fields exactly as written.</p>
