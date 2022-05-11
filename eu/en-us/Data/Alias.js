@@ -59,6 +59,8 @@ xmlAliasData += '    <Map Name=\"ext-plugin-download-install\" Link=\"Topics/end
 xmlAliasData += '    <Map Name=\"ext-restart-macos\" Link=\"Topics/end-user/ov-restart-macos.htm\" ResolvedId=\"17029\" />';
 xmlAliasData += '    <Map Name=\"ext-update-macos-version\" Link=\"Topics/end-user/ov-update-version-macos.htm\" ResolvedId=\"17030\" />';
 xmlAliasData += '    <Map Name=\"ext-csh-user-dashboard-overview\" Link=\"Topics/end-user/dashboard-overview.htm\" ResolvedId=\"15021\" />';
-xmlAliasData += '    <Map Name=\"csh-ov-setup-win\" Link=\"Topics/end-user/ov-setup-windows.htm\" ResolvedId=\"21001\" />';
+xmlAliasData += '    <Map Name=\"ext-ov-setup-windows\" Link=\"Topics/end-user/ov-setup-windows.htm\" ResolvedId=\"21002\" />';
+xmlAliasData += '    <Map Name=\"ext-ov-ios-reset-register\" Link=\"Topics/end-user/ov-ios-reset-register.htm\" ResolvedId=\"4047\" />';
+xmlAliasData += '    <Map Name=\"ext-ov-andr-reset-register\" Link=\"Topics/end-user/ov-reset-register.htm\" ResolvedId=\"4048\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
