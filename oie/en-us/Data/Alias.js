@@ -485,5 +485,6 @@ xmlAliasData += '    <Map Name=\"csh-pe-policies\" Link=\"Topics/identity-engine
 xmlAliasData += '    <Map Name=\"ext-pe-policies\" Link=\"Topics/identity-engine/policies/about-profile-enrollment-policies.htm\" ResolvedId=\"6017\" />';
 xmlAliasData += '    <Map Name=\"ext-chromeos\" Link=\"Topics/identity-engine/chromeOS/chromeOS.htm\" ResolvedId=\"21003\" />';
 xmlAliasData += '    <Map Name=\"csh-devices-view\" Link=\"Topics/identity-engine/devices/devices-view.htm\" ResolvedId=\"21004\" />';
+xmlAliasData += '    <Map Name=\"csh-configure-footer\" Link=\"Topics/Settings/customizations-footer.htm\" ResolvedId=\"5011\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
