@@ -424,6 +424,7 @@ xmlAliasData += '    <Map Name=\"csh-blacklist-proxies-tor\" Link=\"Topics/Secur
 xmlAliasData += '    <Map Name=\"ext-ldap-get-started\" Link=\"Topics/Directory/ldap-agent-get-started.htm\" ResolvedId=\"1285\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Single_Logout\" Link=\"Topics/Apps/Apps_Single_Logout.htm\" ResolvedId=\"1286\" />';
 xmlAliasData += '    <Map Name=\"csh-dashboard\" Link=\"Topics/Dashboard/Dashboard.htm\" ResolvedId=\"1297\" />';
+xmlAliasData += '    <Map Name=\"csh-index\" Link=\"index.htm\" ResolvedId=\"1298\" />';
 xmlAliasData += '    <Map Name=\"ext_self_service_registration_policy\" Link=\"Topics/users-groups-profiles/usgp-self-service-registration.htm\" ResolvedId=\"1287\" />';
 xmlAliasData += '    <Map Name=\"ext-vend-spec-attr-group\" Link=\"Topics/integrations/fortinet-radius-intg.htm\" ResolvedId=\"1288\" />';
 xmlAliasData += '    <Map Name=\"ext-oag-manage-cert\" Link=\"Topics/Access-Gateway/manage-certificates.htm\" ResolvedId=\"1294\" />';
