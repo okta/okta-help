@@ -435,7 +435,7 @@ xmlAliasData += '    <Map Name=\"csh-usgp-map-attributes\" Link=\"Topics/users-g
 xmlAliasData += '    <Map Name=\"csh-AD-agent-main\" Link=\"Topics/Directory/ad-agent-main.htm\" ResolvedId=\"20006\" />';
 xmlAliasData += '    <Map Name=\"csh-csv-integration-main\" Link=\"Topics/Directory/csv-integration-main.htm\" ResolvedId=\"20007\" />';
 xmlAliasData += '    <Map Name=\"csh-assign-apps\" Link=\"Topics/users-groups-profiles/usgp-assign-apps.htm\" ResolvedId=\"20008\" />';
-xmlAliasData += '    <Map Name=\"ext-oie-version\" Link=\"Topics/identity-engine/oie-verify-version.htm\" ResolvedId=\"2027\" />';
+xmlAliasData += '    <Map Name=\"ext-oie-version\" Link=\"Topics/identity-engine/oie-get-started.htm\" ResolvedId=\"2027\" />';
 xmlAliasData += '    <Map Name=\"log-streaming\" Link=\"Topics/Reports/log-streaming/about-log-streams.htm\" ResolvedId=\"1500\" />';
 xmlAliasData += '    <Map Name=\"csh-about-asop\" Link=\"Topics/identity-engine/policies/about-app-sign-on-policies.htm\" ResolvedId=\"6011\" />';
 xmlAliasData += '    <Map Name=\"ext-integration-on-prem-mfa-logging\" Link=\"Topics/Security/MFA_OnPrem-logging.htm\" ResolvedId=\"3080\" />';
@@ -486,5 +486,9 @@ xmlAliasData += '    <Map Name=\"ext-pe-policies\" Link=\"Topics/identity-engine
 xmlAliasData += '    <Map Name=\"ext-chromeos\" Link=\"Topics/identity-engine/chromeOS/chromeOS.htm\" ResolvedId=\"21003\" />';
 xmlAliasData += '    <Map Name=\"csh-devices-view\" Link=\"Topics/identity-engine/devices/devices-view.htm\" ResolvedId=\"21004\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-footer\" Link=\"Topics/Settings/customizations-footer.htm\" ResolvedId=\"5011\" />';
+xmlAliasData += '    <Map Name=\"ext-lcm-user-app-assign\" Link=\"Topics/Provisioning/lcm/lcm-user-app-assign.htm\" ResolvedId=\"18012\" />';
+xmlAliasData += '    <Map Name=\"ext_ad_agent_register_multipledomains\" Link=\"Topics/Directory/ad-agent-register-multipledomains.htm\" ResolvedId=\"11050\" />';
+xmlAliasData += '    <Map Name=\"ext_ad_agent_prerequisites\" Link=\"Topics/Directory/ad-agent-prerequisites.htm\" ResolvedId=\"11051\" />';
+xmlAliasData += '    <Map Name=\"ext_apps_about_oidc\" Link=\"Topics/Apps/apps-about-oidc.htm\" ResolvedId=\"11053\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
