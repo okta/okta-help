@@ -73,6 +73,7 @@ xmlAliasData += '    <Map Name=\"ext_Apps_Overview_of_Managing_Apps_and_SSO\" Li
 xmlAliasData += '    <Map Name=\"ext_Apps_Revealing_the_Password\" Link=\"Topics/Apps/Apps_Revealing_the_Password.htm\" ResolvedId=\"200029\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Using_the_Confluence_On_Premises_SAML_App\" Link=\"Topics/Apps/Apps_Using_the_Confluence_On_Premises_SAML_App.htm\" ResolvedId=\"200031\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_VPN_Notification\" Link=\"Topics/Apps/Apps_VPN_Notification.htm\" ResolvedId=\"200032\" />';
+xmlAliasData += '    <Map Name=\"ext_CASB_config_guide\" Link=\"Topics/Apps/CASB-config-guide.htm\" ResolvedId=\"200033\" />';
 xmlAliasData += '    <Map Name=\"ext_Provisioning_Deprovisioning_Overview\" Link=\"Topics/Apps/Provisioning_Deprovisioning_Overview.htm\" ResolvedId=\"200034\" />';
 xmlAliasData += '    <Map Name=\"ext_Configure_Cust_Portal_Leverage_OktaPlugin\" Link=\"Topics/Dashboard/Configure_Cust_Portal_Leverage_OktaPlugin.htm\" ResolvedId=\"200036\" />';
 xmlAliasData += '    <Map Name=\"ext_Dashboard\" Link=\"Topics/Dashboard/Dashboard.htm\" ResolvedId=\"200037\" />';
@@ -424,7 +425,6 @@ xmlAliasData += '    <Map Name=\"csh-apps-aiw-oidc\" Link=\"Topics/Apps/Apps_App
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-saml\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SAML.htm\" ResolvedId=\"6007\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-swa\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SWA.htm\" ResolvedId=\"6008\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-scim\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SCIM.htm\" ResolvedId=\"6009\" />';
-xmlAliasData += '    <Map Name=\"csh-agent-auto-update-main\" Link=\"Topics/Directory/agent-auto-update-main.htm\" ResolvedId=\"15016\" />';
 xmlAliasData += '    <Map Name=\"csh-log-streams\" Link=\"Topics/Reports/log-streaming/about-log-streams.htm\" ResolvedId=\"13005\" />';
 xmlAliasData += '    <Map Name=\"ext-set-default-app-redirect\" Link=\"Topics/identity-engine/procedures/set-up-default-app-redirect.htm\" ResolvedId=\"6010\" />';
 xmlAliasData += '    <Map Name=\"administrator-email-settings\" Link=\"Topics/Security/custom-admin-role/administrator-email-settings.htm#top\" ResolvedId=\"19000\" />';
@@ -490,5 +490,6 @@ xmlAliasData += '    <Map Name=\"ext-lcm-user-app-assign\" Link=\"Topics/Provisi
 xmlAliasData += '    <Map Name=\"ext_ad_agent_register_multipledomains\" Link=\"Topics/Directory/ad-agent-register-multipledomains.htm\" ResolvedId=\"11050\" />';
 xmlAliasData += '    <Map Name=\"ext_ad_agent_prerequisites\" Link=\"Topics/Directory/ad-agent-prerequisites.htm\" ResolvedId=\"11051\" />';
 xmlAliasData += '    <Map Name=\"ext_apps_about_oidc\" Link=\"Topics/Apps/apps-about-oidc.htm\" ResolvedId=\"11053\" />';
+xmlAliasData += '    <Map Name=\"ext-oie-upgrade-eligibility\" Link=\"Topics/identity-engine/oie-upgrade-eligibility.htm\" ResolvedId=\"4049\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
