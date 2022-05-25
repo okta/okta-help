@@ -9,6 +9,7 @@ xmlAliasData += '    <Map Name=\"ext-asa-concepts\" Link=\"Topics/Adv_Server_Acc
 xmlAliasData += '    <Map Name=\"ext_asa_service_users\" Link=\"Topics/Adv_Server_Access/docs/service-users.htm\" ResolvedId=\"1302\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-install-sft\" Link=\"Topics/Adv_Server_Access/docs/sft.htm\" ResolvedId=\"1138\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-enroll-sft-overview\" Link=\"Topics/Adv_Server_Access/docs/enroll-clients.htm\" ResolvedId=\"1205\" />';
+xmlAliasData += '    <Map Name=\"ext-asa-enroll-sft\" Link=\"Topics/Adv_Server_Access/docs/enroll-clients.htm\" ResolvedId=\"1219\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-enroll-sft-silent\" Link=\"Topics/Adv_Server_Access/docs/silent-client-enroll.htm\" ResolvedId=\"1245\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-install-gateway\" Link=\"Topics/Adv_Server_Access/docs/install-gateway.htm\" ResolvedId=\"1299\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-deploy-server\" Link=\"Topics/Adv_Server_Access/docs/sftd.htm\" ResolvedId=\"1374\" />';
@@ -16,7 +17,7 @@ xmlAliasData += '    <Map Name=\"ext-asa-create-project\" Link=\"Topics/Adv_Serv
 xmlAliasData += '    <Map Name=\"ext-asa-groups\" Link=\"Topics/Adv_Server_Access/docs/setup/groups.htm\" ResolvedId=\"1376\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-supported-os\" Link=\"Topics/Adv_Server_Access/docs/supported-os.htm\" ResolvedId=\"1377\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-sftd-config\" Link=\"Topics/Adv_Server_Access/docs/sftd-configure.htm\" ResolvedId=\"1379\" />';
-xmlAliasData += '    <Map Name=\"ext-asa-enroll-server\" Link=\"Topics/Adv_Server_Access/docs/enroll-clients.htm\" ResolvedId=\"1391\" />';
+xmlAliasData += '    <Map Name=\"ext-asa-enroll-server\" Link=\"Topics/Adv_Server_Access/docs/setup/enrolling-a-server.htm\" ResolvedId=\"1391\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-releasenotes\" Link=\"Topics/ReleaseNotes/advanced-server-access-release-notes.htm\" ResolvedId=\"1402\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-set-prjatt\" Link=\"Topics/Adv_Server_Access/docs/set-project-level-attributes-in-adv-server-access.htm\" ResolvedId=\"1016\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-client\" Link=\"Topics/Adv_Server_Access/docs/client.htm\" ResolvedId=\"1418\" />';
@@ -27,7 +28,7 @@ xmlAliasData += '    <Map Name=\"csh-ad-sync-assignment\" Link=\"Topics/Adv_Serv
 xmlAliasData += '    <Map Name=\"csh-ad-sync-activate\" Link=\"Topics/Adv_Server_Access/docs/ad-sync-activate.htm\" ResolvedId=\"20002\" />';
 xmlAliasData += '    <Map Name=\"csh-ad-sync\" Link=\"Topics/Adv_Server_Access/docs/ad-sync.htm\" ResolvedId=\"20003\" />';
 xmlAliasData += '    <Map Name=\"csh-asa-install-server\" Link=\"Topics/Adv_Server_Access/docs/install-agent.htm\" ResolvedId=\"20009\" />';
-xmlAliasData += '    <Map Name=\"csh-asa-enroll-server\" Link=\"Topics/Adv_Server_Access/docs/enroll-clients.htm\" ResolvedId=\"20010\" />';
+xmlAliasData += '    <Map Name=\"csh-asa-enroll-server\" Link=\"Topics/Adv_Server_Access/docs/setup/enrolling-a-server.htm\" ResolvedId=\"20010\" />';
 xmlAliasData += '    <Map Name=\"csh-asa-overview\" Link=\"Topics/Adv_Server_Access/docs/asa-overview.htm\" ResolvedId=\"20011\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-client-windows\" Link=\"Topics/Adv_Server_Access/docs/sft-windows.htm\" ResolvedId=\"20012\" />';
 xmlAliasData += '</CatapultAliasFile>';
