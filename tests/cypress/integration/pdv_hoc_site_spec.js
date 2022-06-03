@@ -266,7 +266,7 @@ describe('Test H.O.C.', () => {
   })
 
   it('OIE landing page (ja-JP)', () => {
-    cy.visit('oie/ja-JP/Content/Topics/identity-engine/oie-index.htm')
+    cy.visit('oie/ja-jp/Content/Topics/identity-engine/oie-index.htm')
     // Logo image
     cy.get('img[title="Okta Support"]')
       .should('be.visible')
@@ -348,7 +348,7 @@ describe('Test H.O.C.', () => {
   })
 
   it('ASA landing page (ja-JP)', () => {
-    cy.visit('asa/ja-JP/Content/Topics/Adv_Server_Access/docs/asa-overview.htm')
+    cy.visit('asa/ja-jp/Content/Topics/Adv_Server_Access/docs/asa-overview.htm')
     // Logo image
     cy.get('img[title="Okta Support"]')
       .should('be.visible')
