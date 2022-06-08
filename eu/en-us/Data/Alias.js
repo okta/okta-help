@@ -51,6 +51,7 @@ xmlAliasData += '    <Map Name=\"ext-ov-add-acct-while-signin-macos\" Link=\"Top
 xmlAliasData += '    <Map Name=\"csh-ov-new-install-qr-ios\" Link=\"Topics/end-user/ov-new-install-qr-ios.htm\" ResolvedId=\"4038\" />';
 xmlAliasData += '    <Map Name=\"csh-ov-new-install-qr-android\" Link=\"Topics/end-user/ov-new-install-qr-android.htm\" ResolvedId=\"4039\" />';
 xmlAliasData += '    <Map Name=\"ext-ov-setup-macos\" Link=\"Topics/end-user/ov-setup-macos.htm\" ResolvedId=\"17027\" />';
+xmlAliasData += '    <Map Name=\"csh-dashboard-app-drawer\" Link=\"Topics/end-user/dashboard-app-drawer.htm\" ResolvedId=\"1499\" />';
 xmlAliasData += '    <Map Name=\"ext-sign-in-flows\" Link=\"Topics/end-user/sign-in-experience-changes.htm\" ResolvedId=\"18004\" />';
 xmlAliasData += '    <Map Name=\"csh-user-ov-manage-account-android\" Link=\"Topics/end-user/ov-mng-account-android.htm\" ResolvedId=\"4040\" />';
 xmlAliasData += '    <Map Name=\"csh-plugin-safari-permissions\" Link=\"Topics/end-user/plugin-safari-permissions.htm\" ResolvedId=\"1501\" />';
@@ -63,5 +64,6 @@ xmlAliasData += '    <Map Name=\"ext-ov-setup-windows\" Link=\"Topics/end-user/o
 xmlAliasData += '    <Map Name=\"ext-ov-ios-reset-register\" Link=\"Topics/end-user/ov-ios-reset-register.htm\" ResolvedId=\"4047\" />';
 xmlAliasData += '    <Map Name=\"ext-ov-andr-reset-register\" Link=\"Topics/end-user/ov-reset-register.htm\" ResolvedId=\"4048\" />';
 xmlAliasData += '    <Map Name=\"ext_user_dashboard_overview\" Link=\"Topics/end-user/dashboard-overview.htm\" ResolvedId=\"11052\" />';
+xmlAliasData += '    <Map Name=\"csh-ov-sign-in-device-android\" Link=\"Topics/end-user/ov-sign-in-device-android.htm\" ResolvedId=\"4050\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
