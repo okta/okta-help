@@ -319,33 +319,29 @@
                                                         <h2><a name="Backgrou"></a>Background</h2>
                                                         <p>In general, Secure Socket Layer(SSL/X509)&#160;certificates are used to:</p>
                                                         <ul>
-                                                            <li>Establish a secure connection between a client and a server. <br />For example:<ul style="list-style-type: circle;"><li>Client - A browser or VPN client</li><li>Server - &lt;your-org&gt;.okta.com or the Okta RADIUS agent</li></ul></li>
+                                                            <li>Establish a secure connection between a client and a server. For example:<ul style="list-style-type: circle;"><li>Client: A browser or VPN client</li><li>Server: <span class="url">&lt;your-org&gt;.okta.com</span> or the Okta RADIUS agent</li></ul></li>
                                                             <li>Encrypt communication to ensure that sensitive information is safe.</li>
                                                             <li>Authenticate an organization's identity.</li>
                                                         </ul>
                                                     </div>
                                                     <div>
                                                         <h2><a name="Certific"></a>Certificate use</h2>
-                                                        <p>Various subsystems including Okta RADIUS agents uses certificates to:</p>
-                                                        <ul>
-                                                            <li>Secure communications when using the Extensible Authentication Protocol /Tunneled Transport Layer Security protocol or EAP/TTLS. </li>
-                                                        </ul>
+                                                        <p>Certificates secure communications for subsystems (like Okta RADIUS agents) when they use Extensible Authentication Protocol/Tunneled Transport Layer Security (EAP/TTLS) or personal identify verification (PIV) smart cards.</p>
                                                     </div>
                                                     <h2>Certificate issuers and types</h2>
-                                                    <p>A digital certificate certifies the ownership of a public key by the named subject of the certificate.</p>
-                                                    <p>From an issuer perspective there are three certificate types:</p>
+                                                    <p>From an issuer's perspective, there are three certificate types:</p>
                                                     <ul>
-                                                        <li>Certificate Authority (Root CA) certificates are those owned and managed by certificate authorities (CAs). CAs are entities that issues digital certificates. </li>
-                                                        <li>Intermediate certificates are certificates granted to a company or by a company to a subordinate division. Intermediate certificates can be used by themselves but are often use to sign lower level intermediate certificates or end certificates.</li>
-                                                        <li>End certificates are certificates that are created by a individual company from one of their intermediate certificates for individual use.</li>
+                                                        <li>Certificate Authority (Root CA) certificates are those owned and managed by certificate authorities (CAs). CAs are entities that issue digital certificates. </li>
+                                                        <li>Intermediate certificates are granted to a company or by a company to a subordinate division. Intermediate certificates are often used to sign lower level intermediate certificates or end certificates.</li>
+                                                        <li>Entity certificates are created by an individual or a company from one of their intermediate certificates for individual use.</li>
                                                     </ul>
                                                     <p>
                                                         <img src="../../Resources/Images/hybrid-access/certificate-chains.png" />
                                                     </p>
                                                     <h2><a name="Creating"></a>Creating certificate chains</h2>
-                                                    <p>Certificate chains are groupings of certificates. Okta typically in requires all certificate changes be in Privacy Enhanced Mail (PEM) format.</p>
-                                                    <p>Certificate chains are  the contents of all certificates concatenated together in order from entity certificate to trusted root certificate. If there are multiple intermediate certificates then they also must be included in the chain. Certificates can be concatenated together using an editor or command line tools. </p>
-                                                    <p>For example under Linux, to concatenate an entity certificate, an intermediate certificate and the entities private key:</p><pre id="code" xml:space="preserve">
+                                                    <p>Certificate chains are groupings of certificates. Okta typically requires all certificate chains to be in Privacy Enhanced Mail (PEM) format.</p>
+                                                    <p>Certificate chains concatenate all certificates in order, from the entity to the trusted root. If there are multiple intermediate certificates, they must be included in the chain. </p>
+                                                    <p>Certificates can be combined into a certificate chain using an editor or command line tools. For example, to concatenate an entity certificate, an intermediate certificate, and the entity's private key in Linux:</p><pre id="code" xml:space="preserve">
 cat entity.pem intermediate.pem entity-primarykey.pem &gt; certificate-chain.pem		</pre>
                                                     <p>When chained, groupings of certificates resemble:<br /></p><pre xml:space="preserve">
 -----BEGIN CERTIFICATE-----
@@ -355,16 +351,17 @@ cat entity.pem intermediate.pem entity-primarykey.pem &gt; certificate-chain.pem
 .... (Intermediate certificate contents)
 -----END CERTIFICATE-----
 -----BEGIN CERTIFICATE-----
-.... (Trusted root certificate contents, <b style="font-style: italic;">only required for self signed chains</b>)
+.... (Trusted root certificate contents(<b style="font-style: italic;">Optional. Only required for self-signed chains</b>))
 -----END CERTIFICATE-----
 -----BEGIN RSA PRIVATE KEY-----
 .... (entity private key contents)
 -----END RSA PRIVATE KEY-----		</pre>
                                                     <div class="noteOkta">
-                                                        <p class="noteContent">You must create a chain containing each certificate, starting with all intermediate certificates followed by the entity certificate, but excluding the trusted CA root certificate. The root certificate is only required when using self-signed certificate chains. For EAP-TTLS or EAP-GTC, also include the entity private key.</p>
+                                                        <p class="noteContent">You must create a chain that contains each certificate, starting with all intermediate certificates followed by the entity certificate, but excluding the trusted CA root certificate. The root certificate is only required when using self-signed certificate chains. For EAP-TTLS or EAP-GTC, also include the entity private key.</p>
                                                     </div>
                                                     <h2><a name="Converti"></a>Converting between certificate formats</h2>
-                                                    <p>Generally, Okta requires certificates in <span class="code">PEM</span>&#160;format. &#160;If you have received or generated certificates in another format they may need to be converted to <span class="code">PEM</span> before being concatenated and then uploaded. Various tools can be used to convert a certificate from one format to another, including <span class="code">openssl</span>. <br />The following examples show converting various formats to .PEM.</p>
+                                                    <p>If you have received or generated certificates in another format they may need to be converted to <span class="code">PEM</span> before being concatenated and then uploaded. Tools like <span class="code">openssl</span> can convert a certificate from one format to another.<br /></p>
+                                                    <p>The following examples demonstrate converting various formats to .PEM.</p>
                                                     <div>
                                                         <h3>CRT to PEM</h3>
                                                         <p id="code">openssl x509 -in cert.crt -outform PEM -out cert.pem</p>
@@ -382,7 +379,7 @@ cat entity.pem intermediate.pem entity-primarykey.pem &gt; certificate-chain.pem
                                                         <h3>Sample command to convert to P12</h3>
                                                         <p id="code">openssl pkcs12 -export -out certificate.p12 -inkey privateKey.key -in certificate.crt</p>
                                                     </div>
-                                                    <p>Multiple additional input and conversions also exist. See the <a href="https://www.openssl.org/">openssl</a> documentation and the openssl man page for more information. </p>
+                                                    <p>Multiple additional input and conversion options exist. See the <a href="https://www.openssl.org/">openssl</a> documentation and the openssl man page for more information. </p>
                                                 </div>
                                                 <!-- Back to Top button --><a href="#" class="sf-back-to-top"><span class="arrow"></span>Top</a>
                                             </div>
