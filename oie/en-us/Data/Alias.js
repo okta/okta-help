@@ -372,11 +372,9 @@ xmlAliasData += '    <Map Name=\"ext-oie-policies\" Link=\"Topics/identity-engin
 xmlAliasData += '    <Map Name=\"csh-asop-scenarios\" Link=\"Topics/identity-engine/policies/asop-authentication-scenarios.htm\" ResolvedId=\"1401\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-learn-about\" Link=\"Topics/Apps/apps-overview-learn-about.htm\" ResolvedId=\"6004\" />';
 xmlAliasData += '    <Map Name=\"ext-apps-learn-about\" Link=\"Topics/Apps/apps-overview-learn-about.htm\" ResolvedId=\"6005\" />';
-xmlAliasData += '    <Map Name=\"ext-oie-limitations\" Link=\"Topics/identity-engine/oie-limitations.htm\" ResolvedId=\"1403\" />';
 xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-user-permissions\" Link=\"Topics/Security/custom-admin-role/about-role-permissions.htm#User_permissions_\" ResolvedId=\"1404\" />';
 xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-group-permissions\" Link=\"Topics/Security/custom-admin-role/about-role-permissions.htm#Group_permissions\" ResolvedId=\"1405\" />';
 xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-app-permissions\" Link=\"Topics/Security/custom-admin-role/about-role-permissions.htm#Application_permissions\" ResolvedId=\"1406\" />';
-xmlAliasData += '    <Map Name=\"ext-oie-whats-new\" Link=\"Topics/identity-engine/oie-whats-new.htm\" ResolvedId=\"1408\" />';
 xmlAliasData += '    <Map Name=\"csh-o365-sso\" Link=\"Topics/Apps/Office365/o365-sign-on-policies-main.htm\" ResolvedId=\"1409\" />';
 xmlAliasData += '    <Map Name=\"ext-improved-ndbd\" Link=\"Topics/Security/behavior-detection/improved-new-device-behavior-detection.htm\" ResolvedId=\"2025\" />';
 xmlAliasData += '    <Map Name=\"csh-improved-ndbd\" Link=\"Topics/Security/behavior-detection/improved-new-device-behavior-detection.htm\" ResolvedId=\"2024\" />';
