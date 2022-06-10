@@ -466,7 +466,6 @@ xmlAliasData += '    <Map Name=\"ext_oag_app_sample_policy\" Link=\"Topics/Acces
 xmlAliasData += '    <Map Name=\"ext_oag_app_sample_proxy\" Link=\"Topics/Access-Gateway/add-sample-proxy.htm\" ResolvedId=\"1322\" />';
 xmlAliasData += '    <Map Name=\"ext-IDP-factor\" Link=\"Topics/Security/MFA_Custom_Factor.htm\" ResolvedId=\"1323\" />';
 xmlAliasData += '    <Map Name=\"ext-ad-override-username\" Link=\"Topics/users-groups-profiles/usgp-override-username-format.htm\" ResolvedId=\"1324\" />';
-xmlAliasData += '    <Map Name=\"ext-Security-Policies-eu-control\" Link=\"Topics/Security/policies/configure-signon-policies.htm#EndUserControlMFAPrompts\" ResolvedId=\"1325\" />';
 xmlAliasData += '    <Map Name=\"ext-get-started\" Link=\"Topics/Security/admin-get-started.htm\" ResolvedId=\"1326\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-verify-relnotes\" Link=\"Topics/ReleaseNotes/okta-verify-release-notes.htm\" ResolvedId=\"1327\" />';
 xmlAliasData += '    <Map Name=\"ext-profile-attribute-mastering\" Link=\"Topics/users-groups-profiles/usgp-sourcing-main.htm\" ResolvedId=\"1332\" />';
@@ -521,7 +520,6 @@ xmlAliasData += '    <Map Name=\"ext-agent-support-policies\" Link=\"Topics/Dire
 xmlAliasData += '    <Map Name=\"csh-blocklist-proxies-tor\" Link=\"Topics/Security/healthinsight/blocklist-proxies-tor.htm\" ResolvedId=\"11000\" />';
 xmlAliasData += '    <Map Name=\"csh-blocklist-zones\" Link=\"Topics/Security/healthinsight/blocklist-network-zone.htm\" ResolvedId=\"11001\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_app_cert_valid\" Link=\"Topics/Access-Gateway/task-define-application-behaviors.htm#ClientCertValidation\" ResolvedId=\"3022\" />';
-xmlAliasData += '    <Map Name=\"csh-cstm-admin-roles\" Link=\"Topics/Security/custom-admin-role/custom-admin-roles.htm\" ResolvedId=\"13000\" />';
 xmlAliasData += '    <Map Name=\"csh-best-practice-cstm-admin-roles\" Link=\"Topics/Security/custom-admin-role/best-practices-custom-admin-roles.htm\" ResolvedId=\"13001\" />';
 xmlAliasData += '    <Map Name=\"ext-ad-agent-install\" Link=\"Topics/Directory/ad-agent-new-integration.htm\" ResolvedId=\"15008\" />';
 xmlAliasData += '    <Map Name=\"ext-ldap-agent-install\" Link=\"Topics/Directory/ldap-agent-install-configure.htm\" ResolvedId=\"15009\" />';
@@ -689,6 +687,8 @@ xmlAliasData += '    <Map Name=\"csh-apps-aiw-saml-advanced\" Link=\"Topics/Apps
 xmlAliasData += '    <Map Name=\"csh-browser-support\" Link=\"Topics/Miscellaneous/Platforms_Browser_OS_Support.htm\" ResolvedId=\"6015\" />';
 xmlAliasData += '    <Map Name=\"ext-ip-address-allow-listing\" Link=\"Topics/Security/ip-address-allow-listing.htm\" ResolvedId=\"18009\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-footer\" Link=\"Topics/Settings/customizations-footer.htm\" ResolvedId=\"5011\" />';
+xmlAliasData += '    <Map Name=\"csh-about-delegated-flows\" Link=\"Topics/automation-hooks/delegated-flows/about-delegated-flows.htm\" ResolvedId=\"19003\" />';
+xmlAliasData += '    <Map Name=\"csh-run-delegated-flow\" Link=\"Topics/automation-hooks/delegated-flows/run-delegated-flow.htm\" ResolvedId=\"19004\" />';
 xmlAliasData += '    <Map Name=\"csh-mfa-home\" Link=\"Topics/Security/mfa/mfa-home.htm\" ResolvedId=\"18011\" />';
 xmlAliasData += '    <Map Name=\"ext-lcm-user-app-assign\" Link=\"Topics/Provisioning/lcm/lcm-user-app-assign.htm\" ResolvedId=\"18012\" />';
 xmlAliasData += '    <Map Name=\"ext_ad_agent_register_multipledomains\" Link=\"Topics/Directory/ad-agent-register-multipledomains.htm\" ResolvedId=\"11050\" />';
