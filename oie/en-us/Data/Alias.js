@@ -363,6 +363,7 @@ xmlAliasData += '    <Map Name=\"ext-idp-inbound-saml\" Link=\"Topics/Security/i
 xmlAliasData += '    <Map Name=\"csh-captcha\" Link=\"Topics/Security/Security_General.htm#captcha\" ResolvedId=\"1365\" />';
 xmlAliasData += '    <Map Name=\"csh-delete-legacy-dt\" Link=\"Topics/identity-engine/devices/dt-main.htm\" ResolvedId=\"12012\" />';
 xmlAliasData += '    <Map Name=\"ext-about-asop\" Link=\"Topics/identity-engine/policies/about-app-sign-on-policies.htm\" ResolvedId=\"1372\" />';
+xmlAliasData += '    <Map Name=\"ext-create-profile-enrollment\" Link=\"Topics/identity-engine/policies/configure-profile-enrollment-policy.htm\" ResolvedId=\"1373\" />';
 xmlAliasData += '    <Map Name=\"ext-create-mfa-policy\" Link=\"Topics/identity-engine/policies/create-mfa-policy.htm\" ResolvedId=\"1381\" />';
 xmlAliasData += '    <Map Name=\"ext-about-osop\" Link=\"Topics/identity-engine/policies/about-okta-sign-on-policies.htm\" ResolvedId=\"1382\" />';
 xmlAliasData += '    <Map Name=\"csh-asop-sq\" Link=\"Topics/identity-engine/policies/add-app-sign-on-policy-rule.htm#Security\" ResolvedId=\"18000\" />';
@@ -444,6 +445,7 @@ xmlAliasData += '    <Map Name=\"csh-group-member-report\" Link=\"Topics/Reports
 xmlAliasData += '    <Map Name=\"csh-user-acct-report\" Link=\"Topics/Reports/access/user-account-report.htm\" ResolvedId=\"9003\" />';
 xmlAliasData += '    <Map Name=\"csh-user-app-access-report\" Link=\"Topics/Reports/access/user-app-access-report.htm\" ResolvedId=\"9004\" />';
 xmlAliasData += '    <Map Name=\"csh-custom-otp\" Link=\"Topics/identity-engine/authenticators/custom-otp.htm\" ResolvedId=\"4041\" />';
+xmlAliasData += '    <Map Name=\"csh-email-verification\" Link=\"Topics/identity-engine/policies/create-profile-enrollment-policy-pe.htm#CreateProfilePolicy\" ResolvedId=\"1506\" />';
 xmlAliasData += '    <Map Name=\"csh-facebook-work\" Link=\"Topics/Provisioning/workplace/workplace-by-facebook-provisioning.htm\" ResolvedId=\"1507\" />';
 xmlAliasData += '    <Map Name=\"ext-lcm-assign-app-user\" Link=\"Topics/Provisioning/lcm/lcm-assign-app-user.htm\" ResolvedId=\"1508\" />';
 xmlAliasData += '    <Map Name=\"ext-lcm-assign-app-groups\" Link=\"Topics/Provisioning/lcm/lcm-assign-app-groups.htm\" ResolvedId=\"1509\" />';
@@ -483,10 +485,13 @@ xmlAliasData += '    <Map Name=\"ext-pe-policies\" Link=\"Topics/identity-engine
 xmlAliasData += '    <Map Name=\"ext-chromeos\" Link=\"Topics/identity-engine/chromeOS/chromeOS.htm\" ResolvedId=\"21003\" />';
 xmlAliasData += '    <Map Name=\"csh-devices-view\" Link=\"Topics/identity-engine/devices/devices-view.htm\" ResolvedId=\"21004\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-footer\" Link=\"Topics/Settings/customizations-footer.htm\" ResolvedId=\"5011\" />';
+xmlAliasData += '    <Map Name=\"csh-about-delegated-flows\" Link=\"Topics/automation-hooks/delegated-flows/about-delegated-flows.htm\" ResolvedId=\"19003\" />';
+xmlAliasData += '    <Map Name=\"csh-run-delegated-flow\" Link=\"Topics/automation-hooks/delegated-flows/run-delegated-flow.htm\" ResolvedId=\"19004\" />';
 xmlAliasData += '    <Map Name=\"ext-lcm-user-app-assign\" Link=\"Topics/Provisioning/lcm/lcm-user-app-assign.htm\" ResolvedId=\"18012\" />';
 xmlAliasData += '    <Map Name=\"ext_ad_agent_register_multipledomains\" Link=\"Topics/Directory/ad-agent-register-multipledomains.htm\" ResolvedId=\"11050\" />';
 xmlAliasData += '    <Map Name=\"ext_ad_agent_prerequisites\" Link=\"Topics/Directory/ad-agent-prerequisites.htm\" ResolvedId=\"11051\" />';
 xmlAliasData += '    <Map Name=\"ext_apps_about_oidc\" Link=\"Topics/Apps/apps-about-oidc.htm\" ResolvedId=\"11053\" />';
 xmlAliasData += '    <Map Name=\"ext-oie-upgrade-eligibility\" Link=\"Topics/identity-engine/oie-upgrade-eligibility.htm\" ResolvedId=\"4049\" />';
+xmlAliasData += '    <Map Name=\"csh-gsp\" Link=\"Topics/identity-engine/policies/add-okta-sign-on-policy-rule.htm\" ResolvedId=\"1069\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
