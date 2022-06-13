@@ -360,36 +360,34 @@
                                                     </ol>
                                                     <h2>How it works </h2>
                                                     <ol>
-                                                        <li value="1">The Okta browser plugin examines all frames on the page, detects that there is one frame of the form <i>https://*.okta.com/app/UserHome*</i>, and then informs that frame that it is installed.</li>
-                                                        <li value="2">The Okta web server receives the web request and validates that the iframe owner origin is trusted (that is, it is <i>https://www.example.com</i>). If trust is validated, the Okta web server responds with a JSP page containing Javascript code that responds to trusted origin <span style="font-family: 'Courier New';">postMessage</span> requests with the following JSON:
-						<div><p><pre xml:space="preserve">
-{
+                                                        <li value="1">The Okta browser plugin examines all frames on the page, detects that there is one frame of the form <span class="url">https://*.okta.com/app/UserHome*</span>, and then informs that frame that it is installed.</li>
+                                                        <li value="2">The Okta web server receives the web request and validates that the iframe owner origin is trusted (that is, it is <span class="url">https://www.example.com</span>). If trust is validated, the Okta web server responds with a JSP page containing Javascript code that responds to trusted origin <span class="code">postMessage</span> requests with the following JSON:
+			<p><span class="codeblock">{
   detected: true/false
   pluginVersion: x.y.z // if plugin is present
-}</pre></p></div></li>
+}</span></p></li>
                                                         <li value="3">The plugin detects that it is on an <code>/app/UserHome/plugin-info</code> endpoint that loaded successfully, and then updates its state accordingly by making the four API calls described above.</li>
                                                         <li value="4">You then write code similar to the following on <code>https://www.example.com</code> to handle the <code>postMessage</code> response from the iframe:
-                <div><p><pre xml:space="preserve">
-window.addEventListener('message', function (event) {
+                
+<p><span class="codeblock">window.addEventListener('message', function (event) {
   if (event.origin === 'https://example.okta.com' &amp;&amp;
       event.data &amp;&amp; 
       event.data.detected) {
     doSomething(event.data.pluginVersion);
   }
-});</pre></p></div></li>
+});</span></p></li>
                                                     </ol>
                                                     <h2>Security Considerations </h2>
                                                     <p>Okta requires an authenticated session for this functionality.</p>
-                                                    <p>The <code>/plugin-info</code> endpoint is denied access if:</p>
+                                                    <p>The <span class="filepath">/plugin-info</span> endpoint is denied access if:</p>
                                                     <ul>
                                                         <li>No trusted origin has been defined by the admin.</li>
                                                         <li>The request referrer (such as the parent frame) is not in the list of CORS-trusted origins defined by the admin.</li>
                                                     </ul>
                                                     <h2>Configure a fully working example</h2>
-                                                    <p>To configure a working example of this feature, create a local web server (for example, <b>Node.js</b> server) to host the simple HTML page below. The following example hosts the page on <i>https://example.com</i> HTML.</p>
+                                                    <p>To configure a working example of this feature, create a local web server (for example, Node.js server) to host the simple HTML page below. The following example hosts the page on <span class="url">https://example.com</span> HTML.</p>
                                                     <div>
-                                                        <p style="width:110%;"><pre xml:space="preserve">
-&lt;html&gt;
+                                                        <p><span class="codeblock">&lt;html&gt;
 &lt;head&gt;
      &lt;script&gt;
        window.addEventListener('message', function (event) {
@@ -408,7 +406,7 @@ window.addEventListener('message', function (event) {
           src="https://example.okta.com/app/UserHome/plugin-info"
           onload="this.contentWindow.postMessage('pluginVersion', 'https://example.okta.com/app/UserHome/plugin-info')"/&gt;
 &lt;/body&gt;
-&lt;html&gt;</pre>
+&lt;html&gt;</span>
                                                         </p>
                                                     </div>
                                                     <p>&#160;</p>
