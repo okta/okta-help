@@ -1237,8 +1237,6 @@ xmlAliasData += '    <Map Name=\"ext-asatest13fb8e134224d4d6ab7215d080e3b752d-me
 xmlAliasData += '    <Map Name=\"ext-asatest13fb8e134224d4d6ab7215d080e3b752d-method-removegroupfromteam\" Link=\"Topics/Workflows/connector-reference/advancedserveraccess/actions/removegroupfromteam.htm\" ResolvedId=\"31102\" />';
 xmlAliasData += '    <Map Name=\"ext-asatest13fb8e134224d4d6ab7215d080e3b752d-method-updatepreauthorization\" Link=\"Topics/Workflows/connector-reference/advancedserveraccess/actions/updateauthorization.htm\" ResolvedId=\"31103\" />';
 xmlAliasData += '    <Map Name=\"ext-asatest13fb8e134224d4d6ab7215d080e3b752d-method-updateproject\" Link=\"Topics/Workflows/connector-reference/advancedserveraccess/actions/updateproject.htm\" ResolvedId=\"31104\" />';
-xmlAliasData += '    <Map Name=\"csh-about-delegated-flows\" Link=\"Topics/automation-hooks/delegated-flows/about-delegated-flows.htm\" ResolvedId=\"19003\" />';
-xmlAliasData += '    <Map Name=\"csh-run-delegated-flow\" Link=\"Topics/automation-hooks/delegated-flows/run-delegated-flow.htm\" ResolvedId=\"19004\" />';
 xmlAliasData += '    <Map Name=\"ext-http-method-delegated\" Link=\"Topics/Workflows/build/build-delegated-flow.htm\" ResolvedId=\"31105\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
