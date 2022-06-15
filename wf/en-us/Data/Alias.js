@@ -1238,5 +1238,6 @@ xmlAliasData += '    <Map Name=\"ext-asatest13fb8e134224d4d6ab7215d080e3b752d-me
 xmlAliasData += '    <Map Name=\"ext-asatest13fb8e134224d4d6ab7215d080e3b752d-method-updatepreauthorization\" Link=\"Topics/Workflows/connector-reference/advancedserveraccess/actions/updateauthorization.htm\" ResolvedId=\"31103\" />';
 xmlAliasData += '    <Map Name=\"ext-asatest13fb8e134224d4d6ab7215d080e3b752d-method-updateproject\" Link=\"Topics/Workflows/connector-reference/advancedserveraccess/actions/updateproject.htm\" ResolvedId=\"31104\" />';
 xmlAliasData += '    <Map Name=\"ext-http-method-delegated\" Link=\"Topics/Workflows/build/build-delegated-flow.htm\" ResolvedId=\"31105\" />';
+xmlAliasData += '    <Map Name=\"ext-connectorbuilder-dynamic-fields-options\" Link=\"Topics/Workflows/connector-builder/dynamic-fields-options.htm\" ResolvedId=\"31106\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
