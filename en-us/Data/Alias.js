@@ -520,6 +520,7 @@ xmlAliasData += '    <Map Name=\"ext-agent-support-policies\" Link=\"Topics/Dire
 xmlAliasData += '    <Map Name=\"csh-blocklist-proxies-tor\" Link=\"Topics/Security/healthinsight/blocklist-proxies-tor.htm\" ResolvedId=\"11000\" />';
 xmlAliasData += '    <Map Name=\"csh-blocklist-zones\" Link=\"Topics/Security/healthinsight/blocklist-network-zone.htm\" ResolvedId=\"11001\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_app_cert_valid\" Link=\"Topics/Access-Gateway/task-define-application-behaviors.htm#ClientCertValidation\" ResolvedId=\"3022\" />';
+xmlAliasData += '    <Map Name=\"csh-cstm-admin-roles\" Link=\"Topics/Security/custom-admin-role/custom-admin-roles.htm\" ResolvedId=\"13000\" />';
 xmlAliasData += '    <Map Name=\"csh-best-practice-cstm-admin-roles\" Link=\"Topics/Security/custom-admin-role/best-practices-custom-admin-roles.htm\" ResolvedId=\"13001\" />';
 xmlAliasData += '    <Map Name=\"ext-ad-agent-install\" Link=\"Topics/Directory/ad-agent-new-integration.htm\" ResolvedId=\"15008\" />';
 xmlAliasData += '    <Map Name=\"ext-ldap-agent-install\" Link=\"Topics/Directory/ldap-agent-install-configure.htm\" ResolvedId=\"15009\" />';
