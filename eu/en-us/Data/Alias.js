@@ -65,5 +65,6 @@ xmlAliasData += '    <Map Name=\"ext-ov-ios-reset-register\" Link=\"Topics/end-u
 xmlAliasData += '    <Map Name=\"ext-ov-andr-reset-register\" Link=\"Topics/end-user/ov-reset-register.htm\" ResolvedId=\"4048\" />';
 xmlAliasData += '    <Map Name=\"ext_user_dashboard_overview\" Link=\"Topics/end-user/dashboard-overview.htm\" ResolvedId=\"11052\" />';
 xmlAliasData += '    <Map Name=\"csh-ov-sign-in-device-android\" Link=\"Topics/end-user/ov-sign-in-device-android.htm\" ResolvedId=\"4050\" />';
+xmlAliasData += '    <Map Name=\"ext-plugin-config-settings\" Link=\"Topics/end-user/plugin-config-settings.htm\" ResolvedId=\"4052\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
