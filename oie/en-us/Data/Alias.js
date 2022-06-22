@@ -274,6 +274,7 @@ xmlAliasData += '    <Map Name=\"ext_integrate_RingCentral\" Link=\"Topics/Provi
 xmlAliasData += '    <Map Name=\"ext-ad-agent-domain-rename\" Link=\"Topics/Directory/ad-agent-rename-domain-name.htm\" ResolvedId=\"1281\" />';
 xmlAliasData += '    <Map Name=\"csh-OPP\" Link=\"Topics/Provisioning/opp/OPP-main.htm\" ResolvedId=\"1282\" />';
 xmlAliasData += '    <Map Name=\"csh-ad-import-settings\" Link=\"Topics/Directory/ad-agent-configure-import.htm\" ResolvedId=\"1283\" />';
+xmlAliasData += '    <Map Name=\"csh-blacklist-proxies-tor\" Link=\"Topics/Security/healthinsight/blocklist-proxies-tor.htm\" ResolvedId=\"1284\" />';
 xmlAliasData += '    <Map Name=\"ext-ldap-get-started\" Link=\"Topics/Directory/ldap-agent-get-started.htm\" ResolvedId=\"1285\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Single_Logout\" Link=\"Topics/Apps/Apps_Single_Logout.htm\" ResolvedId=\"1286\" />';
 xmlAliasData += '    <Map Name=\"csh-dashboard\" Link=\"Topics/Dashboard/Dashboard.htm\" ResolvedId=\"1297\" />';
@@ -321,6 +322,7 @@ xmlAliasData += '    <Map Name=\"ext-docusign-main\" Link=\"Topics/Provisioning/
 xmlAliasData += '    <Map Name=\"ext-ultipro-main\" Link=\"Topics/Provisioning/ultipro/ultipro-main.htm\" ResolvedId=\"15006\" />';
 xmlAliasData += '    <Map Name=\"csh-device-mgmt-mobile-mdm-setup\" Link=\"Topics/identity-engine/devices/config-device-mgmt-mobile.htm\" ResolvedId=\"12001\" />';
 xmlAliasData += '    <Map Name=\"ext-agent-support-policies\" Link=\"Topics/Directory/agent-support-policies.htm\" ResolvedId=\"15007\" />';
+xmlAliasData += '    <Map Name=\"csh-blocklist-proxies-tor\" Link=\"Topics/Security/healthinsight/blocklist-proxies-tor.htm\" ResolvedId=\"11000\" />';
 xmlAliasData += '    <Map Name=\"csh-blocklist-zones\" Link=\"Topics/Security/healthinsight/blocklist-network-zone.htm\" ResolvedId=\"11001\" />';
 xmlAliasData += '    <Map Name=\"csh-cstm-admin-roles\" Link=\"Topics/Security/custom-admin-role/custom-admin-roles.htm\" ResolvedId=\"13000\" />';
 xmlAliasData += '    <Map Name=\"csh-best-practice-cstm-admin-roles\" Link=\"Topics/Security/custom-admin-role/best-practices-custom-admin-roles.htm\" ResolvedId=\"13001\" />';
@@ -494,5 +496,7 @@ xmlAliasData += '    <Map Name=\"ext_ad_agent_prerequisites\" Link=\"Topics/Dire
 xmlAliasData += '    <Map Name=\"ext_apps_about_oidc\" Link=\"Topics/Apps/apps-about-oidc.htm\" ResolvedId=\"11053\" />';
 xmlAliasData += '    <Map Name=\"ext-oie-upgrade-eligibility\" Link=\"Topics/identity-engine/oie-upgrade-eligibility.htm\" ResolvedId=\"4049\" />';
 xmlAliasData += '    <Map Name=\"csh-gsp\" Link=\"Topics/identity-engine/policies/add-okta-sign-on-policy-rule.htm\" ResolvedId=\"1069\" />';
+xmlAliasData += '    <Map Name=\"ext-configure-password\" Link=\"Topics/identity-engine/authenticators/‌configure-password.htm\" ResolvedId=\"4051\" />';
+xmlAliasData += '    <Map Name=\"ext-configure-duo\" Link=\"Topics/identity-engine/authenticators/configure-duo-security.htm\" ResolvedId=\"4053\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
