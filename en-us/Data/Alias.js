@@ -193,7 +193,6 @@ xmlAliasData += '    <Map Name=\"ext_API\" Link=\"Topics/Security/API.htm\" Reso
 xmlAliasData += '    <Map Name=\"ext_API_Access\" Link=\"Topics/Security/API_Access.htm\" ResolvedId=\"200149\" />';
 xmlAliasData += '    <Map Name=\"ext_App_Based_Signon\" Link=\"Topics/Security/policies/about-app-signon-policies.htm\" ResolvedId=\"200150\" />';
 xmlAliasData += '    <Map Name=\"ext_App_Based_Signon_revised\" Link=\"Topics/Security/policies/about-app-signon-policies.htm\" ResolvedId=\"200151\" />';
-xmlAliasData += '    <Map Name=\"ext_Firewall_Whitelisting\" Link=\"Topics/Security/Firewall_Whitelisting.htm\" ResolvedId=\"200152\" />';
 xmlAliasData += '    <Map Name=\"ext_Generating_a_Random_Password\" Link=\"Topics/Security/Generating_a_Random_Password.htm\" ResolvedId=\"200153\" />';
 xmlAliasData += '    <Map Name=\"ext_Identity_Providers\" Link=\"Topics/Security/Identity_Providers.htm\" ResolvedId=\"200154\" />';
 xmlAliasData += '    <Map Name=\"ext_Identity_Provider_Discovery\" Link=\"Topics/Security/Identity_Provider_Discovery.htm\" ResolvedId=\"200155\" />';
