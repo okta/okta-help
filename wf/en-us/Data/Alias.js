@@ -1221,6 +1221,7 @@ xmlAliasData += '    <Map Name=\"ext-okta-method-devicedelete\" Link=\"Topics/Wo
 xmlAliasData += '    <Map Name=\"ext-okta-method-deviceenrolled\" Link=\"Topics/Workflows/connector-reference/okta/events/deviceenrolled.htm\" ResolvedId=\"33110\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-devicesuspended\" Link=\"Topics/Workflows/connector-reference/okta/events/devicesuspended.htm\" ResolvedId=\"33112\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-deviceunsuspended\" Link=\"Topics/Workflows/connector-reference/okta/events/deviceunsuspended.htm\" ResolvedId=\"33113\" />';
+xmlAliasData += '    <Map Name=\"ext-kandji\" Link=\"Topics/Workflows/connector-reference/kandji/kandji.htm\" ResolvedId=\"31088\" />';
 xmlAliasData += '    <Map Name=\"ext-securecodewarrior\" Link=\"Topics/Workflows/connector-reference/securecodewarrior/securecodewarrior.htm\" ResolvedId=\"31089\" />';
 xmlAliasData += '    <Map Name=\"ext-connectorbuilder-testconnections\" Link=\"Topics/Workflows/connector-builder/test-connections.htm\" ResolvedId=\"31090\" />';
 xmlAliasData += '    <Map Name=\"ext-asatest13fb8e134224d4d6ab7215d080e3b752d-method-addusertogroup\" Link=\"Topics/Workflows/connector-reference/advancedserveraccess/actions/addusertogroup.htm\" ResolvedId=\"31091\" />';
