@@ -193,7 +193,6 @@ xmlAliasData += '    <Map Name=\"ext_API\" Link=\"Topics/Security/API.htm\" Reso
 xmlAliasData += '    <Map Name=\"ext_API_Access\" Link=\"Topics/Security/API_Access.htm\" ResolvedId=\"200149\" />';
 xmlAliasData += '    <Map Name=\"ext_App_Based_Signon\" Link=\"Topics/Security/policies/about-app-signon-policies.htm\" ResolvedId=\"200150\" />';
 xmlAliasData += '    <Map Name=\"ext_App_Based_Signon_revised\" Link=\"Topics/Security/policies/about-app-signon-policies.htm\" ResolvedId=\"200151\" />';
-xmlAliasData += '    <Map Name=\"ext_Generating_a_Random_Password\" Link=\"Topics/Security/Generating_a_Random_Password.htm\" ResolvedId=\"200153\" />';
 xmlAliasData += '    <Map Name=\"ext_Identity_Providers\" Link=\"Topics/Security/Identity_Providers.htm\" ResolvedId=\"200154\" />';
 xmlAliasData += '    <Map Name=\"ext_Identity_Provider_Discovery\" Link=\"Topics/Security/Identity_Provider_Discovery.htm\" ResolvedId=\"200155\" />';
 xmlAliasData += '    <Map Name=\"ext_Manage_Early_Access_features\" Link=\"Topics/Security/manage-EA-and-beta-features.htm\" ResolvedId=\"200156\" />';
@@ -694,6 +693,12 @@ xmlAliasData += '    <Map Name=\"ext-lcm-user-app-assign\" Link=\"Topics/Provisi
 xmlAliasData += '    <Map Name=\"ext_ad_agent_register_multipledomains\" Link=\"Topics/Directory/ad-agent-register-multipledomains.htm\" ResolvedId=\"11050\" />';
 xmlAliasData += '    <Map Name=\"ext_ad_agent_prerequisites\" Link=\"Topics/Directory/ad-agent-prerequisites.htm\" ResolvedId=\"11051\" />';
 xmlAliasData += '    <Map Name=\"ext_apps_about_oidc\" Link=\"Topics/Apps/apps-about-oidc.htm\" ResolvedId=\"11053\" />';
+xmlAliasData += '    <Map Name=\"csh-access-certs\" Link=\"Topics/identity-governance/access-certification/iga-access-cert.htm\" ResolvedId=\"13002\" />';
+xmlAliasData += '    <Map Name=\"csh-el-eg-users\" Link=\"Topics/identity-governance/access-certification/iga-el-examples.htm#users\" ResolvedId=\"13007\" />';
+xmlAliasData += '    <Map Name=\"csh-el-eg-reviewers\" Link=\"Topics/identity-governance/access-certification/iga-el-examples.htm#reviewers\" ResolvedId=\"13008\" />';
+xmlAliasData += '    <Map Name=\"csh-review-campaign\" Link=\"Topics/identity-governance/access-certification/iga-ac-review-campaign.htm\" ResolvedId=\"13009\" />';
+xmlAliasData += '    <Map Name=\"csh-remediation\" Link=\"Topics/identity-governance/access-certification/iga-ac-about-remediation.htm\" ResolvedId=\"13010\" />';
+xmlAliasData += '    <Map Name=\"csh-review-bp-reviewers\" Link=\"Topics/identity-governance/access-certification/iga-ac-review-campaign.htm#bp_reviewers\" ResolvedId=\"13011\" />';
 xmlAliasData += '    <Map Name=\"csh-custom-access-denied\" Link=\"Topics/Settings/customize-access-denied-message.htm\" ResolvedId=\"5014\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
