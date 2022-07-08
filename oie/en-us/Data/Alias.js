@@ -144,6 +144,7 @@ xmlAliasData += '    <Map Name=\"ext_Settings_Customization\" Link=\"Topics/Sett
 xmlAliasData += '    <Map Name=\"ext_Settings_Downloads\" Link=\"Topics/Settings/Settings_Downloads.htm\" ResolvedId=\"200190\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Email\" Link=\"Topics/Settings/Settings_Email.htm\" ResolvedId=\"200191\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Manage_Dashboard_Tabs_for_End_Users\" Link=\"Topics/Settings/Settings_Manage_Dashboard_Tabs_for_End_Users.htm\" ResolvedId=\"200192\" />';
+xmlAliasData += '    <Map Name=\"ext_Supported_Configurations\" Link=\"Topics/Miscellaneous/Platforms_Browser_OS_Support.htm\" ResolvedId=\"200193\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_Active_Directory_Password_Sync_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_Active_Directory_Password_Sync_Agent.htm\" ResolvedId=\"200194\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_ADFS_Adapter\" Link=\"Topics/Settings/Version_Histories/Ver_History_Okta_MFA_Provider_for_ADFS.htm\" ResolvedId=\"200195\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_AD_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_AD_Agent.htm\" ResolvedId=\"200196\" />';
@@ -157,6 +158,7 @@ xmlAliasData += '    <Map Name=\"ext_Ver_History_Okta_MFA_Provider_for_ADFS\" Li
 xmlAliasData += '    <Map Name=\"ext_Ver_History_On_Prem_MFA_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_On-Prem_MFA_Agent.htm\" ResolvedId=\"200206\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_OPP_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_OPP_Agent.htm\" ResolvedId=\"200207\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_RADIUS_Server_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_RADIUS_Server_Agent.htm\" ResolvedId=\"200208\" />';
+xmlAliasData += '    <Map Name=\"ext-plugin-landing\" Link=\"Topics/Browser-Plugin/plugin-landing-page.htm\" ResolvedId=\"4058\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_Sharepoint_People_Picker_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_Sharepoint_People_Picker_Agent.htm\" ResolvedId=\"200210\" />';
 xmlAliasData += '    <Map Name=\"csh-java-ldap-agent\" Link=\"Topics/Directory/ldap-agent-manage-integration.htm\" ResolvedId=\"10000\" />';
 xmlAliasData += '    <Map Name=\"check-point-radius-intg\" Link=\"Topics/integrations/check-point-radius-intg.htm\" ResolvedId=\"1058\" />';
@@ -466,8 +468,8 @@ xmlAliasData += '    <Map Name=\"csh-api\" Link=\"Topics/Security/API.htm\" Reso
 xmlAliasData += '    <Map Name=\"csh-trusted-origins\" Link=\"Topics/Security/API-trusted-origins.htm\" ResolvedId=\"1511\" />';
 xmlAliasData += '    <Map Name=\"csh-customization\" Link=\"Topics/Settings/settings-customization-general.htm\" ResolvedId=\"1512\" />';
 xmlAliasData += '    <Map Name=\"csh-trusted-origins-iframe\" Link=\"Topics/API/trusted-origins-iframe.htm\" ResolvedId=\"1513\" />';
-xmlAliasData += '    <Map Name=\"ext-passwordless\" Link=\"Topics/password-optional/password-optional-disabled.htm\" ResolvedId=\"1514\" />';
-xmlAliasData += '    <Map Name=\"csh-passwordless\" Link=\"Topics/password-optional/password-optional-disabled.htm\" ResolvedId=\"1515\" />';
+xmlAliasData += '    <Map Name=\"ext-passwordless\" Link=\"Topics/identity-engine/password-optional/password-optional-disabled.htm\" ResolvedId=\"1514\" />';
+xmlAliasData += '    <Map Name=\"csh-passwordless\" Link=\"Topics/identity-engine/password-optional/password-optional-disabled.htm\" ResolvedId=\"1515\" />';
 xmlAliasData += '    <Map Name=\"ext-apps-about-swa\" Link=\"Topics/Apps/apps-about-swa.htm\" ResolvedId=\"15018\" />';
 xmlAliasData += '    <Map Name=\"ext-apps-about-saml\" Link=\"Topics/Apps/apps-about-saml.htm\" ResolvedId=\"15019\" />';
 xmlAliasData += '    <Map Name=\"ext-ad-agent-import-groups\" Link=\"Topics/Directory/ad-agent-import-groups.htm\" ResolvedId=\"15020\" />';
@@ -507,5 +509,6 @@ xmlAliasData += '    <Map Name=\"ext-configure-password\" Link=\"Topics/identity
 xmlAliasData += '    <Map Name=\"ext-configure-duo\" Link=\"Topics/identity-engine/authenticators/configure-duo-security.htm\" ResolvedId=\"4053\" />';
 xmlAliasData += '    <Map Name=\"ext-merge-auth-policies\" Link=\"Topics/identity-engine/policies/consolidate-auth-policies.htm\" ResolvedId=\"5013\" />';
 xmlAliasData += '    <Map Name=\"ext-directory-integrations-main\" Link=\"Topics/identity-engine/directories/directory-integrations-main.htm\" ResolvedId=\"4055\" />';
+xmlAliasData += '    <Map Name=\"ext-devices-main\" Link=\"Topics/identity-engine/devices/devices-main.htm\" ResolvedId=\"4057\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
