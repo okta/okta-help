@@ -495,8 +495,17 @@ xmlAliasData += '    <Map Name=\"ext_ad_agent_register_multipledomains\" Link=\"
 xmlAliasData += '    <Map Name=\"ext_ad_agent_prerequisites\" Link=\"Topics/Directory/ad-agent-prerequisites.htm\" ResolvedId=\"11051\" />';
 xmlAliasData += '    <Map Name=\"ext_apps_about_oidc\" Link=\"Topics/Apps/apps-about-oidc.htm\" ResolvedId=\"11053\" />';
 xmlAliasData += '    <Map Name=\"ext-oie-upgrade-eligibility\" Link=\"Topics/identity-engine/oie-upgrade-eligibility.htm\" ResolvedId=\"4049\" />';
+xmlAliasData += '    <Map Name=\"csh-consolidate-policies\" Link=\"Topics/identity-engine/policies/consolidate-auth-policies.htm\" ResolvedId=\"5012\" />';
 xmlAliasData += '    <Map Name=\"csh-gsp\" Link=\"Topics/identity-engine/policies/add-okta-sign-on-policy-rule.htm\" ResolvedId=\"1069\" />';
+xmlAliasData += '    <Map Name=\"csh-access-certs\" Link=\"Topics/identity-governance/access-certification/iga-access-cert.htm\" ResolvedId=\"13002\" />';
+xmlAliasData += '    <Map Name=\"csh-el-eg-users\" Link=\"Topics/identity-governance/access-certification/iga-el-examples.htm#users\" ResolvedId=\"13007\" />';
+xmlAliasData += '    <Map Name=\"csh-el-eg-reviewers\" Link=\"Topics/identity-governance/access-certification/iga-el-examples.htm#reviewers\" ResolvedId=\"13008\" />';
+xmlAliasData += '    <Map Name=\"csh-review-campaign\" Link=\"Topics/identity-governance/access-certification/iga-ac-review-campaign.htm\" ResolvedId=\"13009\" />';
+xmlAliasData += '    <Map Name=\"csh-remediation\" Link=\"Topics/identity-governance/access-certification/iga-ac-about-remediation.htm\" ResolvedId=\"13010\" />';
+xmlAliasData += '    <Map Name=\"csh-review-bp-reviewers\" Link=\"Topics/identity-governance/access-certification/iga-ac-review-campaign.htm#bp_reviewers\" ResolvedId=\"13011\" />';
 xmlAliasData += '    <Map Name=\"ext-configure-password\" Link=\"Topics/identity-engine/authenticators/‌configure-password.htm\" ResolvedId=\"4051\" />';
 xmlAliasData += '    <Map Name=\"ext-configure-duo\" Link=\"Topics/identity-engine/authenticators/configure-duo-security.htm\" ResolvedId=\"4053\" />';
+xmlAliasData += '    <Map Name=\"ext-merge-auth-policies\" Link=\"Topics/identity-engine/policies/consolidate-auth-policies.htm\" ResolvedId=\"5013\" />';
+xmlAliasData += '    <Map Name=\"ext-directory-integrations-main\" Link=\"Topics/identity-engine/directories/directory-integrations-main.htm\" ResolvedId=\"4055\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
