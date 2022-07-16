@@ -96,6 +96,7 @@ xmlAliasData += '    <Map Name=\"ext_sophos_radius_intg\" Link=\"Topics/integrat
 xmlAliasData += '    <Map Name=\"ext_vmware_horizon_radius_intg\" Link=\"Topics/integrations/vmware-horizon-radius-intg.htm\" ResolvedId=\"200092\" />';
 xmlAliasData += '    <Map Name=\"ext_glossary\" Link=\"Topics/Reference/glossary.htm\" ResolvedId=\"200131\" />';
 xmlAliasData += '    <Map Name=\"ext_ref_supported_languages\" Link=\"Topics/Reference/ref-supported-languages.htm\" ResolvedId=\"200134\" />';
+xmlAliasData += '    <Map Name=\"ext_early_access\" Link=\"Topics/ReleaseNotes/early-access.htm\" ResolvedId=\"200138\" />';
 xmlAliasData += '    <Map Name=\"ext_Reports_SysLog\" Link=\"Topics/Reports/Reports_SysLog.htm\" ResolvedId=\"200145\" />';
 xmlAliasData += '    <Map Name=\"ext_Administrators\" Link=\"Topics/Security/Administrators.htm\" ResolvedId=\"200146\" />';
 xmlAliasData += '    <Map Name=\"ext_AmaznWS_App\" Link=\"Topics/integrations/aws-radius-intg.htm\" ResolvedId=\"200147\" />';
