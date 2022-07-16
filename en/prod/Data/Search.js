@@ -1,1 +1,0 @@
-define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../Content/Resources/Snippets/task steps/_nav-snippets.htm'],s:['$'],p:[['$',3]]});
