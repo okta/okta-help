@@ -598,5 +598,6 @@ xmlAliasData += '    <Map Name=\"csh-review-campaign\" Link=\"Topics/identity-go
 xmlAliasData += '    <Map Name=\"csh-remediation\" Link=\"Topics/identity-governance/access-certification/iga-ac-about-remediation.htm\" ResolvedId=\"13010\" />';
 xmlAliasData += '    <Map Name=\"csh-review-bp-reviewers\" Link=\"Topics/identity-governance/access-certification/iga-ac-review-campaign.htm#bp_reviewers\" ResolvedId=\"13011\" />';
 xmlAliasData += '    <Map Name=\"csh-custom-access-denied\" Link=\"Topics/Settings/customize-access-denied-message.htm\" ResolvedId=\"5014\" />';
+xmlAliasData += '    <Map Name=\"ext-usgp-about-groups\" Link=\"Topics/users-groups-profiles/usgp-about-groups.htm\" ResolvedId=\"4061\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
