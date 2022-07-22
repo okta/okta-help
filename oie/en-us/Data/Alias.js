@@ -511,5 +511,6 @@ xmlAliasData += '    <Map Name=\"ext-configure-duo\" Link=\"Topics/identity-engi
 xmlAliasData += '    <Map Name=\"ext-merge-auth-policies\" Link=\"Topics/identity-engine/policies/consolidate-auth-policies.htm\" ResolvedId=\"5013\" />';
 xmlAliasData += '    <Map Name=\"ext-directory-integrations-main\" Link=\"Topics/identity-engine/directories/directory-integrations-main.htm\" ResolvedId=\"4055\" />';
 xmlAliasData += '    <Map Name=\"ext-devices-main\" Link=\"Topics/identity-engine/devices/devices-main.htm\" ResolvedId=\"4057\" />';
+xmlAliasData += '    <Map Name=\"ext-usgp-about-groups\" Link=\"Topics/users-groups-profiles/usgp-about-groups.htm\" ResolvedId=\"4061\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
