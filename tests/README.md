@@ -1,7 +1,7 @@
 # Acceptance tests
 
 
-1. Install packages locally (with VPN enabled):
+1. Install packages locally:
 
 ```
 $ cd <path/to>/okta-help

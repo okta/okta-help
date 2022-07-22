@@ -66,6 +66,7 @@ xmlAliasData += '    <Map Name=\"ext_Apps_Configure_Okta_Template_WS_Federation\
 xmlAliasData += '    <Map Name=\"ext_Apps_Configure_Template_App\" Link=\"Topics/Apps/Apps_Configure_Template_App.htm\" ResolvedId=\"200018\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Configuring_WS_Federation\" Link=\"Topics/Apps/Apps_Configuring WS-Federation.htm\" ResolvedId=\"200019\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Enable_O365_Chiclets\" Link=\"Topics/Apps/Apps_Enable_O365_Chiclets.htm\" ResolvedId=\"200020\" />';
+xmlAliasData += '    <Map Name=\"ext_Apps_Mapping_AD_LDAP_and_Workday_Values\" Link=\"Topics/Apps/Apps_Mapping_AD_LDAP_and_Workday_Values.htm\" ResolvedId=\"200023\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Moving_Microsoft\" Link=\"Topics/Apps/Apps_Moving_Microsoft.htm\" ResolvedId=\"200024\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_O365_Admin_Consent\" Link=\"Topics/Apps/Apps_O365_Admin_Consent.htm\" ResolvedId=\"200025\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_O365_Silent_Activation\" Link=\"Topics/Apps/Apps_O365_Silent_Activation.htm\" ResolvedId=\"200026\" />';
@@ -510,5 +511,6 @@ xmlAliasData += '    <Map Name=\"ext-configure-duo\" Link=\"Topics/identity-engi
 xmlAliasData += '    <Map Name=\"ext-merge-auth-policies\" Link=\"Topics/identity-engine/policies/consolidate-auth-policies.htm\" ResolvedId=\"5013\" />';
 xmlAliasData += '    <Map Name=\"ext-directory-integrations-main\" Link=\"Topics/identity-engine/directories/directory-integrations-main.htm\" ResolvedId=\"4055\" />';
 xmlAliasData += '    <Map Name=\"ext-devices-main\" Link=\"Topics/identity-engine/devices/devices-main.htm\" ResolvedId=\"4057\" />';
+xmlAliasData += '    <Map Name=\"ext-usgp-about-groups\" Link=\"Topics/users-groups-profiles/usgp-about-groups.htm\" ResolvedId=\"4061\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);

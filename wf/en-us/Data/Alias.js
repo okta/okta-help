@@ -1159,6 +1159,7 @@ xmlAliasData += '    <Map Name=\"ext-onedrive-method-searchfilesorfolders\" Link
 xmlAliasData += '    <Map Name=\"ext-onedrive-method-uploadlargefile\" Link=\"Topics/Workflows/connector-reference/onedrive/actions/uploadfile.htm\" ResolvedId=\"33046\" />';
 xmlAliasData += '    <Map Name=\"ext-onedrive-misc-authorization\" Link=\"Topics/Workflows/connector-reference/onedrive/overview/authorization.htm\" ResolvedId=\"33047\" />';
 xmlAliasData += '    <Map Name=\"ext-onedrive\" Link=\"Topics/Workflows/connector-reference/onedrive/onedrive.htm\" ResolvedId=\"33048\" />';
+xmlAliasData += '    <Map Name=\"ext-connectorbuilder-io-extensibleinputs\" Link=\"Topics/Workflows/connector-builder/extensible-inputs.htm\" ResolvedId=\"31077\" />';
 xmlAliasData += '    <Map Name=\"ext-httpfunctions-method-paginate\" Link=\"Topics/Workflows/function-reference/HTTP/http_paginate.htm\" ResolvedId=\"31078\" />';
 xmlAliasData += '    <Map Name=\"ext-http-method-paginate\" Link=\"Topics/Workflows/function-reference/HTTP/http_paginate.htm\" ResolvedId=\"31079\" />';
 xmlAliasData += '    <Map Name=\"ext-microsoftteams-method-createchat\" Link=\"Topics/Workflows/connector-reference/microsoftteams/actions/createchat.htm\" ResolvedId=\"33049\" />';
