@@ -599,5 +599,9 @@ xmlAliasData += '    <Map Name=\"csh-remediation\" Link=\"Topics/identity-govern
 xmlAliasData += '    <Map Name=\"csh-review-bp-reviewers\" Link=\"Topics/identity-governance/access-certification/iga-ac-review-campaign.htm#bp_reviewers\" ResolvedId=\"13011\" />';
 xmlAliasData += '    <Map Name=\"csh-custom-access-denied\" Link=\"Topics/Settings/customize-access-denied-message.htm\" ResolvedId=\"5014\" />';
 xmlAliasData += '    <Map Name=\"ext-usgp-about-groups\" Link=\"Topics/users-groups-profiles/usgp-about-groups.htm\" ResolvedId=\"4061\" />';
+xmlAliasData += '    <Map Name=\"ext-apps-about-wsfed\" Link=\"Topics/Apps/apps-about-wsfed.htm\" ResolvedId=\"4062\" />';
+xmlAliasData += '    <Map Name=\"ext-about-threatinsight\" Link=\"Topics/Security/threat-insight/about-threatinsight.htm\" ResolvedId=\"4063\" />';
+xmlAliasData += '    <Map Name=\"ext-apps-selfservice-configureorg\" Link=\"Topics/Apps/apps-selfservice-configureorg.htm\" ResolvedId=\"4064\" />';
+xmlAliasData += '    <Map Name=\"ext-administrators-admin-comparison\" Link=\"Topics/Security/administrators-admin-comparison.htm\" ResolvedId=\"4065\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
