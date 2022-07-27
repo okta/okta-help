@@ -1,1 +1,1 @@
-define({'dir-intg':[150],});
+define({});
