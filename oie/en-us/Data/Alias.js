@@ -512,5 +512,9 @@ xmlAliasData += '    <Map Name=\"ext-merge-auth-policies\" Link=\"Topics/identit
 xmlAliasData += '    <Map Name=\"ext-directory-integrations-main\" Link=\"Topics/identity-engine/directories/directory-integrations-main.htm\" ResolvedId=\"4055\" />';
 xmlAliasData += '    <Map Name=\"ext-devices-main\" Link=\"Topics/identity-engine/devices/devices-main.htm\" ResolvedId=\"4057\" />';
 xmlAliasData += '    <Map Name=\"ext-usgp-about-groups\" Link=\"Topics/users-groups-profiles/usgp-about-groups.htm\" ResolvedId=\"4061\" />';
+xmlAliasData += '    <Map Name=\"ext-apps-about-wsfed\" Link=\"Topics/Apps/apps-about-wsfed.htm\" ResolvedId=\"4062\" />';
+xmlAliasData += '    <Map Name=\"ext-about-threatinsight\" Link=\"Topics/Security/threat-insight/about-threatinsight.htm\" ResolvedId=\"4063\" />';
+xmlAliasData += '    <Map Name=\"ext-apps-selfservice-configureorg\" Link=\"Topics/Apps/apps-selfservice-configureorg.htm\" ResolvedId=\"4064\" />';
+xmlAliasData += '    <Map Name=\"ext-administrators-admin-comparison\" Link=\"Topics/Security/administrators-admin-comparison.htm\" ResolvedId=\"4065\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
