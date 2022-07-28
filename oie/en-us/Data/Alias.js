@@ -464,7 +464,7 @@ xmlAliasData += '    <Map Name=\"ext-velocity-variables\" Link=\"Topics/Settings
 xmlAliasData += '    <Map Name=\"ext-create-auth-policy\" Link=\"Topics/identity-engine/policies/add-app-sign-on-policy-rule.htm\" ResolvedId=\"5004\" />';
 xmlAliasData += '    <Map Name=\"ext-share-auth-policy\" Link=\"Topics/identity-engine/policies/share-auth-policies.htm\" ResolvedId=\"5005\" />';
 xmlAliasData += '    <Map Name=\"ext-deploy-guides\" Link=\"Topics/identity-engine/guides/deploy-guides-home.htm\" ResolvedId=\"4043\" />';
-xmlAliasData += '    <Map Name=\"ext-branding-variables\" Link=\"Topics/Settings/branding-variables.htm\" ResolvedId=\"5006\" />';
+xmlAliasData += '    <Map Name=\"ext-branding-variables\" Link=\"Topics/Settings/velocity-variables.htm\" ResolvedId=\"5006\" />';
 xmlAliasData += '    <Map Name=\"csh-api\" Link=\"Topics/Security/API.htm\" ResolvedId=\"1510\" />';
 xmlAliasData += '    <Map Name=\"csh-trusted-origins\" Link=\"Topics/Security/API-trusted-origins.htm\" ResolvedId=\"1511\" />';
 xmlAliasData += '    <Map Name=\"csh-customization\" Link=\"Topics/Settings/settings-customization-general.htm\" ResolvedId=\"1512\" />';
