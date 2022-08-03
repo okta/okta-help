@@ -602,5 +602,6 @@ xmlAliasData += '    <Map Name=\"ext-apps-about-wsfed\" Link=\"Topics/Apps/apps-
 xmlAliasData += '    <Map Name=\"ext-about-threatinsight\" Link=\"Topics/Security/threat-insight/about-threatinsight.htm\" ResolvedId=\"4063\" />';
 xmlAliasData += '    <Map Name=\"ext-apps-selfservice-configureorg\" Link=\"Topics/Apps/apps-selfservice-configureorg.htm\" ResolvedId=\"4064\" />';
 xmlAliasData += '    <Map Name=\"ext-administrators-admin-comparison\" Link=\"Topics/Security/administrators-admin-comparison.htm\" ResolvedId=\"4065\" />';
+xmlAliasData += '    <Map Name=\"ext-ar-report\" Link=\"Topics/identity-governance/past-access-report.htm\" ResolvedId=\"20017\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
