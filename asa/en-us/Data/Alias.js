@@ -32,5 +32,9 @@ xmlAliasData += '    <Map Name=\"csh-asa-install-server\" Link=\"Topics/Adv_Serv
 xmlAliasData += '    <Map Name=\"csh-asa-enroll-server\" Link=\"Topics/Adv_Server_Access/docs/setup/enrolling-a-server.htm\" ResolvedId=\"20010\" />';
 xmlAliasData += '    <Map Name=\"csh-asa-overview\" Link=\"Topics/Adv_Server_Access/docs/asa-overview.htm\" ResolvedId=\"20011\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-client-windows\" Link=\"Topics/Adv_Server_Access/docs/sft-windows.htm\" ResolvedId=\"20012\" />';
+xmlAliasData += '    <Map Name=\"ext-asa-gateway\" Link=\"Topics/Adv_Server_Access/docs/gateways.htm\" ResolvedId=\"20013\" />';
+xmlAliasData += '    <Map Name=\"ext-asa-gateway-configure\" Link=\"Topics/Adv_Server_Access/docs/gateway-configure.htm\" ResolvedId=\"20014\" />';
+xmlAliasData += '    <Map Name=\"ext-asa-projects\" Link=\"Topics/Adv_Server_Access/docs/setup/projects.htm\" ResolvedId=\"20015\" />';
+xmlAliasData += '    <Map Name=\"ext-asa-add-project-group\" Link=\"Topics/Adv_Server_Access/docs/setup/add-a-group-to-project.htm\" ResolvedId=\"20016\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
