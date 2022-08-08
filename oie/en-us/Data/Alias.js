@@ -464,7 +464,7 @@ xmlAliasData += '    <Map Name=\"ext-velocity-variables\" Link=\"Topics/Settings
 xmlAliasData += '    <Map Name=\"ext-create-auth-policy\" Link=\"Topics/identity-engine/policies/add-app-sign-on-policy-rule.htm\" ResolvedId=\"5004\" />';
 xmlAliasData += '    <Map Name=\"ext-share-auth-policy\" Link=\"Topics/identity-engine/policies/share-auth-policies.htm\" ResolvedId=\"5005\" />';
 xmlAliasData += '    <Map Name=\"ext-deploy-guides\" Link=\"Topics/identity-engine/guides/deploy-guides-home.htm\" ResolvedId=\"4043\" />';
-xmlAliasData += '    <Map Name=\"ext-branding-variables\" Link=\"Topics/Settings/branding-variables.htm\" ResolvedId=\"5006\" />';
+xmlAliasData += '    <Map Name=\"ext-branding-variables\" Link=\"Topics/Settings/velocity-variables.htm\" ResolvedId=\"5006\" />';
 xmlAliasData += '    <Map Name=\"csh-api\" Link=\"Topics/Security/API.htm\" ResolvedId=\"1510\" />';
 xmlAliasData += '    <Map Name=\"csh-trusted-origins\" Link=\"Topics/Security/API-trusted-origins.htm\" ResolvedId=\"1511\" />';
 xmlAliasData += '    <Map Name=\"csh-customization\" Link=\"Topics/Settings/settings-customization-general.htm\" ResolvedId=\"1512\" />';
@@ -511,6 +511,13 @@ xmlAliasData += '    <Map Name=\"ext-configure-duo\" Link=\"Topics/identity-engi
 xmlAliasData += '    <Map Name=\"ext-merge-auth-policies\" Link=\"Topics/identity-engine/policies/consolidate-auth-policies.htm\" ResolvedId=\"5013\" />';
 xmlAliasData += '    <Map Name=\"ext-directory-integrations-main\" Link=\"Topics/identity-engine/directories/directory-integrations-main.htm\" ResolvedId=\"4055\" />';
 xmlAliasData += '    <Map Name=\"ext-devices-main\" Link=\"Topics/identity-engine/devices/devices-main.htm\" ResolvedId=\"4057\" />';
+xmlAliasData += '    <Map Name=\"ext-all-notification-services\" Link=\"Topics/identity-engine/devices/notification-services.htm\" ResolvedId=\"18013\" />';
 xmlAliasData += '    <Map Name=\"ext-usgp-about-groups\" Link=\"Topics/users-groups-profiles/usgp-about-groups.htm\" ResolvedId=\"4061\" />';
+xmlAliasData += '    <Map Name=\"ext-apps-about-wsfed\" Link=\"Topics/Apps/apps-about-wsfed.htm\" ResolvedId=\"4062\" />';
+xmlAliasData += '    <Map Name=\"ext-about-threatinsight\" Link=\"Topics/Security/threat-insight/about-threatinsight.htm\" ResolvedId=\"4063\" />';
+xmlAliasData += '    <Map Name=\"ext-apps-selfservice-configureorg\" Link=\"Topics/Apps/apps-selfservice-configureorg.htm\" ResolvedId=\"4064\" />';
+xmlAliasData += '    <Map Name=\"ext-administrators-admin-comparison\" Link=\"Topics/Security/administrators-admin-comparison.htm\" ResolvedId=\"4065\" />';
+xmlAliasData += '    <Map Name=\"csh-device-assurance\" Link=\"Topics/identity-engine/devices/device-assurance.htm\" ResolvedId=\"4044\" />';
+xmlAliasData += '    <Map Name=\"ext-ar-report\" Link=\"Topics/identity-governance/past-access-report.htm\" ResolvedId=\"20017\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);

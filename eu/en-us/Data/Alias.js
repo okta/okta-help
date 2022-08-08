@@ -1,6 +1,7 @@
 var xmlAliasData = "";
 xmlAliasData += '<?xml version=\"1.0\" encoding=\"utf-8\"?>';
 xmlAliasData += '<CatapultAliasFile>';
+xmlAliasData += '    <Map Name=\"ext-generate-random-password\" Link=\"Topics/end-user/generate-random-password.htm\" ResolvedId=\"4056\" />';
 xmlAliasData += '    <Map Name=\"ext-ov-user-overview\" Link=\"Topics/end-user/ov-overview.htm\" ResolvedId=\"1330\" />';
 xmlAliasData += '    <Map Name=\"csh-user-ov-overview\" Link=\"Topics/end-user/ov-overview.htm\" ResolvedId=\"4000\" />';
 xmlAliasData += '    <Map Name=\"csh-user-ov-sign-in\" Link=\"Topics/end-user/ov-overview.htm\" ResolvedId=\"4001\" />';
@@ -60,11 +61,18 @@ xmlAliasData += '    <Map Name=\"ext-plugin-download-install\" Link=\"Topics/end
 xmlAliasData += '    <Map Name=\"ext-restart-macos\" Link=\"Topics/end-user/ov-restart-macos.htm\" ResolvedId=\"17029\" />';
 xmlAliasData += '    <Map Name=\"ext-update-macos-version\" Link=\"Topics/end-user/ov-update-version-macos.htm\" ResolvedId=\"17030\" />';
 xmlAliasData += '    <Map Name=\"ext-csh-user-dashboard-overview\" Link=\"Topics/end-user/dashboard-overview.htm\" ResolvedId=\"15021\" />';
+xmlAliasData += '    <Map Name=\"csh-ov-device-health-andr\" Link=\"Topics/end-user/ov-device-health-andr.htm\" ResolvedId=\"4046\" />';
 xmlAliasData += '    <Map Name=\"ext-ov-setup-windows\" Link=\"Topics/end-user/ov-setup-windows.htm\" ResolvedId=\"21002\" />';
 xmlAliasData += '    <Map Name=\"ext-ov-ios-reset-register\" Link=\"Topics/end-user/ov-ios-reset-register.htm\" ResolvedId=\"4047\" />';
 xmlAliasData += '    <Map Name=\"ext-ov-andr-reset-register\" Link=\"Topics/end-user/ov-reset-register.htm\" ResolvedId=\"4048\" />';
 xmlAliasData += '    <Map Name=\"ext_user_dashboard_overview\" Link=\"Topics/end-user/dashboard-overview.htm\" ResolvedId=\"11052\" />';
+xmlAliasData += '    <Map Name=\"ext-ov-device-remediation\" Link=\"Topics/end-user/ov-device-health-trbl.htm\" ResolvedId=\"21005\" />';
 xmlAliasData += '    <Map Name=\"csh-ov-sign-in-device-android\" Link=\"Topics/end-user/ov-sign-in-device-android.htm\" ResolvedId=\"4050\" />';
 xmlAliasData += '    <Map Name=\"ext-plugin-config-settings\" Link=\"Topics/end-user/plugin-config-settings.htm\" ResolvedId=\"4052\" />';
+xmlAliasData += '    <Map Name=\"ext-device-health-macos\" Link=\"Topics/end-user/ov-device-health-macos.htm\" ResolvedId=\"21006\" />';
+xmlAliasData += '    <Map Name=\"ext-device-health-windows\" Link=\"Topics/end-user/ov-device-health-windows.htm\" ResolvedId=\"21007\" />';
+xmlAliasData += '    <Map Name=\"ext-device-health-ios\" Link=\"Topics/end-user/ov-device-health-ios.htm\" ResolvedId=\"21008\" />';
+xmlAliasData += '    <Map Name=\"ext-dashboard-notifications\" Link=\"Topics/end-user/dashboard-notifications.htm\" ResolvedId=\"4059\" />';
+xmlAliasData += '    <Map Name=\"ext-random-password\" Link=\"Topics/end-user/generate-random-password.htm\" ResolvedId=\"4060\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
