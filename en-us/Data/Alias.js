@@ -603,5 +603,14 @@ xmlAliasData += '    <Map Name=\"ext-about-threatinsight\" Link=\"Topics/Securit
 xmlAliasData += '    <Map Name=\"ext-apps-selfservice-configureorg\" Link=\"Topics/Apps/apps-selfservice-configureorg.htm\" ResolvedId=\"4064\" />';
 xmlAliasData += '    <Map Name=\"ext-administrators-admin-comparison\" Link=\"Topics/Security/administrators-admin-comparison.htm\" ResolvedId=\"4065\" />';
 xmlAliasData += '    <Map Name=\"ext-ar-report\" Link=\"Topics/identity-governance/past-access-report.htm\" ResolvedId=\"20017\" />';
+xmlAliasData += '    <Map Name=\"ext-ad-agent-about-service-account\" Link=\"Topics/Directory/ad-agent-about-service-account.htm\" ResolvedId=\"4045\" />';
+xmlAliasData += '    <Map Name=\"ext-usgp-attribute-mappings-expressions\" Link=\"Topics/users-groups-profiles/usgp-attribute-mappings-expressions.htm\" ResolvedId=\"4066\" />';
+xmlAliasData += '    <Map Name=\"ext-usgp-configure-enhanced-group-push\" Link=\"Topics/users-groups-profiles/usgp-configure-enhanced-group-push.htm\" ResolvedId=\"4067\" />';
+xmlAliasData += '    <Map Name=\"ext-network-zones\" Link=\"Topics/Security/network/network-zones.htm\" ResolvedId=\"4054\" />';
+xmlAliasData += '    <Map Name=\"ext-about-dynamic-zones\" Link=\"Topics/Security/network/about-dynamic-zones.htm\" ResolvedId=\"4069\" />';
+xmlAliasData += '    <Map Name=\"ext-configure-threatinsight-system-log\" Link=\"Topics/Security/threat-insight/configure-threatinsight-system-log.htm\" ResolvedId=\"4070\" />';
+xmlAliasData += '    <Map Name=\"ext-proc-mfa-creds-rdp-ts\" Link=\"Topics/Security/proc-mfa-win-creds-rdp-ts.htm\" ResolvedId=\"4071\" />';
+xmlAliasData += '    <Map Name=\"ext-administrators-set-up-admins\" Link=\"Topics/Security/administrators-set-up-admins.htm\" ResolvedId=\"4072\" />';
+xmlAliasData += '    <Map Name=\"ext-about-creating-custom-admin-roles\" Link=\"Topics/Security/custom-admin-role/about-creating-custom-admin-roles.htm\" ResolvedId=\"4073\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);

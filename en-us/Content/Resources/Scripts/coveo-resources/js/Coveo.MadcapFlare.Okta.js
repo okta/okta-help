@@ -29,17 +29,16 @@ document.addEventListener('readyToInitCoveo', function () {
 			/* Code update below from Nate MacInnes for using search sandbox in review builds */
 /*                var newTokenObj = { value: JSON.parse(response), timestamp: new Date().getTime() }
                 localStorage.setItem("CoveoSearchToken", JSON.stringify(newTokenObj));
-                resolve(newTokenObj.value); */				
+                resolve(newTokenObj.value); */
                 var parsedResponse = JSON.parse(response);
                 var token = parsedResponse.token ? parsedResponse.token : parsedResponse;
                 var newTokenObj = { value: token, timestamp: new Date().getTime() };
                 localStorage.setItem("CoveoSearchToken", JSON.stringify(newTokenObj));
-                resolve(newTokenObj.value);				
+                resolve(newTokenObj.value);
             });
         }
     });
     tokenPromise.then(function (token) {
-        console.log('token >>>>> ' + token);
         Coveo.SearchEndpoint.configureCloudV2Endpoint(coveo_org_id, token, coveo_rest_uri);
         var searchboxRoot = document.getElementById('standaloneSearchbox');
         var customSelectObj = new Coveo.CustomSelect(document.getElementById('customSelect'), {
