@@ -484,6 +484,7 @@ xmlAliasData += '    <Map Name=\"csh-symantec-vip\" Link=\"Topics/identity-engin
 xmlAliasData += '    <Map Name=\"ext-ip-address-allow-listing\" Link=\"Topics/Security/ip-address-allow-listing.htm\" ResolvedId=\"18009\" />';
 xmlAliasData += '    <Map Name=\"csh-pe-policies\" Link=\"Topics/identity-engine/policies/about-profile-enrollment-policies.htm\" ResolvedId=\"6016\" />';
 xmlAliasData += '    <Map Name=\"ext-pe-policies\" Link=\"Topics/identity-engine/policies/about-pe.htm\" ResolvedId=\"6017\" />';
+xmlAliasData += '    <Map Name=\"ext-custom-authenticator-oie\" Link=\"Topics/identity-engine/authenticators/custom-authenticator.htm\" ResolvedId=\"18010\" />';
 xmlAliasData += '    <Map Name=\"ext-chromeos\" Link=\"Topics/identity-engine/chromeOS/chromeOS.htm\" ResolvedId=\"21003\" />';
 xmlAliasData += '    <Map Name=\"csh-devices-view\" Link=\"Topics/identity-engine/devices/devices-view.htm\" ResolvedId=\"21004\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-footer\" Link=\"Topics/Settings/customizations-footer.htm\" ResolvedId=\"5011\" />';
@@ -525,5 +526,6 @@ xmlAliasData += '    <Map Name=\"ext-configure-threatinsight-system-log\" Link=\
 xmlAliasData += '    <Map Name=\"ext-proc-mfa-creds-rdp-ts\" Link=\"Topics/Security/proc-mfa-win-creds-rdp-ts.htm\" ResolvedId=\"4071\" />';
 xmlAliasData += '    <Map Name=\"ext-administrators-set-up-admins\" Link=\"Topics/Security/administrators-set-up-admins.htm\" ResolvedId=\"4072\" />';
 xmlAliasData += '    <Map Name=\"ext-about-creating-custom-admin-roles\" Link=\"Topics/Security/custom-admin-role/about-creating-custom-admin-roles.htm\" ResolvedId=\"4073\" />';
+xmlAliasData += '    <Map Name=\"ext-configure-authenticators\" Link=\"Topics/identity-engine/authenticators/configure-authenticators.htm\" ResolvedId=\"5016\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
