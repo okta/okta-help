@@ -11,6 +11,7 @@
 * v17.1.7881.20138
 */
 
+
 /*
  RequireJS 2.1.11 Copyright (c) 2010-2014, The Dojo Foundation All Rights Reserved.
  Available via the MIT or new BSD license.
@@ -162,7 +163,7 @@ var requirejs, require, define;
 
 
 // Store local jquery object
-var $ = window.$, 
+var $ = window.$,
     jQuery = window.jQuery;
 
 /*!
@@ -278,7 +279,7 @@ var helpSystemName = "okta_help.htm";
         {
             var scriptNodes = document.getElementsByTagName("script");
             var found = false;
-            
+
             for (var i = 0; i < scriptNodes.length; i++) {
                 var src = scriptNodes[i].src;
                 var srcUrl = new MadCap.Utilities.Url(MadCap.String.Trim(src));
