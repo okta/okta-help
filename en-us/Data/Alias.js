@@ -602,5 +602,6 @@ xmlAliasData += '    <Map Name=\"ext-proc-mfa-creds-rdp-ts\" Link=\"Topics/Secur
 xmlAliasData += '    <Map Name=\"ext-administrators-set-up-admins\" Link=\"Topics/Security/administrators-set-up-admins.htm\" ResolvedId=\"4072\" />';
 xmlAliasData += '    <Map Name=\"ext-about-creating-custom-admin-roles\" Link=\"Topics/Security/custom-admin-role/about-creating-custom-admin-roles.htm\" ResolvedId=\"4073\" />';
 xmlAliasData += '    <Map Name=\"csh-osop\" Link=\"Topics/Security/policies/configure-signon-policies.htm\" ResolvedId=\"5015\" />';
+xmlAliasData += '    <Map Name=\"ext-branding-set-theme\" Link=\"Topics/Settings/branding-set-theme.htm\" ResolvedId=\"1052\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
