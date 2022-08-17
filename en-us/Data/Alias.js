@@ -193,7 +193,6 @@ xmlAliasData += '    <Map Name=\"ext_App_Based_Signon_revised\" Link=\"Topics/Se
 xmlAliasData += '    <Map Name=\"ext_Identity_Providers\" Link=\"Topics/Security/Identity_Providers.htm\" ResolvedId=\"200154\" />';
 xmlAliasData += '    <Map Name=\"ext_Identity_Provider_Discovery\" Link=\"Topics/Security/Identity_Provider_Discovery.htm\" ResolvedId=\"200155\" />';
 xmlAliasData += '    <Map Name=\"ext_Manage_Early_Access_features\" Link=\"Topics/Security/manage-EA-and-beta-features.htm\" ResolvedId=\"200156\" />';
-xmlAliasData += '    <Map Name=\"ext_MFA\" Link=\"Topics/Security/MFA.htm\" ResolvedId=\"200157\" />';
 xmlAliasData += '    <Map Name=\"ext_MFA_App_Level\" Link=\"Topics/Security/MFA_App_Level.htm\" ResolvedId=\"200158\" />';
 xmlAliasData += '    <Map Name=\"ext_MFA_OnPrem\" Link=\"Topics/Security/MFA_OnPrem.htm\" ResolvedId=\"200160\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_3PartyWhitelist\" Link=\"Topics/Security/Okta-allow-cookies.htm\" ResolvedId=\"200161\" />';
@@ -286,7 +285,6 @@ xmlAliasData += '    <Map Name=\"csh-dt-integration-types\" Link=\"Topics/device
 xmlAliasData += '    <Map Name=\"csh-attribute-statements-saml\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SAML.htm#SAMLAttributeStatements\" ResolvedId=\"1111\" />';
 xmlAliasData += '    <Map Name=\"csh_FIDO2_WebAuthn\" Link=\"Topics/Security/mfa-webauthn.htm\" ResolvedId=\"1112\" />';
 xmlAliasData += '    <Map Name=\"csh_dirintmain\" Link=\"Topics/Directory/directory-integrations-main.htm\" ResolvedId=\"1113\" />';
-xmlAliasData += '    <Map Name=\"csh_mfa\" Link=\"Topics/Security/MFA.htm\" ResolvedId=\"1115\" />';
 xmlAliasData += '    <Map Name=\"csh_threat_insight\" Link=\"Topics/Security/threat-insight/ti-index.htm\" ResolvedId=\"1116\" />';
 xmlAliasData += '    <Map Name=\"ext_ad_importusers\" Link=\"Topics/Directory/ad-agent-manage-users-groups.htm\" ResolvedId=\"1117\" />';
 xmlAliasData += '    <Map Name=\"ext_end_user_states\" Link=\"Topics/users-groups-profiles/usgp-end-user-states.htm\" ResolvedId=\"1118\" />';
@@ -603,5 +601,8 @@ xmlAliasData += '    <Map Name=\"ext-administrators-set-up-admins\" Link=\"Topic
 xmlAliasData += '    <Map Name=\"ext-about-creating-custom-admin-roles\" Link=\"Topics/Security/custom-admin-role/about-creating-custom-admin-roles.htm\" ResolvedId=\"4073\" />';
 xmlAliasData += '    <Map Name=\"csh-osop\" Link=\"Topics/Security/policies/configure-signon-policies.htm\" ResolvedId=\"5015\" />';
 xmlAliasData += '    <Map Name=\"ext-branding-set-theme\" Link=\"Topics/Settings/branding-set-theme.htm\" ResolvedId=\"1052\" />';
+xmlAliasData += '    <Map Name=\"ext-azure-idp-setup\" Link=\"Topics/Provisioning/azure/azure-identify-identity-provider.htm\" ResolvedId=\"9006\" />';
+xmlAliasData += '    <Map Name=\"ext_MFA\" Link=\"Topics/Security/mfa/mfa-home.htm\" ResolvedId=\"18014\" />';
+xmlAliasData += '    <Map Name=\"csh_mfa\" Link=\"Topics/Security/mfa/mfa-home.htm\" ResolvedId=\"18015\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
