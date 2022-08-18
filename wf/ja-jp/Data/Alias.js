@@ -1090,5 +1090,6 @@ xmlAliasData += '    <Map Name=\"ext-box-method-filemoved\" Link=\"Topics/Workfl
 xmlAliasData += '    <Map Name=\"ext-box-method-sharedlinkcreated\" Link=\"Topics/Workflows/connector-reference/box/events/sharedlinkcreated.htm\" ResolvedId=\"33020\" />';
 xmlAliasData += '    <Map Name=\"ext-box-method-sharedlinkupdated\" Link=\"Topics/Workflows/connector-reference/box/events/sharedlinkupdated.htm\" ResolvedId=\"33021\" />';
 xmlAliasData += '    <Map Name=\"ext-office365mail-method-customapiaction\" Link=\"Topics/Workflows/connector-reference/office365mail/actions/customapiaction.htm\" ResolvedId=\"33054\" />';
+xmlAliasData += '    <Map Name=\"ext-asatest13fb8e134224d4d6ab7215d080e3b752d-method-createpreauthorization\" Link=\"Topics/Workflows/connector-reference/advancedserveraccess/actions/createpreauthorization.htm\" ResolvedId=\"-2147483648\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
