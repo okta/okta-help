@@ -529,5 +529,10 @@ xmlAliasData += '    <Map Name=\"ext-about-creating-custom-admin-roles\" Link=\"
 xmlAliasData += '    <Map Name=\"ext-configure-authenticators\" Link=\"Topics/identity-engine/authenticators/configure-authenticators.htm\" ResolvedId=\"5016\" />';
 xmlAliasData += '    <Map Name=\"ext-branding-set-theme\" Link=\"Topics/Settings/branding-set-theme.htm\" ResolvedId=\"1052\" />';
 xmlAliasData += '    <Map Name=\"ext-azure-idp-setup\" Link=\"Topics/Provisioning/azure/azure-identify-identity-provider.htm\" ResolvedId=\"9006\" />';
+xmlAliasData += '    <Map Name=\"csh-access-requests\" Link=\"Topics/identity-governance/access-requests/ar-overview.htm\" ResolvedId=\"2028\" />';
+xmlAliasData += '    <Map Name=\"ext-profile-enrollment-policies\" Link=\"Topics/identity-engine/policies/about-profile-enrollment-policies.htm\" ResolvedId=\"6018\" />';
+xmlAliasData += '    <Map Name=\"ext-oie-whats-new\" Link=\"Topics/identity-engine/oie-upgrade-eligibility.htm\" ResolvedId=\"1408\" />';
+xmlAliasData += '    <Map Name=\"ext-oie-limitations\" Link=\"Topics/identity-engine/oie-upgrade-eligibility.htm\" ResolvedId=\"1403\" />';
+xmlAliasData += '    <Map Name=\"csh-features\" Link=\"Topics/identity-engine/oie-basic-config.htm\" ResolvedId=\"2003\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
