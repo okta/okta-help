@@ -602,7 +602,8 @@ xmlAliasData += '    <Map Name=\"ext-about-creating-custom-admin-roles\" Link=\"
 xmlAliasData += '    <Map Name=\"csh-osop\" Link=\"Topics/Security/policies/configure-signon-policies.htm\" ResolvedId=\"5015\" />';
 xmlAliasData += '    <Map Name=\"ext-branding-set-theme\" Link=\"Topics/Settings/branding-set-theme.htm\" ResolvedId=\"1052\" />';
 xmlAliasData += '    <Map Name=\"ext-azure-idp-setup\" Link=\"Topics/Provisioning/azure/azure-identify-identity-provider.htm\" ResolvedId=\"9006\" />';
-xmlAliasData += '    <Map Name=\"ext_MFA\" Link=\"Topics/Security/mfa/mfa-home.htm\" ResolvedId=\"18014\" />';
-xmlAliasData += '    <Map Name=\"csh_mfa\" Link=\"Topics/Security/mfa/mfa-home.htm\" ResolvedId=\"18015\" />';
+xmlAliasData += '    <Map Name=\"ext_MFA\" Link=\"Topics/Security/mfa/mfa-home.htm\" ResolvedId=\"4059\" />';
+xmlAliasData += '    <Map Name=\"csh_mfa\" Link=\"Topics/Security/mfa/mfa-home.htm\" ResolvedId=\"4075\" />';
+xmlAliasData += '    <Map Name=\"csh-access-requests\" Link=\"Topics/identity-governance/access-requests/ar-overview.htm\" ResolvedId=\"2028\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
