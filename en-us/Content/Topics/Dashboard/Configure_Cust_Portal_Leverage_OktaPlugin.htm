@@ -321,39 +321,28 @@
                                                     <ol>
                                                         <li value="1">From the Okta admin console, go to <span class="uicontrol">Security &gt;&#160;API</span>.</li>
                                                         <li value="2">Click the <span class="wintitle">Trusted Origins</span> tab.</li>
-                                                        <li value="3">Click <span class="uicontrol">Add Origin</span> and configure settings<ul><li><span class="uicontrol">Name</span> – Enter your organization's Origin name.</li><li><span class="uicontrol">Origin URL</span> – For example, <span class="url">https://www.example.com</span>.</li><li><span class="uicontrol">Type</span><ul><li><span class="uicontrol">CORS</span> – Select this option to  allow JavaScript hosted on your websites to make an <span class="code">XMLHttpRequest</span> to the Okta API using the Okta session cookie. </li><li><span class="uicontrol">Redirect</span> – 
+                                                        <li value="3">Click <span class="uicontrol">Add Origin</span> and configure settings<ul><li><span class="uicontrol">Name</span> – Enter your organization's Origin name.</li><li><span class="uicontrol">Origin URL</span> – For example, <span class="url">https://www.example.com</span>.</li><li><span class="uicontrol">Type</span><ul><li><span class="uicontrol">CORS</span> – Select this option to  allow JavaScript hosted on your websites to make an <span class="codeph">XMLHttpRequest</span> to the Okta API using the Okta session cookie. </li><li><span class="uicontrol">Redirect</span> – 
  Ignore this option. It has no effect on this feature.								</li></ul></li></ul></li>
                                                         <li value="4">Click <span class="uicontrol">Save</span>. </li>
                                                         <li value="5">
-                                                            <p>Once you have finished saving, you must now configure your portal as a CORS-trusted origin.&#160;To start, modify your custom portal HTML by adding the following hidden frame. This effectively sends a <span class="code">'pluginVersion'postMessage</span> request to the iframe when the iframe loads:</p>
+                                                            <p>Once you have finished saving, you must now configure your portal as a CORS-trusted origin.&#160;To start, modify your custom portal HTML by adding the following hidden frame. This effectively sends a <span class="codeph">'pluginVersion'postMessage</span> request to the iframe when the iframe loads:</p>
                                                         </li>
                                                         <div>
-                                                            <p style="width:110%;"><span class="code">&lt;iframe id="okta-frame"
+                                                            <p style="width:110%;"><span class="codeph">&lt;iframe id="okta-frame"
 	style="display:none"
 	src="https://example.okta.com/app/UserHome/plugin-info"
 	onload="this.contentWindow.postMessage('pluginVersion', 'https://example.okta.com/app/UserHome/plugin-info')"/&gt;</span>
                                                             </p>
                                                         </div>
                                                         <li value="6">
-                                                            <p>Write code similar to the following on <span class="url">https://www.example.com</span> to handle the <span class="code">postMessage</span> response from the iframe. For example:</p>
+                                                            <p>Write code similar to the following on <span class="url">https://www.example.com</span> to handle the <span class="codeph">postMessage</span> response from the iframe. For example:
+<span class="codeblock" xml:space="preserve">window.addEventListener('message', function (event) {
+  if (event.origin === 'https://example.okta.com' &amp;&amp; 
+                        event.data &amp;&amp; event.data.detected) {
+    doSomething(event.data.pluginVersion);
+}});
+</span></p>
                                                         </li>
-                                                        <div>
-                                                            <p style="width:110%;"><span class="codeph">window.addEventListener('message', function (event) {
-</span>
-                                                            </p>
-                                                            <p style="width: 110%;text-indent: 0.5in;"><span class="codeph">  if (event.origin === 'https://example.okta.com' &amp;&amp;
-      </span>
-                                                            </p>
-                                                            <p style="width: 110%; text-indent: 0.5in;"><span class="codeph">event.data &amp;&amp; 
-      event.data.detected) {
-</span>
-                                                            </p>
-                                                            <p style="width: 110%; text-indent: 0.5in;"><span class="codeph">    doSomething(event.data.pluginVersion);
-</span>
-                                                            </p>
-                                                            <p style="width: 110%; text-indent: 0.5in;"><span class="codeph">}});</span>
-                                                            </p>
-                                                        </div>
                                                     </ol>
                                                     <h2>How it works </h2>
                                                     <ol>
@@ -364,7 +353,7 @@
   pluginVersion: x.y.z // if plugin is present
 }</span></p></li>
                                                         <li value="3">The plugin detects that it is on an <code>/app/UserHome/plugin-info</code> endpoint that loaded successfully, and then updates its state accordingly by making the four API calls described above.</li>
-                                                        <li value="4">You then write code similar to the following on <code>https://www.example.com</code> to handle the <code>postMessage</code> response from the iframe:
+                                                        <li value="4">You then write code similar to the following on <span class="url">https://www.example.com</span> to handle the <span class="codeph">postMessage</span> response from the iframe:
                 
 <p><span class="codeblock">window.addEventListener('message', function (event) {
   if (event.origin === 'https://example.okta.com' &amp;&amp;
@@ -406,7 +395,6 @@
 &lt;html&gt;</span>
                                                         </p>
                                                     </div>
-                                                    <p>&#160;</p>
                                                 </div>
                                                 <!-- Back to Top button --><a href="#" class="sf-back-to-top"><span class="arrow"></span>Top</a>
                                             </div>
@@ -428,6 +416,8 @@
                                     </div>
                                     <!-- ********************** Scripts ************************************* -->
                                     <!-- Foundation -->
+                                    <script src="../../Resources/Scripts/js/ignore-dompurify.js">
+                                    </script>
                                     <script src="../../Resources/Scripts/js/app.js">
                                     </script>
                                     <script src="../../Resources/Scripts/js/vendor/what-input.js">

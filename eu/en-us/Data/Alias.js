@@ -72,7 +72,7 @@ xmlAliasData += '    <Map Name=\"ext-plugin-config-settings\" Link=\"Topics/end-
 xmlAliasData += '    <Map Name=\"ext-device-health-macos\" Link=\"Topics/end-user/ov-device-health-macos.htm\" ResolvedId=\"21006\" />';
 xmlAliasData += '    <Map Name=\"ext-device-health-windows\" Link=\"Topics/end-user/ov-device-health-windows.htm\" ResolvedId=\"21007\" />';
 xmlAliasData += '    <Map Name=\"ext-device-health-ios\" Link=\"Topics/end-user/ov-device-health-ios.htm\" ResolvedId=\"21008\" />';
-xmlAliasData += '    <Map Name=\"ext-dashboard-notifications\" Link=\"Topics/end-user/dashboard-notifications.htm\" ResolvedId=\"4059\" />';
 xmlAliasData += '    <Map Name=\"ext-random-password\" Link=\"Topics/end-user/generate-random-password.htm\" ResolvedId=\"4060\" />';
+xmlAliasData += '    <Map Name=\"ext-eu-dashboard-notifications\" Link=\"Topics/end-user/dashboard-notifications.htm\" ResolvedId=\"4074\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
