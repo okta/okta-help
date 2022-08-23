@@ -1,7 +1,16 @@
 var xmlAliasData = "";
 xmlAliasData += '<?xml version=\"1.0\" encoding=\"utf-8\"?>';
 xmlAliasData += '<CatapultAliasFile>';
+xmlAliasData += '    <Map Name=\"ext_Apps_OMM_End_User\" Link=\"Topics/end-user/om-omm-user.htm\" ResolvedId=\"200108\" />';
 xmlAliasData += '    <Map Name=\"ext-generate-random-password\" Link=\"Topics/end-user/generate-random-password.htm\" ResolvedId=\"4056\" />';
+xmlAliasData += '    <Map Name=\"ext_end_user_okta_account_chooser\" Link=\"Topics/end-user/plugin-switch-accounts.htm\" ResolvedId=\"200180\" />';
+xmlAliasData += '    <Map Name=\"ext_End_User_Password_Reset\" Link=\"Topics/end-user/dashboard-password-reset.htm\" ResolvedId=\"200181\" />';
+xmlAliasData += '    <Map Name=\"csh-eu-quick-access-apps\" Link=\"Topics/end-user/plugin-request-apps.htm\" ResolvedId=\"1137\" />';
+xmlAliasData += '    <Map Name=\"csh-ov-reset\" Link=\"Topics/end-user/ov-overview.htm\" ResolvedId=\"1157\" />';
+xmlAliasData += '    <Map Name=\"csh-ov-end-users\" Link=\"Topics/end-user/ov-overview.htm\" ResolvedId=\"1156\" />';
+xmlAliasData += '    <Map Name=\"ext_ov_eu\" Link=\"Topics/end-user/ov-overview.htm\" ResolvedId=\"1173\" />';
+xmlAliasData += '    <Map Name=\"ext_ov_endusers\" Link=\"Topics/end-user/ov-overview.htm\" ResolvedId=\"1212\" />';
+xmlAliasData += '    <Map Name=\"csh-ov-signin\" Link=\"Topics/end-user/ov-overview.htm\" ResolvedId=\"1255\" />';
 xmlAliasData += '    <Map Name=\"ext-ov-user-overview\" Link=\"Topics/end-user/ov-overview.htm\" ResolvedId=\"1330\" />';
 xmlAliasData += '    <Map Name=\"csh-user-ov-overview\" Link=\"Topics/end-user/ov-overview.htm\" ResolvedId=\"4000\" />';
 xmlAliasData += '    <Map Name=\"csh-user-ov-sign-in\" Link=\"Topics/end-user/ov-overview.htm\" ResolvedId=\"4001\" />';
@@ -30,6 +39,7 @@ xmlAliasData += '    <Map Name=\"csh-ov-delete-account-ios\" Link=\"Topics/end-u
 xmlAliasData += '    <Map Name=\"csh-user-ov-manage-account-ios\" Link=\"Topics/end-user/ov-mng-account-ios.htm\" ResolvedId=\"12003\" />';
 xmlAliasData += '    <Map Name=\"csh-user-ov-manage-account\" Link=\"Topics/end-user/ov-overview.htm\" ResolvedId=\"12004\" />';
 xmlAliasData += '    <Map Name=\"csh-user-ov-setup-ios\" Link=\"Topics/end-user/ov-setup-ios.htm\" ResolvedId=\"12005\" />';
+xmlAliasData += '    <Map Name=\"csh-actionable-notifications\" Link=\"Topics/end-user/ov-overview.htm\" ResolvedId=\"1168\" />';
 xmlAliasData += '    <Map Name=\"ext-self-register-for-end-users\" Link=\"Topics/users-groups-profiles/usgp-self-register-for-end-users.htm\" ResolvedId=\"15014\" />';
 xmlAliasData += '    <Map Name=\"csh-ov-overview-ios\" Link=\"Topics/end-user/ov-overview-ios.htm\" ResolvedId=\"4025\" />';
 xmlAliasData += '    <Map Name=\"csh-ov-overview-macos\" Link=\"Topics/end-user/ov-overview-macos.htm\" ResolvedId=\"4026\" />';
@@ -74,5 +84,8 @@ xmlAliasData += '    <Map Name=\"ext-device-health-windows\" Link=\"Topics/end-u
 xmlAliasData += '    <Map Name=\"ext-device-health-ios\" Link=\"Topics/end-user/ov-device-health-ios.htm\" ResolvedId=\"21008\" />';
 xmlAliasData += '    <Map Name=\"ext-random-password\" Link=\"Topics/end-user/generate-random-password.htm\" ResolvedId=\"4060\" />';
 xmlAliasData += '    <Map Name=\"ext-eu-dashboard-notifications\" Link=\"Topics/end-user/dashboard-notifications.htm\" ResolvedId=\"4074\" />';
+xmlAliasData += '    <Map Name=\"ext-end-user-set-language\" Link=\"Topics/end-user/dashboard-set-language.htm\" ResolvedId=\"1502\" />';
+xmlAliasData += '    <Map Name=\"ext-eu-sign-in-apps\" Link=\"Topics/end-user/eu-sign-in-to-apps.htm\" ResolvedId=\"6019\" />';
+xmlAliasData += '    <Map Name=\"ext-eu-sign-in-apps-emlotp\" Link=\"Topics/end-user/eu-sign-in-to-apps.htm#EMLorOTP\" ResolvedId=\"6020\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
