@@ -306,7 +306,7 @@ var requirejs, require, define;
 
 (function ()
 {
-var helpSystemName = "okta_help.htm";
+var helpSystemName = "index.htm";
 
     MadCap.OpenHelp = function (id, skinName, searchQuery, firstPick, pathToHelpSystem)
     {
