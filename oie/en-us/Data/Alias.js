@@ -534,5 +534,11 @@ xmlAliasData += '    <Map Name=\"ext-profile-enrollment-policies\" Link=\"Topics
 xmlAliasData += '    <Map Name=\"ext-oie-whats-new\" Link=\"Topics/identity-engine/oie-upgrade-eligibility.htm\" ResolvedId=\"1408\" />';
 xmlAliasData += '    <Map Name=\"ext-oie-limitations\" Link=\"Topics/identity-engine/oie-upgrade-eligibility.htm\" ResolvedId=\"1403\" />';
 xmlAliasData += '    <Map Name=\"csh-features\" Link=\"Topics/identity-engine/oie-basic-config.htm\" ResolvedId=\"2003\" />';
+xmlAliasData += '    <Map Name=\"ext-ar-reqtype\" Link=\"Topics/identity-governance/access-requests/ar-request-types.htm\" ResolvedId=\"13012\" />';
+xmlAliasData += '    <Map Name=\"ext-ar-jira-reqtype\" Link=\"Topics/identity-governance/access-requests/ar-create-jira-request-type.htm\" ResolvedId=\"13013\" />';
+xmlAliasData += '    <Map Name=\"ext-ar-create-reqtype\" Link=\"Topics/identity-governance/access-requests/ar-create-request-type.htm\" ResolvedId=\"13014\" />';
+xmlAliasData += '    <Map Name=\"ext-iga\" Link=\"Topics/identity-governance/iga.htm\" ResolvedId=\"13015\" />';
+xmlAliasData += '    <Map Name=\"ext-ac-review-campaign\" Link=\"Topics/identity-governance/access-certification/iga-ac-review-campaign.htm\" ResolvedId=\"13016\" />';
+xmlAliasData += '    <Map Name=\"ext-ar\" Link=\"Topics/identity-governance/access-requests/ar-overview.htm\" ResolvedId=\"13017\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);

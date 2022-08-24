@@ -605,5 +605,11 @@ xmlAliasData += '    <Map Name=\"ext-azure-idp-setup\" Link=\"Topics/Provisionin
 xmlAliasData += '    <Map Name=\"ext_MFA\" Link=\"Topics/Security/mfa/mfa-home.htm\" ResolvedId=\"4059\" />';
 xmlAliasData += '    <Map Name=\"csh_mfa\" Link=\"Topics/Security/mfa/mfa-home.htm\" ResolvedId=\"4075\" />';
 xmlAliasData += '    <Map Name=\"csh-access-requests\" Link=\"Topics/identity-governance/access-requests/ar-overview.htm\" ResolvedId=\"2028\" />';
+xmlAliasData += '    <Map Name=\"ext-ar-reqtype\" Link=\"Topics/identity-governance/access-requests/ar-request-types.htm\" ResolvedId=\"13012\" />';
+xmlAliasData += '    <Map Name=\"ext-ar-jira-reqtype\" Link=\"Topics/identity-governance/access-requests/ar-create-jira-request-type.htm\" ResolvedId=\"13013\" />';
+xmlAliasData += '    <Map Name=\"ext-ar-create-reqtype\" Link=\"Topics/identity-governance/access-requests/ar-create-request-type.htm\" ResolvedId=\"13014\" />';
+xmlAliasData += '    <Map Name=\"ext-iga\" Link=\"Topics/identity-governance/iga.htm\" ResolvedId=\"13015\" />';
+xmlAliasData += '    <Map Name=\"ext-ac-review-campaign\" Link=\"Topics/identity-governance/access-certification/iga-ac-review-campaign.htm\" ResolvedId=\"13016\" />';
+xmlAliasData += '    <Map Name=\"ext-ar\" Link=\"Topics/identity-governance/access-requests/ar-overview.htm\" ResolvedId=\"13017\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
