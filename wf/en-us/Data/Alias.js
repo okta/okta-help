@@ -1262,7 +1262,7 @@ xmlAliasData += '    <Map Name=\"ext-servicenow-method-deletegroup\" Link=\"Topi
 xmlAliasData += '    <Map Name=\"ext-servicenow-method-deleterequest\" Link=\"Topics/Workflows/connector-reference/servicenow/actions/deleterequest.htm\" ResolvedId=\"33133\" />';
 xmlAliasData += '    <Map Name=\"ext-servicenow-method-readrequest\" Link=\"Topics/Workflows/connector-reference/servicenow/actions/readrequest.htm\" ResolvedId=\"33134\" />';
 xmlAliasData += '    <Map Name=\"ext-servicenow-method-searchrequests\" Link=\"Topics/Workflows/connector-reference/servicenow/actions/searchrequests.htm\" ResolvedId=\"33135\" />';
-xmlAliasData += '    <Map Name=\"ext-serrvicenow-method-updategroup\" Link=\"Topics/Workflows/connector-reference/servicenow/actions/updategroup.htm\" ResolvedId=\"33136\" />';
+xmlAliasData += '    <Map Name=\"ext-serrvicenow-method-updategroup\" Link=\"Topics/Workflows/connector-reference/servicenow/actions/updategroup.htm\" ResolvedId=\"-2147483648\" />';
 xmlAliasData += '    <Map Name=\"ext-servicenow-method-updaterequest\" Link=\"Topics/Workflows/connector-reference/servicenow/actions/updaterequest.htm\" ResolvedId=\"33137\" />';
 xmlAliasData += '    <Map Name=\"ext-servicenow-method-updategroup\" Link=\"Topics/Workflows/connector-reference/servicenow/actions/updategroup.htm\" ResolvedId=\"33138\" />';
 xmlAliasData += '    <Map Name=\"ext-updaterequest-method-updaterequest\" Link=\"Topics/Workflows/connector-reference/servicenow/actions/updaterequest.htm\" ResolvedId=\"33139\" />';
