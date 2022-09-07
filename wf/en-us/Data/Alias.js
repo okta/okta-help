@@ -1266,5 +1266,6 @@ xmlAliasData += '    <Map Name=\"ext-servicenow-method-updaterequest\" Link=\"To
 xmlAliasData += '    <Map Name=\"ext-servicenow-method-updategroup\" Link=\"Topics/Workflows/connector-reference/servicenow/actions/updategroup.htm\" ResolvedId=\"33138\" />';
 xmlAliasData += '    <Map Name=\"ext-updaterequest-method-updaterequest\" Link=\"Topics/Workflows/connector-reference/servicenow/actions/updaterequest.htm\" ResolvedId=\"33139\" />';
 xmlAliasData += '    <Map Name=\"ext-connectorbuilder-dynamic-fields-options\" Link=\"Topics/Workflows/connector-builder/dynamic-fields-options.htm\" ResolvedId=\"31106\" />';
+xmlAliasData += '    <Map Name=\"ext-pendo\" Link=\"Topics/Workflows/connector-reference/pendo/pendo.htm\" ResolvedId=\"1072\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
