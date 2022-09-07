@@ -506,6 +506,7 @@ xmlAliasData += '    <Map Name=\"csh-review-bp-reviewers\" Link=\"Topics/identit
 xmlAliasData += '    <Map Name=\"ext-configure-password\" Link=\"Topics/identity-engine/authenticators/‌configure-password.htm\" ResolvedId=\"4051\" />';
 xmlAliasData += '    <Map Name=\"ext-configure-duo\" Link=\"Topics/identity-engine/authenticators/configure-duo-security.htm\" ResolvedId=\"4053\" />';
 xmlAliasData += '    <Map Name=\"ext-merge-auth-policies\" Link=\"Topics/identity-engine/policies/consolidate-auth-policies.htm\" ResolvedId=\"5013\" />';
+xmlAliasData += '    <Map Name=\"csh-custom-access-denied\" Link=\"Topics/Settings/customize-access-denied-message.htm\" ResolvedId=\"5014\" />';
 xmlAliasData += '    <Map Name=\"ext-directory-integrations-main\" Link=\"Topics/identity-engine/directories/directory-integrations-main.htm\" ResolvedId=\"4055\" />';
 xmlAliasData += '    <Map Name=\"ext-devices-main\" Link=\"Topics/identity-engine/devices/devices-main.htm\" ResolvedId=\"4057\" />';
 xmlAliasData += '    <Map Name=\"ext-all-notification-services\" Link=\"Topics/identity-engine/devices/notification-services.htm\" ResolvedId=\"18013\" />';
