@@ -612,5 +612,7 @@ xmlAliasData += '    <Map Name=\"ext-iga\" Link=\"Topics/identity-governance/iga
 xmlAliasData += '    <Map Name=\"ext-ac-review-campaign\" Link=\"Topics/identity-governance/access-certification/iga-ac-review-campaign.htm\" ResolvedId=\"13016\" />';
 xmlAliasData += '    <Map Name=\"ext-ar\" Link=\"Topics/identity-governance/access-requests/ar-overview.htm\" ResolvedId=\"13017\" />';
 xmlAliasData += '    <Map Name=\"ext-about-behavior-detection\" Link=\"Topics/Security/behavior-detection/about-behavior-detection.htm\" ResolvedId=\"4077\" />';
+xmlAliasData += '    <Map Name=\"csh-ar-create-req-type\" Link=\"Topics/identity-governance/access-requests/ar-create-request-type.htm\" ResolvedId=\"13018\" />';
+xmlAliasData += '    <Map Name=\"ext-view-import-monitoring-dashboard\" Link=\"Topics/users-groups-profiles/usgp-view-import-monitoring-dashboard.htm\" ResolvedId=\"4078\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
