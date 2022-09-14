@@ -950,6 +950,7 @@ xmlAliasData += '    <Map Name=\"ext-okta-method-usermfa\" Link=\"Topics/Workflo
 xmlAliasData += '    <Map Name=\"ext-okta-method-usermfafactoractivated\" Link=\"Topics/Workflows/connector-reference/okta/events/usermfafactoractivated.htm\" ResolvedId=\"31045\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-usermfafactordeactivated\" Link=\"Topics/Workflows/connector-reference/okta/events/usermfafactordeactivated.htm\" ResolvedId=\"31046\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-usermfafactorresetall\" Link=\"Topics/Workflows/connector-reference/okta/events/usermfafactorresetall.htm\" ResolvedId=\"31047\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-usermfafactorsuspended\" Link=\"Topics/Workflows/connector-reference/okta/events/usermfafactorsuspended.htm\" ResolvedId=\"31048\" />';
 xmlAliasData += '    <Map Name=\"ext-list-method-swap\" Link=\"Topics/Workflows/function-reference/List/list_swap.htm\" ResolvedId=\"1368\" />';
 xmlAliasData += '    <Map Name=\"ext-object-method-collapse\" Link=\"Topics/Workflows/function-reference/Object/object_collapse.htm\" ResolvedId=\"1369\" />';
 xmlAliasData += '    <Map Name=\"ext-object-method-split\" Link=\"Topics/Workflows/function-reference/Object/object_split.htm\" ResolvedId=\"1370\" />';
