@@ -15,7 +15,7 @@ describe('Test H.O.C.', () => {
     // not testable in local environments
   })
 
-  it('Classic/V1 release notes (en-US) landing page has nine tiles', () => {
+  it('Classic/V1 release notes (en-US) landing page has correct number of tiles', () => {
     cy.visit('en-us/Content/Topics/ReleaseNotes/okta-relnotes.htm')
     // The relnotes page has nine tiles, each with a link
     cy.get('p[class="tile-title"]')
@@ -53,7 +53,7 @@ describe('Test H.O.C.', () => {
         .should('not.have.attr', 'defer')
     })
 
-  it('OIE release notes (en-US) landing page has three tiles', () => {
+  it('OIE release notes (en-US) landing page has correct number of tiles', () => {
     cy.visit('oie/en-us/Content/Topics/ReleaseNotes/oie-relnotes.htm')
     // The relnotes page has three tiles, each with a link
     cy.get('p[class="tile-title"]')
