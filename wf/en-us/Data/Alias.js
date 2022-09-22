@@ -951,6 +951,7 @@ xmlAliasData += '    <Map Name=\"ext-okta-method-usermfafactoractivated\" Link=\
 xmlAliasData += '    <Map Name=\"ext-okta-method-usermfafactordeactivated\" Link=\"Topics/Workflows/connector-reference/okta/events/usermfafactordeactivated.htm\" ResolvedId=\"31046\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-usermfafactorresetall\" Link=\"Topics/Workflows/connector-reference/okta/events/usermfafactorresetall.htm\" ResolvedId=\"31047\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-usermfafactorsuspended\" Link=\"Topics/Workflows/connector-reference/okta/events/usermfafactorsuspended.htm\" ResolvedId=\"31048\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-usermfafactorunsuspended\" Link=\"Topics/Workflows/connector-reference/okta/events/usermfafactorunsuspended.htm\" ResolvedId=\"31049\" />';
 xmlAliasData += '    <Map Name=\"ext-list-method-swap\" Link=\"Topics/Workflows/function-reference/List/list_swap.htm\" ResolvedId=\"1368\" />';
 xmlAliasData += '    <Map Name=\"ext-object-method-collapse\" Link=\"Topics/Workflows/function-reference/Object/object_collapse.htm\" ResolvedId=\"1369\" />';
 xmlAliasData += '    <Map Name=\"ext-object-method-split\" Link=\"Topics/Workflows/function-reference/Object/object_split.htm\" ResolvedId=\"1370\" />';
@@ -1268,5 +1269,14 @@ xmlAliasData += '    <Map Name=\"ext-servicenow-method-updategroup\" Link=\"Topi
 xmlAliasData += '    <Map Name=\"ext-updaterequest-method-updaterequest\" Link=\"Topics/Workflows/connector-reference/servicenow/actions/updaterequest.htm\" ResolvedId=\"33139\" />';
 xmlAliasData += '    <Map Name=\"ext-connectorbuilder-dynamic-fields-options\" Link=\"Topics/Workflows/connector-builder/dynamic-fields-options.htm\" ResolvedId=\"31106\" />';
 xmlAliasData += '    <Map Name=\"ext-pendo\" Link=\"Topics/Workflows/connector-reference/pendo/pendo.htm\" ResolvedId=\"1072\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-phoneverificationsmssent\" Link=\"Topics/Workflows/connector-reference/okta/events/phoneverificationsmssent.htm\" ResolvedId=\"14001\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-phoneverificationcallsent\" Link=\"Topics/Workflows/connector-reference/okta/events/phoneverificationcallsent.htm\" ResolvedId=\"14002\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-importgroupcreated\" Link=\"Topics/Workflows/connector-reference/okta/events/importgroupcreated.htm\" ResolvedId=\"14004\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-importgroupdeleted\" Link=\"Topics/Workflows/connector-reference/okta/events/importgroupdeleted.htm\" ResolvedId=\"14005\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-authenticatoractivated\" Link=\"Topics/Workflows/connector-reference/okta/events/authenticatoractivated.htm\" ResolvedId=\"14006\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-authenticatordeactivated\" Link=\"Topics/Workflows/connector-reference/okta/events/authenticatordeactivated.htm\" ResolvedId=\"14007\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-policyruleactivated\" Link=\"Topics/Workflows/connector-reference/okta/events/policyruleactivated.htm\" ResolvedId=\"14008\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-policyruledeleted\" Link=\"Topics/Workflows/connector-reference/okta/events/policyruledeleted.htm\" ResolvedId=\"14009\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-oauth2appconsentgranted\" Link=\"Topics/Workflows/connector-reference/okta/events/oauth2appconsentgranted.htm\" ResolvedId=\"14010\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
