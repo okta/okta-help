@@ -29,7 +29,7 @@ describe('Test H.O.C.', () => {
       })
   })
 
-  it('Classic/V1 release notes production page tabs', () => {
+  it('Classic/V1 release notes production page tabs work as expected', () => {
     cy.visit('en-us/Content/Topics/ReleaseNotes/production.htm')
     // The relnotes production page has four tabs
     cy.get('ul[id="production-tabs"] > li')
@@ -39,6 +39,18 @@ describe('Test H.O.C.', () => {
         cy.wrap($li).click()
           .should('have.class', 'is-active')
       })
+    })
+
+    it('Classic/V1 topics have correct script formatting', () => {
+      cy.visit('en-us/Content/Topics/ReleaseNotes/production.htm')
+      // Most scripts take the 'defer' attr
+      cy.get('head script[src*="MadCapAll.js"')
+        .should('have.attr', 'defer')
+      // The following scripts must have 'defer' attrs removed
+      cy.get('head script[src*="require.min.js"]')
+        .should('not.have.attr', 'defer')
+      cy.get('head script[src*="foundation.6.2.3_custom.js"]')
+        .should('not.have.attr', 'defer')
     })
 
   it('OIE release notes (en-US) landing page has three tiles', () => {
@@ -55,7 +67,7 @@ describe('Test H.O.C.', () => {
       })
   })
 
-  it('OIE release notes production page tabs', () => {
+  it('OIE release notes production page tabs work as expected', () => {
     cy.visit('oie/en-us/Content/Topics/ReleaseNotes/production-oie.htm')
     // The relnotes production page has four tabs
     cy.get('ul[id="production-tabs"] > li')
@@ -65,6 +77,18 @@ describe('Test H.O.C.', () => {
         cy.wrap($li).click()
           .should('have.class', 'is-active')
       })
+    })
+
+    it('OIE topics have correct script formatting', () => {
+      cy.visit('oie/en-us/Content/Topics/ReleaseNotes/production-oie.htm')
+      // Most scripts take the 'defer' attr
+      cy.get('head script[src*="MadCapAll.js"')
+        .should('have.attr', 'defer')
+      // The following scripts must have 'defer' attrs removed
+      cy.get('head script[src*="require.min.js"]')
+        .should('not.have.attr', 'defer')
+      cy.get('head script[src*="foundation.6.2.3_custom.js"]')
+        .should('not.have.attr', 'defer')
     })
 
   it('Product documentation landing page (en-US)', () => {
