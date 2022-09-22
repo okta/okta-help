@@ -5,7 +5,7 @@
 // Suppressing jquery error only for dompurify module, as fixing
 // root cause is not possible.
 
-requirejs.onError = function (err) {
+requirejs && requirejs.onError = function (err) {
   if (err.requireType === 'mismatch' &&
       err.message.search('dompurify') !== -1) {
     // ignoring dom purify module error
