@@ -15,7 +15,7 @@ describe('Test H.O.C.', () => {
     // not testable in local environments
   })
 
-  it('Classic/V1 release notes (en-US)', () => {
+  it('Classic/V1 release notes (en-US) landing page has nine tiles', () => {
     cy.visit('en-us/Content/Topics/ReleaseNotes/okta-relnotes.htm')
     // The relnotes page has nine tiles, each with a link
     cy.get('p[class="tile-title"]')
@@ -29,7 +29,19 @@ describe('Test H.O.C.', () => {
       })
   })
 
-  it('OIE release notes (en-US)', () => {
+  it('Classic/V1 release notes production page tabs', () => {
+    cy.visit('en-us/Content/Topics/ReleaseNotes/production.htm')
+    // The relnotes production page has four tabs
+    cy.get('ul[id="production-tabs"] > li')
+      .should('have.length', 4)
+      // Each tab can be activated
+      .each(($li) => {
+        cy.wrap($li).click()
+          .should('have.class', 'is-active')
+      })
+    })
+
+  it('OIE release notes (en-US) landing page has three tiles', () => {
     cy.visit('oie/en-us/Content/Topics/ReleaseNotes/oie-relnotes.htm')
     // The relnotes page has three tiles, each with a link
     cy.get('p[class="tile-title"]')
@@ -42,6 +54,18 @@ describe('Test H.O.C.', () => {
           .should('have.attr', 'href')
       })
   })
+
+  it('OIE release notes production page tabs', () => {
+    cy.visit('oie/en-us/Content/Topics/ReleaseNotes/production-oie.htm')
+    // The relnotes production page has four tabs
+    cy.get('ul[id="production-tabs"] > li')
+      .should('have.length', 4)
+      // Each tab can be activated
+      .each(($li) => {
+        cy.wrap($li).click()
+          .should('have.class', 'is-active')
+      })
+    })
 
   it('Product documentation landing page (en-US)', () => {
     cy.visit('en-us/Content/index.htm')
