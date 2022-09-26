@@ -545,5 +545,6 @@ xmlAliasData += '    <Map Name=\"ext-devcontext-main\" Link=\"Topics/identity-en
 xmlAliasData += '    <Map Name=\"ext-about-behavior-detection\" Link=\"Topics/Security/behavior-detection/about-behavior-detection.htm\" ResolvedId=\"4077\" />';
 xmlAliasData += '    <Map Name=\"csh-ar-create-req-type\" Link=\"Topics/identity-governance/access-requests/ar-create-request-type.htm\" ResolvedId=\"13018\" />';
 xmlAliasData += '    <Map Name=\"ext-view-import-monitoring-dashboard\" Link=\"Topics/users-groups-profiles/usgp-view-import-monitoring-dashboard.htm\" ResolvedId=\"4078\" />';
+xmlAliasData += '    <Map Name=\"csh-administrators-admin-comparison\" Link=\"Topics/Security/administrators-admin-comparison.htm\" ResolvedId=\"16013\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
