@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="_Skins_okta_html5_topnav_nav_poc" data-mc-search-type="Stem" data-mc-help-system-file-name="okta_help.xml" data-mc-path-to-help-system="../../../../" data-mc-has-content-body="True" data-mc-searchable="True" data-mc-toc-path="[%=System.LinkedHeader%]|[%=System.LinkedHeader%]" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic;Default" data-mc-preload-images="false" data-mc-in-preview-mode="false">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="_Skins_okta_html5_topnav_nav_poc" data-mc-search-type="Stem" data-mc-help-system-file-name="okta_help.xml" data-mc-path-to-help-system="../../../../" data-mc-has-content-body="True" data-mc-searchable="True" data-mc-toc-path="[%=System.LinkedHeader%]|[%=System.LinkedHeader%]|[%=System.LinkedHeader%]" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic;Default" data-mc-preload-images="false" data-mc-in-preview-mode="false">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="typeofcontent" content="documentation" />
         <meta name="audience" content="Okta Identity Engine Admins" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Management attestation FAQs | Okta</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Management attestation FAQ | Okta</title>
         <meta charset="utf-8" />
         <meta name="description" content="" />
         <meta name="author" content="" />
@@ -199,6 +199,10 @@
                                     </div>
                                     <div id="coveo_token_url" style="Display:None"><span class="mc-variable okta-coveo-config.SearchTokenServiceUrl variable">https://support.okta.com/help/services/apexrest/PublicSearchToken?site=help</span>
                                     </div>
+                                    <div id="coveo_dev_org_id" style="Display:None"><span class="mc-variable okta-coveo-config.DevOrgId variable">oktanonproduction1il1gtac7</span>
+                                    </div>
+                                    <div id="coveo_dev_token" style="Display:None"><span class="mc-variable okta-coveo-config.DevSearchToken variable">xxb48840fe-d60d-4e40-b1d3-522d5a35c384</span>
+                                    </div>
                                     <!-- End Coveo config parameters -->
                                     <!-- ************** Coveo Search bar ************************************* -->
                                     <!-- set margin and size in /Content/Resources/Scripts/coveo-resources/css/Coveo.Okta.StandaloneSearchbox.min.css to make room for replacing Flare-generated top-nav with HTML code (see below)-->
@@ -306,105 +310,52 @@
                                             <div class="body-main">
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
-                                                    <h1>Management attestation FAQs</h1>
+                                                    <h1>Management attestation FAQ</h1>
+                                                    <h3>Why should admins push client certificates to desktop devices with <span class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span>?</h3>
+                                                    <p>If client certificates are pushed through mobile device management (MDM) software and can’t be obtained through another channel, client certificates can be used to attest that the device is managed.</p>
+                                                    <h3>How is a client certificate used by <span class="mc-variable okta-variables.ProductName variable">Okta</span>?</h3>
+                                                    <p>A client certificate is only used to sign an additional payload that attests for management. It isn’t used for authentication or to authenticate the user.</p>
+                                                    <h3>Can I&#160;obtain my certificates from a third-party certificate authority (CA)?</h3>
+                                                    <p>Yes, but for security reasons, it's important that the CA only issues certificates to managed devices.</p>
+                                                    <p>For example, if you use a CA that allows self-service enrollment for users, users could obtain and use these certificates on a device that isn’t managed and then spoof management attestation. With this, users could access resources without providing the assurance that is required by the authentication policy.</p>
+                                                    <h3>How does the client pick the client certificate?</h3>
+                                                    <p>On every authentication, the server sends a list of admin-configured issuers to the client. The client goes through the list and loads all the client certificates that were issued by those issuers. It prefers the user store, but it also checks the machine store if an issuer doesn’t have any corresponding certs in the user store. After checking if the client certificate can be used for signing (private key can be accessed), Okta selects the most recently issued client certificate to attest that the device is managed. The client doesn’t do a proper revocation check, so it’s recommended to delete revoked certificates from the client.</p>
+                                                    <h3>Can client certificates in the machine store be used for management attestation?</h3>
+                                                    <p>It’s recommended to use the user store, but the machine store can be used. If the machine store it used, admins need to make sure that no elevation is required for the user to access the private key.</p>
+                                                    <h3>How does <span class="mc-variable okta-variables.ProductName variable">Okta</span> validate the management attestation on the server?</h3>
+                                                    <p><span class="mc-variable okta-variables.ProductName variable">Okta</span> performs these validations:</p>
                                                     <ul>
-                                                        <div>
-                                                            <li>
-                                                                <h3>Why should admins push client certificates to desktop devices with <span class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span>?</h3>
-                                                            </li>
-                                                            <div style="padding-left: 5px;padding-right: 5px;padding-top: 5px;padding-bottom: 5px;background-color: #f7f7f7;">
-                                                                <p>If client certificates are pushed through mobile device management (MDM) software and cannot be obtained through another channel, client certificates can be used to attest that the device is managed.</p>
-                                                            </div>
-                                                        </div>
-                                                        <div>
-                                                            <li>
-                                                                <h3>How is a client certificate used by <span class="mc-variable okta-variables.ProductName variable">Okta</span>?</h3>
-                                                            </li>
-                                                            <div style="padding-left: 5px;padding-right: 5px;padding-top: 5px;padding-bottom: 5px;background-color: #f7f7f7;">
-                                                                <p>A client certificate is only used to sign an additional payload that attests for management. It is not used for authentication or to authenticate the user.</p>
-                                                            </div>
-                                                        </div>
-                                                        <div>
-                                                            <li>
-                                                                <h3>Can I&#160;obtain my certificates from a third-party certificate authority (CA)?</h3>
-                                                            </li>
-                                                            <div style="padding-left: 5px;padding-right: 5px;padding-top: 5px;padding-bottom: 5px;background-color: #f7f7f7;">
-                                                                <p>Yes, but for security reasons, it's important that the CA only issues certificates to managed devices.</p>
-                                                                <p>For example, if you use a CA that allows self-service enrollment for users, users could obtain and use these certificates on a device that is not managed and then spoof management attestation. With this, users could access resources without providing the assurance that is required by the authentication policy.</p>
-                                                            </div>
-                                                        </div>
-                                                        <div>
-                                                            <li>
-                                                                <h3>How does the client pick the client certificate?</h3>
-                                                            </li>
-                                                            <div style="padding-left: 5px;padding-right: 5px;padding-top: 5px;padding-bottom: 5px;background-color: #f7f7f7;">
-                                                                <p>On every authentication, the server sends a list of admin-configured issuers to the client. The client goes through the list and loads all the client certificates that were issued by those issuers. It prefers the user store, but it also checks the machine store if an issuer does not have any corresponding certs in the user store. After checking if the client certificate can be used for signing (private key can be accessed), Okta selects the most recently issued client certificate to attest that the device is managed. The client does not do a proper revocation check, so it is recommended to delete revoked certificates from the client.</p>
-                                                            </div>
-                                                        </div>
-                                                        <div>
-                                                            <li>
-                                                                <h3>Can client certificates in the machine store be used for management attestation?</h3>
-                                                            </li>
-                                                            <div style="padding-left: 5px;padding-right: 5px;padding-top: 5px;padding-bottom: 5px;background-color: #f7f7f7;">
-                                                                <p>It is recommended to use the user store, but the machine store can be used. If the machine store it used, admins need to make sure that no elevation is required for the user to access the private key.</p>
-                                                            </div>
-                                                        </div>
-                                                        <div>
-                                                            <li>
-                                                                <h3>How does <span class="mc-variable okta-variables.ProductName variable">Okta</span> validate the management attestation on the server?</h3>
-                                                            </li>
-                                                            <div style="padding-left: 5px;padding-right: 5px;padding-top: 5px;padding-bottom: 5px;background-color: #f7f7f7;">
-                                                                <p><span class="mc-variable okta-variables.ProductName variable">Okta</span> validates that the:</p>
-                                                                <ul>
-                                                                    <li>Payload was signed with the client certificate</li>
-                                                                    <li>Client certificate is valid (including revocation checks)</li>
-                                                                    <li>Client certificate was issued by a trusted issuer that the admin uploaded</li>
-                                                                </ul>
-                                                                <p><span class="mc-variable okta-variables.ProductName variable">Okta</span> does not validate the whole chain, and expects the admin to delete an issuer from <span class="mc-variable okta-variables.ProductName variable">Okta</span> when they are no longer trusted.</p>
-                                                            </div>
-                                                        </div>
-                                                        <div>
-                                                            <li>
-                                                                <h3>What certificate properties do I need when I create a SCEP profile in my MDM software?</h3>
-                                                            </li>
-                                                            <div style="padding-left: 5px;padding-right: 5px;padding-top: 5px;padding-bottom: 5px;background-color: #f7f7f7;">
-                                                                <p>The following settings are required when you create a Simple Certificate Enrollment Protocol (SCEP) profile in your mobile device management (MDM) software:</p>
-                                                                <ul>
-                                                                    <li><span class="uicontrol">URL</span>: Enter the SCEP URL from the <span class="mc-variable okta-variables.ProductName variable">Okta</span> <span class="mc-variable okta-feature-names.Administrator_dashboard variable">Admin Console</span>.</li>
-                                                                    <li><span class="uicontrol">Name</span>: Enter a name for the SCEP profile.</li>
-                                                                    <li><span class="uicontrol">Subject</span>: Enter a subject.</li>
-                                                                    <p>For example: <span class="uicontrol">CN = {EmailUserName} managementAttestation {DeviceUid}</span>.</p>
-                                                                    <p><span class="mc-variable okta-variables.ProductName variable">Okta</span> does not require the subject name to be in any particular format. Choose a name that indicates that the certificate is used as the device management signal to <span class="mc-variable okta-variables.ProductName variable">Okta</span>. If you are using <span class="mc-variable _3rd_Party_Integrations.Jamf_Pro variable">Jamf Pro</span>, you can also include profile variables to include the device ID (UDID).  </p>
-                                                                    <p>See <a href="https://docs.jamf.com/10.21.0/jamf-pro/administrator-guide/Computer_Configuration_Profiles.html" target="_blank">Jamf Pro Administrator's Guide - Computer Configuration Profiles</a>.</p>
-                                                                    <li><span class="uicontrol">Challenge type</span>: Specify if you require a static, dynamic, or delegated URL.</li>
-                                                                    <ul>
-                                                                        <li><span class="uicontrol">URL To SCEP Admin</span>: Enter the <span class="uicontrol">Challenge URL</span> from the <span class="mc-variable okta-variables.ProductName variable">Okta</span> <span class="mc-variable okta-feature-names.Administrator_dashboard variable">Admin Console</span>.</li>
-                                                                        <li><span class="uicontrol">Username</span>: Enter the <span class="uicontrol">UserName</span> from the <span class="mc-variable okta-variables.ProductName variable">Okta</span> <span class="mc-variable okta-feature-names.Administrator_dashboard variable">Admin Console</span>.</li>
-                                                                        <li><span class="uicontrol">Password</span>: Enter the <span class="uicontrol">Password</span> from the <span class="mc-variable okta-variables.ProductName variable">Okta</span> <span class="mc-variable okta-feature-names.Administrator_dashboard variable">Admin Console</span>.</li>
-                                                                    </ul>
-                                                                    <li><span class="uicontrol">Key Size</span>: 2048.</li>
-                                                                    <li><span class="uicontrol">Key usage</span>: Digital signature.</li>
-                                                                    <li><span class="uicontrol">Allow export from keychain</span>: Leave unselected. It is good security practice to mark the certificate as non-exportable.</li>
-                                                                    <li><span class="uicontrol">Allow all apps access</span>: If the SCEP profile is for macOS devices, select this.</li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <div>
-                                                            <li>
-                                                                <h3>How does <span class="mc-variable okta-variables.ProductName variable">Okta</span> protect against copying certificates to multiple desktop devices?</h3>
-                                                            </li>
-                                                            <div style="padding-left: 5px;padding-right: 5px;padding-top: 5px;padding-bottom: 5px;background-color: #f7f7f7;">
-                                                                <p><span class="mc-variable okta-variables.ProductName variable">Okta</span> creates a binding between the deviceId and the client certificate on the first authentication. After that, if the client certificate is used by a different device for a management attestation, the management attestation will fail.</p>
-                                                            </div>
-                                                        </div>
+                                                        <li>The payload was signed with the client certificate.</li>
+                                                        <li>The client certificate is valid (revocation checks are included).</li>
+                                                        <li>The client certificate was issued by a trusted issuer that the admin uploaded.</li>
                                                     </ul>
-                                                    <h2>Related topics</h2>
+                                                    <p><span class="mc-variable okta-variables.ProductName variable">Okta</span> doesn’tn’t validate the whole chain, and expects the admin to delete an issuer from <span class="mc-variable okta-variables.ProductName variable">Okta</span> when they’re no longer trusted.</p>
+                                                    <h3>What certificate properties do I need when I create a SCEP profile in my MDM software?</h3>
+                                                    <p>The following settings are required when you create a Simple Certificate Enrollment Protocol (SCEP) profile in your mobile device management (MDM) software:</p>
                                                     <ul>
-                                                        <li><a href="devices-client-certificates.htm" class="MCXref xref">Client certificates</a>
-                                                        </li>
-                                                        <li><a href="devices-lifecycle.htm" class="MCXref xref">Device lifecycle</a>
-                                                        </li>
+                                                        <li><span class="uicontrol">URL</span>: Enter the SCEP URL from the <span class="mc-variable okta-variables.ProductName variable">Okta</span><span class="mc-variable okta-feature-names.Administrator_dashboard variable">Admin Console</span>.</li>
+                                                        <li><span class="uicontrol">Name</span>: Enter a name for the SCEP profile.</li>
+                                                        <li><span class="uicontrol">Subject</span>: Enter a subject.</li>
+                                                        <p>For example: <span class="uicontrol">CN = {EmailUserName} managementAttestation {DeviceUid}</span>.</p>
+                                                        <p><span class="mc-variable okta-variables.ProductName variable">Okta</span> doesn’t require the subject name to be in any particular format. Choose a name that indicates that the certificate is used as the device management signal to <span class="mc-variable okta-variables.ProductName variable">Okta</span>. If you’re using <span class="mc-variable _3rd_Party_Integrations.Jamf_Pro variable">Jamf Pro</span>, you can also include profile variables to include the device ID (UDID).  </p>
+                                                        <p>See <a href="https://docs.jamf.com/10.21.0/jamf-pro/administrator-guide/Computer_Configuration_Profiles.html" target="_blank">Jamf Pro Administrator's Guide - Computer Configuration Profiles</a>.</p>
+                                                        <li><span class="uicontrol">Challenge type</span>: Specify if you require a static, dynamic, or delegated URL.</li>
+                                                        <ul>
+                                                            <li><span class="uicontrol">URL To SCEP Admin</span>: Enter the <span class="uicontrol">Challenge URL</span> from the <span class="mc-variable okta-variables.ProductName variable">Okta</span><span class="mc-variable okta-feature-names.Administrator_dashboard variable">Admin Console</span>.</li>
+                                                            <li><span class="uicontrol">Username</span>: Enter the <span class="uicontrol">UserName</span> from the <span class="mc-variable okta-variables.ProductName variable">Okta</span><span class="mc-variable okta-feature-names.Administrator_dashboard variable">Admin Console</span>.</li>
+                                                            <li><span class="uicontrol">Password</span>: Enter the <span class="uicontrol">Password</span> from the <span class="mc-variable okta-variables.ProductName variable">Okta</span><span class="mc-variable okta-feature-names.Administrator_dashboard variable">Admin Console</span>.</li>
+                                                        </ul>
+                                                        <li><span class="uicontrol">Key Size</span>: 2048.</li>
+                                                        <li><span class="uicontrol">Key usage</span>: Digital signature.</li>
+                                                        <li><span class="uicontrol">Allow export from keychain</span>: Leave cleared. It’s good security practice to mark the certificate as non-exportable.</li>
+                                                        <li><span class="uicontrol">Allow all apps access</span>: If the SCEP profile is for macOS devices, select this.</li>
                                                     </ul>
+                                                    <h3>How does <span class="mc-variable okta-variables.ProductName variable">Okta</span> protect against copying certificates to multiple desktop devices?</h3>
+                                                    <p><span class="mc-variable okta-variables.ProductName variable">Okta</span> creates a binding between the deviceId and the client certificate on the first authentication. After that, if the client certificate is used by a different device for a management attestation, the management attestation will fail.</p>
+                                                    <h3>What happens if I delete a desktop device management configuration?</h3>
+                                                    <p>If you delete a desktop device management configuration, new devices don’t request client certificates from the Okta CA service.</p>
+                                                    <p>In your device management solution, delete any SCEP policies associated with the device management configuration that you deleted.</p>
+                                                    <p>Devices that already have client certificates issued by <span class="mc-variable okta-variables.ProductName variable">Okta</span> keep sending management attestations. In your device management solution, remove the client certificate from the managed devices. If some devices still have client certificates deployed, authentication policies with unmanaged device conditions might prevent user from accessing apps on those devices.</p>
                                                 </div>
                                                 <!-- Back to Top button --><a href="#" class="sf-back-to-top"><span class="arrow"></span>Top</a>
                                             </div>
@@ -428,6 +379,8 @@
                                     </div>
                                     <!-- ********************** Scripts ************************************* -->
                                     <!-- Foundation -->
+                                    <script src="../../../Resources/Scripts/js/ignore-dompurify.js">
+                                    </script>
                                     <script src="../../../Resources/Scripts/js/app.js">
                                     </script>
                                     <script src="../../../Resources/Scripts/js/vendor/what-input.js">

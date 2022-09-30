@@ -199,6 +199,10 @@
                                     </div>
                                     <div id="coveo_token_url" style="Display:None"><span class="mc-variable okta-coveo-config.SearchTokenServiceUrl variable">https://support.okta.com/help/services/apexrest/PublicSearchToken?site=help</span>
                                     </div>
+                                    <div id="coveo_dev_org_id" style="Display:None"><span class="mc-variable okta-coveo-config.DevOrgId variable">oktanonproduction1il1gtac7</span>
+                                    </div>
+                                    <div id="coveo_dev_token" style="Display:None"><span class="mc-variable okta-coveo-config.DevSearchToken variable">xxb48840fe-d60d-4e40-b1d3-522d5a35c384</span>
+                                    </div>
                                     <!-- End Coveo config parameters -->
                                     <!-- ************** Coveo Search bar ************************************* -->
                                     <!-- set margin and size in /Content/Resources/Scripts/coveo-resources/css/Coveo.Okta.StandaloneSearchbox.min.css to make room for replacing Flare-generated top-nav with HTML code (see below)-->
@@ -307,57 +311,80 @@
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
                                                     <h1>Configure the Email authenticator</h1>
-                                                    <p>The email authenticator allows users to authenticate themselves by clicking an email magic link or using a six-digit code as a one-time password (OTP). <span class="mc-variable okta-variables.ProductName variable">Okta</span> sends these authentication methods in an email message to the user's primary email address to verify that the person making the sign-in attempt is the intended user. If the user doesn't click the email magic link or use the OTP within the challenge lifetime, the user authentication isn't processed.</p>
+                                                    <p>The <span class="mc-variable okta-variables.ProductName variable">Okta</span> email authenticator provides two methods for users to authenticate or recover their access to their account:</p>
+                                                    <ol>
+                                                        <li value="1">Click an email magic link.</li>
+                                                        <li value="2">Use a six-digit verification code as a one-time password (OTP).</li>
+                                                    </ol>
+                                                    <p>The <a href="https://developer.okta.com/docs/guides/email-magic-links-overview/aspnet/main/">Email Magic Links overview</a> in the <span class="mc-variable okta-variables.ProductName variable">Okta</span> developer documentation explains the email magic link and OTP concepts and the differences between them.</p>
+                                                    <p><span class="mc-variable okta-variables.ProductName variable">Okta</span> sends these authentication methods in a message to the user's primary email address. The user's ability to access the email verifies that the person making the sign-in attempt is the intended user. </p>
                                                     <p>This method provides a simple way for users to authenticate, but there are some issues to consider if you implement the email authenticator:</p>
                                                     <ul>
-                                                        <li>Email isn't always transmitted using secure protocols. Unauthorized third parties can intercept unencrypted messages. Consider assigning a shorter challenge lifetime to your email magic links and OTP codes to mitigate this risk.</li>
-                                                        <li>Email messages may arrive in the user's spam or junk folder. Remind your users to check these folders if their email authentication message doesn't appear.
-            </li>
-                                                        <li>Networking issues may delay email messages. If the email authentication message arrives after the challenge lifetime has expired, users must request another email authentication message.
+                                                        <li>If the user doesn't click the email magic link or use the OTP within a set time, their authentication isn't processed.</li>
+                                                        <li>Email isn't always transmitted through secure protocols. Unauthorized third parties can intercept unencrypted messages. Consider assigning a shorter challenge lifetime to your email magic links and OTP codes to mitigate this risk.</li>
+                                                        <li>Networking issues can delay email messages. If the authentication email arrives after the challenge lifetime has expired, users must request another authentication email.
+</li>
+                                                        <li>Email messages can arrive in the user's spam or junk folder. Remind your users to check these folders if their authentication email doesn't appear.
             </li>
                                                     </ul>
-                                                    <p>You can configure <span class="mc-variable okta-variables.ProductName variable">Okta</span> to use this authenticator for just account recovery, or for both authentication and account recovery. If you choose only the recovery option, <span class="mc-variable okta-variables.ProductName variable">Okta</span> doesn't request authentication during the evaluation of your <span class="mc-variable okta-feature-names.Okta_sign-on_policy variable">Global Session Policy</span>.</p>
                                                     <div>
                                                         <h2>Add email as an authenticator</h2>
+                                                        <p>For both redirect (<span class="mc-variable okta-variables.ProductName variable">Okta</span>-hosted) and embedded authorization flows, you need to add email as an authenticator for the org:</p>
                                                         <ol>
                                                             <li value="1">In the <span class="mc-variable okta-feature-names.Administrator_dashboard variable">Admin Console</span>, go to <span class="uicontrol">Security</span> &gt; <span class="uicontrol">Authenticators</span>.</li>
                                                             <li value="2">On the <span class="wintitle">Setup</span> tab, click <span class="uicontrol">Add Authenticator</span>.</li>
                                                             <li value="3">Click <span class="uicontrol">Add</span> on the <span class="uicontrol">Email</span> tile.</li>
-                                                            <li value="4">Optional. Change the default <span class="uicontrol">Email challenge lifetime (minutes)</span>.<p>The default value is five minutes, but you can increase the value in five-minute increments, up to 30 minutes. The generally accepted best practice is 10 minutes or less. If an end user clicks an expired magic link, they must sign in again.</p><div class="noteOkta"><p class="noteContent">In addition to emails used for authentication, this value is also applied to emails for self-service password resets and self-service account unlocking.<br /></p></div></li>
+                                                            <li value="4">Optional. Change the default <span class="uicontrol">Email challenge lifetime (minutes)</span>.<p>The default value is five minutes, but you can increase the value in five-minute increments, up to 30 minutes.  The accepted best practice is 10 minutes or less. If an end user clicks an expired magic link, they must sign in again.</p><div class="noteOkta"><p class="noteContent">In addition to email challenge links for authentication, <span class="mc-variable okta-variables.ProductName variable">Okta</span> also applies this expiration value to self-service password resets and account unlocks.<br /></p></div></li>
                                                         </ol>
                                                         <ol data-mc-continue="true">
-                                                            <li value="5">Select the scenarios for which end users can use the email authenticator:<ul><li>Authentication and recovery</li><li>Recovery</li></ul></li>
-                                                            <li value="6">Click <span class="uicontrol">Add</span>.
-                </li>
+                                                            <li value="5">
+                                                                <p>You can configure <span class="mc-variable okta-variables.ProductName variable">Okta</span> to use this authenticator for just account recovery, or for both authentication and account recovery. If you choose only the recovery option, <span class="mc-variable okta-variables.ProductName variable">Okta</span> doesn't request authentication during the evaluation of your <span class="mc-variable okta-feature-names.Okta_sign-on_policy variable">Global Session Policy</span>.</p>
+                                                                <p>Select the scenarios for which end users can use the email authenticator:</p>
+                                                                <ul>
+                                                                    <li>
+                                                                        <p><span class="uicontrol">Authentication and recovery</span>
+                                                                        </p>
+                                                                    </li>
+                                                                    <li>
+                                                                        <p><span class="uicontrol">Recovery</span>
+                                                                        </p>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                            <li value="6">Click <span class="uicontrol">Add</span>.</li>
                                                         </ol>
+                                                        <div class="noteOkta">
+                                                            <p class="noteContent">If you’re using embedded authorization for your sign-in flow, you must follow the <span class="wintitle">Integrate Magic Links</span> procedures outlined in the <a href="https://developer.okta.com/docs/guides/email-magic-links-overview/aspnet/main/#integrate-magic-links" title="Email Magic Links overview" target="_blank">Email Magic Links overview</a>.</p>
+                                                        </div>
                                                     </div>
                                                     <h2><a name="email-authenticator-euexp"></a>End-user experience</h2>
-                                                    <p>When an end user signs in, attempts to reset their password, or attempts to unlock their account, they receive an email message containing an email magic link and a one-time password (OTP) code. To understand the email magic link and OTP&#160;sign-in flow, see the <a href="https://developer.okta.com/docs/guides/authenticators-okta-email/nodeexpress/main/#overview" target="_blank" alt="Link to the Email Magic Link OTP integration guide on developer.okta.com" title="Link to the Email Magic Link OTP integration guide on developer.okta.com">Email Magic Link and OTP integration guide</a>.</p>
+                                                    <p>When an end user attempts to sign in, reset their password, or unlock their account, <span class="mc-variable okta-variables.ProductName variable">Okta</span> sends an email containing a magic link and a one-time password (OTP) code. The end-user documentation describes how to <a href="https://help.okta.com/okta_help.htm?type=eu&amp;id=ext-eu-sign-in-apps-emlotp" target="_blank">sign in with an email magic link or one-time password</a>.</p>
+                                                    <h3>Sign-in attempt </h3>
+                                                    <p>If the end user clicks the email magic link in the same browser and the authentication flow doesn't require any subsequent factors, it automatically signs them in  through a newly opened tab in the same browser. The session ends in the original browser tab.</p>
+                                                    <p>However, the experience is different if the end user receives or opens the magic link email on a different browser or device. They must return to the original browser and click <span class="uicontrol">Enter a verification code instead</span>. Then they can enter their OTP code to complete the verification process.</p>
+                                                    <p>After the end user is verified by the authentication flow, it redirects the end user to the destination configured for the application: </p>
                                                     <ul>
-                                                        <li>
-                                                            <p>For a sign-in attempt, if the user clicks the email magic link in the same browser and no subsequent factors are required, the user is signed in automatically through a newly opened tab in the same browser. The session in the original browser tab ends.</p>
-                                                        </li>
-                                                        <li>
-                                                            <p>However, if the user receives or opens the email magic link on a different browser or device, they must return to the original browser and click <span class="uicontrol">Enter a code from the email  instead</span>. Then they can enter their OTP code to complete the verification process.</p>
-                                                        </li>
-                                                        <li>
-                                                            <p>After the end user is verified, they are redirected to the destination configured for the application. If the end user was attempting to sign in to <span class="mc-variable okta-variables.ProductName variable">Okta</span>, the browser opens their <span class="mc-variable okta-feature-names.Okta_End-User_Dashboard variable">Okta End-User Dashboard</span>. However, if the end user was signing in using an embedded deployment of the <span class="mc-variable okta-feature-names.Sign-In_Widget variable">Sign-In Widget</span>, they are redirected to the location specified by the <span class="uicontrol">Email Verification Experience</span> setting. See <a href="../../Apps/apps-configure-settings.htm" class="MCXref xref">Configure settings for app integrations</a>.</p>
-                                                        </li>
-                                                        <li>
-                                                            <p>
-                        For a password reset, if the user clicks the email magic link using the same browser where they received the email,  the link opens a new tab where <span class="mc-variable okta-variables.ProductName variable">Okta</span> asks the user to enter and verify a new password. If the password meets the acceptance criteria, the user is signed in automatically with the new credentials through the newly opened tab in the same browser. The session in the original browser tab ends.</p>
-                                                            <p>However, if the user receives or opens the email magic link on a different browser or device, they must return to the original browser and click <span class="uicontrol">Enter a code from the email  instead</span>. Then they can enter the OTP code provided in the email to reset their password and complete the verification process.</p>
-                                                        </li>
-                                                        <li>
-                                                            <p>When unlocking an account, clicking the link in the email also sends the end user to a new tab for verification. After they affirm the request, the flow in the new browser tab ends, and they can click <span class="uicontrol">Back to sign in</span> in the original browser tab. If the end user clicks <span class="uicontrol">Enter a code from the email  instead</span>, they enter the code in the original browser tab, after which the unlock action completes and they can click <span class="uicontrol">Back to sign in</span>.</p>
-                                                        </li>
+                                                        <li>If the end user was attempting to sign in to <span class="mc-variable okta-variables.ProductName variable">Okta</span>, the browser opens their <span class="mc-variable okta-feature-names.Okta_End-User_Dashboard variable">Okta End-User Dashboard</span>. </li>
+                                                        <li>If the end user was signing in using an embedded authorization flow, it redirects them to the location specified by the <span class="uicontrol">Email Verification Experience</span> setting. See <a href="../../Apps/apps-configure-settings.htm" class="MCXref xref">Configure settings for app integrations</a>.</li>
                                                     </ul>
+                                                    <h3>Password reset</h3>
+                                                    <p>For a password reset, clicking the link in the email sends the end user to a new tab where <span class="mc-variable okta-variables.ProductName variable">Okta</span> asks them to verify that they made the request. When they affirm the request, the flow ends in the original browser tab, and they can set a new password in the new tab. If the password meets the acceptance criteria, the end user clicks <span class="uicontrol">Back to sign in</span> to return to the sign-in page. If the end user clicks <span class="uicontrol">Enter a verification code instead</span>, they can set a new password in the same tab, after which the sign-in action completes.</p>
+                                                    <p>The following is a self-service early access feature. To enable it, use the Early Access Feature Manager as described in <a href="../../Security/manage-EA-and-beta-features.htm" class="MCXref xref">Manage Early Access and Beta features</a>.</p>
+                                                    <p>
+                        For a password reset, if the end user clicks the email magic link using the same browser where they received the email, the link opens a new tab where <span class="mc-variable okta-variables.ProductName variable">Okta</span> asks them to enter and verify a new password. If the password meets the acceptance criteria, the end user is signed in automatically with the new credentials through the newly opened tab in the same browser. The session ends in the original browser tab.</p>
+                                                    <h3>Account unlock</h3>
+                                                    <p>When unlocking an account, clicking the link in the email sends the end user to a new browser tab for verification. After they affirm the request, the flow ends in the new browser tab, and they can click <span class="uicontrol">Back to sign in</span> on the original browser tab. If the end user clicks <span class="uicontrol">Enter a verification code instead</span>, they enter the code in the original browser tab, after which the unlock action completes and they can click <span class="uicontrol">Back to sign in</span>.</p>
+                                                    <p>However, if the end user receives or opens the email magic link on a different browser or device, they must return to the original browser and click <span class="uicontrol">Enter a verification code instead</span>. Then they can enter the OTP code provided in the email to reset their password and complete the verification process.</p>
+                                                    <p>The following is a self-service early access feature. To enable it, use the Early Access Feature Manager as described in <a href="../../Security/manage-EA-and-beta-features.htm" class="MCXref xref">Manage Early Access and Beta features</a>.</p>
+                                                    <p>For an account unlock, if the end user clicks the email magic link using the same browser where they initiated the unlock request, the link opens a new tab where <span class="mc-variable okta-variables.ProductName variable">Okta</span> asks them to proceed with the next steps. The end user  must complete any step-up operations required by the unlock request. Clicking the email link and any step-up verifications completed by the end user are counted as verification criteria. </p>
+                                                    <p>If the end user meets all the acceptance criteria, they are signed in to the application in that same tab of the browser. The session ends in the original browser tab. </p>
+                                                    <p>However, if the end user receives or opens the email magic link on a different browser or device, they must return to the original browser and click <span class="uicontrol">Enter a verification code instead</span>. Then they can enter the OTP code provided in the email to reset their password and complete the verification process.</p>
                                                     <h2>Limitations</h2>
                                                     <ul>
-                                                        <li><span class="mc-variable okta-variables.ProductName variable">Okta</span> always sends the authentication email  to the user's primary email address.
+                                                        <li><span class="mc-variable okta-variables.ProductName variable">Okta</span> always sends the authentication email to the end user's primary email address.
             </li>
                                                         <li>
-                If the user has access to the <span class="mc-variable okta-feature-names.Okta_End-User_Dashboard variable">Okta End-User Dashboard</span> and the <span class="uicontrol"><span class="mc-variable okta-variables.ProductName variable">Okta</span> End User Settings</span> page, set the primary email address attribute in the user profile to be read-only. Any changes you make to a user's primary email address in their user profile will automatically enroll the user in a new email authenticator and sends any emails to their new address without additional confirmation.
+                If the end user has access to the <span class="mc-variable okta-feature-names.Okta_End-User_Dashboard variable">Okta End-User Dashboard</span> and the <span class="uicontrol"><span class="mc-variable okta-variables.ProductName variable">Okta</span> End User Settings</span> page, set the primary email address  in the user profile to be a read-only attribute. Any changes to a end user's primary email address automatically enrolls them in a new email authenticator and sends any emails to their new address without additional confirmation.
             </li>
                                                     </ul>
                                                     <h2>Related topics </h2>
@@ -365,7 +392,7 @@
                                                     </p>
                                                     <p><a href="configure-phone.htm" class="MCXref xref">Configure the Phone authenticator</a>
                                                     </p>
-                                                    <p><a href="configure-webauthn.htm" class="MCXref xref">Configure a WebAuthn (FIDO2) authenticator</a>
+                                                    <p><a href="configure-webauthn.htm" class="MCXref xref">Configure a  FIDO2 (WebAuthn) authenticator</a>
                                                     </p>
                                                     <p><a href="configure-security-question.htm" class="MCXref xref">Configure the Security Question authenticator</a>
                                                     </p>
@@ -392,6 +419,8 @@
                                     </div>
                                     <!-- ********************** Scripts ************************************* -->
                                     <!-- Foundation -->
+                                    <script src="../../../Resources/Scripts/js/ignore-dompurify.js">
+                                    </script>
                                     <script src="../../../Resources/Scripts/js/app.js">
                                     </script>
                                     <script src="../../../Resources/Scripts/js/vendor/what-input.js">
