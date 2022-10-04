@@ -584,6 +584,7 @@ xmlAliasData += '    <Map Name=\"csh-el-eg-reviewers\" Link=\"Topics/identity-go
 xmlAliasData += '    <Map Name=\"csh-review-campaign\" Link=\"Topics/identity-governance/access-certification/iga-ac-review-campaign.htm\" ResolvedId=\"13009\" />';
 xmlAliasData += '    <Map Name=\"csh-remediation\" Link=\"Topics/identity-governance/access-certification/iga-ac-about-remediation.htm\" ResolvedId=\"13010\" />';
 xmlAliasData += '    <Map Name=\"csh-review-bp-reviewers\" Link=\"Topics/identity-governance/access-certification/iga-ac-review-campaign.htm#bp_reviewers\" ResolvedId=\"13011\" />';
+xmlAliasData += '    <Map Name=\"csh-telephony-usage-report\" Link=\"Topics/Reports/telephony-usage-report.htm\" ResolvedId=\"19002\" />';
 xmlAliasData += '    <Map Name=\"ext-usgp-about-groups\" Link=\"Topics/users-groups-profiles/usgp-about-groups.htm\" ResolvedId=\"4061\" />';
 xmlAliasData += '    <Map Name=\"ext-apps-about-wsfed\" Link=\"Topics/Apps/apps-about-wsfed.htm\" ResolvedId=\"4062\" />';
 xmlAliasData += '    <Map Name=\"ext-about-threatinsight\" Link=\"Topics/Security/threat-insight/about-threatinsight.htm\" ResolvedId=\"4063\" />';
