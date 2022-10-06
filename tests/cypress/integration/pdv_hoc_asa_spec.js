@@ -1,22 +1,7 @@
-describe('Test H.O.C.', () => {
+describe('Test ASA content on H.O.C.', () => {
 
-  it('Coveo search', () => {
-    // out of scope
-    // not testable in local environments
-  })
-
-  it('Google Analytics', () => {
-    // out of scope
-    // not testable in local environments
-  })
-
-  it('Qualtrics feedback', () => {
-    // out of scope
-    // not testable in local environments
-  })
-
-  it('Okta product documentation landing page (en-US)', () => {
-    cy.visit('en-us/Content/index.htm')
+  it('ASA landing page (en-US)', () => {
+    cy.visit('asa/en-us/Content/Topics/Adv_Server_Access/docs/asa-overview.htm')
     // Logo image
     cy.get('img[title="Okta Support"]')
       .should('be.visible')
@@ -26,6 +11,15 @@ describe('Test H.O.C.', () => {
     // Copyright
     cy.get('p.copyright')
       .contains('©')
+    // Left-side nav pane (TOC)
+    cy.get('ul.sidenav')
+      .should('be.visible')
+    // Each TOC entry has a link
+    cy.get('ul.sidenav a')
+      .each(($el) => {
+        cy.wrap($el)
+          .should('have.attr', 'href')
+      })
     // Menu dropdown
     cy.get('div.navbar > div.dropdown')
       .should(($div) => {
@@ -36,7 +30,7 @@ describe('Test H.O.C.', () => {
       .eq(0)
       .should('be.hidden')
       .invoke('show')
-    // The menu bar contains nine links
+    // The menu bar has nine links
     cy.get('div.dropdown-content > div > a')
       .should(($a) => {
         expect($a).to.have.length(9)
@@ -45,19 +39,18 @@ describe('Test H.O.C.', () => {
         cy.wrap($el)
           .should('have.attr', 'href')
       })
-    // All eight tiles on landing page have links
-    cy.get('div.body-main div.tiles div h3 a')
-      .should(($div) => {
-        expect($div).to.have.length(8)
-      })
-      .each(($el) => {
-        cy.wrap($el)
-          .should('have.attr', 'href')
-      })
+    // Body content is present
+    cy.get('div.body-container')
+      .should('be.visible')
+    
+    cy.visit('asa/en-us/Content/Topics/Adv_Server_Access/docs/about-asa.htm')
+    // Body content is present
+    cy.get('div.body-container')
+      .should('be.visible')
   })
 
-  it('Okta product documentation landing page (ja-JP)', () => {
-    cy.visit('ja-jp/Content/index.htm')
+  it('ASA landing page (ja-JP)', () => {
+    cy.visit('asa/ja-jp/Content/Topics/Adv_Server_Access/docs/asa-overview.htm')
     // Logo image
     cy.get('img[title="Okta Support"]')
       .should('be.visible')
@@ -67,6 +60,15 @@ describe('Test H.O.C.', () => {
     // Copyright
     cy.get('p.copyright')
       .contains('©')
+    // Left-side nav pane (TOC)
+    cy.get('ul.sidenav')
+      .should('be.visible')
+    // Each TOC entry has a link
+    cy.get('ul.sidenav a')
+      .each(($el) => {
+        cy.wrap($el)
+          .should('have.attr', 'href')
+      })
     // Menu dropdown
     cy.get('div.navbar > div.dropdown')
       .should(($div) => {
@@ -77,7 +79,7 @@ describe('Test H.O.C.', () => {
       .eq(0)
       .should('be.hidden')
       .invoke('show')
-    // The menu bar contains nine links
+    // The menu bar has nine links
     cy.get('div.dropdown-content > div > a')
       .should(($a) => {
         expect($a).to.have.length(9)
@@ -86,15 +88,14 @@ describe('Test H.O.C.', () => {
         cy.wrap($el)
           .should('have.attr', 'href')
       })
-    // All eight tiles on landing page have links
-    cy.get('div.body-main div.tiles div h3 a')
-      .should(($div) => {
-        expect($div).to.have.length(8)
-      })
-      .each(($el) => {
-        cy.wrap($el)
-          .should('have.attr', 'href')
-      })
+    // Body content is present
+    cy.get('div.body-container')
+      .should('be.visible')
+    
+    cy.visit('asa/ja-jp/Content/Topics/Adv_Server_Access/docs/about-asa.htm')
+    // Body content is present
+    cy.get('div.body-container')
+      .should('be.visible')
   })
-
+    
 })
