@@ -1,72 +1,185 @@
-describe('Test Workflows content on H.O.C.', () => {
-
-  it('Workflows landing page (en-US)', () => {
+describe('Workflows landing page (en-US)', () => {
+  beforeEach(() => {
     cy.visit('wf/en-us/Content/Topics/Workflows/workflows-main.htm')
-    // Logo image
+  })
+
+  it('displays the Okta H.O.C. image', () => {
     cy.get('img[title="Okta Support"]')
       .should('be.visible')
       .and(($img) => {
         expect($img[0].naturalWidth).to.equal(382)
       })
-    // Copyright
+  })
+
+  it('displays a link to Okta Support', () => {
+    cy.get('a.logo')
+      .should('be.visible')
+      .and('have.attr', 'href', 'https://support.okta.com/help/s/')
+  })
+
+  it('displays a copyright', () => {
     cy.get('p.copyright')
       .contains('©')
-    // Left-side nav pane (TOC)
+  })
+
+  it('displays left-side nav', () => {
     cy.get('ul.sidenav')
       .should('be.visible')
-    // Each TOC entry is a link
+  })
+
+  it('displays the TOC', () => {
     cy.get('ul.sidenav a')
       .each(($el) => {
         cy.wrap($el)
           .should('have.attr', 'href')
       })
-    // Menu dropdown
+    // Number of TOC entries (estimate)
+    cy.xpath('//ul[contains(@class, "sidenav")]//a[@href]')
+      .its('length')
+      .should('be.gt', 10)
+  })
+
+  it('displays a next topic button', () => {
+    cy.get('button.next-topic-button')
+      .should('be.visible')
+  })
+
+  it('displays a previous topic button', () => { 
+    cy.get('button.previous-topic-button')
+      .should('be.visible')
+  })
+
+  it('displays the top-level menu bar', () => {
     cy.get('div.navbar > div.dropdown')
       .should(($div) => {
         expect($div).to.have.length(5)
       })
-    // The page header has a menu bar
     cy.get('div.dropdown-content')
       .eq(0)
       .should('be.hidden')
       .invoke('show')
-    // The menu bar has nine links
+    // The menu bar has child links
     cy.get('div.dropdown-content > div > a')
       .should(($a) => {
         expect($a).to.have.length(9)
       })
+      .each(($el) => {
+        cy.wrap($el)
+          .should('have.attr', 'href')
+      })
+    })
+
+  it('displays the body content area', () => {
+    cy.get('div.body-container')
+      .should('be.visible')
+    cy.get('div.okta-topics')
+      .should('be.visible')  
+  })
+
+  it('displays links in all landing page tiles', () => {
+    cy.get('div.body-main div.tiles div p a')
+      .each(($el) => {
+        cy.wrap($el)
+          .should('have.attr', 'href')
+        })
+    })
+
+  it('displays expected number of tiles', () => {
+    cy.get('p[class="tile-title"]')
+      .should(($p) => {
+        expect($p).to.have.length(9)
+      })
+    })
+
+  it('displays links for each tile', () => {
+    cy.get('p[class="tile-title"] > a')
       .each(($el) => {
         cy.wrap($el)
           .should('have.attr', 'href')
       })
   })
 
-  it('Workflows landing page (ja-JP)', () => {
+  it('applies the "defer" attribute to most JS modules', () => {
+    cy.get('head script[src*="MadCapAll.js"')
+      .should('have.attr', 'defer')
+  })
+
+  it('but it omits the "defer" attribute from some JS modules', () => {
+    cy.get('head script[src*="require.min.js"]')
+      .should('not.have.attr', 'defer')
+
+    cy.get('head script[src*="foundation.6.2.3_custom.js"]')
+      .should('not.have.attr', 'defer')
+  })
+
+  it('contains the Qualtrics JS module', () => {
+    cy.get('script[src="../../Resources/Scripts/js/vendor/qualtrics.js"]')
+      .should('exist')
+  })
+
+  it('displays the Coveo search bar', () => {
+    cy.get('div.magic-box-input input')
+      .should('be.visible')
+  })
+
+})
+
+describe('Workflows landing page (ja-JP)', () => {
+  beforeEach(() => {
     cy.visit('wf/ja-jp/Content/Topics/Workflows/workflows-main.htm')
-    // Logo image
+  })
+
+  it('displays the Okta H.O.C. image', () => {
     cy.get('img[title="Okta Support"]')
       .should('be.visible')
       .and(($img) => {
         expect($img[0].naturalWidth).to.equal(382)
       })
-    // Copyright
+  })
+
+  it('displays a link to Okta Support', () => {
+    cy.get('a.logo')
+      .should('be.visible')
+      .and('have.attr', 'href', 'https://support.okta.com/help/s/')
+  })
+
+  it('displays a copyright', () => {
     cy.get('p.copyright')
       .contains('©')
-    // Left-side nav pane (TOC)
+  })
+
+  it('displays left-side nav', () => {
     cy.get('ul.sidenav')
       .should('be.visible')
-    // Each TOC entry has a link
+  })
+
+  it('displays the TOC', () => {
     cy.get('ul.sidenav a')
       .each(($el) => {
         cy.wrap($el)
           .should('have.attr', 'href')
       })
-    // Menu dropdown
+    // Number of TOC entries (estimate)
+    cy.xpath('//ul[contains(@class, "sidenav")]//a[@href]')
+      .its('length')
+      .should('be.gt', 10)
+  })
+
+  it('displays a next topic button', () => {
+    cy.get('button.next-topic-button')
+      .should('be.visible')
+  })
+
+  it('displays a previous topic button', () => { 
+    cy.get('button.previous-topic-button')
+      .should('be.visible')
+  })
+
+  it('displays the top-level menu bar', () => {
     cy.get('div.navbar > div.dropdown')
       .should(($div) => {
         expect($div).to.have.length(5)
       })
-    // The page header has a menu bar
     cy.get('div.dropdown-content')
       .eq(0)
       .should('be.hidden')
@@ -80,6 +193,59 @@ describe('Test Workflows content on H.O.C.', () => {
         cy.wrap($el)
           .should('have.attr', 'href')
       })
+    })
+
+  it('displays the body content area', () => {
+    cy.get('div.body-container')
+      .should('be.visible')
+    cy.get('div.okta-topics')
+      .should('be.visible')  
   })
-    
+
+  it('displays links in all landing page tiles', () => {
+    cy.get('div.body-main div.tiles div p a')
+      .each(($el) => {
+        cy.wrap($el)
+          .should('have.attr', 'href')
+        })
+    })
+
+  it('displays expected number of tiles', () => {
+    cy.get('p[class="tile-title"]')
+      .should(($p) => {
+        expect($p).to.have.length(9)
+      })
+    })
+
+  it('displays links for each tile', () => {
+    cy.get('p[class="tile-title"] > a')
+      .each(($el) => {
+        cy.wrap($el)
+          .should('have.attr', 'href')
+      })
+  })
+
+  it('applies the "defer" attribute to most JS modules', () => {
+    cy.get('head script[src*="MadCapAll.js"')
+      .should('have.attr', 'defer')
+  })
+
+  it('but it omits the "defer" attribute from some JS modules', () => {
+    cy.get('head script[src*="require.min.js"]')
+      .should('not.have.attr', 'defer')
+
+    cy.get('head script[src*="foundation.6.2.3_custom.js"]')
+      .should('not.have.attr', 'defer')
+  })
+
+  it('contains the Qualtrics JS module', () => {
+    cy.get('script[src="../../Resources/Scripts/js/vendor/qualtrics.js"]')
+      .should('exist')
+  })
+
+  it('displays the Coveo search bar', () => {
+    cy.get('div.magic-box-input input')
+      .should('be.visible')
+  })
+
 })
