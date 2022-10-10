@@ -398,7 +398,7 @@ describe('Test H.O.C.', () => {
   it('ASA landing page (ja-JP)', () => {
     cy.visit('asa/ja-jp/Content/Topics/Adv_Server_Access/docs/asa-overview.htm')
     // Logo image
-    cy.get('img[title="Okta Support"]')
+    cy.get('img[title="Oktaサポート"]')
       .should('be.visible')
       .and(($img) => {
         expect($img[0].naturalWidth).to.equal(382)
