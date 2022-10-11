@@ -618,5 +618,6 @@ xmlAliasData += '    <Map Name=\"ext-view-import-monitoring-dashboard\" Link=\"T
 xmlAliasData += '    <Map Name=\"csh-session-revoke\" Link=\"Topics/SLO/session-revoke.htm\" ResolvedId=\"14000\" />';
 xmlAliasData += '    <Map Name=\"csh-administrators-admin-comparison\" Link=\"Topics/Security/administrators-admin-comparison.htm\" ResolvedId=\"16013\" />';
 xmlAliasData += '    <Map Name=\"csh-api-service-integrations\" Link=\"Topics/Apps/about-api-service-integrations.htm\" ResolvedId=\"16014\" />';
+xmlAliasData += '    <Map Name=\"ext-key-management\" Link=\"Topics/automation-hooks/manage-keys.htm\" ResolvedId=\"9007\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
