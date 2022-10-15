@@ -7,7 +7,17 @@ cd ..
 
 ls
 
-npm install -g gh
+# npm install -g gh
+
+echo check gh!
+gh
+
+echo check brew!
+brew
+
+
+
+exit
 
 git status
 
