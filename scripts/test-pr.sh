@@ -12,6 +12,10 @@ npm install -g gh
 git status
 
 
+gh pr create --title "Test PR" --body "test 123" --base em-test-bacon-task --head "test-commit3"
+
+exit 0
+
 git checkout -b test-commit3
 git push origin test-commit3
 
