@@ -64,7 +64,7 @@ describe('Locale switching for ASA', () => {
       .find('div.button-icon-wrapper')
       .then(($el) => {
         cy.wrap($el)
-          .should('have.attr', 'aria-label', '言語の変更')
+          .should('have.attr', 'aria-label', 'Change language')
           .should('be.visible')
       })
       .click()
