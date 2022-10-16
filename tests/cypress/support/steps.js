@@ -12,6 +12,7 @@ Cypress.Commands.add('hasTabs', hasTabs);
 Cypress.Commands.add('hasDeferAttrsCorrectlyApplied', hasDeferAttrsCorrectlyApplied);
 Cypress.Commands.add('hasQualtrics', hasQualtrics);
 Cypress.Commands.add('hasCoveoSearchBar', hasCoveoSearchBar);
+Cypress.Commands.add('switchLocale', switchLocale);
 
 
 function hasOktaHOCBanner(title) {
@@ -142,4 +143,27 @@ function hasQualtrics() {
 function hasCoveoSearchBar() {
     cy.get('div.magic-box-input input')
       .should('be.visible')
+}
+
+function switchLocale(changeLocaleStr, langName) {
+    // 'langName' is the display text for the lang that the user will switch to
+    // From EN to JA, this is '日本語 (日本)‎'
+    // From JA to EN, this is 'English (United States)‎'
+    // 
+    // 'changeLocaleStr' is the expected string displayed to a user in the target locale.
+    // For EN this is "Change language"
+    // For JA this is "言語の変更"
+    cy.get('button.select-language-button')
+      .should('be.visible')
+      .trigger('mouseover')
+      .find('div.button-icon-wrapper')
+      .then(($el) => {
+        cy.wrap($el)
+          .should('have.attr', 'aria-label', changeLocaleStr)
+          .should('be.visible')
+      })
+      .click()
+    cy.get('a').contains(langName)
+      .should('be.visible')
+      .click()
 }
