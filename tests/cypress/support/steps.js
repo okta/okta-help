@@ -59,7 +59,9 @@ function hasTOC(numOfEntries) {
 
 function hasPreviousTopicArrow() {
     cy.get('button.previous-topic-button')
-      .should('be.visible')
+      .should(($prev) => {
+        expect($prev).to.be.visible
+      })
 }
 
 function hasNextTopicArrow() {
@@ -154,7 +156,9 @@ function switchLocale(changeLocaleStr, langName) {
     // For EN this is "Change language"
     // For JA this is "言語の変更"
     cy.get('button.select-language-button')
-      .should('be.visible')
+      .should(($btn) => {
+        expect($btn).to.be.visible
+      })
       .trigger('mouseover')
       .find('div.button-icon-wrapper')
       .then(($el) => {
