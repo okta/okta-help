@@ -156,20 +156,19 @@ function switchLocale(changeLocaleStr, langName) {
     // For EN this is "Change language"
     // For JA this is "言語の変更"
     cy.get('button.select-language-button')
-      .should(($btn) => {
-        expect($btn).to.be.visible
+      .should(($el) => {
+        expect($el).to.be.visible
       })
       .trigger('mouseover')
       .find('div.button-icon-wrapper')
-      .then(($el) => {
-        cy.wrap($el)
-          .should('have.attr', 'aria-label', changeLocaleStr)
-          .should('be.visible')
+      .should(($el) => {
+        expect($el).to.have.attr('aria-label', changeLocaleStr)
+        expect($el).to.be.visible
       })
       .click()
     cy.get('a').contains(langName)
-      .should(($btn) => {
-        expect($btn).to.be.visible
+      .should(($el) => {
+        expect($el).to.be.visible
       })
       .click()
 }
