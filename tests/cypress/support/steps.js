@@ -168,6 +168,8 @@ function switchLocale(changeLocaleStr, langName) {
       })
       .click()
     cy.get('a').contains(langName)
-      .should('be.visible')
+      .should(($btn) => {
+        expect($btn).to.be.visible
+      })
       .click()
 }
