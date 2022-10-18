@@ -124,7 +124,7 @@ describe('Test H.O.C.', () => {
     // All eight tiles on landing page have links
     cy.get('div.body-main div.tiles div h3 a')
       .should(($div) => {
-        expect($div).to.have.length(8)
+        expect($div).to.have.length(9)
       })
       .each(($el) => {
         cy.wrap($el)
