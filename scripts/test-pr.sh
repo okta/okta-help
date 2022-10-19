@@ -9,13 +9,7 @@ ls
 
 # npm install -g gh
 
-echo check gh!
-gh
-
-echo check brew!
-brew
-
-
+set
 
 exit
 
