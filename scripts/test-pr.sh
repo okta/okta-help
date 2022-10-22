@@ -4,12 +4,13 @@ set -x
 echo Hello 2
 
 ARCHIVE_PATH="target.zip"
+OUTPUT_FOLDER="../"${PUBLISH_DESTINATION}"/en-us"
 
 wget -O=${ARCHIVE_PATH} ${BUILT_ARTIFACT}
 ls
 git status
 
-tar -xf ${ARCHIVE_PATH} -C ..\${PUBLISH_DESTINATION}\en-us --strip-components=1
+tar -xf ${ARCHIVE_PATH} -C ${OUTPUT_FOLDER} --strip-components=1
 
 git status
 
