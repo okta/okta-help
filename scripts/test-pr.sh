@@ -6,7 +6,7 @@ echo Hello 2
 ARCHIVE_PATH="target.zip"
 OUTPUT_FOLDER="../"${PUBLISH_DESTINATION}"/en-us"
 
-wget -O=${ARCHIVE_PATH} ${BUILT_ARTIFACT}
+wget -O ${ARCHIVE_PATH} ${BUILT_ARTIFACT}
 ls
 git status
 
