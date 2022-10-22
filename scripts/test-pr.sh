@@ -9,10 +9,12 @@ OUTPUT_FOLDER="../"${PUBLISH_DESTINATION}
 wget -O ${ARCHIVE_PATH} ${BUILT_ARTIFACT}
 ls
 git status
+git diff test-pr.sh
 
 tar -xf ${ARCHIVE_PATH} -C ${OUTPUT_FOLDER} --strip-components=1 --overwrite
 
 rm ${ARCHIVE_PATH}
+
 
 git add --all
 git status
