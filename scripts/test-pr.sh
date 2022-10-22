@@ -3,14 +3,15 @@ set -x
 
 echo Hello 2
 
-ARCHIVE_PATH="target_"${PUBLISH_DESTINATION}".zip"
+ARCHIVE_PATH="target.zip"
 
 wget -O=${ARCHIVE_PATH} ${BUILT_ARTIFACT}
 ls
 git status
 
-${BUILT_ARTIFACT}
-${PUBLISH_DESTINATION}
+tar -xf ${ARCHIVE_PATH} -C ..\${PUBLISH_DESTINATION}\en-us --strip-components=1
+
+git status
 
 cd ..
 
