@@ -12,6 +12,7 @@ Cypress.Commands.add('hasTabs', hasTabs);
 Cypress.Commands.add('hasDeferAttrsCorrectlyApplied', hasDeferAttrsCorrectlyApplied);
 Cypress.Commands.add('hasQualtrics', hasQualtrics);
 Cypress.Commands.add('hasCoveoSearchBar', hasCoveoSearchBar);
+Cypress.Commands.add('hasMadCapSearchBar', hasMadCapSearchBar);
 Cypress.Commands.add('switchLocale', switchLocale);
 
 
@@ -145,6 +146,21 @@ function hasQualtrics() {
 function hasCoveoSearchBar() {
     cy.get('div.magic-box-input input')
       .should('be.visible')
+}
+
+function hasMadCapSearchBar() {
+  cy.get('form.search').last().as('searchForm')
+    .find('input[aria-label="Search Field"]')
+    .should('be.visible')
+    .type('verify')
+    .should('have.value', 'verify')
+    .should('be.visible')
+  cy.get('@searchForm')
+    .find('div.search-submit')
+    .should('be.visible')
+    .click()
+  cy.url()
+    .should('include', 'Search.htm?q=verify')  
 }
 
 function switchLocale(changeLocaleStr, langName) {

@@ -14,7 +14,7 @@ describe('End User landing page (en-US)', () => {
     cy.hasTiles(4)
     cy.hasDeferAttrsCorrectlyApplied()
     cy.hasQualtrics()
-    // cy.hasCoveoSearchBar()
+    cy.hasMadCapSearchBar()
   })
 })
 
