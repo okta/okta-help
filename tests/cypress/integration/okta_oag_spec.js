@@ -17,3 +17,5 @@ describe('OAG landing page (en-US)', () => {
     cy.hasCoveoSearchBar()
   })
 })
+
+// TODO 'OAG landing page (ja-JP)' NOT TRANSLATED YET
