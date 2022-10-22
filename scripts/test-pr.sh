@@ -13,6 +13,9 @@ git status
 
 tar -xf ${ARCHIVE_PATH} -C ${OUTPUT_FOLDER} --strip-components=1 --overwrite
 
+rm ${ARCHIVE_PATH}
+
+git add --all
 git status
 
 cd ..
