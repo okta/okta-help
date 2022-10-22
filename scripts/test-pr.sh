@@ -4,7 +4,7 @@ set -x
 echo Hello
 
 ARCHIVE_PATH="target.zip"
-OUTPUT_FOLDER="../"${PUBLISH_DESTINATION}"/en-us"
+OUTPUT_FOLDER="../"${PUBLISH_DESTINATION}
 OUTPUT_FOLDER="../en"
 
 wget -O ${ARCHIVE_PATH} ${BUILT_ARTIFACT}
@@ -16,8 +16,12 @@ tar -xf ${ARCHIVE_PATH} -C ${OUTPUT_FOLDER} --strip-components=1 --overwrite
 git status
 
 cd ..
+cd en
+cd en-us
 
 ls
+
+git status
 
 # npm install -g gh
 
