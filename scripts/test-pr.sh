@@ -3,9 +3,11 @@ set -x
 
 echo Hello 2
 
+ARCHIVE_PATH="target_"${PUBLISH_DESTINATION}".zip"
 
-wget ${BUILT_ARTIFACT}
+wget -O=${ARCHIVE_PATH} ${BUILT_ARTIFACT}
 ls
+git status
 
 ${BUILT_ARTIFACT}
 ${PUBLISH_DESTINATION}
