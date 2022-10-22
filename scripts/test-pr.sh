@@ -3,6 +3,13 @@ set -x
 
 echo Hello 2
 
+
+wget ${BUILT_ARTIFACT}
+ls
+
+${BUILT_ARTIFACT}
+${PUBLISH_DESTINATION}
+
 cd ..
 
 ls
