@@ -5,7 +5,6 @@ echo Hello
 
 ARCHIVE_PATH="target.zip"
 OUTPUT_FOLDER="../"${PUBLISH_DESTINATION}
-OUTPUT_FOLDER="../en"
 
 wget -O ${ARCHIVE_PATH} ${BUILT_ARTIFACT}
 ls
@@ -17,18 +16,6 @@ rm ${ARCHIVE_PATH}
 
 git add --all
 git status
-
-cd ..
-cd en
-cd en-us
-
-ls
-
-git status
-
-# npm install -g gh
-
-set
 
 exit
 
