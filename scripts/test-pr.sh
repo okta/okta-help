@@ -19,6 +19,8 @@ rm ${ARCHIVE_PATH}
 git add --all
 git status
 
+git diff --cached --stat
+
 exit
 
 git status
