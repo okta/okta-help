@@ -1,10 +1,11 @@
 #!/bin/bash
 set -x
 
-echo Hello 2
+echo Hello
 
 ARCHIVE_PATH="target.zip"
 OUTPUT_FOLDER="../"${PUBLISH_DESTINATION}"/en-us"
+OUTPUT_FOLDER="../en"
 
 wget -O ${ARCHIVE_PATH} ${BUILT_ARTIFACT}
 ls
