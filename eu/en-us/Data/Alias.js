@@ -89,5 +89,6 @@ xmlAliasData += '    <Map Name=\"ext-end-user-set-language\" Link=\"Topics/end-u
 xmlAliasData += '    <Map Name=\"ext-eu-sign-in-apps\" Link=\"Topics/end-user/eu-sign-in-to-apps.htm\" ResolvedId=\"6019\" />';
 xmlAliasData += '    <Map Name=\"ext-eu-sign-in-apps-emlotp\" Link=\"Topics/end-user/eu-sign-in-to-apps.htm#EMLorOTP\" ResolvedId=\"6020\" />';
 xmlAliasData += '    <Map Name=\"ext-ov-mng-account-details-android\" Link=\"Topics/end-user/ov-mng-account-details-android.htm\" ResolvedId=\"4079\" />';
+xmlAliasData += '    <Map Name=\"ext-ov-mng-settings-android\" Link=\"Topics/end-user/ov-mng-settings-android.htm\" ResolvedId=\"4080\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
