@@ -5,10 +5,10 @@ echo Hello
 
 export ARCHIVE_PATH="target.zip"
 export OUTPUT_FOLDER="../${PUBLISH_DESTINATION}"
-export PRODUCT_NAME="${PUBLISH_DESTINATION}"
+export PRODUCT_NAME="${PUBLISH_DESTINATION1:=oce}"
 export TOPIC_BRANCH="build-${PUBLISH_DESTINATION}-$(date +%s)"
 
-echo ${PRODUCT_NAME}
+echo ${TOPIC_BRANCH}
 
 exit 0
 
