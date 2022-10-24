@@ -2,7 +2,7 @@ describe('Classic release notes landing page (en-US)', () => {
   beforeEach(() => {
     cy.visit('en-us/Content/Topics/ReleaseNotes/okta-relnotes.htm')
   })
-  it('displays as expected', () => {
+  it('displays expected content structures in English', () => {
     cy.hasOktaHOCBanner('Okta Support')
     cy.hasCopyright()
     cy.hasLeftSideNav()
@@ -23,7 +23,7 @@ describe('Classic release notes production page (en-US)', () => {
   beforeEach(() => {
     cy.visit('en-us/Content/Topics/ReleaseNotes/production.htm')
   })
-  it('displays as expected', () => {
+  it('displays expected content structures in Japanese', () => {
     cy.hasOktaHOCBanner('Okta Support')
     cy.hasCopyright()
     cy.hasLeftSideNav()

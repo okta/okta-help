@@ -2,7 +2,7 @@ describe('Classic landing page (en-US)', () => {
   beforeEach(() => {
     cy.visit('en-us/Content/index-admin.htm')
   })
-  it('displays as expected', () => {
+  it('displays expected content structures in English', () => {
     cy.hasOktaHOCBanner('Okta Support')
     cy.hasCopyright()
     cy.hasLeftSideNav()
@@ -23,7 +23,7 @@ describe('Classic landing page (ja-JP)', () => {
   beforeEach(() => {
     cy.visit('ja-jp/Content/index-admin.htm')
   })
-  it('displays as expected', () => {
+  it('displays expected content structures in Japanese', () => {
     cy.hasOktaHOCBanner('Okta Support')
     cy.hasCopyright()
     cy.hasLeftSideNav()

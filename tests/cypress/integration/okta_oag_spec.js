@@ -2,7 +2,7 @@ describe('OAG landing page (en-US)', () => {
   beforeEach(() => {
     cy.visit('oag/en-us/Content/Topics/Access-Gateway/ag-main.htm')
   })
-  it('displays as expected', () => {
+  it('displays expected content structures in English', () => {
     cy.hasOktaHOCBanner('Okta Support')
     cy.hasCopyright()
     cy.hasLeftSideNav()

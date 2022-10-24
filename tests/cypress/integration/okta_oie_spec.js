@@ -2,7 +2,7 @@ describe('OIE landing page (en-US)', () => {
   beforeEach(() => {
     cy.visit('oie/en-us/Content/Topics/identity-engine/oie-index.htm')
   })
-  it('displays as expected', () => {
+  it('displays expected content structures in English', () => {
     cy.hasOktaHOCBanner('Okta Support')
     cy.hasCopyright()
     cy.hasLeftSideNav()
@@ -23,7 +23,7 @@ describe('OIE landing page (ja-JP)', () => {
   beforeEach(() => {
     cy.visit('oie/ja-jp/Content/Topics/identity-engine/oie-index.htm')
   })
-  it('displays as expected', () => {
+  it('displays expected content structures in Japanese', () => {
     cy.hasOktaHOCBanner('Okta Support')
     cy.hasCopyright()
     cy.hasLeftSideNav()

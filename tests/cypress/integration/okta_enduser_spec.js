@@ -2,7 +2,7 @@ describe('End User landing page (en-US)', () => {
   beforeEach(() => {
     cy.visit('eu/en-us/Content/Topics/end-user/end-user-home.htm')
   })
-  it('displays as expected', () => {
+  it('displays expected content structures in English', () => {
     cy.hasOktaHOCBanner('Okta Support')
     cy.hasCopyright()
     cy.hasLeftSideNav()
@@ -23,7 +23,7 @@ describe('End User landing page (ja-JP)', () => {
   beforeEach(() => {
     cy.visit('eu/ja-jp/Content/Topics/end-user/end-user-home.htm')
   })
-  it('displays as expected', () => {
+  it('displays expected content structures in Japanese', () => {
     cy.hasOktaHOCBanner('Okta Support')
     cy.hasCopyright()
     cy.hasLeftSideNav()

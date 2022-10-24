@@ -2,7 +2,7 @@ describe('ASA landing page (en-US)', () => {
   beforeEach(() => {
     cy.visit('asa/en-us/Content/Topics/Adv_Server_Access/docs/asa-overview.htm')
   })
-  it('displays as expected', () => {
+  it('displays expected content structures in English', () => {
     cy.hasOktaHOCBanner('Okta Support')
     cy.hasCopyright()
     cy.hasLeftSideNav()
@@ -23,7 +23,7 @@ describe('ASA landing page (ja-JP)', () => {
   beforeEach(() => {
     cy.visit('asa/ja-jp/Content/Topics/Adv_Server_Access/docs/asa-overview.htm')
   })
-  it('displays as expected', () => {
+  it('displays expected content structures in Japanese', () => {
     cy.hasOktaHOCBanner('Oktaサポート')
     cy.hasCopyright()
     cy.hasLeftSideNav()
