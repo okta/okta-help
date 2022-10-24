@@ -7,6 +7,7 @@ describe('OAG landing page (en-US)', () => {
     cy.hasCopyright()
     cy.hasLeftSideNav()
     cy.hasTOC(9)
+    cy.hasBreadcrumbs('Okta Access Gateway')
     cy.hasPreviousTopicArrow()
     cy.hasNextTopicArrow()
     cy.hasTopMenuBar(5, 9)

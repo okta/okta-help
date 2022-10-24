@@ -3,6 +3,7 @@ Cypress.Commands.add('hasCopyright', hasCopyright);
 Cypress.Commands.add('hasLeftSideNav', hasLeftSideNav);
 Cypress.Commands.add('hasNoLeftSideNav', hasNoLeftSideNav);
 Cypress.Commands.add('hasTOC', hasTOC);
+Cypress.Commands.add('hasBreadcrumbs', hasBreadcrumbs);
 Cypress.Commands.add('hasPreviousTopicArrow', hasPreviousTopicArrow);
 Cypress.Commands.add('hasNextTopicArrow', hasNextTopicArrow);
 Cypress.Commands.add('hasTopMenuBar', hasTopMenuBar);
@@ -56,6 +57,16 @@ function hasTOC(numOfEntries) {
       // Number of TOC entries (estimate)
       .its('length')
       .should('be.gte', numOfEntries)
+}
+
+function hasBreadcrumbs(topicName) {
+    cy.get('div.breadcrumbs')
+      .should('be.visible')
+      .find('span.MCBreadcrumbsSelf')
+      .invoke('text')
+      .should(($text) => {
+        expect($text).to.equal(topicName)
+      })
 }
 
 function hasPreviousTopicArrow() {
