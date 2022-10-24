@@ -13,7 +13,7 @@ tar -xf ${ARCHIVE_PATH} -C ${OUTPUT_FOLDER} --strip-components=1 --overwrite
 rm ${ARCHIVE_PATH}
 cd ..
 
-git checkout ${TOPIC_BRANCH}
+git checkout -b ${TOPIC_BRANCH}
 
 git add --all
 git -c user.name='CI automation' -c user.email=${userEmail} commit -m "Updates ${PRODUCT_NAME}"
