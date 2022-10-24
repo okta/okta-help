@@ -1,0 +1,41 @@
+describe('OIE landing page (en-US)', () => {
+  beforeEach(() => {
+    cy.visit('oie/en-us/Content/Topics/identity-engine/oie-index.htm')
+  })
+  it('displays as expected', () => {
+    cy.hasOktaHOCBanner('Okta Support')
+    cy.hasCopyright()
+    cy.hasLeftSideNav()
+    cy.hasTOC(9)
+    cy.hasBreadcrumbs('Okta Identity Engine')
+    cy.hasPreviousTopicArrow()
+    cy.hasNextTopicArrow()
+    cy.hasTopMenuBar(5, 9)
+    cy.hasBodyContent() 
+    cy.hasTiles(9)
+    cy.hasDeferAttrsCorrectlyApplied()
+    cy.hasQualtrics()
+    cy.hasCoveoSearchBar()
+  })
+})
+
+describe('OIE landing page (ja-JP)', () => {
+  beforeEach(() => {
+    cy.visit('oie/ja-jp/Content/Topics/identity-engine/oie-index.htm')
+  })
+  it('displays as expected', () => {
+    cy.hasOktaHOCBanner('Okta Support')
+    cy.hasCopyright()
+    cy.hasLeftSideNav()
+    cy.hasTOC(9)
+    cy.hasBreadcrumbs('Okta Identity Engine')
+    cy.hasPreviousTopicArrow()
+    cy.hasNextTopicArrow()
+    cy.hasTopMenuBar(5, 9)
+    cy.hasBodyContent() 
+    cy.hasTiles(9)
+    cy.hasDeferAttrsCorrectlyApplied()
+    cy.hasQualtrics()
+    cy.hasCoveoSearchBar()
+  })
+})
