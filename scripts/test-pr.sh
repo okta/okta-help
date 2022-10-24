@@ -11,6 +11,7 @@ wget -O ${ARCHIVE_PATH} ${BUILT_ARTIFACT}
 tar -xf ${ARCHIVE_PATH} -C ${OUTPUT_FOLDER} --strip-components=1 --overwrite
 
 rm ${ARCHIVE_PATH}
+cd ..
 
 git checkout ${TOPIC_BRANCH}
 
