@@ -1,31 +1,22 @@
 #!/bin/bash
 set -x
 
-echo Hello
-
 export ARCHIVE_PATH="target.zip"
 export OUTPUT_FOLDER="../${PUBLISH_DESTINATION}"
-export PRODUCT_NAME="${PUBLISH_DESTINATION1:=oce}"
-export TOPIC_BRANCH="build-${PUBLISH_DESTINATION}-$(date +%s)"
-
-echo ${TOPIC_BRANCH}
-
-exit 0
+export PRODUCT_NAME="${PUBLISH_DESTINATION:=oce}"
+export TOPIC_BRANCH="build-${PRODUCT_NAME}-$(date +%s)"
 
 wget -O ${ARCHIVE_PATH} ${BUILT_ARTIFACT}
-ls
-git status
-git diff test-pr.sh
 
 tar -xf ${ARCHIVE_PATH} -C ${OUTPUT_FOLDER} --strip-components=1 --overwrite
 
 rm ${ARCHIVE_PATH}
 
+git checkout ${TOPIC_BRANCH}
 
 git add --all
-git status
-
-git diff --cached --stat
+git -c user.name='CI automation' -c user.email=${userEmail} commit -m "Updates ${PRODUCT_NAME}"
+git push origin ${TOPIC_BRANCH}
 
 exit
 
