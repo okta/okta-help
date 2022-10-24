@@ -3,8 +3,14 @@ set -x
 
 echo Hello
 
-ARCHIVE_PATH="target.zip"
-OUTPUT_FOLDER="../"${PUBLISH_DESTINATION}
+export ARCHIVE_PATH="target.zip"
+export OUTPUT_FOLDER="../${PUBLISH_DESTINATION}"
+export PRODUCT_NAME="${PUBLISH_DESTINATION}"
+export TOPIC_BRANCH="build-${PUBLISH_DESTINATION}-$(date +%s)"
+
+echo ${PRODUCT_NAME}
+
+exit 0
 
 wget -O ${ARCHIVE_PATH} ${BUILT_ARTIFACT}
 ls
