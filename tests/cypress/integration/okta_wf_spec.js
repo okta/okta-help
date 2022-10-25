@@ -2,7 +2,7 @@ describe('Workflows landing page (en-US)', () => {
   beforeEach(() => {
     cy.visit('wf/en-us/Content/Topics/Workflows/workflows-main.htm')
   })
-  it('displays as expected', () => {
+  it('displays expected content structures in English', () => {
     cy.hasOktaHOCBanner('Okta Support')
     cy.hasCopyright()
     cy.hasLeftSideNav()
@@ -23,7 +23,7 @@ describe('Workflows landing page (ja-JP)', () => {
   beforeEach(() => {
     cy.visit('wf/ja-jp/Content/Topics/Workflows/workflows-main.htm')
   })
-  it('displays as expected', () => {
+  it('displays expected content structures in Japanese', () => {
     cy.hasOktaHOCBanner('Okta Support')
     cy.hasCopyright()
     cy.hasLeftSideNav()
