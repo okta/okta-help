@@ -28,9 +28,6 @@ xmlAliasData += '    <Map Name=\"Directory_Profile_Editor\" Link=\"Topics/Direct
 xmlAliasData += '    <Map Name=\"Directory_Profile_Masters\" Link=\"Topics/users-groups-profiles/usgp-about-profile-sourcing.htm#Directory_Profile_Masters1\" ResolvedId=\"1170\" />';
 xmlAliasData += '    <Map Name=\"Reports_System_Log\" Link=\"Topics/Reports/Reports_SysLog.htm#Reports_System_Log1\" ResolvedId=\"1200\" />';
 xmlAliasData += '    <Map Name=\"API_Access\" Link=\"Topics/Security/API_Access.htm#API_Access\" ResolvedId=\"1270\" />';
-xmlAliasData += '    <Map Name=\"create-scopes\" Link=\"Topics/Security/API_Access.htm#create-scopes\" ResolvedId=\"1272\" />';
-xmlAliasData += '    <Map Name=\"create-claims\" Link=\"Topics/Security/API_Access.htm#create-claims\" ResolvedId=\"1274\" />';
-xmlAliasData += '    <Map Name=\"create-access-policies\" Link=\"Topics/Security/API_Access.htm#create-access-policies\" ResolvedId=\"1276\" />';
 xmlAliasData += '    <Map Name=\"Production_Relnotes\" Link=\"Topics/ReleaseNotes/production.htm\" ResolvedId=\"1002\" />';
 xmlAliasData += '    <Map Name=\"Preview_relnotes\" Link=\"Topics/ReleaseNotes/preview.htm\" ResolvedId=\"1003\" />';
 xmlAliasData += '    <Map Name=\"Security_Duo\" Link=\"Topics/Security/Security_Duo.htm\" ResolvedId=\"1004\" />';
@@ -277,7 +274,6 @@ xmlAliasData += '    <Map Name=\"csh_notification_enroll\" Link=\"Topics/Securit
 xmlAliasData += '    <Map Name=\"csh_notification_reset\" Link=\"Topics/Security/Security_General.htm#SecurityNotificationEmails\" ResolvedId=\"1099\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-applies-to-okta-mobile\" Link=\"Topics/device-trust/device-trust-landing.htm\" ResolvedId=\"1101\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_App_Integration_Wizard-oidc\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_OIDC.htm\" ResolvedId=\"1103\" />';
-xmlAliasData += '    <Map Name=\"ext_API_Access-claims\" Link=\"Topics/Security/API_Access.htm#create_claims\" ResolvedId=\"1104\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Apps_Page-assign\" Link=\"Topics/Apps/apps-assign-applications.htm\" ResolvedId=\"1105\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_Administrators\" Link=\"Topics/Security/Administrators.htm\" ResolvedId=\"1106\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Customization-interstitial\" Link=\"Topics/Settings/settings-customization-general.htm\" ResolvedId=\"1107\" />';
@@ -475,7 +471,6 @@ xmlAliasData += '    <Map Name=\"ext_secur_manage_ea_bata\" Link=\"Topics/Securi
 xmlAliasData += '    <Map Name=\"ext-bamboohr-provisioning\" Link=\"Topics/Provisioning/bamboohr/bamboohr-main.htm\" ResolvedId=\"8011\" />';
 xmlAliasData += '    <Map Name=\"csh-prioritize-profile-sources\" Link=\"Topics/users-groups-profiles/usgp-prioritize-profile-source.htm\" ResolvedId=\"15012\" />';
 xmlAliasData += '    <Map Name=\"csh-okta-verify-number-challenge-v1\" Link=\"Topics/Mobile/ov-admin-config.htm#enable-number-challenge\" ResolvedId=\"12007\" />';
-xmlAliasData += '    <Map Name=\"ext-create-access-policies\" Link=\"Topics/Security/API_Access.htm#create-access-policies\" ResolvedId=\"9000\" />';
 xmlAliasData += '    <Map Name=\"csh-risk-scoring\" Link=\"Topics/Security/Security_Risk_Scoring.htm\" ResolvedId=\"12008\" />';
 xmlAliasData += '    <Map Name=\"ext-apps-bookmark-app\" Link=\"Topics/Apps/Apps_Bookmark_App.htm\" ResolvedId=\"8012\" />';
 xmlAliasData += '    <Map Name=\"csh-duo\" Link=\"Topics/Security/Security_Duo.htm\" ResolvedId=\"2005\" />';
@@ -584,6 +579,7 @@ xmlAliasData += '    <Map Name=\"csh-el-eg-reviewers\" Link=\"Topics/identity-go
 xmlAliasData += '    <Map Name=\"csh-review-campaign\" Link=\"Topics/identity-governance/access-certification/iga-ac-review-campaign.htm\" ResolvedId=\"13009\" />';
 xmlAliasData += '    <Map Name=\"csh-remediation\" Link=\"Topics/identity-governance/access-certification/iga-ac-about-remediation.htm\" ResolvedId=\"13010\" />';
 xmlAliasData += '    <Map Name=\"csh-review-bp-reviewers\" Link=\"Topics/identity-governance/access-certification/iga-ac-review-campaign.htm#bp_reviewers\" ResolvedId=\"13011\" />';
+xmlAliasData += '    <Map Name=\"csh-telephony-usage-report\" Link=\"Topics/Reports/telephony-usage-report.htm\" ResolvedId=\"19002\" />';
 xmlAliasData += '    <Map Name=\"ext-usgp-about-groups\" Link=\"Topics/users-groups-profiles/usgp-about-groups.htm\" ResolvedId=\"4061\" />';
 xmlAliasData += '    <Map Name=\"ext-apps-about-wsfed\" Link=\"Topics/Apps/apps-about-wsfed.htm\" ResolvedId=\"4062\" />';
 xmlAliasData += '    <Map Name=\"ext-about-threatinsight\" Link=\"Topics/Security/threat-insight/about-threatinsight.htm\" ResolvedId=\"4063\" />';
@@ -612,5 +608,12 @@ xmlAliasData += '    <Map Name=\"ext-iga\" Link=\"Topics/identity-governance/iga
 xmlAliasData += '    <Map Name=\"ext-ac-review-campaign\" Link=\"Topics/identity-governance/access-certification/iga-ac-review-campaign.htm\" ResolvedId=\"13016\" />';
 xmlAliasData += '    <Map Name=\"ext-ar\" Link=\"Topics/identity-governance/access-requests/ar-overview.htm\" ResolvedId=\"13017\" />';
 xmlAliasData += '    <Map Name=\"ext-about-behavior-detection\" Link=\"Topics/Security/behavior-detection/about-behavior-detection.htm\" ResolvedId=\"4077\" />';
+xmlAliasData += '    <Map Name=\"csh-ar-create-req-type\" Link=\"Topics/identity-governance/access-requests/ar-create-request-type.htm\" ResolvedId=\"13018\" />';
+xmlAliasData += '    <Map Name=\"ext-view-import-monitoring-dashboard\" Link=\"Topics/users-groups-profiles/usgp-view-import-monitoring-dashboard.htm\" ResolvedId=\"4078\" />';
+xmlAliasData += '    <Map Name=\"csh-session-revoke\" Link=\"Topics/SLO/session-revoke.htm\" ResolvedId=\"14000\" />';
+xmlAliasData += '    <Map Name=\"csh-administrators-admin-comparison\" Link=\"Topics/Security/administrators-admin-comparison.htm\" ResolvedId=\"16013\" />';
+xmlAliasData += '    <Map Name=\"ext-key-management\" Link=\"Topics/automation-hooks/manage-keys.htm\" ResolvedId=\"9007\" />';
+xmlAliasData += '    <Map Name=\"ext-anything-as-a-source\" Link=\"Topics/users-groups-profiles/usgp-anything-as-a-source.htm\" ResolvedId=\"11061\" />';
+xmlAliasData += '    <Map Name=\"ext-obp-security\" Link=\"Topics/Browser-Plugin/security.htm\" ResolvedId=\"6022\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);

@@ -201,6 +201,10 @@
                                     </div>
                                     <div id="coveo_token_url" style="Display:None"><span class="mc-variable okta-coveo-config.SearchTokenServiceUrl variable">https://support.okta.com/help/services/apexrest/PublicSearchToken?site=help</span>
                                     </div>
+                                    <div id="coveo_dev_org_id" style="Display:None"><span class="mc-variable okta-coveo-config.DevOrgId variable">oktanonproduction1il1gtac7</span>
+                                    </div>
+                                    <div id="coveo_dev_token" style="Display:None"><span class="mc-variable okta-coveo-config.DevSearchToken variable">xxb48840fe-d60d-4e40-b1d3-522d5a35c384</span>
+                                    </div>
                                     <!-- End Coveo config parameters -->
                                     <!-- ************** Coveo Search bar ************************************* -->
                                     <!-- set margin and size in /Content/Resources/Scripts/coveo-resources/css/Coveo.Okta.StandaloneSearchbox.min.css to make room for replacing Flare-generated top-nav with HTML code (see below)-->
@@ -376,7 +380,7 @@ options				</h3>
                                                                         <td class="TableStyle-standard-BodyC-Column1-Body2">Linux: <code>/var/lib/sft-gatewayd/setup.token</code><p>FreeBSD: <code>/var/db/sft-gatewayd/setup.token</code></p></td>
                                                                         <td class="TableStyle-standard-BodyA-Column1-Body2">
 								Specifies the path to a separate file containing the setup token. The default value is based on the operating system running the gateway.
-							<p>This option is the recommended method.</p><p>If using this option, you must manually create the setup token file and add the setup token created on the <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> platform.</p><p>After the gateway is enrolled with a team, the gateway deletes the token file.</p><p>Note:&#160; If the <code>SetupToken</code> option is also configured, the gateway uses the token specified there.</p></td>
+							<p>This option is the recommended method.</p><p>If using this option, you must manually create the setup token file and add the setup token created on the <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> platform.</p><p>After the gateway is enrolled with a team, the gateway deletes the token file.</p><p>Note:  If the <code>SetupToken</code> option is also configured, the gateway uses the token specified there.</p></td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
@@ -470,7 +474,10 @@ options</h3>
                                                             <div class="noteOkta">
                                                                 <p class="noteContent">You must indent these options within an <span class="code">LDAP</span> YAML dictionary using two spaces:</p>
                                                                 <p class="noteContent code">LDAP:
-                            <br />&#160;&#160;<code>StartTLS: ...</code><br /></p>
+                            <br />  <code>StartTLS: ...</code><br /></p>
+                                                            </div>
+                                                            <div class="noteOkta">
+                                                                <p class="noteContent">Warning: If <span class="wintitle">StartTLS</span> and <span class="wintitle">UseLDAPS</span> are set to <span class="uicontrol">False</span>, then LDAP communications with Active Directory won't be encrypted. <span class="mc-variable okta-variables.ProductName variable">Okta</span> recommends that you set <span class="wintitle">StartTLS</span> to <span class="uicontrol">True</span>.</p>
                                                             </div>
                                                             <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
                                                                 <col class="TableStyle-standard-Column-Column1" />
@@ -489,6 +496,29 @@ options</h3>
                                                                         <td class="TableStyle-standard-BodyF-Column1-Body1">True</td>
                                                                         <td class="TableStyle-standard-BodyD-Column1-Body1">
                                                                             <p>Upgrades Active Directory/LDAP server communications to TLS. If disabled, communication with the server is not encrypted.</p>
+                                                                            <p>StartTLS is an extension to the LDAP protocol that uses the TLS protocol to encrypt communication. This option can't be enabled simultaneously with the <span class="uicontrol">UseLDAPS</span> option.</p>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr class="TableStyle-standard-Body-Body2" data-mc-conditions="">
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                                                                            <p>UseLDAPS</p>
+                                                                        </td>
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                                                                            <p>False</p>
+                                                                        </td>
+                                                                        <td class="TableStyle-standard-BodyD-Column1-Body2">
+                                                                            <p>Enables the use of the LDAPS protocol to encrypt communication. This option can't be enabled simultaneously with the <span class="uicontrol">StartTLS</span> option.</p>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr class="TableStyle-standard-Body-Body1" data-mc-conditions="">
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                                                                            <p>LDAPSPort</p>
+                                                                        </td>
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                                                                            <p>636</p>
+                                                                        </td>
+                                                                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                                                                            <p>If the UseLDAPS option is set to <span class="uicontrol">True</span>, then this port value is used to make the LDAPS connection.</p>
                                                                         </td>
                                                                     </tr>
                                                                     <tr class="TableStyle-standard-Body-Body2">
@@ -516,9 +546,7 @@ options</h3>
                                                             <p>You must explicitly allow RDP connections with the <code>Enabled </code>option and either the <code>TrustedCAsDir</code> or <code>DangerouslyIgnoreServerCertificates</code> option. <br /></p>
                                                             <p>If a team is using the AD-Joined feature, the gateway can still discover Active Directory servers even if RDP support isn't enabled. See <a href="ad-sync.htm" class="MCXref xref">Active Directory server discovery</a>.</p>
                                                             <div class="noteOkta">
-                                                                <p class="noteContent">You must indent these options within an <span class="code">RDP</span> YAML dictionary using two spaces:</p>
-                                                                <p class="noteContent code">RDP:
-                            <br />&#160;&#160;<code>Enabled: ...</code><br /></p>
+                                                                <p class="noteContent">Ubuntu 20.04, 22.04, or RHEL 8 is required for AD-joined and RDP connections routed through a gateway.</p>
                                                             </div>
                                                             <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
                                                                 <col class="TableStyle-standard-Column-Column1" />
@@ -538,9 +566,6 @@ options</h3>
                                                                         <td class="TableStyle-standard-BodyD-Column1-Body1">
                                                                             <p>Controls RDP functionality for the gateway. This option is disabled by default as RDP
 requires additional configuration. Must be set to <span class="code">True</span> before any RDP conections are allowed.</p>
-                                                                            <div class="noteOkta">
-                                                                                <p class="noteContent" data-mc-conditions="Primary.live-site-only">Teams can only route RDP connections through gateways running Ubuntu 20.04.</p>
-                                                                            </div>
                                                                         </td>
                                                                     </tr>
                                                                     <tr class="TableStyle-standard-Body-Body2">
@@ -606,7 +631,7 @@ requires additional configuration. Must be set to <span class="code">True</span>
 							LogDestinations</td>
                                                                         <td class="TableStyle-standard-BodyC-Column1-Body2">unset</td>
                                                                         <td class="TableStyle-standard-BodyA-Column1-Body2">Specifies where to store finalized session logs. Teams can store logs locally or on AWS or GCS buckets. You can store session logs in multiple locations. If doing so, the logs are sent to the destination in the order specified in the configuration file. Session logs are never sent to <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span>.
-                                <p>See the following  default values and examples.</p><h5>Example - Linux/BSD</h5><p class="noteContent code">LogDestinations:<br />&#160;&#160;- Type: file<br />&#160;&#160;&#160;&#160;LogDir: /var/log/sft/sessions</p><div class="noteOkta"><p class="noteContent">Gateways can't write to the <code>/home</code>, <code>/root</code>, or <code>/run/user</code> directories.</p></div><h5>Example - AWS</h5><p class="noteContent code">LogDestinations:<br />&#160;&#160;- Type: s3<br />&#160;&#160;&#160;&#160;Bucket: BUCKET-NAME<br />&#160;&#160;&#160;&#160;# Region is optional<br />&#160;&#160;&#160;&#160;Region: US-EAST-1<br />&#160;&#160;&#160;&#160;# You may specify Profile for shared credentials...<br />&#160;&#160;&#160;&#160;Profile: AWS-PROFILE-NAME<br />&#160;&#160;&#160;&#160;# ... or AccessKeyId, SecretKey, and SessionToken for static credentials...<br />&#160;&#160;&#160;&#160;AccessKeyId: SECRET<br />&#160;&#160;&#160;&#160;SecretKey: SECRET<br />&#160;&#160;&#160;&#160;SessionToken: SECRET<br />&#160;&#160;&#160;&#160;# ... or no credentials to use the default credentials chain</p><h5>Example - Google Cloud</h5><p class="noteContent code">LogDestinations:<br />&#160;&#160;- Type: gcs<br />&#160;&#160;&#160;&#160;Bucket: BUCKET-NAME<br />&#160;&#160;&#160;&#160;# Supply one of CredentialsFile or CredentialsJSON (or none to use instance credentials)<br />&#160;&#160;&#160;&#160;CredentialsFile: /path/to/cred/file<br />&#160;&#160;&#160;&#160;CredentialsJSON: |<br />&#160;&#160;&#160;&#160;{<br />&#160;&#160;&#160;&#160;"SOME": "value",<br />&#160;&#160;&#160;&#160;"IN": "json"<br />&#160;&#160;&#160;&#160;}</p></td>
+                                <p>See the following  default values and examples.</p><h5>Example - Linux/BSD</h5><p class="noteContent code">LogDestinations:<br />  - Type: file<br />    LogDir: /var/log/sft/sessions</p><div class="noteOkta"><p class="noteContent">Gateways can't write to the <code>/home</code>, <code>/root</code>, or <code>/run/user</code> directories.</p></div><h5>Example - AWS</h5><p class="noteContent code">LogDestinations:<br />  - Type: s3<br />    Bucket: BUCKET-NAME<br />    Region: US-EAST-1<br />    # Use of ec2 instance IAM Role credentials for s3 bucket access is recommended<br />    # To use ec2 instance IAM Role credentials leave Profile, AccesKeyId, SecretKey, and SessionToken BLANK<br />    # Specify Profile for shared credentials<br />    Profile: AWS-PROFILE-NAME<br />    # Specify AccessKeyId, SecretKey, and SessionToken for static credentials<br />    AccessKeyId: SECRET<br />    SecretKey: SECRET<br />    SessionToken: SECRET</p><h5>Example - Google Cloud</h5><p class="noteContent code">LogDestinations:<br />  - Type: gcs<br />    Bucket: BUCKET-NAME<br />    # Supply one of CredentialsFile or CredentialsJSON (or none to use instance credentials)<br />    CredentialsFile: /path/to/cred/file<br />    CredentialsJSON: |<br />    {<br />    "SOME": "value",<br />    "IN": "json"<br />    }</p></td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>

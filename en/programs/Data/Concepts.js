@@ -1,1 +1,0 @@
-define({'dir-intg':[334],});

@@ -199,6 +199,10 @@
                                     </div>
                                     <div id="coveo_token_url" style="Display:None"><span class="mc-variable okta-coveo-config.SearchTokenServiceUrl variable">https://support.okta.com/help/services/apexrest/PublicSearchToken?site=help</span>
                                     </div>
+                                    <div id="coveo_dev_org_id" style="Display:None"><span class="mc-variable okta-coveo-config.DevOrgId variable">oktanonproduction1il1gtac7</span>
+                                    </div>
+                                    <div id="coveo_dev_token" style="Display:None"><span class="mc-variable okta-coveo-config.DevSearchToken variable">xxb48840fe-d60d-4e40-b1d3-522d5a35c384</span>
+                                    </div>
                                     <!-- End Coveo config parameters -->
                                     <!-- ************** Coveo Search bar ************************************* -->
                                     <!-- set margin and size in /Content/Resources/Scripts/coveo-resources/css/Coveo.Okta.StandaloneSearchbox.min.css to make room for replacing Flare-generated top-nav with HTML code (see below)-->
@@ -312,9 +316,70 @@
                                                         <li value="1">In the <span class="mc-variable okta-feature-names.Administrator_dashboard variable">Admin Console</span>, go to <span class="uicontrol">Workflow</span> &gt; <span class="uicontrol">Inline Hooks</span>.</li>
                                                         <li value="2">Click <span class="uicontrol">Add Inline Hook</span>, and then select the type of inline hook:<ul><li><p><span class="uicontrol">Registration</span>: customizes the handling of user registration requests in Self-Service Registration</p></li><li><p><span class="uicontrol">SAML</span>: customizes SAML assertions returned by Okta.</p></li><li><p><span class="uicontrol">Token</span>: customizes tokens returned by Okta API Access Management.</p></li><li><p><span class="uicontrol">Password Import</span>: verifies a user-supplied password to support migration of users to Okta.</p></li><li><p><span class="uicontrol">User Import</span>: customizes handling of new users who are imported into Okta from an application.</p></li><li><p><span class="uicontrol">Telephony</span>: use a telephony service provider to send SMS text messages or voice calls. See <a href="../telephony/telephony-inline-hook.htm" class="MCXref xref">Customize your telephony service provider</a>.</p></li></ul></li>
                                                         <li value="3">Define the following attributes:
-			<ul><li><p><span class="uicontrol">Name</span>: a descriptive name for the inline hook.</p></li><li><p><span class="uicontrol">URL</span>: the external service's endpoint URL, to which the inline hook  sends the request.</p></li><li><p><span class="uicontrol">Authentication field</span>: optional  name of the authorization header. </p></li><li><p><span class="uicontrol">Authentication secret</span>: optional value string that corresponds to the field name. </p></li><li><p><span class="uicontrol">Custom header fields</span>: optional field name / value pairs to send with the request. </p></li></ul></li>
-                                                        <li value="4">Click <span class="uicontrol">Save</span>. The inline hook is now active. </li>
-                                                        <li value="5">Associate the endpoint with an <span class="mc-variable okta-variables.ProductName variable">Okta</span> process flow. How to do this varies by <a href="https://developer.okta.com/use_cases/inline_hooks/#multiple-types-of-okta-inline-hooks" target="_blank">Inline Hook type</a>.</li>
+			<ul><li><p><span class="uicontrol">Name</span>: a descriptive name for the inline hook.</p></li><li><p><span class="uicontrol">URL</span>: the external service's endpoint URL, to which the inline hook  sends the request.</p></li></ul></li>
+                                                        <li value="4">
+                                                            <p>Select the authentication type, and define the associated fields:</p>
+                                                            <ul>
+                                                                <li>
+                                                                    <p>HTTP Headers</p>
+                                                                    <ul>
+                                                                        <li>
+                                                                            <p><span class="uicontrol">Authentication field</span>: name of the authorization header.</p>
+                                                                        </li>
+                                                                        <li>
+                                                                            <p><span class="uicontrol">Authentication secret</span>: value string that corresponds to the Authentication field name.</p>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                                <li>
+                                                                    <p>OAuth 2.0 - Use client secret</p>
+                                                                    <p class="earlyaccess">This is an Early Access feature. To enable it, use the Early Access Feature Manager as described in <a href="../Security/manage-EA-and-beta-features.htm" class="MCXref xref">Manage Early Access and Beta features</a>.</p>
+                                                                    <ul>
+                                                                        <li>
+                                                                            <p><span class="uicontrol">Client Authentication</span>. Select: <span class="uicontrol">Use client secret</span> (<span class="code">client_secret_post</span>). Uses the client ID and secret as parameters in the request body for authentication.</p>
+                                                                        </li>
+                                                                        <li>
+                                                                            <p><span class="uicontrol">Client ID</span>: a publicly exposed string provided by the service that is used to identify the OAuth application and build authorization URLs.</p>
+                                                                        </li>
+                                                                        <li>
+                                                                            <p><span class="uicontrol">Client Secret</span>: a private value provided by the service used to authenticate the identity of the application to the service. </p>
+                                                                        </li>
+                                                                        <li>
+                                                                            <p><span class="uicontrol">Token URL</span>: the URI where inline hooks can exchange an authorization code for access and refresh tokens. For example, <span class="code">/token</span>.</p>
+                                                                        </li>
+                                                                        <li>
+                                                                            <p><span class="uicontrol">Scope</span>: the scope that allows you to perform the actions on the hook endpoint that you want to access.</p>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                                <li>
+                                                                    <p>OAuth 2.0 - Use private key</p>
+                                                                    <p class="earlyaccess">This is an Early Access feature. To enable it, use the Early Access Feature Manager as described in <a href="../Security/manage-EA-and-beta-features.htm" class="MCXref xref">Manage Early Access and Beta features</a>.</p>
+                                                                    <ul>
+                                                                        <li>
+                                                                            <p><span class="uicontrol">Client Authentication</span>. Select: <span class="uicontrol">Use private key</span> (<span class="code">private_key_jwt</span>). Uses the private key to sign the JSON Web Token (JWT) and the public key to verify the client assertion for authentication.</p>
+                                                                        </li>
+                                                                        <li>
+                                                                            <p><span class="uicontrol">Client ID</span>: a publicly exposed string provided by the service that is used to identify the OAuth application and build authorization URLs.</p>
+                                                                        </li>
+                                                                        <li>
+                                                                            <p><span class="uicontrol">Key</span>: the public/private key pair used to verify token requests. See <a href="manage-keys.htm" class="MCXref xref">Manage keys</a>. </p>
+                                                                        </li>
+                                                                        <li>
+                                                                            <p><span class="uicontrol">Token URL</span>: the URI where inline hooks can exchange an authorization code for access and refresh tokens. For example, <span class="code">/token</span>.</p>
+                                                                        </li>
+                                                                        <li>
+                                                                            <p><span class="uicontrol">Scope</span>: the scope that allows you to perform the actions on the hook endpoint that you want to access.</p>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li value="5">
+                                                            <p>Optional. <span class="uicontrol">Custom Header</span> fields: add a field name and value to send with the request.</p>
+                                                        </li>
+                                                        <li value="6">Click <span class="uicontrol">Save</span>. The inline hook is now active. </li>
+                                                        <li value="7">Associate the endpoint with an <span class="mc-variable okta-variables.ProductName variable">Okta</span> process flow. This process varies by <a href="https://developer.okta.com/use_cases/inline_hooks/#multiple-types-of-okta-inline-hooks" target="_blank">Inline Hook type</a>.</li>
                                                     </ol>
                                                     <h2> Related topics</h2>
                                                     <p><a href="preview-inline-hooks.htm" class="MCXref xref"> Preview an inline hook </a>

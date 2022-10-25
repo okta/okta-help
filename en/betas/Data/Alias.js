@@ -7,6 +7,5 @@ xmlAliasData += '    <Map Name=\"csh-csi-main\" Link=\"Topics/betas/open/csi/csi
 xmlAliasData += '    <Map Name=\"ad_agent\" Link=\"Topics/betas/open/event-hooks/about-eventhooks-el.htm\" ResolvedId=\"3073\" />';
 xmlAliasData += '    <Map Name=\"ext-eventhooks-main\" Link=\"Topics/betas/open/event-hooks/eventhooks-main.htm\" ResolvedId=\"33096\" />';
 xmlAliasData += '    <Map Name=\"ext_csint_beta\" Link=\"Topics/betas/open/csi/csi-main.htm\" ResolvedId=\"11054\" />';
-xmlAliasData += '    <Map Name=\"csh-telephony-usage-report\" Link=\"Topics/betas/open/telephony-usage-report.htm\" ResolvedId=\"19002\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);

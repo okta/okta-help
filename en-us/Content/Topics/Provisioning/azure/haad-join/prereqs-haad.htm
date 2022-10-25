@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="_Skins_okta_html5_topnav_nav_poc" data-mc-search-type="Stem" data-mc-help-system-file-name="okta_help.xml" data-mc-path-to-help-system="../../../../../" data-mc-has-content-body="True" data-mc-searchable="True" data-mc-toc-path="App integrations|[%=System.LinkedHeader%]|Microsoft Azure AD&#160;and Office 365|[%=System.LinkedHeader%]|Integrate Hybrid Azure AD Join" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic;Default" data-mc-preload-images="false" data-mc-in-preview-mode="false">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="_Skins_okta_html5_topnav_nav_poc" data-mc-search-type="Stem" data-mc-help-system-file-name="okta_help.xml" data-mc-path-to-help-system="../../../../../" data-mc-has-content-body="True" data-mc-searchable="True" data-mc-toc-path="App integrations|[%=System.LinkedHeader%]|Microsoft Azure AD and Office 365|[%=System.LinkedHeader%]|Integrate Hybrid Azure AD Join" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic;Default" data-mc-preload-images="false" data-mc-in-preview-mode="false">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="typeofcontent" content="documentation" />
@@ -199,6 +199,10 @@
                                     </div>
                                     <div id="coveo_token_url" style="Display:None"><span class="mc-variable okta-coveo-config.SearchTokenServiceUrl variable">https://support.okta.com/help/services/apexrest/PublicSearchToken?site=help</span>
                                     </div>
+                                    <div id="coveo_dev_org_id" style="Display:None"><span class="mc-variable okta-coveo-config.DevOrgId variable">oktanonproduction1il1gtac7</span>
+                                    </div>
+                                    <div id="coveo_dev_token" style="Display:None"><span class="mc-variable okta-coveo-config.DevSearchToken variable">xxb48840fe-d60d-4e40-b1d3-522d5a35c384</span>
+                                    </div>
                                     <!-- End Coveo config parameters -->
                                     <!-- ************** Coveo Search bar ************************************* -->
                                     <!-- set margin and size in /Content/Resources/Scripts/coveo-resources/css/Coveo.Okta.StandaloneSearchbox.min.css to make room for replacing Flare-generated top-nav with HTML code (see below)-->
@@ -307,63 +311,96 @@
                                                     <p>To integrate Hybrid Azure AD Join with Okta, you must fulfill the following prerequisites. These prerequisites are divided into two categories:</p>
                                                     <ol>
                                                         <li value="1">
-                                                            <p><a href="#Prerequi" class="MCXref xref">Prerequisites in Microsoft environment</a>
+                                                            <p><a href="#Prerequi" class="MCXref xref">Prerequisites in the Microsoft environment</a>
                                                             </p>
                                                         </li>
                                                         <li value="2">
-                                                            <p><a href="#Prerequi2" class="MCXref xref">Prerequisites in Okta environment</a>
+                                                            <p><a href="#Prerequi2" class="MCXref xref">Prerequisites in the Okta environment</a>
                                                             </p>
                                                         </li>
                                                     </ol>
-                                                    <h3><a name="Prerequi"></a>Prerequisites in Microsoft environment</h3>
-                                                    <p>You need the following Microsoft software and licenses:</p>
-                                                    <p style="font-weight: bold;">Windows Server 2016 or later</p>
-                                                    <p>One or more servers within the same domain that collectively host all of the following functions:</p>
-                                                    <ul>
-                                                        <li>It’s Domain Controller.</li>
-                                                        <li>It has Active Directory.</li>
-                                                        <li>It runs DNS and this DNS server or service is accessible through the internet. This allows the off-prem client machine to resolve your local domain in order to register the client there.</li>
-                                                        <li>It has Intune Connector for Active Directory. Intune Connector is a local service that is installed from Azure to facilitate creation of Hybrid-joined machines joining from Azure on the local domain.</li>
-                                                        <li>It has Group Policy Objects (GPOs). A GPO is a component of Group Policy that can be used as a resource in Microsoft systems to control user accounts and user activity. We will use GPOs to set registry entries on our On-prem Windows 10 clients, which will allow AAD Connect to sync them to Azure AD.</li>
-                                                    </ul>
-                                                    <p style="font-weight: bold;">Azure Active Directory (AAD)</p>
-                                                    <ul>
-                                                        <li>AAD tenant with Premium Plan 1 or 2</li>
-                                                        <li>AAD Connect: AAD Connect is a sync agent that bridges the gap between on-premises Active Directory and Azure AD. It’s responsible for syncing computer objects between the environments.</li>
-                                                    </ul>
-                                                    <p style="font-weight: bold;">Microsoft 365 domain and licenses</p>
-                                                    <ul>
-                                                        <li>Registered Microsoft 365 domain name to be used with federation</li>
-                                                        <li>Microsoft 365 license with AAD and MDM services: Microsoft license that provides access to Azure AD, Windows Autopilot, and Mobile Device Management (MDM) solutions such as Microsoft Intune. Some of such licenses are:<ul style="list-style-type: circle;"><li>Microsoft 365 Business</li><li>Microsoft 365 F3</li><li>Microsoft 365 E3 or E5</li><li><p>Microsoft 365 A3 or A5</p></li><li>Enterprise Mobility &amp; Security E3 or E5</li></ul></li>
-                                                    </ul>
-                                                    <h4>Suggested add-ons</h4>
-                                                    <p style="font-weight: bold;">Windows Autopilot</p>
-                                                    <p>Windows Autopilot by Microsoft allows you to set up, reset, recover, and repurpose Windows devices without touching the device. It involves minimal efforts from end users and IT administrators. See <a href="https://docs.microsoft.com/en-us/mem/autopilot/">Windows Autopilot documentation</a> (Microsoft docs).</p>
-                                                    <p style="font-weight: bold;">Mobile Device Management (MDM) solution</p>
-                                                    <p>You can choose from several MDM solutions. Here are a few commonly used MDM solutions:</p>
-                                                    <ul>
-                                                        <li>Microsoft Intune: Microsoft Intune is a cloud-based service for mobile device management (MDM) and mobile application management (MAM). You can integrate Intune with Azure Active Directory (Azure AD) to control who can access your Microsoft resources, and to what extent. See <a href="https://docs.microsoft.com/en-us/mem/intune/fundamentals/">Microsoft Intune fundamentals</a> (Microsoft docs).</li>
-                                                        <li>VMware Workspace ONE (including Airwatch): VMware Workspace ONE is a digital workspace platform that allows you to securely deliver and manage apps on remote devices. See <a href="https://docs.vmware.com/en/VMware-Workspace-ONE/index.html">VMware Workspace ONE Documentation</a> (VMware docs).</li>
-                                                    </ul>
-                                                    <p style="font-weight: bold;">Windows 10 Client</p>
-                                                    <p>Windows 10 Client version 1803 or above. For testing purposes, we recommend using a non-domain joined device.</p>
-                                                    <h3><a name="Prerequi2"></a>Prerequisites in Okta environment</h3>
-                                                    <p style="font-weight: bold;">OFFICE365_WINDOWS_TRANSPORT_SUPPORT feature flag</p>
-                                                    <p>Contact support to enable this feature flag in the Okta org you’re integrating. This feature provides the MEX endpoint that will be called first by the device, not enabling this flag will result in getting no PRT for the device.</p>
-                                                    <p style="font-weight: bold;">Integrate On-Premise Active Directory with Okta</p>
-                                                    <p>Refer to<a href="../../../Directory/ad-agent-main.htm" class="MCXref xref">Active Directory integration</a> guide to configure the Active Directory Agent and import your users and groups. For new integrations, ensure that the appropriate users and groups are now imported and confirmed within Okta.</p>
-                                                    <p style="font-weight: bold;">Integrate Azure AD tenant with Okta</p>
-                                                    <p>Use the Microsoft Office 365 app in Okta to integrate your Azure AD tenant with Okta. See <a href="../../../Apps/Office365-Deployment/deploy-main.htm" class="MCXref xref">Typical workflow for deploying Microsoft Office 365 in Okta</a>. </p>
-                                                    <p>Use the following options while integrating:</p>
+                                                    <h2><a name="Prerequi"></a>Prerequisites in the Microsoft environment</h2>
                                                     <ul>
                                                         <li>
-                                                            <p>While configuring single sign-on, choose <span class="uicontrol">WS-Federation (automatic or manual)</span> method.</p>
+                                                            <p>Windows Server 2016 or later.</p>
                                                         </li>
                                                         <li>
-                                                            <p>If you’re using Okta for provisioning, set the <span class="uicontrol">Provisioning Type</span> to either <span class="uicontrol">Licenses/Role Management Only</span> or <span class="uicontrol">Profile Sync</span>. The other options - User Sync and Universal Sync - aren’t compatible with Azure AD Connect, which is necessary for a Hybrid setup.</p>
+                                                            <p>One or more servers within the same domain that collectively host all of the following functions:</p>
+                                                            <ul>
+                                                                <li>The Domain Controller.</li>
+                                                                <li>Active Directory.</li>
+                                                                <li>Intune Connector for Active Directory. Intune Connector is a local service that is installed from Azure to facilitate creation of Hybrid-joined machines joining from Azure on the local domain.</li>
+                                                                <li>DNS server or service that is accessible through the internet. This allows the off-prem client machine to resolve your local domain in order to register the client there.</li>
+                                                                <li>Group Policy Objects (GPOs). A GPO is a component of Group Policy that can be used as a resource in Microsoft systems to control user accounts and user activity. Okta uses GPOs to set registry entries on on-prem Windows 10 clients, which allows AAD Connect to sync them to Azure AD.</li>
+                                                            </ul>
                                                         </li>
+                                                        <div class="noteOkta">
+                                                            <p class="noteContent">Agentless or Integrated Windows Authentication (IWA) is required for the Kerberos endpoints.</p>
+                                                        </div>
+                                                    </ul>
+                                                    <ul>
                                                         <li>
-                                                            <p>While configuring profile mapping during provisioning, set the <span class="uicontrol">Application Username format</span> field to match the username your users will use to sign into their devices. This is usually the Azure AD User Principal Name.</p>
+                                                            <p>Azure Active Directory (AAD)</p>
+                                                            <ul>
+                                                                <li>AAD tenant with Premium Plan 1 or 2</li>
+                                                                <li>AAD Connect: AAD Connect is a sync agent that bridges the gap between on-premises Active Directory and Azure AD. It’s responsible for syncing computer objects between the environments.</li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                    <ul>
+                                                        <li>
+                                                            <p>Microsoft 365 domain and licenses</p>
+                                                            <ul>
+                                                                <li>Registered Microsoft 365 domain name to be used with federation</li>
+                                                                <li>Microsoft 365 license with AAD and MDM services: Microsoft license that provides access to Azure AD, Windows Autopilot, and Mobile Device Management (MDM) solutions such as Microsoft Intune. Some of such licenses are:<ul style="list-style-type: circle;"><li>Microsoft 365 Business</li><li>Microsoft 365 F3</li><li>Microsoft 365 E3 or E5</li><li><p>Microsoft 365 A3 or A5</p></li><li>Enterprise Mobility &amp; Security E3 or E5</li></ul></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                    <h3>Suggested add-ons</h3>
+                                                    <ul>
+                                                        <li>
+                                                            <p>Windows Autopilot</p>
+                                                            <p>Windows Autopilot by Microsoft allows you to set up, reset, recover, and repurpose Windows devices without touching the device. It involves minimal efforts from end users and IT administrators. See <a href="https://docs.microsoft.com/en-us/mem/autopilot/">Windows Autopilot documentation</a> (Microsoft docs).</p>
+                                                        </li>
+                                                    </ul>
+                                                    <ul>
+                                                        <li><span class="uicontrol" style="font-weight: normal;">Mobile Device Management (MDM) solution</span>
+                                                            <p>You can choose from several MDM solutions. Here are a few commonly used MDM solutions:</p>
+                                                            <ul>
+                                                                <li>Microsoft Intune: Microsoft Intune is a cloud-based service for mobile device management (MDM) and mobile application management (MAM). You can integrate Intune with Azure Active Directory (Azure AD) to control who can access your Microsoft resources, and to what extent. See <a href="https://docs.microsoft.com/en-us/mem/intune/fundamentals/">Microsoft Intune fundamentals</a> (Microsoft docs).</li>
+                                                                <li>VMware Workspace ONE (including Airwatch): VMware Workspace ONE is a digital workspace platform that allows you to securely deliver and manage apps on remote devices. See <a href="https://docs.vmware.com/en/VMware-Workspace-ONE/index.html">VMware Workspace ONE Documentation</a> (VMware docs).</li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                    <ul>
+                                                        <li>
+                                                            <p style="font-weight: normal;">Windows 10 Client</p>
+                                                            <p>Windows 10 Client version 1803 or above. For testing purposes, we recommend using a non-domain joined device.</p>
+                                                        </li>
+                                                    </ul>
+                                                    <h2><a name="Prerequi2"></a>Prerequisites in the Okta environment</h2>
+                                                    <ul>
+                                                        <li>
+                                                            <p>Integrate On-Premise Active Directory with Okta.</p>
+                                                            <p>Refer to the <a href="../../../Directory/ad-agent-main.htm" class="MCXref xref">Active Directory integration</a> guide to configure the AD Agent and import your users and groups. For new integrations, ensure that the appropriate users and groups are now imported and confirmed within Okta.</p>
+                                                        </li>
+                                                    </ul>
+                                                    <ul>
+                                                        <li>
+                                                            <p>Integrate Azure AD tenant with Okta.</p>
+                                                            <p>Use the Microsoft Office 365 app in Okta to integrate your Azure AD tenant with Okta. See <a href="../../../Apps/Office365-Deployment/deploy-main.htm" class="MCXref xref">Typical workflow for deploying Microsoft Office 365 in Okta</a>. </p>
+                                                            <p>Use the following options while integrating:</p>
+                                                            <ul>
+                                                                <li>
+                                                                    <p>While configuring single sign-on, choose <span class="uicontrol">WS-Federation (automatic or manual)</span> method.</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p>If you’re using Okta for provisioning, set the <span class="uicontrol">Provisioning Type</span> to either <span class="uicontrol">Licenses/Role Management Only</span> or <span class="uicontrol">Profile Sync</span>. The other options - User Sync and Universal Sync - aren’t compatible with Azure AD Connect, which is necessary for a Hybrid setup.</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p>While configuring profile mapping during provisioning, set the <span class="uicontrol">Application Username format</span> field to match the username your users will use to sign into their devices. This is usually the Azure AD User Principal Name.</p>
+                                                                </li>
+                                                            </ul>
                                                         </li>
                                                     </ul>
                                                     <h2>Next steps</h2>
