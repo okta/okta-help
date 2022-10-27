@@ -68,6 +68,7 @@ xmlAliasData += '    <Map Name=\"ext-sign-in-flows\" Link=\"Topics/end-user/sign
 xmlAliasData += '    <Map Name=\"csh-user-ov-manage-account-android\" Link=\"Topics/end-user/ov-mng-account-android.htm\" ResolvedId=\"4040\" />';
 xmlAliasData += '    <Map Name=\"csh-plugin-safari-permissions\" Link=\"Topics/end-user/plugin-safari-permissions.htm\" ResolvedId=\"1501\" />';
 xmlAliasData += '    <Map Name=\"ext-dashboard-app-drawer\" Link=\"Topics/end-user/work-with-apps.htm#Viewappsettings\" ResolvedId=\"1503\" />';
+xmlAliasData += '    <Map Name=\"csh-plugin-save-on-signup\" Link=\"Topics/end-user/plugin-overview.htm\" ResolvedId=\"1504\" />';
 xmlAliasData += '    <Map Name=\"ext-plugin-download-install\" Link=\"Topics/end-user/plugin-download_install.htm\" ResolvedId=\"4042\" />';
 xmlAliasData += '    <Map Name=\"ext-restart-macos\" Link=\"Topics/end-user/ov-restart-macos.htm\" ResolvedId=\"17029\" />';
 xmlAliasData += '    <Map Name=\"ext-update-macos-version\" Link=\"Topics/end-user/ov-update-version-macos.htm\" ResolvedId=\"17030\" />';
@@ -89,5 +90,6 @@ xmlAliasData += '    <Map Name=\"ext-end-user-set-language\" Link=\"Topics/end-u
 xmlAliasData += '    <Map Name=\"ext-eu-sign-in-apps\" Link=\"Topics/end-user/eu-sign-in-to-apps.htm\" ResolvedId=\"6019\" />';
 xmlAliasData += '    <Map Name=\"ext-eu-sign-in-apps-emlotp\" Link=\"Topics/end-user/eu-sign-in-to-apps.htm#EMLorOTP\" ResolvedId=\"6020\" />';
 xmlAliasData += '    <Map Name=\"ext-ov-mng-account-details-android\" Link=\"Topics/end-user/ov-mng-account-details-android.htm\" ResolvedId=\"4079\" />';
+xmlAliasData += '    <Map Name=\"ext-ov-mng-settings-android\" Link=\"Topics/end-user/ov-mng-settings-android.htm\" ResolvedId=\"4080\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
