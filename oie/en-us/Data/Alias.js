@@ -19,7 +19,10 @@ xmlAliasData += '    <Map Name=\"Directory_People\" Link=\"Topics/users-groups-p
 xmlAliasData += '    <Map Name=\"Directory_Profile_Editor\" Link=\"Topics/Directory/ad-agent-configure-user-profiles-attributes.htm\" ResolvedId=\"1150\" />';
 xmlAliasData += '    <Map Name=\"Directory_Profile_Masters\" Link=\"Topics/users-groups-profiles/usgp-about-profile-sourcing.htm#Directory_Profile_Masters1\" ResolvedId=\"1170\" />';
 xmlAliasData += '    <Map Name=\"Reports_System_Log\" Link=\"Topics/Reports/Reports_SysLog.htm#Reports_System_Log1\" ResolvedId=\"1200\" />';
-xmlAliasData += '    <Map Name=\"API_Access\" Link=\"Topics/Security/API_Access.htm#API_Access\" ResolvedId=\"1270\" />';
+xmlAliasData += '    <Map Name=\"API_Access\" Link=\"Topics/Security/api-config-access-policies.htm\" ResolvedId=\"1270\" />';
+xmlAliasData += '    <Map Name=\"create-scopes\" Link=\"Topics/Security/api-config-scopes.htm\" ResolvedId=\"1272\" />';
+xmlAliasData += '    <Map Name=\"create-claims\" Link=\"Topics/Security/api-config-claims.htm\" ResolvedId=\"1274\" />';
+xmlAliasData += '    <Map Name=\"create-access-policies\" Link=\"Topics/Security/api-config-access-policies.htm\" ResolvedId=\"1276\" />';
 xmlAliasData += '    <Map Name=\"ServicePrincipalName\" Link=\"Topics/Directory/ad-dsso-create-service-account.htm\" ResolvedId=\"1013\" />';
 xmlAliasData += '    <Map Name=\"okta-radius-agent-install\" Link=\"Topics/integrations/Agent_Installing_the_Okta_Radius_Agent.htm\" ResolvedId=\"1017\" />';
 xmlAliasData += '    <Map Name=\"mfa-onprem\" Link=\"Topics/Security/MFA_OnPrem.htm\" ResolvedId=\"1018\" />';
@@ -171,6 +174,7 @@ xmlAliasData += '    <Map Name=\"csh_notification_new\" Link=\"Topics/Security/S
 xmlAliasData += '    <Map Name=\"csh_notification_enroll\" Link=\"Topics/Security/Security_General.htm#SecurityNotificationEmails\" ResolvedId=\"1098\" />';
 xmlAliasData += '    <Map Name=\"csh_notification_reset\" Link=\"Topics/Security/Security_General.htm#SecurityNotificationEmails\" ResolvedId=\"1099\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_App_Integration_Wizard-oidc\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_OIDC.htm\" ResolvedId=\"1103\" />';
+xmlAliasData += '    <Map Name=\"ext_API_Access-claims\" Link=\"Topics/Security/api-config-claims.htm\" ResolvedId=\"1104\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Apps_Page-assign\" Link=\"Topics/Apps/apps-assign-applications.htm\" ResolvedId=\"1105\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_Administrators\" Link=\"Topics/Security/Administrators.htm\" ResolvedId=\"1106\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Customization-interstitial\" Link=\"Topics/Settings/settings-customization-general.htm\" ResolvedId=\"1107\" />';
@@ -337,6 +341,7 @@ xmlAliasData += '    <Map Name=\"ext_secur_manage_ea_bata\" Link=\"Topics/Securi
 xmlAliasData += '    <Map Name=\"ext-bamboohr-provisioning\" Link=\"Topics/Provisioning/bamboohr/bamboohr-main.htm\" ResolvedId=\"8011\" />';
 xmlAliasData += '    <Map Name=\"csh-prioritize-profile-sources\" Link=\"Topics/users-groups-profiles/usgp-prioritize-profile-source.htm\" ResolvedId=\"15012\" />';
 xmlAliasData += '    <Map Name=\"csh-okta-verify-number-challenge\" Link=\"Topics/identity-engine/authenticators/configure-okta-verify-options.htm#Number\" ResolvedId=\"12006\" />';
+xmlAliasData += '    <Map Name=\"ext-create-access-policies\" Link=\"Topics/Security/api-config-access-policies.htm\" ResolvedId=\"9000\" />';
 xmlAliasData += '    <Map Name=\"csh-risk-scoring\" Link=\"Topics/Security/Security_Risk_Scoring.htm\" ResolvedId=\"12008\" />';
 xmlAliasData += '    <Map Name=\"csh-okta-verify-show-ov-button-siw\" Link=\"Topics/identity-engine/authenticators/configure-okta-verify-options.htm\" ResolvedId=\"12009\" />';
 xmlAliasData += '    <Map Name=\"csh-directory-integrations-main\" Link=\"Topics/identity-engine/directories/directory-integrations-main.htm\" ResolvedId=\"15013\" />';
@@ -547,5 +552,8 @@ xmlAliasData += '    <Map Name=\"csh-administrators-admin-comparison\" Link=\"To
 xmlAliasData += '    <Map Name=\"csh-progressiveenrollment-policies\" Link=\"Topics/identity-engine/policies/about-pe.htm\" ResolvedId=\"6021\" />';
 xmlAliasData += '    <Map Name=\"ext-key-management\" Link=\"Topics/automation-hooks/manage-keys.htm\" ResolvedId=\"9007\" />';
 xmlAliasData += '    <Map Name=\"ext-obp-security\" Link=\"Topics/Browser-Plugin/security.htm\" ResolvedId=\"6022\" />';
+xmlAliasData += '    <Map Name=\"ext-ar-create-manage-reqs\" Link=\"Topics/identity-governance/access-requests/ar-request-create.htm\" ResolvedId=\"1115\" />';
+xmlAliasData += '    <Map Name=\"ext-ar-config-pg-ar\" Link=\"Topics/identity-governance/access-requests/ar-configure.htm#Push_Groups\" ResolvedId=\"1136\" />';
+xmlAliasData += '    <Map Name=\"ext-telephony-how-to\" Link=\"Topics/telephony/telephony-how-to-tasks.htm\" ResolvedId=\"1145\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
