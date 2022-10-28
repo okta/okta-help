@@ -127,11 +127,14 @@ def _run_unittests():
                      'scripts/test_translation_postprocessing.py'])
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="")
+    parser = argparse.ArgumentParser(description="""\
+    Apply string replacements for search/replace pairs in 'pairs_file'
+    to all HTML files within 'lang_dir'.
+    """)
     parser.add_argument("lang_dir",
-                help="The target language directory (e.g., `asa/ja-jp`)")
+                help="Target language directory (e.g., `asa/ja-jp`)")
     parser.add_argument("pairs_file",
-                help="JSON file containing search/replace pairs")
+                help="JSON file containing search/replace string pairs")
     args = parser.parse_args()
 
     main(args.lang_dir, args.pairs_file)
