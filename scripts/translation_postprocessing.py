@@ -134,4 +134,4 @@ if __name__ == '__main__':
                 help="JSON file containing search/replace pairs")
     args = parser.parse_args()
 
-    main(lang_dir=lang_dir, pairs_file=pairs_file)
+    main(args.lang_dir, args.pairs_file)
