@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-from io import StringIO
 import os.path
+from socketserver import ThreadingUnixDatagramServer
 import unittest
 from unittest import mock 
 
@@ -12,43 +12,83 @@ class TestTranslationPostProcessing(unittest.TestCase):
 
     def test_replace_from_val_with_to_val(self):
         text = "I am this close."
-        pairs = [{"from": "this", "to": "that"}]
+        pairs = {"from": "this", "to": "that"}
         expected = "I am that close."
         result = tpp.search_and_replace(text, pairs)
-        self.assertEqual(result, expected)
+        assert result == expected
 
-    def test_do_nothing_for_no_matches(self):
+    def test_return_same_str_when_no_match(self):
         text = "I am this close."
-        pairs = [{"from": "here", "to": "eternity"}]
-        expected = None
-        result = tpp.search_and_replace(text, pairs)
-        self.assertEqual(result, expected)
+        pair = {"from": "here", "to": "eternity"}
+        expected = text
+        result = tpp.search_and_replace(text, pair)
+        assert result == expected
 
-    def test_raise_for_missing_properties(self):
-        text = "I am this close."
-        pairs = [{"this": 1, "that": 2}]
+    @mock.patch('translation_postprocessing._load_json')
+    def test_raise_for_missing_pairs_property(self, mock_load_json):
+        mock_load_json.return_value = dict(couplets=[{'from': 'here', 'to': 'eternity'}])
+        message = "JSON data does not contain expected properties."
         with self.assertRaises(tpp.TranslationPostProcessingException, 
-                               msg=tpp.missing_properties):
-            tpp.search_and_replace(text, pairs)
-    
-    def test_load_lang_pairs(self):
-        pairs = tpp.load_lang_pairs('scripts/en2ja.json')
+                                msg=message) as e:
+            pairs = tpp.load_pairs('somefile.json')
+        assert str(e.exception) == message 
+
+    def test_raise_for_missing_from_and_to_properties(self):
+        text = "I am this close."
+        pair1 = {"old": "this", "to": "that"}
+        pair2 = {"from": "this", "new": "that"}
+        pair3 = {"old": "this", "new": "that"}
+        message = "JSON data does not contain expected properties."
+        for pair in [pair1, pair2, pair3]:
+            with self.assertRaises(tpp.TranslationPostProcessingException, 
+                                   msg=message) as e:
+                tpp.search_and_replace(text, pair)
+            assert str(e.exception) == message
+
+    def test_load_pairs_reads_in_termfile_data(self):
+        """Happy path test."""
+        pairs = tpp.load_pairs('scripts/en2ja.json')
+        assert len(pairs) >= 8
         for pair in pairs:
             assert 'from' in pair.keys()
             assert 'to' in pair.keys()
 
-    def test_load_lang_pairs_raises_for_bad_file(self):
+    def test_load_pairs_raises_for_wrong_file_type(self):
+        filename = 'README.md'
+        message = "'README.md' is not a valid JSON file."
         with self.assertRaises(tpp.TranslationPostProcessingException, 
-                               msg=(tpp.invalid_json % 'test_translation_postprocessing.py')):
-            pairs = tpp.load_lang_pairs('scripts/test_translation_postprocessing.py')        
+                               msg=message) as e:
+            data = tpp.load_pairs(filename)
+        assert str(e.exception) == message
 
-    def test_load_pairs_raises_for_missing_file(self):
+    def test_load_pairs_raises_for_nonexistent_file(self):
+        filename = 'fake.json'
+        message = "'fake.json' is not a valid file path."
         with self.assertRaises(tpp.TranslationPostProcessingException, 
-                               msg=(tpp.file_not_found % 'file.json')):
-            pairs = tpp.load_lang_pairs('file.json')
-        
+                               msg=message) as e:
+            data = tpp.load_pairs(filename)
+        assert str(e.exception) == message
 
+    def test_validate_topdir(self):
+        lang_dir = tpp.validate('asa/ja-jp')
+        self.assertEqual(lang_dir, 'asa/ja-jp')
 
+    def test_validate_raises_when_topdir_is_not_a_directory(self):
+        fake_dir = 'here'
+        message = "'here' is not a valid directory path."
+        with self.assertRaises(tpp.TranslationPostProcessingException,
+                               msg=message) as e:
+            dir_ = tpp.validate(fake_dir)
+        assert str(e.exception) == message
+
+    def test_validate_raises_when_topdir_doesnt_point_to_a_lang_locale_dir(self):
+        no_locale_dir = 'asa'
+        message = "'asa' is not a valid lang-locale directory."
+        self.assertTrue(os.path.isdir(no_locale_dir))
+        with self.assertRaises(tpp.TranslationPostProcessingException,
+                               msg=message) as e:
+            dir_ = tpp.validate(no_locale_dir)
+        assert str(e.exception) == message
 
 
 if __name__ == '__main__':
