@@ -122,10 +122,6 @@ class TranslationPostProcessingException(Exception):
         self.msg = msg
 
 
-def _run_unittests():
-    subprocess.call([sys.executable, 
-                     'scripts/test_translation_postprocessing.py'])
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="""\
     Apply string replacements for search/replace pairs in 'pairs_file'
