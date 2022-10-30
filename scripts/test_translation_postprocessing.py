@@ -24,6 +24,15 @@ class TestTranslationPostProcessing(unittest.TestCase):
         result = tpp.search_and_replace(text, pair)
         assert result == expected
 
+    def test_apply_replacements_for_strings_found_in_text(self):
+        text = "We are this close to here."
+        pairs = [{'from': 'this', 'to': 'that'},
+                 {'from': 'here', 'to': 'eternity'},
+                 {'from': 'nothing', 'to': 'something'}]
+        expected = "We are that close to eternity."
+        result = tpp.apply_replacements(pairs, text)
+        assert result == expected
+
     @mock.patch('translation_postprocessing._load_json')
     def test_raise_for_missing_pairs_property(self, mock_load_json):
         # Using 'couplets' as a prop name in place of 'pairs'

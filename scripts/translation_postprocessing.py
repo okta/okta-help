@@ -84,6 +84,11 @@ def _load_json(pairs_file):
             raise TranslationPostProcessingException(invalid_json % pairs_file)
     return data
 
+def apply_replacements(pairs, text):
+    for pair in pairs:
+        text = search_and_replace(text, pair)
+    return text
+
 def search_and_replace(text, pair):
     """Returns `text` with any instances of `from` val replaced with `to`."""
     try:
@@ -95,7 +100,7 @@ def search_and_replace(text, pair):
         text = text.replace(from_, to_)
     return text
 
-def apply_replacements(lang_dir, pairs):
+def walk(lang_dir, pairs):
     """Walk the dir tree from `lang_dir`, applying string replacements
        for each pair in `pairs`.
     """
@@ -105,8 +110,7 @@ def apply_replacements(lang_dir, pairs):
                 path = os.path.join(root, file)
                 with open(path, 'r') as f:
                     text = f.read()
-                for pair in pairs:
-                    revised_text = search_and_replace(text, pair)
+                revised_text = apply_replacements(pairs, text)
                 if revised_text != text:
                     with open(path, 'w') as w:
                         w.write(revised_text)
@@ -114,7 +118,7 @@ def apply_replacements(lang_dir, pairs):
 def main(lang_dir, pairs_file):
     lang_dir = validate(lang_dir)
     replacement_pairs = load_pairs(pairs_file)
-    apply_replacements(lang_dir, replacement_pairs)
+    walk(lang_dir, replacement_pairs)
 
 
 class TranslationPostProcessingException(Exception):
