@@ -95,11 +95,11 @@ def search_and_replace(text, pair):
         text = text.replace(from_, to_)
     return text
 
-def apply_replacements(target_dir, pairs):
-    """Walk the dir tree from `target_dir`, applying string replacements
+def apply_replacements(lang_dir, pairs):
+    """Walk the dir tree from `lang_dir`, applying string replacements
        for each pair in `pairs`.
     """
-    for root, dirs, files in os.walk(target_dir):
+    for root, dirs, files in os.walk(lang_dir):
         for file in files:
             if file.endswith('.htm'):
                 path = os.path.join(root, file)
@@ -112,9 +112,9 @@ def apply_replacements(target_dir, pairs):
                         w.write(revised_text)
 
 def main(lang_dir, pairs_file):
-    target_dir = validate(lang_dir)
+    lang_dir = validate(lang_dir)
     replacement_pairs = load_pairs(pairs_file)
-    apply_replacements(target_dir, replacement_pairs)
+    apply_replacements(lang_dir, replacement_pairs)
 
 
 class TranslationPostProcessingException(Exception):
