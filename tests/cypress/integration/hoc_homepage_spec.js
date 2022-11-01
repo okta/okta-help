@@ -10,7 +10,7 @@ describe('Okta H.O.C. landing page (en-US)', () => {
     cy.hasNextTopicArrow()
     cy.hasTopMenuBar(5, 9)
     cy.hasBodyContent() 
-    cy.hasTiles(8)
+    cy.hasTiles(9)
     cy.hasDeferAttrsCorrectlyApplied()
     cy.hasQualtrics()
     cy.hasCoveoSearchBar()
