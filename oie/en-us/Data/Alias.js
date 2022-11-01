@@ -287,7 +287,6 @@ xmlAliasData += '    <Map Name=\"ext-expression-language\" Link=\"Topics/Setting
 xmlAliasData += '    <Map Name=\"ext_browser_plugin_main\" Link=\"Topics/Browser-Plugin/browser-plugin-main.htm\" ResolvedId=\"1293\" />';
 xmlAliasData += '    <Map Name=\"ext-recent-signin-activity\" Link=\"Topics/Security/recent-signin-activity.htm\" ResolvedId=\"1296\" />';
 xmlAliasData += '    <Map Name=\"csh-notification-changed-password\" Link=\"Topics/Security/healthinsight/notifications-changed-password.htm\" ResolvedId=\"1301\" />';
-xmlAliasData += '    <Map Name=\"ext-IDP-factor\" Link=\"Topics/Security/MFA_Custom_Factor.htm\" ResolvedId=\"1323\" />';
 xmlAliasData += '    <Map Name=\"ext-ad-override-username\" Link=\"Topics/users-groups-profiles/usgp-override-username-format.htm\" ResolvedId=\"1324\" />';
 xmlAliasData += '    <Map Name=\"ext-get-started\" Link=\"Topics/Security/admin-get-started.htm\" ResolvedId=\"1326\" />';
 xmlAliasData += '    <Map Name=\"csh-oie\" Link=\"Topics/identity-engine/oie-index.htm\" ResolvedId=\"1328\" />';
@@ -357,7 +356,6 @@ xmlAliasData += '    <Map Name=\"csh-configure-ov\" Link=\"Topics/identity-engin
 xmlAliasData += '    <Map Name=\"csh-configure-password\" Link=\"Topics/identity-engine/authenticators/configure-password.htm\" ResolvedId=\"2013\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-sq\" Link=\"Topics/identity-engine/authenticators/configure-security-question.htm\" ResolvedId=\"2014\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-webauthn\" Link=\"Topics/identity-engine/authenticators/configure-webauthn.htm\" ResolvedId=\"2015\" />';
-xmlAliasData += '    <Map Name=\"csh-configure-custom-idp\" Link=\"Topics/Security/MFA_Custom_Factor.htm\" ResolvedId=\"2021\" />';
 xmlAliasData += '    <Map Name=\"csh-threatinsight\" Link=\"Topics/Security/threat-insight/ti-index.htm\" ResolvedId=\"2022\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-onprem\" Link=\"Topics/Security/MFA_OnPrem.htm\" ResolvedId=\"2023\" />';
 xmlAliasData += '    <Map Name=\"csh-deploy-sharepoint\" Link=\"Topics/DeploymentGuides/Sharepoint/Guide/deploy-sharepoint.htm\" ResolvedId=\"1246\" />';
@@ -551,9 +549,18 @@ xmlAliasData += '    <Map Name=\"csh-embedded-sign-in\" Link=\"Topics/Settings/e
 xmlAliasData += '    <Map Name=\"csh-administrators-admin-comparison\" Link=\"Topics/Security/administrators-admin-comparison.htm\" ResolvedId=\"16013\" />';
 xmlAliasData += '    <Map Name=\"csh-progressiveenrollment-policies\" Link=\"Topics/identity-engine/policies/about-pe.htm\" ResolvedId=\"6021\" />';
 xmlAliasData += '    <Map Name=\"ext-key-management\" Link=\"Topics/automation-hooks/manage-keys.htm\" ResolvedId=\"9007\" />';
+xmlAliasData += '    <Map Name=\"ext-anything-as-a-source\" Link=\"Topics/users-groups-profiles/usgp-anything-as-a-source.htm\" ResolvedId=\"11061\" />';
 xmlAliasData += '    <Map Name=\"ext-obp-security\" Link=\"Topics/Browser-Plugin/security.htm\" ResolvedId=\"6022\" />';
 xmlAliasData += '    <Map Name=\"ext-ar-create-manage-reqs\" Link=\"Topics/identity-governance/access-requests/ar-request-create.htm\" ResolvedId=\"1115\" />';
 xmlAliasData += '    <Map Name=\"ext-ar-config-pg-ar\" Link=\"Topics/identity-governance/access-requests/ar-configure.htm#Push_Groups\" ResolvedId=\"1136\" />';
 xmlAliasData += '    <Map Name=\"ext-telephony-how-to\" Link=\"Topics/telephony/telephony-how-to-tasks.htm\" ResolvedId=\"1145\" />';
+xmlAliasData += '    <Map Name=\"csh-require-phish-resistant\" Link=\"Topics/identity-engine/authenticators/require-phishing-resistant-authenticator.htm\" ResolvedId=\"18014\" />';
+xmlAliasData += '    <Map Name=\"ext-usgp-assign-app-group\" Link=\"Topics/users-groups-profiles/usgp-assign-app-group.htm\" ResolvedId=\"4081\" />';
+xmlAliasData += '    <Map Name=\"ext-usgp-assign-group-people\" Link=\"Topics/users-groups-profiles/usgp-assign-group-people.htm\" ResolvedId=\"4082\" />';
+xmlAliasData += '    <Map Name=\"ext-usgp-edit-app-mapping\" Link=\"Topics/users-groups-profiles/usgp-edit-app-mapping.htm\" ResolvedId=\"4083\" />';
+xmlAliasData += '    <Map Name=\"ext-usgp-edit-user-attributes\" Link=\"Topics/users-groups-profiles/usgp-edit-user-attributes.htm\" ResolvedId=\"4084\" />';
+xmlAliasData += '    <Map Name=\"ext-usgp-deactivate-user-account\" Link=\"Topics/users-groups-profiles/usgp-deactivate-user-account.htm\" ResolvedId=\"4085\" />';
+xmlAliasData += '    <Map Name=\"ext-create-resource-set\" Link=\"Topics/Security/custom-admin-role/create-resource-set.htm\" ResolvedId=\"4086\" />';
+xmlAliasData += '    <Map Name=\"csh-idp-authenticator\" Link=\"Topics/identity-engine/authenticators/configure-idp-authenticator.htm\" ResolvedId=\"18015\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
