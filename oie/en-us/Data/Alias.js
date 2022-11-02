@@ -554,7 +554,6 @@ xmlAliasData += '    <Map Name=\"ext-obp-security\" Link=\"Topics/Browser-Plugin
 xmlAliasData += '    <Map Name=\"ext-ar-create-manage-reqs\" Link=\"Topics/identity-governance/access-requests/ar-request-create.htm\" ResolvedId=\"1115\" />';
 xmlAliasData += '    <Map Name=\"ext-ar-config-pg-ar\" Link=\"Topics/identity-governance/access-requests/ar-configure.htm#Push_Groups\" ResolvedId=\"1136\" />';
 xmlAliasData += '    <Map Name=\"ext-telephony-how-to\" Link=\"Topics/telephony/telephony-how-to-tasks.htm\" ResolvedId=\"1145\" />';
-xmlAliasData += '    <Map Name=\"csh-require-phish-resistant\" Link=\"Topics/identity-engine/authenticators/require-phishing-resistant-authenticator.htm\" ResolvedId=\"18014\" />';
 xmlAliasData += '    <Map Name=\"ext-usgp-assign-app-group\" Link=\"Topics/users-groups-profiles/usgp-assign-app-group.htm\" ResolvedId=\"4081\" />';
 xmlAliasData += '    <Map Name=\"ext-usgp-assign-group-people\" Link=\"Topics/users-groups-profiles/usgp-assign-group-people.htm\" ResolvedId=\"4082\" />';
 xmlAliasData += '    <Map Name=\"ext-usgp-edit-app-mapping\" Link=\"Topics/users-groups-profiles/usgp-edit-app-mapping.htm\" ResolvedId=\"4083\" />';
