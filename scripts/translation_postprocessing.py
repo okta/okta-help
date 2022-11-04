@@ -18,9 +18,10 @@ This script can be used to execute a search-and-replace of these segments.
 
 The segments that require fixing are maintained in an accompanying
 JSON file (`en2ja.json`). String replacement pairs can be revised or added 
-therein. If in future we need to support additional languages, we can 
-add similar files for those, which can be sent to translation
-if necessary.
+therein. If in future we need to support additional languages, we can add
+JSON files for those. In that event, we will also refactor this script -- 
+possibly to pass in the `pub/lang` dir as the sole argument, 
+and handle string replacement JSON file selection in the background.
 
 This script uses modules from the Python Standard Library only. It should
 run successfully on any machine that has Python3 installed, without 
