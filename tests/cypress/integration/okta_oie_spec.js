@@ -24,7 +24,7 @@ describe('OIE landing page (ja-JP)', () => {
     cy.visit('oie/ja-jp/Content/Topics/identity-engine/oie-index.htm')
   })
   it('displays expected content structures in Japanese', () => {
-    cy.hasOktaHOCBanner('Okta Support')
+    cy.hasOktaHOCBanner('Oktaサポート')
     cy.hasCopyright()
     cy.hasLeftSideNav()
     cy.hasTOC(9)
