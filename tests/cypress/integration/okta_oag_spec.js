@@ -7,7 +7,8 @@ describe('OAG landing page (en-US)', () => {
     cy.hasCopyright()
     cy.hasLeftSideNav()
     cy.hasTOC(9)
-    cy.hasBreadcrumbs('Okta Access Gateway')
+    // There is an invisible space character in the breadcrumb
+    cy.hasBreadcrumbs('Okta Access Gateway')
     cy.hasPreviousTopicArrow()
     cy.hasNextTopicArrow()
     cy.hasTopMenuBar(5, 9)

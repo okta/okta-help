@@ -1209,6 +1209,7 @@ xmlAliasData += '    <Map Name=\"ext-jamfproclassicapi3d816a0a0b7a410fa88c3de81a
 xmlAliasData += '    <Map Name=\"ext-execution-limits\" Link=\"Topics/Workflows/learn/about-execution-limits.htm\" ResolvedId=\"31083\" />';
 xmlAliasData += '    <Map Name=\"ext-connectorbuilder-dynamic-fields\" Link=\"Topics/Workflows/connector-builder/about-dynamic-fields.htm\" ResolvedId=\"31084\" />';
 xmlAliasData += '    <Map Name=\"ext-connectorbuilder-create-new-connector\" Link=\"Topics/Workflows/connector-builder/create-new-connector.htm\" ResolvedId=\"31085\" />';
+xmlAliasData += '    <Map Name=\"ext-connectorbuilder-auth-config\" Link=\"Topics/Workflows/connector-builder/authentication-config-values.htm\" ResolvedId=\"31087\" />';
 xmlAliasData += '    <Map Name=\"ext-smartsheet-method-addusertogroup\" Link=\"Topics/Workflows/connector-reference/smartsheet/actions/addusertogroup.htm\" ResolvedId=\"33097\" />';
 xmlAliasData += '    <Map Name=\"ext-smartsheet-method-addusertoorganization\" Link=\"Topics/Workflows/connector-reference/smartsheet/actions/addusertoorganization.htm\" ResolvedId=\"33098\" />';
 xmlAliasData += '    <Map Name=\"ext-smartsheet-method-listgroups\" Link=\"Topics/Workflows/connector-reference/smartsheet/actions/listgroups.htm\" ResolvedId=\"33100\" />';
@@ -1278,5 +1279,8 @@ xmlAliasData += '    <Map Name=\"ext-okta-method-authenticatordeactivated\" Link
 xmlAliasData += '    <Map Name=\"ext-okta-method-policyruleactivated\" Link=\"Topics/Workflows/connector-reference/okta/events/policyruleactivated.htm\" ResolvedId=\"14008\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-policyruledeleted\" Link=\"Topics/Workflows/connector-reference/okta/events/policyruledeleted.htm\" ResolvedId=\"14009\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-oauth2appconsentgranted\" Link=\"Topics/Workflows/connector-reference/okta/events/oauth2appconsentgranted.htm\" ResolvedId=\"14010\" />';
+xmlAliasData += '    <Map Name=\"ext-httpfunctions-method-patch\" Link=\"Topics/Workflows/function-reference/HTTP/http_patch.htm\" ResolvedId=\"30409\" />';
+xmlAliasData += '    <Map Name=\"ext-http-method-patch\" Link=\"Topics/Workflows/function-reference/HTTP/http_patch.htm\" ResolvedId=\"30469\" />';
+xmlAliasData += '    <Map Name=\"ext-dynamic-fields-groups\" Link=\"Topics/Workflows/connector-builder/dynamic-fields-groups.htm\" ResolvedId=\"30540\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
