@@ -12,7 +12,7 @@ describe('Locale switching', () => {
     cy.visit('asa/en-us/Content/Topics/Adv_Server_Access/docs/asa-overview.htm')
     cy.switchLocale('Change language', '日本語 (日本)‎')
     cy.url().should('include', 'asa/ja-jp/Content/Topics/Adv_Server_Access/docs/asa-overview.htm')
-    cy.switchLocale('言語の変更', 'English (United States)')
+    cy.switchLocale('言語を変更', 'English (United States)')
     cy.url().should('include', 'asa/en-us/Content/Topics/Adv_Server_Access/docs/asa-overview.htm')
   })
 
