@@ -44,7 +44,7 @@ describe('Locale switching', () => {
     cy.visit('oie/en-us/Content/Topics/identity-engine/oie-index.htm')
     cy.switchLocale('Change language', '日本語 (日本)‎')
     cy.url().should('include', 'oie/ja-jp/Content/Topics/identity-engine/oie-index.htm')
-    cy.switchLocale('言語の変更', 'English (United States)')
+    cy.switchLocale('言語を変更', 'English (United States)')
     cy.url().should('include', 'oie/en-us/Content/Topics/identity-engine/oie-index.htm')
   })
 
@@ -52,7 +52,7 @@ describe('Locale switching', () => {
     cy.visit('oie/en-us/Content/Topics/ReleaseNotes/oie-relnotes.htm')
     cy.switchLocale('Change language', '日本語 (日本)‎')
     cy.url().should('include', 'oie/ja-jp/Content/Topics/ReleaseNotes/oie-relnotes.htm')
-    cy.switchLocale('言語の変更', 'English (United States)')
+    cy.switchLocale('言語を変更', 'English (United States)')
     cy.url().should('include', 'oie/en-us/Content/Topics/ReleaseNotes/oie-relnotes.htm')
   })
 
