@@ -628,5 +628,9 @@ xmlAliasData += '    <Map Name=\"ext-usgp-edit-app-mapping\" Link=\"Topics/users
 xmlAliasData += '    <Map Name=\"ext-usgp-edit-user-attributes\" Link=\"Topics/users-groups-profiles/usgp-edit-user-attributes.htm\" ResolvedId=\"4084\" />';
 xmlAliasData += '    <Map Name=\"ext-usgp-deactivate-user-account\" Link=\"Topics/users-groups-profiles/usgp-deactivate-user-account.htm\" ResolvedId=\"4085\" />';
 xmlAliasData += '    <Map Name=\"ext-create-resource-set\" Link=\"Topics/Security/custom-admin-role/create-resource-set.htm\" ResolvedId=\"4086\" />';
+xmlAliasData += '    <Map Name=\"ext-use-xaas\" Link=\"Topics/users-groups-profiles/usgp-use-anything-as-a-source.htm\" ResolvedId=\"11062\" />';
+xmlAliasData += '    <Map Name=\"ext-add-api-service-integration\" Link=\"Topics/apiservice/add-api-service-integration.htm\" ResolvedId=\"16015\" />';
+xmlAliasData += '    <Map Name=\"csh-add-api-service-integration\" Link=\"Topics/apiservice/add-api-service-integration.htm\" ResolvedId=\"16016\" />';
+xmlAliasData += '    <Map Name=\"ext-api-service-integrations\" Link=\"Topics/apiservice/api-service-integrations.htm\" ResolvedId=\"16017\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
