@@ -1,5 +1,4 @@
 describe('Locale switching', () => {
-
   it('redirects to expected URLs for H.O.C. home', () => {
     cy.visit('en-us/Content/index.htm')
     cy.switchLocale('Change language', '日本語 (日本)‎')
