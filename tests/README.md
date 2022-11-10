@@ -17,8 +17,9 @@ $ python3 -m http.server
 ```
 
 Here, I'm using the Python HTTP Server package. You can use whatever local server you'd like, the tests don't care how the server is run.
-The Python HTTP server default port is `8000`. At present, the Cypress tests 
+The Python HTTP server default port is `8000`. At present, the Cypress tests
 are configured to run on `http://localhost:8000/`.
+
 
 3. Open a separate terminal window to run the Cypress tests:
 
@@ -33,4 +34,4 @@ This command will open a GUI. The tests can be run in browsers that you have ins
 
 FWIW, there is also a headless mode that can be run using the `yarn run cy:run` command.
 
-In some situations, Cypress will take screenshots to use as diffs for subsequent runs. For the time being, I'm hiding this directory from commits. 
+In some situations, Cypress will take screenshots to use as diffs for subsequent runs. For the time being, I'm hiding this directory from commits.
