@@ -12,13 +12,15 @@ describe('Browser loads English', () => {
     cy.visit('okta_help.htm?id=csh-index', {
       onBeforeLoad: (window) => {
         Object.defineProperty(window.navigator, 'language', {
-          value: 'ko-KR'
+          value: 'ko-KR',
         })
+
         Object.defineProperty(window.navigator, 'languages', {
-          value: ['ko-KR']
+          value: ['ko-KR'],
         })
-      }
+      },
     })
+
     cy.url().should('include', 'en-us/Content/index.htm')
   })
 
@@ -26,13 +28,15 @@ describe('Browser loads English', () => {
     cy.visit('okta_help.htm?id=csh-index', {
       onBeforeLoad: (window) => {
         Object.defineProperty(window.navigator, 'language', {
-          value: 'boo!'
+          value: 'boo!',
         })
+
         Object.defineProperty(window.navigator, 'languages', {
-          value: ['boo!']
+          value: ['boo!'],
         })
-      }
+      },
     })
+
     cy.url().should('include', 'en-us/Content/index.htm')
   })
 
@@ -62,18 +66,18 @@ describe('Browser loads English', () => {
     cy.visit('okta_help.htm?id=csh-index', {
       onBeforeLoad: (window) => {
         Object.defineProperty(window.navigator, 'language', {
-          value: 'ja-JP'
+          value: 'ja-JP',
         })
+
         Object.defineProperty(window.navigator, 'languages', {
-          value: ['ja-JP']
+          value: ['ja-JP'],
         })
-      }
+      },
     })
+
     cy.url().should('include', 'en-us/Content/index.htm')
   })
-
 })
-
 
 describe('Browser loads Japanese', () => {
   beforeEach(() => {
@@ -84,13 +88,15 @@ describe('Browser loads Japanese', () => {
     cy.visit('okta_help.htm?id=csh-index', {
       onBeforeLoad: (window) => {
         Object.defineProperty(window.navigator, 'language', {
-          value: 'ja-JP'
+          value: 'ja-JP',
         })
+
         Object.defineProperty(window.navigator, 'languages', {
-          value: ['ja-JP']
+          value: ['ja-JP'],
         })
-      }
+      },
     })
+
     cy.url().should('include', 'ja-jp/Content/index.htm')
   })
 
@@ -115,14 +121,15 @@ describe('Browser loads Japanese', () => {
     cy.visit('okta_help.htm?id=csh-index', {
       onBeforeLoad: (window) => {
         Object.defineProperty(window.navigator, 'language', {
-          value: 'en-US'
+          value: 'en-US',
         })
+
         Object.defineProperty(window.navigator, 'languages', {
-          value: ['en-US']
+          value: ['en-US'],
         })
-      }
+      },
     })
+
     cy.url().should('include', 'ja-jp/Content/index.htm')
   })
-
 })

@@ -2,6 +2,7 @@ describe('Classic landing page (en-US)', () => {
   beforeEach(() => {
     cy.visit('en-us/Content/index-admin.htm')
   })
+
   it('displays expected content structures in English', () => {
     cy.hasOktaHOCBanner('Okta Support')
     cy.hasCopyright()
@@ -11,7 +12,7 @@ describe('Classic landing page (en-US)', () => {
     cy.hasPreviousTopicArrow()
     cy.hasNextTopicArrow()
     cy.hasTopMenuBar(5, 9)
-    cy.hasBodyContent() 
+    cy.hasBodyContent()
     cy.hasTiles(9)
     cy.hasDeferAttrsCorrectlyApplied()
     cy.hasQualtrics()
@@ -23,6 +24,7 @@ describe('Classic landing page (ja-JP)', () => {
   beforeEach(() => {
     cy.visit('ja-jp/Content/index-admin.htm')
   })
+
   it('displays expected content structures in Japanese', () => {
     cy.hasOktaHOCBanner('Okta Support')
     cy.hasCopyright()
@@ -32,7 +34,7 @@ describe('Classic landing page (ja-JP)', () => {
     cy.hasPreviousTopicArrow()
     cy.hasNextTopicArrow()
     cy.hasTopMenuBar(5, 9)
-    cy.hasBodyContent() 
+    cy.hasBodyContent()
     cy.hasTiles(9)
     cy.hasDeferAttrsCorrectlyApplied()
     cy.hasQualtrics()

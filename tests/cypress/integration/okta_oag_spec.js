@@ -2,6 +2,7 @@ describe('OAG landing page (en-US)', () => {
   beforeEach(() => {
     cy.visit('oag/en-us/Content/Topics/Access-Gateway/ag-main.htm')
   })
+
   it('displays expected content structures in English', () => {
     cy.hasOktaHOCBanner('Okta Support')
     cy.hasCopyright()
@@ -12,7 +13,7 @@ describe('OAG landing page (en-US)', () => {
     cy.hasPreviousTopicArrow()
     cy.hasNextTopicArrow()
     cy.hasTopMenuBar(5, 9)
-    cy.hasBodyContent() 
+    cy.hasBodyContent()
     cy.hasTiles(6)
     cy.hasDeferAttrsCorrectlyApplied()
     cy.hasQualtrics()
