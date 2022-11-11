@@ -2,6 +2,7 @@ describe('ASA landing page (en-US)', () => {
   beforeEach(() => {
     cy.visit('asa/en-us/Content/Topics/Adv_Server_Access/docs/asa-overview.htm')
   })
+
   it('displays expected content structures in English', () => {
     cy.hasOktaHOCBanner('Okta Support')
     cy.hasCopyright()
@@ -11,7 +12,7 @@ describe('ASA landing page (en-US)', () => {
     cy.hasPreviousTopicArrow()
     cy.hasNextTopicArrow()
     cy.hasTopMenuBar(5, 9)
-    cy.hasBodyContent() 
+    cy.hasBodyContent()
     cy.hasTiles(6)
     cy.hasDeferAttrsCorrectlyApplied()
     cy.hasQualtrics()
@@ -23,6 +24,7 @@ describe('ASA landing page (ja-JP)', () => {
   beforeEach(() => {
     cy.visit('asa/ja-jp/Content/Topics/Adv_Server_Access/docs/asa-overview.htm')
   })
+
   it('displays expected content structures in Japanese', () => {
     cy.hasOktaHOCBanner('Oktaサポート')
     cy.hasCopyright()
@@ -32,7 +34,7 @@ describe('ASA landing page (ja-JP)', () => {
     cy.hasPreviousTopicArrow()
     cy.hasNextTopicArrow()
     cy.hasTopMenuBar(5, 9)
-    cy.hasBodyContent() 
+    cy.hasBodyContent()
     cy.hasTiles(6)
     cy.hasDeferAttrsCorrectlyApplied()
     cy.hasQualtrics()

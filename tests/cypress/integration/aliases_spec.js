@@ -52,7 +52,6 @@ describe('Alias tests: With no locale cookie set, loads English', () => {
     cy.visit('okta_help.htm?type=oie&id=Applications_Applications')
     cy.url().should('include', 'oie/en-us/Content/Topics/Apps/apps-overview-add-apps.htm')
   })
-
 })
 
 describe('Alias tests: With en-US locale cookie set, loads English', () => {
@@ -94,7 +93,6 @@ describe('Alias tests: With en-US locale cookie set, loads English', () => {
     cy.visit('okta_help.htm?type=wf&id=ext-Okta-workflows')
     cy.url().should('include', 'wf/en-us/Content/Topics/Workflows/workflows-main.htm')
   })
-
 })
 
 describe('Alias tests: With ja-JP locale cookie set, loads Japanese', () => {
@@ -137,5 +135,4 @@ describe('Alias tests: With ja-JP locale cookie set, loads Japanese', () => {
     cy.visit('okta_help.htm?type=wf&id=ext-Okta-workflows')
     cy.url().should('include', 'wf/ja-jp/Content/Topics/Workflows/workflows-main.htm')
   })
-
 })
