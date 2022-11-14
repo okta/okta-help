@@ -25,7 +25,7 @@ describe('OIE release notes production page (en-US)', () => {
     cy.visit('oie/en-us/Content/Topics/ReleaseNotes/production-oie.htm')
   })
 
-  it('displays expected content structures in Japanese', () => {
+  it('displays expected content structures in English', () => {
     cy.hasOktaHOCBanner('Okta Support')
     cy.hasCopyright()
     cy.hasLeftSideNav()

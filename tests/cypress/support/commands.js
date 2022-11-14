@@ -201,11 +201,12 @@ function switchLocale (changeLocaleStr, langName) {
       expect($el).to.be.visible
     })
 
-  cy.get('button.select-language-button').click()
+  cy.get('button.select-language-button')
+    .trigger('click')
 
   cy.get('.select-language-drop-down a').contains(langName)
     .should(($el) => {
       expect($el).to.be.visible
     })
-    .click()
+    .trigger('click')
 }
