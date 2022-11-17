@@ -1268,6 +1268,12 @@ xmlAliasData += '    <Map Name=\"ext-servicenow-method-searchrequests\" Link=\"T
 xmlAliasData += '    <Map Name=\"ext-servicenow-method-updaterequest\" Link=\"Topics/Workflows/connector-reference/servicenow/actions/updaterequest.htm\" ResolvedId=\"33137\" />';
 xmlAliasData += '    <Map Name=\"ext-servicenow-method-updategroup\" Link=\"Topics/Workflows/connector-reference/servicenow/actions/updategroup.htm\" ResolvedId=\"33138\" />';
 xmlAliasData += '    <Map Name=\"ext-updaterequest-method-updaterequest\" Link=\"Topics/Workflows/connector-reference/servicenow/actions/updaterequest.htm\" ResolvedId=\"33139\" />';
+xmlAliasData += '    <Map Name=\"ext-googledocsd58485f4f0b041638863c91952756806-method-createdocumentnfdbawzbxp\" Link=\"Topics/Workflows/connector-reference/googledocs/actions/createdocument.htm\" ResolvedId=\"33140\" />';
+xmlAliasData += '    <Map Name=\"ext-googledocsd58485f4f0b041638863c91952756806-method-customapiactionrs1b4d8u\" Link=\"Topics/Workflows/connector-reference/googledocs/actions/customapiaction.htm\" ResolvedId=\"33141\" />';
+xmlAliasData += '    <Map Name=\"ext-googledocsd58485f4f0b041638863c91952756806-method-readdocumentgdlobbfylt\" Link=\"Topics/Workflows/connector-reference/googledocs/actions/readdocument.htm\" ResolvedId=\"33142\" />';
+xmlAliasData += '    <Map Name=\"ext-googledocsd58485f4f0b041638863c91952756806-method-updatedocumentt47vwqtecp\" Link=\"Topics/Workflows/connector-reference/googledocs/actions/updatedocument.htm\" ResolvedId=\"33143\" />';
+xmlAliasData += '    <Map Name=\"ext-googledocsd58485f4f0b041638863c91952756806-method-authorization\" Link=\"Topics/Workflows/connector-reference/googledocs/overviews/authorization.htm\" ResolvedId=\"33144\" />';
+xmlAliasData += '    <Map Name=\"ext-googledocsd58485f4f0b041638863c91952756806\" Link=\"Topics/Workflows/connector-reference/googledocs/googledocs.htm\" ResolvedId=\"33145\" />';
 xmlAliasData += '    <Map Name=\"ext-connectorbuilder-dynamic-fields-options\" Link=\"Topics/Workflows/connector-builder/dynamic-fields-options.htm\" ResolvedId=\"31106\" />';
 xmlAliasData += '    <Map Name=\"ext-pendo\" Link=\"Topics/Workflows/connector-reference/pendo/pendo.htm\" ResolvedId=\"1072\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-phoneverificationsmssent\" Link=\"Topics/Workflows/connector-reference/okta/events/phoneverificationsmssent.htm\" ResolvedId=\"14001\" />';
