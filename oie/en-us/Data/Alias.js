@@ -425,6 +425,7 @@ xmlAliasData += '    <Map Name=\"csh-apps-aiw-oidc\" Link=\"Topics/Apps/Apps_App
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-saml\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SAML.htm\" ResolvedId=\"6007\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-swa\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SWA.htm\" ResolvedId=\"6008\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-scim\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SCIM.htm\" ResolvedId=\"6009\" />';
+xmlAliasData += '    <Map Name=\"csh-agent-auto-update-main\" Link=\"Topics/Directory/agent-auto-update-main.htm\" ResolvedId=\"15016\" />';
 xmlAliasData += '    <Map Name=\"csh-log-streams\" Link=\"Topics/Reports/log-streaming/about-log-streams.htm\" ResolvedId=\"13005\" />';
 xmlAliasData += '    <Map Name=\"ext-set-default-app-redirect\" Link=\"Topics/identity-engine/procedures/set-up-default-app-redirect.htm\" ResolvedId=\"6010\" />';
 xmlAliasData += '    <Map Name=\"administrator-email-settings\" Link=\"Topics/Security/custom-admin-role/administrator-email-settings.htm#top\" ResolvedId=\"19000\" />';
