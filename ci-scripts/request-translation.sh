@@ -19,7 +19,7 @@ export JA_PATH="${TARGET_PATH}ja-jp"
 
 export TOPIC_BRANCH="docs_l10n_request_${TARGET^^}_$(date +"%s")"
 
-export RESOURCE_PATHS=( "Content/Resources" "Resources" "Data" "Skins" )
+export RESOURCE_PATHS=( "Content/Resources" "Resources" "Data" "Skins" "Sitemap.xml" )
 
 for RESOURCE_PATH in "${RESOURCE_PATHS[@]}"
 do
