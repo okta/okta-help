@@ -9,6 +9,7 @@ tar -xf ${ARCHIVE_PATH} -C ${OUTPUT_FOLDER} --strip-components=1 --overwrite
 rm ${ARCHIVE_PATH}
 cd ..
 
+git config core.fileMode false
 git checkout -b ${TOPIC_BRANCH}
 
 git add --all
