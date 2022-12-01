@@ -105,7 +105,7 @@ def walk(lang_dir, pairs):
     """
     for root, dirs, files in os.walk(lang_dir):
         for file in files:
-            if file.endswith('.htm'):
+            if file.endswith('.htm') or file.endswith('.xml'):
                 path = os.path.join(root, file)
                 with open(path, 'r') as f:
                     text = f.read()
