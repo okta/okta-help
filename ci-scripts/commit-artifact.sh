@@ -4,10 +4,14 @@ export OUTPUT_FOLDER="../${PUBLISH_DESTINATION}"
 
 wget -O ${ARCHIVE_PATH} ${BUILT_ARTIFACT}
 
+set -x
 tar -xf ${ARCHIVE_PATH} -C ${OUTPUT_FOLDER} --strip-components=1 --overwrite  --no-same-permissions
 
 rm ${ARCHIVE_PATH}
-cd ..
+cd ${OKTA_HOME}/${REPO}/asa/en-us
+ls -l
+
+cd ${OKTA_HOME}/${REPO}
 
 git checkout -b ${TOPIC_BRANCH}
 
