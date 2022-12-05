@@ -568,6 +568,5 @@ xmlAliasData += '    <Map Name=\"ext-use-xaas\" Link=\"Topics/users-groups-profi
 xmlAliasData += '    <Map Name=\"ext-add-api-service-integration\" Link=\"Topics/apiservice/add-api-service-integration.htm\" ResolvedId=\"16015\" />';
 xmlAliasData += '    <Map Name=\"csh-add-api-service-integration\" Link=\"Topics/apiservice/add-api-service-integration.htm\" ResolvedId=\"16016\" />';
 xmlAliasData += '    <Map Name=\"ext-api-service-integrations\" Link=\"Topics/apiservice/api-service-integrations.htm\" ResolvedId=\"16017\" />';
-xmlAliasData += '    <Map Name=\"csh-ac-reviewer-type\" Link=\"Topics/identity-governance/access-certification/iga-ac-create-campaign.htm\" ResolvedId=\"1517\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
