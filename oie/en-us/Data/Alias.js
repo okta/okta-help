@@ -460,7 +460,6 @@ xmlAliasData += '    <Map Name=\"csh-configure-authenticators\" Link=\"Topics/id
 xmlAliasData += '    <Map Name=\"ext-velocity-variables\" Link=\"Topics/Settings/velocity-variables.htm\" ResolvedId=\"5003\" />';
 xmlAliasData += '    <Map Name=\"ext-create-auth-policy\" Link=\"Topics/identity-engine/policies/add-app-sign-on-policy-rule.htm\" ResolvedId=\"5004\" />';
 xmlAliasData += '    <Map Name=\"ext-share-auth-policy\" Link=\"Topics/identity-engine/policies/share-auth-policies.htm\" ResolvedId=\"5005\" />';
-xmlAliasData += '    <Map Name=\"ext-deploy-guides\" Link=\"Topics/identity-engine/guides/deploy-guides-home.htm\" ResolvedId=\"4043\" />';
 xmlAliasData += '    <Map Name=\"ext-branding-variables\" Link=\"Topics/Settings/velocity-variables.htm\" ResolvedId=\"5006\" />';
 xmlAliasData += '    <Map Name=\"csh-api\" Link=\"Topics/Security/API.htm\" ResolvedId=\"1510\" />';
 xmlAliasData += '    <Map Name=\"csh-trusted-origins\" Link=\"Topics/Security/API-trusted-origins.htm\" ResolvedId=\"1511\" />';
@@ -521,7 +520,6 @@ xmlAliasData += '    <Map Name=\"ext-ar-report\" Link=\"Topics/identity-governan
 xmlAliasData += '    <Map Name=\"ext-ad-agent-about-service-account\" Link=\"Topics/Directory/ad-agent-about-service-account.htm\" ResolvedId=\"4045\" />';
 xmlAliasData += '    <Map Name=\"ext-usgp-attribute-mappings-expressions\" Link=\"Topics/users-groups-profiles/usgp-attribute-mappings-expressions.htm\" ResolvedId=\"4066\" />';
 xmlAliasData += '    <Map Name=\"ext-usgp-configure-enhanced-group-push\" Link=\"Topics/users-groups-profiles/usgp-configure-enhanced-group-push.htm\" ResolvedId=\"4067\" />';
-xmlAliasData += '    <Map Name=\"ext-devcontext-prereqs\" Link=\"Topics/identity-engine/guides/devices/devcontext-prereqs.htm\" ResolvedId=\"4068\" />';
 xmlAliasData += '    <Map Name=\"ext-network-zones\" Link=\"Topics/Security/network/network-zones.htm\" ResolvedId=\"4054\" />';
 xmlAliasData += '    <Map Name=\"ext-about-dynamic-zones\" Link=\"Topics/Security/network/about-dynamic-zones.htm\" ResolvedId=\"4069\" />';
 xmlAliasData += '    <Map Name=\"ext-configure-threatinsight-system-log\" Link=\"Topics/Security/threat-insight/configure-threatinsight-system-log.htm\" ResolvedId=\"4070\" />';
@@ -542,11 +540,11 @@ xmlAliasData += '    <Map Name=\"ext-ar-create-reqtype\" Link=\"Topics/identity-
 xmlAliasData += '    <Map Name=\"ext-iga\" Link=\"Topics/identity-governance/iga.htm\" ResolvedId=\"13015\" />';
 xmlAliasData += '    <Map Name=\"ext-ac-review-campaign\" Link=\"Topics/identity-governance/access-certification/iga-ac-review-campaign.htm\" ResolvedId=\"13016\" />';
 xmlAliasData += '    <Map Name=\"ext-ar\" Link=\"Topics/identity-governance/access-requests/ar-overview.htm\" ResolvedId=\"13017\" />';
-xmlAliasData += '    <Map Name=\"ext-devcontext-main\" Link=\"Topics/identity-engine/guides/devices/devcontext-main.htm\" ResolvedId=\"4076\" />';
 xmlAliasData += '    <Map Name=\"ext-about-behavior-detection\" Link=\"Topics/Security/behavior-detection/about-behavior-detection.htm\" ResolvedId=\"4077\" />';
 xmlAliasData += '    <Map Name=\"csh-ar-create-req-type\" Link=\"Topics/identity-governance/access-requests/ar-create-request-type.htm\" ResolvedId=\"13018\" />';
 xmlAliasData += '    <Map Name=\"ext-view-import-monitoring-dashboard\" Link=\"Topics/users-groups-profiles/usgp-view-import-monitoring-dashboard.htm\" ResolvedId=\"4078\" />';
 xmlAliasData += '    <Map Name=\"csh-embedded-sign-in\" Link=\"Topics/Settings/embedded-sign-in-support.htm\" ResolvedId=\"1114\" />';
+xmlAliasData += '    <Map Name=\"csh-session-revoke\" Link=\"Topics/Security/slo/session-revoke.htm\" ResolvedId=\"14000\" />';
 xmlAliasData += '    <Map Name=\"csh-administrators-admin-comparison\" Link=\"Topics/Security/administrators-admin-comparison.htm\" ResolvedId=\"16013\" />';
 xmlAliasData += '    <Map Name=\"csh-api-service-integrations\" Link=\"Topics/apiservice/api-service-integrations.htm\" ResolvedId=\"16014\" />';
 xmlAliasData += '    <Map Name=\"csh-progressiveenrollment-policies\" Link=\"Topics/identity-engine/policies/about-pe.htm\" ResolvedId=\"6021\" />';
@@ -568,5 +566,6 @@ xmlAliasData += '    <Map Name=\"ext-use-xaas\" Link=\"Topics/users-groups-profi
 xmlAliasData += '    <Map Name=\"ext-add-api-service-integration\" Link=\"Topics/apiservice/add-api-service-integration.htm\" ResolvedId=\"16015\" />';
 xmlAliasData += '    <Map Name=\"csh-add-api-service-integration\" Link=\"Topics/apiservice/add-api-service-integration.htm\" ResolvedId=\"16016\" />';
 xmlAliasData += '    <Map Name=\"ext-api-service-integrations\" Link=\"Topics/apiservice/api-service-integrations.htm\" ResolvedId=\"16017\" />';
+xmlAliasData += '    <Map Name=\"csh-ac-reviewer-type\" Link=\"Topics/identity-governance/access-certification/iga-ac-create-campaign.htm#Reviewer\" ResolvedId=\"1517\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
