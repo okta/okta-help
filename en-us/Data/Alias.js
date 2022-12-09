@@ -613,6 +613,7 @@ xmlAliasData += '    <Map Name=\"ext-ar\" Link=\"Topics/identity-governance/acce
 xmlAliasData += '    <Map Name=\"ext-about-behavior-detection\" Link=\"Topics/Security/behavior-detection/about-behavior-detection.htm\" ResolvedId=\"4077\" />';
 xmlAliasData += '    <Map Name=\"csh-ar-create-req-type\" Link=\"Topics/identity-governance/access-requests/ar-create-request-type.htm\" ResolvedId=\"13018\" />';
 xmlAliasData += '    <Map Name=\"ext-view-import-monitoring-dashboard\" Link=\"Topics/users-groups-profiles/usgp-view-import-monitoring-dashboard.htm\" ResolvedId=\"4078\" />';
+xmlAliasData += '    <Map Name=\"csh-session-revoke\" Link=\"Topics/Security/slo/session-revoke.htm\" ResolvedId=\"14000\" />';
 xmlAliasData += '    <Map Name=\"csh-administrators-admin-comparison\" Link=\"Topics/Security/administrators-admin-comparison.htm\" ResolvedId=\"16013\" />';
 xmlAliasData += '    <Map Name=\"csh-api-service-integrations\" Link=\"Topics/apiservice/api-service-integrations.htm\" ResolvedId=\"16014\" />';
 xmlAliasData += '    <Map Name=\"ext-key-management\" Link=\"Topics/automation-hooks/manage-keys.htm\" ResolvedId=\"9007\" />';
@@ -631,5 +632,6 @@ xmlAliasData += '    <Map Name=\"ext-use-xaas\" Link=\"Topics/users-groups-profi
 xmlAliasData += '    <Map Name=\"ext-add-api-service-integration\" Link=\"Topics/apiservice/add-api-service-integration.htm\" ResolvedId=\"16015\" />';
 xmlAliasData += '    <Map Name=\"csh-add-api-service-integration\" Link=\"Topics/apiservice/add-api-service-integration.htm\" ResolvedId=\"16016\" />';
 xmlAliasData += '    <Map Name=\"ext-api-service-integrations\" Link=\"Topics/apiservice/api-service-integrations.htm\" ResolvedId=\"16017\" />';
+xmlAliasData += '    <Map Name=\"csh-ac-reviewer-type\" Link=\"Topics/identity-governance/access-certification/iga-ac-create-campaign.htm#Reviewer\" ResolvedId=\"1517\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
