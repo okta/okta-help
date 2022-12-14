@@ -11,7 +11,7 @@ cd ${OKTA_HOME}/${REPO}
 
 set -x
 
-git fetch origin ${TOPIC}
+git fetch origin ${TOPIC_BRANCH}
 export RET=$?
 
 if [ "${RET}" == "0" ]
