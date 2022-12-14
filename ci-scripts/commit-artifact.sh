@@ -9,7 +9,17 @@ tar -xf ${ARCHIVE_PATH} -C ${OUTPUT_FOLDER} --strip-components=1 --overwrite  --
 rm ${ARCHIVE_PATH}
 cd ${OKTA_HOME}/${REPO}
 
-git checkout -b ${TOPIC_BRANCH}
+git fetch origin ${TOPIC}
+export RET=$?
+
+if [ "${RET}" == "0" ]
+then
+  echo "${TOPIC} exists on remote, adding commit"
+  git switch ${TOPIC_BRANCH}
+else
+  echo "Creating ${TOPIC}"
+  git checkout -b ${TOPIC_BRANCH}
+fi
 
 git add --all
 git -c user.name='CI Automation' -c user.email=${userEmail} commit -m "Updates ${BUILD_NAME}"
