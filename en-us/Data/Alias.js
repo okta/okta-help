@@ -27,7 +27,6 @@ xmlAliasData += '    <Map Name=\"csh-access-requests\" Link=\"Topics/identity-go
 xmlAliasData += '    <Map Name=\"csh-AD-agent-main\" Link=\"Topics/Directory/ad-agent-main.htm\" ResolvedId=\"20006\" />';
 xmlAliasData += '    <Map Name=\"csh-ad-import-settings\" Link=\"Topics/Directory/ad-agent-configure-import.htm\" ResolvedId=\"1283\" />';
 xmlAliasData += '    <Map Name=\"csh-add-api-service-integration\" Link=\"Topics/apiservice/add-api-service-integration.htm\" ResolvedId=\"16016\" />';
-xmlAliasData += '    <Map Name=\"csh-admin-access-recent-apps\" Link=\"Topics/Browser-Plugin/plugin-access-recent-apps.htm\" ResolvedId=\"7003\" />';
 xmlAliasData += '    <Map Name=\"csh-admin-plugin-settings\" Link=\"Topics/Browser-Plugin/admin-plugin-settings.htm\" ResolvedId=\"1291\" />';
 xmlAliasData += '    <Map Name=\"csh-admin-role-groupmembership\" Link=\"Topics/Security/administrators-group-membership-admin.htm\" ResolvedId=\"1249\" />';
 xmlAliasData += '    <Map Name=\"csh-administrators\" Link=\"Topics/Security/Administrators.htm\" ResolvedId=\"1248\" />';
@@ -112,7 +111,6 @@ xmlAliasData += '    <Map Name=\"csh-general-security\" Link=\"Topics/Security/S
 xmlAliasData += '    <Map Name=\"csh-group-member-report\" Link=\"Topics/Reports/access/group-membership-report.htm\" ResolvedId=\"9002\" />';
 xmlAliasData += '    <Map Name=\"csh-healthinsight\" Link=\"Topics/Security/healthinsight/healthinsight.htm\" ResolvedId=\"1207\" />';
 xmlAliasData += '    <Map Name=\"csh-improved-ndbd\" Link=\"Topics/Security/behavior-detection/improved-new-device-behavior-detection.htm\" ResolvedId=\"2024\" />';
-xmlAliasData += '    <Map Name=\"csh-index\" Link=\"index.htm\" ResolvedId=\"1298\" />';
 xmlAliasData += '    <Map Name=\"csh-inlinehooks\" Link=\"Topics/automation-hooks/inline-hooks-main.htm\" ResolvedId=\"6012\" />';
 xmlAliasData += '    <Map Name=\"csh-java-ldap-agent\" Link=\"Topics/Directory/ldap-agent-manage-integration.htm\" ResolvedId=\"10000\" />';
 xmlAliasData += '    <Map Name=\"csh-LDAP-deployment\" Link=\"Topics/Directory/ldap-agent-main.htm\" ResolvedId=\"1235\" />';
@@ -620,5 +618,6 @@ xmlAliasData += '    <Map Name=\"ver-hist-sso-iwa-agent\" Link=\"Topics/Settings
 xmlAliasData += '    <Map Name=\"ver-hist_dt-macOS-desktop\" Link=\"Topics/Settings/Version_Histories/Ver_History_Device_Trust_MacOS.htm\" ResolvedId=\"1064\" />';
 xmlAliasData += '    <Map Name=\"ver-hist_dt-win-desktop\" Link=\"Topics/Settings/Version_Histories/Ver_History_DeviceTrust_Installer_Windows.htm\" ResolvedId=\"1008\" />';
 xmlAliasData += '    <Map Name=\"vmware-horizon-radius-intg\" Link=\"Topics/integrations/vmware-horizon-radius-intg.htm\" ResolvedId=\"1059\" />';
+xmlAliasData += '    <Map Name=\"csh-add-admin-page\" Link=\"Topics/Security/custom-admin-role/about-admin-page.htm\" ResolvedId=\"19005\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
