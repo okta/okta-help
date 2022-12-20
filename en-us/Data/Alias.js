@@ -111,6 +111,7 @@ xmlAliasData += '    <Map Name=\"csh-general-security\" Link=\"Topics/Security/S
 xmlAliasData += '    <Map Name=\"csh-group-member-report\" Link=\"Topics/Reports/access/group-membership-report.htm\" ResolvedId=\"9002\" />';
 xmlAliasData += '    <Map Name=\"csh-healthinsight\" Link=\"Topics/Security/healthinsight/healthinsight.htm\" ResolvedId=\"1207\" />';
 xmlAliasData += '    <Map Name=\"csh-improved-ndbd\" Link=\"Topics/Security/behavior-detection/improved-new-device-behavior-detection.htm\" ResolvedId=\"2024\" />';
+xmlAliasData += '    <Map Name=\"csh-index\" Link=\"index.htm\" ResolvedId=\"1298\" />';
 xmlAliasData += '    <Map Name=\"csh-inlinehooks\" Link=\"Topics/automation-hooks/inline-hooks-main.htm\" ResolvedId=\"6012\" />';
 xmlAliasData += '    <Map Name=\"csh-java-ldap-agent\" Link=\"Topics/Directory/ldap-agent-manage-integration.htm\" ResolvedId=\"10000\" />';
 xmlAliasData += '    <Map Name=\"csh-LDAP-deployment\" Link=\"Topics/Directory/ldap-agent-main.htm\" ResolvedId=\"1235\" />';
