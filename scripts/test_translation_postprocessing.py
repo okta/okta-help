@@ -2,7 +2,7 @@
 
 import os.path
 import unittest
-from unittest import mock 
+from unittest import mock
 
 import translation_postprocessing as tpp
 
@@ -37,10 +37,10 @@ class TestTranslationPostProcessing(unittest.TestCase):
         # Using 'couplets' as a prop name in place of 'pairs'
         mock_load_json.return_value = dict(couplets=[{'from': 'here', 'to': 'eternity'}])
         message = "JSON data does not contain expected properties."
-        with self.assertRaises(tpp.TranslationPostProcessingException, 
+        with self.assertRaises(tpp.TranslationPostProcessingException,
                                 msg=message) as e:
             pairs = tpp.load_pairs('somefile.json')
-        assert str(e.exception) == message 
+        assert str(e.exception) == message
 
     def test_raise_for_missing_from_and_to_properties(self):
         text = "I am this close."
@@ -49,7 +49,7 @@ class TestTranslationPostProcessing(unittest.TestCase):
         pair3 = {"old": "this", "new": "that"}
         message = "JSON data does not contain expected properties."
         for pair in [pair1, pair2, pair3]:
-            with self.assertRaises(tpp.TranslationPostProcessingException, 
+            with self.assertRaises(tpp.TranslationPostProcessingException,
                                    msg=message) as e:
                 tpp.search_and_replace(text, pair)
             assert str(e.exception) == message
@@ -65,7 +65,7 @@ class TestTranslationPostProcessing(unittest.TestCase):
     def test_load_pairs_raises_for_wrong_file_type(self):
         filename = 'README.md'
         message = "'README.md' is not a valid JSON file."
-        with self.assertRaises(tpp.TranslationPostProcessingException, 
+        with self.assertRaises(tpp.TranslationPostProcessingException,
                                msg=message) as e:
             data = tpp.load_pairs(filename)
         assert str(e.exception) == message
@@ -73,7 +73,7 @@ class TestTranslationPostProcessing(unittest.TestCase):
     def test_load_pairs_raises_for_nonexistent_file(self):
         filename = 'fake.json'
         message = "'fake.json' is not a valid file path."
-        with self.assertRaises(tpp.TranslationPostProcessingException, 
+        with self.assertRaises(tpp.TranslationPostProcessingException,
                                msg=message) as e:
             data = tpp.load_pairs(filename)
         assert str(e.exception) == message

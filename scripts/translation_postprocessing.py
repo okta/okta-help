@@ -7,25 +7,30 @@ Author: Paul Wallace (paul.wallace@okta.com)
 
 Returned translations of HTML content require post-processing prior to
 deployment. There are a number of string segments that are not currently
-picked up in XTM, and thus are returned untranslated. 
+picked up in XTM, and thus are returned untranslated.
 These segments include:
 
 * Attribute values (such as aria-labels)
 * URL fragements for locale-specific paths (such as `/en-us/`
-* URL query parameters for language (such as `?language=en_US`) 
+* URL query parameters for language (such as `?language=en_US`)
 
-This script can be used to execute a search-and-replace of these segments. 
+This script can be used to execute a search-and-replace of these segments.
 
 The segments that require fixing are maintained in an accompanying
-JSON file (`en2ja.json`). String replacement pairs can be revised or added 
+JSON file (`en2ja.json`). String replacement pairs can be revised or added
 therein. If in future we need to support additional languages, we can add
-JSON files for those. In that event, we will also refactor this script -- 
-possibly to pass in the `pub/lang` dir as the sole argument, 
+JSON files for those. In that event, we will also refactor this script --
+possibly to pass in the `pub/lang` dir as the sole argument,
 and handle string replacement JSON file selection in the background.
 
 This script uses modules from the Python Standard Library only. It should
-run successfully on any machine that has Python3 installed, without 
+run successfully on any machine that has Python3 installed, without
 need to fetch additional packages.
+
+To run script, get a folder path with japanese translation and pass it as first argument:
+
+        $ cd okta-help
+        $ python3 scripts/translation_postprocessing.py asa/ja-jp scripts/en2ja.json
 
 This script is accompanied by unit tests. To run the tests:
 
@@ -50,7 +55,7 @@ not_a_lang_locale_dir = "'%s' is not a valid lang-locale directory."
 # Lang-locale directory names generally follow the ISO 639-1 and ISO 3166-1
 # naming conventions for lang and locale, respectively (for example, 'ja-jp').
 # The codes will be applied in all lowercase.
-# However, for Latin America/Caribbean Spanish, the UN M49 code could be used 
+# However, for Latin America/Caribbean Spanish, the UN M49 code could be used
 # in place of ISO 3166-1 ('es-419').
 lang_locale_dir = re.compile(r'[a-z]{2}-(?:[a-z]{2}|419)')
 
@@ -63,7 +68,7 @@ def validate(lang_dir):
     if not re.match(lang_locale_dir, base_dir):
         raise TranslationPostProcessingException(not_a_lang_locale_dir % lang_dir)
     return lang_dir
-   
+
 def load_pairs(pairs_file):
     """Returns search/replace pairs from pairs_file"""
     data = _load_json(pairs_file)
