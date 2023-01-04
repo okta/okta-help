@@ -92,7 +92,5 @@ xmlAliasData += '    <Map Name=\"ext_End_User_Password_Reset\" Link=\"Topics/end
 xmlAliasData += '    <Map Name=\"ext_ov_endusers\" Link=\"Topics/end-user/ov-overview.htm\" ResolvedId=\"1212\" />';
 xmlAliasData += '    <Map Name=\"ext_ov_eu\" Link=\"Topics/end-user/ov-overview.htm\" ResolvedId=\"1173\" />';
 xmlAliasData += '    <Map Name=\"ext_user_dashboard_overview\" Link=\"Topics/end-user/dashboard-overview.htm\" ResolvedId=\"11052\" />';
-xmlAliasData += '    <Map Name=\"ext-ov-share-diagnostic-macos\" Link=\"Topics/end-user/ov-share-diagnostics-macos.htm\" ResolvedId=\"4041\" />';
-xmlAliasData += '    <Map Name=\"ext-ov-reenroll-macos\" Link=\"Topics/end-user/ov-account-re-enroll-macos.htm\" ResolvedId=\"3000\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
