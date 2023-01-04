@@ -17,7 +17,13 @@ fi
 export EN_PATH="${TARGET_PATH}en-us"
 export JA_PATH="${TARGET_PATH}ja-jp"
 
+if [ ${TARGET} == "oce" ] || [ ${TARGET} == "oie"]; then
+    mv -i "${EN_PATH}/Content/Topics/ReleaseNotes" "${EN_PATH}"
+fi
+
 export TOPIC_BRANCH="docs_l10n_request_${TARGET^^}_$(date +"%s")"
+
+TOPIC_BRANCH="TEST_REQUEST_${TARGET^^}_$(date +"%s")"
 
 export RESOURCE_PATHS=( "Content/Resources" "Resources" "Data" "Skins" "Sitemap.xml" )
 
