@@ -30,7 +30,7 @@ export RESOURCE_PATHS=( "Content/Resources" "Resources" "Data" "Skins" "Sitemap.
 for RESOURCE_PATH in "${RESOURCE_PATHS[@]}"
 do
    :
-  rsync -av --exclude "Tocs/" "${EN_PATH}/${RESOURCE_PATH}" "${JA_PATH}"
+  # rsync -av --exclude "Tocs/" "${EN_PATH}/${RESOURCE_PATH}" "${JA_PATH}"
 done
 
 git checkout -b ${TOPIC_BRANCH}
