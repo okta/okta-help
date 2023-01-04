@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd ..
+cd ${OKTA_HOME}/${REPO}
 
 export SLACK_CHANNEL='#infodev-notifications'
 export targets=( "oce" "asa" "eu" "oie" "wf" "oag" )
@@ -17,7 +17,7 @@ fi
 export EN_PATH="${TARGET_PATH}en-us"
 export JA_PATH="${TARGET_PATH}ja-jp"
 
-if [ ${TARGET} == "oce" ] || [ ${TARGET} == "oie"]; then
+if [[ ${TARGET} == "oce" || ${TARGET} == "oie" ]]; then
     mv -i "${EN_PATH}/Content/Topics/ReleaseNotes" "${EN_PATH}"
 fi
 
