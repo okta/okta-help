@@ -1,1 +1,1 @@
-define({r:1,st:'NGram',n:1,t:[0],m:[],u:['../Content/Topics/end-user/dashboard-new-overview.htm'],s:[' '],p:[[' ',0]]});
+define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../Content/Topics/end-user/accessibility.htm'],s:['+'],p:[['+',7]]});
