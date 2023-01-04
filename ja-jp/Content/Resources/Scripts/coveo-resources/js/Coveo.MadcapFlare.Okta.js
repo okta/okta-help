@@ -8,11 +8,18 @@ document.addEventListener('readyToInitCoveo', function () {
         }
         return content;
     };
-    var coveo_org_id = getMadcapFlareVariable('coveo_org_id');
+    var isProd = window.location.host === 'help.okta.com';
+
+    var coveo_org_id = getMadcapFlareVariable(isProd ? 'coveo_org_id' : 'coveo_dev_org_id');
     var coveo_rest_uri = getMadcapFlareVariable('coveo_rest_uri');
     var coveo_search_url = getMadcapFlareVariable('coveo_search_url');
     var coveo_token_url = getMadcapFlareVariable('coveo_token_url');
+    var coveo_dev_token = getMadcapFlareVariable('coveo_dev_token');
     var tokenPromise = new Promise(function (resolve, reject) {
+        if (!isProd) {
+            resolve(coveo_dev_token);
+            return;
+        }
         var MS_IN_A_DAY = 1000 * 60 * 60 * 24;
         var tokenObj = JSON.parse(localStorage.getItem("CoveoSearchToken"));
         var renewTokenNeeded = true;
@@ -26,20 +33,19 @@ document.addEventListener('readyToInitCoveo', function () {
         }
         else {
             Coveo.HttpUtils.get(coveo_token_url, function (response) {
-			/* Code update below from Nate MacInnes for using search sandbox in review builds */
-/*                var newTokenObj = { value: JSON.parse(response), timestamp: new Date().getTime() }
+            /*  Code update below from Nate MacInnes for using search sandbox in review builds */
+            /*  var newTokenObj = { value: JSON.parse(response), timestamp: new Date().getTime() }
                 localStorage.setItem("CoveoSearchToken", JSON.stringify(newTokenObj));
-                resolve(newTokenObj.value); */				
+                resolve(newTokenObj.value); */
                 var parsedResponse = JSON.parse(response);
                 var token = parsedResponse.token ? parsedResponse.token : parsedResponse;
                 var newTokenObj = { value: token, timestamp: new Date().getTime() };
                 localStorage.setItem("CoveoSearchToken", JSON.stringify(newTokenObj));
-                resolve(newTokenObj.value);				
+                resolve(newTokenObj.value);
             });
         }
     });
     tokenPromise.then(function (token) {
-        console.log('token >>>>> ' + token);
         Coveo.SearchEndpoint.configureCloudV2Endpoint(coveo_org_id, token, coveo_rest_uri);
         var searchboxRoot = document.getElementById('standaloneSearchbox');
         var customSelectObj = new Coveo.CustomSelect(document.getElementById('customSelect'), {
