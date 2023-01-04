@@ -30,8 +30,7 @@ export RESOURCE_PATHS=( "Content/Resources" "Resources" "Data" "Skins" "Sitemap.
 for RESOURCE_PATH in "${RESOURCE_PATHS[@]}"
 do
    :
-   echo skip
-  # rsync -av --exclude "Tocs/" "${EN_PATH}/${RESOURCE_PATH}" "${JA_PATH}"
+    rsync -av --exclude "Tocs/" "${EN_PATH}/${RESOURCE_PATH}" "${JA_PATH}/${RESOURCE_PATH}"
 done
 
 git checkout -b ${TOPIC_BRANCH}
@@ -40,7 +39,6 @@ git add --all
 git -c user.name='CI Automation' -c user.email=${userEmail} commit -m "Copying en resources for ${TARGET^^} project"
 git push origin ${TOPIC_BRANCH}
 
-echo "message slack"
 set -x
 
 send_slack_message "${SLACK_CHANNEL}"\
