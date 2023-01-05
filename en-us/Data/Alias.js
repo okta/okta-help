@@ -349,7 +349,7 @@ xmlAliasData += '    <Map Name=\"ext_application_inventory\" Link=\"Topics/Devic
 xmlAliasData += '    <Map Name=\"ext_apps_about_oidc\" Link=\"Topics/Apps/apps-about-oidc.htm\" ResolvedId=\"11053\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Active_Directory_Agent_appSettings_Definition\" Link=\"Topics/Directory/ad-agent-appsettings.htm\" ResolvedId=\"200009\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Adding_an_App_from_the_Browser_Plugin\" Link=\"Topics/Browser-Plugin/plugin-adding-apps.htm\" ResolvedId=\"200010\" />';
-xmlAliasData += '    <Map Name=\"ext_Apps_and_SSO_Verifying_IE_Plugin_Enablement\" Link=\"Topics/Apps/Apps_and_SSO_Verifying_IE_Plugin_Enablement.htm\" ResolvedId=\"200011\" />';
+xmlAliasData += '    <Map Name=\"ext_Apps_and_SSO_Verifying_IE_Plugin_Enablement\" Link=\"Topics/Browser-Plugin/browser-plugin-main.htm\" ResolvedId=\"200011\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_App_Integration_Wizard\" Link=\"Topics/Apps/Apps_App_Integration_Wizard.htm\" ResolvedId=\"200015\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_App_Integration_Wizard-oidc\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_OIDC.htm\" ResolvedId=\"1103\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_App_Integration_Wizard-saml\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SAML.htm\" ResolvedId=\"1266\" />';
@@ -554,7 +554,7 @@ xmlAliasData += '    <Map Name=\"ext_Ver_History_OPP_Agent\" Link=\"Topics/Setti
 xmlAliasData += '    <Map Name=\"ext_Ver_History_RADIUS_Server_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_RADIUS_Server_Agent.htm\" ResolvedId=\"200208\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_Sharepoint_People_Picker_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_Sharepoint_People_Picker_Agent.htm\" ResolvedId=\"200210\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_SSO_IWA_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_SSO_IWA_Agent.htm\" ResolvedId=\"200211\" />';
-xmlAliasData += '    <Map Name=\"ext_Verify_IE_Plugin\" Link=\"Topics/Apps/Apps_and_SSO_Verifying_IE_Plugin_Enablement.htm\" ResolvedId=\"1074\" />';
+xmlAliasData += '    <Map Name=\"ext_Verify_IE_Plugin\" Link=\"Topics/Browser-Plugin/browser-plugin-main.htm\" ResolvedId=\"1074\" />';
 xmlAliasData += '    <Map Name=\"ext_vmware_horizon_radius_intg\" Link=\"Topics/integrations/vmware-horizon-radius-intg.htm\" ResolvedId=\"200092\" />';
 xmlAliasData += '    <Map Name=\"ext_widget_redirect\" Link=\"Topics/Settings/settings-redirect-to-custom-page.htm\" ResolvedId=\"1065\" />';
 xmlAliasData += '    <Map Name=\"fortinet-radius-intg\" Link=\"Topics/integrations/fortinet-radius-intg.htm\" ResolvedId=\"1036\" />';
