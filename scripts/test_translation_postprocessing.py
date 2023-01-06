@@ -78,27 +78,21 @@ class TestTranslationPostProcessing(unittest.TestCase):
             data = tpp.load_pairs(filename)
         assert str(e.exception) == message
 
-    def test_validate_returns_dirname_for_existing_lang_locale_dir(self):
-        lang_dir = tpp.validate('asa/ja-jp')
+    def test_get_lang_dir_returns_dirname_for_existing_target(self):
+        lang_dir = tpp.get_lang_dir('asa')
         self.assertEqual(lang_dir, 'asa/ja-jp')
 
-    def test_validate_raises_when_lang_dir_is_not_a_directory(self):
-        fake_dir = 'here/ja-jp'
-        message = "'here/ja-jp' is not a valid directory path."
+    def test_get_lang_dir_returns_dirname_for_oce(self):
+        lang_dir = tpp.get_lang_dir('oce')
+        self.assertEqual(lang_dir, 'ja-jp')
+
+    def test_get_lang_dir_raises_for_bad_target_name(self):
+        message="'foo' is not a valid target."
         with self.assertRaises(tpp.TranslationPostProcessingException,
                                msg=message) as e:
-            dir_ = tpp.validate(fake_dir)
-        assert str(e.exception) == message
+            lang_dir = tpp.get_lang_dir('foo')
 
-    def test_validate_raises_when_lang_dir_doesnt_point_to_a_lang_locale_dir(self):
-        no_locale_dir = 'asa'
-        message = "'asa' is not a valid lang-locale directory."
-        self.assertTrue(os.path.isdir(no_locale_dir))
-        with self.assertRaises(tpp.TranslationPostProcessingException,
-                               msg=message) as e:
-            dir_ = tpp.validate(no_locale_dir)
-        assert str(e.exception) == message
-
+        assert str(e.exception) == message, e.exception
 
 if __name__ == '__main__':
     unittest.main()
