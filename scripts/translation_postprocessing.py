@@ -39,11 +39,12 @@ This script is accompanied by unit tests. To run the tests:
 
 """
 
+
 import argparse
 import json
 import os
 import re
-
+import shutil
 
 # Error messages
 invalid_target = "'%s' is not a valid target."
@@ -62,6 +63,7 @@ lang_locale_dir = re.compile(r'[a-z]{2}-(?:[a-z]{2}|419)')
 pairs_file = 'scripts/en2ja.json'
 targets = ['oie', 'oce', 'eu', 'wf', 'oag', 'asa']
 ja_jp = 'ja-jp'
+en_us = 'en-us'
 
 def get_lang_dir(target):
     if target not in targets:
@@ -124,10 +126,25 @@ def walk(lang_dir, pairs):
                     with open(path, 'w') as w:
                         w.write(revised_text)
 
-def main(lang_dir, pairs_file):
-    lang_dir = get_lang_dir(lang_dir)
+def replace_strings(target, pairs_file):
+    lang_dir = get_lang_dir(target)
     replacement_pairs = load_pairs(pairs_file)
     walk(lang_dir, replacement_pairs)
+
+def restore_release_notes(target):
+    """ Restores release notes to their original location """
+    base_path = en_us if target == 'oce' else target + '/' + en_us;
+    release_notes_backup = base_path + '/ReleaseNotes'
+    release_notes = base_path + '/Content/Topics'
+    if os.path.isdir(release_notes_backup):
+        shutil.move(release_notes_backup, release_notes)
+
+def main(target, pairs_file):
+    if target not in targets:
+        raise TranslationPostProcessingException(invalid_target % target)
+
+    replace_strings(target, pairs_file)
+    restore_release_notes(target)
 
 class TranslationPostProcessingException(Exception):
     def __init__(self, msg):
