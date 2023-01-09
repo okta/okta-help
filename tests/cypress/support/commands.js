@@ -4,8 +4,6 @@ Cypress.Commands.add('hasLeftSideNav', hasLeftSideNav)
 Cypress.Commands.add('hasNoLeftSideNav', hasNoLeftSideNav)
 Cypress.Commands.add('hasTOC', hasTOC)
 Cypress.Commands.add('hasBreadcrumbs', hasBreadcrumbs)
-Cypress.Commands.add('hasPreviousTopicArrow', hasPreviousTopicArrow)
-Cypress.Commands.add('hasNextTopicArrow', hasNextTopicArrow)
 Cypress.Commands.add('hasTopMenuBar', hasTopMenuBar)
 Cypress.Commands.add('hasBodyContent', hasBodyContent)
 Cypress.Commands.add('hasTiles', hasTiles)
@@ -67,18 +65,6 @@ function hasBreadcrumbs (topicName) {
     .should(($text) => {
       expect($text).to.equal(topicName)
     })
-}
-
-function hasPreviousTopicArrow () {
-  cy.get('button.previous-topic-button')
-    .should(($prev) => {
-      expect($prev).to.be.visible
-    })
-}
-
-function hasNextTopicArrow () {
-  cy.get('button.next-topic-button')
-    .should('be.visible')
 }
 
 function hasTopMenuBar (numTopLinks, numChildLinks) {
