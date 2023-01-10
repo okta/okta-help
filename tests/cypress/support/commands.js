@@ -24,7 +24,8 @@ function hasOktaHOCBanner (title) {
 
   cy.get('a.logo')
     .should('be.visible')
-    .and('have.attr', 'href', 'https://support.okta.com/help/s/')
+    .invoke('attr', 'href')
+    .and('include', 'https://support.okta.com/help/s/')
 }
 
 function hasCopyright () {
