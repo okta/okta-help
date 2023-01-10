@@ -176,7 +176,7 @@ function switchLocale (changeLocaleStr, langName) {
   //
   // 'changeLocaleStr' is the expected string displayed to a user in the target locale.
   // For EN this is "Change language"
-  // For JA this is "言語の変更"
+  // For JA this is "言語を変更" (as of 10/22, previously it was "言語の変更")
   cy.get('button.select-language-button')
     .should(($el) => {
       expect($el).to.be.visible
