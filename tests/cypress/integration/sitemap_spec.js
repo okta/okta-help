@@ -15,7 +15,7 @@ describe('Sitemaps validation', () => {
       const step = Math.floor(urls.length / NUMBER_OF_ENTITIES_TO_CHECK) + 1
 
       // We call this once here to establish the base URL
-      cy.visit('http://localhost:8000')
+      cy.visit('/')
 
       for (let i = 0; i < urls.length; i += step) {
         const parts = urls[i].split('https://help.okta.com')
