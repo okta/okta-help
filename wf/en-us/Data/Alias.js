@@ -323,6 +323,7 @@ xmlAliasData += '    <Map Name=\"ext-filefunctions-method-largeupload\" Link=\"T
 xmlAliasData += '    <Map Name=\"ext-flow-backup-about\" Link=\"Topics/Workflows/learn/about-flow-backup.htm\" ResolvedId=\"31062\" />';
 xmlAliasData += '    <Map Name=\"ext-flow-backup-setup\" Link=\"Topics/Workflows/build/flow-backup-setup.htm\" ResolvedId=\"31061\" />';
 xmlAliasData += '    <Map Name=\"ext-flow-charts\" Link=\"Topics/Workflows/learn/about-flow-charts.htm\" ResolvedId=\"32002\" />';
+xmlAliasData += '    <Map Name=\"ext-flow-execution-details\" Link=\"Topics/Workflows/execute/flow-history-view-details.htm\" ResolvedId=\"6023\" />';
 xmlAliasData += '    <Map Name=\"ext-flow-history\" Link=\"Topics/Workflows/execute/see-history-flow-changed.htm\" ResolvedId=\"30719\" />';
 xmlAliasData += '    <Map Name=\"ext-flow-limit\" Link=\"Topics/Workflows/flow-limits.htm\" ResolvedId=\"31063\" />';
 xmlAliasData += '    <Map Name=\"ext-folder-view\" Link=\"Topics/Workflows/learn/about-folder-view.htm\" ResolvedId=\"32001\" />';
@@ -1288,5 +1289,7 @@ xmlAliasData += '    <Map Name=\"ext-zoom-method-searchgroups\" Link=\"Topics/Wo
 xmlAliasData += '    <Map Name=\"ext-zoom-method-updateuser\" Link=\"Topics/Workflows/connector-reference/zoom/actions/updateuser.htm\" ResolvedId=\"30736\" />';
 xmlAliasData += '    <Map Name=\"ext-zoom-misc-authorization\" Link=\"Topics/Workflows/connector-reference/zoom/overviews/authorization.htm\" ResolvedId=\"30737\" />';
 xmlAliasData += '    <Map Name=\"ext-workflows-releasenotes\" Link=\"Topics/ReleaseNotes/Workflows/workflows-release-notes.htm\" ResolvedId=\"31059\" />';
+xmlAliasData += '    <Map Name=\"ext-about-low-latency\" Link=\"Topics/Workflows/learn/about-low-latency.htm\" ResolvedId=\"6000\" />';
+xmlAliasData += '    <Map Name=\"ext-about-low-latency-criteria\" Link=\"Topics/Workflows/learn/about-low-latency-criteria.htm\" ResolvedId=\"6006\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
