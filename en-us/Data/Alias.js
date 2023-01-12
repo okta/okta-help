@@ -552,7 +552,6 @@ xmlAliasData += '    <Map Name=\"ext_Ver_History_Okta_MFA_Provider_for_ADFS\" Li
 xmlAliasData += '    <Map Name=\"ext_Ver_History_On_Prem_MFA_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_On-Prem_MFA_Agent.htm\" ResolvedId=\"200206\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_OPP_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_OPP_Agent.htm\" ResolvedId=\"200207\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_RADIUS_Server_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_RADIUS_Server_Agent.htm\" ResolvedId=\"200208\" />';
-xmlAliasData += '    <Map Name=\"ext_Ver_History_Sharepoint_People_Picker_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_Sharepoint_People_Picker_Agent.htm\" ResolvedId=\"200210\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_SSO_IWA_Agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_SSO_IWA_Agent.htm\" ResolvedId=\"200211\" />';
 xmlAliasData += '    <Map Name=\"ext_Verify_IE_Plugin\" Link=\"Topics/Browser-Plugin/browser-plugin-main.htm\" ResolvedId=\"1074\" />';
 xmlAliasData += '    <Map Name=\"ext_vmware_horizon_radius_intg\" Link=\"Topics/integrations/vmware-horizon-radius-intg.htm\" ResolvedId=\"200092\" />';
@@ -614,7 +613,6 @@ xmlAliasData += '    <Map Name=\"ver-hist-mfa-cred-win\" Link=\"Topics/Settings/
 xmlAliasData += '    <Map Name=\"ver-hist-op-mfa-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_On-Prem_MFA_Agent.htm\" ResolvedId=\"1053\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-opp-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_OPP_Agent.htm\" ResolvedId=\"1026\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-radius-server\" Link=\"Topics/Settings/Version_Histories/Ver_History_RADIUS_Server_Agent.htm\" ResolvedId=\"1054\" />';
-xmlAliasData += '    <Map Name=\"ver-hist-sharepoint-pp-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_Sharepoint_People_Picker_Agent.htm\" ResolvedId=\"1056\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-sso-iwa-agent\" Link=\"Topics/Settings/Version_Histories/Ver_History_SSO_IWA_Agent.htm\" ResolvedId=\"1057\" />';
 xmlAliasData += '    <Map Name=\"ver-hist_dt-macOS-desktop\" Link=\"Topics/Settings/Version_Histories/Ver_History_Device_Trust_MacOS.htm\" ResolvedId=\"1064\" />';
 xmlAliasData += '    <Map Name=\"ver-hist_dt-win-desktop\" Link=\"Topics/Settings/Version_Histories/Ver_History_DeviceTrust_Installer_Windows.htm\" ResolvedId=\"1008\" />';
