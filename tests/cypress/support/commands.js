@@ -4,8 +4,6 @@ Cypress.Commands.add('hasLeftSideNav', hasLeftSideNav)
 Cypress.Commands.add('hasNoLeftSideNav', hasNoLeftSideNav)
 Cypress.Commands.add('hasTOC', hasTOC)
 Cypress.Commands.add('hasBreadcrumbs', hasBreadcrumbs)
-Cypress.Commands.add('hasPreviousTopicArrow', hasPreviousTopicArrow)
-Cypress.Commands.add('hasNextTopicArrow', hasNextTopicArrow)
 Cypress.Commands.add('hasTopMenuBar', hasTopMenuBar)
 Cypress.Commands.add('hasBodyContent', hasBodyContent)
 Cypress.Commands.add('hasTiles', hasTiles)
@@ -26,7 +24,8 @@ function hasOktaHOCBanner (title) {
 
   cy.get('a.logo')
     .should('be.visible')
-    .and('have.attr', 'href', 'https://support.okta.com/help/s/')
+    .invoke('attr', 'href')
+    .and('include', 'https://support.okta.com/help/s/')
 }
 
 function hasCopyright () {
@@ -67,18 +66,6 @@ function hasBreadcrumbs (topicName) {
     .should(($text) => {
       expect($text).to.equal(topicName)
     })
-}
-
-function hasPreviousTopicArrow () {
-  cy.get('button.previous-topic-button')
-    .should(($prev) => {
-      expect($prev).to.be.visible
-    })
-}
-
-function hasNextTopicArrow () {
-  cy.get('button.next-topic-button')
-    .should('be.visible')
 }
 
 function hasTopMenuBar (numTopLinks, numChildLinks) {
@@ -189,7 +176,7 @@ function switchLocale (changeLocaleStr, langName) {
   //
   // 'changeLocaleStr' is the expected string displayed to a user in the target locale.
   // For EN this is "Change language"
-  // For JA this is "言語の変更"
+  // For JA this is "言語を変更" (as of 10/22, previously it was "言語の変更")
   cy.get('button.select-language-button')
     .should(($el) => {
       expect($el).to.be.visible

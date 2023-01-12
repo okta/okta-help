@@ -82,7 +82,7 @@ describe('Locale switching', () => {
     visitAndWaitForInitialize('eu/en-us/Content/Topics/end-user/end-user-home.htm')
     cy.switchLocale('Change language', '日本語 (日本)‎')
     cy.url().should('include', 'eu/ja-jp/Content/Topics/end-user/end-user-home.htm')
-    cy.switchLocale('言語の変更', 'English (United States)')
+    cy.switchLocale('言語を変更', 'English (United States)')
     cy.url().should('include', 'eu/en-us/Content/Topics/end-user/end-user-home.htm')
   })
 

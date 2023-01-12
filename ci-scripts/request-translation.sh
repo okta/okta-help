@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd ..
+cd ${OKTA_HOME}/${REPO}
 
 export SLACK_CHANNEL='#infodev-notifications'
 export targets=( "oce" "asa" "eu" "oie" "wf" "oag" )
@@ -18,13 +18,17 @@ export EN_PATH="${TARGET_PATH}en-us"
 export JA_PATH="${TARGET_PATH}ja-jp"
 
 export TOPIC_BRANCH="docs_l10n_request_${TARGET^^}_$(date +"%s")"
-
 export RESOURCE_PATHS=( "Content/Resources" "Resources" "Data" "Skins" "Sitemap.xml" )
+
+export RELEASE_NOTES_PATH="${EN_PATH}/Content/Topics/ReleaseNotes"
+if [ -d "${RELEASE_NOTES_PATH}" ]; then
+    mv -i "${RELEASE_NOTES_PATH}" "${EN_PATH}"
+fi
 
 for RESOURCE_PATH in "${RESOURCE_PATHS[@]}"
 do
-   :
-  rsync -av --exclude "Tocs/" "${EN_PATH}/${RESOURCE_PATH}" "${JA_PATH}"
+    :
+    rsync -av --exclude "Tocs/" "${EN_PATH}/${RESOURCE_PATH}/" "${JA_PATH}/${RESOURCE_PATH}"
 done
 
 git checkout -b ${TOPIC_BRANCH}
