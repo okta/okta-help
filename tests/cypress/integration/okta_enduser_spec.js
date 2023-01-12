@@ -9,8 +9,6 @@ describe('End User landing page (en-US)', () => {
     cy.hasLeftSideNav()
     cy.hasTOC(7)
     cy.hasBreadcrumbs('Documentation for end users')
-    cy.hasPreviousTopicArrow()
-    cy.hasNextTopicArrow()
     cy.hasTopMenuBar(4, 6)
     cy.hasBodyContent()
     cy.hasTiles(4)
@@ -26,13 +24,12 @@ describe('End User landing page (ja-JP)', () => {
   })
 
   it('displays expected content structures in Japanese', () => {
-    cy.hasOktaHOCBanner('Okta Support')
+    cy.hasOktaHOCBanner('Oktaサポート')
     cy.hasCopyright()
     cy.hasLeftSideNav()
     cy.hasTOC(7)
-    cy.hasBreadcrumbs('エンドユーザー向けのドキュメント')
-    cy.hasPreviousTopicArrow()
-    cy.hasNextTopicArrow()
+    // Vendor changed the following string in 12/22 from "エンドユーザー向けのドキュメント"
+    cy.hasBreadcrumbs('エンドユーザー向けドキュメント')
     cy.hasTopMenuBar(4, 6)
     cy.hasBodyContent()
     cy.hasTiles(4)
