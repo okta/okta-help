@@ -324,6 +324,7 @@ xmlAliasData += '    <Map Name=\"ext-rngc-provisioning\" Link=\"Topics/Provision
 xmlAliasData += '    <Map Name=\"ext-servicenow-provisioning\" Link=\"Topics/Provisioning/ServiceNow/servicenow-provisioning.htm\" ResolvedId=\"8004\" />';
 xmlAliasData += '    <Map Name=\"ext-set-default-app-redirect\" Link=\"Topics/identity-engine/procedures/set-up-default-app-redirect.htm\" ResolvedId=\"6010\" />';
 xmlAliasData += '    <Map Name=\"ext-set-up-rate-limit-notifs\" Link=\"Topics/Settings/set-up-rate-limit-notifs.htm\" ResolvedId=\"17004\" />';
+xmlAliasData += '    <Map Name=\"ext-settings-configure-browser-plugin\" Link=\"Topics/Settings/settings-configure-browser-plugin.htm\" ResolvedId=\"15023\" />';
 xmlAliasData += '    <Map Name=\"ext-sfdc-provisioning\" Link=\"Topics/Provisioning/Salesforce/sfdc-provision.htm\" ResolvedId=\"8003\" />';
 xmlAliasData += '    <Map Name=\"ext-sfec-provisioning\" Link=\"Topics/Provisioning/sfec/sfec-main.htm\" ResolvedId=\"8002\" />';
 xmlAliasData += '    <Map Name=\"ext-share-auth-policy\" Link=\"Topics/identity-engine/policies/share-auth-policies.htm\" ResolvedId=\"5005\" />';
