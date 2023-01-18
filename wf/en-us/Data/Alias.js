@@ -267,7 +267,7 @@ xmlAliasData += '    <Map Name=\"ext-dropboxforbusiness\" Link=\"Topics/Workflow
 xmlAliasData += '    <Map Name=\"ext-dropboxforbusiness-method-createuser\" Link=\"Topics/Workflows/connector-reference/dropboxforbusiness/actions/createuser.htm\" ResolvedId=\"30123\" />';
 xmlAliasData += '    <Map Name=\"ext-dropboxforbusiness-method-customapiaction\" Link=\"Topics/Workflows/connector-reference/dropboxforbusiness/actions/customapiaction.htm\" ResolvedId=\"30124\" />';
 xmlAliasData += '    <Map Name=\"ext-dropboxforbusiness-method-downloadfile\" Link=\"Topics/Workflows/connector-reference/dropboxforbusiness/actions/downloadfile.htm\" ResolvedId=\"31053\" />';
-xmlAliasData += '    <Map Name=\"ext-dropboxforbusiness-method-getuser\" Link=\"Topics/Workflows/connector-reference/dropboxforbusiness/actions/getuser.htm\" ResolvedId=\"30125\" />';
+xmlAliasData += '    <Map Name=\"ext-dropboxforbusiness-method-getuser\" Link=\"Topics/Workflows/connector-reference/dropboxforbusiness/actions/readuser.htm\" ResolvedId=\"30125\" />';
 xmlAliasData += '    <Map Name=\"ext-dropboxforbusiness-method-removeuser\" Link=\"Topics/Workflows/connector-reference/dropboxforbusiness/actions/removeuser.htm\" ResolvedId=\"30126\" />';
 xmlAliasData += '    <Map Name=\"ext-dropboxforbusiness-method-searchfilesorfolders\" Link=\"Topics/Workflows/connector-reference/dropboxforbusiness/actions/searchfilesorfolders.htm\" ResolvedId=\"31054\" />';
 xmlAliasData += '    <Map Name=\"ext-dropboxforbusiness-method-suspenduser\" Link=\"Topics/Workflows/connector-reference/dropboxforbusiness/actions/suspenduser.htm\" ResolvedId=\"30127\" />';
@@ -814,14 +814,17 @@ xmlAliasData += '    <Map Name=\"ext-okta-method-assignusertoapplicationforsso\"
 xmlAliasData += '    <Map Name=\"ext-okta-method-assignusertoapplicationforssoandprovisioning\" Link=\"Topics/Workflows/connector-reference/okta/actions/assignusertoapplicationforssoandprovisioning.htm\" ResolvedId=\"30420\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-authenticatoractivated\" Link=\"Topics/Workflows/connector-reference/okta/events/authenticatoractivated.htm\" ResolvedId=\"14006\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-authenticatordeactivated\" Link=\"Topics/Workflows/connector-reference/okta/events/authenticatordeactivated.htm\" ResolvedId=\"14007\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-bulkuserimport\" Link=\"Topics/Workflows/connector-reference/okta/actions/bulkuserimport.htm\" ResolvedId=\"33083\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-clearusersessions\" Link=\"Topics/Workflows/connector-reference/okta/actions/clearusersessions.htm\" ResolvedId=\"30421\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-creategroup\" Link=\"Topics/Workflows/connector-reference/okta/actions/creategroup.htm\" ResolvedId=\"11008\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-creategrouprule\" Link=\"Topics/Workflows/connector-reference/okta/actions/creategrouprule.htm\" ResolvedId=\"11009\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-createimportsession\" Link=\"Topics/Workflows/connector-reference/okta/actions/createimportsession.htm\" ResolvedId=\"33082\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-createuser\" Link=\"Topics/Workflows/connector-reference/okta/actions/createuser.htm\" ResolvedId=\"30422\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-deactivategrouprule\" Link=\"Topics/Workflows/connector-reference/okta/actions/deactivategrouprule.htm\" ResolvedId=\"11010\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-deactivateuser\" Link=\"Topics/Workflows/connector-reference/okta/actions/deactivateuser.htm\" ResolvedId=\"30423\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-deletegroup\" Link=\"Topics/Workflows/connector-reference/okta/actions/deletegroup.htm\" ResolvedId=\"11011\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-deletegrouprule\" Link=\"Topics/Workflows/connector-reference/okta/actions/deletegrouprule.htm\" ResolvedId=\"11012\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-deleteimportsession\" Link=\"Topics/Workflows/connector-reference/okta/actions/deleteimportsession.htm\" ResolvedId=\"33086\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-deletelinkedobjectvalue\" Link=\"Topics/Workflows/connector-reference/okta/actions/deletelinkedobjectvalue.htm\" ResolvedId=\"30308\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-deleteuser\" Link=\"Topics/Workflows/connector-reference/okta/actions/deleteuser.htm\" ResolvedId=\"30424\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-deviceactivated\" Link=\"Topics/Workflows/connector-reference/okta/events/deviceactivated.htm\" ResolvedId=\"33101\" />';
@@ -872,6 +875,7 @@ xmlAliasData += '    <Map Name=\"ext-okta-method-readapplication\" Link=\"Topics
 xmlAliasData += '    <Map Name=\"ext-okta-method-readassignedgroupforapplication\" Link=\"Topics/Workflows/connector-reference/okta/actions/readassignedgroupforapplication.htm\" ResolvedId=\"33013\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-readgroup\" Link=\"Topics/Workflows/connector-reference/okta/actions/readgroup.htm\" ResolvedId=\"30432\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-readgrouprule\" Link=\"Topics/Workflows/connector-reference/okta/actions/readgrouprule.htm\" ResolvedId=\"11013\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-readimportsession\" Link=\"Topics/Workflows/connector-reference/okta/actions/readimportsession.htm\" ResolvedId=\"33085\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-readuser\" Link=\"Topics/Workflows/connector-reference/okta/actions/readuser.htm\" ResolvedId=\"30433\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-removegroupfromapplication\" Link=\"Topics/Workflows/connector-reference/okta/actions/removegroupfromapplication.htm\" ResolvedId=\"33014\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-removeuserfromapplication\" Link=\"Topics/Workflows/connector-reference/okta/actions/removeuserfromapplication.htm\" ResolvedId=\"30434\" />';
@@ -885,6 +889,7 @@ xmlAliasData += '    <Map Name=\"ext-okta-method-searchusers\" Link=\"Topics/Wor
 xmlAliasData += '    <Map Name=\"ext-okta-method-setlinkedobjectvalueforprimary\" Link=\"Topics/Workflows/connector-reference/okta/actions/setlinkedobjectvalueforprimary.htm\" ResolvedId=\"30998\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-suspenduser\" Link=\"Topics/Workflows/connector-reference/okta/actions/suspenduser.htm\" ResolvedId=\"30438\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-syncuserinexternalapplication\" Link=\"Topics/Workflows/connector-reference/okta/events/syncuserinexternalapplication.htm\" ResolvedId=\"30456\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-triggerimportsession\" Link=\"Topics/Workflows/connector-reference/okta/actions/triggerimportsession.htm\" ResolvedId=\"33084\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-unsuspenduser\" Link=\"Topics/Workflows/connector-reference/okta/actions/unsuspenduser.htm\" ResolvedId=\"30439\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-updateapplicationcredentialsforassigneduser\" Link=\"Topics/Workflows/connector-reference/okta/actions/updateapplicationcredentialsforassigneduser.htm\" ResolvedId=\"30440\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-updateapplicationprofileforassigneduser\" Link=\"Topics/Workflows/connector-reference/okta/actions/updateapplicationprofileforassigneduser.htm\" ResolvedId=\"30441\" />';
@@ -1290,6 +1295,9 @@ xmlAliasData += '    <Map Name=\"ext-zoom-method-updateuser\" Link=\"Topics/Work
 xmlAliasData += '    <Map Name=\"ext-zoom-misc-authorization\" Link=\"Topics/Workflows/connector-reference/zoom/overviews/authorization.htm\" ResolvedId=\"30737\" />';
 xmlAliasData += '    <Map Name=\"ext-workflows-releasenotes\" Link=\"Topics/ReleaseNotes/Workflows/workflows-release-notes.htm\" ResolvedId=\"31059\" />';
 xmlAliasData += '    <Map Name=\"ext-about-low-latency\" Link=\"Topics/Workflows/learn/about-low-latency.htm\" ResolvedId=\"6000\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-createoktaformat\" Link=\"Topics/Workflows/connector-reference/okta/actions/mapprofilesourceattributes.htm\" ResolvedId=\"6003\" />';
 xmlAliasData += '    <Map Name=\"ext-about-low-latency-criteria\" Link=\"Topics/Workflows/learn/about-low-latency-criteria.htm\" ResolvedId=\"6006\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-accessrequestcreated\" Link=\"Topics/Workflows/connector-reference/okta/events/iga-accessrequestcreated.htm\" ResolvedId=\"6007\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-accessrequestresolved\" Link=\"Topics/Workflows/connector-reference/okta/events/iga-accessrequestresolved.htm\" ResolvedId=\"6008\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
