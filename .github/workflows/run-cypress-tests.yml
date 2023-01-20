@@ -1,0 +1,20 @@
+name: Cypress tests
+on: [pull_request]
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Lint
+        run: |
+          yarn
+          yarn lint
+      - name: Run Cypress tests
+        uses: cypress-io/github-action@v4
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: cypress-snapshots
+          path: tests/cypress/screenshots
