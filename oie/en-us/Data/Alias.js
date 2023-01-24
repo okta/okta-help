@@ -578,5 +578,9 @@ xmlAliasData += '    <Map Name=\"csh-google-authenticator\" Link=\"Topics/identi
 xmlAliasData += '    <Map Name=\"ext-about-ssr\" Link=\"Topics/identity-engine/policies/about-ssr.htm\" ResolvedId=\"6019\" />';
 xmlAliasData += '    <Map Name=\"ext-create-pe-collect\" Link=\"Topics/identity-engine/policies/create-profile-enrollment-policy-pe.htm\" ResolvedId=\"6020\" />';
 xmlAliasData += '    <Map Name=\"csh-smart-card-authenticator\" Link=\"Topics/identity-engine/authenticators/smart-card-authenticator.htm\" ResolvedId=\"7004\" />';
+xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-authz-permissions\" Link=\"Topics/Security/custom-admin-role/about-role-permissions.htm#Authorization_server_permissions\" ResolvedId=\"19010\" />';
+xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-customizations-permissions\" Link=\"Topics/Security/custom-admin-role/about-role-permissions.htm#Customization_permissions\" ResolvedId=\"19009\" />';
+xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-profile-source-permissions\" Link=\"Topics/Security/custom-admin-role/about-role-permissions.htm#Profile_source_permissions\" ResolvedId=\"19007\" />';
+xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-workflow-permissions\" Link=\"Topics/Security/custom-admin-role/about-role-permissions.htm#Workflow_permissions\" ResolvedId=\"19008\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
