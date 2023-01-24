@@ -123,6 +123,7 @@ xmlAliasData += '    <Map Name=\"csh-limit-access-dashboard\" Link=\"Topics/Sett
 xmlAliasData += '    <Map Name=\"csh-limit-admins\" Link=\"Topics/Security/healthinsight/limit-admins.htm\" ResolvedId=\"1182\" />';
 xmlAliasData += '    <Map Name=\"csh-log-streams\" Link=\"Topics/Reports/log-streaming/about-log-streams.htm\" ResolvedId=\"13005\" />';
 xmlAliasData += '    <Map Name=\"csh-mfa-enroll-report\" Link=\"Topics/Reports/mfa-enrollment-user-report.htm\" ResolvedId=\"9001\" />';
+xmlAliasData += '    <Map Name=\"csh-new-end-user-experience\" Link=\"Topics/Settings/new-end-user-experience.htm\" ResolvedId=\"7002\" />';
 xmlAliasData += '    <Map Name=\"csh-new-eu-dashboard\" Link=\"Topics/Settings/new-end-user-dashboard.htm\" ResolvedId=\"1183\" />';
 xmlAliasData += '    <Map Name=\"csh-notification-changed-password\" Link=\"Topics/Security/healthinsight/notifications-changed-password.htm\" ResolvedId=\"1301\" />';
 xmlAliasData += '    <Map Name=\"csh-notification-signon\" Link=\"Topics/Security/healthinsight/notifications-signon.htm\" ResolvedId=\"1186\" />';
@@ -160,6 +161,7 @@ xmlAliasData += '    <Map Name=\"csh-SMS-customization\" Link=\"Topics/Settings/
 xmlAliasData += '    <Map Name=\"csh-sso-ext-ios\" Link=\"Topics/identity-engine/devices/config-credential-sso-ext-ios.htm\" ResolvedId=\"1352\" />';
 xmlAliasData += '    <Map Name=\"csh-sso-ext-macos\" Link=\"Topics/identity-engine/devices/config-credential-sso-ext-macos.htm\" ResolvedId=\"1351\" />';
 xmlAliasData += '    <Map Name=\"csh-strong-password\" Link=\"Topics/Security/healthinsight/strong-passwords.htm\" ResolvedId=\"1189\" />';
+xmlAliasData += '    <Map Name=\"csh-suspicious-activity-reporting\" Link=\"Topics/Security/suspicious-activity-reporting.htm\" ResolvedId=\"1177\" />';
 xmlAliasData += '    <Map Name=\"csh-symantec-vip\" Link=\"Topics/identity-engine/authenticators/symantec-vip.htm\" ResolvedId=\"18008\" />';
 xmlAliasData += '    <Map Name=\"csh-telephony-usage-report\" Link=\"Topics/Reports/telephony-usage-report.htm\" ResolvedId=\"19002\" />';
 xmlAliasData += '    <Map Name=\"csh-threat-insight\" Link=\"Topics/Security/threat-insight/ti-index.htm\" ResolvedId=\"1192\" />';
@@ -484,6 +486,7 @@ xmlAliasData += '    <Map Name=\"ext_ref_email_variables\" Link=\"Topics/Setting
 xmlAliasData += '    <Map Name=\"ext_ref_supported_languages\" Link=\"Topics/Reference/ref-supported-languages.htm\" ResolvedId=\"200134\" />';
 xmlAliasData += '    <Map Name=\"ext_Reference_Directories\" Link=\"Topics/Directory/Reference_Directories.htm\" ResolvedId=\"200081\" />';
 xmlAliasData += '    <Map Name=\"ext_Reports_SysLog\" Link=\"Topics/Reports/Reports_SysLog.htm\" ResolvedId=\"200145\" />';
+xmlAliasData += '    <Map Name=\"ext_sar\" Link=\"Topics/Security/suspicious-activity-reporting.htm\" ResolvedId=\"1211\" />';
 xmlAliasData += '    <Map Name=\"ext_secur_browser_support\" Link=\"Topics/Miscellaneous/Platforms_Browser_OS_Support.htm\" ResolvedId=\"3058\" />';
 xmlAliasData += '    <Map Name=\"ext_secur_manage_ea_bata\" Link=\"Topics/Security/manage-EA-and-beta-features.htm\" ResolvedId=\"3059\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_Administrators\" Link=\"Topics/Security/Administrators.htm\" ResolvedId=\"1106\" />';
@@ -574,5 +577,6 @@ xmlAliasData += '    <Map Name=\"csh-add-admin-page\" Link=\"Topics/Security/cus
 xmlAliasData += '    <Map Name=\"csh-google-authenticator\" Link=\"Topics/identity-engine/authenticators/google-authenticator.htm\" ResolvedId=\"18004\" />';
 xmlAliasData += '    <Map Name=\"ext-about-ssr\" Link=\"Topics/identity-engine/policies/about-ssr.htm\" ResolvedId=\"6019\" />';
 xmlAliasData += '    <Map Name=\"ext-create-pe-collect\" Link=\"Topics/identity-engine/policies/create-profile-enrollment-policy-pe.htm\" ResolvedId=\"6020\" />';
+xmlAliasData += '    <Map Name=\"csh-smart-card-authenticator\" Link=\"Topics/identity-engine/authenticators/smart-card-authenticator.htm\" ResolvedId=\"7004\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
