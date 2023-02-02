@@ -50,7 +50,7 @@ describe('Locale switching', () => {
     visitAndWaitForInitialize('en-us/Content/index.htm')
     cy.switchLocale('Change language', '日本語 (日本)‎')
     cy.url().should('include', 'ja-jp/Content/index.htm')
-    cy.switchLocale('言語の変更', 'English (United States)')
+    cy.switchLocale('言語を変更', 'English (United States)')
     cy.url().should('include', 'en-us/Content/index.htm')
   })
 
@@ -66,7 +66,7 @@ describe('Locale switching', () => {
     visitAndWaitForInitialize('en-us/Content/index-admin.htm')
     cy.switchLocale('Change language', '日本語 (日本)‎')
     cy.url().should('include', 'ja-jp/Content/index-admin.htm')
-    cy.switchLocale('言語の変更', 'English (United States)')
+    cy.switchLocale('言語を変更', 'English (United States)')
     cy.url().should('include', 'en-us/Content/index-admin.htm')
   })
 
@@ -74,7 +74,7 @@ describe('Locale switching', () => {
     visitAndWaitForInitialize('en-us/Content/Topics/ReleaseNotes/okta-relnotes.htm')
     cy.switchLocale('Change language', '日本語 (日本)‎')
     cy.url().should('include', 'ja-jp/Content/Topics/ReleaseNotes/okta-relnotes.htm')
-    cy.switchLocale('言語の変更', 'English (United States)')
+    cy.switchLocale('言語を変更', 'English (United States)')
     cy.url().should('include', 'en-us/Content/Topics/ReleaseNotes/okta-relnotes.htm')
   })
 

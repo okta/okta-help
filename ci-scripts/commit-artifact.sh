@@ -17,6 +17,8 @@ fi
 
 cd ${OKTA_HOME}/${REPO}/ci-scripts
 
+mkdir -p "${OUTPUT_FOLDER}"
+
 wget -O ${ARCHIVE_PATH} ${BUILT_ARTIFACT}
 tar -xf ${ARCHIVE_PATH} -C ${OUTPUT_FOLDER} --strip-components=1 --overwrite  --no-same-permissions
 
