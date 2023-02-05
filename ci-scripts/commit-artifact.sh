@@ -1,5 +1,6 @@
 #!/bin/bash
 export ARCHIVE_PATH="target.zip"
+export PUBLISH_TARGETS_FILE="publish_targets.txt"
 export OUTPUT_FOLDER="../${PUBLISH_DESTINATION}"
 
 cd ${OKTA_HOME}/${REPO}
@@ -17,12 +18,25 @@ fi
 
 cd ${OKTA_HOME}/${REPO}/ci-scripts
 
-mkdir -p "${OUTPUT_FOLDER}"
+if [ ${PUBLISH_TARGETS} ]
+then
+  wget -O ${PUBLISH_TARGETS_FILE} ${PUBLISH_TARGETS}
+  while IFS=$' \t\r\n' read -r artifact_link publish_to
+  do
+    OUTPUT_FOLDER="../${publish_to}"
 
-wget -O ${ARCHIVE_PATH} ${BUILT_ARTIFACT}
-tar -xf ${ARCHIVE_PATH} -C ${OUTPUT_FOLDER} --strip-components=1 --overwrite  --no-same-permissions
+    mkdir -p "${OUTPUT_FOLDER}"
+    wget -O ${ARCHIVE_PATH} ${artifact_link}
+    tar -xf ${ARCHIVE_PATH} -C ${OUTPUT_FOLDER} --strip-components=1 --overwrite  --no-same-permissions
+    rm ${ARCHIVE_PATH}
+  done < ${PUBLISH_TARGETS_FILE}
+else
+  mkdir -p "${OUTPUT_FOLDER}"
+  wget -O ${ARCHIVE_PATH} ${BUILT_ARTIFACT}
+  tar -xf ${ARCHIVE_PATH} -C ${OUTPUT_FOLDER} --strip-components=1 --overwrite  --no-same-permissions
+  rm ${ARCHIVE_PATH}
+fi
 
-rm ${ARCHIVE_PATH}
 cd ${OKTA_HOME}/${REPO}
 
 git add --all
