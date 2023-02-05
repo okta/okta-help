@@ -18,6 +18,8 @@ fi
 
 cd ${OKTA_HOME}/${REPO}/ci-scripts
 
+set -x
+
 if [ ${PUBLISH_TARGETS} ]
 then
   wget -O ${PUBLISH_TARGETS_FILE} ${PUBLISH_TARGETS}
