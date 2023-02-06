@@ -36,6 +36,7 @@ then
   do
     copy_artifact "../${publish_to}" "${artifact_link}"
   done < ${PUBLISH_TARGETS_FILE}
+  rm ${PUBLISH_TARGETS_FILE}
 else
   copy_artifact "../${PUBLISH_DESTINATION}" "${BUILT_ARTIFACT}"
 fi
