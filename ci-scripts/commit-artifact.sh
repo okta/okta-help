@@ -4,9 +4,9 @@ export PUBLISH_TARGETS_FILE="publish_targets.txt"
 
 copy_artifact()
 {
-  exoprt OUT_FOLDER = $1
-  export ARTIFACT_URL = $2
-  export ARCHIVE_PATH="target.zip"
+  OUT_FOLDER=$1
+  ARTIFACT_URL=$2
+  ARCHIVE_PATH="target.zip"
 
   mkdir -p "${OUT_FOLDER}"
   wget -O ${ARCHIVE_PATH} ${ARTIFACT_URL}
