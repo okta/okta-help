@@ -14,6 +14,9 @@ copy_artifact()
   rm ${ARCHIVE_PATH}
 }
 
+set-x
+zip
+
 cd ${OKTA_HOME}/${REPO}
 git fetch origin ${TOPIC_BRANCH}
 export RET=$?
