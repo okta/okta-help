@@ -1303,5 +1303,6 @@ xmlAliasData += '    <Map Name=\"ext-okta-method-listimportsession\" Link=\"Topi
 xmlAliasData += '    <Map Name=\"ext-about-low-latency-criteria\" Link=\"Topics/Workflows/learn/about-low-latency-criteria.htm\" ResolvedId=\"6006\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-accessrequestcreated\" Link=\"Topics/Workflows/connector-reference/okta/events/iga-accessrequestcreated.htm\" ResolvedId=\"6007\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-accessrequestresolved\" Link=\"Topics/Workflows/connector-reference/okta/events/iga-accessrequestresolved.htm\" ResolvedId=\"6008\" />';
+xmlAliasData += '    <Map Name=\"ext-list-method-groupby\" Link=\"Topics/Workflows/function-reference/List/list_groupby.htm\" ResolvedId=\"6009\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
