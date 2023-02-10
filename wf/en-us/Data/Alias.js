@@ -1299,8 +1299,14 @@ xmlAliasData += '    <Map Name=\"ext-third-party-overview\" Link=\"Topics/Workfl
 xmlAliasData += '    <Map Name=\"ext-third-party-test\" Link=\"Topics/Workflows/connector-builder/third-party-submissions-test-details.htm\" ResolvedId=\"6002\" />';
 xmlAliasData += '    <Map Name=\"ext-third-party-docs\" Link=\"Topics/Workflows/connector-builder/third-party-submissions-prepare-docs.htm\" ResolvedId=\"6004\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-createoktaformat\" Link=\"Topics/Workflows/connector-reference/okta/actions/mapprofilesourceattributes.htm\" ResolvedId=\"6003\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-listimportsessions\" Link=\"Topics/Workflows/connector-reference/okta/actions/listimportsession.htm\" ResolvedId=\"6005\" />';
 xmlAliasData += '    <Map Name=\"ext-about-low-latency-criteria\" Link=\"Topics/Workflows/learn/about-low-latency-criteria.htm\" ResolvedId=\"6006\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-accessrequestcreated\" Link=\"Topics/Workflows/connector-reference/okta/events/iga-accessrequestcreated.htm\" ResolvedId=\"6007\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-accessrequestresolved\" Link=\"Topics/Workflows/connector-reference/okta/events/iga-accessrequestresolved.htm\" ResolvedId=\"6008\" />';
+xmlAliasData += '    <Map Name=\"ext-list-method-groupby\" Link=\"Topics/Workflows/function-reference/List/list_groupby.htm\" ResolvedId=\"6009\" />';
+xmlAliasData += '    <Map Name=\"ext-googledirectory-method-readgroupsettings\" Link=\"Topics/Workflows/connector-reference/googledirectory/actions/readgroupsettings.htm\" ResolvedId=\"6010\" />';
+xmlAliasData += '    <Map Name=\"ext-googledirectory-method-updategroupsettings\" Link=\"Topics/Workflows/connector-reference/googledirectory/actions/updategroupsettings.htm\" ResolvedId=\"6011\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-createanimportsession\" Link=\"Topics/Workflows/connector-reference/okta/actions/createimportsession.htm\" ResolvedId=\"6012\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-method-mapprofilesourceattributes\" Link=\"Topics/Workflows/connector-reference/okta/actions/mapprofilesourceattributes.htm\" ResolvedId=\"6013\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
