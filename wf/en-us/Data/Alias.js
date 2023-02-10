@@ -1,7 +1,9 @@
 var xmlAliasData = "";
 xmlAliasData += '<?xml version=\"1.0\" encoding=\"utf-8\"?>';
 xmlAliasData += '<CatapultAliasFile>';
+xmlAliasData += '    <Map Name=\"ext-applications-connections\" Link=\"Topics/Workflows/learn/about-applications-connections.htm\" ResolvedId=\"1336\" />';
 xmlAliasData += '    <Map Name=\"ext-connectors-reference\" Link=\"Topics/Workflows/connector-reference/connector-reference.htm\" ResolvedId=\"10002\" />';
+xmlAliasData += '    <Map Name=\"ext-learn-workflows\" Link=\"Topics/Workflows/learn/learn-workflows.htm\" ResolvedId=\"10024\" />';
 xmlAliasData += '    <Map Name=\"ext-okta\" Link=\"Topics/Workflows/connector-reference/okta/okta.htm\" ResolvedId=\"30416\" />';
 xmlAliasData += '    <Map Name=\"ext-workflows-templates\" Link=\"Topics/Workflows/templates/workflows-templates.htm\" ResolvedId=\"10029\" />';
 xmlAliasData += '</CatapultAliasFile>';
