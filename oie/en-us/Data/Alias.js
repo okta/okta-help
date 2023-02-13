@@ -588,7 +588,6 @@ xmlAliasData += '    <Map Name=\"csh-administrators-super-admin\" Link=\"Topics/
 xmlAliasData += '    <Map Name=\"csh-administrators-report-admin\" Link=\"Topics/Security/administrators-report-admin.htm\" ResolvedId=\"19013\" />';
 xmlAliasData += '    <Map Name=\"csh-administrators-read-only-admin\" Link=\"Topics/Security/administrators-read-only-admin.htm\" ResolvedId=\"19014\" />';
 xmlAliasData += '    <Map Name=\"csh-administrators-org-admin\" Link=\"Topics/Security/administrators-org-admin.htm\" ResolvedId=\"19015\" />';
-xmlAliasData += '    <Map Name=\"csh-administrators-mobile-admin\" Link=\"Topics/Security/administrators-mobile-admin.htm\" ResolvedId=\"19016\" />';
 xmlAliasData += '    <Map Name=\"csh-administrators-help-desk-admin\" Link=\"Topics/Security/administrators-help-desk-admin.htm\" ResolvedId=\"19017\" />';
 xmlAliasData += '    <Map Name=\"csh-administrators-group-membership-admin\" Link=\"Topics/Security/administrators-group-membership-admin.htm\" ResolvedId=\"19018\" />';
 xmlAliasData += '    <Map Name=\"csh-administrators-group-admin\" Link=\"Topics/Security/administrators-group-admin.htm\" ResolvedId=\"19019\" />';
