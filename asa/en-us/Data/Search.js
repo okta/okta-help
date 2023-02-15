@@ -1,1 +1,1 @@
-define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../Content/Topics/ReleaseNotes/advanced-server-access-release-notes.htm'],s:['0'],p:[['0',0]]});
+define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../Content/Topics/Adv_Server_Access/docs/ad-overview.htm'],s:['0'],p:[['0',0]]});

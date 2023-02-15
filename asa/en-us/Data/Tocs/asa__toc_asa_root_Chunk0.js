@@ -1,1 +1,1 @@
-define({'/Content/Topics/ReleaseNotes/advanced-server-access-release-notes.htm':{i:[0],t:['Release Notes'],b:['']}});
+define({'/Content/Topics/Adv_Server_Access/docs/ad-overview.htm':{i:[1],t:['AD-Joined'],b:['']},'/Content/Topics/Adv_Server_Access/docs/ad-sync-test.htm':{i:[3],t:['Test a server sync job Test one line change'],b:['']},'/Content/Topics/Adv_Server_Access/docs/ad-sync.htm':{i:[2],t:['AD server discovery'],b:['']},'/Content/Topics/ReleaseNotes/advanced-server-access-release-notes.htm':{i:[0],t:['Release Notes'],b:['']}});

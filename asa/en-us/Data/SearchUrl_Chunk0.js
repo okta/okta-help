@@ -1,1 +1,1 @@
-define({"../Content/Topics/ReleaseNotes/advanced-server-access-release-notes.htm":0,});
+define({"../Content/Topics/Adv_Server_Access/docs/ad-overview.htm":1,"../Content/Topics/Adv_Server_Access/docs/ad-sync-test.htm":3,"../Content/Topics/Adv_Server_Access/docs/ad-sync.htm":2,"../Content/Topics/ReleaseNotes/advanced-server-access-release-notes.htm":0,});
