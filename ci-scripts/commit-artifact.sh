@@ -10,7 +10,8 @@ copy_artifact()
 
   mkdir -p "${OUT_FOLDER}"
   wget -O ${ARCHIVE_PATH} ${ARTIFACT_URL}
-  tar -xf ${ARCHIVE_PATH} -C ${OUT_FOLDER} --strip-components=1 --overwrite  --no-same-permissions
+  # tar -xf ${ARCHIVE_PATH} -C ${OUT_FOLDER} --strip-components=1 --overwrite  --no-same-permissions
+  unzip -o ${ARCHIVE_PATH} -d ${OUT_FOLDER}
   rm ${ARCHIVE_PATH}
 }
 
