@@ -1,1 +1,1 @@
-define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../Content/Topics/okta-personal/add-apps.htm'],s:['0'],p:[['0',8]]});
+define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../Content/Topics/okta-personal/get-started.htm'],s:['a'],p:[['a',0]]});
