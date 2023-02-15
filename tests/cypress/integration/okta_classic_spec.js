@@ -9,7 +9,7 @@ describe('Classic landing page (en-US)', () => {
     cy.hasLeftSideNav()
     cy.hasTOC(9)
     cy.hasBreadcrumbs('Okta Classic Engine')
-    cy.hasTopMenuBar(5, 9)
+    cy.hasTopMenuBar(5, 11)
     cy.hasBodyContent()
     cy.hasTiles(9)
     cy.hasDeferAttrsCorrectlyApplied()

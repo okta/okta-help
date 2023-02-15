@@ -9,7 +9,7 @@ describe('Classic release notes landing page (en-US)', () => {
     cy.hasLeftSideNav()
     cy.hasTOC(9)
     cy.hasBreadcrumbs('Release notes')
-    cy.hasTopMenuBar(5, 9)
+    cy.hasTopMenuBar(5, 11)
     cy.hasBodyContent()
     cy.hasTiles(6)
     cy.hasDeferAttrsCorrectlyApplied()
@@ -23,13 +23,13 @@ describe('Classic release notes production page (en-US)', () => {
     cy.visit('en-us/Content/Topics/ReleaseNotes/production.htm')
   })
 
-  it('displays expected content structures in Japanese', () => {
+  it('displays expected content structures in English', () => {
     cy.hasOktaHOCBanner('Okta Support')
     cy.hasCopyright()
     cy.hasLeftSideNav()
     cy.hasTOC(9)
     cy.hasBreadcrumbs('Production')
-    cy.hasTopMenuBar(5, 9)
+    cy.hasTopMenuBar(5, 11)
     cy.hasBodyContent()
     cy.hasTabs(4)
     cy.hasDeferAttrsCorrectlyApplied()
