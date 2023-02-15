@@ -1,0 +1,1 @@
+define({"0":{y:0,u:"../Content/Topics/ReleaseNotes/advanced-server-access-release-notes.htm",l:-1,t:"Advanced Server Access Release Notes | Okta",i:1,a:"Release notes for the latest Advanced Server Access releases. New features, general fixes, and a list of previous releases are included.\r\n"},});
