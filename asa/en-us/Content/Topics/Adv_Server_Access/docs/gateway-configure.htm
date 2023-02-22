@@ -607,11 +607,45 @@ requires additional configuration. Must be set to <span class="code">True</span>
 							<p>The default depends on the operating system. On Linux, the default is generally /tmp, unless the $TMPDIR environment variable is specified.</p><div class="noteOkta"><p class="noteContent">The directories for the temporary and finalized session logs must be located on the same device.</p></div></td>
                                                                     </tr>
                                                                     <tr class="TableStyle-standard-Body-Body2">
-                                                                        <td class="TableStyle-standard-BodyC-Column1-Body2">
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body2">
 							LogDestinations</td>
-                                                                        <td class="TableStyle-standard-BodyC-Column1-Body2">unset</td>
-                                                                        <td class="TableStyle-standard-BodyA-Column1-Body2">Specifies where to store finalized session logs. Teams can store logs locally or on AWS or GCS buckets. You can store session logs in multiple locations. If doing so, the logs are sent to the destination in the order specified in the configuration file. Session logs are never sent to <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span>.
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body2">unset</td>
+                                                                        <td class="TableStyle-standard-BodyD-Column1-Body2">Specifies where to store finalized session logs. Teams can store logs locally or on AWS or GCS buckets. You can store session logs in multiple locations. If doing so, the logs are sent to the destination in the order specified in the configuration file. Session logs are never sent to <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span>.
                                 <p>See the following  default values and examples.</p><h5>Example - Linux/BSD</h5><p class="noteContent code">LogDestinations:<br />  - Type: file<br />    LogDir: /var/log/sft/sessions</p><div class="noteOkta"><p class="noteContent">Gateways can't write to the <code>/home</code>, <code>/root</code>, or <code>/run/user</code> directories.</p></div><h5>Example - AWS</h5><p class="noteContent code">LogDestinations:<br />  - Type: s3<br />    Bucket: BUCKET-NAME<br />    Region: US-EAST-1<br />    # Use of ec2 instance IAM Role credentials for s3 bucket access is recommended<br />    # To use ec2 instance IAM Role credentials leave Profile, AccesKeyId, SecretKey, and SessionToken BLANK<br />    # Specify Profile for shared credentials<br />    Profile: AWS-PROFILE-NAME<br />    # Specify AccessKeyId, SecretKey, and SessionToken for static credentials<br />    AccessKeyId: SECRET<br />    SecretKey: SECRET<br />    SessionToken: SECRET</p><h5>Example - Google Cloud</h5><p class="noteContent code">LogDestinations:<br />  - Type: gcs<br />    Bucket: BUCKET-NAME<br />    # Supply one of CredentialsFile or CredentialsJSON (or none to use instance credentials)<br />    CredentialsFile: /path/to/cred/file<br />    CredentialsJSON: |<br />    {<br />    "SOME": "value",<br />    "IN": "json"<br />    }</p></td>
+                                                                    </tr>
+                                                                    <tr class="TableStyle-standard-Body-Body1" data-mc-conditions="">
+                                                                        <td class="TableStyle-standard-BodyC-Column1-Body1">
+                                                                            <p>LogFileNameFormats</p>
+                                                                        </td>
+                                                                        <td class="TableStyle-standard-BodyC-Column1-Body1">
+                                                                            <p><span class="code">SSHRecording: {{StartTime}}-{{.TeamName}}-{{Username}}</span>
+                                                                            </p>
+                                                                            <p><span class="code">RDPRecording: {{StartTime}}-{{Protocol}}-{{.TeamName}}-{{ProjectName}}-{[.ServerName}}-{{.Username}}</span>
+                                                                            </p>
+                                                                        </td>
+                                                                        <td class="TableStyle-standard-BodyA-Column1-Body1">
+                                                                            <p>System administrators can customize and configure <span class="code">logFileNameFormats</span> option to better understand and manage the session recording logs.</p>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <p><span class="code">StartTime</span> - The time when the session recording starts. Time conversion is done using ISO 8601 standard format.</p>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <p><span class="code">TeamName</span> - The <span class="mc-variable workflows_connectors.Advanced_Server_Access variable">Advanced Server Access</span> team name of the user who trigger the connection session.</p>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <p><span class="code">UserName</span> - The name of  user who trigger the SSH or RDP session.</p>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <p><span class="code">Protocol</span> - The connection protocol; either SSH or RDP.</p>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <p><span class="code">ProjectName</span> - The name of the project which the target SSH or RDP server belongs to.</p>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <p><span class="code">ServerName</span> - The hostname of the target server client connected to in the  SSH or RDP session.</p>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
