@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+﻿document.addEventListener('DOMContentLoaded', function() {
   /*** Add search-bar visibility functionality ***/
   /** Add .show-search class if page do not include the search bar **/
   if (!document.querySelector('.coveo-headline-wrapper')) {
@@ -6,9 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
   } else {
     const navbar = document.querySelector('.navbar');
     /** create search button **/
-    let searchButtonDesktop = document.createElement('button');
-    searchButtonDesktop.className = "search-btn";
-    navbar.append(searchButtonDesktop);
+    const searchButtonDesktop = document.querySelector('.search-btn');
 
     /** check for a click event on desktop search-button (toggle .show-search class) **/
     searchButtonDesktop.addEventListener('click', function() {
@@ -24,11 +22,8 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
 
-    const menuBtn = document.querySelector('button.menu-icon');
     /** create search button **/
-    let searchButtonMobile = document.createElement('button');
-    searchButtonMobile.className = "search-btn search-btn-mobile";
-    menuBtn.before(searchButtonMobile);
+    const searchButtonMobile = document.querySelector(".search-btn .search-btn-mobile");
 
     /** check for a click event on mobile search-button (toggle .show-search class) **/
     searchButtonMobile.addEventListener('click', function() {
