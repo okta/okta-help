@@ -6,7 +6,9 @@
   } else {
     const navbar = document.querySelector('.navbar');
     /** create search button **/
-    const searchButtonDesktop = document.querySelector('.search-btn');
+    let searchButtonDesktop = document.createElement('button');
+    searchButtonDesktop.className = "search-btn";
+    navbar.append(searchButtonDesktop);
 
     /** check for a click event on desktop search-button (toggle .show-search class) **/
     searchButtonDesktop.addEventListener('click', function() {
@@ -22,8 +24,11 @@
       }
     });
 
+    const menuBtn = document.querySelector('button.menu-icon');
     /** create search button **/
-    const searchButtonMobile = document.querySelector(".search-btn .search-btn-mobile");
+    let searchButtonMobile = document.createElement('button');
+    searchButtonMobile.className = "search-btn search-btn-mobile";
+    menuBtn.before(searchButtonMobile);
 
     /** check for a click event on mobile search-button (toggle .show-search class) **/
     searchButtonMobile.addEventListener('click', function() {
