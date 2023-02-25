@@ -45,7 +45,7 @@
     });
   }
 
-  /*** Makes tiles(cards) fully clickable, even if you don�t change the code(html). ***/
+  /*** Makes tiles(cards) fully clickable, even if you don't change the code(html). ***/
   const tiles = document.querySelectorAll('.tiles > div');
   tiles.forEach(function(tile) {
     const link = tile.querySelector('a');
