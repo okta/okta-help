@@ -9,8 +9,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let searchButtonDesktop = document.createElement('button');
     searchButtonDesktop.className = "search-btn";
     navbar.append(searchButtonDesktop);
-
-    /** check for a click event on desktop search-button (toggle .show-search class) **/
+    
+    /** check for a click event on desktop search-button (toggle .hide-search class) **/
     searchButtonDesktop.addEventListener('click', function() {
       const input = document.querySelector('.coveo-headline-wrapper #standaloneSearchbox .magic-box .magic-box-input > input');
       const mainSection = document.querySelector('.main-section');
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  /*** Makes tiles(cards) fully clickable, even if you don't change the code(html). ***/
+  /*** Makes tiles(cards) fully clickable, even if you don’t change the code(html). ***/
   const tiles = document.querySelectorAll('.tiles > div');
   tiles.forEach(function(tile) {
     const link = tile.querySelector('a');
