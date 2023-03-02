@@ -296,6 +296,7 @@ xmlAliasData += '    <Map Name=\"ext-rally-provisioning\" Link=\"Topics/Provisio
 xmlAliasData += '    <Map Name=\"ext-recent-signin-activity\" Link=\"Topics/Security/recent-signin-activity.htm\" ResolvedId=\"1296\" />';
 xmlAliasData += '    <Map Name=\"ext-report-types\" Link=\"Topics/Reports/report-types.htm\" ResolvedId=\"17025\" />';
 xmlAliasData += '    <Map Name=\"ext-rngc-provisioning\" Link=\"Topics/Provisioning/RingCentral/rngc-main.htm\" ResolvedId=\"8008\" />';
+xmlAliasData += '    <Map Name=\"ext-Security-Policies-eu-control\" Link=\"Topics/Security/policies/configure-signon-policies.htm\" ResolvedId=\"1325\" />';
 xmlAliasData += '    <Map Name=\"ext-servicenow-provisioning\" Link=\"Topics/Provisioning/ServiceNow/servicenow-provisioning.htm\" ResolvedId=\"8004\" />';
 xmlAliasData += '    <Map Name=\"ext-set-up-rate-limit-notifs\" Link=\"Topics/Settings/set-up-rate-limit-notifs.htm\" ResolvedId=\"17004\" />';
 xmlAliasData += '    <Map Name=\"ext-settings-configure-browser-plugin\" Link=\"Topics/Settings/settings-configure-browser-plugin.htm\" ResolvedId=\"15023\" />';
@@ -637,5 +638,6 @@ xmlAliasData += '    <Map Name=\"csh-administrators-app-admin\" Link=\"Topics/Se
 xmlAliasData += '    <Map Name=\"csh-administrators-api-access-mgmt-admin\" Link=\"Topics/Security/administrators-api-access-mgmt-admin.htm\" ResolvedId=\"19021\" />';
 xmlAliasData += '    <Map Name=\"csh-administrators-access-request-admin\" Link=\"Topics/Security/administrators-access-request-admin.htm\" ResolvedId=\"19022\" />';
 xmlAliasData += '    <Map Name=\"csh-administrators-access-certs-admin\" Link=\"Topics/Security/administrators-access-certs-admin.htm\" ResolvedId=\"19023\" />';
+xmlAliasData += '    <Map Name=\"ext_okta_ends_browser_support_for_TLS_1_1\" Link=\"Topics/Browser-Plugin/okta-ends-browser-support-for-TLS-1.1.htm\" ResolvedId=\"1016\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
