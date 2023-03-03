@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', function() {
   /*** Add search-bar visibility functionality ***/
   /** Add .show-search class if page do not include the search bar **/
@@ -14,12 +15,21 @@ document.addEventListener('DOMContentLoaded', function() {
     searchButtonDesktop.addEventListener('click', function() {
       const input = document.querySelector('.coveo-headline-wrapper #standaloneSearchbox .magic-box .magic-box-input > input');
       const mainSection = document.querySelector('.main-section');
+      const footer = document.querySelector('.footer2');
 
       if(input && mainSection && mainSection.classList.contains('show-search')) {
         mainSection.classList.remove('show-search');
         input.focus();
       } else if(input && mainSection && !mainSection.classList.contains('show-search')){
         mainSection.classList.add('show-search');
+        input.blur();
+      }
+
+      if(input && footer && footer.classList.contains('show-search')) {
+        footer.classList.remove('show-search');
+        input.focus();
+      } else if(input && footer && !footer.classList.contains('show-search')){
+        footer.classList.add('show-search');
         input.blur();
       }
     });
@@ -40,6 +50,14 @@ document.addEventListener('DOMContentLoaded', function() {
         input.focus();
       } else if(input && mainSection && !mainSection.classList.contains('show-search')){
         mainSection.classList.add('show-search');
+        input.blur();
+      }
+
+      if(input && footer && footer.classList.contains('show-search')) {
+        footer.classList.remove('show-search');
+        input.focus();
+      } else if(input && footer && !footer.classList.contains('show-search')){
+        footer.classList.add('show-search');
         input.blur();
       }
     });
