@@ -1,1 +1,1 @@
-define({r:1,st:'NGram',n:1,t:[0],m:[],u:['../Content/Topics/Apps/Apps_Adding_an_App_from_the_Browser_Plugin.htm'],s:['\t'],p:[['\t',2]]});
+define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../Content/Topics/API/trusted-origins-iframe.htm'],s:['$'],p:[['$',6]]});

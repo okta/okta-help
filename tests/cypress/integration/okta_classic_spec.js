@@ -9,7 +9,7 @@ describe('Classic landing page (en-US)', () => {
     cy.hasLeftSideNav()
     cy.hasTOC(9)
     cy.hasBreadcrumbs('Okta Classic Engine')
-    cy.hasTopMenuBar(5, 9)
+    cy.hasTopMenuBar(5, 11)
     cy.hasBodyContent()
     cy.hasTiles(9)
     cy.hasDeferAttrsCorrectlyApplied()
@@ -24,11 +24,11 @@ describe('Classic landing page (ja-JP)', () => {
   })
 
   it('displays expected content structures in Japanese', () => {
-    cy.hasOktaHOCBanner('Okta Support')
+    cy.hasOktaHOCBanner('Oktaサポート')
     cy.hasCopyright()
     cy.hasLeftSideNav()
     cy.hasTOC(9)
-    cy.hasBreadcrumbs('管理者向けドキュメント')
+    cy.hasBreadcrumbs('Okta Classic Engine')
     cy.hasTopMenuBar(5, 9)
     cy.hasBodyContent()
     cy.hasTiles(9)
