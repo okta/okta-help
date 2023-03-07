@@ -39,9 +39,6 @@ xmlAliasData += '    <Map Name=\"csh-api\" Link=\"Topics/Security/API.htm\" Reso
 xmlAliasData += '    <Map Name=\"csh-api-service-integrations\" Link=\"Topics/apiservice/api-service-integrations.htm\" ResolvedId=\"16014\" />';
 xmlAliasData += '    <Map Name=\"csh-app-browser-plugin\" Link=\"Topics/Browser-Plugin/browser-plugin-main.htm\" ResolvedId=\"1139\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-main\" Link=\"Topics/Apps/Apps_App_Integration_Wizard.htm\" ResolvedId=\"6001\" />';
-xmlAliasData += '    <Map Name=\"csh-apps-aiw-oidc\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_OIDC.htm\" ResolvedId=\"6006\" />';
-xmlAliasData += '    <Map Name=\"csh-apps-aiw-oidc-login-uri\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_OIDC.htm#OIDC-login-redirect-uri\" ResolvedId=\"6002\" />';
-xmlAliasData += '    <Map Name=\"csh-apps-aiw-oidc-logout-uri\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_OIDC.htm#OIDC-logout-redirect-uri\" ResolvedId=\"6003\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-saml\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SAML.htm\" ResolvedId=\"6007\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-saml-advanced\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SAML.htm#Show_Advanced_Settings\" ResolvedId=\"6014\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-scim\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SCIM.htm\" ResolvedId=\"6009\" />';
@@ -376,7 +373,6 @@ xmlAliasData += '    <Map Name=\"ext_Apps_Active_Directory_Agent_appSettings_Def
 xmlAliasData += '    <Map Name=\"ext_Apps_Adding_an_App_from_the_Browser_Plugin\" Link=\"Topics/Browser-Plugin/plugin-adding-apps.htm\" ResolvedId=\"200010\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_and_SSO_Verifying_IE_Plugin_Enablement\" Link=\"Topics/Browser-Plugin/browser-plugin-main.htm\" ResolvedId=\"200011\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_App_Integration_Wizard\" Link=\"Topics/Apps/Apps_App_Integration_Wizard.htm\" ResolvedId=\"200015\" />';
-xmlAliasData += '    <Map Name=\"ext_Apps_App_Integration_Wizard-oidc\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_OIDC.htm\" ResolvedId=\"1103\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_App_Integration_Wizard-saml\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SAML.htm\" ResolvedId=\"1266\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_App_Integration_Wizard-scim\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SCIM.htm\" ResolvedId=\"1267\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_App_Integration_Wizard-swa\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SWA.htm\" ResolvedId=\"1268\" />';
