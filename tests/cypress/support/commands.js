@@ -11,6 +11,7 @@ Cypress.Commands.add('hasTabs', hasTabs)
 Cypress.Commands.add('hasDeferAttrsCorrectlyApplied', hasDeferAttrsCorrectlyApplied)
 Cypress.Commands.add('hasQualtrics', hasQualtrics)
 Cypress.Commands.add('hasCoveoSearchBar', hasCoveoSearchBar)
+Cypress.Commands.add('hidesCoveoSearchBar', hidesCoveoSearchBar)
 Cypress.Commands.add('hasMadCapSearchBar', hasMadCapSearchBar)
 Cypress.Commands.add('switchLocale', switchLocale)
 
@@ -148,6 +149,18 @@ function hasQualtrics () {
 }
 
 function hasCoveoSearchBar () {
+  cy.get('div.magic-box-input input')
+    .should('be.visible')
+}
+
+function hidesCoveoSearchBar () {
+  cy.get('div.magic-box-input input')
+    .should('not.be.visible')
+
+  cy.get('button[class="search-btn"]')
+    .should('be.visible')
+    .click()
+
   cy.get('div.magic-box-input input')
     .should('be.visible')
 }
