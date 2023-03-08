@@ -149,7 +149,7 @@ function hasQualtrics () {
 
 function hasCoveoSearchBar () {
   cy.get('div.magic-box-input input')
-    .should('be.visible')
+    .should('not.be.visible')
 }
 
 function hasMadCapSearchBar () {
