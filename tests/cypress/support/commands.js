@@ -150,6 +150,13 @@ function hasQualtrics () {
 function hasCoveoSearchBar () {
   cy.get('div.magic-box-input input')
     .should('not.be.visible')
+
+  cy.get('button[class="search-btn"]')
+    .should('be.visible')
+    .click()
+
+  cy.get('div.magic-box-input input')
+    .should('be.visible')
 }
 
 function hasMadCapSearchBar () {
