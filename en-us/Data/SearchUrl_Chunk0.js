@@ -1,1 +1,1 @@
-define({"../Content/Topics/Security/Security_at_Okta.htm":1,"../Content/Topics/Settings/customizations-index.htm":2,"../Content/index-admin.htm":0,});
+define({"../Content/Topics/Security/Security_at_Okta.htm":1,"../Content/Topics/Settings/customizations-index.htm":4,"../Content/Topics/integrations/getting-started.htm":3,"../Content/Topics/integrations/ha-main.htm":2,"../Content/index-admin.htm":0,});
