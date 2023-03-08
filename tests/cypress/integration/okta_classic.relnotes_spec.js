@@ -14,7 +14,7 @@ describe('Classic release notes landing page (en-US)', () => {
     cy.hasTiles(6)
     cy.hasDeferAttrsCorrectlyApplied()
     cy.hasQualtrics()
-    cy.hasCoveoSearchBar()
+    cy.hidesCoveoSearchBar()
   })
 })
 
