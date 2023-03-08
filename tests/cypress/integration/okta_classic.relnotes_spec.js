@@ -34,6 +34,6 @@ describe('Classic release notes production page (en-US)', () => {
     cy.hasTabs(4)
     cy.hasDeferAttrsCorrectlyApplied()
     cy.hasQualtrics()
-    cy.hasCoveoSearchBar()
+    cy.hidesCoveoSearchBar()
   })
 })
