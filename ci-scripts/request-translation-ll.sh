@@ -28,6 +28,8 @@ git restore --source gh-pages -- . ':!*/Topics/ReleaseNotes/*'
 
 cd ${OKTA_HOME}/${REPO}
 
+git status
+
 rsync
 
 # sync en-us resources to ja-jp
