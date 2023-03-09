@@ -22,6 +22,8 @@ export RESOURCE_PATHS=( "Content/Resources" "Resources" "Data" "Skins" "Sitemap.
 git status
 
 git switch em-OKTA-585860-translation-ll
+git fetch --depth=1 origin em-OKTA-585860-translation-ll
+git reset --hard FETCH_HEAD
 
 git status
 
