@@ -16,7 +16,7 @@ fi
 
 export EN_PATH="${TARGET_PATH}en-us"
 export JA_PATH="${TARGET_PATH}ja-jp"
-export TRANSLATION_BRANCH=em-translation-${TARGET}
+export TRANSLATION_BRANCH=em-translations-${TARGET}
 export RESOURCE_PATHS=( "Content/Resources" "Resources" "Data" "Skins" "Sitemap.xml" )
 
 git fetch --depth=1 origin ${TRANSLATION_BRANCH}
