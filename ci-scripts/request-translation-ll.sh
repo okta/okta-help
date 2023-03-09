@@ -25,7 +25,8 @@ git switch ${TRANSLATION_BRANCH}
 
 # checkout latest en-us sources
 cd ${EN_PATH}
-git restore --source gh-pages -- . ':!*/Topics/ReleaseNotes/*'
+# git restore --source gh-pages -- . ':!*/Topics/ReleaseNotes/*'
+git restore --source em-OKTA-585860-translation-ll -- . ':!*/Topics/ReleaseNotes/*'
 
 cd ${OKTA_HOME}/${REPO}
 
