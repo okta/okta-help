@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -x
 cd ${OKTA_HOME}/${REPO}
 
 export SLACK_CHANNEL='#infodev-notifications'
@@ -27,6 +27,8 @@ cd ${EN_PATH}
 git restore --source gh-pages -- . ':!*/Topics/ReleaseNotes/*'
 
 cd ${OKTA_HOME}/${REPO}
+
+rsync
 
 # sync en-us resources to ja-jp
 for RESOURCE_PATH in "${RESOURCE_PATHS[@]}"
