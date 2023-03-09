@@ -37,7 +37,8 @@ done
 
 git add --all
 git -c user.name='CI Automation' -c user.email=${userEmail} commit -m "Copying en resources for ${TARGET^^} project"
-git push origin ${TRANSLATION_BRANCH}
+#git push origin ${TRANSLATION_BRANCH}
+git status
 
 # send_slack_message "${SLACK_CHANNEL}"\
 #     ":white_check_mark: Requested translation for [${TARGET}]"\
