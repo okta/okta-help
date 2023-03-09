@@ -14,7 +14,7 @@ describe('Classic release notes landing page (en-US)', () => {
     cy.hasTiles(6)
     cy.hasDeferAttrsCorrectlyApplied()
     cy.hasQualtrics()
-    cy.hasCoveoSearchBar()
+    cy.hidesCoveoSearchBar()
   })
 })
 
@@ -34,6 +34,6 @@ describe('Classic release notes production page (en-US)', () => {
     cy.hasTabs(4)
     cy.hasDeferAttrsCorrectlyApplied()
     cy.hasQualtrics()
-    cy.hasCoveoSearchBar()
+    cy.hidesCoveoSearchBar()
   })
 })
