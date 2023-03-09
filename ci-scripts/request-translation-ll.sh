@@ -19,9 +19,13 @@ export JA_PATH="${TARGET_PATH}ja-jp"
 export TRANSLATION_BRANCH=em-translations-${TARGET}
 export RESOURCE_PATHS=( "Content/Resources" "Resources" "Data" "Skins" "Sitemap.xml" )
 
+git status
+
 git fetch --depth=1 origin ${TRANSLATION_BRANCH}
 git reset --hard FETCH_HEAD
 git switch ${TRANSLATION_BRANCH}
+
+git status
 
 # checkout latest en-us sources
 cd ${EN_PATH}
