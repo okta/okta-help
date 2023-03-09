@@ -39,7 +39,7 @@ git add --all
 git -c user.name='CI Automation' -c user.email=${userEmail} commit -m "Copying en resources for ${TARGET^^} project"
 git push origin ${TRANSLATION_BRANCH}
 
-send_slack_message "${SLACK_CHANNEL}"\
-    ":white_check_mark: Requested translation for [${TARGET}]"\
-    "Commit author: ${userEmail}. Github link https://github.com/okta/okta-help/tree/${TRANSLATION_BRANCH}"\
-    "good"
+# send_slack_message "${SLACK_CHANNEL}"\
+#     ":white_check_mark: Requested translation for [${TARGET}]"\
+#     "Commit author: ${userEmail}. Github link https://github.com/okta/okta-help/tree/${TRANSLATION_BRANCH}"\
+#     "good"
