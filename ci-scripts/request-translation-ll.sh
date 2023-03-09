@@ -21,6 +21,7 @@ export RESOURCE_PATHS=( "Content/Resources" "Resources" "Data" "Skins" "Sitemap.
 
 git fetch --depth=1 origin ${TRANSLATION_BRANCH}
 git reset --hard FETCH_HEAD
+git switch ${TRANSLATION_BRANCH}
 
 # checkout latest en-us sources
 cd ${EN_PATH}
