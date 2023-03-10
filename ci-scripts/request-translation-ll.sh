@@ -18,16 +18,10 @@ export EN_PATH="${TARGET_PATH}en-us"
 export JA_PATH="${TARGET_PATH}ja-jp"
 export TRANSLATION_BRANCH=em-translations-${TARGET}
 
-# git status
-
 git fetch --depth=1 origin ${TRANSLATION_BRANCH}
 git reset --hard FETCH_HEAD
 
-git status
-
 git switch ${TRANSLATION_BRANCH}
-
-git status
 
 export RESOURCE_PATHS=( "Content/Resources" "Resources" "Data" "Skins" )
 for RESOURCE_PATH in "${RESOURCE_PATHS[@]}"
