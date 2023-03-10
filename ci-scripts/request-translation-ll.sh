@@ -38,7 +38,7 @@ git status
 # cp -f "${EN_PATH}/Sitemap.xml" "${JA_PATH}/Sitemap.xml"
 
 cp
-cp -f "${EN_PATH}/Content/Resources/" "${JA_PATH}/Content/Resources"
+cp -r -a -f "${EN_PATH}/Content/Resources/." "${JA_PATH}/Content/Resources"
 
 cd ${JA_PATH}
 git restore --source origin/${sha} -- . ':!Data/Tocs/*'
