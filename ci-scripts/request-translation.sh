@@ -18,18 +18,23 @@ export EN_PATH="${TARGET_PATH}en-us"
 export JA_PATH="${TARGET_PATH}ja-jp"
 
 export TOPIC_BRANCH="docs_l10n_request_${TARGET^^}_$(date +"%s")"
-export RESOURCE_PATHS=( "Content/Resources" "Resources" "Data" "Skins" "Sitemap.xml" )
 
 export RELEASE_NOTES_PATH="${EN_PATH}/Content/Topics/ReleaseNotes"
 if [ -d "${RELEASE_NOTES_PATH}" ]; then
     mv -i "${RELEASE_NOTES_PATH}" "${EN_PATH}"
 fi
 
+export RESOURCE_PATHS=( "Content/Resources" "Resources" "Data" "Skins" )
 for RESOURCE_PATH in "${RESOURCE_PATHS[@]}"
 do
     :
-    rsync -av --exclude "Tocs/" "${EN_PATH}/${RESOURCE_PATH}/" "${JA_PATH}/${RESOURCE_PATH}"
+    cp -r -a -f "${EN_PATH}/${RESOURCE_PATH}/." "${JA_PATH}/${RESOURCE_PATH}"
 done
+cp -a -f "${EN_PATH}/Sitemap.xml" "${JA_PATH}/Sitemap.xml"
+
+pushd ${JA_PATH}
+git restore --source origin/${SHA} -- 'Data/Tocs/*'
+popd
 
 git checkout -b ${TOPIC_BRANCH}
 
