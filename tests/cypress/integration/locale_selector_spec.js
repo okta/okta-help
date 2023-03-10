@@ -122,7 +122,7 @@ describe('Locale switching', () => {
     cy.url().should('include', 'wf/ja-jp/Content/Topics/Workflows/workflows-main.htm')
 
     visitAndWaitForInitialize('wf/ja-jp/Content/Topics/Workflows/workflows-main.htm')
-    cy.switchLocale('言語の変更', 'English (United States)')
+    cy.switchLocale('言語を変更', 'English (United States)')
     cy.url().should('include', 'wf/en-us/Content/Topics/Workflows/workflows-main.htm')
   })
 })
