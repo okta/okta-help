@@ -40,14 +40,13 @@ cp -f "${EN_PATH}/Sitemap.xml" "${JA_PATH}/Sitemap.xml"
 git status
 
 pushd ${JA_PATH}
-git restore --source origin/${SHA} -- . ':!Data/Tocs/*'
+git restore --source origin/${SHA} -- 'Data/Tocs/*'
 popd
 
 git status
 
 # checkout latest en-us sources
 pushd ${EN_PATH}
-# git restore --source gh-pages -- . ':!*/Topics/ReleaseNotes/*'
 git restore --source origin/${SHA} -- . ':!*/Topics/ReleaseNotes/*'
 popd
 
