@@ -43,13 +43,12 @@ git status
 rsync --version
 
 export RESOURCE_PATHS=( "Content/Resources" "Resources" "Data" "Skins" "Sitemap.xml" )
-# sync en-us resources to ja-jp
 for RESOURCE_PATH in "${RESOURCE_PATHS[@]}"
 do
     :
     cp -r -f "${EN_PATH}/${RESOURCE_PATH}/" "${JA_PATH}/${RESOURCE_PATH}"
-    #rsync -av --exclude "Tocs/" "${EN_PATH}/${RESOURCE_PATH}/" "${JA_PATH}/${RESOURCE_PATH}"
 done
+cp -f "${EN_PATH}/Sitemap.xml" "${JA_PATH}/Sitemap.xml"
 
 cd ${JA_PATH}
 git restore --source origin/${sha} -- . ':!Data/Tocs/*'
