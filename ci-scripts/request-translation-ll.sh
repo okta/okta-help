@@ -36,12 +36,7 @@ git switch ${TRANSLATION_BRANCH}
 
 git status
 
-# checkout latest en-us sources
-cd ${EN_PATH}
-# git restore --source gh-pages -- . ':!*/Topics/ReleaseNotes/*'
-git restore --source origin/em-OKTA-585860-translation-ll -- . ':!*/Topics/ReleaseNotes/*'
 
-cd ${OKTA_HOME}/${REPO}
 
 git status
 
@@ -55,6 +50,17 @@ do
     cp -r -f "${EN_PATH}/${RESOURCE_PATH}/" "${JA_PATH}/${RESOURCE_PATH}"
     #rsync -av --exclude "Tocs/" "${EN_PATH}/${RESOURCE_PATH}/" "${JA_PATH}/${RESOURCE_PATH}"
 done
+
+cd ${JA_PATH}
+git restore --source origin/${sha} -- . ':!Data/Tocs/*'
+
+# checkout latest en-us sources
+cd ${EN_PATH}
+# git restore --source gh-pages -- . ':!*/Topics/ReleaseNotes/*'
+git restore --source origin/${sha} -- . ':!*/Topics/ReleaseNotes/*'
+
+
+cd ${OKTA_HOME}/${REPO}
 
 git add --all
 git -c user.name='CI Automation' -c user.email=${userEmail} commit -m "Copying en resources for ${TARGET^^} project"
