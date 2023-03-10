@@ -9,7 +9,7 @@ describe('ASA landing page (en-US)', () => {
     cy.hasLeftSideNav()
     cy.hasTOC(9)
     cy.hasBreadcrumbs('Advanced Server Access')
-    cy.hasTopMenuBar(5, 9)
+    cy.hasTopMenuBar(5, 11)
     cy.hasBodyContent()
     cy.hasTiles(6)
     cy.hasDeferAttrsCorrectlyApplied()
