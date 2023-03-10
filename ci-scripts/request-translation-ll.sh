@@ -38,19 +38,20 @@ git status
 # cp -f "${EN_PATH}/Sitemap.xml" "${JA_PATH}/Sitemap.xml"
 
 cp -r -a -f "${EN_PATH}/Content/Resources/." "${JA_PATH}/Content/Resources"
+git status
 
-cd ${JA_PATH}
+cd ${OKTA_HOME}/${JA_PATH}
 git restore --source origin/${SHA} -- . ':!Data/Tocs/*'
 
 # checkout latest en-us sources
-cd ${EN_PATH}
+cd ${OKTA_HOME}/${EN_PATH}
 # git restore --source gh-pages -- . ':!*/Topics/ReleaseNotes/*'
 git restore --source origin/${SHA} -- . ':!*/Topics/ReleaseNotes/*'
 
 cd ${OKTA_HOME}/${REPO}
 
 git add --all
-git -c user.name='CI Automation' -c user.email=${userEmail} commit -m "Copying en resources for ${TARGET^^} project"
+git -c user.name='CI Automation' -c user.email=${userEmail} commit -m "Copying en resources and files for ${TARGET^^} project"
 #git push origin ${TRANSLATION_BRANCH}
 git status
 
