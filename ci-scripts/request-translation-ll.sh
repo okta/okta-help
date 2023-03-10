@@ -17,7 +17,7 @@ fi
 export EN_PATH="${TARGET_PATH}en-us"
 export JA_PATH="${TARGET_PATH}ja-jp"
 export TRANSLATION_BRANCH=em-translations-${TARGET}
-export RESOURCE_PATHS=( "Content/Resources" "Resources" "Data" "Skins" "Sitemap.xml" )
+
 
 # git status
 
@@ -47,11 +47,13 @@ git status
 
 rsync --version
 
+export RESOURCE_PATHS=( "Content/Resources" "Resources" "Data" "Skins" "Sitemap.xml" )
 # sync en-us resources to ja-jp
 for RESOURCE_PATH in "${RESOURCE_PATHS[@]}"
 do
     :
-    rsync -av --exclude "Tocs/" "${EN_PATH}/${RESOURCE_PATH}/" "${JA_PATH}/${RESOURCE_PATH}"
+    cp -r -f "${EN_PATH}/${RESOURCE_PATH}/" "${JA_PATH}/${RESOURCE_PATH}"
+    #rsync -av --exclude "Tocs/" "${EN_PATH}/${RESOURCE_PATH}/" "${JA_PATH}/${RESOURCE_PATH}"
 done
 
 git add --all
