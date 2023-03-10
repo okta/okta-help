@@ -45,7 +45,7 @@ cd ${OKTA_HOME}/${REPO}
 
 git status
 
-rsync
+rsync --version
 
 # sync en-us resources to ja-jp
 for RESOURCE_PATH in "${RESOURCE_PATHS[@]}"
