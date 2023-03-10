@@ -29,21 +29,21 @@ git switch ${TRANSLATION_BRANCH}
 
 git status
 
-# export RESOURCE_PATHS=( "Content/Resources" "Resources" "Data" "Skins" )
-# for RESOURCE_PATH in "${RESOURCE_PATHS[@]}"
-# do
-#     :
-#     cp -r -f "${EN_PATH}/${RESOURCE_PATH}/" "${JA_PATH}/${RESOURCE_PATH}"
-# done
-# cp -f "${EN_PATH}/Sitemap.xml" "${JA_PATH}/Sitemap.xml"
-
-cp -r -a -f "${EN_PATH}/Content/Resources/." "${JA_PATH}/Content/Resources"
+export RESOURCE_PATHS=( "Content/Resources" "Resources" "Data" "Skins" )
+for RESOURCE_PATH in "${RESOURCE_PATHS[@]}"
+do
+    :
+    cp -r -a -f "${EN_PATH}/${RESOURCE_PATH}/." "${JA_PATH}/${RESOURCE_PATH}"
+done
+cp -f "${EN_PATH}/Sitemap.xml" "${JA_PATH}/Sitemap.xml"
 
 git status
 
 pushd ${JA_PATH}
 git restore --source origin/${SHA} -- . ':!Data/Tocs/*'
 popd
+
+git status
 
 # checkout latest en-us sources
 pushd ${EN_PATH}
