@@ -37,16 +37,15 @@ git status
 # done
 # cp -f "${EN_PATH}/Sitemap.xml" "${JA_PATH}/Sitemap.xml"
 
-cp
 cp -r -a -f "${EN_PATH}/Content/Resources/." "${JA_PATH}/Content/Resources"
 
 cd ${JA_PATH}
-git restore --source origin/${sha} -- . ':!Data/Tocs/*'
+git restore --source origin/${SHA} -- . ':!Data/Tocs/*'
 
 # checkout latest en-us sources
 cd ${EN_PATH}
 # git restore --source gh-pages -- . ':!*/Topics/ReleaseNotes/*'
-git restore --source origin/${sha} -- . ':!*/Topics/ReleaseNotes/*'
+git restore --source origin/${SHA} -- . ':!*/Topics/ReleaseNotes/*'
 
 cd ${OKTA_HOME}/${REPO}
 
