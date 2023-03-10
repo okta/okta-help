@@ -19,16 +19,19 @@ export JA_PATH="${TARGET_PATH}ja-jp"
 export TRANSLATION_BRANCH=em-translations-${TARGET}
 export RESOURCE_PATHS=( "Content/Resources" "Resources" "Data" "Skins" "Sitemap.xml" )
 
-git status
+# git status
 
-git switch em-OKTA-585860-translation-ll
-git fetch --depth=1 origin em-OKTA-585860-translation-ll
-git reset --hard FETCH_HEAD
+# git switch em-OKTA-585860-translation-ll
+# git fetch --depth=1 origin em-OKTA-585860-translation-ll
+# git reset --hard FETCH_HEAD
 
-git status
+# git status
 
 git fetch --depth=1 origin ${TRANSLATION_BRANCH}
 git reset --hard FETCH_HEAD
+
+git status
+
 git switch ${TRANSLATION_BRANCH}
 
 git status
@@ -36,7 +39,7 @@ git status
 # checkout latest en-us sources
 cd ${EN_PATH}
 # git restore --source gh-pages -- . ':!*/Topics/ReleaseNotes/*'
-git restore --source em-OKTA-585860-translation-ll -- . ':!*/Topics/ReleaseNotes/*'
+git restore --source origin/em-OKTA-585860-translation-ll -- . ':!*/Topics/ReleaseNotes/*'
 
 cd ${OKTA_HOME}/${REPO}
 
