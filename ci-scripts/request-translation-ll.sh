@@ -1,6 +1,6 @@
 #!/bin/bash
 set -x
-cd ${OKTA_HOME}/${REPO}
+pushd ${OKTA_HOME}/${REPO}
 
 export SLACK_CHANNEL='#infodev-notifications'
 export targets=( "oce" "asa" "eu" "oie" "wf" "oag" )
@@ -38,17 +38,18 @@ git status
 # cp -f "${EN_PATH}/Sitemap.xml" "${JA_PATH}/Sitemap.xml"
 
 cp -r -a -f "${EN_PATH}/Content/Resources/." "${JA_PATH}/Content/Resources"
+
 git status
 
-cd ${OKTA_HOME}/${JA_PATH}
+pushd ${JA_PATH}
 git restore --source origin/${SHA} -- . ':!Data/Tocs/*'
+popd
 
 # checkout latest en-us sources
-cd ${OKTA_HOME}/${EN_PATH}
+pushd ${EN_PATH}
 # git restore --source gh-pages -- . ':!*/Topics/ReleaseNotes/*'
 git restore --source origin/${SHA} -- . ':!*/Topics/ReleaseNotes/*'
-
-cd ${OKTA_HOME}/${REPO}
+popd
 
 git add --all
 git -c user.name='CI Automation' -c user.email=${userEmail} commit -m "Copying en resources and files for ${TARGET^^} project"
