@@ -35,8 +35,10 @@ popd
 
 git status
 
-echo 'post processing !!!'
 # run post processing
+echo 'post processing !!!'
+python3 scripts/translation_postprocessing.py ${TARGET}
+
 
 # create PR
 # send slack notification
