@@ -46,5 +46,5 @@ git push origin ${TRANSLATION_BRANCH}
 
 # send_slack_message "${SLACK_CHANNEL}"\
 #     ":white_check_mark: Requested translation for [${TARGET}]"\
-#     "Commit author: ${userEmail}. Github link https://github.com/okta/okta-help/tree/${TRANSLATION_BRANCH}"\
+#     "Commit author: ${userEmail}. Github link https://github.com/okta/okta-help/commits/${TRANSLATION_BRANCH}"\
 #     "good"
