@@ -19,51 +19,45 @@ export JA_PATH="${TARGET_PATH}ja-jp"
 export TRANSLATION_BRANCH=em-translations-${TARGET}
 export TRANSLATION_RECEIVE_BRANCH="em-translations-${TARGET}-receive-$(TZ=UTC+8 date +'%Y-%m-%d_%H-%M-%S_%s')"
 
-# to script branch
+# topic from latest main
 switch ${SHA}
-
-
-# new topic name, from gh-pages (SHA)
-# checkout ja-jp from translation branch (restore)
 git checkout -b ${TRANSLATION_RECEIVE_BRANCH}
 
+# get ja files from translation branch
 git fetch --depth=1 origin ${TRANSLATION_BRANCH}
-
 pushd ${JA_PATH}
 git restore --source origin/${TRANSLATION_BRANCH} -- .
 popd
 
-git status
-
+# run post processing
 yum -y install python3-devel
 python3 scripts/translation_postprocessing.py ${TARGET}
 
-
 git status
 
-# create PR
-# send slack notification
+git add --all
+git -c user.name='CI Automation' -c user.email=${userEmail} commit -m "$(TZ=UTC+8 date +'%Y-%m-%d %H:%M:%S') Receiving translation for ${TARGET^^} project"
+git push origin ${TRANSLATION_RECEIVE_BRANCH}
 
-# export HTTP_NEW_PR=$(curl \
-#     -X POST \
-#     -H "Accept: application/vnd.github+json" \
-#     -H "Authorization: Bearer ${GITHUB_TOKEN}" \
-#     https://api.github.com/repos/okta/${PUBLISH_REPO}/pulls \
-#     -d '{
-#       "title":"'"${PR_TITLE}"'",
-#       "body":"'"${GIT_NETLIFY_LINK}"'Auto generated PR for `'"${TOPIC_BRANCH}"'` \n Infodev link on bacon '"${BACON_LINK}"'",
-#       "head":"'"${TOPIC_BRANCH}"'",
-#       "base":"'"${BASE_BRANCH_PR}"'"
-#     }')
+export HTTP_NEW_PR=$(curl \
+  -X POST \
+  -H "Accept: application/vnd.github+json" \
+  -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+  https://api.github.com/repos/okta/${PUBLISH_REPO}/pulls \
+  -d '{
+    "title":"'"${PR_TITLE}"'",
+    "body":"'"${GIT_NETLIFY_LINK}"'Auto generated PR for `'"${TOPIC_BRANCH}"'` \n Infodev link on bacon '"${BACON_LINK}"'",
+    "head":"'"${TOPIC_BRANCH}"'",
+    "base":"'"${BASE_BRANCH_PR}"'"
+  }')
 
-#   URL=$(echo ${HTTP_NEW_PR} | jq -r '.html_url')
+URL=$(echo ${HTTP_NEW_PR} | jq -r '.html_url')
 
 
-# if [ "${URL}" == "null" ]
-# then
-#   exit ${FAILED_SETUP}
-# fi
-
+if [ "${URL}" == "null" ]
+then
+  exit ${FAILED_SETUP}
+fi
 
 # send_slack_message "${SLACK_CHANNEL}" \
 #     ":white_check_mark: [${build_name}] is pushed to ${PUBLISH_REPO} successfully" \
