@@ -39,8 +39,9 @@ git add --all
 git -c user.name='CI Automation' -c user.email=${userEmail} commit -m "$(TZ=UTC+8 date +'%Y-%m-%d %H:%M:%S') Receiving translation for ${TARGET^^} project"
 git push origin ${TRANSLATION_RECEIVE_BRANCH}
 
-# export GITHUB_TOKEN
-# get_vault_secret eng-services/github/eng-prod-CI-bot-okta GITHUB_TOKEN PersonalAccessToken
+
+export PR_TITLE="Receiving translation for ${TARGET^^}"
+export PR_BODY="${TARGET^^} translation for \n latest commit: https://github.com/okta/okta-help/commits/${TRANSLATION_BRANCH}"
 
 export HTTP_NEW_PR=$(curl \
   -X POST \
@@ -48,8 +49,8 @@ export HTTP_NEW_PR=$(curl \
   -H "Authorization: Bearer ${GITHUB_TOKEN}" \
   https://api.github.com/repos/okta/okta-help/pulls \
   -d '{
-    "title":"Test PR",
-    "body":"Auto generated PR",
+    "title":"'"${PR_TITLE}"'",
+    "body":"'"${PR_BODY}"'",
     "head":"'"${TRANSLATION_RECEIVE_BRANCH}"'",
     "base":"'"${SHA}"'"
   }')
