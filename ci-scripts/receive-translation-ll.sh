@@ -17,11 +17,13 @@ fi
 export EN_PATH="${TARGET_PATH}en-us"
 export JA_PATH="${TARGET_PATH}ja-jp"
 export TRANSLATION_BRANCH=em-translations-${TARGET}
-export TRANSLATION_RECEIVE_BRANCH="em-translations-${TARGET}-receive-$(TZ=UTC+8 date +'%Y-%m-%d_%H-%M-%S_%s')"
+export TRANSLATION_COMMITS="https://github.com/okta/okta-help/commits/${TRANSLATION_BRANCH}"
+
+export TRANSLATION_RECEIVING_BRANCH="em-translations-${TARGET}-receive-$(TZ=UTC+8 date +'%Y-%m-%d_%H-%M-%S_%s')"
 
 # topic from latest main
 switch ${SHA}
-git checkout -b ${TRANSLATION_RECEIVE_BRANCH}
+git checkout -b ${TRANSLATION_RECEIVING_BRANCH}
 
 # get ja files from translation branch
 git fetch --depth=1 origin ${TRANSLATION_BRANCH}
@@ -37,11 +39,11 @@ git status
 
 git add --all
 git -c user.name='CI Automation' -c user.email=${userEmail} commit -m "$(TZ=UTC+8 date +'%Y-%m-%d %H:%M:%S') Receiving translation for ${TARGET^^} project"
-git push origin ${TRANSLATION_RECEIVE_BRANCH}
+git push origin ${TRANSLATION_RECEIVING_BRANCH}
 
 
 export PR_TITLE="Receiving translation for ${TARGET^^}"
-export PR_BODY="${TARGET^^} translation for \n latest commit: https://github.com/okta/okta-help/commits/${TRANSLATION_BRANCH}"
+export PR_BODY="${TARGET^^} translation for the latest commit: ${TRANSLATION_COMMITS}"
 
 export HTTP_NEW_PR=$(curl \
   -X POST \
@@ -51,7 +53,7 @@ export HTTP_NEW_PR=$(curl \
   -d '{
     "title":"'"${PR_TITLE}"'",
     "body":"'"${PR_BODY}"'",
-    "head":"'"${TRANSLATION_RECEIVE_BRANCH}"'",
+    "head":"'"${TRANSLATION_RECEIVING_BRANCH}"'",
     "base":"'"${SHA}"'"
   }')
 

@@ -17,6 +17,7 @@ fi
 export EN_PATH="${TARGET_PATH}en-us"
 export JA_PATH="${TARGET_PATH}ja-jp"
 export TRANSLATION_BRANCH=em-translations-${TARGET}
+export TRANSLATION_COMMITS="https://github.com/okta/okta-help/commits/${TRANSLATION_BRANCH}"
 
 git fetch --depth=1 origin ${TRANSLATION_BRANCH}
 git reset --hard FETCH_HEAD
@@ -44,7 +45,7 @@ git add --all
 git -c user.name='CI Automation' -c user.email=${userEmail} commit -m "$(TZ=UTC+8 date +'%Y-%m-%d %H:%M:%S') Copying en resources and files for ${TARGET^^} project"
 git push origin ${TRANSLATION_BRANCH}
 
-# send_slack_message "${SLACK_CHANNEL}"\
-#     ":white_check_mark: Requested translation for [${TARGET}]"\
-#     "Commit author: ${userEmail}. Github link https://github.com/okta/okta-help/commits/${TRANSLATION_BRANCH}"\
-#     "good"
+send_slack_message "${SLACK_CHANNEL}"\
+    ":white_check_mark: Requested translation for [${TARGET^^}]"\
+    "Commit author: ${userEmail}. Github link ${TRANSLATION_COMMITS}"\
+    "good"
