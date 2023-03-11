@@ -27,7 +27,7 @@ export RESOURCE_PATHS=( "Content/Resources" "Resources" "Data" "Skins" )
 for RESOURCE_PATH in "${RESOURCE_PATHS[@]}"
 do
     :
-    cp -r -a -f "${EN_PATH}/${RESOURCE_PATH}/." "${JA_PATH}/${RESOURCE_PATH}"
+    cp -r -a --remove-destination "${EN_PATH}/${RESOURCE_PATH}/." "${JA_PATH}/${RESOURCE_PATH}"
 done
 cp -f "${EN_PATH}/Sitemap.xml" "${JA_PATH}/Sitemap.xml"
 
@@ -43,7 +43,7 @@ popd
 git status
 
 git add --all
-git -c user.name='CI Automation' -c user.email=${userEmail} commit -m "$(TZ=UTC+8 date +'%Y-%m-%d_%H-%M-%S_%s') Copying en resources and files for ${TARGET^^} project"
+git -c user.name='CI Automation' -c user.email=${userEmail} commit -m "$(TZ=UTC+8 date +'%Y-%m-%d_%H-%M-%S') Copying en resources and files for ${TARGET^^} project"
 git push origin ${TRANSLATION_BRANCH}
 
 # send_slack_message "${SLACK_CHANNEL}"\
