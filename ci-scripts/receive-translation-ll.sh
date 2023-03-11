@@ -27,6 +27,8 @@ switch ${SHA}
 # checkout ja-jp from translation branch (restore)
 git checkout -b ${TRANSLATION_RECEIVE_BRANCH}
 
+git fetch --depth=1 origin ${TRANSLATION_BRANCH}
+
 pushd ${JA_PATH}
 git restore --source origin/${TRANSLATION_BRANCH} -- .
 popd
