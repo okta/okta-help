@@ -37,13 +37,12 @@ git status
 
 # run post processing
 echo 'post processing !!!'
-python -V
 
-import sys
-for path in sys.path:
-  print(path)
 
-python scripts/translation_postprocessing.py ${TARGET}
+yum install python3-devel
+
+python3 -V
+python3 scripts/translation_postprocessing.py ${TARGET}
 
 git status
 
