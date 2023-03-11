@@ -39,6 +39,9 @@ git add --all
 git -c user.name='CI Automation' -c user.email=${userEmail} commit -m "$(TZ=UTC+8 date +'%Y-%m-%d %H:%M:%S') Receiving translation for ${TARGET^^} project"
 git push origin ${TRANSLATION_RECEIVE_BRANCH}
 
+#export GITHUB_TOKEN
+#get_vault_secret eng-services/github/eng-prod-CI-bot-okta GITHUB_TOKEN PersonalAccessToken
+
 export HTTP_NEW_PR=$(curl \
   -X POST \
   -H "Accept: application/vnd.github+json" \
@@ -46,9 +49,9 @@ export HTTP_NEW_PR=$(curl \
   https://api.github.com/repos/okta/${PUBLISH_REPO}/pulls \
   -d '{
     "title":"'"${PR_TITLE}"'",
-    "body":"'"${GIT_NETLIFY_LINK}"'Auto generated PR for `'"${TOPIC_BRANCH}"'` \n Infodev link on bacon '"${BACON_LINK}"'",
-    "head":"'"${TOPIC_BRANCH}"'",
-    "base":"'"${BASE_BRANCH_PR}"'"
+    "body":"Auto generated PR",
+    "head":"'"${TRANSLATION_RECEIVE_BRANCH}"'",
+    "base":"'"${SHA}"'"
   }')
 
 URL=$(echo ${HTTP_NEW_PR} | jq -r '.html_url')
