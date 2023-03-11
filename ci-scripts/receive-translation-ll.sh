@@ -39,7 +39,7 @@ git status
 echo 'post processing !!!'
 
 
-yum -q install python3-devel
+yum -y install python3-devel
 
 cd /usr/bin/
 ls
