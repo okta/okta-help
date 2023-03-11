@@ -5,13 +5,13 @@ pushd ${OKTA_HOME}/${REPO}
 export SLACK_CHANNEL='#infodev-notifications'
 export targets=( "oce" "asa" "eu" "oie" "wf" "oag" )
 if [[ ! "${targets[*]}" =~ "${TARGET}" ]]; then
-    echo "No such target ${TARGET}. Exiting."
-    exit ${FAILED_SETUP}
+  echo "No such target ${TARGET}. Exiting."
+  exit ${FAILED_SETUP}
 fi
 
 export TARGET_PATH=${TARGET}"/"
 if [ ${TARGET} == "oce" ]; then
-   TARGET_PATH=''
+  TARGET_PATH=''
 fi
 
 export EN_PATH="${TARGET_PATH}en-us"
@@ -27,8 +27,8 @@ git switch ${TRANSLATION_BRANCH}
 export RESOURCE_PATHS=( "Content/Resources" "Resources" "Data" "Skins" )
 for RESOURCE_PATH in "${RESOURCE_PATHS[@]}"
 do
-    :
-    cp -r -a --remove-destination "${EN_PATH}/${RESOURCE_PATH}/." "${JA_PATH}/${RESOURCE_PATH}"
+  :
+  cp -r -a --remove-destination "${EN_PATH}/${RESOURCE_PATH}/." "${JA_PATH}/${RESOURCE_PATH}"
 done
 cp -f "${EN_PATH}/Sitemap.xml" "${JA_PATH}/Sitemap.xml"
 
@@ -41,11 +41,19 @@ pushd ${EN_PATH}
 git restore --source origin/${SHA} -- . ':!*/Topics/ReleaseNotes/*'
 popd
 
+if $(git diff-index --quiet HEAD --); then
+  echo 'changes?'
+else
+  echo 'no changes?'
+fi
+
+exit
+
 git add --all
 git -c user.name='CI Automation' -c user.email=${userEmail} commit -m "$(TZ=UTC+8 date +'%Y-%m-%d %H:%M:%S') Copying en resources and files for ${TARGET^^} project"
 git push origin ${TRANSLATION_BRANCH}
 
 send_slack_message "${SLACK_CHANNEL}"\
-    ":white_check_mark: Requested translation for [${TARGET^^}]"\
-    "Commit author: ${userEmail}. Github link ${TRANSLATION_COMMITS}"\
-    "good"
+  ":white_check_mark: Requested translation for [${TARGET^^}]"\
+  "Commit author: ${userEmail}. Github link ${TRANSLATION_COMMITS}"\
+  "good"
