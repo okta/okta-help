@@ -40,10 +40,11 @@ pushd ${EN_PATH}
 git restore --source origin/${SHA} -- . ':!*/Topics/ReleaseNotes/*'
 popd
 
+git status
+
 git add --all
 git -c user.name='CI Automation' -c user.email=${userEmail} commit -m "Copying en resources and files for ${TARGET^^} project"
 #git push origin ${TRANSLATION_BRANCH}
-git status
 
 # send_slack_message "${SLACK_CHANNEL}"\
 #     ":white_check_mark: Requested translation for [${TARGET}]"\
