@@ -41,8 +41,8 @@ echo 'post processing !!!'
 
 yum install python3-devel
 
-python3 -V
-python3 scripts/translation_postprocessing.py ${TARGET}
+/usr/bin/python3 -V
+/usr/bin/python3 scripts/translation_postprocessing.py ${TARGET}
 
 git status
 
