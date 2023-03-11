@@ -35,17 +35,8 @@ popd
 
 git status
 
-# run post processing
-echo 'post processing !!!'
-
-
 yum -y install python3-devel
-
-cd /usr/bin/
-ls
-
-python3 -V
-#/usr/bin/python3 scripts/translation_postprocessing.py ${TARGET}
+python3 scripts/translation_postprocessing.py ${TARGET}
 
 git status
 
