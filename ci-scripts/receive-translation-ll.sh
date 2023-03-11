@@ -5,13 +5,13 @@ pushd ${OKTA_HOME}/${REPO}
 export SLACK_CHANNEL='#infodev-notifications'
 export targets=( "oce" "asa" "eu" "oie" "wf" "oag" )
 if [[ ! "${targets[*]}" =~ "${TARGET}" ]]; then
-    echo "No such target ${TARGET}. Exiting."
-    exit ${FAILED_SETUP}
+  echo "No such target ${TARGET}. Exiting."
+  exit ${FAILED_SETUP}
 fi
 
 export TARGET_PATH=${TARGET}"/"
 if [ ${TARGET} == "oce" ]; then
-   TARGET_PATH=''
+  TARGET_PATH=''
 fi
 
 export EN_PATH="${TARGET_PATH}en-us"
@@ -57,13 +57,14 @@ export HTTP_NEW_PR=$(curl \
 
 URL=$(echo ${HTTP_NEW_PR} | jq -r '.html_url')
 
-
 if [ "${URL}" == "null" ]
 then
   exit ${FAILED_SETUP}
 fi
 
-# send_slack_message "${SLACK_CHANNEL}" \
-#     ":white_check_mark: [${build_name}] is pushed to ${PUBLISH_REPO} successfully" \
-#     "Author: ${userEmail} \n PR: ${URL} \n Bacon: ${BACON_LINK}" \
-#     "good"
+export BACON_LINK="https://bacon-go.aue1e.saasure.net/tasks/CI_DOC_TOOLS_RECEIVE_TRANSLATION_LL/?taskId=${TEST_SUITE_RESULT_ID}"
+
+send_slack_message "${SLACK_CHANNEL}" \
+  ":white_check_mark: [${TARGET^^}] translation is ready for review" \
+  "Author: ${userEmail} \n PR: ${URL} \n Bacon: ${BACON_LINK}" \
+  "good"
