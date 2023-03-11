@@ -37,6 +37,7 @@ git status
 
 # run post processing
 echo 'post processing !!!'
+python -V
 python scripts/translation_postprocessing.py ${TARGET}
 
 git status
