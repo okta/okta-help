@@ -40,10 +40,8 @@ pushd ${EN_PATH}
 git restore --source origin/${SHA} -- . ':!*/Topics/ReleaseNotes/*'
 popd
 
-git status
-
 git add --all
-git -c user.name='CI Automation' -c user.email=${userEmail} commit -m "$(TZ=UTC+8 date +'%Y-%m-%d_%H-%M-%S') Copying en resources and files for ${TARGET^^} project"
+git -c user.name='CI Automation' -c user.email=${userEmail} commit -m "$(TZ=UTC+8 date +'%Y-%m-%d %H:%M:%S') Copying en resources and files for ${TARGET^^} project"
 git push origin ${TRANSLATION_BRANCH}
 
 # send_slack_message "${SLACK_CHANNEL}"\
