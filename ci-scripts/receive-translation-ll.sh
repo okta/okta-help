@@ -44,7 +44,7 @@ yum -q install python3-devel
 cd /usr/bin/
 ls
 
-#/usr/bin/python3 -V
+python3 -V
 #/usr/bin/python3 scripts/translation_postprocessing.py ${TARGET}
 
 git status
