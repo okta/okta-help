@@ -41,17 +41,19 @@ pushd ${EN_PATH}
 git restore --source origin/${SHA} -- . ':!*/Topics/ReleaseNotes/*'
 popd
 
-if $(git diff-index --quiet HEAD --); then
-  echo 'changes?'
-else
-  echo 'no changes?'
-fi
+git status
 
-exit
+if $(git diff-index --quiet HEAD --); then
+  echo 'no changes?'
+else
+  echo 'changes?'
+fi
 
 git add --all
 git -c user.name='CI Automation' -c user.email=${userEmail} commit -m "$(TZ=UTC+8 date +'%Y-%m-%d %H:%M:%S') Copying en resources and files for ${TARGET^^} project"
 git push origin ${TRANSLATION_BRANCH}
+
+exit
 
 send_slack_message "${SLACK_CHANNEL}"\
   ":white_check_mark: Requested translation for [${TARGET^^}]"\
