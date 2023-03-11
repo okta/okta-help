@@ -41,12 +41,14 @@ pushd ${EN_PATH}
 git restore --source origin/${SHA} -- . ':!*/Topics/ReleaseNotes/*'
 popd
 
-git status
-
 if $(git diff-index --quiet HEAD --); then
-  echo 'no changes?'
-else
-  echo 'changes?'
+  echo 'No changes detected in [${EN_PATH}]'
+
+  send_slack_message "${SLACK_CHANNEL}"\
+    ":warning: No changes for [${TARGET^^}]"\
+    "Commit author: ${userEmail}. Github link ${TRANSLATION_COMMITS}"\
+    "warning"
+  exit
 fi
 
 git add --all
@@ -57,5 +59,6 @@ exit
 
 send_slack_message "${SLACK_CHANNEL}"\
   ":white_check_mark: Requested translation for [${TARGET^^}]"\
-  "Commit author: ${userEmail}. Github link ${TRANSLATION_COMMITS}"\
+  "Commit author: ${userEmail}."\
+  "Github link ${TRANSLATION_COMMITS}"\
   "good"
