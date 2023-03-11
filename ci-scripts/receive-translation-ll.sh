@@ -38,6 +38,7 @@ git status
 yum -y install python3-devel
 python3 scripts/translation_postprocessing.py ${TARGET}
 
+
 git status
 
 # create PR
