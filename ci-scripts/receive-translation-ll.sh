@@ -39,6 +39,7 @@ git status
 echo 'post processing !!!'
 python3 scripts/translation_postprocessing.py ${TARGET}
 
+git status
 
 # create PR
 # send slack notification
