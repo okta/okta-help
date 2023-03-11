@@ -43,8 +43,8 @@ popd
 git status
 
 git add --all
-git -c user.name='CI Automation' -c user.email=${userEmail} commit -m "Copying en resources and files for ${TARGET^^} project"
-#git push origin ${TRANSLATION_BRANCH}
+git -c user.name='CI Automation' -c user.email=${userEmail} commit -m "$(date +"%s") Copying en resources and files for ${TARGET^^} project"
+git push origin ${TRANSLATION_BRANCH}
 
 # send_slack_message "${SLACK_CHANNEL}"\
 #     ":white_check_mark: Requested translation for [${TARGET}]"\
