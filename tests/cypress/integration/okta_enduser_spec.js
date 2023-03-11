@@ -14,7 +14,7 @@ describe('End User landing page (en-US)', () => {
     cy.hasTiles(4)
     cy.hasDeferAttrsCorrectlyApplied()
     cy.hasQualtrics()
-    cy.hasMadCapSearchBar()
+    cy.hasMadCapSearchBar('Search Field')
   })
 })
 
@@ -35,6 +35,6 @@ describe('End User landing page (ja-JP)', () => {
     cy.hasTiles(4)
     cy.hasDeferAttrsCorrectlyApplied()
     cy.hasQualtrics()
-    cy.hasMadCapSearchBar()
+    cy.hasMadCapSearchBar('検索フィールド')
   })
 })
