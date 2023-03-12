@@ -6,6 +6,6 @@ git status
 if git diff-index --quiet HEAD --; then
   echo "!true"
 else
-  echo "!true"
+  echo "!false has changes"
 fi
 
