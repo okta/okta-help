@@ -43,8 +43,8 @@ popd
 
 export BACON_LINK="https://bacon-go.aue1e.saasure.net/tasks/CI_DOC_TOOLS_REQUEST_TRANSLATION_LL?taskId=${TEST_SUITE_RESULT_ID}"
 
+# somehow makes git diff-index work properly
 git status
-git diff-index HEAD --
 
 if git diff-index --quiet HEAD --; then
   echo 'No changes detected in [${EN_PATH}]'
