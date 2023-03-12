@@ -41,9 +41,6 @@ pushd ${EN_PATH}
 git restore --source origin/${SHA} -- . ':!*/Topics/ReleaseNotes/*'
 popd
 
-git status
-git diff-index HEAD --
-
 export BACON_LINK="https://bacon-go.aue1e.saasure.net/tasks/CI_DOC_TOOLS_REQUEST_TRANSLATION_LL?taskId=${TEST_SUITE_RESULT_ID}"
 
 if git diff-index --quiet HEAD --; then
