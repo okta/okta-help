@@ -41,6 +41,7 @@ pushd ${EN_PATH}
 git restore --source origin/${SHA} -- . ':!*/Topics/ReleaseNotes/*'
 popd
 
+git status
 git diff-index HEAD --
 
 if git diff-index --quiet HEAD --; then
