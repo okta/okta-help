@@ -41,14 +41,6 @@ pushd ${EN_PATH}
 git restore --source origin/${SHA} -- . ':!*/Topics/ReleaseNotes/*'
 popd
 
-git status
-if git diff-index --quiet HEAD --; then
-  echo "!true"
-else
-  echo "!true"
-fi
-
-exit
 if git diff-index --quiet HEAD --; then
   echo 'No changes detected in [${EN_PATH}]'
 
