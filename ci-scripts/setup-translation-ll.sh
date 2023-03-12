@@ -14,8 +14,9 @@ if [ ${TARGET} == "oce" ]; then
   TARGET_PATH=''
 fi
 
+export TRANSLATION_BRANCH=em-translations-${TARGET}
 export EN_PATH="${TARGET_PATH}en-us"
 export JA_PATH="${TARGET_PATH}ja-jp"
-export TRANSLATION_BRANCH=em-translations-${TARGET}
+
 export TRANSLATION_COMMITS="https://github.com/okta/okta-help/commits/${TRANSLATION_BRANCH}"
 export BACON_LINK="https://bacon-go.aue1e.saasure.net/tasks/${BACON_TASK_NAME}?taskId=${TEST_SUITE_RESULT_ID}"

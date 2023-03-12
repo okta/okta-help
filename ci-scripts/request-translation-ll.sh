@@ -1,32 +1,7 @@
 #!/bin/bash
-set -x
-
 export BACON_TASK_NAME="CI_DOC_TOOLS_REQUEST_TRANSLATION_LL"
 
 source setup-translation-ll.sh
-
-
-# pushd ${OKTA_HOME}/${REPO}
-
-# export SLACK_CHANNEL='#infodev-notifications'
-# export targets=( "oce" "asa" "eu" "oie" "wf" "oag" )
-# if [[ ! "${targets[*]}" =~ "${TARGET}" ]]; then
-#   echo "No such target ${TARGET}. Exiting."
-#   exit ${FAILED_SETUP}
-# fi
-
-# export TARGET_PATH=${TARGET}"/"
-# if [ ${TARGET} == "oce" ]; then
-#   TARGET_PATH=''
-# fi
-
-# export EN_PATH="${TARGET_PATH}en-us"
-# export JA_PATH="${TARGET_PATH}ja-jp"
-# export TRANSLATION_BRANCH=em-translations-${TARGET}
-
-#export BACON_LINK="https://bacon-go.aue1e.saasure.net/tasks/${BACON_TASK_NAME}?taskId=${TEST_SUITE_RESULT_ID}"
-
-#export TRANSLATION_COMMITS="https://github.com/okta/okta-help/commits/${TRANSLATION_BRANCH}"
 
 git fetch --depth=1 origin ${TRANSLATION_BRANCH}
 git reset --hard FETCH_HEAD
