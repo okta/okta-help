@@ -43,16 +43,19 @@ popd
 
 export BACON_LINK="https://bacon-go.aue1e.saasure.net/tasks/CI_DOC_TOOLS_REQUEST_TRANSLATION_LL?taskId=${TEST_SUITE_RESULT_ID}"
 
+git diff-index HEAD --
+
 if git diff-index --quiet HEAD --; then
   echo 'No changes detected in [${EN_PATH}]'
 
+  exit
   send_slack_message "${SLACK_CHANNEL}" \
     ":warning: No changes for [${TARGET^^}]" \
     "Commit author: ${userEmail}\nTranslation commits: ${TRANSLATION_COMMITS}\nBacon task: ${BACON_LINK}" \
     "warning"
   exit
 fi
-
+exit
 git add --all
 git -c user.name='CI Automation' -c user.email=${userEmail} commit -m "$(TZ=UTC+8 date +'%Y-%m-%d %H:%M:%S') Copying en resources and files for ${TARGET^^} project"
 git push origin ${TRANSLATION_BRANCH}
