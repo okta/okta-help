@@ -41,7 +41,15 @@ pushd ${EN_PATH}
 git restore --source origin/${SHA} -- . ':!*/Topics/ReleaseNotes/*'
 popd
 
-if $(git diff-index --quiet HEAD --); then
+git status
+if git diff-index --quiet HEAD --; then
+  echo "!true"
+else
+  echo "!true"
+fi
+
+exit
+if git diff-index --quiet HEAD --; then
   echo 'No changes detected in [${EN_PATH}]'
 
   send_slack_message "${SLACK_CHANNEL}"\
