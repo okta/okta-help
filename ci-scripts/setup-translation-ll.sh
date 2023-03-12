@@ -1,5 +1,4 @@
 #!/bin/bash
-
 pushd ${OKTA_HOME}/${REPO}
 
 export SLACK_CHANNEL='#infodev-notifications'
