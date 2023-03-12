@@ -44,12 +44,14 @@ popd
 git status
 git diff-index HEAD --
 
+export BACON_LINK="https://bacon-go.aue1e.saasure.net/tasks/CI_DOC_TOOLS_REQUEST_TRANSLATION_LL?taskId=${TEST_SUITE_RESULT_ID}"
+
 if git diff-index --quiet HEAD --; then
   echo 'No changes detected in [${EN_PATH}]'
 
-  send_slack_message "${SLACK_CHANNEL}"\
-    ":warning: No changes for [${TARGET^^}]"\
-    "Commit author: ${userEmail}. Github link ${TRANSLATION_COMMITS}"\
+  send_slack_message "${SLACK_CHANNEL}" \
+    ":warning: No changes for [${TARGET^^}]" \
+    "Commit author: ${userEmail}\nTranslation commits: ${TRANSLATION_COMMITS}\nBacon task: ${BACON_LINK}" \
     "warning"
   exit
 fi
@@ -58,10 +60,7 @@ git add --all
 git -c user.name='CI Automation' -c user.email=${userEmail} commit -m "$(TZ=UTC+8 date +'%Y-%m-%d %H:%M:%S') Copying en resources and files for ${TARGET^^} project"
 git push origin ${TRANSLATION_BRANCH}
 
-exit
-
-send_slack_message "${SLACK_CHANNEL}"\
-  ":white_check_mark: Requested translation for [${TARGET^^}]"\
-  "Commit author: ${userEmail}."\
-  "Github link ${TRANSLATION_COMMITS}"\
+send_slack_message "${SLACK_CHANNEL}" \
+  ":white_check_mark: Requested translation for [${TARGET^^}]" \
+  "Commit author: ${userEmail}\nTranslation commits: ${TRANSLATION_COMMITS}\nBacon task: ${BACON_LINK}" \
   "good"

@@ -64,7 +64,7 @@ then
   exit ${FAILED_SETUP}
 fi
 
-export BACON_LINK="https://bacon-go.aue1e.saasure.net/tasks/CI_DOC_TOOLS_RECEIVE_TRANSLATION_LL/?taskId=${TEST_SUITE_RESULT_ID}"
+export BACON_LINK="https://bacon-go.aue1e.saasure.net/tasks/CI_DOC_TOOLS_RECEIVE_TRANSLATION_LL?taskId=${TEST_SUITE_RESULT_ID}"
 
 send_slack_message "${SLACK_CHANNEL}" \
   ":white_check_mark: [${TARGET^^}] translation is ready for review" \
