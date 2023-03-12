@@ -3,7 +3,7 @@ set -x
 
 export BACON_TASK_NAME="CI_DOC_TOOLS_REQUEST_TRANSLATION_LL"
 
-source stupe-translation-ll.sh
+source setup-translation-ll.sh
 
 
 # pushd ${OKTA_HOME}/${REPO}
