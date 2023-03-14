@@ -88,7 +88,7 @@ def load_pairs(pairs_file):
 def _load_json(pairs_file):
     if not os.path.isfile(pairs_file):
         raise TranslationPostProcessingException(invalid_file % pairs_file)
-    with open(pairs_file, 'r') as f:
+    with open(pairs_file, 'r', encoding="utf-8") as f:
         try:
             data = json.load(f)
         except json.decoder.JSONDecodeError:
@@ -119,11 +119,11 @@ def walk(lang_dir, pairs):
         for file in files:
             if file.endswith('.htm') or file.endswith('.xml'):
                 path = os.path.join(root, file)
-                with open(path, 'r') as f:
+                with open(path, 'r', encoding="utf-8") as f:
                     text = f.read()
                 revised_text = apply_replacements(pairs, text)
                 if revised_text != text:
-                    with open(path, 'w') as w:
+                    with open(path, 'w', encoding="utf-8") as w:
                         w.write(revised_text)
 
 def replace_strings(target, pairs_file):
