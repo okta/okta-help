@@ -291,12 +291,7 @@
                                                     <div>
                                                         <h1>Configure networking</h1>
                                                         <div>
-                                                            <p>Create a Microsoft Azure virtual machine.</p>
-                                                            <ul>
-                                                                <li>Create a security group</li>
-                                                                <li>Create inbound security rules</li>
-                                                                <li>Associate security rules with VM</li>
-                                                            </ul>
+                                                            <p>Create a Microsoft Azure virtual machine, a security group, and inbound security rules, then associate the security rules with the virtual machine.</p>
                                                         </div>
                                                         <ul class="tabs" data-tabs="data-tabs" data-deep-link="true" id="production-tabs">
                                                             <li class="tabs-title is-active"><a href="#console-panel" aria-selected="true">Console</a>
@@ -308,9 +303,9 @@
                                                             <div class="tabs-panel is-active" id="console-panel">
                                                                 <h3>Create a security group</h3>
                                                                 <ol>
-                                                                    <li value="1">Sign in or return to the Microsoft Azure Portal.</li>
-                                                                    <li value="2">From the menu, select <span class="uicontrol">All Services</span> and search for <span class="uicontrol">Resource Groups</span>.<br />Alternatively, select <span class="uicontrol">Resource Groups</span> from the favorites list.</li>
-                                                                    <li value="3">Click the name of the resource group to hold the network security rule set.</li>
+                                                                    <li value="1">Sign in to the Microsoft Azure Portal.</li>
+                                                                    <li value="2">From the menu, select <span class="uicontrol">All Services</span> and search for <span class="uicontrol">Resource Groups</span>. Alternatively, select <span class="uicontrol">Resource Groups</span> from the favorites list.</li>
+                                                                    <li value="3">Click the name of the resource group where you want to add the network security rule set.</li>
                                                                     <li value="4">Click <span class="uicontrol">Add</span>.</li>
                                                                     <li value="5">Search and select <span class="uicontrol">Network security group</span>.</li>
                                                                     <li value="6">Select <span class="uicontrol">Create</span>.</li>
@@ -325,55 +320,53 @@
                                                                     <li value="3">Enter the following values:
 							<ul><li><span class="uicontrol">Destination port range</span>: <span class="userinput">80/443</span></li><li><span class="uicontrol">Protocol</span>: <span class="userinput">TCP</span></li><li><span class="uicontrol">Name</span>: <span class="userinput">Port80/Port443 Rule</span></li><li><span class="uicontrol">Priority</span>: <span class="userinput">100/101</span></li></ul><div class="noteOkta"><p class="noteContent">Port 80 is optional. </p></div></li>
                                                                     <li value="4">Click <span class="uicontrol">Add</span>. </li>
-                                                                    <li value="5">Repeat to create rules for both port 80 and 443.</li>
+                                                                    <li value="5">Repeat these steps to create rules for ports 80 and 443.</li>
                                                                 </ol>
                                                                 <h3>Associate security rules </h3>
                                                                 <ol>
                                                                     <li value="1">Go to <span class="uicontrol">HOME &gt; VM</span>.</li>
-                                                                    <li value="2">Click the name of <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> VM.</li>
+                                                                    <li value="2">Click the name of <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> virtual machine.</li>
                                                                     <li value="3">In <span class="uicontrol">Settings</span>, select <span class="uicontrol">Subnets</span>.</li>
                                                                     <li value="4">Click <span class="uicontrol">Associate</span>.</li>
-                                                                    <li value="5">Search and associate the security group created earlier.</li>
+                                                                    <li value="5">Search for the security group that you created earlier and associate it with the virtual machine.</li>
                                                                 </ol>
                                                             </div>
                                                             <div class="tabs-panel" id="command-panel">
                                                                 <ol>
-                                                                    <li value="1">Create a network security using the <span class="code">az network nsg create</span> command:<span class="codeblock">az network nsg create --resource-group AccessGateway --location &lt;location&gt; --name &lt;name&gt;</span>Where:
-					<ul><li>&lt;location&gt; is the region to house the security group.</li><li>&lt;resource-group&gt; is the name of the resource group created earlier.</li><li>&lt;name&gt; is the name of the new security group.</li></ul><p>For example:</p><span class="codeblock">az network nsg create --resource-group AccessGateway --location eastus --name AGSecurityGroup </span><p>Which produces the following results:</p><![CDATA[
-]]><span class="codeblock">{ "NewNSG": {
+                                                                    <li value="1">Create a network security using the <span class="code">az network nsg create</span> command:
+							<p><span class="code">az network nsg create --resource-group AccessGateway --location &lt;location&gt; --name &lt;name&gt;</span></p><ul><li><span class="code">&lt;location&gt;</span> is the region to house the security group.</li><li><span class="code">&lt;resource-group&gt;</span> is the name of the resource group that you created earlier.</li><li><span class="code">&lt;name&gt;</span> is the name of the new security group.</li></ul><p>Here is an example of the <span class="code">az network nsg create</span> command with the parameters populated with values:</p><p><span class="code">az network nsg create --resource-group AccessGateway --location eastus --name AGSecurityGroup </span></p><p>When you run the <span class="code">az network nsg create</span> command, the following results appear:</p><p><span class="codeblock">{ "NewNSG": {
    "defaultSecurityRules": [
    {
   "destinationAddressPrefixes": [],
   "destinationApplicationSecurityGroups": null,
    . . . ]}
-}	</span></li>
-                                                                    <li value="2">Add a network security rule for port 80 using the <span class="code">az network nsg rule create </span> command:<div class="noteOkta"><p class="noteContent">Note that port 80 is optional. </p></div><span class="codeblock">az network nsg rule create \
+}	</span></p></li>
+                                                                    <li value="2">Add a network security rule for port 80 using the <span class="code">az network nsg rule create </span> command. Port 80 is optional:<p><span class="code">az network nsg rule create \
 --resource-group &lt;resource-group&gt;\
 --nsg-name &lt;network-security-group&gt;\
 --name &lt;rule-name&gt;\
 --protocol tcp \
 --priority 1000 \
---destination-port-range 80</span>Where:
-					<ul><li>&lt;resource-group&gt; is the name of the previously created resource group.</li><li>&lt;nework-security-group&gt; is the name of the new security group.</li><li>&lt;rule-name&gt; is a name for the rule.</li></ul><p>For example:</p><span class="codeblock">az network nsg rule create --resource-group AccessGateway  --nsg-name AGSecurityGroup    \
-    --name Port80GroupRule --protocol tcp --priority 1000 --destination-port-range 80</span><p>Which produces the following results:</p><![CDATA[
-]]><span class="codeblock">{- Finished 
+--destination-port-range 80</span></p><ul><li><span class="code">&lt;resource-group&gt;</span> is the name of the previously created resource group.</li><li><span class="code">&lt;nework-security-group&gt;</span> is the name of the new security group.</li><li><span class="code">&lt;rule-name&gt;</span> is a name for the rule.</li></ul><p>Here is an example of the <span class="code">az network nsg rule create </span> command with the parameters populated with values:</p><p><span class="code">az network nsg rule create --resource-group AccessGateway  --nsg-name AGSecurityGroup    \
+    --name Port80GroupRule --protocol tcp --priority 1000 --destination-port-range 80</span><p>When you run the <span class="code">az network nsg rule create </span> command, the following results appear:</p></p><p><span class="codeblock">{- Finished 
+    "access": "Allow",
+    "description": null,
+    "destinationAddressPrefix": "*",
+    . . . 
+}	</span></p></li>
+                                                                    <li value="3">Add a network security rule for port 443 using the <span class="code">az network nsg rule create </span> command:
+								<p><span class="code">az network nsg rule create --resource-group AccessGateway --nsg-name AGSecurityGroup    \ 
+    --name Port443GroupRule --protocol tcp --priority 1001 --destination-port-range 443</span></p><p>When you run the <span class="code">az network nsg rule create </span> command, the following results appear:</p><span class="codeblock">{- Finished 
     "access": "Allow",
     "description": null,
     "destinationAddressPrefix": "*",
     . . . 
 }	</span></li>
-                                                                    <li value="3">Add a network security rule for port 443 using the <span class="code">az network nsg rule create </span> command.<p>For example:</p><span class="codeblock">az network nsg rule create --resource-group AccessGateway --nsg-name AGSecurityGroup    \ 
-    --name Port443GroupRule --protocol tcp --priority 1001 --destination-port-range 443</span> <p>Which produces the following results:</p><span class="codeblock">{- Finished 
-    "access": "Allow",
-    "description": null,
-    "destinationAddressPrefix": "*",
-    . . . 
-}	</span></li>
-                                                                    <li value="4">Associate the new security group with the VM nic using the <span class="code">az network nic update</span> command: <span class="codeblock">az network nic update \
+                                                                    <li value="4">Associate the new security group with the VM nic using the <span class="code">az network nic update</span> command:
+								<p><span class="code">az network nic update \
     --resource-group &lt;resource-group&gt;\
     --name &lt;nic-name&gt;\
-    --network-security-group &lt;security-group-name&gt;</span><p>Where:
-<ul><li>&lt;resource-group&gt; is the name of the resource group created earlier.</li><li>&lt;nic-name&gt; is the name of nic to associate the security group with.</li><li>&lt;nework-security-group&gt; is the name of the new security group.</li></ul></p><p>For example:</p><span class="codeblock"># obtain the name of the nic.
+    --network-security-group &lt;security-group-name&gt;</span></p><ul><li><span class="code">&lt;resource-group&gt;</span> is the name of the resource group created earlier.</li><li><span class="code">&lt;nic-name&gt;</span> is the name of nic to associate the security group with.</li><li><span class="code">&lt;nework-security-group&gt;</span> is the name of the new security group.</li></ul><p>Here's an example of the <span class="code">az network nic update</span> command with the parameters populated with values:</p><span class="codeblock"># obtain the name of the nic.
 az vm nic list --resource-group AccessGateway --vm-name "OAG5.0vm"
 [{
  "id": "/subscriptions/. . . /networkInterfaces/OAG5.0VMVMNic",
@@ -384,7 +377,7 @@ az vm nic list --resource-group AccessGateway --vm-name "OAG5.0vm"
 az network nic update \
     --resource-group AccessGateway\
     --name OAG5.0VMMVNic
-    --network-security-group AGSecurityGroup </span><p>Which produces the following results:</p><span class="codeblock" xml:space="preserve">{{"dnsSettings": {
+    --network-security-group AGSecurityGroup </span><p>When you run the <span class="code">az network nic update</span> command, the following results appear:</p><span class="codeblock" xml:space="preserve">{{"dnsSettings": {
     "dnsSettings": {
     appliedDnsServers": [],
     . . .
