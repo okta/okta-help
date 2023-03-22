@@ -597,6 +597,7 @@ xmlAliasData += '    <Map Name=\"csh-administrators-access-request-admin\" Link=
 xmlAliasData += '    <Map Name=\"csh-administrators-access-certs-admin\" Link=\"Topics/Security/administrators-access-certs-admin.htm\" ResolvedId=\"19023\" />';
 xmlAliasData += '    <Map Name=\"ext_okta_ends_browser_support_for_TLS_1_1\" Link=\"Topics/Browser-Plugin/okta-ends-browser-support-for-TLS-1.1.htm\" ResolvedId=\"1016\" />';
 xmlAliasData += '    <Map Name=\"csh-create-resource-set\" Link=\"Topics/Security/custom-admin-role/create-resource-set.htm\" ResolvedId=\"19024\" />';
+xmlAliasData += '    <Map Name=\"csh-meta-work-accounts\" Link=\"Topics/Provisioning/meta/meta-work-accounts-provisioning.htm\" ResolvedId=\"16001\" />';
 xmlAliasData += '    <Map Name=\"csh-siw-changes\" Link=\"Topics/identity-engine-upgrade/siw-changes.htm\" ResolvedId=\"5017\" />';
 xmlAliasData += '    <Map Name=\"csh-device-assurance-delete-policy\" Link=\"Topics/identity-engine/devices/device-assurance-delete.htm\" ResolvedId=\"3001\" />';
 xmlAliasData += '</CatapultAliasFile>';
