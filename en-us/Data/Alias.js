@@ -640,5 +640,6 @@ xmlAliasData += '    <Map Name=\"csh-administrators-access-request-admin\" Link=
 xmlAliasData += '    <Map Name=\"csh-administrators-access-certs-admin\" Link=\"Topics/Security/administrators-access-certs-admin.htm\" ResolvedId=\"19023\" />';
 xmlAliasData += '    <Map Name=\"ext_okta_ends_browser_support_for_TLS_1_1\" Link=\"Topics/Browser-Plugin/okta-ends-browser-support-for-TLS-1.1.htm\" ResolvedId=\"1016\" />';
 xmlAliasData += '    <Map Name=\"csh-create-resource-set\" Link=\"Topics/Security/custom-admin-role/create-resource-set.htm\" ResolvedId=\"19024\" />';
+xmlAliasData += '    <Map Name=\"csh-meta-work-accounts\" Link=\"Topics/Provisioning/meta/meta-work-accounts-provisioning.htm\" ResolvedId=\"16001\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
