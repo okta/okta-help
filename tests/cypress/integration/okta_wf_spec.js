@@ -9,12 +9,12 @@ describe('Workflows landing page (en-US)', () => {
     cy.hasLeftSideNav()
     cy.hasTOC(10)
     cy.hasBreadcrumbs('Okta Workflows')
-    cy.hasTopMenuBar(5, 9)
+    cy.hasTopMenuBar(5, 11)
     cy.hasBodyContent()
     cy.hasTiles(9)
     cy.hasDeferAttrsCorrectlyApplied()
     cy.hasQualtrics()
-    cy.hasCoveoSearchBar()
+    cy.hidesCoveoSearchBar()
   })
 })
 
@@ -24,7 +24,7 @@ describe('Workflows landing page (ja-JP)', () => {
   })
 
   it('displays expected content structures in Japanese', () => {
-    cy.hasOktaHOCBanner('Okta Support')
+    cy.hasOktaHOCBanner('Oktaサポート')
     cy.hasCopyright()
     cy.hasLeftSideNav()
     cy.hasTOC(10)

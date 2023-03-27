@@ -1,6 +1,18 @@
 #!/bin/bash
-export ARCHIVE_PATH="target.zip"
-export OUTPUT_FOLDER="../${PUBLISH_DESTINATION}"
+
+export PUBLISH_TARGETS_FILE="publish_targets.txt"
+
+copy_artifact()
+{
+  OUT_FOLDER=$1
+  ARTIFACT_URL=$2
+  ARCHIVE_PATH="target.zip"
+
+  mkdir -p "${OUT_FOLDER}"
+  wget -O ${ARCHIVE_PATH} ${ARTIFACT_URL}
+  unzip -o ${ARCHIVE_PATH} -d ${OUT_FOLDER}
+  rm ${ARCHIVE_PATH}
+}
 
 cd ${OKTA_HOME}/${REPO}
 git fetch origin ${TOPIC_BRANCH}
@@ -17,10 +29,18 @@ fi
 
 cd ${OKTA_HOME}/${REPO}/ci-scripts
 
-wget -O ${ARCHIVE_PATH} ${BUILT_ARTIFACT}
-tar -xf ${ARCHIVE_PATH} -C ${OUTPUT_FOLDER} --strip-components=1 --overwrite  --no-same-permissions
+if [ ${PUBLISH_TARGETS} ]
+then
+  wget -O ${PUBLISH_TARGETS_FILE} ${PUBLISH_TARGETS}
+  while IFS=$' \t\r\n' read -r artifact_link publish_to
+  do
+    copy_artifact "../${publish_to}" "${artifact_link}"
+  done < ${PUBLISH_TARGETS_FILE}
+  rm ${PUBLISH_TARGETS_FILE}
+else
+  copy_artifact "../${PUBLISH_DESTINATION}" "${BUILT_ARTIFACT}"
+fi
 
-rm ${ARCHIVE_PATH}
 cd ${OKTA_HOME}/${REPO}
 
 git add --all
