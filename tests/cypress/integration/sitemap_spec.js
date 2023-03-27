@@ -39,7 +39,7 @@ describe('Sitemaps validation', () => {
     'oie/en-us/Sitemap.xml',
     'oie/ja-jp/Sitemap.xml',
     'wf/en-us/Sitemap.xml',
-    'wf/ja-jp/Sitemap.xml'
+    'wf/ja-jp/Sitemap.xml',
   ].forEach((sitemap) => {
     it(`Loads ${NUMBER_OF_ENTITIES_TO_CHECK} urls from ${sitemap}`, () => {
       verifySitemap(sitemap)
