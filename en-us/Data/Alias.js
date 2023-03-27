@@ -43,13 +43,11 @@ xmlAliasData += '    <Map Name=\"csh-apps-aiw-oidc\" Link=\"Topics/Apps/Apps_App
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-oidc-login-uri\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_OIDC.htm#OIDC-login-redirect-uri\" ResolvedId=\"6002\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-oidc-logout-uri\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_OIDC.htm#OIDC-logout-redirect-uri\" ResolvedId=\"6003\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-saml\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SAML.htm\" ResolvedId=\"6007\" />';
-xmlAliasData += '    <Map Name=\"csh-apps-aiw-saml-advanced\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SAML.htm#Show_Advanced_Settings\" ResolvedId=\"6014\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-scim\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SCIM.htm\" ResolvedId=\"6009\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-swa\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SWA.htm\" ResolvedId=\"6008\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-learn-about\" Link=\"Topics/Apps/apps-overview-learn-about.htm\" ResolvedId=\"6004\" />';
 xmlAliasData += '    <Map Name=\"csh-ar-create-req-type\" Link=\"Topics/identity-governance/access-requests/ar-create-request-type.htm\" ResolvedId=\"13018\" />';
 xmlAliasData += '    <Map Name=\"csh-assign-apps\" Link=\"Topics/users-groups-profiles/usgp-assign-apps.htm\" ResolvedId=\"20008\" />';
-xmlAliasData += '    <Map Name=\"csh-attribute-statements-saml\" Link=\"Topics/Apps/Apps_App_Integration_Wizard_SAML.htm#SAMLAttributeStatements\" ResolvedId=\"1111\" />';
 xmlAliasData += '    <Map Name=\"csh-best-practice-cstm-admin-roles\" Link=\"Topics/Security/custom-admin-role/best-practices-custom-admin-roles.htm\" ResolvedId=\"13001\" />';
 xmlAliasData += '    <Map Name=\"csh-blacklist-proxies-tor\" Link=\"Topics/Security/healthinsight/blocklist-proxies-tor.htm\" ResolvedId=\"1284\" />';
 xmlAliasData += '    <Map Name=\"csh-blacklist-zones\" Link=\"Topics/Security/healthinsight/blocklist-network-zone.htm\" ResolvedId=\"1184\" />';
