@@ -96,6 +96,16 @@ describe('Locale switching', () => {
     cy.url().should('include', 'eu/en-us/Content/Topics/end-user/end-user-home.htm')
   })
 
+  it('redirects to expected URLs for OAG', () => {
+    visitAndWaitForInitialize('oag/en-us/Content/Topics/Access-Gateway/ag-main.htm')
+    cy.switchLocale('Change language', '日本語 (日本)‎')
+    cy.url().should('include', 'oag/ja-jp/Content/Topics/Access-Gateway/ag-main.htm')
+
+    visitAndWaitForInitialize('oag/ja-jp/Content/Topics/Access-Gateway/ag-main.htm')
+    cy.switchLocale('言語を変更', 'English (United States)')
+    cy.url().should('include', 'oag/en-us/Content/Topics/Access-Gateway/ag-main.htm')
+  })
+
   it('redirects to expected URLs for OIE', () => {
     visitAndWaitForInitialize('oie/en-us/Content/Topics/identity-engine/oie-index.htm')
     cy.switchLocale('Change language', '日本語 (日本)‎')

@@ -19,4 +19,22 @@ describe('OAG landing page (en-US)', () => {
   })
 })
 
-// TODO 'OAG landing page (ja-JP)' NOT TRANSLATED YET
+describe('OAG landing page (ja-JP)', () => {
+  beforeEach(() => {
+    cy.visit('oag/ja-jp/Content/Topics/Access-Gateway/ag-main.htm')
+  })
+
+  it('displays expected content structures in Japanese', () => {
+    cy.hasOktaHOCBanner('Oktaサポート')
+    cy.hasCopyright()
+    cy.hasLeftSideNav()
+    cy.hasTOC(9)
+    cy.hasBreadcrumbs('Okta Access Gateway')
+    cy.hasTopMenuBar(5, 9)
+    cy.hasBodyContent()
+    cy.hasTiles(6)
+    cy.hasDeferAttrsCorrectlyApplied()
+    cy.hasQualtrics()
+    cy.hasCoveoSearchBar()
+  })
+})
