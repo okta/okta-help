@@ -13,7 +13,7 @@ if [ ${TARGET} == "oce" ]; then
   TARGET_PATH=''
 fi
 
-export TRANSLATION_BRANCH=em-translations-${TARGET}
+export TRANSLATION_BRANCH=docs_translations_gh_${TARGET^^}
 export EN_PATH="${TARGET_PATH}en-us"
 export JA_PATH="${TARGET_PATH}ja-jp"
 
