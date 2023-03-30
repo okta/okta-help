@@ -1,1 +1,1 @@
-define({"../content/topics/adv_server_access/docs/asa-overview.htm":0,});
+define({"../content/topics/adv_server_access/docs/asa-overview.htm":0,"../content/topics/adv_server_access/docs/audit-events-with-okta-syslog.htm":3,"../content/topics/adv_server_access/docs/audit-events.htm":2,"../content/topics/adv_server_access/docs/reference.htm":1,});
