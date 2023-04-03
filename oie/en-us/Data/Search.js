@@ -1,1 +1,1 @@
-define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../Content/Topics/API/trusted-origins-iframe.htm'],s:['$'],p:[['$',2]]});
+define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../Content/Topics/identity-engine/authenticators/authentication-main.htm'],s:['03'],p:[['03',0]]});
