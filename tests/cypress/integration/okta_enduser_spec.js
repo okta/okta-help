@@ -30,7 +30,7 @@ describe('End User landing page (ja-JP)', () => {
     cy.hasTOC(7)
     // Vendor changed the following string in 12/22 from "エンドユーザー向けのドキュメント"
     cy.hasBreadcrumbs('エンドユーザー向けドキュメント')
-    cy.hasTopMenuBar(4, 6)
+    cy.hasTopMenuBar(4, 9)
     cy.hasBodyContent()
     cy.hasTiles(4)
     cy.hasDeferAttrsCorrectlyApplied()
