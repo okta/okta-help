@@ -1,1 +1,1 @@
-define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../Content/Topics/betas/closed/cem/assign-entitlements-users.htm'],s:['+'],p:[['+',4]]});
+define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../Content/Topics/betas/closed/cem/assign-entitlements-users.htm'],s:['+'],p:[['+',5]]});
