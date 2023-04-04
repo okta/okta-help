@@ -1,1 +1,0 @@
-﻿// overwritten with either SCORM or XApi api javascript files when using the packages.
