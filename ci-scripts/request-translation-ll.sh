@@ -1,4 +1,6 @@
 #!/bin/bash
+set -x
+
 export BACON_TASK_NAME="CI_DOC_TOOLS_REQUEST_TRANSLATION_LL"
 
 source setup-translation-ll.sh
@@ -44,7 +46,10 @@ fi
 
 git add --all
 git -c user.name='CI Automation' -c user.email=${userEmail} \
-  commit -m "$(TZ=UTC+8 date +'%Y-%m-%d %H:%M:%S') Copying en resources and files for ${TARGET^^} project.\nBranch: ${BASE_BRANCH}\nSHA: ${BASE_BRANCH_SHA}"
+  commit -m "$(TZ=UTC+8 date +'%Y-%m-%d %H:%M:%S') Copying en resources and files for ${TARGET^^} project." \
+  - m "Branch: ${BASE_BRANCH}" \
+  - m "SHA: ${BASE_BRANCH_SHA}" \
+  - m "https://github.com/okta/okta-help/commit/${BASE_BRANCH_SHA}"
 git push origin ${TRANSLATION_BRANCH}
 
 send_slack_message "${SLACK_CHANNEL}" \
