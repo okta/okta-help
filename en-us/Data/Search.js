@@ -1,1 +1,1 @@
-define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../content/index-admin.htm'],s:['$'],p:[['$',9]]});
+define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../content/topics/releasenotes/archive/oce-relnotes-2017.htm'],s:['$'],p:[['$',7]]});
