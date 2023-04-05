@@ -31,8 +31,7 @@ pushd ${JA_PATH}
 git restore --source origin/${BASE_BRANCH} -- 'Data/Tocs/*'
 popd
 
-echo "test" >> "$(TZ=UTC+8 date +'%Y-%m-%d_%H-%M-%S').txt"
-echo "test" >>"$(TZ=UTC+8 date +'new_file_%Y-%m-%d_%H_%M_%S').txt"
+echo "test" >>"$(TZ=UTC+8 date +'new_%Y-%m-%d_%H_%M_%S').texttt"
 ls
 
 # somehow this call makes git diff-index work properly all the time
