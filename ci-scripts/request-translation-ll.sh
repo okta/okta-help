@@ -5,7 +5,7 @@ export BACON_TASK_NAME="CI_DOC_TOOLS_REQUEST_TRANSLATION_LL"
 
 source setup-translation-ll.sh
 
-get fetch --depth=1 origin ${BASE_BRANCH}
+git fetch --depth=1 origin ${BASE_BRANCH}
 export BASE_BRANCH_SHA = $(git rev-parse origin/${BASE_BRANCH})
 
 git fetch --depth=1 origin ${TRANSLATION_BRANCH}

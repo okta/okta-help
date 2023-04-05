@@ -16,7 +16,7 @@ fi
 
 export GH_PREFIX=
 export BASE_BRANCH=master
-if [ ${IS_GH} == "true"]; then
+if [ ${IS_GH} == "true" ]; then
   GH_PREFIX=gh_
   BASE_BRANCH=gh-pages
 fi
