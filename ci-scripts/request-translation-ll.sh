@@ -34,8 +34,7 @@ popd
 echo "test" >>"$(TZ=UTC+8 date +'new_%Y-%m-%d_%H_%M_%S').texttt"
 ls
 
-# somehow this call makes git diff-index work properly all the time
-git status -s
+git add --all
 
 if git diff-index --quiet HEAD --; then
   exit
@@ -48,7 +47,6 @@ if git diff-index --quiet HEAD --; then
   exit
 fi
 
-git add --all
 git -c user.name='CI Automation' -c user.email=${userEmail} \
   commit -m "$(TZ=UTC+8 date +'%Y-%m-%d %H:%M:%S') Copying en resources and files for ${TARGET^^} project." \
   -m "Branch: ${BASE_BRANCH}" \
