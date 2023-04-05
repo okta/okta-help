@@ -50,8 +50,7 @@ git add --all
 git -c user.name='CI Automation' -c user.email=${userEmail} \
   commit -m "$(TZ=UTC+8 date +'%Y-%m-%d %H:%M:%S') Copying en resources and files for ${TARGET^^} project." \
   -m "Branch: ${BASE_BRANCH}" \
-  -m "SHA: ${BASE_BRANCH_SHA}" \
-  -m "https://github.com/okta/okta-help/commit/${BASE_BRANCH_SHA}"
+  -m "SHA: ${BASE_BRANCH_SHA}"
 git push origin ${TRANSLATION_BRANCH}
 
 send_slack_message "${SLACK_CHANNEL}" \
