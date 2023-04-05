@@ -32,11 +32,14 @@ git restore --source origin/${BASE_BRANCH} -- 'Data/Tocs/*'
 popd
 
 echo "test" >> "$(TZ=UTC+8 date +'%Y-%m-%d_%H-%M-%S').txt"
+echo "test" >>"$(TZ=UTC+8 date +'%Y-%m-%d_%H-%M-%S').txt"
+ls
 
 # somehow this call makes git diff-index work properly all the time
 git status -s
 
 if git diff-index --quiet HEAD --; then
+  exit
   echo 'No changes detected in [${EN_PATH}]'
 
   send_slack_message "${SLACK_CHANNEL}" \
