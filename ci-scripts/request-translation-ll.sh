@@ -31,10 +31,10 @@ pushd ${JA_PATH}
 git restore --source origin/${BASE_BRANCH} -- 'Data/Tocs/*'
 popd
 
+echo "test" >> "$(TZ=UTC+8 date +'%Y-%m-%d_%H-%M-%S').txt"
+
 # somehow this call makes git diff-index work properly all the time
 git status -s
-
-echo "test" >> "$(TZ=UTC+8 date +'%Y-%m-%d_%H-%M-%S').txt"
 
 if git diff-index --quiet HEAD --; then
   echo 'No changes detected in [${EN_PATH}]'
