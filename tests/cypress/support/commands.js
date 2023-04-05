@@ -41,7 +41,7 @@ function hasLeftSideNav () {
 
 function hasNoLeftSideNav () {
   cy.get('ul.sidenav')
-    .should('not.exist')
+    .should('not.be.visible')
 }
 
 function hasTOC (numOfEntries) {
