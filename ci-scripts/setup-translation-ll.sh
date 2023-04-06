@@ -13,7 +13,16 @@ if [ ${TARGET} == "oce" ]; then
   TARGET_PATH=''
 fi
 
-export TRANSLATION_BRANCH=docs_translations_gh_${TARGET^^}
+export GH_PREFIX=
+export BASE_BRANCH=master
+if [ ${IS_GH} == "true" ]; then
+  GH_PREFIX=gh_
+  BASE_BRANCH=gh-pages
+fi
+
+export TRANSLATION_BRANCH=docs_translations_${GH_PREFIX}${TARGET^^}
+echo ${TRANSLATION_BRANCH}
+export TRANSLATION_BRANCH=em-translations-asa
 export EN_PATH="${TARGET_PATH}en-us"
 export JA_PATH="${TARGET_PATH}ja-jp"
 
