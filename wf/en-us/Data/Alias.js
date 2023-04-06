@@ -1320,5 +1320,6 @@ xmlAliasData += '    <Map Name=\"ext-dropboxforbusiness-method-updategroup\" Lin
 xmlAliasData += '    <Map Name=\"ext-connectorbuilder-deploy-test\" Link=\"Topics/Workflows/connector-builder/deployment-test.htm\" ResolvedId=\"6029\" />';
 xmlAliasData += '    <Map Name=\"ext-connectorbuilder-deploy-private\" Link=\"Topics/Workflows/connector-builder/deployment-private.htm\" ResolvedId=\"6030\" />';
 xmlAliasData += '    <Map Name=\"ext-connectorbuilder-deploy-submission\" Link=\"Topics/Workflows/connector-builder/deployment-submission.htm\" ResolvedId=\"6031\" />';
+xmlAliasData += '    <Map Name=\"ext-office365mail-misc-guidance\" Link=\"Topics/Workflows/connector-reference/office365mail/overviews/guidanceforoffice365mailsconnector.htm\" ResolvedId=\"6032\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
