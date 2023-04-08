@@ -1308,5 +1308,18 @@ xmlAliasData += '    <Map Name=\"ext-googledirectory-method-readgroupsettings\" 
 xmlAliasData += '    <Map Name=\"ext-googledirectory-method-updategroupsettings\" Link=\"Topics/Workflows/connector-reference/googledirectory/actions/updategroupsettings.htm\" ResolvedId=\"6011\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-createanimportsession\" Link=\"Topics/Workflows/connector-reference/okta/actions/createimportsession.htm\" ResolvedId=\"6012\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-mapprofilesourceattributes\" Link=\"Topics/Workflows/connector-reference/okta/actions/mapprofilesourceattributes.htm\" ResolvedId=\"6013\" />';
+xmlAliasData += '    <Map Name=\"ext-dropboxforbusiness-method-addusertogroup\" Link=\"Topics/Workflows/connector-reference/dropboxforbusiness/actions/addusertogroup.htm\" ResolvedId=\"6014\" />';
+xmlAliasData += '    <Map Name=\"ext-dropboxforbusiness-method-creategroup\" Link=\"Topics/Workflows/connector-reference/dropboxforbusiness/actions/creategroup.htm\" ResolvedId=\"6015\" />';
+xmlAliasData += '    <Map Name=\"ext-dropboxforbusiness-method-deletegroup\" Link=\"Topics/Workflows/connector-reference/dropboxforbusiness/actions/deletegroup.htm\" ResolvedId=\"6016\" />';
+xmlAliasData += '    <Map Name=\"ext-dropboxforbusiness-method-listgroupmembers\" Link=\"Topics/Workflows/connector-reference/dropboxforbusiness/actions/listgroupmembers.htm\" ResolvedId=\"6017\" />';
+xmlAliasData += '    <Map Name=\"ext-dropboxforbusiness-method-listgroups\" Link=\"Topics/Workflows/connector-reference/dropboxforbusiness/actions/listgroupsinteam.htm\" ResolvedId=\"6018\" />';
+xmlAliasData += '    <Map Name=\"ext-dropboxforbusiness-method-listusers\" Link=\"Topics/Workflows/connector-reference/dropboxforbusiness/actions/listusersinteam.htm\" ResolvedId=\"6019\" />';
+xmlAliasData += '    <Map Name=\"ext-dropboxforbusiness-method-readgroup\" Link=\"Topics/Workflows/connector-reference/dropboxforbusiness/actions/readgroup.htm\" ResolvedId=\"6020\" />';
+xmlAliasData += '    <Map Name=\"ext-dropboxforbusiness-method-removeuserfromgroup\" Link=\"Topics/Workflows/connector-reference/dropboxforbusiness/actions/removeuserfromgroup.htm\" ResolvedId=\"6021\" />';
+xmlAliasData += '    <Map Name=\"ext-dropboxforbusiness-method-updategroup\" Link=\"Topics/Workflows/connector-reference/dropboxforbusiness/actions/updategroup.htm\" ResolvedId=\"6022\" />';
+xmlAliasData += '    <Map Name=\"ext-connectorbuilder-deploy-test\" Link=\"Topics/Workflows/connector-builder/deployment-test.htm\" ResolvedId=\"6029\" />';
+xmlAliasData += '    <Map Name=\"ext-connectorbuilder-deploy-private\" Link=\"Topics/Workflows/connector-builder/deployment-private.htm\" ResolvedId=\"6030\" />';
+xmlAliasData += '    <Map Name=\"ext-connectorbuilder-deploy-submission\" Link=\"Topics/Workflows/connector-builder/deployment-submission.htm\" ResolvedId=\"6031\" />';
+xmlAliasData += '    <Map Name=\"ext-office365mail-misc-guidance\" Link=\"Topics/Workflows/connector-reference/office365mail/overviews/guidanceforoffice365mailsconnector.htm\" ResolvedId=\"6032\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
