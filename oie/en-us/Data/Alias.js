@@ -576,6 +576,7 @@ xmlAliasData += '    <Map Name=\"csh-google-authenticator\" Link=\"Topics/identi
 xmlAliasData += '    <Map Name=\"ext-about-ssr\" Link=\"Topics/identity-engine/policies/about-ssr.htm\" ResolvedId=\"6019\" />';
 xmlAliasData += '    <Map Name=\"ext-create-pe-collect\" Link=\"Topics/identity-engine/policies/create-profile-enrollment-policy-pe.htm\" ResolvedId=\"6020\" />';
 xmlAliasData += '    <Map Name=\"csh-smart-card-authenticator\" Link=\"Topics/identity-engine/authenticators/smart-card-authenticator.htm\" ResolvedId=\"7004\" />';
+xmlAliasData += '    <Map Name=\"csh-permission-conditions\" Link=\"Topics/Security/custom-admin-role/permission-conditions.htm\" ResolvedId=\"19006\" />';
 xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-authz-permissions\" Link=\"Topics/Security/custom-admin-role/about-role-permissions.htm#Authorization_server_permissions\" ResolvedId=\"19010\" />';
 xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-customizations-permissions\" Link=\"Topics/Security/custom-admin-role/about-role-permissions.htm#Customization_permissions\" ResolvedId=\"19009\" />';
 xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-profile-source-permissions\" Link=\"Topics/Security/custom-admin-role/about-role-permissions.htm#Profile_source_permissions\" ResolvedId=\"19007\" />';
@@ -600,6 +601,8 @@ xmlAliasData += '    <Map Name=\"csh-siw-changes\" Link=\"Topics/identity-engine
 xmlAliasData += '    <Map Name=\"csh-device-assurance-delete-policy\" Link=\"Topics/identity-engine/devices/device-assurance-delete.htm\" ResolvedId=\"3001\" />';
 xmlAliasData += '    <Map Name=\"csh-siw-compare\" Link=\"Topics/Reference/siw-compare-generations.htm\" ResolvedId=\"5018\" />';
 xmlAliasData += '    <Map Name=\"csh-agent-auto-update-ldap\" Link=\"Topics/Directory/LDAP/agent-auto-update-ldap.htm\" ResolvedId=\"1044\" />';
+xmlAliasData += '    <Map Name=\"csh-self-service-process\" Link=\"Topics/identity-engine-upgrade/self-service/self-service-process.htm\" ResolvedId=\"19025\" />';
+xmlAliasData += '    <Map Name=\"csh-self-service-action-items\" Link=\"Topics/identity-engine-upgrade/self-service/self-service-action-items.htm\" ResolvedId=\"19027\" />';
 xmlAliasData += '    <Map Name=\"csh-email-optional\" Link=\"Topics/identity-engine-upgrade/email-optional.htm\" ResolvedId=\"18016\" />';
 xmlAliasData += '    <Map Name=\"csh-o365-custom-agent\" Link=\"Topics/identity-engine-upgrade/o365-custom-agent.htm\" ResolvedId=\"18017\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-remove-iwa-routing-rules\" Link=\"Topics/identity-engine-upgrade/dt-remove-iwa-routing-rules.htm\" ResolvedId=\"1072\" />';
