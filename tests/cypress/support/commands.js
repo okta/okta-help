@@ -2,6 +2,7 @@ Cypress.Commands.add('hasOktaHOCBanner', hasOktaHOCBanner)
 Cypress.Commands.add('hasCopyright', hasCopyright)
 Cypress.Commands.add('hasLeftSideNav', hasLeftSideNav)
 Cypress.Commands.add('hasNoLeftSideNav', hasNoLeftSideNav)
+Cypress.Commands.add('hasLeftSideNavHidden', hasLeftSideNavHidden)
 Cypress.Commands.add('hasTOC', hasTOC)
 Cypress.Commands.add('hasBreadcrumbs', hasBreadcrumbs)
 Cypress.Commands.add('hasTopMenuBar', hasTopMenuBar)
@@ -42,6 +43,11 @@ function hasLeftSideNav () {
 function hasNoLeftSideNav () {
   cy.get('ul.sidenav')
     .should('not.exist')
+}
+
+function hasLeftSideNavHidden () {
+  cy.get('ul.sidenav')
+    .should('not.be.visible')
 }
 
 function hasTOC (numOfEntries) {
