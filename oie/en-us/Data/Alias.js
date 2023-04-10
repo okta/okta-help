@@ -598,11 +598,14 @@ xmlAliasData += '    <Map Name=\"csh-create-resource-set\" Link=\"Topics/Securit
 xmlAliasData += '    <Map Name=\"csh-meta-work-accounts\" Link=\"Topics/Provisioning/meta/meta-work-accounts-provisioning.htm\" ResolvedId=\"16001\" />';
 xmlAliasData += '    <Map Name=\"csh-siw-changes\" Link=\"Topics/identity-engine-upgrade/siw-changes.htm\" ResolvedId=\"5017\" />';
 xmlAliasData += '    <Map Name=\"csh-device-assurance-delete-policy\" Link=\"Topics/identity-engine/devices/device-assurance-delete.htm\" ResolvedId=\"3001\" />';
+xmlAliasData += '    <Map Name=\"csh-siw-compare\" Link=\"Topics/Reference/siw-compare-generations.htm\" ResolvedId=\"5018\" />';
+xmlAliasData += '    <Map Name=\"csh-agent-auto-update-ldap\" Link=\"Topics/Directory/LDAP/agent-auto-update-ldap.htm\" ResolvedId=\"1044\" />';
 xmlAliasData += '    <Map Name=\"csh-email-optional\" Link=\"Topics/identity-engine-upgrade/email-optional.htm\" ResolvedId=\"18016\" />';
 xmlAliasData += '    <Map Name=\"csh-o365-custom-agent\" Link=\"Topics/identity-engine-upgrade/o365-custom-agent.htm\" ResolvedId=\"18017\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-remove-iwa-routing-rules\" Link=\"Topics/identity-engine-upgrade/dt-remove-iwa-routing-rules.htm\" ResolvedId=\"1072\" />';
 xmlAliasData += '    <Map Name=\"csh-custom-app-login-change\" Link=\"Topics/identity-engine-upgrade/custom-app-login.htm\" ResolvedId=\"5020\" />';
 xmlAliasData += '    <Map Name=\"csh-om-on-oie\" Link=\"Topics/identity-engine-upgrade/om-on-oie-end-user-experience.htm\" ResolvedId=\"3002\" />';
+xmlAliasData += '    <Map Name=\"ext-compare-siw\" Link=\"Topics/Reference/siw-compare-generations.htm\" ResolvedId=\"5021\" />';
 xmlAliasData += '    <Map Name=\"ext-trusted-origins\" Link=\"Topics/Security/API-trusted-origins.htm\" ResolvedId=\"-2147483648\" />';
 xmlAliasData += '    <Map Name=\"csh-disable-omm\" Link=\"Topics/identity-engine-upgrade/disable-omm.htm\" ResolvedId=\"3003\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-after-upgrade\" Link=\"Topics/identity-engine-upgrade/dt-after-upgrade.htm\" ResolvedId=\"3004\" />';
