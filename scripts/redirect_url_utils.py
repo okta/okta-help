@@ -13,6 +13,7 @@
 import os
 import re
 import argparse
+import csv
 
 FILE_TO_URL = 'scripts/file_to_url.txt'
 REDIRECT_FILE_TEMPLATE = '''<!DOCTYPE html>
@@ -29,15 +30,17 @@ REDIRECT_FILE_TEMPLATE = '''<!DOCTYPE html>
 def apply_map():
   total_files = 0
   with open(FILE_TO_URL, encoding="utf-8") as file_to_url:
-    for line in file_to_url:
-      file_path, redirect_to = line.split(',')
+    cvs_reader = csv.reader(file_to_url, delimiter=',', quotechar='|')
+    for row in cvs_reader:
+      file_path = row[0]
+      redirect_to = row[1]
 
       dir_name = os.path.dirname(file_path)
       if dir_name:
         os.makedirs(dir_name, exist_ok=True)
 
       with open(file_path, 'w', encoding="utf-8", newline='\r\n') as redirect_file:
-        redirect_contents = REDIRECT_FILE_TEMPLATE.format(redirect_to_url = redirect_to.strip())
+        redirect_contents = REDIRECT_FILE_TEMPLATE.format(redirect_to_url = redirect_to)
         redirect_file.write(redirect_contents)
       total_files += 1
 
@@ -62,6 +65,11 @@ def save_map():
   total_files = 0
 
   with open(FILE_TO_URL, 'w', encoding="utf-8") as file_to_url:
+    csv_writer = csv.writer(
+      file_to_url,
+      delimiter=',',
+      quotechar='|',
+      quoting=csv.QUOTE_MINIMAL)
     for subdir, dirs, files in os.walk(root_dir):
       for file in files:
           filepath = subdir + os.sep + file
@@ -70,7 +78,7 @@ def save_map():
               with open(filepath, encoding="utf-8") as htm_file:
                 found_redirect = re.search(redirect_url_regexp, htm_file.read())
                 if found_redirect:
-                  file_to_url.write(f'{filepath},{found_redirect.group(1)}\n')
+                  csv_writer.writerow([filepath, found_redirect.group(1)])
                   total_files += 1
 
   print(f'Found redirect files: {total_files}')
@@ -86,7 +94,7 @@ if __name__ == '__main__':
       default='apply_map')
   args = parser.parse_args()
 
-  if args.method == 'apply_map':
-    apply_map()
-  else:
+  if args.method == 'save_map':
     save_map()
+  else:
+    apply_map()
