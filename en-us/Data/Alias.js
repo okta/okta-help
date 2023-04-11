@@ -618,6 +618,7 @@ xmlAliasData += '    <Map Name=\"ver-hist_dt-macOS-desktop\" Link=\"Topics/Setti
 xmlAliasData += '    <Map Name=\"ver-hist_dt-win-desktop\" Link=\"Topics/Settings/Version_Histories/Ver_History_DeviceTrust_Installer_Windows.htm\" ResolvedId=\"1008\" />';
 xmlAliasData += '    <Map Name=\"vmware-horizon-radius-intg\" Link=\"Topics/integrations/vmware-horizon-radius-intg.htm\" ResolvedId=\"1059\" />';
 xmlAliasData += '    <Map Name=\"csh-add-admin-page\" Link=\"Topics/Security/custom-admin-role/about-admin-page.htm\" ResolvedId=\"19005\" />';
+xmlAliasData += '    <Map Name=\"csh-permission-conditions\" Link=\"Topics/Security/custom-admin-role/permission-conditions.htm\" ResolvedId=\"19006\" />';
 xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-authz-permissions\" Link=\"Topics/Security/custom-admin-role/about-role-permissions.htm#Authorization_server_permissions\" ResolvedId=\"19010\" />';
 xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-customizations-permissions\" Link=\"Topics/Security/custom-admin-role/about-role-permissions.htm#Customization_permissions\" ResolvedId=\"19009\" />';
 xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-profile-source-permissions\" Link=\"Topics/Security/custom-admin-role/about-role-permissions.htm#Profile_source_permissions\" ResolvedId=\"19007\" />';
@@ -639,5 +640,7 @@ xmlAliasData += '    <Map Name=\"csh-administrators-access-certs-admin\" Link=\"
 xmlAliasData += '    <Map Name=\"ext_okta_ends_browser_support_for_TLS_1_1\" Link=\"Topics/Browser-Plugin/okta-ends-browser-support-for-TLS-1.1.htm\" ResolvedId=\"1016\" />';
 xmlAliasData += '    <Map Name=\"csh-create-resource-set\" Link=\"Topics/Security/custom-admin-role/create-resource-set.htm\" ResolvedId=\"19024\" />';
 xmlAliasData += '    <Map Name=\"csh-meta-work-accounts\" Link=\"Topics/Provisioning/meta/meta-work-accounts-provisioning.htm\" ResolvedId=\"16001\" />';
+xmlAliasData += '    <Map Name=\"csh-agent-auto-update-ldap\" Link=\"Topics/Directory/LDAP/agent-auto-update-ldap.htm\" ResolvedId=\"1044\" />';
+xmlAliasData += '    <Map Name=\"ext-trusted-origins\" Link=\"Topics/Security/API-trusted-origins.htm\" ResolvedId=\"-2147483648\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
