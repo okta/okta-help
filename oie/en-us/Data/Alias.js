@@ -603,9 +603,11 @@ xmlAliasData += '    <Map Name=\"csh-siw-compare\" Link=\"Topics/Reference/siw-c
 xmlAliasData += '    <Map Name=\"csh-agent-auto-update-ldap\" Link=\"Topics/Directory/LDAP/agent-auto-update-ldap.htm\" ResolvedId=\"1044\" />';
 xmlAliasData += '    <Map Name=\"csh-self-service-process\" Link=\"Topics/identity-engine-upgrade/self-service/self-service-process.htm\" ResolvedId=\"19025\" />';
 xmlAliasData += '    <Map Name=\"csh-self-service-action-items\" Link=\"Topics/identity-engine-upgrade/self-service/self-service-action-items.htm\" ResolvedId=\"19027\" />';
+xmlAliasData += '    <Map Name=\"csh-post-upgrade-validation-tests\" Link=\"Topics/identity-engine-upgrade/self-service/post-upgrade-validation-tests.htm\" ResolvedId=\"19028\" />';
 xmlAliasData += '    <Map Name=\"csh-email-optional\" Link=\"Topics/identity-engine-upgrade/email-optional.htm\" ResolvedId=\"18016\" />';
 xmlAliasData += '    <Map Name=\"csh-o365-custom-agent\" Link=\"Topics/identity-engine-upgrade/o365-custom-agent.htm\" ResolvedId=\"18017\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-remove-iwa-routing-rules\" Link=\"Topics/identity-engine-upgrade/dt-remove-iwa-routing-rules.htm\" ResolvedId=\"1072\" />';
+xmlAliasData += '    <Map Name=\"csh-upgrade-siw\" Link=\"Topics/identity-engine-upgrade/self-service/upgrade-siw.htm\" ResolvedId=\"5019\" />';
 xmlAliasData += '    <Map Name=\"csh-custom-app-login-change\" Link=\"Topics/identity-engine-upgrade/custom-app-login.htm\" ResolvedId=\"5020\" />';
 xmlAliasData += '    <Map Name=\"csh-om-on-oie\" Link=\"Topics/identity-engine-upgrade/om-on-oie-end-user-experience.htm\" ResolvedId=\"3002\" />';
 xmlAliasData += '    <Map Name=\"ext-compare-siw\" Link=\"Topics/Reference/siw-compare-generations.htm\" ResolvedId=\"5021\" />';
@@ -613,5 +615,6 @@ xmlAliasData += '    <Map Name=\"ext-trusted-origins\" Link=\"Topics/Security/AP
 xmlAliasData += '    <Map Name=\"csh-disable-omm\" Link=\"Topics/identity-engine-upgrade/disable-omm.htm\" ResolvedId=\"3003\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-after-upgrade\" Link=\"Topics/identity-engine-upgrade/dt-after-upgrade.htm\" ResolvedId=\"3004\" />';
 xmlAliasData += '    <Map Name=\"csh-oie-upgrade-eligibility\" Link=\"Topics/identity-engine/oie-upgrade-eligibility.htm\" ResolvedId=\"-2147483648\" />';
+xmlAliasData += '    <Map Name=\"csh-test-ssr-upgrade\" Link=\"Topics/identity-engine-upgrade/self-service/ssr-test.htm\" ResolvedId=\"5022\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
