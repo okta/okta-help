@@ -1,0 +1,1 @@
+define({numchunks:1,prefix:'beta_lea_lga__toc_oda_win_mfa_Chunk',chunkstart:['/Content/Topics/oda/windows-mfa/configure-win-mfa-policies.htm'],tree:{n:[{i:0,c:0,n:[{i:1,c:0},{i:2,c:0},{i:3,c:0},{i:4,c:0}]},{i:5,c:0,n:[{i:6,c:0},{i:7,c:0}]}]}});
