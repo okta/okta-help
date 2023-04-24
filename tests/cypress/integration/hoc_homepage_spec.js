@@ -24,7 +24,7 @@ describe('Okta H.O.C. landing page (ja-JP)', () => {
   it('displays expected content structures in Japanese', () => {
     cy.hasOktaHOCBanner('Oktaサポート')
     cy.hasCopyright()
-    cy.hasNoLeftSideNav()
+    cy.hasLeftSideNavHidden()
     cy.hasTopMenuBar(5, 11)
     cy.hasBodyContent()
     cy.hasTiles(9)
