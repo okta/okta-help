@@ -1321,5 +1321,16 @@ xmlAliasData += '    <Map Name=\"ext-connectorbuilder-deploy-test\" Link=\"Topic
 xmlAliasData += '    <Map Name=\"ext-connectorbuilder-deploy-private\" Link=\"Topics/Workflows/connector-builder/deployment-private.htm\" ResolvedId=\"6030\" />';
 xmlAliasData += '    <Map Name=\"ext-connectorbuilder-deploy-submission\" Link=\"Topics/Workflows/connector-builder/deployment-submission.htm\" ResolvedId=\"6031\" />';
 xmlAliasData += '    <Map Name=\"ext-office365mail-misc-guidance\" Link=\"Topics/Workflows/connector-reference/office365mail/overviews/guidanceforoffice365mailsconnector.htm\" ResolvedId=\"6032\" />';
+xmlAliasData += '    <Map Name=\"ext-smarthr\" Link=\"Topics/Workflows/connector-reference/smarthr/smarthr.htm\" ResolvedId=\"6033\" />';
+xmlAliasData += '    <Map Name=\"ext-smarthr-misc-authorization\" Link=\"Topics/Workflows/connector-reference/smarthr/overviews/authorization.htm\" ResolvedId=\"6034\" />';
+xmlAliasData += '    <Map Name=\"ext-smarthr-method-listbusinessestablishments\" Link=\"Topics/Workflows/connector-reference/smarthr/actions/listbusinessestablishments.htm\" ResolvedId=\"6035\" />';
+xmlAliasData += '    <Map Name=\"ext-smarthr-method-listcustomfieldgroups\" Link=\"Topics/Workflows/connector-reference/smarthr/actions/listcustomfieldgroups.htm\" ResolvedId=\"6036\" />';
+xmlAliasData += '    <Map Name=\"ext-smarthr-method-listcustomfields\" Link=\"Topics/Workflows/connector-reference/smarthr/actions/listcustomfields.htm\" ResolvedId=\"6037\" />';
+xmlAliasData += '    <Map Name=\"ext-smarthr-method-listdepartments\" Link=\"Topics/Workflows/connector-reference/smarthr/actions/listdepartments.htm\" ResolvedId=\"6038\" />';
+xmlAliasData += '    <Map Name=\"ext-smarthr-method-listemploymenttypes\" Link=\"Topics/Workflows/connector-reference/smarthr/actions/listemploymenttypes.htm\" ResolvedId=\"6039\" />';
+xmlAliasData += '    <Map Name=\"ext-smarthr-method-listjobtitles\" Link=\"Topics/Workflows/connector-reference/smarthr/actions/listjobtitles.htm\" ResolvedId=\"6040\" />';
+xmlAliasData += '    <Map Name=\"ext-smarthr-method-reademployee\" Link=\"Topics/Workflows/connector-reference/smarthr/actions/reademployee.htm\" ResolvedId=\"6041\" />';
+xmlAliasData += '    <Map Name=\"ext-smarthr-method-searchemployees\" Link=\"Topics/Workflows/connector-reference/smarthr/actions/searchemployees.htm\" ResolvedId=\"6042\" />';
+xmlAliasData += '    <Map Name=\"ext-smarthr-method-updateemployee\" Link=\"Topics/Workflows/connector-reference/smarthr/actions/updateemployee.htm\" ResolvedId=\"6043\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
