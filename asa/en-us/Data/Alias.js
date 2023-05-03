@@ -37,5 +37,6 @@ xmlAliasData += '    <Map Name=\"ext_asa_on_demand_users\" Link=\"Topics/Adv_Ser
 xmlAliasData += '    <Map Name=\"ext_asa_service_users\" Link=\"Topics/Adv_Server_Access/docs/service-users.htm\" ResolvedId=\"1302\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-releasenotes\" Link=\"Topics/ReleaseNotes/advanced-server-access-release-notes.htm\" ResolvedId=\"1402\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-policysync\" Link=\"Topics/Adv_Server_Access/docs/policysync.htm\" ResolvedId=\"1000\" />';
+xmlAliasData += '    <Map Name=\"csh-asa-client-configuration-advanced\" Link=\"Topics/Adv_Server_Access/docs/ad-client-configuration-advanced.htm\" ResolvedId=\"1001\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
