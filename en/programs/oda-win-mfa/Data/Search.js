@@ -1,1 +1,1 @@
-define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../Content/Topics/oda/macos-password-sync/configure-macos-password-sync-policies.htm'],s:['0'],p:[['0',4]]});
+define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../Content/Topics/oda/windows-mfa/configure-win-mfa-policies.htm'],s:['0'],p:[['0',4]]});
