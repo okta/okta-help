@@ -646,5 +646,7 @@ xmlAliasData += '    <Map Name=\"ext-trusted-origins\" Link=\"Topics/Security/AP
 xmlAliasData += '    <Map Name=\"csh-customize-sign-in\" Link=\"Topics/Settings/settings-customize-sign-in-page.htm\" ResolvedId=\"5023\" />';
 xmlAliasData += '    <Map Name=\"csh-display-language\" Link=\"Topics/Settings/display-language.htm\" ResolvedId=\"5024\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-sign-out\" Link=\"Topics/Settings/settings-configure-sign-out.htm\" ResolvedId=\"5025\" />';
+xmlAliasData += '    <Map Name=\"csh-apps-aiw-saml-advanced\" Link=\"Topics/Apps/aiw-saml-reference.htm\" ResolvedId=\"16002\" />';
+xmlAliasData += '    <Map Name=\"csh-attribute-statements-saml\" Link=\"Topics/Apps/aiw-saml-reference.htm\" ResolvedId=\"16003\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
