@@ -1,1 +1,1 @@
-define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../Content/Topics/betas/closed/windows-mfa/win-mfa-known-issues.htm'],s:['0'],p:[['0',2]]});
+define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../Content/Topics/betas/closed/windows-mfa/win-mfa-user-enroll-method.htm'],s:['a'],p:[['a',0]]});
