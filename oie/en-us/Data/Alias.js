@@ -597,6 +597,7 @@ xmlAliasData += '    <Map Name=\"csh-create-resource-set\" Link=\"Topics/Securit
 xmlAliasData += '    <Map Name=\"csh-meta-work-accounts\" Link=\"Topics/Provisioning/meta/meta-work-accounts-provisioning.htm\" ResolvedId=\"16001\" />';
 xmlAliasData += '    <Map Name=\"csh-siw-changes\" Link=\"Topics/identity-engine-upgrade/siw-changes.htm\" ResolvedId=\"5017\" />';
 xmlAliasData += '    <Map Name=\"csh-device-assurance-delete-policy\" Link=\"Topics/identity-engine/devices/device-assurance-delete.htm\" ResolvedId=\"3001\" />';
+xmlAliasData += '    <Map Name=\"csh-event-hooks-el\" Link=\"Topics/automation-hooks/event-hooks-el.htm\" ResolvedId=\"9008\" />';
 xmlAliasData += '    <Map Name=\"csh-siw-compare\" Link=\"Topics/Reference/siw-compare-generations.htm\" ResolvedId=\"5018\" />';
 xmlAliasData += '    <Map Name=\"csh-agent-auto-update-ldap\" Link=\"Topics/Directory/LDAP/agent-auto-update-ldap.htm\" ResolvedId=\"1044\" />';
 xmlAliasData += '    <Map Name=\"csh-self-service-process\" Link=\"Topics/identity-engine-upgrade/self-service/self-service-process.htm\" ResolvedId=\"19025\" />';
@@ -612,10 +613,12 @@ xmlAliasData += '    <Map Name=\"ext-compare-siw\" Link=\"Topics/Reference/siw-c
 xmlAliasData += '    <Map Name=\"ext-trusted-origins\" Link=\"Topics/Security/API-trusted-origins.htm\" ResolvedId=\"-2147483648\" />';
 xmlAliasData += '    <Map Name=\"csh-disable-omm\" Link=\"Topics/identity-engine-upgrade/disable-omm.htm\" ResolvedId=\"3003\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-after-upgrade\" Link=\"Topics/identity-engine-upgrade/dt-after-upgrade.htm\" ResolvedId=\"3004\" />';
+xmlAliasData += '    <Map Name=\"ext-event-hooks-filters\" Link=\"Topics/automation-hooks/event-hooks-filters.htm\" ResolvedId=\"9009\" />';
 xmlAliasData += '    <Map Name=\"csh-oie-upgrade-eligibility\" Link=\"Topics/identity-engine/oie-upgrade-eligibility.htm\" ResolvedId=\"-2147483648\" />';
 xmlAliasData += '    <Map Name=\"csh-test-ssr-upgrade\" Link=\"Topics/identity-engine-upgrade/self-service/ssr-test.htm\" ResolvedId=\"5022\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-upgrade-considerations\" Link=\"Topics/identity-engine-upgrade/dt-upgrade-considerations.htm\" ResolvedId=\"1111\" />';
 xmlAliasData += '    <Map Name=\"csh-migrate-from-dt-to-fp-troubleshooting\" Link=\"Topics/identity-engine-upgrade/migrate-from-dt-to-fp-troubleshooting.htm\" ResolvedId=\"1137\" />';
+xmlAliasData += '    <Map Name=\"csh-work-with-admin-assign-admin-role-to-apps\" Link=\"Topics/Security/custom-admin-role/work-with-admin.htm#Assign_admin_roles_to_apps\" ResolvedId=\"18019\" />';
 xmlAliasData += '    <Map Name=\"ext-device-assurance\" Link=\"Topics/identity-engine/devices/device-assurance.htm\" ResolvedId=\"17031\" />';
 xmlAliasData += '    <Map Name=\"ext-device-health-what-is-this\" Link=\"Topics/identity-engine/devices/device-assurance.htm\" ResolvedId=\"21001\" />';
 xmlAliasData += '    <Map Name=\"csh-customize-sign-in\" Link=\"Topics/Settings/settings-customize-sign-in-page.htm\" ResolvedId=\"5023\" />';

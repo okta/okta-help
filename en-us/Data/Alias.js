@@ -504,7 +504,7 @@ xmlAliasData += '    <Map Name=\"ext_sar\" Link=\"Topics/Security/suspicious-act
 xmlAliasData += '    <Map Name=\"ext_secpol_configpp\" Link=\"Topics/Security/policies/configure-password-policies.htm#Configur\" ResolvedId=\"1124\" />';
 xmlAliasData += '    <Map Name=\"ext_secpol_configur\" Link=\"Topics/Security/policies/configure-password-policies.htm#Configur\" ResolvedId=\"1121\" />';
 xmlAliasData += '    <Map Name=\"ext_secpol_group\" Link=\"Topics/Security/policies/configure-password-policies.htm\" ResolvedId=\"1123\" />';
-xmlAliasData += '    <Map Name=\"ext_secpol_lockout\" Link=\"Topics/Security/policies/configure-password-policies.htm#lockout\" ResolvedId=\"18001\" />';
+xmlAliasData += '    <Map Name=\"ext_secpol_lockout\" Link=\"Topics/Security/policies/configure-password-policies.htm#Lockout\" ResolvedId=\"18001\" />';
 xmlAliasData += '    <Map Name=\"ext_secpol_passpol\" Link=\"Topics/Security/policies/about-password-policies.htm#PassPolOver\" ResolvedId=\"1122\" />';
 xmlAliasData += '    <Map Name=\"ext_secpol_poleval\" Link=\"Topics/Security/policies/about-signon-policies.htm#Understanding\" ResolvedId=\"1125\" />';
 xmlAliasData += '    <Map Name=\"ext_secpol_signonpolrules\" Link=\"Topics/Security/policies/configure-signon-policies.htm#Creating2\" ResolvedId=\"1126\" />';
@@ -641,8 +641,11 @@ xmlAliasData += '    <Map Name=\"csh-administrators-access-certs-admin\" Link=\"
 xmlAliasData += '    <Map Name=\"ext_okta_ends_browser_support_for_TLS_1_1\" Link=\"Topics/Browser-Plugin/okta-ends-browser-support-for-TLS-1.1.htm\" ResolvedId=\"1016\" />';
 xmlAliasData += '    <Map Name=\"csh-create-resource-set\" Link=\"Topics/Security/custom-admin-role/create-resource-set.htm\" ResolvedId=\"19024\" />';
 xmlAliasData += '    <Map Name=\"csh-meta-work-accounts\" Link=\"Topics/Provisioning/meta/meta-work-accounts-provisioning.htm\" ResolvedId=\"16001\" />';
+xmlAliasData += '    <Map Name=\"csh-event-hooks-el\" Link=\"Topics/automation-hooks/event-hooks-el.htm\" ResolvedId=\"9008\" />';
 xmlAliasData += '    <Map Name=\"csh-agent-auto-update-ldap\" Link=\"Topics/Directory/LDAP/agent-auto-update-ldap.htm\" ResolvedId=\"1044\" />';
 xmlAliasData += '    <Map Name=\"ext-trusted-origins\" Link=\"Topics/Security/API-trusted-origins.htm\" ResolvedId=\"-2147483648\" />';
+xmlAliasData += '    <Map Name=\"ext-event-hooks-filters\" Link=\"Topics/automation-hooks/event-hooks-filters.htm\" ResolvedId=\"9009\" />';
+xmlAliasData += '    <Map Name=\"csh-work-with-admin-assign-admin-role-to-apps\" Link=\"Topics/Security/custom-admin-role/work-with-admin.htm#Assign_admin_roles_to_apps\" ResolvedId=\"18019\" />';
 xmlAliasData += '    <Map Name=\"csh-customize-sign-in\" Link=\"Topics/Settings/settings-customize-sign-in-page.htm\" ResolvedId=\"5023\" />';
 xmlAliasData += '    <Map Name=\"csh-display-language\" Link=\"Topics/Settings/display-language.htm\" ResolvedId=\"5024\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-sign-out\" Link=\"Topics/Settings/settings-configure-sign-out.htm\" ResolvedId=\"5025\" />';
