@@ -48,6 +48,7 @@ xmlAliasData += '    <Map Name=\"csh-apps-aiw-swa\" Link=\"Topics/Apps/Apps_App_
 xmlAliasData += '    <Map Name=\"csh-apps-learn-about\" Link=\"Topics/Apps/apps-overview-learn-about.htm\" ResolvedId=\"6004\" />';
 xmlAliasData += '    <Map Name=\"csh-ar-create-req-type\" Link=\"Topics/identity-governance/access-requests/ar-create-request-type.htm\" ResolvedId=\"13018\" />';
 xmlAliasData += '    <Map Name=\"csh-assign-apps\" Link=\"Topics/users-groups-profiles/usgp-assign-apps.htm\" ResolvedId=\"20008\" />';
+xmlAliasData += '    <Map Name=\"csh-oce\" Link=\"index-admin.htm\" ResolvedId=\"1109\" />';
 xmlAliasData += '    <Map Name=\"csh-best-practice-cstm-admin-roles\" Link=\"Topics/Security/custom-admin-role/best-practices-custom-admin-roles.htm\" ResolvedId=\"13001\" />';
 xmlAliasData += '    <Map Name=\"csh-blacklist-proxies-tor\" Link=\"Topics/Security/healthinsight/blocklist-proxies-tor.htm\" ResolvedId=\"1284\" />';
 xmlAliasData += '    <Map Name=\"csh-blacklist-zones\" Link=\"Topics/Security/healthinsight/blocklist-network-zone.htm\" ResolvedId=\"1184\" />';
@@ -503,7 +504,7 @@ xmlAliasData += '    <Map Name=\"ext_sar\" Link=\"Topics/Security/suspicious-act
 xmlAliasData += '    <Map Name=\"ext_secpol_configpp\" Link=\"Topics/Security/policies/configure-password-policies.htm#Configur\" ResolvedId=\"1124\" />';
 xmlAliasData += '    <Map Name=\"ext_secpol_configur\" Link=\"Topics/Security/policies/configure-password-policies.htm#Configur\" ResolvedId=\"1121\" />';
 xmlAliasData += '    <Map Name=\"ext_secpol_group\" Link=\"Topics/Security/policies/configure-password-policies.htm\" ResolvedId=\"1123\" />';
-xmlAliasData += '    <Map Name=\"ext_secpol_lockout\" Link=\"Topics/Security/policies/configure-password-policies.htm#lockout\" ResolvedId=\"18001\" />';
+xmlAliasData += '    <Map Name=\"ext_secpol_lockout\" Link=\"Topics/Security/policies/configure-password-policies.htm#Lockout\" ResolvedId=\"18001\" />';
 xmlAliasData += '    <Map Name=\"ext_secpol_passpol\" Link=\"Topics/Security/policies/about-password-policies.htm#PassPolOver\" ResolvedId=\"1122\" />';
 xmlAliasData += '    <Map Name=\"ext_secpol_poleval\" Link=\"Topics/Security/policies/about-signon-policies.htm#Understanding\" ResolvedId=\"1125\" />';
 xmlAliasData += '    <Map Name=\"ext_secpol_signonpolrules\" Link=\"Topics/Security/policies/configure-signon-policies.htm#Creating2\" ResolvedId=\"1126\" />';
@@ -640,7 +641,15 @@ xmlAliasData += '    <Map Name=\"csh-administrators-access-certs-admin\" Link=\"
 xmlAliasData += '    <Map Name=\"ext_okta_ends_browser_support_for_TLS_1_1\" Link=\"Topics/Browser-Plugin/okta-ends-browser-support-for-TLS-1.1.htm\" ResolvedId=\"1016\" />';
 xmlAliasData += '    <Map Name=\"csh-create-resource-set\" Link=\"Topics/Security/custom-admin-role/create-resource-set.htm\" ResolvedId=\"19024\" />';
 xmlAliasData += '    <Map Name=\"csh-meta-work-accounts\" Link=\"Topics/Provisioning/meta/meta-work-accounts-provisioning.htm\" ResolvedId=\"16001\" />';
+xmlAliasData += '    <Map Name=\"csh-event-hooks-el\" Link=\"Topics/automation-hooks/event-hooks-el.htm\" ResolvedId=\"9008\" />';
 xmlAliasData += '    <Map Name=\"csh-agent-auto-update-ldap\" Link=\"Topics/Directory/LDAP/agent-auto-update-ldap.htm\" ResolvedId=\"1044\" />';
 xmlAliasData += '    <Map Name=\"ext-trusted-origins\" Link=\"Topics/Security/API-trusted-origins.htm\" ResolvedId=\"-2147483648\" />';
+xmlAliasData += '    <Map Name=\"ext-event-hooks-filters\" Link=\"Topics/automation-hooks/event-hooks-filters.htm\" ResolvedId=\"9009\" />';
+xmlAliasData += '    <Map Name=\"csh-work-with-admin-assign-admin-role-to-apps\" Link=\"Topics/Security/custom-admin-role/work-with-admin.htm#Assign_admin_roles_to_apps\" ResolvedId=\"18019\" />';
+xmlAliasData += '    <Map Name=\"csh-customize-sign-in\" Link=\"Topics/Settings/settings-customize-sign-in-page.htm\" ResolvedId=\"5023\" />';
+xmlAliasData += '    <Map Name=\"csh-display-language\" Link=\"Topics/Settings/display-language.htm\" ResolvedId=\"5024\" />';
+xmlAliasData += '    <Map Name=\"csh-configure-sign-out\" Link=\"Topics/Settings/settings-configure-sign-out.htm\" ResolvedId=\"5025\" />';
+xmlAliasData += '    <Map Name=\"csh-apps-aiw-saml-advanced\" Link=\"Topics/Apps/aiw-saml-reference.htm\" ResolvedId=\"16002\" />';
+xmlAliasData += '    <Map Name=\"csh-attribute-statements-saml\" Link=\"Topics/Apps/aiw-saml-reference.htm\" ResolvedId=\"16003\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
