@@ -625,7 +625,6 @@ xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-customizations-permissions\
 xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-profile-source-permissions\" Link=\"Topics/Security/custom-admin-role/about-role-permissions.htm#Profile_source_permissions\" ResolvedId=\"19007\" />';
 xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-workflow-permissions\" Link=\"Topics/Security/custom-admin-role/about-role-permissions.htm#Workflow_permissions\" ResolvedId=\"19008\" />';
 xmlAliasData += '    <Map Name=\"csh-about-reviewing\" Link=\"Topics/identity-governance/access-certification/iga-ac-about-reviewing-campaigns.htm\" ResolvedId=\"13019\" />';
-xmlAliasData += '    <Map Name=\"csh-administrators-third-party-admin\" Link=\"Topics/Security/administrators-third-party-admin.htm\" ResolvedId=\"19011\" />';
 xmlAliasData += '    <Map Name=\"csh-administrators-super-admin\" Link=\"Topics/Security/administrators-super-admin.htm\" ResolvedId=\"19012\" />';
 xmlAliasData += '    <Map Name=\"csh-administrators-report-admin\" Link=\"Topics/Security/administrators-report-admin.htm\" ResolvedId=\"19013\" />';
 xmlAliasData += '    <Map Name=\"csh-administrators-read-only-admin\" Link=\"Topics/Security/administrators-read-only-admin.htm\" ResolvedId=\"19014\" />';
