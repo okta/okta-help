@@ -290,9 +290,11 @@
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
                                                     <h1>容量計画およびサイジング</h1>
-                                                    <p>パフォーマンスの達成には、Okta <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>の実装で必要な容量を決定することがきわめて重要です。</p>
-                                                    <p>容量計画とサイジングの概念については、「<a href="about-cap-planning.htm" class="MCXref xref">容量計画およびサイジング</a>」を参照してください。</p>
+                                                    <p><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>に必要なディスク容量を決定することで、最適なパフォーマンスを確保し、将来の成長を計画することができます。 </p>
+                                                    <h2>トピック</h2>
                                                     <ul>
+                                                        <li><a href="#Capacity" class="MCXref xref">容量計画のコンセプト</a>
+                                                        </li>
                                                         <li><a href="#AccessRates" class="MCXref xref">アクセスレートを推定する</a>
                                                         </li>
                                                         <li><a href="#Sizing" class="MCXref xref">サイジング</a>
@@ -300,63 +302,101 @@
                                                         <li><a href="#Scaling" class="MCXref xref">スケーリング</a>
                                                         </li>
                                                     </ul>
+                                                    <h2><a name="Capacity"></a>容量計画のコンセプト</h2>
+                                                    <div>
+                                                        <p>成功への最初のステップでは、パフォーマンスを考慮した<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>デプロイメントを計画します。一般的なアプローチは、アプリケーションごとに予測される認証と承認のピーク数を推定することです。</p>
+                                                        <p>一般的に、次の項目がパフォーマンスに影響を及ぼします：</p>
+                                                        <ul>
+                                                            <li><span class="wintitle">ユーザー</span>：システムユーザーの総数。</li>
+                                                            <li><span class="wintitle">アクセス</span>：単位時間にユーザーがシステムにアクセスする合計回数。一般的に、時間間隔の基本的な単位時間として24時間を使用します。ただし、週や月を使用した長い期間の方が、より正確に推定できます。</li>
+                                                            <li><span class="wintitle">ピーク認証/承認レート</span>：ピークレートは、特定の期間で想定されるユーザー認証/承認の最高レベルを示します。ピークレートは、予想される最高のアクセスレベルを表します。 </li>
+                                                            <li><span class="wintitle">平均認証/承認レート</span>：平均または持続認証/承認レートは、特定の期間（例えば1日）に想定される標準を示します。</li>
+                                                        </ul>
+                                                        <p>さらに、必要容量を決定する際は、<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>によって保護されるアプリケーションの総数を考慮します。</p>
+                                                    </div>
                                                     <h2><a name="AccessRates"></a>アクセスレートを推定する</h2>
                                                     <div>
+                                                        <h3>平均アクセスレートを計算する</h3>
                                                         <p>平均アクセスレートは、<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>の特定のインスタンスがサポートする必要があるアクセス数の下限を表します。システムにアクセスするユーザーのセットを調べることで、平均アクセスレートを推定できます。 </p>
-                                                        <p>平均アクセスレートを推定するには、次のことを決定します：</p>
+                                                        <p>平均アクセスレートを推定するには、まず次の値を決定して計算例で使用します。</p>
                                                         <ul>
-                                                            <li>ユーザー総数：このインスタンスは、合計で何人のユーザーにサービスを提供するか？この値は、ゲートウェイにアクセスする可能性のあるユーザーの総数を表します。</li>
-                                                            <li>1日当たりの推定ユーザー数：特定の日にアプリケーションを使用するユーザーの割合（%）。</li>
-                                                            <li>1日当たりの推定アクセス数：特定のユーザーが特定の日にアプリケーションにアクセスする回数。 </li>
-                                                            <li>各セッションのページアクセス数：認証済みユーザーの所定のセットについて、1回のセッション中に予想されるページアクセス数はいくらか？</li>
+                                                            <li><span class="wintitle">総ユーザー数</span>：このインスタンスは合計で何人のユーザーに対応するか？この値は、ゲートウェイにアクセスする可能性のあるユーザーの総数を表します。</li>
+                                                            <li><span class="wintitle">1日あたりの推定ユーザー数</span>：所定の日にアプリケーションを使用するユーザーの割合（%）。</li>
+                                                            <li><span class="wintitle">1日あたりの推定アクセス数</span>：特定のユーザーが特定の日にアプリケーションにアクセスする回数。 </li>
+                                                            <li><span class="wintitle">各セッションのページアクセス数</span>：単一セッション中に所定の認証済みユーザーセットで想定されるページアクセス数。</li>
                                                         </ul>
-                                                        <p>これらの概念を念頭に置いて、平均認証レートを次のように推定することができます：</p>
+                                                        <div class="noteOkta">
+                                                            <p class="noteContent">これらの計算には、次の算術表記が使用されます。</p>
+                                                            <ul>
+                                                                <li>* 乗算</li>
+                                                                <li>/ 除算</li>
+                                                                <li>+ 加算</li>
+                                                                <li>- 減算</li>
+                                                                <li>= 等号</li>
+                                                            </ul>
+                                                        </div>
+                                                        <h4>平均認証レートの決定</h4>
                                                         <ul>
-                                                            <li>平均ユーザー数 = ユーザー総数/1日当たりの推定ユーザー数</li>
-                                                            <li>平均アクセス数 = 平均ユーザー数/1日当たりの推定アクセス数</li>
+                                                            <li>平均ユーザー数 = 総ユーザー数 / 1日当たりの推定ユーザー数</li>
+                                                            <li>平均アクセス数 = 平均ユーザー数 / 1日当たりの推定アクセス数</li>
                                                         </ul>
-                                                        <p>次のことを調査して、全体のアクセス数を外挿します：</p>
+                                                        <h4>全体的アクセス数の推定</h4>
                                                         <ul>
-                                                            <li>全体のアクセス数 = 平均アクセス数 x ページアクセス数</li>
+                                                            <li>全体的アクセス数 = 平均アクセス数 * ページアクセス数</li>
+                                                            <li>全体的平均アクセス数 = 平均ユーザー数 * 1日あたりのアクセス数</li>
                                                         </ul>
-                                                        <p>ユーザーをシステムにアクセスする頻度でグループ化することを検討します。</p>
+                                                        <h3>ユーザーのタイプ別にグループ化</h3>
+                                                        <p>システムにアクセスする頻度に応じてユーザーをグループ化します。</p>
                                                         <ul>
-                                                            <li>頻繁なユーザー：頻繁なユーザーは、通常1日に複数回、定期的にシステムにアクセスします。</li>
-                                                            <li>頻繁でないユーザー：ユーザーはシステムに時折アクセスしますが、頻度は頻繁なユーザーに比べてはるかに低くなります。 </li>
-                                                            <li> まれなユーザー：まれなユーザーは、1週間に1回～3回システムにアクセスします。</li>
+                                                            <li><span class="wintitle">頻繁なユーザー</span>：頻繁なユーザーは、通常は1日に複数回、定期的にシステムにアクセスします。</li>
+                                                            <li><span class="wintitle">頻繁でないユーザー</span>：頻繁でないユーザーはシステムに時折アクセスしますが、頻繁なユーザーに比べて頻度ははるかに低くなります。 </li>
+                                                            <li><span class="wintitle">まれなユーザー</span>：まれなユーザーは、多くても1週間に1～3回しかシステムにアクセスしません。</li>
                                                         </ul>
-                                                        <p>次の例では、推定値を計算する方法を示しています。</p>
+                                                        <h4>計算例</h4>
+                                                        <p>次の例は、推定値の計算方法を示しています。</p>
                                                         <ul>
                                                             <li>ユーザー総数が10,000人であると仮定します。 </li>
-                                                            <li>頻繁な平均アクセス数 = 10,000 x 頻繁なユーザーの数</li>
+                                                            <li>頻繁な平均アクセス回数 = 10,000 * 頻繁なユーザーの数</li>
                                                         </ul>
-                                                        <p>ユーザーの50%が頻繁なユーザーがであると仮定した場合、基準値は5,000となります。</p>
-                                                        <p>頻繁なユーザーは、通常1日当たり5回以上システムにアクセスします。頻繁なユーザーの数を計算するには、次の式を利用します：</p>
+                                                        <h4>頻繁なユーザーのアクセスレートの計算</h4>
+                                                        <p>ユーザーの50%が頻繁なユーザーであると仮定すると、基準値は5,000となります。</p>
+                                                        <p>頻繁なユーザーは、通常1日あたり5回以上システムにアクセスします。頻繁なユーザーの数の計算には次の式を利用します。</p>
                                                         <ul>
-                                                            <li>頻繁なユーザー数 x 1日当たりのアクセス数 = 5 x 5,000 = 25,000</li>
+                                                            <li>頻繁なユーザーの数 * 1日あたりのアクセス回数 = 5,000 * 5 = 25,000</li>
                                                         </ul>
-                                                        <p>頻繁でないユーザーのシステムへのアクセスは1日当たり2～3回で、ユーザーベースのその他の25%を表します。</p>
+                                                        <div>
+                                                            <h4>頻繁でないユーザーのアクセスレートの計算</h4>
+                                                            <p>頻繁でないユーザーは、1日に2～3回システムにアクセスします。ここでは、ユーザーベースの25%を占めるものとします。1日に2回アクセスすると仮定すると、頻繁でないユーザーによるアクセスの回数は、頻繁でないユーザーの数に1日あたりのアクセス回数を掛け合わせたものとなります。 </p>
+                                                            <p>頻繁でないユーザーの数 = 10,000の25% = 2,500 </p>
+                                                            <p>1日あたりのアクセス回数 = 2</p>
+                                                            <p>頻繁でないユーザーの全体的アクセス回数 = 2500（頻繁でないユーザーの数） * 2（1日あたりのアクセス回数） = 5000</p>
+                                                            <p> 頻繁でないユーザーの1日あたりのシステムアクセスが最大3回であれば、頻繁でないユーザーの1日あたりの全体的アクセス数は7,500に達する可能性があります。</p>
+                                                        </div>
+                                                        <div>
+                                                            <h4>まれなユーザーのアクセスレートの計算</h4>
+                                                            <p>まれなユーザーは、ユーザーベースの残りの25％を占めます。これらのユーザーは、最大で1日に1回システムにアクセスしますが、通常は数日に1回しかアクセスしません。 </p>
+                                                            <p>まれなユーザーの数 = 10,000の25% = 2,500</p>
+                                                            <p>1日あたりのアクセス回数 = 1</p>
+                                                            <p>アクセスの希少性 = 2日に1回 = 0.5</p>
+                                                            <p>まれなユーザーの全体的アクセス回数 = 2500（まれなユーザーの総数） * 1（1日あたりのアクセス回数） * 0.5（アクセスの希少性） = 1,250</p>
+                                                        </div>
+                                                        <h3>全ユーザータイプの推定総アクセス回数</h3>
+                                                        <p>各ユーザータイプの計算に基づいて、1日のピーク使用量を推定できます。</p>
                                                         <ul>
-                                                            <li>頻繁でないユーザー x 1日当たりのアクセス数 = 10,000 x 25 = 2,500だとして、2,500の頻繁でないユーザーがシステムに3回アクセスすることにより、1日当たりのアクセス数が7,500になります。</li>
-                                                        </ul>
-                                                        <p>まれなユーザーとは、ユーザーベースのうちの残りの25％を示します。これらのユーザーは、最大で1日に1回システムにアクセスしますが、通常は数日に1回しかアクセスしません。 </p>
-                                                        <p>まれなアクセス = まれなユーザー総数 x アクセス総数 x まれなアクセス（一日おき）= 2,500 x 1 x .5 = 1,250（アクセス総数）。</p>
-                                                        <p>毎日のピーク時の使用量を以下のように推定できます：</p>
-                                                        <ul>
-                                                            <li>頻繁なアクセス数：25,000</li>
+                                                            <li>頻繁なユーザーによるアクセス数：25,000</li>
                                                             <li>頻繁でないアクセス数：7,500</li>
-                                                            <li>まれなアクセス数：1,250 </li>
-                                                            <li>これによって、1日のアクセス総数は33,750となります。<br /><br /></li>
+                                                            <li>まれなユーザーによるアクセス数：1,250 </li>
+                                                            <li>これにより、1日のアクセス総数は33,750となります。</li>
                                                         </ul>
                                                     </div>
                                                     <h2><a name="Sizing"></a>サイジング</h2>
                                                     <div>
-                                                        <p>サイジングを計算する際には、以下の項目を考慮してください：</p>
+                                                        <p>サイジングの計算では、次の項目を考慮します。</p>
                                                         <ul>
-                                                            <li>コア - CPU/コアの総数</li>
-                                                            <li>RAM - 一般的なメモリー要件</li>
-                                                            <li>ストレージ - ディスクスペースはどの程度必要か？主にロギングの目的で使用します。 </li>
-                                                            <li>NIC - スループット要件は？</li>
+                                                            <li><span class="wintitle">コア</span>：CPU/コアの総数。</li>
+                                                            <li><span class="wintitle">RAM</span>：一般的なメモリー要件。</li>
+                                                            <li><span class="wintitle">ストレージ</span>：どの程度のディスク容量が必要か？主にロギングに使用されます。 </li>
+                                                            <li><span class="wintitle">NIC</span>：どの程度のスループットが必要か？</li>
                                                         </ul>
                                                         <h3>用語と定義：</h3>
                                                         <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
@@ -379,7 +419,7 @@
                                                                         </p>
                                                                     </td>
                                                                     <td class="TableStyle-standard-BodyD-Column1-Body1">
-                                                                        <p><span class="mc-variable okta-feature-names.Access Gateway_UI variable">Access Gateway 管理 UI コンソール</span>で定義され、アプリケーションページにリストされているアプリケーションへの参照</p>
+                                                                        <p><span class="mc-variable okta-feature-names.Access Gateway_UI variable">Access Gateway 管理者UI コンソール</span>で定義され、アプリケーションページにリストされているアプリケーションへの参照</p>
                                                                     </td>
                                                                 </tr>
                                                                 <tr class="TableStyle-standard-Body-Body2">
@@ -412,32 +452,32 @@
                                                             </tbody>
                                                         </table>
                                                         <h3>メモリーサイジング</h3>
-                                                        <p><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>アプライアンスのメモリーの使用量は、次のように分けられます。</p>
+                                                        <p><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>アプライアンスのメモリ使用は、次のように分けられます。</p>
                                                         <ul>
-                                                            <li>OS、<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>エンジン、およびマイクロサービス。実働環境では1.5GBが最小と見なされます。 </li>
-                                                            <li>キャッシュされたセッション：128MB以上。</li>
+                                                            <li><span class="wintitle">オペレーティングシステム、<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>エンジン、マイクロサービス</span>：本番環境では1.5GBが最小と見なされます。 </li>
+                                                            <li><span class="wintitle">キャッシュセッション</span>：128MB以上。</li>
                                                         </ul>
-                                                        <p>OS、コア<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>、およびマイクロサービスメモリーは固定されているため、メモリー要件の決定は、主にキャッシュセッションサイジングに焦点が当てられます。 <br /></p>
+                                                        <p>オペレーティングシステム、コア<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>、マイクロサービスのメモリ要件は固定されているため、メモリ要件の決定では、主にキャッシュセッションのサイジングに重点が置かれます。 <br /></p>
                                                         <p>メモリーサイズを決定するには、次の点を考慮します。</p>
                                                         <ul>
-                                                            <li>総セッション数 - 任意の時間でのメモリーセッションの最大数。</li>
-                                                            <li>平均セッションサイズ - 任意のセッションの平均予想サイズ。</li>
+                                                            <li><span class="wintitle">総セッション数</span>：任意の時間におけるメモリーセッションの最大数。</li>
+                                                            <li><span class="wintitle">平均セッションサイズ</span>：任意のセッションの平均推定サイズ。</li>
                                                         </ul>
                                                         <p>総セッション数の計算には、次のいずれかを使用します。</p>
                                                         <ul>
                                                             <li>ユーザー数</li>
                                                             <li>1日当たりのユーザーサインインイベントの割合（%）</li>
-                                                            <li>アクセスされたアプリケーション数</li>
-                                                            <li>総セッション数 = <span class="msgblock">ユーザー数 x 1日当たりのユーザーサインインの割合（%） x アクセスされたアプリケーション数</span></li>
+                                                            <li>アクセスされたアプリケーションの数</li>
+                                                            <li>総セッション数 = ユーザー数 * 1日当たりのユーザーサインインの割合（%） * アクセスされたアプリケーションの数</li>
                                                         </ul>
-                                                        <p>セッションサイズは、次の関数です。</p>
+                                                        <p>セッションサイズは次のような関数です。</p>
                                                         <ul>
-                                                            <li>デフォルトサイズが1024bまでのアプリケーションセッションとアプリケーション属性</li>
-                                                            <li>1024bまでのKerberosチケット（該当する場合）、ただし、アクセスされるIISアプリケーションの数に応じて多くなります</li>
+                                                            <li>アプリケーションセッションとアプリケーション属性、デフォルトサイズは約1024バイト</li>
+                                                            <li>Kerberosチケット（該当する場合）、約1024バイト（ただし、アクセスされるIISアプリケーションの数に応じて多くの場合はこれより大きくなります）</li>
                                                         </ul>
-                                                        <p>セッションキャッシュは次ように計算します。</p>
+                                                        <p>セッションキャッシュは次のように計算します。</p>
                                                         <ul>
-                                                            <li>セッションキャッシュ = <span class="msgblock">総セッション数 x（平均セッションサイズ x  2）</span></li>
+                                                            <li>セッションキャッシュ = 総セッション数 x（平均セッションサイズ x  2）</li>
                                                         </ul>
                                                         <p>例：</p>
                                                         <table style="mc-table-style: url('../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
@@ -446,7 +486,7 @@
                                                             <col class="TableStyle-standard-Column-Column1" style="width: 74pt;" />
                                                             <col class="TableStyle-standard-Column-Column1" style="width: 12pt;" />
                                                             <col class="TableStyle-standard-Column-Column1" style="width: 12pt;" />
-                                                            <col class="TableStyle-standard-Column-Column1" style="width: 12pt;" />
+                                                            <col class="TableStyle-standard-Column-Column1" style="width: 74pt;" />
                                                             <thead>
                                                                 <tr class="TableStyle-standard-Head-Header1">
                                                                     <th class="TableStyle-standard-HeadD-Column1-Header1" colspan="6" style="text-align: center;">Webアプリケーション - セッションキャッシュ
@@ -457,81 +497,38 @@
                                                                 <tr class="TableStyle-standard-Body-Body1">
                                                                     <td class="TableStyle-standard-BodyF-Column1-Body1">ユーザー</td>
                                                                     <td class="TableStyle-standard-BodyF-Column1-Body1">1日当たりのサインインイベント（%）</td>
-                                                                    <td class="TableStyle-standard-BodyF-Column1-Body1">
-                                                                        <p>アクセスされたアプリケーション数
-                            </p>
-                                                                    </td>
-                                                                    <td class="TableStyle-standard-BodyF-Column1-Body1" style="font-weight: normal;">
-                                                                        <p>総セッション数 =（1日当たりのユーザーのログインの割合（%）xアクセスされたアプリケーション数）</p>
-                                                                    </td>
-                                                                    <td class="TableStyle-standard-BodyF-Column1-Body1" style="font-weight: normal;">
-                                                                        <p>セッションサイズ
-                            </p>
-                                                                    </td>
-                                                                    <td class="TableStyle-standard-BodyD-Column1-Body1" style="font-weight: normal;">
-                                                                        <p>セッションキャッシュ
-                            </p>
-                                                                    </td>
+                                                                    <td class="TableStyle-standard-BodyF-Column1-Body1">アクセスされたアプリケーション数</td>
+                                                                    <td class="TableStyle-standard-BodyF-Column1-Body1" style="font-weight: normal;">総セッション数 =（1日当たりのユーザーのログインの割合（%）xアクセスされたアプリケーション数）</td>
+                                                                    <td class="TableStyle-standard-BodyF-Column1-Body1" style="font-weight: normal;">セッションサイズ</td>
+                                                                    <td class="TableStyle-standard-BodyD-Column1-Body1" style="font-weight: normal;">セッションキャッシュ</td>
                                                                 </tr>
                                                                 <tr class="TableStyle-standard-Body-Body2">
                                                                     <td class="TableStyle-standard-BodyF-Column1-Body2">5,000</td>
                                                                     <td class="TableStyle-standard-BodyF-Column1-Body2">50%</td>
-                                                                    <td class="TableStyle-standard-BodyF-Column1-Body2">
-                                                                        <p>5</p>
-                                                                    </td>
-                                                                    <td class="TableStyle-standard-BodyF-Column1-Body2">
-                                                                        <p>12,500</p>
-                                                                    </td>
-                                                                    <td class="TableStyle-standard-BodyF-Column1-Body2">
-                                                                        <p>1024B*2</p>
-                                                                    </td>
-                                                                    <td class="TableStyle-standard-BodyD-Column1-Body2">
-                                                                        <p>~25MB</p>
-                                                                    </td>
+                                                                    <td class="TableStyle-standard-BodyF-Column1-Body2">5</td>
+                                                                    <td class="TableStyle-standard-BodyF-Column1-Body2">12,500</td>
+                                                                    <td class="TableStyle-standard-BodyF-Column1-Body2">1024B*2</td>
+                                                                    <td class="TableStyle-standard-BodyD-Column1-Body2">約25MB</td>
                                                                 </tr>
                                                                 <tr class="TableStyle-standard-Body-Body1">
-                                                                    <td class="TableStyle-standard-BodyF-Column1-Body1">
-                                                                        <p>10,000</p>
-                                                                    </td>
-                                                                    <td class="TableStyle-standard-BodyF-Column1-Body1">
-                                                                        <p>75%</p>
-                                                                    </td>
-                                                                    <td class="TableStyle-standard-BodyF-Column1-Body1">
-                                                                        <p>10</p>
-                                                                    </td>
-                                                                    <td class="TableStyle-standard-BodyF-Column1-Body1">
-                                                                        <p>75,000</p>
-                                                                    </td>
-                                                                    <td class="TableStyle-standard-BodyF-Column1-Body1">
-                                                                        <p>1024B*2</p>
-                                                                    </td>
-                                                                    <td class="TableStyle-standard-BodyD-Column1-Body1">
-                                                                        <p>~150MB</p>
-                                                                    </td>
+                                                                    <td class="TableStyle-standard-BodyF-Column1-Body1">10,000</td>
+                                                                    <td class="TableStyle-standard-BodyF-Column1-Body1">75%</td>
+                                                                    <td class="TableStyle-standard-BodyF-Column1-Body1">10</td>
+                                                                    <td class="TableStyle-standard-BodyF-Column1-Body1">75,000</td>
+                                                                    <td class="TableStyle-standard-BodyF-Column1-Body1">1024B*2</td>
+                                                                    <td class="TableStyle-standard-BodyD-Column1-Body1">約150MB</td>
                                                                 </tr>
                                                                 <tr class="TableStyle-standard-Body-Body2">
-                                                                    <td class="TableStyle-standard-BodyC-Column1-Body2">
-                                                                        <p>25,000</p>
-                                                                    </td>
-                                                                    <td class="TableStyle-standard-BodyC-Column1-Body2">
-                                                                        <p>50%</p>
-                                                                    </td>
-                                                                    <td class="TableStyle-standard-BodyC-Column1-Body2">
-                                                                        <p>100</p>
-                                                                    </td>
-                                                                    <td class="TableStyle-standard-BodyC-Column1-Body2">
-                                                                        <p>125,000</p>
-                                                                    </td>
-                                                                    <td class="TableStyle-standard-BodyC-Column1-Body2">
-                                                                        <p>1024B*2</p>
-                                                                    </td>
-                                                                    <td class="TableStyle-standard-BodyA-Column1-Body2">
-                                                                        <p>~500MB</p>
-                                                                    </td>
+                                                                    <td class="TableStyle-standard-BodyC-Column1-Body2">25,000</td>
+                                                                    <td class="TableStyle-standard-BodyC-Column1-Body2">50%</td>
+                                                                    <td class="TableStyle-standard-BodyC-Column1-Body2">100</td>
+                                                                    <td class="TableStyle-standard-BodyC-Column1-Body2">125,000</td>
+                                                                    <td class="TableStyle-standard-BodyC-Column1-Body2">1024B*2</td>
+                                                                    <td class="TableStyle-standard-BodyA-Column1-Body2">約500MB</td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
-                                                        <p>Kerberosを使用すると、追加のキャッシュ要件が追加されます。</p>
+                                                        <p>Kerberosを使用すると、追加のキャッシュ要件が生じます。</p>
                                                         <table style="mc-table-style: url('../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
                                                             <col class="TableStyle-standard-Column-Column1" />
                                                             <col class="TableStyle-standard-Column-Column1" style="width: 12pt;" />
@@ -592,9 +589,9 @@
                                                             <p class="noteContent">セッションの考慮事項：</p>
                                                             <ul>
                                                                 <li>			セッションは、LRU（Least Recently Used）アルゴリズムを使用してクリアされます<br />キャッシュが満杯になり、新しいセッションが作成されると、最も古いアイドルセッションは削除されます。</li>
-                                                                <li>					セッションモニタリング 					ロガーは、キャッシュが満杯に近い、または満杯になった状態でアラートを発生させます。<br />管理コンソールで統計情報を確認することができます。<br />キャッシュが満杯になる状況を減らすために、アプライアンスメモリーを増やすことを検討します。 </li>
+                                                                <li>					セッションモニタリング      ロガーは、キャッシュが満杯に近い、または満杯になった条件でアラートを発生させます。<br />管理者コンソールで統計情報を確認することができます。<br />キャッシュが満杯になる状況を減らすために、アプライアンスメモリーを増やすことを検討します。 </li>
                                                                 <li>
-					常にピークセッションの使用状況を考慮し、それに応じて計画を行ってください。<br />これらの条件では、ピーク条件とサイズを考慮してください。例えば、従業員が登録した時期、同様の状況における午前中や昼食後のサインインイベントなど、負荷を考慮します。		
+					常にピークセッションの使用状況を考慮し、それに応じて計画を行ってください。<br />これらの条件では、ピーク条件とサイズを考慮してください。例えば、従業員の登録時期、午前中と昼食後のサインインイベント、類似状況などの負荷を考慮します。		
 </li>
                                                             </ul>
                                                         </div>
@@ -753,21 +750,22 @@
                                                                 </tbody>
                                                             </table>
                                                             <div class="noteOkta">
-                                                                <p class="noteContent">正確なタイミング情報は、AuthNおよび[All（すべて）]のログにあります。リクエストおよび返されるデータを実行する合計時間も追跡されます。</p>
+                                                                <p class="noteContent">正確なタイミング情報は、AuthNおよび[All（すべて）]のログにあります。リクエストを実行してデータを返すための合計時間も追跡されます。</p>
                                                             </div>
                                                         </div>
                                                         <div>
-                                                            <h2>インスタンスサイジング</h2>
-                                                            <p>インスタンスのサイジングを行う際には、次の表を考慮してください。</p>
-                                                            <table style="mc-table-style: url('../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                                                            <h2><a name="InstanceSizing"></a>インスタンスサイジング</h2>
+                                                            <p>次の表は、さまざまなサイズの<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>インスタンスのサポートに必要な最小ハードウェア構成を示しています。</p>
+                                                            <p>各インスタンスサイズでサポートできるユーザー数と認証数は、多くの複雑な要因に応じて異なります。サーバーで利用できる総ディスク容量とメモリー容量の関係、プロセッサーとネットワーク接続の速度など、すべての要因が容量に影響します。<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>は、環境に合わせて異なる構成でデプロイできます。複数のコアと大容量のメモリーモジュールを備えたハードウェアには、<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>のインスタンスを1つ、または2つセットアップできます。または、クラスター内の複数のサーバーに分散した、より多く、より小規模なインスタンスに<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>をデプロイすることもできます。<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>インスタンスがサポートできるユーザー数の決定については、このページの計算を使用するか、独自の環境について<span class="mc-variable okta-feature-names.Okta_Support variable">Oktaサポート</span>までお問い合わせください。</p>
+                                                            <table style="mc-table-style: url('../../Resources/TableStyles/standard.css');margin-left: 0;margin-right: auto;" class="TableStyle-standard" cellspacing="0">
                                                                 <col class="TableStyle-standard-Column-Column1" />
-                                                                <col class="TableStyle-standard-Column-Column1" style="width: 13pt;" />
+                                                                <col class="TableStyle-standard-Column-Column1" />
                                                                 <col class="TableStyle-standard-Column-Column1" />
                                                                 <thead>
                                                                     <tr class="TableStyle-standard-Head-Header1">
                                                                         <th class="TableStyle-standard-HeadF-Column1-Header1">用途</th>
                                                                         <th class="TableStyle-standard-HeadF-Column1-Header1">物理/仮想ハードウェア</th>
-                                                                        <th class="TableStyle-standard-HeadD-Column1-Header1">AWS同等</th>
+                                                                        <th class="TableStyle-standard-HeadD-Column1-Header1">AWS相当</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -776,7 +774,9 @@
                                                                             <p>概念実証</p>
                                                                         </td>
                                                                         <td class="TableStyle-standard-BodyF-Column1-Body1">
-                                                                            <p>2Gメモリー2コアのインスタンス1つ、220G（デフォルト）HD、インスタンスごとに1Gbps NICが1つ </p>
+                                                                            <ul>
+                                                                                <li>次のハードウェアを備える1つのインスタンス：<ul><li> 2コア2ギガバイトのメモリー</li><li>220ギガバイト（デフォルト）のハードドライブ</li><li>1 Gbps NIC x 1 </li></ul></li>
+                                                                            </ul>
                                                                         </td>
                                                                         <td class="TableStyle-standard-BodyD-Column1-Body1">
                                                                             <p>t2.medium</p>
@@ -784,17 +784,29 @@
                                                                     </tr>
                                                                     <tr class="TableStyle-standard-Body-Body2">
                                                                         <td class="TableStyle-standard-BodyF-Column1-Body2">小</td>
-                                                                        <td class="TableStyle-standard-BodyF-Column1-Body2">4Gメモリー2コアのインスタンス2つ、220G（デフォルト）HD、インスタンスごとに1Gbps NICが1つ</td>
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                                                                            <ul>
+                                                                                <li>それぞれが次のハードウェアを備える2つのインスタンス：<ul><li>2コア4ギガバイトのメモリ</li><li>220ギガバイト（デフォルト）のハードドライブ</li><li>1 Gbps NIC x 1</li></ul></li>
+                                                                            </ul>
+                                                                        </td>
                                                                         <td class="TableStyle-standard-BodyD-Column1-Body2">t2.medium</td>
                                                                     </tr>
                                                                     <tr class="TableStyle-standard-Body-Body1">
                                                                         <td class="TableStyle-standard-BodyF-Column1-Body1">中</td>
-                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1">8Gメモリー2コアのインスタンス3つ、500G HD、インスタンスごとに1Gbps NICが1つ</td>
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                                                                            <ul>
+                                                                                <li>それぞれが次のハードウェアを備える3つのインスタンス：<ul><li>2コア8ギガバイトのメモリ</li><li>500ギガバイトのハードドライブ</li><li>1 Gbps NIC x 1</li></ul></li>
+                                                                            </ul>
+                                                                        </td>
                                                                         <td class="TableStyle-standard-BodyD-Column1-Body1">m4.large</td>
                                                                     </tr>
                                                                     <tr class="TableStyle-standard-Body-Body2">
                                                                         <td class="TableStyle-standard-BodyC-Column1-Body2">大</td>
-                                                                        <td class="TableStyle-standard-BodyC-Column1-Body2">16Gメモリー4コアのインスタンス3つ、500G HD、インスタンスごとに1Gbps NICが1つ</td>
+                                                                        <td class="TableStyle-standard-BodyC-Column1-Body2">
+                                                                            <ul>
+                                                                                <li>それぞれが次のハードウェアを備える3つのインスタンス：<ul><li> 4コア16ギガバイトのメモリ</li><li>500ギガバイトのハードドライブ</li><li>1 Gbps NIC x 1</li></ul></li>
+                                                                            </ul>
+                                                                        </td>
                                                                         <td class="TableStyle-standard-BodyA-Column1-Body2">m4.xlarge<br /><br />詳しくは、「<a href="https://aws.amazon.com/ec2/instance-types/">AWSインスタンスタイプ</a>」を参照してください。 </td>
                                                                     </tr>
                                                                 </tbody>
