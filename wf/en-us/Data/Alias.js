@@ -1317,6 +1317,11 @@ xmlAliasData += '    <Map Name=\"ext-dropboxforbusiness-method-listusers\" Link=
 xmlAliasData += '    <Map Name=\"ext-dropboxforbusiness-method-readgroup\" Link=\"Topics/Workflows/connector-reference/dropboxforbusiness/actions/readgroup.htm\" ResolvedId=\"6020\" />';
 xmlAliasData += '    <Map Name=\"ext-dropboxforbusiness-method-removeuserfromgroup\" Link=\"Topics/Workflows/connector-reference/dropboxforbusiness/actions/removeuserfromgroup.htm\" ResolvedId=\"6021\" />';
 xmlAliasData += '    <Map Name=\"ext-dropboxforbusiness-method-updategroup\" Link=\"Topics/Workflows/connector-reference/dropboxforbusiness/actions/updategroup.htm\" ResolvedId=\"6022\" />';
+xmlAliasData += '    <Map Name=\"ext-personio\" Link=\"Topics/Workflows/connector-reference/personio/personio.htm\" ResolvedId=\"6024\" />';
+xmlAliasData += '    <Map Name=\"ext-personio-misc-authorization\" Link=\"Topics/Workflows/connector-reference/personio/overviews/authorization.htm\" ResolvedId=\"6025\" />';
+xmlAliasData += '    <Map Name=\"ext-personio-method-listemployees\" Link=\"Topics/Workflows/connector-reference/personio/actions/listemployees.htm\" ResolvedId=\"6026\" />';
+xmlAliasData += '    <Map Name=\"ext-personio-method-reademployee\" Link=\"Topics/Workflows/connector-reference/personio/actions/reademployee.htm\" ResolvedId=\"6027\" />';
+xmlAliasData += '    <Map Name=\"ext-personio-method-updateemployee\" Link=\"Topics/Workflows/connector-reference/personio/actions/updateemployee.htm\" ResolvedId=\"6028\" />';
 xmlAliasData += '    <Map Name=\"ext-connectorbuilder-deploy-test\" Link=\"Topics/Workflows/connector-builder/deployment-test.htm\" ResolvedId=\"6029\" />';
 xmlAliasData += '    <Map Name=\"ext-connectorbuilder-deploy-private\" Link=\"Topics/Workflows/connector-builder/deployment-private.htm\" ResolvedId=\"6030\" />';
 xmlAliasData += '    <Map Name=\"ext-connectorbuilder-deploy-submission\" Link=\"Topics/Workflows/connector-builder/deployment-submission.htm\" ResolvedId=\"6031\" />';
