@@ -627,5 +627,6 @@ xmlAliasData += '    <Map Name=\"csh-apps-aiw-saml-advanced\" Link=\"Topics/Apps
 xmlAliasData += '    <Map Name=\"csh-attribute-statements-saml\" Link=\"Topics/Apps/aiw-saml-reference.htm\" ResolvedId=\"16003\" />';
 xmlAliasData += '    <Map Name=\"csh-set-default-app-redirect\" Link=\"Topics/identity-engine/procedures/set-up-default-app-redirect.htm\" ResolvedId=\"5026\" />';
 xmlAliasData += '    <Map Name=\"ext-about-sign-in-flows\" Link=\"Topics/identity-engine/policies/about-sign-in-flows.htm\" ResolvedId=\"5027\" />';
+xmlAliasData += '    <Map Name=\"ext-lcm-convert-user-group\" Link=\"Topics/Provisioning/lcm/lcm-convert-user-group.htm\" ResolvedId=\"16004\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
