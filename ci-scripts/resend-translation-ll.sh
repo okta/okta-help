@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 export BACON_TASK_NAME="CI_DOC_TOOLS_REQUEST_TRANSLATION_LL"
 
 source setup-translation-ll.sh
@@ -19,7 +20,7 @@ pushd scripts
 git restore --source origin/gh-pages -- .
 popd
 
-# update files!
+# update files
 python3 scripts/translation_modify_files.py ${TARGET}
 
 git add --all
