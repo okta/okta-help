@@ -4,7 +4,7 @@ xmlAliasData += '<CatapultAliasFile>';
 xmlAliasData += '    <Map Name=\"ext-oag-firewall-rules\" Link=\"Topics/Access-Gateway/about-oag-prereqs.htm\" ResolvedId=\"3002\" />';
 xmlAliasData += '    <Map Name=\"ext-oag-manage-cert\" Link=\"Topics/Access-Gateway/manage-certificates.htm\" ResolvedId=\"1294\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_about_auth_mod\" Link=\"Topics/Access-Gateway/admin-settings-authmod.htm\" ResolvedId=\"3006\" />';
-xmlAliasData += '    <Map Name=\"ext_oag_about_cap_planning\" Link=\"Topics/Access-Gateway/about-cap-planning.htm\" ResolvedId=\"3067\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_about_cap_planning\" Link=\"Topics/Access-Gateway/capacity-planning-sizing.htm\" ResolvedId=\"3067\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_about_datastore\" Link=\"Topics/Access-Gateway/integrate-app-datastores.htm\" ResolvedId=\"3007\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_about_dns\" Link=\"Topics/Access-Gateway/about-oag-dns.htm\" ResolvedId=\"3056\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_about_lb\" Link=\"Topics/Access-Gateway/about-load-balancers.htm\" ResolvedId=\"3069\" />';
@@ -16,6 +16,7 @@ xmlAliasData += '    <Map Name=\"ext_oag_about_pol_types\" Link=\"Topics/Access-
 xmlAliasData += '    <Map Name=\"ext_oag_about_policy_types_not\" Link=\"Topics/Access-Gateway/learn-about-oag-policy-types.htm#Not\" ResolvedId=\"3064\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_about_policy_types_prot\" Link=\"Topics/Access-Gateway/learn-about-oag-policy-types.htm#Protecte\" ResolvedId=\"3065\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_about_support_vpn\" Link=\"Topics/Access-Gateway/about-oag-support-vpn.htm\" ResolvedId=\"3066\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_add_identity_provider\" Link=\"Topics/Access-Gateway/administer-local-idp.htm\" ResolvedId=\"3009\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_add_kerberos_service\" Link=\"Topics/Access-Gateway/add-app-kerberos-add-ker-service.htm\" ResolvedId=\"3008\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_admin_log_audit_oview\" Link=\"Topics/Access-Gateway/admin-logging-auditing-overview.htm\" ResolvedId=\"3042\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_advanced_about\" Link=\"Topics/Access-Gateway/about-application-advanced.htm\" ResolvedId=\"3017\" />';
