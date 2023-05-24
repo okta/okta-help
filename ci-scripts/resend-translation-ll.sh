@@ -3,8 +3,6 @@ export BACON_TASK_NAME="CI_DOC_TOOLS_RESEND_TRANSLATION_LL"
 
 source setup-translation-ll.sh
 
-TRANSLATION_BRANCH="em-test-translation"
-
 git fetch --depth=1 origin ${TRANSLATION_BRANCH}
 git reset --hard FETCH_HEAD
 
