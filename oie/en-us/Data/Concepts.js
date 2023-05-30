@@ -1,1 +1,1 @@
-define({'ad-agent':[122,120,1190],'dir-intg':[99],});
+define({'ad-agent':[122,1190,120],'dir-intg':[99],});
