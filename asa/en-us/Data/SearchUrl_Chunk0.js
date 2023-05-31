@@ -1,1 +1,1 @@
-define({"../Content/Topics/Adv_Server_Access/docs/asa-overview.htm":0,});
+define({"../Content/Topics/Adv_Server_Access/docs/asa-overview.htm":0,"../Content/Topics/ReleaseNotes/advanced-server-access-release-notes.htm":1,});
