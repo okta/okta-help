@@ -13,7 +13,7 @@ git switch ${TRANSLATION_BRANCH}
 
 # checkout latest en-us sources
 pushd ${EN_PATH}
-git restore --source origin/${BASE_BRANCH} -- . ':!*/Topics/ReleaseNotes/*'
+git restore --source origin/${BASE_BRANCH} -- . ':!*/Topics/ReleaseNotes/*' ':!*/topics/releasenotes/*'
 popd
 
 # copy en-us resources to en-ja
