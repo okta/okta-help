@@ -412,6 +412,7 @@ xmlAliasData += '    <Map Name=\"ext-googlecalendar-method-updateevent\" Link=\"
 xmlAliasData += '    <Map Name=\"ext-googlecalendar-misc-authorization\" Link=\"Topics/Workflows/connector-reference/googlecalendar/overviews/authorization.htm\" ResolvedId=\"30200\" />';
 xmlAliasData += '    <Map Name=\"ext-googlecalendar-misc-transferofownership\" Link=\"Topics/Workflows/connector-reference/googlecalendar/overviews/transferofownership.htm\" ResolvedId=\"30201\" />';
 xmlAliasData += '    <Map Name=\"ext-googlecloudfunctions\" Link=\"Topics/Workflows/connector-reference/googlecloudfunctions/googlecloudfunctions.htm\" ResolvedId=\"30202\" />';
+xmlAliasData += '    <Map Name=\"ext-googlecloudfunctions-method-customapiaction\" Link=\"Topics/Workflows/connector-reference/googlecloudfunctions/actions/httprequest.htm\" ResolvedId=\"30203\" />';
 xmlAliasData += '    <Map Name=\"ext-googlecloudfunctions-method-httprequest\" Link=\"Topics/Workflows/connector-reference/googlecloudfunctions/actions/httprequest.htm\" ResolvedId=\"30204\" />';
 xmlAliasData += '    <Map Name=\"ext-googlecloudfunctions-method-invokefunction\" Link=\"Topics/Workflows/connector-reference/googlecloudfunctions/actions/invokefunction.htm\" ResolvedId=\"30205\" />';
 xmlAliasData += '    <Map Name=\"ext-googlecloudfunctions-misc-authorization\" Link=\"Topics/Workflows/connector-reference/googlecloudfunctions/overviews/authorization.htm\" ResolvedId=\"30206\" />';
