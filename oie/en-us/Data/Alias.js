@@ -20,7 +20,7 @@ xmlAliasData += '    <Map Name=\"csh-about-asop\" Link=\"Topics/identity-engine/
 xmlAliasData += '    <Map Name=\"csh-about-authenticators\" Link=\"Topics/identity-engine/authenticators/about-authenticators.htm\" ResolvedId=\"2004\" />';
 xmlAliasData += '    <Map Name=\"csh-about-delegated-flows\" Link=\"Topics/automation-hooks/delegated-flows/about-delegated-flows.htm\" ResolvedId=\"19003\" />';
 xmlAliasData += '    <Map Name=\"csh-about-ip-zones\" Link=\"Topics/Security/network/about-ip-zones.htm\" ResolvedId=\"21000\" />';
-xmlAliasData += '    <Map Name=\"csh-ac-reviewer-type\" Link=\"Topics/identity-governance/access-certification/iga-ac-create-campaign.htm#Reviewer\" ResolvedId=\"1517\" />';
+xmlAliasData += '    <Map Name=\"csh-ac-reviewer-type\" Link=\"Topics/identity-governance/access-certification/campaign-settings.htm#Reviewer\" ResolvedId=\"1517\" />';
 xmlAliasData += '    <Map Name=\"csh-access-certs\" Link=\"Topics/identity-governance/access-certification/iga-access-cert.htm\" ResolvedId=\"13002\" />';
 xmlAliasData += '    <Map Name=\"csh-access-requests\" Link=\"Topics/identity-governance/access-requests/ar-overview.htm\" ResolvedId=\"2028\" />';
 xmlAliasData += '    <Map Name=\"csh-AD-agent-main\" Link=\"Topics/Directory/ad-agent-main.htm\" ResolvedId=\"20006\" />';
@@ -144,7 +144,7 @@ xmlAliasData += '    <Map Name=\"csh-pe-policies\" Link=\"Topics/identity-engine
 xmlAliasData += '    <Map Name=\"csh-prioritize-profile-sources\" Link=\"Topics/users-groups-profiles/usgp-prioritize-profile-source.htm\" ResolvedId=\"15012\" />';
 xmlAliasData += '    <Map Name=\"csh-profile-masters\" Link=\"Topics/users-groups-profiles/usgp-about-profile-sourcing.htm\" ResolvedId=\"1233\" />';
 xmlAliasData += '    <Map Name=\"csh-progressiveenrollment-policies\" Link=\"Topics/identity-engine/policies/about-pe.htm\" ResolvedId=\"6021\" />';
-xmlAliasData += '    <Map Name=\"csh-remediation\" Link=\"Topics/identity-governance/access-certification/iga-ac-about-remediation.htm\" ResolvedId=\"13010\" />';
+xmlAliasData += '    <Map Name=\"csh-remediation\" Link=\"Topics/identity-governance/access-certification/campaign-settings.htm#Remediation\" ResolvedId=\"13010\" />';
 xmlAliasData += '    <Map Name=\"csh-require-phish-resistant\" Link=\"Topics/identity-engine/authenticators/require-phishing-resistant-authenticator.htm\" ResolvedId=\"18014\" />';
 xmlAliasData += '    <Map Name=\"csh-review-bp-reviewers\" Link=\"Topics/identity-governance/access-certification/iga-ac-review-campaign.htm#bp_reviewers\" ResolvedId=\"13011\" />';
 xmlAliasData += '    <Map Name=\"csh-review-campaign\" Link=\"Topics/identity-governance/access-certification/iga-ac-review-campaign.htm\" ResolvedId=\"13009\" />';
@@ -577,7 +577,6 @@ xmlAliasData += '    <Map Name=\"csh-smart-card-authenticator\" Link=\"Topics/id
 xmlAliasData += '    <Map Name=\"csh-permission-conditions\" Link=\"Topics/Security/custom-admin-role/permission-conditions.htm\" ResolvedId=\"19006\" />';
 xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-authz-permissions\" Link=\"Topics/Security/custom-admin-role/about-role-permissions.htm#Authorization_server_permissions\" ResolvedId=\"19010\" />';
 xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-customizations-permissions\" Link=\"Topics/Security/custom-admin-role/about-role-permissions.htm#Customization_permissions\" ResolvedId=\"19009\" />';
-xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-profile-source-permissions\" Link=\"Topics/Security/custom-admin-role/about-role-permissions.htm#Profile_source_permissions\" ResolvedId=\"19007\" />';
 xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-workflow-permissions\" Link=\"Topics/Security/custom-admin-role/about-role-permissions.htm#Workflow_permissions\" ResolvedId=\"19008\" />';
 xmlAliasData += '    <Map Name=\"csh-about-reviewing\" Link=\"Topics/identity-governance/access-certification/iga-ac-about-reviewing-campaigns.htm\" ResolvedId=\"13019\" />';
 xmlAliasData += '    <Map Name=\"csh-administrators-super-admin\" Link=\"Topics/Security/administrators-super-admin.htm\" ResolvedId=\"19012\" />';
@@ -628,5 +627,7 @@ xmlAliasData += '    <Map Name=\"csh-attribute-statements-saml\" Link=\"Topics/A
 xmlAliasData += '    <Map Name=\"csh-set-default-app-redirect\" Link=\"Topics/identity-engine/procedures/set-up-default-app-redirect.htm\" ResolvedId=\"5026\" />';
 xmlAliasData += '    <Map Name=\"ext-about-sign-in-flows\" Link=\"Topics/identity-engine/policies/about-sign-in-flows.htm\" ResolvedId=\"5027\" />';
 xmlAliasData += '    <Map Name=\"ext-lcm-convert-user-group\" Link=\"Topics/Provisioning/lcm/lcm-convert-user-group.htm\" ResolvedId=\"16004\" />';
+xmlAliasData += '    <Map Name=\"csh-campaigns\" Link=\"Topics/identity-governance/access-certification/campaigns.htm\" ResolvedId=\"13020\" />';
+xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-identity-provider-permissions\" Link=\"Topics/Security/custom-admin-role/about-role-permissions.htm\" ResolvedId=\"1157\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
