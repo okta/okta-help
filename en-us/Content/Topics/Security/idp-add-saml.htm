@@ -346,6 +346,9 @@
                                                                         </td>
                                                                         <td class="TableStyle-standard-horizonal-borders-only-BodyD-Column1-Body1">
                                                                             <p>Specify whether Okta automatically links the user's IdP account with a matching Okta account.</p>
+                                                                            <div class="noteOkta">
+                                                                                <p class="noteContent">For enhanced security, disable account linking if possible. If you need account linking, follow <a href="#Security" class="MCXref xref">Security best practices</a>.</p>
+                                                                            </div>
                                                                         </td>
                                                                     </tr>
                                                                     <tr class="TableStyle-standard-horizonal-borders-only-Body-Body1">
@@ -464,6 +467,69 @@
                                                     </ol>
                                                     <h2>Send Okta metadata </h2>
                                                     <p>After you create an IdP, click <span class="uicontrol">Download metadata</span> to access the Okta SAML metadata for this provider. Follow the IdP's instructions to provide metadata to them.</p>
+                                                    <h2><a name="Security"></a>Security best practices</h2>
+                                                    <p>If you enable account linking, consider these best practices:</p>
+                                                    <ul>
+                                                        <li>
+                                                            <p><a href="#IdP" class="MCXref xref">IdP configuration</a>
+                                                            </p>
+                                                        </li>
+                                                        <li>
+                                                            <p><a href="#Authenti" class="MCXref xref">Authentication policies</a>
+                                                            </p>
+                                                        </li>
+                                                        <li>
+                                                            <p><a href="#Monitori" class="MCXref xref">Monitoring</a>
+                                                            </p>
+                                                        </li>
+                                                    </ul>
+                                                    <h3><a name="IdP"></a>IdP configuration</h3>
+                                                    <p>Use these settings: </p>
+                                                    <ul>
+                                                        <li>
+                                                            <p><span class="uicontrol">Group Assignment</span>: Specify the groups that you created for each external IdP.</p>
+                                                        </li>
+                                                        <li>
+                                                            <p><span class="uicontrol">If no match is found</span>: Select <span class="uicontrol">Create new user (JIT)</span> to provision users into your <span class="mc-variable okta-variables.ProductName variable">Okta</span> org.</p>
+                                                        </li>
+                                                        <li>
+                                                            <p><span class="uicontrol">Account Link Policy</span>: Consider disabling account linking after all existing users from the external IdP signed in to your Okta org. At this point, all links were created. After you disable linking, new users that are created in the external IdP are added to Okta by JIT provisioning.</p>
+                                                        </li>
+                                                        <li>
+                                                            <p><span class="uicontrol">Filter</span>: Select <span class="uicontrol">Only allow usernames that match defined RegEx Pattern</span>.</p>
+                                                            <ul>
+                                                                <li>
+                                                                    <p>If users from an external IdP have a different username domain than users from the Okta org, use a RegEx pattern such as: <span class="code">^[A-Za-z0-9._%+-]+@spokedomain\.com</span></p>
+                                                                </li>
+                                                                <li>
+                                                                    <p>If all users share the same domain, use a RegEx pattern that excludes specific users. The list should include all known administrators in your Okta org. To allow any user except the ones explicitly mentioned, use this expression: <span class="code">^((?!(admin\.user\.1@company\.com|admin\.user\.2@othercompany\.com)).)*$</span></p>
+                                                                    <p>Allowed users defined by this expression are privileged accounts.</p>
+                                                                    <div class="noteOkta">
+                                                                        <p class="noteContent">The expression is not dynamically updated. If new administrators or privileged users are created in your <span class="mc-variable okta-variables.ProductName variable">Okta</span> org, you must update the expression manually. </p>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                    <h3><a name="Authenti"></a>Authentication policies</h3>
+                                                    <ul>
+                                                        <li>
+                                                            <p>Prevent Okta admins from signing in to the parent org through federation from an external IdP. Create a global session policy to deny access for users in the Okta Administrators  group if they’re from an external IdP. You can select multiple IdPs. Set this policy to be evaluated first.</p>
+                                                        </li>
+                                                        <li>
+                                                            <p>Prevent access to the Admin Dashboard for any users who sign in through federation from an external IdP. Create an authentication policy for each external IdP. Configure the policy to deny access to selected apps, such as the Admin Dashboard. You can restrict access to any sensitive apps.</p>
+                                                        </li>
+                                                        <li>
+                                                            <p>If possible, require all Okta admins to use phishing-resistant authenticators. Create a global session policy to require multifactor authentication (MFA) for the Okta Administrators group. </p>
+                                                            <div class="noteOkta">
+                                                                <p class="noteContent">Users with custom admin roles are considered part of the Okta Administrators. Therefore, users with custom admin roles are included in policies targeting Okta Administrators.</p>
+                                                            </div>
+                                                            <p>Configure authentication policy rules to require phishing-resistant authenticators. </p>
+                                                        </li>
+                                                    </ul>
+                                                    <h3><a name="Monitori"></a>Monitoring</h3>
+                                                    <p>Use the System Log to review authentication events through the IdP.</p>
+                                                    <p>Search for <span class="code">eventType eq "user.authentication.auth_via_IDP"</span> and review events which have an <span class="code">Okta System (SystemPrincipal)</span> actor and an <span class="code">end user</span> target. Such events indicate that an account linking operation occurred. If the target user is a privileged user (or an administrator), address all ensure that any potential incidents is addressed.</p>
                                                     <h2><span>Next steps</span>
                                                     </h2>
                                                     <p><a href="idp-add-metadata.htm" class="MCXref xref">Add metadata for an Identity Provider</a>
