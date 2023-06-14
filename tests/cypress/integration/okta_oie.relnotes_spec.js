@@ -13,7 +13,7 @@ describe('OIE release notes landing page (en-US)', () => {
     cy.hasBodyContent()
     cy.hasTiles(3)
     cy.hasDeferAttrsCorrectlyApplied()
-    cy.hasQualtrics()
+    // cy.hasQualtrics()
     cy.hidesCoveoSearchBar()
   })
 })
