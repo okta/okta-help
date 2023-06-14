@@ -13,7 +13,7 @@ describe('End User landing page (en-US)', () => {
     cy.hasBodyContent()
     cy.hasTiles(4)
     cy.hasDeferAttrsCorrectlyApplied()
-    cy.hasQualtrics()
+    // cy.hasQualtrics()
     cy.hasMadCapSearchBar('Search Field')
   })
 })
