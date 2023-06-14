@@ -102,7 +102,6 @@ xmlAliasData += '    <Map Name=\"csh-email-verification\" Link=\"Topics/identity
 xmlAliasData += '    <Map Name=\"csh-embedded-sign-in\" Link=\"Topics/Settings/embedded-sign-in-support.htm\" ResolvedId=\"1114\" />';
 xmlAliasData += '    <Map Name=\"csh-eu-import-safeguard\" Link=\"Topics/users-groups-profiles/usgp-import-safeguard.htm\" ResolvedId=\"1251\" />';
 xmlAliasData += '    <Map Name=\"csh-facebook-work\" Link=\"Topics/Provisioning/workplace/workplace-by-facebook-provisioning.htm\" ResolvedId=\"1507\" />';
-xmlAliasData += '    <Map Name=\"csh-features\" Link=\"Topics/identity-engine/oie-basic-config.htm\" ResolvedId=\"2003\" />';
 xmlAliasData += '    <Map Name=\"csh-fp-configure\" Link=\"Topics/identity-engine/devices/fp/fp-configure.htm\" ResolvedId=\"17013\" />';
 xmlAliasData += '    <Map Name=\"csh-fp-disable\" Link=\"Topics/identity-engine/devices/fp/fp-disable.htm\" ResolvedId=\"17014\" />';
 xmlAliasData += '    <Map Name=\"csh-fp-enable\" Link=\"Topics/identity-engine/devices/fp/fp-enable.htm\" ResolvedId=\"17015\" />';
@@ -213,6 +212,7 @@ xmlAliasData += '    <Map Name=\"ext-add-okta-sign-on-policy-rule\" Link=\"Topic
 xmlAliasData += '    <Map Name=\"ext-administrators-admin-comparison\" Link=\"Topics/Security/administrators-admin-comparison.htm\" ResolvedId=\"4065\" />';
 xmlAliasData += '    <Map Name=\"ext-administrators-set-up-admins\" Link=\"Topics/Security/administrators-set-up-admins.htm\" ResolvedId=\"4072\" />';
 xmlAliasData += '    <Map Name=\"ext-agent-support-policies\" Link=\"Topics/Directory/agent-support-policies.htm\" ResolvedId=\"15007\" />';
+xmlAliasData += '    <Map Name=\"ext-all-notification-services\" Link=\"Topics/identity-engine/devices/notification-services.htm\" ResolvedId=\"18013\" />';
 xmlAliasData += '    <Map Name=\"ext-anything-as-a-source\" Link=\"Topics/users-groups-profiles/usgp-anything-as-a-source.htm\" ResolvedId=\"11061\" />';
 xmlAliasData += '    <Map Name=\"ext-api-service-integrations\" Link=\"Topics/apiservice/api-service-integrations.htm\" ResolvedId=\"16017\" />';
 xmlAliasData += '    <Map Name=\"ext-apps-about-saml\" Link=\"Topics/Apps/apps-about-saml.htm\" ResolvedId=\"15019\" />';
@@ -251,6 +251,7 @@ xmlAliasData += '    <Map Name=\"ext-create-mfa-policy\" Link=\"Topics/identity-
 xmlAliasData += '    <Map Name=\"ext-create-profile-enrollment\" Link=\"Topics/identity-engine/policies/configure-profile-enrollment-policy.htm\" ResolvedId=\"1373\" />';
 xmlAliasData += '    <Map Name=\"ext-create-resource-set\" Link=\"Topics/Security/custom-admin-role/create-resource-set.htm\" ResolvedId=\"4086\" />';
 xmlAliasData += '    <Map Name=\"ext-csh-agentless-migration\" Link=\"Topics/Directory/configure-agentless-sso-migration.htm\" ResolvedId=\"1204\" />';
+xmlAliasData += '    <Map Name=\"ext-custom-authenticator-oie\" Link=\"Topics/identity-engine/authenticators/custom-authenticator.htm\" ResolvedId=\"18010\" />';
 xmlAliasData += '    <Map Name=\"ext-custom-email-magic-link\" Link=\"Topics/Settings/settings-customize-email-magic-link.htm\" ResolvedId=\"6013\" />';
 xmlAliasData += '    <Map Name=\"ext-custom-footer\" Link=\"Topics/Settings/customizations-footer.htm\" ResolvedId=\"5001\" />';
 xmlAliasData += '    <Map Name=\"ext-custom-user-types\" Link=\"Topics/users-groups-profiles/usgp-usertypes-about.htm\" ResolvedId=\"1225\" />';
@@ -629,5 +630,7 @@ xmlAliasData += '    <Map Name=\"ext-about-sign-in-flows\" Link=\"Topics/identit
 xmlAliasData += '    <Map Name=\"ext-lcm-convert-user-group\" Link=\"Topics/Provisioning/lcm/lcm-convert-user-group.htm\" ResolvedId=\"16004\" />';
 xmlAliasData += '    <Map Name=\"csh-campaigns\" Link=\"Topics/identity-governance/access-certification/campaigns.htm\" ResolvedId=\"13020\" />';
 xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-identity-provider-permissions\" Link=\"Topics/Security/custom-admin-role/about-role-permissions.htm\" ResolvedId=\"1157\" />';
+xmlAliasData += '    <Map Name=\"csh-access-testing-tool\" Link=\"Topics/identity-engine/policies/access-testing-tool.htm\" ResolvedId=\"1168\" />';
+xmlAliasData += '    <Map Name=\"csh-enroll-form-attributes\" Link=\"Topics/identity-engine/policies/about-enrollment-form-attribute-rules.htm\" ResolvedId=\"5028\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
