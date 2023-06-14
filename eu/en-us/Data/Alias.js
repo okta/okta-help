@@ -99,5 +99,6 @@ xmlAliasData += '    <Map Name=\"csh-ov-device-remediation-andr\" Link=\"Topics/
 xmlAliasData += '    <Map Name=\"csh-ov-device-remediation-ios\" Link=\"Topics/end-user/ov-device-health-trbl.htm#iOS\" ResolvedId=\"1001\" />';
 xmlAliasData += '    <Map Name=\"csh-ov-device-remediation-macos\" Link=\"Topics/end-user/ov-device-health-trbl.htm#macOS\" ResolvedId=\"1002\" />';
 xmlAliasData += '    <Map Name=\"csh-ov-device-remediation-win\" Link=\"Topics/end-user/ov-device-health-trbl.htm#Windows\" ResolvedId=\"1003\" />';
+xmlAliasData += '    <Map Name=\"ext-ov-sign-in-iwatch\" Link=\"Topics/end-user/ov-sign-in-iwatch.htm\" ResolvedId=\"4044\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
