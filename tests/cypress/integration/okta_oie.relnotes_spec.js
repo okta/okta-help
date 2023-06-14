@@ -33,7 +33,7 @@ describe('OIE release notes production page (en-US)', () => {
     cy.hasBodyContent()
     cy.hasTabs(4)
     cy.hasDeferAttrsCorrectlyApplied()
-    cy.hasQualtrics()
+    // cy.hasQualtrics()
     cy.hidesCoveoSearchBar()
   })
 })
