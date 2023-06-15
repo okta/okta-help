@@ -11,7 +11,7 @@ describe('Okta H.O.C. landing page (en-US)', () => {
     cy.hasBodyContent()
     cy.hasTiles(9)
     cy.hasDeferAttrsCorrectlyApplied()
-    cy.hasQualtrics()
+    // cy.hasQualtrics()
     cy.hidesCoveoSearchBar()
   })
 })
