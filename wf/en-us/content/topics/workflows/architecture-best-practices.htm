@@ -299,7 +299,7 @@
                                                                 </p>
                                                                 <ul>
                                                                     <li>
-                                                                        <p><a href="#API" class="MCXref xref">API Endpoint timeouts</a>
+                                                                        <p><a href="#API" class="MCXref xref">API endpoint timeouts</a>
                                                                         </p>
                                                                     </li>
                                                                     <li>
@@ -321,7 +321,7 @@
                                                                 </p>
                                                                 <ul>
                                                                     <li>
-                                                                        <p><a href="#Use" class="MCXref xref">Use helper flows to split large processing jobs into many smaller jobs</a>
+                                                                        <p><a href="#Use" class="MCXref xref">Use helper flows to split large processing jobs</a>
                                                                         </p>
                                                                     </li>
                                                                     <li>
@@ -340,45 +340,45 @@
                                                             </li>
                                                         </ul>
                                                         <h2><a name="Effectiv"></a>Effective use of the API endpoint</h2>
-                                                        <p>The Workflows API endpoint allows an external client to invoke a flow over HTTP. It is a powerful feature because it expands flows beyond those started by the built-in connector library. However, these flows require attention to ensure they successfully complete. See <a href="learn/about-invoke-api-endpoint-flow.htm" class="MCXref xref">Invoking an API endpoint flow</a>.</p>
-                                                        <h3><a name="API"></a>API Endpoint timeouts</h3>
-                                                        <p>The primary challenge with the use of the API endpoint is that the Workflows engine does not make latency guarantees. This means that although flows run fast most of the time, sometimes flow execution times will vary by 10X or more.</p>
-                                                        <p>Because the API endpoint will close its connection to a client at 60 seconds, a flow will fail if it takes any longer than that. In some cases, an HTTP client that invokes an API Endpoint flow could have an even lower timeout than the default API timeout. For example, Okta inline hooks have a default timeout of 3 seconds.</p>
+                                                        <p>The Workflows API endpoint allows an external client to invoke a flow over HTTP. This is a powerful feature because it expands flows beyond those started by the built-in connector library. However, these flows require attention to ensure they successfully complete. See <a href="learn/about-invoke-api-endpoint-flow.htm" class="MCXref xref">Invoking an API endpoint flow</a>.</p>
+                                                        <h3><a name="API"></a>API endpoint timeouts</h3>
+                                                        <p>The primary challenge with the use of the API endpoint is that the Workflows engine doesn't make latency guarantees. This means that although flows run fast most of the time, sometimes flow execution times can vary by 10X or more.</p>
+                                                        <p>Because the API endpoint closes its connection to a client at 60 seconds, a flow fails if the operation takes any longer than that. Some HTTP clients that invoke an API endpoint flow could have an even lower timeout than the default API timeout. For example, Okta inline hooks have a default timeout of 3 seconds.</p>
                                                         <h3><a name="Structur"></a>Structure flows asynchronously</h3>
-                                                        <p>A best practice when working with API Endpoint flows, is to structure your flow to be processed asynchronously. This means the caller (HTTP client) should not need to wait for a specific response.</p>
-                                                        <p>This is especially important when integrating with Okta hooks.  For instance, many flows that start off using the synchronous registration or import inline hook can be restructured by starting a flow with Okta events using the asynchronous User Created and User Okta Profile Updated event cards.  Moving to the asynchronous pattern is more advantageous for both systems.  A common example is recording the registration and import of a new user in a third system.  If there isn’t a critical need for it to be there instantaneously, the asynchronous pattern gives a much better experience.</p>
+                                                        <p>A best practice when working with API endpoint flows is to structure your flow to be processed asynchronously. This means the caller (HTTP client) shouldn't need to wait for a specific response.</p>
+                                                        <p>This is especially important when integrating with Okta hooks.  For instance, consider a flow that starts with the synchronous registration or import inline hook. Instead, you can restructure that flow with Okta events that use the asynchronous <span class="wintitle">User Created</span> and <span class="wintitle">User Okta Profile Updated</span> event cards.  Moving to the asynchronous pattern is more advantageous for both systems.  A common example is recording the registration and import of a new user in a third system.  If there isn’t a critical need for it to be there instantaneously, the asynchronous pattern gives a better experience.</p>
                                                         <h3><a name="Place"></a>Place the API Connector Close Card first in a flow</h3>
-                                                        <p>One way to manage the risk of a timeout is to close the HTTP connection as quickly as possible. One best practice is to add the API Connector Close card as the first card in the flow. This allows the Workflows engine to immediately release its HTTP connection to the caller (HTTP client).  Afterwards, the Workflows engine will asynchronously process the rest of the flow. See <a href="function-reference/http/http_close.htm" class="MCXref xref">Close</a>.</p>
-                                                        <p>Another best practice is to use the combination of Call Flow Async and Flow Control Return Raw cards. They allow you to start processing work asynchronously and have fine-grained control over the HTTP response. See <a href="function-reference/flow-control/flocontrol_run.htm" class="MCXref xref">Call Flow Async</a> and <a href="function-reference/flow-control/flocontrol_returnraw.htm" class="MCXref xref">Return Raw</a>.</p>
+                                                        <p>One way to manage the risk of a timeout is to close the HTTP connection as quickly as possible. One best practice is to add the <span class="wintitle">API Connector Close</span> card as the first card in the flow. This allows the Workflows engine to immediately release its HTTP connection to the caller (HTTP client).  Then the Workflows engine asynchronously processes the rest of the flow. See <a href="function-reference/http/http_close.htm" class="MCXref xref">Close</a>.</p>
+                                                        <p>Another best practice is to use the combination of <span class="wintitle">Call Flow Async</span> and <span class="wintitle">Flow Control Return Raw</span> cards. They allow you to start processing work asynchronously and have fine-grained control over the HTTP response. See <a href="function-reference/flow-control/flocontrol_run.htm" class="MCXref xref">Call Flow Async</a> and <a href="function-reference/flow-control/flocontrol_returnraw.htm" class="MCXref xref">Return Raw</a>.</p>
                                                         <p>
                                                             <img src="../../resources/images/workflows/call-flow-asynch.png" />
                                                         </p>
                                                         <h3><a name="Keep"></a>Keep synchronous flows simple and fast</h3>
-                                                        <p>If a client requires a synchronous response, pay extra attention to flow architecture to make sure you are not introducing unnecessary latency and timeout risk.</p>
+                                                        <p>If a client requires a synchronous response, pay extra attention to flow architecture to make sure you aren't introducing unnecessary latency and timeout risk.</p>
                                                         <ol>
                                                             <li value="1">
-                                                                <p>Avoid external network calls. Calls can take hundreds of milliseconds of latency, not including the time the external service takes to process data.  External calls occur in connector cards as well as HTTP cards.  If you must make external network calls, create a helper flow and use the Call Flow Async card to move the calls out of the synchronous flow.</p>
+                                                                <p>Avoid external network calls. Calls can take hundreds of milliseconds of latency, not including the time the external service takes to process data.  External calls occur in connector cards and HTTP cards.  If external network calls are necessary, create a helper flow and use the <span class="wintitle">Call Flow Async</span> card to remove the calls from the synchronous flow.</p>
                                                             </li>
                                                             <li value="2">
-                                                                <p>Once the response is ready, immediately return it. You can use the API Connector Close card to return a value while the rest of the flow continues processing.</p>
+                                                                <p>Once the response is ready, return it immediately. You can use the <span class="wintitle">API Connector Close</span> card to return a value while the rest of the flow continues processing.</p>
                                                             </li>
                                                         </ol>
                                                         <h2><a name="Effectiv2"></a>Effective use of the Workflows engine</h2>
-                                                        <p>The Workflows engine executes many smaller actions more efficiently than fewer large actions. Flows that use excessive memory may be throttled or stopped to protect system resources. These are important techniques to improve flow performance and avoid out-of-memory, throttling, execution delays, or other issues.</p>
-                                                        <h3><a name="Use"></a>Use helper flows to split large processing jobs into many smaller jobs</h3>
-                                                        <p>When you can build multiple asynchronous flows, the Workflows engine will intelligently schedule the work to complete your flow as fast as possible. If you have a large amount of asynchronous work to do from your parent flow, the best practice is to use the Call Flow Async card.  This card will continue processing your parent flow while the engine concurrently executes the helper flow that is specified as the input.</p>
-                                                        <p> If you have a large list of items and need to process each item in a list, the best practice is to use the List For Each - Ignore Errors card.  This card will take a list and run a helper flow for each item in that list, with optional concurrency.  While the card is labeled “Ignore Errors”, that is really from the parent flow perspective. You can handle errors in your helper flows. See <a href="function-reference/list/list_asynceach.htm" class="MCXref xref">For Each - Ignore Errors</a>.</p>
+                                                        <p>The Workflows engine executes many smaller actions more efficiently than fewer large actions. Flows that use excessive memory may be throttled or stopped to protect system resources. These are important techniques to improve flow performance and avoid out-of-memory, throttling, execution delays, stuck executions, or other issues.</p>
+                                                        <h3><a name="Use"></a>Use helper flows to split large processing jobs</h3>
+                                                        <p>When you can build multiple asynchronous flows, the Workflows engine intelligently schedules the work to complete your flow as fast as possible. If you have a large amount of asynchronous work to do from your parent flow, the best practice is to use the <span class="wintitle">Call Flow Async</span> card.  This card continues processing your parent flow while the engine concurrently executes the helper flow specified as the input.</p>
+                                                        <p> If you have a large list of items and need to process each item in a list, the best practice is to use the <span class="wintitle">For Each - Ignore Errors</span> card.  This card takes a list and runs a helper flow for each item in that list, with optional concurrency.  While the card name implies that it ignores errors, that is only true from the parent flow perspective. You can handle errors in your helper flows. See <a href="function-reference/list/list_asynceach.htm" class="MCXref xref">For Each - Ignore Errors</a>.</p>
                                                         <h3><a name="Filter"></a>Filter large sets</h3>
-                                                        <p> If you only need to process a subset of items in a list, the best practice is to filter them using the List Filter card instead of stopping a helper flow early. See <a href="function-reference/list/list_filterby.htm" class="MCXref xref">Filter</a>.</p>
-                                                        <p>While helper flows are preferable to doing a lot of processing in a single large flow, keep in mind that the creation and execution of helper flows is overhead. If you can avoid them for jobs that you don't need to process, then your flow will run more efficiently.</p>
+                                                        <p> If you only need to process a subset of items in a list, the best practice is to filter them using the <span class="wintitle">Filter</span> card instead of stopping a helper flow early. See <a href="function-reference/list/list_filterby.htm" class="MCXref xref">Filter</a>.</p>
+                                                        <p>While helper flows are preferable to doing all the processing in a single large flow, keep in mind that the creation and execution of helper flows is overhead. If you can avoid them for jobs that you don't need to process, then your flow runs more efficiently.</p>
                                                         <h3><a name="Avoid"></a>Avoid passing lists into helper flows</h3>
-                                                        <p>When operating on a list of items and using a For Each card, the best practice is to pass only the data that the helper flow needs in the <span class="wintitle">With the following values</span> section. You can pull individual data items out of the list you are iterating over by using the interface to pick the individual item to pass. For example, if operating on a list of users, pass only the single user’s required fields into the helper flow instead of the entire user object.</p>
+                                                        <p>When operating on a list of items and using a <span class="wintitle">For Each</span> card, use the <span class="wintitle">With the following values</span> section to pass only the data that the helper flow needs. You can pull individual data items out of the list you're iterating over by using the interface to pick the individual item to pass. For example, if operating on a list of users, pass only the single user’s required fields into the helper flow instead of the entire user object.</p>
                                                         <p>
                                                             <img src="../../resources/images/workflows/foreach.png" />
                                                         </p>
                                                         <h3><a name="Use2"></a>Use streaming actions when possible</h3>
-                                                        <p>Streaming actions will take lists of results and automatically execute a helper flow for each item asynchronously.  This process is optimized so the parent flow paginates through the data and creates the helper flows with low memory consumption.</p>
-                                                        <p>Be mindful that non-streaming result set options lead to increased flow memory usage.  Cards that feature the option <span class="userinput">Stream Matching Records</span> in the <span class="uicontrol">Result Set</span> field support streaming actions.  The  Find Users, List Users with Search, and List Users Assigned to Applications action cards for the Okta connector return lists and support streaming. See <a href="build/search-with-streaming.htm" class="MCXref xref">Set up the stream matching option with a helper flow</a>.</p>
+                                                        <p>Streaming actions take lists of results and automatically execute a helper flow for each item asynchronously.  This process is optimized so the parent flow paginates through the data and creates the helper flows with low memory consumption.</p>
+                                                        <p>Be mindful that non-streaming result set options lead to increased flow memory usage.  Cards that feature the option <span class="userinput">Stream Matching Records</span> in the <span class="uicontrol">Result Set</span> field support streaming actions.  The  <span class="wintitle">Find Users</span>, <span class="wintitle">List Users with Search</span>, and <span class="wintitle">List Users Assigned to Applications</span> action cards for the Okta connector return lists and support streaming. See <a href="build/search-with-streaming.htm" class="MCXref xref">Set up the stream matching option with a helper flow</a>.</p>
                                                         <h2>Related topics</h2>
                                                         <p><a href="learn/about-building-flows.htm" class="MCXref xref">Building flows</a>
                                                         </p>
@@ -401,12 +401,7 @@
 	</p>
                                         </div>
                                     </div>
-                                    <!-- Qualtrics setup to use with script below, replacing getfeedback -->
-                                    <div id="ZN_6fGBJ8J3VcIBymN">
-                                        <!--DO NOT REMOVE-CONTENTS PLACED HERE-->
-                                    </div>
                                     <!-- ********************** Scripts ************************************* -->
-                                    <!-- Foundation -->
                                     <script src="../../resources/scripts/js/ignore-dompurify.js">
                                     </script>
                                     <script src="../../resources/scripts/js/app.js">
@@ -414,8 +409,6 @@
                                     <script src="../../resources/scripts/js/vendor/what-input.js">
                                     </script>
                                     <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.4-rc1/js/foundation.min.js">
-                                    </script>
-                                    <script type="text/javascript" src="../../resources/scripts/js/vendor/qualtrics.js">
                                     </script>
                                     <!-- Coveo -->
                                     <script src="https://static.cloud.coveo.com/searchui/v2.5395/js/CoveoJsSearch.Lazy.min.js" defer="defer">
@@ -426,6 +419,9 @@
                                     </script>
                                     <script src="../../resources/scripts/coveo-resources/js/coveo.madcapflare.okta.js" id="coveoInitscript" defer="defer">
                                     </script>
+                                    <!-- Feedback tab for Qualtrics survey -->
+                                    <div id="feedback-tab" data-mc-conditions="Primary.live-site-only"><a id="feedback-link" href="https://surveys.okta.com/jfe/form/SV_e4L0iW8a3tz8Yol" target="_blank" title="Submit feedback"><div id="feedback-container"><p id="feedback-text" translate="no">Feedback</p></div></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
