@@ -652,5 +652,9 @@ xmlAliasData += '    <Map Name=\"csh-attribute-statements-saml\" Link=\"Topics/A
 xmlAliasData += '    <Map Name=\"ext-lcm-convert-user-group\" Link=\"Topics/Provisioning/lcm/lcm-convert-user-group.htm\" ResolvedId=\"16004\" />';
 xmlAliasData += '    <Map Name=\"csh-campaigns\" Link=\"Topics/identity-governance/access-certification/campaigns.htm\" ResolvedId=\"13020\" />';
 xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-identity-provider-permissions\" Link=\"Topics/Security/custom-admin-role/about-role-permissions.htm\" ResolvedId=\"1157\" />';
+xmlAliasData += '    <Map Name=\"csh-rt-questions\" Link=\"Topics/identity-governance/access-requests/request-type-settings.htm#Question\" ResolvedId=\"1173\" />';
+xmlAliasData += '    <Map Name=\"csh-rt-tasks\" Link=\"Topics/identity-governance/access-requests/request-type-settings.htm#Task\" ResolvedId=\"1174\" />';
+xmlAliasData += '    <Map Name=\"csh-rt-timer\" Link=\"Topics/identity-governance/access-requests/request-type-settings.htm#Timer\" ResolvedId=\"1196\" />';
+xmlAliasData += '    <Map Name=\"csh-rt-operators\" Link=\"Topics/identity-governance/access-requests/request-type-settings.htm#Operators\" ResolvedId=\"1201\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
