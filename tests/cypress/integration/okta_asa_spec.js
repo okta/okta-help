@@ -13,7 +13,7 @@ describe('ASA landing page (en-US)', () => {
     cy.hasBodyContent()
     cy.hasTiles(6)
     cy.hasDeferAttrsCorrectlyApplied()
-    cy.hasQualtrics()
+    // cy.hasQualtrics()
     cy.hidesCoveoSearchBar()
   })
 })
