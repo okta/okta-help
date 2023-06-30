@@ -186,11 +186,11 @@ function hidesCoveoSearchBar () {
 function hasMadCapSearchBar (title) {
   cy.get('form.search').last().as('searchForm')
 
-  cy.get(`input[aria-label="${title}"]`)
+  cy.get(`input[aria-label="${title}"]`).last()
     .should('be.visible')
     .type('verify')
 
-  cy.get(`input[aria-label="${title}"]`)
+  cy.get(`input[aria-label="${title}"]`).last()
     .should('have.value', 'verify')
     .should('be.visible')
 
