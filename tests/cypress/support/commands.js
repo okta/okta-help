@@ -56,13 +56,18 @@ function hasTOC (numOfEntries) {
   // We're checking the number of entries in the TOC when the page first loads
   // We aren't checking child entries, or total number of entries, which is changeable.
   cy.get('ul.sidenav a')
+    // Number of TOC entries (estimate)
+    .its('length')
+    .should('be.gte', numOfEntries)
+
+  // Cypress now throws errors on chaining commands
+  // The accepted pattern is get > action > assert
+  // Can no longer chain actions, requires a new get for each action
+  cy.get('ul.sidenav a')
     .each(($el) => {
       cy.wrap($el)
         .should('have.attr', 'href')
     })
-    // Number of TOC entries (estimate)
-    .its('length')
-    .should('be.gte', numOfEntries)
 }
 
 function hasBreadcrumbs (topicName) {
@@ -117,12 +122,17 @@ function hasTiles (numOfTiles) {
     })
 
   cy.get('p[class="tile-title"] > a')
+    .its('length')
+    .should('eq', numOfTiles)
+
+  // Cypress now throws errors on chaining commands
+  // The accepted pattern is get > action > assert
+  // Can no longer chain actions, requires a new get for each action
+  cy.get('p[class="tile-title"] > a')
     .each(($el) => {
       cy.wrap($el)
         .should('have.attr', 'href')
     })
-    .its('length')
-    .should('eq', numOfTiles)
 }
 
 function hasTabs (numOfTabs) {
@@ -131,6 +141,8 @@ function hasTabs (numOfTabs) {
     // Each tab can be activated
     .each(($li) => {
       cy.wrap($li).click()
+
+      cy.get($li)
         .should('have.class', 'is-active')
     })
 }
@@ -173,9 +185,12 @@ function hidesCoveoSearchBar () {
 
 function hasMadCapSearchBar (title) {
   cy.get('form.search').last().as('searchForm')
-    .find(`input[aria-label="${title}"]`)
+
+  cy.get(`input[aria-label="${title}"]`).last()
     .should('be.visible')
     .type('verify')
+
+  cy.get(`input[aria-label="${title}"]`).last()
     .should('have.value', 'verify')
     .should('be.visible')
 
@@ -201,7 +216,8 @@ function switchLocale (changeLocaleStr, langName) {
       expect($el).to.be.visible
     })
     .trigger('mouseover')
-    .find('div.button-icon-wrapper')
+
+  cy.get('div.button-icon-wrapper')
     .should(($el) => {
       expect($el).to.have.attr('aria-label', changeLocaleStr)
       expect($el).to.be.visible
@@ -210,6 +226,9 @@ function switchLocale (changeLocaleStr, langName) {
   cy.get('button.select-language-button')
     .trigger('click')
 
+  // Cypress now throws errors on chaining commands
+  // The accepted pattern is get > action > assert
+  // Can no longer chain actions, requires a new get for each action
   cy.get('.select-language-drop-down a').contains(langName)
     .should(($el) => {
       expect($el).to.be.visible
