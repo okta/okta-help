@@ -6,7 +6,7 @@ source setup-translation-ll.sh
 export TRANSLATION_RECEIVING_BRANCH="translations-${TARGET}-receive-$(TZ=UTC+8 date +'%Y-%m-%d_%H-%M-%S_%s')"
 
 # topic from latest main
-get fetch --depth=1 origin ${BASE_BRANCH}
+git fetch --depth=1 origin ${BASE_BRANCH}
 switch ${BASE_BRANCH}
 git checkout -b ${TRANSLATION_RECEIVING_BRANCH}
 
