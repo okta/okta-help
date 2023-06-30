@@ -27,6 +27,9 @@ git push origin ${TRANSLATION_RECEIVING_BRANCH}
 export PR_TITLE="Receiving translation for ${TARGET^^}"
 export PR_BODY="${TARGET^^} translation for the latest commit: ${TRANSLATION_COMMITS}"
 
+export GITHUB_TOKEN
+get_vault_secret_key eng-services/github-uplift/eng-productivity-ci-bot-okta okta GITHUB_TOKEN
+
 set -x
 export HTTP_NEW_PR=$(curl \
   -X POST \
