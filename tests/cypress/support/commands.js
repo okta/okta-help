@@ -125,7 +125,7 @@ function hasTiles (numOfTiles) {
     .its('length')
     .should('eq', numOfTiles)
 
-    // Cypress now throws errors on chaining commands
+  // Cypress now throws errors on chaining commands
   // The accepted pattern is get > action > assert
   // Can no longer chain actions, requires a new get for each action
   cy.get('p[class="tile-title"] > a')
