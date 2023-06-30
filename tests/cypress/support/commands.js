@@ -59,6 +59,11 @@ function hasTOC (numOfEntries) {
     // Number of TOC entries (estimate)
     .its('length')
     .should('be.gte', numOfEntries)
+
+  // Cypress now throws errors on chaining commands
+  // The accepted pattern is get > action > assert
+  // Can no longer chain actions, requires a new get for each action
+  cy.get('ul.sidenav a')
     .each(($el) => {
       cy.wrap($el)
         .should('have.attr', 'href')
@@ -119,6 +124,11 @@ function hasTiles (numOfTiles) {
   cy.get('p[class="tile-title"] > a')
     .its('length')
     .should('eq', numOfTiles)
+
+    // Cypress now throws errors on chaining commands
+  // The accepted pattern is get > action > assert
+  // Can no longer chain actions, requires a new get for each action
+  cy.get('p[class="tile-title"] > a')
     .each(($el) => {
       cy.wrap($el)
         .should('have.attr', 'href')
@@ -216,6 +226,9 @@ function switchLocale (changeLocaleStr, langName) {
   cy.get('button.select-language-button')
     .trigger('click')
 
+  // Cypress now throws errors on chaining commands
+  // The accepted pattern is get > action > assert
+  // Can no longer chain actions, requires a new get for each action
   cy.get('.select-language-drop-down a').contains(langName)
     .should(($el) => {
       expect($el).to.be.visible
