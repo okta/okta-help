@@ -27,6 +27,7 @@ git push origin ${TRANSLATION_RECEIVING_BRANCH}
 export PR_TITLE="Receiving translation for ${TARGET^^}"
 export PR_BODY="${TARGET^^} translation for the latest commit: ${TRANSLATION_COMMITS}"
 
+set -x
 export HTTP_NEW_PR=$(curl \
   -X POST \
   -H "Accept: application/vnd.github+json" \
