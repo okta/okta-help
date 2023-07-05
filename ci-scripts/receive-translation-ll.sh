@@ -6,8 +6,7 @@ source setup-translation-ll.sh
 export TRANSLATION_RECEIVING_BRANCH="em-translations-${TARGET}-receive-$(TZ=UTC+8 date +'%Y-%m-%d_%H-%M-%S_%s')"
 
 # topic from latest main
-git fetch --depth=1 origin ${BASE_BRANCH}
-git switch ${SHA}
+switch ${SHA}
 git checkout -b ${TRANSLATION_RECEIVING_BRANCH}
 
 # get ja files from translation branch
