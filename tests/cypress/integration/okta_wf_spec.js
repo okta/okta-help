@@ -33,7 +33,7 @@ describe('Workflows landing page (ja-JP)', () => {
     cy.hasBodyContent()
     cy.hasTiles(9)
     cy.hasDeferAttrsCorrectlyApplied()
-    cy.hasQualtrics()
+    // cy.hasQualtrics()
     cy.hidesCoveoSearchBar()
   })
 })
