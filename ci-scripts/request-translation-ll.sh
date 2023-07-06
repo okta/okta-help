@@ -17,7 +17,7 @@ git restore --source origin/${BASE_BRANCH} -- . ':!*/Topics/ReleaseNotes/*' ':!*
 popd
 
 # copy en-us resources to en-ja
-export RESOURCE_PATHS=( "Content/Resources" "Resources" "Data" "Skins" )
+export RESOURCE_PATHS=( "Content/Resources" "content/resources" "Resources" "Data" "Skins" )
 for RESOURCE_PATH in "${RESOURCE_PATHS[@]}"
 do
   :
