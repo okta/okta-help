@@ -2,6 +2,7 @@ Cypress.Commands.add('hasOktaHOCBanner', hasOktaHOCBanner)
 Cypress.Commands.add('hasCopyright', hasCopyright)
 Cypress.Commands.add('hasLeftSideNav', hasLeftSideNav)
 Cypress.Commands.add('hasNoLeftSideNav', hasNoLeftSideNav)
+Cypress.Commands.add('hasLeftSideNavHidden', hasLeftSideNavHidden)
 Cypress.Commands.add('hasTOC', hasTOC)
 Cypress.Commands.add('hasBreadcrumbs', hasBreadcrumbs)
 Cypress.Commands.add('hasTopMenuBar', hasTopMenuBar)
@@ -11,6 +12,7 @@ Cypress.Commands.add('hasTabs', hasTabs)
 Cypress.Commands.add('hasDeferAttrsCorrectlyApplied', hasDeferAttrsCorrectlyApplied)
 Cypress.Commands.add('hasQualtrics', hasQualtrics)
 Cypress.Commands.add('hasCoveoSearchBar', hasCoveoSearchBar)
+Cypress.Commands.add('hidesCoveoSearchBar', hidesCoveoSearchBar)
 Cypress.Commands.add('hasMadCapSearchBar', hasMadCapSearchBar)
 Cypress.Commands.add('switchLocale', switchLocale)
 
@@ -40,6 +42,11 @@ function hasLeftSideNav () {
 
 function hasNoLeftSideNav () {
   cy.get('ul.sidenav')
+    .should('not.exist')
+}
+
+function hasLeftSideNavHidden () {
+  cy.get('ul.sidenav')
     .should('not.be.visible')
 }
 
@@ -49,13 +56,18 @@ function hasTOC (numOfEntries) {
   // We're checking the number of entries in the TOC when the page first loads
   // We aren't checking child entries, or total number of entries, which is changeable.
   cy.get('ul.sidenav a')
+    // Number of TOC entries (estimate)
+    .its('length')
+    .should('be.gte', numOfEntries)
+
+  // Cypress now throws errors on chaining commands
+  // The accepted pattern is get > action > assert
+  // Can no longer chain actions, requires a new get for each action
+  cy.get('ul.sidenav a')
     .each(($el) => {
       cy.wrap($el)
         .should('have.attr', 'href')
     })
-    // Number of TOC entries (estimate)
-    .its('length')
-    .should('be.gte', numOfEntries)
 }
 
 function hasBreadcrumbs (topicName) {
@@ -110,12 +122,17 @@ function hasTiles (numOfTiles) {
     })
 
   cy.get('p[class="tile-title"] > a')
+    .its('length')
+    .should('eq', numOfTiles)
+
+  // Cypress now throws errors on chaining commands
+  // The accepted pattern is get > action > assert
+  // Can no longer chain actions, requires a new get for each action
+  cy.get('p[class="tile-title"] > a')
     .each(($el) => {
       cy.wrap($el)
         .should('have.attr', 'href')
     })
-    .its('length')
-    .should('eq', numOfTiles)
 }
 
 function hasTabs (numOfTabs) {
@@ -124,6 +141,8 @@ function hasTabs (numOfTabs) {
     // Each tab can be activated
     .each(($li) => {
       cy.wrap($li).click()
+
+      cy.get($li)
         .should('have.class', 'is-active')
     })
 }
@@ -152,11 +171,26 @@ function hasCoveoSearchBar () {
     .should('be.visible')
 }
 
-function hasMadCapSearchBar () {
+function hidesCoveoSearchBar () {
+  cy.get('div.magic-box-input input')
+    .should('not.be.visible')
+
+  cy.get('button[class="search-btn"]')
+    .should('be.visible')
+    .click()
+
+  cy.get('div.magic-box-input input')
+    .should('be.visible')
+}
+
+function hasMadCapSearchBar (title) {
   cy.get('form.search').last().as('searchForm')
-    .find('input[aria-label="Search Field"]')
+
+  cy.get(`input[aria-label="${title}"]`).last()
     .should('be.visible')
     .type('verify')
+
+  cy.get(`input[aria-label="${title}"]`).last()
     .should('have.value', 'verify')
     .should('be.visible')
 
@@ -182,7 +216,8 @@ function switchLocale (changeLocaleStr, langName) {
       expect($el).to.be.visible
     })
     .trigger('mouseover')
-    .find('div.button-icon-wrapper')
+
+  cy.get('div.button-icon-wrapper')
     .should(($el) => {
       expect($el).to.have.attr('aria-label', changeLocaleStr)
       expect($el).to.be.visible
@@ -191,6 +226,9 @@ function switchLocale (changeLocaleStr, langName) {
   cy.get('button.select-language-button')
     .trigger('click')
 
+  // Cypress now throws errors on chaining commands
+  // The accepted pattern is get > action > assert
+  // Can no longer chain actions, requires a new get for each action
   cy.get('.select-language-drop-down a').contains(langName)
     .should(($el) => {
       expect($el).to.be.visible

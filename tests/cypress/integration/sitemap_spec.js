@@ -29,17 +29,17 @@ describe('Sitemaps validation', () => {
 
   [
     'en-us/Sitemap.xml',
-    // 'ja-jp/Sitemap.xml', enable when we post baseline translation
+    'ja-jp/Sitemap.xml',
     'asa/en-us/Sitemap.xml',
     'asa/ja-jp/Sitemap.xml',
     'eu/en-us/Sitemap.xml',
     'eu/ja-jp/Sitemap.xml',
     'oag/en-us/Sitemap.xml',
-    // 'oag/ja-jp/Sitemap.xml', enable when we post baseline translation
+    'oag/ja-jp/Sitemap.xml',
     'oie/en-us/Sitemap.xml',
     'oie/ja-jp/Sitemap.xml',
     'wf/en-us/Sitemap.xml',
-    // 'wf/ja-jp/Sitemap.xml' enable when we post baseline translation
+    'wf/ja-jp/Sitemap.xml',
   ].forEach((sitemap) => {
     it(`Loads ${NUMBER_OF_ENTITIES_TO_CHECK} urls from ${sitemap}`, () => {
       verifySitemap(sitemap)
