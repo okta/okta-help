@@ -6,7 +6,7 @@
         <meta name="typeofcontent" content="documentation" />
         <meta name="audience" content="admin" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="description" content="Lifecycle Management Hooks for Advanced Server Access allows custom scripts to run when user attributes or group memberships change." /><title>Configure Agent Lifecycle Management Hooks for Advanced Server Access | Okta</title>
+        <meta name="description" content="Lifecycle Management Hooks for Advanced Server Access allows custom scripts to run when user attributes or group memberships change." /><title>Configure Agent Lifecycle Management Hooks for Okta Privileged Access</title>
         <meta charset="utf-8" />
         <meta name="description" content="" />
         <meta name="author" content="" />
@@ -97,6 +97,9 @@
         });
 		})('a9bd3885-93ae-46ab-700b-dd29e613c19d');
 		/* ]]> */
+        function openSurvey() {
+            window.open('https://surveys.okta.com/jfe/form/SV_e4L0iW8a3tz8Yol?source=' + encodeURIComponent(document.location.href), '_blank');
+        }
 		</script>
     </head>
     <body>
@@ -295,7 +298,7 @@
                                                     <p>The
     <span class="mc-variable okta-feature-names.Okta_Privileged_Access variable">Okta Privileged Access</span> lifecycle hooks feature exposes an event bus on your servers that receives notifications when membership changes are made to local <span class="disableGlossary">users</span> and <span class="disableGlossary">group</span> configurations on your Linux systems.
     <span class="mc-variable okta-feature-names.Okta_Privileged_Access variable">Okta Privileged Access</span> administrators can customize these lifecycle hooks with scripts to fit any routine tasks that need to be executed when these changes occur. Local scripts are also run globally, matching
- any files that are under the <span class="code">/usr/lib/sftd/hooks</span> directory. You can discover which operating system objects are affected depending on which event is occurring, and see which scripts are being run. See <a href="#Director" class="MCXref xref">Directories and scripts</a> and <a href="#Lifecycl" class="MCXref xref">Lifecycle-related environment variables</a>.</p>
+ any files that are under the <span class="code">/usr/lib/sftd/hooks</span> directory. You can discover which operating system objects are affected depending on which event is occurring, and see which scripts are running. See <a href="#Director" class="MCXref xref">Directories and scripts</a> and <a href="#Lifecycl" class="MCXref xref">Lifecycle-related environment variables</a>.</p>
                                                     <h2>Procedure</h2>
                                                     <p>Use the following steps as a guide to perform an on-host setup.</p>
                                                     <div class="noteOkta">
@@ -311,12 +314,12 @@
                                                             <p>Switch to root by running <span class="code">sudo su</span></p>
                                                         </li>
                                                         <li value="3">
-                                                            <p>Create a new directory for the hooks script with the following command:</p>
+                                                            <p>Create a directory for the hooks script with the following command:</p>
                                                             <p><span class="code">mkdir -p /usr/lib/sftd/hooks/user-created.d</span>
                                                             </p>
                                                         </li>
                                                         <li value="4">
-                                                            <p>Using a text editor, create a new file named <span class="code">01-copyfiles.sh</span> and copy/paste the following bash script:</p>
+                                                            <p>Using a text editor, create a file named <span class="code">01-copyfiles.sh</span> and copy/paste the following bash script:</p>
                                                             <p>Note: The following is an example that demonstrates the basic functionality of <span class="disableGLossary">agent</span> lifecycle hooks. Modify the script as needed to fit your specific integration.</p><span class="codeblock">#!/bin/bash
 SOURCE_FILES=/opt/sourcefiles
 cp $SOURCE_FILES/App?/home/"${SFT_HOOK_USERNAME}"
@@ -340,7 +343,7 @@ echo "Error Copying source files into /home/"${SFT_HOOK_USERNAME}"" &gt;&gt; /tm
                                                     <h3>Create source files</h3>
                                                     <ol>
                                                         <li value="1">
-                                                            <p>Create a new directory for the source files by running the following commands:</p><span class="codeblock">cd /opt
+                                                            <p>Create a directory for the source files by running the following commands:</p><span class="codeblock">cd /opt
 mkdir sourcefiles</span>
                                                         </li>
                                                         <li value="2">
@@ -351,48 +354,15 @@ touch App1 App2 App3</span>
                                                             <p>Run the <span class="code">ls</span> command and confirm that the files <span class="code">App1</span>, <span class="code">App2</span>, and <span class="code">App3</span> have been created.</p>
                                                         </li>
                                                     </ol>
-                                                    <h3>Create a new <span class="mc-variable okta-variables.ProductName variable">Okta</span> user and assign them to an authorized group</h3>
+                                                    <h3>Create a <span class="mc-variable okta-variables.ProductName variable">Okta</span> user and assign them to an authorized group</h3>
                                                     <ol>
-                                                        <li value="1">
-                                                            <p>As an <span class="mc-variable okta-variables.ProductName variable">Okta</span> administrator, navigate to the <span class="uicontrol">Admin</span> dashboard of the Okta tenant that manages your Advanced Server Access application.</p>
-                                                        </li>
-                                                        <li value="2">
-                                                            <p>Navigate to <span class="uicontrol">Applications</span> and click <span class="uicontrol"><span style="font-weight: normal;" class="mc-variable okta-variables.ProductName variable">Okta</span> <span class="mc-variable okta-feature-names.Okta_Privileged_Access variable">Okta Privileged Access</span></span>.</p>
-                                                        </li>
-                                                        <li value="3">
-                                                            <p>Click <span class="uicontrol">Assignments</span> and then <span class="uicontrol">Groups</span>. Remember the name of the group that has been assigned the application.</p>
-                                                        </li>
-                                                        <li value="4">
-                                                            <p>In the Okta <span class="disableGlossary">Admin</span> console, select <span class="uicontrol">Directory</span> , <span class="uicontrol">People</span> and then <span class="uicontrol">Add Person</span>.</p>
-                                                        </li>
-                                                        <li value="5">
-                                                            <p>Create a new user with a memorable name.</p>
-                                                        </li>
-                                                        <li value="6">
-                                                            <p>In the Okta <span class="disableGlossary">Admin</span> console, navigate to <span class="uicontrol">Directory</span>, and then click <span class="uicontrol">Groups</span>. From here, select the group that was assigned to
-        <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> in Step 3. </p>
-                                                        </li>
-                                                    </ol>
-                                                    <h3>Add the group to your project</h3>
-                                                    <ol>
-                                                        <li value="1">
-                                                            <p>In the <span class="mc-variable okta-variables.ProductName variable">Okta</span> administrator console, click <span class="uicontrol">My Applications</span>, and then select <span class="uicontrol"><span class="mc-variable okta-variables.ProductName variable">Okta</span> <span class="mc-variable okta-feature-names.Okta_Privileged_Access variable">Okta Privileged Access</span></span>.</p>
-                                                        </li>
-                                                        <li value="2">
-                                                            <p>Click <span class="uicontrol">Projects</span>.</p>
-                                                        </li>
-                                                        <li value="3">
-                                                            <p>Click the project you want to add the group to.</p>
-                                                        </li>
-                                                        <li value="4">
-                                                            <p>Click the <span class="uicontrol">Groups</span> tab, then click <span class="uicontrol">Add Group to Project</span>.</p>
-                                                        </li>
-                                                        <li value="5">
-                                                            <p>In the <span class="uicontrol">Group</span> field, enter the name of the group to add, select the group, then click <span class="uicontrol">Create Group</span>.</p>
-                                                        </li>
-                                                        <li value="6">
-                                                            <p>Ensure that the user has been added to the project by clicking the <span class="uicontrol">Users</span> tab for the project and searching for the user.</p>
-                                                        </li>
+                                                        <li value="1">As an <span class="mc-variable okta-variables.ProductName variable">Okta</span> administrator, go to the <span class="uicontrol">Admin Dashboard</span> of the Okta tenant that manages your Advanced Server Access application.</li>
+                                                        <li value="2">Go to <span class="uicontrol">Applications</span> and click <span class="uicontrol"><span style="font-weight: normal;" class="mc-variable okta-variables.ProductName variable">Okta</span> <span class="mc-variable okta-feature-names.Okta_Privileged_Access variable">Okta Privileged Access</span></span>.</li>
+                                                        <li value="3">Click <span class="uicontrol">Assignments</span> and then <span class="uicontrol">Groups</span>. Remember the name of the group that has been assigned the application.</li>
+                                                        <li value="4">In the Okta <span class="mc-variable okta-feature-names.Administrator_dashboard variable">Admin Console</span>, select <span class="uicontrol">Directory</span> , <span class="uicontrol">People</span> and then <span class="uicontrol">Add Person</span>.</li>
+                                                        <li value="5">Create a user with a memorable name.</li>
+                                                        <li value="6">In the Okta <span class="mc-variable okta-feature-names.Administrator_dashboard variable">Admin Console</span>, go to <span class="uicontrol">Directory</span>, and then click <span class="uicontrol">Groups</span>. From here, select the group that was assigned to
+        <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> in step 3. </li>
                                                     </ol>
                                                     <h3>Validate user provisioning on your Linux server</h3>
                                                     <ol>
@@ -499,12 +469,7 @@ ls -l</span>
 	</p>
                                         </div>
                                     </div>
-                                    <!-- Qualtrics setup to use with script below, replacing getfeedback -->
-                                    <div id="ZN_6fGBJ8J3VcIBymN">
-                                        <!--DO NOT REMOVE-CONTENTS PLACED HERE-->
-                                    </div>
                                     <!-- ********************** Scripts ************************************* -->
-                                    <!-- Foundation -->
                                     <script src="../../Resources/Scripts/js/ignore-dompurify.js">
                                     </script>
                                     <script src="../../Resources/Scripts/js/app.js">
@@ -512,8 +477,6 @@ ls -l</span>
                                     <script src="../../Resources/Scripts/js/vendor/what-input.js">
                                     </script>
                                     <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.4-rc1/js/foundation.min.js">
-                                    </script>
-                                    <script type="text/javascript" src="../../Resources/Scripts/js/vendor/qualtrics.js">
                                     </script>
                                     <!-- Coveo -->
                                     <script src="https://static.cloud.coveo.com/searchui/v2.5395/js/CoveoJsSearch.Lazy.min.js" defer="defer">
@@ -524,6 +487,9 @@ ls -l</span>
                                     </script>
                                     <script src="../../Resources/Scripts/coveo-resources/js/Coveo.MadcapFlare.Okta.js" id="coveoInitscript" defer="defer">
                                     </script>
+                                    <!-- Feedback tab for Qualtrics survey -->
+                                    <div id="feedback-tab" data-mc-conditions="Primary.live-site-only"><a id="feedback-link" href="#" onclick="openSurvey();  return false" target="_blank" title="Submit feedback"><div id="feedback-container"><p id="feedback-text" translate="no">Feedback</p></div></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
