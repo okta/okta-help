@@ -1,6 +1,6 @@
 describe('OIE landing page (en-US)', () => {
   beforeEach(() => {
-    cy.visit('oie/en-us/Content/Topics/identity-engine/oie-index.htm')
+    cy.visit('oie/en-us/content/topics/identity-engine/oie-index.htm')
   })
 
   it('displays expected content structures in English', () => {
@@ -20,7 +20,7 @@ describe('OIE landing page (en-US)', () => {
 
 describe('OIE landing page (ja-JP)', () => {
   beforeEach(() => {
-    cy.visit('oie/ja-jp/Content/Topics/identity-engine/oie-index.htm')
+    cy.visit('oie/ja-jp/content/topics/identity-engine/oie-index.htm')
   })
 
   it('displays expected content structures in Japanese', () => {

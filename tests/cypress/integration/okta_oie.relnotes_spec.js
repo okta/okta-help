@@ -1,6 +1,6 @@
 describe('OIE release notes landing page (en-US)', () => {
   beforeEach(() => {
-    cy.visit('oie/en-us/Content/Topics/ReleaseNotes/oie-relnotes.htm')
+    cy.visit('oie/en-us/content/topics/releasenotes/oie-relnotes.htm')
   })
 
   it('displays expected content structures in English', () => {
@@ -20,7 +20,7 @@ describe('OIE release notes landing page (en-US)', () => {
 
 describe('OIE release notes production page (en-US)', () => {
   beforeEach(() => {
-    cy.visit('oie/en-us/Content/Topics/ReleaseNotes/production-oie.htm')
+    cy.visit('oie/en-us/content/topics/releasenotes/production-oie.htm')
   })
 
   it('displays expected content structures in English', () => {

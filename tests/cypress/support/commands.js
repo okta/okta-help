@@ -200,7 +200,7 @@ function hasMadCapSearchBar (title) {
     .click()
 
   cy.url()
-    .should('include', 'Search.htm?q=verify')
+    .should('include', 'search.htm?q=verify')
 }
 
 function switchLocale (changeLocaleStr, langName) {
