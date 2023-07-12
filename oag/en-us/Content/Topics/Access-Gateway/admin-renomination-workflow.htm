@@ -94,6 +94,9 @@
         });
 		})('a9bd3885-93ae-46ab-700b-dd29e613c19d');
 		/* ]]> */
+        function openSurvey() {
+            window.open('https://surveys.okta.com/jfe/form/SV_e4L0iW8a3tz8Yol?source=' + encodeURIComponent(document.location.href), '_blank');
+        }
 		</script>
     </head>
     <body>
@@ -306,7 +309,7 @@
                                                             <p>Verify that:</p>
                                                             <div>
                                                                 <ul style="list-style-type: square;">
-                                                                    <li>The admin node is not serving requests. It is considered a best practice to NOT include the admin node as part of the load balanced set of instances serving user requests.</li>
+                                                                    <li>The admin node doesn't serve requests. As a best practice, don't include the admin node as part of the load balanced set of instances serving user requests.</li>
                                                                     <li>All members of the cluster, including the original and nominated worker node, are running <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> v2020.8.3 or later. If you encounter a worker node that isn't running v2020.8.3 or later, an error resembling <span class="code">FAILED - Incompatible Node List - &lt;incompatible Node hostname List&gt;. Update worker nodes to version - 2020.8.3 or later</span>  returns and the renomination process gets terminated.</li>
                                                                     <li>The nominated worker node is able to resolve all worker node DNS names. </li>
                                                                     <li>Worker nodes must be able to resolve the nominated node's DNS name.  </li>
@@ -345,10 +348,11 @@
                                                             </ol>
                                                         </div>
                                                         <div class="noteOkta">
-                                                            <p class="noteContent">Before running the Renomination process, ensure that:</p>
+                                                            <p class="noteContent">Before running the renomination process, ensure that nodes meet the following requirements:</p>
+                                                            <p class="noteContent">Before running the renomination process, ensure that:</p>
                                                             <ul>
                                                                 <li>All nodes are reachable using SSH.</li>
-                                                                <li>All nodes, including the admin, nominated worker and all other workers are running <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> v2020.8.3 or later.</li>
+                                                                <li>All nodes, including the admin, nominated worker, and all other workers are running <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> v2020.8.3 or later.</li>
                                                             </ul>
                                                         </div>
                                                         <div>
@@ -358,8 +362,8 @@
                                                                 <li value="1">Connect to the worker instance's <span class="mc-variable okta-feature-names.Access_Gateway_CMD variable">Access Gateway Management console</span>:<span class="codeblock">ssh oag-mgmt@[workder.tld]</span></li>
                                                                 <li value="2">Select <span class="uicontrol">5 - System</span>.</li>
                                                                 <li value="3">Select <span class="uicontrol">8- High Availability Configuration</span>.</li>
-                                                                <li value="4">Select <span class="uicontrol">7- Cluster Manager</span>.<div><p>The cluster management menu displays and is similar to:</p><div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a><div style="mc-code-lang: PlainText;" class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>Access Gateway Cluster Manager (Worker)<br />1 - Authorize Node Nomination<br />2 - Authorize Node as Admin node<br /><br />X- Exit<br />Choice: </code></pre></div></div><p>Selecting  <span class="userinput">1-Authorize Node Nomination</span> on a worker node results in an error: <span class="msgblock">Operation not supported on worker node, press any key to continue.</span></p><p>Attempting to run the Authorize Node Nomination process while another authorization process is in progress results in an error: <span class="msgblock">Admin Nomination in progress for node - &lt;nominatedNode Hostname&gt;.</span></p></div></li>
-                                                                <li value="5">
+                                                                <li value="4">Select <span class="uicontrol">7- Cluster Manager</span>.<div><p>The cluster management menu appears:</p><div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a><div style="mc-code-lang: PlainText;" class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>Access Gateway Cluster Manager (Worker)<br />1 - Authorize Node Nomination<br />2 - Authorize Node as Admin node<br /><br />X- Exit<br />Choice: </code></pre></div></div><p>Selecting  <span class="userinput">1-Authorize Node Nomination</span> on a worker node results in an error: <span class="msgblock">Operation not supported on worker node, press any key to continue.</span></p><p>Attempting to run the Authorize Node Nomination process while another authorization process is in progress results in an error: <span class="msgblock">Admin Nomination in progress for node - &lt;nominatedNode Hostname&gt;.</span></p></div></li>
+                                                                <p>
                                                                     <div>
                                                                         <li>
                                                                             <p>Select <span class="uicontrol">2 - Authorize Node as Admin node</span>.</p>
@@ -367,24 +371,24 @@
                                                                         <li>
                                                                             <p>The worker node then presents a confirmation dialog box. Enter <span class="uicontrol">Y</span> to continue or <span class="uicontrol">N</span> to abort.</p>
                                                                             <div class="noteOkta">
-                                                                                <p class="noteContent">If the Cluster manager package isn't installed or supported on the admin node, an error message displays:</p>
+                                                                                <p class="noteContent">If the Cluster manager package isn't installed or supported on the admin node, an error message appears:</p>
                                                                                 <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
                                                                                     <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>Cluster Manager package was not found on Admin Node - OAG Version - 2020.7.0</code></pre>
                                                                                     </div>
                                                                                 </div>
-                                                                                <p class="noteContent">You must upgrade the admin node before continuing.</p>
+                                                                                <p class="noteContent">Upgrade the admin node before continuing.</p>
                                                                             </div>
                                                                         </li>
                                                                         <li>
-                                                                            <p>The Admin node generates and displays an authorization code, which must be provided to the Worker node. </p>
+                                                                            <p>The worker node generates and displays an authorization code, which you must provide to the admin node. </p>
                                                                             <p>Copy the following authorization code:</p>
                                                                             <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
-                                                                                <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code><br />The authorization token required to initiate setup for nominated admin node: worker-c:8ba1c123-715d-4b70-ab5d-0e41493bef73<br />Copy the token and paste it on the adminnode when prompted.<br />Press enter to continue</code></pre>
+                                                                                <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code><br />The authorization token required to initiate setup for nominated admin node: worker-c:8ba1c123-715d-4b70-ab5d-0e41493bef73<br />Copy the token and paste it on the admin node when prompted.<br />Press enter to continue</code></pre>
                                                                                 </div>
                                                                             </div>
                                                                         </li>
                                                                     </div>
-                                                                </li>
+                                                                </p>
                                                             </ol>
                                                         </div>
                                                         <div>
@@ -396,7 +400,7 @@
                                                                 <li value="3">Select <span class="uicontrol">8- High Availability Configuration</span>.</li>
                                                                 <li value="4">Select <span class="uicontrol">7- Cluster Manager</span>.</li>
                                                                 <li value="5">
-                                                                    <p>The cluster management menu displays and is similar to:</p><span class="codeblock">Access Gateway Cluster Management (Admin)
+                                                                    <p>The cluster management menu appears:</p><span class="codeblock">Access Gateway Cluster Management (Admin)
 1 - Authorize Node Nomination
 2 - Authorize Node as Admin node
 
@@ -404,9 +408,9 @@ X- Exit
 Choice: </span>
                                                                 </li>
                                                                 <div>
-                                                                    <li>Select <span class="uicontrol">1 - Authorize Node Nomination</span>.<div class="noteOkta"><p class="noteContent">Selecting  <span class="uicontrol">2-Authorize Node as Admin node</span> on a admin node result in an error: <span class="msgblock" data-mc-edit-date="2020-09-18T10:52:37.2437235-04:00" data-mc-editor="naini.khajanchi" data-mc-comment="consider removing this" data-mc-initials="NA" data-mc-creator="naini.khajanchi" data-mc-create-date="2020-09-18T10:52:32.8045335-04:00">Operation not supported on admin node, press any key to continue</span>.</p><p class="noteContent">Attempting to run the Authorize Node as Admin node process when  an existing authorize is in progress results in the error: <span class="msgblock" data-mc-edit-date="2020-09-18T10:54:38.9895708-04:00" data-mc-editor="naini.khajanchi" data-mc-comment="Consider removing this" data-mc-initials="NA" data-mc-creator="naini.khajanchi" data-mc-create-date="2020-09-18T10:54:34.5317591-04:00">Admin Nomination in progress</span><span class="msgblock">.</span></p></div></li>
+                                                                    <li>Select <span class="uicontrol">1 - Authorize Node Nomination</span>.<div class="noteOkta"><p class="noteContent">Selecting  <span class="uicontrol">2-Authorize Node as Admin node</span> on an admin node results in an error: <span class="msgblock" data-mc-edit-date="2020-09-18T10:52:37.2437235-04:00" data-mc-editor="naini.khajanchi" data-mc-comment="consider removing this" data-mc-initials="NA" data-mc-creator="naini.khajanchi" data-mc-create-date="2020-09-18T10:52:32.8045335-04:00">Operation not supported on admin node, press any key to continue</span>.</p><p class="noteContent">Attempting to run the <span class="uicontrol">Authorize Node as Admin node</span> process when  another authorization is in progress results in this error: <span class="msgblock" data-mc-edit-date="2020-09-18T10:54:38.9895708-04:00" data-mc-editor="naini.khajanchi" data-mc-comment="Consider removing this" data-mc-initials="NA" data-mc-creator="naini.khajanchi" data-mc-create-date="2020-09-18T10:54:34.5317591-04:00">Admin Nomination in progress</span><span class="msgblock">.</span></p></div></li>
                                                                     <li>
-                                                                        <p>The current admin node displays:</p>
+                                                                        <p>The current admin node displays this message:</p>
                                                                         <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
                                                                             <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>NOTE: Please ensure that the admin node is ready for setup and you have the authorization <br />token displayed on the on the worker node. <br /><br />Enter the authorization token displayed on the nominated admin node:<br /><br />Press the Enter key when complete. </code></pre>
                                                                             </div>
@@ -419,7 +423,7 @@ Choice: </span>
                                                             <p>The nominated worker then becomes the admin node for the updated cluster.</p>
                                                         </div>
                                                         <h2><a name="Post"></a>Perform post renomination tasks</h2>
-                                                        <p>You must perform the following steps after the rolling upgrade:</p>
+                                                        <p>Perform the following steps after the rolling upgrade:</p>
                                                         <ol>
                                                             <li value="1">Enter the IP address of the newly upgraded admin node into DNS as <span class="uicontrol">admin</span>.</li>
                                                             <li value="2">Decommission the original admin node or add the original admin node as a worker node to the updated cluster.</li>
@@ -464,7 +468,7 @@ Choice: </span>
                                     <script src="../../Resources/Scripts/coveo-resources/js/Coveo.MadcapFlare.Okta.js" id="coveoInitscript" defer="defer">
                                     </script>
                                     <!-- Feedback tab for Qualtrics survey -->
-                                    <div id="feedback-tab" data-mc-conditions="Primary.live-site-only"><a id="feedback-link" href="https://surveys.okta.com/jfe/form/SV_e4L0iW8a3tz8Yol" target="_blank" title="Submit feedback"><div id="feedback-container"><p id="feedback-text" translate="no">Feedback</p></div></a>
+                                    <div id="feedback-tab" data-mc-conditions="Primary.live-site-only"><a id="feedback-link" href="#" onclick="openSurvey();  return false" target="_blank" title="Submit feedback"><div id="feedback-container"><p id="feedback-text" translate="no">Feedback</p></div></a>
                                     </div>
                                 </div>
                             </div>
