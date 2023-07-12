@@ -1,6 +1,6 @@
 describe('End User landing page (en-US)', () => {
   beforeEach(() => {
-    cy.visit('eu/en-us/Content/Topics/end-user/end-user-home.htm')
+    cy.visit('eu/en-us/content/topics/end-user/end-user-home.htm')
   })
 
   it('displays expected content structures in English', () => {
@@ -20,7 +20,7 @@ describe('End User landing page (en-US)', () => {
 
 describe('End User landing page (ja-JP)', () => {
   beforeEach(() => {
-    cy.visit('eu/ja-jp/Content/Topics/end-user/end-user-home.htm')
+    cy.visit('eu/ja-jp/content/topics/end-user/end-user-home.htm')
   })
 
   it('displays expected content structures in Japanese', () => {

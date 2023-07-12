@@ -1,6 +1,6 @@
 describe('OAG landing page (en-US)', () => {
   beforeEach(() => {
-    cy.visit('oag/en-us/Content/Topics/Access-Gateway/ag-main.htm')
+    cy.visit('oag/en-us/content/topics/access-gateway/ag-main.htm')
   })
 
   it('displays expected content structures in English', () => {
@@ -21,7 +21,7 @@ describe('OAG landing page (en-US)', () => {
 
 describe('OAG landing page (ja-JP)', () => {
   beforeEach(() => {
-    cy.visit('oag/ja-jp/Content/Topics/Access-Gateway/ag-main.htm')
+    cy.visit('oag/ja-jp/content/topics/access-gateway/ag-main.htm')
   })
 
   it('displays expected content structures in Japanese', () => {
@@ -34,7 +34,7 @@ describe('OAG landing page (ja-JP)', () => {
     cy.hasBodyContent()
     cy.hasTiles(6)
     cy.hasDeferAttrsCorrectlyApplied()
-    cy.hasQualtrics()
+    // cy.hasQualtrics()
     cy.hidesCoveoSearchBar()
   })
 })

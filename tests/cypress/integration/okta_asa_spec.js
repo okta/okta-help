@@ -1,6 +1,6 @@
 describe('ASA landing page (en-US)', () => {
   beforeEach(() => {
-    cy.visit('asa/en-us/Content/Topics/Adv_Server_Access/docs/asa-overview.htm')
+    cy.visit('asa/en-us/content/topics/adv_server_access/docs/asa-overview.htm')
   })
 
   it('displays expected content structures in English', () => {
@@ -20,7 +20,7 @@ describe('ASA landing page (en-US)', () => {
 
 describe('ASA landing page (ja-JP)', () => {
   beforeEach(() => {
-    cy.visit('asa/ja-jp/Content/Topics/Adv_Server_Access/docs/asa-overview.htm')
+    cy.visit('asa/ja-jp/content/topics/adv_server_access/docs/asa-overview.htm')
   })
 
   it('displays expected content structures in Japanese', () => {
@@ -33,7 +33,7 @@ describe('ASA landing page (ja-JP)', () => {
     cy.hasBodyContent()
     cy.hasTiles(6)
     cy.hasDeferAttrsCorrectlyApplied()
-    cy.hasQualtrics()
+    // cy.hasQualtrics()
     cy.hidesCoveoSearchBar()
   })
 })

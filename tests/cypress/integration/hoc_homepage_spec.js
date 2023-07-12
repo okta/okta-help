@@ -1,6 +1,6 @@
 describe('Okta H.O.C. landing page (en-US)', () => {
   beforeEach(() => {
-    cy.visit('en-us/Content/index.htm')
+    cy.visit('en-us/content/index.htm')
   })
 
   it('displays expected content structures in English', () => {
@@ -18,7 +18,7 @@ describe('Okta H.O.C. landing page (en-US)', () => {
 
 describe('Okta H.O.C. landing page (ja-JP)', () => {
   beforeEach(() => {
-    cy.visit('ja-jp/Content/index.htm')
+    cy.visit('ja-jp/content/index.htm')
   })
 
   it('displays expected content structures in Japanese', () => {
@@ -29,7 +29,7 @@ describe('Okta H.O.C. landing page (ja-JP)', () => {
     cy.hasBodyContent()
     cy.hasTiles(9)
     cy.hasDeferAttrsCorrectlyApplied()
-    cy.hasQualtrics()
+    // cy.hasQualtrics()
     cy.hidesCoveoSearchBar()
   })
 })

@@ -1,6 +1,6 @@
 describe('Workflows landing page (en-US)', () => {
   beforeEach(() => {
-    cy.visit('wf/en-us/Content/Topics/Workflows/workflows-main.htm')
+    cy.visit('wf/en-us/content/topics/workflows/workflows-main.htm')
   })
 
   it('displays expected content structures in English', () => {
@@ -20,7 +20,7 @@ describe('Workflows landing page (en-US)', () => {
 
 describe('Workflows landing page (ja-JP)', () => {
   beforeEach(() => {
-    cy.visit('wf/ja-jp/Content/Topics/Workflows/workflows-main.htm')
+    cy.visit('wf/ja-jp/content/topics/workflows/workflows-main.htm')
   })
 
   it('displays expected content structures in Japanese', () => {
