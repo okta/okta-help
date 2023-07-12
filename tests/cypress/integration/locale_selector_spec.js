@@ -97,13 +97,13 @@ describe('Locale switching', () => {
   })
 
   it('redirects to expected URLs for OAG', () => {
-    visitAndWaitForInitialize('oag/en-us/content/topics/Access-Gateway/ag-main.htm')
+    visitAndWaitForInitialize('oag/en-us/content/topics/access-gateway/ag-main.htm')
     cy.switchLocale('Change language', '日本語 (日本)‎')
-    cy.url().should('include', 'oag/ja-jp/content/topics/Access-Gateway/ag-main.htm')
+    cy.url().should('include', 'oag/ja-jp/content/topics/access-gateway/ag-main.htm')
 
-    visitAndWaitForInitialize('oag/ja-jp/content/topics/Access-Gateway/ag-main.htm')
+    visitAndWaitForInitialize('oag/ja-jp/content/topics/access-gateway/ag-main.htm')
     cy.switchLocale('言語を変更', 'English (United States)')
-    cy.url().should('include', 'oag/en-us/content/topics/Access-Gateway/ag-main.htm')
+    cy.url().should('include', 'oag/en-us/content/topics/access-gateway/ag-main.htm')
   })
 
   it('redirects to expected URLs for OIE', () => {
