@@ -105,7 +105,7 @@ xmlAliasData += '    <Map Name=\"csh-ov-sign-in-macos\" Link=\"Topics/end-user/o
 xmlAliasData += '    <Map Name=\"csh-ov-sign-in-windows\" Link=\"Topics/end-user/ov-sign-in-windows.htm\" ResolvedId=\"4051\" />';
 xmlAliasData += '    <Map Name=\"csh-ov-andr-add-acc-bluetooth\" Link=\"Topics/end-user/ov-andr-add-acc-bluetooth.htm\" ResolvedId=\"4053\" />';
 xmlAliasData += '    <Map Name=\"csh-ov-ios-add-acc-bluetooth\" Link=\"Topics/end-user/ov-ios-add-acc-bluetooth.htm\" ResolvedId=\"4054\" />';
-xmlAliasData += '    <Map Name=\"csh-ov-andr-macos-acc-bluetooth\" Link=\"Topics/end-user/ov-macos-add-acc-bluetooth.htm\" ResolvedId=\"4055\" />';
+xmlAliasData += '    <Map Name=\"csh-ov-macos-acc-bluetooth\" Link=\"Topics/end-user/ov-macos-add-acc-bluetooth.htm\" ResolvedId=\"4055\" />';
 xmlAliasData += '    <Map Name=\"csh-ov-win-add-acc-bluetooth\" Link=\"Topics/end-user/ov-win-add-acc-bluetooth.htm\" ResolvedId=\"4057\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
