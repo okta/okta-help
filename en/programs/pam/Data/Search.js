@@ -1,1 +1,1 @@
-define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../Content/Topics/privileged-access/clients/pam-client-cli-commands.htm'],s:['$'],p:[['$',30]]});
+define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../Content/Topics/betas/closed/privileged-access/pam-access-request.htm'],s:['$basearch'],p:[['$basearch',19]]});
