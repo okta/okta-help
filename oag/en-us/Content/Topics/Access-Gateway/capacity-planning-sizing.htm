@@ -4,7 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="typeofcontent" content="documentation" />
         <meta name="audience" content="Okta Access Gateway" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Capacity planning and sizing | Okta</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Capacity planning, sizing, and scaling | Okta</title>
         <meta charset="utf-8" />
         <meta name="description" content="" />
         <meta name="author" content="" />
@@ -42,6 +42,7 @@
 }
 
 </style>
+        <link href="../../Resources/TableStyles/standard-shaded-rows.css" rel="stylesheet" data-mc-stylesheet-type="table" />
         <link href="../../Resources/TableStyles/standard.css" rel="stylesheet" data-mc-stylesheet-type="table" />
         <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/capacity-planning-sizing.htm" />
         <script src="../../../Resources/Scripts/jquery.min.js" type="text/javascript">
@@ -95,6 +96,9 @@
         });
 		})('a9bd3885-93ae-46ab-700b-dd29e613c19d');
 		/* ]]> */
+        function openSurvey() {
+            window.open('https://surveys.okta.com/jfe/form/SV_e4L0iW8a3tz8Yol?source=' + encodeURIComponent(document.location.href), '_blank');
+        }
 		</script>
     </head>
     <body>
@@ -289,478 +293,466 @@
                                             <div class="body-main" data-test="bodyContent">
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
-                                                    <h1>Capacity planning and sizing</h1>
-                                                    <p>Determining the amount of disk space required by <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> enables you to ensure optimal performance and plan for future growth. </p>
+                                                    <h1>Capacity planning, sizing, and scaling</h1>
+                                                    <p>Capacity planning helps you determine the system resources needed to meet user demand, respond to peaks, and enable growth. It also helps you avoid having excess capacity sitting idel and driving up storage and maintenance costs.</p>
+                                                    <p> The two primary tools in capacity planning are sizing and scaling. Sizing is the calculation of  memory, hard-disk space, CPU processing power, and throughput capability needed to support your capacity. Scaling is the process of increasing or decreasing an Access Gateway cluster size to meet that calculation.</p>
+                                                    <p> These topics describe how to assess capacity planning factors so you can  determine the right  strategy for your environment.</p>
                                                     <h2>Topics</h2>
                                                     <ul>
                                                         <li><a href="#Capacity" class="MCXref xref">Capacity planning concepts</a>
                                                         </li>
-                                                        <li><a href="#AccessRates" class="MCXref xref">Estimating access rates</a>
+                                                        <li><a href="#AccessRates" class="MCXref xref">Estimate access rates</a>
                                                         </li>
-                                                        <li><a href="#Sizing" class="MCXref xref">Sizing</a>
+                                                        <li><a href="#Sizing" class="MCXref xref">Estimate hardware sizing requirements</a>
                                                         </li>
-                                                        <li><a href="#Scaling" class="MCXref xref">Scaling</a>
+                                                        <li><a href="#Scaling" class="MCXref xref">Estimate scaling requirements</a>
                                                         </li>
                                                     </ul>
                                                     <h2><a name="Capacity"></a>Capacity planning concepts</h2>
                                                     <div>
-                                                        <p>Planning an <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> deployment with performance in mind is the first step to success. A typical approach is to estimate the peak number of authentications and authorizations expected per application.</p>
-                                                        <p>In general, the following areas impact performance:</p>
+                                                        <p> To determine what you need for your deployment, you can assess your environment's current statistics. </p>
+                                                        <p><span class="mc-variable okta-variables.ProductName variable">Okta</span> recommends that you assess these factors in relation to each other, and not in isolation, when you perform your calculations:</p>
                                                         <ul>
                                                             <li><span class="wintitle">Users</span>: The total number of system users.</li>
-                                                            <li><span class="wintitle">Accesses</span>: The total number of times a user accesses a system per time period. Typically, we use 24 hours as a basic time interval. However, estimates over longer periods, weeks, even months, result in better estimations.</li>
-                                                            <li><span class="wintitle">Peak authentication/authorization rates</span>: Peak rates represent the highest expected level of user authentication/authorization in a given period. Peak rates represent the highest expected levels of access. </li>
-                                                            <li><span class="wintitle">Average authentication/authorization rates</span>: Average or sustained authentication/authorization rates represent the expected norm over the course of a given time period, such as a single day.</li>
+                                                            <li><span class="wintitle">Accesses</span>: The total number of times a user accesses a system in a given time period. <span class="mc-variable okta-variables.ProductName variable">Okta</span> recommends using longer periods, such as weeks or months, for your analysis. This ensure that you're seeing a more accurate pattern, including peaks and averages, for your environment.</li>
+                                                            <li><span class="wintitle">Peak authentication or authorization rates</span>: The highest expected levels of access. Peaks can occur at the end of months, quarters, or years, or in response to system upgrades, outages, and seasonal events.</li>
+                                                            <li><span class="wintitle">Average authentication or authorization rates</span>: The  expected norm over a given time period.</li>
+                                                            <li><span class="wintitle">Total number of applications protected by <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span></span>: The number of applications in your environment that <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> protects. IT environments with fewer applications may require less capacity in your <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> deployment. But if your environment has many users who authenticate frequently, you might need more capacity.</li>
                                                         </ul>
-                                                        <p>In addition, consider the total number of applications protected by <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> when determining capacity requirements.</p>
                                                     </div>
-                                                    <h2><a name="AccessRates"></a>Estimating access rates</h2>
+                                                    <div class="noteOkta">
+                                                        <p class="noteContent">Other factors  may limit capacity, such as network throughput or the back-end application performance. See <a href="about-networking-interfaces.htm" class="MCXref xref">Network interfaces</a>. </p>
+                                                    </div>
+                                                    <h2><a name="AccessRates"></a>Estimate access rates</h2>
+                                                    <p>Estimating access rates is the process of calculating how many accesses and authentications <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> needs to support.  You calculate average access rates, divide your users into groups of frequent, infrequent, and rare accesses and authentications, and determine the rates for each group and for all users.</p>
+                                                    <p>The sample calculations use the following symbols for mathematical notation:</p>
+                                                    <table style="mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');margin-left: 0;margin-right: auto;" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+                                                        <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                        <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                        <tbody>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1" style="text-align: center;"><span class="wintitle">*</span>
+                                                                </td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">multiplication</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2" style="text-align: center;"><span class="wintitle">/</span>
+                                                                </td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">division</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1" style="text-align: center;"><span class="wintitle">+</span>
+                                                                </td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">addition</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2" style="text-align: center;"><span class="wintitle">-</span>
+                                                                </td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">subtraction</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1" style="text-align: center;"><span class="wintitle">=</span>
+                                                                </td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body1">equals</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
                                                     <div>
                                                         <h3>Calculate average access rates</h3>
-                                                        <p>Average access rates represent a lower bound on how many accesses a given instance of <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> needs to support. You can estimate average access rates by looking at the sets of users that access the system. </p>
-                                                        <p>To estimate the average access rate, start by determining the following values, and then use them in the calculation examples:</p>
+                                                        <p>Average access rates represent a lower bound on how many accesses a given instance of <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> needs to support. </p>
+                                                        <p>You can estimate average access rates by looking at the sets of users that access the system. </p>
+                                                        <p>Start by determining the following values, and then use them in the calculation examples:</p>
                                                         <ul>
-                                                            <li><span class="wintitle">Total users</span>: How many users does this instance serve in total? This value represents the total number of users who might ever access the gateway.</li>
-                                                            <li><span class="wintitle">Estimated daily users</span>: The percentage of users who use an application on a given day.</li>
+                                                            <li><span class="wintitle">Total users</span>: This value represents the total number of users who might ever access <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>.</li>
+                                                            <li><span class="wintitle">Estimated daily users</span>: The percentage of users who use an application on a specific day.</li>
                                                             <li><span class="wintitle">Estimated daily accesses</span>: The number of times a specific user accesses an application on a specific day. </li>
                                                             <li><span class="wintitle">Page accesses for each session</span>: For a given set of authenticated users, what is the expected number of page accesses during a single session?</li>
                                                         </ul>
-                                                        <div class="noteOkta">
-                                                            <p class="noteContent">These calculations use the following mathematical notation:</p>
-                                                            <ul>
-                                                                <li>* multiplication</li>
-                                                                <li>/ division</li>
-                                                                <li>+ addition</li>
-                                                                <li>- subtraction</li>
-                                                                <li>= equals</li>
-                                                            </ul>
-                                                        </div>
-                                                        <h4>Determine the average authentication rate</h4>
-                                                        <ul>
-                                                            <li>Average users = Total users / Estimated daily users</li>
-                                                            <li>Average accesses = Average users / Estimated daily accesses</li>
-                                                        </ul>
-                                                        <h4>Extrapolate overall accesses</h4>
-                                                        <ul>
-                                                            <li>Overall accesses = Average accesses * Page accesses</li>
-                                                            <li>Overall average accesses = average users * accesses per day</li>
-                                                        </ul>
-                                                        <h3>Group by user type</h3>
+                                                        <h4>Calculation examples: average and overall accesses</h4>
+                                                        <table style="mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');margin-left: 0;margin-right: auto;" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+                                                            <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                            <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                            <thead>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                                                                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                                                                        <p>Average authentication rate</p>
+                                                                    </th>
+                                                                    <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">
+                                                                        <p>Overall accesses</p>
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Average users = Total users / Estimated daily users</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Overall accesses = Average accesses * Page accesses</td>
+                                                                </tr>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">Average accesses = Average users / Estimated daily accesses</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">Overall average accesses = Average users * accesses per day</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <h3>Group by user access type</h3>
                                                         <p>Group users according to the frequency with which they access the system:</p>
                                                         <ul>
-                                                            <li><span class="wintitle">Frequent users</span>: Frequent users access the system regularly, typically multiple times per day.</li>
-                                                            <li><span class="wintitle">Infrequent users</span>: Infrequent users access the system on occasion but with a much lower frequency than frequent users. </li>
+                                                            <li><span class="wintitle">Frequent users</span>: Frequent users access the system regularly, typically multiple times each day.</li>
+                                                            <li><span class="wintitle">Infrequent users</span>: Infrequent users access the system on occasion but much less often than frequent users. </li>
                                                             <li><span class="wintitle">Rare users</span>: Rare users access the system a maximum of one to three times a week.</li>
                                                         </ul>
-                                                        <h4>Calculation example</h4>
-                                                        <p>The following sample demonstrates how to produce an estimate:</p>
-                                                        <ul>
-                                                            <li>Assume the total number of users is 10,000. </li>
-                                                            <li>Frequent average accesses = 10,000 * the number of frequent users.</li>
-                                                        </ul>
-                                                        <h4>Calculate access rates for frequent users</h4>
-                                                        <p>If we assume that 50% of users are frequent users, then we have a baseline of 5,000.</p>
-                                                        <p>Frequent users typically access the system at least five times per day. Use this formula to calculate the number of frequent users:</p>
-                                                        <ul>
-                                                            <li>Frequent users * accesses per day = 5 * 5,000 = 25,000</li>
-                                                        </ul>
-                                                        <div>
-                                                            <h4>Calculate access rates for infrequent users</h4>
-                                                            <p>Infrequent users access the system two or three times a day. In this case, they're 25% of the user base. Assuming that they access the system twice a day, the infrequent user accesses is equal to the number of infrequent users multiplied by the number of times they access the system per day. </p>
-                                                            <p>Number of infrequent users = 25% of 10,000 = 2,500. </p>
-                                                            <p>Number of accesses per day = 2</p>
-                                                            <p>Overall infrequent user accesses = 2500 (Infrequent users) * 2 (accesses per day) = 5000</p>
-                                                            <p> If the infrequent users access the system up to three  times per day, then the overall infrequent accesses can range up to 7,500 accesses per day.</p>
-                                                        </div>
-                                                        <div>
-                                                            <h4>Calculate access rates for rare users</h4>
-                                                            <p>Rare users are the remaining 25% of the user base. These users access the system a maximum of once a day, but typically only access the system every several days. </p>
-                                                            <p>Number of rare users  = 25% of 10,000 = 2,500.</p>
-                                                            <p>Number of accesses per day = 1</p>
-                                                            <p>Rarity of access = 1 in every two days = 0.5</p>
-                                                            <p>Overall rare user accesses = 2500 (total rare users) * 1 (accesses per day) * 0.5 (rarity of access) = 1,250.</p>
-                                                        </div>
-                                                        <h3>Total estimates for all user types</h3>
-                                                        <p>Based on the calculations for each user type, you can estimate peak daily uses for them:</p>
-                                                        <ul>
-                                                            <li>Frequent accesses: 25,000</li>
-                                                            <li>Infrequent accesses: 7,500</li>
-                                                            <li>Rare accesses: 1,250 </li>
-                                                            <li>This produces a total daily accesses of 33,750</li>
-                                                        </ul>
-                                                    </div>
-                                                    <h2><a name="Sizing"></a>Sizing</h2>
-                                                    <div>
-                                                        <p>When calculating sizing, consider the following areas:</p>
-                                                        <ul>
-                                                            <li><span class="wintitle">Cores</span>: Total number of CPUs/cores.</li>
-                                                            <li><span class="wintitle">RAM</span>: Typical memory requirements.</li>
-                                                            <li><span class="wintitle">Storage</span>: How much disk space is required? Primarily for logging purposes. </li>
-                                                            <li><span class="wintitle">NIC</span>: What are throughput requirements?</li>
-                                                        </ul>
-                                                        <h3>Terms and definitions:</h3>
-                                                        <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
-                                                            <col class="TableStyle-standard-Column-Column1" />
-                                                            <col class="TableStyle-standard-Column-Column1" />
+                                                        <h4>Calculation examples: access rates for each user access type</h4>
+                                                        <p>These examples use a sample size of 10,000  total users. Use your own values for the sample size and number of accesses per day for each user access type.</p>
+                                                        <table style="mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');margin-left: 0;margin-right: auto;" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+                                                            <col class="TableStyle-srb_header_alt_shade-Column-Column1" style="width: 15%;" />
+                                                            <col class="TableStyle-srb_header_alt_shade-Column-Column1" style="width: 21.25%;" />
+                                                            <col class="TableStyle-srb_header_alt_shade-Column-Column1" style="width: 21.25%;" />
+                                                            <col class="TableStyle-srb_header_alt_shade-Column-Column1" style="width: 21.25%;" />
+                                                            <col class="TableStyle-srb_header_alt_shade-Column-Column1" style="width: 21.25%;" />
                                                             <thead>
-                                                                <tr class="TableStyle-standard-Head-Header1">
-                                                                    <th class="TableStyle-standard-HeadF-Column1-Header1">
-                                                                        <p>Term</p>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                                                                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                                                                        <p> </p>
                                                                     </th>
-                                                                    <th class="TableStyle-standard-HeadD-Column1-Header1">
-                                                                        <p>Description</p>
+                                                                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                                                                        <p>Frequent users</p>
+                                                                    </th>
+                                                                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                                                                        <p>Infrequent users</p>
+                                                                    </th>
+                                                                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                                                                        <p>Rare users</p>
+                                                                    </th>
+                                                                    <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">
+                                                                        <p>Total for all user access types</p>
                                                                     </th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <tr class="TableStyle-standard-Body-Body1">
-                                                                    <td class="TableStyle-standard-BodyF-Column1-Body1">
-                                                                        <p><span class="disableGlossary">Application</span>
-                                                                        </p>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><span class="wintitle">Sample size</span>
                                                                     </td>
-                                                                    <td class="TableStyle-standard-BodyD-Column1-Body1">
-                                                                        <p>A reference to an application as defined by the <span class="mc-variable okta-feature-names.Access Gateway_UI variable">Access Gateway Admin UI console</span> and listed on the Applications page.</p>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr class="TableStyle-standard-Body-Body2">
-                                                                    <td class="TableStyle-standard-BodyF-Column1-Body2">
-                                                                        <p><span class="disableGlossary">Authentication</span>
-                                                                        </p>
-                                                                    </td>
-                                                                    <td class="TableStyle-standard-BodyD-Column1-Body2">
-                                                                        <p><span class="disableGlossary">Authentication</span> or AuthN, is the process of establishing identity.  <span class="disableGlossary">Authentication</span> occurs the first time a user access a given application within <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>.  <span class="disableGlossary">Authentication</span> may also occur at other times when accessing application resources.</p>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr class="TableStyle-standard-Body-Body1">
-                                                                    <td class="TableStyle-standard-BodyF-Column1-Body1">
-                                                                        <p><span class="disableGlossary">Authorization</span>
-                                                                        </p>
-                                                                    </td>
-                                                                    <td class="TableStyle-standard-BodyD-Column1-Body1">
-                                                                        <p>Authorization, of AuthZ, is the process of determining access rights to a given page or resource.  Authorization occurs every time a user attempts to access an application resource such as a page</p>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr class="TableStyle-standard-Body-Body2">
-                                                                    <td class="TableStyle-standard-BodyC-Column1-Body2">
-                                                                        <p><span class="disableGlossary">Session</span>
-                                                                        </p>
-                                                                    </td>
-                                                                    <td class="TableStyle-standard-BodyA-Column1-Body2">
-                                                                        <p><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> session or simple session, refers to the information maintained and used by <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>.  Typically this includes all the information in a traditional HTTP(s) session as well as <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> specific session data, such as attributes and possibly Kerberos tickets (when in use).<br /></p>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                        <h3>Memory Sizing</h3>
-                                                        <p><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> appliance memory use is divided into:</p>
-                                                        <ul>
-                                                            <li><span class="wintitle">Operating system, <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> engine, and micro-services</span>: 1.5GB considered as the minimum for production environments. </li>
-                                                            <li><span class="wintitle">Cached Sessions</span>: 128MB minimum.</li>
-                                                        </ul>
-                                                        <p>Since the operating system, core <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>, and micro-services memory is fixed, determining  memory requirements is primarily focused on cache session sizing. <br /></p>
-                                                        <p>To determine memory size, examine:</p>
-                                                        <ul>
-                                                            <li><span class="wintitle">Total sessions</span>: The maximum number of in memory sessions at any given time.</li>
-                                                            <li><span class="wintitle">Average session size</span>: The average expected size of any given session.</li>
-                                                        </ul>
-                                                        <p>Total sessions are calculated using one of the following:</p>
-                                                        <ul>
-                                                            <li>Number of users</li>
-                                                            <li>Percentage of user sign-in events per day</li>
-                                                            <li>Applications accessed</li>
-                                                            <li>Total sessions = number of users * % sign-ins per day * applications accessed</li>
-                                                        </ul>
-                                                        <p>Session size is a function of:</p>
-                                                        <ul>
-                                                            <li>Application session and application attributes, with default size of approximately 1024 bytes</li>
-                                                            <li>Kerberos tickets (where applicable), approximately 1024 bytes, but are often larger based on then number of IIS applications accessed</li>
-                                                        </ul>
-                                                        <p>Session cache then becomes:</p>
-                                                        <ul>
-                                                            <li>Session cache = Total sessions * (average session size * 2)</li>
-                                                        </ul>
-                                                        <p>For example:</p>
-                                                        <table style="mc-table-style: url('../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
-                                                            <col class="TableStyle-standard-Column-Column1" />
-                                                            <col class="TableStyle-standard-Column-Column1" style="width: 12pt;" />
-                                                            <col class="TableStyle-standard-Column-Column1" style="width: 74pt;" />
-                                                            <col class="TableStyle-standard-Column-Column1" style="width: 12pt;" />
-                                                            <col class="TableStyle-standard-Column-Column1" style="width: 12pt;" />
-                                                            <col class="TableStyle-standard-Column-Column1" style="width: 74pt;" />
-                                                            <thead>
-                                                                <tr class="TableStyle-standard-Head-Header1">
-                                                                    <th class="TableStyle-standard-HeadD-Column1-Header1" colspan="6" style="text-align: center;">Web Application - Session Cache
-                        </th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr class="TableStyle-standard-Body-Body1">
-                                                                    <td class="TableStyle-standard-BodyF-Column1-Body1">Users</td>
-                                                                    <td class="TableStyle-standard-BodyF-Column1-Body1">Percentage sign-in events/Day</td>
-                                                                    <td class="TableStyle-standard-BodyF-Column1-Body1">Applications Accessed</td>
-                                                                    <td class="TableStyle-standard-BodyF-Column1-Body1" style="font-weight: normal;">Total Sessions(Users % logins/day * applications accessed)</td>
-                                                                    <td class="TableStyle-standard-BodyF-Column1-Body1" style="font-weight: normal;">Session Size</td>
-                                                                    <td class="TableStyle-standard-BodyD-Column1-Body1" style="font-weight: normal;">Session Cache</td>
-                                                                </tr>
-                                                                <tr class="TableStyle-standard-Body-Body2">
-                                                                    <td class="TableStyle-standard-BodyF-Column1-Body2">5,000</td>
-                                                                    <td class="TableStyle-standard-BodyF-Column1-Body2">50%</td>
-                                                                    <td class="TableStyle-standard-BodyF-Column1-Body2">5</td>
-                                                                    <td class="TableStyle-standard-BodyF-Column1-Body2">12,500</td>
-                                                                    <td class="TableStyle-standard-BodyF-Column1-Body2">1024B*2</td>
-                                                                    <td class="TableStyle-standard-BodyD-Column1-Body2">approx 25MB</td>
-                                                                </tr>
-                                                                <tr class="TableStyle-standard-Body-Body1">
-                                                                    <td class="TableStyle-standard-BodyF-Column1-Body1">10,000</td>
-                                                                    <td class="TableStyle-standard-BodyF-Column1-Body1">75%</td>
-                                                                    <td class="TableStyle-standard-BodyF-Column1-Body1">10</td>
-                                                                    <td class="TableStyle-standard-BodyF-Column1-Body1">75,000</td>
-                                                                    <td class="TableStyle-standard-BodyF-Column1-Body1">1024B*2</td>
-                                                                    <td class="TableStyle-standard-BodyD-Column1-Body1">approx 150MB</td>
-                                                                </tr>
-                                                                <tr class="TableStyle-standard-Body-Body2">
-                                                                    <td class="TableStyle-standard-BodyC-Column1-Body2">25,000</td>
-                                                                    <td class="TableStyle-standard-BodyC-Column1-Body2">50%</td>
-                                                                    <td class="TableStyle-standard-BodyC-Column1-Body2">100</td>
-                                                                    <td class="TableStyle-standard-BodyC-Column1-Body2">125,000</td>
-                                                                    <td class="TableStyle-standard-BodyC-Column1-Body2">1024B*2</td>
-                                                                    <td class="TableStyle-standard-BodyA-Column1-Body2">approx 500MB</td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                        <p>Kerberos, when used, adds additional caching requirements:</p>
-                                                        <table style="mc-table-style: url('../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
-                                                            <col class="TableStyle-standard-Column-Column1" />
-                                                            <col class="TableStyle-standard-Column-Column1" style="width: 12pt;" />
-                                                            <col class="TableStyle-standard-Column-Column1" style="width: 12pt;" />
-                                                            <col class="TableStyle-standard-Column-Column1" style="width: 86pt;" />
-                                                            <col class="TableStyle-standard-Column-Column1" style="width: 12pt;" />
-                                                            <col class="TableStyle-standard-Column-Column1" style="width: 56pt;" />
-                                                            <thead>
-                                                                <tr class="TableStyle-standard-Head-Header1">
-                                                                    <th class="TableStyle-standard-HeadD-Column1-Header1" colspan="6" style="text-align: center;">Kerberos Apps - Reserved
-                        </th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr class="TableStyle-standard-Body-Body1">
-                                                                    <td class="TableStyle-standard-BodyF-Column1-Body1">Users</td>
-                                                                    <td class="TableStyle-standard-BodyF-Column1-Body1">Percentage sign-in events/Day</td>
-                                                                    <td class="TableStyle-standard-BodyF-Column1-Body1">
-                                                                        <p>IIS Applications accessed
-                            </p>
-                                                                    </td>
-                                                                    <td class="TableStyle-standard-BodyF-Column1-Body1">
-                                                                        <p>Total Sessions(Users * logins/day * applications accessed)</p>
-                                                                    </td>
-                                                                    <td class="TableStyle-standard-BodyF-Column1-Body1">
-                                                                        <p>Session Size
-                            </p>
-                                                                    </td>
-                                                                    <td class="TableStyle-standard-BodyD-Column1-Body1">
-                                                                        <p>Session Cache
-                            </p>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr class="TableStyle-standard-Body-Body2">
-                                                                    <td class="TableStyle-standard-BodyC-Column1-Body2">
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1" style="text-align: center;">5,000</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1" style="text-align: center;">2,500</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1" style="text-align: center;">2,500</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1" style="text-align: center;">
                                                                         <p>10,000</p>
                                                                     </td>
-                                                                    <td class="TableStyle-standard-BodyC-Column1-Body2">
-                                                                        <p>50%</p>
+                                                                </tr>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><span class="wintitle">Accesses per day</span>
                                                                     </td>
-                                                                    <td class="TableStyle-standard-BodyC-Column1-Body2">
-                                                                        <p>5</p>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2" style="text-align: center;">5</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2" style="text-align: center;">2</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2" style="text-align: center;">1</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2" style="text-align: center;">
+                                                                        <p>8</p>
                                                                     </td>
-                                                                    <td class="TableStyle-standard-BodyC-Column1-Body2">
-                                                                        <p>25,000</p>
+                                                                </tr>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><span class="wintitle">Formula</span>
                                                                     </td>
-                                                                    <td class="TableStyle-standard-BodyC-Column1-Body2">
-                                                                        <p>1024B</p>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1" style="text-align: center;">
+                                                                        <p>Frequent users * accesses per day</p>
+                                                                        <p>5 * 5,000</p>
                                                                     </td>
-                                                                    <td class="TableStyle-standard-BodyA-Column1-Body2">
-                                                                        <p>~50MB</p>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1" style="text-align: center;">
+                                                                        <p>Infrequent users * accesses per day</p>
+                                                                        <p>2 * 2,500</p>
+                                                                    </td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1" style="text-align: center;">
+                                                                        <p>Infrequent users * accesses per day</p>
+                                                                        <p>1 * 2,500</p>
+                                                                        <p>These users might not access the system each day. If they access the system every other day, divide the accesses by half:</p>
+                                                                        <p>1 * 2,500 / 0.5</p>
+                                                                    </td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1" style="text-align: center;">
+                                                                        <p>Frequent + Infrequent + Rare accesses</p>
+                                                                        <p>25,000 + 5,000 + 2500</p>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2"><span class="wintitle">Sample total</span>
+                                                                    </td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2" style="text-align: center;">25,000</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2" style="text-align: center;">5,000</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2" style="text-align: center;">2,500 or 1,250</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2" style="text-align: center;">
+                                                                        <p>32,500</p>
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
-                                                        <p>Total application memory should then include at least 1.5GB for fixed requirements and session cache plus Kerberos requirements.</p>
+                                                    </div>
+                                                    <h2><a name="Sizing"></a>Estimate hardware sizing requirements</h2>
+                                                    <div>
+                                                        <p>Hardware sizing refers to how much memory and hard-disk space, how many CPUs and cores, and the level of throughput you need to ensure optimal performance for your <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> deployment.</p>
+                                                        <h3>Memory sizing</h3>
+                                                        <p><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> requires the following amounts of appliance memory:</p>
+                                                        <ul>
+                                                            <li><span class="wintitle">Operating system, <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> engine, and micro-services</span>: 1.5 gigabytes is the minimum for production environments. </li>
+                                                            <li><span class="wintitle">Cached Sessions</span>: 128 megabytes minimum.</li>
+                                                        </ul>
+                                                        <p>The operating system, core <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>, and micro-services memory is fixed. As a result, determining  memory requirements is primarily focused on cache session sizing. Calculate cache session sizing using these factors:<br /></p>
+                                                        <ul>
+                                                            <li><span class="wintitle">Total sessions</span>: The maximum number of in-memory sessions at any given time. Total sessions are calculated using one of the following elements:<ul><li>Number of users</li><li>Percentage of user sign-in events per day</li><li>Applications accessed</li><li>Total sessions = number of users * % sign-ins per day * applications accessed</li></ul></li>
+                                                            <li><span class="wintitle">Average session size</span>: The average expected size of any given session. Session size is a function of these elements:<ul><li>Application session and application attributes, with default size of approximately 1024 bytes</li><li>Kerberos tickets (where applicable), approximately 1024 bytes, but are often larger based on then number of IIS applications accessed</li></ul></li>
+                                                        </ul>
+                                                        <p>To calculate cache session sizing, use this formula: Session cache = Total sessions * (average session size * 2)</p>
+                                                        <h4>Calculation examples: web application session cache</h4>
+                                                        <table style="margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+                                                            <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                            <col class="TableStyle-srb_header_alt_shade-Column-Column1" style="width: 12pt;" />
+                                                            <col class="TableStyle-srb_header_alt_shade-Column-Column1" style="width: 74pt;" />
+                                                            <col class="TableStyle-srb_header_alt_shade-Column-Column1" style="width: 12pt;" />
+                                                            <col class="TableStyle-srb_header_alt_shade-Column-Column1" style="width: 12pt;" />
+                                                            <col class="TableStyle-srb_header_alt_shade-Column-Column1" style="width: 74pt;" />
+                                                            <thead>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                                                                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                                                                        <p>Users</p>
+                                                                    </th>
+                                                                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                                                                        <p>Percentage of sign-in events per day</p>
+                                                                    </th>
+                                                                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                                                                        <p>Applications accessed</p>
+                                                                    </th>
+                                                                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                                                                        <p>Total sessions</p>
+                                                                    </th>
+                                                                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                                                                        <p>Session size</p>
+                                                                    </th>
+                                                                    <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">
+                                                                        <p>Session cache</p>
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1" style="text-align: center;">5,000</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1" style="text-align: center;">50%</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1" style="text-align: center;">5</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1" style="text-align: center;">
+                                                                        <p>Users % sign-ins per day * applications accessed</p>
+                                                                        <p>12,500</p>
+                                                                    </td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1" style="text-align: center;">1024 B * 2</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1" style="text-align: center;">approx 25 MB</td>
+                                                                </tr>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2" style="text-align: center;">10,000</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2" style="text-align: center;">75%</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2" style="text-align: center;">10</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2" style="text-align: center;">75,000</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2" style="text-align: center;">1024 B * 2</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2" style="text-align: center;">approx 150 MB</td>
+                                                                </tr>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1" style="text-align: center;">25,000</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1" style="text-align: center;">50%</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1" style="text-align: center;">100</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1" style="text-align: center;">125,000</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1" style="text-align: center;">1024 B * 2</td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body1" style="text-align: center;">approx 500 MB</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <h4>Calculation examples: Kerberos apps</h4>
+                                                        <p>Kerberos adds  caching requirements.</p>
+                                                        <table style="mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');margin-left: 0;margin-right: auto;" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+                                                            <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                            <col class="TableStyle-srb_header_alt_shade-Column-Column1" style="width: 12pt;" />
+                                                            <col class="TableStyle-srb_header_alt_shade-Column-Column1" style="width: 12pt;" />
+                                                            <col class="TableStyle-srb_header_alt_shade-Column-Column1" style="width: 86pt;" />
+                                                            <col class="TableStyle-srb_header_alt_shade-Column-Column1" style="width: 12pt;" />
+                                                            <col class="TableStyle-srb_header_alt_shade-Column-Column1" style="width: 56pt;" />
+                                                            <thead>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                                                                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                                                                        <p>Users</p>
+                                                                    </th>
+                                                                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                                                                        <p>Percentage of sign-in events per day</p>
+                                                                    </th>
+                                                                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                                                                        <p>IIS applications accessed</p>
+                                                                    </th>
+                                                                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                                                                        <p>Total sessions</p>
+                                                                    </th>
+                                                                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                                                                        <p>Session size</p>
+                                                                    </th>
+                                                                    <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">
+                                                                        <p>Session cache</p>
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1" style="text-align: center;">
+                                                                        <p>10,000</p>
+                                                                    </td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1" style="text-align: center;">
+                                                                        <p>50%</p>
+                                                                    </td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1" style="text-align: center;">
+                                                                        <p>5</p>
+                                                                    </td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1" style="text-align: center;">
+                                                                        <p>% of user sign-ins per day * applications accessed</p>
+                                                                        <p>25,000</p>
+                                                                    </td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1" style="text-align: center;">
+                                                                        <p>1024 B</p>
+                                                                    </td>
+                                                                    <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body1" style="text-align: center;">
+                                                                        <p>approx 50 MB</p>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <p>Total application memory should then include at least 1.5 gigabytes for fixed requirements and session cache plus Kerberos requirements.</p>
                                                         <div class="noteOkta">
                                                             <p class="noteContent">Session considerations:</p>
                                                             <ul>
-                                                                <li>			Sessions are cleared using a Least Recently Used (LRU) algorithm
-				. <br />When cache is full and  new sessions are created, the oldest idle session is removed.</li>
-                                                                <li>					Session Monitoring
-					logger raises alerts for cache near full and full conditions. <br />you can find statistics  in the management console.
- <br />Consider increasing appliance memory to reduce cache full situations. </li>
+                                                                <li>			Sessions are cleared using a Least Recently Used (LRU) algorithm		. <br />When the cache is full and  new sessions are created, the oldest idle session is removed.</li>
+                                                                <li>					The Session Monitoring
+					logger raises alerts for a cache full and near full conditions. You can find statistics  in the <span class="mc-variable okta-feature-names.Access_Gateway_CMD variable">Access Gateway Management console</span>.
+ <br />Consider increasing the appliance memory to reduce the incidence of full caches. </li>
                                                                 <li>
 					Always consider peak session usage situations
-and plan accordingly. <br />Consider peak conditions and size for those conditions. For example, consider load, such as the time of year when employees are enrolled, or mornings and after lunch sign-in events and similar situations.		
+and plan accordingly. <br />For example, consider the times when loads typically increase, such as the time of year when employees are enrolled, morning and after lunch sign-in events, and similar situations.		
 </li>
                                                             </ul>
                                                         </div>
-                                                        <h3>Hard disk sizing</h3>
+                                                        <h3>Hard-disk sizing</h3>
                                                         <div>
                                                             <div>
-                                                                <p>Overview
-                    </p>
-                                                                <p><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> requires hard disk for software, system logs/log archives, and backups.</p>
-                                                                <p>Disk use comprises of:</p>
+                                                                <p><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> requires hard disk space for the following elements. Determine the number and size of these elements over a given time period:</p>
                                                                 <ul>
-                                                                    <li>Software, including operating system, and <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>.</li>
-                                                                    <li>Backups, performed nightly and retained for 30 days.</li>
-                                                                    <li>System log output, spooled to local disk, and including Audit, Access and All Log files.</li>
-                                                                    <li>Log archives, maintained for 30 days, rolled and compressed.</li>
+                                                                    <li><span class="wintitle">Software</span>: <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> software and the operating system. The software file size is usually small.</li>
+                                                                    <li><span class="wintitle">Backups</span>: Performed nightly and retained for 30 days. Backup file size is usually small.</li>
+                                                                    <li><span class="wintitle">System Log</span>: Log files are spooled to the local disk, and include Authentication, Authorization, Audit, Access, Session, and All Log files. Typically, there's one entry for each HTTP/HTTPS request. Consider the number of users, the number of times users access applications, and the number of page views they make for that application.</li>
+                                                                    <li><span class="wintitle">Log archives</span>: These are maintained for 30 days, and are rolled and compressed.</li>
                                                                 </ul>
-                                                                <p>Software and backup size requirements are typically small making the primary consideration log sizes.</p>
                                                             </div>
                                                             <div>
-                                                                <p>Log Entries
-                    </p>
-                                                                <p>Log entries primarily contain session information, Authentication (AuthN), and Authorization (AuthZ) content. Typically, one entry per HTTP(s) request.</p>
-                                                                <p>To correctly size a disk, the number and size of these entries over a given time period must determined.<br />To determine the size of log entries, you must consider the number of system users and the count of times users access applications (AuthN entries) and the number of subsequent page views for that application (AuthZ events).<br /><br />Overall, the composition of a log entries is based on:</p>
-                                                                <ul>
-                                                                    <li>Session - Each log entry includes <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> session information.</li>
-                                                                    <li>AuthN  - Authentication audit and logging information.</li>
-                                                                    <li>AuthZ - Authorization log information, including resource accessed and policy rules.</li>
-                                                                </ul>
-                                                                <p>From a disk use perspective, the size of each of these is the other important question.</p>
-                                                            </div>
-                                                            <div>
-                                                                <p>Examples
-                    </p>
-                                                                <p>Let's look at an example. <br />If a given user base is 10,000 users, of which 75% access the system per day, and each user accesses 10 applications on an average. In this case, you can determine average daily accesses as:</p>
-                                                                <ul>
-                                                                    <li>Active Users = <span class="msgblock">total users * access percentage</span><br />10,000 * 75%  = 7500 active users.</li>
-                                                                </ul>
-                                                                <p>Each user accessing 10 applications:</p>
-                                                                <ul>
-                                                                    <li>Accesses per day = <span class="msgblock">Active Users * applications accessed</span><br />7500 * 10 = 75,000 accesses per day.</li>
-                                                                </ul>
-                                                                <p>Assuming that each access requires a session, authentication, and authorization, you can then determine an estimated  log entry size as:</p>
-                                                                <ul>
-                                                                    <li>Log entry size = <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> session size + AuthN size + AuthZ size + some small formatting overhead.</li>
-                                                                </ul>
-                                                                <p>For a more realistic example, let's assume <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> sessions, AuthZ, and AuthN sizes are roughly the same and ~1024B each.  Then, each access would require approximately 3K bytes.</p>
-                                                                <p>Assuming that access is more or less evenly distributed over the course of 24 hours, there are approximately 75,000/24 or 3125 accesses per hour.</p>
-                                                                <p>If each access measures 3K bytes in size, then the hourly growth of a log becomes 3k*3125 or 9.6MB/hour or approximately 230mb a day. Assuming a consistent access pattern, you would need ~7,000MB of disk/month for log and log related content..</p>
-                                                                <p>A reasonable rule is to allocate twice expected consumption plus additional overhead space for software updates, configuration, and backups.  In the given example, there would be a disk requirement of approximately 14GB plus 10-20% or roughly 17-20GB/month.<br /></p>
+                                                                <h4>Calculation examples: log entry sizes and growth</h4>
+                                                                <p>Use these calculations to estimate how much your disk size needs will grow over time. Replace the example figures with your own. A reasonable rule is to allocate twice the expected consumption plus additional overhead space for software updates, configuration, and backups.  In this example, there would be a disk requirement of approximately 14 gigabytes plus 10 to 20% extra, or roughly 17 to 20 gigabytes of growth each month.</p>
+                                                                <table style="mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');margin-left: 0;margin-right: auto;" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+                                                                    <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                                    <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                                    <tbody>
+                                                                        <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                                                                                <p>User base</p>
+                                                                            </td>
+                                                                            <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">10,000</td>
+                                                                        </tr>
+                                                                        <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                                                                                <p>Access rate</p>
+                                                                            </td>
+                                                                            <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">75%</td>
+                                                                        </tr>
+                                                                        <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                                                                                <p>Applications per user</p>
+                                                                            </td>
+                                                                            <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">10</td>
+                                                                        </tr>
+                                                                        <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                                                                                <p>Accesses per day</p>
+                                                                            </td>
+                                                                            <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
+                                                                                <p>User base * Access rate * Applications per user</p>
+                                                                                <p>10,000 * 0.75 * 10 = 75,000</p>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                                                                                <p>Typical log entry size</p>
+                                                                                <p>(<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>, authorization, and authentication sessions)</p>
+                                                                            </td>
+                                                                            <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">1024 bytes * 3 = 3072 bytes</td>
+                                                                        </tr>
+                                                                        <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                                                                                <p>Disk size growth per day</p>
+                                                                            </td>
+                                                                            <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
+                                                                                <p>Accesses per day * typical log entry size</p>
+                                                                                <p>75,000 * 3072 bytes = 76,800,000 bytes or approximately 230.4 megabytes per day</p>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                                                                                <p>Disk size growth per month (30 days)</p>
+                                                                            </td>
+                                                                            <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                                                                                <p>Disk size growth per day * 30</p>
+                                                                                <p>230.4 * 30 = 6.912 gigabytes</p>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                            <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">
+                                                                                <p>Disk size growth per year (365 days)</p>
+                                                                            </td>
+                                                                            <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">
+                                                                                <p>Disk size growth per day * 365 = 84.096 gigabytes</p>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
                                                             </div>
                                                         </div>
                                                         <div class="noteOkta">
                                                             <p class="noteContent">Hard Disk considerations:</p>
                                                             <ul>
-                                                                <li>Monitor logger alerts on low disk to avoid low disk warning size for maximum or peak requests.  The check runs hourly and gives warning for 70% and alerts for 90%.</li>
+                                                                <li>Monitor logger alerts on low disk levels to avoid low disk warning size for maximum or peak requests.  The check runs hourly and gives warnings at 70% usage and alerts for 90% usage.</li>
                                                                 <li>Every HTTP request results in audit and access logs.</li>
                                                                 <li>Faster disk IO improves throughput.</li>
                                                                 <li>
                         Session size affects audit logging with authorization and audit logs contain session contents.
                     </li>
-                                                                <li>Don’t be conservative in Hard Disk sizing, allocate 2x estimated disk requirements to avoid burst and large page requests resulting in low disk warnings. </li>
+                                                                <li>Don’t be conservative when calculating hard-disk sizing. Allocate double the estimated disk requirements to avoid burst and large page requests resulting in low disk space warnings. </li>
                                                             </ul>
                                                         </div>
-                                                        <h3>CPU Sizing</h3>
-                                                        <p>The <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> engine autoscales across CPUs, which results in a worker per CPU. Each additional core results in an additional thread allowing for additional processing.</p>
+                                                        <h3>CPU sizing</h3>
+                                                        <p>The <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> engine autoscales across CPUs, which results in one worker per CPU. Each additional core results in an additional thread, which allows additional processing.</p>
                                                         <div class="noteOkta">
-                                                            <p class="noteContent">CPU considerations
-                </p>
                                                             <ul>
                                                                 <li>
-                                                                    <p>More CPU/Cores will improve capacity.</p>
+                                                                    <p>More CPUs or cores improve capacity.</p>
                                                                 </li>
-                                                                <li>Network throughput is typically the bottleneck.</li>
+                                                                <li>Network throughput is typically the processing bottleneck, not CPU processing.</li>
                                                             </ul>
                                                         </div>
                                                         <div>
-                                                            <h3>Throughput Sizing</h3>
-                                                            <p>Throughput is a direct function of AuthN, AuthZ, and return content.</p>
+                                                            <h3>Throughput sizing</h3>
+                                                            <p>Throughput is the rate of data delivery through the network. In <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>, the data delivered through the network include authentication, authorization, and return content data:</p>
                                                             <ul>
-                                                                <li>AuthNs = SAML assertions processed (from Okta to each application).</li>
-                                                                <li>AuthZs = Policy check per HTTP request (all HTTP requests).</li>
+                                                                <li>Authentications = SAML assertions processed (from Okta to each application).</li>
+                                                                <li>Authorizations = Policy check per HTTP request (all HTTP requests).</li>
                                                             </ul>
-                                                            <p>Assuming the following values (see logs for actual values):</p>
-                                                            <table style="mc-table-style: url('../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
-                                                                <col class="TableStyle-standard-Column-Column1" />
-                                                                <col class="TableStyle-standard-Column-Column1" />
-                                                                <col class="TableStyle-standard-Column-Column1" style="width: 13pt;" />
-                                                                <thead>
-                                                                    <tr class="TableStyle-standard-Head-Header1">
-                                                                        <th class="TableStyle-standard-HeadF-Column1-Header1">AuthN Bytes</th>
-                                                                        <th class="TableStyle-standard-HeadF-Column1-Header1">AuthZ Bytes</th>
-                                                                        <th class="TableStyle-standard-HeadD-Column1-Header1">Returned Data</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <tr class="TableStyle-standard-Body-Body1">
-                                                                        <td class="TableStyle-standard-BodyC-Column1-Body1">1024B</td>
-                                                                        <td class="TableStyle-standard-BodyC-Column1-Body1">1024B</td>
-                                                                        <td class="TableStyle-standard-BodyA-Column1-Body1">2048B</td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                            <p>Network throughput becomes a function of:</p>
+                                                            <p>Each authentication and authorization request uses approximately 1024 bytes each, resulting in 2048 bytes of returned data. You can calculate network throughput using this formula:</p>
                                                             <ul>
-                                                                <li>Sign in /second * AuthN size</li>
-                                                                <li>AuthZ requests/second</li>
-                                                                <li>Average returned data size</li>
+                                                                <li>Sign-ins per second * (authentications + authorizations per second + returned data size).</li>
                                                             </ul>
-                                                            <p>Total network throughput then becomes a function of:</p>
-                                                            <ul>
-                                                                <li>Sign in/sec * (AuthN + AuthZ/sec + returned data size). </li>
-                                                            </ul>
-                                                            <p> Assuming that the dominant factor in network access is the amount of data returned per request and an average response is~20KB. For 500 requests the result becomes 20KB * 500 or 10 MB/s. </p>
-                                                            <p>Simplifying:</p>
-                                                            <ul>
-                                                                <li>Average network bandwidth = Average response size * Average request arrival rate.</li>
-                                                            </ul>
-                                                            <table style="mc-table-style: url('../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
-                                                                <col class="TableStyle-standard-Column-Column1" />
-                                                                <col class="TableStyle-standard-Column-Column1" style="width: 12pt;" />
-                                                                <col class="TableStyle-standard-Column-Column1" style="width: 12pt;" />
-                                                                <col class="TableStyle-standard-Column-Column1" style="width: 46pt;" />
-                                                                <col class="TableStyle-standard-Column-Column1" style="width: 12pt;" />
-                                                                <thead>
-                                                                    <tr class="TableStyle-standard-Head-Header1">
-                                                                        <th class="TableStyle-standard-HeadD-Column1-Header1" colspan="5" style="text-align: center;">Network Requirements
-                            </th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <tr class="TableStyle-standard-Body-Body1">
-                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1">Requests/ second</td>
-                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1" colspan="3">AuthN Size + <p>AuthZ Size + </p>Returned Data</td>
-                                                                        <td class="TableStyle-standard-BodyD-Column1-Body1">
-                                                                            <p>Total
-                                </p>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="TableStyle-standard-Body-Body2">
-                                                                        <td class="TableStyle-standard-BodyC-Column1-Body2">
-                                                                            <p>500</p>
-                                                                        </td>
-                                                                        <td class="TableStyle-standard-BodyC-Column1-Body2">
-                                                                            <p>1024B</p>
-                                                                        </td>
-                                                                        <td class="TableStyle-standard-BodyC-Column1-Body2">
-                                                                            <p>1024B</p>
-                                                                        </td>
-                                                                        <td class="TableStyle-standard-BodyC-Column1-Body2">
-                                                                            <p>2048B</p>
-                                                                        </td>
-                                                                        <td class="TableStyle-standard-BodyA-Column1-Body2">
-                                                                            <p>~20MB/S</p>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
+                                                            <p> To calculate the average network bandwidth, use this formula:</p>
+                                                            <p>Average response size * average request arrival rate</p>
+                                                            <p>If the average response is approximately 20 kilobytes in size, for 500 requests the result becomes 20 kilobytes * 500, which equals 10 megabytes per second.</p>
                                                             <div class="noteOkta">
-                                                                <p class="noteContent">Exact timing information can be found in the AuthN and All logs. Total time to perform a request and return data is also tracked.</p>
+                                                                <p class="noteContent">You can find exact data, including the time to perform a request and the size of the return data, in the AuthN and All logs.</p>
                                                             </div>
                                                         </div>
                                                         <div>
-                                                            <h2><a name="InstanceSizing"></a>Instance sizing</h2>
-                                                            <p>This table describes the minimum hardware configurations required to support different <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> instance sizes.</p>
+                                                            <h3><a name="InstanceSizing"></a>Instance sizing</h3>
                                                             <p>The number of users and authentications that each instance size can support depends on many complex factors. The relationship between total disk and memory size available on the server, processor and network connection speeds, and other factors all affect capacity. You can deploy <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> in different configurations to suit your environment. You can set up one or two instances of <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> on hardware with multiple cores and larger memory modules. Or you may deploy <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> on more and smaller instances spread across multiple servers in a cluster. For help with determining how many users your <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> instances can support, use the calculations on this page, or contact <span class="mc-variable okta-feature-names.Okta_Support variable">Okta Support</span> for help with your unique environment.</p>
+                                                            <p>This table describes the minimum hardware configurations required to support different <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> instance sizes. The number of users and apps shown in the table are provided as guidelines only. Actual performance depends on factors unique to your environment.</p>
                                                             <table style="mc-table-style: url('../../Resources/TableStyles/standard.css');margin-left: 0;margin-right: auto;" class="TableStyle-standard" cellspacing="0">
                                                                 <col class="TableStyle-standard-Column-Column1" />
                                                                 <col class="TableStyle-standard-Column-Column1" />
@@ -787,7 +779,13 @@ and plan accordingly. <br />Consider peak conditions and size for those conditio
                                                                         </td>
                                                                     </tr>
                                                                     <tr class="TableStyle-standard-Body-Body2">
-                                                                        <td class="TableStyle-standard-BodyF-Column1-Body2">Small</td>
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                                                                            <p>Small</p>
+                                                                            <ul>
+                                                                                <li>1000-5000 users</li>
+                                                                                <li>1-10 apps</li>
+                                                                            </ul>
+                                                                        </td>
                                                                         <td class="TableStyle-standard-BodyF-Column1-Body2">
                                                                             <ul>
                                                                                 <li>2 instances, each with the following hardware:<ul><li>2 cores of 4 gigabytes of memory</li><li>220 gigabytes (default) hard drive</li><li>Single 1 Gbps NIC</li></ul></li>
@@ -796,19 +794,31 @@ and plan accordingly. <br />Consider peak conditions and size for those conditio
                                                                         <td class="TableStyle-standard-BodyD-Column1-Body2">t2.medium</td>
                                                                     </tr>
                                                                     <tr class="TableStyle-standard-Body-Body1">
-                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1">Medium</td>
+                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                                                                            <p>Medium</p>
+                                                                            <ul>
+                                                                                <li>5000-20,000 users</li>
+                                                                                <li>10-100 apps</li>
+                                                                            </ul>
+                                                                        </td>
                                                                         <td class="TableStyle-standard-BodyF-Column1-Body1">
                                                                             <ul>
-                                                                                <li>3 instances, each with the following hardware:<ul><li>2 cores of 8 gigabytes of memory</li><li>500 gigabytes hard drive</li><li>Single 1 Gbps NIC</li></ul></li>
+                                                                                <li>3 instances, each with the following hardware:<ul><li>2 cores of 8 gigabytes of memory</li><li>500-gigabytes hard drive</li><li>Single 1 Gbps NIC</li></ul></li>
                                                                             </ul>
                                                                         </td>
                                                                         <td class="TableStyle-standard-BodyD-Column1-Body1">m4.large</td>
                                                                     </tr>
                                                                     <tr class="TableStyle-standard-Body-Body2">
-                                                                        <td class="TableStyle-standard-BodyC-Column1-Body2">Large</td>
+                                                                        <td class="TableStyle-standard-BodyC-Column1-Body2">
+                                                                            <p>Large</p>
+                                                                            <ul>
+                                                                                <li>20,000 users or more</li>
+                                                                                <li>100 apps or more</li>
+                                                                            </ul>
+                                                                        </td>
                                                                         <td class="TableStyle-standard-BodyC-Column1-Body2">
                                                                             <ul>
-                                                                                <li>3 instances, each with the following hardware:<ul><li> 4 cores of 16 gigabytes of memory</li><li>500 gigabytes hard drive</li><li>Single 1 Gbps NIC</li></ul></li>
+                                                                                <li>3 instances, each with the following hardware:<ul><li> 4 cores of 16 gigabytes of memory</li><li>500-gigabytes hard drive</li><li>Single 1 Gbps NIC</li></ul></li>
                                                                             </ul>
                                                                         </td>
                                                                         <td class="TableStyle-standard-BodyA-Column1-Body2">m4.xlarge<br /><br />See <a href="https://aws.amazon.com/ec2/instance-types/">AWS Instance Types</a>. </td>
@@ -817,19 +827,19 @@ and plan accordingly. <br />Consider peak conditions and size for those conditio
                                                             </table>
                                                         </div>
                                                     </div>
-                                                    <h2><a name="Scaling"></a>Scaling</h2>
+                                                    <h2><a name="Scaling"></a>Estimate scaling requirements</h2>
                                                     <p>Scaling is the process of increasing or decreasing an <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> cluster size.</p>
-                                                    <p>Clusters can be:</p>
+                                                    <p>Clusters can be scaled vertically or horizontally:</p>
                                                     <ul>
-                                                        <li>Scaled vertically - Adding or removing memory, disk or CPU from a given instance.</li>
-                                                        <li>Scaled horizontally - Adding or removing <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> instances from a cluster.</li>
+                                                        <li><span class="wintitle">Scaled vertically</span>: Add or remove memory, disk, or CPUs from a given instance.</li>
+                                                        <li><span class="wintitle">Scaled horizontally</span>: Add or remove <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> instances from a cluster.</li>
                                                     </ul>
-                                                    <p>Okta recommends defining all <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> high availability cluster members similarly with the same CPU, memory, and disk configurations.</p>
-                                                    <p>When examining cluster performance, consider the following:</p>
+                                                    <p><span class="mc-variable okta-variables.ProductName variable">Okta</span> recommends that you deploy all <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> high-availability cluster members with the same CPU, memory, and disk configurations.</p>
+                                                    <p>When examining cluster performance, consider the following tips:</p>
                                                     <ul>
-                                                        <li>For a given instance, the best performance increases can be made by adding CPU or using solid state disk. </li>
-                                                        <li>To improve overall cluster throughput, Okta recommends  horizontal scaling or adding additional <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> instances. <br />For example: For a two node cluster that handles 1500 requests, you can double the capacity by adding two additional nodes with the same CPU, memory, and disk configuration. </li>
-                                                        <li>In general, horizontal scaling is linear due to <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>'s use of sticky sessions (session affinity). <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> does not share sessions between nodes.</li>
+                                                        <li>The best performance increases result from adding CPUs or using solid-state disks.</li>
+                                                        <li>To improve overall cluster throughput, <span class="mc-variable okta-variables.ProductName variable">Okta</span> recommends  horizontal scaling or adding additional <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> instances. For example, for a two-node cluster that handles 1500 requests, you can double the capacity by adding two additional nodes with the same CPU, memory, and disk configuration. </li>
+                                                        <li>In general, horizontal scaling is linear due to <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>'s use of sticky sessions (session affinity). <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> doesn't share sessions between nodes.</li>
                                                     </ul>
                                                     <div class="noteOkta">
                                                         <p class="noteContent">Capacity may be limited by other factors not related to <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>, such as network throughput or the back-end application performance.<br />See <a href="about-networking-interfaces.htm" class="MCXref xref">Network interfaces</a> for more information on <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> networking and expanding networking throughput. </p>
@@ -848,12 +858,7 @@ and plan accordingly. <br />Consider peak conditions and size for those conditio
 	</p>
                                         </div>
                                     </div>
-                                    <!-- Qualtrics setup to use with script below, replacing getfeedback -->
-                                    <div id="ZN_6fGBJ8J3VcIBymN">
-                                        <!--DO NOT REMOVE-CONTENTS PLACED HERE-->
-                                    </div>
                                     <!-- ********************** Scripts ************************************* -->
-                                    <!-- Foundation -->
                                     <script src="../../Resources/Scripts/js/ignore-dompurify.js">
                                     </script>
                                     <script src="../../Resources/Scripts/js/app.js">
@@ -861,8 +866,6 @@ and plan accordingly. <br />Consider peak conditions and size for those conditio
                                     <script src="../../Resources/Scripts/js/vendor/what-input.js">
                                     </script>
                                     <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.4-rc1/js/foundation.min.js">
-                                    </script>
-                                    <script type="text/javascript" src="../../Resources/Scripts/js/vendor/qualtrics.js">
                                     </script>
                                     <!-- Coveo -->
                                     <script src="https://static.cloud.coveo.com/searchui/v2.5395/js/CoveoJsSearch.Lazy.min.js" defer="defer">
@@ -873,6 +876,9 @@ and plan accordingly. <br />Consider peak conditions and size for those conditio
                                     </script>
                                     <script src="../../Resources/Scripts/coveo-resources/js/Coveo.MadcapFlare.Okta.js" id="coveoInitscript" defer="defer">
                                     </script>
+                                    <!-- Feedback tab for Qualtrics survey -->
+                                    <div id="feedback-tab" data-mc-conditions="Primary.live-site-only"><a id="feedback-link" href="#" onclick="openSurvey();  return false" target="_blank" title="Submit feedback"><div id="feedback-container"><p id="feedback-text" translate="no">Feedback</p></div></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -882,4 +888,3 @@ and plan accordingly. <br />Consider peak conditions and size for those conditio
         </div>
     </body>
 </html>
- 
