@@ -42,6 +42,7 @@
 
 </style>
         <link href="../../resources/stylesheets/okta-main-new-nav.css" rel="stylesheet" type="text/css" />
+        <link href="../../resources/tablestyles/standard-shaded-rows.css" rel="stylesheet" data-mc-stylesheet-type="table" />
         <link href="../../resources/tablestyles/standard.css" rel="stylesheet" data-mc-stylesheet-type="table" />
         <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/admin-settings-logging.htm" />
         <script src="../../../Resources/Scripts/jquery.min.js" type="text/javascript">
@@ -95,6 +96,9 @@
         });
 		})('a9bd3885-93ae-46ab-700b-dd29e613c19d');
 		/* ]]> */
+        function openSurvey() {
+            window.open('https://surveys.okta.com/jfe/form/SV_e4L0iW8a3tz8Yol?source=' + encodeURIComponent(document.location.href), '_blank');
+        }
 		</script>
     </head>
     <body>
@@ -290,14 +294,12 @@
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
                                                     <h1>Configure log forwarders</h1>
-                                                    <p><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> supports log forwarders (for example, Graylog).</p>
-                                                    <p>Available since <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> version
-    <span class="mc-variable oag-versions.2020-04 variable">2020.04.4</span></p>
+                                                    <p><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> enables you to use log forwarders to store your log files in third-party log products.</p>
                                                     <div>
                                                         <ul>
-                                                            <li><a href="#LoggerInput" class="MCXref xref">Define a log forwarder receiver</a>
+                                                            <li><a href="#LoggerInput" class="MCXref xref">Create a log forwarder receiver</a>
                                                             </li>
-                                                            <li><a href="#AddForwarder" class="MCXref xref">Add a log forwarder</a>
+                                                            <li><a href="#AddForwarder" class="MCXref xref">Add a log forwarder in Access Gateway</a>
                                                             </li>
                                                             <li><a href="#Test" class="MCXref xref">Test log forwarders</a>
                                                             </li>
@@ -307,71 +309,50 @@
                                                     </div>
                                                     <div>
                                                         <h2><a name="Prerequisites"></a>Before you begin</h2>
-                                                        <p>You need the following:</p>
                                                         <ul>
-                                                            <li>A syslog server configured to receive syslog events.<br /></li>
-                                                            <li>Connection information for the remote logging consumer. For example:<br /><table style="mc-table-style: url('../../resources/tablestyles/standard.css');" class="TableStyle-standard" cellspacing="0"><col class="TableStyle-standard-Column-Column1" /><col class="TableStyle-standard-Column-Column1" /><thead><tr class="TableStyle-standard-Head-Header1"><th class="TableStyle-standard-HeadF-Column1-Header1">Parameter</th><th class="TableStyle-standard-HeadD-Column1-Header1">Example</th></tr></thead><tbody><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyF-Column1-Body1"><p>Fully qualified IP address or DNS resolvable name of logger</p></td><td class="TableStyle-standard-BodyD-Column1-Body1"><p>192.168.1.1</p><p>my.graylog.server</p></td></tr><tr class="TableStyle-standard-Body-Body2"><td class="TableStyle-standard-BodyF-Column1-Body2"><p>Logger protocol</p></td><td class="TableStyle-standard-BodyD-Column1-Body2"><p>TCP or UDP</p></td></tr><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyC-Column1-Body1"><p>Logger listen port</p></td><td class="TableStyle-standard-BodyA-Column1-Body1"><p>5514</p></td></tr></tbody></table><div class="noteOkta"><p class="noteContent">The port used to communicate between <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> and the logging server must be open. </p><p class="noteContent"><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> validates the logging server connection. </p></div></li>
+                                                            <li>Verify that a third-party log product has already been set up and can receive events from <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>.</li>
+                                                            <li>Use this connection information for the third-party log product:
+				
+				<table style="width: 90%;margin-left: 0;margin-right: auto;mc-table-style: url('../../resources/tablestyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0"><col class="TableStyle-srb_header_alt_shade-Column-Column1" /><col class="TableStyle-srb_header_alt_shade-Column-Column1" /><thead><tr class="TableStyle-srb_header_alt_shade-Head-Header1"><th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1"><p>Parameter</p></th><th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1"><p>Example</p></th></tr></thead><tbody><tr class="TableStyle-srb_header_alt_shade-Body-Body1"><td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1" width="75%">A fully qualified IP address or DNS-resolvable name of the third-party log product</td><td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1" width="25%"><p>192.168.1.1</p><p>my.logproduct.server</p></td></tr><tr class="TableStyle-srb_header_alt_shade-Body-Body2"><td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Protocol</td><td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">TCP or UDP</td></tr><tr class="TableStyle-srb_header_alt_shade-Body-Body1"><td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1"><p>Listen port</p><p><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> validates the logging server connection. Verify that this port is open before you forward logs from <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> to the third-party log product.</p></td><td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body1">5514</td></tr></tbody></table></li>
+                                                            <li>In high availability clusters, when you add a log forwarder definition to the main admin node, the definition propagates to all worker nodes. Worker nodes then send log events directly to the third-party log product server.</li>
                                                         </ul>
                                                     </div>
                                                     <div>
-                                                        <h2><a name="LoggerInput"></a>Define a log forwarder receiver</h2>
-                                                        <div class="noteOkta">
-                                                            <p class="noteContent">The following example demonstrates how to configure <a href="http://www.graylog.org/">Graylog</a> as a log forwarder receiver. To configure a different type of system to receive forwarded logs, see that system's documentation. </p>
-                                                        </div>
-                                                        <p>To create a log forwarder in Graylog:</p>
-                                                        <ol>
-                                                            <li value="1">Sign in to the Graylog console as admin.</li>
-                                                            <li value="2">Select <span class="uicontrol">System</span> &gt; <span class="uicontrol">Inputs</span>.</li>
-                                                            <li value="3">Search for <span class="uicontrol">Syslog UDP</span> in the <span class="uicontrol">Select Input</span> dropdown list.</li>
-                                                            <li value="4">Click <span class="uicontrol">Launch new input</span>.</li>
-                                                            <li value="5">Select the <span class="uicontrol">Global</span> checkbox.</li>
-                                                            <li value="6">
-                                                                <p>Enter a name for the forwarder in the <span class="uicontrol">Title</span> field.</p>
-                                                            </li>
-                                                            <li value="7">
-                                                                <p>Enter a port number to use for communication between <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> and the logging server in the <span class="uicontrol">Port</span> field.  To avoid operating system restrictions when configuring syslog input receivers, use port 2048 or above. The port must be accessible from the <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> admin instance. </p>
-                                                            </li>
-                                                            <li value="8">Click <span class="uicontrol">Save</span>.</li>
-                                                            <li value="9">Return to the <span class="mc-variable okta-feature-names.Access Gateway_UI variable">Access Gateway Admin UI console</span></li>
-                                                        </ol>
+                                                        <h2><a name="LoggerInput"></a>Create a log forwarder receiver</h2>
+                                                        <p>You must create a location that receives log data from <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>. This might be called a receiver, an input, a listener, a remote listener, or a log forwarder receiver in your third-party log product. </p>
+                                                        <p>See that product's documentation for instructions.</p>
                                                     </div>
                                                     <div>
-                                                        <h2><a name="AddForwarder"></a>Add a log forwarder</h2>
-                                                        <p>To add a remote logger:</p>
+                                                        <h2><a name="AddForwarder"></a>Add a log forwarder in <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span></h2>
                                                         <ol>
                                                             <li value="1">
-                    Go to your <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> instance.
-                </li>
-                                                            <li value="2">Select <span class="uicontrol">Backups and Logs and Backups</span>.<br /></li>
-                                                            <li value="3">Select <span class="uicontrol">Log Forwarder</span>.</li>
-                                                            <li value="4">Click <span class="uicontrol">(+)</span> &gt; <span class="uicontrol">Syslog remote</span>. </li>
-                                                            <li value="5">Enter the following:<table class="TableStyle-standard" style="mc-table-style: url('../../resources/tablestyles/standard.css');" cellspacing="0"><col class="TableStyle-standard-Column-Column1" /><col class="TableStyle-standard-Column-Column1" /><thead><tr class="TableStyle-standard-Head-Header1"><th class="TableStyle-standard-HeadF-Column1-Header1"><p>Field</p></th><th class="TableStyle-standard-HeadD-Column1-Header1"><p>Value</p></th></tr></thead><tbody><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyF-Column1-Body1"><p><span class="uicontrol">Name</span></p></td><td class="TableStyle-standard-BodyD-Column1-Body1"><p>The name of the forwarder. </p></td></tr><tr class="TableStyle-standard-Body-Body2"><td class="TableStyle-standard-BodyF-Column1-Body2"><p><span class="uicontrol">Feed</span></p></td><td class="TableStyle-standard-BodyD-Column1-Body2"><p>One of: </p><ul><li>AUDIT</li><li>ACCESS</li><li>MONITOR</li></ul><p>See <a href="#Log" class="MCXref xref">Feed examples</a> for details of each feed. </p></td></tr><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyF-Column1-Body1"><p><span class="uicontrol">Protocol</span></p></td><td class="TableStyle-standard-BodyD-Column1-Body1"><p>Select UDP or TCP. This protocol must match that of the log listener.</p></td></tr><tr class="TableStyle-standard-Body-Body2"><td class="TableStyle-standard-BodyF-Column1-Body2"><p><span class="uicontrol">Host</span></p></td><td class="TableStyle-standard-BodyD-Column1-Body2"><p>The DNS resolvable  hostname or IP address of the remote Syslog listener.</p></td></tr><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyC-Column1-Body1"><p><span class="uicontrol">Port</span></p></td><td class="TableStyle-standard-BodyA-Column1-Body1"><p>The port of the remote syslog listener.</p></td></tr></tbody></table></li>
-                                                            <li value="6">Click <span class="uicontrol">Validate Forwarder</span>. <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> attempts to validate the remote logger connection information. If required, correct any input errors. On successful validation, the <span class="uicontrol">Validate Forwarder</span> button changes to <span class="uicontrol">Forwarder Validated</span>. </li>
-                                                            <li value="7">Click <span class="uicontrol">Okay</span>. </li>
-                                                            <li value="8">The log forwarder definition  appears in the list of log forwarders. Its initial status is <span class="uicontrol">Testing</span>, which changes to <span class="uicontrol">Valid</span> when it passes testing.<br /></li>
+                    In your <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> instance,  select <span class="uicontrol">Backups and Logs and Backups</span>.             </li>
+                                                            <li value="2">Select <span class="uicontrol">Log Forwarder</span>.</li>
+                                                            <li value="3">Click <span class="uicontrol">(+)</span> &gt; <span class="uicontrol">Syslog remote</span>. </li>
+                                                            <li value="4">Configure the following options:
+				
+					<ul><li>Name: Enter a name for the forwarder.</li><li>Feed: Select one of these options:
+					
+							<ul><li>AUDIT: Log entries representing user authentication.</li><li>ACCESS: Log entries for user authorization and application accesses.</li><li>MONITOR: Log entries for application configuration (add, delete, modify), certificate configuration, and Auth Module configuration.</li></ul></li><li>Protocol: Select UDP or TCP. This protocol must be the same as the protocol you selected for communication with your third-party logging product.</li><li>Host: The DNS-resolvable  hostname or IP address of the of the third-party log product.</li><li>Port: The port that you're using to communicate with the third-party log product.</li></ul></li>
+                                                            <li value="5">Click <span class="uicontrol">Validate Forwarder</span>. <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> attempts to validate the remote third-party log product connection information. Correct any input errors if they appear. When the connection has been validated, the <span class="uicontrol">Validate Forwarder</span> button changes to <span class="uicontrol">Forwarder Validated</span>. </li>
+                                                            <li value="6">Click <span class="uicontrol">Okay</span>. </li>
+                                                            <li value="7">The log forwarder definition  appears in the list of log forwarders. Its initial status is <span class="uicontrol">Testing</span>, which changes to <span class="uicontrol">Valid</span> when it passes testing.<br /></li>
                                                         </ol>
                                                     </div>
                                                     <div>
                                                         <h2><a name="Test"></a>Test log forwarders</h2>
-                                                        <p>To test log forwarding, you need the following:</p>
-                                                        <ul>
-                                                            <li>A configured log receiver. Follow the steps outlined in the <a href="#LoggerInput" class="MCXref xref">Define a log forwarder receiver</a> section </li>
-                                                            <li>A log forwarder defined in your <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> node.
-Access loggers are the simplest to test, as they generate events based on sign in to the <span class="mc-variable okta-feature-names.Access Gateway_UI variable">Access Gateway Admin UI console</span></li>
-                                                            <li>Be able to generate one or more events.</li>
-                                                        </ul>
-                                                        <p>To test a log forwarder:</p>
+                                                        <p>After you've configured a receiver for your log events and created a log forwarder in <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>, you can test that everything works as expected.</p>
                                                         <ol>
                                                             <li value="1">Configure a system logger in your log server.</li>
-                                                            <li value="2">Configure a log forwarder in <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>, preferably an access logger.</li>
-                                                            <li value="3">Ensure your system logger is started and ready to receive events</li>
-                                                            <li value="4">Sign out and then back into the <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> <span class="mc-variable okta-feature-names.Administrator_dashboard variable">Admin Console</span>.</li>
-                                                            <li value="5">Examine the log server. Multiple events should be generated resembling:<br /><img src="../../resources/images/access-gateway/admin-settings-logging-auth-events.png" id="img_new" /><br /></li>
+                                                            <li value="2">Configure a log forwarder in <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>. For testing purposes, <span class="mc-variable okta-variables.ProductName variable">Okta</span> recommends that you use ACCESS mode. This mode records sign-in events to the <span class="mc-variable okta-feature-names.Access Gateway_UI variable">Access Gateway Admin UI console</span>.</li>
+                                                            <li value="3">Verify that your third-party log product is started and is ready to receive events.</li>
+                                                            <li value="4">Sign out of and then back into the <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> <span class="mc-variable okta-feature-names.Administrator_dashboard variable">Admin Console</span>.</li>
+                                                            <li value="5">Verify that these events appear in the third-party log product feed. See the <a href="#Log" class="MCXref xref">Feed examples</a> section for examples.</li>
                                                         </ol>
                                                     </div>
                                                     <div>
                                                         <h2><a name="Log"></a>Feed examples</h2>
-                                                        <table style="mc-table-style: url('../../resources/tablestyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                                                        <table style="width: 90%;mc-table-style: url('../../resources/tablestyles/standard.css');margin-left: 0;margin-right: auto;width: 100%;" class="TableStyle-standard" cellspacing="0">
                                                             <col class="TableStyle-standard-Column-Column1" />
                                                             <col class="TableStyle-standard-Column-Column1" />
                                                             <thead>
@@ -392,10 +373,13 @@ Access loggers are the simplest to test, as they generate events based on sign i
                                                                 </tr>
                                                                 <tr class="TableStyle-standard-Body-Body1">
                                                                     <td class="TableStyle-standard-BodyC-Column1-Body1">MONITOR</td>
-                                                                    <td class="TableStyle-standard-BodyA-Column1-Body1">Monitor log events include log entries representing application configuration (add, delete, modify), Certificate configuration and Auth Module Configuration. See <a href="oag-log-files-monitor.htm" class="MCXref xref">Access Gateway monitor log</a><p><span class="uicontrol">Sample event:</span></p><p><span class="codeblock">2020-06-25T07:00:02.119-05:00 example.myaccessgateway.com OAG_MONITOR MONITOR DISK_USAGE INFO DISK_USAGE [FILESYSTEM="/dev/mapper/centos-root" MOUNT="/" USAGE="12%"] Mount / is 12% full</span></p></td>
+                                                                    <td class="TableStyle-standard-BodyA-Column1-Body1">Monitor log events include log entries representing application configuration (add, delete, modify), certificate configuration and Auth Module configuration. See <a href="oag-log-files-monitor.htm" class="MCXref xref">Access Gateway monitor log</a><p><span class="uicontrol">Sample event:</span></p><p><span class="codeblock">2020-06-25T07:00:02.119-05:00 example.myaccessgateway.com OAG_MONITOR MONITOR DISK_USAGE INFO DISK_USAGE [FILESYSTEM="/dev/mapper/centos-root" MOUNT="/" USAGE="12%"] Mount / is 12% full</span></p></td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
+                                                        <p>
+                                                            <img src="../../resources/images/access-gateway/admin-settings-logging-auth-events.png" id="img_new" />
+                                                        </p>
                                                     </div>
                                                     <div>
                                                         <h3>Related topics</h3>
@@ -441,7 +425,7 @@ Access loggers are the simplest to test, as they generate events based on sign i
                                     <script src="../../resources/scripts/coveo-resources/js/coveo.madcapflare.okta.js" id="coveoInitscript" defer="defer">
                                     </script>
                                     <!-- Feedback tab for Qualtrics survey -->
-                                    <div id="feedback-tab" data-mc-conditions="Primary.live-site-only"><a id="feedback-link" href="https://surveys.okta.com/jfe/form/SV_e4L0iW8a3tz8Yol" target="_blank" title="Submit feedback"><div id="feedback-container"><p id="feedback-text" translate="no">Feedback</p></div></a>
+                                    <div id="feedback-tab" data-mc-conditions="Primary.live-site-only"><a id="feedback-link" href="#" onclick="openSurvey();  return false" target="_blank" title="Submit feedback"><div id="feedback-container"><p id="feedback-text" translate="no">Feedback</p></div></a>
                                     </div>
                                 </div>
                             </div>
