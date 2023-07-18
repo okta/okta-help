@@ -42,6 +42,7 @@
 }
 
 </style>
+        <link href="../../Resources/TableStyles/standard-shaded-rows.css" rel="stylesheet" data-mc-stylesheet-type="table" />
         <link href="../../Resources/TableStyles/standard.css" rel="stylesheet" data-mc-stylesheet-type="table" />
         <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/admin-settings-logging.htm" />
         <script src="../../../Resources/Scripts/jquery.min.js" type="text/javascript">
@@ -95,6 +96,9 @@
         });
 		})('a9bd3885-93ae-46ab-700b-dd29e613c19d');
 		/* ]]> */
+        function openSurvey() {
+            window.open('https://surveys.okta.com/jfe/form/SV_e4L0iW8a3tz8Yol?source=' + encodeURIComponent(document.location.href), '_blank');
+        }
 		</script>
     </head>
     <body>
@@ -290,13 +294,12 @@
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
                                                     <h1>ログフォワーダーを構成する</h1>
-                                                    <p><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>はログフォワーダー（Graylogなど）をサポートします。</p>
-                                                    <p><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>バージョン<span class="mc-variable oag-versions.2020-04 variable">2020.04.4</span>より利用可能</p>
+                                                    <p><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>を使用すると、ログフォワーダーを使用してサードパーティのログ製品にログファイルを保存できます。</p>
                                                     <div>
                                                         <ul>
-                                                            <li><a href="#LoggerInput" class="MCXref xref">ログフォワーダーレシーバーを定義する</a>
+                                                            <li><a href="#LoggerInput" class="MCXref xref">ログフォワーダーレシーバーを作成する</a>
                                                             </li>
-                                                            <li><a href="#AddForwarder" class="MCXref xref">ログフォワーダーを追加する</a>
+                                                            <li><a href="#AddForwarder" class="MCXref xref">Access Gatewayでログフォワーダーを追加する</a>
                                                             </li>
                                                             <li><a href="#Test" class="MCXref xref">ログフォワーダーをテストする</a>
                                                             </li>
@@ -306,70 +309,50 @@
                                                     </div>
                                                     <div>
                                                         <h2><a name="Prerequisites"></a>開始する前に</h2>
-                                                        <p>次のものが必要です：</p>
                                                         <ul>
-                                                            <li>syslogイベントを受信するように構成されたsyslogサーバー。<br /></li>
-                                                            <li>リモートロギングコンシューマーの接続情報。例：<br /><table style="mc-table-style: url('../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0"><col class="TableStyle-standard-Column-Column1" /><col class="TableStyle-standard-Column-Column1" /><thead><tr class="TableStyle-standard-Head-Header1"><th class="TableStyle-standard-HeadF-Column1-Header1">パラメーター</th><th class="TableStyle-standard-HeadD-Column1-Header1">例</th></tr></thead><tbody><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyF-Column1-Body1"><p>完全修飾IPアドレスまたはDNS解決可能なロガーの名前</p></td><td class="TableStyle-standard-BodyD-Column1-Body1"><p>192.168.1.1</p><p>my.graylog.server</p></td></tr><tr class="TableStyle-standard-Body-Body2"><td class="TableStyle-standard-BodyF-Column1-Body2"><p>ロガープロトコル</p></td><td class="TableStyle-standard-BodyD-Column1-Body2"><p>TCP/UDP</p></td></tr><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyC-Column1-Body1"><p>ロガーリッスンポート</p></td><td class="TableStyle-standard-BodyA-Column1-Body1"><p>5514</p></td></tr></tbody></table><div class="noteOkta"><p class="noteContent"><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>とログサーバー間の通信に使用されるポートは、オープンである必要があります。 </p><p class="noteContent"><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>は、ログサーバーの接続を検証します。 </p></div></li>
+                                                            <li>サードパーティのログ製品がすでにセットアップされており、<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>からイベントを受信できる状態であることを確認します。</li>
+                                                            <li>この接続情報をサードパーティのログ製品に使用します。
+				
+				<table style="width: 90%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0"><col class="TableStyle-srb_header_alt_shade-Column-Column1" /><col class="TableStyle-srb_header_alt_shade-Column-Column1" /><thead><tr class="TableStyle-srb_header_alt_shade-Head-Header1"><th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1"><p>パラメーター</p></th><th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1"><p>例</p></th></tr></thead><tbody><tr class="TableStyle-srb_header_alt_shade-Body-Body1"><td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1" width="75%">サードパーティのログ製品の完全修飾IPアドレスまたはDNSで解決可能な名前</td><td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1" width="25%"><p>192.168.1.1</p><p>my.logproduct.server</p></td></tr><tr class="TableStyle-srb_header_alt_shade-Body-Body2"><td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Protocol（プロトコル）</td><td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">TCP/UDP</td></tr><tr class="TableStyle-srb_header_alt_shade-Body-Body1"><td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1"><p>リッスンポート</p><p><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>は、ログサーバーの接続を検証します。<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>からサードパーティのログ製品にログを転送する前に、このポートを開いてあることを確認してください。</p></td><td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body1">5514</td></tr></tbody></table></li>
+                                                            <li>高可用性クラスターでは、ログフォワーダーの定義をメイン管理者ノードに追加すると、定義はすべてのワーカーノードに伝達されます。次に、ワーカーノードはログイベントをサードパーティのログ製品サーバーに直接送信します。</li>
                                                         </ul>
                                                     </div>
                                                     <div>
-                                                        <h2><a name="LoggerInput"></a>ログフォワーダーレシーバーを定義する</h2>
-                                                        <div class="noteOkta">
-                                                            <p class="noteContent">次の例は、ログフォワーダーレシーバーとして<a href="http://www.graylog.org/">Graylog</a>を構成する方法を説明しています。フォワードされたログを受信するシステムのタイプを構成するには、そのシステムのドキュメントを参照してください。 </p>
-                                                        </div>
-                                                        <p>Graylogでログフォワーダーを作成するには：</p>
-                                                        <ol>
-                                                            <li value="1">管理者としてGraylogコンソールにサインインします。</li>
-                                                            <li value="2"><span class="uicontrol">[System（システム）]</span> &gt; <span class="uicontrol">[Inputs（入力）]</span>を選択します。</li>
-                                                            <li value="3"><span class="uicontrol">[Select Input（入力を選択]</span>ドロップダウンリストで<span class="uicontrol">Syslog UDP</span>を検索します。</li>
-                                                            <li value="4"><span class="uicontrol">[Launch new input（新しい入力を起動）]</span>をクリックします。</li>
-                                                            <li value="5"><span class="uicontrol">[Global（グローバル）]</span>チェックボックスを選択します。</li>
-                                                            <li value="6">
-                                                                <p><span class="uicontrol">[Title（タイトル）]</span>フィールドにフォワーダーの名前を入力します。</p>
-                                                            </li>
-                                                            <li value="7">
-                                                                <p><span class="uicontrol">[Port（ポート）]</span>フィールドに、<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>とログサーバー間の通信に使用するポート番号を入力します。syslog入力レシーバーの構成時に、オペレーティングシステムの制限を避けるために、ポート2048以上を使用してください。ポートは、<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>管理者インスタンスからアクセス可能でなければなりません。 </p>
-                                                            </li>
-                                                            <li value="8"><span class="uicontrol">[Save（保存）]</span>をクリックします。</li>
-                                                            <li value="9"><span class="mc-variable okta-feature-names.Access Gateway_UI variable">Access Gateway 管理者 UI コンソール</span>に戻ります。</li>
-                                                        </ol>
+                                                        <h2><a name="LoggerInput"></a>ログフォワーダーレシーバーを作成する</h2>
+                                                        <p><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>からログデータを受信する場所を作成する必要があります。サードパーティのログ製品では、この場所は、レシーバー、入力、リスナー、リモートリスナー、ログフォワーダーレシーバーなどと呼ばれます。 </p>
+                                                        <p>手順については、その製品のドキュメントを参照してください。</p>
                                                     </div>
                                                     <div>
-                                                        <h2><a name="AddForwarder"></a>ログフォワーダーを追加する</h2>
-                                                        <p>リモートロガーを追加するには：</p>
+                                                        <h2><a name="AddForwarder"></a><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>でログフォワーダーを追加する</h2>
                                                         <ol>
                                                             <li value="1">
-                    <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>インスタンスに進みます。
-                </li>
-                                                            <li value="2"><span class="uicontrol">[Backups and Logs and Backups（バックアップおよびログとバックアップ）]</span>を選択します。<br /></li>
-                                                            <li value="3"><span class="uicontrol">[Log Forwarder（ログフォワーダー）]</span>を選択します。</li>
-                                                            <li value="4"><span class="uicontrol">[(+)]</span> &gt; <span class="uicontrol">[Syslog remote（リモートSyslog）</span>をクリックします。 </li>
-                                                            <li value="5">以下を入力します。<table class="TableStyle-standard" style="mc-table-style: url('../../Resources/TableStyles/standard.css');" cellspacing="0"><col class="TableStyle-standard-Column-Column1" /><col class="TableStyle-standard-Column-Column1" /><thead><tr class="TableStyle-standard-Head-Header1"><th class="TableStyle-standard-HeadF-Column1-Header1"><p>フィールド</p></th><th class="TableStyle-standard-HeadD-Column1-Header1"><p>値</p></th></tr></thead><tbody><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyF-Column1-Body1"><p><span class="uicontrol">Name（名前）</span></p></td><td class="TableStyle-standard-BodyD-Column1-Body1"><p>フォワーダーの名前。 </p></td></tr><tr class="TableStyle-standard-Body-Body2"><td class="TableStyle-standard-BodyF-Column1-Body2"><p><span class="uicontrol">Feed（フィード）</span></p></td><td class="TableStyle-standard-BodyD-Column1-Body2"><p>以下のいずれか： </p><ul><li>AUDIT（監査）</li><li>ACCESS（アクセス）</li><li>MONITOR（モニタリング）</li></ul><p>各フィードの詳細については、<a href="#Log" class="MCXref xref">「フィードの例」</a>を参照してください。 </p></td></tr><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyF-Column1-Body1"><p><span class="uicontrol">Protocol（プロトコル）</span></p></td><td class="TableStyle-standard-BodyD-Column1-Body1"><p>UDPまたはTCPを選択します。このプロトコルはログリスナーと一致する必要があります。</p></td></tr><tr class="TableStyle-standard-Body-Body2"><td class="TableStyle-standard-BodyF-Column1-Body2"><p><span class="uicontrol">Host（ホスト）</span></p></td><td class="TableStyle-standard-BodyD-Column1-Body2"><p>リモートSyslogリスナーのDNS解決可能なホスト名またはIPアドレス。</p></td></tr><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyC-Column1-Body1"><p><span class="uicontrol">Port（ポート）</span></p></td><td class="TableStyle-standard-BodyA-Column1-Body1"><p>リモートsyslogリスナーのポート。</p></td></tr></tbody></table></li>
-                                                            <li value="6"><span class="uicontrol">[Validate Forwarder（フォワーダーの検証）]</span>をクリックします。<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>は、リモートロガー接続情報を検証しようとします。必要に応じて、入力エラーを修正します。検証が成功すると、<span class="uicontrol">[Validate Forwarder（フォワーダーの検証）]</span>ボタンが<span class="uicontrol">[Forwarder Validated（フォワーダー検証済み）]</span>に変更されます。 </li>
-                                                            <li value="7"><span class="uicontrol">[Okay（OK）]</span>をクリックします。 </li>
-                                                            <li value="8">ログフォワーダーの定義が、ログフォワーダーのリストに表示されます。初期ステータスは<span class="uicontrol">Testing（テスト中）</span>で、テストに合格すると<span class="uicontrol">Valid（有効）</span>に変更されます。<br /></li>
+                    お使いの<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>インスタンスで、<span class="uicontrol">［Backups and Logs and Backups（バックアップおよびログとバックアップ）］</span>を選択します。             </li>
+                                                            <li value="2"><span class="uicontrol">[Log Forwarder（ログフォワーダー）]</span>を選択します。</li>
+                                                            <li value="3"><span class="uicontrol">[(+)]</span> &gt; <span class="uicontrol">[Syslog remote（リモートSyslog）</span>をクリックします。 </li>
+                                                            <li value="4">次のオプションを構成します。
+				
+					<ul><li>［Name（名前）］：フォワーダーの名前を入力します。</li><li>［Feed（フィード）］：次のいずれかのオプションを選択します。
+					
+							<ul><li>［AUDIT（監査）］：ユーザー認証を表すログエントリ。</li><li>［ACCESS（アクセス）］：ユーザー承認およびアプリケーションのアクセスのログエントリ。</li><li>［MONITOR（モニタリング）］：アプリケーション構成（追加、削除、変更）、証明書構成、認証モジュール構成のログエントリ。</li></ul></li><li>［Protocol（プロトコル）］：UDPまたはTCPを選択します。このプロトコルは、お使いのサードパーティのログ製品との通信用に選択したプロトコルと一致している必要があります。</li><li>［Host（ホスト）］：サードパーティのログ製品のDNS解決可能なホスト名またはIPアドレスです。</li><li>［Port（ポート）］：サードパーティのログ製品との通信に使用しているポートです。</li></ul></li>
+                                                            <li value="5"><span class="uicontrol">[Validate Forwarder（フォワーダーの検証）]</span>をクリックします。<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>は、リモートのサードパーティログ製品の接続情報を検証しようとします。入力ミスがあれば修正してください。接続が検証されると、<span class="uicontrol">［Validate Forwarder（フォワーダーの検証）］</span>ボタンが<span class="uicontrol">［Forwarder Validated（フォワーダー検証済み）］</span>に変更されます。 </li>
+                                                            <li value="6"><span class="uicontrol">[Okay（OK）]</span>をクリックします。 </li>
+                                                            <li value="7">ログフォワーダーの定義が、ログフォワーダーのリストに表示されます。初期ステータスは<span class="uicontrol">Testing（テスト中）</span>で、テストに合格すると<span class="uicontrol">Valid（有効）</span>に変更されます。<br /></li>
                                                         </ol>
                                                     </div>
                                                     <div>
                                                         <h2><a name="Test"></a>ログフォワーダーをテストする</h2>
-                                                        <p>ログ転送をテストするには、次のものが必要です。</p>
-                                                        <ul>
-                                                            <li>構成済みのログレシーバー。<a href="#LoggerInput" class="MCXref xref">「ログフォワーダーレシーバーを定義する」</a>で概説されるステップに従ってください </li>
-                                                            <li><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>ノードでのログフォワーダーの定義。<span class="mc-variable okta-feature-names.Access Gateway_UI variable">Access Gateway 管理者 UI コンソール</span>へのサインインに基づきイベントを生成するため、テストを最も簡単に行うことができるのはアクセスロガーです。</li>
-                                                            <li>1つ以上のイベントを生成できる。</li>
-                                                        </ul>
-                                                        <p>ログフォワーダーをテストする方法：</p>
+                                                        <p>ログイベントを処理するレシーバーを構成し、<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>でログフォワーダーを作成した後は、すべて予期通りに機能することをテストできます。</p>
                                                         <ol>
                                                             <li value="1">ログサーバーでシステムロガーを構成します。</li>
-                                                            <li value="2"><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>でログフォワーダー（アクセスロガーが望ましい）を構成します。</li>
-                                                            <li value="3">システムロガーが開始され、イベントの受信準備が完了していることを確認します。</li>
+                                                            <li value="2"><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>でログフォワーダーを構成する<span class="mc-variable okta-variables.ProductName variable">Okta</span>では、テストでは、ACCESSモードを使用することをお勧めします。このモードでは、<span class="mc-variable okta-feature-names.Access Gateway_UI variable">Access Gateway管理者UIコンソール</span>へのサインインイベントが記録されます。</li>
+                                                            <li value="3">お使いのサードパーティログ製品が開始されており、イベントを受信できる状態になっていることを確認します。</li>
                                                             <li value="4">サインアウトし、<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> <span class="mc-variable okta-feature-names.Administrator_dashboard variable">Admin Console</span>に再度サインインします。</li>
-                                                            <li value="5">ログサーバーを調べます。次のように、複数のイベントが生成されます：<br /><img src="../../Resources/Images/access-gateway/admin-settings-logging-auth-events.png" id="img_new" /><br /></li>
+                                                            <li value="5">これらのイベントが、サードパーティのログ製品のフィードに含まれていることを確認します。例については、<a href="#Log" class="MCXref xref">「フィードの例」</a>セクションを参照してください。</li>
                                                         </ol>
                                                     </div>
                                                     <div>
                                                         <h2><a name="Log"></a>フィードの例</h2>
-                                                        <table style="mc-table-style: url('../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                                                        <table style="width: 90%;mc-table-style: url('../../Resources/TableStyles/standard.css');margin-left: 0;margin-right: auto;width: 100%;" class="TableStyle-standard" cellspacing="0">
                                                             <col class="TableStyle-standard-Column-Column1" />
                                                             <col class="TableStyle-standard-Column-Column1" />
                                                             <thead>
@@ -394,6 +377,9 @@
                                                                 </tr>
                                                             </tbody>
                                                         </table>
+                                                        <p>
+                                                            <img src="../../Resources/Images/access-gateway/admin-settings-logging-auth-events.png" id="img_new" />
+                                                        </p>
                                                     </div>
                                                     <div>
                                                         <h3>関連項目</h3>
@@ -420,12 +406,7 @@
 	</p>
                                         </div>
                                     </div>
-                                    <!-- Qualtrics setup to use with script below, replacing getfeedback -->
-                                    <div id="ZN_6fGBJ8J3VcIBymN">
-                                        <!--DO NOT REMOVE-CONTENTS PLACED HERE-->
-                                    </div>
                                     <!-- ********************** Scripts ************************************* -->
-                                    <!-- Foundation -->
                                     <script src="../../Resources/Scripts/js/ignore-dompurify.js">
                                     </script>
                                     <script src="../../Resources/Scripts/js/app.js">
@@ -433,8 +414,6 @@
                                     <script src="../../Resources/Scripts/js/vendor/what-input.js">
                                     </script>
                                     <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.4-rc1/js/foundation.min.js">
-                                    </script>
-                                    <script type="text/javascript" src="../../Resources/Scripts/js/vendor/qualtrics.js">
                                     </script>
                                     <!-- Coveo -->
                                     <script src="https://static.cloud.coveo.com/searchui/v2.5395/js/CoveoJsSearch.Lazy.min.js" defer="defer">
@@ -445,6 +424,9 @@
                                     </script>
                                     <script src="../../Resources/Scripts/coveo-resources/js/Coveo.MadcapFlare.Okta.js" id="coveoInitscript" defer="defer">
                                     </script>
+                                    <!-- Feedback tab for Qualtrics survey -->
+                                    <div id="feedback-tab" data-mc-conditions="Primary.live-site-only"><a id="feedback-link" href="#" onclick="openSurvey();  return false" target="_blank" title="フィードバックを送信"><div id="feedback-container"><p id="feedback-text" translate="no">Feedback</p></div></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -454,4 +436,3 @@
         </div>
     </body>
 </html>
- 
