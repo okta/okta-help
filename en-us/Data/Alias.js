@@ -619,7 +619,6 @@ xmlAliasData += '    <Map Name=\"ver-hist_dt-macOS-desktop\" Link=\"Topics/Setti
 xmlAliasData += '    <Map Name=\"ver-hist_dt-win-desktop\" Link=\"Topics/Settings/Version_Histories/Ver_History_DeviceTrust_Installer_Windows.htm\" ResolvedId=\"1008\" />';
 xmlAliasData += '    <Map Name=\"vmware-horizon-radius-intg\" Link=\"Topics/integrations/vmware-horizon-radius-intg.htm\" ResolvedId=\"1059\" />';
 xmlAliasData += '    <Map Name=\"csh-add-admin-page\" Link=\"Topics/Security/custom-admin-role/about-admin-page.htm\" ResolvedId=\"19005\" />';
-xmlAliasData += '    <Map Name=\"csh-permission-conditions\" Link=\"Topics/Security/custom-admin-role/permission-conditions.htm\" ResolvedId=\"19006\" />';
 xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-authz-permissions\" Link=\"Topics/Security/custom-admin-role/about-role-permissions.htm#Authorization_server_permissions\" ResolvedId=\"19010\" />';
 xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-customizations-permissions\" Link=\"Topics/Security/custom-admin-role/about-role-permissions.htm#Customization_permissions\" ResolvedId=\"19009\" />';
 xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-profile-source-permissions\" Link=\"Topics/Security/custom-admin-role/about-role-permissions.htm#IdP_permissions\" ResolvedId=\"19007\" />';
