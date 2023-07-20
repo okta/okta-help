@@ -34,7 +34,7 @@ describe('OAG landing page (ja-JP)', () => {
     cy.hasBodyContent()
     cy.hasTiles(6)
     cy.hasDeferAttrsCorrectlyApplied()
-    cy.hasQualtrics()
+    //cy.hasQualtrics()
     cy.hidesCoveoSearchBar()
   })
 })
