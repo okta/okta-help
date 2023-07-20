@@ -3,9 +3,16 @@ pushd ${OKTA_HOME}/${REPO}
 
 export SLACK_CHANNEL='#infodev-notifications'
 export targets=( "oce" "asa" "eu" "oie" "wf" "oag" )
+export netlify_targets=( "asa" )
+
 if [[ ! "${targets[*]}" =~ "${TARGET}" ]]; then
   echo "No such target ${TARGET}. Exiting."
   exit ${FAILED_SETUP}
+fi
+
+if [[ "${netlify_targets[*]}" =~ "${TARGET}" ]]; then
+  # target is migrated to Netlify
+  IS_GH="false"
 fi
 
 export TARGET_PATH=${TARGET}"/"
