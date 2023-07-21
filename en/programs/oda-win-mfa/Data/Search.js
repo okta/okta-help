@@ -1,1 +1,1 @@
-define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../Content/Topics/oda/macos-pw-sync/configure-macos-password-sync-policies.htm'],s:['$usernam'],p:[['$username',9]]});
+define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../Content/Topics/oda/macos-mfa/configure-and-deploy-macos-mfa-policies.htm'],s:['$usernam'],p:[['$username',14]]});

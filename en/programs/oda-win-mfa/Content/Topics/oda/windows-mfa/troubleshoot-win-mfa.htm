@@ -5,7 +5,7 @@
         <meta name="robots" content="noindex, nofollow" />
         <meta name="typeofcontent" content="documentation" />
         <meta name="audience" content="admin" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Troubleshoot Desktop MFA for Windows  | Okta</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Troubleshoot Desktop MFA for Windows | Okta</title>
         <meta charset="utf-8" />
         <meta name="description" content="" />
         <meta name="author" content="" />
@@ -94,6 +94,9 @@
         });
 		})('a9bd3885-93ae-46ab-700b-dd29e613c19d');
 		/* ]]> */
+        function openSurvey() {
+            window.open('https://surveys.okta.com/jfe/form/SV_e4L0iW8a3tz8Yol?source=' + encodeURIComponent(document.location.href), '_blank');
+        }
 		</script>
     </head>
     <body>
@@ -288,23 +291,25 @@
                                             <div class="body-main" data-test="bodyContent">
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
-                                                    <h1>Troubleshoot Desktop MFA for Windows </h1>
+                                                    <h1>Troubleshoot <span class="mc-variable okta-feature-names.Desktop_MFA variable">Desktop MFA</span> for Windows</h1>
+                                                    <p>To troubleshoot <span class="mc-variable okta-feature-names.Desktop_MFA variable">Desktop MFA</span> for Windows, ensure you meet the <a href="configure-win-mfa.htm#winmfa-prereq" target="_blank" class="MCXref xref" xrefformat="{para}">Prerequisites</a>.</p>
+                                                    <h2>Sign-in issues</h2>
                                                     <p>If a user exceeds the sign-in limit (default limit: 50) for setting up an offline sign-in method, the user can no longer sign in to Windows. The user receives a message stating <span class="msgblock">"Your organization requires an offline method to verify your identity. You don't have an offline method set up. An administrator must update your machine."</span> You can add a message with administrator contact details by editing the <span class="code">AdminContactInfo</span> registry key. See <a href="configure-win-mfa-policies.htm" class="MCXref xref" xrefformat="{para}">Configure Desktop MFA policies</a>.</p>
                                                     <p>To resolve the problem, consider these options:</p>
                                                     <ul>
                                                         <li>
                                                             <p>Change the <span class="code">MfaRequiredList</span> policy using your MDM solution or Group Policy:</p>
-                                                            <ol style="list-style-type: lower-alpha;">
-                                                                <li value="1">
+                                                            <ul>
+                                                                <li>
                                                                     <p>Remove the user from the list, or set the list to <span class="code">empty</span>.</p>
                                                                 </li>
-                                                                <li value="2">
+                                                                <li>
                                                                     <p>Push the setting to the user’s computer.</p>
                                                                 </li>
-                                                                <li value="3">
+                                                                <li>
                                                                     <p>Ask the user to reboot for the new group policy to take effect and to update the registry.</p>
                                                                 </li>
-                                                            </ol>
+                                                            </ul>
                                                         </li>
                                                         <li>
                                                             <p>Reset the counters, or remove the entry for the affected user. Users' sign-in attempts are tracked in <span class="code">HKLM\Software\Okta\Okta Device Access\User Policies\&lt;upn username&gt;</span>. The User Principal Name (UPN) doesn't include the domain suffix. If the UPN is <span class="code">user@domain.com</span>, the registry key path is <span class="code">HKLM\Software\Okta\Okta Device Access\User Policies\user@domain</span>. In the user-specific registry key, there are sign-in counters: <span class="code">LoginsWithOfflineFactorCounter</span> and <span class="code">LoginsWithoutEnrolledFactorsCounter</span>. Remove the registry key for the affected user (in the current example, <span class="code">HKLM\Software\Okta\Okta Device Access\User Policies\user@domain</span>, or set the sign-in counters to zero, or both. After a user has successfully signed in with an online authentication method, the <span class="code">LoginsWithOfflineFactorCounter</span> is reset to 0.</p>
@@ -319,6 +324,7 @@
                                                             <p>To remove all offline enrollments, delete the <span class="code">OktaDeviceAccessData.dat.db</span> file from <span class="filepath">C:\Windows\System32\config\systemprofile\appdata\local\Okta Device Access</span>. This deletes all offline registrations, and prompts users to enroll their offline authentication methods again.</p>
                                                         </li>
                                                     </ul>
+                                                    <h2>Device issues</h2>
                                                     <p>If a user loses their phone or YubiKey and has not yet set up an online method (<span class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span> push or OTP), the user can't access their computer even if they're within the sign-in limit. To resolve the problem, consider these options:</p>
                                                     <ul>
                                                         <li>
@@ -340,22 +346,13 @@
                                                         </li>
                                                     </ul>
                                                     <p>If the username associated with a user changes, <span class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span> considers it a new user and the existing offline factors don't work. Have the user enroll their offline methods again to gain offline access using Desktop MFA.</p>
-                                                    <h2>Known issues</h2>
+                                                    <h2>Other issues</h2>
                                                     <ul>
                                                         <li>
-                                                            <p>These sign-in methods aren’t supported:</p>
-                                                            <ul style="list-style-type: circle;">
-                                                                <li>
-                                                                    <p><span class="mc-variable okta-feature-names.Okta_FastPass variable">Okta FastPass</span>
-                                                                    </p>
-                                                                </li>
-                                                                <li>
-                                                                    <p>WebAuthn</p>
-                                                                </li>
-                                                            </ul>
+                                                            <p><span class="mc-variable okta-feature-names.Okta_FastPass variable">Okta FastPass</span>and <span class="mc-variable _3rd_Party_Integrations.WebAuthn variable">WebAuthn</span>  sign-in methods aren’t supported.</p>
                                                         </li>
                                                         <li>
-                                                            <p>For users who sign in to Windows with <span class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span> push notifications, you can't enable number challenge.</p>
+                                                            <p>Number challenge doesn't work with <span class="mc-variable okta-feature-names.Desktop_MFA variable">Desktop MFA</span>.</p>
                                                         </li>
                                                         <li>
                                                             <p>Desktop MFA logs are stored locally on the user's desktop computer at <span class="filepath">C:\Windows\System32\config\systemprofile\AppData\Local\Okta Device Access\Logs</span></p>
@@ -403,7 +400,7 @@
                                     <script src="../../../Resources/Scripts/coveo-resources/js/Coveo.MadcapFlare.Okta.js" id="coveoInitscript" defer="defer">
                                     </script>
                                     <!-- Feedback tab for Qualtrics survey -->
-                                    <div id="feedback-tab" data-mc-conditions="Primary.live-site-only"><a id="feedback-link" href="https://surveys.okta.com/jfe/form/SV_e4L0iW8a3tz8Yol" target="_blank" title="Submit feedback"><div id="feedback-container"><p id="feedback-text" translate="no">Feedback</p></div></a>
+                                    <div id="feedback-tab" data-mc-conditions="Primary.live-site-only"><a id="feedback-link" href="#" onclick="openSurvey();  return false" target="_blank" title="Submit feedback"><div id="feedback-container"><p id="feedback-text" translate="no">Feedback</p></div></a>
                                     </div>
                                 </div>
                             </div>
