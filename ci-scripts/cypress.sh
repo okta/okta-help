@@ -31,6 +31,7 @@ until [ ${MAX_ATTEMPTS} -eq 0 ]; do
   fi
 
 
+
   echo "status: ${STATUS} conclusion: ${CONCLUSION}"
 
   if [ "${STATUS}" = "completed" ]; then
