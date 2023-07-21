@@ -30,6 +30,7 @@ until [ ${MAX_ATTEMPTS} -eq 0 ]; do
     exit ${FAILED_SETUP}
   fi
 
+
   echo "status: ${STATUS} conclusion: ${CONCLUSION}"
 
   if [ "${STATUS}" = "completed" ]; then
