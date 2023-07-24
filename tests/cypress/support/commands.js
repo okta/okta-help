@@ -162,8 +162,23 @@ function hasDeferAttrsCorrectlyApplied () {
 }
 
 function hasQualtrics () {
-  cy.get('body script[src*="qualtrics.js"]')
-    .should('exist')
+  cy.get('div#feedback-tab')
+    .should('be.visible')
+
+  cy.get('a#feedback-link')
+    .invoke('attr', 'href')
+    .and('eq', '#')
+
+  cy.get('a#feedback-link')
+    .should('be.visible')
+    .should('have.attr', 'onclick')
+
+  // Check window for 'openSurvey()' func
+  cy.window().then((win) => {
+    const openSurvey = win.openSurvey
+
+    expect(openSurvey).to.exist
+  })
 }
 
 function hasCoveoSearchBar () {
