@@ -31,15 +31,12 @@ REDIRECT_FILE_TEMPLATE = '''<!DOCTYPE html>
 def apply_map():
   _add_redirects_from_file(FILE_TO_URL)
 
-def add_map(file):
-  if os.path.isfile(file):
-    _add_redirects_from_file(file)
-    _update_map(file)
-  else:
-    print("'%s' is not a file. Check your work!" % file)
-
-def _update_map(file):
+def update_map(file):
   """Update the main redirects file with the new redirect pairs in 'file'."""
+  if not os.path.isfile(file):
+    print("'%s' is not a file. Try again." % file)
+    return False
+  _add_redirects_from_file(file)
   with open(FILE_TO_URL, 'r', encoding='utf-8') as f:
     redirects = f.readlines()
   with open(file, 'r', encoding='utf-8') as f:
@@ -109,7 +106,7 @@ def save_map():
 def run(file=None, save=None):
   if file:
     print("Adding new redirects...")
-    add_map(file)
+    update_map(file)
   elif save:
     print("Saving a map of existing redirects...")
     save_map()
