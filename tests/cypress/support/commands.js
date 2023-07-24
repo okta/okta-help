@@ -172,6 +172,12 @@ function hasQualtrics () {
   cy.get('a#feedback-link')
     .should('be.visible')
     .should('have.attr', 'onclick')
+
+  // Check window for 'openSurvey()' func
+  cy.window().then((win) => {
+    const openSurvey = win.openSurvey;
+    expect(openSurvey).to.exist
+  })
 }
 
 function hasCoveoSearchBar () {
