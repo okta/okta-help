@@ -175,7 +175,8 @@ function hasQualtrics () {
 
   // Check window for 'openSurvey()' func
   cy.window().then((win) => {
-    const openSurvey = win.openSurvey;
+    const openSurvey = win.openSurvey
+
     expect(openSurvey).to.exist
   })
 }
