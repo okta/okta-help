@@ -25,11 +25,31 @@ REDIRECT_FILE_TEMPLATE = '''<!DOCTYPE html>
         <meta http-equiv="REFRESH" content="0.0;url={redirect_to_url}" />
     </head>
     <body></body>
-</html>'''
+</html>
+'''
 
 def apply_map():
+  _add_redirects_from_file(FILE_TO_URL)
+
+def update_map(file):
+  """Update the main redirects file with the new redirect pairs in 'file'."""
+  if not os.path.isfile(file):
+    print("'%s' is not a file. Try again." % file)
+    return False
+  _add_redirects_from_file(file)
+  with open(FILE_TO_URL, 'r', encoding='utf-8') as f:
+    redirects = f.readlines()
+  with open(file, 'r', encoding='utf-8') as f:
+    new_redirects = f.readlines()
+  for new_re in new_redirects:
+    redirects.append(new_re)
+  with open(FILE_TO_URL, 'w', encoding='utf-8') as w:
+    for r in redirects:
+      w.write(r)
+
+def _add_redirects_from_file(file):
   total_files = 0
-  with open(FILE_TO_URL, encoding="utf-8") as file_to_url:
+  with open(file, encoding="utf-8") as file_to_url:
     cvs_reader = csv.reader(file_to_url, delimiter=',', quotechar='|')
     for row in cvs_reader:
       file_path = row[0]
@@ -72,7 +92,7 @@ def save_map():
       quoting=csv.QUOTE_MINIMAL)
     for subdir, dirs, files in os.walk(root_dir):
       for file in files:
-          filepath = subdir + os.sep + file
+          filepath = os.path.join(subdir, file)
 
           if filepath.endswith(".htm"):
               with open(filepath, encoding="utf-8") as htm_file:
@@ -83,18 +103,27 @@ def save_map():
 
   print(f'Found redirect files: {total_files}')
 
-if __name__ == '__main__':
-  parser = argparse.ArgumentParser(description="""\
-    Generate bacon.yml file from bacon.json
-    """)
-  parser.add_argument(
-      'method',
-      help='apply_map: load map and create redirects. save_map: create file to url map',
-      nargs='?',
-      default='apply_map')
-  args = parser.parse_args()
-
-  if args.method == 'save_map':
+def run(file=None, save=None):
+  if file:
+    print("Adding new redirects...")
+    update_map(file)
+  elif save:
+    print("Saving a map of existing redirects...")
     save_map()
   else:
+    print("Applying redirects from existing map...")
     apply_map()
+
+
+if __name__ == '__main__':
+  parser = argparse.ArgumentParser(description="Create redirect files from existing map")
+  group = parser.add_mutually_exclusive_group()
+  group.add_argument("-u", "--update_map", dest="file", nargs=1,
+                     help="Update with new redirects from 'file'")
+  group.add_argument("-s", "--save_map", dest="save", action="store_true",
+                     help="Create file-to-url map from existing redirects")
+
+  args = parser.parse_args()
+  file=args.file[0] # First (and only expected) item in returned list
+  save=args.save
+  run(file=file, save=save)
