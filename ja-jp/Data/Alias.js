@@ -622,6 +622,7 @@ xmlAliasData += '    <Map Name=\"csh-add-admin-page\" Link=\"topics/security/cus
 xmlAliasData += '    <Map Name=\"csh-permission-conditions\" Link=\"topics/security/custom-admin-role/permission-conditions.htm\" ResolvedId=\"19006\" />';
 xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-authz-permissions\" Link=\"topics/security/custom-admin-role/about-role-permissions.htm#Authorization_server_permissions\" ResolvedId=\"19010\" />';
 xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-customizations-permissions\" Link=\"topics/security/custom-admin-role/about-role-permissions.htm#Customization_permissions\" ResolvedId=\"19009\" />';
+xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-profile-source-permissions\" Link=\"topics/security/custom-admin-role/about-role-permissions.htm#IdP_permissions\" ResolvedId=\"19007\" />';
 xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-workflow-permissions\" Link=\"topics/security/custom-admin-role/about-role-permissions.htm#Workflow_permissions\" ResolvedId=\"19008\" />';
 xmlAliasData += '    <Map Name=\"csh-about-reviewing\" Link=\"topics/identity-governance/access-certification/iga-ac-about-reviewing-campaigns.htm\" ResolvedId=\"13019\" />';
 xmlAliasData += '    <Map Name=\"csh-administrators-super-admin\" Link=\"topics/security/administrators-super-admin.htm\" ResolvedId=\"19012\" />';
@@ -652,5 +653,14 @@ xmlAliasData += '    <Map Name=\"csh-attribute-statements-saml\" Link=\"topics/a
 xmlAliasData += '    <Map Name=\"ext-lcm-convert-user-group\" Link=\"topics/provisioning/lcm/lcm-convert-user-group.htm\" ResolvedId=\"16004\" />';
 xmlAliasData += '    <Map Name=\"csh-campaigns\" Link=\"topics/identity-governance/access-certification/campaigns.htm\" ResolvedId=\"13020\" />';
 xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-identity-provider-permissions\" Link=\"topics/security/custom-admin-role/about-role-permissions.htm\" ResolvedId=\"1157\" />';
+xmlAliasData += '    <Map Name=\"csh-rt-questions\" Link=\"topics/identity-governance/access-requests/request-type-settings.htm#Question\" ResolvedId=\"1173\" />';
+xmlAliasData += '    <Map Name=\"csh-rt-tasks\" Link=\"topics/identity-governance/access-requests/request-type-settings.htm#Task\" ResolvedId=\"1174\" />';
+xmlAliasData += '    <Map Name=\"csh-rt-timer\" Link=\"topics/identity-governance/access-requests/request-type-settings.htm#Timer\" ResolvedId=\"1196\" />';
+xmlAliasData += '    <Map Name=\"csh-rt-operators\" Link=\"topics/identity-governance/access-requests/request-type-settings.htm#Operators\" ResolvedId=\"1201\" />';
+xmlAliasData += '    <Map Name=\"csh-about-role-permissions\" Link=\"topics/security/custom-admin-role/about-role-permissions.htm\" ResolvedId=\"1205\" />';
+xmlAliasData += '    <Map Name=\"csh-ref-supported-languages\" Link=\"topics/reference/ref-supported-languages.htm\" ResolvedId=\"1212\" />';
+xmlAliasData += '    <Map Name=\"csh-create-role\" Link=\"topics/security/custom-admin-role/create-role.htm\" ResolvedId=\"1219\" />';
+xmlAliasData += '    <Map Name=\"ext-ldap-agent-supported-directories\" Link=\"topics/directory/ldap-agent-supported-directories.htm\" ResolvedId=\"13022\" />';
+xmlAliasData += '    <Map Name=\"ext-ldap-config-intg-settings\" Link=\"topics/directory/ldap-configure-integration-settings.htm\" ResolvedId=\"13023\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
