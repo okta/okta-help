@@ -609,11 +609,11 @@ xmlAliasData += '    <Map Name=\"csh-upgrade-siw\" Link=\"Topics/identity-engine
 xmlAliasData += '    <Map Name=\"csh-custom-app-login-change\" Link=\"Topics/identity-engine-upgrade/custom-app-login.htm\" ResolvedId=\"5020\" />';
 xmlAliasData += '    <Map Name=\"csh-om-on-oie\" Link=\"Topics/identity-engine-upgrade/om-on-oie-end-user-experience.htm\" ResolvedId=\"3002\" />';
 xmlAliasData += '    <Map Name=\"ext-compare-siw\" Link=\"Topics/Reference/siw-compare-generations.htm\" ResolvedId=\"5021\" />';
-xmlAliasData += '    <Map Name=\"ext-trusted-origins\" Link=\"Topics/Security/API-trusted-origins.htm\" ResolvedId=\"-2147483648\" />';
+xmlAliasData += '    <Map Name=\"ext-trusted-origins\" Link=\"Topics/Security/API-trusted-origins.htm\" ResolvedId=\"6023\" />';
 xmlAliasData += '    <Map Name=\"csh-disable-omm\" Link=\"Topics/identity-engine-upgrade/disable-omm.htm\" ResolvedId=\"3003\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-after-upgrade\" Link=\"Topics/identity-engine-upgrade/dt-after-upgrade.htm\" ResolvedId=\"3004\" />';
 xmlAliasData += '    <Map Name=\"ext-event-hooks-filters\" Link=\"Topics/automation-hooks/event-hooks-filters.htm\" ResolvedId=\"9009\" />';
-xmlAliasData += '    <Map Name=\"csh-oie-upgrade-eligibility\" Link=\"Topics/identity-engine/oie-upgrade-eligibility.htm\" ResolvedId=\"-2147483648\" />';
+xmlAliasData += '    <Map Name=\"csh-oie-upgrade-eligibility\" Link=\"Topics/identity-engine/oie-upgrade-eligibility.htm\" ResolvedId=\"6014\" />';
 xmlAliasData += '    <Map Name=\"csh-test-ssr-upgrade\" Link=\"Topics/identity-engine-upgrade/self-service/ssr-test.htm\" ResolvedId=\"5022\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-upgrade-considerations\" Link=\"Topics/identity-engine-upgrade/dt-upgrade-considerations.htm\" ResolvedId=\"1111\" />';
 xmlAliasData += '    <Map Name=\"csh-migrate-from-dt-to-fp-troubleshooting\" Link=\"Topics/identity-engine-upgrade/migrate-from-dt-to-fp-troubleshooting.htm\" ResolvedId=\"1137\" />';
