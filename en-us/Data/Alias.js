@@ -373,7 +373,6 @@ xmlAliasData += '    <Map Name=\"ext_Apps_Okta_Mobile\" Link=\"Topics/Mobile/App
 xmlAliasData += '    <Map Name=\"ext_Apps_Overview_of_Managing_Apps_and_SSO\" Link=\"Topics/Apps/Apps_Overview_of_Managing_Apps_and_SSO.htm\" ResolvedId=\"200028\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Revealing_the_Password\" Link=\"Topics/Apps/Apps_Revealing_the_Password.htm\" ResolvedId=\"200029\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Silently_Installing_the_Browser_Plugin\" Link=\"Topics/Browser-Plugin/plugin-silent-installation.htm\" ResolvedId=\"200030\" />';
-xmlAliasData += '    <Map Name=\"ext_Apps_Single_Logout\" Link=\"Topics/Apps/Apps_Single_Logout.htm\" ResolvedId=\"1286\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Using_the_Confluence_On_Premises_SAML_App\" Link=\"Topics/Apps/Apps_Using_the_Confluence_On_Premises_SAML_App.htm\" ResolvedId=\"200031\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_VPN_Notification\" Link=\"Topics/Apps/Apps_VPN_Notification.htm\" ResolvedId=\"200032\" />';
 xmlAliasData += '    <Map Name=\"ext_Assign_HD_Admin\" Link=\"Topics/Security/administrators-configure-help-desk-admin.htm\" ResolvedId=\"1073\" />';
