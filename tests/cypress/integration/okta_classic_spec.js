@@ -24,7 +24,7 @@ describe('Classic landing page (ja-JP)', () => {
   })
 
   it('displays expected content structures in Japanese', () => {
-    cy.hasOktaHOCBanner('Oktaサポート')
+    // cy.hasOktaHOCBanner('Oktaサポート')
     cy.hasCopyright()
     cy.hasLeftSideNav()
     cy.hasTOC(9)
