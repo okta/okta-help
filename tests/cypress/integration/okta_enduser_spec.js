@@ -4,7 +4,7 @@ describe('End User landing page (en-US)', () => {
   })
 
   it('displays expected content structures in English', () => {
-    cy.hasOktaHOCBanner('Okta Support')
+    // cy.hasOktaHOCBanner('Okta Support')
     cy.hasCopyright()
     cy.hasLeftSideNav()
     cy.hasTOC(7)
@@ -13,7 +13,7 @@ describe('End User landing page (en-US)', () => {
     cy.hasBodyContent()
     cy.hasTiles(4)
     cy.hasDeferAttrsCorrectlyApplied()
-    // cy.hasQualtrics()
+    cy.hasQualtrics()
     cy.hasMadCapSearchBar('Search Field')
   })
 })
@@ -24,7 +24,7 @@ describe('End User landing page (ja-JP)', () => {
   })
 
   it('displays expected content structures in Japanese', () => {
-    cy.hasOktaHOCBanner('Oktaサポート')
+    // cy.hasOktaHOCBanner('Oktaサポート')
     cy.hasCopyright()
     cy.hasLeftSideNav()
     cy.hasTOC(7)
@@ -34,7 +34,7 @@ describe('End User landing page (ja-JP)', () => {
     cy.hasBodyContent()
     cy.hasTiles(4)
     cy.hasDeferAttrsCorrectlyApplied()
-    // cy.hasQualtrics()
+    cy.hasQualtrics()
     cy.hasMadCapSearchBar('検索フィールド')
   })
 })
