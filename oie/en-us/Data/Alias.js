@@ -645,5 +645,7 @@ xmlAliasData += '    <Map Name=\"ext-ldap-agent-supported-directories\" Link=\"T
 xmlAliasData += '    <Map Name=\"ext-ldap-config-intg-settings\" Link=\"Topics/Directory/ldap-configure-integration-settings.htm\" ResolvedId=\"13023\" />';
 xmlAliasData += '    <Map Name=\"ext-create-prof-enroll-form\" Link=\"Topics/identity-engine/policies/create-profile-enrollment-form.htm\" ResolvedId=\"13024\" />';
 xmlAliasData += '    <Map Name=\"csh-phishing-resistant-auth\" Link=\"Topics/identity-engine/authenticators/phishing-resistant-auth.htm\" ResolvedId=\"4000\" />';
+xmlAliasData += '    <Map Name=\"ext-use-standard-roles\" Link=\"Topics/Security/custom-admin-role/use-standard-roles.htm\" ResolvedId=\"1229\" />';
+xmlAliasData += '    <Map Name=\"csh-use-standard-roles\" Link=\"Topics/Security/custom-admin-role/use-standard-roles.htm\" ResolvedId=\"1231\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
