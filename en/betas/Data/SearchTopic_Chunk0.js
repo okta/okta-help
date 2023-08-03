@@ -1,1 +1,0 @@
-define({"0":{y:0,u:"../Content/Topics/betas/open/overview.htm",l:-1,t:"Beta documentation",i:1,a:"Okta Event Hooks act as a link between Okta and the external system."},});
