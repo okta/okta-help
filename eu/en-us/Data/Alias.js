@@ -60,6 +60,7 @@ xmlAliasData += '    <Map Name=\"ext-device-health-macos\" Link=\"Topics/end-use
 xmlAliasData += '    <Map Name=\"ext-device-health-windows\" Link=\"Topics/end-user/ov-device-health-windows.htm\" ResolvedId=\"21007\" />';
 xmlAliasData += '    <Map Name=\"ext-end-user-set-language\" Link=\"Topics/end-user/manage-account-settings.htm#Select\" ResolvedId=\"1502\" />';
 xmlAliasData += '    <Map Name=\"ext-eu-dashboard-notifications\" Link=\"Topics/end-user/manage-account-settings.htm#View\" ResolvedId=\"4074\" />';
+xmlAliasData += '    <Map Name=\"ext-eu-settings\" Link=\"Topics/end-user/manage-account-settings.htm\" ResolvedId=\"1431\" />';
 xmlAliasData += '    <Map Name=\"ext-eu-sign-in-apps\" Link=\"Topics/end-user/eu-sign-in-to-apps.htm\" ResolvedId=\"6019\" />';
 xmlAliasData += '    <Map Name=\"ext-eu-sign-in-apps-emlotp\" Link=\"Topics/end-user/eu-sign-in-to-apps.htm#EMLorOTP\" ResolvedId=\"6020\" />';
 xmlAliasData += '    <Map Name=\"ext-generate-random-password\" Link=\"Topics/end-user/generate-random-password.htm\" ResolvedId=\"4056\" />';
@@ -107,5 +108,8 @@ xmlAliasData += '    <Map Name=\"csh-ov-andr-add-acc-bluetooth\" Link=\"Topics/e
 xmlAliasData += '    <Map Name=\"csh-ov-ios-add-acc-bluetooth\" Link=\"Topics/end-user/ov-ios-add-acc-bluetooth.htm\" ResolvedId=\"4054\" />';
 xmlAliasData += '    <Map Name=\"csh-ov-macos-acc-bluetooth\" Link=\"Topics/end-user/ov-macos-add-acc-bluetooth.htm\" ResolvedId=\"4055\" />';
 xmlAliasData += '    <Map Name=\"csh-ov-win-add-acc-bluetooth\" Link=\"Topics/end-user/ov-win-add-acc-bluetooth.htm\" ResolvedId=\"4057\" />';
+xmlAliasData += '    <Map Name=\"csh-oda-win-mfa\" Link=\"Topics/end-user/device-access/desktop-mfa-windows-enrollment.htm\" ResolvedId=\"3001\" />';
+xmlAliasData += '    <Map Name=\"csh-ov-device-remediation-chrome\" Link=\"Topics/end-user/ov-device-health-trbl.htm\" ResolvedId=\"3002\" />';
+xmlAliasData += '    <Map Name=\"ext-ov-sign-in-device-ios-ki\" Link=\"Topics/end-user/ov-sign-in-device-ios.htm#Known\" ResolvedId=\"4058\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
