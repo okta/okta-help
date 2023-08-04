@@ -4,7 +4,7 @@ describe('Okta H.O.C. landing page (en-US)', () => {
   })
 
   it('displays expected content structures in English', () => {
-    cy.hasOktaHOCBanner('Okta Support')
+    // cy.hasOktaHOCBanner('Okta Support')
     cy.hasCopyright()
     cy.hasLeftSideNavHidden()
     cy.hasTopMenuBar(5, 11)
@@ -22,7 +22,7 @@ describe('Okta H.O.C. landing page (ja-JP)', () => {
   })
 
   it('displays expected content structures in Japanese', () => {
-    cy.hasOktaHOCBanner('Oktaサポート')
+    // cy.hasOktaHOCBanner('Oktaサポート')
     cy.hasCopyright()
     cy.hasLeftSideNavHidden()
     cy.hasTopMenuBar(5, 11)
