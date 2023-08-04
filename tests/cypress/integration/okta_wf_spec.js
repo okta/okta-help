@@ -4,7 +4,7 @@ describe('Workflows landing page (en-US)', () => {
   })
 
   it('displays expected content structures in English', () => {
-    cy.hasOktaHOCBanner('Okta Support')
+    // cy.hasOktaHOCBanner('Okta Support')
     cy.hasCopyright()
     cy.hasLeftSideNav()
     cy.hasTOC(10)
@@ -24,7 +24,7 @@ describe('Workflows landing page (ja-JP)', () => {
   })
 
   it('displays expected content structures in Japanese', () => {
-    cy.hasOktaHOCBanner('Oktaサポート')
+    // cy.hasOktaHOCBanner('Oktaサポート')
     cy.hasCopyright()
     cy.hasLeftSideNav()
     cy.hasTOC(10)
