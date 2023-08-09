@@ -1023,9 +1023,6 @@ xmlAliasData += '    <Map Name=\"ext-salesforce229-method-createmultiplerecords\
 xmlAliasData += '    <Map Name=\"ext-salesforce229-method-createrecord\" Link=\"Topics/Workflows/connector-reference/salesforce/actions/createrecord.htm\" ResolvedId=\"30513\" />';
 xmlAliasData += '    <Map Name=\"ext-salesforce229-method-createuser\" Link=\"Topics/Workflows/connector-reference/salesforce/actions/createuser.htm\" ResolvedId=\"30514\" />';
 xmlAliasData += '    <Map Name=\"ext-salesforce229-method-deactivateuser\" Link=\"Topics/Workflows/connector-reference/salesforce/actions/deactivateuser.htm\" ResolvedId=\"30515\" />';
-xmlAliasData += '    <Map Name=\"ext-salesforce229-method-downloadattachment\" Link=\"Topics/Workflows/connector-reference/salesforce/actions/downloadattachment.htm\" ResolvedId=\"30516\" />';
-xmlAliasData += '    <Map Name=\"ext-salesforce229-method-downloaddocument\" Link=\"Topics/Workflows/connector-reference/salesforce/actions/downloaddocument.htm\" ResolvedId=\"30517\" />';
-xmlAliasData += '    <Map Name=\"ext-salesforce229-method-downloaddocumentfromcontentdocumentid\" Link=\"Topics/Workflows/connector-reference/salesforce/actions/downloaddocumentfromcontentdocumentid.htm\" ResolvedId=\"30518\" />';
 xmlAliasData += '    <Map Name=\"ext-salesforce229-method-executequery\" Link=\"Topics/Workflows/connector-reference/salesforce/actions/executequery.htm\" ResolvedId=\"30519\" />';
 xmlAliasData += '    <Map Name=\"ext-salesforce229-method-freezeuser\" Link=\"Topics/Workflows/connector-reference/salesforce/actions/freezeuser.htm\" ResolvedId=\"30521\" />';
 xmlAliasData += '    <Map Name=\"ext-salesforce229-method-getallfeaturelicenses\" Link=\"Topics/Workflows/connector-reference/salesforce/actions/getallfeaturelicenses.htm\" ResolvedId=\"30522\" />';
