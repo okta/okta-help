@@ -109,6 +109,7 @@ xmlAliasData += '    <Map Name=\"csh-ov-ios-add-acc-bluetooth\" Link=\"topics/en
 xmlAliasData += '    <Map Name=\"csh-ov-macos-acc-bluetooth\" Link=\"topics/end-user/ov-macos-add-acc-bluetooth.htm\" ResolvedId=\"4055\" />';
 xmlAliasData += '    <Map Name=\"csh-ov-win-add-acc-bluetooth\" Link=\"topics/end-user/ov-win-add-acc-bluetooth.htm\" ResolvedId=\"4057\" />';
 xmlAliasData += '    <Map Name=\"csh-oda-win-mfa\" Link=\"topics/end-user/device-access/desktop-mfa-windows-enrollment.htm\" ResolvedId=\"3001\" />';
+xmlAliasData += '    <Map Name=\"csh-oda-mac-pwd-sync\" Link=\"topics/end-user/device-access/macos-user-setup-password-sync.htm\" ResolvedId=\"3003\" />';
 xmlAliasData += '    <Map Name=\"csh-ov-device-remediation-chrome\" Link=\"topics/end-user/ov-device-health-trbl.htm\" ResolvedId=\"3002\" />';
 xmlAliasData += '    <Map Name=\"ext-ov-sign-in-device-ios-ki\" Link=\"topics/end-user/ov-sign-in-device-ios.htm#Known\" ResolvedId=\"4058\" />';
 xmlAliasData += '</CatapultAliasFile>';
