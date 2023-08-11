@@ -662,7 +662,6 @@ xmlAliasData += '    <Map Name=\"csh-ref-supported-languages\" Link=\"Topics/Ref
 xmlAliasData += '    <Map Name=\"csh-create-role\" Link=\"Topics/Security/custom-admin-role/create-role.htm\" ResolvedId=\"1219\" />';
 xmlAliasData += '    <Map Name=\"ext-ldap-agent-supported-directories\" Link=\"Topics/Directory/ldap-agent-supported-directories.htm\" ResolvedId=\"13022\" />';
 xmlAliasData += '    <Map Name=\"ext-ldap-config-intg-settings\" Link=\"Topics/Directory/ldap-configure-integration-settings.htm\" ResolvedId=\"13023\" />';
-xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-devices-permissions\" Link=\"Topics/Security/custom-admin-role/about-role-permissions.htm#Device_permissions\" ResolvedId=\"3006\" />';
 xmlAliasData += '    <Map Name=\"ext-use-standard-roles\" Link=\"Topics/Security/custom-admin-role/use-standard-roles.htm\" ResolvedId=\"1229\" />';
 xmlAliasData += '    <Map Name=\"csh-use-standard-roles\" Link=\"Topics/Security/custom-admin-role/use-standard-roles.htm\" ResolvedId=\"1231\" />';
 xmlAliasData += '</CatapultAliasFile>';
