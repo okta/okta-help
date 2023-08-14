@@ -1,1 +1,1 @@
-define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../Content/Topics/API/trusted-origins-iframe.htm'],s:['$'],p:[['$',9]]});
+define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../Content/Topics/ReleaseNotes/archive/oce-relnotes-2022.htm'],s:['$'],p:[['$',7]]});
