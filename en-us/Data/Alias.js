@@ -169,7 +169,6 @@ xmlAliasData += '    <Map Name=\"csh_custom_user_types\" Link=\"Topics/users-gro
 xmlAliasData += '    <Map Name=\"csh_custom_user_types_about\" Link=\"Topics/users-groups-profiles/usgp-usertypes-about.htm\" ResolvedId=\"1214\" />';
 xmlAliasData += '    <Map Name=\"csh_dirintmain\" Link=\"Topics/Directory/directory-integrations-main.htm\" ResolvedId=\"1113\" />';
 xmlAliasData += '    <Map Name=\"csh_eDirectory\" Link=\"Topics/Directory/ldap-agent-manage-integration.htm\" ResolvedId=\"1178\" />';
-xmlAliasData += '    <Map Name=\"csh_FIDO2_WebAuthn\" Link=\"Topics/Security/mfa-webauthn.htm\" ResolvedId=\"1112\" />';
 xmlAliasData += '    <Map Name=\"csh_mfa\" Link=\"Topics/Security/mfa/mfa-home.htm\" ResolvedId=\"4075\" />';
 xmlAliasData += '    <Map Name=\"csh_MFA_Reset\" Link=\"Topics/Security/mfa/mfa-reset-users.htm\" ResolvedId=\"1095\" />';
 xmlAliasData += '    <Map Name=\"csh_notification_enroll\" Link=\"Topics/Security/Security_General.htm#SecurityNotificationEmails\" ResolvedId=\"1098\" />';
