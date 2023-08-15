@@ -25,8 +25,7 @@ REDIRECT_FILE_TEMPLATE = '''<!DOCTYPE html>
         <meta http-equiv="REFRESH" content="0.0;url={redirect_to_url}" />
     </head>
     <body></body>
-</html>
-'''
+</html>'''
 
 def apply_map():
   _add_redirects_from_file(FILE_TO_URL)
