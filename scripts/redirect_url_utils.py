@@ -82,7 +82,7 @@ def _add_redirects_from_file(file):
   with open(file, encoding="utf-8") as file_to_url:
     cvs_reader = csv.reader(file_to_url, delimiter=',', quotechar='|')
     for row in cvs_reader:
-      file_path = row[0]
+      file_path = row[0].lower()
       redirect_to = row[1]
 
       dir_name = os.path.dirname(file_path)
