@@ -155,6 +155,6 @@ if __name__ == '__main__':
                      help="Create file-to-url map from existing redirects")
 
   args = parser.parse_args()
-  file=args.file[0] # First (and only expected) item in returned list
-  save=args.save
+  file = args.file[0] if args.file else None # First (and only expected) item in returned list
+  save = args.save
   run(file=file, save=save)
