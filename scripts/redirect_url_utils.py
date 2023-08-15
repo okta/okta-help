@@ -1,14 +1,45 @@
 #!/usr/bin/env python3
 
-# To create redirect files from stored map run
-# cd okta-help
-# python3 scripts/redirect_url_utils.py apply_map
-# or simply
-# python3 scripts/redirect_url_utils.py
-#
-# To update file paths to redirect urls map run
-# cd okta-help
-# python3 scripts/redirect_url_utils.py save_map
+"""
+
+Applying existing redirects
+------------------
+
+The default action of this script is to write all existing redirects in
+`file_to_url.txt` to the file system. At present, that's over 8,000 files.
+
+        $ python scripts/redirect_url_utils.py
+
+As far as git changes/history is concerned, this action is not consistent on
+all environments. Some systems will show only any new changes between runs,
+while other systems will mark as changed every single redirect file, whether
+it previously existed there or not.
+
+
+Adding new redirects
+----------------
+
+To add new redirects:
+
+Firstly, create a text file to hold your new redirect pairs. Don't commit this file.
+This file must be formatted the same as the existing `file_to_url.txt` file.
+Let's call this `my_local_uncommited_redirect.txt`. It contains lines with
+the following pattern:
+
+        ./current/file/path.htm,https://my.url.com/redirect/file/path.htm
+
+The redirect path (second member of this pair) can be to another file on H.O.C.,
+or an aliased URL, or to an external path somewhere else, such as Okta Support.
+
+Then run the script:
+
+        $ python scripts/redirect_url_utils.py --update_map my_local_uncommited_redirect.txt
+
+The new redirect files will be created, overwriting whatever existing content was
+previously at those paths, and will also append these new redirect pairs to the
+`file_to_url.txt` file. Review your changes and, if all is well, commit/push.
+
+"""
 
 import os
 import re
@@ -115,7 +146,7 @@ def run(file=None, save=None):
 
 
 if __name__ == '__main__':
-  parser = argparse.ArgumentParser(description="Create redirect files from existing map")
+  parser = argparse.ArgumentParser(description="Create redirect files from a map")
   group = parser.add_mutually_exclusive_group()
   group.add_argument("-u", "--update_map", dest="file", nargs=1,
                      help="Update with new redirects from 'file'")
@@ -123,6 +154,6 @@ if __name__ == '__main__':
                      help="Create file-to-url map from existing redirects")
 
   args = parser.parse_args()
-  file=args.file[0] # First (and only expected) item in returned list
-  save=args.save
+  file = args.file[0] if args.file else None # First (and only expected) item in returned list
+  save = args.save
   run(file=file, save=save)
