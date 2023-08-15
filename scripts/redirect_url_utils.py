@@ -1,14 +1,45 @@
 #!/usr/bin/env python3
 
-# To create redirect files from stored map run
-# cd okta-help
-# python3 scripts/redirect_url_utils.py apply_map
-# or simply
-# python3 scripts/redirect_url_utils.py
-#
-# To update file paths to redirect urls map run
-# cd okta-help
-# python3 scripts/redirect_url_utils.py save_map
+"""
+
+Applying existing redirects
+------------------
+
+The default action of this script is to write all existing redirects in
+`file_to_url.txt` to the file system. At present, that's over 8,000 files.
+
+        $ python scripts/redirect_url_utils.py
+
+As far as git changes/history is concerned, this action is not consistent on
+all environments. Some systems will show only any new changes between runs,
+while other systems will mark as changed every single redirect file, whether
+it previously existed there or not.
+
+
+Adding new redirects
+----------------
+
+To add new redirects:
+
+Firstly, create a text file to hold your new redirect pairs. Don't commit this file.
+This file must be formatted the same as the existing `file_to_url.txt` file.
+Let's call this `my_local_uncommited_redirect.txt`. It contains lines with
+the following pattern:
+
+        ./current/file/path.htm,https://my.url.com/redirect/file/path.htm
+
+The redirect path (second member of this pair) can be to another file on H.O.C.,
+or an aliased URL, or to an external path somewhere else, such as Okta Support.
+
+Then run the script:
+
+        $ python scripts/redirect_url_utils.py --update_map my_local_uncommited_redirect.txt
+
+The new redirect files will be created, overwriting whatever existing content was
+previously at those paths, and will also append these new redirect pairs to the
+`file_to_url.txt` file. Review your changes and, if all is well, commit/push.
+
+"""
 
 import os
 import re
@@ -28,8 +59,27 @@ REDIRECT_FILE_TEMPLATE = '''<!DOCTYPE html>
 </html>'''
 
 def apply_map():
+  _add_redirects_from_file(FILE_TO_URL)
+
+def update_map(file):
+  """Update the main redirects file with the new redirect pairs in 'file'."""
+  if not os.path.isfile(file):
+    print("'%s' is not a file. Try again." % file)
+    return False
+  _add_redirects_from_file(file)
+  with open(FILE_TO_URL, 'r', encoding='utf-8') as f:
+    redirects = f.readlines()
+  with open(file, 'r', encoding='utf-8') as f:
+    new_redirects = f.readlines()
+  for new_re in new_redirects:
+    redirects.append(new_re)
+  with open(FILE_TO_URL, 'w', encoding='utf-8') as w:
+    for r in redirects:
+      w.write(r)
+
+def _add_redirects_from_file(file):
   total_files = 0
-  with open(FILE_TO_URL, encoding="utf-8") as file_to_url:
+  with open(file, encoding="utf-8") as file_to_url:
     cvs_reader = csv.reader(file_to_url, delimiter=',', quotechar='|')
     for row in cvs_reader:
       file_path = row[0].lower()
@@ -72,7 +122,7 @@ def save_map():
       quoting=csv.QUOTE_MINIMAL)
     for subdir, dirs, files in os.walk(root_dir):
       for file in files:
-          filepath = subdir + os.sep + file
+          filepath = os.path.join(subdir, file)
 
           if filepath.endswith(".htm"):
               with open(filepath, encoding="utf-8") as htm_file:
@@ -83,18 +133,27 @@ def save_map():
 
   print(f'Found redirect files: {total_files}')
 
-if __name__ == '__main__':
-  parser = argparse.ArgumentParser(description="""\
-    Generate bacon.yml file from bacon.json
-    """)
-  parser.add_argument(
-      'method',
-      help='apply_map: load map and create redirects. save_map: create file to url map',
-      nargs='?',
-      default='apply_map')
-  args = parser.parse_args()
-
-  if args.method == 'save_map':
+def run(file=None, save=None):
+  if file:
+    print("Adding new redirects...")
+    update_map(file)
+  elif save:
+    print("Saving a map of existing redirects...")
     save_map()
   else:
+    print("Applying redirects from existing map...")
     apply_map()
+
+
+if __name__ == '__main__':
+  parser = argparse.ArgumentParser(description="Create redirect files from a map")
+  group = parser.add_mutually_exclusive_group()
+  group.add_argument("-u", "--update_map", dest="file", nargs=1,
+                     help="Update with new redirects from 'file'")
+  group.add_argument("-s", "--save_map", dest="save", action="store_true",
+                     help="Create file-to-url map from existing redirects")
+
+  args = parser.parse_args()
+  file = args.file[0] if args.file else None # First (and only expected) item in returned list
+  save = args.save
+  run(file=file, save=save)
