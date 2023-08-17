@@ -8,6 +8,7 @@ Applying existing redirects
 The default action of this script is to write all existing redirects in
 `file_to_url.txt` to the file system. At present, that's over 8,000 files.
 
+        $ cd okta-help # run from repo root
         $ python scripts/redirect_url_utils.py
 
 As far as git changes/history is concerned, this action is not consistent on
@@ -33,6 +34,7 @@ or an aliased URL, or to an external path somewhere else, such as Okta Support.
 
 Then run the script:
 
+        $ cd okta-help # run from repo root
         $ python scripts/redirect_url_utils.py --update_map my_local_uncommited_redirect.txt
 
 The new redirect files will be created, overwriting whatever existing content was
