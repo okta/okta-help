@@ -14,6 +14,7 @@ xmlAliasData += '    <Map Name=\"ext-about-note-cards\" Link=\"topics/workflows/
 xmlAliasData += '    <Map Name=\"ext-about-numbers-text\" Link=\"topics/workflows/learn/about-numbers-text.htm\" ResolvedId=\"1342\" />';
 xmlAliasData += '    <Map Name=\"ext-about-save-data-flow-history\" Link=\"topics/workflows/learn/about-save-data-with-flow-history.htm\" ResolvedId=\"31080\" />';
 xmlAliasData += '    <Map Name=\"ext-about-tables\" Link=\"topics/workflows/learn/about-tables.htm\" ResolvedId=\"1343\" />';
+xmlAliasData += '    <Map Name=\"ext-about-templates\" Link=\"topics/workflows/templates/workflows-templates.htm\" ResolvedId=\"10026\" />';
 xmlAliasData += '    <Map Name=\"ext-about-updated-deprecated-cards\" Link=\"topics/workflows/learn/about-updated-deprecated-cards.htm\" ResolvedId=\"30970\" />';
 xmlAliasData += '    <Map Name=\"ext-add-template\" Link=\"topics/workflows/templates/add-template.htm\" ResolvedId=\"10027\" />';
 xmlAliasData += '    <Map Name=\"ext-adobeusermanagement\" Link=\"topics/workflows/connector-reference/adobeusermanagement/adobeusermanagement.htm\" ResolvedId=\"33129\" />';
@@ -166,6 +167,7 @@ xmlAliasData += '    <Map Name=\"ext-branching-continueif\" Link=\"topics/workfl
 xmlAliasData += '    <Map Name=\"ext-branching-if\" Link=\"topics/workflows/function-reference/branching/branching_if.htm\" ResolvedId=\"10006\" />';
 xmlAliasData += '    <Map Name=\"ext-build-a-flow\" Link=\"topics/workflows/workflows-build-a-flow.htm\" ResolvedId=\"1231\" />';
 xmlAliasData += '    <Map Name=\"ext-build-flows\" Link=\"topics/workflows/build/build-flows.htm\" ResolvedId=\"10023\" />';
+xmlAliasData += '    <Map Name=\"ext-check-execution-history\" Link=\"topics/workflows/execute/check-flow-history.htm\" ResolvedId=\"30945\" />';
 xmlAliasData += '    <Map Name=\"ext-clear-all-data\" Link=\"topics/workflows/execute/clear-all-data-flow-history.htm\" ResolvedId=\"30943\" />';
 xmlAliasData += '    <Map Name=\"ext-configure-connection\" Link=\"topics/workflows/build/configure-connection.htm\" ResolvedId=\"30000\" />';
 xmlAliasData += '    <Map Name=\"ext-connect-your-apps\" Link=\"topics/workflows/workflow-connect-your-applications.htm\" ResolvedId=\"1229\" />';
