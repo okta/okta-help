@@ -122,7 +122,7 @@
                                 </div>
                             </div>
                             <div class="title-bar-layout outer-row">
-                                <div class="logo-wrapper"><a class="logo" href="https://support.okta.com/help/s/" alt="Okta"></a>
+                                <div class="logo-wrapper"><a class="logo" href="https://help.okta.com/okta_help.htm?id=csh-index" alt="Okta"></a>
                                 </div>
                                 <div class="navigation-wrapper nocontent">
                                     <ul class="navigation clearfix" role="navigation" data-mc-css-tree-node-has-children="has-children" data-mc-css-sub-menu="sub-menu" data-mc-expand-event="mouseenter" data-mc-top-nav-menu="True" data-mc-max-depth="2" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="True" data-mc-include-siblings="True" data-mc-include-parent="True" data-mc-toc="True">
@@ -260,7 +260,7 @@
                                             <div class="dropdown" data-test="menuBarCategory" id="trainingMenu"><a href="https://www.okta.com/services/education-services/" target="_blank" data-test="menuBarLink">Training</a>
                                             </div>
                                         </div>
-                                        <div class="logo_container" id="OktaBanner" data-mc-conditions="Primary.live-site-only"><a class="logo" href="https://help.okta.com" data-test="OktaBanner"><img src="../../resources/images/okta-assets/logo.png" alt="Okta Support" title="Okta Support" data-test="OktaBannerImg" /></a>
+                                        <div class="logo_container" id="OktaBanner" data-mc-conditions="Primary.live-site-only"><a class="logo" href="https://help.okta.com/okta_help.htm?id=csh-index" data-test="OktaBanner"><img src="../../resources/images/okta-assets/logo.png" alt="Okta product documentation" title="Okta product documentation" data-test="OktaBannerImg" /></a>
                                         </div>
                                         <div class="toolbar-main" data-test="toolBar" data-mc-conditions="Primary.live-site-only">
                                             <div class="buttons popup-container clearfix topicToolbarProxy _Skins_okta_toolbar_no_expand mc-component nocontent" style="mc-topic-toolbar-items: ;">
@@ -294,46 +294,39 @@
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
                                                     <h1>RADIUS deployment architectures</h1>
-                                                    <p>Common recommended RADIUS deployment architectures</p>
-                                                    <h3>Topics</h3>
-                                                    <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Active-P"></a><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" aria-expanded="false">Active-Passive failover behind a VPN such as Cisco ASA</a></span>
-                                                        <div class="MCDropDownBody dropDownBody">
-                                                            <p>This is the simplest deployment model and is sufficient for environments that don’t have high throughput requirements beyond what a single active Okta RADIUS Server agent can provide.</p>
-                                                            <p>In this approach, configure one Okta RADIUS Server agent as the active server on the VPN device, along with another Okta RADIUS Server as passive failover. The total throughput is capped by what a single RADIUS Server agent can achieve.</p>
-                                                            <div class="noteOkta">
-                                                                <p class="noteContent">When implementing the Active-Passive approach, failover is the responsibility of the client. If, for whatever reason, the active RADIUS Server agent is unreachable, the client must be able to be reconfigurable to point to the passive RADIUS Server agent instance. </p>
-                                                            </div>
-                                                        </div>
+                                                    <p>The following sections describe commonly recommended RADIUS deployment architectures.</p>
+                                                    <h2><a name="Active-P"></a>Active-Passive failover behind a VPN such as Cisco ASA</h2>
+                                                    <p>This is the simplest deployment model and is sufficient for environments that don’t have high throughput requirements beyond what a single active Okta RADIUS Server agent can provide.</p>
+                                                    <p>In this approach, configure one Okta RADIUS Server agent as the active server on the VPN device, along with another Okta RADIUS Server as passive failover. The total throughput is capped by what a single RADIUS Server agent can achieve.</p>
+                                                    <div class="noteOkta">
+                                                        <p class="noteContent">When implementing the Active-Passive approach, failover is the responsibility of the client. If, for whatever reason, the active RADIUS Server agent is unreachable, the client must be able to be reconfigurable to point to the passive RADIUS Server agent instance. </p>
                                                     </div>
-                                                    <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Active-A"></a><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" aria-expanded="false">Active-Active behind a load balancer – high throughput</a></span>
-                                                        <div class="MCDropDownBody dropDownBody">
-                                                            <p class="note">Some examples and terms assume F5 load balancer with Cisco ASA VPN client</p>
-                                                            <p>For best throughput and availability we recommend deploying two or more Okta RADIUS Server Agents behind a load balancer. This approach allows horizontal scaling by adding additional RADIUS Server Agents into the load balancing pool and distributing the traffic load evenly between them. Number of RADIUS Server Agents will depend on the anticipated volume and peak transactions per minute.</p>
-                                                            <ul>
-                                                                <li>Virtual networks</li>
-                                                                <p>Set up a separate Virtual Server for each device sending RADIUS requests. Create a separate server pool for each virtual server.</p>
-                                                                <li>Session Persistence</li>
-                                                                <p>Load balancing should be done using session persistence (aka sticky sessions) based on the end-user’s VPN client or IP to optimize performance, especially in situations where waiting for user input to 2FA challenge is done off-band (e.g. Okta Verify w/ Push). The Okta RADIUS Server Agent handles de-duplication of requests from the originating RADIUS client, however, if those are spread between multiple agents, they are only de-duplicated at Okta service side resulting in unnecessary load. See Load Balancer Session Persistence Notes below for more detail.</p>
-                                                                <p>Recommended configuration for stickiness is generally using the Calling-Station-ID combined with the Framed-IP. Calling-Station-ID for many VPNs will be the client IP address of the originating client. If a different RADIUS attribute is storing the client IP address, then configure the load balancer to use that attribute instead.</p>
-                                                                <li>Load balancing method</li>
-                                                                <p>We recommend setting load balancing method of Least Connections where available to distribute load on active RADIUS Server Agents.</p>
-                                                                <li>Health check</li>
-                                                                <p>Use load balancer health check function with synthetic logins to ensure that in case of RADIUS Server Agent issue a failover occurs seamlessly and with minimum user impact. Each Virtual Server should have it’s own health check over its respective port. To configure your load balancer or RADIUS client to do health checks, create a user account that will be used only for this purpose. We recommend:</p>
-                                                                <ol>
-                                                                    <li value="1">Create a user with no assigned groups, no application access, and no privileges beyond a basic user account.</li>
-                                                                    <li value="2">Create a strong, unique password for the health check user account<p>Note: the password and username cannot contain a hash (#) character</p></li>
-                                                                    <li value="3">Create a custom RADIUS application for triaging this inbound healthcheck</li>
-                                                                    <li value="4">Assign this user to the RADIUS application (thereby allowing access)</li>
-                                                                </ol>
-                                                                <p>The purpose of this account is to validate that the RADIUS client can access the Okta service and field an authentication request appropriately. Typically health check should only involve primary authentication, since second-factor transactions usually require some form of user input or dynamic response.</p>
-                                                                <p>Set load balancer to remove RADIUS server out of rotation after 2 consecutive failures. Set load balancer to add server back in rotation after 1 successful response from server</p>
-                                                                <li>Load Balancer high availability</li>
-                                                                <p>For best overall system availability, consider a redundant system configuration for the load balancer to avoid a single point of failure. Please see load balancer vendor documentation for recommendations.</p>
-                                                            </ul>
-                                                            <p class="note">For F5’s overall recommendation for RADIUS load balancing, please refer to the <a href="https://www.f5.com/pdf/deployment-guides/iapp-radius-dg.pdf" target="_blank" title="F5 RADIUS Deployment Guide" alt="F5 RADIUS Deployment Guide">F5 RADIUS Load Balancing documentation</a>. 
+                                                    <h2><a name="Active-A"></a>Active-Active behind a load balancer – high throughput</h2>
+                                                    <p class="note">Some examples and terms in this section assume an F5 load balancer with the Cisco ASA VPN client.</p>
+                                                    <p>For best throughput and availability we recommend deploying two or more Okta RADIUS Server Agents behind a load balancer. This approach allows horizontal scaling by adding additional RADIUS Server Agents into the load balancing pool and distributing the traffic load evenly between them. Number of RADIUS Server Agents will depend on the anticipated volume and peak transactions per minute.</p>
+                                                    <ul>
+                                                        <li>Virtual networks</li>
+                                                        <p>Set up a separate Virtual Server for each device sending RADIUS requests. Create a separate server pool for each virtual server.</p>
+                                                        <li>Session Persistence</li>
+                                                        <p>Load balancing should be done using session persistence (sticky sessions) based on the end-user’s VPN client or IP to optimize performance, especially in situations where waiting for user input to 2FA challenge is done off-band (e.g. Okta Verify w/ Push). The Okta RADIUS Server Agent handles de-duplication of requests from the originating RADIUS client, however, if those are spread between multiple agents, they are only de-duplicated at Okta service side resulting in unnecessary load. See Load Balancer Session Persistence Notes below for more detail.</p>
+                                                        <p>Recommended configuration for stickiness is generally using the Calling-Station-ID combined with the Framed-IP. Calling-Station-ID for many VPNs will be the client IP address of the originating client. If a different RADIUS attribute is storing the client IP address, then configure the load balancer to use that attribute instead.</p>
+                                                        <li>Load balancing method</li>
+                                                        <p>We recommend setting load balancing method of Least Connections where available to distribute load on active RADIUS Server Agents.</p>
+                                                        <li>Health check</li>
+                                                        <p>Use load balancer health check function with synthetic logins to ensure that in case of RADIUS Server Agent issue a failover occurs seamlessly and with minimum user impact. Each Virtual Server should have it’s own health check over its respective port. To configure your load balancer or RADIUS client to do health checks, create a user account that will be used only for this purpose. We recommend:</p>
+                                                        <ol>
+                                                            <li value="1">Create a user with no assigned groups, no application access, and no privileges beyond a basic user account.</li>
+                                                            <li value="2">Create a strong, unique password for the health check user account<p>Note: the password and username cannot contain a hash (#) character</p></li>
+                                                            <li value="3">Create a custom RADIUS application for triaging this inbound healthcheck</li>
+                                                            <li value="4">Assign this user to the RADIUS application (thereby allowing access)</li>
+                                                        </ol>
+                                                        <p>The purpose of this account is to validate that the RADIUS client can access the Okta service and field an authentication request appropriately. Typically health check should only involve primary authentication, since second-factor transactions usually require some form of user input or dynamic response.</p>
+                                                        <p>Set load balancer to remove RADIUS server out of rotation after 2 consecutive failures. Set load balancer to add server back in rotation after 1 successful response from server</p>
+                                                        <li>Load Balancer high availability</li>
+                                                        <p>For best overall system availability, consider a redundant system configuration for the load balancer to avoid a single point of failure. Please see load balancer vendor documentation for recommendations.</p>
+                                                    </ul>
+                                                    <p class="note">For F5’s overall recommendation for RADIUS load balancing, please refer to the <a href="https://www.f5.com/pdf/deployment-guides/iapp-radius-dg.pdf" target="_blank" title="F5 RADIUS Deployment Guide" alt="F5 RADIUS Deployment Guide">F5 RADIUS Load Balancing documentation</a>. 
                 F5 supports an iApp for managing RADIUS volume. This iApp also supports automated healthchecks via synthetic transactions to ensure that the end users are able to authenticate.</p>
-                                                        </div>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
