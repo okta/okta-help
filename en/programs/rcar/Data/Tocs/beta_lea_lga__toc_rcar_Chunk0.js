@@ -1,0 +1,1 @@
+define({'/content/topics/identity-governance/access-requests/ar-rc.htm':{i:[0],t:['Resource Catalog'],b:['']},'/content/topics/identity-governance/access-requests/ar-use-rc.htm':{i:[1],t:['Use Resource Catalog'],b:['']}});
