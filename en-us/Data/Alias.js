@@ -169,7 +169,6 @@ xmlAliasData += '    <Map Name=\"csh_custom_user_types\" Link=\"topics/users-gro
 xmlAliasData += '    <Map Name=\"csh_custom_user_types_about\" Link=\"topics/users-groups-profiles/usgp-usertypes-about.htm\" ResolvedId=\"1214\" />';
 xmlAliasData += '    <Map Name=\"csh_dirintmain\" Link=\"topics/directory/directory-integrations-main.htm\" ResolvedId=\"1113\" />';
 xmlAliasData += '    <Map Name=\"csh_eDirectory\" Link=\"topics/directory/ldap-agent-manage-integration.htm\" ResolvedId=\"1178\" />';
-xmlAliasData += '    <Map Name=\"csh_FIDO2_WebAuthn\" Link=\"topics/security/mfa-webauthn.htm\" ResolvedId=\"1112\" />';
 xmlAliasData += '    <Map Name=\"csh_mfa\" Link=\"topics/security/mfa/mfa-home.htm\" ResolvedId=\"4075\" />';
 xmlAliasData += '    <Map Name=\"csh_MFA_Reset\" Link=\"topics/security/mfa/mfa-reset-users.htm\" ResolvedId=\"1095\" />';
 xmlAliasData += '    <Map Name=\"csh_notification_enroll\" Link=\"topics/security/security_general.htm#SecurityNotificationEmails\" ResolvedId=\"1098\" />';
@@ -642,7 +641,7 @@ xmlAliasData += '    <Map Name=\"csh-create-resource-set\" Link=\"topics/securit
 xmlAliasData += '    <Map Name=\"csh-meta-work-accounts\" Link=\"topics/provisioning/meta/meta-work-accounts-provisioning.htm\" ResolvedId=\"16001\" />';
 xmlAliasData += '    <Map Name=\"csh-event-hooks-el\" Link=\"topics/automation-hooks/event-hooks-el.htm\" ResolvedId=\"9008\" />';
 xmlAliasData += '    <Map Name=\"csh-agent-auto-update-ldap\" Link=\"topics/directory/ldap/agent-auto-update-ldap.htm\" ResolvedId=\"1044\" />';
-xmlAliasData += '    <Map Name=\"ext-trusted-origins\" Link=\"topics/security/api-trusted-origins.htm\" ResolvedId=\"-2147483648\" />';
+xmlAliasData += '    <Map Name=\"ext-trusted-origins\" Link=\"topics/security/api-trusted-origins.htm\" ResolvedId=\"6023\" />';
 xmlAliasData += '    <Map Name=\"ext-event-hooks-filters\" Link=\"topics/automation-hooks/event-hooks-filters.htm\" ResolvedId=\"9009\" />';
 xmlAliasData += '    <Map Name=\"csh-work-with-admin-assign-admin-role-to-apps\" Link=\"topics/security/custom-admin-role/work-with-admin.htm#Assign_admin_roles_to_apps\" ResolvedId=\"18019\" />';
 xmlAliasData += '    <Map Name=\"csh-customize-sign-in\" Link=\"topics/settings/settings-customize-sign-in-page.htm\" ResolvedId=\"5023\" />';
@@ -662,5 +661,8 @@ xmlAliasData += '    <Map Name=\"csh-ref-supported-languages\" Link=\"topics/ref
 xmlAliasData += '    <Map Name=\"csh-create-role\" Link=\"topics/security/custom-admin-role/create-role.htm\" ResolvedId=\"1219\" />';
 xmlAliasData += '    <Map Name=\"ext-ldap-agent-supported-directories\" Link=\"topics/directory/ldap-agent-supported-directories.htm\" ResolvedId=\"13022\" />';
 xmlAliasData += '    <Map Name=\"ext-ldap-config-intg-settings\" Link=\"topics/directory/ldap-configure-integration-settings.htm\" ResolvedId=\"13023\" />';
+xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-devices-permissions\" Link=\"topics/security/custom-admin-role/about-role-permissions.htm#Device_permissions\" ResolvedId=\"3006\" />';
+xmlAliasData += '    <Map Name=\"ext-use-standard-roles\" Link=\"topics/security/custom-admin-role/use-standard-roles.htm\" ResolvedId=\"1229\" />';
+xmlAliasData += '    <Map Name=\"csh-use-standard-roles\" Link=\"topics/security/custom-admin-role/use-standard-roles.htm\" ResolvedId=\"1231\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
