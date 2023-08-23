@@ -648,6 +648,7 @@ xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-devices-permissions\" Link=
 xmlAliasData += '    <Map Name=\"csh-phishing-resistant-auth\" Link=\"Topics/identity-engine/authenticators/phishing-resistant-auth.htm\" ResolvedId=\"4000\" />';
 xmlAliasData += '    <Map Name=\"ext-use-standard-roles\" Link=\"Topics/Security/custom-admin-role/use-standard-roles.htm\" ResolvedId=\"1229\" />';
 xmlAliasData += '    <Map Name=\"csh-use-standard-roles\" Link=\"Topics/Security/custom-admin-role/use-standard-roles.htm\" ResolvedId=\"1231\" />';
+xmlAliasData += '    <Map Name=\"ext-fp-asop\" Link=\"Topics/identity-engine/devices/fp/fp-asop.htm\" ResolvedId=\"3007\" />';
 xmlAliasData += '    <Map Name=\"ext-create-team\" Link=\"Topics/identity-governance/access-requests/ar-team-create.htm\" ResolvedId=\"13025\" />';
 xmlAliasData += '    <Map Name=\"ext-create-config-list\" Link=\"Topics/identity-governance/access-requests/ar-config-sublist.htm\" ResolvedId=\"13026\" />';
 xmlAliasData += '    <Map Name=\"ext-ar-configure\" Link=\"Topics/identity-governance/access-requests/ar-configure.htm\" ResolvedId=\"13027\" />';
