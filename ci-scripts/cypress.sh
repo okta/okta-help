@@ -4,6 +4,12 @@
 export MAX_ATTEMPTS=30
 export SLEEP_TIME=20
 export GITHUB_TOKEN
+
+if [ "$BRANCH" == "master" ]; then
+  echo skipping cypress for main branch
+  exit
+fi
+
 if [ "${GITHUB_ORG}" == "atko-eng" ]; then
   get_vault_secret_key eng-services/github-uplift/eng-productivity-ci-bot-okta atko GITHUB_TOKEN
 else
