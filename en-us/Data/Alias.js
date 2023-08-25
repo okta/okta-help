@@ -178,7 +178,7 @@ xmlAliasData += '    <Map Name=\"csh_security_general\" Link=\"topics/security/s
 xmlAliasData += '    <Map Name=\"csh_security_policies\" Link=\"topics/security/policies/policies-home.htm\" ResolvedId=\"1096\" />';
 xmlAliasData += '    <Map Name=\"csh_threat_insight\" Link=\"topics/security/threat-insight/ti-index.htm\" ResolvedId=\"1116\" />';
 xmlAliasData += '    <Map Name=\"custom-error-pages\" Link=\"topics/settings/custom-error-pages.htm\" ResolvedId=\"1032\" />';
-xmlAliasData += '    <Map Name=\"custom-sign-in-page\" Link=\"topics/settings/custom-okta-hosted-sign-in-page.htm\" ResolvedId=\"1033\" />';
+xmlAliasData += '    <Map Name=\"custom-sign-in-page\" Link=\"topics/settings/branding-pages.htm\" ResolvedId=\"1033\" />';
 xmlAliasData += '    <Map Name=\"Device_Trust\" Link=\"topics/device-trust/device-trust-landing.htm\" ResolvedId=\"1007\" />';
 xmlAliasData += '    <Map Name=\"Device_Trust_EAS_iOS\" Link=\"topics/mobile/okta_mobile_device_trust_o365_eas_ios.htm\" ResolvedId=\"1010\" />';
 xmlAliasData += '    <Map Name=\"Device_Trust_Mobile\" Link=\"topics/device-trust/device-trust-landing.htm\" ResolvedId=\"1009\" />';
@@ -392,7 +392,7 @@ xmlAliasData += '    <Map Name=\"ext_csv_import\" Link=\"topics/users-groups-pro
 xmlAliasData += '    <Map Name=\"ext_csvintegration\" Link=\"topics/directory/csv-integration-main.htm\" ResolvedId=\"1162\" />';
 xmlAliasData += '    <Map Name=\"ext_Custom_Attributes_with_AD\" Link=\"topics/users-groups-profiles/usgp-add-custom-attribute.htm\" ResolvedId=\"200058\" />';
 xmlAliasData += '    <Map Name=\"ext_custom_error_pages\" Link=\"topics/settings/custom-error-pages.htm\" ResolvedId=\"200177\" />';
-xmlAliasData += '    <Map Name=\"ext_custom_okta_hosted_sign_in_page\" Link=\"topics/settings/custom-okta-hosted-sign-in-page.htm\" ResolvedId=\"200178\" />';
+xmlAliasData += '    <Map Name=\"ext_custom_okta_hosted_sign_in_page\" Link=\"topics/settings/branding-pages.htm\" ResolvedId=\"200178\" />';
 xmlAliasData += '    <Map Name=\"ext_custom_url_domain\" Link=\"topics/settings/settings-customization-general.htm\" ResolvedId=\"200179\" />';
 xmlAliasData += '    <Map Name=\"ext_Dashboard\" Link=\"topics/dashboard/dashboard.htm\" ResolvedId=\"200037\" />';
 xmlAliasData += '    <Map Name=\"ext_device_trust\" Link=\"topics/device-trust/device-trust-landing.htm\" ResolvedId=\"200112\" />';
@@ -523,7 +523,6 @@ xmlAliasData += '    <Map Name=\"ext_Set_up_Android_Enterprise\" Link=\"topics/m
 xmlAliasData += '    <Map Name=\"ext_Settings_Account\" Link=\"topics/settings/settings_account.htm\" ResolvedId=\"200185\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Add_Custom_Email_Templates_Multiple_Languages\" Link=\"topics/settings/settings_email.htm#Add\" ResolvedId=\"200186\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Configure_A_Custom_Email_Domain\" Link=\"topics/settings/settings_configure_a_custom_email_domain.htm\" ResolvedId=\"200188\" />';
-xmlAliasData += '    <Map Name=\"ext_Settings_Customization\" Link=\"topics/settings/settings_customization.htm\" ResolvedId=\"200189\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Customization-interstitial\" Link=\"topics/settings/settings-customization-general.htm\" ResolvedId=\"1107\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Downloads\" Link=\"topics/settings/settings_downloads.htm\" ResolvedId=\"200190\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Email\" Link=\"topics/settings/settings_email.htm\" ResolvedId=\"200191\" />';
@@ -597,7 +596,6 @@ xmlAliasData += '    <Map Name=\"Security_Network\" Link=\"topics/security/netwo
 xmlAliasData += '    <Map Name=\"Security_Policies\" Link=\"topics/security/policies/configure-signon-policies.htm#Security_Policies1\" ResolvedId=\"1260\" />';
 xmlAliasData += '    <Map Name=\"ServicePrincipalName\" Link=\"topics/directory/ad-dsso-create-service-account.htm\" ResolvedId=\"1013\" />';
 xmlAliasData += '    <Map Name=\"Settings_Account\" Link=\"topics/settings/settings_account.htm\" ResolvedId=\"1210\" />';
-xmlAliasData += '    <Map Name=\"Settings_Customization\" Link=\"topics/settings/settings_customization.htm#Settings_Customization1\" ResolvedId=\"1230\" />';
 xmlAliasData += '    <Map Name=\"Settings_Downloads\" Link=\"topics/settings/settings_downloads.htm#Settings_Downloads\" ResolvedId=\"1250\" />';
 xmlAliasData += '    <Map Name=\"Settings_Emails_SMS\" Link=\"topics/settings/settings_email.htm#Settings_Emails_SMS1\" ResolvedId=\"1240\" />';
 xmlAliasData += '    <Map Name=\"sophos-radius-intg\" Link=\"topics/integrations/sophos-radius-intg.htm\" ResolvedId=\"1039\" />';
@@ -644,7 +642,6 @@ xmlAliasData += '    <Map Name=\"csh-agent-auto-update-ldap\" Link=\"topics/dire
 xmlAliasData += '    <Map Name=\"ext-trusted-origins\" Link=\"topics/security/api-trusted-origins.htm\" ResolvedId=\"6023\" />';
 xmlAliasData += '    <Map Name=\"ext-event-hooks-filters\" Link=\"topics/automation-hooks/event-hooks-filters.htm\" ResolvedId=\"9009\" />';
 xmlAliasData += '    <Map Name=\"csh-work-with-admin-assign-admin-role-to-apps\" Link=\"topics/security/custom-admin-role/work-with-admin.htm#Assign_admin_roles_to_apps\" ResolvedId=\"18019\" />';
-xmlAliasData += '    <Map Name=\"csh-customize-sign-in\" Link=\"topics/settings/settings-customize-sign-in-page.htm\" ResolvedId=\"5023\" />';
 xmlAliasData += '    <Map Name=\"csh-display-language\" Link=\"topics/settings/display-language.htm\" ResolvedId=\"5024\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-sign-out\" Link=\"topics/settings/settings-configure-sign-out.htm\" ResolvedId=\"5025\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-aiw-saml-advanced\" Link=\"topics/apps/aiw-saml-reference.htm\" ResolvedId=\"16002\" />';
@@ -664,5 +661,10 @@ xmlAliasData += '    <Map Name=\"ext-ldap-config-intg-settings\" Link=\"topics/d
 xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-devices-permissions\" Link=\"topics/security/custom-admin-role/about-role-permissions.htm#Device_permissions\" ResolvedId=\"3006\" />';
 xmlAliasData += '    <Map Name=\"ext-use-standard-roles\" Link=\"topics/security/custom-admin-role/use-standard-roles.htm\" ResolvedId=\"1229\" />';
 xmlAliasData += '    <Map Name=\"csh-use-standard-roles\" Link=\"topics/security/custom-admin-role/use-standard-roles.htm\" ResolvedId=\"1231\" />';
+xmlAliasData += '    <Map Name=\"ext-create-team\" Link=\"topics/identity-governance/access-requests/ar-team-create.htm\" ResolvedId=\"13025\" />';
+xmlAliasData += '    <Map Name=\"ext-create-config-list\" Link=\"topics/identity-governance/access-requests/ar-config-sublist.htm\" ResolvedId=\"13026\" />';
+xmlAliasData += '    <Map Name=\"ext-ar-configure\" Link=\"topics/identity-governance/access-requests/ar-configure.htm\" ResolvedId=\"13027\" />';
+xmlAliasData += '    <Map Name=\"ext-ar-rt-sample\" Link=\"topics/identity-governance/access-requests/ar-create-jira-request-type.htm\" ResolvedId=\"13028\" />';
+xmlAliasData += '    <Map Name=\"ext-ar-limits\" Link=\"topics/identity-governance/access-requests/ar-features.htm#Limitations\" ResolvedId=\"13029\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
