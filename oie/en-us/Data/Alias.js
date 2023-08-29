@@ -601,7 +601,7 @@ xmlAliasData += '    <Map Name=\"csh-siw-compare\" Link=\"topics/reference/siw-c
 xmlAliasData += '    <Map Name=\"csh-agent-auto-update-ldap\" Link=\"topics/directory/ldap/agent-auto-update-ldap.htm\" ResolvedId=\"1044\" />';
 xmlAliasData += '    <Map Name=\"csh-self-service-process\" Link=\"topics/identity-engine-upgrade/self-service/self-service-process.htm\" ResolvedId=\"19025\" />';
 xmlAliasData += '    <Map Name=\"csh-self-service-action-items\" Link=\"topics/identity-engine-upgrade/self-service/self-service-action-items.htm\" ResolvedId=\"19027\" />';
-xmlAliasData += '    <Map Name=\"csh-post-upgrade-validation-tests\" Link=\"topics/identity-engine-upgrade/self-service/post-upgrade-validation-tests.htm\" ResolvedId=\"19028\" />';
+xmlAliasData += '    <Map Name=\"csh-post-upgrade-validation-tests\" Link=\"topics/identity-engine-upgrade/self-service/test-plan.htm\" ResolvedId=\"19028\" />';
 xmlAliasData += '    <Map Name=\"csh-email-optional\" Link=\"topics/identity-engine-upgrade/email-optional.htm\" ResolvedId=\"18016\" />';
 xmlAliasData += '    <Map Name=\"csh-o365-custom-agent\" Link=\"topics/identity-engine-upgrade/o365-custom-agent.htm\" ResolvedId=\"18017\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-remove-iwa-routing-rules\" Link=\"topics/identity-engine-upgrade/dt-remove-iwa-routing-rules.htm\" ResolvedId=\"1072\" />';
@@ -614,7 +614,7 @@ xmlAliasData += '    <Map Name=\"csh-disable-omm\" Link=\"topics/identity-engine
 xmlAliasData += '    <Map Name=\"csh-dt-after-upgrade\" Link=\"topics/identity-engine-upgrade/dt-after-upgrade.htm\" ResolvedId=\"3004\" />';
 xmlAliasData += '    <Map Name=\"ext-event-hooks-filters\" Link=\"topics/automation-hooks/event-hooks-filters.htm\" ResolvedId=\"9009\" />';
 xmlAliasData += '    <Map Name=\"csh-oie-upgrade-eligibility\" Link=\"topics/identity-engine/oie-upgrade-eligibility.htm\" ResolvedId=\"6014\" />';
-xmlAliasData += '    <Map Name=\"csh-test-ssr-upgrade\" Link=\"topics/identity-engine-upgrade/self-service/ssr-test.htm\" ResolvedId=\"5022\" />';
+xmlAliasData += '    <Map Name=\"csh-test-ssr-upgrade\" Link=\"topics/identity-engine-upgrade/self-service/test-plan.htm\" ResolvedId=\"5022\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-upgrade-considerations\" Link=\"topics/identity-engine-upgrade/dt-upgrade-considerations.htm\" ResolvedId=\"1111\" />';
 xmlAliasData += '    <Map Name=\"csh-migrate-from-dt-to-fp-troubleshooting\" Link=\"topics/identity-engine-upgrade/migrate-from-dt-to-fp-troubleshooting.htm\" ResolvedId=\"1137\" />';
 xmlAliasData += '    <Map Name=\"csh-work-with-admin-assign-admin-role-to-apps\" Link=\"topics/security/custom-admin-role/work-with-admin.htm#Assign_admin_roles_to_apps\" ResolvedId=\"18019\" />';
@@ -654,5 +654,6 @@ xmlAliasData += '    <Map Name=\"ext-create-config-list\" Link=\"topics/identity
 xmlAliasData += '    <Map Name=\"ext-ar-configure\" Link=\"topics/identity-governance/access-requests/ar-configure.htm\" ResolvedId=\"13027\" />';
 xmlAliasData += '    <Map Name=\"ext-ar-rt-sample\" Link=\"topics/identity-governance/access-requests/ar-create-jira-request-type.htm\" ResolvedId=\"13028\" />';
 xmlAliasData += '    <Map Name=\"ext-ar-limits\" Link=\"topics/identity-governance/access-requests/ar-features.htm#Limitations\" ResolvedId=\"13029\" />';
+xmlAliasData += '    <Map Name=\"ext-config-okta-verify-options\" Link=\"topics/identity-engine/authenticators/configure-okta-verify-options.htm\" ResolvedId=\"5029\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
