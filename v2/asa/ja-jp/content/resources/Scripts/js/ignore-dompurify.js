@@ -16,10 +16,12 @@ requirejs.onError = function (err) {
 
 (function redirectToLowercasePath() {
   try {
-    var url = window.location.href;
-    var lowercaseUrl = url.toLowerCase();
-    if (url !== lowercaseUrl) {
-      window.location.replace(lowercaseUrl);
+    var url = new URL(window.location.href);
+    var urlPath = url.pathname;
+    var lowercaseUrlPath = urlPath.toLowerCase();
+    if (urlPath !== lowercaseUrlPath) {
+      url.pathname = lowercaseUrlPath;
+      window.location.replace(url.href);
     }
   } catch(error) {
     console.log('Could not update url path: ' + error);
