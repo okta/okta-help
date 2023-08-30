@@ -3,7 +3,7 @@ pushd ${OKTA_HOME}/${REPO}
 
 export SLACK_CHANNEL='#infodev-notifications'
 export targets=( "oce" "asa" "eu" "oie" "wf" "oag" )
-export netlify_targets=( "asa" "eu" "oag" "wf" )
+export netlify_targets=( "oce" "oie" "asa" "eu" "oag" "wf" )
 
 if [[ ! "${targets[*]}" =~ "${TARGET}" ]]; then
   echo "No such target ${TARGET}. Exiting."
