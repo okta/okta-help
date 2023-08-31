@@ -49,6 +49,7 @@ import argparse
 import csv
 
 FILE_TO_URL = 'scripts/file_to_url.txt'
+REDIRECTS_FILE = '_redirects'
 REDIRECT_FILE_TEMPLATE = '''<!DOCTYPE html>
 <html>
     <head>
@@ -146,6 +147,101 @@ def run(file=None, save=None):
     print("Applying redirects from existing map...")
     apply_map()
 
+# $ python scripts/redirect_url_utils.py -sync
+def sync_redirects_with_netlify():
+  with open(REDIRECTS_FILE, encoding="utf-8") as netlify_redirects:
+    for line in netlify_redirects:
+      if line.startswith('#'):
+        continue
+      if not '*' in line:
+        # for now ignores fully specified paths
+        continue
+
+      strict_redirect = ':splat' in line
+      path = line.split("*")[0]
+      if path:
+        delete_redirects_for_path(f'.{path}', strict_redirect)
+
+# ./not-eu/ https://help.okta.com/eu/ eu -> False
+# ./eu/ https://help.okta.com/eu/ eu -> False
+# ./eu/ https://help.okta.com/not-eu/ eu -> True
+def out_of_target(path_from, path_to, target):
+  if not path_from.startswith(f'./{target}/'):
+    # from does not match product
+    return False
+
+  return not path_to.startswith(f'https://help.okta.com/{target}/')
+
+def has_substring(path_from, path_to, str):
+  return str in path_from or str in path_to
+
+def exact_redirect(path_from, path_to, redirect_path):
+  leaf = path_from[len(redirect_path) - 1:]
+  return path_to.endswith(leaf)
+
+# $ python scripts/redirect_url_utils.py -d='./en-us/Content/Topics/Directory'
+def delete_redirects_for_path(path, strict_redirect):
+  print(f'delete: {path}')
+  rows = []
+
+  with open(FILE_TO_URL, encoding="utf-8") as file_to_url:
+    cvs_reader = csv.reader(file_to_url, delimiter=',', quotechar='|')
+    lower_path = path.lower()
+    for row in cvs_reader:
+      file_path = row[0].lower()
+      destination_path = row[1].lower()
+
+      if not file_path.startswith(lower_path):
+        rows.append(row)
+        continue
+
+      # skip release notes
+      if has_substring(file_path, destination_path, '/releasenotes/') or \
+        has_substring(file_path, destination_path, '/release-notes/') or \
+        has_substring(file_path, destination_path, '/relnotes/'):
+        print('Release notes skipping')
+        print(f'  from: {file_path}')
+        print(f'  to: {destination_path}')
+
+        rows.append(row)
+        continue
+
+      # skip out of product redirects
+      if out_of_target(file_path, destination_path, 'eu') or \
+        out_of_target(file_path, destination_path, 'wf') or \
+        out_of_target(file_path, destination_path, 'oie') or \
+        out_of_target(file_path, destination_path, 'oag') or \
+        out_of_target(file_path, destination_path, 'asa'):
+        print('External redirect skipping')
+        print(f'  from: {file_path}')
+        print(f'  to: {destination_path}')
+
+        rows.append(row)
+        continue
+
+      if strict_redirect and not exact_redirect(file_path, destination_path, path):
+        print('Not exact redirect skipping')
+        print(f'  from: {file_path}')
+        print(f'  to: {destination_path}')
+
+        rows.append(row)
+        # exit()
+        # os._exit()
+        continue
+
+      try:
+        os.remove(file_path)
+      except OSError:
+        pass
+
+  with open(FILE_TO_URL, 'w', encoding="utf-8") as file_to_url:
+    csv_writer = csv.writer(
+      file_to_url,
+      delimiter=',',
+      quotechar='|',
+      quoting=csv.QUOTE_MINIMAL)
+
+    csv_writer.writerows(rows)
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser(description="Create redirect files from a map")
@@ -154,8 +250,15 @@ if __name__ == '__main__':
                      help="Update with new redirects from 'file'")
   group.add_argument("-s", "--save_map", dest="save", action="store_true",
                      help="Create file-to-url map from existing redirects")
+  group.add_argument("-sync", "--sync_netlify", dest="sync_netlify", action='store_true',
+                     help="Removes files and entries which starts with del_path")
 
   args = parser.parse_args()
+
+  if (args.sync_netlify):
+    sync_redirects_with_netlify()
+    exit()
+
   file = args.file[0] if args.file else None # First (and only expected) item in returned list
   save = args.save
   run(file=file, save=save)
