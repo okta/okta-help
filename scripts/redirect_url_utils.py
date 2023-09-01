@@ -151,16 +151,25 @@ def run(file=None, save=None):
 def sync_redirects_with_netlify():
   with open(REDIRECTS_FILE, encoding="utf-8") as netlify_redirects:
     for line in netlify_redirects:
+      line = line.strip()
+
       if line.startswith('#'):
         continue
       if not '*' in line:
-        # for now ignores fully specified paths
+        if line.split():
+          netlify_from, netlify_to = line.split()
+          netlify_from = netlify_from.strip().lower()
+          netlify_to = netlify_to.strip().lower()
+          delete_single_file_redirect(netlify_from, netlify_to)
+
         continue
 
       strict_redirect = ':splat' in line
-      path = line.split("*")[0]
-      if path:
-        delete_redirects_for_path(f'.{path}', strict_redirect)
+      netlify_from, netlify_to = line.split("*")
+      netlify_from = netlify_from.strip().lower()
+      netlify_to = netlify_to.strip().lower()
+      if netlify_from:
+        delete_redirects_for_path(f'.{netlify_from}', netlify_to, strict_redirect)
 
 # ./not-eu/ https://help.okta.com/eu/ eu -> False
 # ./eu/ https://help.okta.com/eu/ eu -> False
@@ -179,21 +188,51 @@ def exact_redirect(path_from, path_to, redirect_path):
   leaf = path_from[len(redirect_path) - 1:]
   return path_to.endswith(leaf)
 
-# $ python scripts/redirect_url_utils.py -d='./en-us/Content/Topics/Directory'
-def delete_redirects_for_path(path, strict_redirect):
-  print(f'delete: {path}')
+def delete_single_file_redirect(netlify_from, netlify_to):
+  rows = []
+  with open(FILE_TO_URL, encoding="utf-8") as file_to_url:
+    cvs_reader = csv.reader(file_to_url, delimiter=',', quotechar='|')
+    for row in cvs_reader:
+      file_path = row[0].lower()
+      destination_path = row[1].lower()
+      destination_no_okta = destination_path.replace('https://help.okta.com', '')
+
+
+      if file_path == f'.{netlify_from}' and \
+        destination_no_okta == netlify_to:
+        try:
+          os.remove(file_path)
+        except OSError:
+          pass
+        continue
+
+      rows.append(row)
+
+  with open(FILE_TO_URL, 'w', encoding="utf-8") as file_to_url:
+    csv_writer = csv.writer(
+      file_to_url,
+      delimiter=',',
+      quotechar='|',
+      quoting=csv.QUOTE_MINIMAL)
+
+    csv_writer.writerows(rows)
+
+def delete_redirects_for_path(netlify_from, netlify_to, strict_redirect):
+  # print(f'delete: {netlify_from}')
   rows = []
 
   with open(FILE_TO_URL, encoding="utf-8") as file_to_url:
     cvs_reader = csv.reader(file_to_url, delimiter=',', quotechar='|')
-    lower_path = path.lower()
     for row in cvs_reader:
+      file_path_as_is = row[0]
       file_path = row[0].lower()
       destination_path = row[1].lower()
 
-      if not file_path.startswith(lower_path):
+      if not file_path.startswith(netlify_from):
         rows.append(row)
         continue
+
+      destination_no_okta = destination_path.replace('https://help.okta.com', '')
 
       # skip release notes
       if has_substring(file_path, destination_path, '/releasenotes/') or \
@@ -202,6 +241,7 @@ def delete_redirects_for_path(path, strict_redirect):
         print('Release notes skipping')
         print(f'  from: {file_path}')
         print(f'  to: {destination_path}')
+        print(f'  rule: {file_path_as_is[1:]} {destination_no_okta}')
 
         rows.append(row)
         continue
@@ -212,21 +252,33 @@ def delete_redirects_for_path(path, strict_redirect):
         out_of_target(file_path, destination_path, 'oie') or \
         out_of_target(file_path, destination_path, 'oag') or \
         out_of_target(file_path, destination_path, 'asa'):
-        print('External redirect skipping')
+        print('Out of current product redirect skipping')
+        print(f'  from: {file_path}')
+        print(f'  to: {destination_path}')
+        print(f'  rule: {file_path_as_is[1:]} {destination_no_okta}')
+
+        rows.append(row)
+        continue
+
+      # /path/* /new_path/
+      if not strict_redirect and \
+        not destination_path.endswith(netlify_to):
+        print('Destination does not match')
         print(f'  from: {file_path}')
         print(f'  to: {destination_path}')
 
         rows.append(row)
         continue
 
-      if strict_redirect and not exact_redirect(file_path, destination_path, path):
+
+      # /path/* /new_path/:splat
+      if strict_redirect and not exact_redirect(file_path, destination_path, netlify_from):
         print('Not exact redirect skipping')
         print(f'  from: {file_path}')
         print(f'  to: {destination_path}')
+        print(f'  rule: {file_path_as_is[1:]} {destination_no_okta}')
 
         rows.append(row)
-        # exit()
-        # os._exit()
         continue
 
       try:
