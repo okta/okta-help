@@ -1,0 +1,66 @@
+version: 2.1
+
+executors:
+  node:
+    docker:
+      - image: cimg/node:14.18.0
+
+aliases:
+  restore_cache: &restore_cache
+    restore_cache:
+      name: Restore Npm Package Cache
+      keys:
+        - yarn-cache-netlify-{{ checksum "yarn.lock" }}
+
+  install_node_modules: &install_node_modules
+    run:
+      name: Install dependencies
+      command: yarn install --frozen-lockfile
+
+  save_cache: &save_cache
+    save_cache:
+      name: Save NPM package cache
+      key: yarn-cache-netlify-{{ checksum "yarn.lock" }}
+      paths:
+        - ./node_modules
+
+jobs:
+  deploy-netlify:
+    circleci_ip_ranges: true
+    parameters:
+      is_prod:
+        type: boolean
+        default: false
+    executor: node
+    steps:
+      - checkout
+      - <<: *restore_cache
+      - <<: *install_node_modules
+      - <<: *save_cache
+      - run:
+          environment:
+            IS_PROD: << parameters.is_prod >>
+          name: Deploy preview
+          command: |
+            DEPLOY_MESSAGE="Circle CI production deployment ${CIRCLE_BRANCH}:$(echo $CIRCLE_SHA1 | cut -c -7)"
+            if [ $IS_PROD -ne 0 ]; then
+              echo Deploying prod
+              npx netlify deploy --message "${DEPLOY_MESSAGE}" --build --prod --dir=.
+            else
+              echo Deploying preview
+              npx netlify deploy --alias=preview-${CIRCLE_PULL_REQUEST##*/} --message "#${CIRCLE_PULL_REQUEST##*/} ${DEPLOY_MESSAGE}" --build --context deploy-preview --dir=.
+            fi
+
+workflows:
+  deploy to preview-XXX--extraordinary-horse-71260e.netlify.app:
+    jobs:
+      - deploy-netlify:
+          filters:
+            branches:
+              ignore: master
+      - deploy-netlify:
+          name: deploy to production
+          is_prod: true
+          filters:
+            branches:
+              only: master
