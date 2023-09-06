@@ -1358,5 +1358,14 @@ xmlAliasData += '    <Map Name=\"ext-mondaycom-method-listboards\" Link=\"topics
 xmlAliasData += '    <Map Name=\"ext-mondaycom-method-readboard\" Link=\"topics/workflows/connector-reference/mondaycom/actions/readboard.htm\" ResolvedId=\"6057\" />';
 xmlAliasData += '    <Map Name=\"ext-mondaycom-method-readuser\" Link=\"topics/workflows/connector-reference/mondaycom/actions/readuser.htm\" ResolvedId=\"6058\" />';
 xmlAliasData += '    <Map Name=\"ext-mondaycom-method-searchusers\" Link=\"topics/workflows/connector-reference/mondaycom/actions/searchusers.htm\" ResolvedId=\"6059\" />';
+xmlAliasData += '    <Map Name=\"ext-auth0\" Link=\"topics/workflows/connector-reference/auth0/auth0.htm\" ResolvedId=\"6060\" />';
+xmlAliasData += '    <Map Name=\"ext-auth0-misc-authorization\" Link=\"topics/workflows/connector-reference/auth0/overviews/authorization.htm\" ResolvedId=\"6061\" />';
+xmlAliasData += '    <Map Name=\"ext-auth0-method-createuser\" Link=\"topics/workflows/connector-reference/auth0/actions/createuser.htm\" ResolvedId=\"6062\" />';
+xmlAliasData += '    <Map Name=\"ext-auth0-method-customapiaction\" Link=\"topics/workflows/connector-reference/auth0/actions/customapiaction.htm\" ResolvedId=\"6063\" />';
+xmlAliasData += '    <Map Name=\"ext-auth0-method-deleteuser\" Link=\"topics/workflows/connector-reference/auth0/actions/deleteuser.htm\" ResolvedId=\"6064\" />';
+xmlAliasData += '    <Map Name=\"ext-auth0-method-linkaccount\" Link=\"topics/workflows/connector-reference/auth0/actions/linkaccount.htm\" ResolvedId=\"6065\" />';
+xmlAliasData += '    <Map Name=\"ext-auth0-method-readuser\" Link=\"topics/workflows/connector-reference/auth0/actions/readuser.htm\" ResolvedId=\"6066\" />';
+xmlAliasData += '    <Map Name=\"ext-auth0-method-searchusers\" Link=\"topics/workflows/connector-reference/auth0/actions/searchusers.htm\" ResolvedId=\"6067\" />';
+xmlAliasData += '    <Map Name=\"ext-auth0-method-updateuser\" Link=\"topics/workflows/connector-reference/auth0/actions/updateuser.htm\" ResolvedId=\"6068\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
