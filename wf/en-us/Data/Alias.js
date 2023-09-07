@@ -1367,5 +1367,6 @@ xmlAliasData += '    <Map Name=\"ext-auth0-method-linkaccount\" Link=\"topics/wo
 xmlAliasData += '    <Map Name=\"ext-auth0-method-readuser\" Link=\"topics/workflows/connector-reference/auth0/actions/readuser.htm\" ResolvedId=\"6066\" />';
 xmlAliasData += '    <Map Name=\"ext-auth0-method-searchusers\" Link=\"topics/workflows/connector-reference/auth0/actions/searchusers.htm\" ResolvedId=\"6067\" />';
 xmlAliasData += '    <Map Name=\"ext-auth0-method-updateuser\" Link=\"topics/workflows/connector-reference/auth0/actions/updateuser.htm\" ResolvedId=\"6068\" />';
+xmlAliasData += '    <Map Name=\"ext-auth0-method-linkAccount_S2dv0b7CR4v\" Link=\"topics/workflows/connector-reference/auth0/actions/linkaccount.htm\" ResolvedId=\"6069\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
