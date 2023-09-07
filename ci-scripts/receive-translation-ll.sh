@@ -3,11 +3,11 @@ export BACON_TASK_NAME="CI_DOC_TOOLS_RECEIVE_TRANSLATION_LL"
 
 source setup-translation-ll.sh
 
-export TRANSLATION_RECEIVING_BRANCH="em-translations-${TARGET}-receive-$(TZ=UTC+8 date +'%Y-%m-%d_%H-%M-%S_%s')"
+export TRANSLATION_RECEIVING_BRANCH="translations-${TARGET}-receive-$(TZ=UTC+8 date +'%Y-%m-%d_%H-%M-%S_%s')"
 
 # topic from latest main
 git fetch --depth=1 origin ${BASE_BRANCH}
-git switch ${SHA}
+git switch ${BASE_BRANCH}
 git checkout -b ${TRANSLATION_RECEIVING_BRANCH}
 
 # get ja files from translation branch
@@ -27,6 +27,9 @@ git push origin ${TRANSLATION_RECEIVING_BRANCH}
 export PR_TITLE="Receiving translation for ${TARGET^^}"
 export PR_BODY="${TARGET^^} translation for the latest commit: ${TRANSLATION_COMMITS}"
 
+export GITHUB_TOKEN
+get_vault_secret_key eng-services/github-uplift/eng-productivity-ci-bot-okta okta GITHUB_TOKEN
+
 export HTTP_NEW_PR=$(curl \
   -X POST \
   -H "Accept: application/vnd.github+json" \
@@ -36,7 +39,7 @@ export HTTP_NEW_PR=$(curl \
     "title":"'"${PR_TITLE}"'",
     "body":"'"${PR_BODY}"'",
     "head":"'"${TRANSLATION_RECEIVING_BRANCH}"'",
-    "base":"'"${SHA}"'"
+    "base":"'"${BASE_BRANCH}"'"
   }')
 
 URL=$(echo ${HTTP_NEW_PR} | jq -r '.html_url')
