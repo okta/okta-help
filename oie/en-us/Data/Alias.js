@@ -133,7 +133,7 @@ xmlAliasData += '    <Map Name=\"csh-oie-policies\" Link=\"topics/identity-engin
 xmlAliasData += '    <Map Name=\"csh-oie-release-notes\" Link=\"topics/releasenotes/oie-relnotes.htm\" ResolvedId=\"1333\" />';
 xmlAliasData += '    <Map Name=\"csh-oie-rn\" Link=\"topics/releasenotes/oie-relnotes.htm\" ResolvedId=\"2001\" />';
 xmlAliasData += '    <Map Name=\"csh-okta-ca-dynamic-scep-macos-jamf\" Link=\"topics/identity-engine/devices/okta-ca-dynamic-scep-macos-jamf.htm\" ResolvedId=\"17020\" />';
-xmlAliasData += '    <Map Name=\"csh-okta-verify-number-challenge\" Link=\"topics/identity-engine/authenticators/configure-okta-verify-options.htm#Number\" ResolvedId=\"12006\" />';
+xmlAliasData += '    <Map Name=\"csh-okta-verify-number-challenge\" Link=\"topics/identity-engine/authenticators/configure-okta-verify-options.htm\" ResolvedId=\"12006\" />';
 xmlAliasData += '    <Map Name=\"csh-okta-verify-show-ov-button-siw\" Link=\"topics/identity-engine/authenticators/configure-okta-verify-options.htm\" ResolvedId=\"12009\" />';
 xmlAliasData += '    <Map Name=\"csh-OPP\" Link=\"topics/provisioning/opp/opp-main.htm\" ResolvedId=\"1282\" />';
 xmlAliasData += '    <Map Name=\"csh-org2org-integration\" Link=\"topics/provisioning/org2org/org2org-main.htm\" ResolvedId=\"1505\" />';
@@ -617,6 +617,7 @@ xmlAliasData += '    <Map Name=\"csh-oie-upgrade-eligibility\" Link=\"topics/ide
 xmlAliasData += '    <Map Name=\"csh-test-ssr-upgrade\" Link=\"topics/identity-engine-upgrade/self-service/test-plan.htm\" ResolvedId=\"5022\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-upgrade-considerations\" Link=\"topics/identity-engine-upgrade/dt-upgrade-considerations.htm\" ResolvedId=\"1111\" />';
 xmlAliasData += '    <Map Name=\"csh-migrate-from-dt-to-fp-troubleshooting\" Link=\"topics/identity-engine-upgrade/migrate-from-dt-to-fp-troubleshooting.htm\" ResolvedId=\"1137\" />';
+xmlAliasData += '    <Map Name=\"csh-edr-integration-google-chrome\" Link=\"topics/identity-engine/devices/chrome/edr-integration-dt-chrome.htm\" ResolvedId=\"1138\" />';
 xmlAliasData += '    <Map Name=\"csh-work-with-admin-assign-admin-role-to-apps\" Link=\"topics/security/custom-admin-role/work-with-admin.htm#Assign_admin_roles_to_apps\" ResolvedId=\"18019\" />';
 xmlAliasData += '    <Map Name=\"ext-device-assurance\" Link=\"topics/identity-engine/devices/device-assurance.htm\" ResolvedId=\"17031\" />';
 xmlAliasData += '    <Map Name=\"ext-device-health-what-is-this\" Link=\"topics/identity-engine/devices/device-assurance.htm\" ResolvedId=\"21001\" />';
@@ -649,11 +650,19 @@ xmlAliasData += '    <Map Name=\"csh-phishing-resistant-auth\" Link=\"topics/ide
 xmlAliasData += '    <Map Name=\"ext-use-standard-roles\" Link=\"topics/security/custom-admin-role/use-standard-roles.htm\" ResolvedId=\"1229\" />';
 xmlAliasData += '    <Map Name=\"csh-use-standard-roles\" Link=\"topics/security/custom-admin-role/use-standard-roles.htm\" ResolvedId=\"1231\" />';
 xmlAliasData += '    <Map Name=\"ext-fp-asop\" Link=\"topics/identity-engine/devices/fp/fp-asop.htm\" ResolvedId=\"3007\" />';
+xmlAliasData += '    <Map Name=\"ext-cdt-da\" Link=\"topics/identity-engine/devices/chrome/device-assurance-chrome.htm\" ResolvedId=\"3008\" />';
 xmlAliasData += '    <Map Name=\"ext-create-team\" Link=\"topics/identity-governance/access-requests/ar-team-create.htm\" ResolvedId=\"13025\" />';
 xmlAliasData += '    <Map Name=\"ext-create-config-list\" Link=\"topics/identity-governance/access-requests/ar-config-sublist.htm\" ResolvedId=\"13026\" />';
 xmlAliasData += '    <Map Name=\"ext-ar-configure\" Link=\"topics/identity-governance/access-requests/ar-configure.htm\" ResolvedId=\"13027\" />';
 xmlAliasData += '    <Map Name=\"ext-ar-rt-sample\" Link=\"topics/identity-governance/access-requests/ar-create-jira-request-type.htm\" ResolvedId=\"13028\" />';
 xmlAliasData += '    <Map Name=\"ext-ar-limits\" Link=\"topics/identity-governance/access-requests/ar-features.htm#Limitations\" ResolvedId=\"13029\" />';
 xmlAliasData += '    <Map Name=\"ext-config-okta-verify-options\" Link=\"topics/identity-engine/authenticators/configure-okta-verify-options.htm\" ResolvedId=\"5029\" />';
+xmlAliasData += '    <Map Name=\"ext-arch-overview\" Link=\"topics/architecture/arch-overview.htm\" ResolvedId=\"4001\" />';
+xmlAliasData += '    <Map Name=\"ext-past-ar-report\" Link=\"topics/identity-governance/past-access-report.htm\" ResolvedId=\"13030\" />';
+xmlAliasData += '    <Map Name=\"ext-campaign-summary-report\" Link=\"topics/identity-governance/campaign-summary.htm\" ResolvedId=\"13031\" />';
+xmlAliasData += '    <Map Name=\"ext-campaign-details\" Link=\"topics/identity-governance/campaign-details.htm\" ResolvedId=\"13032\" />';
+xmlAliasData += '    <Map Name=\"ext-create-campaigns\" Link=\"topics/identity-governance/access-certification/iga-ac-create-campaign.htm\" ResolvedId=\"13033\" />';
+xmlAliasData += '    <Map Name=\"ext-campaign-settings\" Link=\"topics/identity-governance/access-certification/campaign-settings.htm\" ResolvedId=\"13034\" />';
+xmlAliasData += '    <Map Name=\"ext-work-with-admin\" Link=\"topics/security/custom-admin-role/work-with-admin.htm\" ResolvedId=\"1255\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
