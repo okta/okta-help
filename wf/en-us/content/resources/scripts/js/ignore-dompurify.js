@@ -17,6 +17,9 @@ requirejs.onError = function (err) {
 (function redirectToLowercasePath() {
   try {
     var url = new URL(window.location.href);
+    if (url.protocol != 'https:') {
+      return;
+    }
     var urlPath = url.pathname;
     var lowercaseUrlPath = urlPath.toLowerCase();
     if (urlPath !== lowercaseUrlPath) {
