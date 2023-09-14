@@ -11,7 +11,7 @@ describe('OIE release notes landing page (en-US)', () => {
     cy.hasBreadcrumbs('Release notes')
     cy.hasTopMenuBar(5, 11)
     cy.hasBodyContent()
-    cy.hasTiles(3)
+    cy.hasTiles(5)
     cy.hasDeferAttrsCorrectlyApplied()
     // cy.hasQualtrics()
     cy.hidesCoveoSearchBar()
