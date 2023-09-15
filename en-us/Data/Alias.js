@@ -666,11 +666,11 @@ xmlAliasData += '    <Map Name=\"ext-create-config-list\" Link=\"topics/identity
 xmlAliasData += '    <Map Name=\"ext-ar-configure\" Link=\"topics/identity-governance/access-requests/ar-configure.htm\" ResolvedId=\"13027\" />';
 xmlAliasData += '    <Map Name=\"ext-ar-rt-sample\" Link=\"topics/identity-governance/access-requests/ar-create-jira-request-type.htm\" ResolvedId=\"13028\" />';
 xmlAliasData += '    <Map Name=\"ext-ar-limits\" Link=\"topics/identity-governance/access-requests/ar-features.htm#Limitations\" ResolvedId=\"13029\" />';
-xmlAliasData += '    <Map Name=\"ext-past-ar-report\" Link=\"topics/identity-governance/past-access-report.htm\" ResolvedId=\"13030\" />';
-xmlAliasData += '    <Map Name=\"ext-campaign-summary-report\" Link=\"topics/identity-governance/campaign-summary.htm\" ResolvedId=\"13031\" />';
-xmlAliasData += '    <Map Name=\"ext-campaign-details\" Link=\"topics/identity-governance/campaign-details.htm\" ResolvedId=\"13032\" />';
-xmlAliasData += '    <Map Name=\"ext-create-campaigns\" Link=\"topics/identity-governance/access-certification/iga-ac-create-campaign.htm\" ResolvedId=\"13033\" />';
-xmlAliasData += '    <Map Name=\"ext-campaign-settings\" Link=\"topics/identity-governance/access-certification/campaign-settings.htm\" ResolvedId=\"13034\" />';
-xmlAliasData += '    <Map Name=\"ext-work-with-admin\" Link=\"topics/security/custom-admin-role/work-with-admin.htm\" ResolvedId=\"1255\" />';
+xmlAliasData += '    <Map Name=\"ext-past-ar-report\" Link=\"topics/identity-governance/past-access-report.htm\" ResolvedId=\"-2147483648\" />';
+xmlAliasData += '    <Map Name=\"ext-campaign-summary-report\" Link=\"topics/identity-governance/campaign-summary.htm\" ResolvedId=\"-2147483648\" />';
+xmlAliasData += '    <Map Name=\"ext-campaign-details\" Link=\"topics/identity-governance/campaign-details.htm\" ResolvedId=\"-2147483648\" />';
+xmlAliasData += '    <Map Name=\"ext-create-campaigns\" Link=\"topics/identity-governance/access-certification/iga-ac-create-campaign.htm\" ResolvedId=\"-2147483648\" />';
+xmlAliasData += '    <Map Name=\"ext-campaign-settings\" Link=\"topics/identity-governance/access-certification/campaign-settings.htm\" ResolvedId=\"-2147483648\" />';
+xmlAliasData += '    <Map Name=\"ext-work-with-admin\" Link=\"topics/security/custom-admin-role/work-with-admin.htm\" ResolvedId=\"-2147483648\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
