@@ -18,7 +18,6 @@ xmlAliasData += '    <Map Name=\"ext_oag_about_policy_types_prot\" Link=\"topics
 xmlAliasData += '    <Map Name=\"ext_oag_about_support_vpn\" Link=\"topics/access-gateway/about-oag-support-vpn.htm\" ResolvedId=\"3066\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_add_identity_provider\" Link=\"topics/access-gateway/administer-local-idp.htm\" ResolvedId=\"3009\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_add_kerberos_service\" Link=\"topics/access-gateway/add-app-kerberos-add-ker-service.htm\" ResolvedId=\"3008\" />';
-xmlAliasData += '    <Map Name=\"ext_oag_admin_log_audit_oview\" Link=\"topics/access-gateway/admin-logging-auditing-overview.htm\" ResolvedId=\"3042\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_advanced_about\" Link=\"topics/access-gateway/about-application-advanced.htm\" ResolvedId=\"3017\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_app_adv\" Link=\"topics/access-gateway/task-manage-adv-settings.htm\" ResolvedId=\"3054\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_app_attrs\" Link=\"topics/access-gateway/application-attributes.htm\" ResolvedId=\"3053\" />';
@@ -74,7 +73,7 @@ xmlAliasData += '    <Map Name=\"ext_oag_behaviors_about\" Link=\"topics/access-
 xmlAliasData += '    <Map Name=\"ext_oag_behaviors_manage\" Link=\"topics/access-gateway/task-define-application-behaviors.htm\" ResolvedId=\"3019\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_cap_plan_size\" Link=\"topics/access-gateway/capacity-planning-sizing.htm\" ResolvedId=\"3048\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_config_idp_okta\" Link=\"topics/access-gateway/configure-idp-okta.htm\" ResolvedId=\"3057\" />';
-xmlAliasData += '    <Map Name=\"ext_oag_deploy_prereq\" Link=\"topics/access-gateway/deploy-pre-install-reqs.htm\" ResolvedId=\"3050\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_pre_req_firewall_rules\" Link=\"topics/access-gateway/about-oag-prereqs.htm\" ResolvedId=\"1001\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_ha_manage_conf\" Link=\"topics/access-gateway/high-availability-manage-configure.htm\" ResolvedId=\"3045\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_integrate_apps\" Link=\"topics/access-gateway/integrate-apps-with-oag.htm\" ResolvedId=\"3055\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_log_forward\" Link=\"topics/access-gateway/admin-settings-logging.htm\" ResolvedId=\"3005\" />';
@@ -91,7 +90,7 @@ xmlAliasData += '    <Map Name=\"ext_oag_policy_dev\" Link=\"topics/access-gatew
 xmlAliasData += '    <Map Name=\"ext_oag_policy_examples\" Link=\"topics/access-gateway/advanced-oag-policy-examples.htm\" ResolvedId=\"3014\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_policy_manage\" Link=\"topics/access-gateway/managing-oag-policy.htm\" ResolvedId=\"3011\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_pre_req\" Link=\"topics/access-gateway/about-oag-prereqs.htm\" ResolvedId=\"3001\" />';
-xmlAliasData += '    <Map Name=\"ext_oag_pre_req_firewall_rules\" Link=\"topics/access-gateway/deploy-pre-install-reqs.htm\" ResolvedId=\"3063\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_deploy_prereq\" Link=\"topics/access-gateway/about-oag-prereqs.htm\" ResolvedId=\"1000\" />';
 xmlAliasData += '    <Map Name=\"ext_OAG_RESTORE\" Link=\"topics/access-gateway/backup-restore.htm\" ResolvedId=\"1256\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_set_log_levels\" Link=\"topics/access-gateway/about-logging.htm\" ResolvedId=\"1300\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_snmp_monitor_oview\" Link=\"topics/access-gateway/snmp-monitoring-overview.htm\" ResolvedId=\"3046\" />';
