@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  cypress: cypress-io/cypress@3
+
 executors:
   node:
     docker:
@@ -50,6 +53,18 @@ jobs:
               echo Deploying preview
               npx netlify deploy --alias=preview-${CIRCLE_PULL_REQUEST##*/} --message "#${CIRCLE_PULL_REQUEST##*/} ${DEPLOY_MESSAGE}" --build --context deploy-preview --dir=.
             fi
+  run-cypress-tests:
+    executor:
+      name: cypress/default
+      node-version: "14.18.0"
+    steps:
+      - cypress/install:
+          package-manager: "yarn"
+      - run:
+          command: |
+            yarn lint
+      - cypress/run-tests:
+          cypress-command: "npx cypress run"
 
 workflows:
   deploy to preview-XXX--extraordinary-horse-71260e.netlify.app:
@@ -64,3 +79,6 @@ workflows:
           filters:
             branches:
               only: master
+  cypress tests:
+    jobs:
+      - run-cypress-tests
