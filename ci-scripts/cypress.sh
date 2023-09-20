@@ -1,53 +1,30 @@
 #!/bin/bash
+pushd ${OKTA_HOME}/${REPO}
 
-# waiting for 10 minutes at most
-export MAX_ATTEMPTS=30
-export SLEEP_TIME=20
-export GITHUB_TOKEN
+# Start xvfb
+Xvfb :99 -screen 0 1366x768x16 &
 
-if [ "$BRANCH" == "master" ]; then
-  echo skipping cypress for main branch
-  exit
+export DBUS_SESSION_BUS_ADDRESS=/dev/null
+export DISPLAY=:99.0
+
+yum update -y
+yum -y install gtk2-2.24* xorg-x11-server-Xvfb libXtst* libXScrnSaver* GConf2* alsa-lib* gtk3
+
+setup_service node '14.18.0'
+setup_service yarn '1.21.1'
+
+if ! yarn; then
+    echo "failed to install dependencies"
+    exit ${BUILD_FAILURE}
 fi
 
-if [ "${GITHUB_ORG}" == "atko-eng" ]; then
-  get_vault_secret_key eng-services/github-uplift/eng-productivity-ci-bot-okta atko GITHUB_TOKEN
-else
-  get_vault_secret_key eng-services/github-uplift/eng-productivity-ci-bot-okta okta GITHUB_TOKEN
+if ! yarn lint; then
+    echo "failed eslint"
+    exit ${BUILD_FAILURE}
 fi
 
-# In case if Github has not started tests yet
-sleep ${SLEEP_TIME}
+if ! npx cypress run --headless; then
+    echo "failed cypress tests"
+    exit ${BUILD_FAILURE}
+fi
 
-until [ ${MAX_ATTEMPTS} -eq 0 ]; do
-  export HTTP_WF_RUNS=$(curl -L \
-    -H "Accept: application/vnd.github+json" \
-    -H "Authorization: Bearer ${GITHUB_TOKEN}" \
-    -H "X-GitHub-Api-Version: 2022-11-28" \
-    https://api.github.com/repos/${GITHUB_ORG}/${REPO}/actions/runs?head_sha=${SHA} )
-
-  export TOTAL_COUNT=$(echo ${HTTP_WF_RUNS} | jq -r '.total_count')
-  export CONCLUSION=$(echo ${HTTP_WF_RUNS} | jq -r '.workflow_runs[0].conclusion')
-  export STATUS=$(echo ${HTTP_WF_RUNS} | jq -r '.workflow_runs[0].status')
-
-  if [ "${TOTAL_COUNT}" = "0" ]; then
-    echo "No workflows found. Did you create a PR?"
-    exit ${TEST_FAILURE}
-  fi
-
-  echo "status: ${STATUS} conclusion: ${CONCLUSION}"
-
-  if [ "${STATUS}" = "completed" ]; then
-    if [ "${CONCLUSION}" = "success" ]; then
-      echo "succeeded"
-      exit
-    fi
-    echo "failed"
-    exit ${TEST_FAILURE}
-  fi
-
-  MAX_ATTEMPTS=$(($MAX_ATTEMPTS - 1))
-  sleep ${TEST_FAILURE}
-done
-
-exit ${TEST_FAILURE}
