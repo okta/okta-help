@@ -10,7 +10,7 @@ copy_artifact()
 
   if [ "${IS_PROD}" == "true" ]
   then
-    rm -rf "${OUT_FOLDER}"
+    rm -rf "${OUT_FOLDER}/en-us"
   fi
   mkdir -p "${OUT_FOLDER}"
   wget -O ${ARCHIVE_PATH} ${ARTIFACT_URL}
