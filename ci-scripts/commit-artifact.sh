@@ -8,7 +8,7 @@ copy_artifact()
   ARTIFACT_URL=$2
   ARCHIVE_PATH="target.zip"
 
-  if [ "${IS_PROD}" = "true"]
+  if [ "${IS_PROD}" == "true" ]
   then
     rm -rf "${OUT_FOLDER}"
   fi
