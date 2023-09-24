@@ -8,7 +8,10 @@ copy_artifact()
   ARTIFACT_URL=$2
   ARCHIVE_PATH="target.zip"
 
-  rm -rf "${OUT_FOLDER}"
+  if [ "${IS_PROD}" = "true"]
+  then
+    rm -rf "${OUT_FOLDER}"
+  fi
   mkdir -p "${OUT_FOLDER}"
   wget -O ${ARCHIVE_PATH} ${ARTIFACT_URL}
   unzip -o ${ARCHIVE_PATH} -d ${OUT_FOLDER}
