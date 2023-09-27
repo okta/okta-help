@@ -28,7 +28,7 @@ describe('ASA landing page (ja-JP)', () => {
     cy.hasCopyright()
     cy.hasLeftSideNav()
     cy.hasTOC(9)
-    cy.hasBreadcrumbs('アドバンストサーバーアクセス')
+    cy.hasBreadcrumbs('Advanced Server Access')
     cy.hasTopMenuBar(5, 11)
     cy.hasBodyContent()
     cy.hasTiles(6)
