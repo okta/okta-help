@@ -1,3 +1,3 @@
 require.config({
-    urlArgs: 't=638308424373571779'
+    urlArgs: 't=[TIMESTAMP]'
 });
