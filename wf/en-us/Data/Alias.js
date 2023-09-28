@@ -1104,8 +1104,8 @@ xmlAliasData += '    <Map Name=\"ext-servicenow-misc-authorization\" Link=\"topi
 xmlAliasData += '    <Map Name=\"ext-set-monitor-options\" Link=\"topics/workflows/build/set-monitor-options.htm\" ResolvedId=\"1345\" />';
 xmlAliasData += '    <Map Name=\"ext-set-schedule-options\" Link=\"topics/workflows/build/set-schedule-options.htm\" ResolvedId=\"1346\" />';
 xmlAliasData += '    <Map Name=\"ext-sftp\" Link=\"topics/workflows/connector-reference/sftp/sftp.htm\" ResolvedId=\"31073\" />';
-xmlAliasData += '    <Map Name=\"ext-sftp-method-downloadfile\" Link=\"topics/workflows/connector-reference/sftp/actions/downloadfile.htm\" ResolvedId=\"33146\" />';
-xmlAliasData += '    <Map Name=\"ext-sftp-method-uploadfile\" Link=\"topics/workflows/connector-reference/sftp/actions/uploadfile.htm\" ResolvedId=\"33147\" />';
+xmlAliasData += '    <Map Name=\"ext-sftp-method-download\" Link=\"topics/workflows/connector-reference/sftp/actions/downloadfile.htm\" ResolvedId=\"33146\" />';
+xmlAliasData += '    <Map Name=\"ext-sftp-method-upload\" Link=\"topics/workflows/connector-reference/sftp/actions/uploadfile.htm\" ResolvedId=\"33147\" />';
 xmlAliasData += '    <Map Name=\"ext-sftp-method-writefile\" Link=\"topics/workflows/connector-reference/sftp/actions/writefile.htm\" ResolvedId=\"33148\" />';
 xmlAliasData += '    <Map Name=\"ext-sftp-misc-authorization\" Link=\"topics/workflows/connector-reference/sftp/overview/authorization.htm\" ResolvedId=\"31074\" />';
 xmlAliasData += '    <Map Name=\"ext-shopify\" Link=\"topics/workflows/connector-reference/shopify/shopify.htm\" ResolvedId=\"30984\" />';
