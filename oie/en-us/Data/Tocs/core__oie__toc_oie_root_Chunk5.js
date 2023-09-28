@@ -1,0 +1,1 @@
+define({'https://help.okta.com/oie/en-us/Content/Topics/ReleaseNotes/archive/oie-relnotes-2021.htm':{i:[11],t:['2021'],b:['']},'https://help.okta.com/okta_help.htm?type=eu\u0026id=csh-user-home':{i:[1233],t:['Documentation for end users'],b:['']}});
