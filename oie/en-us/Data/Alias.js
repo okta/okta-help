@@ -628,7 +628,10 @@ xmlAliasData += '    <Map Name=\"csh-attribute-statements-saml\" Link=\"topics/a
 xmlAliasData += '    <Map Name=\"csh-set-default-app-redirect\" Link=\"topics/identity-engine/procedures/set-up-default-app-redirect.htm\" ResolvedId=\"5026\" />';
 xmlAliasData += '    <Map Name=\"ext-about-sign-in-flows\" Link=\"topics/identity-engine/policies/about-sign-in-flows.htm\" ResolvedId=\"5027\" />';
 xmlAliasData += '    <Map Name=\"ext-lcm-convert-user-group\" Link=\"topics/provisioning/lcm/lcm-convert-user-group.htm\" ResolvedId=\"16004\" />';
+xmlAliasData += '    <Map Name=\"csh-email-provider-main\" Link=\"topics/settings/custom-email-provider.htm\" ResolvedId=\"30000\" />';
 xmlAliasData += '    <Map Name=\"csh-campaigns\" Link=\"topics/identity-governance/access-certification/campaigns.htm\" ResolvedId=\"13020\" />';
+xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-identity-provider-permissions\" Link=\"topics/security/custom-admin-role/about-role-permissions.htm\" ResolvedId=\"-2147483648\" />';
+xmlAliasData += '    <Map Name=\"csh-configure-email-provider\" Link=\"topics/settings/custom-email-provider.htm#Add\" ResolvedId=\"1156\" />';
 xmlAliasData += '    <Map Name=\"csh-access-testing-tool\" Link=\"topics/identity-engine/policies/access-testing-tool.htm\" ResolvedId=\"1168\" />';
 xmlAliasData += '    <Map Name=\"csh-enroll-form-attributes\" Link=\"topics/identity-engine/policies/about-enrollment-form-attribute-rules.htm\" ResolvedId=\"5028\" />';
 xmlAliasData += '    <Map Name=\"csh-rt-questions\" Link=\"topics/identity-governance/access-requests/request-type-settings.htm#Question\" ResolvedId=\"1173\" />';

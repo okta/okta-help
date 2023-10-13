@@ -648,6 +648,7 @@ xmlAliasData += '    <Map Name=\"csh-apps-aiw-saml-advanced\" Link=\"topics/apps
 xmlAliasData += '    <Map Name=\"csh-attribute-statements-saml\" Link=\"topics/apps/aiw-saml-reference.htm\" ResolvedId=\"16003\" />';
 xmlAliasData += '    <Map Name=\"ext-lcm-convert-user-group\" Link=\"topics/provisioning/lcm/lcm-convert-user-group.htm\" ResolvedId=\"16004\" />';
 xmlAliasData += '    <Map Name=\"csh-campaigns\" Link=\"topics/identity-governance/access-certification/campaigns.htm\" ResolvedId=\"13020\" />';
+xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-identity-provider-permissions\" Link=\"topics/security/custom-admin-role/about-role-permissions.htm\" ResolvedId=\"-2147483648\" />';
 xmlAliasData += '    <Map Name=\"csh-rt-questions\" Link=\"topics/identity-governance/access-requests/request-type-settings.htm#Question\" ResolvedId=\"1173\" />';
 xmlAliasData += '    <Map Name=\"csh-rt-tasks\" Link=\"topics/identity-governance/access-requests/request-type-settings.htm#Task\" ResolvedId=\"1174\" />';
 xmlAliasData += '    <Map Name=\"csh-rt-timer\" Link=\"topics/identity-governance/access-requests/request-type-settings.htm#Timer\" ResolvedId=\"1196\" />';
