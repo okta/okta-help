@@ -671,6 +671,8 @@ xmlAliasData += '    <Map Name=\"csh-apps-add-app\" Link=\"topics/apps/apps-add-
 xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-iam-permissions\" Link=\"topics/security/custom-admin-role/about-role-permissions.htm#Identity_and_access_management_permissions\" ResolvedId=\"19029\" />';
 xmlAliasData += '    <Map Name=\"csh-lcm-assign-app-user\" Link=\"topics/provisioning/lcm/lcm-assign-app-user.htm\" ResolvedId=\"16006\" />';
 xmlAliasData += '    <Map Name=\"csh-lcm-assign-app-groups\" Link=\"topics/provisioning/lcm/lcm-assign-app-groups.htm\" ResolvedId=\"16007\" />';
+xmlAliasData += '    <Map Name=\"csh-optional-email\" Link=\"topics/identity-engine/authenticators/make-email-optional.htm\" ResolvedId=\"14001\" />';
+xmlAliasData += '    <Map Name=\"csh-skip-auto-enrolling\" Link=\"topics/identity-engine-upgrade/skip-auto-enrolling-email.htm\" ResolvedId=\"14002\" />';
 xmlAliasData += '    <Map Name=\"ext-permission-conditions\" Link=\"topics/security/custom-admin-role/permission-conditions.htm\" ResolvedId=\"19030\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
