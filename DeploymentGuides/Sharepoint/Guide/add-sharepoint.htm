@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:fileTags="Tags/okta-authors.Mark Cowan">
+   <head>
+      <link href="../../../../Resources/TableStyles/standard.css"
+            rel="stylesheet"
+            MadCap:stylesheetType="table"/>
+      <title>[%=Heading.Level1%] | Okta</title>
+   </head>
+   <body>
+      <h1>Add <MadCap:variable name="3rd Party Integrations.SharePoint On-Premises"/> in Okta</h1>
+      <h2>Before you begin</h2>
+      <ul>
+         <li>
+            <p>Install a supported version of Microsoft SharePoint:
+</p>
+            <ul style="list-style-type: circle;">
+               <li>SharePoint Foundation 2013</li>
+               <li> SharePoint Server 2013</li>
+               <li>SharePoint Server 2016
+</li>
+               <li>SharePoint Server 2019</li>
+            </ul>
+         </li>
+         <li>
+        Run the prerequisites from the SharePoint installer.
+</li>
+         <li>
+Fulfill hardware requirements.</li>
+         <li>
+            <p>Fulfill version-specific requirements:</p>
+            <table style="width: 100%;mc-table-style: url('../../../../Resources/TableStyles/standard.css');"
+                   class="TableStyle-standard"
+                   cellspacing="0">
+               <col class="TableStyle-standard-Column-Column1"/>
+               <col class="TableStyle-standard-Column-Column1"/>
+               <thead>
+                  <tr class="TableStyle-standard-Head-Header1">
+                     <th class="TableStyle-standard-HeadF-Column1-Header1">Version</th>
+                     <th class="TableStyle-standard-HeadD-Column1-Header1">Requirements</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr class="TableStyle-standard-Body-Body1">
+                     <td class="TableStyle-standard-BodyF-Column1-Body1">SharePoint People Picker (versions before 2.3.0.0)</td>
+                     <td class="TableStyle-standard-BodyD-Column1-Body1">Install .NET Framework 3.5+</td>
+                  </tr>
+                  <tr class="TableStyle-standard-Body-Body2">
+                     <td class="TableStyle-standard-BodyF-Column1-Body2">SharePoint People Picker version 2.3.0.0</td>
+                     <td class="TableStyle-standard-BodyD-Column1-Body2">Ensure your server supports TLS 1.2</td>
+                  </tr>
+                  <tr class="TableStyle-standard-Body-Body1">
+                     <td class="TableStyle-standard-BodyC-Column1-Body1">SharePoint 2013, 2016, or 2019</td>
+                     <td class="TableStyle-standard-BodyA-Column1-Body1">
+                        <p>Install either of the following: </p>
+                        <ul>
+                           <li>
+                              <p>.NET Framework 4.5+, which supports TLS 1.2</p>
+                           </li>
+                           <li>
+                              <p>.NET Framework 3.5+ and one of the patches provided <a href="https://social.msdn.microsoft.com/Forums/vstudio/en-US/cce555cc-cf23-4ad2-8a3b-0bc49cc17349/tls-12?forum=netfxbcl">here</a>
+                              </p>
+                           </li>
+                        </ul>
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+         </li>
+         <li>
+            <p>
+
+A valid API token for the Okta People Picker plugin to read users and groups from Okta. See <MadCap:xref href="../../../Security/API.htm">API</MadCap:xref>.</p>
+            <div class="note_cautionOkta">
+               <p class="noteContent">The API token is only visible upon creation and can't be retrieved later. If the token is lost, it must be revoked, regenerated, and reconfigured in the People Picker configuration.</p>
+            </div>
+         </li>
+      </ul>
+      <h2>Start this procedure</h2>
+      <ol>
+         <li>
+            <p>Add the <MadCap:variable name="3rd Party Integrations.SharePoint On-Premises"/> app. </p>
+            <p>Go to <span class="menucascade">
+                  <span class="uicontrol">Applications</span>
+                  <span class="uicontrol">Applications</span>
+                  <span class="uicontrol">Add Application</span>
+               </span> and search for the app.</p>
+         </li>
+         <li>
+            <p>From the <span class="wintitle">General</span> tab, go to <span class="uicontrol">App Settings</span> and fill in the appropriate fields. These fields are used to connect and send information as part of the SAML assertion to SharePoint:</p>
+            <p>
+               <img src="../../../../Resources/Images/sharepoint/add-sp-2.png"
+                    class="thumbnail"/>
+            </p>
+            <ul>
+               <li>
+                  <span class="uicontrol">SharePoint Web Application URL</span>: This points to the web application that is running on SharePoint. For example, <span class="userinput">https://app1</span>. There can be multiple apps running on SharePoint, each of which needs a SharePoint app within Okta.
+                    </li>
+               <li>
+                  <p>
+                     <span class="uicontrol">Application attributes</span>: Admins can send information about Okta user profile attributes to SharePoint for auditing or logging purposes. Sending any custom Okta attributes is also supported. This information isn't used for authentication or authorizing apps in SharePoint. Okta typically sends UPN and email data as part of the assertion.</p>
+                  <p>Acceptable formats for application attributes are:</p>
+                  <ul style="list-style-type: circle;">
+                     <li>
+                        <span class="uicontrol">Okta User Profile Attribute</span>: For example, <span class="userinput">firstName|${user.firstName}|http://okta.com/claims</span>
+                     </li>
+                     <li>
+                        <p>
+                           <span class="uicontrol">Imported Attribute</span>: For example, <span class="userinput">lastName|&lt;appId&gt;:${user.lastName}|http://okta.com/claims</span>
+                        </p>
+                        <p>You can obtain your app ID from your app's URL as follows:</p>
+                        <p>
+                           <img src="../../../../Resources/Images/sharepoint/add-sp-1.png"
+                                class="thumbnail"/>
+                        </p>
+                     </li>
+                  </ul>
+               </li>
+               <li>
+                  <span class="uicontrol">Group filter</span>: This field is sent as part of a SAML assertion. This is used for checking permissions in SharePoint.
+                    </li>
+            </ul>
+         </li>
+         <li>
+            <p>Go to <span class="menucascade">
+                  <span class="uicontrol">
+                     <MadCap:variable name="3rd Party Integrations.SharePoint On-Premises"/> app</span>
+                  <span class="uicontrol">Sign On</span>
+                  <span class="uicontrol">View Setup Instructions</span>
+               </span> to install and configure SharePoint People Picker 2.3.0.0.</p>
+            <p>
+               <img src="../../../../Resources/Images/sharepoint/add-sp-4.png"
+                    class="thumbnail"/>
+            </p>
+         </li>
+      </ol>
+      <div class="noteOkta">
+         <p class="noteContent">Okta Group Push isn't supported with the <MadCap:variable name="3rd Party Integrations.SharePoint On-Premises"/> application. </p>
+         <p class="noteContent">
+            <MadCap:variable name="okta-variables.ProductName"/> recommends that you use only AD groups or only Okta groups to configure authorization to your SharePoint server. Configuring Push Groups to your Active Directory and attempting to use these groups for SharePoint authorization results in problems accessing the application.</p>
+      </div>
+      <h2>Next steps</h2>
+      <p>
+         <MadCap:xref href="add-okta-claim-provider.htm">Configure Okta as Claims Provider in [%=3rd Party Integrations.SharePoint On-Premises%]</MadCap:xref>
+      </p>
+   </body>
+</html>

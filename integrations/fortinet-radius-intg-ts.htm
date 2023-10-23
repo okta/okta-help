@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:fileTags="Tags/okta-authors.Patrick Calnan" xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:conditions="MultiProdPublish.Classic+OIE">
+    <head><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1>Troubleshoot the Fortinet Application integration</h1>
+        <div>
+            <p>You can use the Fortinet command line interface (CLI) to debug issues. </p>
+            <h2>Attempt to Authenticate and Review Messages from the Console</h2>
+            <p id="cause1">Attempt to  authenticate failed.</p>
+            <div id="solution1">
+                <p>From the CLI console, run the following commands:<br /><blockquote><pre>
+# diag debug application fnbamd 7
+# diag debug enable</pre></blockquote></p>
+                <h3>Unsuccessful Results Sample</h3>
+                <p>Bad User or Bad Credentials</p><pre style="font-size:9pt">
+[1943] handle_req-Rcvd auth req 1189741811 for baduser in 
+       Okta Radius Group opt=00000500 prot=10
+[608] fnbamd_pop3_start-baduser
+[539] __fnbamd_cfg_get_radius_list_by_group-Loading RADIUS 
+      server 'Okta RADIUS' for usergroup 
+      'Okta Radius Group' (3)
+[314] radius_start-Opened radius socket 12
+[1203] fnbamd_radius_auth_send-Compose RADIUS request
+[1427] fnbamd_radius_auth_send-Sent radius req to server 
+       'Okta RADIUS': fd=12,  IP=10.20.251.19 code=1 
+       id=135 len=122 user="baduser" using PAP
+[682] auth_tac_plus_start-Didn't find tac_plus servers (0)
+[402] ldap_start-Didn't find ldap servers (0)
+[460] create_auth_session-Total 1 server(s) to try
+[1626] fnbamd_radius_auth_validate_pkt-RADIUS resp code 3
+[2580] fnbamd_auth_handle_radius_result--&gt;Result for 
+       radius svr 'Okta RADIUS' 10.20.251.19(0) is 1
+[180] fnbamd_comm_send_result-Sending result 1 
+       (error 0) for req 1189741811
+[602] destroy_auth_session-delete session 1189741811
+[1943] handle_req-Rcvd auth req 1189741812 for baduser 
+       in Special1 opt=00000500 prot=10
+[608] fnbamd_pop3_start-baduser
+[304] radius_start-Didn't find radius servers (0)
+[682] auth_tac_plus_start-Didn't find tac_plus servers (0)
+[402] ldap_start-Didn't find ldap servers (0)
+[452] create_auth_session-Error starting authentication
+[1962] handle_req-Error creating session
+[180] fnbamd_comm_send_result-Sending result 3 
+      (error 0) for req 1189741812</pre>
+                <h3><a name="Successf"></a>Successful Results Samples</h3>
+                <p>Good Credentials Entered and Challenge Received</p><pre style="font-size:9pt">
+[1943] handle_req-Rcvd auth req 1189741817 for test in Okta Radius Group opt=00000500 prot=10
+[608] fnbamd_pop3_start-test
+[539] __fnbamd_cfg_get_radius_list_by_group-Loading RADIUS 
+      server 'Okta RADIUS' for usergroup 
+      'Okta Radius Group' (3)
+[314] radius_start-Opened radius socket 12
+[1203] fnbamd_radius_auth_send-Compose RADIUS request
+[1427] fnbamd_radius_auth_send-Sent radius req to server 
+       'Okta RADIUS': fd=12, IP=10.20.251.19 code=1 
+       id=143 len=119 user="test" using PAP
+[682] auth_tac_plus_start-Didn't find tac_plus servers (0)
+[402] ldap_start-Didn't find ldap servers (0)
+[460] create_auth_session-Total 1 server(s) to try
+[1626] fnbamd_radius_auth_validate_pkt-RADIUS 
+       resp code 11
+[2580] fnbamd_auth_handle_radius_result--&gt;Result 
+       for radius svr 'Okta RADIUS' 10.20.251.19(0) is 2
+[180] fnbamd_comm_send_result-Sending 
+      result 2 (error 0) for req 1189741817</pre>
+                <p>Security Question Selected for Challenge Method</p><pre style="font-size:9pt">
+[2161] handle_req-Rcvd chal rsp for req 1189741817
+[1203] fnbamd_radius_auth_send-Compose RADIUS request
+[1427] fnbamd_radius_auth_send-Sent radius req to server 
+       'Okta RADIUS': fd=12, IP=10.20.251.19 
+       code=1 id=144 len=209 user="test" using PAP
+[1626] fnbamd_radius_auth_validate_pkt-RADIUS resp code 11
+[2580] fnbamd_auth_handle_radius_result--&gt;Result for 
+       radius svr 'Okta RADIUS' 10.20.251.19(0) is 2
+[180] fnbamd_comm_send_result-Sending result 2 
+      (error 0) for req 1189741817</pre>
+                <p>Security Question Answered Successfully</p><pre style="font-size:9pt">
+[2161] handle_req-Rcvd chal rsp for req 1189741817
+[1203] fnbamd_radius_auth_send-Compose RADIUS request
+[1427] fnbamd_radius_auth_send-Sent radius req to server 
+       'Okta RADIUS': fd=12, IP=10.20.251.19 
+       code=1 id=145 len=209 user="test" using PAP
+[1626] fnbamd_radius_auth_validate_pkt-RADIUS resp code 2
+[2580] fnbamd_auth_handle_radius_result--&gt;Result
+       for radius svr 'Okta RADIUS' 10.20.251.19(0) is 0
+[2611] fnbamd_auth_handle_radius_result-Skipping 
+       group matching
+[863] find_matched_usr_grps-Skipped group matching
+[180] fnbamd_comm_send_result-Sending result 0 
+       (error 0) for req 1189741817
+[602] destroy_auth_session-delete session 1189741817
+[2251] handle_req-Rcvd 7 req
+[301] fnbamd_acct_start_START-Error starting acct
+[1288] create_acct_session-Error start acct type 7
+[2265] handle_req-Error creating acct session 7</pre>
+                <p>Successful Sign Out</p><pre style="font-size:9pt">
+[2251] handle_req-Rcvd 8 req
+[359] fnbamd_acct_start_STOP-Error starting acct
+[1288] create_acct_session-Error start acct type 8
+[2265] handle_req-Error creating acct session 8</pre>
+            </div>
+            <h2>Capture Packets</h2>
+            <p id="cause2">Administrators need to capture packets.</p>
+            <div id="solution2">
+                <p>From the CLI Console, run the following command:</p>
+                <blockquote><pre>
+# diag sniffer packet any 'port 1812' 6 0 a</pre>
+                </blockquote>
+                <p>Substitute the port used with the UDP Port configured in your environment.</p>
+                <h3><a name="Unsucces2"></a>Unsuccessful Results Sample</h3>
+                <p>Bad User or Bad Credentials</p>
+                <p>
+                    <img src="../../Resources/Images/fortinet-21.png" />
+                </p>
+                <h3><a name="Successf2"></a>Successful Results Samples</h3>
+                <p>Good Credentials Entered and Challenge Received</p>
+                <p>
+                    <img src="../../Resources/Images/fortinet-22.png" />
+                </p>
+                <p>Security Question Selected for Challenge Method</p>
+                <p>
+                    <img src="../../Resources/Images/fortinet-23.png" />
+                </p>
+                <p>Security Question Answered Successfully</p>
+                <p>
+                    <img src="../../Resources/Images/fortinet-24.png" />
+                </p>
+            </div>
+        </div>
+    </body>
+</html>

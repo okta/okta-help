@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/deploy-msa-create-vm-disk.htm" /><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <div>
+            <h1>Create temporary VM to host disk</h1>
+            <div>
+                <p>To create a Microsoft Azure virtual machine and use it to create a disk.</p>
+            </div>
+            <ul class="tabs" data-tabs="data-tabs" data-deep-link="true" id="production-tabs">
+                <li class="tabs-title is-active"><a href="#console-panel" aria-selected="true">Console</a>
+                </li>
+                <li class="tabs-title"><a href="#command-panel">Command Line</a>
+                </li>
+            </ul>
+            <div class="tabs-content" data-tabs-content="production-tabs">
+                <div class="tabs-panel is-active" id="console-panel">
+                    <ol>
+                        <li>Sign in or return to the Microsoft Azure Portal.</li>
+                        <li>From the menu, select <span class="uicontrol">All Services</span> and search for <span class="uicontrol">Virtual Machines</span>.<br />Alternatively, select <span class="uicontrol">Virtual Machines</span> from the favorites list.</li>
+                        <li>Click <span class="uicontrol">Add</span>.</li>
+                        <li>On the <span class="wintitle">Create a virtual machine</span> page:<ul><li>Select a resource group from the Resource group drop-down box.</li><li>In the Virtual machine name field, enter a name for the new VM, such as Upload-OAG-VHD.</li><li>Region should be pre-populated, if required select the region containing the resource group created in the prior task.</li><li>From the Image drop-down box, select <span class="uicontrol">Ubunto Server 18.04 LTS</span>. Note, Microsoft frequently changes resource names. Select a version Ubunto 18.04 image.</li><li>For Size, select <span class="uicontrol">Standard D2s V3</span>.</li><li>In the Administrator Account section, select:<ul><li>Authentication Type: <span class="uicontrol">Password</span></li><li>Username: <span class="uicontrol">okta</span></li><li>Password: <span class="uicontrol">AlwaysOn@123</span></li><li>Confirm Password: <span class="uicontrol">AlwaysOn@123</span></li></ul><div class="noteOkta"><p class="noteContent">The username and password mentioned are for illustration purposes only.</p></div></li></ul></li>
+                        <li>Scroll to the Inbound Port rules section and ensure that <span class="uicontrol">Select inbound ports</span> field is set to <span class="uicontrol">ssh(22)</span>.</li>
+                        <li>Click <span class="uicontrol">Next: Disks &gt; </span>.</li>
+                        <li>Click <span class="uicontrol">Create and attach a new disk</span>.</li>
+                        <li>Click <span class="uicontrol">Change disk size</span> and select <span class="uicontrol">512gb.</span> </li>
+                        <li>Leave all other fields unchanged and click <span class="uicontrol">Ok</span>. </li>
+                        <li>Click <span class="uicontrol">Next: Networking &gt; </span>.</li>
+                        <li>Ensure that <span class="uicontrol">Select inbound ports</span> is set to <span class="uicontrol">ssh(22)</span>.</li>
+                        <li>Click <span class="uicontrol">Create and review</span> and wait for the validation process to complete.</li>
+                        <li>Click <span class="uicontrol">Create</span>. </li>
+                        <li>Once <span class="uicontrol">Deployment is Complete</span> is displayed, click <span class="uicontrol">Goto Resource</span>.</li>
+                        <li>Examine the new virtual machine and note its external IP address.</li>
+                    </ol>
+                </div>
+                <div class="tabs-panel" id="command-panel">
+                    <ol>
+                        <li>Create a virtual machine using the <span class="code">az vm create</span> command:<p><span class="code">
+az vm create --name &lt;name&gt; --resource-group &lt;resource-group&gt; --location &lt;region&gt; \
+     --image "ubuntults" --size "Standard_D2s_v3" --data-disk-sizes-gb 500 \
+     --authentication-type "password" --admin-username "okta" --admin-password "AlwaysOn@123"</span></p><ul><li><span class="code">&lt;name&gt;</span> is an appropriate name</li><li><span class="code">&lt;region&gt;</span> is the region to hold the VM</li><li><span class="code">&lt;name-of-vm&gt;</span> is an name for the VM</li><li><span class="code">&lt;virtual-disk&gt;</span> is the name of the virtual disk to associate with the VM</li><li><span class="code">&lt;resource-group&gt;</span> is the name of the previously created resource group to house the VM</li></ul> <p>Here is an example of running the <span class="code">az vm create</span> command with parameters populated with values:</p><p><span class="code">az vm create --name "Upload-OAG-VHD" \
+    --resource-group "AccessGateway" --location "eastus" --image "ubuntults" \
+    --size "Standard_D2s_v3" --data-disk-sizes-gb 500 \
+    --authentication-type "password" --admin-username "okta" --admin-password "AlwaysOn@123</span></p><p>Running the <span class="code">az vm create</span> command produces the following results:</p>
+								
+								<p><span class="codeblock">--running
+										. . .
+{- Finished ..
+    "fqdns": "",
+    "id": "/subscriptions/. . . /resourceGroups/AccessGateway/providers/Microsoft.Compute/virtualMachines/Upload-OAG-VHD",
+    "location": "eastus2",
+    "macAddress": "00-0D-3A-E4-AB-31",
+    "powerState": "VM running",
+    "privateIpAddress": "10.0.0.4",
+    "publicIpAddress": "40.79.32.220",
+    "resourceGroup": "AccessGateway",
+    "zones": ""
+}
+</span></p><p>Examine the result and note the external IP address.</p></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h3>Related topics</h3>
+            <p><a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resources-cli">Manage Azure resources using Azure CLI.</a>
+            </p>
+            <p><a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resource-groups-portal">Manage Azure resource groups using the Azure portal</a>.</p>
+        </div>
+        <div>
+            <h2>Next steps</h2>
+            <p>
+                <MadCap:xref href="deploy-msa-prepare-temp-disk.htm">Prepare temporary VM disk</MadCap:xref>
+            </p>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:fileTags="Tags/okta-authors.Ian Hakes">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/wf/en-us/Content/Topics/Workflows/connector-reference/box/overviews/limitations-box.htm" /><title>[%=Heading.Level1%]</title>
+        <meta name="coveo:connector" content="box" />
+        <meta name="coveo:method-description" content="Known issues and limitations." />
+        <meta name="coveo:method-name" content="limitations-box" />
+        <meta name="coveo:method-type" content="limitations" />
+    </head>
+    <body>
+        <h1>Known issues and limitations </h1>
+        <p>The following known limitations to the <MadCap:variable name="workflows_connectors.Box" /> connector that may impact your flows.</p>
+        <ul>
+            <li>
+                <p>There is a limit of one Webhook for each of the following items: file or folder,  application,  authenticated user.
+
+After a Webhook is attached to an item, no second Webhook can be attached even if the second Webhook  responds to a different trigger event.</p>
+            </li>
+            <li>
+                <p>There is a limit of 1000 Webhooks for an application for a user.
+
+To create more Webhooks for a user, create another application or update existing Webhooks to apply to higher levels in the folder tree.
+</p>
+            </li>
+            <li>
+                <p> Connectors use Webhooks V2 and cannot be created on the root folder with ID 0. 
+See <a href="https://developer.box.com/guides/webhooks/triggers/">Box</a>.</p>
+            </li>
+            <li>
+                <p>Payload includes an object response and additional context information. </p>
+            </li>
+        </ul>
+        <h2>Additional information</h2>
+        <ul>
+            <li>
+                <p>The <MadCap:variable name="workflows_connectors.Box" /> application re-sends a payload up to 10 times after a notification delivery failure.</p>
+            </li>
+            <li>
+                <p>Deleting a <MadCap:variable name="workflows_connectors.Box" /> application automatically deletes all Webhooks associated with the application.</p>
+            </li>
+            <li>
+                <p>Deleting all active Access Tokens associated with a Webhook will automatically delete the Webhook. This includes Developer Tokens and password resets.</p>
+            </li>
+            <li>
+                   If the last successful delivery was 30 days ago and the period between the last successful delivery date and the last trigger date was more than 14 days, the Webhook is automatically deleted.</li>
+            <li>When a Webhook is deleted, Box sends a Webhook payload with the WEBHOOK&gt;DELETED event name to the notification URL. The body of the payload includes the following information:</li>
+        </ul>
+        <MadCap:codeSnippet>
+            <MadCap:codeSnippetCopyButton />
+            <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve" style="mc-code-lang: HTML;">"additional_info": {
+
+  "reason": "auto_cleanup"
+
+} </MadCap:codeSnippetBody>
+        </MadCap:codeSnippet>
+        <h3>Removing and restoring files and folders </h3>
+        <p>Users may receive a conflict error message after removing and restoring <MadCap:variable name="workflows_connectors.Box" /> files and folders and changing the status of Workflows flow that contains the <MadCap:variable name="workflows_connectors.Box" /> events. </p>
+        <p><span class="uicontrol">Problem</span>:</p>
+        <p>A user makes the following changes to an active Workflows flow  that contains a <MadCap:variable name="workflows_connectors.Box" /> event:</p>
+        <ul>
+            <li>
+                File or folder that is used in the flow (by ID) is moved to the <MadCap:variable name="workflows_connectors.Box" /> trash bin. </li>
+            <li> Workflow flow is deactivated.</li>
+            <li>
+                    File or folder is restored from the <MadCap:variable name="workflows_connectors.Box" /> trash bin.
+                </li>
+            <li>
+                  Workflow flow is activated. </li>
+            <li>User receives a 409 Conflict error message.</li>
+        </ul>
+        <p> When the file or folder is moved to the trash bin and then restored, the associated Webhook is also restored. In this case, there is an additional file or folder associated to the Webhook. <MadCap:variable name="workflows_connectors.Box" /> limits the number of files and folders to one per Webhook. </p>
+        <p><span class="uicontrol">Resolution</span>:</p>
+        <ol>
+            <li>
+                <p>Remove, rather than delete, the restored Webhook.</p>
+            </li>
+            <li>
+                <p>In the Event card in which the flow failed to activate,  specify the file or folder in the Target Item ID field.</p>
+            </li>
+            <li>
+                <p>Using the Custom API Action card, configure the card to make a call to list all Webhooks. </p>
+            </li>
+            <li>
+                <p>Locate the ID of the Webhook that is the target of file or folder.</p>
+            </li>
+            <li>
+                <p>Using the Custom API Action card, make a call to delete the ID of the Webhook.</p>
+            </li>
+        </ol>
+        <MadCap:snippetBlock src="../box_seealso.flsnp" />
+</body> 
+</html>

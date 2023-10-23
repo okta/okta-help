@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/learn-about-oag-policy.htm" /> <meta name="description" content="Okta Access Gateway - This topic introduces the concepts of developing and managing access control policy" /><meta name="keywords" content="Okta, Access Gateway, Access Control, Policy, Fine grained access control policy" /><link href="../../Resources/TableStyles/standard.css" rel="stylesheet" MadCap:stylesheetType="table" /><title>[%=Heading.Level1%]</title></head>
+    <body>
+        <h1>Access  policies</h1>
+        <MadCap:snippetBlock src="../../Resources/Snippets/access-gateway/admin.policy.overview.flsnp" />
+        <div>
+            <h2><a name="Policy_Composition"></a>Policy composition</h2>
+            <p>Policy is composed of three elements:<ul><li><MadCap:xref href="#Resource">Resources</MadCap:xref> - The elements of an application where a policy is applied.</li><li><MadCap:xref href="#Session">Session data</MadCap:xref> - The application data used to assist making policy decisions.</li><li><MadCap:xref href="#Policy_Rules">Policy rules</MadCap:xref> - A set of rules combining resources and session data and determining access rights.</li></ul></p>
+            <h3 id="resources"><a name="Resource"></a>Resources</h3>
+            <p>Policies are meant to protect resources, and resources are typically defined as application URLs. <MadCap:variable name="okta-feature-names.Access Gateway" /> resources can use patterns to match dynamic or expressive application URLs and can be refined further to identify matching semantics.</p>
+            <p><MadCap:variable name="okta-feature-names.Access Gateway" /> uses location matching to provide resource matching. It's implemented using the following logic:</p><span class="codeblock">location &lt;URL matching pattern&gt;{
+    #rule comment
+    &lt;policy rule&gt;'REGEX'(Against Session Data);
+}</span>
+            <div class="noteOkta">
+                <p class="noteContent">See <a href="http://nginx.org/en/docs/http/ngx_http_core_module.html#location">NGINX Module Guide</a>.</p>
+            </div>
+            <h3 id="session-data"><a name="Session"></a>Session Data</h3>
+            <p><MadCap:variable name="okta-feature-names.Access Gateway" /> generates a server-side session after authenticating a user. The session is transitory and only lasts for the duration of the user’s session. The session holds key/value pairs. These pairs typically originate from the IDP Repository. The session data is used to match (Regex) against when constructing the <MadCap:annotation MadCap:createDate="2020-08-20T14:36:25.4512306-04:00" MadCap:creator="naini.khajanchi" MadCap:initials="NA" MadCap:comment="allow rules as in policy rules?" MadCap:editor="naini.khajanchi" MadCap:editDate="2020-08-20T14:36:32.5520359-04:00">allow </MadCap:annotation>rules.</p><span class="codeblock">
+Example Session:
+'UserName=test.user@domain.com RemoteIP=68.203.82.29 RelayDomain=app1.oagwdev.2.domain.com firstName=Test lastName=User department=123 Groups=Test  Group:Test Admin  Group:Test Authorizer Group:Everyone:'            </span>
+            <div class="noteOkta">
+                <p class="noteContent">
+                    The result of each policy is audited and can be viewed in the <MadCap:variable name="okta-feature-names.Access Gateway CMD" /> monitoring menu.</p>
+                <p class="noteContent">Use the <a href="https://regex101.com/">Regex Expression Tool </a>for more information on REGEX or to test/compare policy expression against session data.
+                </p>
+            </div>
+            <h3><a name="Policy_Rules"></a>Policy Rules</h3>
+            <p><MadCap:variable name="okta-feature-names.Access Gateway" /> uses Perl-Compatible Regular Expressions (PCRE) for the Protected Rules.</p>
+            <table style="mc-table-style: url('../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                <col style="width: 302px;" class="TableStyle-standard-Column-Column1" />
+                <col style="width: 50%" class="TableStyle-standard-Column-Column1" />
+                <thead>
+                    <tr class="TableStyle-standard-Head-Header1">
+                        <th class="TableStyle-standard-HeadF-Column1-Header1">
+						Rule
+					</th>
+                        <th class="TableStyle-standard-HeadD-Column1-Header1">
+						Description
+					</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1" style="font-weight: bold;">Protected</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <p><MadCap:variable name="okta-feature-names.Access Gateway" /> requires an authenticated user session.
+						</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2" style="font-weight: bold;">Not Protected</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">
+                            <p><MadCap:variable name="okta-feature-names.Access Gateway" /> doesn't enforce a user session.
+ Note that headers are not passed to the application with Not Protected policies.						</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1" style="font-weight: bold;">Protected Rule</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <p><MadCap:variable name="okta-feature-names.Access Gateway" /> requires a user session. Regex matches against session data. If the REGEX <em style="font-style: normal;">finds</em> your expression, <MadCap:variable name="okta-feature-names.Access Gateway" /> allows or denies access to the location.
+						</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyC-Column1-Body2" style="font-weight: bold;">Adaptive Rule</td>
+                        <td class="TableStyle-standard-BodyA-Column1-Body2">
+                            <p>Behavior is identical to Not Protected but also provides headers.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd">
+    <head>
+    </head>
+    <body>
+        <h1>Build an _authping flow</h1>
+        <p>An <span class="wintitle">_authping</span> flow is a system flow used by the platform to call an API and check for valid authorization. </p>
+        <p> This action acts as a validation check and runs when you first authenticate the connector, add new connectors, or open flows. </p>
+        <p> The flow must be named <span class="wintitle">_authping</span> for the platform to recognize it. End users don't see the <span class="wintitle">_authping</span> flow  as only the platform uses it. The flow has no options or input fields. </p>
+        <p>Here's an example of what a complete <span class="wintitle">_authping</span> flow looks like in <MadCap:variable name="okta-feature-names.Okta Workflows" />.</p>
+        <p>
+            <img src="../../../Resources/Images/Workflows/connector-builder/cb-capia-authping.png" class="thumbnail" />
+        </p>
+        <MadCap:snippetBlock src="resources/common-flow-prereqs.flsnp" />
+        <h2>Start this task<br /></h2>
+        <ol>
+            <li>
+                <p>Create a new flow under the <span class="uicontrol">Flows</span> tab by clicking on <span class="uicontrol">+ New Flow</span> in the upper right corner of the page.</p>
+            </li>
+            <li>
+                <p>At the far left of the page, click <span class="uicontrol">Authping</span>.</p>
+            </li>
+            <li>
+                <p>Click the <span class="uicontrol">Save</span> button in the toolbar and name the flow <code>_authping</code>. Note that <code>_authping</code> is a reserved name and must be exact.</p>
+            </li>
+            <li>
+                <p>In the flow description field type <code>Connection health check</code>, check the <span class="uicontrol">Save all data that passes through the Flow</span> box, and click <span class="uicontrol">Save</span>.</p>
+            </li>
+            <li>
+                <p>Add an Error Handling If Error card as the first card in the flow.</p>
+            </li>
+            <li>
+                <p>Add a Flow Control Call Flow card inside the Try section of the card.</p>
+            </li>
+            <li>
+                <p>Click on the <span class="uicontrol">Choose Flow</span> button and select the <span class="uicontrol">httpHelper</span> flow created previously. The card will automatically populate with the inputs defined in the <span class="uicontrol">httpHelper</span> flow.</p>
+            </li>
+            <li>
+                <p>Manually enter the relative url of the endpoint to use as a “ping”.  The endpoint should require authorization from the server, and the ping response should contain a small packet of data including a standard HTTP status code.</p>
+            </li>
+            <li>
+                <p>Manually enter a request method (GET, PATCH, POST, PUT, or DELETE).</p>
+            </li>
+            <li>
+                <p>Enter any additional information required for the call in the query, headers, or body field.  You may need to add an Object Construct card before the Call Flow card to build out any necessary objects.</p>
+            </li>
+            <li>
+                <p>For the outputs on the Helper Flow card, you’ll need to define the same keys as on the <span class="uicontrol">httpHelper</span> flow’s outputs:</p>
+                <ul>
+                    <li>
+                        <p>status_code (Number)</p>
+                    </li>
+                    <li>
+                        <p>headers (Object)</p>
+                    </li>
+                    <li>
+                        <p>body (Object)</p>
+                    </li>
+                </ul>
+                <p MadCap:conditions="Primary.do-not-publish">On the body object, you’ll need to further define a message key as defined in the <span class="uicontrol">httpHelper</span> Flow outputs.</p>
+            </li>
+            <li>
+                <p>Add a Flow Control Assign card to the right of the Call Flow card that is inside the If Error function. Click <span class="uicontrol">Click or drop here to create</span> and name the field <span class="uicontrol">message</span>.</p>
+            </li>
+            <li>
+                <p>Manually add a success message in the new field.  For example: <code>This account is successfully connected</code>.</p>
+            </li>
+            <li>
+                <p>Click on the <span class="uicontrol">View Outputs</span> link at the top right of the Error If card to expand the card’s outputs section.</p>
+            </li>
+            <li>
+                <p>In the outputs section, click <span class="uicontrol">Click or drag to create</span> and enter <code>status_code</code>.  Two inputs will appear that read <span class="uicontrol">Drag output here</span>.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">status_code</span> output field from the Call Flow card into the top of the two inputs under the <span class="uicontrol">status_code</span> field.</p>
+            </li>
+            <li>
+                <p>In the outputs section,  click <span class="uicontrol">Click or drag to create</span> and enter <code>message</code>.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">message</span> output field from the Assign card into the top of the two inputs under the <span class="uicontrol">message</span> field.</p>
+            </li>
+            <li>
+                <p>Select the dropdown at the top of the If Error card and select <span class="uicontrol">If Error</span>.  This is where any service specific error handling can be managed.</p>
+            </li>
+            <li>
+                <p>Depending on the service, add additional keys to the <span class="uicontrol">Error</span> object in the left panel of the If Error card to pull the status code and error message from the object returned by the service.  Add keys by clicking <span class="uicontrol">Enter key name</span>.</p>
+            </li>
+            <li>
+                <p>Drag these new keys into the corresponding outputs of the If Error card.</p>
+            </li>
+            <li>
+                <p>Add a True/False Compare card to the right of the Error Handling If Error function card.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">status_code</span> field from the If Error card outputs into the <span class="uicontrol">value a</span> field of the Compare card, and make sure the comparison is set to <span class="uicontrol">equal to</span>.</p>
+            </li>
+            <li>
+                <p>In the <span class="uicontrol">value b</span> field, enter the status code of a successful request. In most cases, this will be <code>200</code>.</p>
+            </li>
+            <li>
+                <p>On the True/False Compare card, to name the output field <span class="uicontrol">working</span>, click the field’s dropdown, then click <span class="uicontrol">customize</span>.  Note that the naming of these fields is a best practice and not a requirement.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">working</span> output from the Compare card into the <span class="uicontrol">working</span> field on the Return Status card.</p>
+            </li>
+            <li>
+                <p>Add an Object Construct card.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Click or drop here to create</span> and add a label named <code>statusCode</code>.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">status_code</span> field from the If Error card outputs into the new <span class="uicontrol">statusCode</span> field of the Construct card.</p>
+            </li>
+            <li>
+                <p>Add another input field to the Construct card and name it <span class="uicontrol">body</span>.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">message</span> output field from the Assign If card into the <span class="uicontrol">body</span> field on the Construct card.</p>
+            </li>
+            <li>
+                <p>On the Object Construct card, rename the output field to <span class="uicontrol">serviceResponse</span>.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">serviceResponse</span> output from the Construct card into the <span class="uicontrol">serviceResponse</span> field on the Return Status card.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">auth</span> object from the Connector Authping card to the <span class="uicontrol">Connection</span> input field of the Call Flow card.</p>
+            </li>
+            <li MadCap:conditions="Primary.do-not-publish">
+            </li>
+            <li>
+                <p MadCap:conditions="Primary.do-not-publish">Add a Branching Assign If card to the Flow.</p>
+            </li>
+            <li>
+                <p MadCap:conditions="Primary.do-not-publish">In the <span class="uicontrol">value b</span> field, enter the status code of a successful request. In most cases, this will be <code>200</code>.</p>
+            </li>
+            <li>
+                <p MadCap:conditions="Primary.do-not-publish">In if a bad connection occurs, add a “failed” message to the <span class="uicontrol">value if false</span> field.  Depending on the service you’re working with, you should be able to pull the message from the Call Flow <span class="uicontrol">body</span> field by adding an extensible key to the <span class="uicontrol">body</span> output field.  Click on the area just below the <span class="uicontrol">body</span> output where it says ‘Enter key name here’.  You can then drag that field into the ‘value if false’ field.</p>
+            </li>
+            <li>
+                <p MadCap:conditions="Primary.do-not-publish">Add an Object Construct card after the Call Flow card.</p>
+            </li>
+            <li>
+                <p MadCap:conditions="Primary.do-not-publish">Click on the area that reads <span class="uicontrol">Click or drop here to create</span> and add the label <code>working</code>.</p>
+            </li>
+            <li>
+                <p MadCap:conditions="Primary.do-not-publish">Change the data type to True/False, and select <span class="uicontrol">True</span> from the resulting dropdown.</p>
+            </li>
+            <li>
+                <p MadCap:conditions="Primary.do-not-publish">Add another input field on the Construct card using dot notation labeled <code>serviceResponse.statusCode</code>.</p>
+            </li>
+            <li>
+                <p MadCap:conditions="Primary.do-not-publish">Drag the <span class="uicontrol">status_code</span> output field from the Call Flow card into the <span class="uicontrol">serviceResponse.statusCode</span> field.</p>
+            </li>
+            <li>
+                <p MadCap:conditions="Primary.do-not-publish">Add another input field on the Construct card using dot notation labeled <code>serviceResponse.body</code>.</p>
+            </li>
+            <li>
+                <p MadCap:conditions="Primary.do-not-publish">Manually add a success message to the <span class="uicontrol">serviceResponse.body</span> field.  For example, <code>This account is successfully connected</code>.</p>
+            </li>
+            <li>
+                <p MadCap:conditions="Primary.do-not-publish">Rename the output on the Construct card to <code>valid_connection</code>.</p>
+            </li>
+            <li>
+                <p MadCap:conditions="Primary.do-not-publish">Add another Object Construct card.</p>
+            </li>
+            <li>
+                <p MadCap:conditions="Primary.do-not-publish">Click on the area that reads <span class="uicontrol">Click or drop here to create</span> and add the label <code>working</code>.</p>
+            </li>
+            <li>
+                <p MadCap:conditions="Primary.do-not-publish">Change the data type to True/False, and select <span class="uicontrol">False</span> from the resulting dropdown.</p>
+            </li>
+            <li>
+                <p MadCap:conditions="Primary.do-not-publish">Add another input field on the second Construct card using dot notation labeled <span class="uicontrol">serviceResponse.statusCode</span>.</p>
+            </li>
+            <li>
+                <p MadCap:conditions="Primary.do-not-publish">Drag the <span class="uicontrol">status_code</span> output field from the Call Flow card into the <span class="uicontrol">serviceResponse.statusCode</span> field.</p>
+            </li>
+            <li>
+                <p MadCap:conditions="Primary.do-not-publish">Add another input field on the second Construct card using dot notation labeled <span class="uicontrol">serviceResponse.body</span>.</p>
+            </li>
+            <li>
+                <p MadCap:conditions="Primary.do-not-publish">Drag the message key from the body output on the Call Flow card into the <span class="uicontrol">serviceResponse.body</span> input on the second Construct card.</p>
+            </li>
+            <li>
+                <p MadCap:conditions="Primary.do-not-publish">Rename the output on the second Construct card to <code>invalid_connection</code>.</p>
+            </li>
+            <li>
+                <p MadCap:conditions="Primary.do-not-publish">Add a Branching Assign If card.</p>
+            </li>
+            <li>
+                <p MadCap:conditions="Primary.do-not-publish">Drag the <span class="uicontrol">status_code</span> output field from the Call Flow card into the <span class="uicontrol">value a</span> field.</p>
+            </li>
+            <li>
+                <p MadCap:conditions="Primary.do-not-publish">Change the comparison dropdown to <span class="uicontrol">equal to</span>.</p>
+            </li>
+            <li>
+                <p MadCap:conditions="Primary.do-not-publish">In the <span class="uicontrol">value b</span> input, manually enter the expected status code of a valid request.  This is usually 200 or 201.</p>
+            </li>
+            <li>
+                <p MadCap:conditions="Primary.do-not-publish">Drag the <span class="uicontrol">valid_connection</span> output from the first Construct card into the <span class="uicontrol">value if true</span> input on the Assign If card.</p>
+            </li>
+            <li>
+                <p MadCap:conditions="Primary.do-not-publish">Drag the <span class="uicontrol">invalid_connection</span> output from the second Construct card into the <span class="uicontrol">value if false</span> input on the Assign If card.</p>
+            </li>
+            <li>
+                <p MadCap:conditions="Primary.do-not-publish">Rename the output on the Assign If card to <span class="uicontrol">authping_return</span>.</p>
+            </li>
+            <li>
+                <p MadCap:conditions="Primary.do-not-publish">Click the <span class="uicontrol">Add Outputs</span> button on the Return Outputs card.</p>
+            </li>
+            <li>
+                <p MadCap:conditions="Primary.do-not-publish">Click the <span class="uicontrol">Add Field</span> button to add a single output field named <span class="uicontrol">output</span> and type object and click <span class="uicontrol">Save</span>.</p>
+            </li>
+            <li MadCap:conditions="Primary.do-not-publish">
+                <p>Drag the <span class="uicontrol">authping_return</span> field from the Assign If card to the output field on the Return Outputs card.</p>
+            </li>
+            <li>
+                <p>Save and test your flow.</p>
+            </li>
+        </ol>
+        <h2>Next steps</h2>
+        <p>
+            <MadCap:xref href="capia-capia-card.htm">Build a CAPIA card</MadCap:xref>
+        </p>
+    </body>
+</html>

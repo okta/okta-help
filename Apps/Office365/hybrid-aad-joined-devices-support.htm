@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:conditions="MultiProdPublish.Classic+OIE" MadCap:fileTags="Tags/okta-authors.Mark Cowan">
+    <head><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1>Okta support for hybrid Azure AD joined devices</h1>
+        <p>This topic explains settings and options available in Okta to minimize the use of legacy authentication for registered and new hybrid Azure AD joined devices.</p>
+        <ul>
+            <li>
+                <MadCap:xref href="#About">About hybrid Azure AD joined devices</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#How">How Okta works with hybrid Azure AD joined devices</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Minimize">Minimize legacy authentication with Okta</MadCap:xref>
+                <ul>
+                    <li>
+                        <MadCap:xref href="#For">For registered devices</MadCap:xref>
+                    </li>
+                    <li>
+                        <MadCap:xref href="#For2">For enrolling new devices</MadCap:xref>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <h3><a name="About"></a>About hybrid Azure AD joined devices</h3>
+        <p>Hybrid Azure AD joined devices are devices that are joined to on-premises Active Directory and registered with Azure AD. These devices allow you to take advantage of both on-premises Active Directory and Azure Active Directory capabilities. With hybrid Azure AD join, you can centrally manage workplace devices that are joined to your on-premises Active Directory while your users can sign into their registered devices using Azure Active Directory.</p>
+        <p style="font-weight: bold;">How to hybrid join devices</p>
+        <p>To join an AD-joined device to Azure AD, you need to set up Azure AD Connect for hybrid Azure AD join. Additionally, you also need to create a GPO that auto-enrolls AD-joined devices in Azure AD. </p>
+        <p>When an AD-joined device attempts to join Azure AD, it uses the Service Connection Point (SCP) you configured in Azure AD Connect to find out your Azure AD tenant federation information. It attempts to hybrid join but fails because the <span class="code">userCertificate</span> attribute of the computer object is not yet synced with Azure AD. However, upon failure, the attribute is updated on the device with a certificate from Azure AD. Azure AD Connect syncs this attribute to Azure AD in its next sync interval. Next time when a scheduled task in the GPO retries to hybrid join the device, the task is successful and the device is joined in Azure AD.</p>
+        <p>This process may take several hours. If you encounter problems during the process, see <a href="https://docs.microsoft.com/en-us/azure/active-directory/devices/troubleshoot-hybrid-join-windows-current">Troubleshooting hybrid Azure Active Directory joined devices</a> (Microsoft docs).</p>
+        <h3><a name="How"></a>How Okta works with hybrid Azure AD joined devices</h3>
+        <p>Once your devices are hybrid Azure AD joined, you can use Okta as an Identity Provider (IdP) to secure enrollment and sign on processes on these devices. Okta verifies the user’s identity information, and then allows them to register their device in Azure AD or grants them access to their Office 365 resources. The user authenticates with Okta before they can sign into Microsoft Office 365 and other Azure AD resources.</p>
+        <h3><a name="Minimize"></a>Minimize legacy authentication with Okta</h3>
+        <p>Hybrid Azure AD joined devices running Windows 10 use the WINLOGON service, which uses legacy authentication. MFA can’t be enforced on legacy authentication requests,  making it susceptible to cyber attacks such as password spray. Therefore, minimizing the use of legacy authentication is a crucial part of securing your environment. Okta offers several solutions to minimize the use of legacy authentication for Hybrid Azure AD joined devices. You can use the following settings available in the Office 365 app sign-on policies to fortify Hybrid Azure AD joined devices.</p>
+        <h4><a name="For"></a>For registered devices</h4>
+        <p>For devices that are already registered in Azure AD, you can secure the sign-on process by using the Office 365 sign-on policy in Okta. You can modify the policy to restrict access as follows:</p>
+        <p>1. Allow only select user agent strings to use legacy authentication</p>
+        <p>You can filter specific trusted clients using the Office 365 app sign-on rules to allow them access to Office 365 resources, for example <span class="code">Windows-AzureAD-Authentication-Provider</span>. It gives you a finer control over user agents that can access the Office 365 apps. See <MadCap:xref href="custom-client-filter.htm">Allow or deny custom clients in Office 365 sign on policy</MadCap:xref>.</p>
+        <p>
+            <img src="../../../Resources/Images/Office365/custom-filter-haad.png" class="thumbnail" />
+        </p>
+        <p>2a. Allow legacy authentication only within local intranet</p>
+        <p>In your Microsoft tenant, disable all Microsoft services that use legacy authentication. Then, in Okta, modify the Office 365 app sign-on policy to allow legacy authentication only when the device is in the local intranet. See the following:</p>
+        <ul>
+            <li><a href="https://docs.microsoft.com/en-us/azure/active-directory/conditional-access/block-legacy-authentication">How to: Block legacy authentication to Azure AD with Conditional Access</a> (Microsoft docs)</li>
+            <li MadCap:conditions="MultiProdPublish.Classic">
+                <p>
+                    <MadCap:xref href="../../Security/O365_Client-Access-Policies.htm">Get started with Office 365 sign on policies</MadCap:xref>
+                </p>
+            </li>
+            <li MadCap:conditions="MultiProdPublish.OIE">
+                <p>
+                    <MadCap:xref href="o365-sign-on-policies-main.htm">Get started with Office 365 sign on policies</MadCap:xref>
+                </p>
+            </li>
+        </ul>
+        <p>2b. Require MFA while outside local intranet</p>
+        <p>If a user is using a device that is not on your local intranet, require them to successfully complete an MFA prompt before granting them access to Azure AD resources. In Azure AD, create a Conditional Access Policy that requires MFA for such users, and then in Okta, modify your Office 365 app setting to use Okta MFA to satisfy Azure AD MFA.</p>
+        <p>In this scenario, Azure AD redirects the user to Okta to complete the MFA prompt. Upon successful completion of the prompt, Okta passes the MFA claim to Azure AD, and then Azure AD allows the user to access the Microsoft resources. This streamlines the sign-in experience for the user as they have to complete only one MFA prompt. See <MadCap:xref href="Use_Okta_MFA_Azure_AD_MFA.htm">Use Okta MFA to satisfy Azure AD MFA requirements for Office 365</MadCap:xref>.</p>
+        <p>
+            <img src="../../../Resources/Images/Office365/deploy-device-based-conditional-access.png" class="thumbnail" />
+        </p>
+        <p>We recommend using a combination of Conditional Access Policy and Office 365 app sign-on policy to ensure wide security coverage. Okta enforces its sign-on policy at each sign-on event. After sign-on, Azure AD enforces its Conditional Access Policy at a regular interval to ensure that the access is secure.</p>
+        <p>3. Block legacy authentication on the Microsoft side</p>
+        <p>Create authentication policies in Microsoft to block legacy authentication for all Microsoft services. Assign these policies to users. See <a href="https://docs.microsoft.com/en-us/exchange/clients-and-mobile-in-exchange-online/disable-basic-authentication-in-exchange-online">Disable Basic authentication in Exchange Online</a> (Microsoft docs).</p>
+        <h4><a name="For2"></a>For enrolling new devices</h4>
+        <p>For devices that are not yet enrolled in Azure AD, you can use Okta MFA to add an extra security layer to the enrollment process as follows:</p>
+        <p style="font-weight: bold;">Require MFA while enrolling in Windows Hello for Business</p>
+        <p>If your users are enrolling a new device in Azure AD, you can require them to complete a step-up MFA prompt in Okta. Upon successful completion of the prompt, Okta passes the MFA claim to Azure AD, and Azure AD allows the user to enroll their device in Windows Hello for Business. The user can then use Windows Hello for Business as a factor to satisfy Azure AD MFA. See <MadCap:xref href="Use_Okta_MFA_Azure_AD_MFA.htm">Use Okta MFA to satisfy Azure AD MFA requirements for Office 365</MadCap:xref>.</p>
+        <p style="font-weight: bold;" MadCap:conditions="Primary.do-not-publish">Require MFA during Windows Autopilot</p>
+        <p MadCap:conditions="Primary.do-not-publish">You can add an Office 365 app sign-on rule in Okta that requires the user to complete MFA when enrolling a device through Windows Autopilot. Okta MFA is seamlessly embedded within the Windows Autopilot process. It increases security without compromising on the user experience and ensures that only the right person gets the access to the device. </p>
+        <h2><span>Related topics</span>
+        </h2>
+        <ul>
+            <li>
+                <p>
+                    <MadCap:xref href="advanced.htm">Advanced integration topics for Office 365</MadCap:xref>
+                </p>
+            </li>
+            <li MadCap:conditions="MultiProdPublish.Classic">
+                <p>
+                    <MadCap:xref href="../../Security/O365_Client-Access-Policies.htm">Get started with Office 365 sign on policies</MadCap:xref>
+                </p>
+            </li>
+            <li MadCap:conditions="MultiProdPublish.OIE">
+                <p>
+                    <MadCap:xref href="o365-sign-on-policies-main.htm">Get started with Office 365 sign on policies</MadCap:xref>
+                </p>
+            </li>
+        </ul>
+    </body>
+</html>

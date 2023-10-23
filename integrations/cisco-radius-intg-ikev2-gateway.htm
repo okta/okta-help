@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:fileTags="Tags/okta-authors.Patrick Calnan"
+      MadCap:conditions="MultiProdPublish.Classic+OIE">
+   <head>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <meta name="description"
+            content="Configure the Citrix Netscaler Gateway integration to enable MFA against your Okta RADIUS server agent to provide seamless end-user authentication."/>
+   </head>
+   <body>
+      <h1> Configure the Cisco ASA VPN  to interoperate with RADIUS</h1>
+      <p>During this task we will configure the Cisco ASA VPN, specifically:</p>
+      <ul>
+         <li>Define a RADIUS Server Profile</li>
+         <li>Define an Authentication Profile for Okta  RADIUS Agent</li>
+         <li>Apply the Okta RADIUS Authentication Profile to a Gateway</li>
+         <li>Configure the portal to use the Okta RADIUS Authentication Profile. <br/>
+         </li>
+      </ul>
+      <h3>Steps</h3>
+      <ol>
+         <li>
+            <MadCap:xref href="#Configur">Configure Cisco ASA VPN</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Modify">Modify the IPSec(IKEv2) Connection Profile</MadCap:xref>
+            <br/>
+         </li>
+      </ol>
+      <h2>Before you begin</h2>
+      <ul>
+         <li>Ensure that you have the common UDP port and secret key values available.</li>
+      </ul>
+      <h2>
+         <a name="Configur"/>Configure Cisco ASA VPN</h2>
+      <ol>
+         <li>Define an AAA Server Group<ol style="list-style-type: lower-alpha;">
+               <li>Sign in to the Cisco ASDM console for the VPN appliance using an account with sufficient privileges.</li>
+               <li>Navigate to <span class="menucascade">
+                     <span class="uicontrol">Configuration</span>
+                     <span class="uicontrol">Remote Access VPN</span>
+                     <span class="uicontrol">AAA/Local users</span>
+                     <span class="uicontrol">AAA server groups</span>
+                  </span>, as shown below.<p>
+                     <img src="../../Resources/Images/cisco_4.png" id="img_new"/>
+                  </p>
+               </li>
+               <li>Click <span class="uicontrol">Add</span> to create a new group. <br/>The <span class="uicontrol">Add AAA Server Group</span> dialog displays.<p>
+                     <img src="../../Resources/Images/cisco_5.png" id="img_new"/>
+                  </p>
+               </li>
+               <li>
+                  <p>Leave the default settings except for the following:</p>
+                  <ul>
+                     <li>
+                        <p>AAA Server Group – specify a name to identify the group for the MFA server</p>
+                     </li>
+                     <li>
+                        <p>Protocol – select RADIUS if necessary</p>
+                     </li>
+                  </ul>
+               </li>
+               <li>
+                  <span class="uicontrol">Click</span> OK.</li>
+            </ol>
+         </li>
+         <li>Add AAA Server(s) to your AAA Server Group<ol style="list-style-type: lower-alpha;">
+               <li>
+                  <p>Select <span class="uicontrol">Remote Access VPN</span> and navigate to <span class="menucascade">
+                        <span class="uicontrol">AAA/Local Users</span>
+                        <span class="uicontrol">AAA Server Groups</span>
+                     </span>. <br/>Select the server group just created.</p>
+               </li>
+               <li>
+                  <p>Click <span class="uicontrol">Add</span>. <br/>The Edit 'ServerName' Server dialog displays.</p>
+                  <p>
+                     <img src="../../Resources/Images/cisco_6.png" id="img_new"/>
+                  </p>
+               </li>
+               <li>Specify the following, leaving all other fields unchanged:				<ul>
+                     <li>Interface Name – select the interface that will handle communication with the MFA Server</li>
+                     <li>Server Name or IP Address – specify the name or the IP address of the Okta RADIUS Agent</li>
+                     <li>Timeout (seconds) – 60 seconds</li>
+                     <li>Server Authentication port – enter the required port number. Port 1812 was used as the example.</li>
+                     <li>Server Accounting Port – 1646. This value is not used, but must be entered to complete the setup.</li>
+                     <li>Retry Interval – leave default at 60 seconds</li>
+                     <li>Server Secret Key – provided secret defined when setting up the app in Okta. </li>
+                     <li>Common Password – leave blank.</li>
+                     <li>Uncheck <span class="uicontrol">Microsoft CHAPv2 Capable</span>. (important).</li>
+                  </ul>
+               </li>
+               <li>Click <span class="uicontrol">OK</span>.</li>
+               <li>
+                  <p>Click <span class="uicontrol">APPLY</span> to save the configuration.</p>
+               </li>
+            </ol>
+         </li>
+      </ol>
+      <h2>
+         <a name="Modify"/>Modify the IPSec(IKEv2) Connection Profile</h2>
+      <p> Modify the IPSec(IKEv2) Connection Profile to use the new Authentication Server group.</p>
+      <ol>
+         <li>Open the Cisco ASDM console for the VPN appliance.</li>
+         <li>Click <span class="uicontrol">Configuration</span>.<br/>
+            <img src="../../Resources/Images/hybrid-access/cisco-radius-intg-ikev2-part4-01.png"
+                 id="img_new"/>
+         </li>
+         <li>Select <span class="uicontrol">Remote Access VPN.</span>
+            <br/>
+            <img src="../../Resources/Images/hybrid-access/cisco-radius-intg-ikev2-part4-02.png"
+                 id="img_new"/>
+         </li>
+         <li>In the <span class="wintitle">Remote Access VPN</span> section, <span class="uicontrol">select IPsec(IKEv2) Connection Profiles</span>.<br/>
+            <img src="../../Resources/Images/hybrid-access/cisco-radius-intg-ikev2-part4-03.png"
+                 id="img_new"/>
+         </li>
+         <li>Select the <span class="uicontrol">DefaultRAGroup</span> group, and click <span class="uicontrol">Edit</span>.<br/>
+            <img src="../../Resources/Images/hybrid-access/cisco-radius-intg-ikev2-part4-04.png"
+                 id="img_new"/>
+         </li>
+         <li>In the IKE Peer Authentication Group section enable <span class="uicontrol">Enable Peer to Peer authentication using EAP</span> and
+					<span class="uicontrol">Send an EAP Identity request to the client</span>.<br/>
+            <img src="../../Resources/Images/hybrid-access/cisco-radius-intg-ikev2-part4-05.png"
+                 id="img_new"/>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">OK</span> to save.</p>
+         </li>
+      </ol>
+   </body>
+</html>

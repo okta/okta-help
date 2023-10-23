@@ -1,0 +1,445 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:fileTags="Tags/okta-authors.Mark Cowan" MadCap:conditions="MultiProdPublish.Classic+OIE">
+    <head>
+        <link href="../../Resources/TableStyles/standard.css" rel="stylesheet" MadCap:stylesheetType="table" /><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+        <meta name="description" content="Use Okta Expression Language with event hooks filters." />
+    </head>
+    <body>
+        <h1>Okta Expression Language and event hooks     </h1>
+        <MadCap:snippetBlock src="../../Resources/Snippets/ea-featmgr.flsnp" />
+        <p>Use Okta Expression Language (EL) expressions to identify only certain events that trigger Okta event hooks. When creating or modifying an event hook, you can use Okta EL expressions to perform the following tasks:
+</p>
+        <ul>
+            <li>
+                <p>Define a filter to allow a subset of events that are triggered by an event hook.</p>
+            </li>
+            <li>
+                <p>Reduce the noise to the external web service handling your event hook.</p>
+            </li>
+        </ul>
+        <p>For complete details on Okta EL, see <a href="https://developer.okta.com/docs/reference/okta-expression-language/">Okta Expression Language Overview</a>.</p>
+        <h2><a name="Tips"></a>Configuration information</h2>
+        <ul>
+            <li>
+                <p>Ensure that your expression evaluates to a Boolean when defining a filter for your event hook.</p>
+            </li>
+            <li>
+                <p>Start with simple expressions and gradually add conditions. This approach helps to make sure that your expression works as expected.</p>
+            </li>
+        </ul>
+        <h3>Operators</h3>
+        <p>
+            <ul>
+                <li>
+                    <p><span class="code">eq</span> denotes the Equality operator. </p>
+                </li>
+                <li>
+                    <p><span class="code">ne</span> denotes the Inequality operator.</p>
+                </li>
+                <li>
+                    <p><span class="code">&amp;&amp;</span> denotes the And operator.</p>
+                </li>
+                <li>
+                    <p><span class="code">||</span> denotes the Or operator.</p>
+                </li>
+            </ul>
+        </p>
+        <h2>Define group conditions</h2>
+        <p>Use the <MadCap:variable name="okta-variables.ProductName" /> EL  to define a list of groups that can activate an event hook.  Make sure that your expression evaluates to a Boolean: <span class="boolean">True</span> to include groups or <span class="boolean">False</span> to prevent the event hook from activating.</p>
+        <p>The following example uses the <MadCap:variable name="okta-variables.ProductName" /> EL  to activate an event hook for a group called  <span class="uicontrol">Sales</span>:</p>
+        <p><span class="code">event.target.?[type eq 'UserGroup' &amp;&amp; displayName eq 'Sales'].size()&gt; 0</span>
+        </p>
+        <MadCap:codeSnippet>
+            <MadCap:codeSnippetCopyButton />
+            <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">...
+   "target": [
+      {
+        "id": "00gsnc3qy7Uy6JZfy0h7",
+        "type": "UserGroup",
+        "alternateId": "unknown",
+        "displayName": "Sales"
+      }
+    ],
+...
+</MadCap:codeSnippetBody>
+        </MadCap:codeSnippet>
+        <p>
+            <img src="../../Resources/Images/event-hooks/EventHooks_UserGroup_EL.png" style="mc-thumbnail: popup;mc-thumbnail-max-height: 220px;" />
+        </p>
+        <p>Use the following event types with group conditions:</p>
+        <ul>
+            <li>
+                <p><span class="code">group.user_membership.add</span>
+                </p>
+            </li>
+            <li>
+                <p><span class="code">group.user_membership.remove</span>
+                </p>
+            </li>
+            <li>
+                <p><span class="code">group.lifecycle.create</span>
+                </p>
+            </li>
+            <li>
+                <p><span class="code">group.lifecycle.delete</span>
+                </p>
+            </li>
+            <li>
+                <p><span class="code">group.profile.update</span>
+                </p>
+            </li>
+            <li>
+                <p><span class="code">group.privilege.revoke</span>
+                </p>
+            </li>
+            <li>
+                <p><span class="code">group.privilege.grant</span>
+                </p>
+            </li>
+            <li>
+                <p><span class="code">system.import.group.create</span>
+                </p>
+            </li>
+            <li>
+                <p><span class="code">system.import.group.delete</span>
+                </p>
+            </li>
+        </ul>
+        <p><span class="uicontrol">Sample expressions</span>
+        </p>
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+            <col class="TableStyle-standard-Column-Column1" />
+            <col class="TableStyle-standard-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-standard-Head-Header1">
+                    <th class="TableStyle-standard-HeadF-Column1-Header1">Use case</th>
+                    <th class="TableStyle-standard-HeadD-Column1-Header1">Sample expression</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td class="TableStyle-standard-BodyF-Column1-Body1">Activate an event hook for specific group names</td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body1"><span class="code">event.target.?[type eq 'UserGroup'  &amp;&amp; displayName eq 'Sales'].size()&gt; 0 || event.target.?[type eq 'UserGroup'  &amp;&amp; displayName eq 'Marketing'].size()&gt; 0</span>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body2">
+                    <td class="TableStyle-standard-BodyF-Column1-Body2">Activate an event hook for specific group IDs</td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body2"><span class="code">event.target.?[type eq 'UserGroup'  &amp;&amp; id eq '00gsnc3qy7Uy6JZfy0h7'].size()&gt; 0 || event.target.?[type eq 'UserGroup'  &amp;&amp; id eq '032gs2nc3qy7Uy6JZfasd3'].size()&gt; 0</span>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td class="TableStyle-standard-BodyC-Column1-Body1">Use a combination of user attributes and groups to define complex expressions that include when a specific user is added to a specific group</td>
+                    <td class="TableStyle-standard-BodyA-Column1-Body1"><span class="code">event.target.?[type eq 'User' &amp;&amp; id eq '00usnkgbd0FFDxYaj0h7'].size()&gt;0 &amp;&amp; event.target.?[type eq 'UserGroup'  &amp;&amp; displayName eq 'Admin'].size()&gt; 0</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>Define application conditions</h2>
+        <p>Use the Okta EL to define a list of applications that can activate an event hook. Make sure that your expression evaluates to a Boolean: <span class="boolean">True</span> to include applications or <span class="boolean">False</span> to prevent the event hook from activating.</p>
+        <p>The following example uses  the Okta EL  to activate an event hook for a Bookmark application named <span class="userinput">My COMPANY Bookmark App</span>:</p>
+        <p><span class="code">event.target.?[type eq 'AppInstance' &amp;&amp; alternateId eq 'My COMPANY Bookmark App'].size()&gt; 0</span>
+        </p>
+        <MadCap:codeSnippet>
+            <MadCap:codeSnippetCopyButton />
+            <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">...
+     "target": [
+        {
+          "id": "0oat26meilfdn0Em90h7",
+          "type": "AppInstance",
+          "alternateId": "MY COMPANY Bookmark App",
+          "displayName": "Bookmark App"
+        },
+...
+</MadCap:codeSnippetBody>
+        </MadCap:codeSnippet>
+        <p>
+            <img src="../../Resources/Images/event-hooks/EventHooks_Admin_EL.png" style="mc-thumbnail-max-height: 220px;mc-thumbnail: popup;" />
+        </p>
+        <p>Use the following event types with application conditions:</p>
+        <ul>
+            <li>
+                <p><span class="code">application.lifecycle.create</span>
+                </p>
+            </li>
+            <li>
+                <p><span class="code">application.lifecycle.update</span>
+                </p>
+            </li>
+            <li>
+                <p><span class="code">application.lifecycle.delete</span>
+                </p>
+            </li>
+            <li>
+                <p><span class="code">application.lifecycle.activate</span>
+                </p>
+            </li>
+            <li>
+                <p><span class="code">application.lifecycle.deactivate</span>
+                </p>
+            </li>
+            <li>
+                <p><span class="code">application.user_membership.add</span>
+                </p>
+            </li>
+            <li>
+                <p><span class="code">application.user_membership.remove</span>
+                </p>
+            </li>
+            <li>
+                <p><span class="code">application.user_membership.change_password</span>
+                </p>
+            </li>
+            <li>
+                <p><span class="code">application.provision.user.sync</span>
+                </p>
+            </li>
+            <li>
+                <p><span class="code">app.oauth2.as.consent.grant</span>
+                </p>
+            </li>
+        </ul>
+        <p><span class="uicontrol">Sample expressions</span>
+        </p>
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+            <col class="TableStyle-standard-Column-Column1" />
+            <col class="TableStyle-standard-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-standard-Head-Header1">
+                    <th class="TableStyle-standard-HeadF-Column1-Header1">Use case</th>
+                    <th class="TableStyle-standard-HeadD-Column1-Header1">Sample expression</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td class="TableStyle-standard-BodyF-Column1-Body1">
+						Activate an event hook for specific application names                
+					</td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body1"><span class="code">event.target.?[type eq 'AppInstance'  &amp;&amp; alternateId eq 'My Company Bookmark App'].size()&gt; 0 || event.target.?[type eq 'AppInstance'  &amp;&amp; alternateId eq 'My OIDC App'].size()&gt; 0</span>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body2">
+                    <td class="TableStyle-standard-BodyF-Column1-Body2">Activate an event hook for specific application IDs</td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body2"><span class="code">event.target.?[type eq 'AppInstance'  &amp;&amp; id eq '00gsnc3qy7Uy6JZfy0h7'].size()&gt; 0 || event.target.?[type eq 'AppInstance'  &amp;&amp; id eq '032gs2nc3qy7Uy6JZfasd3'].size()&gt; 0</span>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td class="TableStyle-standard-BodyC-Column1-Body1">
+                
+                    Use a combination of user attributes and groups to define complex expressions to include when a specific user is added to a specific application</td>
+                    <td class="TableStyle-standard-BodyA-Column1-Body1"><span class="code">event.target.?[type eq 'User' &amp;&amp; id eq '00usnkgbd0FFDxYaj0h7'].size()&gt;0 &amp;&amp; (event.target.?[type eq 'AppInstance'  &amp;&amp; alternateId eq 'My Admin App'].size()&gt; 0</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>Define user profile conditions</h2>
+        <p>Use the Okta EL to define a list of user profile attributes that activate an event hook. Ensure that your expression evaluates to a Boolean:<span class="uicontrol"> <span class="boolean" style="font-weight: normal;">True</span></span> to include applications or <span class="boolean">False</span> to prevent the event hook from activating.</p>
+        <p>The following example uses the Okta EL to activate an event hook for a user whose email has been updated:</p>
+        <p> <span class="code">event.debugData.changedAttributes.contains('email')</span></p>
+        <MadCap:codeSnippet>
+            <MadCap:codeSnippetCopyButton />
+            <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">..
+     "debugContext": {
+        "debugData": {
+          "requestId": "XyMjlc1OvvWkZPMA7QazbwAAFIs",
+          "threatSuspected": "false",
+          "requestUri": "/api/v1/users/00ut27as6fbC0K3rS0h7",
+          "changedAttributes": "email",
+          "targetEventHookIds": "whot1dekaabE2suVh0h7",
+          "url": "/api/v1/users/00ut27as6fbC0K3rS0h7?"
+        }
+      },
+...</MadCap:codeSnippetBody>
+        </MadCap:codeSnippet>
+        <p>
+            <img src="../../Resources/Images/event-hooks/EventHook_User_EL.png" style="mc-thumbnail-max-height: 220px;mc-thumbnail: popup;" />
+        </p>
+        <p>The following represents the most common event type for profile conditions:</p>
+        <ul>
+            <li>
+                <p><span class="code">user.account.update_profile</span>
+                </p>
+            </li>
+        </ul>
+        <p><span class="uicontrol">Sample expressions</span>
+        </p>
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+            <col class="TableStyle-standard-Column-Column1" />
+            <col class="TableStyle-standard-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-standard-Head-Header1">
+                    <th class="TableStyle-standard-HeadF-Column1-Header1">Use case</th>
+                    <th class="TableStyle-standard-HeadD-Column1-Header1">Sample expression</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td class="TableStyle-standard-BodyC-Column1-Body1">
+						Activate an event hook when specific user profile attributes are updated               
+					</td>
+                    <td class="TableStyle-standard-BodyA-Column1-Body1"><span class="code">event.debugData.changedAttributes.contains('email') || event.debugData.changedAttributes.contains('manager') || event.debugData.changedAttributes.contains('department')</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>Define sign-in conditions</h2>
+        <p>Use the Okta EL to define specific sign-in conditions that activate an event hook. Make sure that your expression evaluates to a Boolean: <span class="boolean">True</span> to include applications or False to prevent the event hook from activating.</p>
+        <p>This list provides available outcome options: <span class="code">SUCCESS</span>, <span class="code">FAILURE</span>, <span class="code">SKIPPED</span>, <span class="code">UNKNOWN</span>, <span class="code">CHALLENGE</span>, <span class="code">DENY</span>.</p>
+        <p>The following example uses the Okta EL to activate an event hook for a successful user sign-in event:</p>
+        <p><span class="code">event.outcome.result eq'SUCCESS' </span>
+        </p>
+        <p>The following example uses the Okta EL to activate an event hook for a failed user sign-in event:</p>
+        <p><span class="code">event.outcome.result eq'FAILURE' </span>
+        </p>
+        <p>
+            <img src="../../Resources/Images/event-hooks/EventHook_User_Login_EL.png" style="mc-thumbnail: popup;mc-thumbnail-max-height: 220px;" />
+        </p>
+        <p>The following represents the most common event type for a sign-in condition:</p>
+        <ul>
+            <li>
+                <p><span class="code">user.session.start</span>
+                </p>
+            </li>
+        </ul>
+        <p><span class="uicontrol">Sample expressions</span>
+        </p>
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+            <col class="TableStyle-standard-Column-Column1" style="width: 592px;" />
+            <col class="TableStyle-standard-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-standard-Head-Header1">
+                    <th class="TableStyle-standard-HeadF-Column1-Header1">Use case</th>
+                    <th class="TableStyle-standard-HeadD-Column1-Header1">Sample expression</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td class="TableStyle-standard-BodyF-Column1-Body1">
+						Activate an event hook for a successful sign-in event</td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body1"><span class="code">event.outcome.result eq 'SUCCESS'</span>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body2">
+                    <td class="TableStyle-standard-BodyF-Column1-Body2">
+                        <p>Activate an event hook for a failed sign-in event</p>
+                    </td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body2">
+                        <p><span class="code">event.outcome.result eq 'FAILURE'</span>
+                        </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td class="TableStyle-standard-BodyF-Column1-Body1">
+                        <p>Activate an event hook for a specific user's email address</p>
+                    </td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body1">
+                        <p><span class="code">event.actor.alternateId eq 'myAdmin@company.com'</span>
+                        </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body2">
+                    <td class="TableStyle-standard-BodyF-Column1-Body2">
+                        <p>Activate an event hook for a specific user ID</p>
+                    </td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body2">
+                        <p><span class="code">event.actor.id eq '00usnkgbd0FFDxYaj0h7'</span>
+                        </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td class="TableStyle-standard-BodyC-Column1-Body1">
+                        <p>Activate an event hook for failed sign-in attempts for a specific user</p>
+                    </td>
+                    <td class="TableStyle-standard-BodyA-Column1-Body1">
+                        <p><span class="code">event.actor.alternateId eq 'myAdmin@company.com' &amp;&amp;</span>
+                        </p>
+                        <p><span class="code">event.outcome.result eq 'FAILURE'</span>
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>Define MFA factor conditions</h2>
+        <p>Use the Okta EL to define a list of MFA factors that can activate an event hook. Make sure that your expression evaluates to a Boolean: <span class="boolean">True</span> to include applications or False to prevent the event hook from activating.</p>
+        <p>The following example uses the Okta EL to activate an event hook when a security question is set up as an MFA Factor:</p>
+        <p><span class="code">event.outcome.reason.contains( 'SECURITY_QUESTION') </span>
+        </p>
+        <p>
+            <img src="../../Resources/Images/event-hooks/EventHooks_MFA_EL.png" style="mc-thumbnail: popup;mc-thumbnail-max-height: 220px;" />
+        </p>
+        <p>Use the following event types with factor conditions:
+
+</p>
+        <ul>
+            <li>
+                <p><span class="code">user.mfa.factor.activate</span>
+                </p>
+            </li>
+            <li>
+                <p><span class="code">user.mfa.factor.deactivate</span>
+                </p>
+            </li>
+        </ul>
+        <p><span class="uicontrol">Sample expressions</span>
+        </p>
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+            <col class="TableStyle-standard-Column-Column1" style="width: 588px;" />
+            <col class="TableStyle-standard-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-standard-Head-Header1">
+                    <th class="TableStyle-standard-HeadF-Column1-Header1">Use case</th>
+                    <th class="TableStyle-standard-HeadD-Column1-Header1">Sample expression</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td class="TableStyle-standard-BodyC-Column1-Body1">
+                        <p>Activate an event hook for a specific MFA factor set up. The following are the available factor types:</p>
+                        <ul>
+                            <li>
+                                <p>SECURITY_QUESTION</p>
+                            </li>
+                            <li>
+                                <p>SMS_FACTOR</p>
+                            </li>
+                            <li>
+                                <p>CALL_FACTOR</p>
+                            </li>
+                            <li>
+                                <p>OKTA_VERIFY_PUSH</p>
+                            </li>
+                            <li>
+                                <p>EMAIL_FACTOR</p>
+                            </li>
+                            <li>
+                                <p>OKTA_SOFT_TOKEN</p>
+                            </li>
+                            <li>
+                                <p>SECURID_FACTOR</p>
+                            </li>
+                            <li>
+                                <p>YUBIKEY_OTP_FACTOR</p>
+                            </li>
+                            <li>
+                                <p>DUO_SECURITY</p>
+                            </li>
+                        </ul>
+                    </td>
+                    <td class="TableStyle-standard-BodyA-Column1-Body1"><span class="code">event.outcome.reason.contains('SECURITY_QUESTION')</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2><span>Related topics</span>
+        </h2>
+        <p>
+            <MadCap:xref href="verify-event-hooks.htm">Verify your endpoint</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="event-hooks-main.htm">Event hooks</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="event-hooks-preview.htm">Event hook preview</MadCap:xref>
+        </p>
+    </body>
+</html>

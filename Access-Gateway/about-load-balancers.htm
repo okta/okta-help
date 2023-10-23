@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/about-load-balancers.htm" /> <title>[%=Heading.Level1%] | Okta</title><meta name="description" content="Access Gateway and third party load balancers." /></head>
+    <body>
+        <h1>Load balancers</h1>
+        <div class="noteOkta">
+            <p class="noteContent">In version <MadCap:variable name="oag-versions.2022-02" /> Access Gateway introduced internal load balancing. <MadCap:variable name="okta-feature-names.Access Gateway" /> as load balancer is the preferred load balancing method. &#160;See <MadCap:xref href="about-oag-load-balancers.htm">About [%=okta-feature-names.Access Gateway%] load balancing</MadCap:xref>.</p>
+        </div>
+        <p> <MadCap:variable name="okta-feature-names.Access Gateway" /> is often deployed in a high availability scenario using a load balancers. Load balancers exist to:</p>
+        <ul>
+            <li>Distribute load across multiple instances of <MadCap:variable name="okta-feature-names.Access Gateway" />. Amazon Web Services, Microsoft Azure, Oracle Cloud Infrastructure all support pre-<MadCap:variable name="okta-feature-names.Access Gateway" /> load balancers. In such scenarios the load balancer must know the health of each worker instance.</li>
+            <li>Distribute load to multiple instances of a back end protected web resource. In these instances, you can use <MadCap:variable name="okta-feature-names.Access Gateway" />'s built-in internal load balancing and third-party load balancers to distribute load. </li>
+        </ul>
+        <p>See <MadCap:xref href="ref-architectures.htm">Reference architectures</MadCap:xref> for more examples of architectures that include load balancers.</p>
+        <p>
+            <img src="../../Resources/Images/access-gateway/about-load-balancers-01.png" id="img_new" alt="Typical Access Gateway Load Balancer Architecture" class="thumbnail" />
+        </p>
+        <h3>Topics</h3>
+        <ul>
+            <li>
+                <MadCap:xref href="#Load">Load balancer configuration</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Node">Worker node up check</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Cluster">Cluster upgrades and load balancers</MadCap:xref>
+            </li>
+        </ul>
+        <h2><a name="Load"></a>Load balancer configuration</h2>
+        <p>Load balancers:</p>
+        <ul>
+            <li>Sticky sessions or session affinity:&#160;Load balancers use session persistence to ensure that requests from a single session are always routed to the server on which they started. Persistence is also known as stickiness or sticky sessions. Any load balancer used with <MadCap:variable name="okta-feature-names.Access Gateway" /> must support session affinity. Session affinity is used by <MadCap:variable name="okta-feature-names.Access Gateway" /> to ensure that second and subsequent requests for a given session are routed to the same <MadCap:variable name="okta-feature-names.Access Gateway" /> node. How session affinity is specified varies by load balancer type, including cookie based or other mechanisms such as hashed source IP and port. </li>
+            <li>Load balancer strategy: The preferred strategy for an <MadCap:variable name="okta-feature-names.Access Gateway" /> load balancer is round-robin or weighted round-robin.<br /></li>
+        </ul>
+        <div class="noteOkta">
+            <p class="noteContent">When configuring a load balancer, the <MadCap:variable name="okta-feature-names.Access Gateway" /> admin node is typically not included as part of the worker pool. </p>
+        </div>
+        <h2><a name="Node"></a>Worker node up check</h2>
+        <p>Load balancers must be able to determine if <MadCap:variable name="okta-feature-names.Access Gateway" /> cluster members are up. <MadCap:variable name="okta-feature-names.Access Gateway" /> provides the <span class="code">/status</span> REST endpoint, which can be used to determine whether a node is up. <br /></p>
+        <div class="noteOkta">
+            <p class="noteContent">This check ONLY determines if the worker node itself is up and functioning. It does NOT determine if downstream resources are up and available.</p>
+        </div>
+        <p>For example:</p>
+        <p><span class="code">curl -X GET -v -k https://{node.ip}/status -H 'Host:{gw.yourhost.tld}'</span>
+        </p>
+        <p>See <MadCap:xref href="monitoring-status.htm">Status &#160;monitoring</MadCap:xref>.</p>
+        <h2><a name="Cluster"></a>Cluster upgrades and load balancers</h2>
+        <p>To upgrade <MadCap:variable name="okta-feature-names.Access Gateway" />:</p>
+        <ol>
+            <li>Backup the configuration. See <MadCap:xref href="about-backup-restore.htm">About [%=okta-feature-names.Access Gateway%] Backup and Restore.</MadCap:xref></li>
+            <li>For the admin instance, secure shell (<span class="code">ssh oag-mgmt@gw.gateway.tld</span>)&#160;into the Command Line Management Console.</li>
+            <li>Follow the process for upgrading the <MadCap:variable name="okta-feature-names.Access Gateway" /> appliance. See <MadCap:xref href="upgrade.htm">Upgrade Access Gateway</MadCap:xref>.</li>
+            <li>For each worker node in the <MadCap:variable name="okta-feature-names.Access Gateway" /> high availability cluster.<ol style="list-style-type: lower-alpha;"><li>Take the worker node out of the load balancer rotation.</li><li>Update the worker node.</li><li>Return the worker node to the load balancer rotation.</li></ol></li>
+        </ol>
+        <div>
+            <h2>Related topics</h2>
+            <p>
+                <MadCap:xref href="about-oag-load-balancers.htm">Load balancing</MadCap:xref>
+            </p>
+            <p>
+                <MadCap:xref href="task-assign-lb.htm">Add [%=okta-feature-names.Access Gateway%] load balancer</MadCap:xref>
+            </p>
+            <p>
+                <MadCap:xref href="ref-architectures.htm">Reference architectures</MadCap:xref>
+            </p>
+        </div>
+    </body>
+</html>

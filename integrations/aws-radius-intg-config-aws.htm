@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:fileTags="Tags/okta-authors.Patrick Calnan"
+      MadCap:conditions="MultiProdPublish.Classic+OIE">
+   <head>
+      <link href="../../Resources/TableStyles/standard.css"
+            rel="stylesheet"
+            MadCap:stylesheetType="table"/>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <meta name="description"
+            content="Configure the Citrix Netscaler Gateway integration to enable MFA against your Okta RADIUS server agent to provide seamless end-user authentication."/>
+   </head>
+   <body>
+      <h1>Prepare Amazon WS</h1>
+      <p> During this task we will prepare an existing EC2 instance for use with Active Directory, create an AWS Directory service as a connector that points to Active Directory, and launches an associated workspace.</p>
+      <h3>Steps</h3>
+      <ul>
+         <li>
+            <MadCap:xref href="#Prepare">Prepare an Amazon EC2 Instance</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Create">Create an AWS Directory Service</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Launch">Launch an Amazon Workspace</MadCap:xref>
+         </li>
+      </ul>
+      <h2>Before you begin</h2>
+      <ul>
+         <li>Ensure that you have the common UDP port and secret key values available.</li>
+      </ul>
+      <div>
+         <h2>
+            <a name="Prepare"/>Prepare an Amazon EC2 Instance</h2>
+         <div>
+            <ol>
+               <li>
+                  <p>In your browser, navigate to Amazon Web Services console and login as an administrator.</p>
+               </li>
+               <li>
+                  <p>Select <span class="menucascade">
+                        <span class="uicontrol">Services</span>
+                        <span class="uicontrol">EC2</span>
+                     </span>.
+                  </p>
+               </li>
+               <li>
+                  <p>In the left pane select <span class="menucascade">
+                        <span class="uicontrol">INSTANCES</span>
+                        <span class="uicontrol">Instances</span>
+                     </span>. </p>
+               </li>
+               <li>
+                  <p>Locate the Active Directory instance (referred to as Instance A), and select it. </p>
+               </li>
+               <li>
+                  <p>In the <span class="uicontrol">Description</span> tab, note the Private IP address of the instance. </p>
+               </li>
+               <li>
+                  <p>In the lower right, click the VPC ID value.<br/>
+                     <img src="../../Resources/Images/integrations/aws-to-okta.WS.2.png"
+                          id="img_new"/>
+                  </p>
+               </li>
+               <li>
+                  <p>In the associated VPC page, note the IPv4 CIDR value.<br/>
+                     <img src="../../Resources/Images/integrations/aws-to-okta.WS.3.png"
+                          id="img_new"/>
+                  </p>
+               </li>
+               <li>
+                  <p>Navigate to <span class="menucascade">
+                        <span class="uicontrol">NETWORK &amp; SECURITY</span>
+                        <span class="uicontrol">Security Groups</span>
+                     </span>.</p>
+               </li>
+               <li>
+                  <p>Open the Instance A security group and click <span class="uicontrol">Add</span> to add inbound rules to enable UDP/TCP for ports 53, 88. and 389 against the IPv4 CIDR.<br/>
+                     <img src="../../Resources/Images/integrations/aws-to-okta.WS.4.png"
+                          id="img_new"/>
+                  </p>
+               </li>
+            </ol>
+         </div>
+         <h2>
+            <a name="Create"/>Create an AWS Directory Service</h2>
+         <div>
+            <ol>
+               <li>
+                  <p>Return to the <span class="uicontrol">Services</span> tab of the AWS Console.</p>
+               </li>
+               <li>
+                  <p>Enter <span class="uicontrol">Directory Service</span> into the search bar and click <span class="uicontrol">Directory Service</span>.</p>
+                  <div>
+                     <img src="../../Resources/Images/integrations/aws-to-okta.DS.1.png"
+                          id="img_new"/>
+                  </div>
+               </li>
+               <li>
+                  <p>Click <span class="uicontrol">Set up directory</span>.</p>
+               </li>
+               <li>
+                  <p>Select <span class="uicontrol">AD Connector</span> as <span class="uicontrol">Directory type</span> and click <span class="uicontrol">Next</span>.  </p>
+               </li>
+               <li>
+                  <p>Choose an appropriate size and click <span class="uicontrol">Next</span>. </p>
+               </li>
+               <li>
+                  <p>Choose the Instance A VPC, subsets if required, and choose <span class="uicontrol">Next</span>. </p>
+               </li>
+               <li>
+                  <p>In the Active Directory information step enter:</p>
+                  <table style="mc-table-style: url('../../Resources/TableStyles/standard.css');"
+                         class="TableStyle-standard"
+                         cellspacing="0">
+                     <col class="TableStyle-standard-Column-Column1"/>
+                     <col class="TableStyle-standard-Column-Column1"/>
+                     <thead>
+                        <tr class="TableStyle-standard-Head-Header1">
+                           <th class="TableStyle-standard-HeadF-Column1-Header1">Field</th>
+                           <th class="TableStyle-standard-HeadD-Column1-Header1">Value</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr class="TableStyle-standard-Body-Body1">
+                           <td class="TableStyle-standard-BodyF-Column1-Body1"
+                               style="font-weight: bold;">Connected Directory DNS</td>
+                           <td class="TableStyle-standard-BodyD-Column1-Body1">Required: Your domain. For example: <span class="code">biz.nicopowered.com</span>
+                           </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2">
+                           <td class="TableStyle-standard-BodyF-Column1-Body2"
+                               style="font-weight: bold;">Connected NetBIOS Name</td>
+                           <td class="TableStyle-standard-BodyD-Column1-Body2">Option. Anything appropriate. For example: <span class="code">biz</span>. </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body1">
+                           <td class="TableStyle-standard-BodyF-Column1-Body1"
+                               style="font-weight: bold;">DNS Address</td>
+                           <td class="TableStyle-standard-BodyD-Column1-Body1">The private IP address of instance A, previously captured. </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2">
+                           <td class="TableStyle-standard-BodyF-Column1-Body2"
+                               style="font-weight: bold;">Service Account username</td>
+                           <td class="TableStyle-standard-BodyD-Column1-Body2">Username of the active directory account previously created.</td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body1">
+                           <td class="TableStyle-standard-BodyC-Column1-Body1"
+                               style="font-weight: bold;">Service Account password</td>
+                           <td class="TableStyle-standard-BodyA-Column1-Body1">Associated password. </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <p>Click <span class="uicontrol">Next</span> when complete.</p>
+               </li>
+               <li>Review the values and click <span class="uicontrol">Create directory</span>. When complete the connector should resemble:
+                  <p>
+                     <img src="../../Resources/Images/integrations/aws-to-okta.DS.2.png"
+                          id="img_new"/>
+                  </p>
+               </li>
+            </ol>
+         </div>
+         <h2>
+            <a name="Launch"/>Launch an Amazon Workspace</h2>
+         <div>
+            <ol>
+               <li>Navigate to <span class="uicontrol">Workspaces</span>.
+               </li>
+               <li>If required,create a workspace, otherwise select a workspace and click <span class="uicontrol">Launch Workspaces</span>.
+                     <p>
+                     <img src="../../Resources/Images/integrations/aws-to-AD.WS.1.png"
+                          id="img_new"/>
+                  </p>
+               </li>
+               <li>From the <span class="uicontrol">Directory</span> dropdown list select a directory to authenticate against and click <span class="uicontrol">Next Step</span>.
+                  <p>
+                     <img src="../../Resources/Images/integrations/aws-to-AD.WS.2.png"
+                          id="img_new"/>
+                  </p>
+               </li>
+               <li>Select an appropriate user from the directory service and click <span class="uicontrol">Add Selected</span>.
+               </li>
+               <li>Select a bundle, review your configure and .click <span class="uicontrol">Launch Workspace</span>.
+               </li>
+            </ol>
+         </div>
+         <p>The Amazon Workspace is now ready for use. </p>
+      </div>
+      <p>
+            <!-- End div pre-config -->
+        </p>
+   </body>
+</html>

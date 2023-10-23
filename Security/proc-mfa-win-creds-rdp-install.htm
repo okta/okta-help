@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html MadCap:onlyLocalStylesheets="False" MadCap:conditions="MultiProdPublish.Classic+OIE" xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link href="../../Resources/TableStyles/standard-shaded-rows.css" rel="stylesheet" MadCap:stylesheetType="table" /><title>[%=Heading.Level1%] | Okta</title>
+        <meta name="description" content="Enable MFA for Windows server RDP authentication attempts using Okta’s Credential Provider for Windows." />
+    </head>
+    <body>
+        <h1>Install the <MadCap:variable name="okta-variables.ProductName" /> Credential Provider for Windows</h1>
+        <p>Install the provider by using any of the supported installation methods: standard, silent, and mass deployment. </p>
+        <ul>
+            <li>
+                <MadCap:xref href="#Standard">Standard installation</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Silent">Silent installation</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Mass">Mass deployment</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Verify">Verify timeout settings</MadCap:xref>
+            </li>
+        </ul>
+        <h2><a name="Standard"></a>Standard installation</h2>
+        <ol>
+            <li>Go to the location where you downloaded the installer.</li>
+            <li>Extract the files from the .zip archive.</li>
+            <li>Run <span class="codeph">setup.exe</span> as an administrator and follow the prompts. Install or repair the Microsoft Visual C++ Runtime libraries as required.</li>
+            <li>
+                <p>On the <span class="wintitle">App Configuration</span> dialog, enter a client ID, client secret, and your <MadCap:variable name="okta-variables.ProductName" /> URL. Click <span class="uicontrol">Next</span> after you've entered the information. </p>
+                <p>You can get these values from the Microsoft RDP (MFA) app in <MadCap:variable name="okta-variables.ProductName" />. Select the <span class="wintitle">General</span> tab, scroll to the <span class="wintitle">Client Credentials</span> section to find the client ID and the client secret. The <MadCap:variable name="okta-variables.ProductName" /> URL is the URL that your org uses to reach <MadCap:variable name="okta-variables.ProductName" /> (for example, <span class="url">https://&lt;yourorg&gt;.okta.com</span>).</p>
+            </li>
+            <li>Click <span class="uicontrol">Next</span> and <span class="uicontrol">Close</span> to complete the installation.</li>
+            <li>In the second App Configuration dialog, select from the following options:<ul><li><span class="uicontrol">Filter Credential Provider</span>: This option provides a workaround when a server has multiple credential providers installed. If selected, the <MadCap:variable name="okta-variables.ProductName" /> MFA Credential Provider is the only method used to apply MFA to RDP connections. Unauthenticated users can't select which credential provider to use.</li><li><span class="uicontrol">RDP Only</span>: By default, the installed credential provider inserts <MadCap:variable name="okta-variables.ProductName" /> MFA between both an RDP and a local authentication event. Selecting this option removes <MadCap:variable name="okta-variables.ProductName" /> MFA from local (interactive) logons.</li><li>(EA version only) <span class="uicontrol">Display Okta password reset link (self service)</span>: Select this to add an option to the Windows sign-on screen that allows end users to reset their password through <MadCap:variable name="okta-variables.ProductName" />.</li></ul></li>
+            <li>
+                <p>Verify the installation by locking the machine. If successfully installed, the sign-in screen shows <MadCap:variable name="okta-variables.ProductName" /> as a sign-in option.</p>
+                <p>The appearance of the sign-in screen varies between different versions of Windows Server.</p>
+            </li>
+        </ol>
+        <h2><a name="Silent"></a>Silent installation</h2>
+        <ol>
+            <li>Go to the location where you downloaded the installer.</li>
+            <li>
+                <p>Extract the files from the .zip archive. </p>
+            </li>
+            <li>On the Windows server, run the following command from the <span class="filepath">vcredist_x64</span> folder of the unzipped archive:<p><span class="codeblock">vcredist_x64.exe /install /quiet /norestart</span></p></li>
+            <li>
+                <p>Run the following command to  install <MadCap:variable name="okta-variables.ProductName" /> Windows Credential Provider silently:</p>
+                <p><span class="codeblock">msiexec /qb /log log.txt /i OktaWindowsCredentialProvider.msi CLIENT_ID="cid" CLIENT_SECRET="cs" OKTA_URL="https://a.b.c"</span>
+                </p>
+                <p>You can find the values for each of the parameters as follows:</p>
+                <ul>
+                    <li>
+                        <p>CLIENT_ID: Find this value on the <span class="wintitle">General</span> tab of the Microsoft RDP (MFA) application in <MadCap:variable name="okta-variables.ProductName" />. You can also manually edit this value in the RDP agent config file.</p>
+                    </li>
+                    <li>
+                        <p>CLIENT_SECRET: Find this value on the <span class="wintitle">General</span> tab of the Microsoft RDP (MFA) application in <MadCap:variable name="okta-variables.ProductName" />. If the client secret is reset, you must reinstall the agent because the secret is encrypted in the agent config file. You can also manually edit this value in the RDP agent config file.</p>
+                    </li>
+                    <li>
+                        <p>OKTA_URL: Your org URL. Must use the format <span class="url">https://org_name.okta.com</span>.  HTTPS is required. Also supported are *.okta-gov.com, *.oktapreview.com, and *.okta-emea.com.</p>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <p><a name="Modify"></a>Modify additional properties. In addition to the parameters you added in the previous step, you can modify the following properties to ensure MFA is enforced: </p>
+                <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+                    <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                    <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                    <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                    <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                    <thead>
+                        <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                            <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                                <p>Property</p>
+                            </th>
+                            <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                                <p>Definition</p>
+                            </th>
+                            <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                                <p>Default value</p>
+                            </th>
+                            <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">
+                                <p>Suggested value</p>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><span class="code">FilterCredentialProvider</span>
+                            </td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                                <p>This property provides a workaround when a server has multiple credential providers installed. If true, the <MadCap:variable name="okta-variables.ProductName" /> MFA Credential Provider  is the only method used to apply MFA to RDP connections. It doesn't permit unauthenticated users to select which credential provider to use.</p>
+                                <p>Setting FilterCredentialProvider to true and RdpOnly to false causes the agent to prompt for MFA if required by the policy.</p>
+                            </td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1" style="text-align: center;">false</td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1" style="text-align: center;">-</td>
+                        </tr>
+                        <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><span class="code">InternetFailOpenOption</span>
+                            </td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                                <p>Sets authentication flow behavior if network connectivity is lost. This property governs proper access if the target machine doesn't have internet access for&#160;MFA.</p>
+                                <p>If true, a user attempting to authenticate across RDP isn't  challenged for MFA and is granted access based on password alone.</p>
+                                <p>When false, a user attempting to authenticate across RDP isn't granted access because the credential provider can't reach the <MadCap:variable name="okta-variables.ProductName" /> service.</p>
+                                <p>Set this property to true if internet connectivity is a frequent issue.</p>
+                            </td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2" style="text-align: center;">false</td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2" style="text-align: center;">-</td>
+                        </tr>
+                        <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><span class="code">RdpOnly</span>
+                            </td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                                <p>By default, the installed credential provider inserts <MadCap:variable name="okta-variables.ProductName" /> MFA between both an RDP and a local authentication event. Setting this property to true removes <MadCap:variable name="okta-variables.ProductName" /> MFA from local (interactive) logons.</p>
+                                <p>Setting FilterCredentialProvider to true and RdpOnly to false  causes the agent to prompt for MFA if required by the policy.</p>
+                            </td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1" style="text-align: center;">false</td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1" style="text-align: center;">-</td>
+                        </tr>
+                        <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><span class="code">WidgetTimeOutInSeconds</span>
+                            </td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                                <p>The number of seconds before timeout. To prevent the possibility that Windows might close the RDP session, this value must be smaller than the idle timeout set in Windows.</p>
+                                <p>The maximum value is 120 seconds.</p>
+                            </td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2" style="text-align: center;">60</td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2" style="text-align: center;">30</td>
+                        </tr>
+                        <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><span class="code">ErrorTimeOutInSeconds</span>
+                            </td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">The timeout after which the RDP session is closed when an error message is displayed.</td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1" style="text-align: center;">30</td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1" style="text-align: center;">30</td>
+                        </tr>
+                        <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><span class="code">EnforceTimeoutVersionAgnostic</span>
+                            </td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Enforce timeout for Windows 2012,  2016 or 2019.&#160;</td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2" style="text-align: center;">false</td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2" style="text-align: center;">true</td>
+                        </tr>
+                        <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><span class="code">SslPinningEnabled</span>
+                            </td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Validate the public key of the <MadCap:variable name="okta-variables.ProductName" /> server  to which the agent is connecting.</td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1" style="text-align: center;">true</td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1" style="text-align: center;">true</td>
+                        </tr>
+                        <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><span class="code">DisplayPasswordResetLink</span>
+                                <p> If you upgraded from the version 1.1.4 to a later version, you must add this property.</p>
+                            </td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Display link to reset Active Directory password.</td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2" style="text-align: center;">false</td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2" style="text-align: center;">true</td>
+                        </tr>
+                        <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                            <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1"><span class="code">DisconnectSessionOnError</span>
+                            </td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1">When this property is set to true, <MadCap:variable name="okta-variables.ProductName" /> attempts to disconnect the user’s session if there’s a timeout or an unexpected error. Under the default value, the user’s session terminates instead of disconnects so that unsaved data may be lost.</td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1" style="text-align: center;">false</td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body1" style="text-align: center;">-</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>To modify these properties, edit the file <span class="filepath">rdp_app_config.json</span> (by default, in the <span class="filepath">C:\Program Files\Okta\Okta Windows Credential Provider\config</span> folder) or use the following PowerShell script:</p><span class="codeblock">$rdpAppConfig = Get-Content 'C:\Program Files\Okta\Okta Windows Credential Provider\config\rdp_app_config.json' -raw | ConvertFrom-Json
+$rdpAppConfig.RdpOnly =([System.Convert]::ToBoolean('true'))
+$rdpAppConfig | ConvertTo-Json | Set-Content  'C:\Program Files\Okta\Okta Windows Credential Provider\config\rdp_app_config.json'</span>
+                <p>You can run this script from the same location you ran the installation in step 2, above.</p>
+                <div class="noteOkta">
+                    <p class="noteContent">This script was tested with PowerShell versions, 3, 4, and 5. To determine the version of PowerShell on your system, open PowerShell as administrator and enter:<span class="codeblock">$PSVersionTable</span></p>
+                </div>
+            </li>
+        </ol>
+        <h2><a name="Mass"></a>Mass deployment</h2>
+        <p>Use the Microsoft <a href="https://docs.microsoft.com/en-us/sysinternals/downloads/psexec" target="_blank">psexec64</a> tool to execute commands on remote machines. Modify the following command for a mass deployment:</p>
+        <div class="terminal">
+            <div class="terminal-content">
+                <div>psexec64 &lt;IP of the machine to deploy&gt; -u &lt;AD admin user&gt; -p &lt;AD admin password&gt; msiexec /i &lt;//machine/share/OktaWindowsCredentialProvider.msi&gt; CLIENT_ID="&lt;client id&gt;" CLIENT_SECRET="&lt;client secret&gt;" OKTA_URL="https://yourdomain.okta.com" /qn /l*v &lt;path for installation log&gt;</div>
+            </div>
+        </div>
+        <p>Elements of the command should be modified as follows:</p>
+        <ul>
+            <li>Replace <span class="code">&lt;IP of the machine to deploy&gt;</span>, <span class="code">&lt;AD admin user&gt;, and</span> <span class="code">&lt;path for installation log&gt;</span> with appropriate values for your organization.</li>
+            <li>Replace the <span class="code">&lt;client secret&gt;</span> and <span class="code">&lt;client ID&gt;</span> to match your application.</li>
+            <li>Replace <span class="code">yourdomain</span> with the name of your <MadCap:variable name="okta-variables.ProductName" /> organization.</li>
+        </ul>
+        <h3>Configure behavior if network connectivity is lost</h3>
+        <p>After completing the installation, you can configure the behavior of the authentication flow if network connectivity is lost.</p>
+        <p>To configure this behavior, edit <span class="filepath">rdp_app_config.json</span> (by default, in the <span class="filepath">C:\Program Files\Okta\Okta Windows Credential Provider\config</span> folder). Set <span class="code">InternetFailOpenOption</span> to one of the following values:</p>
+        <ul>
+            <li><span class="code">true</span>: If internet connectivity is lost, a user attempting to authenticate across RDP isn't challenged for MFA and is granted access based on password alone.</li>
+            <li><span class="code">false</span>: If internet connectivity is lost, a user attempting to authenticate across RDP isn't granted access because the credential provider can't reach the <MadCap:variable name="okta-variables.ProductName" /> service.</li>
+        </ul>
+        <div class="noteOkta">
+            <p class="noteContent">You can also modify any of the other properties listed in Step 4 in the Silent Installation section, above.</p>
+        </div>
+        <h2><a name="Verify"></a>Verify timeout settings</h2>
+        <p>To ensure that MFA&#160;works as expected, verify that the <MadCap:variable name="okta-variables.ProductName" /> sign in session times out before the Windows session. </p>
+        <p>Note the following:</p>
+        <ul>
+            <li>By default, the <MadCap:variable name="okta-variables.ProductName" /> widget timeout session is set to 60 seconds.</li>
+            <li>Determine the timeout duration in your Windows environment then set the session timeout duration for the <MadCap:variable name="okta-variables.ProductName" /> widget to be shorter than the Windows timeout session. <br /><div class="noteOkta"><p class="noteContent">Set up a test in the environment by manually timing the session duration for both Windows and <MadCap:variable name="okta-variables.ProductName" /> to ensure that the timeout duration specified for each work as expected.</p></div></li>
+        </ul>
+        <p>To configure the <MadCap:variable name="okta-variables.ProductName" /> widget timeout session duration: </p>
+        <ol>
+            <li>Navigate to <span class="filepath">C:\Program Files\Okta\Okta Windows Credential Provider\config</span></li>
+            <li>Edit <span class="filepath">rdp_app_config.json</span></li>
+            <li>Add the following properties and values to the file, delineating each entry with a comma: <br /><ul><li><span class="code">"WidgetTimeOutInSeconds": 30</span></li><li><p><span class="code">"ErrorTimeOutInSeconds": 30</span></p></li><li><span class="code">"EnforceTimeoutVersionAgnostic": false</span></li></ul><div class="noteOkta"><p class="noteContent">You may specify another value for timeout as long as it is lower than your Windows session timeout duration.</p></div></li>
+        </ol>
+        <div>
+            <h2>Next steps</h2>
+            <p>
+                <MadCap:xref href="proc-mfa-win-creds-rdp-test.htm">Verify MFA for RDP sessions</MadCap:xref>
+            </p>
+        </div>
+    </body>
+</html>

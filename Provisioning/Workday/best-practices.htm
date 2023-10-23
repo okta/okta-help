@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:fileTags="Tags/okta-authors.Jeanette Smith">
+    <head><title>Best Practices and FAQ | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+        <meta name="description" content="Workday Real Time Sync enables user attribute updates in Workday to be instantly reflected in the user’s Okta profile." />
+    </head>
+    <body>
+        <h1>Best practices and FAQ</h1>
+        <h2>Best practices</h2>
+        <h3>Set up and configure all three types of imports</h3>
+        <ul>
+            <li>Full import: Run weekly to reconcile all users. It can be run more frequently depending on the number of users and preference.</li>
+            <li>Incremental import: Run as frequently as hourly depending on the number of updates made that cannot be triggered by RTS, such as pre-hires. See <MadCap:xref href="incremental-imports.htm">Incremental Imports</MadCap:xref>.</li>
+            <li>RTS: Configure for all user updates and terminations. See <MadCap:xref href="workday-rts.htm">Workday Real Time Sync</MadCap:xref>.</li>
+        </ul>
+        <h3>Configure field overrides</h3>
+        <p>If you are on the newest connector, configure field overrides instead of a custom report for the best performance. Otherwise, use a paginated custom report. See <MadCap:xref href="workday-provisioning.htm#Workday2">Workday Custom Attributes.</MadCap:xref></p>
+        <h3>Number of users</h3>
+        <p>If you have over 50,000 users, contact <a href="https://support.okta.com/help" target="_blank">Okta Support</a> to enable batch imports for more robust performance.</p>
+        <h3>Rename a group</h3>
+        <ul>
+            <li>If you have to rename a group in Workday, consider creating a new group instead.
+                </li>
+            <li>As described in <MadCap:xref href="workday-provisioning.htm#ADimportprov">Manage Workday Provisioning Groups</MadCap:xref>, Workday Group name changes can result in unwanted behavior downstream in <MadCap:variable name="okta-variables.ProductName" />. To work around this issue, create a new group with the desired name in Workday and assign all the users to it. Wait for an import or RTS job to create the new group in <MadCap:variable name="okta-variables.ProductName" />. </li>
+            <li>After the newly created group is brought into <MadCap:variable name="okta-variables.ProductName" />, set it up exactly the same as the group you wished to rename. When all user memberships, group rules, and application assignments are the same between the new group with the desired name and the old group, you can remove the original group from Workday. Update <MadCap:variable name="okta-variables.ProductName" /> by running a full import to remove the old group from <MadCap:variable name="okta-variables.ProductName" />. </li>
+            <li>Since all users, rules, and application assignments have been duplicated to the new group, no one should lose access to any applications or assignments.</li>
+        </ul>
+        <h3>Configure import settings</h3>
+        <p>When configuring your import settings, review <MadCap:xref href="../../Users-Groups-Profiles/usgp-import-safeguard.htm">About import safeguards</MadCap:xref>  (App level roadblock settings) and ensure it is configured to an acceptable percentage level for your organization’s purposes.  </p>
+        <h2>FAQ</h2>
+        <p>SAML&#160;SOAP request:</p><span class="codeblock">POST xx/Human_Resources/v29.0 HTTP/1.1
+Host: Workday host
+Content-Type: application/xml
+cache-control: no-cache
+Postman-Token: token
+&lt;S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"&gt;
+&lt;S:Header&gt;
+&lt;wsse:Security xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" soapenv:mustUnderstand="1"&gt;
+&lt;wsse:UsernameToken&gt;
+&lt;wsse:Username&gt;username&lt;/wsse:Username&gt;
+&lt;wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText"&gt;password&lt;/wsse:Password&gt;&lt;/wsse:UsernameToken&gt;
+&lt;/wsse:Security&gt;
+&lt;/S:Header&gt;
+&lt;S:Body&gt;
+&lt;ns1:Get_Workers_Request xmlns:ns1="urn:com.workday/bsvc" ns1:version="v29.0"&gt;
+&lt;ns1:Request_Criteria&gt;
+&lt;ns1:Exclude_Inactive_Workers&gt;true&lt;/ns1:Exclude_Inactive_Workers&gt;
+&lt;/ns1:Request_Criteria&gt;
+&lt;ns1:Response_Filter&gt;
+&lt;ns1:As_Of_Effective_Date&gt;2019-03-14T22:25:24.480Z&lt;/ns1:As_Of_Effective_Date&gt;
+&lt;ns1:As_Of_Entry_DateTime&gt;2019-03-14T22:25:24.480Z&lt;/ns1:As_Of_Entry_DateTime&gt;
+&lt;ns1:Page&gt;1&lt;/ns1:Page&gt;
+&lt;ns1:Count&gt;100&lt;/ns1:Count&gt;
+&lt;/ns1:Response_Filter&gt;
+&lt;ns1:Response_Group&gt;
+&lt;ns1:Include_Reference&gt;true&lt;/ns1:Include_Reference&gt;
+&lt;ns1:Include_Personal_Information&gt;true&lt;/ns1:Include_Personal_Information&gt;
+&lt;ns1:Include_Employment_Information&gt;true&lt;/ns1:Include_Employment_Information&gt;
+&lt;ns1:Include_Organizations&gt;true&lt;/ns1:Include_Organizations&gt;
+&lt;ns1:Exclude_Organization_Support_Role_Data&gt;true&lt;/ns1:Exclude_Organization_Support_Role_Data&gt;
+&lt;ns1:Include_Employee_Contract_Data&gt;true&lt;/ns1:Include_Employee_Contract_Data&gt;&lt;ns1:Include_Management_Chain_Data&gt;true&lt;/ns1:Include_Management_Chain_Data&gt;
+&lt;/ns1:Response_Group&gt;
+&lt;/ns1:Get_Workers_Request&gt;
+&lt;/S:Body&gt;
+&lt;/S:Envelope&gt;
+</span>
+        <h4>What versions of the Workday API are currently supported?</h4>
+        <p><MadCap:variable name="okta-variables.ProductName" /> supports version 15 and 29 of the Workday API. </p>
+        <h4>Are constrained groups supported?</h4>
+        <p>Constrained groups are not supported.</p>
+        <h4>Are custom attributes supported?</h4>
+        <p>Yes, all imports pull custom attributes. If you are not seeing a custom attribute, check the custom report in Workday with JSON endpoint and validate that the data is there.</p>
+        <h4>What is the performance load that can be supported in a Workday as a Source implementation? How many users can be imported in a full import or incremental import? </h4>
+        <p>Currently, scale testing passed 250 thousand, moving towards 300 thousand users.</p>
+        <h4>Are there technical limitations to integrating <MadCap:variable name="okta-variables.ProductName" /> with Workday?</h4>
+        <p> For incremental imports, <MadCap:variable name="okta-variables.ProductName" /> can’t determine changes on custom attributes if they don’t have a transaction log tied to them. If there are base attribute changes, <MadCap:variable name="okta-variables.ProductName" /> pulls in the custom attributes too.</p>
+        <h4>Are there limitations when provisioning or deprovisioning users using custom attributes?</h4>
+        <p>No, the user works the same with or without the custom attributes.</p>
+        <h4>Are there limitations with a real time sync versus an import?</h4>
+        <p>RTS requires a business process to be set up in Workday for each event you want to trigger.</p>
+    </body>
+</html>

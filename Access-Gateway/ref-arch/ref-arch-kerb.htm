@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/ref-arch-kerb.htm" />
+        <link href="../../../Resources/TableStyles/standard-shaded-rows.css" rel="stylesheet" MadCap:stylesheetType="table" /><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1>Kerberos application reference architecture</h1>
+        <p>To make things easier for employees, many organizations have developed applications to use Kerberos. This may also be referred to as SPNEGO (Simple and Protected GSSAPI Negotiation Mechanism or Kerberos over HTTPS), Windows Integrated Authentication, or Windows Desktop Authentication or Windows SSO.<br />        This allows an employee logged into their Windows desktop easy access to an application without being prompted for their Active Directory (AD) credentials.   Many other third party applications from both Microsoft and other vendors have also adapted their solutions to use  Kerberos for authentication.  While this has worked well for many years, users are much more mobile in today’s works and use a variety of devices, and locations and are not always are logged into a Windows device connected to an AD domain.  <MadCap:variable name="okta-feature-names.Access Gateway" />can be used to bridge the gap between the modern mobile workforce and these applications built around Windows authentication.<br />In this scenario, Okta first logs the user in, possibly using the users AD credentials, or a MFA token, and then the user proxies through the <MadCap:variable name="okta-feature-names.Access Gateway" /> to the application that is designed for Windows Kerberos authentication. <MadCap:variable name="okta-feature-names.Access Gateway" /> reaches out to a Windows Kerberos cluster and through an established trust, can have the Windows Kerberos cluster create a token for the user, and then insert that token into the HTTP headers which is passed to the application.  The result is the application sees the token, and identifies who the user is, and the application does not need to be changed when adding it behind Okta.<br />Additionally users can now access that application using non domain joined devices including mobile browsers. If the <MadCap:variable name="okta-feature-names.Access Gateway" /> is deployed in the DMZ, and is publicly accessible, these users do not need to VPN into the network in order to access the application.</p>
+        <div>
+            <h3>Topics</h3>
+            <ul>
+                <li>
+                    <MadCap:xref href="#Approach">Approach</MadCap:xref>
+                </li>
+                <li>
+                    <MadCap:xref href="#architectures">[%=okta-feature-names.Access Gateway%] architectures</MadCap:xref>
+                </li>
+                <li>
+                    <MadCap:xref href="#Architec">Architecture functional area breakdown</MadCap:xref>
+                </li>
+            </ul>
+        </div>
+        <h2><a name="Approach"></a>Approach</h2>
+        <p>To deploy <MadCap:variable name="okta-feature-names.Access Gateway" /> to secure applications in an environment described above, it is best to begin deployment of a base architecture and then add specific features as needed.  This methodology will allow an organization to begin moving forward in an agile fashion and not become overly bogged down in requirements analysis.<br />            Key steps in determining an overall architecture include:
+            <ul><li>Identify how applications are to be integrated with Okta and <MadCap:variable name="okta-feature-names.Access Gateway" />.  Typical  integrations include:   <ul style="list-style-type: circle;"><li>Single kerberos/Windows IIS&#160;application</li><li><a href="../add-generic-header-app.htm">Header based</a></li><li><a href="../add-app-saml-pass-thru.htm">SAML </a><br /></li><li><a href="../integrate-apps.htm">Others</a></li></ul></li><li>Identify how many users will access the applications and how often. This will help determine how many instances of <MadCap:variable name="okta-feature-names.Access Gateway" /> are required, what number of load balancers are necessary and generally how the architecture components will be distributed. </li><li>Identify which applications should be accessible through <MadCap:variable name="okta-feature-names.Access Gateway" /> from the internet and which should require the user have access to the internal network. Typically this starts as a subset of applications, and expands over time.</li><li>Identify and work with the AD team to get the proper system accounts and trusts / keytabs. </li><li>Identify all AD infrastructure to determine the connections from <MadCap:variable name="okta-feature-names.Access Gateway" /> to AD and the Windows Kerberos ticketing infrastructure.  </li></ul></p>
+        <h2><a name="architectures"></a> <MadCap:variable name="okta-feature-names.Access Gateway" /> Kerberos architectures</h2>
+        <p><MadCap:variable name="okta-feature-names.Access Gateway" /> Kerberos installations can be deployed in any number of possible combinations. Common architecture are:</p>
+        <table style="mc-table-style: url('../../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+            <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+            <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><a href="kerb-simp.htm">Single <MadCap:variable name="okta-feature-names.Access Gateway" /> instance</a>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">The simple Kerberos instance <MadCap:variable name="okta-feature-names.Access Gateway" /> architecture represents a set of components required for Kerberos based authentication and authorization using <MadCap:variable name="okta-feature-names.Access Gateway" />. This architecture represents a baseline for development and testing. </td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><a href="kerb-simp-c.htm">Simple Kerberos cluster</a>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">The simple Kerberos cluster <MadCap:variable name="okta-feature-names.Access Gateway" /> architecture represents a set of components required for Kerberos based authentication and authorization using <MadCap:variable name="okta-feature-names.Access Gateway" />. <br />This architecture extends the single Kerberos instance by adding<MadCap:variable name="okta-feature-names.Access Gateway" /> cluster.</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><a href="kerb-clust.htm">Kerberos cluster</a>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">The Kerberos cluster <MadCap:variable name="okta-feature-names.Access Gateway" /> architecture represents a set of components required for Kerberos based authentication and authorization using <MadCap:variable name="okta-feature-names.Access Gateway" /> and a redundant Kerberos cluster providing capacity and fault tolerance on the Kerberos side..</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2"><a href="kerb-mult-domain.htm">Multiple Kerberos domain</a>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">The multiple Kerberos domain <MadCap:variable name="okta-feature-names.Access Gateway" /> architecture represents a set of components required for Kerberos based authentication and authorization using <MadCap:variable name="okta-feature-names.Access Gateway" /> and multiple Kerberos trusted domains.</td>
+                </tr>
+            </tbody>
+        </table>
+        <h2><a name="Architec"></a>Architecture functional area breakdown</h2>
+        <MadCap:snippetBlock src="../../../Resources/Snippets/access-gateway/ref-arch-funct-areas.flsnp" />
+        <h2>Related topics</h2>
+        <p>
+            <MadCap:xref href="ref-arch-flow.htm">Common [%=okta-feature-names.Access Gateway%] flows</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="../about-oag-dns.htm">About [%=okta-feature-names.Access Gateway%] DNS use</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="../about-high-availability.htm">About [%=okta-feature-names.Access Gateway%] high availability</MadCap:xref>
+        </p>
+        <p><a href="../about-oag-prereqs.htm">About [%=okta-feature-names.Access Gateway%] prerequisites</a>
+        </p>
+    </body>
+</html>

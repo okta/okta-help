@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:conditions="Primary.do-not-publish" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/add-app-template-policy.htm" />
+        <link href="../../Resources/TableStyles/standard-shaded-rows.css" rel="stylesheet" MadCap:stylesheetType="table" /><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1>Add required access policy</h1>
+        <div>
+            <p>During this task we will create the required policy to modify requests to add information required for web sockets.<br />In the original example the following were examples were used:<br /></p>
+            <div class="noteOkta">
+                <p class="noteContent">Add policy for each of the required redirects.</p>
+            </div>
+            <p>Add access policy for each secondary, tertiary and other back ends:</p>
+            <ol>
+                <li>Select the <span class="wintitle">Policies</span> tab.</li>
+                <li>Click <span class="uicontrol">Add</span> (<img src="../../Resources/Images/access-gateway/icon.plus.png" style="vertical-align: bottom;" />) in the policy list header and select <span class="uicontrol">Protected</span>.</li>
+                <li>Change the policy type to <span class="uicontrol">Custom</span>. <br /></li>
+                <li>Expand <span class="uicontrol">Advanced</span>. </li>
+                <li>In the <span class="uicontrol">Custom Configuration</span> text area enter the following code:<br />Note: We'll enter the code in several sections.
+					<br />Initially enter the policy requirements.
+<span class="codeblock">set $policy_name "2nd";
+set $policy_res "/2nd";
+set $policy_type "PROTECTED";
+set $policy_desc "Protect all application resources";</span>These values should match the original protected resource as shown below. <br />Note that the policy type here is set to <span class="code">PROTECTED</span>. <br /><img src="../../Resources/Images/access-gateway/add-app-multi-add-rule-config-1.png" id="img_new" /><br /><div class="noteOkta"><p class="noteContent">The following policy types are supported:<br /><table style="mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0"><col class="TableStyle-srb_header_alt_shade-Column-Column1" /><col class="TableStyle-srb_header_alt_shade-Column-Column1" /><thead><tr class="TableStyle-srb_header_alt_shade-Head-Header1"><th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1"><p>Policy type</p></th><th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">Corresponding policy_type</th></tr></thead><tbody><tr class="TableStyle-srb_header_alt_shade-Body-Body1"><td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Protected</td><td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">PROTECTED</td></tr><tr class="TableStyle-srb_header_alt_shade-Body-Body2"><td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Not Protected</td><td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">NO_AUTH</td></tr><tr class="TableStyle-srb_header_alt_shade-Body-Body1"><td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Protected Rule</td><td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">PROTECTED_REGEX</td></tr><tr class="TableStyle-srb_header_alt_shade-Body-Body2"><td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2"><p>Adaptive Rule</p></td><td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2"><p>Not supported</p></td></tr></tbody></table><br />See <MadCap:xref href="learn-about-oag-policy-types.htm">About [%=okta-feature-names.Access Gateway%] policy types</MadCap:xref> for a complete list of all policy types. </p></div></li>
+                <li>Follow the <span class="code">set $policy_*</span> statements with:<br /><![CDATA[
+]]><span class="codeblock">set $UserName '';
+set $oag_username '';
+set $RemoteIP '';
+set $RelayDomain '';
+set $SESSIONID '';
+					</span></li>
+                <li>For each attribute specify a corresponding set of indexed variables. These are key(s) from the SAML Assertion and there must be a one to one correspondence between application attributes and indexed variables. =<br />Assuming there were three attributes, as shown below, we would then create three <span class="code">set</span> statements plus an additional count <span class="code">set</span> statement. <br />Note that the field names must match those provided in the <span class="uicontrol">Name</span> column. Also note that the <span class="code">$_argc</span> variable must match the total attributes, in this example 3. <br /><![CDATA[
+]]><span class="codeblock">set $_1 'oagusername';
+set $_2 'firstname';
+set $_3 'lastname';
+set $_argc 3;
+</span><p>For example:<br /><img src="../../Resources/Images/access-gateway/add-app-multi-add-rule-config-2.png" id="img_new" /></p></li>
+                <li>Follow set statements with two required statements, shown below:<br /><![CDATA[
+]]><span class="codeblock"># process request policies
+access_by_lua_file conf/authSession.lua;
+# resolver -required if using domain and not IP
+resolver 127.0.0.1;
+</span></li>
+                <li>Add the required redirects<br />						Replace the following with appropriate values:<br /><table style="mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0"><col class="TableStyle-srb_header_alt_shade-Column-Column1" /><col class="TableStyle-srb_header_alt_shade-Column-Column1" /><col class="TableStyle-srb_header_alt_shade-Column-Column1" /><thead><tr class="TableStyle-srb_header_alt_shade-Head-Header1"><th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Substitution</th><th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Description</th><th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">Example</th></tr></thead><tbody><tr class="TableStyle-srb_header_alt_shade-Body-Body1"><td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">&lt;APP_PATH&gt;</td><td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">URI of the OAG app that should be passed to the additional back-end proxied server</td><td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">/2nd</td></tr><tr class="TableStyle-srb_header_alt_shade-Body-Body2"><td style="font-weight: bold;" class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">&lt;PROXIED_SERVER_PROTOCOL&gt;</td><td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">HTTP or HTTPS depending on the protocol supported by the &lt;PROXIED_SERVER&gt;</td><td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">HTTPS</td></tr><tr class="TableStyle-srb_header_alt_shade-Body-Body1"><td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1">&lt;PROXIED_SERVER&gt;</td><td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1">URL of the back-end server for the &lt;APP_PATH&gt;</td><td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body1" style="font-weight: bold;"><p>2ndbackend.myportal.com</p></td></tr></tbody></table><br />In general:
+<span class="codeblock">#substitute the response data to include the application uri for absolute URLS
+subs_filter &lt;PROXIED_SERVER_PROTOCOL&gt;://&lt;PROXIED_SERVER&gt;/  https://$http_host/app1/ gi;
+#substitute the response data to include the application URI for redirects
+proxy_redirect &lt;PROXIED_SERVER_PROTOCOL&gt;://&lt;PROXIED_SERVER&gt;/ /&lt;APP_PATH&gt;/;
+#substitute the response data to include the application URI for relative URLS
+subs_filter href="/    href="/&lt;APP_PATH&gt;/ gi;
+</span><br /> For example:<br /><![CDATA[
+]]><span class="codeblock">#substitute the response data to include the application uri for absolute URLS
+subs_filter HTTPS://2ndbackend.myportal.com/  https://$http_host/app1/ gi;
+#substitute the response data to include the application URI for redirects
+proxy_redirect HTTPS://2ndbackend.myportal.com/ /2nd/;
+#substitute the response data to include the application URI for relative URLS
+subs_filter href="/    href="/2nd/ gi;
+</span></li>
+                <li>Complete the code block by entering the following statements. <br />Note that you will need add all required headers to the request, which may be a subset of the original attribute values.
+<span class="codeblock"># common managed directives
+include /etc/nginx/conf/icsgw_location_common.conf;
+
+# Include headers for application
+proxy_set_header oag_username $_1;
+proxy_set_header firstname $_2;
+proxy_set_header lastname $_3;
+
+# set to hostname that the protected upstream app needs
+proxy_set_header host localhost;
+					</span></li>
+                <li>Click <span class="uicontrol">Not validated</span> to validate the code block.<br />On success, the <span class="uicontrol">Not validated</span> button will become <span class="uicontrol">Valid</span>. </li>
+                <li>Correct any errors and click <span class="uicontrol">Okay</span> to finalize the policy. </li>
+                <li>Click <span class="uicontrol">Done</span> to complete the application.</li>
+            </ol>
+            <p>The following example shows the completed code block for redirecting all requests for <span class="url">www.myportal.com/2nd</span> to <span class="url">2ndbackend.myportal.com</span>. <br /><![CDATA[
+]]><span class="codeblock" xml:space="preserve">set $policy_name "Second";
+set $policy_desc "Protect all application resources";
+set $policy_type "PROTECTED";
+set $policy_res "/2nd";
+
+# The values from auth Session
+set $UserName '';
+set $oag_username '';
+set $RemoteIP '';
+set $RelayDomain '';
+set $SESSIONID '';
+
+# Key(s) from the SAML Assertion
+# authSession will look in the session for these keys
+# and populate the indexed variables
+set $_1 'oagusername';
+set $_2 'firstname';
+set $_3 'lastname';
+set $_argc 3;
+
+# process request policies
+access_by_lua_file conf/authSession.lua;
+# resolver -required if using a domain and not an IP address
+resolver 127.0.0.1; valid=30s ;
+set $&lt;set_variable_name&gt; https://2ndbackend.myportal.com/  ;
+proxy_pass $&lt;set_variable_name&gt; ;
+
+#substitute the response data to include the application uri for absolute URLs
+subs_filter HTTPS://2ndbackend.myportal.com/  https://$http_host/app1/ gi;
+#substitute the response data to include the application URI for redirects
+proxy_redirect HTTPS://2ndbackend.myportal.com/ /2nd/;
+#substitute the response data to include the application URI for relative URLs
+subs_filter href="/    href="/2nd/ gi;
+
+# common managed directives
+include /etc/nginx/conf/icsgw_location_common.conf;
+
+# Include headers for application
+proxy_set_header oagusername $_1;
+proxy_set_header firstname $_2;
+proxy_set_header lastnamename $_3;
+
+# set to the hostname that the protected upstream app needs
+proxy_set_header host localhost;
+			</span><div><h2>Next steps</h2><p>Repeat the process, adding a new policy for each of the required URI/redirects. In the example given we would add an additional policy for /3rd redirecting to https://3rdbackend.myportal.com/.</p><p><a href="add-app-portal-test.htm">Test</a></p><h2>Related topics</h2><p><MadCap:xref href="learn-about-oag-policy-types.htm">Learn About [%=okta-feature-names.Access Gateway%] Policy Types</MadCap:xref></p><p><MadCap:xref href="learn-about-oag-policy-types.htm">About [%=okta-feature-names.Access Gateway%] policy types</MadCap:xref></p></div></p>
+        </div>
+    </body>
+</html>

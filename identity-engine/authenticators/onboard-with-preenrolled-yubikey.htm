@@ -1,0 +1,529 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Nikita Apraj">
+    <head>
+        <link href="../../../Resources/TableStyles/standard-shaded-rows.css" rel="stylesheet" MadCap:stylesheetType="table" /><title>[%=Heading.Level1%] | Okta</title>
+    </head>
+    <body>
+        <h1>Onboard users with pre-enrolled <MadCap:variable name="3rd Party Integrations.YubiKey company name" /></h1>
+        <MadCap:snippetBlock src="../../../Resources/Snippets/lea-banner.flsnp" />
+        <p>This configuration ensures that new users  sign in with a phishing-resistant hardware security key from the day they join your organization. This phishing-resistant onboarding configuration is created using the <MadCap:variable name="3rd Party Integrations.FIDO2 (WebAuthn)" /> authenticator and  <MadCap:variable name="okta-variables.ProductName" /> policies. The setup ensures that the users can only use <MadCap:variable name="3rd Party Integrations.WebAuthn" /> when signing in to <MadCap:variable name="okta-variables.ProductName" /> or accessing your company resources. Part of this configuration is automated using a pre-designed <MadCap:variable name="okta-feature-names.Okta Workflows" /> template.</p>
+        <p>When a new user is added to the specified group in <MadCap:variable name="okta-variables.ProductName" />, <MadCap:variable name="3rd Party Integrations.YubiKey company official name" /> receives a <MadCap:variable name="3rd Party Integrations.YubiKey company name" /> shipment request for them through <MadCap:variable name="okta-feature-names.Okta Workflows" />.   After the request is fulfilled and the credential is activated in <MadCap:variable name="okta-variables.ProductName" />, a <MadCap:variable name="3rd Party Integrations.YubiKey company name" /> PIN is generated and emailed to the user. Later, when you activate the user in <MadCap:variable name="okta-variables.ProductName" />, they receive a welcome email with sign-in information. Users can then use this information and the PIN on their first day to sign in securely using <MadCap:variable name="3rd Party Integrations.YubiKey company name" />.</p>
+        <h2>Prerequisites</h2>
+        <p>Onboarding with pre-enrolled <MadCap:variable name="3rd Party Integrations.YubiKey company name" /> is available  for app access only. Ensure that you've enabled the following Okta features:</p>
+        <ul>
+            <li>
+                <MadCap:annotation MadCap:createDate="2023-09-28T11:49:13.6615165-05:00" MadCap:creator="Graham Smith" MadCap:initials="GS" MadCap:comment="Revisit after Oktane" MadCap:editor="Graham Smith" MadCap:editDate="2023-09-28T15:31:24.8990673-05:00">Adaptive MFA</MadCap:annotation>
+            </li>
+            <li><MadCap:variable name="okta-feature-names.Okta Workflows" />
+            </li>
+            <li><MadCap:variable name="okta-feature-names.Okta Workflows" /> template for Pre-enrolled <MadCap:variable name="3rd Party Integrations.YubiKey company name" />. Contact <MadCap:variable name="okta-feature-names.Okta Support" /> for this template.</li>
+        </ul>
+        <p>YubiKeys can only be shipped to US addresses. You need the following from <MadCap:variable name="3rd Party Integrations.YubiKey company official name" />:</p>
+        <ul>
+            <li><MadCap:variable name="3rd Party Integrations.YubiKey purchasing solution for enterprises"></MadCap:variable>
+            </li>
+            <li><MadCap:variable name="3rd Party Integrations.YubiKey delivery management solution for enterprises"></MadCap:variable>
+            </li>
+            <li>Your custom product IDs and subscription IDs for <MadCap:variable name="3rd Party Integrations.YubiKey company name" /> 5 NFC and <MadCap:variable name="3rd Party Integrations.YubiKey company name" /> 5C NFC. Contact <MadCap:variable name="3rd Party Integrations.YubiKey company official name" /> Support for these values.</li>
+        </ul>
+        <h2>Configure phishing-resistant onboarding flow</h2>
+        <p>This procedure includes the following tasks:</p>
+        <ol>
+            <li>
+                <MadCap:xref href="#Create">Create  groups for [%=3rd Party Integrations.YubiKey company name%] users</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Configur">Configure [%=3rd Party Integrations.FIDO2 (WebAuthn)%] as authenticator</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#configure">Configure [%=okta-variables.ProductName%] policies</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#set">Set up [%=3rd Party Integrations.YubiKey company official name%]-[%=okta-variables.ProductName%] flow in [%=okta-feature-names.Okta Workflows%]</MadCap:xref>
+            </li>
+        </ol>
+        <h3><a name="Create"></a>Create  groups for <MadCap:variable name="3rd Party Integrations.YubiKey company name" /> users</h3>
+        <p>Create two empty groups for the <MadCap:variable name="3rd Party Integrations.YubiKey company name" /> users:</p>
+        <ol>
+            <li>
+                <MadCap:snippetBlock src="../../../Resources/Snippets/task steps/Directory_Groups.flsnp" />
+            </li>
+            <li>Click <span class="uicontrol">Add group</span>.</li>
+            <li>
+                <p>Create two groups, and name them <span class="userinput">YubiKey 5 NFC</span> and <span class="userinput">YubiKey 5C NFC</span>.</p>
+                <div class="noteOkta">
+                    <p class="noteContent">Don't change the group names. These names are included in the <MadCap:variable name="okta-feature-names.Okta Workflows" /> templates, therefore they must be used verbatim.</p>
+                </div>
+            </li>
+            <li>
+                <MadCap:snippetText src="../../../Resources/Snippets/task steps/Click_Save.flsnp" />
+            </li>
+        </ol>
+        <p>Don't add any users to these groups yet. You'll add the users later when onboarding them.</p>
+        <h3><a name="Configur"></a>Configure <MadCap:variable name="3rd Party Integrations.FIDO2 (WebAuthn)" /> as authenticator</h3>
+        <ol>
+            <li>
+                <MadCap:snippetText src="../../../Resources/Snippets/task steps/Security_Authenticators.flsnp" />
+            </li>
+            <li>On the <span class="wintitle">Setup</span> tab, click <span class="uicontrol">Add Authenticator</span>.</li>
+            <li>Click <span class="uicontrol">Add</span> on the <MadCap:variable name="3rd Party Integrations.FIDO2 (WebAuthn)" /> tile.</li>
+            <li>Set <span class="uicontrol">User verification</span> to <span class="uicontrol">Preferred</span>.</li>
+            <li>Click <span class="uicontrol">Add</span>.</li>
+        </ol>
+        <div class="note_cautionOkta">
+            <p class="noteContent">Add another phishing-resistant authenticator as a backup (like <MadCap:variable name="okta-feature-names.Okta FastPass" />), so that users can  access their Okta account if they lose their <MadCap:variable name="3rd Party Integrations.YubiKey company name" />. See <MadCap:xref href="../devices/fp/fp-main.htm">[%=okta-feature-names.Okta FastPass%]</MadCap:xref>.</p>
+        </div>
+        <h3><a name="configure"></a>Configure <MadCap:variable name="okta-variables.ProductName" /> policies</h3>
+        <p>Add these <MadCap:variable name="okta-variables.ProductName" /> policies to ensure that the users authenticate with <MadCap:variable name="3rd Party Integrations.YubiKey company name" /> only.</p>
+        <h4>Global session policy</h4>
+        <p>Create a global session policy  so that users sign in to <MadCap:variable name="okta-variables.ProductName" /> with&#160; <MadCap:variable name="3rd Party Integrations.YubiKey company name" />. </p>
+        <ol>
+            <li>
+                <MadCap:snippetBlock src="../../../Resources/Snippets/task steps/Security_Global_Session_Policy.flsnp" />
+            </li>
+            <li>
+                <MadCap:snippetBlock src="snippets/enter-policy-name-description.flsnp" />
+            </li>
+            <li>
+                <MadCap:snippetText src="snippets/assign-to-yubikey-groups.flsnp" />
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Create policy and add rule</span>. <MadCap:snippetText src="snippets/add-rule-window-opens.flsnp" /></p>
+            </li>
+            <li>
+                <MadCap:snippetBlock src="snippets/enter-rule-name-configure-options.flsnp" />
+                <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+                    <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                    <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                    <thead>
+                        <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                            <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Field</th>
+                            <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">Option</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Establish the user session with</td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Any factor used to meet the Authentication Policy requirements</td>
+                        </tr>
+                        <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Multifactor authentication (MFA)</td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">Required</td>
+                        </tr>
+                        <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                            <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1">Users will be prompted for MFA</td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body1">At every sign in</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </li>
+            <li>
+                <MadCap:snippetBlock src="snippets/click-create-rule.flsnp" />
+            </li>
+            <li>
+                <MadCap:snippetText src="snippets/set-policy-priority.flsnp" /> </li>
+        </ol>
+        <h4>Authenticator enrollment policy</h4>
+        <p>Create an authenticator enrollment policy to disable all authenticators except <MadCap:variable name="3rd Party Integrations.FIDO2 (WebAuthn)" /> for the <MadCap:variable name="3rd Party Integrations.YubiKey company name" /> group users.</p>
+        <ol>
+            <li>
+                <MadCap:snippetBlock src="../../../Resources/Snippets/task steps/Security_Authenticators.flsnp" />
+            </li>
+            <li>Open the <span class="uicontrol">Enrollment</span> tab. <MadCap:snippetText src="snippets/click-add-policy.flsnp" /> <MadCap:snippetText src="snippets/enter-policy-name-description.flsnp"> </MadCap:snippetText></li>
+            <li>
+                <MadCap:snippetBlock src="snippets/assign-to-yubikey-groups.flsnp" />
+            </li>
+            <li>
+                <p>Set the following options:</p>
+                <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+                    <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                    <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                    <thead>
+                        <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                            <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Field</th>
+                            <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">Option</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">FIDO2 (WebAuthn)</td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Required</td>
+                        </tr>
+                        <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Allowed authenticators
+</td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">Any WebAuthn authenticators
+
+</td>
+                        </tr>
+                        <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                                <p><MadCap:variable name="okta-feature-names.Okta Verify" />
+                                </p>
+                            </td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                                <p>Required or Optional</p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                            <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">
+All other eligible authenticators
+</td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">Disabled</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </li>
+            <li>
+                <p>
+                    <MadCap:snippetText src="snippets/click-create-policy.flsnp" />
+                    <MadCap:snippetText src="snippets/add-rule-window-opens.flsnp" />
+                </p>
+            </li>
+            <li>
+                <MadCap:snippetBlock src="snippets/enter-rule-name-configure-options.flsnp" />
+                <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+                    <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                    <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                    <thead>
+                        <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                            <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Field</th>
+                            <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">Option</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+User is accessing
+</td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                                <p>Okta</p>
+                                <p>Applications: Any application that supports MFA enrollment
+</p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                            <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">Enrollment
+is
+</td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">
+                                <p>Allowed if required authenticators are missing
+</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </li>
+            <li>
+                <MadCap:snippetBlock src="snippets/click-create-rule.flsnp" />
+            </li>
+            <li>
+                <MadCap:snippetText src="snippets/set-policy-priority.flsnp" /> </li>
+        </ol>
+        <h4><MadCap:variable name="okta-feature-names.App sign-on policy" />
+        </h4>
+        <p>Add an <MadCap:variable name="okta-feature-names.app sign-on policy" /> and assign it to the Okta End-User Dashboard and other apps the <MadCap:variable name="3rd Party Integrations.YubiKey company name" /> users will access. This ensures they use only <MadCap:variable name="3rd Party Integrations.YubiKey company name" /> when accessing the dashboard and apps.</p>
+        <ol>
+            <li>
+                <MadCap:snippetBlock src="../../../Resources/Snippets/task steps/Security_Authentication_Policy.flsnp" />
+            </li>
+            <li>
+                <MadCap:snippetText src="snippets/click-add-policy.flsnp" /> <MadCap:snippetText src="snippets/enter-policy-name-description.flsnp" /></li>
+            <li>On the <span class="uicontrol">Rules</span> tab, click <span class="uicontrol">Add rule</span>. <MadCap:snippetText src="snippets/add-rule-window-opens.flsnp" /></li>
+            <li>
+                <p>
+                    <MadCap:snippetBlock src="snippets/enter-rule-name-configure-options.flsnp" />
+                </p>
+                <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+                    <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                    <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                    <thead>
+                        <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                            <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Field</th>
+                            <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">Option</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">User's group membership includes</td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+At least one of the following groups:
+<span class="userinput">YubiKey 5 NFC</span>, <span class="userinput">YubiKey 5C NFC</span><![CDATA[
+
+]]></td>
+                        </tr>
+                        <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">User must authenticate with</td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">Any 2 factor types</td>
+                        </tr>
+                        <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                            <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1">Possession factor constraints are</td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body1">Phishing resistant</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </li>
+            <li>
+                <MadCap:snippetText src="../../../Resources/Snippets/task steps/Click_Save.flsnp" /> Ensure this rule is at Priority 1.</li>
+            <li>On the <span class="uicontrol">Applications</span> tab, click <span class="uicontrol">Add app</span>. </li>
+            <li>Add the Okta Dashboard app to the policy. Search for other apps you want to assign to the <MadCap:variable name="3rd Party Integrations.YubiKey company name" /> users and add them to the policy. </li>
+            <li>Click <span class="uicontrol">Close</span>.</li>
+        </ol>
+        <h4>Password policy</h4>
+        <p>Create a password policy to disable self-service password change, password reset, and account unlock for YubiKey users. </p>
+        <ol>
+            <li>
+                <MadCap:snippetBlock src="../../../Resources/Snippets/task steps/Security_Authenticators.flsnp" />
+            </li>
+            <li>On the <span class="wintitle">Setup</span> tab, find the Password authenticator, and click <span class="menucascade"><span class="uicontrol">ActionsEdit</span></span>. The <span class="wintitle">Password</span> page opens.</li>
+            <li>Click <span class="uicontrol">Add new password policy</span>. <MadCap:snippetText src="snippets/enter-policy-name-description.flsnp" /></li>
+            <li>
+                <MadCap:snippetBlock src="snippets/assign-to-yubikey-groups.flsnp" />
+            </li>
+            <li>Keep the default options. <MadCap:snippetText src="snippets/click-create-policy.flsnp" /> <MadCap:snippetText src="snippets/add-rule-window-opens.flsnp" /></li>
+            <li>
+                <p>
+                    <MadCap:snippetBlock src="snippets/enter-rule-name-configure-options.flsnp" />
+                </p>
+                <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+                    <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                    <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                    <thead>
+                        <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                            <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Field</th>
+                            <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">Option</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                            <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1">Users can perform self-service</td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body1">
+                                <p>
+
+Clear all options for this condition:</p>
+                                <p>Password change</p>
+                                <p>Password reset</p>
+                                <p>Unlock account
+
+
+</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </li>
+            <li>
+                <MadCap:snippetBlock src="snippets/click-create-rule.flsnp" />
+            </li>
+            <li>
+                <MadCap:snippetText src="snippets/set-policy-priority.flsnp" /> </li>
+        </ol>
+        <h3><a name="set"></a>Set up <MadCap:variable name="3rd Party Integrations.YubiKey company official name" />-<MadCap:variable name="okta-variables.ProductName" /> flow in <MadCap:variable name="okta-feature-names.Okta Workflows" /></h3>
+        <p>After you configure the policies in the <MadCap:variable name="okta-feature-names.Administrator dashboard" />, go to <span class="menucascade"><span class="uicontrol">Workflow</span><span class="uicontrol"><MadCap:variable name="okta-feature-names.Okta Workflows" /></span> Console</span> to set up a flow between your <MadCap:variable name="3rd Party Integrations.YubiKey company official name" /> and <MadCap:variable name="okta-variables.ProductName" /> orgs.</p>
+        <h4>Create a connection from the current <MadCap:variable name="okta-variables.ProductName" /> org</h4>
+        <ol>
+            <li>
+                <MadCap:snippetBlock src="snippets/wf-add-connector-step-1.flsnp" />
+            </li>
+            <li>
+                <p>Select the <MadCap:variable name="workflows_connectors.Okta" /> connector.</p>
+            </li>
+            <li>
+                <MadCap:snippetBlock src="snippets/wf-add-connector-step-3.flsnp" />
+            </li>
+            <li>
+                <p>Enter the following values:</p>
+                <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+                    <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                    <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                    <thead>
+                        <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                            <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Field</th>
+                            <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">Option</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Domain</td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Enter your <MadCap:variable name="okta-variables.ProductName" /> org domain without <span class="url">https://</span><![CDATA[
+
+]]><p>For example, <span class="url">company.okta.com</span></p><p>
+If your org uses a custom domain, enter the custom domain.
+</p></td>
+                        </tr>
+                        <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                            <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">
+                                <p>Client ID&#160;and Client Secret</p>
+                            </td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">To find these values, follow these steps:<ol><li><MadCap:snippetBlock src="../../../Resources/Snippets/task steps/Applications_Applications.flsnp" /></li><li><p>Go to <span class="menucascade"><span class="uicontrol">Okta Workflows OAuth</span><span class="uicontrol">Sign on</span></span> tab.</p></li><li><p>Copy the values for <span class="uicontrol">Client ID</span> and <span class="uicontrol">Client Secret</span> and paste them in the <span class="wintitle">New Connection</span> window.</p></li></ol></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </li>
+            <li>
+                <MadCap:snippetBlock src="snippets/click-create.flsnp" />
+            </li>
+        </ol>
+        <MadCap:snippetBlock src="snippets/wf-new-connection-created.flsnp" />
+        <h4>Create a connection from the <MadCap:variable name="workflows_connectors.Yubico" /> org</h4>
+        <ol>
+            <li>Generate an API token in your <MadCap:variable name="3rd Party Integrations.YubiKey company official name" /> org. Go to your <span class="menucascade"><span class="uicontrol">YubiEnterprise Console Profile</span><span class="uicontrol">Generate new API token</span></span>.</li>
+            <li>Make a copy of the token and store it in a secure location.</li>
+            <li>
+                <MadCap:snippetBlock src="snippets/wf-add-connector-step-1.flsnp" />
+            </li>
+            <li>
+                <p>Select the <MadCap:variable name="workflows_connectors.Yubico" /> connector.</p>
+            </li>
+            <li>
+                <MadCap:snippetBlock src="snippets/wf-add-connector-step-3.flsnp" />
+            </li>
+            <li>
+                <p>In <span class="uicontrol">API&#160;Secret</span>, paste the API token from <MadCap:variable name="3rd Party Integrations.YubiKey company official name" />.</p>
+            </li>
+            <li>
+                <MadCap:snippetBlock src="snippets/click-create.flsnp" />
+            </li>
+        </ol>
+        <MadCap:snippetBlock src="snippets/wf-new-connection-created.flsnp" />
+        <h4>Set up the <MadCap:variable name="okta-feature-names.Okta Workflows" /> template for pre-enrolled <MadCap:variable name="3rd Party Integrations.YubiKey company name" /></h4>
+        <p>You receive the flow template in an email sent by <MadCap:variable name="okta-feature-names.Okta Support" />.</p>
+        <ol>
+            <li>Go to <span class="menucascade"><span class="uicontrol"><MadCap:variable name="okta-feature-names.Okta Workflows"></MadCap:variable> Console</span><span class="uicontrol">Flows</span></span>.</li>
+            <li>In <span class="uicontrol">Folders</span>, create a folder.</li>
+            <li>Click the three-dot menu for the folder where you want to import this template and click <span class="uicontrol">Import</span>. </li>
+            <li>Upload the flow template from your computer and click <span class="uicontrol">OK</span>.</li>
+        </ol>
+        <p>The <MadCap:variable name="okta-feature-names.Okta Workflow" /> template for pre-enrolled <MadCap:variable name="3rd Party Integrations.YubiKey company name" /> is added to your <MadCap:variable name="okta-feature-names.Okta Workflows" />.</p>
+        <h4>Activate <MadCap:variable name="workflows_connectors.Okta" /> and <MadCap:variable name="workflows_connectors.Yubico" /> connection in the flows</h4>
+        <p>The imported template folder includes three Workflows: <span class="varname">Create shipment</span>, <span class="varname">Call enrollment API</span>, and <span class="varname">Call activate API</span>.</p>
+        <p>For each flow, activate the <MadCap:variable name="workflows_connectors.Okta" /> and <MadCap:variable name="workflows_connectors.Yubico" /> connections:</p>
+        <ol>
+            <li>Open the flow and find the cards with an <MadCap:variable name="workflows_connectors.Okta" /> or <MadCap:variable name="workflows_connectors.Yubico" /> connection.</li>
+            <li> Click <span class="uicontrol">Choose connection</span>.</li>
+            <li>Select your <MadCap:variable name="workflows_connectors.Okta" /> org or <MadCap:variable name="workflows_connectors.Yubico" /> org. <MadCap:snippetText src="../../../Resources/Snippets/task steps/Click_Save.flsnp" /> A green check mark appears next to <MadCap:variable name="workflows_connectors.Okta" /> and <MadCap:variable name="workflows_connectors.Yubico" />, indicating the connection is successfully established.</li>
+            <li>Repeat for all other cards and the flows in the template.</li>
+            <li>In the folder, turn on each flow by toggling the <span class="uicontrol"><MadCap:annotation MadCap:createDate="2023-09-28T15:37:33.7607225-05:00" MadCap:creator="Graham Smith" MadCap:initials="GS" MadCap:comment="Sorry, I meant &quot;switch&quot; - should it be in the span class or just on/off?\r\n\r\n- it's a toggle button, so it doesn't have a name. But we can put Switch inside UI control." MadCap:editor="Nikita Apraj" MadCap:editDate="2023-09-28T17:22:45.9282118-04:00">on/of</MadCap:annotation>f switch</span>.</li>
+        </ol>
+        <h4>Update Create shipment <MadCap:variable name="okta-feature-names.Okta Workflow" /></h4>
+        <p>Update the <span class="varname">Create shipment</span> <MadCap:variable name="okta-feature-names.Okta Workflow" /> with your <MadCap:variable name="3rd Party Integrations.YubiKey company official name" /> product IDs.</p>
+        <ol>
+            <li>Open the <span class="varname">Create shipment</span> <MadCap:variable name="okta-feature-names.Okta Workflow" />.</li>
+            <li>
+                <p>In the <span class="uicontrol">Edit Conditions</span> card, open the dropdown menu and update the following fields.</p>
+                <div class="noteOkta">
+                    <p class="noteContent">Contact <MadCap:variable name="3rd Party Integrations.YubiKey company official name" /> Support for these values.</p>
+                </div>
+                <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+                    <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                    <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                    <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                    <thead>
+                        <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                            <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                                Condition
+                            </th>
+                            <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Field</th>
+                            <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">Option</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                                If
+                            </td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">product_id</td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Your custom product ID for the YubiKey 5 NFC</td>
+                        </tr>
+                        <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                            </td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">inventory_product_id</td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
+Your subscription ID
+</td>
+                        </tr>
+                        <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                                Else if
+                            </td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">product_id</td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Your custom product ID for the YubiKey 5C NFC</td>
+                        </tr>
+                        <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                            <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">
+                            </td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">inventory_product_id</td>
+                            <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">
+Your subscription ID
+</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </li>
+            <li>
+                <MadCap:snippetBlock src="../../../Resources/Snippets/task steps/Click_Save.flsnp" />
+            </li>
+        </ol>
+        <p>You've now configured the flow for onboarding users with phishing-resistant <MadCap:variable name="3rd Party Integrations.YubiKey company name" />.</p>
+        <h2>Onboard new users</h2>
+        <p>After you’ve set up the phishing-resistant onboarding flow, you can onboard new users. This procedure includes the following tasks:</p>
+        <ol>
+            <li>
+                <MadCap:xref href="#Create2">Create users in [%=okta-variables.ProductName%]</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Request">Request pre-enrolled [%=3rd Party Integrations.YubiKey company name%]</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Activate">Activate users in [%=okta-variables.ProductName%]</MadCap:xref>
+            </li>
+        </ol>
+        <h3><a name="Create2"></a>Create users in <MadCap:variable name="okta-variables.ProductName" /></h3>
+        <ol>
+            <li>
+                <MadCap:snippetBlock src="../../../Resources/Snippets/task steps/Directory_People.flsnp" />
+            </li>
+            <li>Click <span class="uicontrol">Add person</span>.</li>
+            <li>
+                <p>Enter the user details: <span class="uicontrol">First name</span>, <span class="uicontrol">Last name</span>, <span class="uicontrol">Username</span>, <span class="uicontrol">Primary email</span>, and <span class="uicontrol">Secondary email</span>. Don’t assign the user to a group.</p>
+                <div class="noteOkta">
+                    <p class="noteContent">The <MadCap:variable name="3rd Party Integrations.YubiKey company name" /> PIN and welcome email are sent to the user’s secondary email. Make sure they have access to this email before activation, for example, a personal email.</p>
+                </div>
+            </li>
+            <li>In the <span class="uicontrol">Activation</span> dropdown menu, select <span class="uicontrol">Activate later</span>. This creates the user in the <span class="uicontrol">Staged</span> status.</li>
+            <li>
+                <MadCap:snippetText src="../../../Resources/Snippets/task steps/Click_Save.flsnp" /> Or click <span class="uicontrol">Save and Add Another</span> to add more users.</li>
+            <li>On the <span class="wintitle">People</span> page, go to <span class="menucascade">the <span class="uicontrol">Staged</span><span class="uicontrol">User</span><span class="uicontrol">Profile</span> <span class="uicontrol">Edit</span></span>.</li>
+            <li>
+                <p>Enter these user details: <span class="uicontrol">Primary phone</span>, <span class="uicontrol">Street address</span>, <span class="uicontrol">City</span>, <span class="uicontrol">State</span>, <span class="uicontrol">Zip code</span>, <span class="uicontrol">Country code</span>, <span class="uicontrol">Organization</span>. These details are required for shipping <MadCap:variable name="3rd Party Integrations.YubiKey company name" />.</p>
+            </li>
+            <li>
+                <MadCap:snippetBlock src="../../../Resources/Snippets/task steps/Click_Save.flsnp" />
+            </li>
+        </ol>
+        <h3><a name="Request"></a>Request pre-enrolled <MadCap:variable name="3rd Party Integrations.YubiKey company name" /></h3>
+        <p>When you add a user to the  YubiKey group, the <MadCap:variable name="3rd Party Integrations.YubiKey company name" /> template in <MadCap:variable name="okta-feature-names.Okta Workflows" /> runs automatically. <MadCap:variable name="3rd Party Integrations.YubiKey company official name" /> receives a request to ship a pre-enrolled <MadCap:variable name="3rd Party Integrations.YubiKey company name" />. </p>
+        <ol>
+            <li>
+                <MadCap:snippetBlock src="../../../Resources/Snippets/task steps/Directory_People.flsnp" />
+            </li>
+            <li>Find the <span class="uicontrol">Staged</span> user and click their name. Their profile opens.</li>
+            <li>On the <span class="wintitle">Profile</span> page, go to <span class="uicontrol">Groups</span>. Add the user to either the <span class="userinput">YubiKey 5C NFC</span> or the <span class="userinput">YubiKey 5 NFC</span> group. This depends on the type of <MadCap:variable name="3rd Party Integrations.YubiKey company name" /> you want to ship to them.</li>
+        </ol>
+        <p>After the request is fulfilled and the credential is activated in <MadCap:variable name="okta-variables.ProductName" />, a <MadCap:variable name="3rd Party Integrations.YubiKey company name" /> PIN is generated and sent to the user’s secondary email address.</p>
+        <h3><a name="Activate"></a>Activate users in <MadCap:variable name="okta-variables.ProductName" /></h3>
+        <p>When it’s time to activate the user, check  the <MadCap:variable name="3rd Party Integrations.YubiKey company official name" /> Console to ensure that a <MadCap:variable name="3rd Party Integrations.YubiKey company name" /> was delivered to them. Then, change their status in <MadCap:variable name="okta-variables.ProductName" />.</p>
+        <ol>
+            <li>
+                <MadCap:snippetBlock src="../../../Resources/Snippets/task steps/Directory_People.flsnp" />
+            </li>
+            <li>Next to the user, click <span class="uicontrol">Activate</span> in the <span class="uicontrol">Status</span> column, then in the <span class="uicontrol">Activate Person</span> dialog box, click <span class="uicontrol">Activate User</span>. </li>
+        </ol>
+        <p>A welcome email containing the sign-in URL is sent to the  user’s secondary email address.</p>
+        <p>You can customize the content of this email in <span class="menucascade"><span class="uicontrol">Customizations</span><span class="uicontrol">Brands</span><span class="uicontrol">your brand</span><span class="uicontrol">Emails</span><span class="uicontrol">User Bootstrapped Activation</span><span class="uicontrol">email template</span></span>.</p>
+        <h2>End-user experience</h2>
+        <p>After the user receives both emails, they use the URL&#160;to sign in to <MadCap:variable name="okta-variables.ProductName" />. After entering their username, they're prompted to insert their <MadCap:variable name="3rd Party Integrations.YubiKey company name" />. They enter the PIN that they received in the email, and they finish setting up their YubiKey. When they finish the setup, they're authenticated into <MadCap:variable name="okta-variables.ProductName" />.</p>
+        <p>Advise users to add another phishing-resistant authenticator as a backup (for example <MadCap:variable name="okta-feature-names.Okta FastPass" />) so they can access their Okta account if they lose their <MadCap:variable name="3rd Party Integrations.YubiKey company name" />. </p>
+    </body>
+</html>

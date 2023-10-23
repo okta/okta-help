@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:conditions="Primary.do-not-publish">
+    <head>
+    </head>
+    <body>
+        <h1><a name="top"></a>Add dynamic fields to connector cards</h1>
+        <p>Use dynamic fields to build an action card for a connector. Dynamic fields provide the ability to build a card based on a third-party API where different custom data sets, and the input and output fields that correspond to them, can be retrieved from a specific service instance based on the credentials of the account that’s used for that connector. 
+</p>
+        <p>For the Jira connector, because admins can add custom fields to the issue types in their instance, available issue types and projects are determined only when an action card is built using an admin’s instance and the account-specific data sets are retrieved.</p>
+        <p>
+This scenario outlines the necessary steps to build dynamic option fields, inputs, and outputs for a Create Issue card. However, a similar set of steps can be completed to build action cards against other services such as Salesforce, Google Sheets, or DocuSign. </p>
+        <ul>
+            <li>
+                <p>
+                    <MadCap:xref href="#Build">Build dynamic options</MadCap:xref>
+                </p>
+            </li>
+            <li>
+                <p>
+                    <MadCap:xref href="#Build2">Build dynamic inputs</MadCap:xref>
+                </p>
+            </li>
+            <li>
+                <p>
+                    <MadCap:xref href="#Build3">Build dynamic outputs</MadCap:xref>
+                </p>
+            </li>
+        </ul>
+        <h2><a name="Build"></a>Build dynamic options</h2>
+        <p>For dynamic options, you will add a list of projects and a list of issues types as dropdowns in the Options section of the action card. You will use helper flows to retrieve both data sets.</p>
+        <ol>
+            <li>
+                <p>Create a helper flow that retrieves a list of projects that are available to the authenticated user whose account is used for the connector, and name the helper flow <span class="userinput">Get Project List</span>.</p>
+            </li>
+            <li>
+                <p> Use the httpHelper flow to call the <code>/rest/api/3/project/search</code> endpoint. Since there are no parameters that are required for this endpoint, the helper flow does not need any input values. See <MadCap:xref href="capia-httphelper.htm">Build an httpHelper Flow</MadCap:xref>.</p>
+            </li>
+            <li>
+                <p>Create a new action flow and name it <span class="userinput">Create Issue</span>.</p>
+            </li>
+            <li>
+                <p>Click <span class="userinput">Add Options</span>.</p>
+            </li>
+            <li>
+                <p>In the <span class="uicontrol">Options</span> dialog, add a field named <span class="userinput">Project</span> and select <code>Dropdown: Helper Flow</code> as the type.</p>
+            </li>
+            <li>
+                <p>Click <span class="userinput">Choose Flow</span> and select the <span class="userinput">Get Project List</span> flow. For end users, the Create Issue card will display a list of all available projects as a dropdown field in the <span class="uicontrol">Options</span> section.</p>
+            </li>
+            <li>
+                <p>Create another helper flow and name it <span class="userinput">Get Issue Type List</span>. For end users, the Create Issue card will also display a list of available issue types as a dropdown field in the <span class="uicontrol">Options</span> section. Use the <code>/rest/api/3/project/{projectIdOrKey}</code> endpoint.</p>
+            </li>
+            <li>
+                <p>Because the <code>/rest/api/3/project/{projectIdOrKey}</code> endpoint requires a projectIdorKey value, create another helper flow with an input named <span class="userinput">Project</span> then concatenate that value with the rest of the URL to make the request. </p>
+            </li>
+            <li>
+                <p>In the options section of the <span class="userinput">Create Issue</span> action flow, add a second field named <span class="userinput">Issue Type</span> and select <code>Dropdown: Helper Flow</code> as the type.</p>
+            </li>
+            <li>
+                <p>Click <span class="userinput">Choose Flow</span> and select the <span class="userinput">Get Issue Type List</span> flow. </p>
+            </li>
+            <li>
+                <p>Map the <span class="uicontrol">Project</span> dropdown field to the <span class="userinput">Project</span> input of the <span class="userinput">Get Issue Type List</span> helper flow.</p>
+            </li>
+        </ol>
+        <p>Because the populating of the <span class="userinput">Issue Type</span> dropdown field is dependent on a value chosen by the user in the <span class="userinput">Project</span> dropdown field, the <span class="userinput">Get Issue Type List</span> helper flow will not run until the user selects an option from the first dropdown.  When it does run, it will return a list of issue types available in the project that was selected in the first <span class="userinput">Project</span> dropdown field.</p>
+        <h2><a name="Build2"></a>Build dynamic inputs</h2>
+        <p>For the Jira connector's Create Issue action card, you will need to retrieve the fields that are available for a selected issue type using the <code>/rest/api/3/issue/createmeta</code> endpoint. </p>
+        <ol>
+            <li>
+                <p>Create a helper flow and add <span class="userinput">Project</span> and <span class="userinput">Issue Type</span> input fields to the helper flow card, and construct a query object to pass with the request. </p>
+            </li>
+            <li>
+                <p>Name the helper flow <span class="userinput">Get Issue Type Fields</span>.</p>
+            </li>
+            <li>
+                <p>In the <span class="userinput">Create Issue</span> flow, add a new group for input fields and name it <span class="userinput">Fields</span>. The output of the <span class="userinput">Get Issue Type Fields</span> helper flow, which will consist of the fields that are available for a selected type of issue, will be displayed within the <span class="userinput">Fields</span> group.</p>
+            </li>
+            <li>
+                <p>Select the <span class="userinput">Get Issue Type Fields</span> helper flow and map the <span class="userinput">Project</span> and <span class="userinput">Issue Type</span> options dropdowns to the <span class="userinput">Project</span> and <span class="userinput">Issue Type</span> input fields on the helper flow.</p>
+            </li>
+        </ol>
+        <p>This flow will run after a user completes their selections in the <span class="uicontrol">Options</span> section and clicks <span class="userinput">Save</span> on the action card. After the flow runs, the card will display the fields available for the selected <span class="uicontrol">Issue Type</span>.</p>
+        <p MadCap:conditions="Primary.review-only">See also <MadCap:xref href="dynamic-fields-input.htm">Add dynamic input fields</MadCap:xref>.</p>
+        <h2><a name="Build3"></a>Build dynamic outputs</h2>
+        <p>In addition to the Create Issue action card, you can create an additional card to retrieve details for a Jira issue. You can do so using dynamic outputs and the <code>/rest/api/3/issue/{issueIdOrKey}</code> endpoint.</p>
+        <p>For a user to see a list of outputs for a specific issue, the Project and Issue Type values must be determined. The helper flows for both data sets were already created for the Create Issue card, so they can be reused in this scenario.<br /></p>
+        <ol>
+            <li>
+                <p>Create a new action flow and name it <span class="userinput">Read Issue</span>.</p>
+            </li>
+            <li>
+                <p>Click <span class="userinput">Add Options</span>.</p>
+            </li>
+            <li>
+                <p>In the <span class="uicontrol">Options</span> dialog, add a field named <span class="userinput">Project</span> and select <code>Dropdown: Helper Flow</code> as the type.</p>
+            </li>
+            <li>
+                <p>Click <span class="userinput">Choose Flow</span> and select the <span class="userinput">Get Project List</span> flow.</p>
+            </li>
+            <li>
+                <p>In the options section of the <span class="userinput">Read Issue</span> action flow, add a second field named <span class="userinput">Issue Type</span> and select <code>Dropdown: Helper Flow</code> as the type.</p>
+            </li>
+            <li>
+                <p>Click <span class="userinput">Choose Flow</span> and select the <span class="userinput">Get Issue Type List</span> flow. </p>
+            </li>
+            <li>
+                <p>Map the Project dropdown field to the <span class="userinput">Project</span> input of the <span class="userinput">Get Issue Type List</span> helper flow.</p>
+            </li>
+            <li>
+                <p>In the Inputs section of the dialog, add group named <span class="userinput">Issue</span> and an input named <span class="userinput">ID or Key</span>. This will retrieve the issue when the flow runs.</p>
+            </li>
+            <li>
+                <p>In the outputs section, add a group for the dynamically retrieve fields and name it <span class="userinput">Issue</span>. Select the <span class="userinput">Get Issue Type Fields</span> helper flow and map the <span class="userinput">Project</span> and <span class="userinput">Issue Type</span> options dropdowns to the <span class="userinput">Project</span> and <span class="userinput">Issue Type</span> input fields on the helper flow.</p>
+            </li>
+        </ol>
+        <p>This flow will run after a user completes their selections in the <span class="uicontrol">Options</span> section and clicks <span class="userinput">Save</span> on the action card. After the flow runs, the card will display the fields available for selection for a specified Issue.</p>
+        <h2>Next steps</h2>
+        <p>
+            <MadCap:xref href="capia-httphelper.htm">Build an httpHelper Flow</MadCap:xref>
+        </p>
+    </body>
+</html>

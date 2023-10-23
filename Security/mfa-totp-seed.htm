@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:conditions="MultiProdPublish.Classic" MadCap:fileTags="Tags/okta-authors.Nikita Apraj">
+    <head><title>Custom TOTP Factor | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+        <meta name="description" content="The Custom TOTP Factor Early Access feature enables end users to authenticate to Okta-managed applications with a TOTP hardware token." />
+    </head>
+    <body>
+        <div>
+            <h1><MadCap:variable name="3rd Party Integrations.Custom TOTP" /> factor (MFA)</h1>
+            <p>The <MadCap:variable name="3rd Party Integrations.Custom TOTP" /> factor lets you use a custom time-based one-time passcodes (TOTP) solution for user authentication.</p>
+            <p>Your users select the <MadCap:variable name="3rd Party Integrations.Custom TOTP" /> factor when they sign in and provide the TOTP from their token to sign in to <MadCap:variable name="okta-variables.ProductName" /> or <MadCap:variable name="okta-variables.ProductName" />-protected resources.</p>
+            <p>To set this factor up, you pass a <span class="code">factorProfileId</span> and <span class="code">sharedSecret</span> through the <MadCap:variable name="okta-variables.ProductName" /> Factors API for each token. </p>
+            <p>You can create unlimited instances of the <MadCap:variable name="3rd Party Integrations.Custom TOTP" /> factor for different groups of personnel, but users may only enroll in one instance at a time.</p>
+            <ul>
+                <li>
+                    <MadCap:xref href="#Before">Before you begin</MadCap:xref>
+                </li>
+                <li>
+                    <MadCap:xref href="#Add2">Add [%=3rd Party Integrations.Custom TOTP%] as a factor</MadCap:xref>
+                </li>
+                <li>
+                    <MadCap:xref href="#Enroll1">Enroll [%=3rd Party Integrations.Custom TOTP%] in an [%=okta-variables.ProductName%] multifactor policy</MadCap:xref>
+                </li>
+                <li>
+                    <MadCap:xref href="#End-user">End-user experience</MadCap:xref>
+                </li>
+                <li>
+                    <MadCap:xref href="#Current">Important considerations</MadCap:xref>
+                </li>
+            </ul>
+            <h2><a name="Before"></a>Before you begin</h2>
+            <ul>
+                <li>Review the <a href="https://developer.okta.com/docs/reference/api/factors/?_ga=2.16934650.2129724273.1617642326-140080013.1603484035#enroll-custom-hotp-factor" target="_blank"><MadCap:variable name="okta-variables.ProductName" /> Factors API documentation</a>.</li>
+                <li>If <MadCap:variable name="3rd Party Integrations.Custom TOTP" /> isn't already enabled for your org, contact <MadCap:variable name="okta-feature-names.Okta Support" /> to enable it.</li>
+                <li>Generate unique shared secrets for each user that you want to enroll in your <MadCap:variable name="3rd Party Integrations.Custom TOTP" /> factor.</li>
+                <li>Make a note of the HMAC and shared secret encoding algorithms that you use in your implementation.</li>
+                <li>Provide end users with a hardware or software security token programmed with a unique shared secret.</li>
+            </ul>
+            <div>
+                <h2><a name="Add2"></a>Add <MadCap:variable name="3rd Party Integrations.Custom TOTP" /> as a factor</h2>
+                <ol>
+                    <li>
+                        <MadCap:snippetText src="../../Resources/Snippets/task steps/Security_Multifactor.flsnp" />
+                    </li>
+                    <li>On the <span class="wintitle">Factor Types</span> tab, click <span class="uicontrol">TOTP</span>.</li>
+                    <li>Click <span class="uicontrol">Add TOTP Factor</span>.</li>
+                    <li>Configure the following options. Select the HMAC and shared secret encoding algorithms that match your implementation:<ul><li><span class="uicontrol">Name</span></li><li><span class="uicontrol">TOTP length</span></li><li><span class="uicontrol">HMAC Algorithm</span>. Select the algorithm that matches your implementation.</li><li><span class="uicontrol">Time step</span>. See <span class="uicontrol">Clock drift interval</span>.</li><li><span class="uicontrol">Clock drift interval</span>. This setting allows you to build in tolerance for any drift between the token's current time and the server's current time. If you select a time step of 15 seconds and a clock drift interval of 3, <MadCap:variable name="okta-variables.ProductName" /> accepts passcodes 15 X 3 = 45 seconds before or after a user enters their passcode.</li><li><p><span class="uicontrol">Shared secret encoding</span>. Select the algorithm that matches your implementation.</p></li></ul></li>
+                    <li>Click <span class="uicontrol">Save</span>. The factor and associated Factor Profile ID appear.</li>
+                    <li>To copy the Factor Profile ID for enrolling users, click the clipboard icon. You enter this ID when you enroll users in the <MadCap:variable name="okta-variables.ProductName" /> Factors API.</li>
+                    <li>Enroll users in the <a href="https://developer.okta.com/docs/reference/api/factors/?_ga=2.16934650.2129724273.1617642326-140080013.1603484035#enroll-custom-hotp-factor" target="_blank"><MadCap:variable name="okta-variables.ProductName" /> Factors API</a>. Make sure you have the following information for making the API call:<ul><li>Factor type</li><li>Provider</li><li>Factor Profile ID</li><li>Shared secret</li></ul><div class="noteOkta"><p class="noteContent"><ul><li>A user can enroll in only one <MadCap:variable name="3rd Party Integrations.Custom TOTP" /> factor.</li><li>When enrolling users, make sure their <span class="code">factorID</span> matches their assigned security token. If you use an incorrect <span class="code">factorID</span>, an error occurs when the user attempts to authenticate.</li><li>Verify that authentication is successful for a single user before enrolling multiple users.</li></ul></p></div></li>
+                </ol>
+            </div>
+            <div>
+                <h2><a name="Enroll1"></a>Enroll <MadCap:variable name="3rd Party Integrations.Custom TOTP" /> in an <MadCap:variable name="okta-variables.ProductName" /> multifactor policy</h2>
+                <ol>
+                    <li>
+                        <MadCap:snippetText src="../../Resources/Snippets/task steps/Security_Multifactor.flsnp" />
+                    </li>
+                    <li>On the <span class="wintitle">Factor Enrollment</span> tab, add a new or edit an existing multifactor policy. <p><span class="uicontrol">Add a policy</span></p><ol style="list-style-type: lower-alpha;"><li> Click <span class="uicontrol">Add Multifactor Policy</span>.</li><li>Enter a name.</li><li>Assign the policy to groups.</li><li>  Set the <span class="uicontrol">TOTP</span> option to <span class="uicontrol">Optional</span> or <span class="uicontrol">Required</span>.</li><li>Click <span class="uicontrol">Create Policy</span>.</li></ol><p><span class="uicontrol">Edit a policy</span></p><ol style="list-style-type: lower-alpha;"><li>Select the policy that you want to edit, then click <span class="uicontrol">Edit</span>.</li><li>In <span class="wintitle">Effective factors</span>,  set the <span class="uicontrol">TOTP</span> option to <span class="uicontrol">Optional</span> or <span class="uicontrol">Required</span>.</li><li>Click <span class="uicontrol">Update Policy</span>.</li></ol></li>
+                </ol>
+                <ol MadCap:continue="true">
+                    <li>To add rules to the policy, see <MadCap:xref href="policies/configure-mfa-policies.htm">Configure an MFA&#160;enrollment policy</MadCap:xref>.</li>
+                </ol>
+            </div>
+            <h2><a name="End-user"></a>End-user experience</h2>
+            <ol>
+                <li>The user sees a prompt to authenticate with a factor when signing in to <MadCap:variable name="okta-variables.ProductName" /> or accessing an <MadCap:variable name="okta-variables.ProductName" />-protected app, if required by sign-on policies.</li>
+                <li>If the user is enrolled from the <MadCap:variable name="okta-variables.ProductName" /> Factors API, they see a prompt to enter the passcode that appears on their security token. If the end user wasn’t enrolled from the API, an error message appears.</li>
+            </ol>
+            <h2><a name="Current"></a>Important considerations</h2>
+            <ul>
+                <li>Verify your configuration. Enroll and authenticate a few users with the TOTP token before enrolling additional users. This allows you to identify and fix potential issues without affecting more users. You can't edit a factor profile after creating it. If you configure a profile incorrectly, you need to re-enroll all affected users to a new custom TOTP profile.</li>
+                <li>While you can add an unlimited number of <MadCap:variable name="3rd Party Integrations.Custom TOTP" /> factors through the <MadCap:variable name="okta-feature-names.Administrator dashboard" />, users can only enroll in one <MadCap:variable name="3rd Party Integrations.Custom TOTP" /> factor.</li>
+                <li>This feature only supports standard OTP tokens. Proprietary implementations or non-standard tokens aren't supported.</li>
+                <li>You can't edit an OTP configuration after creating it. Select the correct settings before you click <span class="uicontrol">Add</span> to save the configuration.</li>
+            </ul>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,346 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:searchable="True"
+      MadCap:fileTags="Tags/okta-authors.Patrick Calnan"
+      MadCap:conditions="Primary.review-only">
+   <head>
+      <title>OpenID Connect (OIDC) based MFA as a Service | Okta</title>
+      <meta name="description"
+            content="Configure OpenID Connect-based MFA to enable MFA for organization-created OIDC applications."/>
+      <link href="" rel="stylesheet" type="text/css"/>
+   </head>
+   <body>
+      <h1>OpenID Connect (OIDC)-based MFA as a Service</h1>
+      <h2>Prerequisites</h2>
+      <ul>
+         <li>Set up at least one <a href="../Security/mfa/mfa-home.htm">MFA factor</a> on your Okta Org. </li>
+         <li>
+A factor enrollment policy
+</li>
+         <li MadCap:conditions="Primary.do-not-publish">Email <a href="mailto:mfabeta@okta.com">mfabeta@okta.com</a> to enable beta FF MFA_ATTESTATION for your okta org. </li>
+         <li>
+            <p>Enable IFrame embedding:</p>
+            <ol>
+               <li>From the admin dashboard, navigate to  <span class="menucascade">
+                     <span class="uicontrol">Settings</span>
+                     <span class="uicontrol">customization</span>
+                  </span>
+               </li>
+               <li>Scroll down to the <span class="wintitle">IFrame Embedding</span> section and click <span class="uicontrol">Edit</span>.</li>
+               <li>Check <span class="uicontrol">Allow IFrame embedding</span>, then click <span class="uicontrol">Save</span>.</li>
+            </ol>
+         </li>
+      </ul>
+      <p class="beta">Note: This is a Beta feature. This feature should only be used in test and developer environments. Email <a href="mailto:mfabeta@okta.com">mfabeta@okta.com</a> with any questions or feedback regarding this feature.</p>
+      <MadCap:snippetBlock src="../../Resources/Snippets/ea-banner.flsnp"
+                           MadCap:conditions="Primary.do-not-publish"/>
+      <div class="noteOkta" MadCap:conditions="Primary.do-not-publish">
+         <p class="noteContent">This is a beta pattern for developers to request Okta step-up authentication in their application using an OIDC-based MFA attestation pattern</p>
+      </div>
+      <p style="background-color: #f5f5f5;border-left-style: solid;border-left-width: 1px;border-left-color: #c0c0c0;border-right-style: solid;border-right-width: 1px;border-right-color: #c0c0c0;border-top-style: solid;border-top-width: 1px;border-top-color: #c0c0c0;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #c0c0c0;">Note that this is a beta pattern for developers to request Okta step-up authentication in their application using an OIDC-based MFA attestation pattern.</p>
+      <p>Follow the steps below to setup an OIDC application in Okta and provide the artifacts (Okta org URL, client_id, client_secret) to your application.</p>
+      <h2>Configure Okta</h2>
+      <h3>Step 1 - Create an OIDC Application</h3>
+      <ol>
+         <li>Navigate to <span class="menucascade">
+               <span class="uicontrol">Applications</span>
+               <span class="uicontrol">Applications</span>
+            </span>.</li>
+         <li>Click <span class="uicontrol">Create App Integration</span>.</li>
+         <li>For the  <span class="uicontrol">Sign-on method</span>, select <span class="uicontrol">OIDC - OpenID Connect</span>.</li>
+         <li>For the <span class="uicontrol">Application type</span>, select <span class="uicontrol">Web Application</span>.</li>
+         <li>Provide an <span class="uicontrol">Application name</span> and define the list of valid <span class="uicontrol">Sign-in redirect URIs</span>.<p>The application (RP) must request a redirect_uri from this list of URIs.</p>
+            <p>Note: Private-Use URI Scheme Redirection (com.example.app) is supported.  See <a href="https://tools.ietf.org/html/rfc8252#section-7.1">RFC8252</a> for best practices on receiving responses in native/desktop apps.</p>
+         </li>
+         <img src="../../Resources/Images/odic_service3.png"/>
+         <li>
+            <p>Modify the <span class="uicontrol">Allowed grant types</span> to include <span class="uicontrol">Allow ID Token with implicit grant type</span>.</p>
+         </li>
+         <img src="../../Resources/Images/odic_service4.png"/>
+         <li>Define a <span class="uicontrol">Sign On Policy</span> requiring MFA.</li>
+         <p>
+            <img src="../../Resources/Images/odic_service5.png"/>
+         </p>
+      </ol>
+      <h3>Step 2 - Define the application username format to be used</h3>
+      <p>By default the <span class="uicontrol">Application Username</span> will be the same as the Okta user's login attribute (user.login). The value of the<span class="uicontrol">Application Username</span> must match the value that will be sent in the login_hint claim later.</p>
+      <p>Using the Profile Editor</p>
+      <p>You can use the Profile Editor and Okta Expression Language (EL) to meet your more advanced needs.  For more information, see the <span class="uicontrol">Configure Username Override</span> section in <a href="../users-groups-profiles/usgp-user-profiles-main.htm">Manage User Profiles</a>.</p>
+      <h3>Step 3 - Assign users/groups to the application</h3>
+      <p>Ensure that the desired users or groups are assigned to the newly created application. See <MadCap:xref href="../Apps/apps-manage-assignments.htm">Manage app integration assignments</MadCap:xref>.</p>
+      <h3>Step 4 - Retrieve the Client ID and Client Secret</h3>
+      <p>From the <span class="uicontrol">General</span> tab of the application, navigate to the <span class="uicontrol">Client Credentials</span> and retrieve the <span class="uicontrol">Client ID</span> and <span class="uicontrol">Client secret</span>:</p>
+      <p>
+         <img src="../../Resources/Images/odic_service6.png"/>
+      </p>
+      <h2>Configure Your Application</h2>
+      <h3>Overview</h3>
+      <p>To prompt for MFA Attestation, you must make an OIDC authorize request using a signed request object with the acr_values claim set to urn:okta:app:mfa:attestation. This is a JWT signed with the client_secret passed into the authorization endpoint as the request parameter.
+
+</p>
+      <p>This request ignores the current session and can be used even if another user is currently logged in.
+</p>
+      <p>
+The JWT can easily be created using a JWT library or on online JWT building tool and must follow these rules:
+</p>
+      <ul>
+         <li>idp cannot be used
+</li>
+         <li>login_hint must be supplied and match the AppUser username associated with the OIDC app
+</li>
+         <li>scope must be just openid</li>
+         <li>
+acr_values must be urn:okta:app:mfa:attestation</li>
+         <li>
+response_type must be just id_token
+</li>
+         <li>MFA Attestations are only supported on the Org Authorization Server
+<ul>
+               <li>
+                  <span class="filepath">/oauth2/v1/authorize</span>
+               </li>
+            </ul>
+         </li>
+      </ul>
+      <p>Use the following resources to provide additional context and guidance:</p>
+      <ul>
+         <li>
+Okta specific OIDC documentation can be found here:<ul>
+               <li>
+                  <a href="https://developer.okta.com/docs/api/resources/oidc#authorize">https://developer.okta.com/docs/api/resources/oidc</a>
+               </li>
+            </ul>
+         </li>
+         <li>
+Online JWT Encode and Decode tools with tips can be found here:<ul>
+               <li>
+                  <a href="https://www.jsonwebtoken.io/">https://www.jsonwebtoken.io</a>
+               </li>
+            </ul>
+         </li>
+      </ul>
+      <p>The calling application (RP) will require the following information about your Okta org and OIDC application
+</p>
+      <ul>
+         <li>
+            <span class="code">$base_url</span> (for example,  https://mattegantest.oktapreview.com)</li>
+         <li>
+            <span class="code">$client_id</span> (for example, 0oaevei26hCJ198vv0h7)
+</li>
+         <li>
+            <span class="code">$client_secret</span> (for example, aaGSo9SSspR1MqxHUaz6Ypgq7qaAc9MnMMv_eVYP)
+
+</li>
+      </ul>
+      <p>**Client_ID &amp; Clent_Secret can be found under the <span class="uicontrol">General</span> tab of your OIDC app. **
+</p>
+      <h3>Step 1 - Sign MFA AuthN request</h3>
+      <p>
+         <span class="uicontrol">Set nonce</span> = A secure random string (sufficiently long)</p>
+      <p>Store the nonce on the app backend (i.e. the value should not be available to user in any form or shape)</p>
+      <p>Generate and sign a JWT Request:</p>
+      <ul>
+         <li>Requests should be signed using HS256 with the client_secret</li>
+         <li>iat (issued at time) should be used</li>
+         <li>exp (expiration time) with a lifetime that accommodates for reasonable clock skew and round trip should be used</li>
+      </ul>
+      <p style="font-weight: bold;">Example request JWT created by app requesting MFA from Okta:</p>
+      <span class="codeblock">{
+    "iss": "$client_id",
+    "exp": $expiration_timestamp,
+    "aud": "$base_url",
+    "sub": "optional/ignored if present",
+    "response_type": "id_token",
+    "response_mode": "(fragment|form_post|okta_post_message)",
+    "client_id": "$client_id",
+    "redirect_uri": "$your_redirect_uri",
+    "scope": "openid",
+    "acr_values": "urn:okta:app:mfa:attestation",
+    "state": "$any_required_state",
+    "nonce": "$replay_mitigating_nonce",
+    "login_hint": "$app_userName",
+    "iat": $issuedAt_timestamp
+}</span>
+      <p style="font-weight: bold;">Sample request JWT:</p>
+      <span class="codeblock">{
+  "iss": "0oaek22f3gvTVvqbW0h7",
+  "exp": 1525190702,
+  "aud": "https://&lt;yourOktaOrg&gt;.okta.com",
+  "sub": "",
+  "response_type": "id_token",
+  "response_mode": "fragment",
+  "client_id": "0oaek22f3gvTVvqbW0h7",
+  "redirect_uri": "https://okta-box.herokuapp.com",
+  "scope": "openid",
+  "acr_values": "urn:okta:app:mfa:attestation",
+  "state": "assetID_12345",
+  "nonce": "h3lX29$sWGxK3",
+  "login_hint": "mfa.only@oktademo.com",
+  "iat": 1525190672
+}
+</span>
+      <p>Refer to RFC8252 for best practices on redirect_uri usage with native app and other non-web flows.</p>
+      <p style="font-weight: bold;">Sample signed and encoded request JWT:</p>
+      <span class="codeblock">
+         <span style="color: #ff8c00;">eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9</span>
+         <span style="color: #0000ff;">.eyJpc3MiOiIwb2FlazIyZjNndlRWdnFiVzBoNyIs
+ImV4cCI6MTUyNTE5MDcwMiwiYXVkIjoiaHR0cHM6Ly9ib3h3b3Jrcy5va3RhcHJldmlldy5jb20iL
+CJzdWIiOiIiLCJyZXNwb25zZV90eXBlIjoiaWRfdG9rZW4iLCJyZXNwb25zZV9tb2RlIjoiZnJhZ2
+1lbnQiLCJjbGllbnRfaWQiOiIwb2FlazIyZjNndlRWdnFiVzBoNyIsInJlZGlyZWN0X3VyaSI6Imh
+0dHBzOi8vb2t0YS1ib3guaGVyb2t1YXBwLmNvbSIsInNjb3BlIjoib3BlbmlkIiwiYWNyX3ZhbHVl
+cyI6InVybjpva3RhOmFwcDptZmE6YXR0ZXN0YXRpb24iLCJzdGF0ZSI6ImFzc2V0SURfMTIzNDUiL
+CJub25jZSI6ImgzbFgyOSRzV0d4SzMiLCJsb2dpbl9oaW50IjoibWZhLm9ubHlAb2t0YWRlbW8uY2
+9tIiwianRpIjoiNzU0ODc3ZjctY2U4ZC00ZGI0LTk1MDMtMmZiOWY0NjRjYTVlIiwiaWF0IjoxNTI
+1MTkwNjcyfQ</span>
+         <span style="color: #ffa500;">.fihBrq5CB8nMC9SKSAvik3Vla8H7kTP1TAG1Mlqj1ic</span>
+      </span>
+      <h3>Step 2 - Direct UserAgent to Authorize endpoint</h3>
+      <p>Direct the UserAgent to the <span class="code">/oauth2/v1/authorize</span> endpoint providing the signed JWT as the request</p>
+      <p>
+         <span class="codeblock">GET $base_url/oauth2/v1/authorize?request=&lt;signed JWT request&gt;</span>
+      </p>
+      <ul>
+         <li>If you are using a browser to navigate to the above URL then it is recommended to have the response_mode set to "form_post"</li>
+         <li>If post message is used to post the signed id token back then the parent frame will receive the id token as a posted message. If "form_post" was used the id token will be posted to the redirect URI specified on the app. The signed token will be received after a user successfully completes authentication/mfa validation on Okta.</li>
+         <li>The application backend should take the id token and validate it using the keys got from - <a href="https://org.okta.com/oauth2/v1/keys">https://org.okta.com/oauth2/v1/keys</a> and use the kid specified in the response jwt header as the index into the response of "/oauth2/v1/keys". And finally it also should make sure that the nonce on the signed token is same as what it has (stored in initial steps above) for the authentication transaction.</li>
+      </ul>
+      <h3>Step 3 - User navigates Okta MFA flow</h3>
+      <p>The user will be presented with an Okta MFA challenge, this will eventually include factor enrollment driven by enrollment policies in Okta.</p>
+      <ol>
+         <li>Factor selection</li>
+         <ul>
+            <li>Multiple factor support</li>
+            <li>Multiple factor provider</li>
+            <li>Defaults to last used</li>
+         </ul>
+         <p>
+            <img src="../../Resources/Images/odic_service7.png"/>
+         </p>
+         <li>
+                                        Factor challenge/Response
+                                    </li>
+         <ul>
+            <li>
+               <p>Challenge resp flow varies by factor type and provider</p>
+            </li>
+         </ul>
+         <p>
+            <img src="../../Resources/Images/odic_service8.png"/>
+         </p>
+         <li>
+            <p>Factor Enrollment and Recovery (FEaR)</p>
+         </li>
+         <ul>
+            <li>
+               <p>The problem you didn't even know you had</p>
+            </li>
+            <li>
+               <p>Okta provides <a href="../Security/mfa/mfa-home.htm">extensible policies</a> to control this behavior</p>
+            </li>
+         </ul>
+         <p>
+            <img src="../../Resources/Images/odic_service9.png"/>
+         </p>
+      </ol>
+      <p>Once the user has successfully satisfied the MFA challenge the UserAgent will be provided an id_token to deliver to the application (RP).</p>
+      <h3>Step 4 - UserAgent redirected to calling app</h3>
+      <p>At this point in the flow the UserAgent (browser) is sent to the requested redirect_uri with the id_token in the requested response_mode (fragment shown).</p>
+      <p style="color: #0000ff;">If a state claim was included in the request JWT the value will be included in the response.  The requested response_mode will dictate how, show below is an example where the response mode is fragment.</p>
+      <p style="font-weight: bold;">Example Redirect:</p>
+      <p>
+         <span class="codeblock">GET $redirect_uri#id_token=&lt;signed_id_token&gt;&amp;state=&lt;requested_state&gt;</span>
+      </p>
+      <p style="font-weight: bold;">Sample redirect, id_token and state</p>
+      <div style="width: 100%;padding-left: 8px;padding-right: 8px;padding-top: 4px;padding-bottom: 6px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">
+         <p>
+            <span class="codeblock">GET
+
+https://okta-box.herokuapp.com/#idtoken=<span style="color: #ff8c00;">eyJraWQiOiIxWDhHa2tNUlZTS2xTaThQTmtjOXBiaTZ0c0
+szZTBrVllQUUs1U3M0bGZVIiwiYWxnIjoiUlMyNTYifQ</span>
+               <span style="color: #0000ff;">.eyJzdWIiOiIwMHVla21qZWMycldna2pPVjBoNyIsIn</span>
+ZlciI6MSwiaXNzIjoiaHR0cHM6Ly9ib3h3b3Jrcy5va3RhcHJldmlldy5jb20iLCJhdWQiOiIwb2FlazIyZjNndl
+RWdnFiVzBoNyIsImlhdCI6MTUyNTE5MDY4MCwiZXhwIjoxNTI1MTk0MjgwLCJqdGkiOiJJRC5BQ1U3eExvNWEwL
+TBXVVJfN0N3emJodk5vWHVUY1lWT3VzTUFwYjlQSGJjIiwiYW1yIjpbImtiYSIsIm1mYSJdLCJhY3IiOiJ1cm46
+b2t0YTphcHA6bWZhOmF0dGVzdGF0aW9uIiwibm9uY2UiOiJoM2xYMjkkc1dHeEszIiwiYXV0aF90aW1lIjoxNTI
+1MTkwNjgwfQ.</span>
+            <span style="color: #ff0000;">QugchXrFACKM18NQ-3qJO4GQIzRs8MwNq6jVRoj9HOm_55uEJ6F6Vkuu_GS7Xjw7zem49RYn1VXsh3F68T9LZmDtjQRhiAP0Vk7rPBOi3SilUAPDFTaRxku9mAzYCxKYJ_najBQY-mfvRYT7VyPocII0YF0Hc5gXtzFCcMMNnpLFz1tg7k9UXRrkJvJxq3FL9w0AFYp9zt_WrihVowOBZ5ZAtrRQ-TW7Sae3a6Bpit7vDVbDL0VYPbUispD_nzm_64O2dILjRQ7OHJRuHoNl_3lCkbqztXOJX9Kk7TeQhPo5VTBa8Ll7pU_Ym7DXfjeXvKEot4I6yVlWrWXzeoWgfA</span>&amp;state=assetID_12345</p>
+      </div>
+      <p style="font-weight: bold;">Decoded id_token</p>
+      <div style="width: 100%;padding-left: 8px;padding-right: 8px;padding-top: 4px;padding-bottom: 6px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">
+         <p>
+            <span class="codeblock">{
+  "sub": "00uekmjec2rWgkjOV0h7",
+  "ver": 1,
+  "iss": "https://boxworks.oktapreview.com",
+  "aud": "0oaek22f3gvTVvqbW0h7",
+  "iat": 1525190680,
+  "exp": 1525194280,
+  "jti": "ID.ACU7xLo5a0-0WUR_7CwzbhvNoXuTcYVOusMApb9PHbc",
+  "amr": [
+  "kba",
+  "mfa"
+],
+  "acr": "urn:okta:app:mfa:attestation",
+  "nonce": "h3lX29$sWGxK3",
+  "auth_time": 1525190680
+}
+</span>
+         </p>
+      </div>
+      <p style="font-weight: bold;">Annotated id_token</p>
+      <p>
+         <span class="codeblock">{
+  "sub": "Identifier of okta user",
+  "ver": 1,
+  "iss": "Okta tenant name",
+  "aud": "Okta application identifier, aka client_id",
+  "iat": time MFA challenge was satisfied,
+  "exp": time to consider id_token expired,
+  "jti": "Unique JWT ID",
+  "amr": [
+  "Array of Authentication method identifiers",
+  "mfa", "hwk"
+],
+  "acr": "Authentication context",
+  "nonce": "nonce from request",
+  "auth_time": time MFA challenge was satisfied
+}
+</span>
+      </p>
+      <h3>Step 5 - Validate the response</h3>
+      <p>To ensure the validity of the response received from the UserAgent the application (RP) should validate the response using one of the following methods.</p>
+      <p>Ensure that the value(s) returned in the amr satisfy the needs of your request.  This is an attestation of what authentication methods Okta used.  A list of valid responses and their meaning can be found here (https://developer.okta.com/docs/api/resources/sessions#amr-object)</p>
+      <p>An empty amr is an indication that the policy configured created a condition where no MFA was performed</p>
+      <p>For more detailed information please refer to <a href="https://developer.okta.com/authentication-guide/tokens/validating-id-tokens">Validating ID Tokens.</a>
+      </p>
+      <h4>Method 1 - Verify the signature of the id_token locally</h4>
+      <p>The high-level overview of validating an ID token looks like this:</p>
+      <ul>
+         <li>Retrieve and parse your Okta JSON Web Keys (JWK)<ul>
+               <li>These should be checked periodically and cached by your application</li>
+            </ul>
+         </li>
+         <li>Decode the ID token, which is in JSON Web Token format</li>
+         <li>Verify the signature used to sign the ID token<ul>
+               <li>The JWT header will indicate the Key Identifier (kid) and algo used (‘rs256')</li>
+            </ul>
+         </li>
+         <li>Verify the claims found inside the ID token</li>
+      </ul>
+      <h4>Method 2 - Verify the signature of the id_token locally remotely</h4>
+      <p>Alternatively, you can also validate an ID Token using the <a href="https://developer.okta.com/docs/api/resources/oidc#introspect">Token Introspection endpoint</a>. This endpoint takes your id_token as a URL query (token=&lt;id_token_jwt&gt;) and returns back a JSON response with a boolean active property. If active is true then further information about the token is returned as well.</p>
+      <p>This incurs a network request which is slower to do verification, but can be used when you want to guarantee that the access token hasn't been revoked.</p>
+      <h2>References and Notes</h2>
+      <ul>
+         <li>Okta specific OIDC documentation can be found <a href="https://developer.okta.com/docs/api/resources/oidc#authorize">here</a>
+         </li>
+         <li>Online JWT Encode and Decode tools with tips can be found here: <a href="https://www.jsonwebtoken.io/">https://www.jsonwebtoken.io/</a>
+         </li>
+      </ul>
+      <p>Nonce implementation notes: <a href="http://openid.net/specs/openid-connect-core-1_0.html#NonceNotes">http://openid.net/specs/openid-connect-core-1_0.html#NonceNotes</a>
+      </p>
+      <p>The requesting application (RP) should bind the nonce to the "session" its own side (by generating the nonce from a hash of the local "session id" if possible). It should then verify that the nonce which came back inside the signed ID token matches the one it sent in on the authorize request.</p>
+      <p>Request exp should allow sufficient time for clock skew and latency</p>
+   </body>
+</html>

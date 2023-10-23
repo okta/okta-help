@@ -1,0 +1,493 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:conditions="MultiProdPublish.Classic+OIE" MadCap:fileTags="Tags/okta-authors.Mark Cowan">
+    <head>
+        <link href="../../../Resources/TableStyles/standard.css" rel="stylesheet" MadCap:stylesheetType="table" /><title>[%=Heading.Level1%] | Okta</title>
+        <meta name="description" content="Okta MFA can be used to fulfill Azure AD MFA requirements for Office 365." />
+    </head>
+    <body>
+        <h1>Use Okta MFA for <MadCap:variable name="3rd Party Integrations.AAD" /></h1>
+        <p MadCap:conditions="Primary.do-not-publish">PASS_MFA_CLAIM</p>
+        <p>You can use Okta multifactor authentication (MFA) to satisfy the Azure <MadCap:variable name="3rd Party Integrations.AD" /> (AD) MFA requirements for your WS-Federation <MadCap:variable name="Mobile.O365" /> app.</p>
+        <p>Use Okta MFA in the following cases:</p>
+        <ul>
+            <li>You want Okta to handle the MFA requirements prompted by Azure AD Conditional Access for your <MadCap:variable name="okta-variables.ProductName" />-federated domain.</li>
+            <li>You want to enroll your end users into Windows Hello for Business so that they can use a single solution for both Okta and Microsoft MFA.</li>
+        </ul>
+        <h2>Known issues</h2>
+        <div MadCap:conditions="MultiProdPublish.Classic">
+            <h3>Users can enter infinite sign-in loop</h3>
+            <p>End users can enter an infinite sign-in loop in the following scenarios:</p>
+            <ol>
+                <li>
+                    <p style="font-weight: bold;">Okta sign-on policy is weaker than the Azure AD&#160;policy:</p>
+                    <ol style="list-style-type: lower-alpha;">
+                        <li>
+                            <p style="font-weight: normal;">Neither the org-level nor the app-level sign-on policy requires MFA.</p>
+                            <p style="font-weight: normal;">Okta doesn’t prompt the user for MFA. However, Azure AD Conditional Access requires MFA and expects Okta to pass the completed MFA claim. </p>
+                        </li>
+                        <li>
+                            <p>The sign-on policy doesn’t require MFA when the user signs in from an "In Zone" network but requires  MFA when the user signs in from a network that is "Not in Zone"
+</p>
+                            <p>        If the user is signing in from a network that’s In Zone, they aren't prompted for the MFA. But again, Azure AD Conditional Access requires MFA and expects Okta to pass the completed MFA claim. </p>
+                        </li>
+                    </ol>
+                </li>
+                <li>
+                    <p style="font-weight: bold;">The user doesn't immediately access <MadCap:variable name="Mobile.O365" /> after MFA.</p>
+                    <p>If the user completes MFA&#160;in Okta but doesn’t immediately access the <MadCap:variable name="Mobile.O365" /> app, Okta doesn’t pass the MFA&#160;claim. To get out of the resulting infinite loop, the user must reopen the web browser and complete MFA again.</p>
+                </li>
+            </ol>
+            <h3>Okta incorrectly sends a successful MFA claim</h3>
+            <p>This happens when the <MadCap:variable name="Mobile.O365" /> sign-on policy excludes certain end users (individuals or groups) from the MFA requirement.
+So although the user isn't prompted for the MFA, Okta sends a successful MFA claim to Azure AD Conditional Access. Azure AD Conditional Access accepts the Okta MFA claim and allows the user to sign in without requiring them to complete the AD MFA.
+			</p>
+        </div>
+        <div MadCap:conditions="MultiProdPublish.OIE">
+            <h3>Users can enter infinite sign-in loop </h3>
+            <p>End users can enter an infinite sign-in loop when the authentication policy is weaker than the Azure AD&#160;policy. This can happen in the following scenarios:</p>
+            <ul>
+                <li>
+                    <p style="font-weight: bold;">Authentication policy doesn't require MFA.       </p>
+                    <p>Okta doesn’t prompt the user for MFA when accessing the app.  However, Azure AD Conditional Access requires MFA and expects Okta to pass the completed MFA claim. Okta may still prompt for MFA&#160;if it’s configured at the org-level, but that MFA&#160;claim isn't passed to Azure AD.</p>
+                </li>
+                <li>
+                    <p style="font-weight: bold;">App-level sign-on policy doesn’t require MFA when the user signs in from an "In Zone" network but requires  MFA when the user signs in from a network that is "Not in Zone"
+        </p>
+                    <p>If users are signing in from a network that’s In Zone, they aren't prompted for MFA. But again, Azure AD Conditional Access requires MFA and expects Okta to pass the completed MFA claim. </p>
+                </li>
+            </ul>
+            <div class="noteOkta">
+                <img src="../../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Note" alt="Note" />
+                <p class="noteContent">Temporary support for org-level MFA</p>
+                <p class="noteContent">You can temporarily use the org-level MFA with the following procedure, if:
+</p>
+                <ul>
+                    <li>
+					You’re migrating your org from Classic Engine to Identity Engine, and</li>
+                    <li>
+					The org-level sign-on policy requires MFA. </li>
+                </ul>
+                <p class="noteContent">
+
+				You must set up an authentication policy for  <MadCap:variable name="Mobile.O365" /> to enforce MFA to use in this procedure.</p>
+            </div>
+        </div>
+        <h2>Before you begin</h2>
+        <div>
+            <ol>
+                <li style="font-weight: bold;">
+                    <p MadCap:conditions="MultiProdPublish.Classic">Configure MFA&#160;in Okta</p>
+                    <p style="font-weight: normal;" MadCap:conditions="MultiProdPublish.Classic">Do either or both of the following, depending on your implementation:</p>
+                    <ol style="list-style-type: lower-alpha;font-weight: normal;">
+                        <li MadCap:conditions="MultiProdPublish.Classic">Configure an org-level sign-on policy as described in <MadCap:xref href="../../Security/mfa/mfa-home.htm" target="_blank">Multifactor Authentication</MadCap:xref>.</li>
+                        <li MadCap:conditions="MultiProdPublish.Classic">Configure an app sign-on policy for your WS-Federation <MadCap:variable name="Mobile.O365" /> app instance as described in <MadCap:xref href="../../Security/O365_Client-Access-Policies.htm">Office 365 Client Access Policies</MadCap:xref>.</li>
+                    </ol>
+                </li>
+                <li style="font-weight: bold;">
+                    <p MadCap:conditions="MultiProdPublish.Classic">Configure MFA in Azure AD</p>
+                    <p style="font-weight: normal;" MadCap:conditions="MultiProdPublish.Classic">Configure MFA&#160;in your Azure AD&#160;instance as described in the <a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-mfa-mfasettings" target="_blank">Microsoft documentation</a>.</p>
+                </li>
+            </ol>
+        </div>
+        <div MadCap:conditions="MultiProdPublish.OIE">
+            <ol>
+                <li style="font-weight: bold;">
+                    <p style="font-weight: normal;">Configure MFA&#160;in Okta: Configure an authentication policy for your WS-Federation <MadCap:variable name="Mobile.O365" /> app instance as described in <MadCap:xref href="../../identity-engine/policies/about-app-sign-on-policies.htm">authentication policies</MadCap:xref>.</p>
+                </li>
+                <li style="font-weight: bold;">
+                    <p style="font-weight: normal;">Configure MFA in Azure AD: Configure MFA&#160;in your Azure AD&#160;instance as described in the <a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-mfa-mfasettings" target="_blank">Microsoft documentation</a>.</p>
+                </li>
+            </ol>
+        </div>
+        <h2>Start this procedure</h2>
+        <p>You need to change your <MadCap:variable name="Mobile.O365" /> domain federation settings to enable the support for Okta MFA. Choose one of the following procedures depending on whether you have manually or automatically federated your domain. </p>
+        <ul>
+            <li>
+                <p>
+                    <MadCap:xref href="#Man">If you have manually federated the domain</MadCap:xref>
+                </p>
+            </li>
+            <li>
+                <p>
+                    <MadCap:xref href="#Auto">If you've chosen to let Okta configure the federation settings for you</MadCap:xref>
+                </p>
+            </li>
+        </ul>
+        <h3><a name="Man"></a>For manually federated  domain</h3>
+        <div MadCap:conditions="MultiProdPublish.Classic">
+            <p>Run the updated federation script from under the <span class="uicontrol">Setup Instructions</span>:</p>
+            <p>
+                <img src="../../../Resources/Images/Office365/okta-mfa-azure-mfa-man-fed.png" class="thumbnail" />
+            </p>
+            <p>
+                <ol>
+                    <li>
+                        <MadCap:snippetBlock src="../../../Resources/Snippets/task steps/Applications_Applications.flsnp" />
+                    </li>
+                    <li>Open your WS-Federated <MadCap:variable name="Mobile.O365" /> app.</li>
+                    <li>
+                        <p>Click <span class="menucascade"><span class="uicontrol">Sign On</span><span class="uicontrol">View Setup Instructions</span></span>.</p>
+                        <p>The <span class="wintitle">How to Configure Office 365 WS-Federation</span> page opens.</p>
+                    </li>
+                    <li>On the page, go to the <span class="uicontrol">If your domain is already federated</span> section.</li>
+                    <li>Copy and run the script from this section in Windows PowerShell.</li>
+                    <li>For the <span class="uicontrol">Okta MFA from Azure AD</span> option, select <span class="uicontrol">Enable for this application</span> and then click <span class="uicontrol">Save</span>.</li>
+                    <li>Run the following PowerShell command to ensure that <span class="code">SupportsMfa</span> value is <span class="code">True</span>:<br /><span class="code">Connect-MsolService</span><br /><span class="code">Get-MsolDomainFederationSettings -DomainName &lt;yourDomainName&gt;</span><h5>Example result</h5><MadCap:codeSnippet><MadCap:codeSnippetCopyButton /><MadCap:codeSnippetBody MadCap:useLineNumbers="True" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">ActiveLogOnUri : https://example.okta.com/app/office365/issueruri/sso/wsfed/active
+DefaultInteractiveAuthenticationMethod :
+FederationBrandName : Okta
+IssuerUri : issueruri
+LogOffUri : https://example.okta.com/app/office365/issueruri/sso/wsfed/signout
+MetadataExchangeUri : https://example.okta.com/app/office365/issueruri/sso/wsfed/mex
+NextSigningCertificate :
+OpenIdConnectDiscoveryEndpoint :
+PassiveLogOnUri : https://example.okta.com/app/office365/issueruri/sso/wsfed/passive
+SigningCertificate : &lt;SigningCertificate&gt;
+SupportsMfa : True</MadCap:codeSnippetBody></MadCap:codeSnippet></li>
+                </ol>
+            </p>
+        </div>
+        <div MadCap:conditions="MultiProdPublish.OIE">
+            <p>Run the updated federation script from under the <span class="uicontrol">Setup Instructions</span>:</p>
+            <p>
+                <img src="../../../Resources/Images/Office365/OIE/ws-fed-set-up.png" class="thumbnail" />
+            </p>
+            <p>
+                <ol>
+                    <li>
+                        <MadCap:snippetBlock src="../../../Resources/Snippets/task steps/Applications_Applications.flsnp" />
+                    </li>
+                    <li>Open your WS-Federated <MadCap:variable name="Mobile.O365" /> app.</li>
+                    <li>
+                        <p>Click
+                     <span class="menucascade"><span class="uicontrol">Sign On</span><span class="uicontrol">Sign on Methods</span><span class="uicontrol">WS-Federation</span><span class="uicontrol">View Setup Instructions</span></span>.</p>
+                        <p>The <span class="wintitle">How to Configure Office 365 WS-Federation</span> page opens.</p>
+                    </li>
+                    <li>On the page, go to the <span class="uicontrol">If your domain is already federated</span> section.</li>
+                    <li>Copy and run the script from this section in Windows PowerShell.</li>
+                    <li>For the <span class="uicontrol">Okta MFA from Azure AD</span> option, select <span class="uicontrol">Enable for this application</span> and then click <span class="uicontrol">Save</span>.</li>
+                    <li>Run the following PowerShell command to ensure that <span class="code">SupportsMfa</span> value is <span class="code">True</span>:<br /><span class="code">Connect-MsolService</span><br /><span class="code">Get-MsolDomainFederationSettings -DomainName &lt;yourDomainName&gt;</span><h5>Example result</h5><MadCap:codeSnippet><MadCap:codeSnippetCopyButton /><MadCap:codeSnippetBody MadCap:useLineNumbers="True" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">ActiveLogOnUri : https://example.okta.com/app/office365/issueruri/sso/wsfed/active
+DefaultInteractiveAuthenticationMethod :
+FederationBrandName : Okta
+IssuerUri : issueruri
+LogOffUri: https://example.okta.com/app/office365/issueruri/sso/wsfed/signout
+MetadataExchangeUri : https://example.okta.com/app/office365/issueruri/sso/wsfed/mex
+NextSigningCertificate :
+OpenIdConnectDiscoveryEndpoint :
+PassiveLogOnUri : https://example.okta.com/app/office365/issueruri/sso/wsfed/passive
+SigningCertificate : &lt;SigningCertificate&gt;
+SupportsMfa : True</MadCap:codeSnippetBody></MadCap:codeSnippet></li>
+                </ol>
+            </p>
+        </div>
+        <div MadCap:conditions="Primary.do-not-publish">
+            <h3>For manually federated  domain (Microsoft&#160;Graph)</h3>
+            <p>If you enabled the MS Graph federation feature, the PowerShell commands are different.</p>
+            <div MadCap:conditions="MultiProdPublish.Classic">
+                <p>Run the updated federation script from under the <span class="uicontrol">Setup Instructions</span>:</p>
+                <p>
+                    <img src="../../../Resources/Images/Office365/okta-mfa-azure-mfa-man-fed.png" class="thumbnail" />
+                </p>
+                <p>
+                    <ol>
+                        <li>
+                            <MadCap:snippetBlock src="../../../Resources/Snippets/task steps/Applications_Applications.flsnp" />
+                        </li>
+                        <li>Open your WS-Federated <MadCap:variable name="Mobile.O365" /> app.</li>
+                        <li>
+                            <p>Click the <span class="menucascade"><span class="uicontrol">Sign On</span><span class="uicontrol">View Setup Instructions</span></span>.</p>
+                            <p>The <span class="wintitle">How to Configure Office 365 WS-Federation</span> page opens.</p>
+                        </li>
+                        <li>On the page, go to the <span class="uicontrol">If your domain is already federated</span> section.</li>
+                        <li>Copy and run the script from this section in Windows PowerShell.</li>
+                        <li>For the option, Okta MFA&#160;from Azure AD, ensure that <span class="uicontrol">Enable for this application</span> is checked and click <span class="uicontrol">Save</span>.</li>
+                        <li>Run the following PowerShell command to ensure that <span class="code">FederatedIdpMfaBehavior</span> value is <span class="code">enforceMfaByFederatedIdp</span>:<br /><span class="code">Connect-MgGraph -Scopes Directory.AccessAsUser.All</span><br /><span class="code">Get-MgDomainFederationConfiguration -DomainId &lt;yourDomainName&gt; | Select -Property FederatedIdpMfaBehavior</span></li>
+                    </ol>
+                </p>
+            </div>
+            <div MadCap:conditions="MultiProdPublish.OIE">
+                <p>Run the updated federation script from under the <span class="uicontrol">Setup Instructions</span>:</p>
+                <p>
+                    <img src="../../../Resources/Images/Office365/OIE/ws-fed-set-up.png" class="thumbnail" />
+                </p>
+                <p>
+                    <ol>
+                        <li>
+                            <MadCap:snippetBlock src="../../../Resources/Snippets/task steps/Applications_Applications.flsnp" />
+                        </li>
+                        <li>Open your WS-Federated <MadCap:variable name="Mobile.O365" /> app.</li>
+                        <li>
+                            <p>Click
+                        <span class="menucascade"><span class="uicontrol">Sign On</span><span class="uicontrol">Sign on Methods</span><span class="uicontrol">WS-Federation</span><span class="uicontrol">View Setup Instructions</span></span>.</p>
+                            <p>The <span class="wintitle">How to Configure Office 365 WS-Federation</span> page opens.</p>
+                        </li>
+                        <li>On the page, go to the <span class="uicontrol">If your domain is already federated</span> section.</li>
+                        <li>Copy and run the script from this section in Windows PowerShell.</li>
+                        <li>For the option, Okta MFA&#160;from Azure AD, ensure that <span class="uicontrol">Enable for this application</span> is checked and click <span class="uicontrol">Save</span>.</li>
+                        <li>Run the following PowerShell command to ensure that <span class="code">FederatedIdpMfaBehavior</span> value is <span class="code">enforceMfaByFederatedIdp</span>:<br /><span class="code">Connect-MgGraph -Scopes Directory.AccessAsUser.All</span><br /><span class="code">Get-MgDomainFederationConfiguration -DomainId &lt;yourDomainName&gt; | Select -Property FederatedIdpMfaBehavior</span>.</li>
+                    </ol>
+                </p>
+            </div>
+        </div>
+        <h3><a name="Auto"></a>For automatically federated domain</h3>
+        <div MadCap:conditions="MultiProdPublish.Classic">
+            <p style="font-weight: normal;">In this case, you don't have to configure any settings.</p>
+            <p style="font-weight: normal;">
+                <img src="../../../Resources/Images/Office365/okta-mfa-azure-mfa-auto-fed.png" class="thumbnail" />
+            </p>
+            <ol>
+                <li>
+                    <MadCap:snippetText src="../../../Resources/Snippets/task steps/Applications_Applications.flsnp" />
+                </li>
+                <li>Open your WS-Federated <MadCap:variable name="Mobile.O365" /> app.</li>
+                <li>Click the <span class="uicontrol">Sign On</span> tab, and then click <span class="uicontrol">Edit</span>.</li>
+                <li>For the option <span class="uicontrol">Okta MFA from Azure AD</span>, ensure that <span class="uicontrol">Enable for this application</span> is checked and click <span class="uicontrol">Save</span>.</li>
+                <li>Run the following PowerShell command to ensure that <span class="code">SupportsMfa</span> value is <span class="code">True</span>:<br /><span class="code">Connect-MsolService</span><br /><span class="code">Get-MsolDomainFederationSettings -DomainName &lt;yourDomainName&gt;</span><h5>Example result</h5><MadCap:codeSnippet><MadCap:codeSnippetCopyButton /><MadCap:codeSnippetBody MadCap:useLineNumbers="True" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">ActiveLogOnUri : https://example.okta.com/app/office365/issueruri/sso/wsfed/active
+DefaultInteractiveAuthenticationMethod :
+FederationBrandName : Okta
+IssuerUri : issueruri
+LogOffUri : https://example.okta.com/app/office365/issueruri/sso/wsfed/signout
+MetadataExchangeUri : https://example.okta.com/app/office365/issueruri/sso/wsfed/mex
+NextSigningCertificate :
+OpenIdConnectDiscoveryEndpoint :
+PassiveLogOnUri : https://example.okta.com/app/office365/issueruri/sso/wsfed/passive
+SigningCertificate : &lt;SigningCertificate&gt;
+SupportsMfa : True</MadCap:codeSnippetBody></MadCap:codeSnippet></li>
+            </ol>
+        </div>
+        <div MadCap:conditions="MultiProdPublish.OIE">
+            <p style="font-weight: normal;">In this case, you don't have to configure any settings.</p>
+            <p style="font-weight: normal;">
+                <img src="../../../Resources/Images/Office365/OIE/ws-fed-set-up-edit.png" class="thumbnail" />
+            </p>
+            <ol>
+                <li>
+                    <MadCap:snippetText src="../../../Resources/Snippets/task steps/Applications_Applications.flsnp" />
+                </li>
+                <li>Open your WS-Federated <MadCap:variable name="Mobile.O365" /> app.</li>
+                <li>Click the <span class="uicontrol">Sign On</span><span class="uicontrol">Edit</span>.</li>
+                <li>For the option <span class="uicontrol">Okta MFA from Azure AD</span>, ensure that <span class="uicontrol">Enable for this application</span> is checked and click <span class="uicontrol">Save</span>.</li>
+                <li>Run the following PowerShell command to ensure that <span class="code">SupportsMfa</span> value is <span class="code">True</span>:<br /><span class="code">Connect-MsolService</span><br /><span class="code">Get-MsolDomainFederationSettings -DomainName &lt;yourDomainName&gt;</span><h5>Example result</h5><MadCap:codeSnippet><MadCap:codeSnippetCopyButton /><MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">ActiveLogOnUri : https://example.okta.com/app/office365/issueruri/sso/wsfed/active
+DefaultInteractiveAuthenticationMethod :
+FederationBrandName : Okta
+IssuerUri : issueruri
+LogOffUri : https://example.okta.com/app/office365/issueruri/sso/wsfed/signout
+MetadataExchangeUri : https://example.okta.com/app/office365/issueruri/sso/wsfed/mex
+NextSigningCertificate :
+OpenIdConnectDiscoveryEndpoint :
+PassiveLogOnUri  : https://example.okta.com/app/office365/issueruri/sso/wsfed/passive
+SigningCertificate : &lt;SigningCertificate&gt;
+SupportsMfa : True</MadCap:codeSnippetBody></MadCap:codeSnippet></li>
+            </ol>
+        </div>
+        <div MadCap:conditions="Primary.do-not-publish">
+            <h3>For automatically federated domain (Microsoft&#160;Graph)</h3>
+            <p>If you enabled the Microsoft Graph federation feature, the PowerShell commands are different.</p>
+            <div MadCap:conditions="MultiProdPublish.Classic">
+                <p style="font-weight: normal;">In this case, you don't have to configure any settings.</p>
+                <p style="font-weight: normal;">
+                    <img src="../../../Resources/Images/Office365/okta-mfa-azure-mfa-auto-fed.png" class="thumbnail" />
+                </p>
+                <ol>
+                    <li>
+                        <MadCap:snippetText src="../../../Resources/Snippets/task steps/Applications_Applications.flsnp" />
+                    </li>
+                    <li>Open your WS-Federated <MadCap:variable name="Mobile.O365" /> app.</li>
+                    <li>Click the <span class="uicontrol">Sign On</span> tab, and then click <span class="uicontrol">Edit</span>.</li>
+                    <li>For the <span class="uicontrol">Okta MFA from Azure AD</span> option, ensure that <span class="uicontrol">Enable for this application</span> is selected and click <span class="uicontrol">Save</span>.</li>
+                    <li>Run the following PowerShell command to ensure that <span class="code">FederatedIdpMfaBehavior</span> value is <span class="code">enforceMfaByFederatedIdp</span>:<br /><span class="code">Connect-MgGraph -Scopes Directory.AccessAsUser.All</span><br /><span class="code">Get-MsolDomainFederationSettings -DomainName &lt;yourDomainName&gt;</span>.</li>
+                </ol>
+            </div>
+            <div MadCap:conditions="MultiProdPublish.OIE">
+                <p style="font-weight: normal;">In this case, you don't have to configure any settings.</p>
+                <p style="font-weight: normal;">
+                    <img src="../../../Resources/Images/Office365/OIE/ws-fed-set-up-edit.png" class="thumbnail" />
+                </p>
+                <ol>
+                    <li>
+                        <MadCap:snippetText src="../../../Resources/Snippets/task steps/Applications_Applications.flsnp" />
+                    </li>
+                    <li>Open your WS-Federated <MadCap:variable name="Mobile.O365" /> app.</li>
+                    <li>Click the <span class="uicontrol">Sign On</span><span class="uicontrol">Edit</span>.</li>
+                    <li>For the <span class="uicontrol">Okta MFA from Azure AD</span> option, ensure that <span class="uicontrol">Enable for this application</span> is selected and click <span class="uicontrol">Save</span>.</li>
+                    <li>Run the following PowerShell command to ensure that <span class="code">FederatedIdpMfaBehavior</span> value is <span class="code">enforceMfaByFederatedIdp</span>:<br /><span class="code">Connect-MgGraph -Scopes Directory.AccessAsUser.All</span><br /><span class="code">Get-MsolDomainFederationSettings -DomainName &lt;yourDomainName&gt;</span>.</li>
+                </ol>
+            </div>
+        </div>
+        <h2>Disable this feature </h2>
+        <p>To disable the feature, complete the following steps:</p>
+        <ol>
+            <li>
+                <MadCap:snippetBlock src="../../../Resources/Snippets/task steps/Applications_Applications.flsnp" />
+            </li>
+            <li>Open your WS-Federated <MadCap:variable name="Mobile.O365" /> app.</li>
+            <li>Click the <span class="uicontrol">Sign On</span><span class="uicontrol">Edit</span>.</li>
+            <li>For the <span class="uicontrol">Okta MFA from Azure AD</span> option, ensure that <span class="uicontrol">Enable for this application</span> is cleared and click <span class="uicontrol">Save</span>.</li>
+        </ol>
+        <p>If you turn off this feature, you must manually set the <span class="code">SupportsMfa</span> setting to <span class="code">false</span> for all domains that were automatically federated in Okta with this feature enabled.</p>
+        <p>Use this PowerShell cmdlet to turn this feature off:</p>
+        <p><span class="code">Set-MsolDomainFederationSettings -DomainName &lt;targetDomainName&gt; -SupportsMfa $false</span>
+        </p>
+        <div MadCap:conditions="Primary.do-not-publish">
+            <h2>Disable this feature (MS Graph)</h2>
+            <p>If you enabled the Microsoft Graph federation feature, the PowerShell commands are different.</p>
+            <p>To disable the feature, complete the following steps</p>
+            <ol>
+                <li>
+                    <MadCap:snippetBlock src="../../../Resources/Snippets/task steps/Applications_Applications.flsnp" />
+                </li>
+                <li>Open your WS-Federated <MadCap:variable name="Mobile.O365" /> app.</li>
+                <li>Click the <span class="uicontrol">Sign On</span> tab <span class="uicontrol">Edit</span>.</li>
+                <li>For the <span class="uicontrol">Okta MFA from Azure AD</span> option, ensure that <span class="uicontrol">Enable for this application</span> is cleared and click <span class="uicontrol">Save</span>.</li>
+            </ol>
+            <p>If you turn off this feature, you must manually set the <span class="code">FederatedIdpMfaBehavior</span> setting to <span class="code">acceptIfMfaDoneByFederatedIdp</span> for all domains that were automatically federated in Okta with this feature enabled.</p>
+            <p>Use this PowerShell cmdlet to turn this feature off:</p>
+            <p><span class="code">Update-MgDomainFederationConfiguration -DomainId &lt;DomainName&gt; -InternalDomainFederationId (Get-MgDomainFederationConfiguration -DomainId &lt;DomainName&gt; | Select -Property Id).id -FederatedIdpMfaBehavior acceptIfMfaDoneByFederatedIdp</span>
+            </p>
+        </div>
+        <h2>How the feature works</h2>
+        <h3>Okta MFA satisfies Azure AD MFA requirement</h3>
+        <div MadCap:conditions="MultiProdPublish.Classic">
+            <p>Okta passes an MFA claim as described in the following table.</p>
+            <table style="margin-left: 0;margin-right: auto;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                <col class="TableStyle-standard-Column-Column1" />
+                <col class="TableStyle-standard-Column-Column1" />
+                <col class="TableStyle-standard-Column-Column1" />
+                <col class="TableStyle-standard-Column-Column1" />
+                <thead>
+                    <tr class="TableStyle-standard-Head-Header1">
+                        <th class="TableStyle-standard-HeadF-Column1-Header1">Okta Org-level MFA</th>
+                        <th class="TableStyle-standard-HeadF-Column1-Header1">Okta App-level MFA</th>
+                        <th class="TableStyle-standard-HeadF-Column1-Header1">Azure AD MFA</th>
+                        <th class="TableStyle-standard-HeadD-Column1-Header1">What Happens</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">Disabled</td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">Disabled</td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">Enabled</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <p>End users enter an infinite sign-in loop. To prevent this, you must configure Okta MFA to satisfy the Azure AD MFA requirement. </p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">Enabled</td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">Disabled</td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">Enabled</td>
+                        <td rowspan="3" class="TableStyle-standard-BodyD-Column1-Body2">End users complete an MFA prompt in Okta. Okta passes the completed MFA claim to Azure AD. Azure AD accepts the MFA from Okta and doesn’t prompt for a separate MFA. The user is allowed to access Office 365. </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">Disabled</td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">Enabled</td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">Enabled</td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyC-Column1-Body2">Enabled</td>
+                        <td class="TableStyle-standard-BodyC-Column1-Body2">Enabled</td>
+                        <td class="TableStyle-standard-BodyC-Column1-Body2">Enabled</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div MadCap:conditions="MultiProdPublish.OIE">
+            <p>Okta passes an MFA claim as described in the following table.</p>
+            <table style="margin-left: 0;margin-right: auto;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                <col class="TableStyle-standard-Column-Column1" />
+                <col class="TableStyle-standard-Column-Column1" />
+                <col class="TableStyle-standard-Column-Column1" />
+                <thead>
+                    <tr class="TableStyle-standard-Head-Header1">
+                        <th class="TableStyle-standard-HeadF-Column1-Header1">Okta App-level MFA</th>
+                        <th class="TableStyle-standard-HeadF-Column1-Header1">Azure AD MFA</th>
+                        <th class="TableStyle-standard-HeadD-Column1-Header1">What Happens</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">Disabled</td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">Enabled</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <p>End users enter an infinite sign-in loop. To prevent this, you must configure Okta MFA to satisfy the Azure AD MFA requirement. </p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyC-Column1-Body2">Enabled</td>
+                        <td class="TableStyle-standard-BodyC-Column1-Body2">Enabled</td>
+                        <td class="TableStyle-standard-BodyA-Column1-Body2">End users complete an MFA prompt in Okta. Okta passes the completed MFA claim to Azure AD. Azure AD accepts the MFA from Okta and doesn’t prompt for a separate MFA. The user is allowed to access Office 365. </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <h3>Okta enrolls users in Windows Hello</h3>
+        <p>Prerequisite: The device must be Hybrid Azure AD or Azure AD joined.</p>
+        <p>If your organization requires Windows Hello for Business, Okta prompts end users who aren’t yet enrolled in Windows Hello to complete a step-up authentication (for example, an SMS push). After successful enrollment in Windows Hello, end users can sign on. Okta helps the end users enroll as described in the following table.</p>
+        <div MadCap:conditions="MultiProdPublish.Classic">
+            <table style="margin-left: 0;margin-right: auto;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                <col class="TableStyle-standard-Column-Column1" />
+                <col class="TableStyle-standard-Column-Column1" />
+                <col class="TableStyle-standard-Column-Column1" />
+                <thead>
+                    <tr class="TableStyle-standard-Head-Header1">
+                        <th class="TableStyle-standard-HeadF-Column1-Header1">Okta Org-level MFA</th>
+                        <th class="TableStyle-standard-HeadF-Column1-Header1">Okta App-level MFA</th>
+                        <th class="TableStyle-standard-HeadD-Column1-Header1">What Happens</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">Disabled</td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">Disabled</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <p>End users enter an infinite sign-in loop. To prevent this, you must configure Okta MFA to satisfy the Azure AD MFA requirement. </p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">Enabled</td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">	Disabled	</td>
+                        <td rowspan="3" class="TableStyle-standard-BodyD-Column1-Body2">End users complete a step-up MFA prompt in Okta. Upon successful enrollment in Windows Hello for Business, end users can use it as a factor to satisfy Azure AD MFA.</td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">Disabled</td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">Enabled</td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyC-Column1-Body2">Enabled</td>
+                        <td class="TableStyle-standard-BodyC-Column1-Body2">Enabled</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div MadCap:conditions="MultiProdPublish.OIE">
+            <table style="margin-left: 0;margin-right: auto;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                <col class="TableStyle-standard-Column-Column1" />
+                <col class="TableStyle-standard-Column-Column1" />
+                <thead>
+                    <tr class="TableStyle-standard-Head-Header1">
+                        <th class="TableStyle-standard-HeadF-Column1-Header1">Okta App-level MFA</th>
+                        <th class="TableStyle-standard-HeadD-Column1-Header1">What Happens</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">Disabled</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <p>End users enter an infinite sign-in loop. To prevent this, you must configure Okta MFA to satisfy the Azure AD MFA requirement. </p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyC-Column1-Body2">	Enabled</td>
+                        <td class="TableStyle-standard-BodyA-Column1-Body2">End users complete a step-up MFA prompt in Okta. Upon successful enrollment in Windows Hello for Business, end users can use Windows Hello for Business as a factor to satisfy Azure AD MFA.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <h2>Related topics</h2>
+        <p>
+            <MadCap:xref href="References/o365-sign-on-rule-options.htm">Office 365 sign-on rules options</MadCap:xref>
+        </p>
+        <p MadCap:conditions="MultiProdPublish.Classic">
+            <MadCap:xref href="../Apps_Okta_Enhancements_Office_365_Integration.htm">Enhanced provisioning and deprovisioning for Office 365</MadCap:xref>
+        </p>
+        <p><a href="https://docs.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/hello-identity-verification" target="_blank">Windows Hello for Business</a> (Microsoft documentation)</p>
+    </body>
+</html>

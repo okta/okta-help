@@ -1,0 +1,320 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+   <head>
+      <link rel="canonical"
+            href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/deploy-post-install-workflow-oci-clb.htm"/>
+      <link href="../../Resources/TableStyles/standard.css"
+            rel="stylesheet"
+            MadCap:stylesheetType="table"/>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <link href="" rel="stylesheet" type="text/css"/>
+   </head>
+   <body>
+      <h1>Configure OCI load balancers</h1>
+      <p>Configure a load balancer, register the load balancer with DNS, and test that the load balancer works as expected.</p>
+      <h3>Before you begin</h3>
+      <p>Ensure that you have:</p>
+      <ul>
+         <li>An <MadCap:variable name="okta-feature-names.Access Gateway"/> high availability <span class="disableGlossary">cluster</span> that has two or more worker nodes.</li>
+         <li>The external <span class="disableGlossary">domain</span> for the load balancer (for example, oag-external.com). </li>
+      </ul>
+      <h2>Steps</h2>
+      <ol>
+         <li>
+            <p>Connect to OCI and configure a load balancer:</p>
+            <ol style="list-style-type: lower-alpha;">
+               <li>User a browser to sign in to Oracle cloud. </li>
+               <li>Select <span class="menucascade">
+                     <span class="uicontrol">Networking</span>
+                     <span class="uicontrol">Load Balancers</span>
+                  </span>.</li>
+               <li>Click <span class="uicontrol">Create Load Balancer</span>. </li>
+               <li>In the <span class="wintitle">Select Load Balancer type</span> dialog, select <span class="uicontrol">Load Balancer</span>. Click <span class="uicontrol">Create Load Balancer</span>. </li>
+               <li>In the <span class="wintitle">Add Details</span> step specify:<table class="TableStyle-standard"
+                         style="mc-table-style: url('../../Resources/TableStyles/standard.css');"
+                         cellspacing="0">
+                     <col class="TableStyle-standard-Column-Column1" style="width: 241px;"/>
+                     <col class="TableStyle-standard-Column-Column1"/>
+                     <thead>
+                        <tr class="TableStyle-standard-Head-Header1">
+                           <th class="TableStyle-standard-HeadF-Column1-Header1">
+                              <p>Field or section</p>
+                           </th>
+                           <th class="TableStyle-standard-HeadD-Column1-Header1">
+                              <p>Value</p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr class="TableStyle-standard-Body-Body1">
+                           <td class="TableStyle-standard-BodyF-Column1-Body1">
+                              <p>
+                                 <span class="uicontrol">Name</span>
+                              </p>
+                           </td>
+                           <td class="TableStyle-standard-BodyD-Column1-Body1">
+                              <p>Enter a meaningful name (for example, AccessGatewayExternalLB).</p>
+                           </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2">
+                           <td class="TableStyle-standard-BodyF-Column1-Body2">
+                              <p>
+                                 <span class="uicontrol">Visibility type</span>
+                              </p>
+                           </td>
+                           <td class="TableStyle-standard-BodyD-Column1-Body2">
+                              <p>Select <span class="uicontrol">Public</span>. </p>
+                           </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body1">
+                           <td class="TableStyle-standard-BodyF-Column1-Body1">
+                              <p>
+                                 <span class="uicontrol">Assign a public IP</span>
+                              </p>
+                           </td>
+                           <td class="TableStyle-standard-BodyD-Column1-Body1">
+                              <p>Select <span class="uicontrol">Ephemeral</span> or <span class="uicontrol">Reserved IP</span>, as appropriate.</p>
+                           </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2">
+                           <td class="TableStyle-standard-BodyF-Column1-Body2">
+                              <p>
+                                 <span class="uicontrol">Shapes</span>
+                              </p>
+                           </td>
+                           <td class="TableStyle-standard-BodyD-Column1-Body2">
+                              <p>Modify the minimum and maximum bandwidth to support expected traffic.</p>
+                           </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body1">
+                           <td class="TableStyle-standard-BodyC-Column1-Body1">
+                              <p>
+                                 <span class="uicontrol">Choose networking</span>
+                              </p>
+                           </td>
+                           <td class="TableStyle-standard-BodyA-Column1-Body1">
+                              <p>For <span class="uicontrol">Virtual cloud network ...</span>, select the virtual cloud network that contains the <MadCap:variable name="okta-feature-names.Access Gateway"/> worker nodes.</p>
+                              <p>For <span class="uicontrol">subnet in ...,</span> select the subnet assigned to the <MadCap:variable name="okta-feature-names.Access Gateway"/> worker nodes.</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </li>
+               <li>Click <span class="uicontrol">Next</span>.</li>
+               <li>In the <span class="wintitle">Choose Backends</span> step specify:<table class="TableStyle-standard"
+                         style="mc-table-style: url('../../Resources/TableStyles/standard.css');"
+                         cellspacing="0">
+                     <col class="TableStyle-standard-Column-Column1" style="width: 241px;"/>
+                     <col class="TableStyle-standard-Column-Column1"/>
+                     <thead>
+                        <tr class="TableStyle-standard-Head-Header1">
+                           <th class="TableStyle-standard-HeadF-Column1-Header1">
+                              <p>Field or section</p>
+                           </th>
+                           <th class="TableStyle-standard-HeadD-Column1-Header1">
+                              <p>Value</p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr class="TableStyle-standard-Body-Body1">
+                           <td class="TableStyle-standard-BodyF-Column1-Body1">
+                              <p>
+                                 <span class="uicontrol">Load balancing policy</span>
+                              </p>
+                           </td>
+                           <td class="TableStyle-standard-BodyD-Column1-Body1">
+                              <p>Select <span class="uicontrol">IP Hash</span>. </p>
+                           </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2">
+                           <td class="TableStyle-standard-BodyF-Column1-Body2">
+                              <p>
+                                 <span class="uicontrol">Backends</span>
+                              </p>
+                           </td>
+                           <td class="TableStyle-standard-BodyD-Column1-Body2">
+                              <p>Click <span class="uicontrol">Add Backends</span> and select the appropriate instances of <MadCap:variable name="okta-feature-names.Access Gateway"/>.</p>
+                              <div class="note_tipOkta">
+                                 <p class="noteContent">You can define a load balancer without back-end resources and then assign them later.</p>
+                              </div>
+                           </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body1">
+                           <td class="TableStyle-standard-BodyF-Column1-Body1">
+                              <p>
+                                 <span class="uicontrol">Assign a public IP</span>
+                              </p>
+                           </td>
+                           <td class="TableStyle-standard-BodyD-Column1-Body1">
+                              <p>Select <span class="uicontrol">Ephemeral</span> or <span class="uicontrol">Reserved IP</span>, as appropriate.</p>
+                           </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2">
+                           <td class="TableStyle-standard-BodyF-Column1-Body2">
+                              <p>
+                                 <span class="uicontrol">Shapes</span>
+                              </p>
+                           </td>
+                           <td class="TableStyle-standard-BodyD-Column1-Body2">
+                              <p>Modify <span class="uicontrol">minimum</span> and <span class="uicontrol">maximum</span> bandwidth to support expected traffic.</p>
+                           </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body1">
+                           <td class="TableStyle-standard-BodyF-Column1-Body1">
+                              <p>
+                                 <span class="uicontrol">Choose networking</span>
+                              </p>
+                           </td>
+                           <td class="TableStyle-standard-BodyD-Column1-Body1">
+                              <p>For <span class="uicontrol">Virtual cloud network...</span>, select the virtual cloud network that contains the <MadCap:variable name="okta-feature-names.Access Gateway"/> worker nodes.</p>
+                              <p>For <span class="uicontrol">subnet in ...</span>, select the subnet assigned to the <MadCap:variable name="okta-feature-names.Access Gateway"/> worker nodes.</p>
+                           </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2">
+                           <td class="TableStyle-standard-BodyC-Column1-Body2">
+                              <p>
+                                 <span class="uicontrol">Specify Health Check Policy</span>
+                              </p>
+                           </td>
+                           <td class="TableStyle-standard-BodyA-Column1-Body2">
+                              <p>For <span class="uicontrol">URL Path (URI)</span>, enter <span class="userinput">/status</span>
+                              </p>
+                              <p>Leave all other values unchanged.</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </li>
+               <li>Click <span class="uicontrol">Next</span>.</li>
+               <li>In the <span class="wintitle">Configure listener</span> step specify:<table class="TableStyle-standard"
+                         style="mc-table-style: url('../../Resources/TableStyles/standard.css');"
+                         cellspacing="0">
+                     <col class="TableStyle-standard-Column-Column1" style="width: 241px;"/>
+                     <col class="TableStyle-standard-Column-Column1"/>
+                     <thead>
+                        <tr class="TableStyle-standard-Head-Header1">
+                           <th class="TableStyle-standard-HeadF-Column1-Header1">
+                              <p>Field or section</p>
+                           </th>
+                           <th class="TableStyle-standard-HeadD-Column1-Header1">
+                              <p>Value</p>
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr class="TableStyle-standard-Body-Body1">
+                           <td class="TableStyle-standard-BodyF-Column1-Body1">
+                              <p>
+                                 <span class="uicontrol">Name</span>
+                              </p>
+                           </td>
+                           <td class="TableStyle-standard-BodyD-Column1-Body1">
+                              <p>Enter a meaningful name (for example, OAG LB listener). </p>
+                           </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2">
+                           <td class="TableStyle-standard-BodyC-Column1-Body2">
+                              <p>
+                                 <span class="uicontrol">Traffic type</span>
+                              </p>
+                           </td>
+                           <td class="TableStyle-standard-BodyA-Column1-Body2">
+                              <p>Select <span class="uicontrol">HTTP</span>.</p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </li>
+               <li>Click <span class="uicontrol">Next</span>.</li>
+               <li>In the <span class="wintitle">Manage logging</span> step,  click <span class="uicontrol">Submit</span>. </li>
+            </ol>
+            <p>Oracle Cloud Infrastructure creates the load balancer. This can take up to five minutes to complete. </p>
+         </li>
+         <li>
+                    Register the load balancer with your DNS service provider. The following steps may vary by DNS provider:<ol style="list-style-type: lower-alpha;">
+               <li>In the OCI console go to <span class="menucascade">
+                     <span class="uicontrol">Networking</span>
+                     <span class="uicontrol">Load Balancers</span>
+                  </span>.</li>
+               <li>Note the <span class="uicontrol">IP address</span> of the load balancer.</li>
+               <li>Connect to your DNS Service provider and add a CNAME record mapping the front end IP address to the external name. For example: <p>
+                     <span class="userinput">CNAME host: www.[your external name], target: load balancer ip address</span>
+                  </p>
+               </li>
+               <li>Return to the OCI console.</li>
+            </ol>
+         </li>
+         <li>
+                    Test the load balancer using a header-based application. Complete this section if an application doesn't already exist for <span class="url">www.[external domain].com</span>:                  <ol style="list-style-type: lower-alpha;">
+               <li>Return to or sign in to the <MadCap:variable name="okta-feature-names.Access Gateway UI"/>.</li>
+               <li>Select the <span class="wintitle">Applications</span> tab. </li>
+               <li>Click <span class="uicontrol">Add</span>.</li>
+               <li>Select <span class="uicontrol">Sample Header</span>.</li>
+               <li>In the <span class="wintitle">Essentials</span> tab, specify the following:<table style="mc-table-style: url('../../Resources/TableStyles/standard.css');"
+                         class="TableStyle-standard"
+                         cellspacing="0">
+                     <col class="TableStyle-standard-Column-Column1"/>
+                     <col class="TableStyle-standard-Column-Column1"/>
+                     <thead>
+                        <tr class="TableStyle-standard-Head-Header1">
+                           <th class="TableStyle-standard-HeadF-Column1-Header1">Field</th>
+                           <th class="TableStyle-standard-HeadD-Column1-Header1">Value</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr class="TableStyle-standard-Body-Body1">
+                           <td class="TableStyle-standard-BodyF-Column1-Body1">
+                              <p>
+                                 <span class="uicontrol">Name</span>
+                              </p>
+                           </td>
+                           <td class="TableStyle-standard-BodyD-Column1-Body1">
+                              <p>A meaningful name for the application (for example, Load Balancer Header Test).</p>
+                           </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2">
+                           <td class="TableStyle-standard-BodyF-Column1-Body2">
+                              <p>
+                                 <span class="uicontrol">Public Domain</span>
+                              </p>
+                           </td>
+                           <td class="TableStyle-standard-BodyD-Column1-Body2">
+                              <p>www.[external domain] (for example, <span class="url">www.oag-external.com</span>)</p>
+                           </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body1">
+                           <td class="TableStyle-standard-BodyC-Column1-Body1">
+                              <p>
+                                 <span class="uicontrol">Groups</span>
+                              </p>
+                           </td>
+                           <td class="TableStyle-standard-BodyA-Column1-Body1">
+                              <p>
+                                 <span class="uicontrol">Everyone</span>
+                              </p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </li>
+               <li>Click <span class="uicontrol">Next</span>. The <span class="wintitle">Attributes</span> tab opens.</li>
+               <li>Click <span class="uicontrol">Next</span>. The <span class="wintitle">Policies</span> tab opens.</li>
+               <li>Click <span class="uicontrol">Done</span>.</li>
+               <li>Open a new browser or a Chrome incognito window.</li>
+               <li>Enter the URL associated with the application.</li>
+               <li>The <MadCap:variable name="okta-feature-names.Access Gateway"/> sample header app page should display.</li>
+            </ol>
+         </li>
+      </ol>
+      <h2>Related resources</h2>
+      <p>
+         <MadCap:xref href="about-load-balancers.htm">Load balancers</MadCap:xref>
+      </p>
+      <p>
+         <a href="https://docs.oracle.com/en-us/iaas/Content/Balance/home.htm"
+            target="_blank">Oracle OCI Load Balancers</a>
+      </p>
+   </body>
+</html>

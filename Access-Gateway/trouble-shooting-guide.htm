@@ -1,0 +1,479 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link href="../../Resources/TableStyles/standard-shade-col1.css" rel="stylesheet" MadCap:stylesheetType="table" />
+        <link href="" rel="stylesheet" type="text/css" />
+        <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/trouble-shooting-guide.htm" /><title>[%=Heading.Level1%] | Okta</title>
+        <meta name="description" content="Use the Access Gateway troubleshooting guide to resolve issues with your organization’s Access Gateway deployment." />
+    </head>
+    <body>
+        <h1>Troubleshoot miscellaneous issues</h1>
+        <p>This topic describes how to troubleshoot common issues:</p>
+        <ul>
+            <li>
+                <MadCap:xref href="#Error">An SSH error appears when connecting to an [%=okta-feature-names.Access Gateway%] instance by command line</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Unexpected_Appliance_Behavior">Unexpected application or [%=okta-feature-names.Access Gateway%] instance behavior</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Multiple_Application_Certificate_Errors">Application certificate errors</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Redirect_Looping">Microsoft Internet Explorer redirect looping</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Invalid_IDP_API_Key">Invalid Identity Provider API key</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#App_Name_is_Out_of_Sync">The app name is out of sync</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Site_Can_Not_Be_Reached/Displayed">The site can't be reached or displayed</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Setup/App_Creation_Freezes">App setup or creation is unresponsive</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#TLS_Page_Not_Displaying">The TLS page doesn't appear</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="troubleshoot-http-status-codes.htm">Troubleshoot HTTP status codes</MadCap:xref>
+            </li>
+        </ul>
+        <p><span class="h2">Before you begin</span>
+        </p>
+        <p>To troubleshoot <MadCap:variable name="okta-feature-names.Access Gateway"></MadCap:variable> issues, you must meet the following prerequisites:</p>
+        <ul>
+            <li>You have admin access to your Okta org.</li>
+            <li>You have access to the <MadCap:variable name="okta-feature-names.Access Gateway CMD"></MadCap:variable>.</li>
+            <li>You can retrieve and monitor logs from network appliances and, application servers, and so on.</li>
+        </ul>
+        <div>
+            <h2><a name="Error"></a>An SSH error appears when connecting to an <MadCap:variable name="okta-feature-names.Access Gateway" /> instance by command line</h2>
+            <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shade-col1.css');" class="TableStyle-standard-shade-col1" cellspacing="0">
+                <col class="TableStyle-standard-shade-col1-Column-Column1" width="15%" />
+                <col class="TableStyle-standard-shade-col1-Column-Column" width="85%" />
+                <tbody>
+                    <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                        <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">Message</td>
+                        <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1">Permission denied (publickey,gssapi-keyex,gssapi-with-mic)</td>
+                    </tr>
+                    <tr class="TableStyle-standard-shade-col1-Body-Body2">
+                        <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body2">Description</td>
+                        <td class="TableStyle-standard-shade-col1-BodyD-Column-Body2">The oag-mgmt username wasn't specified when you attempted to connect to the  <MadCap:variable name="okta-feature-names.Access Gateway" /> instance using the command line.</td>
+                    </tr>
+                    <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                        <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">Log statement example</td>
+                        <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1"><span class="codeblock">username$&#160;ssh 100.25.225.222
+username@100.25.225.222:Permission denied (publickey, gssapi-keyex,gssapi-with-mic).
+username $</span>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-shade-col1-Body-Body2">
+                        <td class="TableStyle-standard-shade-col1-BodyB-Column1-Body2">Validation and mitigation steps</td>
+                        <td class="TableStyle-standard-shade-col1-BodyA-Column-Body2">Specify the oag-mgmt username when connecting to an <MadCap:variable name="okta-feature-names.Access Gateway" /> instance.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h2 id="time-is-not-in-sync."><a name="Time_is_not_in_sync."></a>The time isn't in sync</h2>
+            <p>When the time isn't synchronized between <MadCap:variable name="okta-feature-names.Access Gateway" /> and applications, <MadCap:variable name="okta-feature-names.Access Gateway" /> can't process SAML assertions correctly.</p>
+            <h3><MadCap:variable name="okta-feature-names.Access Gateway" /> couldn't validate the SAML assertion</h3>
+            <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shade-col1.css');" class="TableStyle-standard-shade-col1" cellspacing="0">
+                <col class="TableStyle-standard-shade-col1-Column-Column1" width="15%" />
+                <col class="TableStyle-standard-shade-col1-Column-Column" width="85%" />
+                <tbody>
+                    <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                        <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">Message</td>
+                        <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1">Requester/RequestDenied: Could not validate the following SAML 
+AuthnRequest from partner &lt;<MadCap:variable name="okta-feature-names.Access Gateway" /> Application Name&gt;:</td>
+                    </tr>
+                    <tr class="TableStyle-standard-shade-col1-Body-Body2">
+                        <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body2">Description</td>
+                        <td class="TableStyle-standard-shade-col1-BodyD-Column-Body2">The time on the <MadCap:variable name="okta-feature-names.Access Gateway" /> or protected app computers isn't synchronized.</td>
+                    </tr>
+                    <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                        <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">Log statement example</td>
+                        <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1"><span class="codeblock" xml:space="preserve">Apr  3 14:20:18 accessgw01 ACCESS AUTHN SAML ERROR USER_AUTHN [TYPE="SAML_2_0" TRACKER_ID="882d8b2faf" 
+SOURCE="&lt;IDP SSO URL&gt;" RESULT="FAIL" REASON="Invalid SAML Assertion" REMOTE_IP="&lt;Remote IP address&gt;" 
+USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) 
+Chrome/65.0.3325.181 Safari/537.36"] Requester/RequestDenied: Could not validate the following SAML 
+AuthnRequest from partner &lt;Access Gateway Application Name&gt;:</span>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-shade-col1-Body-Body2">
+                        <td class="TableStyle-standard-shade-col1-BodyB-Column1-Body2">Validation and mitigation steps</td>
+                        <td class="TableStyle-standard-shade-col1-BodyA-Column-Body2">
+                            <ol>
+                                <li>Sign in to the <MadCap:variable name="okta-feature-names.Access&#160;Gateway UI" />.</li>
+                                <li>Select the <span class="wintitle">Settings</span> tab.</li>
+                                <li>Select <span class="uicontrol">Advanced</span>.</li>
+                                <li>Verify that the time is correct.  If it's not, click <span class="uicontrol">Resync</span>.</li>
+                                <li>Click the refresh button to refresh the system time and verify that it's current.</li>
+                                <li>Verify the time in the  <MadCap:variable name="okta-feature-names.Access&#160;Gateway UI"></MadCap:variable> and in the application.</li>
+                                <li>Verify that the times match.</li>
+                            </ol>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3>The SAML&#160;assertion date and time are in the future</h3>
+            <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shade-col1.css');" class="TableStyle-standard-shade-col1" cellspacing="0">
+                <col class="TableStyle-standard-shade-col1-Column-Column1" width="15%" />
+                <col class="TableStyle-standard-shade-col1-Column-Column" width="85%" />
+                <tbody>
+                    <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                        <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">Message</td>
+                        <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1">Received an assertion that is valid in the future. 
+Check clock synchronization on IdP and SP.</td>
+                    </tr>
+                    <tr class="TableStyle-standard-shade-col1-Body-Body2">
+                        <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body2">Description</td>
+                        <td class="TableStyle-standard-shade-col1-BodyD-Column-Body2">The SAML&#160;assertion from the protected app has a date and time in the future.</td>
+                    </tr>
+                    <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                        <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">Log statement example</td>
+                        <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1"><span class="codeblock" xml:space="preserve">Apr  3 14:20:09 oag01 ACCESS_GATEWAY ACCESS AUTHN SAML ERROR USER_AUTHN [TYPE="SAML_2_0" 
+TRACKER_ID="882d8b2faf"SOURCE="&lt;IDP SSO URL&gt;" RESULT="FAIL" REASON="Invalid SAML Assertion" 
+REMOTE_IP="&lt;Remote IP address&gt;" USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 
+(KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36"] Received an assertion that is valid in the future. 
+Check clock synchronization on IdP and SP.</span>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-shade-col1-Body-Body2">
+                        <td class="TableStyle-standard-shade-col1-BodyB-Column1-Body2">Validation and mitigation steps</td>
+                        <td class="TableStyle-standard-shade-col1-BodyA-Column-Body2">
+                            <ol>
+                                <li>Sign in to the <MadCap:variable name="okta-feature-names.Access Gateway CMD" /></li>
+                                <li>Select the <span class="uicontrol">Service</span> option.</li>
+                                <li>Select the <span class="uicontrol">NTP</span> option.</li>
+                                <li>Select the option to restart the NTP service.</li>
+                                <li>Verify that the time in the  <MadCap:variable name="okta-feature-names.Access&#160;Gateway UI" /> matches the time in the application.</li>
+                            </ol>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3>The SAML&#160;assertion expired</h3>
+            <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shade-col1.css');" class="TableStyle-standard-shade-col1" cellspacing="0">
+                <col class="TableStyle-standard-shade-col1-Column-Column1" width="15%" />
+                <col class="TableStyle-standard-shade-col1-Column-Column" width="85%" />
+                <tbody>
+                    <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                        <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">Message</td>
+                        <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1">Received an assertion that has expired. Check clock.</td>
+                    </tr>
+                    <tr class="TableStyle-standard-shade-col1-Body-Body2">
+                        <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body2">Description</td>
+                        <td class="TableStyle-standard-shade-col1-BodyD-Column-Body2">The SAML&#160;assertion from the protected app has expired. The time might not be configured correctly on the computer that hosts the protected app.</td>
+                    </tr>
+                    <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                        <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">Log statement example</td>
+                        <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1"><span class="codeblock" xml:space="preserve">Apr  4 16:20:11 oag01 ACCESS_GATEWAY ACCESS AUTHN SAML ERROR USER_AUTHN [TYPE="SAML_2_0" TRACKER_ID="d7703c136c"
+SOURCE="&lt;IDP SSO URL&gt;" RESULT="FAIL" REASON="Invalid SAML Assertion" REMOTE_IP="&lt;Remote IP address&gt;" 
+USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) 
+Chrome/65.0.3325.181 Safari/537.36"] Received an assertion that has expired. Check clock</span>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-shade-col1-Body-Body2">
+                        <td class="TableStyle-standard-shade-col1-BodyB-Column1-Body2">Validation and mitigation steps</td>
+                        <td class="TableStyle-standard-shade-col1-BodyA-Column-Body2">
+                            <ol>
+                                <li>Sign in to the <MadCap:variable name="okta-feature-names.Access Gateway CMD" />.</li>
+                                <li>Select the <span class="uicontrol">Service</span> option.</li>
+                                <li>Select the <span class="uicontrol">NTP</span> option.</li>
+                                <li>Select the <span class="uicontrol">Set System Time</span> option.</li>
+                                <li>Enter the time in MON DD YYYY HH:MI:SS AM/PM format.</li>
+                                <li>Verifythat  the time in the <MadCap:variable name="okta-feature-names.Access&#160;Gateway UI" /> matches the time  in the application.</li>
+                            </ol>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <h2 id="browser-does-not-trust-the-domain-and-does-not-posts-saml-request"><a name="Browser_does_not_trust_the_domain_and_does_not_posts_SAML_request"></a>The browser doesn't trust the domain and doesn't post a SAML request</h2>
+        <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shade-col1.css');" class="TableStyle-standard-shade-col1" cellspacing="0">
+            <col class="TableStyle-standard-shade-col1-Column-Column1" width="15%" />
+            <col class="TableStyle-standard-shade-col1-Column-Column" width="85%" />
+            <tbody>
+                <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">Message</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1">Caused by: Exception: Unable to find the current binding.</td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body2">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body2">Description</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body2">This error can occur if a user keeps reposting SAML assertions or if an error occurs in the process of accepting a self-signed SSL certificate.</td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">Log statement example</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1"><span class="codeblock">Apr 04 14:19:44 ACCESS ERROR [3137b1cb3f] Caused by: Exception: Unable to find the current binding.</span>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body2">
+                    <td class="TableStyle-standard-shade-col1-BodyB-Column1-Body2">Validation and mitigation steps</td>
+                    <td class="TableStyle-standard-shade-col1-BodyA-Column-Body2">
+                        <p>Solution 1: Ensure that the certificate was validated.</p>
+                        <ol>
+                            <li>Open the returned certificate.</li>
+                            <li>Verify that the certificate is valid.</li>
+                            <li>If the certificate isn't valid, request a new certificate and update it in <MadCap:variable name="okta-feature-names.Access Gateway CMD" />. See <MadCap:xref href="managing-certificates-taskflow.htm">Certificate management</MadCap:xref>.</li>
+                            <li>Test access to the application.</li>
+                        </ol>
+                        <p>Solution 2: Verify that the browser trusts the application URL.</p>
+                        <ol>
+                            <li>Verify whether the browser trusts the URL of the application.</li>
+                            <li>Add the URL of the application and all other <MadCap:variable name="okta-feature-names.Access Gateway" /> endpoints under the trusted zone settings in the browser. See your browser's documentation for instructions.</li>
+                            <li>Restart the browser.</li>
+                            <li>Verify that you can access the application.</li>
+                        </ol>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2 id="unexpected-appliance-behavior"><a name="Unexpected_Appliance_Behavior"></a>Unexpected application or <MadCap:variable name="okta-feature-names.Access Gateway" /> instance behavior</h2>
+        <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shade-col1.css');" class="TableStyle-standard-shade-col1" cellspacing="0">
+            <col class="TableStyle-standard-shade-col1-Column-Column1" width="15%" />
+            <col class="TableStyle-standard-shade-col1-Column-Column" width="85%" />
+            <tbody>
+                <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">Behavior</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1">Unexpected behaviors occur in applications or in the <MadCap:variable name="okta-feature-names.Access Gateway" /> instance.</td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body2">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body2">Description</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body2">
+                        <p>Outdated pages or cookies stored in the browser cache can cause <MadCap:variable name="okta-feature-names.Access Gateway" /> and applications to read and process out-of-date data.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                    <td class="TableStyle-standard-shade-col1-BodyB-Column1-Body1">Validation and mitigation steps</td>
+                    <td class="TableStyle-standard-shade-col1-BodyA-Column-Body1">
+                        <ol>
+                            <li>Clear the browser cache.</li>
+                            <li>Verify that you can access the application and <MadCap:variable name="okta-feature-names.Access Gateway" />.</li>
+                        </ol>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2 id="multiple-application-certificate-errors"><a name="Multiple_Application_Certificate_Errors"></a>Application certificate errors</h2>
+        <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shade-col1.css');" class="TableStyle-standard-shade-col1" cellspacing="0">
+            <col class="TableStyle-standard-shade-col1-Column-Column1" width="15%" />
+            <col class="TableStyle-standard-shade-col1-Column-Column" width="85%" />
+            <tbody>
+                <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">Behaviors</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1">
+                        <ul>
+                            <li>When a user accesses an application, the browser shows  a certificate warning. The user must click the link to proceed to the  application.The application fails to open and the user receives an  error page.</li>
+                            <li>The application works normally if it's opened in the same browser session as used previously.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body2">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body2">Description</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body2">
+                        <p>These behaviors occur when a browser doesn't trust the certificate. When the user clicks the proceed link, the browser doesn't post data to the SAML endpoint and the SAML assertion fails. If the user opens the application again in the same browser session, the browser trusts the URL because the user granted permission earlier. The application then posts the correct data to the SAML endpoint.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                    <td class="TableStyle-standard-shade-col1-BodyB-Column1-Body1">Validation and mitigation steps</td>
+                    <td class="TableStyle-standard-shade-col1-BodyA-Column-Body1">
+                        <p>Fix this issue on the local system only:</p>
+                        <p>Add the <MadCap:variable name="okta-feature-names.Access Gateway" /> client certificate to the browser’s trust store. See your browser's documentation for instructions.
+</p>
+                        <p>Fix this issue for all systems:</p>
+                        <ol>
+                            <li>Procure a valid certificate. See <MadCap:xref href="managing-certificates-taskflow.htm">Certificate management</MadCap:xref>.</li>
+                            <li>Update the certificate on the <MadCap:variable name="okta-feature-names.Access Gateway"></MadCap:variable> appliance.</li>
+                            <li>Update the certificate on the load balancer if necessary.</li>
+                        </ol>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2 id="redirect-looping"><a name="Redirect_Looping"></a>Microsoft Internet Explorer redirect looping</h2>
+        <h3>Browser trust</h3>
+        <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shade-col1.css');" class="TableStyle-standard-shade-col1" cellspacing="0">
+            <col class="TableStyle-standard-shade-col1-Column-Column1" width="15%" />
+            <col class="TableStyle-standard-shade-col1-Column-Column" width="85%" />
+            <tbody>
+                <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">Behavior</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1">Microsoft Internet Explorer tabs can open and close by themselves or redirect the user in a loop.</td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body2">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body2">Description</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body2">The browser doesn't trust the application or the <MadCap:variable name="okta-feature-names.Access Gateway" /> endpoints.</td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                    <td class="TableStyle-standard-shade-col1-BodyB-Column1-Body1">Validation and mitigation steps</td>
+                    <td class="TableStyle-standard-shade-col1-BodyA-Column-Body1">
+                        <p>Add the <MadCap:variable name="okta-feature-names.Access Gateway" /> hostname endpoint and application endpoint URLs to the <span class="uicontrol">Trusted Zone</span> settings in Microsoft Internet Explorer settings.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Load balancing</h3>
+        <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shade-col1.css');" class="TableStyle-standard-shade-col1" cellspacing="0">
+            <col class="TableStyle-standard-shade-col1-Column-Column1" width="15%" />
+            <col class="TableStyle-standard-shade-col1-Column-Column" width="85%" />
+            <tbody>
+                <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">Behavior</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1">Microsoft Internet Explorer tabs can open and close by themselves or redirect the user in a loop.</td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body2">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body2">Description</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body2">If you're using a load-balanced solution, the browser resolves the <MadCap:variable name="okta-feature-names.Access Gateway" /> hostname to one node and the application public domain to another node.</td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                    <td class="TableStyle-standard-shade-col1-BodyB-Column1-Body1">Validation and mitigation steps</td>
+                    <td class="TableStyle-standard-shade-col1-BodyA-Column-Body1">
+                        <ol>
+                            <li>Verify that the load balancer enforces sticky sessions.</li>
+                            <li>Ping the <MadCap:variable name="okta-feature-names.Access Gateway" /> hostname and the application public domain to verify that they're resolving to different IP addresses. See <MadCap:xref href="command-line-console-reference-network.htm#ping">Ping</MadCap:xref>.</li>
+                            <li>Update the local hosts file or DNS entry to match the correct IP addresses.</li>
+                        </ol>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2 id="invalid-idp-api-key"><a name="Invalid_IDP_API_Key"></a>Invalid Identity Provider API key</h2>
+        <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shade-col1.css');" class="TableStyle-standard-shade-col1" cellspacing="0">
+            <col class="TableStyle-standard-shade-col1-Column-Column1" width="15%" />
+            <col class="TableStyle-standard-shade-col1-Column-Column" width="85%" />
+            <tbody>
+                <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">Messages</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1">The IdP API token has been deleted from the IdP.</td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body2">
+                    <td class="TableStyle-standard-shade-col1-BodyB-Column1-Body2">Validation and mitigation steps</td>
+                    <td class="TableStyle-standard-shade-col1-BodyA-Column-Body2">
+                        <ol>
+                            <li>Create a new Identity Provider API token in the Identity Provider in your Okta org. See <a href="https://help.okta.com/okta_help.htm?id=ext_api" target="blank" title="API token management" alt="API token management">API token management</a>.</li>
+                            <li>Update the API Key in <MadCap:variable name="okta-feature-names.Access Gateway" />. See <MadCap:xref href="configure-idp-okta.htm">Configure your Okta org as an Identity Provider</MadCap:xref>. Follow the instructions in the Use Workforce Identity Cloud as the IdP for Access Gateway section.</li>
+                        </ol>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2 id="app-name-is-out-of-sync"><a name="App_Name_is_Out_of_Sync"></a>The app name is out of sync</h2>
+        <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shade-col1.css');" class="TableStyle-standard-shade-col1" cellspacing="0">
+            <col class="TableStyle-standard-shade-col1-Column-Column1" width="15%" />
+            <col class="TableStyle-standard-shade-col1-Column-Column" width="85%" />
+            <tbody>
+                <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">Message</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1">&lt;App Name&gt; is out of sync with IdP. Would you like to recreate this application is &lt;IDP Org name&gt;?</td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body2">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body2">Description</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body2">The application has been deleted from the Identity Provider.</td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                    <td class="TableStyle-standard-shade-col1-BodyB-Column1-Body1">Validation and mitigation steps</td>
+                    <td class="TableStyle-standard-shade-col1-BodyA-Column-Body1">
+                        <ol>
+                            <li>Ensure that the API key used to configure the <MadCap:variable name="okta-feature-names.Access Gateway" /> is still active. If it isn't, continue with the following steps.</li>
+                            <li>Delete the existing application from <MadCap:variable name="okta-feature-names.Access Gateway" />.</li>
+                            <li>Confirm that the application is deleted from the Identity Provider before recreating the app.</li>
+                            <li>Add the application again in the <MadCap:variable name="okta-feature-names.Access Gateway" />.</li>
+                            <li>Ensure that the application has been created in the Identity Provider. See <MadCap:xref href="configure-idp-okta.htm">Configure your Okta org as an Identity Provider</MadCap:xref>. Follow the instructions in the Use Workforce Identity Cloud as the IdP for Access Gateway section.</li>
+                        </ol>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2 id="site-can-not-be-reacheddisplayed"><a name="Site_Can_Not_Be_Reached/Displayed"></a>The site can't be reached or displayed</h2>
+        <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shade-col1.css');" class="TableStyle-standard-shade-col1" cellspacing="0">
+            <col class="TableStyle-standard-shade-col1-Column-Column1" width="15%" />
+            <col class="TableStyle-standard-shade-col1-Column-Column" width="85%" />
+            <tbody>
+                <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">Behavior</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1">The browser is unable to reach the site.</td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body2">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body2">Description</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body2">The application or <MadCap:variable name="okta-feature-names.Access Gateway" /> services aren't running or the DNS entry is missing.</td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                    <td class="TableStyle-standard-shade-col1-BodyB-Column1-Body1">Validation and mitigation steps</td>
+                    <td class="TableStyle-standard-shade-col1-BodyA-Column-Body1">
+                        <ol>
+                            <li>Restart the <MadCap:variable name="okta-feature-names.Access Gateway" /> service or the application.</li>
+                            <li>Add the required DNS entry in the DNS or local hosts file.</li>
+                        </ol>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2 id="setupapp-creation-freezes"><a name="Setup/App_Creation_Freezes"></a>App setup or creation is unresponsive</h2>
+        <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shade-col1.css');" class="TableStyle-standard-shade-col1" cellspacing="0">
+            <col class="TableStyle-standard-shade-col1-Column-Column1" width="15%" />
+            <col class="TableStyle-standard-shade-col1-Column-Column" width="85%" />
+            <tbody>
+                <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">Behavior</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1">The progress indicator spins for a long time during initial setup or while creating an application in <MadCap:variable name="okta-feature-names.Access Gateway" />.</td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body2">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body2">Description</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body2">This occurs when <MadCap:variable name="okta-feature-names.Access Gateway" /> fails to reach the designated Identity Provider.</td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">Log statement example</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1"><span class="codeblock">Mar 7 17:19:43 localhost.localdomain WEB_CONSOLE IOException occurred validating IDP host :IDP login URL</span>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body2">
+                    <td class="TableStyle-standard-shade-col1-BodyB-Column1-Body2">Validation and mitigation steps</td>
+                    <td class="TableStyle-standard-shade-col1-BodyA-Column-Body2">
+                        <ol>
+                            <li>Verify that the <MadCap:variable name="okta-feature-names.Access Gateway" /> appliance is able to connect to the Identity Provider.</li>
+                            <li>Look for the component that is blocking the connection and allow the connection to the Identity Provider.</li>
+                            <li>Verify the connectivity to the Identity Provider from the <MadCap:variable name="okta-feature-names.Access Gateway" /> appliance.</li>
+                            <li>Ensure that the <span class="uicontrol">Client ID</span> and <span class="uicontrol">Client Secret</span> values are correct.</li>
+                            <li>Validate the Identity Provider configuration in <MadCap:variable name="okta-feature-names.Access Gateway" /> and save the settings. See <MadCap:xref href="configure-idp-okta.htm">Configure your Okta org as an Identity Provider</MadCap:xref>. Follow the instructions in the Use Workforce Identity Cloud as the IdP for Access Gateway section.</li>
+                        </ol>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2 id="tls-page-not-displaying"><a name="TLS_Page_Not_Displaying"></a>The TLS page doesn't appear</h2>
+        <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shade-col1.css');" class="TableStyle-standard-shade-col1" cellspacing="0">
+            <col class="TableStyle-standard-shade-col1-Column-Column1" width="15%" />
+            <col class="TableStyle-standard-shade-col1-Column-Column" width="85%" />
+            <tbody>
+                <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">Behavior</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1">The TLS page doesn't appear.</td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body2">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body2">Description</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body2">This occurs when a browser’s TLS security settings don't authenticate a secure connection with <MadCap:variable name="okta-feature-names.Access Gateway" />.</td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">Log statement example</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1"><span class="codeblock" xml:space="preserve">Apr 16 10:55:41 test-oag icsDefault443Error 2018/04/16 10:55:41 [crit] 18480#0: *3047 SSL_shutdown() failed
+(SSL: error:140E0197:SSL routines:SSL_shutdown:shutdown while in init) while SSL handshaking, client: 
+Client IP address, server:0.0.0.0:443
+Apr 16 10:55:41 test-oag icsDefault443Error 2018/04/16 10:55:41 [crit] 18480#0: *3047 SSL_shutdown() failed
+(SSL: error:140E0197:SSL routines:SSL_shutdown:shutdown while in init) while SSL handshaking, client: 
+Client IP address, server:0.0.0.0:443</span>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body2">
+                    <td class="TableStyle-standard-shade-col1-BodyB-Column1-Body2">Validation and mitigation steps</td>
+                    <td class="TableStyle-standard-shade-col1-BodyA-Column-Body2">
+                        <p>Ensure that your browser uses TLS 1.1, 1.2, and 1.3. See your browser's documentation for instructions.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

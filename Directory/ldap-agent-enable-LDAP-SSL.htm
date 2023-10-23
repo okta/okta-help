@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:conditions="MultiProdPublish.Classic+OIE" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head><title>[%=Heading.Level1%] | Okta</title>
+        <meta name="description" content="Import the SSL certificate into the trust store to enable LDAP over SSL (LDAPS) and ensure a secure connection to a LDAP server." />
+    </head>
+    <body>
+        <h1>Enable LDAP over SSL</h1>
+        <p>To enable LDAP over SSL (LDAPS) and ensure a secure connection, import&#160;the certificate into the trust store. You must issue the import command on the server on which&#160;the <MadCap:variable name="okta-feature-names.LDAP agent short" /> is installed. These are the known limitations for different environments:</p>
+        <ul>
+            <li><span class="uicontrol">Ubuntu / Debian</span>: There's no upgrade path. The&#160;<span class="uicontrol">dpkg</span>&#160;tool performs an&#160;uninstall and reinstall, which deletes&#160;the <span class="uicontrol">cacerts</span> file.</li>
+            <li><span class="uicontrol">Centos</span>: There's no upgrade path. Issuing <span class="code">yum localupdate &lt;package name&gt;</span> replaces the <span class="uicontrol">jre</span> folder, which deletes&#160;the <span class="uicontrol">cacerts</span>. If the service is already set up to use SSL, the service fails to start.</li>
+            <li><span class="uicontrol">Windows</span>: There's no upgrade path. The installer removes and readds the files. Also, the installer must be&#160;running when you're&#160;updating the cert store.&#160;Canceling&#160;the installer deletes the contents of the C:\Okta\Okta LDAP Agent folder.</li>
+        </ul>
+        <div>
+            <h3>Linux</h3>
+            <p>When using the keytool, make sure to&#160;always choose the keystore option.</p>
+            <ol>
+                <li>
+                    <p>Open a terminal and go to the jre/bin directory. </p>
+                    <p><span class="filepath">/opt/Okta/OktaLDAPAgent/jre/bin</span>
+                    </p>
+                </li>
+                <li>
+                    <p>Optional. Connect to the LDAPS port to confirm that the certificate you have is the one that the server is using: </p>
+                    <p><span class="code">openssl s_client -connect &lt;IP of your LDAP server&gt;:&lt;your SSO port&gt;</span>
+                    </p>
+                </li>
+                <li>
+                    <p>Import the SSL certificate. When you're prompted for the default password, enter <span class="userinput">changeit</span>: </p>
+                    <p><span class="code">./keytool -importcert -alias example.net.local -file /tmp/example.net.local.cer -keystore ../lib/security/cacerts</span>
+                    </p>
+                </li>
+                <li>
+                    <p>List the current contents of the keystore:</p>
+                    <p><span class="code">./keytool -list -keystore ../lib/security/cacerts</span>
+                    </p>
+                </li>
+                <li>
+                    <p>Run the <span class="code">configure_agent.sh</span> script to finish configuring the agent.</p>
+                </li>
+            </ol>
+        </div>
+        <div>
+            <p>
+                <h3>Windows</h3>
+            </p>
+            <p>When using the keytool, make sure to&#160;always choose the keystore option.</p>
+            <ol>
+                <li>
+                    <p>Open a terminal and go to the jre/bin directory.</p>
+                    <p><span class="filepath">C:\Program Files\Okta\Okta LDAP Agent\jre\bin</span>
+                    </p>
+                </li>
+                <li>
+                    <p>Optional. Connect to the LDAPS port to confirm that the certificate you have is the one that the server is using: </p>
+                    <p><span class="code">openssl s_client -connect &lt;IP of your LDAP server&gt;:&lt;your SSO port&gt;</span>
+                    </p>
+                </li>
+                <li>
+                    <p>Import the SSL certificate. When you're prompted for the default password, enter changeit: </p>
+                    <p><span class="code">./keytool -importcert -alias example.net.local -file /tmp/example.net.local.cer -keystore ../lib/security/cacerts</span>
+                    </p>
+                </li>
+                <li>
+                    <p>List the current contents of the keystore:</p>
+                    <p><span class="code">./keytool -list -keystore ../lib/security/cacerts</span>
+                    </p>
+                </li>
+                <li>
+                    <p>Complete the <MadCap:variable name="okta-feature-names.LDAP agent short" /> installation. See <a href="ldap-agent-install-configure.htm">Install and configure the Okta LDAP Agent</a>.</p>
+                </li>
+                <li>
+                    <p>Run the <span class="code">configure_agent.sh</span> script to finish configuring the agent.</p>
+                </li>
+            </ol>
+        </div>
+    </body>
+</html>

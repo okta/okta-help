@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Nikita Apraj">
+    <head><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+        <meta name="description" content="An overview of how Okta manages on-premises provisioning." />
+    </head>
+    <body>
+        <h1>About on-premises provisioning</h1>
+        <p>As with cloud-based provisioning, on-premises provisioning uses the <a href="https://scim.cloud" target="_blank">SCIM protocol</a> to synchronize user account information between your user store and the applications your end users work with every day.</p>
+        <div class="noteOkta">
+            <img src="../../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Note" alt="Note" />
+            <p class="noteContent">On-premises provisioning only supports the SCIM&#160;1.1 specification.</p>
+        </div>
+        <h2>Architecture</h2>
+        <p>The on-premises provisioning architecture consists of the following components: <MadCap:variable name="okta-variables.ProductName" />, the <MadCap:variable name="okta-feature-names.Okta Provisioning Agent" />, a SCIM&#160;server or custom connectors, and your on-premises applications. As shown in this illustration, all components except <MadCap:variable name="okta-variables.ProductName" /> are located inside your firewall:<br /><img src="../../../Resources/Images/OPP_figure.png" style="width: 569px;height: 234px;" /></p>
+        <h2>Prerequisites</h2>
+        <div class="noteOkta">
+            <img src="../../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Note" alt="Note" />
+            <p class="noteContent">Implementing on-premises provisioning is only officially supported by <MadCap:variable name="okta-variables.ProductName" /> when performed by <MadCap:variable name="okta-variables.ProductName" /> Professional Services. For more information on how to implement <MadCap:variable name="okta-variables.ProductName" />-supported on-premises provisioning, contact <a href="https://www.okta.com/services/professional-services/" target="_blank"><MadCap:variable name="okta-variables.ProductName" /> Professional Services</a>.</p>
+        </div>
+        <p>To implement <MadCap:variable name="okta-variables.ProductName" /> on-premises provisioning, you need the following:</p>
+        <ul>
+            <li>The <MadCap:variable name="okta-variables.ProductName" /> Provisioning Agent installed on a Windows or Linux server.</li>
+            <li>A SCIM&#160;server to process the provisioning requests sent by the <MadCap:variable name="okta-variables.ProductName" /> Provisioning Agent. The SCIM&#160;server can be the connector you build using the <MadCap:variable name="okta-variables.ProductName" /> Provisioning Connector SDK or your own program than can process SCIM-based REST&#160;calls.<ul><li>The <MadCap:variable name="okta-variables.ProductName" /> Provisioning Connector SDK&#160;package contains an example connector that you can use to test on-premises provisioning and to help you build your own connectors. Do not attempt to use the example connector without modifying it for your deployment.</li></ul></li>
+            <li>The Transport Layer Security (TLS) v1.2 protocol for Linux and Windows.</li>
+            <li>For high availability on-premises provisioning, you must install an additional <MadCap:variable name="okta-variables.ProductName" /> Provisioning Agent and SCIM&#160;connector on another server. Start the <MadCap:variable name="okta-variables.ProductName" /> Provisioning Agent, configure your SCIM&#160;connector, and enable provisioning on your backup server. If your primary server is unavailable, the <MadCap:variable name="okta-variables.ProductName" /> Provisioning Agent and the processes run by your SCIM connector continue to operate.</li>
+        </ul>
+        <h2>User workflow</h2>
+        <p>When a new user is provisioned from <MadCap:variable name="okta-variables.ProductName" /> to an on-premises application (for example, a MySQL database) using a SCIM&#160;server, this is the typical workflow: </p>
+        <ul>
+            <li>An <MadCap:variable name="okta-variables.ProductName" /> admin  creates an instance of an app integration in <MadCap:variable name="okta-variables.ProductName" /> to represent your MySQL on-premises application.</li>
+            <li>The admin provisions a new user by assigning an <MadCap:variable name="okta-variables.ProductName" /> user to the MySQL app integration in <MadCap:variable name="okta-variables.ProductName" />. <MadCap:variable name="okta-variables.ProductName" /> creates a provisioning event (<span class="term">create new user</span>). <MadCap:variable name="okta-variables.ProductName" /> provisioning fails when an application user custom schema contains only array attributes.</li>
+            <li>The <MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> polls <MadCap:variable name="okta-variables.ProductName" /> and finds the provisioning event. The <MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> translates the provisioning event to a SCIM request, making an HTTP&#160;POST&#160;request to the <span class="codeph">/Users</span> endpoint of your SCIM server.</li>
+            <li>When the SCIM server receives the POST&#160;request made to <span class="codeph">/Users</span> with a JSON-formatted SCIM&#160;representation of the user, it attempts to create that user in the on-premises application.</li>
+            <li>The SCIM server responds to the <MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> with the SCIM&#160;response message as mandated by SCIM protocol.</li>
+        </ul>
+        <p>For enterprises that on-board users using a Human Resource Management System (HRMS) like Workday, <MadCap:variable name="okta-variables.ProductName" /> provisions and deprovisions users into on-premises applications by using AD as a meeting point. You can configure <MadCap:variable name="okta-variables.ProductName" /> to manage accounts in your AD instance, and <MadCap:variable name="okta-variables.ProductName" /> will create and update users in AD based on the user accounts in Workday. This information can then be used by any on-premises application that uses AD as its user store.</p>
+        <h2>Related topics</h2>
+        <p>
+            <MadCap:xref href="OPP-manage.htm">Typical workflow for deploying on-premises provisioning</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="OPP-main.htm">Provision on-premises applications</MadCap:xref>
+        </p>
+        <p><a href="https://scim.cloud/specs/draft-scim-api-01.html" target="_blank">SCIM&#160;1.1 protocol specification</a>
+        </p>
+    </body>
+</html>

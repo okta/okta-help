@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head> <title>[%=Heading.Level1%] | Okta</title><meta name="description" content="Okta Access Gateway helps your organization secure on-prem applications and provide a familiar end-user authentication experience with Okta SSO." /></head>
+    <body>
+        <h1>About certificates</h1>
+        <ul>
+            <li>
+                <MadCap:xref href="#Backgrou">Background</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Certific">Certificate use</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Creating">Creating certificate chains</MadCap:xref> </li>
+            <li>
+                <MadCap:xref href="#Converti">Converting between certificate formats</MadCap:xref>
+            </li>
+        </ul>
+        <div>
+            <h2><a name="Backgrou"></a>Background</h2>
+            <p>In general, Secure Socket Layer(SSL/X509)&#160;certificates are used to:</p>
+            <ul>
+                <li>Establish a secure connection between a client and a server. For example:<ul style="list-style-type: circle;"><li>Client: A browser or VPN client</li><li>Server: <span class="url">&lt;your-org&gt;.okta.com</span> or the Okta RADIUS agent</li></ul></li>
+                <li>Encrypt communication to ensure that sensitive information is safe.</li>
+                <li>Authenticate an organization's identity.</li>
+            </ul>
+        </div>
+        <div>
+            <h2><a name="Certific"></a>Certificate use</h2>
+            <p>Certificates secure communications for subsystems (like Okta RADIUS agents) when they use Extensible Authentication Protocol/Tunneled Transport Layer Security (EAP/TTLS) or personal identify verification (PIV) smart cards.</p>
+        </div>
+        <h2>Certificate issuers and types</h2>
+        <p>From an issuer's perspective, there are three certificate types:</p>
+        <ul>
+            <li>Certificate Authority (Root CA) certificates are those owned and managed by certificate authorities (CAs). CAs are entities that issue digital certificates. </li>
+            <li>Intermediate certificates are granted to a company or by a company to a subordinate division. Intermediate certificates are often used to sign lower level intermediate certificates or end-entity certificates.</li>
+            <li>Entity certificates are created by an individual or a company from one of their intermediate certificates for individual use.</li>
+        </ul>
+        <p>
+            <img src="../../Resources/Images/hybrid-access/certificate-chains.png" />
+        </p>
+        <h2><a name="Creating"></a>Creating certificate chains</h2>
+        <p>Certificate chains are groupings of certificates. Okta typically requires all certificate chains to be in Privacy Enhanced Mail (PEM) format.</p>
+        <p>Certificate chains concatenate all certificates in order, from the entity to the trusted root. If there are multiple intermediate certificates, they must be included in the chain. </p>
+        <p>Certificates can be combined into a certificate chain using an editor or command line tools. For example, to concatenate an entity certificate, an intermediate certificate, and the entity's private key in Linux:</p><span class="codeblock">cat entity.pem intermediate.pem entity-primarykey.pem &gt; certificate-chain.pem		</span>
+        <p>When chained, groupings of certificates resemble the following:</p><span class="codeblock">
+-----BEGIN CERTIFICATE-----
+.... (entity certificate contents)
+-----END CERTIFICATE-----
+-----BEGIN CERTIFICATE-----
+.... (Intermediate certificate contents)
+-----END CERTIFICATE-----
+-----BEGIN CERTIFICATE-----
+.... (Trusted root certificate contents (Optional. Only required for self-signed chains))
+-----END CERTIFICATE-----
+-----BEGIN RSA PRIVATE KEY-----
+.... (entity private key contents)
+-----END RSA PRIVATE KEY-----</span>
+        <div class="noteOkta">
+            <p class="noteContent">You must create a chain that contains each certificate, starting with all intermediate certificates followed by the entity certificate, but excluding the trusted CA root certificate. The root certificate is only required when using self-signed certificate chains. For EAP-TTLS or EAP-GTC, also include the entity private key.</p>
+        </div>
+        <h2><a name="Converti"></a>Converting between certificate formats</h2>
+        <p>If you have received or generated certificates in another format they may need to be converted to <span class="code">PEM</span> before being concatenated and then uploaded. Tools like <span class="code">openssl</span> can convert a certificate from one format to another.<br /></p>
+        <p>The following examples demonstrate converting various formats to .PEM.</p>
+        <div>
+            <h3>CRT to PEM</h3><span class="codeblock">openssl x509 -in cert.crt -outform PEM -out cert.pem</span>
+        </div>
+        <div>
+            <h3>CER to PEM</h3><span class="codeblock">openssl x509 -in cert.cer -outform DER&#160;-out cert.pem</span>
+        </div>
+        <p>Additionally, EAP-TTLS and EAP-GTC protocols support pfx and p12 formats, which allow the specification of a password to protect an associated private key.</p>
+        <div>
+            <h3>Convert to PFX</h3><span class="codeblock">openssl pkcs12 -export -out certificate.pfx -inkey privateKey.key -in certificate.crt</span>
+        </div>
+        <div>
+            <h3>Sample command to convert to P12</h3><span class="codeblock">openssl pkcs12 -export -out certificate.p12 -inkey privateKey.key -in certificate.crt</span>
+        </div>
+        <p>Multiple additional input and conversion options exist. See the <a href="https://www.openssl.org/">openssl</a> documentation and the openssl man page for more information. </p>
+        <div MadCap:conditions="Primary.do-not-publish">
+            <h2>Related topics</h2>
+            <MadCap:xref href="../Access-Gateway/managing-certificates-taskflow.htm">Manage certificates</MadCap:xref>
+        </div>
+    </body>
+</html>

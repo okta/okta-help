@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:fileTags="Tags/okta-authors.Patrick Calnan"
+      MadCap:conditions="MultiProdPublish.Classic+OIE">
+   <head>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <meta name="description"
+            content="Configure the Citrix Netscaler Gateway integration to enable MFA against your Okta RADIUS server agent to provide seamless end-user authentication."/>
+   </head>
+   <body>
+      <h1>Configure the Cisco ASA gateway</h1>
+      <p> During this task we will define a RADIUS Server Profile, define an Authentication Profile for Okta  RADIUS Agent, apply the Okta RADIUS Authentication Profile to a Gateway, and configure the portal to use the Okta RADIUS Authentication Profile. <br/>
+      </p>
+      <h3>Steps</h3>
+      <ol>
+         <li>
+            <MadCap:xref href="#Define">Define an AAA Server Group</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Add">Add AAA Server(s) to your AAA Server Group</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Modify">Modify the AnyConnect Connection Profile to use the AAA Server Group</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Modify2">Modify the AnyConnect Client Profile to extend the timeout</MadCap:xref>
+         </li>
+      </ol>
+      <h2>Before you begin</h2>
+      <ul>
+         <li>Ensure that you have the common UDP port and secret key values available.</li>
+      </ul>
+      <h2>
+         <a name="Define"/>Define an AAA Server Group</h2>
+      <ol>
+         <li>Sign in to the Cisco ASDM console for the VPN appliance with sufficient privileges</li>
+         <li>Navigate to <span class="menucascade">
+               <span class="uicontrol">Configuration</span>
+               <span class="uicontrol">Remote Access VPN</span>
+               <span class="uicontrol">AAA/Local users</span>
+               <span class="uicontrol">AAA server groups</span>
+            </span>, as shown below.<p>
+               <img src="../../Resources/Images/cisco_4.png"/>
+            </p>
+         </li>
+         <li>Click <span class="uicontrol">Add</span> to create a new group. The <span class="uicontrol">Add AAA Server Group</span> screen opens, as shown below.<p>
+               <img src="../../Resources/Images/cisco_5.png"/>
+            </p>
+         </li>
+         <li>
+            <p>Leave the default settings except for the following</p>
+            <ul>
+               <li>
+                  <p>AAA Server Group – specify a name to identify the group for the MFA server</p>
+               </li>
+               <li>
+                  <p>Protocol – select RADIUS if necessary</p>
+               </li>
+            </ul>
+         </li>
+      </ol>
+      <h2>
+         <a name="Add"/>Add AAA Server(s) to your AAA Server Group</h2>
+      <ol>
+         <li>Click <span class="uicontrol">OK</span> to return to the  Cisco ASDM console, shown in step 2, above.</li>
+         <li>Cick <span class="uicontrol">Remote Access VPN</span> and navigate to <span class="menucascade">
+               <span class="uicontrol">AAA/Local Users</span>
+               <span class="uicontrol">AAA Server Groups</span>
+            </span>. Select the server group you just created.</li>
+         <li>Click <span class="uicontrol">Add</span>. The screen shown below opens.<p>
+               <img src="../../Resources/Images/cisco_6.png"/>
+            </p>
+         </li>
+         <li>Leave the default settings except for the following
+				<ul>
+               <li>Interface Name – select the interface that will handle communication with the MFA Server</li>
+               <li>Server Name or IP Address – specify the name or the IP address of the Okta RADIUS Agent</li>
+               <li>Timeout (seconds) – 60 seconds</li>
+               <li>Server Authentication port – enter the port number you configured above in step 3 when setting up the app in Okta. Port 1812 was used as the example.</li>
+               <li>Server Accounting Port – 1646. This value is not used, but must be entered to complete the setup.</li>
+               <li>Retry Interval – leave default at 60 seconds</li>
+               <li>Server Secret Key – provided secret defined above in step 3 when setting up the app in Okta. </li>
+               <li>Common Password – leave blank</li>
+               <li>Uncheck <span class="uicontrol">Microsoft CHAPv2 Capable</span>. (important)</li>
+            </ul>
+         </li>
+         <li>When done, click <span class="uicontrol">OK</span>.</li>
+         <li>Click <span class="uicontrol">APPLY</span> to save the configuration.</li>
+      </ol>
+      <h2>
+         <a name="Modify"/>Modify the AnyConnect Connection Profile to use the AAA Server Group</h2>
+      <p>In this step you will also confirm that no conflicting or contrary Authorization/Authentication/Accounting settings exist.</p>
+      <ol>
+         <li>  In to the Cisco ASDM console for the VPN appliance, navigate to <span class="menucascade">
+               <span class="uicontrol">Configuration</span>
+               <span class="uicontrol">Remote Access VPN</span>
+               <span class="uicontrol">Network (Client) Access</span>
+               <span class="uicontrol">AnyConnect Connection Profiles</span>
+            </span>, as shown below.
+			<p>
+               <img src="../../Resources/Images/cisco_7.png"/>
+            </p>
+         </li>
+         <li>
+            <p>Highlight the desired connection profile in the <span class="uicontrol">Connection Profiles</span> section and click <span class="uicontrol">Edit</span> above the list of profile names. The screen shown below opens.</p>
+            <p>
+               <img src="../../Resources/Images/cisco_8.png"/>
+            </p>
+         </li>
+         <li>In the <span class="wintitle">Authentication</span> section, set the <span class="uicontrol">Method</span> to "AAA".					</li>
+         <li>Choose the AAA Server Group you previously created or modified, and click <span class="uicontrol">Advanced</span> in the left column. The screen shown below opens.<p>
+               <img src="../../Resources/Images/cisco_8b.png"/>
+            </p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Secondary Authentication</span> on the left and confirm that the “Secondary Authentication Server Group” is undefined.</p>
+            <div class="noteOkta">
+               <p class="noteContent">The current configuration is also knows as "multi-step authentication."</p>
+            </div>
+            <p>An alternative configuration exists that leverages the “Secondary Authentication Server Group” to perform MFA in a different flow. In this configuration “Secondary” authentication is handled by the main AAA Server Group servers using RADIUS Challenge and Response messages.</p>
+            <p> In that configuration, the Primary AAA Server Group is configured to perform primary authentication (username/password) against one AAA Server Group which could be verified against an Okta RADIUS Server Agent that is <span class="uicontrol">only</span> configured to perform Primary Authentication. The Secondary AAA Server Group is configured to perform secondary authentication against a second AAA Server Group which is usually an Okta RADIUS Server with an App that is explicitly configured <span class="uicontrol">not</span> to perform Primary Authentication, and is only used to verify a registered factor (push, verify OTP, sms OTP, etc.).</p>
+            <p>Reasons for using this alternative configuration can include:</p>
+            <ul>
+               <li>Primary authentication server is providing additional accounting, authorization or connection details that Okta cannot</li>
+               <li>Compliance reasons that dictate a non-multistep MFA experience</li>
+            </ul>
+         </li>
+         <li>Click <span class="uicontrol">Authorization</span> on the left and confirm that the <span class="uicontrol">Server Group</span> value is set to <span class="uicontrol">None</span>, as shown below.<p>
+               <img src="../../Resources/Images/cisco_8c.png"/>
+            </p>
+            <div class="noteOkta">
+               <p class="noteContent">Configurations that leverage an additional and distinct Authorization Server Group can exist and are beyond the scope of this guide. Okta has experienced issues when this setting is pointing to a AAA Server Group populated with Okta RADIUS Server Agents. In those cases, a superfluous access request message is sent to the Okta RADIUS Server.</p>
+            </div>
+         </li>
+         <li>Click <span class="uicontrol">Accounting</span> on the left and confirm that the <span class="uicontrol">Accounting Server Group</span> value is set to <span class="uicontrol">None</span>, as shown below.<div class="noteOkta">
+               <p class="noteContent">There might be cases where a unique and meaningful Accounting Server Group is useful.  AAA Server Groups with Okta RADIUS Server agents do not support RADIUS Accounting messages.</p>
+            </div>
+         </li>
+         <li>Click <span class="uicontrol">OK</span> to save the settings.</li>
+      </ol>
+      <h2>
+         <a name="Modify2"/>Modify the AnyConnect Client Profile to extend the timeout</h2>
+      <ol>
+         <li>In the Cisco ASA Admin Console, click the <span class="uicontrol">Configuration</span> button, and then click the <span class="uicontrol">Remote Access VPN</span> button.</li>
+         <li>Navigate to <span class="menucascade">
+               <span class="uicontrol">Network (Client) Access</span>
+               <span class="uicontrol">AnyConnect Client Profile</span>
+            </span>, highlight the desired client profile, and click <span class="uicontrol">Edit</span>, as shown below.<p>
+               <img src="../../Resources/Images/cisco_9.png"/>
+            </p>
+         </li>
+         <li>In the screen that opens, select <span class="uicontrol">Preferences (Part 2)</span>, as shown below.<p>
+               <img src="../../Resources/Images/cisco_9d.png"/>
+            </p>
+         </li>
+         <li>Scroll down and locate Authentication Timeout (seconds), and set the value to <span class="uicontrol">60</span>.</li>
+         <li>Click <span class="uicontrol">OK</span> to save the settings.				</li>
+         <li>Click <span class="uicontrol">Commit</span> to save the Okta RADIUS configuration within the Cisco ASA Admin Console.</li>
+      </ol>
+   </body>
+</html>

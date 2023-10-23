@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/troubleshooting-tips-techniques.htm" />
+        <link href="../../Resources/TableStyles/standard-shaded-rows.css" rel="stylesheet" MadCap:stylesheetType="table" /><title>[%=Heading.Level1%]</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1>Troubleshooting tips and techniques</h1>
+        <p>The following tricks and techniques can be used to test or troubleshoot issues.</p>
+        <h3>Topics</h3>
+        <ul>
+            <li>
+                <MadCap:xref href="#Spoofing">Spoof addresses with hosts entries</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Can">Can [%=okta-feature-names.Access Gateway%]&#160;reach a host?</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Can2">Can a host be reached across a firewall?</MadCap:xref>
+            </li>
+        </ul>
+        <h2><a name="Spoofing"></a>Spoof addresses with hosts entries</h2>
+        <p>You can use entries in a local <span class="filepath">hosts</span> file to bypass DNS, which enables you to test applications before names are available in DNS. Tools such as <span class="code">nslookup</span> and <span class="code">dig</span> don't return values found in a local <span class="filepath">hosts</span> file.</p>
+        <ol>
+            <li>Open the hosts file for your platform in a text editor:<table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0"><col class="TableStyle-srb_header_alt_shade-Column-Column1" /><col class="TableStyle-srb_header_alt_shade-Column-Column1" /><thead><tr class="TableStyle-srb_header_alt_shade-Head-Header1"><th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">OS</th><th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">Value</th></tr></thead><tbody><tr class="TableStyle-srb_header_alt_shade-Body-Body1"><td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Windows</td><td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1"><span class="filepath">C:\Windows\System32\drivers\etc\hosts.txt</span></td></tr><tr class="TableStyle-srb_header_alt_shade-Body-Body2"><td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">Linux and similar</td><td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2"><span class="filepath">/etc/hosts</span></td></tr></tbody></table></li>
+            <li>Enter a reference specific to an app such as:<p><span class="userinput">192.168.x.y header.myhost.mydomain.com</span></p></li>
+            <li>Test normally.</li>
+        </ol>
+        <h2><a name="Can"></a>Can <MadCap:variable name="okta-feature-names.Access Gateway" />&#160;reach a host?</h2>
+        <p>Ping can be used within the <MadCap:variable name="okta-feature-names.Access Gateway CMD" /> to determine if a host is reachable.</p>
+        <ol>
+            <li>Open a connection to the <MadCap:variable name="okta-feature-names.Access Gateway CMD" />.</li>
+            <li>Select <span class="uicontrol">1-Network</span>.</li>
+            <li>Select <span class="uicontrol">6-Ping</span>.</li>
+            <li>At the <span class="uicontrol">IP&#160;Address/Hostname</span> prompt, enter a name or address.</li>
+            <li>Examine the result to determine if <MadCap:variable name="okta-feature-names.Access Gateway" /> can reach the host. For example:
+			<span class="codeblock">IP Address/Hostname: google.com
+PING google.com (172.217.10.238) 56(84) bytes of data.
+64 bytes from lga25s59-in-f14.1e100.net (172.217.10.238): icmp_seq=1 ttl=114 time=22.7 ms
+. . . 
+64 bytes from lga25s59-in-f14.1e100.net (172.217.10.238): icmp_seq=4 ttl=114 time=18.1 ms
+--- google.com ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3006ms
+rtt min/avg/max/mdev = 16.900/19.520/22.757/2.234 ms</span></li>
+        </ol>
+        <h2>Are hosts entered into DNS</h2>
+        <p>Tools such as nslookup and dig can be used to determine if a host is resolvable.</p>
+        <p>To use nslookup to determine the IP address of a host name:</p>
+        <ol>
+            <li>Open a command prompt. While nslookup is typically available on Linux and Apple OSX-based computers, it may not be available on Windows.</li>
+            <li>Run nslookup. For example:<p><span class="codeblock">nslookup google.com</span></p></li>
+            <li>Evaluate the result.<p><span class="codeblock" xml:space="preserve">nslookup google.com
+Server:  Unknown
+Address:  172.16.49.2
+
+Name:    google.com.localdomain
+Addresses:  172.217.6.206
+172.217.6.206</span></p></li>
+        </ol>
+        <h2><a name="Can2"></a>Can a host be reached across a firewall?</h2>
+        <p>Tools such as telnet can be used to determine if a host can be reached across a firewall. It's assumed that the machine running the telnet command is on the opposite side of the host being accessed.</p>
+        <p>While telnet is typically available on Linux and macOS, it may not be available on Windows.</p>
+        <p>To attempt to access a host using telnet:</p>
+        <ol>
+            <li>Open a command prompt. </li>
+            <li>Run the telnet command:<p><span class="codeblock">telnet example.mysite.mydomain.com 443
+</span></p></li>
+            <li>Evaluate the result:<p><span class="codeblock">Trying 192.168.0.211...
+telnet: connect to address 192.168.0.211: Connection refused</span></p></li>
+        </ol>
+        <h2><span>Related topics</span>
+        </h2>
+        <p>
+            <MadCap:xref href="troubleshoot-app-flow.htm">Application process flow</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="troubleshoot-app-process.htm">Application troubleshooting process</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="troubleshoot-application.htm">Troubleshoot applications</MadCap:xref>
+        </p>
+    </body>
+</html>

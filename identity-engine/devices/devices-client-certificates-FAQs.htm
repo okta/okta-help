@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:fileTags="Tags/okta-authors.Kimli Welsh">
+    <head><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1>Management attestation FAQ</h1>
+        <h3>Why should admins push client certificates to desktop devices with <MadCap:variable name="okta-feature-names.Okta Verify" />?</h3>
+        <p>If client certificates are pushed through mobile device management (MDM) software and can’t be obtained through another channel, client certificates can be used to attest that the device is managed.</p>
+        <h3>How is a client certificate used by <MadCap:variable name="okta-variables.ProductName" />?</h3>
+        <p>A client certificate is only used to sign an additional payload that attests for management. It isn’t used for authentication or to authenticate the user.</p>
+        <h3>Can I obtain my certificates from a third-party Certificate Authority (CA)?</h3>
+        <p>Yes, but for security reasons, it's important that the CA only issues certificates to managed devices.</p>
+        <p>For example, if you use a CA that allows self-service enrollment for users, users could obtain and use these certificates on a device that isn’t managed and then spoof management attestation. With this, users could access resources without providing the assurance that's required by the authentication policy.</p>
+        <h3>How does the client pick the client certificate?</h3>
+        <p>On every authentication, the server sends a list of admin-configured issuers to the client. The client goes through the list and loads all the client certificates that were issued by those issuers. It prefers the user store, but it also checks the machine store if an issuer doesn’t have any corresponding certs in the user store. After checking if the client certificate can be used for signing (private key can be accessed), Okta selects the most recently issued client certificate to attest that the device is managed. The client doesn’t do a proper revocation check, so it’s recommended to delete revoked certificates from the client.</p>
+        <h3>Can client certificates in the machine store be used for management attestation?</h3>
+        <MadCap:snippetBlock src="snippets/OS-certificate-levels.flsnp" />
+        <h3>How does <MadCap:variable name="okta-variables.ProductName" /> validate the management attestation on the server?</h3>
+        <p><MadCap:variable name="okta-variables.ProductName" /> performs these validations:</p>
+        <ul>
+            <li>The payload was signed with the client certificate.</li>
+            <li>The client certificate is valid (revocation checks are included).</li>
+            <li>The client certificate was issued by a trusted issuer that the admin uploaded.</li>
+        </ul>
+        <p><MadCap:variable name="okta-variables.ProductName" /> doesn’t validate the whole chain, and expects the admin to delete an issuer from <MadCap:variable name="okta-variables.ProductName" /> when they’re no longer trusted.</p>
+        <h3>What certificate properties do I need when I create a SCEP profile in my MDM software?</h3>
+        <p>The following settings are required when you create a Simple Certificate Enrollment Protocol (SCEP) profile in your mobile device management (MDM) software:</p>
+        <ul>
+            <li><span class="uicontrol">URL</span>: Enter the SCEP URL from the <MadCap:variable name="okta-variables.ProductName" /><MadCap:variable name="okta-feature-names.Administrator dashboard" />.</li>
+            <li><span class="uicontrol">Name</span>: Enter a name for the SCEP profile.</li>
+            <li><span class="uicontrol">Subject</span>: Enter a subject.</li>
+            <p>For example: <span class="uicontrol">CN = {EmailUserName} managementAttestation {DeviceUid}</span>.</p>
+            <p><MadCap:variable name="okta-variables.ProductName" /> doesn’t require the subject name to be in any particular format. Choose a name that indicates that the certificate is used as the device management signal to <MadCap:variable name="okta-variables.ProductName" />. If you’re using <MadCap:variable name="3rd Party Integrations.Jamf Pro" />, you can also include profile variables to include the device ID (UDID).  </p>
+            <p>See <a href="https://docs.jamf.com/10.21.0/jamf-pro/administrator-guide/Computer_Configuration_Profiles.html" target="_blank">Jamf Pro Administrator's Guide - Computer Configuration Profiles</a>.</p>
+            <li><span class="uicontrol">Challenge type</span>: Specify if you require a static, dynamic, or delegated URL.</li>
+            <ul>
+                <li><span class="uicontrol">URL To SCEP Admin</span>: Enter the <span class="uicontrol">Challenge URL</span> from the <MadCap:variable name="okta-variables.ProductName" /><MadCap:variable name="okta-feature-names.Administrator dashboard" />.</li>
+                <li><span class="uicontrol">Username</span>: Enter the <span class="uicontrol">UserName</span> from the <MadCap:variable name="okta-variables.ProductName" /><MadCap:variable name="okta-feature-names.Administrator dashboard" />.</li>
+                <li><span class="uicontrol">Password</span>: Enter the <span class="uicontrol">Password</span> from the <MadCap:variable name="okta-variables.ProductName" /><MadCap:variable name="okta-feature-names.Administrator dashboard" />.</li>
+            </ul>
+            <li><span class="uicontrol">Key Size</span>: 2048.</li>
+            <li><span class="uicontrol">Key usage</span>: Digital signature.</li>
+            <li><span class="uicontrol">Allow export from keychain</span>: Leave cleared. It’s good security practice to mark the certificate as non-exportable.</li>
+            <li><span class="uicontrol">Allow all apps access</span>: If the SCEP profile is for macOS devices, select this.</li>
+        </ul>
+        <h3>After the SCEP certificate deployment, the message "<span class="msgblock">Organization Intermediate Authority certificate is not trusted</span>" appears.</h3>
+        <p>This is expected behavior. An Organization Intermediate Authority certificate is used to issue client certificates. It can validate the client certificate on the Okta service, so there's no requirement for the OIA certificate itself to be trusted.</p>
+        <h3>How does <MadCap:variable name="okta-variables.ProductName" /> protect against copying certificates to multiple desktop devices?</h3>
+        <p><MadCap:variable name="okta-variables.ProductName" /> creates a binding between the <span class="code">deviceId</span> and the client certificate on the first authentication. After that, if the client certificate is used by a different device for a management attestation, the management attestation will fail.</p>
+        <h3>What happens if I delete a desktop device management configuration?</h3>
+        <p>If you delete a desktop device management configuration, new devices don’t request client certificates from the Okta CA service.</p>
+        <p>In your device management solution, delete any SCEP policies associated with the device management configuration that you deleted.</p>
+        <p>Devices that already have client certificates issued by <MadCap:variable name="okta-variables.ProductName" /> keep sending management attestations. In your device management solution, remove the client certificate from the managed devices. If some devices still have client certificates deployed, authentication policies with unmanaged device conditions might prevent users from accessing apps on those devices.</p>
+        <h3>How do I reuse a deployed client certificate if I want to repurpose the device?</h3>
+        <p>If you want to repurpose a device for a new user but the device already has a client certificate installed, complete the following steps:</p>
+        <ol>
+            <li>
+                <p>On the device, remove the <MadCap:variable name="okta-feature-names.Okta Verify" /> account. </p>
+                <ol style="list-style-type: lower-alpha;">
+                    <li>
+                        <p>In <MadCap:variable name="okta-feature-names.Okta Verify" /> on the device, tap or click the account to access the <span class="wintitle">Account Details</span>.</p>
+                    </li>
+                    <li>
+                        <p>Tap or click <span class="uicontrol">Delete Account</span>, and then tap <span class="uicontrol">Delete</span> to confirm the action. </p>
+                    </li>
+                </ol>
+            </li>
+            <li>
+                <p>In the <MadCap:variable name="okta-feature-names.Administrator dashboard" />, go to <span class="menucascade"><span class="uicontrol">Directory</span> <span class="uicontrol">Devices</span></span> and locate the device you want to repurpose. </p>
+            </li>
+            <li>
+                <p>Click the <span class="uicontrol">X</span> to deactivate the device. This will suspend the link between the certificate and the device.</p>
+            </li>
+            <li>
+                <p>In the <MadCap:variable name="okta-feature-names.Administrator dashboard" />, click <span class="wintitle">Deactivated</span> in the Devices sidebar to locate deactivated devices. Find the device you want to repurpose, and reactivate it. </p>
+            </li>
+        </ol>
+        <p>The new user will do the Add Account flow with <MadCap:variable name="okta-feature-names.Okta Verify" />. After the first successful <MadCap:variable name="okta-feature-names.Okta FastPass" /> authentication, the device provides management attestation for the new enrollment. </p>
+    </body>
+</html>

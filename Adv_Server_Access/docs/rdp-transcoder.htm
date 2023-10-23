@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html>
+    <head>
+        <link href="../../../Resources/TableStyles/standard.css" rel="stylesheet" MadCap:stylesheetType="table" xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" />
+    </head>
+    <body>
+        <h1>Install the RDP Session transcoder</h1>
+        <p>When capturing Remote Desktop Protocol (RDP) sessions flowing through the  Advanced Server Access gateway, the log files are stored in a binary <span class="filepath">.asa</span> format, which can be converted to an <span class="filepath">.mkv</span> video format using a transcoder. The&#160;transcoder is packaged separately from the Advanced Server Access gateway,  and must be installed on the  following supported platforms:</p>
+        <ul>
+            <li>Ubuntu 22.04</li>
+            <li>Ubuntu 20.04</li>
+            <li>RHEL 8</li>
+            <li>RHEL 8 and 9</li>
+        </ul>
+        <h2>Ubuntu</h2>
+        <p>To install the transcoder:</p>
+        <div class="noteOkta">
+            <p class="noteContent">Steps 1-4 are only required once. If you've already installed <MadCap:variable name="okta-feature-names.ScaleFT" xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" /> agent or gateway , you can skip steps 1-4.</p>
+        </div>
+        <ol>
+            <li>Add the <MadCap:variable name="okta-feature-names.ScaleFT" xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" /> repository key.
+			<p> <span class="code">curl -fsSL https://dist.scaleft.com/GPG-KEY-OktaPAM-2023 | gpg --dearmor | sudo tee /usr/share/keyrings/oktapam-2023-archive-keyring.gpg &gt; /dev/null</span></p></li>
+            <li>Create a package resource list entry.
+				 Replace <span class="varname">DISTRIBUTION</span> with the appropriate distribution name such as xenial, jammy, or bullseye. The distribution name for supported platforms are provided in the table below.<p><span class="code">echo "deb [signed-by=/usr/share/keyrings/oktapam-2023-archive-keyring.gpg] https://dist.scaleft.com/repos/deb DISTRIBUTION okta" | sudo tee /etc/apt/sources.list.d/oktapam-stable.list</span></p><table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0"><col class="TableStyle-standard-Column-Column1"></col><col class="TableStyle-standard-Column-Column1"></col><thead><tr class="TableStyle-standard-Head-Header1"><th class="TableStyle-standard-HeadF-Column1-Header1"><p>Platform</p></th><th class="TableStyle-standard-HeadD-Column1-Header1"><p>Version</p></th></tr></thead><tbody><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyF-Column1-Body1">Ubuntu</td><td class="TableStyle-standard-BodyD-Column1-Body1"><p>Ubuntu 16.04 xenial</p><p>Ubuntu 18.04 bionic</p><p>Ubuntu 20.04 focal</p><p>Ubuntu 22.04 jammy</p></td></tr><tr class="TableStyle-standard-Body-Body2"><td class="TableStyle-standard-BodyC-Column1-Body2"><p>Debian</p></td><td class="TableStyle-standard-BodyA-Column1-Body2"><p>Debian 10 buster</p><p>Debian 11 bullseye</p></td></tr></tbody></table></li>
+            <li>Update the list of available packages:<p><span class="code">sudo apt-get update</span></p></li>
+            <li>Search for the <MadCap:variable name="okta-feature-names.ScaleFT" xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"></MadCap:variable> packages.
+<p><span class="code">sudo apt-cache search scaleft</span></p></li>
+            <li>Install the <span class="disableGlossary">transcoder</span>.
+			<p><span class="code">sudo apt-get install scaleft-rdp-transcoder</span></p></li>
+        </ol>
+        <h2>RHEL 8</h2>
+        <p>To install the transcoder:</p>
+        <div class="noteOkta">
+            <p class="noteContent">Steps 2-4 are only required once. If you've already installed <MadCap:variable name="okta-feature-names.ScaleFT" xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" /> agent or gateway , you can skip steps 2-4.</p>
+        </div>
+        <ol>
+            <li>
+                <p>Install the prerequisites. FFmpeg and other dependent packages aren't available within the default Red Hat repository; therefore, the following two repositories must be added first.</p>
+                <ul>
+                    <li>
+                        <p><span class="code">sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm -y</span>
+                        </p>
+                    </li>
+                    <li>
+                        <p><span class="code">sudo dnf install https://download1.rpmfusion.org/free/el/rpmfusion-free-release-8.noarch.rpm -y</span>
+                        </p>
+                    </li>
+                </ul>
+            </li>
+            <li>Add the RPM&#160;key.<p><span class="code">sudo rpm --import https://dist.scaleft.com/GPG-KEY-OktaPAM-2023</span></p></li>
+            <li>To access the artifacts create a <span class="filepath">/etc/yum.repos.d/oktapam-stable.repo</span> file. Replace <span class="varname">PLATFORM-KEY</span> with the platform name. You must only include major version of the OS; for example  <span class="varname">8</span> for RHEL 8 (do not include a minor version).<p><span class="codeblock" xml:space="preserve">[oktapam-stable]
+name=Okta PAM Stable - PLATFORM-KEY 8
+baseurl=https://dist.scaleft.com/repos/rpm/stable/PLATFORM-KEY/8/$basearch
+gpgcheck=1
+repo_gpgcheck=1
+enabled=1
+gpgkey=https://dist.scaleft.com/GPG-KEY-OktaPAM-2023</span></p></li>
+            <li>
+                <p>Run <span class="code">dnf update</span> and accept the new GPG key.</p>
+                <p><span class="codeblock">Importing GPG key 0xB8966AE8:
+ Userid     : "Okta PAM/ASA Packager (PAM/ASA Package Signing Key) &lt;security+pam-packages-2023@okta.com&gt;"
+ Fingerprint: A3A9 03C2 9B5C AF75 34B9 F393 1983 7E37 B896 6AE8
+ From       : https://dist.scaleft.com/GPG-KEY-OktaPAM-2023
+</span>
+                    <div class="noteOkta">
+                        <p class="noteContent">If you get 404 errors, make sure the RHEL 8 version number only includes the major version. </p>
+                    </div>
+                </p>
+            </li>
+            <li>Install the <span class="disableGlossary">transcoder</span>.
+			<p><span class="code">sudo dnf install scaleft-rdp-transcoder</span></p></li>
+        </ol>
+        <h2 xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd">RHEL 9</h2>
+        <p xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd">To install the transcoder:</p>
+        <div class="noteOkta">
+            <p class="noteContent" xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd">Steps 2-4 are only required once. If you've already installed <MadCap:variable name="okta-feature-names.ScaleFT"></MadCap:variable> agent or gateway , you can skip steps 2-4.</p>
+        </div>
+        <ol>
+            <li>
+                <p xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd">Install the prerequisites. FFmpeg and other dependent packages aren't available within the default Red Hat repository; therefore, the following two repositories must be added first.</p>
+                <ul>
+                    <li>
+                        <p xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"><span class="code">sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm -y</span>
+                        </p>
+                    </li>
+                    <li>
+                        <p xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"><span class="code">sudo dnf install https://download1.rpmfusion.org/free/el/rpmfusion-free-release-9.noarch.rpm -y</span>
+                        </p>
+                    </li>
+                    <li>
+                        <p xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"><span class="code">sudo crb enable</span>
+                        </p>
+                    </li>
+                </ul>
+            </li>
+            <li xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd">Add the RPM&#160;key.<p><span class="code">sudo rpm --import https://dist.scaleft.com/GPG-KEY-OktaPAM-2023</span></p></li>
+            <li>
+                <p xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd">To access the artifacts create a <span class="filepath">/etc/yum.repos.d/oktapam-stable.repo</span> file. Replace <span class="varname">PLATFORM-KEY</span> with the platform name. You must only include major version of the OS; for example  <span class="varname">9</span> for RHEL 9 (do not include a minor version).</p>
+                <p><span class="codeblock" xml:space="preserve" xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd">[oktapam-stable]
+name=Okta PAM Stable - PLATFORM-KEY 9
+baseurl=https://dist.scaleft.com/repos/rpm/stable/PLATFORM-KEY/9/$basearch
+gpgcheck=1
+repo_gpgcheck=1
+enabled=1
+gpgkey=https://dist.scaleft.com/GPG-KEY-OktaPAM-2023</span>
+                </p>
+            </li>
+            <li>
+                <p xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd">Run <span class="code">dnf update</span> and accept the new GPG key.</p>
+                <p><span class="codeblock" xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd">Importing GPG key 0xB8966AE8:
+ Userid     : "Okta PAM/ASA Packager (PAM/ASA Package Signing Key) &lt;security+pam-packages-2023@okta.com&gt;"
+ Fingerprint: A3A9 03C2 9B5C AF75 34B9 F393 1983 7E37 B896 6AE8
+ From       : https://dist.scaleft.com/GPG-KEY-OktaPAM-2023
+</span>
+                    <div class="noteOkta">
+                        <p class="noteContent" xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd">If you get 404 errors, make sure the RHEL 9 version number only includes the major version. </p>
+                    </div>
+                </p>
+            </li>
+            <li xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd">Install the <span class="disableGlossary">transcoder</span>.
+			<p><span class="code">sudo dnf install scaleft-rdp-transcoder</span></p></li>
+        </ol>
+        <p>&#160;</p>
+        <h2>Related topics</h2>
+        <ul>
+            <li>
+                <MadCap:xref href="view-session-logs.htm" xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd">Manage session logs</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="session-capture.htm" xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd">Session capture</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html MadCap:onlyLocalStylesheets="False" xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:conditions="MultiProdPublish.Classic+OIE" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head><title>[%=Heading.Level1%] | Okta</title>
+        <meta name="description" content="Configure the Citrix Netscaler Gateway integration to enable MFA against your Okta RADIUS server agent to provide seamless end-user authentication." />
+    </head>
+    <body>
+        <h1>Configure verbose logging</h1>
+        <p>When troubleshooting its often beneficial to include the logging level to verbose. During this task we will specify a logging level of verbose.</p>
+        <div class="noteOkta">
+            <p class="noteContent">Specifying a verbose logging level can cause log file size to increase quickly. Okta recommends that once the problem has been diagnosed that the log level be reset to its original value. </p>
+        </div>
+        <ol>
+            <li>On the system running the agent, navigate to the Okta On-Prem MFA Agent install directory. <br />By default, this is <span class="filepath">C:\Program Files (x86)\Okta\Okta On-Prem MFA Agent\current\user\config\rsa-securid</span></li>
+            <li>Open log4j2.xml in a text editor.</li>
+            <li>Change the line <span class="codeblock">&lt;Root level="info"&gt;</span> to <span class="codeblock">&lt;Root level="trace"&gt;</span></li>
+            <li> Save your changes.</li>
+            <li> ​Restart the Okta On-Prem MFA Agent Service using the Windows Administrative tools.</li>
+        </ol>
+        <div class="noteOkta">
+            <p class="noteContent">Before making changes to <span id="code">log4j2.xml</span>, Okta recommends creating a backup.</p>
+        </div>
+        <p>When complete the updated file should resemble:<br /></p><span class="codeblock">&lt;xml version="1.0" encoding="UTF-8"&gt;
+&lt;Configuration status="error" name="OktaOnPremMFAAgentLogConfig"&gt;
+    &lt;Appenders&gt;
+        &lt;Console name="STDOUT" target="SYSTEM_OUT"&gt;
+           &lt;PatternLayout&gt;
+                &lt;Pattern&gt;%d{yyyy-MM-dd HH:mm:ss}{UTC} (UTC) %5p - %m%n&lt;/Pattern&gt;
+           &lt;/PatternLayout&gt;
+        &lt;/Console&gt;
+        &lt;RollingFile name="logfile" fileName="logs/Agent.log" filePattern="logs/Agent.log.%i"&gt;
+            &lt;PatternLayout&gt;
+                &lt;Pattern&gt;%d{yyyy-MM-dd HH:mm:ss}{UTC} (UTC) %5p - %m%n&lt;/Pattern&gt;
+            &lt;/PatternLayout&gt;
+            &lt;Policies&gt;
+                &lt;SizeBasedTriggeringPolicy size="5 MB"/&gt;
+            &lt;/Policies&gt;
+            &lt;DefaultRolloverStrategy max="9"/&gt;
+        &lt;/RollingFile&gt;
+    &lt;/Appenders&gt;
+    &lt;Loggers&gt;
+        &lt;Logger name="org.tinyradius.util" level="off" additivity="false"&gt;
+            &lt;AppenderRef ref="STDOUT"/&gt;
+            &lt;AppenderRef ref="logfile"/&gt;
+        &lt;/Logger&gt;
+        &lt;Root level="trace"&gt;
+            &lt;AppenderRef ref="STDOUT"/&gt;
+            &lt;AppenderRef ref="logfile"/&gt;
+        &lt;/Root&gt;
+    &lt;/Loggers&gt;
+&lt;/Configuration&gt;
+</span>
+    </body>
+</html>

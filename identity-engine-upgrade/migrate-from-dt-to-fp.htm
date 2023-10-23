@@ -1,0 +1,421 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:searchable="True"
+      MadCap:fileTags="Tags/okta-authors.Kimli Welsh"
+      MadCap:conditions="Primary.do-not-publish">
+   <head>
+      <title>[%=Heading.Level1%]</title>
+      <link href="" rel="stylesheet" type="text/css"/>
+   </head>
+   <body>
+      <h1>Migrate <MadCap:variable name="okta-feature-names.Device Trust"/> to <MadCap:variable name="okta-feature-names.Okta FastPass"/>
+      </h1>
+      <p>Use this procedure to upgrade <MadCap:variable name="okta-feature-names.Device Trust"/> to <MadCap:variable name="okta-feature-names.Okta FastPass"/>.</p>
+      <ol>
+         <li>Identify the types of devices in your organization: desktop (macOS and Windows) or mobile (Android and iOS).</li>
+         <li>If you use Device Trust for managing mobile devices, turn off Mobile <MadCap:variable name="okta-feature-names.Device Trust"/>.</li>
+         <li>Upgrade from <MadCap:variable name="okta-feature-names.Classic Engine"/> to <MadCap:variable name="okta-feature-names.Identity Engine"/>.</li>
+         <li>Verify that the <MadCap:variable name="okta-feature-names.Device Trust"/> policies are available in <MadCap:variable name="okta-feature-names.Identity Engine"/>.</li>
+         <li>Enable <MadCap:variable name="okta-feature-names.Okta FastPass"/> for all users.</li>
+         <li>Remove <MadCap:variable name="okta-feature-names.Device Trust"/> and decommission your Integrated Windows Authentication (IWA) servers.</li>
+      </ol>
+      <p>IWA and <MadCap:variable name="okta-feature-names.Device Trust"/> aren't supported on <MadCap:variable name="okta-feature-names.Identity Engine"/>. This procedure allows you to maintain <MadCap:variable name="okta-feature-names.Device Trust"/> functionality until you have <MadCap:variable name="okta-feature-names.Okta FastPass"/> rolled out in your organization. On <MadCap:variable name="okta-feature-names.Identity Engine"/>, you must use <MadCap:variable name="okta-feature-names.Okta FastPass"/> and <MadCap:variable name="okta-feature-names.Okta Verify"/>.</p>
+      <div class="noteOkta">
+         <p class="noteContent">After the upgrade, you can't modify <MadCap:variable name="okta-feature-names.Device Trust"/>. On <MadCap:variable name="okta-feature-names.Identity Engine"/>, <MadCap:variable name="okta-feature-names.Device Trust"/>  functionality continues to work as configured. However, you no longer have the administrative capability to modify or change configurations.</p>
+      </div>
+      <h2>Before you begin</h2>
+      <ul>
+         <li>
+            <p>If you have IWA Agents configured in <MadCap:variable name="okta-feature-names.Classic Engine"/>, take note of the configuration settings. In the Admin Console, go to <span class="menucascade">
+                  <span class="uicontrol">Security</span>
+                  <span class="uicontrol">Delegated Authentication</span>
+                  <span class="uicontrol">IWA Agents</span>
+               </span>.
+</p>
+            <p>
+               <img src="../../Resources/Images/identity-engine-upgrade/migrate-dt-fp-1-iwa-agents.png"
+                    class="thumbnail"
+                    alt="The screenshot provides an example of configured IWA Agents."
+                    title="The screenshot provides an example of configured IWA Agents."/>
+            </p>
+            <p>These settings are no longer available in the Admin Console after upgrade. To support rollback scenarios, don't make IWA changes after upgrade.</p>
+         </li>
+         <li>
+            <p>Using your mobile device management (MDM) tool, take an inventory of all devices that have <MadCap:variable name="okta-feature-names.Device Trust"/> certificates. This helps ensure that the same devices continue to work on <MadCap:variable name="okta-feature-names.Identity Engine"/> after upgrade.</p>
+         </li>
+         <li>
+            <p>End users must use the latest version of <MadCap:variable name="okta-feature-names.Okta Verify"/>. <MadCap:variable name="okta-feature-names.Okta Verify"/> registers the device in the Universal Directory. <MadCap:variable name="okta-feature-names.Okta Verify"/> detects the presence of management certificates on the device, to attest that a device is managed or trusted.</p>
+         </li>
+      </ul>
+      <h2>Start this procedure</h2>
+      <ul>
+         <li>
+            <MadCap:xref href="#Task1">Task 1: Identify the types of devices in your organization</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Task2">Task 2: On [%=okta-feature-names.Classic Engine%], prepare mobile devices for migration</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Task3">Task 3: Upgrade from [%=okta-feature-names.Classic Engine%] to [%=okta-feature-names.Identity Engine%]</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Task4">Task 4: Verify that Device Trust works on Okta Identity Engine</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Task5">Task 5: Enable [%=okta-feature-names.Okta FastPass%]</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Task6">Task 6: Enable <MadCap:variable name="okta-feature-names.Okta FastPass"/> for all users</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Task7">Task 7: Remove <MadCap:variable name="okta-feature-names.Device Trust"/> (<MadCap:variable name="okta-feature-names.Classic Engine"/>) and decommission your IWA servers.</MadCap:xref>
+         </li>
+      </ul>
+      <h3>
+         <a name="Task1"/>Task 1: Identify the types of devices in your organization</h3>
+      <p>During the migration, only desktop (Windows or macOS) devices are transferred to <MadCap:variable name="okta-feature-names.Identity Engine"/>. There's no automated migration for mobile devices. Mobile devices use <MadCap:variable name="okta-feature-names.Okta Verify"/>.</p>
+      <ol>
+         <li>Determine what types of devices you have. <MadCap:snippetText src="../../Resources/Snippets/task steps/Security_DeviceTrust.flsnp"/> If <span class="uicontrol">Enable iOS <MadCap:variable name="okta-feature-names.Device Trust"/>
+            </span> or <span class="uicontrol">Enable Android <MadCap:variable name="okta-feature-names.Device Trust"/>
+            </span> is selected, you have mobile devices.
+			<p>
+               <img src="../../Resources/Images/identity-engine-upgrade/migrate-dt-fp-2-enable-ios-android-dt.png"
+                    class="thumbnail"/>
+            </p>
+         </li>
+         <li>Complete one of the following tasks, depending on the type of devices that you have:
+			<ul>
+               <li>Mobile (Android or iOS) and desktop (Windows or macOS) devices: go to <MadCap:xref href="#Task2">Task 2</MadCap:xref>.</li>
+               <li>Mobile devices only: go to <MadCap:xref href="#Task2">Task 2</MadCap:xref>.</li>
+               <li>Desktop devices only: go to<MadCap:xref href="#Task3"> Task 3</MadCap:xref>.</li>
+            </ul>
+         </li>
+      </ol>
+      <h3>
+         <a name="Task2"/>Task 2: On <MadCap:variable name="okta-feature-names.Classic Engine"/>, prepare mobile devices for migration</h3>
+      <div class="noteOkta">
+         <p class="noteContent">Mobile <MadCap:variable name="okta-feature-names.Device Trust"/> isn't eligible for migration to <MadCap:variable name="okta-feature-names.Identity Engine"/>. Turn it off before you upgrade. After the upgrade, use <MadCap:variable name="okta-feature-names.Okta FastPass"/> or <MadCap:variable name="okta-feature-names.Okta Verify"/> to ensure that mobile devices are trusted.</p>
+      </div>
+      <ol>
+         <li>Change the app sign-on policy condition for mobile devices to <span class="uicontrol">Any</span>:
+            	<ol style="list-style-type: lower-alpha;">
+               <li>
+                  <MadCap:snippetText src="../../Resources/Snippets/task steps/Security_Authentication_Policy.flsnp"/>
+               </li>
+               <li>
+                  <p>Select the policy that you want to update.</p>
+               </li>
+               <li>
+                  <p>Click the <span class="wintitle">Rules</span> tab.</p>
+               </li>
+               <li>In the <span class="wintitle">Sign On Policy</span> section, locate any mobile device (<span class="uicontrol">iOS</span>, <span class="uicontrol">Android</span>, or <span class="uicontrol">Other mobile</span>) policy rules that don't have the <MadCap:variable name="okta-feature-names.Device Trust"/> state set to <span class="uicontrol">Any</span>.</li>
+               <li>Click <span class="uicontrol">Edit</span>, and select <span class="uicontrol">Any</span>.</li>
+               <p>
+                  <img src="../../Resources/Images/identity-engine-upgrade/migrate-dt-fp-3-asop-mobile-dt.png"
+                       class="thumbnail"/>
+               </p>
+               <li>Click <span class="uicontrol">Save</span>.</li>
+            </ol>
+         </li>
+         <li>Disable Mobile <MadCap:variable name="okta-feature-names.Device Trust"/> policies:
+        		<ol style="list-style-type: lower-alpha;">
+               <li>
+                  <MadCap:snippetText src="../../Resources/Snippets/task steps/Security_General.flsnp"/>
+               </li>
+               <li>In the <span class="wintitle">
+                     <MadCap:variable name="okta-variables.ProductName"/> Mobile</span> section, click <span class="uicontrol">Edit</span>.</li>
+               <li>In the <span class="wintitle">APP SETTINGS</span> section, clear the <span class="uicontrol">Apply device trust policies when accessing apps in Okta Mobile</span> checkbox.</li>
+               <p>
+                  <img src="../../Resources/Images/identity-engine-upgrade/migrate-dt-fp-4-disable-mobile-dt.png"
+                       class="thumbnail"/>
+               </p>
+            </ol>
+         </li>
+         <li>Turn off Mobile <MadCap:variable name="okta-feature-names.Device Trust"/>:
+				<ol style="list-style-type: lower-alpha;">
+               <li>
+                  <MadCap:snippetText src="../../Resources/Snippets/task steps/Security_DeviceTrust.flsnp"/>
+               </li>
+               <li>If <span class="uicontrol">Enable iOS <MadCap:variable name="okta-feature-names.Device Trust"/>
+                  </span> or <span class="uicontrol">Enable Android <MadCap:variable name="okta-feature-names.Device Trust"/>
+                  </span> is selected, click <span class="uicontrol">Edit</span>.</li>
+               <li>Clear the checkbox.</li>
+               <li>Click <span class="uicontrol">Save</span>.</li>
+            </ol>
+         </li>
+         <li>Deploy <MadCap:variable name="okta-feature-names.Okta Verify"/> to mobile devices.
+            	</li>
+         <li>Remove the Integrated Windows Authentication (IWA) routing rules:
+				<ol style="list-style-type: lower-alpha;">
+               <li>In the Classic Admin Console, go to <span class="menucascade">
+                     <span class="uicontrol">Security</span>
+                     <span class="uicontrol">Identity Providers</span>
+                  </span>.</li>
+               <li>Click <span class="uicontrol">IWA</span>.</li>
+               <p>
+                  <img src="../../Resources/Images/identity-engine-upgrade/migrate-dt-fp-6-remove-iwa-routing-rules.png"
+                       class="thumbnail"/>
+               </p>
+               <li>Take a screenshot or make a note of your IWA routing rule. You need this information if a rollback is required later.</li>
+               <li>A <span class="uicontrol">Failed to update OIE upgrade state</span> error appears for the org Superuser. Click <span class="uicontrol">Dismiss</span>.</li>
+               <p>
+                  <img src="../../Resources/Images/identity-engine-upgrade/migrate-dt-fp-7-failed-to-update-dialog.png"
+                       class="thumbnail"/>
+               </p>
+               <li>From the <span class="uicontrol">Active</span> dropdown, click <span class="menucascade">
+                     <span class="uicontrol">Deactivate</span>
+                     <span class="uicontrol">Delete</span>
+                  </span>.</li>
+               <li>If required, repeat this procedure for any other IWA rules.</li>
+            </ol>
+         </li>
+      </ol>
+      <h3>
+         <a name="Task3"/>Task 3: Upgrade from <MadCap:variable name="okta-feature-names.Classic Engine"/> to <MadCap:variable name="okta-feature-names.Identity Engine"/>
+      </h3>
+      <p>After the upgrade, your existing <MadCap:variable name="okta-feature-names.Device Trust"/> authentications (mutual TLS authentications) continue to work on <MadCap:variable name="okta-feature-names.Identity Engine"/>. </p>
+      <div class="noteOkta">
+         <p class="noteContent">When you upgrade, any app sign-on policy <MadCap:variable name="okta-feature-names.Device Trust"/> conditions are translated to Device Registered &amp; Managed Conditions in <MadCap:variable name="okta-feature-names.Identity Engine"/>. If the valid <MadCap:variable name="okta-feature-names.Device Trust"/> certificate is present on the device, the device is registered and managed. If a certificate doesn't exist on the device, or if it exists but isn't valid, the device is unmanaged.</p>
+      </div>
+      <p>To upgrade to <MadCap:variable name="okta-feature-names.Identity Engine"/>, contact your <MadCap:variable name="okta-variables.ProductName"/> account team. See <a href="https://www.okta.com/contact/" target="_blank">Contact your Okta account team</a>, and <a href="../Settings/settings-support-access.htm">Give access to your Okta account team</a>.</p>
+      <h3>
+         <a name="Task4"/>Task 4: Verify that <MadCap:variable name="okta-feature-names.Device Trust"/> works on <MadCap:variable name="okta-feature-names.Identity Engine"/>
+      </h3>
+      <p>After the upgrade, <MadCap:variable name="okta-feature-names.Device Trust"/> is enabled. <MadCap:variable name="okta-feature-names.Okta FastPass"/> isn't enabled yet. The end-user experience is the same as on <MadCap:variable name="okta-feature-names.Classic Engine"/>. If a user attempts to access an app that is protected by a device condition, <MadCap:variable name="okta-variables.ProductName"/> challenges the browser to present the <MadCap:variable name="okta-feature-names.Device Trust"/> certificate, and then validates it. After validation, the user can access the app account.</p>
+      <div class="noteOkta">
+         <p class="noteContent">Don't remove <MadCap:variable name="okta-feature-names.Device Trust"/> yet. You can't revert this action.</p>
+      </div>
+      <ol>
+         <li>Verify that your <MadCap:variable name="okta-feature-names.Device Trust"/> configuration migrated to the <MadCap:variable name="okta-feature-names.Identity Engine"/>:
+				<ol style="list-style-type: lower-alpha;">
+               <li>
+                  <MadCap:snippetText src="../../Resources/Snippets/task steps/Security_DeviceIntegrations.flsnp"/>
+               </li>
+               <li>Click the <span class="wintitle">Endpoint Management</span> tab.</li>
+               <li>Verify that the listed platforms match the device types you identified in <MadCap:xref href="#Task1">Task 1</MadCap:xref>.</li>
+               <p>For example, if Windows and macOS <MadCap:variable name="okta-feature-names.Device Trust"/> was enabled in your <MadCap:variable name="okta-feature-names.Classic Engine"/>, these platforms are listed on the <span class="wintitle">Endpoint management</span> page.</p>
+               <p>
+                  <img src="../../Resources/Images/identity-engine-upgrade/migrate-dt-fp-8-verify-dt-migration.png"
+                       class="thumbnail"/>
+               </p>
+            </ol>
+         </li>
+         <li>Verify that your app sign-on policy includes a rule for registered and managed device conditions:
+            	<ol style="list-style-type: lower-alpha;">
+               <li>
+                  <MadCap:snippetText src="../../Resources/Snippets/task steps/Security_Authentication_Policy.flsnp"/>
+               </li>
+               <li>Select the policy that you want to update.</li>
+               <li>Click the <span class="wintitle">Rules</span> tab.</li>
+               <li>View the Sign On Policy information. One of the rules in the policy should specify <span class="uicontrol">Device: Registered, Managed</span>.</li>
+               <p>
+                  <img src="../../Resources/Images/identity-engine-upgrade/migrate-dt-fp-9-verify-asop-rule-reg-managed.png"
+                       class="thumbnail"/>
+               </p>
+            </ol>
+         </li>
+         <li>View the following <a href="../Reports/Reports_SysLog.htm">System Log</a> events, to verify that <MadCap:variable name="okta-feature-names.Device Trust"/> is still working:
+			<ul>
+               <li>Authentication</li>
+               <ul>
+                  <li>DisplayMessage: Authentication of device through a certificate</li>
+                  <li>EventType: user.authentication.authenticate</li>
+               </ul>
+               <li>Enrollment</li>
+               <ul>
+                  <li>DisplayMessage: <MadCap:variable name="okta-feature-names.Device Trust"/> certificate enrollment</li>
+                  <li>EventType: user.credential.enroll</li>
+               </ul>
+               <li>Issuance</li>
+               <ul>
+                  <li>DisplayMessage: <MadCap:variable name="okta-feature-names.Device Trust"/> certificate issuance</li>
+                  <li>EventType: pki.cert.issue</li>
+               </ul>
+               <li>Revocation</li>
+               <ul>
+                  <li>DisplayMessage: <MadCap:variable name="okta-feature-names.Device Trust"/> certificate revocation</li>
+                  <li>EventType: pki.cert.revoke</li>
+               </ul>
+               <li>Renewal</li>
+               <ul>
+                  <li>DisplayMessage: <MadCap:variable name="okta-feature-names.Device Trust"/> certificate renewal</li>
+                  <li>EventType: pki.cert.renew</li>
+               </ul>
+            </ul>
+         </li>
+         <li>Verify the following items on multiple operating systems:
+				<ul>
+               <li>All existing use cases work. For example, users with Device-Trust-enabled desktop devices are able to authenticate.</li>
+               <li>All app sign-on policies migrated successfully. For apps that are protected by <MadCap:variable name="okta-feature-names.Device Trust"/>, a rule must include a condition for <span class="uicontrol">Managed</span> and <span class="uicontrol">Registered</span>.</li>
+               <li>Use existing mutual TLS (MTLS) certification.</li>
+               <li>Optional. Certificate renewals work.</li>
+               <li>Optional. New enrollments work.</li>
+            </ul>
+         </li>
+      </ol>
+      <h3>
+         <a name="Task5"/>Task 5: Enable <MadCap:variable name="okta-feature-names.Okta FastPass"/> for some users</h3>
+      <p>Consider the following scenarios:</p>
+      <dl>
+         <dt>Okta Verify isn't installed: </dt>
+         <dd>When the user tries to access a <MadCap:variable name="okta-feature-names.Device Trust"/>-protected app, the org sign-in page appears. <MadCap:variable name="okta-variables.ProductName"/> probes the user's device for <MadCap:variable name="okta-feature-names.Okta Verify"/>.After the user enters their username, <MadCap:variable name="okta-variables.ProductName"/> completes an MTLS challenge and the management attestation is gathered from the <MadCap:variable name="okta-feature-names.Device Trust"/> certificate on the device.</dd>
+         <dt>Okta Verify is installed, inline enrollment is disabled, but the user didn't add an account yet: </dt>
+         <dd>When the user tries to access a <MadCap:variable name="okta-feature-names.Device Trust"/>-protected app, the org sign-in page appears. After the user enters their username, <MadCap:variable name="okta-variables.ProductName"/> completes an MTLS challenge and the management attestation is gathered from the <MadCap:variable name="okta-feature-names.Device Trust"/> certificate on the device.</dd>
+         <dt>Okta Verify is installed, inline enrollment is enabled, but the user didn't add an account yet: </dt>
+         <dd>When a user tries to access a <MadCap:variable name="okta-feature-names.Device Trust"/>-protected app, they're prompted to add an <MadCap:variable name="okta-feature-names.Okta Verify"/> account. The authentication flow completes without mutual TLS authentication because the <MadCap:variable name="okta-feature-names.Device Trust"/> status was provided by <MadCap:variable name="okta-feature-names.Okta Verify"/>.</dd>
+      </dl>
+      <p>For more information, see <a href="../identity-engine/devices/device-registration.htm">Device registration</a>.</p>
+      <ol>
+         <li>If you disabled mobile <MadCap:variable name="okta-feature-names.Device Trust"/>, complete this procedure: <a href="../identity-engine/devices/workflow-mobile.htm">Configure management attestation for mobile devices</a>.</li>
+         <li>Prepare enterprise devices for <MadCap:variable name="okta-feature-names.Okta FastPass"/>. Push the latest version of <MadCap:variable name="okta-feature-names.Okta Verify"/> app to all desktop devices. Using your MDM, turn on inline enrollment for some users.</li>
+         <p>After you complete step 4 in this section, users are automatically prompted to enroll in <MadCap:variable name="okta-feature-names.Okta Verify"/> the next time they access <MadCap:variable name="okta-variables.ProductName"/>. If a user installed <MadCap:variable name="okta-feature-names.Okta Verify"/> and added an account (enrolled), they now use <MadCap:variable name="okta-feature-names.Okta FastPass"/> to sign in. Therefore, the device is trusted. If the user doesn't have an <MadCap:variable name="okta-feature-names.Okta Verify"/> account, they use the <MadCap:variable name="okta-feature-names.Classic Engine"/>
+            <MadCap:variable name="okta-feature-names.Device Trust"/> certificates to sign in.</p>
+         <p>See <MadCap:xref href="../identity-engine/devices/managed-app-configs-macOS.htm">Managed app configurations for macOS devices</MadCap:xref>, and <MadCap:xref href="../identity-engine/devices/managed-app-configs-win.htm">Managed app configurations for Windows devices</MadCap:xref> for information about the <span class="code">EnrollmentOptions</span> flag.</p>
+         <div class="noteOkta">
+            <p class="noteContent">At this point, <MadCap:variable name="okta-feature-names.Okta Verify"/> is in a “ready” state. When you enable <MadCap:variable name="okta-feature-names.Okta FastPass"/> (in step 4), users with <MadCap:variable name="okta-feature-names.Okta Verify"/> are prompted to set up <MadCap:variable name="okta-feature-names.Okta FastPass"/>. This step allows you to roll out <MadCap:variable name="okta-feature-names.Okta FastPass"/> and <MadCap:variable name="okta-feature-names.Okta Verify"/> registration in a controlled manner to help with change management.</p>
+         </div>
+         <li>Make sure a certificate authority (CA) is configured, and that management certificates are deployed to all desktop devices. You can use <MadCap:variable name="okta-variables.ProductName"/> as a CA, or provide your own CA. See <a href="../identity-engine/devices/configure-ca-main.htm">Configure a Certificate Authority</a>.</li>
+         <p>If you provide your own CA, follow these steps:</p>
+         <ol style="list-style-type: lower-alpha;">
+            <li>
+               <MadCap:snippetText src="../../Resources/Snippets/task steps/Security_Authentication_Policy.flsnp"/>
+            </li>
+            <li>Click the <span class="wintitle">Certificate Authority</span> tab.</li>
+            <p>
+               <img src="../../Resources/Images/identity-engine-upgrade/migrate-dt-fp-10-verify-ca-configured.png"
+                    class="thumbnail"/>
+            </p>
+            <li>Deploy management certificates to the devices.</li>
+         </ol>
+         <li>Update your app sign-on policy. Verify that you have a managed rule for each applicable platform. Change the <span class="uicontrol">User must authenticate with</span> value to <span class="uicontrol">Any 1 factor type</span>:
+				<ul>
+               <li>Allow Trusted macOS:
+						<ul>
+                     <li>
+                        <span class="uicontrol">Platform</span>: macOS</li>
+                     <li>
+                        <span class="uicontrol">Device</span>: Registered, Managed</li>
+                     <li>
+                        <span class="uicontrol">User must authenticate with</span>: Any 1 factor type</li>
+                  </ul>
+               </li>
+               <li>Allow Trusted Windows:
+						<ul>
+                     <li>
+                        <span class="uicontrol">Platform</span>: Windows</li>
+                     <li>
+                        <span class="uicontrol">Device</span>: Registered, Managed</li>
+                     <li>
+                        <span class="uicontrol">User must authenticate with</span>: Any 1 factor type</li>
+                     <p>
+                        <img src="../../Resources/Images/identity-engine-upgrade/migrate-dt-fp-11-update-asop.png"
+                             class="thumbnail"/>
+                     </p>
+                  </ul>
+                  <p>For details about setting up your app sign-on policy, see <a href="../identity-engine/devices/fp/fp-asop.htm">Configure an app sign-on policy for Okta FastPass.</a>
+                  </p>
+               </li>
+            </ul>
+         </li>
+         <li>
+            <a href="../identity-engine/devices/fp/fp-enable.htm">Enable Okta FastPass</a>. This is a global setting, but only the following categories of users have access to <MadCap:variable name="okta-feature-names.Okta FastPass"/>:
+				<ul>
+               <li>Users with inline enrollment (set up in step 2)</li>
+               <li>Users that registered in <MadCap:variable name="okta-feature-names.Okta Verify"/> and have a management certificate (set up in step 3).</li>
+            </ul>
+         </li>
+         <p>
+            <div class="noteOkta">
+               <p class="noteContent">When you enable Okta FastPass, make sure you select the <span class="uicontrol">Okta FastPass (all platforms)</span> checkbox before you deactivate <MadCap:variable name="okta-variables.ProductName"/>
+                  <MadCap:variable name="okta-feature-names.Device Trust"/>.</p>
+            </div>
+         </p>
+         <li>Verify these scenarios when <MadCap:variable name="okta-feature-names.Okta FastPass"/> is enabled:
+				<ul>
+               <li>Users who aren't enrolled in <MadCap:variable name="okta-feature-names.Okta Verify"/>, but are enrolled with <MadCap:variable name="okta-feature-names.Device Trust"/>, should be able to successfully access apps that are managed.</li>
+               <li>Users who aren't enrolled in <MadCap:variable name="okta-feature-names.Okta Verify"/> should be able to enroll in <MadCap:variable name="okta-feature-names.Okta Verify"/>.</li>
+               <li>Users who enrolled in <MadCap:variable name="okta-feature-names.Okta Verify"/> from a managed device should be able to successfully access apps that are managed.</li>
+               <li>Users who enrolled in <MadCap:variable name="okta-feature-names.Okta Verify"/> from an unmanaged device should be able to access apps the same way they could before the migration.</li>
+            </ul>
+         </li>
+      </ol>
+      <h3>
+         <a name="Task6"/>Task 6: Enable <MadCap:variable name="okta-feature-names.Okta FastPass"/> for all users</h3>
+      <p>Encourage users to enroll in <MadCap:variable name="okta-feature-names.Okta Verify"/> and have management certificates on their devices. Ideally, all users have an <MadCap:variable name="okta-feature-names.Okta Verify"/> account with <MadCap:variable name="okta-feature-names.Okta FastPass"/> enabled so that you no longer need <MadCap:variable name="okta-feature-names.Device Trust"/>. </p>
+      <ol>
+         <li>Request all users to enroll in <MadCap:variable name="okta-feature-names.Okta Verify"/> or deploy it on all user devices.<p>Share this information with your end users:
+					<ul>
+                  <li>
+                     <a href="https://help.okta.com/eu/en-us/Content/Topics/end-user/ov-overview-win.htm"
+                        target="_blank">Okta Verify for Windows</a>
+                  </li>
+                  <li>
+                     <a href="https://help.okta.com/eu/en-us/Content/Topics/end-user/ov-overview-macos.htm"
+                        target="_blank">Okta Verify for macOS</a>
+                  </li>
+                  <li>
+                     <a href="https://help.okta.com/eu/en-us/Content/Topics/end-user/ov-overview-ios.htm"
+                        target="_blank">Okta Verify for iOS</a>
+                  </li>
+                  <li>
+                     <a href="https://help.okta.com/eu/en-us/Content/Topics/end-user/ov-overview-andr.htm"
+                        target="_blank">Okta Verify for Android</a>
+                  </li>
+               </ul>
+            </p>
+         </li>
+         <li>Verify the following items:
+				<ul>
+               <li>
+                  <MadCap:variable name="okta-feature-names.Okta Verify"/> is deployed to all users using your MDM (see <MadCap:xref href="#Task6">Task 6</MadCap:xref>, step 1).</li>
+               <li>All users have a management certificate, using your MDM (see <MadCap:xref href="#Task5">Task 5</MadCap:xref>, step 2).</li>
+               <li>All user access apps from devices with <MadCap:variable name="okta-feature-names.Okta Verify"/>, and not <MadCap:variable name="okta-feature-names.Device Trust"/>) (see <MadCap:xref href="#Task4">Task 4</MadCap:xref>, step 3).</li>
+            </ul>
+         </li>
+      </ol>
+      <h3>
+         <a name="Task7"/>Task 7: Remove <MadCap:variable name="okta-feature-names.Device Trust"/> and decommission your IWA servers</h3>
+      <p>When all of your users are using <MadCap:variable name="okta-feature-names.Okta FastPass"/>, you can remove <MadCap:variable name="okta-feature-names.Device Trust"/>.</p>
+      <div class="noteOkta">
+         <p class="noteContent">Don't remove <MadCap:variable name="okta-feature-names.Device Trust"/> until all your users are enrolled in <MadCap:variable name="okta-feature-names.Okta FastPass"/>.</p>
+      </div>
+      <ol>
+         <li>View the System Log events, to ensure that <MadCap:variable name="okta-feature-names.Device Trust"/> signals no longer exist. (See <MadCap:xref href="#Task4">Task 4</MadCap:xref>, step 3).</li>
+         <p>If <MadCap:variable name="okta-feature-names.Device Trust"/> signals exist, migrate these users to <MadCap:variable name="okta-feature-names.Okta Verify"/>. Any users who don't use <MadCap:variable name="okta-feature-names.Okta Verify"/> will be impacted.</p>
+         <li>Deactivate <MadCap:variable name="okta-feature-names.Device Trust"/>:
+					<ol style="list-style-type: lower-alpha;">
+               <li>In the <MadCap:variable name="okta-variables.ProductName"/> Admin Console, go to <span class="menucascade">
+                     <span class="uicontrol">Security</span>
+                     <span class="uicontrol">Device Integrations</span>
+                  </span>.</li>
+               <li>Click <span class="uicontrol">Endpoint Management</span>.</li>
+               <li>For the required Platform, click <span class="menucascade">
+                     <span class="uicontrol">Actions</span>
+                     <span class="uicontrol">Deactivate</span>
+                  </span>.</li>
+               <p>If you receive an error when you try to delete the platform, see "Deactivate this Device Trust (Classic Engine) configuration" error in <MadCap:xref href="migrate-from-dt-to-fp-troubleshooting.htm">Troubleshoot [%=okta-feature-names.Device Trust%] after upgrade</MadCap:xref>.</p>
+               <p>
+                  <img src="../../Resources/Images/identity-engine-upgrade/migrate-dt-fp-tbl-cant-delete-config-2.png"
+                       class="thumbnail"/>     or      <img src="../../Resources/Images/identity-engine-upgrade/migrate-dt-fp-tbl-cant-delete-config-1.png"
+                       class="thumbnail"/>
+               </p>
+               <li>Click <span class="uicontrol">Deactivate</span>.</li>
+            </ol>
+         </li>
+         <li>Delete <MadCap:variable name="okta-feature-names.Device Trust"/>:<ol style="list-style-type: lower-alpha;">
+               <li>For the Inactive Platform, click <span class="menucascade">
+                     <span class="uicontrol">Actions</span>
+                     <span class="uicontrol">Delete</span>
+                  </span>.</li>
+               <li>Click <span class="uicontrol">Delete</span>.</li>
+            </ol>
+         </li>
+         <li>Decommission the IWA servers from your infrastructure, and then remove the Device Registration task from your devices using your preferred tool.</li>
+      </ol>
+      <h2>Related topics</h2>
+      <p>
+         <MadCap:xref href="migrate-from-dt-to-fp-faqs.htm">Migrate from [%=okta-feature-names.Device Trust%] to [%=okta-feature-names.Okta FastPass%] FAQ</MadCap:xref>
+      </p>
+   </body>
+</html>

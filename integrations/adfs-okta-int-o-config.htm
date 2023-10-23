@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:fileTags="Tags/okta-authors.Patrick Calnan"
+      MadCap:conditions="MultiProdPublish.Classic+OIE">
+   <head>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <meta name="description"
+            content="Enable MFA for Windows server RDP authentication attempts using Okta's Credential Provider for Windows."/>
+   </head>
+   <body>
+      <h1>Install and configure Microsoft ADFS in Okta</h1>
+      <p>Before installing the Okta Multifactor Authentication (MFA) provider for Active Directory Federation Services (ADFS), you must:
+        <ul>
+            <li>Select authentication factors</li>
+            <li>Define the groups that will be authenticated by the <span class="wintitle">Microsoft ADFS (MFA)</span> application</li>
+            <li>Add the <span class="wintitle">Microsoft ADFS (MFA)</span> application</li>
+            <li>Enable Cross-Origin Resource Sharing</li>
+         </ul>
+         <div class="noteOkta">
+            <p class="noteContent">Okta orgs which are not configured to support OpenID Connect and Single Sign-On can still install and configure Microsoft ADFS but must use MFA as a service.</p>
+         </div>
+      </p>
+      <ol>
+         <li>Select authentication factors:<ol style="list-style-type: lower-alpha;">
+               <MadCap:snippetBlock src="../../Resources/Snippets/select-mfa-factors-steps.flsnp"/>
+            </ol>
+         </li>
+         <li>
+            <div>
+               <p>Define the groups that will be authenticated by the <span class="wintitle">Microsoft ADFS (MFA)</span> application:
+</p>
+               <ol style="list-style-type: lower-alpha;">
+                  <MadCap:snippetBlock src="../../Resources/Snippets/create-okta-group-steps.flsnp"/>
+               </ol>
+            </div>
+         </li>
+         <li>
+            <p>Add the <span class="uicontrol">Microsoft ADFS (MFA)</span> application:</p>
+            <ol style="list-style-type: lower-alpha;">
+               <li>Sign in to your <MadCap:variable name="okta-variables.ProductName"/> org as an administrator. </li>
+               <li MadCap:conditions="MultiProdPublish.Classic">In the Admin console go to <span class="menucascade">
+                     <span class="uicontrol">Applications</span>
+                     <span class="uicontrol">Applications</span>
+                     <span class="uicontrol">Add Application</span>
+                  </span>, search for <span class="uicontrol">
+                     <span class="wintitle">Microsoft ADFS (MFA</span>)</span>.</li>
+               <li MadCap:conditions="MultiProdPublish.Classic">Click <span class="uicontrol">Add Application</span>.</li>
+               <li MadCap:conditions="MultiProdPublish.Classic">Enter a unique name.</li>
+               <li MadCap:conditions="MultiProdPublish.OIE">In <MadCap:variable name="okta-variables.ProductName"/>, navigate to <span class="menucascade">
+                     <span class="uicontrol">Applications</span>
+                     <span class="uicontrol">Applications</span>
+                     <span class="uicontrol">Add Application</span>
+                  </span>, search for <span class="wintitle">Microsoft ADFS (MFA)</span>, and then click <span class="uicontrol">Add</span>.</li>
+               <li MadCap:conditions="MultiProdPublish.OIE">Enter a unique Application label.</li>
+               <li MadCap:conditions="MultiProdPublish.OIE">Click <span class="uicontrol">Next</span>.</li>
+               <li>
+                  <p>For <MadCap:variable name="okta-variables.ProductName"/> orgs enabled for OpenID Connect and Single Sign-On:</p>
+                  <ol style="list-style-type: lower-roman;">
+                     <li>
+                        <p>On the <span class="wintitle">Sign-On</span> options page, ensure that <span class="uicontrol">OpenID Connect</span> is selected and enter an appropriate <span class="uicontrol">Redirect URI</span>, then click <span class="uicontrol">Done</span>. </p>
+                        <div class="noteOkta">
+                           <p class="noteContent">Ensure that the Redirect URI ends with a forward slash. For example, <span class="url">https://yourdomain.com/</span>
+                           </p>
+                        </div>
+                     </li>
+                     <li MadCap:conditions="MultiProdPublish.Classic">
+                        <p>Select the <span class="wintitle">Sign on</span> tab of the newly created Microsoft ADFS application and confirm that the sign-on mode is <span class="uicontrol">OpenID Connect</span>.</p>
+                        <p>
+                           <img src="../../Resources/Images/hybrid-access/adfs-okta-int.06.png"
+                                id="img_new"
+                                class="thumbnail"/>
+                        </p>
+                     </li>
+                  </ol>
+                  <p>For <MadCap:variable name="okta-variables.ProductName"/> orgs not enabled for OpenID Connect and Single Sign-On.</p>
+                  <ol style="list-style-type: lower-roman;">
+                     <li>Select the <span class="wintitle">Sign-On</span> tab, and ensure that <span class="uicontrol">MFA as a service</span> is selected.<img src="../../Resources/Images/hybrid-access/adfs-okta-int.05a.png"
+                             alt="Sign On tab showing that MFA as a service is enabled."
+                             id="img_new"
+                             class="thumbnail"
+                             MadCap:conditions="MultiProdPublish.Classic"/>
+                     </li>
+                  </ol>
+               </li>
+               <li>Select the <span class="wintitle">General</span> tab and note the values of the <span class="uicontrol">Client ID</span> and <span class="uicontrol">Client secret</span>. These values are required during the <MadCap:xref href="adfs-okta-int-install.htm">Install the Okta ADFS Plugin on your ADFS Server</MadCap:xref> task.<img src="../../Resources/Images/hybrid-access/adfs-okta-int.06a.png"
+                       alt="General options of the Microsoft ADFS applicaton showing the Client ID and Client secret fields.  The values of these two fields are required for configuring MFA as a service."
+                       id="img_new"
+                       class="thumbnail"/>
+               </li>
+               <li>Follow  <a href="adfs-okta-int-config.htm">steps to modify the configuration</a> and confirm or configure <span class="code">useOIDC</span> as <span class="code">false</span>.<br/>After changing configuration you must restart the agent. </li>
+               <li MadCap:conditions="Primary.deprecated">Skip the <span class="uicontrol">Assign to People</span> page for now, you'll return to this after making a other application modifications.                  </li>
+            </ol>
+         </li>
+         <li>
+            <p>Enable Cross-Origin Resource Sharing (CORS)</p>
+            <div class="noteOkta">
+               <p class="noteContent">For more information about CORS, see <a href="https://developer.okta.com/docs/api/getting_started/enabling_cors.html">CORS Overview</a>.</p>
+            </div>
+            <ol style="list-style-type: lower-alpha;">
+               <li>Sign on to your Okta org as an administrator. </li>
+               <li>Navigate to <span class="menucascade">
+                     <span class="uicontrol">Security</span>
+                     <span class="uicontrol">API</span>
+                  </span>.</li>
+               <li>Select the <span class="wintitle">Trusted Origins</span> tab, then click <span class="uicontrol">CORS</span>.
+					<p MadCap:conditions="MultiProdPublish.Classic">
+                     <img src="../../Resources/Images/okta-adfs6.png"
+                          id="img_new"
+                          class="thumbnail"/>
+                  </p>
+               </li>
+               <li>Click <span class="uicontrol">Add Origin</span>.</li>
+               <li>Enter the following information:
+					<ul>
+                     <li>
+                        <span class="uicontrol">Name</span>
+                     </li>
+                     <li>
+                        <span class="uicontrol">Origin URL</span>: This can be your ADFS service name.</li>
+                     <li>Select the <span class="uicontrol">CORS</span> checkbox, then click <span class="uicontrol">Save</span>.</li>
+                  </ul>
+                  <p MadCap:conditions="MultiProdPublish.Classic">
+                     <img src="../../Resources/Images/okta-adfs7.png"
+                          id="img_new"
+                          class="thumbnail"/>
+                  </p>
+               </li>
+            </ol>
+         </li>
+      </ol>
+      <div>
+         <h2>Next steps</h2>
+         <p>
+            <MadCap:xref href="adfs-okta-int-install.htm">Install the Okta ADFS Plugin on your ADFS Server</MadCap:xref>
+         </p>
+      </div>
+   </body>
+</html>

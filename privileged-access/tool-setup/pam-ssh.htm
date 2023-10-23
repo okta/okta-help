@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Arshabhi Rai">
+    <head><title>Set Up SSH with Advanced Server Access | Okta</title>
+        <meta name="description" content="SSH setup with Advanced Server Access is done once a user workstation is enrolled in an Advanced Server Access project. Use the OpenSSH ProxyCommand." />
+    </head>
+    <body>
+        <h1>SSH setup</h1>
+        <p>SSH is a secure shell that allows direct access to the command prompt. With the proper configuration, you can use SSH to connect to servers enrolled in <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> by entering the command <span class="code">ssh &lt;hostname&gt;</span></p>
+        <h2>Use ProxyCommand with <MadCap:variable name="okta-feature-names.Okta Privileged Access" /></h2>
+        <p>OpenSSH ProxyCommand is the recommended method of using SSH with  <MadCap:variable name="okta-feature-names.Okta Privileged Access" />. It requires configuring the local SSH <span class="disableGlossary">client</span>, which then lets you use normal SSH workflows with <MadCap:variable name="okta-feature-names.Okta Privileged Access" />.</p>
+        <p>To configure the SSH <span class="disableGlossary">client</span>, run <span class="code">sft ssh-config</span></p>
+        <p>This command outputs an SSH configuration block. Append this block to your SSH configuration file (usually <span class="code">~/.ssh/config</span>). You can append the configuration to your file in one step by using the command <span class="code">sft ssh-config &gt;&gt; ~/.ssh/config</span></p>
+        <p>Now running <span class="code">sft login</span>  opens an  <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> session. This authorizes your SSH <span class="disableGlossary">client</span> to request credentials and query metadata from the <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> server inventory.</p>
+        <div class="noteOkta">
+            <p class="noteContent"><MadCap:variable name="okta-feature-names.Okta Privileged Access" /> may encounter issues when using ProxyCommand on Windows devices if the client is installed in a directory that includes a space in the name. This happens if the client was installed system-wide, or installed by a user with a space in their username.</p>
+            <p class="noteContent">To resolve this issue, edit the .ssh/config file to include the 8.3 formatted path where the client is installed. For example if the client was installed at <span class="filepath">C:\Program Files (x86)\Scaleft\sft.exe</span>, users would add <span class="filepath">C:\PROGRA~2\ScaleFT\sft.exe</span> to .ssh/config file. Users can identify the 8.3 directory name with the <span class="code">dir /x</span> command.</p>
+        </div>
+        <h2>Use sft ssh</h2>
+        <p>In environments where OpenSSH ProxyCommand is not available, <span class="code">sft ssh</span> can be used instead. This command can be helpful when testing new configurations  in  <MadCap:variable name="okta-feature-names.Okta Privileged Access" />, since you can easily pass  <MadCap:variable name="okta-feature-names.Okta Privileged Access" />-specific arguments to it, such as <span class="code">--via</span></p>
+        <p>You connect to a server by running <span class="code">sft ssh &lt;hostname&gt;</span> For example, to connect to web0.example.com, you'd use the command <span class="code">sft ssh web0.example.com</span></p>
+        <p>You can see a list of available servers by running the command <span class="code">sft list-servers</span></p>
+        <h2 MadCap:conditions="Primary.do-not-publish">Use <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> with SSH bastions</h2>
+        <p MadCap:conditions="Primary.do-not-publish">There are many environments where you can't reach hosts directly, but instead must
+traverse through a bastion or gateway host. <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> makes it easy and secure to use bastions.</p>
+        <p MadCap:conditions="Primary.do-not-publish"> <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> transparently enables SSH best practices for traversing bastion hops securely. Every connection between your SSH <span class="disableGlossary">client</span> and the target host, including bastion connections, is end-to-end encrypted, mutually authenticated, and authorized with ephemeral <span class="disableGlossary">client</span> certificates.</p>
+        <p MadCap:conditions="Primary.do-not-publish">You can add a bastion hop by passing the <span class="code">--via</span> command line option to <span class="code">sft ssh</span>. For example, to add bastion.example.com as a bastion hop to web0.example.com, you'd enter the command: <span class="code">sft ssh --via bastion.example.com web0.example.com</span></p>
+        <p MadCap:conditions="Primary.do-not-publish">Bastions can be configured to be used consistently by configuring the <span class="disableGlossary">agent</span> on the target host. When a bastion is specified in an <span class="disableGlossary">agent</span>'s <span class="code">sftd.yaml</span> configuration file, (for example, <span class="code">Bastion: bastion.example.com</span>), the bastion will always be used when users connect to that server.</p>
+        <p MadCap:conditions="Primary.do-not-publish">See <a href="../../Adv_Server_Access/docs/sftd-configure.htm">Configure and use the Advanced Server Access agent</a>.</p>
+        <p MadCap:conditions="Primary.do-not-publish">For example, if you specify a bastion in the configuration file of the <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> <span class="disableGlossary">agent</span> on web0.example.com, then the bastion will always be used when you use the command <span class="code">ssh web0.example.com</span></p>
+        <h2>Related topics</h2>
+        <ul>
+            <li>
+                <MadCap:xref href="../pam-custom-ssh-server.htm">Customize SSHD configurations for servers</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="../clients/pam-clients.htm">Clients</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

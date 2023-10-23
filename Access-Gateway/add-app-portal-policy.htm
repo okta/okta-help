@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/add-app-portal-policy.htm" /><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1>Add a redirect policy to a portal application</h1>
+        <div>
+            <p>This topic describes how to create an access policy that redirects requests to back-end protected web resources.</p>
+            <p>You create one policy for each secondary, tertiary, and other back-end redirects that you want to create.</p>
+            <p>You build the policy by entering its settings in a text field in the <MadCap:variable name="okta-feature-names.Access&#160;Gateway UI" />.</p>
+            <div>
+                <p>A policy is made of the following components:</p>
+                <ul>
+                    <li>
+                        <p>The policy container. You assign a URI&#160;to it, such as <span class="code">/2nd</span>.</p>
+                    </li>
+                    <li>
+                        Custom configuration code, which contains the following sections:
+                        <ul style="list-style-type: square;"><li>Policy override settings, such as <span class="code">policy_type</span>.</li><li>Session variables</li><li>Keys from the SAML representing attributes of the policy</li><li>The required boilerplate code</li><li>Rewrite inbound requests</li><li>Rewrite outbound requests</li><li>Rewrite 302 redirects</li><li>Header fields</li></ul></li>
+                </ul>
+            </div>
+            <h2>Add a redirect policy</h2>
+            <ol>
+                <li>Select the <span class="uicontrol">Policies</span> tab.</li>
+                <li>Click <span class="uicontrol">Add</span> (<img src="../../Resources/Images/access-gateway/icon.plus.png" style="vertical-align: bottom;" />) in the policy list header and select <span class="uicontrol">Protected</span>.</li>
+                <li>Change the policy type to <span class="uicontrol">Custom</span>.</li>
+                <li>Expand <span class="uicontrol">Advanced</span>. </li>
+                <li>In the <span class="wintitle">Custom Configuration</span> text field, enter the code in sections. Order the sections as described in this procedure. See <MadCap:xref href="#complete-code-block-example">Complete code block example</MadCap:xref> for an example of a complete policy configuration. </li>
+                <li>Configure the policy type. See <MadCap:xref href="learn-about-oag-policy-types.htm">Policy types</MadCap:xref> for a list of policy types.
+			<span class="codeblock">set $policy_type "PROTECTED"</span></li>
+                <li>Add the session variables after the <span class="code">set $policy_*</span> statement.
+						<span class="codeblock">#Session variables 
+set $UserName '';
+set $oag_username '';
+set $RemoteIP '';
+set $RelayDomain '';
+set $SESSIONID '';</span></li>
+                <li>Specify a corresponding set of indexed variables for each attribute. These are the keys from the SAML assertion. There must be a one-to-one correspondence between application attributes and indexed variables. <br />In this example, there are three attributes. Therefore, create three set statements plus an additional count set statement. The field names must match those provided in the <span class="uicontrol">Name</span> column. Also, the <span class="uicontrol">$_argc</span> variable must match the total number of attributes in the statement, which are three in this example.
+<span class="codeblock" xml:space="preserve"># Keys from the SAML Assertion
+# authSession looks in the session for these keys
+# and populate the indexed variables
+set $_1 'oagusername';
+set $_2 'firstname';
+set $_3 'lastname';
+set $_argc 3;</span><p>This diagram shows the relationship between the statements in your policy configuration and the column names that appear in the <MadCap:variable name="okta-feature-names.Access&#160;Gateway UI" />:</p><p><img src="../../Resources/Images/access-gateway/add-app-multi-add-rule-config-2.png" id="img_new" /></p></li>
+                <li>Enter boilerplate statements similar to those in the example. Replace the variables and URL with your own values.
+<span class="codeblock"># process request policies
+access_by_lua_file conf/authSession.lua;
+# resolver -required if using domain and not IP
+resolver 127.0.0.1 valid=30s ;
+set $&lt;set_variable_name&gt; https://2ndbackend.myportal.com/  ;
+proxy_pass $&lt;set_variable_name&gt; ;
+</span></li>
+                <li>
+                    Rewrite inbound relative and absolute requests. Replace <span class="code">&lt;APP_PATH&gt;</span> with the URI of the <MadCap:variable name="okta-feature-names.Access Gateway" /> app that should be passed to the additional back-end proxied server, such as <span class="code">/2nd</span>.<span class="codeblock"># rewrite incoming requests to remove the /2nd
+# for relative links:
+subs_filter href=“/    href=“/2nd/ gir; 
+# for absolute links: 
+subs_filter ‘/’  ‘/2nd/’; </span></li>
+                <li>
+                    Rewrite outbound relative and absolute requests.
+			<span class="codeblock"># Rewrite outbound requests to add back in /2nd
+# for absolute links
+subs_filter http://2nd./2ndbackend.myportal.com     https://$http_host/2nd/ gir;
+# for relative links
+subs_filter href="/    href="/2nd/ gi;
+</span></li>
+                <div MadCap:conditions="Primary.do-not-publish">
+                    <li>
+                    Configure the destinations for 302 redirects.
+				<span class="codeblock"># rewrite for 302 redirects
+proxy_redirect http://2ndbackend.myportal.com/ https://www.myportal.com/2nd/;
+</span></li>
+                </div>
+                <li>Configure the managed directives, the headers for the application, and the hostname. Add all required headers to the request, which may be a subset of the original attribute values.
+<span class="codeblock"># common managed directives
+include /etc/nginx/conf/icsgw_location_common.conf;
+
+# Include headers for application
+proxy_set_header oag_username $_1;
+proxy_set_header firstname $_2;
+proxy_set_header lastname $_3;
+
+# set to hostname that the protected upstream app needs
+proxy_set_header host $host;</span></li>
+                <li>Click <span class="uicontrol">Not validated</span> to validate the code block. If the code is valid, <span class="uicontrol">Not validated</span> changes to <span class="uicontrol">Valid</span>.</li>
+                <li>Correct any errors and click <span class="uicontrol">Okay</span> to finalize the policy.</li>
+                <li>Click <span class="uicontrol">Done</span> to complete the application.</li>
+            </ol>
+            <h2><a name="complete-code-block-example"></a>Complete code block example</h2>
+            <p>This example shows the completed code block for redirecting all requests from <span class="url">www.myportal.com/2nd</span> to <span class="url">2ndbackend.myportal.com</span>. 
+<span class="codeblock" xml:space="preserve">set $policy_type "PROTECTED";
+
+# The values from auth Session
+set $UserName '';
+set $oag_username '';
+set $RemoteIP '';
+set $RelayDomain '';
+set $SESSIONID '';
+
+# Keys from the SAML Assertion
+# authSession looks in the session for these keys
+# and populate the indexed variables
+set $_1 'oagusername';
+set $_2 'firstname';
+set $_3 'lastname';
+set $_argc 3;
+
+# process request policies
+access_by_lua_file conf/authSession.lua;
+# resolver -required if using a domain and not an IP address
+resolver 127.0.0.1 valid=30s ;
+set $&lt;set_variable_name&gt; https://2ndbackend.myportal.com/  ;
+proxy_pass $&lt;set_variable_name&gt; ;
+
+# rewrite incoming requests to remove the /2nd
+# for relative links:
+subs_filter href=“/    href=“/2nd/ gir; 
+# for absolute links: 
+subs_filter ‘/’  ‘/2nd/’; 
+
+# Rewrite outbound requests to add back in /2nd
+# for absolute links
+subs_filter http://2nd./2ndbackend.myportal.com     https://$http_host/2nd/ gir;
+# for relative links
+subs_filter href="/    href="/2nd/ gi;
+
+# common managed directives
+include /etc/nginx/conf/icsgw_location_common.conf;
+
+# Include headers for application
+proxy_set_header oagusername $_1;
+proxy_set_header firstname $_2;
+proxy_set_header lastnamename $_3;
+
+# set to the hostname that the protected upstream app needs
+proxy_set_header host $host;</span><div><h2>Next steps</h2><p>Repeat this process for  each redirect that you require. If you add a third policy, use names similar to <span class="url">/3rd</span> redirecting to <span class="url">https://3rdbackend.myportal.com/</span>.</p><p><MadCap:xref href="add-app-portal-test.htm">Test a portal-based app</MadCap:xref></p><h2>Related topics</h2><p><MadCap:xref href="learn-about-oag-policy-types.htm">Policy types</MadCap:xref></p><p><MadCap:xref href="learn-about-oag-policy-types.htm">Policy types</MadCap:xref></p></div></p>
+        </div>
+    </body>
+</html>

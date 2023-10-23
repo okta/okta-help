@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html MadCap:onlyLocalStylesheets="False" MadCap:fileTags="Tags/okta-authors.Patrick Calnan" xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:conditions="MultiProdPublish.Classic+OIE">
+    <head><title>[%=Heading.Level1%] | Okta</title>
+        <meta name="description" content="Enable MFA for Windows server RDP authentication attempts using Okta’s Credential Provider for Windows." />
+    </head>
+    <body>
+        <h1>Farm addendum </h1>
+        <p>In a Federation Server Farm environment, administrators are required to follow these additional  steps to ensure successful installation of the adapter.</p>
+        <h3>Topics:</h3>
+        <ul>
+            <li>
+                <MadCap:xref href="#Backgrou">Background</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Process">Process Overview</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Detailed">Detailed Procedure</MadCap:xref>
+            </li>
+        </ul>
+        <h2><a name="Backgrou"></a>Background</h2>
+        <p>The installer stores the Client Secret as a protected string.  That protected string is generated using a machine-specific key.</p>
+        <p>When ADFS is used in a server farm, the configuration file is replicated among farm member servers.  The final configuration file contains a single client secret that only the last server on which the installation was performed can decrypt.</p>
+        <div class="noteOkta">
+            <p class="noteContent">If the ADFS server farm uses the Windows Internal Database (WID), you need to promote each server to be the primary server during the installation.  <MadCap:variable name="okta-variables.ProductName" /> recommends starting the installation on the current primary server. Complete the following procedures, starting with the primary server. The installation process finishes by installing the adapter  on the original primary server, thus returning it to its primary state.  You can identify the current primary server with the PowerShell command <span class="code">Get-AdfsFarmInformation</span></p>
+        </div>
+        <h2><a name="Process"></a>Process Overview</h2>
+        <ol>
+            <li>If installing on servers in a WID-based ADFS farm, identify the current primary server and start the sequence from that server.</li>
+            <li>Install the ADFS plugin. See <MadCap:xref href="adfs-okta-int-install.htm">Install the Okta ADFS Plugin on your ADFS Server</MadCap:xref>.</li>
+            <li>Retrieve and copy the protected string values from each server.</li>
+            <li>Combine the values in a modified configuration file.</li>
+            <li>Replace the configuration file with the modified version on the last server.</li>
+            <li>Manually re-register the ADFS Authentication Provider.</li>
+        </ol>
+        <h2><a name="Detailed"></a>Detailed Procedure</h2>
+        <ol>
+            <li>If using a local database farm (WID) and the current computer is not the primary server, promote it to primary by executing this command on server:
+                            <p><span class="code">Set-AdfsSyncProperties -Role PrimaryComputer</span></p></li>
+            <li>
+                <MadCap:annotation MadCap:createDate="2023-01-24T18:46:45.8876355-05:00" MadCap:creator="Tim Howie" MadCap:initials="TI" MadCap:comment="I'm not sure if this means as in step 2 of the process overview, or the complete process overview itselft. &quot;above&quot; needs to be removed and this needs to be clarified." MadCap:editor="Tim Howie" MadCap:editDate="2023-01-24T18:47:40.1751928-05:00">Perform the installation as described above on the first server.</MadCap:annotation>
+            </li>
+            <li>Open the <span class="filepath">okta_adfs_adapter.json</span> file <span class="filepath">(%ProgramFiles%\Okta\Okta MFA Provider\config</span>) with a text editor:							<p><img src="../../Resources/Images/okta-adfs29.png" /></p><ol style="list-style-type: lower-alpha;"><li>Copy the client secret value (truncated secret shown)</li><li>Paste the value in a separate file</li><li>Repeat Step 2 on the remaining servers in the environment</li><li>Proceed to Step 4 after you’ve completed the preceding steps on each server in the farm.</li></ol></li>
+            <li>Combine the values in a modified configuration file:
+								<ol style="list-style-type: lower-alpha;"><li>From the original primary server</li><li>Promote the server back to primary:										<p><span class="code">Set-AdfsSyncProperties -Role PrimaryComputer</span></p></li><li>Open the <span class="filepath">okta_adfs_adapter.json</span> file.
+						 If UAC is enabled, run your editor as administrator.</li><li><p>Copy/Paste the entire contents of your separate file that contains the protected secrets from the other servers.</p></li><li>The following shows an example of four protected strings from farm servers and the full configuration file from the first (and now primary) server in one file.<p><img src="../../Resources/Images/okta-adfs30.png" /></p></li><li>Arrange the list of protected strings into a json array:<p><img src="../../Resources/Images/okta-adfs31.png" /></p></li><li>Replace the clientSecret string value of your complete configuration file with the json array of protected strings:<br /><img src="../../Resources/Images/okta-adfs32.png" /><br />Note: Indentation and new line formatting is optional</li><li>Optional. Use a json lint tool to validate the json.  Online versions are available that you can use at your own discretion. For example:&#160;<a href="https://jsonlint.com/">https://jsonlint.com/</a>.</li></ol></li>
+            <li>
+                                Replace the configuration file with the modified version on the last server:
+								<ul><li>Replace the <span class="filepath">okta_adfs_adapter.json</span> file on the last server with the newly created config file.</li><li>Note: you may need to run notepad as a administrator</li></ul></li>
+            <li>
+                               Manually re-register the Adfs Authentication Provider:
+<ul><li>Sample Script:
+</li><li><p><span class="code">$a=[System.Reflection.Assembly]::LoadFile("C:\Program Files\Okta\Okta MFA Provider\bin\OktaMfaAdfs.dll")</span></p></li><li><p><span class="code">$file=[String]::Format("OktaMfaAdfs.AuthenticationAdapter, {0}", $a.GetName().FullName)</span></p></li><li><span class="code">Unregister-AdfsAuthenticationProvider -Name "OktaMfaAdfs"</span></li><li><span class="code">Register-AdfsAuthenticationProvider -Name "OktaMfaAdfs" -TypeName $file -ConfigurationFilePath "C:\Program Files\Okta\Okta MFA Provider\config\okta_adfs_adapter.json"</span></li></ul></li>
+        </ol>
+        <div MadCap:conditions="Primary.do-not-publish">
+            <p>New material from https://oktainc.atlassian.net/browse/OKTA-541271: add this material: https://oktawiki.atlassian.net/wiki/spaces/eng/pages/481230967/ADFS+Installation+matrix+for+cluster+environment.</p>
+            <p>Upgrade instructions</p>
+            <p>Uninstall instructions</p>
+        </div>
+    </body>
+</html>

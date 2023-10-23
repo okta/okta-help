@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Mark Cowan">
+    <head><title>[%=Heading.Level1%] | Okta</title>
+    </head>
+    <body>
+        <h1>Troubleshooting: Microsoft <MadCap:variable name="3rd Party Integrations.SharePoint On-Premises" /></h1>
+        <p>This topic provides solutions to common problems that may occur during the <MadCap:variable name="3rd Party Integrations.SharePoint On-Premises" /> deployment.</p>
+        <h4>The Trusted Identity Provider section isn't available on the Edit Authentication page</h4>
+        <p>Make sure that Claims-Based Authentication is selected as the preferred mode of authentication for this SharePoint application. From the Windows PowerShell command prompt, enter the following to set the specified user account as an administrator for the site:
+</p>
+        <MadCap:codeSnippet>
+            <MadCap:codeSnippetCopyButton />
+            <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">$WebAppName = "http://" (http://)"
+$wa = get-­SPWebApplication $WebAppName
+$wa.UseClaimsAuthentication = $true
+$wa.Update()
+</MadCap:codeSnippetBody>
+        </MadCap:codeSnippet>
+        <h4>Authentication fails and shows a web page with an error: "An application error occurred on the server. The current custom error settings for this application prevent the details of the application error from being viewed"</h4>
+        <p>Open the <span class="code">web.conﬁg</span> file for this web application and make sure custom errors are turned off in the <span class="code">web.conﬁg</span> file.</p>
+        <MadCap:codeSnippet>
+            <MadCap:codeSnippetCopyButton />
+            <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">&lt;system.web&gt;
+...
+&lt;customErrors mode="Off"/&gt;</MadCap:codeSnippetBody>
+        </MadCap:codeSnippet>
+        <h4>Authentication fails showing a web page with an error: "The Audience URI could not be validated"</h4>
+        <p>Open the <span class="code">web.conﬁg</span> file for this web application and add the following line: </p>
+        <MadCap:codeSnippet>
+            <MadCap:codeSnippetCopyButton />
+            <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">(mode=Never) 
+&lt;microsoft.identityModel&gt;
+....
+&lt;audienceUris mode="Never"/&gt;
+</MadCap:codeSnippetBody>
+        </MadCap:codeSnippet>
+        <h4>I see both Windows Authentication and Okta for SSO when I try to sign in</h4>
+        <p>Both Windows Authentication and Okta are chosen as Identity Trust provider. Clear Windows Authentication if you only want Okta to act as a trust provider.</p>
+        <h4>I changed authentication providers but there's no eﬀect</h4>
+        <p>Refer to <a href="http://technet.microsoft.com/en-us/library/cc288091(v=oﬃce.12).aspx">http://technet.microsoft.com/en-us/library/cc288091(v=oﬃce.12).aspx</a>. Resetting your IIS server (iisreset) should usually help.</p>
+        <h4>I get stuck in an infinite loop when signing in to Sharepoint 2019</h4>
+        <p>Patch the SharePoint 2019 server as documented on <a href="https://support.microsoft.com/en-us/topic/description-of-the-security-update-for-sharepoint-server-2019-february-11-2020-eee7c0a1-f7a4-530f-6ede-67ef1bd10739">KB 4484259</a> and ensure that you are using the https:// prefix for all Sharepoint sites.</p>
+    </body>
+</html>

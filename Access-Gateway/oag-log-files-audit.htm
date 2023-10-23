@@ -1,0 +1,965 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" class="concept" xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/oag-log-files-audit.htm" />
+        <link href="../../Resources/TableStyles/standard.css" rel="stylesheet" MadCap:stylesheetType="table" />
+        <link href="../../Resources/TableStyles/standard.css" rel="stylesheet" MadCap:stylesheetType="table" /><title>[%=Heading.Level1%]</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1><MadCap:variable name="okta-feature-names.Access Gateway" /> audit log</h1>
+        <div>
+            <p><MadCap:variable name="okta-feature-names.Access Gateway" /> audit logs include information on the following events:</p>
+            <ul>
+                <li>
+                    <MadCap:xref href="#AdminNomination">Admin Nomination</MadCap:xref>: Events that occur during the admin renomination process. </li>
+                <li>
+                    <MadCap:xref href="#Applicat">Application</MadCap:xref>:&#160;Application-related activity, such as create, update, delete, activate, or deactivate.</li>
+                <li>
+                    <MadCap:xref href="#Authenti">Authentication and Authorization</MadCap:xref>: Events such as authentication and authorization. </li>
+                <li>
+                    <MadCap:xref href="#Certificate">Certificate events</MadCap:xref>: Certificate-related event activity. </li>
+                <li>
+                    <MadCap:xref href="#Connecti">Connectivity and validation</MadCap:xref>: Events between <MadCap:variable name="okta-feature-names.Access Gateway" /> and external resources such as back-end applications, data stores, and similar conditions.</li>
+                <li>
+                    <MadCap:xref href="#Kerberos">Kerberos</MadCap:xref>: Kerberos-related activity, such as create, update, or delete. </li>
+                <li>
+                    <MadCap:xref href="#LogVerbosity">Log Verbosity</MadCap:xref>: Changes in log verbosity. </li>
+                <li>
+                    <MadCap:xref href="#Password">Password</MadCap:xref>: Password-related events.</li>
+                <li>
+                    <MadCap:xref href="#SupportVPN">Support VPN</MadCap:xref>: <MadCap:variable name="okta-variables.ProductName" /> Support access-related events.</li>
+                <li>
+                    <MadCap:xref href="#top">System status</MadCap:xref>: System-related events, such as system up, system down, identify provider connection status, EBS subsystem up, and others.</li>
+                <li>
+                    <MadCap:xref href="#TrustedDomains">Trusted Domains</MadCap:xref>: Trusted domain-related activity, such as create, update, delete, or synchronize, and exceptions during trusted domain operations.</li>
+            </ul>
+            <div>
+                <h3>Before you begin</h3>
+                <ul>
+                    <li>See <MadCap:xref href="admin-settings-log-download.htm">Download logs</MadCap:xref> for details on downloading logs.</li>
+                    <li>See <MadCap:xref href="decompressing-logs.htm">Decompressing logs</MadCap:xref> for details on decompressing log files. </li>
+                </ul>
+            </div>
+            <h3>Event fields</h3>
+            <table style="mc-table-style: url('../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                <col class="TableStyle-standard-Column-Column1" />
+                <col class="TableStyle-standard-Column-Column1" />
+                <tbody>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td style="font-weight: bold;background-color: #dcdcdc;padding-left: 7px;padding-right: 7px;padding-top: 7px;padding-bottom: 7px;border-right-style: solid;border-right-width: 1px;border-right-color: #c0c0c0;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #c0c0c0;" class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>Field</p>
+                        </td>
+                        <td style="font-weight: bold;background-color: #dcdcdc;" class="TableStyle-standard-BodyD-Column1-Body1">
+                            <p>Description</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>TIMESTAMP</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">
+                            <p>Current system date and time</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>HOSTNAME</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <p>Hostname of node generating event</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>APPLICATION</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">
+                            <p>One of:</p>
+                            <ul>
+                                <li>ACCESS_GATEWAY</li>
+                                <li>OAG</li>
+                                <li>OAG_MONITOR</li>
+                                <li>A specific service (for example, check_connection)</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>SUB-PROCESS</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <p>One of:</p>
+                            <ul>
+                                <li>ApplicationService</li>
+                                <li>ACCESS</li>
+                                <li>ADMIN_CONSOLE</li>
+                                <li>EBS_SSOAGENT</li>
+                                <li>HOST_IP_CHECK</li>
+                                <li>MONITOR</li>
+                                <li>SCRIPT</li>
+                                <li>SERVICE</li>
+                                <li>TrustedOriginUpdateScheduler</li>
+                                <li>WEB_CONSOLE</li>
+                                <li>A specific service (for example, check_connection)</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>COMPONENT</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">
+                            <p>Component of the sub-process such as:</p>
+                            <ul>
+                                <li>AUTHN</li>
+                                <li>AUTHZ</li>
+                                <li>CLUSTER MANAGER ADMIN</li>
+                                <li>ERROR</li>
+                                <li>IDP</li>
+                                <li>INFO</li>
+                                <li>KRB5</li>
+                                <li>LOG_DOWNLOAD_STATUS</li>
+                                <li>LOG_PREPARE_OPERATION</li>
+                                <li>LOG_PREPARE_STATUS</li>
+                                <li>NGINX</li>
+                                <li>SYSTEM</li>
+                                <li>TRUSTED_DOMAINS</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>SUB-COMPONENT</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <p>Sub-component of the process such as:</p>
+                            <ul>
+                                <li>ALERT</li>
+                                <li>EBS_SSOAGENT</li>
+                                <li>HOST</li>
+                                <li>INFO</li>
+                                <li>LOCAL</li>
+                                <li>NETCAT</li>
+                                <li>NOMINATION</li>
+                                <li>POLICY</li>
+                                <li>SESSION</li>
+                                <li>STARTUP/SHUTDOWN</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>LOG_LEVEL</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">
+                            <p>Log level, one of: TRACE, DEBUG, INFO, WARN, ERROR, or FATAL.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>EVENT</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <p>Event type</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>STRUCTURED_DATA</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">
+                            <p>Data related to the occurred event.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyC-Column1-Body1">
+                            <p>MESSAGE</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyA-Column1-Body1">
+                            <p>Readable message.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h2><a name="AdminNomination"></a>
+                <MadCap:annotation MadCap:createDate="2020-09-15T16:53:39.5465628-04:00" MadCap:creator="naini.khajanchi" MadCap:initials="NA" MadCap:comment="The topic title is different in different topics but the content is the same. SHould we sync the titles?" MadCap:editor="naini.khajanchi" MadCap:editDate="2020-09-15T16:53:59.1513102-04:00">Admin nomination</MadCap:annotation>
+            </h2>
+            <MadCap:snippetBlock src="oag-log-files-renomination.htm" />
+        </div>
+        <div>
+            <h2><a name="Applicat"></a>Application</h2>
+            <div>
+                <h3>SYSTEM_APP_EVENT</h3>
+                <p>Event issued when an application is created, updated, deleted, activated, or deactivated. </p>
+                <p>Message types:</p>
+                <ul>
+                    <li>
+                        <p>Application: &lt;Application Name&gt; action: CREATE</p>
+                    </li>
+                    <li>
+                        <p>Application: &lt;Application Name&gt; action: UPDATE</p>
+                    </li>
+                    <li>
+                        <p>Application: &lt;Application Name&gt; action: DELETE</p>
+                    </li>
+                    <li>
+                        <p>Application: &lt;Application Name&gt; action: ENABLE</p>
+                    </li>
+                    <li>
+                        <p>Application: &lt;Application Name&gt; action: DISABLE</p>
+                    </li>
+                </ul>
+                <p>Examples:</p>
+                <ul>
+                    <li>
+                        <p><span class="code">2020-06-24T09:40:36.000-05:00  example.myaccessgateway.com ACCESS_GATEWAY WEB_CONSOLE APP - INFO SYSTEM_APP_EVENT [GUID="93d2e78a-c6b7-4c27-83c8-15c2b783d3bb" NAME="Sample Header App" TYPE="SAMPLEHEADER_APP" DOMAIN="&lt;App Domain URL&gt;" IDP="&lt;IDP URL&gt;" IDP_TYPE="&lt;Identity Provider type&gt;" REASON="CREATE" SESSION_ID="3dKU4yqIlHkcRUeGb9f9Dh6OSgFjHq3hIMVktx7h" SUBJECT="admin" REMOTE_IP="-" USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"] Application: 'Sample Header App' action: 'CREATE'
+</span>
+                        </p>
+                    </li>
+                    <li>
+                        <p><span class="code">2020-06-24T09:40:36.000-05:00  example.myaccessgateway.com ACCESSS_GATEWAY WEB_CONSOLE APP - INFO SYSTEM_APP_EVENT [GUID="&lt;Application GUID&gt;" NAME="Sample Header App" TYPE="SAMPLEHEADER_APP" DOMAIN="&lt;App Domain URL&gt;" IDP="&lt;IDP URL&gt;" IDP_TYPE="&lt;Identity Provider type&gt;" REASON="UPDATE" SESSION_ID="&lt;Session&#160;ID&gt; " SUBJECT="user@&lt;Domain.tld&gt;" REMOTE_IP="-" USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"] Application: 'Sample Header App' action: 'UPDATE'</span>
+                        </p>
+                    </li>
+                    <li>
+                        <p><span class="code">2020-06-24T09:40:36.000-05:00  example.myaccessgateway.com ACCESSS_GATEWAY WEB_CONSOLE APP - INFO SYSTEM_APP_EVENT [GUID="&lt;Application GUID&gt; " NAME="Sample Header App" TYPE="SAMPLEHEADER_APP" DOMAIN="&lt;App Domain URL&gt;" IDP="&lt;IDP URL&gt;" IDP_TYPE="&lt;Identity Provider type&gt;" REASON="ENABLE" SESSION_ID="&lt;Session&#160;ID&gt;" SUBJECT="user@&lt;Domain.tld&gt;" REMOTE_IP="-" USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"] Application: 'Sample Header App' action: 'ENABLE'</span>
+                        </p>
+                    </li>
+                    <li>
+                        <p><span class="code">2020-06-24T09:40:36.000-05:00  example.myaccessgateway.com ACCESSS_GATEWAY WEB_CONSOLE APP - INFO SYSTEM_APP_EVENT [GUID="&lt;Application GUID&gt;" NAME="Sample Header App" TYPE="SAMPLEHEADER_APP" DOMAIN="&lt;App Domain URL&gt;" IDP="&lt;IDP URL&gt;" IDP_TYPE="&lt;Identity Provider type&gt;" REASON="DISABLE" SESSION_ID="&lt;Session&#160;ID&gt; " SUBJECT="user@&lt;Domain.tld&gt;" REMOTE_IP="-" USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"] Application: 'Sample Header App' action: 'DISABLE'</span>
+                        </p>
+                    </li>
+                    <li>
+                        <p><span class="code">2020-06-24T09:40:36.000-05:00  example.myaccessgateway.com WEB_CONSOLE APP - INFO SYSTEM_APP_EVENT [GUID="&lt;Applicatuin GUID&gt; " NAME="Sample Header App" TYPE="SAMPLEHEADER_APP" DOMAIN="&lt;App Domain URL&gt;" IDP="&lt;IDP URL&gt;" IDP_TYPE="&lt;Identity Provider type&gt;" REASON="DELETE" SESSION_ID="&lt;Session ID&gt; " SUBJECT="admin" REMOTE_IP="-" USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"] Application: 'Sample Header App' action: 'DELETE'</span>
+                        </p>
+                    </li>
+                </ul>
+                <p>Structured data:</p>
+                <ul>
+                    <li><span class="code">GUID</span> - Application identifier</li>
+                    <li><span class="code">NAME</span> - Application name</li>
+                    <li><span class="code">TYPE</span> - Application Type</li>
+                    <li><span class="code">DOMAIN</span> - Application domain</li>
+                    <li><span class="code">IDP</span>&#160;- IDP&#160;of application</li>
+                    <li><span class="code">IDP_TYPE</span>- Okta or LOCAL</li>
+                    <li><span class="code">REASON</span> - One of CREATE, UPDATE, DELETE, ENABLE or DISABLE</li>
+                    <li><span class="code">SESSION_ID</span>
+				- Iinternal session ID created for the user session</li>
+                    <li><span class="code">SUBJECT</span> - User performing action, usually the admin</li>
+                    <li><span class="code">REMOTE_ID</span>
+					 - IP address of user, if available</li>
+                    <li><span class="code">USER_AGENT</span>
+					- Browser details</li>
+                </ul>
+            </div>
+        </div>
+        <div>
+            <h2><a name="Certificate"></a>Certificate events</h2>
+            <MadCap:snippetBlock src="oag-log-files-certificates.htm" />
+        </div>
+        <div>
+            <h2><a name="LogVerbosity"></a>Log Verbosity</h2>
+            <p>Events generated when the logging verbosity level is changed. See<MadCap:xref href="admin-settings-logging-log-level.htm"> Edit log verbosity</MadCap:xref> and <MadCap:xref href="about-log-levels.htm">About logging levels</MadCap:xref></p>
+            <div>
+                <h3>Log verbosity change event</h3>
+                <p>Description: An administrator changed the current log verbosity. This event signals the start of the change process.</p>
+                <p>Messages: </p>
+                <ul>
+                    <li>Allow access to resource</li>
+                </ul>
+                <p>Examples:</p>
+                <ul>
+                    <li><span class="code">2020-08-26T21:24:03.678-05:00 oag01.okta.com ACCESS_GATEWAY ACCESS AUTHZ POLICY INFO USER_AUTHZ [SESSION_ID="_3fd5e31193bff51983c9f81c8092cc9f23a1339446" SUBJECT="admin@oag.okta.com" RESOURCE="/api/v1/setting/loglevel" METHOD="PUT" POLICY="api" POLICY_TYPE="PROTECTED" DURATION="0" APP="Local OAG Admin Console" APP_TYPE="ADMINUI_APP" APP_DOMAIN="gw-admin.[domain.tld]" RESULT="ALLOW" REASON="N/A - SESSIONID=_3fd5e31193bff51983c9f81c8092cc9f23a1339446 X-Authorization=admin@oag.okta.com username=admin RelayDomain=gw-admin.gateway.info oag_username=admin@oag.okta.com UserName=admin@oag.okta.com SourceAuthNType=urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport RemoteIP=192.168.1.84 USER_AGENT=Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:80.0) Gecko/20100101 Firefox/80.0 creationTime=1598494932480 maxInactiveInterval=3600000 maxActiveInterval=28800000 lastAccessedTime=1598495024962 " REMOTE_IP="192.168.1.84" USER_AGENT="PostmanRuntime/7.26.3"] allow access to resource</span>
+                    </li>
+                </ul>
+                <li>Structured data:<ul><li><span class="code">SESSION_ID</span> - Valid or invalid.</li><li><span class="code">RESOURCE</span> - Always loglevel.</li><li><span class="code">METHOD</span> - Always PUT.</li><li><span class="code">POLICY</span> - Always api.</li><li><span class="code">POLICY_TYPE</span> - Always protected .</li><li><span class="code">DURATION</span> - Always 0.</li><li><span class="code">APP</span> - Always Local OAG <MadCap:variable name="okta-feature-names.Administrator dashboard" /> .</li><li><span class="code">APP_TYPE</span> - Always ADMINUI_APP.</li><li><span class="code">APP_DOMAIN</span> - Domain where the log verbosity level was changed.</li><li><span class="code">RESULT</span> - Always allow.</li><li><span class="code">REASON</span> - Not applicable followed by session information.</li><li><span class="code">REMOTE_ID</span> - IP&#160;Address off client.</li><li><span class="code">USER_AGENT</span> - Always Postman runtime.</li></ul></li>
+                <li>Corrective action:<ul><li> None, informational. </li></ul></li>
+            </div>
+            <div>
+                <h3>Create and communicate a change in log verbosity (available in ics_all.log and via sys loggers)</h3>
+                <p>Events issued when the <MadCap:variable name="okta-feature-names.Access Gateway" /> admin instance generates and communicates with all high availability nodes about a change in log verbosity.</p>
+                <p>Messages:</p>
+                <ul>
+                    <li>
+                        <p>application_template_service</p>
+                    </li>
+                    <li>
+                        <p>application_template_service event for file_with_path:/opt/oag/events/loglevel.local.UPDATE.json </p>
+                    </li>
+                    <li>
+                        <p>application_template_service event for file:loglevel.local.UPDATE.json</p>
+                    </li>
+                    <li>
+                        <p>application_template_service Acquiring lock</p>
+                    </li>
+                    <li>
+                        <p>application_template_service reading JSON from file '/opt/oag/events/loglevel.local.UPDATE.json'</p>
+                    </li>
+                    <li>
+                        <p>application_template_service Local log level set to '[level]' where level represents the new log verbosity level.</p>
+                    </li>
+                </ul>
+                <p>Examples:</p>
+                <ul>
+                    <li>
+                        <p><span class="code">2020-08-26T21:24:03.000-05:00 [DNS name of administration node] application_template_service ['/opt/oag/events/loglevel.local.UPDATE.json']</span>
+                        </p>
+                    </li>
+                    <li>
+                        <p><span class="code">2020-08-26T21:24:03.000-05:00 oag01.okta.com application_template_service event for file_with_path:/opt/oag/events/loglevel.local.UPDATE.json</span>
+                        </p>
+                    </li>
+                    <li>
+                        <p><span class="code">2020-08-26T21:24:03.000-05:00 oag01.okta.com application_template_service event for file:loglevel.local.UPDATE.json</span>
+                        </p>
+                    </li>
+                    <li>
+                        <p><span class="code">2020-08-26T21:24:03.000-05:00 oag01.okta.com application_template_service Acquiring lock</span>
+                        </p>
+                    </li>
+                    <li>
+                        <p><span class="code">2020-08-26T21:24:03.000-05:00 oag01.okta.com application_template_service reading JSON from file '/opt/oag/events/loglevel.local.UPDATE.json'</span>
+                        </p>
+                    </li>
+                    <li>
+                        <p><span class="code">2020-08-26T21:24:03.000-05:00 oag01.okta.com application_template_service Local log level set to 'info'</span>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <p>Structured data: </p>
+                <ul>
+                    <li>
+                        <p>None</p>
+                    </li>
+                </ul>
+                <li>Corrective action:<ul><li> None, informational. </li></ul></li>
+            </div>
+            <div>
+                <h3>Restart Syslog (available in ics_all.log and through sys loggers)</h3>
+                <p>Events emitted when <MadCap:variable name="okta-feature-names.Access Gateway" /> has successfully communicated the change in verbosity and is restarting the SYSLOG agent. </p>
+                <p>Messages: </p>
+                <ul>
+                    <li>
+                        <p>Restart and restart complete.</p>
+                    </li>
+                </ul>
+                <p>Examples:</p>
+                <ul>
+                    <li>
+                        <p><span class="code">2020-08-26T21:24:04.000-05:00 [DNS name of HA node] OAG syslog-ng: Access-Gateway SYSLOG-NG restart</span>
+                        </p>
+                    </li>
+                    <li>
+                        <p><span class="code">2020-08-26T21:24:04.000-05:00 oag01.okta.com OAG syslog-ng: Access-Gateway SYSLOG-NG restart completed</span>
+                        </p>
+                    </li>
+                </ul>
+                <p>Structured data: </p>
+                <ul>
+                    <li>
+                        <p>None</p>
+                    </li>
+                </ul>
+                <li>Corrective action :<ul><li> None, informational. </li></ul></li>
+            </div>
+            <div>
+                <h3>Verbosity update complete (available in ics_all.log and through sys loggers)</h3>
+                <p>Events issued when <MadCap:variable name="okta-feature-names.Access Gateway" /> has completed the change to log verbosity.</p>
+                <p>Message: </p>
+                <ul>
+                    <li>
+                        <p>Application_template_service loglevel event:update template...</p>
+                    </li>
+                </ul>
+                <p>Examples:</p>
+                <ul>
+                    <li>
+                        <p><span class="code">2020-08-26T21:24:04.000-05:00 [DNS name of administration node] application_template_service loglevel event:update template for file:loglevel.local.UPDATE.json </span>
+                        </p>
+                    </li>
+                </ul>
+                <p>Structured data: </p>
+                <ul>
+                    <li>
+                        <p>None</p>
+                    </li>
+                </ul>
+                <li>Corrective action:<ul><li> None, informational. </li></ul></li>
+            </div>
+        </div>
+        <div MadCap:conditions="Primary.review-only">
+            <h2>REST Monitoring Management</h2>
+            <MadCap:snippetBlock src="../../Resources/Snippets/access-gateway/oag-log-rest-management.flsnp" />
+        </div>
+        <div>
+            <h2><a name="Password"></a>Password</h2>
+            <p>Events logged when changing passwords.</p>
+            <div>
+                <p><MadCap:variable name="okta-feature-names.Access&#160;Gateway UI" />
+                </p>
+                <div>
+                    <h3>Reset password </h3>
+                    <p>Description: <MadCap:variable name="okta-feature-names.Access&#160;Gateway UI" /> password successfully changed. </p>
+                    <p>Messages: </p>
+                    <ul>
+                        <li>Password updated successfully</li>
+                    </ul>
+                    <p>Examples:</p>
+                    <ul>
+                        <li><span class="code">2021-04-28T12:04:16.000-05:00 oag.adminX.com ACCESS_GATEWAY WEB_CONSOLE Admin password updated successfully.</span>
+                        </li>
+                    </ul>
+                    <p>Structured data:<ul><li>None</li></ul></p>
+                    <p>Corrective action:<ul><li> N/A</li></ul></p>
+                </div>
+                <div>
+                    <h3>Attempt to reuse default password</h3>
+                    <p>Description: An attempt was made to set the <MadCap:variable name="okta-feature-names.Access&#160;Gateway UI" /> password to the original default value. </p>
+                    <p>Messages: </p>
+                    <ul>
+                        <li><span class="code">Password reset failed. Default password was entered.</span>
+                        </li>
+                    </ul>
+                    <p>Examples:</p>
+                    <ul>
+                        <li><span class="code">2021-04-28T12:00:14.451-05:00 oag.adminX.com WEB_CONSOLE PASSWORD_RESET WEB_CONSOLE ERROR PASSWORD_RESET [USER="oag-mgmt"] Password reset failed. Default password was entered.</span>
+                        </li>
+                    </ul>
+                    <p>Structured data:<ul><li><span class="code">USER</span> - User performing login.</li></ul></p>
+                    <p>Corrective action:<ul><li> Enter a new password that doesn't match the original default password.</li></ul></p>
+                </div>
+                <div>
+                    <h3>Default password during login</h3>
+                    <p>Description: During an <MadCap:variable name="okta-feature-names.Access&#160;Gateway UI" /> login attempt the default password was detected. </p>
+                    <p>Messages: </p>
+                    <ul>
+                        <li><span class="code">Default admin password being used.</span>
+                        </li>
+                    </ul>
+                    <p>Examples:</p>
+                    <ul>
+                        <li><span class="code">2021-04-28T12:03:53.906-05:00 oag.adminX.com SCRIPT INFO DEFAULT_PASSWORD_CHECK [USER="spgw"] Default admin password being used.</span>
+                        </li>
+                    </ul>
+                    <p>Structured data:<ul><li><span class="code">USER</span> - User performing login.</li></ul></p>
+                    <p>Corrective action:<ul><li> N/A</li></ul></p>
+                </div>
+                <div>
+                    <h3>Non-default password password during login</h3>
+                    <p>Description: During an <MadCap:variable name="okta-feature-names.Access&#160;Gateway UI" /> login attempt the default password wasn't detected. </p>
+                    <p>Messages: </p>
+                    <ul>
+                        <li><span class="code">Default admin password not detected.</span>
+                        </li>
+                    </ul>
+                    <p>Examples:</p>
+                    <ul>
+                        <li><span class="code">2021-04-28T12:04:19.319-05:00 oag.okta.com SCRIPT INFO DEFAULT_PASSWORD_CHECK [USER="spgw"] Default admin password not detected.</span>
+                        </li>
+                    </ul>
+                    <p>Structured data:<ul><li><span class="code">USER</span> - User performing login.</li></ul></p>
+                    <p>Corrective action:<ul><li> N/A</li></ul></p>
+                </div>
+            </div>
+            <div>
+                <p><MadCap:variable name="okta-feature-names.Access Gateway CMD" />
+                </p>
+                <h3>Reset password </h3>
+                <p>Description: <MadCap:variable name="okta-feature-names.Access Gateway CMD" /> password successfully changed. </p>
+                <ul>
+                    <li>Password reset successful</li>
+                </ul>
+                <p>Examples:</p>
+                <ul>
+                    <li><span class="code">2021-02-23T12:55:29.267-06:00 oag.adminX.com ADMIN_CONSOLE PASSWORD_RESET ADMIN_CONSOLE INFO PASSWORD_RESET [USER="oag-mgmt" USERNAME="oag-mgmt"] Password reset</span>
+                    </li>
+                </ul>
+                <p>Structured data:<ul><li><span class="code">USER</span> - User performing nomination actions, always oag-mgmt</li><li><span class="code">USERNAME</span> - Always oag-mgmt</li></ul></p>
+                <p>Corrective action:<ul><li> N/A</li></ul></p>
+            </div>
+            <div>
+                <h3>Reset failed</h3>
+                <p>Description: Attempt to change <MadCap:variable name="okta-feature-names.Access Gateway CMD" /> password failed.</p>
+                <p>Messages: </p>
+                <ul>
+                    <li>Password reset failed.</li>
+                    <li>
+                        <p>Password reset failed. Password did not meet minimum requirement</p>
+                    </li>
+                </ul>
+                <p>Examples:</p>
+                <ul>
+                    <li><span class="code">2021-02-22T19:33:51.702-06:00 oag.adminX.com ADMIN_CONSOLE PASSWORD_RESET ADMIN_CONSOLE ERROR PASSWORD_RESET [USER="oag-mgmt" USERNAME="oag-mgmt"] Password reset failed</span>
+                    </li>
+                </ul>
+                <p>Structured data:<ul><li><span class="code">USER</span> - User performing nomination actions, always oag-mgmt</li><li><span class="code">USERNAME</span> - Always oag-mgmt</li></ul></p>
+                <p>Corrective action:<ul><li>Password likely failed requirements, try again. </li></ul></p>
+            </div>
+            <div>
+                <h3>Invalid password entered</h3>
+                <p>Description: Log in failed, incorrect <MadCap:variable name="okta-feature-names.Access Gateway CMD" /> password entered.</p>
+                <p>Messages: </p>
+                <ul>
+                    <li>Incorrect password entered</li>
+                </ul>
+                <p>Examples:</p>
+                <ul>
+                    <li><span class="code">2021-02-22T19:33:19.903-06:00 oag.adminX.com ADMIN_CONSOLE PASSWORD_RESET ADMIN_CONSOLE ERROR PASSWORD_RESET [USER="oag-mgmt" USERNAME="oag-mgmt"] Incorrect password entered</span>
+                    </li>
+                </ul>
+                <p>Structured data:<ul><li><span class="code">USER</span> - User performing nomination actions, always oag-mgmt</li><li><span class="code">USERNAME</span> - Always oag-mgmt</li></ul></p>
+                <p>Corrective action:<ul><li>Reenter <MadCap:variable name="okta-feature-names.Access Gateway CMD" /> password and try again. </li></ul></p>
+            </div>
+        </div>
+        <div>
+            <h2><a name="SupportVPN"></a>Support VPN</h2>
+            <p>Events logged when enabling and disabling the support VPN.</p>
+            <div>
+                <h3>Enable support connection</h3>
+                <p>Description: Support connection being enabled.</p>
+                <p>Messages: </p>
+                <ul>
+                    <li>Enabling support connection</li>
+                </ul>
+                <p>Examples:</p>
+                <ul>
+                    <li><span class="code">2021-02-23T12:55:29.267-06:00 OAG ADMIN_CONSOLE SUPPORT_CONNECTION ENABLE INFO ENABLE_SUPPORT_CONNECTION [USER="oag-mgmt"] Enabling support connection</span>
+                    </li>
+                </ul>
+                <p>Structured data:<ul><li><span class="code">USER</span> - User requesting enable support connection</li></ul></p>
+                <p>Corrective action:<ul><li> N/A</li></ul></p>
+            </div>
+            <div>
+                <h3>Disable support connection</h3>
+                <p>Description: Support connection being disabled.</p>
+                <p>Messages: </p>
+                <ul>
+                    <li>Disabling support connection</li>
+                </ul>
+                <p>Examples:</p>
+                <ul>
+                    <li><span class="code">2021-02-23T12:55:29.267-06:00 OAG ADMIN_CONSOLE SUPPORT_CONNECTION DISABLE INFO ENABLE_SUPPORT_CONNECTION [USER="oag-mgmt"] Disabling support connection</span>
+                    </li>
+                </ul>
+                <p>Structured data:<ul><li><span class="code">USER</span> - User requesting disable support connection</li></ul></p>
+                <p>Corrective action:<ul><li> N/A</li></ul></p>
+            </div>
+            <div>
+                <h3>Error during enable/disable support connection operation</h3>
+                <p>Description: During an enable or disable operation, an error occurred. </p>
+                <p>Messages: </p>
+                <ul>
+                    <li>Exception when checking connection status on the system:</li>
+                </ul>
+                <p>Examples:</p>
+                <ul>
+                    <li><span class="code">2021-02-23T12:55:29.267-06:00 OAG ADMIN_CONSOLE SUPPORT CONNECTION CHECK STATUS ERROR [USER="oag-mgmt"] Exception when checking connection status on the system: &lt;exception content&gt;</span>
+                    </li>
+                </ul>
+                <p>Structured data:<ul><li><span class="code">USER</span> - User requesting support connection operation.</li><li>exception contents - Additional information about the error</li></ul></p>
+                <p><span class="code">Corrective action</span>
+                    <ul>
+                        <li> N/A</li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+        <h2><a name="top"></a>System status</h2>
+        <div>
+            <h3>CONFIG_TEST</h3>
+            <p>Event issued when NGINX has completed its configuration check successfully.</p>
+            <p>Message: </p>
+            <ul>
+                <li>
+                    <p>nginx: The configuration file /tmp/nginx/nginx.conf syntax is ok. nginx: configuration file /tmp/nginx/nginx.conf test is successful.</p>
+                </li>
+            </ul>
+            <p>Example:</p>
+            <ul>
+                <li>
+                    <p><span class="code">2020-06-24T05:40:25.786-05:00 example.myaccessgateway.com OAG_MONITOR MONITOR NGINX INFO CONFIG_TEST [STATUS="VALID" UUID="&lt;ID&gt;"] nginx: the configuration file /tmp/nginx/nginx.conf syntax is ok nginx: configuration file /tmp/nginx/nginx.conf test is successful.</span>
+                    </p>
+                </li>
+            </ul>
+            <p>Structured data:</p>
+            <ul>
+                <li><span class="code">STATUS</span> - Valid or invalid.</li>
+                <li><span class="code">UUID</span> - UUID&#160;of configuration.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>SYSTEM_STARTUP</h3>
+            <p>Event issues when the system start has completed. </p>
+            <p>Message: </p>
+            <ul>
+                <li>
+                    <p>Startup complete, system ready.</p>
+                </li>
+            </ul>
+            <p>Example:</p>
+            <ul>
+                <li><span class="code">2020-06-24T10:05:56.000-05:00 example.myaccessgateway.com ACCESS_GATEWAY WEB_CONSOLE - - INFO SYSTEM_STARTUP [] Startup complete, system ready.
+</span>
+                </li>
+            </ul>
+            <p>Structured data: </p>
+            <ul>
+                <li>None. </li>
+            </ul>
+        </div>
+        <div>
+            <h3>SHUTDOWN</h3>
+            <p>Event issued when system shutdown has begun.</p>
+            <p>Message: </p>
+            <ul>
+                <li>Shutting down system.</li>
+            </ul>
+            <p>Example:</p>
+            <ul>
+                <li><span class="code">O2020-06-24T08:31:25.729-05:00 example.myaccessgateway.com OAG ADMIN_CONSOLE SYSTEM SHUTDOWN INFO SHUTDOWN [USER="oag-mgmt"] Shutting down system.</span>
+                </li>
+            </ul>
+            <p>Structured data:</p>
+            <ul>
+                <li><span class="code">USER</span> - User who performed the action.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>SYSTEM_IDP_STATUS</h3>
+            <p>Event issued when:</p>
+            <ul>
+                <li>
+                    <p><MadCap:variable name="okta-feature-names.Access Gateway" /> successfully connects with a configured identity provider.</p>
+                </li>
+                <li>
+                    <p><MadCap:variable name="okta-feature-names.Access Gateway" /> can't connect with a configured identity provider.</p>
+                </li>
+                <li>
+                    <p>An <MadCap:variable name="okta-feature-names.Access Gateway" /> API token is invalid or expired.</p>
+                </li>
+            </ul>
+            <p>Messages:</p>
+            <ul>
+                <li>
+                    <p> Success confirming IDP&#160;status with: org.okta[preview].com.</p>
+                </li>
+                <li>
+                    <p> Failure confirming connectivity with IDP: &lt;IDP URL&gt;. Please verify your network configuration.</p>
+                </li>
+                <li>
+                    <p> Failure validating security token with IDP: &lt;IDP Domain&gt;. Please ensure that the token exists and is enabled.</p>
+                </li>
+            </ul>
+            <p>Examples:</p>
+            <ul>
+                <li>
+                    <p> Success: <span class="code">2020-06-24T04:00:01.000-05:00 example.myaccessgateway.com ACCESS_GATEWAY WEB_CONSOLE IDP LOCAL INFO SYSTEM_IDP_STATUS [NAME="MyIDP" DOMAIN="someorg.oktapreview.com" TYPE="IDP_OKTA" RESULT="PASS" REASON="VALID"] Success confirming IDP status with: someorg.oktapreview.com.</span></p>
+                </li>
+                <li>
+                    <p>Network connectivity error:&#160;<span class="code">2020-06-24T04:00:01.000-05:00 example.myaccessgateway.com ACCESS_GATEWAY WEB_CONSOLE IDP LOCAL INFO SYSTEM_IDP_STATUS [NAME="&lt;IDP Name&gt; IDP" DOMAIN="&lt;IDP URL&gt;" TYPE="&lt;Identity Provider type&gt;" RESULT="FAIL" REASON="INVALID_NETWORK_CONN"] Failure confirming connectivity with IDP: &lt;IDP URL&gt;&gt;. Please verify your network configuration.</span></p>
+                </li>
+                <li>
+                    <p>Invalid API token:&#160;<span class="code">2020-06-24T04:00:01.000-05:00 example.myaccessgateway.com ACCESS_GATEWAY WEB_CONSOLE IDP LOCAL INFO SYSTEM_IDP_STATUS [NAME="&lt;IDP Name&gt; IDP" DOMAIN="&lt;IDP URL&gt;" TYPE="&lt;Identity Provider type&gt;" RESULT="FAIL" REASON="INVALID_NETWORK_CONN"] Failure validating security token with IDP: &lt;IDP Domain&gt;. Please validate token exists and is enabled.</span></p>
+                </li>
+            </ul>
+            <p>Structured data:</p>
+            <ul>
+                <li><span class="code">NAME</span> - Name of IDP. </li>
+                <li><span class="code">DOMAIN</span> - Associated domain.</li>
+                <li><span class="code">TYPE</span> - Type of IDP. IDP_OKTA&#160;or LOCAL. </li>
+                <li><span class="code">RESULT</span> - PASS or FAIL.</li>
+                <li><span class="code">REASON</span> - Valid or reason for failure.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>SYSTEM_STARTUP</h3>
+            <p>Event issued when <MadCap:variable name="okta-feature-names.Access Gateway" /> starts successfully. </p>
+            <p>Message: </p>
+            <ul>
+                <li>Startup complete, system ready.</li>
+            </ul>
+            <p>Example:</p>
+            <ul>
+                <li>
+                    <p><span class="code">22020-06-24T09:40:52.000-05:00 ec2-18-209-113-130.compute-1.amazonaws.com ACCESS_GATEWAY WEB_CONSOLE - - INFO SYSTEM_STARTUP [] Startup complete, system ready.</span>
+                    </p>
+                </li>
+            </ul>
+            <p>Structured data: </p>
+            <ul>
+                <li>
+                    <p>None</p>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <h2><a name="TrustedDomains"></a>Trusted Domains</h2>
+            <h3>SYSTEM_TD_EVENT</h3>
+            <p>Messages:</p>
+            <ul>
+                <li>source_app_guid: "&lt;guid&gt;", source_app_name="&lt;name of source app&gt;",source_app_domain: "&lt;source domain of application&gt;".</li>
+                <li>exception 'exception data' occurred.</li>
+            </ul>
+            <p>Examples:</p>
+            <ul>
+                <li>
+                    <p>When events are published:</p><span class="code">2020-07-15T04:46:38.000-04:00 localhost ACCESS_GATEWAY WEB_CONSOLE TRUSTED_DOMAINS - INFO SYSTEM_TD_EVENT [ SOURCE="APP"  ACTION="UPDATE" ] source_app_guid: "61602a9d. . . ", source_app_name="Wikipedia SSO App", source_app_domain: "www.wikipedia.com"</span>
+                </li>
+                <li>
+                    <p>When errors occur:</p><span class="code">2020-07-15T04:46:38.000-04:00 localhost ACCESS_GATEWAY WEB_CONSOLE TRUSTED_DOMAINS ALERT SYSTEM_TD_EVENT [ SOURCE="APP" ACTION="UPDATE" ] Exception when disable/enable trusted domains: [Errno 13] Permission denied: '/opt/oag/events/trusteddomains.DISABLE.json'.</span>
+                </li>
+                <li>
+                    <p>When events are synchronized with an Okta tenant:</p><span class="code">2020-07-15T04:46:38.000-04:00 localhost ACCESS_GATEWAY WEB_CONSOLE TRUSTED_DOMAINS -  INFO SYSTEM_TD_EVENT [ SOURCE="OKTA_TRUSTED_ORIGIN" ACTION="SYNC" ]</span>
+                </li>
+            </ul>
+            <ul>
+                <li>Structured data:<ul><li><span class="code">SOURCE</span> - APP or OKTA_TRUSTED_ORIGIN.</li><li><span class="code">ACTION</span> -One of CREATE, UPDATE, DELETE or SYNCH. Indicating that the a trusted domain was added, updated, removed or synchronized.</li></ul><p>Note: Severity can be <span class="code">ALERT</span>, <span class="code">INFO</span>, or <span class="code">WARN</span>.</p></li>
+            </ul>
+        </div>
+        <h2><a name="Kerberos"></a>Kerberos</h2>
+        <div>
+            <h3>SYSTEM_KRB5_EVENT</h3>
+            <p>Event issued when an action is performed on a Kerberos realm such as create, update, delete, activate, or deactivate.</p>
+            <p>Messages:</p>
+            <ul>
+                <li>Kerberos Realm: &lt;Kerberos Realm&gt; action: CREATE</li>
+                <li>Kerberos Realm: &lt;Kerberos Realm&gt; action: UPDATE</li>
+                <li>Kerberos Realm: &lt;Kerberos Realm&gt; action: DELETE</li>
+            </ul>
+            <p>Examples:</p>
+            <ul>
+                <li>
+                    <p><span class="code">2020-06-24T10:06:23.000-05:00 example.myaccessgateway.com ACCESS_GATEWAY WEB_CONSOLE&#160;KRB5 - INFO SYSTEM_KRB5_EVENT [REALM="&lt;Kerberos Realm&gt;" REASON="CREATE" SESSION_ID="&lt;Session ID&gt;" SUBJECT="admin" REMOTE_IP="-" USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"] Kerberos Realm: '&lt;Kerberos Realm&gt;' action: 'CREATE'</span>
+                    </p>
+                </li>
+                <li>
+                    <p><span class="code">2020-06-24T10:06:23.000-05:00 example.myaccessgateway.com ACCESS_GATEWAY WEB_CONSOLE KRB5 - INFO SYSTEM_KRB5_EVENT [REALM="&lt;Kerberos Realm&gt;" REASON="UPDATE" SESSION_ID="&lt;Session ID&gt;" SUBJECT="user@&lt;Domain.tld&gt;" REMOTE_IP="-" USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"] Kerberos Realm: '&lt;Kerberos Realm&gt;' action: 'UPDATE'</span>
+                    </p>
+                </li>
+                <li>
+                    <p><span class="code">O2020-06-24T10:06:23.000-05:00 example.myaccessgateway.com ACCESS_GATEWAY WEB_CONSOLE KRB5 - INFO SYSTEM_KRB5_EVENT [REALM="&lt;Kerberos Realm&gt;" REASON="DELETE" SESSION_ID="&lt;Session ID&gt;" SUBJECT="user@&lt;Domain.tld&gt;" REMOTE_IP="-" USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"] Kerberos Realm: '&lt;Kerberos Realm&gt;' action: 'DELETE'</span>
+                    </p>
+                </li>
+            </ul>
+            <p>Structured data</p>
+            <ul>
+                <li><span class="code">REALM</span> - Associated Kerberos realm. </li>
+                <li><span class="code">REASON</span> - CREATE, UPDATE, or DELETE.</li>
+                <li><span class="code">SESSION_ID</span> - Associated local session id. </li>
+                <li><span class="code">SUBJECT</span> - User performing the action, usually the admin. </li>
+                <li><span class="code">REMOTE_IP</span>- Remote IP is available.</li>
+                <li><span class="code">USER_AGENT</span> - Remote operating system, browser, and so on.</li>
+            </ul>
+        </div>
+        <h2><a name="Authenti"></a>Authentication and Authorization</h2>
+        <div>
+            <h3>USER_LOGIN</h3>
+            <p>Event issued when a user attempts to<MadCap:annotation MadCap:createDate="2020-09-16T11:20:04.8521721-04:00" MadCap:creator="naini.khajanchi" MadCap:initials="NA" MadCap:comment="can we s/b sign in? fix throughout the doc." MadCap:editor="naini.khajanchi" MadCap:editDate="2020-09-16T11:20:29.2323019-04:00"> log in</MadCap:annotation>. See event for success or failure.</p>
+            <p>Messages:</p>
+            <ul>
+                <li>User login success: [user]</li>
+                <li>User login failed: [user]</li>
+                <li>Received an assertion that has expired. Check clock synchronization on IDP and SP.</li>
+            </ul>
+            <p>Examples:</p>
+            <ul>
+                <li>
+                    <p><span class="code">2020-06-24T10:06:23.000-05:00 example.myaccessgateway.com ACCESS_GATEWAY WEB_CONSOLE AUTHN LOCAL INFO USER_LOGIN [SESSION_ID="&lt;Session ID&gt;" SUBJECT="&lt;User login name&gt;" TYPE="LOCAL" RESULT="PASS" REASON="VALID_CREDENTIALS" REMOTE_IP="-" USER_AGENT="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"] User login success: user@&lt;domain.tld&gt;</span>
+                    </p>
+                </li>
+                <li>
+                    <p><span class="code">2020-06-24T10:06:23.000-05:00 example.myaccessgateway.com ACCESS_GATEWAY WEB_CONSOLE AUTHN LOCAL INFO USER_LOGIN [SESSION_ID="&lt;Session&#160;ID&gt; " SUBJECT="&lt;User login name&gt;" TYPE="LOCAL" RESULT="FAIL" REASON="INVALID_CREDENTIALS" REMOTE_IP="-" USER_AGENT=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"] User login failed: user@&lt;domain.tld&gt;</span>
+                    </p>
+                </li>
+                <li>
+                    <p><span class="code">2020-06-24T10:06:23.000-05:00 example.myaccessgateway.com ACCESS_GATEWAY ACCESS AUTHN SAML INFO USER_AUTHN [SESSION_ID="&lt;Session ID&gt; " SESSION_AUTH="&lt;Session AUTH&#160;Information&gt; " SUBJECT="&lt;User login name&gt;" TYPE="SAML_2_0" SOURCE="IDP Source URL" SOURCE_TYPE="&lt;Identity Provider type&gt;" SOURCE_DOMAIN="&lt;IDP URL&gt;" SOURCE_AUTHN_TYPE="urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport" APP="Sample Header App" APP_DOMAIN="&lt;App Domain URL&gt;" RESULT="PASS" REASON="Valid SAML Assertion" REMOTE_IP="192.168.10.20" USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"] User login:user@&lt;domain.tld&gt;
+</span>
+                    </p>
+                </li>
+                <li>
+                    <p><span class="code">2020-06-24T10:06:23.000-05:00 example.myaccessgateway.com ACCESS_GATEWAY ACCESS AUTHN SAML ERROR USER_AUTHN [TYPE="SAML_2_0" TRACKER_ID="&lt;Tracking ID&gt;" SOURCE="https://&lt;IDP URL&gt;/app/template_saml_2_0/exkckwwaxvY3crKhn0h7/sso/saml" RESULT="FAIL" REASON="Invalid SAML Assertion" REMOTE_IP="192.168.10.192" USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.62 Safari/537.36"] Received an assertion that has expired. Check clock synchronization on IdP and SP.</span>
+                    </p>
+                </li>
+            </ul>
+            <p>Structured data</p>
+            <ul>
+                <li><span class="code">SESSION_ID</span> - LOCAL. </li>
+                <li><span class="code">SUBJECT</span> - Subject identifier, for example email address.</li>
+                <li><span class="code">TYPE</span> - SAML or the involved authentication module.</li>
+                <li><span class="code">RESULT</span> - PASS&#160;or FAIL</li>
+                <li><span class="code">REASON</span>- Valid credentials or reason for failure</li>
+                <li><span class="code">REMOTE_IP</span>- Remote IP is available</li>
+                <li><span class="code">USER_AGENT</span> - Remote operating system, browser, etc.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>USER_SESSION</h3>
+            <p>Event issued when a request for a session is issued.</p>
+            <p>Message:</p>
+            <ul>
+                <li>
+                    <p>No session cookie. Sending to handler.</p>
+                </li>
+                <li>
+                    <p>Upgraded auth cookie. App session created.</p>
+                </li>
+                <li>
+                    <p>This should be investigated by your security group.</p>
+                </li>
+            </ul>
+            <p>Example:</p>
+            <ul>
+                <li><span class="code">2020-06-04T13:53:53.483-05:00 example.myaccessgateway.com ACCESS_GATEWAY ACCESS AUTHZ SESSION INFO USER_SESSION [SESSION_ID="&lt;Session ID&gt;" APP="Local OAG Admin Console" APP_TYPE="ADMINUI_APP" APP_DOMAIN="&lt;Application Domain&gt;" RESULT="DENY" REASON="NOT_EXIST" REMOTE_IP="10.63.182.118" USER_AGENT="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36"] No session cookie. Sending to handler.</span>
+                </li>
+                <li><span class="code">2020-06-04T13:53:53.483-05:00 example.myaccessgateway.com ACCESS_GATEWAY ACCESS AUTHZ SESSION INFO USER_SESSION [SESSION_ID="&lt;Session&#160;ID&gt;" SESSION_AUTH="&lt;Session&#160;Auth ID&gt;" SESSION_APP="e701ddf534554eab8ea671e884438b99" SUBJECT="&lt;User login name&gt;" APP="Sample Header App" APP_TYPE="SAMPLEHEADER_APP" APP_DOMAIN="&lt;App Domain URL&gt;" RESULT="ALLOW" REASON="VALID_AUTHCOOKIE" REMOTE_IP="" USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"] Upgraded auth cookie. App session created.</span>
+                </li>
+                <li><span class="code">2020-06-04T13:53:53.483-05:00 example.myaccessgateway.com ACCESS_GATEWAY ACCESS AUTHZ SESSION WARN USER_SESSION [SESSION_ID="&lt;Session&#160;ID&gt;" SESSION_AUTH="&lt;Session&#160;Auth ID&gt;" APP="Sample Header App" APP_TYPE="SAMPLEHEADER_APP" APP_DOMAIN="&lt;App Domain URL&gt;" RESULT="DENY" REASON="INVALID_AUTHCOOKIE" REMOTE_IP="" USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"] This should be investigated by your security group.</span>
+                </li>
+            </ul>
+            <p>Structured data</p>
+            <ul>
+                <li><span class="code">SESSION_ID</span> - Assigned session id, if it exists. </li>
+                <li><span class="code">APP</span> - Application name.</li>
+                <li><span class="code">APP_TYPE</span> - Application session was used against.</li>
+                <li><span class="code">APP_DOMAIN</span> - associated application domain.</li>
+                <li><span class="code">RESULT</span>- <span class="code">ALLOW</span>&#160;or <span class="code">DENY</span>.</li>
+                <li><span class="code">REASON</span> - Reason why request was allowed or denied. </li>
+                <li><span class="code">REMOTE_IP</span> - Remote IP from which user attempted to log in.</li>
+                <li><span class="code">USER_AGENT</span>- Remote operating system, browser, etc.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>USER_LOGOUT</h3>
+            <p>Event issues when a used <MadCap:annotation MadCap:createDate="2020-09-16T11:22:49.1542927-04:00" MadCap:creator="naini.khajanchi" MadCap:initials="NA" MadCap:comment="s/d sign out?" MadCap:editor="naini.khajanchi" MadCap:editDate="2020-09-16T11:22:58.1912633-04:00">logs out</MadCap:annotation>. </p>
+            <p>Message:</p>
+            <ul>
+                <li>
+                    <p>User logout success: user@&lt;Application Domain&gt;. </p>
+                </li>
+            </ul>
+            <p>Example:</p>
+            <ul>
+                <li>
+                    <p><span class="code">2020-06-04T13:53:59.986-05:00 example.myaccessgateway.com ACCESS_GATEWAY ACCESS AUTHN SESSION INFO USER_LOGOUT [SESSION_ID="&lt;Session ID&gt; " SUBJECT="user@&lt;Application Domain.tld&gt;" APP="Local OAG Admin Console" APP_TYPE="ADMINUI_APP" APP_DOMAIN="&lt;Application Domain&gt;"" RESULT="PASS" REASON="VALID_SESSION" REMOTE_IP="10.63.182.118" USER_AGENT="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36"] User logout success: user@&lt;Application Domain.tld&gt;.</span>
+                    </p>
+                </li>
+            </ul>
+            <p>Structured data:</p>
+            <ul>
+                <li><span class="code">SESSION_ID</span> - Assigned session id.</li>
+                <li><span class="code">APP</span> - Application name</li>
+                <li><span class="code">APP_TYPE</span> - Application session was used against. For example, ADMINUI_APP.</li>
+                <li><span class="code">APP_DOMAIN</span> - associated application domain.</li>
+                <li><span class="code">RESULT</span>- ALLOW&#160;or DENY.</li>
+                <li><span class="code">REASON</span> - Reason why request was allowed or denied. </li>
+                <li><span class="code">REMOTE_IP</span> - Remote IP from which user attempted to log in.</li>
+                <li><span class="code">USER_AGENT</span>- Remote operating system, browser, etc.</li>
+            </ul>
+        </div>
+        <div>
+            <h3>POLICY</h3>
+            <p>Event issued when a used attempts to access a resource. </p>
+            <p>Message: </p>
+            <ul>
+                <li>
+                    <p>Allow access to resource.</p>
+                </li>
+                <li>
+                    <p>Deny access to resource. </p>
+                </li>
+            </ul>
+            <p>Example:</p>
+            <ul>
+                <li>
+                    <p><span class="code">2020-06-24T09:40:55.667-05:00 example.myaccessgateway.com ACCESS_GATEWAY ACCESS AUTHZ POLICY INFO USER_AUTHZ [SESSION_ID="_8832d5961146a7d69baafe864b05eac3d5e3bb72bb" SUBJECT="admin@&lt;Domain.tld&gt;" RESOURCE="/" METHOD="GET" POLICY="root" POLICY_TYPE="PROTECTED" DURATION="0" APP="Local OAG Admin Console" APP_TYPE="ADMINUI_APP" APP_DOMAIN="gw-admin.saganich.com" RESULT="ALLOW" REASON="N/A - SESSIONID=_8832d5961146a7d69baafe864b05eac3d5e3bb72bb X-Authorization=admin@oag.okta.com username=admin X-SPGW-KEY=5b626d19e16f4d18ac42ef5d9cc8654a RelayDomain=gw-admin.domain.tld oag_username=admin@domain.tld UserName=admin@&lt;Domain.tld &gt;SourceAuthNType=urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport RemoteIP=10.0.0.110 USER_AGENT=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36 "] allow access to resource</span>.</p>
+                </li>
+                <li>
+                    <p><span class="code">2020-06-24T09:40:55.667-05:00 example.myaccessgateway.com ACCESS_GATEWAY ACCESS AUTHZ POLICY INFO USER_AUTHZ [SESSION_ID="_4a3fdbbc52dadda2109e0e789098f9b473d4f68c7e" SUBJECT="user@&lt;Domain.tld&gt;" RESOURCE="/alt" METHOD="GET" POLICY="altroot" POLICY_TYPE="PROTECTED_REGEX" DURATION="0" APP="Sample Header App" APP_TYPE="SAMPLEHEADER_APP" APP_DOMAIN="&lt;App Domain URL&gt;" RESULT="DENY" REASON="Groups=(?!.*Everyone:) - SESSIONID=_4a3fdbbc52dadda2109e0e789098f9b473d4f68c7e RelayDomain=&lt;App Domain URL&gt; static_a=aaaaa static-b=bbbbb staticc=ccccc _staticd=ddddd -statice=eeeee staticcookie=1234 secret=secretvalue spgw_username=&lt;User login name&gt; UserName=&lt;User login name&gt;  login=&lt;User login name&gt; firstname=&lt;User first name&gt; lastname=&lt;User last name&gt; email=&lt;User login name&gt; samplecookie&lt;User first name&gt; Groups=Everyone:Group A:Group C:Group E:Group B: SourceAuthNType=urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport RemoteIP=192.168.10.20 USER_AGENT=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36 creationTime=1507265129865 maxInactiveInterval=3600000 maxActiveInterval=28800000 lastAccessedTime=1507265129865 " REMOTE_IP="" USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"] deny access to resource
+</span>
+                    </p>
+                </li>
+            </ul>
+            <p>Structured data:</p>
+            <ul>
+                <li><span class="code">SESSION_ID</span> - Assigned session id.</li>
+                <li><span class="code">SUBJECT</span> - Requestor</li>
+                <li><span class="code">RESOURCE</span>- Requested resource</li>
+                <li><span class="code">METHOD</span>-Request method. </li>
+                <li><span class="code">POLICY</span>-Applied policy</li>
+                <li><span class="code">POLICY_TYPE</span>-One of the policy types. </li>
+                <li><span class="code">DURATION</span>-Duration of request</li>
+                <li><span class="code">APP</span> - Application name</li>
+                <li><span class="code">APP_TYPE</span> - Application session was used against. For example, ADMINUI_APP.</li>
+                <li><span class="code">APP_DOMAIN</span> - associated application domain.</li>
+                <li><span class="code">RESULT</span>- ALLOW&#160;or DENY.</li>
+                <li><span class="code">REASON</span> - Reason why request was allowed or denied. Including a variety of other policy related information. </li>
+            </ul>
+        </div>
+        <div>
+            <h2><a name="Connecti"></a>Connectivity and validation</h2>
+            <div>
+                <h3>CHECK_CONNECTION</h3>
+                <p>Event issued when an application is being added. &lt;Application Domain&gt; is tested to determine if it's valid or invalid. </p>
+                <p>See also <MadCap:xref href="#CHECK_HO">CHECK_HOST</MadCap:xref>.</p>
+                <p>Message:</p>
+                <ul>
+                    <li>
+                        <p>Host &lt;Application Domain&gt; not found. </p>
+                    </li>
+                </ul>
+                <p>Example:</p>
+                <ul>
+                    <li>
+                        <p><span class="code">2020-06-24T09:41:16.766-05:00 example.myaccessgateway.com CHECK_HOST  HOST_IP_CHECK INFO HOST [USER="admin" &lt;Application Domain&gt;] Host &lt;Application Domain&gt; not found</span>
+                        </p>
+                    </li>
+                </ul>
+                <p>Structured data:</p>
+                <ul>
+                    <li><span class="code">USER</span> - Internal user running the check.</li>
+                    <li>Application domain used in application, </li>
+                </ul>
+            </div>
+            <div>
+                <h3><a name="CHECK_HO"></a>CHECK_HOST</h3>
+                <p>Event issued immediate after a <MadCap:annotation MadCap:createDate="2020-09-16T11:23:42.1016214-04:00" MadCap:creator="naini.khajanchi" MadCap:initials="NA" MadCap:comment="s/b connection check" MadCap:editor="naini.khajanchi" MadCap:editDate="2020-09-16T11:23:47.9307071-04:00">check connection</MadCap:annotation> is performed. &#160;Results of the check are noted in message.</p>
+                <p>Message:</p>
+                <ul>
+                    <li>
+                        <p>Ncat: Connection refused.</p>
+                    </li>
+                </ul>
+                <p>Example:</p>
+                <ul>
+                    <li><span class="code">2020-06-24T09:45:28.024-05:00 example.myaccessgateway.com CHECK_HOST  checkConnection.sh INFO 10.0.0.1 7001  [USER="admin"] Ncat: Connection refused.</span>
+                    </li>
+                    <li>Structured data<ul><li><span class="code">USER</span> - Internal user running the command.</li></ul></li>
+                </ul>
+            </div>
+            <div>
+                <h3><a name="CHECK_DS"></a>ACCESS AUTHN<MadCap:annotation MadCap:createDate="2020-09-16T11:24:48.4244851-04:00" MadCap:creator="naini.khajanchi" MadCap:initials="NA" MadCap:comment="is this supposed to have two hyphens?" MadCap:editor="naini.khajanchi" MadCap:editDate="2020-09-16T11:25:05.5482554-04:00"> - - </MadCap:annotation>STORE</h3>
+                <p>Event issued immediately after a check connection is performed. &#160;Results of the check are noted in message.</p>
+                <p>Message:</p>
+                <ul>
+                    <li>Store failed during initialization.</li>
+                </ul>
+                <p>Example:</p>
+                <ul>
+                    <li>
+                        <p><span class="code">22020-06-25T14:18:52.458-05: example.store.com ACCESS_GATEWAY ACCESS AUTHN FAILED WARN STORE [STORE_NAME="Name of datastore    - Entry DN" FAILURE_COUNT="3"] Store failed during initialization.</span>
+                        </p>
+                    </li>
+                </ul>
+                <p>Structured data:</p>
+                <ul>
+                    <li><span class="code">STORE_NAME</span> - Name of the data store, which failed to initialize.</li>
+                    <li><span class="code">FAILURE_COUNT</span> - Number of attempts to access the store.</li>
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd">
+    <head>
+    </head>
+    <body>
+        <h1>Build a custom API action card</h1>
+        <p>A <span class="wintitle">Custom API Action</span> (CAPIA) is an action card for connectors that allows the end user to make an authenticated HTTP request to an external service.</p>
+        <p>The base URL is hard-coded into the connector, so users only need to add the relative URL for the endpoint. They then manually create the required objects for <span class="userinput">header</span>, <span class="userinput">query</span>, and request <span class="userinput">body</span>, if necessary.</p>
+        <p>The CAPIA then returns data from the service as three outputs: <span class="state">Status Code</span>, <span class="state">Headers</span>, and <span class="state">Body</span>.</p>
+        <p>
+            <img src="../../../Resources/Images/Workflows/connector-builder/cb-capia-card.png" style="width: auto;height: auto;" class="thumbnail" />
+        </p>
+        <ol MadCap:continue="true">
+            <li>
+                <p>Create a flow under the <span class="wintitle">Flows</span> tab by clicking <span class="uicontrol">+ New Flow</span> in the upper right corner of the page.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Action</span>.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Save</span> in the toolbar and name the flow <span class="userinput">Custom API Action</span>.</p>
+            </li>
+            <li>
+                <p>In the flow description field, type <span class="userinput">Make an authenticated HTTP request to the {your service} API</span>. Select the <span class="uicontrol">Save all data that passes through the Flow</span> option, and then click <span class="uicontrol">Save</span>.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Add Options</span> on the <span class="wintitle">Connector Action</span> card.</p>
+            </li>
+            <li>
+                <p>Click  <span class="uicontrol">Add Field</span> and add a field with the label <span class="userinput">Request Type</span> and a type of <span class="uicontrol">Dropdown: Static Values</span>.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Add Option</span> to add a row for each request type the user can choose for your API:  <span class="userinput">GET</span>, <span class="userinput">PATCH</span>, <span class="userinput">POST</span>, <span class="userinput">PUT</span>, and <span class="userinput">DELETE</span>. Fill in the <span class="uicontrol">Option</span> and <span class="uicontrol">Value</span> fields with the same text.  You don't need to select a default.</p>
+            </li>
+            <li>
+                <p>Make sure that the field is marked as <span class="uicontrol">Required</span> and click <span class="uicontrol">Save</span>.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Add Inputs</span> on the <span class="wintitle">Connector Action</span> card.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Add Field</span> and add the following fields and data types and click <span class="uicontrol">Save</span>.</p>
+                <ul>
+                    <li>
+                        <p><span class="userinput">Relative URL</span>:&#160;<span class="uicontrol">Text</span> and <span class="uicontrol">Required</span></p>
+                    </li>
+                    <li>
+                        <p><span class="userinput">Query</span>:&#160;<span class="uicontrol">Object</span></p>
+                    </li>
+                    <li>
+                        <p><span class="userinput">Headers</span>: <span class="uicontrol">Object</span></p>
+                    </li>
+                    <li>
+                        <p><span class="userinput">Body</span>: <span class="uicontrol">Object</span></p>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <p>Add input validation for the <span class="uicontrol">Relative URL</span> input. This prevents against vulnerabilities such as Cross-Site Request Forgery (CSRF) attacks.</p>
+                <ol MadCap:continue="true">
+                    <li>
+                        <p>Add a <span class="wintitle">Text At</span> card as the first card in the flow.</p>
+                    </li>
+                    <li>
+                        <p>Drag the <span class="uicontrol">Relative URL</span> output from the <span class="wintitle">Connector Action</span> card into the text input on the <span class="wintitle">Text At</span> card.</p>
+                    </li>
+                    <li>
+                        <p>Set the position input to <span class="code">0</span> on the <span class="wintitle">Text At</span> card.</p>
+                    </li>
+                    <li>
+                        <p>Add an error handling <span class="wintitle">Return Error If</span> card as the second card in the flow.</p>
+                    </li>
+                    <li>
+                        <p>Drag the character output from the <span class="wintitle">Text At</span> card into the <span class="uicontrol">value a</span> input on the <span class="wintitle">Return Error If</span> card.</p>
+                    </li>
+                    <li>
+                        <p>Set the comparison option to <span class="uicontrol">not equal</span> on the <span class="wintitle">Return Error If</span> card.</p>
+                    </li>
+                    <li>
+                        <p>Set the <span class="uicontrol">value b</span> input to <span class="code">/</span> on the <span class="wintitle">Return Error If</span> card.</p>
+                    </li>
+                    <li>
+                        <p>For the message input, enter <span class="userinput">Relative URL must include a leading '/'.</span> on the <span class="wintitle">Return Error If</span> card.</p>
+                    </li>
+                    <li>
+                        <p>Set the <span class="uicontrol">statusCode</span> input to <span class="code">400</span> on the <span class="wintitle">Return Error If</span> card.</p>
+                    </li>
+                </ol>
+            </li>
+            <li>
+                <p>From the <span class="wintitle">Flow Control</span> functions, add a <span class="wintitle">Call Flow</span> card as the third card in the flow.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Choose Flow</span>.</p>
+            </li>
+            <li>
+                <p>Select the <span class="wintitle">httpHelper</span> flow you previously created. The card automatically populates using the inputs defined in the <span class="wintitle">httpHelper</span> flow.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">Relative URL</span> output from the <span class="wintitle">Connector Action</span> card into the <span class="uicontrol">relative_url</span> input on the <span class="wintitle">Call Flow</span> card.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">Request Type</span> output from the <span class="wintitle">Connector Action</span> card into the <span class="uicontrol">request_method</span> input on the <span class="wintitle">Call Flow</span> card.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">Query</span> output from the <span class="wintitle">Connector Action</span> card  into the <span class="uicontrol">query</span> input on the <span class="wintitle">Call Flow</span> card.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">Headers</span> output from the <span class="wintitle">Connector Action</span> card into the <span class="uicontrol">headers</span> input on the <span class="wintitle">Call Flow</span> card.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">Body</span> output from the <span class="wintitle">Connector Action</span> card into the <span class="uicontrol">body</span> input on the <span class="wintitle">Call Flow</span> card.</p>
+            </li>
+            <li>
+                <p>For the outputs on the <span class="wintitle">Call Flow</span> card, you also need to define the same keys as on the <span class="wintitle">httpHelper</span> flow’s outputs: </p>
+                <ul>
+                    <li>
+                        <p><span class="userinput">status_code</span>: <span class="uicontrol">Number</span></p>
+                    </li>
+                    <li>
+                        <p><span class="userinput">headers</span>: <span class="uicontrol">Object</span></p>
+                    </li>
+                    <li>
+                        <p><span class="userinput">body</span>: <span class="uicontrol">Object</span></p>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Add Outputs</span> on the <span class="wintitle">Return Outputs</span> card.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Add Field</span> to add the following three new fields with data types and click <span class="uicontrol">Save</span>.</p>
+                <ul>
+                    <li>
+                        <p><span class="userinput">Status Code</span>: <span class="uicontrol">Number</span></p>
+                    </li>
+                    <li>
+                        <p><span class="userinput">Headers</span>: <span class="uicontrol">Object</span></p>
+                    </li>
+                    <li>
+                        <p><span class="userinput">Body</span>: <span class="uicontrol">Object</span></p>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <p>Drag the outputs from the <span class="wintitle">Call Flow</span> card to the corresponding inputs on the <span class="wintitle">Return Outputs</span> card.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">auth</span> object from the connector <span class="wintitle">Authping</span> card to the <span class="uicontrol">Connection</span> input field of the <span class="wintitle">Call Flow</span> card.</p>
+            </li>
+            <li>
+                <p>Save and test your flow by manually adding a request method, relative URL, and any other data to the test dialog.</p>
+            </li>
+        </ol>
+        <h2>Next steps</h2>
+        <p>
+            <MadCap:xref href="revoke-method.htm">Build a revoke method</MadCap:xref>
+        </p>
+    </body>
+</html>

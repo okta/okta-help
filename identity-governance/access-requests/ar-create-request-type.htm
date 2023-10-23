@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-topic-status.In Progress,Tags/okta-authors.Naini Khajanchi" MadCap:onlyLocalStylesheets="False" MadCap:searchable="True">
+    <head><title>[%=Heading.Level1%]</title>
+        <link href="" rel="stylesheet" type="text/css" />
+        <meta name="description" content="Learn how to create a request workflow with Okta Access Requests." />
+    </head>
+    <body>
+        <div>
+            <h1>Create a Request Type</h1>
+            <p>This page explains the general process of creating a <MadCap:annotation MadCap:createDate="2023-06-19T11:28:02.5855524-04:00" MadCap:creator="Barbara Vo" MadCap:initials="BA" MadCap:comment="I'd recommend sentence case for general references to request types" MadCap:editor="Barbara Vo" MadCap:editDate="2023-06-19T11:28:17.1290567-04:00">Request Type</MadCap:annotation> for <MadCap:variable name="okta-variables.ProductName" /> <MadCap:variable name="okta-feature-names.Access Requests" />. For a more specific example, see <MadCap:xref href="ar-create-jira-request-type.htm">Create a sample [%=okta-feature-names.Access Requests%] Request Type</MadCap:xref>.</p>
+            <h2><a name="BeforeYouBegin"></a>Before you begin</h2>
+            <ul>
+                <li>
+                    <MadCap:xref href="../../identity-governance/access-requests/ar-team-create.htm">Create an [%=okta-feature-names.Access Requests%] team </MadCap:xref>or ensure that you’re a part of the team you want to create a Request Type for.</li>
+                <li>
+                    <MadCap:xref href="../../identity-governance/access-requests/ar-configure.htm#Push_Groups">Push [%=okta-variables.ProductName%] groups to [%=okta-feature-names.Access Requests%]</MadCap:xref>
+                </li>
+                <li>To use a requester's manager as approver, ensure that the <span class="code">managerId</span> user attribute in <MadCap:variable name="okta-variables.ProductName" /> is set as the <MadCap:variable name="okta-variables.ProductName" /> username or email address of the user's manager. Otherwise, the request's assignee has to manually specify an approver for the request.</li>
+                <li>To use group owner as an approver in requests, take the following considerations into account:<ul style="list-style-type: circle;"><li>If the owner of a group in Okta is another Okta group, this group must be pushed to Access Requests in order for it to be used as an approver.</li><li>If you want to assign group owners as approvers for a Request Type, ensure that you have group owners configured in Okta. See <MadCap:xref href="../group-owner.htm">Group ownership</MadCap:xref>.</li><li>If there are multiple group owners, only one group owner needs to review and take action on the request. So if a group member approves or revokes access for a request, the request is marked as completed for all owners.</li><li>If the number of group owners within a group is greater than 10, then requests are randomly assigned to  10 group owners.</li></ul></li>
+                <li>
+                    <p>
+                        <MadCap:annotation MadCap:createDate="2023-06-09T12:31:04.8883820-04:00" MadCap:creator="naini.khajanchi" MadCap:initials="NA" MadCap:comment="delegated flow in AR. \r\nNeed to delete SSEA disclaimer for GA" MadCap:editor="naini.khajanchi" MadCap:editDate="2023-07-06T13:45:36.6652096-04:00">To </MadCap:annotation>use the <span class="uicontrol">Run a workflow</span> action, ensure that you have the following setup:</p>
+                    <ol>
+                        <li>
+                            <p>Enable the <MadCap:variable name="okta-feature-names.Okta Workflows" /> actions in <MadCap:variable name="okta-feature-names.Access Requests" /> and <MadCap:xref href="../../Security/custom-admin-role/work-with-admin.htm#Assign_admin_roles_to_apps">Assign admin roles to apps</MadCap:xref> features for your org. </p>
+                            <p class="featureBanner"><MadCap:variable name="okta-feature-names.Okta Workflows" /> actions in <MadCap:variable name="okta-feature-names.Access Requests" /> is an Early Access release for orgs with Identity Governance enabled. See <MadCap:xref href="../../Security/manage-EA-and-beta-features.htm">Manage Early Access and Beta features</MadCap:xref>.</p>
+                        </li>
+                        <li>
+                            <p>Set up delegated workflows. See <a href="https://help.okta.com/wf/en-us/Content/Topics/Workflows/learn/about-delegated-flows.htm" target="_blank">Delegated flows</a> and <a href="https://help.okta.com/wf/en-us/Content/Topics/Workflows/build/build-delegated-flow.htm" target="_blank">Build a delegated flow</a>.</p>
+                        </li>
+                        <li>
+                            <p>Create a custom admin role with the following configuration:</p>
+                            <ol style="list-style-type: lower-alpha;">
+                                <li>
+                                    <p>The role has the <span class="uicontrol">Run delegated flow</span> permission.</p>
+                                </li>
+                                <li>
+                                    <p>The resource set contains one or more delegated flows, which need to be executed.</p>
+                                </li>
+                                <li>
+                                    <p>Assigned this role and the resource set to the Okta Access Requests OAuth application.</p>
+                                    <p>See <MadCap:xref href="../../Security/custom-admin-role/create-admin-role-assignment-by-role.htm">Create an admin assignment using a role</MadCap:xref>.</p>
+                                </li>
+                            </ol>
+                        </li>
+                        <li>
+                            <p>Sync the Workflows resource manually to immediately use the delegated flow you created. See <MadCap:xref href="ar-configure.htm#Sync_Okta">Sync resources from [%=okta-variables.ProductName%]</MadCap:xref>.</p>
+                        </li>
+                        <li>
+                            <p>Give teams access to the Workflows resource.</p>
+                            <ol style="list-style-type: lower-alpha;">
+                                <li>
+                                    <p>Go to <span class="menucascade"><span class="uicontrol">Access Requests console</span> <span class="uicontrol">Settings</span> <span class="uicontrol">Resources</span> <span class="uicontrol">Workflows</span></span>.</p>
+                                </li>
+                                <li>
+                                    <p>Click <span class="uicontrol">Manage Access</span>.</p>
+                                </li>
+                                <li>
+                                    <p>Enable the toggle for the team on the <span class="wintitle">Full access to all Workflows</span> dialog.</p>
+                                </li>
+                            </ol>
+                        </li>
+                    </ol>
+                </li>
+            </ul>
+            <h2>Start this task</h2>
+            <ol>
+                <li>
+                    <p>Open the <MadCap:variable name="okta-feature-names.Access Requests" /> Admin Console.</p>
+                </li>
+                <li>
+                    <p>On the left panel, click <span class="uicontrol">Access Requests</span>.</p>
+                </li>
+                <li>
+                    <p>Click <span class="uicontrol">Create Request Type</span>.</p>
+                </li>
+                <li>
+                    <p>From the editor window, configure the general settings. See <MadCap:xref href="request-type-settings.htm#General">General settings</MadCap:xref>.</p>
+                </li>
+                <li>
+                    <p>Click <span class="uicontrol">Question</span> to add questions to collect information from users. A requester can't modify answers to the questions after they submit the request.</p>
+                </li>
+                <li>
+                    <p>Configure the question settings. See <MadCap:xref href="request-type-settings.htm#Question">Question settings</MadCap:xref>.</p>
+                </li>
+                <li>
+                    <p>Optional. Click <span class="uicontrol">Question</span> to add more questions. Drag the questions to change the order in which they appear to the requester.</p>
+                </li>
+                <li>
+                    <p>Click <span class="uicontrol">Task</span> on the central panel to add tasks to prompt actions from a user.</p>
+                </li>
+                <li>
+                    <p>
+                        <MadCap:annotation MadCap:createDate="2023-06-20T15:48:04.5239370-04:00" MadCap:creator="naini.khajanchi" MadCap:initials="NA" MadCap:comment="WF for AR" MadCap:editor="naini.khajanchi" MadCap:editDate="2023-06-20T15:48:10.6746424-04:00">Configure </MadCap:annotation>the task settings. See <MadCap:xref href="request-type-settings.htm#Task">Task settings</MadCap:xref>. You can also add a task that automatically runs an Okta Workflow.</p>
+                </li>
+                <li>
+                    <p>Optional. Click <span class="uicontrol">Task</span> to add more tasks.</p>
+                </li>
+                <li>
+                    <p>Optional. Click <span class="uicontrol">Timer</span> on the central panel to add a timer to control the flow and timing of follow-up actions. </p>
+                    <p>Timers can last for up to 90 days. If a duration or date is specified outside the limit, the timer still ends after 90 days. After the timer expires, the request begins any followup actions. The timer ignores any changes to the request that would change the end date of the timer.</p>
+                </li>
+                <li>
+                    <p>Configure the timer settings. See <MadCap:xref href="request-type-settings.htm#Timer">Timer settings</MadCap:xref>.</p>
+                </li>
+                <li>
+                    <p>
+                        <MadCap:annotation MadCap:createDate="2023-06-15T16:49:38.9159186-04:00" MadCap:creator="naini.khajanchi" MadCap:initials="NA" MadCap:comment="restructured and improved steps for accuracy" MadCap:editor="naini.khajanchi" MadCap:editDate="2023-06-15T16:50:12.8200547-04:00">Optional</MadCap:annotation>. Configure conditional logic for tasks or questions.</p>
+                    <ol style="list-style-type: lower-alpha;">
+                        <li>
+                            <p>Select a task or question on the central panel.</p>
+                        </li>
+                        <li>
+                            <p>On the right panel, open the <span class="wintitle">Logic</span> tab.</p>
+                        </li>
+                        <li>
+                            <p>From the drop-down menu, select <span class="uicontrol">Only show this field if</span> or <span class="uicontrol">Only show this task if</span></p>
+                        </li>
+                        <li>
+                            <p>From the <span class="uicontrol">Field or task</span> drop-down menu, select a task or question that should be a prerequisite.</p>
+                        </li>
+                        <li>
+                            <p>Specify a logical operator and content to match against. The available operators vary depending on the input type you’ve selected for your question or task, and the task type. See <MadCap:xref href="request-type-settings.htm#Operators">Operators</MadCap:xref>.</p>
+                        </li>
+                        <li>
+                            <p>Optional. Add more conditions.</p>
+                        </li>
+                        <li>
+                            <p>After you add a second condition, select <span class="uicontrol">All</span> or <span class="uicontrol">Any</span> from the dropdown menu to determine whether requesters need to meet all or any of the conditions for the field or task to be available to them.</p>
+                        </li>
+                    </ol>
+                </li>
+                <li>Click <span class="uicontrol">Publish</span> to make the Request Type available to the specified audience.</li>
+            </ol>
+            <p>To understand the experience for requesters and approvers, see <MadCap:xref href="ar-request-create.htm">Create  requests</MadCap:xref> and <MadCap:xref href="manage-tasks.htm">Manage tasks</MadCap:xref>.</p>
+            <h2>Related topics</h2>
+            <p>
+                <MadCap:xref href="request-type-settings.htm">Request Type settings</MadCap:xref>
+            </p>
+            <p>
+                <MadCap:xref href="../../identity-governance/access-requests/ar-request-create.htm">Create and manage requests</MadCap:xref>
+            </p>
+        </div>
+    </body>
+</html>

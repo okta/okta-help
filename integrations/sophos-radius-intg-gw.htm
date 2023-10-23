@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:fileTags="Tags/okta-authors.Patrick Calnan"
+      MadCap:conditions="MultiProdPublish.Classic+OIE">
+   <head>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <meta name="description"
+            content="Configure the Citrix Netscaler Gateway integration to enable MFA against your Okta RADIUS server agent to provide seamless end-user authentication."/>
+   </head>
+   <body>
+      <h1>Configure the Sophos USM gateway</h1>
+      <p>During this task we will configure Sophos USM to use the Sophos UTM RADIUS OIN app.</p>
+      <h3>Steps</h3>
+      <p>There are four parts to this configuration:</p>
+      <ol>
+         <li>
+            <MadCap:xref href="#Enable">Enable automatic user creation</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Configur">Configure a New Authentication Server</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Create">Create a RADIUS Backend Group</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Allow">Allow group access to resources</MadCap:xref>
+         </li>
+      </ol>
+      <h2>Before you begin</h2>
+      <ul>
+         <li>Ensure that you have the common UDP port and secret key values available.</li>
+      </ul>
+      <h2>
+         <a name="Enable"/>Enable automatic user creation</h2>
+      <ol>
+         <li>Sign in to the Sophos UTM Web Admin console with sufficient privileges.</li>
+         <li>Navigate to <span class="menucascade">
+               <span class="uicontrol">Definitions &amp; Users</span>
+               <span class="uicontrol">Authentication Services</span>
+            </span>, and then click <span class="uicontrol">Add</span> to define a new RADIUS server. </li>
+         <li>On the <span class="uicontrol">Global Settings</span> tab check the box to <span class="uicontrol">Create users automatically</span>, as shown below.
+						<p>
+               <img src="../../Resources/Images/sophos_4.png"/>
+            </p>
+         </li>
+         <li>
+            <p>In the <span class="uicontrol">Automatic User Creation for Facilities</span> check the appropriate facilities for your environment, as shown above.</p>
+            <p>
+               <span class="uicontrol">Recommendation</span>: Select <span class="uicontrol">Client Authentication</span> and <span class="uicontrol">End-User Portal</span>.</p>
+         </li>
+      </ol>
+      <h2>
+         <a name="Configur"/>Configure a New Authentication Server</h2>
+      <ol>
+         <li>In the Sophos UTM Web Admin console, navigate to <span class="menucascade">
+               <span class="uicontrol">Definitions &amp; Users</span>
+               <span class="uicontrol">Authentication Services</span>
+            </span>, and select the <span class="uicontrol">Servers</span> tab. The screen shown below opens.<p>
+               <img src="../../Resources/Images/sophos_5.png"/>
+            </p>
+         </li>
+         <li>
+            <p>Click the <span class="uicontrol">New Authentication Server...</span> button. </p>
+         </li>
+         <li>Enter the following information:<ul>
+               <li>
+                  <span class="uicontrol">Backend</span>: RADIUS</li>
+               <li>
+                  <span class="uicontrol">Postion</span>: Top</li>
+            </ul>
+            <p>Server</p>
+            <ul>
+               <li>
+                  <span class="uicontrol">Name</span>: Unique and appropriate name; for example OktaMFA</li>
+               <li>
+                  <span class="uicontrol">Type</span>: Host</li>
+               <li>
+                  <span class="uicontrol">IPv4 address</span>: IP address of the Okta RADIUS Server Agent</li>
+            </ul>
+            <p>Advanced</p>
+            <ul>
+               <li>
+                  <span class="uicontrol">Interface</span>: The appropriate interface for your environment</li>
+            </ul>
+            <ul>
+               <li>
+                  <span class="uicontrol">Port</span>: The UDP Port defined in Part 2, step 3, above; for example, 1815</li>
+               <li>
+                  <span class="uicontrol">Shared Secret</span>: The Secret Key defined in  Part 2, step 3, above</li>
+            </ul>
+            <p>Advanced</p>
+            <ul>
+               <li>
+                  <span class="uicontrol">Authentication timeout (sec)</span>: 60</li>
+            </ul>
+         </li>
+         <li>When done, click <span class="uicontrol">Save</span>
+         </li>
+      </ol>
+      <h2>
+         <a name="Create"/>Create a RADIUS Backend Group</h2>
+      <ol>
+         <li>In the Sophos UTM Web Admin console, navigate to <span class="menucascade">
+               <span class="uicontrol">Definitions &amp; Users</span>
+               <span class="uicontrol">Users &amp; Groups</span>
+            </span>, and select the <span class="uicontrol">Groups</span> tab. The screen shown below opens.<p>
+               <img src="../../Resources/Images/sophos_8.png"/>
+            </p>
+         </li>
+         <li>Click <span class="uicontrol">New Group…</span>.</li>
+         <li>Enter the following information in the <span class="uicontrol">Add Group</span> section:<ul>
+               <li>
+                  <span class="uicontrol">Group Name</span>: Unique and appropriate name, such as Okta RADIUS Users</li>
+               <li>
+                  <span class="uicontrol">Group Type</span>: Backend Membership</li>
+               <li>
+                  <span class="uicontrol">Backend</span>: RADIUS </li>
+            </ul>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Save</span> to save the settings.</p>
+         </li>
+      </ol>
+      <h2>
+         <a name="Allow"/>Allow group access to resources</h2>
+      <ol>
+         <li>In the Sophos UTM Web Admin console, navigate to <span class="uicontrol">Remote Access</span>, and select the desired connection method. The screen shown below opens.<p>
+               <img src="../../Resources/Images/sophos_10.png"/>
+            </p>
+         </li>
+         <li>Click <span class="uicontrol">New HTML5 VPN Portal Connection...</span> or use an existing connection.</li>
+         <li>
+            <p>Add the group you created in Step 3 to the <span class="uicontrol">Users and Groups</span> or  <span class="uicontrol">Allowed Users (Userportal)</span> list.</p>
+         </li>
+      </ol>
+      <div>
+         <h2>Next steps</h2>
+         <p>
+            <MadCap:xref href="sophos-radius-intg-config-opt.htm">Sop hos UTM optional settings</MadCap:xref>
+         </p>
+      </div>
+   </body>
+</html>

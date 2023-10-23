@@ -1,0 +1,404 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:searchable="True"
+      MadCap:fileTags="Tags/okta-authors.Jeanette Smith">
+   <head>
+      <link href="../../../Resources/TableStyles/standard.css"
+            rel="stylesheet"
+            MadCap:stylesheetType="table"/>
+      <title>ServiceNow Provisioning | Okta</title>
+      <link href="" rel="stylesheet" type="text/css"/>
+      <meta name="description"
+            content="Configure ServiceNow UD provisioning to synchronize ServiceNow users to Okta's UD and create rich user profiles."/>
+   </head>
+   <body>
+      <h1>ServiceNow</h1>
+      <p>This guide provides information on how to configure provisioning for ServiceNow in your <MadCap:variable name="okta-variables.ProductName"/> org.</p>
+      <h2>Prerequisites<a name="Requirements"/>
+      </h2>
+      <ul>
+         <li>The assumption is that you have already added a ServiceNow app instance in <MadCap:variable name="okta-variables.ProductName"/>, and have configured SSO. See <a href="https://saml-doc.okta.com/SAML_Docs/How-to-Configure-SAML-2.0-for-ServiceNow.html">How to Configure SAML 2.0 for ServiceNow</a>. For general information about adding applications, see <MadCap:xref href="../../Apps/apps-add-applications.htm">Add existing app integrations</MadCap:xref>.</li>
+         <li>
+            <MadCap:variable name="okta-variables.ProductName"/> requirements: <ol>
+               <li>
+                  <p>Make sure you have configured your complete <span class="uicontrol">Base URL</span> under the <span class="uicontrol">General</span> tab in <MadCap:variable name="okta-variables.ProductName"/>.</p>
+               </li>
+               <li>
+                  <p>Configure your <span class="uicontrol">Sign-On</span> options on the next tab.</p>
+               </li>
+               <li>
+                  <p>Click <span class="uicontrol">Next</span> to return you to the <span class="wintitle">Provisioning</span> tab.</p>
+               </li>
+            </ol>
+			 </li>
+      </ul>
+      <h2>Provisioning features</h2>
+      <p>The following Provisioning features are supported:</p>
+      <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');"
+             class="TableStyle-standard"
+             cellspacing="0">
+         <col class="TableStyle-standard-Column-Column1" style="width: 15%;"/>
+         <col class="TableStyle-standard-Column-Column1"/>
+         <tbody>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">Push new users
+                    </td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">New users created through <MadCap:variable name="okta-variables.ProductName"/> will also be created in the third-party application.</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">Push user deactivation
+                    </td>
+               <td class="TableStyle-standard-BodyD-Column1-Body2">Deactivating the user or disabling the user's access to the application through <MadCap:variable name="okta-variables.ProductName"/> will deactivate the user in the third-party application.</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">Push profile updates
+                    </td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">Updates made to the user's profile through <MadCap:variable name="okta-variables.ProductName"/> will be pushed to the third-party application.</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">Import new users
+                    </td>
+               <td class="TableStyle-standard-BodyD-Column1-Body2">New users created in the third-party application will be downloaded and turned into new AppUser objects, for matching against existing <MadCap:variable name="okta-variables.ProductName"/> users.</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">Import profile updates
+                    </td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">Updates made to a user's profile in the third-party application will be downloaded and applied to the profile fields stored locally in <MadCap:variable name="okta-variables.ProductName"/>.  If the app is the system of record for the user, changes made to core profile fields (email, first name, last name, etc) will be applied to the <MadCap:variable name="okta-variables.ProductName"/> user profile.  If the app is NOT the system of record for the user, only changes made to app-specific fields will be applied to the local user profile.</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">Group Push
+                    </td>
+               <td class="TableStyle-standard-BodyD-Column1-Body2">Groups and their members can be pushed to remote systems. You can find more information about using group push operations (including Group Push enhancements) here: <MadCap:xref href="../../users-groups-profiles/usgp-group-push-main.htm">Manage Group Push</MadCap:xref>.</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">Reactivate Users
+                    </td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">Reactivating the user through <MadCap:variable name="okta-variables.ProductName"/> will reactivate the user in the third-party application.</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyC-Column1-Body2">Sync Password
+                    </td>
+               <td class="TableStyle-standard-BodyA-Column1-Body2">Pushes user password from <MadCap:variable name="okta-variables.ProductName"/> to the third-party application.</td>
+            </tr>
+         </tbody>
+      </table>
+      <h2>Procedures</h2>
+      <ul>
+         <li>
+            <MadCap:xref href="#Configur">Configure ServiceNow provisioning</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Add">Add user profile attributes with ServiceNow Schema Discovery</MadCap:xref>
+         </li>
+      </ul>
+      <h3>
+         <a name="Configur"/>Configure ServiceNow provisioning</h3>
+      <p>Configure your <span class="uicontrol">Provisioning</span> settings for ServiceNow as follows:</p>
+      <ol>
+         <li>
+            <p>Check the <span class="uicontrol">Enable API Integration</span> box.</p>
+         </li>
+         <li>
+            <p>Enter your ServiceNow API Credentials:</p>
+            <ul>
+               <li>
+                  <p>
+                     <span class="uicontrol">Admin User Name</span>: Enter a ServiceNow username with administrator permissions for your organization.</p>
+               </li>
+               <li>
+                  <p>
+                     <span class="uicontrol">Admin Password</span>: Enter a password for your administrator account (above).</p>
+               </li>
+               <li>
+                  <p>Validate the credentials by clicking <span class="uicontrol">Test API Credentials</span>.</p>
+               </li>
+            </ul>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Save</span>.</p>
+         </li>
+         <li>
+            <p>Select <span class="uicontrol">To App</span> in the left panel, then select the <span class="uicontrol">Provisioning Features</span> you want to enable.</p>
+         </li>
+         <li>
+            <p>You can now assign people to the app (if needed) and finish the application setup.</p>
+         </li>
+      </ol>
+      <h3>
+         <a name="Add"/>Add user profile attributes with ServiceNow Schema Discovery</h3>
+      <p>ServiceNow supports User's Schema Discovery, so you can add extra attributes to User's Profile.</p>
+      <p>To add extra attributes to a User's Profile, follow the instructions below:</p>
+      <ol>
+         <li>
+            <p>In the <MadCap:variable name="okta-variables.ProductName"/> Admin Console, go to <span class="menucascade">
+                  <span class="uicontrol">Directory</span>
+                  <span class="uicontrol">Profile Editor</span>
+               </span>.</p>
+         </li>
+         <li>
+            <p>Select the <span class="uicontrol">APPS</span> section in the left navigation pane, then find your app in the list. Click the <span class="uicontrol">Profile</span> edit icon to open the <span class="wintitle">Profile Editor</span> page.</p>
+         </li>
+         <li>
+            <p>Check the list of attributes, and if you decide you need more, click <span class="uicontrol">Add Attribute</span>. A list of extended attributes will appear.</p>
+         </li>
+         <li>
+            <p>Select the attributes you want to add, then click <span class="uicontrol">Save</span>.</p>
+         </li>
+         <li>
+            <p>The added attributes should be present after refreshing the page in the list of Custom Attribures. You can now import and push these user attribute values to or from ServiceNow.</p>
+         </li>
+         <li>
+            <p>You can now create mappings for your custom attributes.</p>
+         </li>
+      </ol>
+      <h2>Profile mappings</h2>
+      <ul>
+         <li>
+            <MadCap:xref href="#Default">Default attributes</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Active">Active Directory mapping</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Custom">Custom mapping</MadCap:xref>
+         </li>
+      </ul>
+      <h3>
+         <a name="Default"/>Default attributes</h3>
+      <p>You can check your default attributes in the <span class="menucascade">
+            <span class="uicontrol">Directory</span>
+            <span class="uicontrol">Profile Editor</span>
+            <span class="uicontrol">APPS</span>
+         </span> section in the left navigation pane, then find your app in the list.</p>
+      <h3>
+         <a name="Active"/>Active Directory mapping</h3>
+      <p>There are predefined Active Directory (AD) mappings for certain fields that are not modifiable and used only in cases where AD is configured as the source.</p>
+      <h4>Manager/Assistant functions</h4>
+      <p>Here are some examples. For more details, see <a href="https://developer.okta.com/docs/reference/okta-expression-language/#directory-and-workday-functions">Directory and Workday functions</a>, and <a href="https://developer.okta.com/docs/reference/okta-expression-language/#samples">Popular Expressions</a> in <MadCap:variable name="okta-variables.ProductName"/> developer documentation.</p>
+      <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');"
+             class="TableStyle-standard"
+             cellspacing="0">
+         <col style="width: 425px;" class="TableStyle-standard-Column-Column1"/>
+         <col class="TableStyle-standard-Column-Column1"/>
+         <col class="TableStyle-standard-Column-Column1"/>
+         <thead>
+            <tr class="TableStyle-standard-Head-Header1">
+               <td align="left"
+                   class="TableStyle-standard-HeadF-Column1-Header1"
+                   style="font-weight: bold;">
+                  <p>Function</p>
+               </td>
+               <td align="left"
+                   width="300"
+                   class="TableStyle-standard-HeadF-Column1-Header1"
+                   style="font-weight: bold;">
+                  <p>Description</p>
+               </td>
+               <td align="left"
+                   width="300"
+                   class="TableStyle-standard-HeadD-Column1-Header1"
+                   style="font-weight: bold;">
+                  <p>Example</p>
+               </td>
+            </tr>
+         </thead>
+         <tbody>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">
+                  <p>getManagerUser(managerSource).$attribute
+                        </p>
+               </td>
+               <td class="TableStyle-standard-BodyF-Column1-Body1">
+                  <p>Gets the manager's <MadCap:variable name="okta-variables.ProductName"/> user attribute values</p>
+               </td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">
+                  <p>getManagerUser("active_directory").firstName
+                        </p>
+               </td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td align="left" class="TableStyle-standard-BodyF-Column1-Body2">
+                  <p>getManagerAppUser(managerSource, attributeSource).$attribute
+                        </p>
+               </td>
+               <td align="left" class="TableStyle-standard-BodyF-Column1-Body2">
+                  <p>Gets the manager's app user attribute values for the app user of any appinstance</p>
+               </td>
+               <td align="left" class="TableStyle-standard-BodyD-Column1-Body2">
+                  <p>getManagerAppUser("active_directory", "google").firstName
+                        </p>
+               </td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td align="left" class="TableStyle-standard-BodyF-Column1-Body1">
+                  <p>getAssistantUser(assistantSource).$attribute
+                        </p>
+               </td>
+               <td align="left" class="TableStyle-standard-BodyF-Column1-Body1">
+                  <p>Gets the assistant's <MadCap:variable name="okta-variables.ProductName"/> user attribute values</p>
+               </td>
+               <td align="left" class="TableStyle-standard-BodyD-Column1-Body1">
+                  <p>getAssistantUser("active_directory").firstName
+                        </p>
+               </td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td align="left" class="TableStyle-standard-BodyC-Column1-Body2">
+                  <p>getAssistantAppUser(assistantSource, attributeSource).$attribute
+                        </p>
+               </td>
+               <td align="left" class="TableStyle-standard-BodyC-Column1-Body2">
+                  <p>Gets the assistant's app user attribute values for the app user of any appinstance.</p>
+               </td>
+               <td align="left" class="TableStyle-standard-BodyA-Column1-Body2">
+                  <p>getAssistantAppUser("active_directory", "google").firstName
+                        </p>
+               </td>
+            </tr>
+         </tbody>
+      </table>
+      <p>Pass the correct app name for the managerSource, assistantSource, and attributeSource parameters.</p>
+      <div class="noteOkta">
+         <p class="noteContent">At this time, only active_directory is supported for managerSource and assistantSource.</p>
+      </div>
+      <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');"
+             class="TableStyle-standard"
+             cellspacing="0">
+         <col style="width: 434px;" class="TableStyle-standard-Column-Column1"/>
+         <col class="TableStyle-standard-Column-Column1"/>
+         <thead>
+            <tr class="TableStyle-standard-Head-Header1">
+               <th class="TableStyle-standard-HeadF-Column1-Header1"
+                   style="text-align: left;">Function</th>
+               <th class="TableStyle-standard-HeadD-Column1-Header1"
+                   style="text-align: left;">Description</th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td align="left"
+                   width="200"
+                   class="TableStyle-standard-BodyF-Column1-Body1">
+                  <p>hasDirectoryUser()
+                        </p>
+               </td>
+               <td align="left"
+                   width="300"
+                   class="TableStyle-standard-BodyD-Column1-Body1">
+                  <p>Checks whether the user has an Active Directory assignment and returns a boolean</p>
+               </td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td align="left" class="TableStyle-standard-BodyC-Column1-Body2">
+                  <p>findDirectoryUser()
+                        </p>
+               </td>
+               <td align="left" class="TableStyle-standard-BodyA-Column1-Body2">
+                  <p>Finds the Active Directory App user object and returns that object, or null if the user has more than one or no Active Directory assignments</p>
+               </td>
+            </tr>
+         </tbody>
+      </table>
+      <h3>
+         <a name="Custom"/>Custom mapping</h3>
+      <p>If you have custom mapping for your existent ServiceNow app.</p>
+      <p>If you map the custom attribute from <MadCap:variable name="okta-variables.ProductName"/> profile to a field that is hard-coded in the ServiceNow connector and not used by the org, then assign that hard coded field to the appropriate column name in ServiceNow -  make this mapping manually for new ServiceNow app (as described in <a href="#Add">Schema Discovery</a>).</p>
+      <p>For example, let's say there is a T-shirt Size attribute in the <MadCap:variable name="okta-variables.ProductName"/> profile. And the title attribute is not used by the org today:</p>
+      <ol>
+         <li>
+            <p>The customer maps the user.tshirt to ServiceNow appuser.title:</p>
+            <p>
+               <img src="../../../Resources/Images/servicenow_new_13.png"
+                    class="thumbnail"
+                    alt="servicenow_new_13"/>
+            </p>
+         </li>
+         <li>
+            <p>In the <span class="uicontrol">Provisioning</span> section of the ServiceNow app, the user then enters tshirt as the column name that title maps to.</p>
+            <p>
+               <img src="../../../Resources/Images/servicenow_new_14.png"
+                    class="thumbnail"
+                    alt="servicenow_new_14"/>
+            </p>
+         </li>
+         <li>
+            <p>Now, (after adding attributes as described in <a href="#Add">Schema Discovery</a>) it should looks like:</p>
+            <p>
+               <img src="../../../Resources/Images/servicenow_new_15.png"
+                    class="thumbnail"
+                    alt="servicenow_new_15"/>
+            </p>
+         </li>
+      </ol>
+      <h2>Limitations</h2>
+      <ol>
+         <li>
+            <p>If the ServiceNow app contains two users with different User IDs and the same email (for example email=test_email@test.com), and you try to create a user with the same email and username (for example <MadCap:variable name="okta-variables.ProductName"/> UserName=Okta email = test_email@test.com) from the <MadCap:variable name="okta-variables.ProductName"/> side, you receive an error:</p>
+            <p>
+               <img src="../../../Resources/Images/servicenow_new_16.png"
+                    class="thumbnail"
+                    alt="servicenow_new_16"/>
+            </p>
+            <p>
+               <img src="../../../Resources/Images/servicenow_new_17.png"
+                    class="thumbnail"
+                    alt="servicenow_new_17"/>
+            </p>
+         </li>
+         <li>
+            <p>In ServiceNow UD.1.0.4 version, the Time Zone user property was moved to the user group level: once the ServiceNow UD app is assigned to a user group, the admin can select the Time Zone value for all users in this group. Also, the value now is populated from the dropdown list instead of the regular text field as before.</p>
+            <p>The change above will be applied for all applications created with the new connector version. For existing connectors there are two options:</p>
+            <ul>
+               <li>
+                  <p>Ask support to migrate the UD schema for this app to an updated version. Note that all imported custom user attributes will be dropped and you should re-add them and re-import users to fetch attributes data from ServiceNow.</p>
+               </li>
+               <li>
+                  <p>Continue using the connector without an update.</p>
+               </li>
+            </ul>
+            <p>To determine if you have the Time Zone attribute on the group level, try to assign the ServiceNow application to a user group:</p>
+            <p>No Time Zone (old version):</p>
+            <p>
+               <img src="../../../Resources/Images/servicenow_new_18.png"
+                    class="thumbnail"
+                    alt="servicenow_new_18"/>
+            </p>
+            <p>With Time Zone (new version):</p>
+            <p>
+               <img src="../../../Resources/Images/servicenow_new_19.png"
+                    class="thumbnail"
+                    alt="servicenow_new_19"/>
+            </p>
+         </li>
+         <li>
+            <p>If a ServiceNow app instance has users assigned to the new Cost center, Company, or Department that haven't been imported into <MadCap:variable name="okta-variables.ProductName"/> previously, you will need to refresh application data before importing users, otherwise, the import will fail with the An error occurred during import message.</p>
+            <p>To refresh application data, select the Applications tab, select More, then click Refresh Application Data. Application data will be updated in the background in several minutes.</p>
+         </li>
+         <li>
+            <p>Disable Enumerated Lists</p>
+            <ul>
+               <li>
+                  <p>If <span class="uicontrol">Disable Enumerated Lists</span> is checked, it shouldn't be subsequently unchecked back for that particular app instance. That is, this functionality can only be enabled once for an app instance.</p>
+               </li>
+               <li>
+                  <p>A new ServiceNow app instance should be created and configured if you want to <span class="uicontrol">Disable Enumerated Lists</span> again (the default behavior for a new ServiceNow app instance).</p>
+               </li>
+            </ul>
+         </li>
+      </ol>
+      <h2>Additional features</h2>
+      <h3>
+         <MadCap:variable name="okta-variables.ProductName"/> Identity Cloud for ServiceNow</h3>
+      <p>If you are configuring the <MadCap:variable name="okta-variables.ProductName"/> Identity Cloud application for ServiceNow Express or Enterprise, see <a href="OktaIdentityCloudDeploymentGuide.pdf">Okta Identity Cloud Deployment Guide</a>. <br/>Note that Okta Identity Cloud available in the ServiceNow store completely replaces the "SSO Provided by <MadCap:variable name="okta-variables.ProductName"/>" plugin inside of ServiceNow. That plugin is now deprecated, and the <MadCap:variable name="okta-variables.ProductName"/> Identity Cloud app provides all SSO and User Lifecycle functionality for ServiceNow via standard <MadCap:variable name="okta-variables.ProductName"/> integrations and the Multi-Provider SSO Plugin in ServiceNow.</p>
+      <h3>
+         <MadCap:variable name="okta-variables.ProductName"/> Orchestration Activity Pack</h3>
+      <p>If you are configuring the <MadCap:variable name="okta-variables.ProductName"/> Orchestration Activity Pack, see <a href="OktaOrchestrationActivityPackSetup.pdf">
+            <MadCap:variable name="okta-variables.ProductName"/> Orchestration Activity Pack Setup</a>.<br/>
+      </p>
+      <h2>Resources</h2>
+      <p>
+         <a href="https://www.okta.com/video/oktane17-lifecycle-okta-servicenow-extend-and-customize-lifecycle-workflows/">Extend and Customize Lifecycle Workflows</a>
+      </p>
+   </body>
+</html>

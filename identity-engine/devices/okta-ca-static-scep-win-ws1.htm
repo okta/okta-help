@@ -1,0 +1,318 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:searchable="True"
+      MadCap:fileTags="Tags/okta-authors.Kimli Welsh">
+   <head>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <link href="" rel="stylesheet" type="text/css"/>
+   </head>
+   <body>
+      <h1>Configure Okta as a CA with static SCEP challenge for Windows using <MadCap:variable name="Mobile.WS1"/>
+      </h1>
+      <p>Configuring  a Certificate Authority (CA) allows you to issue client certificates to your targeted Windows devices. This topic describes how to create a static Simple Certificate Enrollment Protocol (SCEP) profile in <MadCap:variable name="Mobile.WS1"/> and generate a SCEP URL in Okta.</p>
+      <div class="note_cautionOkta">
+         <p class="noteContent">If you're using <MadCap:variable name="Mobile.WS1"/>, use static SCEP. <MadCap:variable name="Mobile.WS1"/> has known issues with dynamic SCEP.</p>
+      </div>
+      <div class="noteOkta">
+         <p class="noteContent">To configure a delegated (dynamic) SCEP challenge type for Windows using Microsoft Intune, see <MadCap:xref href="okta-ca-delegated-scep-win-intune.htm">Configure Okta as a certificate authority for Windows using [%=Mobile.MS-Intune%]</MadCap:xref>
+         </p>
+      </div>
+      <h2>Before you begin</h2>
+      <p>Make sure you have access to the Okta Admin Console.</p>
+      <div class="noteOkta">
+         <p class="noteContent">Okta as a CA doesn't support <a href="https://www.rfc-editor.org/rfc/rfc8894.html#name-certificate-enrolment-renew"
+               target="_blank">renewal requests</a>. Instead, redistribute the profile before the certificate expires to replace the expired certificate. All MDM SCEP policies should be configured to allow for profile redistribution.</p>
+      </div>
+      <h2>Start this procedure</h2>
+      <ul>
+         <li>
+                Task 1: <MadCap:xref href="#Task1">In Okta, configure management attestation and generate a SCEP URL and Secret Key</MadCap:xref>
+         </li>
+         <li>
+                Task 2: <MadCap:xref href="#Task2">In Okta, download the x509 certificate</MadCap:xref>
+         </li>
+         <li>
+                Task 3: <MadCap:xref href="#Task3">In [%=Mobile.WS1%], create a static SCEP profile	</MadCap:xref>
+         </li>
+         <li>
+                Task 4: <MadCap:xref href="#Task4">In [%=Mobile.WS1%], Add or Edit a Certificate Template</MadCap:xref>
+         </li>
+         <li>
+                Task 5: <MadCap:xref href="#Task5">In [%=Mobile.WS1%], define a device profile to deploy the Okta Intermediate CA to the Intermediate Store on devices</MadCap:xref>
+         </li>
+         <li>
+                Task 6: <MadCap:xref href="#Task6">In [%=Mobile.WS1%], define a user profile to deploy the Okta CA-issued client certificate to the Personal Store for management attestation</MadCap:xref>
+         </li>
+         <li>
+               Task 7: <MadCap:xref href="#Task7">On a Windows computer, verify the certificate installation</MadCap:xref>
+         </li>
+      </ul>
+      <h3>
+         <span class="h3">
+            <a name="Task1"/>In Okta, configure management attestation and generate a SCEP URL and a Secret Key</span>
+      </h3>
+      <ol>
+         <li>In the Okta Admin Console, go to <span class="menucascade">
+               <span class="uicontrol">Security</span>
+               <span class="uicontrol">Device integrations</span>
+            </span>.</li>
+         <li>Click the <span class="uicontrol">Endpoint management</span> tab.</li>
+         <li>Click <span class="uicontrol">Add platform</span>.
+			</li>
+         <li>Select <span class="uicontrol">Desktop (Windows and macOS only)</span>.</li>
+         <li>Click <span class="uicontrol">Next</span>.</li>
+         <li>On the <span class="uicontrol">Add Device management platform</span> page, enter the following:
+					<ol style="list-style-type: lower-alpha;">
+               <li>Select <span class="uicontrol">Use Okta as certificate authority</span> as the Certificate authority.</li>
+               <li>Select <span class="uicontrol">Static SCEP URL</span> as the SCEP challenge type.</li>
+               <li>Click <span class="uicontrol">Generate</span>.</li>
+               <li>Copy and save the <span class="uicontrol">Okta SCEP URL</span> and the <span class="uicontrol">Secret key</span>. You will paste these in <MadCap:variable name="Mobile.WS1"/> in <a href="#Task3">Task 3</a>.</li>
+               <div class="noteOkta">
+                  <p class="noteContent">Save the <span class="uicontrol">SCEP URL</span> and <span class="uicontrol">Secret key</span>. This is the only time they will appear in Okta.</p>
+               </div>
+            </ol>
+         </li>
+         <li>Click <span class="uicontrol">Save</span>.</li>
+      </ol>
+      <h3>
+         <a name="Task2"/>In Okta, download the x509 certificate</h3>
+      <p>The x509 certificate you download from Okta is the Organization Intermediate certificate.</p>
+      <ol>
+         <li>In the Okta Admin Console, go to <span class="menucascade">
+               <span class="uicontrol">Security</span>
+               <span class="uicontrol">Device integrations</span>
+            </span>.</li>
+         <li>Click the <span class="uicontrol">Certificate authority</span> tab.</li>
+         <li>For the <span class="uicontrol">Okta CA</span> certificate authority, click the <span class="uicontrol">Download x509 certificate</span> icon in the Actions column.
+			<p>You'll upload the certificate to <MadCap:variable name="Mobile.WS1"/> in <a href="#Task5">Task 5</a>.</p>
+         </li>
+      </ol>
+      <h3>
+         <a name="Task3"/>In <MadCap:variable name="Mobile.WS1"/>, create a static SCEP profile	</h3>
+      <p>Configure the Okta CA as a certificate authority in <MadCap:variable name="Mobile.WS1"/> so you can deploy certificate profiles through the management channel.</p>
+      <ol>
+         <li>If not already, log in to <MadCap:variable name="Mobile.WS1"/> as an administrator.</li>
+         <li>In <MadCap:variable name="Mobile.WS1"/>, click <span class="uicontrol">DEVICES</span> (left ribbon bar).</li>
+         <li>Click <span class="menucascade">
+               <span class="uicontrol">Certificates</span>
+               <span class="uicontrol">Certificate Authorities</span>
+            </span>.</li>
+         <li>Click <span class="uicontrol">+ ADD</span>.</li>
+         <li>On the <span class="uicontrol">Certificate Authority - Add/Edit</span> page, enter the following:
+                <ol style="list-style-type: lower-alpha;">
+               <li>
+                  <span class="uicontrol">Name</span>: Enter a name for the CA.</li>
+               <li>
+                  <span class="uicontrol">Description</span>: Optional. Enter a description for the CA.</li>
+               <li>
+                  <span class="uicontrol">Authority type</span>: Select <span class="uicontrol">Generic SCEP</span>.</li>
+               <li>
+                  <span class="uicontrol">SCEP Provider</span>: <span class="uicontrol">Basic</span> is entered automatically and can't be changed.</li>
+               <li>
+                  <span class="uicontrol">SCEP URL</span>: Copy and paste the <span class="uicontrol">SCEP URL</span> you generated in <a href="#Task1">Task 1</a>.</li>
+               <li>
+                  <span class="uicontrol">Challenge Type</span>: Click <span class="uicontrol">STATIC</span>.</li>
+               <li>
+                  <span class="uicontrol">Static Challenge</span>: Copy and paste the <span class="uicontrol">Secret Key</span> you generated in <a href="#Task1">Task 1</a>.</li>
+               <li>
+                  <span class="uicontrol">Confirm Challenge Phrase</span>: Copy and paste the <span class="uicontrol">Secret Key</span> you generated in <a href="#Task1">Task 1</a>.</li>
+               <li>
+                  <span class="uicontrol">Retry Timeout</span>: Accept the default value of <span class="uicontrol">30</span>.</li>
+               <li>
+                  <span class="uicontrol">Max Retries When Pending</span>: Accept the default value of <span class="uicontrol">5</span>, or specify a different number of retries the system allows while the authority is pending.</li>
+               <li>
+                  <span class="uicontrol">Enable Proxy</span>: Accept the default value of <span class="uicontrol">DISABLED</span> or select <span class="uicontrol">ENABLED</span> if appropriate for your environment. If you select Enabled, <MadCap:variable name="Mobile.WS1-UEM-short"/> acts as a proxy between the device and the SCEP endpoint defined in the CA configuration.</li>
+            </ol>
+         </li>
+         <li>Click <span class="uicontrol">TEST CONNECTION</span>. If you select <span class="uicontrol">SAVE</span> before <span class="uicontrol">TEST CONNECTION</span>, the error <span class="uicontrol">Test is unsuccessful</span> appears.</li>
+         <li>After the <span class="uicontrol">Test is successful</span> message appears, click <span class="uicontrol">SAVE AND ADD TEMPLATE</span>.
+
+			<p>If the test doesn't succeed, make sure that you can access the <span class="uicontrol">Okta SCEP URL</span> you generated in <a href="#Task1">Task 1</a>.</p>
+         </li>
+      </ol>
+      <h3>
+         <a name="Task4"/>In <MadCap:variable name="Mobile.WS1"/>, Add/Edit a Certificate Template</h3>
+      <p>In this task you'll add a CA request template after you create a static SCEP profile in <a href="#Task3">Task 3</a>.</p>
+      <ol>
+         <li>In <MadCap:variable name="Mobile.WS1"/>, click the <span class="uicontrol">Request Templates</span> tab.</li>
+         <li>Click <span class="uicontrol">+ ADD</span>.</li>
+         <li>On the <span class="uicontrol">Certificate Template - Add/Edit</span> page, enter the following:
+                <ol style="list-style-type: lower-alpha;">
+               <li>
+                  <span class="uicontrol">Name</span>: Enter a name for the template.</li>
+               <li>
+                  <span class="uicontrol">Description</span>: Optional. Enter a description for the template.</li>
+               <li>
+                  <span class="uicontrol">Certificate Authority</span>: Select the CA you created in <a href="#Task3">Task 3</a>.</li>
+               <li>
+                  <span class="uicontrol">Issuing Template</span>: Leave blank or configure as appropriate for your implementation.</li>
+               <li>
+                  <span class="uicontrol">Subject Name</span>: Enter a subject name. For example, <span class="uicontrol">CN = {EmailAddress} managementAttestation {DeviceUid}</span>.</li>
+               <div class="noteOkta">
+                  <p class="noteContent">Okta does not require the subject name to be in any particular format. Choose a name that indicates that the certificate is used as the  device management signal to Okta. As a best practice, you can also include profile variables provided by <MadCap:variable name="Mobile.WS1"/> to include the device ID (UDID) and user identifier. For a list of supported variables, see <MadCap:variable name="Mobile.WS1"/> document <a href="https://kb.vmware.com/s/article/2960903"
+                        target="_blank"
+                        title="https://kb.vmware.com/s/article/2960903"
+                        alt="Workspace ONE Lookup Values">Workspace ONE Lookup Values</a>.</p>
+               </div>
+               <li>
+                  <span class="uicontrol">Private Key Length</span>: Select <span class="uicontrol">2048</span>.</li>
+               <li>
+                  <span class="uicontrol">Private Key Type</span>: Select <span class="uicontrol">Signing</span>.</li>
+               <li>
+                  <span class="uicontrol">SAN Type</span>: N/A.</li>
+               <li>
+                  <span class="uicontrol">Automatic Certificate Renewal</span>: Click <span class="uicontrol">ENABLED</span>.</li>
+               <li>
+                  <span class="uicontrol">Publish Private Key</span>: Click <span class="uicontrol">DISABLED</span>.</li>
+            </ol>
+         </li>
+         <li>Click <span class="uicontrol">SAVE</span>.</li>
+      </ol>
+      <h3>
+         <a name="Task5"/>In <MadCap:variable name="Mobile.WS1"/>, define a device profile to deploy the Okta Intermediate CA to the Intermediate Store on devices</h3>
+      <ol>
+         <ol>
+            <li>In <MadCap:variable name="Mobile.WS1"/>, click <span class="uicontrol">RESOURCES</span> (left ribbon bar).</li>
+            <li>Click <span class="menucascade">
+                  <span class="uicontrol">Profiles &amp; Baselines</span>
+                  <span class="uicontrol">Profiles</span>
+               </span>.</li>
+            <li>Click <span class="uicontrol">ADD</span>, and then select <span class="uicontrol">Add Profile</span>.</li>
+            <li>Select <span class="menucascade">
+                  <span class="uicontrol">Windows</span>
+                  <span class="uicontrol">Windows Desktop</span>
+                  <span class="uicontrol">Device Profile</span>
+               </span>.</li>
+            <li>On the <span class="uicontrol">General</span> page, enter the following:
+					<ol style="list-style-type: lower-alpha;">
+                  <li>
+                     <span class="uicontrol">Name</span>: Enter a name for the device profile.</li>
+                  <li>
+                     <span class="uicontrol">Description</span>: Optional. Enter a description for the device profile.</li>
+                  <li>
+                     <span class="uicontrol">Deployment</span>: Select <span class="uicontrol">Managed</span>.</li>
+                  <li>
+                     <span class="uicontrol">Assignment Type</span>: Accept the default or configure as appropriate for your implementation.</li>
+                  <li>
+                     <span class="uicontrol">Allow Removal</span>: Accept the default or configure as appropriate for your implementation.</li>
+                  <li>
+                     <span class="uicontrol">Managed By</span>: Enter the person or group with administrative access to the profile.</li>
+                  <li>
+                     <span class="uicontrol">Smart Groups</span>: Begin typing the name of the group and then select it from the list.</li>
+                  <li>
+                     <span class="uicontrol">Exclusions</span>: Allows you to exclude groups from the profile. Accept the default or configure as appropriate for your implementation.</li>
+                  <li>
+                     <span class="uicontrol">Additional Assignment Criteria</span>: Allows you to schedule a deployment schedule.</li>
+                  <li>
+                     <span class="uicontrol">Removal Date</span>: Allows you to specify a date when the profile is removed from the device.</li>
+               </ol>
+            </li>
+            <li>Click <span class="uicontrol">Credentials</span> in the left pane.</li>
+            <li>Click <span class="uicontrol">CONFIGURE</span>.</li>
+            <li>On the <span class="uicontrol">Credentials</span> page, enter the following:
+
+                    <ol style="list-style-type: lower-alpha;">
+                  <li>
+                     <span class="uicontrol">Credential Source</span>: Select <span class="uicontrol">Upload</span>.</li>
+                  <li>
+                     <span class="uicontrol">Certificate</span>: Click <span class="uicontrol">Upload</span> and browse to the certificate you downloaded in <a href="#Task2">Task 2.</a>
+                  </li>
+                  <li>
+                     <span class="uicontrol">Key Location</span>: Accept the default or configure as appropriate for your implementation.</li>
+                  <li>
+                     <span class="uicontrol">Certificate Store</span>: Select <span class="uicontrol">Intermediate</span>.</li>
+               </ol>
+            </li>
+            <li>Click <span class="uicontrol">SAVE AND PUBLISH</span>.</li>
+         </ol>
+      </ol>
+      <h3>
+         <a name="Task6"/>In <MadCap:variable name="Mobile.WS1"/>, define a user profile to deploy the Okta CA-issued client certificate to the Personal Store on devices for management attestation</h3>
+      <p>This task creates the management payload that pushes the client certificate information and credential to the client, allowing the client to connect to Okta and request a new client certificate. The client certificate is used for management attestation as part of <MadCap:variable name="okta-feature-names.Okta Verify"/>-enabled flows.</p>
+      <ol>
+         <ol>
+            <li>In <MadCap:variable name="Mobile.WS1"/>, click <span class="uicontrol">RESOURCES</span> (left ribbon bar).</li>
+            <li>Click <span class="menucascade">
+                  <span class="uicontrol">Profiles &amp; Baselines</span>
+                  <span class="uicontrol">Profiles</span>
+               </span>.</li>
+            <li>Click <span class="uicontrol">ADD</span>, and then select <span class="uicontrol">Add Profile</span>.</li>
+            <li>Select <span class="menucascade">
+                  <span class="uicontrol">Windows</span>
+                  <span class="uicontrol">Windows Desktop</span>
+                  <span class="uicontrol">User Profile</span>
+               </span>.</li>
+            <li>On the <span class="uicontrol">General</span> page, enter the following:
+				<ol style="list-style-type: lower-alpha;">
+                  <li>
+                     <span class="uicontrol">Name</span>: Enter a name for the user profile.</li>
+                  <li>
+                     <span class="uicontrol">Description</span>: Optional. Enter a description for the user profile.</li>
+                  <li>
+                     <span class="uicontrol">Deployment</span>: Select <span class="uicontrol">Managed</span>.</li>
+                  <li>
+                     <span class="uicontrol">Assignment Type</span>: Select <span class="uicontrol">Auto</span>.</li>
+                  <li>
+                     <span class="uicontrol">Allow Removal</span>: Select <span class="uicontrol">Always</span>.</li>
+                  <li>
+                     <span class="uicontrol">Managed By</span>: Optional. Enter additional admin names.</li>
+                  <li>
+                     <span class="uicontrol">Smart Groups</span>: Enter the same groups that you specified in <a href="#Task5">Task 5</a>.</li>
+                  <li>
+                     <span class="uicontrol">Exclusions</span>: Allows you to exclude groups from the profile. Accept the default or configure as appropriate for your implementation.</li>
+                  <li>
+                     <span class="uicontrol">Additional Assignment Criteria</span>: Allows you to schedule a deployment schedule.</li>
+                  <li>
+                     <span class="uicontrol">Removal Date</span>: Allows you to specify a date when the profile is removed from the device.</li>
+               </ol>
+            </li>
+            <li>Click <span class="uicontrol">Credentials</span> in the left pane.</li>
+            <li>Click <span class="uicontrol">CONFIGURE</span>.</li>
+            <li>On the <span class="uicontrol">Credentials</span> page, enter the following:
+					<ol style="list-style-type: lower-alpha;">
+                  <li>
+                     <span class="uicontrol">Credential Source</span>: Select <span class="uicontrol">Defined Certificate Authority</span>.</li>
+                  <li>
+                     <span class="uicontrol">Certificate Authority</span>: Select the same Certificate Authority that you configured in <a href="#Task3">Task 3</a>.</li>
+                  <li>
+                     <span class="uicontrol">Key Location</span>: Select <span class="uicontrol">TPM If Present</span> to support devices with or without TPM.</li>
+                  <li>
+                     <span class="uicontrol">Certificate Store</span>: Select <span class="uicontrol">Personal</span>.</li>
+               </ol>
+            </li>
+            <li>Click <span class="uicontrol">SAVE AND PUBLISH</span>.</li>
+         </ol>
+      </ol>
+      <h3>
+         <a name="Task7"/>On a Windows computer, verify the certificate installation</h3>
+      <ol>
+         <li>On a Windows computer, verify that the client certificate was installed:<ol style="list-style-type: lower-alpha;">
+               <li>On the Windows computer, click <span class="uicontrol">Start</span>, and then type <span class="uicontrol">cert</span>.</li>
+               <li>Click <span class="uicontrol">Manage user certificates</span>.</li>
+               <li>In <span class="uicontrol">Certificates - Current User</span>, click <span class="menucascade">
+                     <span class="uicontrol">Personal</span>
+                     <span class="uicontrol">Certificates</span>
+                  </span>.</li>
+               <li>Make sure the client certificate exists.</li>
+            </ol>
+         </li>
+         <li>Verify the certificate authority (CA):
+				<ol style="list-style-type: lower-alpha;">
+               <li>In <span class="uicontrol">Certificates - Local Computer</span>, click <span class="menucascade">
+                     <span class="uicontrol">Intermediate Certificate Authority</span>
+                     <span class="uicontrol">Certificates</span>
+                  </span>.</li>
+               <li>In the <span class="uicontrol">Issued To</span> column, find <span class="uicontrol">Organization Intermediate Authority</span>.</li>
+               <li>Make sure the <span class="uicontrol">Issued By</span> column specifies <span class="uicontrol">Organization Root Authority</span> for <span class="uicontrol">Organization Intermediate Authority</span>.</li>
+            </ol>
+         </li>
+      </ol>
+      <h2>Next steps</h2>
+      <ul>
+         <li>
+            <MadCap:xref href="add-app-signon-policy-desktop.htm">Add an app sign-on policy rule for desktop</MadCap:xref>
+         </li>
+      </ul>
+   </body>
+</html>

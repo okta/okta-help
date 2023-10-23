@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:conditions="MultiProdPublish.Classic+OIE" xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head><title>[%=Heading.Level1%]</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1>Troubleshooting Smart Card/PIV&#160;authentication</h1>
+        <p>If authentication with a Smart Card or Personal Identity Verification (PIV)&#160;card fails, check the following:</p>
+        <ul>
+            <li>Subject Alternate Name: Ensure that the <span class="uicontrol">Subject Alternate Name</span> or expression result matches the Okta attribute that you specified. It must be either email or Okta username.</li>
+            <li>Certificate Chain: Ensure that the entire certificate chain of issuers is uploaded in the correct format. See <MadCap:xref href="idp-pki-cert-chain.htm">Format a PKI&#160;Certificate Chain</MadCap:xref>.</li>
+            <li>User account state: Ensure that the user has an account in an active state. Password reset is considered active. <MadCap:xref href="../users-groups-profiles/usgp-end-user-states.htm">About user account states</MadCap:xref>.</li>
+            <li>Browser session: Always start with a brand new browser session to avoid caching issues. Close out all browser windows before testing the feature.</li>
+        </ul>
+        <h4>CRL&#160;endpoints</h4>
+        <p>Test the accessibility of CRL endpoints. Okta requires access to the Certificate Revocation List distribution points on a perpetual basis for PIV card authentication to work. This access is necessary so that Okta can verify that the certificate that the end user is presenting isn't revoked, expired, or otherwise not trustworthy. Revocation checking is a critical process to ensure the security of PIV Authentication. Typically, Certificate Revocation Lists are posted in a publicly reachable HTTP location on the internet, but in some highly secure environments, the revocation endpoints aren't public.</p>
+        <p>To verify that the CRL is posted in a location where Okta can reach it:</p>
+        <ol>
+            <li>Copy the Certificate Revocation List Endpoint URL from the client's public X.509 certificate (that ends in <span class="code">.crl</span>).</li>
+            <li>Paste the CRL&#160;Endpoint URL&#160;into a browser on an off-network device.</li>
+            <li>If the CRL is accessible, the <span class="code">.crl</span> file downloads automatically. </li>
+            <li>If the URL returns a 401 error, then it isn't public. The Okta service can't  access the endpoints.</li>
+        </ol>
+        <p>For more information, see <MadCap:xref href="ip-address-allow-listing.htm">Okta IP address allow listing</MadCap:xref>. Ensure that the Okta IP can access the CRL distribution point over HTTP.</p>
+        <p>Revocation checking occurs for every certificate in the chain. It might be necessary to repeat this process for each intermediate certificate in the PKI chain.</p>
+        <h4>Multiple certificates</h4>
+        <p>If you're using more than one certificate, combine them into a single file.</p>
+        <ol>
+            <li>Convert DER encoded root and intermediate certificates (with .cer, .crt extension) into PEM format using the following openssl command: <span class="codeblock">openssl x509 -inform der -in $input-cert-file-name -out $out-cert-file-name-with-pem-extension</span></li>
+            <li>Concatenate all the PEM certificates into a single file with the root certificate being the last one using the following command: <span class="codeblock">cat $intermediate-cert-file-1 ... $intermediate-cert-file-N $root-cert-file-with-pem-extension &gt; trust-chain.pem</span></li>
+            <li>Upload <span class="filepath">trust-chain.pem</span> when creating the Smart Card Identity Provider and ensure that no other Smart Cards IDPs exist.</li>
+        </ol>
+        <div class="noteOkta">
+            <p class="noteContent">Be sure that the root certificate is the last of the PEM certificates in the single file.</p>
+        </div>
+        <h2><span>Related topics</span>
+        </h2>
+        <p>
+            <MadCap:xref href="idp-pki-cert-chain.htm">Format a PKI&#160;Certificate Chain</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="idp-enable-smart-card.htm">Enable a Smart Card &#160;</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="idp-smart-card-end-user.htm">Sign in with a Smart Card/PIV as an end user</MadCap:xref>
+        </p>
+    </body>
+</html>

@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:fileTags="Tags/okta-authors.Kimli Welsh">
+    <head><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1>Manage endpoint security integration plugins for Windows</h1>
+        <p>Endpoint security integration plugins enable <MadCap:variable name="okta-feature-names.Okta Verify" /> to collect trust signals from the Windows device it runs on. You can configure which device signals to collect.</p>
+        <p>On Windows devices, the plugins are here: <span class="filepath">%PROGRAMDATA%\Okta\OktaVerify\Plugins</span>.</p>
+        <p>You can run PowerShell scripts to install and configure plugins on Windows devices.</p>
+        <h2><a name="Install2"></a>Install the WSC endpoint security integration plugin</h2>
+        <p>By default, the Windows Security Center (WSC) plugin is installed automatically with <MadCap:variable name="okta-feature-names.Okta Verify" />. To reinstall the plugin later,  uninstall the current version, and then use this script.</p>
+        <MadCap:codeSnippet>
+            <MadCap:codeSnippetCopyButton />
+            <MadCap:codeSnippetBody MadCap:useLineNumbers="True" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">$content = "{`r`n`t`"name`": `"com.okta.windowsSecurityCenter`",`r`n`t`"description`": `"Okta provided integration collecting signals through the Windows Security Center APIs.`",`r`n`t`"type`": `"DEFAULT`",`r`n`t`"format`": `"JSON`",`r`n`t`"availabilityChecks`": [`r`n`t`t{`r`n`t`t`t`"type`": `"SERVICE_RUNNING`",`r`n`t`t`t`"value`": `"wscsvc`"`r`n`t`t}`r`n`t]`r`n}"
+$path = $env:ProgramData + "\Okta\OktaVerify\Plugins\"
+$filePath = $path + "com.okta.windowsSecurityCenter.json"
+if (-not (Test-Path $path))
+{
+New-Item $path -ItemType Directory
+}
+$content | Out-File -FilePath $filePath</MadCap:codeSnippetBody>
+        </MadCap:codeSnippet>
+        <p>The PowerShell script configures the following JSON&#160;plugin file:</p>
+        <MadCap:codeSnippet>
+            <MadCap:codeSnippetCopyButton />
+            <MadCap:codeSnippetBody MadCap:useLineNumbers="True" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">{
+  "name": "com.okta.windowsSecurityCenter",
+  "description": "Okta provided integration collecting signals through the Windows Security Center APIs.",
+  "type": "DEFAULT",
+  "format": "JSON",
+  "availabilityChecks": [
+    {
+      "type": "SERVICE_RUNNING",
+      "value": "wscsvc"
+    }
+  ]
+}</MadCap:codeSnippetBody>
+        </MadCap:codeSnippet>
+        <h2><a name="Install"></a>Install the CrowdStrike endpoint security integration&#160;plugin</h2>
+        <p>The CrowdStrike plugin isn’t installed automatically when <MadCap:variable name="okta-feature-names.Okta Verify" /> is installed. Choose the appropriate installation procedure for your use case:</p>
+        <ul>
+            <li>If you deploy Okta Verify to users' Windows devices, use the command line provided by your management tool (GPO, MDM software). Include the <span class="code">EnableZTAPlugin</span> flag in the installation command.
+See <a href="https://help.okta.com/oie/en-us/Content/Topics/identity-engine/devices/ov-install-options-windows.htm" target="_blank">Deploy Okta Verify to Windows devices</a>. </li>
+            <li>Otherwise, use the PowerShell script. The following scenarios fall under this category:<ul><li><MadCap:variable name="okta-feature-names.Okta Verify" /> was installed by the user and not through your device management tool.</li><li>You want to enable or disable functionality after <MadCap:variable name="okta-feature-names.Okta Verify" /> is already installed on the device.</li></ul></li>
+        </ul>
+        <MadCap:codeSnippet>
+            <MadCap:codeSnippetCopyButton />
+            <MadCap:codeSnippetBody MadCap:useLineNumbers="True" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">$content = "{`r`n`t`"name`": `"com.crowdstrike.zta`",`r`n`t`"description`": `"Okta provided integration with CrowdStrike Falcon endpoint collecting the zta score.`",`r`n`t`"type`": `"FILE`",`r`n`t`"format`": `"JWT`",`r`n`t`"location`": `"%ProgramData%\\CrowdStrike\\ZeroTrustAssessment\\data.zta`",`r`n`t`"availabilityChecks`": [`r`n`t`t{`r`n`t`t`t`"type`": `"SERVICE_RUNNING`",`r`n`t`t`t`"value`": `"csagent`"`r`n`t`t}`r`n`t]`r`n}"
+$path = $env:ProgramData + "\Okta\OktaVerify\Plugins\"
+$filePath = $path + "com.crowdstrike.zta.json"
+if (-not (Test-Path $path))
+{
+New-Item $path -ItemType Directory
+}
+[System.IO.File]::WriteAllText($filePath, $content)</MadCap:codeSnippetBody>
+        </MadCap:codeSnippet>
+        <p>The PowerShell script configures the following JSON&#160;plugin file:</p>
+        <MadCap:codeSnippet>
+            <MadCap:codeSnippetCopyButton />
+            <MadCap:codeSnippetBody MadCap:useLineNumbers="True" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">{
+  "name": "com.crowdstrike.zta",
+  "description": "Okta provided integration with CrowdStrike Falcon endpoint collecting the zta score.",
+  "type": "FILE",
+  "format": "JWT",
+  "location": "%ProgramData%\\CrowdStrike\\ZeroTrustAssessment\\data.zta",
+  "availabilityChecks": [
+    {
+      "type": "SERVICE_RUNNING",
+      "value": "csagent"
+    }
+  ]
+}</MadCap:codeSnippetBody>
+        </MadCap:codeSnippet>
+        <h2>Install  the Tanium endpoint security integration plugin</h2>
+        <p>The Tanium plugin isn’t installed automatically with <MadCap:variable name="okta-feature-names.Okta Verify" />. Use the PowerShell script to install the Tanium plugin in these scenarios:</p>
+        <ul>
+            <li><MadCap:variable name="okta-feature-names.Okta Verify" /> was installed by the user and not through your device management tool.</li>
+            <li>You want to enable or disable functionality after <MadCap:variable name="okta-feature-names.Okta Verify" /> is already installed on the device.</li>
+        </ul>
+        <MadCap:codeSnippet>
+            <MadCap:codeSnippetCopyButton />
+            <MadCap:codeSnippetBody MadCap:useLineNumbers="True" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">$content = "{`r`n`t`"name`": `"com.tanium.endpoint`",`r`n`t`"description`": `"Okta provided integration with the Tanium endpoint collecting the client trust score.`",`r`n`t`"type`": `"LOOPBACKAPI`",`r`n`t`"format`": `"JWT_WITH_JWE_CLAIM`",`r`n`t`"location`": `http://localhost:8081/okta`",`r`n`t`"authenticationType`": `"DeviceChallengeAuthorizationHeader`",`r`n`t`"availabilityChecks`": [`r`n`t`t{`r`n`t`t`t`"type`": `"SERVICE_RUNNING`",`r`n`t`t`t`"value`": `"Tanium Client`"`r`n`t`t}`r`n`t]`r`n}"
+$path = $env:ProgramData + "\Okta\OktaVerify\Plugins\"
+$filePath = $path + "com.okta.tanium.json"
+if (-not (Test-Path $path))
+{
+New-Item $path -ItemType Directory
+}
+[System.IO.File]::WriteAllText($filePath, $content)</MadCap:codeSnippetBody>
+        </MadCap:codeSnippet>
+        <p>The PowerShell script configures the following JSON&#160;plugin file:</p>
+        <MadCap:codeSnippet>
+            <MadCap:codeSnippetCopyButton />
+            <MadCap:codeSnippetBody MadCap:useLineNumbers="True" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">{
+"name": "com.tanium.endpoint",
+"description": "Okta provided integration with the Tanium endpoint collecting the client trust score.",
+"type": "LOOPBACKAPI",
+"format": "JWT_WITH_JWE_CLAIM",
+"location": http://localhost:8081/okta",
+"authenticationType": "DeviceChallengeAuthorizationHeader",
+"availabilityChecks": [
+{
+	"type": "SERVICE_RUNNING",
+	"value": "Tanium Client"
+		}
+	]
+}</MadCap:codeSnippetBody>
+        </MadCap:codeSnippet>
+        <h3>Known limitations</h3>
+        <p>After you set up an endpoint integration with Tanium, you can't edit the integration to change the Tanium public key. To replace the key, remove the current key, and add a different one.</p>
+        <h2><a name="Uninstal"></a>Uninstall an endpoint security integration  plugin</h2>
+        <p>Always uninstall the current endpoint security integration plugin before you install a new version. To uninstall the plugin from Windows computers, use this PowerShell script.</p>
+        <p>Replace <span class="code">[JSON_FILE_NAME]</span> in the PowerShell script with the applicable JSON file:</p>
+        <ul>
+            <li>Windows Security Center: <span class="code">com.okta.windowsSecurityCenter.json</span></li>
+            <li>CrowdStrike: <span class="code">com.crowdstrike.zta.json</span></li>
+            <li>Tanium:&#160;<span class="code">com.okta.tanium.json</span></li>
+        </ul>
+        <MadCap:codeSnippet>
+            <MadCap:codeSnippetCopyButton />
+            <MadCap:codeSnippetBody MadCap:useLineNumbers="True" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">$path = $env:ProgramData + "\Okta\OktaVerify\Plugins\[JSON_FILE_NAME]"
+if ((Test-Path $path))
+{
+Remove-Item -Path $path
+}</MadCap:codeSnippetBody>
+        </MadCap:codeSnippet>
+        <h2>Next steps</h2>
+        <p><a href="https://help.okta.com/oie/en-us/Content/Topics/identity-engine/devices/edr-integration-validate.htm" target="_blank">Validate your endpoint security integration</a>
+        </p>
+        <p MadCap:conditions="Primary.do-not-publish">
+            <MadCap:xref href="../edr-integration-validate.htm">Validate your endpoint security integration</MadCap:xref>
+        </p>
+    </body>
+</html>

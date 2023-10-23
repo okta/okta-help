@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:fileTags="Tags/okta-authors.Patrick Calnan"
+      MadCap:conditions="MultiProdPublish.Classic+OIE">
+   <head>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <meta name="description"
+            content="Configure the Citrix Netscaler Gateway integration to enable MFA against your Okta RADIUS server agent to provide seamless end-user authentication."/>
+   </head>
+   <body>
+      <h1>Configure  Palo Alto Networks VPN to use the Okta RADIUS</h1>
+      <p>During this task we will  define a RADIUS Server Profile, define an Authentication Profile for Okta Palo Alto RADIUS Agent, apply the Okta RADIUS Authentication Profile to a Gateway, and configure the GlobalProtect Portal to use the Okta RADIUS Authentication Profile. Complete these using the Palo Alto Networks RADIUS Server Profile.</p>
+      <h3>Steps</h3>
+      <ol>
+         <li>
+            <MadCap:xref href="#Define">Define a RADIUS Server Profile</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Define2">Define an Authentication Profile for Okta Palo Alto RADIUS Agent</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Apply">Apply the Okta RADIUS Authentication Profile to a Gateway</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Configur">Configure the GlobalProtect Portal to use the Okta RADIUS Authentication Profile</MadCap:xref>
+         </li>
+      </ol>
+      <h2>Before you begin</h2>
+      <ul>
+         <li>Ensure that you have the common UDP port and secret key values available.</li>
+      </ul>
+      <h2>
+         <a name="Define"/>Define a RADIUS Server Profile</h2>
+      <ol>
+         <li>Sign in to the Palo Alto Networks Admin console with sufficient privileges</li>
+         <li>Navigate to <span class="menucascade">
+               <span class="uicontrol">Device</span>
+               <span class="uicontrol">Server Profile</span>
+               <span class="uicontrol">Radius</span>
+            </span>, and then click <span class="uicontrol">Add</span> to define a new RADIUS server.</li>
+         <li>
+            <p>Enter a profile name that is unique and appropriate, and enter the following server settings, as shown above.</p>
+            <ul>
+               <li>
+                  <p>
+                     <span class="uicontrol">Timeout (sec)</span>: 60</p>
+               </li>
+               <li>
+                  <p>
+                     <span class="uicontrol">Authentication Protocol</span>: PAP</p>
+               </li>
+               <li>
+                  <p>
+                     <span class="uicontrol">Retries</span>: 1</p>
+               </li>
+            </ul>
+         </li>
+         <li>Click <span class="uicontrol">Add</span> in the screen shown above to define a server. Enter the following settings:
+					<ul>
+               <li>
+                  <p>
+                     <span class="uicontrol">Name</span>: Unique and appropriate name</p>
+               </li>
+               <li>
+                  <p>
+                     <span class="uicontrol">Radius Server</span>: IP Address of the Server you installed the Okta Palo Alto Radius Agent above.</p>
+               </li>
+               <li>
+                  <p>
+                     <span class="uicontrol">Secret</span>: The Radius Secret you defined in the Okta Radius App above.</p>
+               </li>
+               <li>
+                  <p>
+                     <span class="uicontrol">Port</span>: The UDP Port you defined in the Okta Palo Alto Radius App above.</p>
+               </li>
+            </ul>
+         </li>
+         <li>Click <span class="uicontrol">OK</span> to save the settings.</li>
+      </ol>
+      <h2>
+         <a name="Define2"/>Define an Authentication Profile for Okta Palo Alto RADIUS Agent</h2>
+      <ol>
+         <li>
+            <p>Select <span class="menucascade">
+                  <span class="uicontrol">Device</span>
+                  <span class="uicontrol">Authentication Profile</span>
+               </span> and then click <span class="uicontrol">Add</span> to define an Authentication Profile.</p>
+         </li>
+         <li>
+            <p>Select the <span class="wintitle">Authentication</span> tab.</p>
+         </li>
+         <li>Use the default settings except for the following:<ul>
+               <li>
+                  <span class="uicontrol">Type</span>: RADIUS</li>
+               <li>
+                  <span class="uicontrol">Server Profile</span>: Enter the name of the Server Profile you defined previously.</li>
+            </ul>
+         </li>
+         <li>Click <span class="uicontrol">OK</span>.</li>
+         <li>In the <span class="wintitle">Authentication Profile</span> screen, select the <span class="uicontrol">Advanced</span> tab.</li>
+         <li>Click <span class="uicontrol">Add</span> to assign an Allow List. Select <span class="uicontrol">All</span> from the available options.
+					</li>
+         <li>Click <span class="uicontrol">OK</span> to save the settings.</li>
+         <li>
+            <p>Click <span class="uicontrol">Commit</span> to save the Okta RADIUS Authentication Profile.</p>
+         </li>
+         <li>
+            <p>Open the Palo Alto Networks <span class="wintitle">Administrative Shell</span> and <MadCap:xref href="palo-alto-radius-intg-ts.htm#Test">Test the Authentication Profile</MadCap:xref>.</p>
+         </li>
+      </ol>
+      <h2>
+         <a name="Apply"/>Apply the Okta RADIUS Authentication Profile to a Gateway</h2>
+      <ol>
+         <li>Select <span class="menucascade">
+               <span class="uicontrol">Network</span>
+               <span class="uicontrol">GlobalProtect</span>
+               <span class="uicontrol">Gateways</span>
+            </span> and open your configured GlobalProtect Gateway.</li>
+         <li>Select the <span class="wintitle">Authentication</span> tab to define <span class="uicontrol">Client Authentication Settings</span>.</li>
+         <li>Click <span class="uicontrol">Add</span> to update Client Authentication to the Okta RADIUS Authentication Profile you just configured.</li>
+         <li>Leave the default settings except for the following:<ul>
+               <li>
+                  <span class="uicontrol">Name</span>: Unique and appropriate name</li>
+               <li>
+                  <span class="uicontrol">OS</span>: Any</li>
+               <li>
+                  <span class="uicontrol">Authentication Profile</span>: Enter the Authentication Profile you configured earlier. </li>
+               <li>
+                  <span class="uicontrol">Authentication Message</span>: Enter appropriate instructions for end users such as "Enter login credentials".</li>
+            </ul>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">OK</span> to save the settings.</p>
+         </li>
+      </ol>
+      <h2>
+         <a name="Configur"/>Configure the GlobalProtect Portal to use the Okta RADIUS Authentication Profile</h2>
+      <p>Note: The step applies the same settings that you just applied to you GlobalProtect Gateway to the GlobalProtect Portal. </p>
+      <ol>
+         <li>Select <span class="menucascade">
+               <span class="uicontrol">Network</span>
+               <span class="uicontrol">GlobalProtect</span>
+               <span class="uicontrol">Portals</span>
+            </span> and open your configured GlobalProtect Portal.</li>
+         <li>Select the <span class="wintitle">Authentication</span> tab to define <span class="uicontrol">Client Authentication Settings</span>.</li>
+         <li>Click <span class="uicontrol">Add</span> to update Client Authentication to the Okta RADIUS Authentication Profile you just configured.</li>
+         <li>Leave the default settings except for the following:<ul>
+               <li>
+                  <span class="uicontrol">Name</span>: Unique and appropriate name</li>
+               <li>
+                  <span class="uicontrol">OS</span>: Any</li>
+               <li>
+                  <span class="uicontrol">Authentication Profile</span>: Enter the Authentication Profile you configured earlier. </li>
+               <li>
+                  <span class="uicontrol">Authentication Message</span>: Enter appropriate instructions for end users such as "Enter login credentials".</li>
+            </ul>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">OK</span> to save the settings.</p>
+         </li>
+      </ol>
+      <h3>Commit all Settings</h3>
+      <p>Click <span class="uicontrol">Commit</span> to save the Okta RADIUS configuration within the Palo Alto Networks Admin Console.
+				</p>
+      <div>
+         <h2>Next steps</h2>
+         <p>
+            <MadCap:xref href="palo-alto-radius-intg-opt.htm">Configure optional settings</MadCap:xref>
+         </p>
+      </div>
+   </body>
+</html>

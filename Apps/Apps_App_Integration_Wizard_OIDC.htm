@@ -1,0 +1,502 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:fileTags="Tags/okta-authors.Tim Howie">
+   <head>
+      <title>[%=Heading.Level1%] | Okta</title>
+   </head>
+   <body>
+      <h1>Create OIDC app integrations</h1>
+      <p>An OpenID Connect (OIDC) app integration provides an identity layer on top of the OAuth 2.0 protocol to verify end-user identity and obtain profile information. </p>
+      <p>For detailed information about the OpenID Connect Foundation and to review the full protocol specification, see <a href="http://openid.net/connect/" target="_blank">Welcome to OpenID Connect</a>.</p>
+      <h2>Before you begin</h2>
+      <ul>
+         <li>
+            <a name="OICDPlatformTypes"/>Decide on the platform for your app integration. Available platforms are <MadCap:annotation MadCap:createDate="2021-07-19T11:34:19.7655558-04:00"
+                               MadCap:creator="Ian Hakes"
+                               MadCap:initials="IDMH"
+                               MadCap:comment="A web app is accessed through the browser and can remain running on a server that can store a secret safely."
+                               MadCap:editor="Ian Hakes"
+                               MadCap:editDate="2021-07-19T11:34:21.0935661-04:00">web</MadCap:annotation>, <MadCap:annotation MadCap:createDate="2021-07-19T11:35:08.2076527-04:00"
+                               MadCap:creator="Ian Hakes"
+                               MadCap:initials="IDMH"
+                               MadCap:comment="A native application resides on the end user's device."
+                               MadCap:editor="Ian Hakes"
+                               MadCap:editDate="2021-07-19T11:35:09.3746431-04:00">native</MadCap:annotation>, and <MadCap:annotation MadCap:createDate="2021-07-19T11:35:48.6257061-04:00"
+                               MadCap:creator="Ian Hakes"
+                               MadCap:initials="IDMH"
+                               MadCap:comment="A SPA application is a web application that is contained on a single web page. All code is retrieved when the page is loaded initially; the page does not load or refresh. A SPA application cannot keep running on a server."
+                               MadCap:editor="Ian Hakes"
+                               MadCap:editDate="2021-07-19T11:35:49.6284584-04:00">single page application</MadCap:annotation> (SPA).
+					</li>
+         <li>If your target application is a web or a native application, decide if you want to use refresh tokens.</li>
+         <li>If your target application is a single page application (SPA), decide what kind of visibility and login flow you want. You can configure your integration to initiate login in the background—without an <MadCap:variable name="okta-variables.ProductName"/> tile—or enable the application or <MadCap:variable name="okta-variables.ProductName"/> initiate the sign-in request. <p>If you decide that either the application or <MadCap:variable name="okta-variables.ProductName"/> can initiate the sign-in request, there are two flow options:</p>
+            <ul>
+               <li>Redirect to your OIDC application to start the sign-in request. This conforms to <a href="http://openid.net/specs/openid-connect-core-1_0.html#ThirdPartyInitiatedLogin"
+                     target="_blank">Section 4 of the OpenID Connect</a> specification. When the end users click an <MadCap:variable name="okta-variables.ProductName"/> tile, they're redirected to the <span class="varname">initiate_login_uri</span> of the <span class="disableGlossary">client</span> application. The client application constructs an authorization request and redirects the end user back to <MadCap:variable name="okta-variables.ProductName"/>.</li>
+               <li>Send an ID token directly to your OIDC application. This is a simpler flow, where <MadCap:variable name="okta-variables.ProductName"/> creates an ID token and posts it directly to the first <span class="varname">redirect URI</span> registered for the target application. This flow is the same as with sign-in requests for SAML apps. You can configure which OIDC scopes to grant. This flow uses the <span class="varname">form_post</span> response mode. There's no state parameter included in the request since it's a one-way request.</li>
+            </ul>
+         </li>
+         <li>
+            <a name="RedirectURIs_OIDC"/>Verify any redirect Uniform Resource Identifier (URI) endpoints are functional. A redirect URI is where <MadCap:variable name="okta-variables.ProductName"/> sends the authentication response and ID token.</li>
+         <li>
+            <MadCap:snippetBlock src="Apps-Snippets/allow-list.flsnp"/>
+         </li>
+      </ul>
+      <h2>Context</h2>
+      <h4>
+         <a name="User"/>User Consent for OAuth 2.0 and OpenID Connect Flows</h4>
+      <p>A consent grant is a user's explicit permission to allow an application to access resources protected by scopes. As part of an OAuth 2.0 or OpenID Connect authentication flow, you can prompt the user to approve your integration's access to specified resources. You can also set up user consent as part of creating the integration. </p>
+      <p>Consent grants are different from tokens because a consent grant can outlast a token. There can be multiple tokens with varying sets of scopes derived from a single consent.</p>
+      <p> When an application needs to get a new access token, it doesn't need to prompt the user for consent if they've already consented to the specified scopes. Consent grants remain valid until the user manually revokes them or the user, integration, authorization server, or scope is deactivated or deleted. User consent requires that your org has the <a href="../Security/API_Access.htm">API Access Management</a> feature enabled.</p>
+      <h2>
+         <a name="Task"/>Task 1: Launch the Wizard</h2>
+      <ol>
+         <li>
+            <MadCap:snippetText src="../../Resources/Snippets/task steps/Applications_Applications.flsnp"/>
+         </li>
+         <li>Click <span class="uicontrol">Create App Integration</span>.</li>
+         <li>To create an OIDC app integration, select <span class="uicontrol">OIDC - OpenID Connect</span> as the <span class="uicontrol">Sign-in method</span>.
+</li>
+         <li>Choose the type of application to integrate with Okta. Select <span class="uicontrol">Web Application</span>, <span class="uicontrol">Single-Page Application</span>, or <span class="uicontrol">Native Application</span>.</li>
+         <li>Click <span class="uicontrol">Next</span>.</li>
+      </ol>
+      <h2>
+         <a name="Task_"/>Task 2: Configure initial settings</h2>
+      <p>The App Integration Wizard for OIDC has three sections:</p>
+      <ol>
+         <li>In <span class="wintitle">General Settings</span>:
+				<ul>
+               <li>
+                  <span class="uicontrol">App integration name</span>: Specify a name for your app integration.<br/>
+                  <div class="noteOkta">
+                     <p class="noteContent">The app integration name can only consist of UTF-8, 3-byte characters.</p>
+                  </div>
+               </li>
+               <p>Okta automatically assigns a default name to your app integration based on the platform that you selected. If an app integration with the default name exists in your <MadCap:variable name="okta-variables.ProductName"/> org, then a number is appended to the default name to differentiate the integrations.</p>
+               <li>Optional. <span class="uicontrol">Logo</span>: Add a logo to accompany your app integration in the <MadCap:variable name="okta-variables.ProductName"/> org. The logo file must be in <span class="filepath">.png</span>, <span class="filepath">.jpg</span>, or <span class="filepath">.gif</span> format and be smaller than 1 MB. For best results, use a PNG image with a transparent background and a landscape orientation. Use a minimum resolution of 420 x 120 pixels to prevent up-scaling.</li>
+               <li>
+                  <span class="uicontrol">Grant type</span>: Select from among the different grant type options. The grant types available for your app integration depend on the platform you've selected. See <a href="https://developer.okta.com/docs/concepts/oauth-openid/"
+                     target="_blank">OAuth 2.0 and OpenID Connect overview</a>.<ul MadCap:conditions="MultiProdPublish.OIE">
+                     <li>
+                        <p MadCap:conditions="Primary.do-not-publish">The following is for CIBA grant type from Customer Fed team - Self-Service EA in 2022.12.0, web apps only, OIE only.</p>
+                        <p>If you select <span class="uicontrol">Client-initiated backchannel authentication flow (CIBA)</span>, you must also select a <span class="uicontrol">Preferred authenticator for CIBA</span>. Choose an existing authenticator from the dropdown menu or click <span class="uicontrol">custom authenticator</span> to open the <span class="wintitle">Authenticators</span> interface. See <MadCap:xref href="../identity-engine/authenticators/custom-authenticator.htm">Configure the [%=okta-feature-names.Custom Authenticator%]</MadCap:xref>.
+</p>
+                        <p>
+                           <MadCap:snippetBlock src="../../Resources/Snippets/ea-featmgr.flsnp"/>
+                        </p>
+                     </li>
+                  </ul>
+               </li>
+               <li>
+                  <a name="OIDC-login-redirect-uri"/>
+                  <span class="uicontrol">Sign-in redirect URIs</span>: The sign-in redirect URI is where <MadCap:variable name="okta-variables.ProductName"/> sends the authentication response and ID token for the sign-in request. The URIs must be absolute URIs.
+				<p>You can specify more than one URI. As your OIDC application must explicitly request which <span class="varname">redirect_uri</span> to use, the order doesn't matter. If your application sends a request to a URI that isn't registered with your  integration, your users are sent to an error page when they try to sign on.</p>
+                  <p>If your OIDC client is configured to support multiple subdomains, you can use a single redirect URI with a wildcard. Select <span class="uicontrol">Allow wildcard in sign-in redirect URI</span>. See the <a href="https://developer.okta.com/docs/reference/api/apps/#details">Apps API</a> for more configuration guidance for wildcards.</p>
+                  <div class="note_cautionOkta">
+                     <p class="noteContent">The use of wildcards for subdomains is discouraged. Wildcards can allow malicious actors to have tokens or authorization codes sent to unexpected or attacker-controlled pages.</p>
+                  </div>
+               </li>
+               <li>
+                  <p>
+                     <a name="OIDC-logout-redirect-uri"/>Optional. <span class="uicontrol">Sign-out redirect URIs</span>: After your application contacts <MadCap:variable name="okta-variables.ProductName"/> to close the user session, <MadCap:variable name="okta-variables.ProductName"/> redirects the user to this URI. The URIs must be absolute URIs. You can specify more than one URI.  The use of wildcards for subdomains isn't currently supported for sign-out redirect URIs.</p>
+               </li>
+            </ul>
+         </li>
+         <li>In <span class="uicontrol">Trusted Origins</span> (for Web and Native app integrations):<ul>
+               <li>
+                  <p>Optional. <span class="uicontrol">Base URIs</span>: Specify any base URIs for which you want to permit cross-origin requests to the <MadCap:variable name="okta-variables.ProductName"/> APIs. These URIs are added to the <span class="uicontrol">Trusted Origins</span> for your <MadCap:variable name="okta-variables.ProductName"/> org. You can manage these base URIs by going to <span class="menucascade">
+                        <span class="uicontrol">Security</span>
+                        <span class="uicontrol">API</span>
+                     </span> and selecting the <span class="wintitle">Trusted Origins</span> tab. See <a href="https://developer.okta.com/docs/guides/enable-cors/overview/"
+                        target="_blank">Overview of Cross-Origin Resource Sharing (CORS)</a>.</p>
+               </li>
+            </ul>
+         </li>
+         <li>In <span class="uicontrol">Assignments</span>: <ul>
+               <li>
+                  <p>
+                     <span class="uicontrol">Controlled access</span>: The default access option assigns and grants access to this new app integration for everyone in your Okta org. You can choose to <span class="uicontrol">Limit access to selected groups</span> and then enter the  specific groups names found in your org. Or  <span class="uicontrol">Skip group assignment for now</span> and create the app without assigning a group.</p>
+               </li>
+            </ul>
+         </li>
+         <li>Click <span class="uicontrol">Save</span>. This creates the app integration and opens the settings page to configure more options.</li>
+      </ol>
+      <MadCap:snippetBlock src="Apps-Snippets/app-syslog-events.flsnp"/>
+      <h2>Task 3: Configure OIDC settings</h2>
+      <p>The options in the <span class="uicontrol">General</span> tab are similar for all OIDC integration types. Click <span class="uicontrol">Edit</span> to change any of the listed options.</p>
+      <h3>Web apps</h3>
+      <ul>
+         <li>
+            <p>
+               <MadCap:annotation MadCap:createDate="2022-06-17T10:21:55.3912501-04:00"
+                                  MadCap:creator="Ian Hakes"
+                                  MadCap:initials="IDMH"
+                                  MadCap:comment="OKTA-500160, EA in 2022.07.0, GA in 2022.08.0"
+                                  MadCap:editor="Ian Hakes"
+                                  MadCap:editDate="2022-06-22T17:46:16.2827500-04:00">The </MadCap:annotation>
+               <span class="wintitle">Client Credentials</span> section contains important information necessary for authentication flows.</p>
+            <ul>
+               <li>
+                  <p>
+                     <span class="uicontrol">Client ID</span>: This is the public identifier required by all OAuth flows. This identifier is randomly generated when you create the app integration.</p>
+               </li>
+               <li>
+                  <span class="uicontrol">Client authentication</span>: Choose the method to use for client authentication.<ul>
+                     <li>
+                        <p>
+                           <span class="uicontrol">Client secret</span>: Selecting this option displays a panel where you can generate a secret for use by the client. This value is known only to Okta and your app integration. Click <span class="uicontrol">Save</span> to generate the client secret. You can view or copy the client secret. If you have a second client secret, you can change the status to select the active secret. See <MadCap:xref href="oauth-client-cred-mgmt.htm#Rotate">Rotate a client secret by creating second client secret</MadCap:xref>.</p>
+                     </li>
+                     <li>
+                        <span class="uicontrol">Public key / Private key</span>: Selecting this option displays a panel where you can generate or add a public key / private key pair for use by the client connection. See <MadCap:xref href="oauth-client-cred-mgmt.htm">Manage OAuth secrets and keys for OIDC apps</MadCap:xref>.</li>
+                  </ul>
+               </li>
+               <li>
+                  <MadCap:annotation MadCap:createDate="2022-06-30T15:52:17.1350550-04:00"
+                                     MadCap:creator="Ian Hakes"
+                                     MadCap:initials="IDMH"
+                                     MadCap:comment="Remove the EA banner in 2022.08.0 when the PKCE feaure goes GA Preview"
+                                     MadCap:editor="Ian Hakes"
+                                     MadCap:editDate="2022-06-30T15:52:41.6726966-04:00">
+                     <span class="uicontrol">Proof Key for Code Exchange (PKCE)</span>:</MadCap:annotation> Indicates if a PKCE code challenge is required to verify client requests. This is optional for both the <span class="uicontrol">Client secret</span> and <span class="uicontrol">Public key / Private key</span> authentication methods.</li>
+               <li>
+                  <p>Click <span class="uicontrol">Save</span> to commit any changes to your <span class="wintitle">Client Credentials</span>. If you switch between a client secret and a public key / private key, see <MadCap:xref href="oauth-client-cred-mgmt.htm#Change">Change client authentication methods</MadCap:xref> for information on removal of existing secrets or keys.</p>
+               </li>
+            </ul>
+         </li>
+         <li>
+            <p>In the <span class="wintitle">General Settings</span> section, you can configure the following settings for your app integration: </p>
+            <ul>
+               <li>
+                  <p>Change the <span class="uicontrol">App integration name</span> if you need to modify this from your initial name.</p>
+               </li>
+               <li>
+                  <p>Select <span class="uicontrol">Require Demonstration of Proof-of-Possession (DPoP) header in token requests</span> to require a client to prove possession of a public/private key pair for token requests. The authorization server rejects token requests from this client that don't contain the DPoP header. Additionally, you can't select <span class="uicontrol">Implicit (hybrid)</span> from the <span class="wintitle">Grant type</span> options.</p>
+               </li>
+               <li>
+                  <p>Select from among the different <span class="uicontrol">Grant type</span> options.</p>
+                  <ul>
+                     <li>
+                        <span class="uicontrol">Client credentials</span>: Use client credentials as the grant type for a client acting on behalf of itself.</li>
+                     <li>
+                        <span class="uicontrol">Authorization code</span>: Use an authorization code as the grant type for a client acting on behalf of a user.</li>
+                     <li>
+                        <span class="uicontrol">Refresh Token</span>: Rotate your token after every use or use a persistent token. If you choose to rotate your token after every use, you can set a persistence period for how long that token remains active.</li>
+                     <li>
+                        <span class="uicontrol">Device Authorization</span>: Use device authorization as the grant type for a client acting on behalf of a user.</li>
+                     <li>
+                        <span class="uicontrol">Implicit (hybrid)</span>: Use an implicit grant type for a client acting on behalf of a user. Select the type of token you want to use:<ul>
+                           <li>
+                              <span class="uicontrol">Allow ID token with implicit grant grant type</span>
+                           </li>
+                           <li>
+                              <span class="uicontrol">Allow Access token with implicit grant type</span>
+                           </li>
+                        </ul>
+                     </li>
+                  </ul>
+                  <ul MadCap:conditions="MultiProdPublish.OIE">
+                     <li>
+                        <p MadCap:conditions="Primary.do-not-publish">The following is for CIBA grant type from Customer Fed team - Self-Service EA in 2022.12.0, web apps only (initially), OIE only.</p>
+                        <p>If you select the <span class="uicontrol">Client-initiated backchannel authentication flow (CIBA)</span> grant type, you also need to select a <span class="uicontrol">Preferred authenticator for CIBA</span>. Choose an existing authenticator from the dropdown menu or click <span class="uicontrol">custom authenticator</span> to open the <span class="wintitle">Authenticators</span> interface. See <MadCap:xref href="../identity-engine/authenticators/custom-authenticator.htm">Configure the [%=okta-feature-names.Custom Authenticator%]</MadCap:xref>.
+</p>
+                     </li>
+                  </ul>
+               </li>
+               <li>
+                  <p>Add or remove the user consent  for an OIDC integration. Select <span class="uicontrol">Require consent</span> to prompt the user with a pop-up window to approve the integration's access to specified resources. You can set up the consent for an OIDC scope in your custom authorization, as described in <MadCap:xref href="../Security/api-config-scopes.htm">Create API access scopes</MadCap:xref>. The <span class="uicontrol">Require consent</span> checkbox only appears if <MadCap:variable name="okta-variables.ProductName"/> API Access Management is enabled for your org.</p>
+               </li>
+               <li>
+                  <p>Enter one or more <span class="uicontrol">Sign-in redirect URIs</span> where <MadCap:variable name="okta-variables.ProductName"/> sends OAuth responses.</p>
+               </li>
+               <li>
+                  <p>Enter one or more <span class="uicontrol">Sign-out redirect URIs</span> where <MadCap:variable name="okta-variables.ProductName"/> redirects the browser after logging out from the relying-party and terminating its end-user session.</p>
+                  <p class="earlyaccess" MadCap:conditions="MultiProdPublish.OIE">If you've enabled the Early Access feature for Front Channel Single Logout, this configuration has changed. See <MadCap:xref href="Apps_Single_Logout.htm#SLO-for-OIDC">Enable SLO for OIDC integrations</MadCap:xref>.</p>
+               </li>
+               <li>
+                  <p>Select a <span class="uicontrol">Login initiated by</span> setting to specify if the sign-in process is initiated by the application in the background, or if either the application or <MadCap:variable name="okta-variables.ProductName"/> can initiate the sign-in request.			</p>
+                  <ul>
+                     <li>
+                        <p>If you select <span class="uicontrol">App Only</span>, the application is started in the background, without an <MadCap:variable name="okta-variables.ProductName"/> tile appearing.</p>
+                     </li>
+                     <li>
+                        <p>If you select <span class="uicontrol">Either Okta or App</span>, your integration uses an <MadCap:variable name="okta-variables.ProductName"/> tile:
+				</p>
+                        <ul>
+                           <li>
+                              <p>Select the appropriate <span class="uicontrol">Application visibility</span> option.</p>
+                           </li>
+                           <li>
+                              <p>Select the appropriate <span class="uicontrol">Login flow</span> option. If you choose <span class="uicontrol">Send ID Token directly to app (Okta Simplified)</span>, you're also able to choose OIDC scopes for the flow.</p>
+                           </li>
+                           <li>
+                              <p>If you are using the Implicit flow, an <span class="uicontrol">App Embed Link</span> section appears at the bottom of the settings page, showing the URL that you can use to sign in to the OIDC client from outside of <MadCap:variable name="okta-variables.ProductName"/>.</p>
+                           </li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+               <li>
+                  <p>Enter or change the <span class="uicontrol">Initiate login URI</span> used to initiate a sign-in request. When Okta is redirected to this endpoint, it triggers the client  to send an authorization request.</p>
+               </li>
+               <MadCap:snippetBlock src="Apps-Snippets/emailverificationexp.flsnp"
+                                    MadCap:conditions="MultiProdPublish.OIE">
+                    </MadCap:snippetBlock>
+               <li>
+                  <p>Click <span class="uicontrol">Save</span> to commit your <span class="wintitle">General Settings</span> changes.</p>
+               </li>
+            </ul>
+         </li>
+      </ul>
+      <h3>Single page apps</h3>
+      <ul>
+         <li>
+            <p>
+               <MadCap:annotation MadCap:createDate="2022-06-17T10:21:19.1662960-04:00"
+                                  MadCap:creator="Ian Hakes"
+                                  MadCap:initials="IDMH"
+                                  MadCap:comment="OKTA-500160, EA in 2022.07.0, GA in 2022.08.0"
+                                  MadCap:editor="Ian Hakes"
+                                  MadCap:editDate="2022-06-22T17:57:53.6855062-04:00">The </MadCap:annotation>
+               <span class="wintitle">Client Credentials</span> section contains important information necessary for authentication flows.</p>
+            <ul>
+               <li>
+                  <p>
+                     <span class="uicontrol">Client ID</span>: This is the public identifier required by all OAuth flows. This identifier is randomly generated when you create the app integration.</p>
+               </li>
+               <li>
+                  <span class="uicontrol">Client authentication</span>: Choose the method to use for client authentication.<ul>
+                     <li>
+                        <p>
+                           <span class="uicontrol">None</span>: Default for SPA integrations. This option requires  a <span class="uicontrol">Proof Key for Code Exchange (PKCE)</span> for additional verification. PKCE  ensures that only the client that requested the access token can redeem it.</p>
+                     </li>
+                  </ul>
+               </li>
+            </ul>
+         </li>
+         <li>
+            <p>In the <span class="uicontrol">General Settings</span> section, you can configure the following settings for your app integration:</p>
+            <ul>
+               <li>
+                  <p>Change the <span class="uicontrol">App integration name</span> if you need to modify this from your initial name.</p>
+               </li>
+               <li>
+                  <p>Select <span class="uicontrol">Require Demonstration of Proof-of-Possession (DPoP) header in token requests</span> to require a client to prove possession of a public/private key pair for token requests. The authorization server rejects token requests from this client that don't contain the DPoP header. Additionally, you can't select <span class="uicontrol">Client credentials</span> or <span class="uicontrol">Implicit (hybrid)</span> from the <span class="wintitle">Grant type</span> options.</p>
+               </li>
+               <li>
+                  <p>Select from among the different <span class="uicontrol">Grant type</span> options.</p>
+                  <ul>
+                     <li>
+                        <span class="uicontrol">Authorization Code</span>: Use an authorization code as the grant type for a client acting on behalf of a user.</li>
+                     <li>
+                        <span class="uicontrol">Refresh Token</span>: Rotate your token after every use or use a persistent token. If you choose to rotate your token after every use, you can set a persistence period for how long that token remains active.</li>
+                     <li>
+                        <span class="uicontrol">Device Authorization</span>: Use device authorization as the grant type for a client acting on behalf of a user.</li>
+                     <li>
+                        <span class="uicontrol">Implicit (hybrid)</span>: Use an implicit grant type for a client acting on behalf of a user.</li>
+                  </ul>
+                  <ul MadCap:conditions="MultiProdPublish.OIE,Primary.review-only">
+                     <li>
+                        <p MadCap:conditions="Primary.do-not-publish">The following is for CIBA grant type from Customer Fed team - Self-Service EA in 2022.12.0, web apps only (initially), OIE only. NOTE THIS SECTION TO STAY REVIEW ONLY -- According to Ian Hakes in the google doc notes: "Removed for 2022.12.0 EA of the CIBA feature. According to Venkat Viswanathan, SPA and Native apps will be supported later in an incremental change.";;;;</p>
+                        <p>If you select the <span class="uicontrol">Client-initiated backchannel authentication flow (CIBA)</span> grant type, you also need to select a <span class="uicontrol">Preferred authenticator for CIBA</span>. Choose an existing authenticator from the dropdown menu or click <span class="uicontrol">custom authenticator</span> to open the <span class="wintitle">Authenticators</span> interface. See <MadCap:xref href="../identity-engine/authenticators/custom-authenticator.htm">Configure the [%=okta-feature-names.Custom Authenticator%]</MadCap:xref>.
+</p>
+                        <p>
+                           <MadCap:snippetBlock src="../../Resources/Snippets/ea-featmgr.flsnp">
+                                    </MadCap:snippetBlock>
+                        </p>
+                     </li>
+                  </ul>
+               </li>
+               <li>
+                  <p>Enter one or more <span class="uicontrol">Sign-in redirect URIs</span> where <MadCap:variable name="okta-variables.ProductName"/> sends OAuth responses.</p>
+               </li>
+               <li>
+                  <p>Enter one or more <span class="uicontrol">Sign-out redirect URIs</span> where <MadCap:variable name="okta-variables.ProductName"/> redirects the browser after logging out from the relying-party and terminating its end-user session.</p>
+                  <p class="earlyaccess" MadCap:conditions="MultiProdPublish.OIE">If you've enabled the Early Access feature for Front Channel Single Logout, this configuration has changed. See <MadCap:xref href="Apps_Single_Logout.htm#SLO-for-OIDC">Enable SLO for OIDC integrations</MadCap:xref>.</p>
+               </li>
+               <li>
+                  <p>Select a <span class="uicontrol">Login initiated by</span> setting. Specify whether the application initiates the sign-in in the background, or if either the application or <MadCap:variable name="okta-variables.ProductName"/> can initiate the sign-in request.
+			</p>
+                  <ul>
+                     <li>
+                        <p>If you select <span class="uicontrol">App Only</span>, the application is started in the background, without an <MadCap:variable name="okta-variables.ProductName"/> tile appearing.</p>
+                     </li>
+                     <li>
+                        <p>If you select <span class="uicontrol">Either Okta or App</span>, your integration uses an <MadCap:variable name="okta-variables.ProductName"/> tile:
+				</p>
+                        <ul>
+                           <li>
+                              <p>Select the appropriate <span class="uicontrol">Application visibility</span> option.</p>
+                           </li>
+                           <li>
+                              <p>Select the appropriate <span class="uicontrol">Login flow</span> option. If you choose <span class="uicontrol">Send ID Token directly to app (Okta Simplified)</span>, you can also select OIDC scopes for the flow.</p>
+                           </li>
+                           <li>
+                              <p>If you're using the Implicit flow, an <span class="uicontrol">App Embed Link</span> section appears at the bottom of the settings page. This section shows the URL that you can use to sign in to the OIDC client from outside of <MadCap:variable name="okta-variables.ProductName"/>.</p>
+                           </li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+               <li>
+                  <p>Enter or change the <span class="uicontrol">Initiate login URI</span> used to initiate the sign-in request.</p>
+               </li>
+               <MadCap:snippetBlock src="Apps-Snippets/emailverificationexp.flsnp">
+                    </MadCap:snippetBlock>
+               <li>
+                  <p>Click <span class="uicontrol">Save</span> to commit your <span class="wintitle">General Settings</span> changes.</p>
+               </li>
+            </ul>
+         </li>
+      </ul>
+      <h3>Native apps</h3>
+      <ul>
+         <li>
+            <p>
+               <MadCap:annotation MadCap:createDate="2022-06-17T10:21:55.3912501-04:00"
+                                  MadCap:creator="Ian Hakes"
+                                  MadCap:initials="IDMH"
+                                  MadCap:comment="OKTA-500160, EA in 2022.07.0, GA in 2022.08.0"
+                                  MadCap:editor="Ian Hakes"
+                                  MadCap:editDate="2022-06-22T17:56:16.7845897-04:00">The</MadCap:annotation>
+               <span class="wintitle">Client Credentials</span> section contains important information necessary for authentication flows.</p>
+            <ul>
+               <li>
+                  <p>
+                     <span class="uicontrol">Client ID</span>: This is the public identifier required by all OAuth flows. This identifier is randomly generated when you create the app integration.</p>
+               </li>
+               <li>
+                  <span class="uicontrol">Client authentication</span>: Choose the method to use for client authentication.<ul>
+                     <li>
+                        <p>
+                           <span class="uicontrol">None</span>: Recommended for native applications. </p>
+                        <p>
+                           <MadCap:annotation MadCap:createDate="2022-06-30T15:53:30.3998710-04:00"
+                                              MadCap:creator="Ian Hakes"
+                                              MadCap:initials="IDMH"
+                                              MadCap:comment="Remove the EA banner in 2022.08.0 when the PKCE feaure goes GA Preview"
+                                              MadCap:editor="Ian Hakes"
+                                              MadCap:editDate="2022-06-30T15:53:32.2440531-04:00">This option</MadCap:annotation> requires  a <span class="uicontrol">Proof Key for Code Exchange (PKCE)</span> for additional verification. PKCE  ensures that only the client that requested the access token can redeem it. </p>
+                     </li>
+                     <li>
+                        <p>
+                           <span class="uicontrol">Client secret</span>: Selecting this option displays a panel where you can generate a secret for use by the client. This value is known only to Okta and your app integration. Click <span class="uicontrol">Save</span> to generate the client secret. You can view or copy the client secret. If you have a second client secret, you can change the status to select the active secret. See <MadCap:xref href="oauth-client-cred-mgmt.htm#Rotate">Rotate a client secret by creating second client secret</MadCap:xref>.</p>
+                     </li>
+                     <li>
+                        <span class="uicontrol">Public key / Private key</span>: Selecting this option displays a panel where you can generate or add a public key / private key pair for use by the client connection. See <MadCap:xref href="oauth-client-cred-mgmt.htm">Manage OAuth secrets and keys for OIDC apps</MadCap:xref>.</li>
+                  </ul>
+               </li>
+               <li>
+                  <MadCap:annotation MadCap:createDate="2022-06-30T15:53:58.8686528-04:00"
+                                     MadCap:creator="Ian Hakes"
+                                     MadCap:initials="IDMH"
+                                     MadCap:comment="Remove the EA banner in 2022.08.0 when the PKCE feaure goes GA Preview"
+                                     MadCap:editor="Ian Hakes"
+                                     MadCap:editDate="2022-06-30T15:54:01.0469956-04:00">
+                     <span class="uicontrol">Proof Key for Code Exchange (PKCE)</span>
+                  </MadCap:annotation>: Indicates if a PKCE code challenge is required to verify client requests. If you select <span class="uicontrol">None</span> as the authentication method, a PKCE challenge is required by default. The PKCE code verification is optional for the <span class="uicontrol">Client secret</span> and <span class="uicontrol">Public key / Private key</span> authentication methods. </li>
+               <li>
+                  <p>Click <span class="uicontrol">Save</span> to commit any changes to your <span class="wintitle">Client Credentials</span>. If you changed your client authentication method, see <MadCap:xref href="oauth-client-cred-mgmt.htm#Change">Change client authentication methods</MadCap:xref> for information on how existing secrets and keys are affected.</p>
+               </li>
+            </ul>
+         </li>
+         <li>In the <span class="wintitle">General Settings</span> section, you can configure the following settings:<ul>
+               <li>
+                  <p>Change the <span class="uicontrol">App integration name</span> if you need to modify this from your initial name.</p>
+               </li>
+               <li>
+                  <p>Select <span class="uicontrol">Require Demonstration of Proof-of-Possession (DPoP) header in token requests</span> to require a client to prove possession of a public/private key pair for token requests. The authorization server rejects token requests from this client that don't contain the DPoP header. Additionally, you can't select <span class="uicontrol">Implicit (hybrid)</span> from the <span class="wintitle">Grant type</span> options.</p>
+               </li>
+               <li>
+                  <p>Select from among the different <span class="uicontrol">Grant type</span> options.</p>
+                  <ul>
+                     <li>
+                        <span class="uicontrol">Authorization Code</span>: Use an authorization code as the grant type for a client acting on behalf of a user.</li>
+                     <li>
+                        <span class="uicontrol">Interaction Code</span>: Use an interaction code as the grant type for a client acting on behalf of a user.</li>
+                     <li>
+                        <span class="uicontrol">Refresh Token</span>: Rotate your token after every use or use a persistent token. If you choose to rotate your token after every use, you can set a persistence period for how long that token remains active.</li>
+                     <li>
+                        <span class="uicontrol">Resource Owner Password</span>: Use a resource owner password as the grant type for a client acting on behalf of a user.</li>
+                     <li>
+                        <span class="uicontrol">SAML 2.0 Assertion</span>: Use a SAML 2.0 assertion as the grant type for a client acting on behalf of a user.</li>
+                     <li>
+                        <span class="uicontrol">Device Authorization</span>: Use device authorization as the grant type for a client acting on behalf of a user.</li>
+                     <li>
+                        <span class="uicontrol">Token Exchange</span>: Use a token exchange as the grant type for a client acting on behalf of a user.</li>
+                     <li>
+                        <span class="uicontrol">Implicit (hybrid)</span>: Use an implicit grant type for a client acting on behalf of a user.</li>
+                  </ul>
+                  <ul MadCap:conditions="MultiProdPublish.OIE,Primary.review-only">
+                     <li>
+                        <p MadCap:conditions="Primary.do-not-publish">The following is for CIBA grant type from Customer Fed team - Self-Service EA in 2022.12.0, web apps only (initially), OIE only. NOTE THIS SECTION TO STAY REVIEW ONLY  -- According to Ian Hakes in the google doc notes: "Removed for 2022.12.0 EA of the CIBA feature. According to Venkat Viswanathan, SPA and Native apps will be supported later in an incremental change.;;;;</p>
+                        <p>If you select the <span class="uicontrol">Client-initiated backchannel authentication flow (CIBA)</span> grant type, you also need to select a <span class="uicontrol">Preferred authenticator for CIBA</span>. Choose an existing authenticator from the dropdown menu or click <span class="uicontrol">custom authenticator</span> to open the <span class="wintitle">Authenticators</span> interface. See <MadCap:xref href="../identity-engine/authenticators/custom-authenticator.htm">Configure the [%=okta-feature-names.Custom Authenticator%]</MadCap:xref>.
+</p>
+                        <p>
+                           <MadCap:snippetBlock src="../../Resources/Snippets/ea-featmgr.flsnp"/>
+                        </p>
+                     </li>
+                  </ul>
+               </li>
+               <li>
+                  <p>Enter one or more <span class="uicontrol">Sign-in redirect URIs</span> where <MadCap:variable name="okta-variables.ProductName"/> sends OAuth responses.</p>
+               </li>
+               <li>
+                  <p>Enter one or more <span class="uicontrol">Sign-out redirect URIs</span> where <MadCap:variable name="okta-variables.ProductName"/> redirects the browser after logging out from the relying-party and terminating its end-user session.</p>
+               </li>
+               <li>
+                  <p>Enter or change the <span class="uicontrol">Initiate login URI</span> used to initiate the sign-in request.</p>
+               </li>
+               <li>
+                  <p>Click <span class="uicontrol">Save</span> to commit your <span class="wintitle">General Settings</span> changes.</p>
+               </li>
+            </ul>
+         </li>
+      </ul>
+      <h2>Task 4: Configure optional settings</h2>
+      <h3>Set the Groups Claim Filter</h3>
+      <ol>
+         <li>Go to the <span class="wintitle">Sign On</span> tab and scroll down to the  <span class="wintitle">OpenID Connect ID Token</span> section.</li>
+         <li>
+            <p>Select the <span class="uicontrol">Groups claim type</span>. You can select either a <span class="uicontrol">Filter</span> for existing group claims, or choose an <span class="uicontrol">Expression</span> to create a custom filter on a different group claim.</p>
+            <div class="noteOkta">
+               <p class="noteContent">If the value you specify in the <span class="uicontrol">Groups claim filter</span> matches more than 100 groups and your grant type is neither Authorization Code or Authorization Code with PKCE , then an error occurs when the API tries to create ID tokens.</p>
+            </div>
+            <p>For more information about Group claims for Single Sign-On, see <a href="https://developer.okta.com/docs/guides/customize-tokens-returned-from-okta/overview/"
+                  target="_blank">Customize tokens returned from <MadCap:variable name="okta-variables.ProductName"/>
+               </a>.</p>
+         </li>
+      </ol>
+      <h3>Set the application rate limits</h3>
+      <p>You can configure a percentage rate limit capacity for individual OAuth 2.0 applications. By default, all new applications consume 50% of every API's rate limits.</p>
+      <ol>
+         <li>In the <span class="wintitle">Application rate limits</span> tab, click <span class="uicontrol">Edit</span>.</li>
+         <li>Move the slider to the desired percentage.</li>
+         <li>Click <span class="uicontrol">Save</span>.</li>
+      </ol>
+      <p>See <a href="https://developer.okta.com/docs/reference/rl-dashboard/">Rate Limit dashboard</a>.</p>
+      <h3>Set Issuer</h3>
+      <p>
+         <MadCap:snippetText src="../Security/snippets/custom_url.flsnp"/>
+      </p>
+      <p>
+         <MadCap:snippetBlock src="../Security/snippets/dynamic_issuer.flsnp"/>
+      </p>
+      <h2>Next steps</h2>
+      <ul>
+         <li>If your integration doesn't behave as expected, contact <a href="https://support.okta.com/help/s" target="_blank">
+               <MadCap:variable name="okta-feature-names.Okta Support"/>
+            </a>.
+            </li>
+         <li>
+            <MadCap:xref href="../users-groups-profiles/usgp-assign-apps.htm">Assign applications to users</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="../Provisioning/lcm/lcm-assign-app-groups.htm">Assign an application to a group</MadCap:xref>
+         </li>
+         <li>
+            <a href="https://developer.okta.com/docs/guides/submit-app/"
+               target="_blank">Submit an app integration to the OIN</a>
+         </li>
+      </ul>
+   </body>
+</html>

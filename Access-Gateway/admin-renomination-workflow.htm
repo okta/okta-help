@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <MadCap:changeData>
+            <MadCap:RemoveChange MadCap:userName="Graham Smith" MadCap:initials="GS" MadCap:id="1" MadCap:timestamp="2023-06-23T14:11:40.9913231-05:00" />
+        </MadCap:changeData>
+        <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/admin-renomination-workflow.htm" /><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1>Admin renomination workflow </h1>
+        <p>Admin renomination is the process of add a new, typically most recent version, instance of <MadCap:variable name="okta-feature-names.Access Gateway" /> and making that new instance the admin node.<MadCap:snippetText src="../../Resources/Snippets/access-gateway/AvailSince2020-08.flsnp" /></p>
+        <div>
+            <h2>Topics</h2>
+            <ul>
+                <li>
+                    <MadCap:xref href="#Prerequisites">Before you begin</MadCap:xref>
+                </li>
+                <li>
+                    <MadCap:xref href="#Perform">Perform admin renomination</MadCap:xref>
+                </li>
+                <li>
+                    <MadCap:xref href="#Post">Post renomination tasks</MadCap:xref>
+                </li>
+            </ul>
+            <div>
+                <h2><a name="Prerequisites"></a>Before you begin</h2>
+                <p>Verify that:</p>
+                <div>
+                    <ul style="list-style-type: square;">
+                        <li MadCap:conditions="Primary.do-not-publish"><MadCap:variable name="okta-feature-names.Access Gateway" /> has been backed up. See <MadCap:xref href="about-backup-restore.htm">About [%=okta-feature-names.Access Gateway%] Backup and Restore</MadCap:xref>.</li>
+                        <li>The admin node doesn't serve requests. As a best practice, don't include the admin node as part of the load balanced set of instances serving user requests.</li>
+                        <li>All members of the cluster, including the original and nominated worker node, are running <MadCap:variable name="okta-feature-names.Access Gateway" /> v2020.8.3 or later. If you encounter a worker node that isn't running v2020.8.3 or later, an error resembling <span class="code">FAILED - Incompatible Node List - &lt;incompatible Node hostname List&gt;. Update worker nodes to version - 2020.8.3 or later</span>  returns and the renomination process gets terminated.</li>
+                        <li>The nominated worker node is able to resolve all worker node DNS names. </li>
+                        <li>Worker nodes must be able to resolve the nominated node's DNS name.  </li>
+                        <MadCap:snippetBlock src="../../Resources/Snippets/access-gateway/verify-yum-repo.flsnp" />
+                    </ul>
+                </div>
+            </div>
+            <h2><a name="Perform"></a>Perform admin renomination </h2>
+            <div>
+                <div class="noteOkta">
+                    <p class="noteContent">While renomination is in progress, the <MadCap:variable name="okta-feature-names.Access&#160;Gateway UI" /> is locked. </p>
+                    <p class="noteContent">Attempts to access the <MadCap:variable name="okta-feature-names.Access&#160;Gateway UI" /> result in a page similar to the following:<img src="../../Resources/Images/access-gateway/rolling-upgrade-locked.png" id="img_new" /></p>
+                </div>
+                <p>The following high availability management operations are supported:</p>
+                <ol>
+                    <li>
+                        <MadCap:xref href="#NonimateWorker">Nominate a worker to become cluster admin</MadCap:xref>
+                    </li>
+                    <li>
+                        <MadCap:xref href="#Authoriz">Authorize admin to begin the Renomination process</MadCap:xref>
+                    </li>
+                    <li>
+                        <MadCap:xref href="#Post">Perform post upgrade tasks</MadCap:xref>
+                    </li>
+                </ol>
+            </div>
+            <div class="noteOkta">
+                <p class="noteContent">Before running the renomination process, ensure that nodes meet the following requirements:</p>
+                <p class="noteContent" MadCap:changes="1">Before running the renomination process, ensure that:</p>
+                <ul>
+                    <li>All nodes are reachable using SSH.</li>
+                    <li>All nodes, including the admin, nominated worker, and all other workers are running <MadCap:variable name="okta-feature-names.Access Gateway" /> v2020.8.3 or later.</li>
+                </ul>
+            </div>
+            <div>
+                <h3><a name="NonimateWorker"></a>Nominate a worker to become cluster admin</h3>
+                <p>On the  worker node that you want to nominate as a cluster admin:</p>
+                <ol>
+                    <li>Connect to the worker instance's <MadCap:variable name="okta-feature-names.Access Gateway CMD" />:<span class="codeblock">ssh oag-mgmt@[workder.tld]</span></li>
+                    <li>Select <span class="uicontrol">5 - System</span>.</li>
+                    <li>Select <span class="uicontrol">8- High Availability Configuration</span>.</li>
+                    <li>Select <span class="uicontrol">7- Cluster Manager</span>.<MadCap:snippetBlock src="../../Resources/Snippets/access-gateway/cluster-manager.main.flsnp" /></li>
+                    <p>
+                        <MadCap:snippetBlock src="../../Resources/Snippets/access-gateway/cluster-manager.2.flsnp" />
+                    </p>
+                </ol>
+            </div>
+            <div>
+                <h3><a name="Authoriz"></a>Authorize admin to begin renomination process</h3>
+                <p>On the current admin node:</p>
+                <ol>
+                    <li>Connect to the instance's <MadCap:variable name="okta-feature-names.Access Gateway CMD" />:<span class="codeblock">ssh oag-mgmt@[admin.tld].</span></li>
+                    <li>Select <span class="uicontrol">5 - System</span>.</li>
+                    <li>Select <span class="uicontrol">8- High Availability Configuration</span>.</li>
+                    <li>Select <span class="uicontrol">7- Cluster Manager</span>.</li>
+                    <li>
+                        <p>The cluster management menu appears:</p><span class="codeblock">Access Gateway Cluster Management (Admin)
+1 - Authorize Node Nomination
+2 - Authorize Node as Admin node
+
+X- Exit
+Choice:&#160;</span>
+                    </li>
+                    <MadCap:snippetBlock src="../../Resources/Snippets/access-gateway/cluster-manager.1.flsnp" />
+                </ol>
+                <p>When complete, the existing admin becomes a standalone node. </p>
+                <p>The nominated worker then becomes the admin node for the updated cluster.</p>
+            </div>
+            <h2><a name="Post"></a>Perform post renomination tasks</h2>
+            <p>Perform the following steps after the rolling upgrade:</p>
+            <ol>
+                <li>Enter the IP&#160;address of the newly upgraded admin node into DNS&#160;as <span class="uicontrol">admin</span>.</li>
+                <li>Decommission the original admin node or add the original admin node as a worker node to the updated cluster.</li>
+            </ol>
+        </div>
+        <div>
+            <h3>Related topics</h3>
+            <ul>
+                <li><a href="oag-log-files-audit.htm#AdminNomination">Admin renomination events</a> in the <MadCap:xref href="oag-log-files-audit.htm">[%=okta-feature-names.Access Gateway%] audit log</MadCap:xref></li>
+            </ul>
+        </div>
+    </body>
+</html>

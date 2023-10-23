@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd">
+    <head>
+    </head>
+    <body>
+        <h1>Build an httpHelper flow</h1>
+        <p> For each action card that you build in Connector Builder, the <span class="wintitle">httpHelper</span> flow manages authentication and any HTTP&#160;requests.  </p>
+        <p>This supports the  principle of software development to reduce pattern repetition.</p>
+        <p>Creating the <span class="wintitle">httpHelper</span> flow involves several tasks:</p>
+        <ul>
+            <li>
+                <p>
+                    <MadCap:xref href="#Create">Create the httpHelper flow</MadCap:xref>
+                </p>
+            </li>
+            <li>
+                <p>
+                    <MadCap:xref href="#Build">Build OAuth authentication</MadCap:xref>
+                </p>
+            </li>
+            <li>
+                <p>
+                    <MadCap:xref href="#Build2">Build basic authentication</MadCap:xref>
+                </p>
+            </li>
+            <li>
+                <p>
+                    <MadCap:xref href="#Build3">Build custom (Api-key) authentication</MadCap:xref>
+                </p>
+            </li>
+            <li>
+                <p>
+                    <MadCap:xref href="#Continue">Finish the httpHelper flow</MadCap:xref>
+                </p>
+            </li>
+        </ul>
+        <p>Here's an example of what a complete <span class="wintitle">httpHelper</span> flow looks like in <MadCap:variable name="okta-feature-names.Okta Workflows" />:</p>
+        <p>
+            <img src="../../../Resources/Images/Workflows/connector-builder/cb-capia-http-helper.png" class="thumbnail" />
+        </p>
+        <MadCap:snippetBlock src="resources/common-flow-prereqs.flsnp" />
+        <h2>Start this task<br /></h2>
+        <h3><a name="Create"></a>Create the httpHelper flow</h3>
+        <ol>
+            <li>
+                <p>Create a flow under the <span class="wintitle">Flows</span> tab by clicking <span class="uicontrol">+ New Flow</span>.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Add event</span> and select <span class="uicontrol">Helper Flow</span>.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Save</span> in the toolbar and name the flow <span class="userinput">httpHelper</span>.</p>
+            </li>
+            <li>
+                <p>Add a description to the flow so other builders on your team know the purpose of the flow. For example: <span class="userinput">This flow manages all authentication and http requests for the connector.</span></p>
+            </li>
+            <li>
+                <p>Check the box <span class="uicontrol">Save all data that passes through the flow</span>, and click <span class="uicontrol">Save</span>.</p>
+            </li>
+            <li>
+                <p>Add the following input names and data types to the <span class="wintitle">Helper Flow</span> card. Click the area that reads <span class="uicontrol">Click or drag to create</span>, add the input name, and press the return key. Then select the type from the dropdown list that appears on the field itself.</p>
+                <ul>
+                    <li>
+                        <p><span class="userinput">relative_url</span>, <span class="userinput">Text</span></p>
+                    </li>
+                    <li>
+                        <p><span class="userinput">request_method</span>, <span class="userinput">Text</span></p>
+                    </li>
+                    <li>
+                        <p><span class="userinput">query</span>, <span class="userinput">Object</span></p>
+                    </li>
+                    <li>
+                        <p><span class="userinput">headers</span>, <span class="userinput">Object</span></p>
+                    </li>
+                    <li>
+                        <p><span class="userinput">body</span>, <span class="userinput">Object</span></p>
+                    </li>
+                </ul>
+            </li>
+        </ol>
+        <p>The next task builds out a series of cards to construct the proper objects for the HTTP&#160;call. Which option you choose depends on the authentication type you need to use.</p>
+        <h3><a name="Build"></a>Option 1: Build OAuth authentication</h3>
+        <ol>
+            <li>
+                <p>Add a <span class="wintitle">Text</span> <span class="wintitle">Concatenate</span> function card to combine <span class="userinput">Bearer</span> with your access token.</p>
+            </li>
+            <li>
+                <p>In the <span class="uicontrol">text 1</span> field, enter <span class="userinput">Bearer </span>. Include the space character, as that is part of the concatenation string.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">access_token</span> field from the <span class="wintitle">Helper Flow</span> card into the <span class="uicontrol">text 2</span> field on the <span class="wintitle">Concatenate</span> card.</p>
+            </li>
+            <li>
+                <p>Name the output field <span class="userinput">bearer</span> by clicking the field’s dropdown list and clicking <span class="uicontrol">customize</span>. Renaming these fields is a best practice and not a requirement.</p>
+            </li>
+            <li>
+                <p>Add an <span class="wintitle">Object</span> <span class="wintitle">Construct</span> function card after the <span class="wintitle">Concatenate</span> card.</p>
+            </li>
+            <li>
+                <p>Click the area that reads <span class="uicontrol">Click or drop here to create</span> and add the label <span class="userinput">Authorization</span>.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">bearer</span> output field from the <span class="wintitle">Concatenate</span> card to this field.  </p>
+                <p>After you do this, you can add any additional headers  shared between all HTTP requests. For example, <span class="userinput">Content-Type</span>, <span class="userinput">application/json</span>.</p>
+            </li>
+            <li>
+                <p>Rename the output field <span class="userinput">header</span> by clicking the field’s dropdown list and clicking <span class="uicontrol">customize</span>.</p>
+            </li>
+        </ol>
+        <p>
+            <img src="../../../Resources/Images/Workflows/connector-builder/cb-capia-http-header-oauth.png" style="width: 546px;height: 514px;" class="thumbnail" />
+        </p>
+        <h3><a name="Build2"></a>Option 2: Build basic authentication</h3>
+        <ol>
+            <li>
+                <p>Add a <span class="wintitle">Text</span> <span class="wintitle">Concatenate</span> function card to combine your username and password with a separating colon.</p>
+            </li>
+            <li>
+                <p>Drag the username field from the <span class="wintitle">Helper Flow</span> card to the <span class="uicontrol">text 1</span> input on the <span class="wintitle">Concatenate</span> card.</p>
+            </li>
+            <li>
+                <p>Manually enter a colon character <span class="userinput">:</span> into the <span class="uicontrol">text 2</span> field on the <span class="wintitle">Concatenate</span> card.</p>
+            </li>
+            <li>
+                <p>Drag the password field from the <span class="wintitle">Helper Flow</span> card to the area labeled <span class="uicontrol">Click or drop here to create</span> on the <span class="wintitle">Concatenate</span> card.</p>
+            </li>
+            <li>
+                <p>Rename the output field of the <span class="wintitle">Concatenate</span> card to <span class="userinput">username_password</span> or another useful name.</p>
+            </li>
+            <li>
+                <p>Add a <span class="wintitle">Text</span> <span class="wintitle">Base64</span> function card. Drag the <span class="uicontrol">username_password</span> field from the  <span class="wintitle">Concatenate</span> card into the <span class="uicontrol">text</span> input of the <span class="wintitle">Base64</span> card.</p>
+            </li>
+            <li>
+                <p>Rename the output field of the <span class="wintitle">Base64</span> card to <span class="userinput">base_64</span> by clicking the field’s dropdown list and clicking <span class="uicontrol">customize</span>.</p>
+            </li>
+            <li>
+                <p>Add another <span class="wintitle">Text</span> <span class="wintitle">Concatenate</span> function card to the flow.</p>
+            </li>
+            <li>
+                <p>In the <span class="uicontrol">text 1</span> field, type <span class="userinput">Basic </span>, including the space character.</p>
+            </li>
+        </ol>
+        <ol MadCap:continue="true">
+            <li>
+                <p>Drag the <span class="uicontrol">base_64</span> output from the <span class="wintitle">Base64</span> card into the <span class="uicontrol">text 2</span> field of the second <span class="wintitle">Concatenate</span> card.</p>
+            </li>
+            <li>
+                <p>Rename the output field of the second <span class="wintitle">Concatenate</span> card to <span class="userinput">auth_value</span>.</p>
+            </li>
+            <li>
+                <p>Add an <span class="wintitle">Object</span> <span class="wintitle">Construct</span> after the second <span class="wintitle">Concatenate</span> card.</p>
+            </li>
+            <li>
+                <p>Click the <span class="uicontrol">Click or drop here to create</span>area and add a label named <span class="userinput">Authorization</span>.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">auth_value</span> output field from the second <span class="wintitle">Concatenate</span> card to this field.  </p>
+                <p>After you do this, you can add any additional headers shared between all HTTP requests to your service. For example, <span class="userinput">Content-Type</span>, <span class="userinput">application/json</span>.</p>
+            </li>
+            <li>
+                <p>Rename this output field <span class="userinput">header</span>  by clicking the field’s dropdown list and clicking <span class="uicontrol">customize</span>.</p>
+            </li>
+        </ol>
+        <p>
+            <img src="../../../Resources/Images/Workflows/connector-builder/cb-capia-http-header-basic.png" class="thumbnail" />
+        </p>
+        <h3><a name="Build3"></a>Option 3: Build custom (API key) authentication</h3>
+        <ol>
+            <li>
+                <p>Add an <span class="wintitle">Object</span> <span class="wintitle">Construct</span> to the new flow.</p>
+            </li>
+            <li>
+                <p>Click the area that reads <span class="uicontrol">Click or drop here to create</span> and add the name of the key to include in your header.  For example, <span class="userinput">api_key</span>.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">api_key</span> field from the <span class="wintitle">Helper Flow</span> card to this field. </p>
+                <p> After you do this, you can add any additional headers shared between all HTTP requests. For example, <span class="userinput">Content-Type</span>, <span class="userinput">application/json</span>.</p>
+            </li>
+        </ol>
+        <p>
+            <img src="../../../Resources/Images/Workflows/connector-builder/cb-capia-http-header-custom.png" class="thumbnail" />
+        </p>
+        <h3><a name="Continue"></a>Finish the httpHelper flow</h3>
+        <ol start="1">
+            <li>
+                <p>Add an <span class="wintitle">Object</span> <span class="wintitle">Merge</span> function card to your flow.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">header</span> output from the <span class="wintitle">Construct</span> function card into the <span class="uicontrol">object 1</span> field of the <span class="wintitle">Merge</span> card.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">headers</span> output from the <span class="wintitle">Helper Flow</span> card into the <span class="uicontrol">object 2</span> field of the <span class="wintitle">Merge</span> card.  This allows you to pass any necessary endpoint-specific headers.</p>
+            </li>
+            <li>
+                <p>Rename the output field on the <span class="wintitle">Merge</span> card to <span class="userinput">merged_header</span>.</p>
+            </li>
+            <li>
+                <p>Add a <span class="wintitle">Text</span> <span class="wintitle">Concatenate</span> card to your flow.</p>
+            </li>
+            <li>
+                <p>In the <span class="uicontrol">text 1</span> field, enter the base URL for the flow, without including a specific endpoint. For example, <span class="userinput">https://api.spotify.com/v1</span>.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">relative_url</span> field from the <span class="wintitle">Helper Flow</span> card into the <span class="uicontrol">text 2</span> field.</p>
+            </li>
+            <li>
+                <p>Rename the output field on this card to <span class="uicontrol">full_url</span>.</p>
+            </li>
+            <li>
+                <p>Add a <span class="wintitle"> Raw Request</span> action card from the <span class="wintitle">API&#160;Connector</span>.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">full_url</span> output field from the <span class="wintitle">Concatenate</span> card into the <span class="uicontrol">URL</span> input of the <span class="wintitle">Raw Request</span> card.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">request_method</span> output field from the <span class="wintitle">Helper Flow</span> card into the <span class="uicontrol">Method</span> input of the <span class="wintitle">Raw Request</span> card.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">query</span> output field from the <span class="wintitle">Helper Flow</span> card into the <span class="uicontrol">Query</span>  input of the <span class="wintitle">Raw Request</span> card.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">merged_header</span> field from the <span class="wintitle">Merge</span> card into the <span class="uicontrol">Headers</span> input of the <span class="wintitle">Raw Request</span> card.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">body</span> field from the <span class="wintitle">Helper Flow</span> card into the <span class="uicontrol">Body</span>  input of the <span class="wintitle">Raw Request</span> card.</p>
+            </li>
+            <li>
+                <p>To add these three fields to the <span class="wintitle">Flow Control Return</span> card, click the area that reads <span class="uicontrol">Click or drop here to create</span>:</p>
+            </li>
+        </ol>
+        <ul>
+            <li>
+                <p><span class="userinput">status_code</span>, <span class="userinput">Number</span></p>
+            </li>
+            <li>
+                <p><span class="userinput">headers</span>, <span class="userinput">Object</span></p>
+            </li>
+            <li>
+                <p><span class="userinput">body</span>, <span class="userinput">Object</span></p>
+            </li>
+        </ul>
+        <ol MadCap:continue="true">
+            <li>
+                <p>Drag the corresponding outputs from the <span class="wintitle">Raw Request</span> card into these newly created fields.</p>
+            </li>
+            <li>
+                <p>Save and test your flow by manually adding a relative URL, a request method, and any other request data to the test dialog.</p>
+            </li>
+        </ol>
+        <h2>Next steps</h2>
+        <p>
+            <MadCap:xref href="capia-authping.htm">Build an _authping flow</MadCap:xref>
+        </p>
+    </body>
+</html>

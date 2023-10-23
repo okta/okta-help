@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/add-app-saml-pass-thru-arch.htm" />
+        <link href="../../Resources/TableStyles/standard-shaded-rows.css" rel="stylesheet" MadCap:stylesheetType="table" /><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1>SAML pass through reference architecture</h1>
+        <p>This reference architecture describes the components, flow and similar requires for integrating SAML&#160;pass through applications and  <MadCap:variable name="okta-feature-names.Access Gateway" /> .</p>
+        <h3>Topics:</h3>
+        <ul>
+            <li>
+                <MadCap:xref href="#Architec">Architecture</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Flow">Flow</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Componen">Components</MadCap:xref>
+            </li>
+        </ul>
+        <h2><a name="Architec"></a>Architecture</h2>
+        <div>
+            <p>
+                <img src="../../Resources/Images/access-gateway/add-app-saml-pas-thru-arch.png" />
+            </p>
+            <p>The SAML pass through architecture is composed of:
+</p>
+            <MadCap:snippetBlock src="../../Resources/Snippets/access-gateway/saml-pass-thru-components.flsnp" />
+        </div>
+        <h2><a name="Flow"></a>Flow</h2>
+        <div>
+            <p>
+                <img src="../../Resources/Images/access-gateway/add-app-saml-pas-thru-flow.png" />
+            </p>
+            <table style="mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+                <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                <thead>
+                    <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                        <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">External internet user</th>
+                        <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">Internal user</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                        <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1">
+                            <ol>
+                                <li>The user requests application access
+.</li>
+                                <li><MadCap:variable name="okta-feature-names.Access Gateway" /> intercepts request and redirects to Okta for a SAML assertion.</li>
+                                <li>The user sends SAML authorization request to Okta, logs into Okta following Okta policies.
+</li>
+                                <li>Okta Generates a SAML assertion for <MadCap:variable name="okta-feature-names.Access Gateway" />.
+</li>
+                                <li>The user presents SAML Assertion to <MadCap:variable name="okta-feature-names.Access Gateway" />; <MadCap:variable name="okta-feature-names.Access Gateway" /> creates an <MadCap:variable name="okta-feature-names.Access Gateway" /> session cookie.
+
+</li>
+                                <li><MadCap:variable name="okta-feature-names.Access Gateway" /> proxies request to SAML&#160;application.
+</li>
+                                <li>Application requests SAML assertion from Okta.
+
+</li>
+                                <li><MadCap:variable name="okta-feature-names.Access Gateway" />proxies SAML AuthN Request to browser.
+</li>
+                                <li>Browser sends SAML authorization request to Okta.
+</li>
+                                <li>
+Okta Generates SAML assertion based on access Policy.<br />Because the user is already logged into Okta no re-authentication is required.
+</li>
+                                <li>The browser sends the SAML assertion to <MadCap:variable name="okta-feature-names.Access Gateway" />.</li>
+                                <li><MadCap:variable name="okta-feature-names.Access Gateway" />proxies SAML assertion to the app.</li>
+                                <li>
+The app reads the SAML Assertion, creates a local session and passes content to <MadCap:variable name="okta-feature-names.Access Gateway" /></li>
+                                <li><MadCap:variable name="okta-feature-names.Access Gateway" /> passes the application session and content to user.</li>
+                            </ol>
+                        </td>
+                        <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body1">
+                            <ol>
+                                <li>User Requests application access.
+</li>
+                                <li>App Requests SAML Assertion from Okta.</li>
+                                <li>
+Browser sends SAML AuthN Request to Okta.</li>
+                                <li>
+Okta authenticates user and Generates SAML assertion based on access policy.
+
+</li>
+                                <li>Browser sends SAML assertion to application.</li>
+                                <li>APP Reads SAML assertion, creates a local session and passes content to User.</li>
+                            </ol>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <h2><a name="Componen"></a>Components and requirements</h2>
+        <table style="mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+            <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+            <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Component</th>
+                    <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">Description and requirements</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><MadCap:variable name="okta-feature-names.Access Gateway Full" />
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">All versions of <MadCap:variable name="okta-feature-names.Access Gateway Full" /> support SAML&#160;pass through.</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                        <p><MadCap:variable name="okta-feature-names.Access Gateway" />app</p>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
+                        <p>Application defined within <MadCap:variable name="okta-feature-names.Access Gateway" />, but hidden from everyday users. </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Okta SAML&#160;app</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">A&#160;hidden application used by Okta.</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Okta Bookmark app</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">A book mark application listed in the Okta org.</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">SAML Application</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">An internal SAML application, but using the same name as external references, differentiated by split DNS. </td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">External URL</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">External URL specified by the <span class="uicontrol">Public Domain field</span> within <MadCap:variable name="okta-feature-names.Access Gateway" />. &#160;Identical DNS to the internal SAML app, differentiated by external DNS.<br />For example: <span class="code">https://saml-app.example.com</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

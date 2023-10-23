@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:fileTags="Tags/okta-authors.Arshabhi Rai">
+   <head>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <meta name="description"
+            content="Learn how to create a setup token for an Advanced Server Access gateway, gateway."/>
+   </head>
+   <body>
+      <div MadCap:conditions="MultiProdPublish.PYPContent">
+         <h1>Add a certificate to an <MadCap:variable name="okta-feature-names.ScaleFT"/> gateway</h1>
+         <p>This topic explains how to create a certificate for use LDAP and RDP options on an <MadCap:variable name="okta-feature-names.ScaleFT"/> gateways. This certificate must be PEM (Base-64) encoded and include the public key of the Root Certification Authority (Root CA) used to issue certificates to domain computers. This process requires admin permissions on the Active Directory (AD) domain and the gateway.</p>
+         <div class="noteOkta">
+            <p class="noteContent">Apply this configuration only if enterprise-managed certificates are already in place in the RDP listener. By default, this configuration uses a self-signed certificate.</p>
+         </div>
+         <ol>
+            <li>Access the Root CA domain certificate.<ol style="list-style-type: lower-alpha;">
+                  <li>Sign in to the Root CA for the domain.</li>
+                  <li>Go to <span class="menucascade">
+                        <span class="uicontrol">Start</span>
+                        <span class="uicontrol">Administrative Tools</span>
+                        <span class="uicontrol">Certification Authority</span>
+                     </span>.</li>
+                  <li>Right-click the Certification Authority in the left panel and select <span class="uicontrol">Properties</span>. A properties window opens.</li>
+                  <li>In the <span class="wintitle">General</span> tab, click <span class="uicontrol">View Certificate</span>. The <span class="wintitle">Certificate</span> window opens.</li>
+                  <li> In the <span class="wintitle">Details</span> tab, click <span class="uicontrol">Copy to file</span>.</li>
+               </ol>
+            </li>
+            <li>Export the certificate.<ol style="list-style-type: lower-alpha;">
+                  <li>From the <span class="wintitle">Certificate Export Wizard</span>, click <span class="uicontrol">Next</span>.</li>
+                  <li>Select <span class="uicontrol">Base-64 encoded X.509</span> and click <span class="uicontrol">Next</span>.<br/>
+                  </li>
+                  <li>Click <span class="uicontrol">Browse</span> to specify a path and then click <span class="uicontrol">Next</span>.<br/>
+                     <MadCap:variable name="okta-variables.ProductName"/> recommends teams use a standard naming structure that allows them to easily identify the exported certificate.</li>
+                  <li>Click <span class="uicontrol">Finish</span>.</li>
+               </ol>
+            </li>
+            <li>Open the exported certificate and copy the content.</li>
+            <li>Configure the <MadCap:variable name="okta-feature-names.ScaleFT"/> gateway.<ol style="list-style-type: lower-alpha;">
+                  <li>Sign in to the  gateway.</li>
+                  <li>Create a new trusted certs directory.<br/>
+                     <span class="code">mkdir -p /etc/sft/trustedcerts</span>
+                  </li>
+                  <li>Create a certificate file. <br/>
+                     <span class="code">touch /etc/sft/trustedcerts/&lt;domainname&gt;.pem</span>
+                  </li>
+                  <li>Open the created file and paste the content from the exported AD certificate.</li>
+                  <li>Configure the TrustedCAsDir option for RDP and LDAP. See <MadCap:xref href="gateway-configure.htm">Configure an [%=okta-feature-names.ScaleFT%] gateway</MadCap:xref>.</li>
+                  <li> Restart the sft-gatewayd service.</li>
+               </ol>
+            </li>
+         </ol>
+         <ol MadCap:conditions="Primary.do-not-publish">
+            <li>Create a certificate template.<ol style="list-style-type: lower-alpha;">
+                  <li>Open the <span class="uicontrol">Certification Authority</span>.</li>
+                  <li>Right-click <span class="uicontrol">Certificate Templates</span> and select <span class="uicontrol">Manage</span>. The <span class="wintitle">Certificate Templates Console</span> window opens.</li>
+                  <li>Right-click <span class="uicontrol">Kerberos Authentication</span> and select <span class="uicontrol">Duplicate Template</span>. A properties window opens.<br/>
+                  </li>
+                  <li>In the <span class="wintitle">General</span> tab, under Template Display Name, enter <span class="userinput">ASAGateway</span>.</li>
+                  <li>Select <span class="uicontrol">Publish certificate in Active Directory</span>.</li>
+                  <li>In the <span class="wintitle">Subject Name</span> tab, select <span class="uicontrol">DNS name</span>.</li>
+                  <li>Click <span class="uicontrol">Apply</span> and then click <span class="uicontrol">OK</span>.</li>
+               </ol>
+            </li>
+            <li>Enable the certificate template.<ol style="list-style-type: lower-alpha;">
+                  <li>Open the <span class="uicontrol">Certification Authority</span>.</li>
+                  <li>Right-click <span class="uicontrol">Certificate Templates</span> and select <span class="menucascade">
+                        <span class="uicontrol">New</span>
+                        <span class="uicontrol">Certificate Template to Issue</span>
+                     </span>. </li>
+                  <li>From the <span class="wintitle">Enable Certificate Templates</span> window, select the <span class="varname">ASAGateway</span> template.<br/>
+                  </li>
+                  <li>Click <span class="uicontrol">OK</span>.</li>
+               </ol>
+            </li>
+            <li>Request a certificate.<ol style="list-style-type: lower-alpha;">
+                  <li>Open the <span class="uicontrol">Certificate</span> snap-in</li>
+                  <li>Navigate to <span class="menucascade">
+                        <span class="uicontrol">Certificates</span>
+                        <span class="uicontrol">Personal</span>
+                        <span class="uicontrol">Certificates</span>
+                     </span>.</li>
+                  <li>Right-click <span class="uicontrol">Certificates</span> and select <span class="menucascade">
+                        <span class="uicontrol">All Tasks</span>
+                        <span class="uicontrol">Request New Certificate</span>
+                     </span>.</li>
+                  <li>From the <span class="wintitle">Certificate Enrollment</span> wizard, click <span class="uicontrol">Next</span>.</li>
+                  <li>Select <span class="uicontrol">Active Directory Enrollment Policy</span> and click <span class="uicontrol">Next</span>.</li>
+                  <li>Select the certificate template you enabled and click <span class="uicontrol">Enroll</span>.<br/>
+                  </li>
+                  <li>Click <span class="uicontrol">Finish</span>.</li>
+               </ol>
+            </li>
+            <li>Export the certificate.<br/>
+               <ol style="list-style-type: lower-alpha;">
+                  <li>Open the <span class="uicontrol">Certificate</span> snap-in</li>
+                  <li>Right-click the requested certificate and select <span class="menucascade">
+                        <span class="uicontrol">All Tasks</span>
+                        <span class="uicontrol">Export</span>
+                     </span>.</li>
+                  <li>From the <span class="wintitle">Certificate Export Wizard</span>, click <span class="uicontrol">Next</span>.</li>
+                  <li>Select <span class="uicontrol">Base-64 encoded X.509</span> and click <span class="uicontrol">Next</span>.<br/>
+                  </li>
+                  <li>Click <span class="uicontrol">Browse</span> to specify a path and then click <span class="uicontrol">Next</span>.<br/>
+                     <MadCap:variable name="okta-variables.ProductName"/> recommends teams use a standard naming structure that allows them to easily identify the exported certificate.</li>
+                  <li>Click <span class="uicontrol">Finish</span>.</li>
+               </ol>
+            </li>
+         </ol>
+         <p MadCap:conditions="Primary.do-not-publish">After exporting the certificate, you must manually move the file to an <MadCap:variable name="okta-feature-names.ScaleFT"/> gateway.</p>
+         <p MadCap:conditions="Primary.do-not-publish">Teams must also configure LDAP and RDP options in the gateway configuration file. The certificate must be stored in the directory defined by the <span class="code">TrustedCAsDir</span> option. See <MadCap:xref href="gateway-configure.htm#LDAP">Lightweight Directory Access Protocol (LDAP) 
+options</MadCap:xref> and <MadCap:xref href="gateway-configure.htm#RDP">Remote Desktop Protocol (RDP) options</MadCap:xref>.</p>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,391 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Arshabhi Rai">
+    <head>
+        <link href="../../../Resources/TableStyles/standard.css" rel="stylesheet" MadCap:stylesheetType="table" /><title>[%=Heading.Level1%] | Okta</title>
+        <meta name="description" content="Learn how to configure and use an Advanced Server Access gateway, gateway." />
+    </head>
+    <body>
+        <div>
+            <h1>Configure the <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> <span class="disableGlossary">gateway</span></h1>
+            <p>This topic explains  how to configure an <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> gateway.</p>
+            <ul>
+                <li>
+                    <MadCap:xref href="#Command">Command line options</MadCap:xref>
+                </li>
+                <li>
+                    <MadCap:xref href="#Configur">Configuration file </MadCap:xref>
+                    <ul>
+                        <li>
+                            <MadCap:xref href="#token">Setup Token options
+				</MadCap:xref>
+                        </li>
+                        <li>
+                            <MadCap:xref href="#logs">Log options</MadCap:xref>
+                        </li>
+                        <li>
+                            <MadCap:xref href="#connections">Connection options</MadCap:xref>
+                        </li>
+                        <li>
+                            <MadCap:xref href="#LDAP">Lightweight Directory Access Protocol (LDAP) options</MadCap:xref>
+                        </li>
+                        <li>
+                            <MadCap:xref href="#RDP">Remote Desktop Protocol (RDP) options</MadCap:xref>
+                        </li>
+                        <li>
+                            <MadCap:xref href="#capture">Session Capture options</MadCap:xref>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <MadCap:xref href="#See">Related topics</MadCap:xref>
+                </li>
+            </ul>
+            <h2><a name="Command"></a>Command line options</h2>
+            <ul>
+                <p><span class="code">service</span>:  Runs the sft-gatewayd service</p>
+                <p><span class="code">support</span>: Collects local system information for <MadCap:variable name="okta-variables.ProductName" /> support</p>
+                <p><span class="code">-h</span>, <span class="code">--help</span>: Displays help</p>
+                <p><span class="code">-v</span>, <span class="code">--version</span>: Displays version</p>
+                <p><span class="code">--syslog</span>: Forces syslog logging</p>
+            </ul>
+            <h2><a name="Configur"></a>Configuration file</h2>
+            <p>You can control <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> <span class="disableGlossary">gateways</span> through the use of a configuration file located at <span class="code">/etc/sft/sft-gatewayd.yaml</span>. After installing the gateway, an example configuration file is available at <span class="code">/etc/sft/sft-gatewayd.sample.yaml</span>. If a configuration file hasn't been created or is unavailable, the gateway uses the following default values.<br /></p>
+            <div class="noteOkta">
+                <p class="noteContent">You must restart the gateway before changes to the configuration file take effect. For details, see <MadCap:xref href="pam-gateway-manage.htm">Manage the [%=okta-feature-names.Okta Privileged Access%] gateway</MadCap:xref>.</p>
+            </div>
+            <hr />
+            <div>
+                <h3><a name="token"></a>Setup Token
+options				</h3>
+                <p>These options control how you add a setup token to your gateway. You must enable one of the following options. For details on obtaining a setup token, see <MadCap:xref href="../../Adv_Server_Access/docs/gateway-create-token.htm">Create an [%=okta-feature-names.ScaleFT%] gateway setup token</MadCap:xref>.</p>
+                <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                    <col class="TableStyle-standard-Column-Column1" />
+                    <col class="TableStyle-standard-Column-Column1" />
+                    <col class="TableStyle-standard-Column-Column1" />
+                    <thead>
+                        <tr class="TableStyle-standard-Head-Header1">
+                            <th class="TableStyle-standard-HeadF-Column1-Header1">Option</th>
+                            <th class="TableStyle-standard-HeadF-Column1-Header1">Default value</th>
+                            <th class="TableStyle-standard-HeadD-Column1-Header1">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="TableStyle-standard-Body-Body1">
+                            <td class="TableStyle-standard-BodyF-Column1-Body1">SetupToken
+							</td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body1">unset</td>
+                            <td class="TableStyle-standard-BodyD-Column1-Body1">Specifies a setup token created on the <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> platform.							<p>Note: If you use  this option, the setup token remains available in plain text. <MadCap:variable name="okta-variables.ProductName" /> recommends restricting read permissions to the configuration file (for example,  0600 on Linux).</p></td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2">
+                            <td class="TableStyle-standard-BodyC-Column1-Body2">SetupTokenFile</td>
+                            <td class="TableStyle-standard-BodyC-Column1-Body2">Linux: <code>/var/lib/sft-gatewayd/setup.token</code><p>FreeBSD: <code>/var/db/sft-gatewayd/setup.token</code></p></td>
+                            <td class="TableStyle-standard-BodyA-Column1-Body2">
+								Specifies the path to a separate file containing the setup token. The default value is based on the operating system running the gateway.
+							<p>This option is the recommended method.</p><p>If using this option, you must manually create the setup token file and add the setup token created on the <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> platform.</p><p>After the gateway is enrolled with a team, the gateway deletes the token file.</p><p>Note:&#160; If the <code>SetupToken</code> option is also configured, the gateway uses the token specified there.</p></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <h3><a name="logs"></a>Log 
+options</h3>
+                <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                    <col class="TableStyle-standard-Column-Column1" />
+                    <col class="TableStyle-standard-Column-Column1" />
+                    <col class="TableStyle-standard-Column-Column1" />
+                    <thead>
+                        <tr class="TableStyle-standard-Head-Header1">
+                            <th class="TableStyle-standard-HeadF-Column1-Header1">Option</th>
+                            <th class="TableStyle-standard-HeadF-Column1-Header1">Default value</th>
+                            <th class="TableStyle-standard-HeadD-Column1-Header1">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="TableStyle-standard-Body-Body1">
+                            <td class="TableStyle-standard-BodyC-Column1-Body1">LogLevel</td>
+                            <td class="TableStyle-standard-BodyC-Column1-Body1"><span class="code">info</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyA-Column1-Body1">Controls the verbosity of the logs. <MadCap:variable name="okta-variables.ProductName" /> recommends leaving this as <code>info</code>.
+							<p>Valid values include:</p><ul><li><span class="code">error</span></li><li><span class="code">warn</span></li><li><span class="code">info</span></li><li><span class="code">debug</span></li></ul></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <h3><a name="connections"></a>Connection 
+options</h3>
+                <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                    <col class="TableStyle-standard-Column-Column1" />
+                    <col class="TableStyle-standard-Column-Column1" />
+                    <col class="TableStyle-standard-Column-Column1" />
+                    <thead>
+                        <tr class="TableStyle-standard-Head-Header1">
+                            <th class="TableStyle-standard-HeadF-Column1-Header1">Option</th>
+                            <th class="TableStyle-standard-HeadF-Column1-Header1">Default value</th>
+                            <th class="TableStyle-standard-HeadD-Column1-Header1">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="TableStyle-standard-Body-Body1">
+                            <td class="TableStyle-standard-BodyF-Column1-Body1">AccessAddress</td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body1">1.1.1.1</td>
+                            <td class="TableStyle-standard-BodyD-Column1-Body1">Specifies the network address (IPv4 or IPv6) used by clients to access the gateway.
+							If no address is specified, the gateway uses the address indicated by the network interface or cloud provider metadata.</td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2">
+                            <td class="TableStyle-standard-BodyF-Column1-Body2">AccessPort</td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body2">7234</td>
+                            <td class="TableStyle-standard-BodyD-Column1-Body2">Specifies the port clients can use to access the gateway.</td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body1">
+                            <td class="TableStyle-standard-BodyF-Column1-Body1">ListenAddress</td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body1">0.0.0.0</td>
+                            <td class="TableStyle-standard-BodyD-Column1-Body1">Specifies the network address  (IPv4 or IPv6) used by the gateway to listen for
+							connections. By default, the  gateway listens for connections on every available interface.</td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2">
+                            <td class="TableStyle-standard-BodyF-Column1-Body2">ListenPort</td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body2">7234</td>
+                            <td class="TableStyle-standard-BodyD-Column1-Body2">Specifies a port used by the gateway to listen for connections.</td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body1">
+                            <td class="TableStyle-standard-BodyF-Column1-Body1">TLSUseBundledCAs</td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body1">True</td>
+                            <td class="TableStyle-standard-BodyD-Column1-Body1">Forces the gateway to use the bundled certificate store (instead of the OS certificate store) to secure HTTP requests with TLS. This also includes requests to the Advanced Server Access cloud service.
+                                <p>Note: To use the OS certificate store, set this option to False.</p></td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2">
+                            <td class="TableStyle-standard-BodyF-Column1-Body2">RefuseConnections</td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body2">False</td>
+                            <td class="TableStyle-standard-BodyD-Column1-Body2">Controls whether the gateway accepts SSH and RDP proxy traffic. If enabled, SSH and RDP connection requests aren’t routed and the gateway won’t listen for proxy traffic requests.</td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body1">
+                            <td class="TableStyle-standard-BodyC-Column1-Body1">ForwardProxy</td>
+                            <td class="TableStyle-standard-BodyC-Column1-Body1">unset</td>
+                            <td class="TableStyle-standard-BodyA-Column1-Body1">Specifies the URL of an HTTP CONNECT proxy used for outbound network connectivity to <MadCap:variable name="okta-feature-names.Okta Privileged Access" />. Alternatively, you can set the proxy using the  HTTPS_PROXY environment variable.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <h3><a name="LDAP"></a>LDAP 
+options</h3>
+                <p>These options control how the gateway establishes secure connections with Lightweight Directory Access Protocol (LDAP) servers. </p>
+                <p MadCap:conditions="Primary.do-not-publish">These options control how the gateway establishes secure connections with Lightweight Directory Access Protocol (LDAP) servers. These options must be configured for the gateway to work with AD-Joined. See <MadCap:xref href="../../Adv_Server_Access/docs/ad-gateways.htm">Gateway support for Active Directory</MadCap:xref>.</p>
+                <p>By default, the gateway starts TLS, but doesn’t perform any certificate validation. </p>
+                <div class="noteOkta">
+                    <p class="noteContent">You must indent these options within an <span class="code">LDAP</span> YAML dictionary using two spaces:</p>
+                    <p class="noteContent code">LDAP:
+                            <br />&#160;&#160;<code>StartTLS: ...</code><br /></p>
+                </div>
+                <div class="noteOkta">
+                    <p class="noteContent">Warning: If <span class="wintitle">StartTLS</span> and <span class="wintitle">UseLDAPS</span> are set to <span class="uicontrol">False</span>, then LDAP communications with Active Directory won't be encrypted. <MadCap:variable name="okta-variables.ProductName" /> recommends that you set <span class="wintitle">StartTLS</span> to <span class="uicontrol">True</span>.</p>
+                </div>
+                <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                    <col class="TableStyle-standard-Column-Column1" />
+                    <col class="TableStyle-standard-Column-Column1" />
+                    <col class="TableStyle-standard-Column-Column1" />
+                    <thead>
+                        <tr class="TableStyle-standard-Head-Header1">
+                            <th class="TableStyle-standard-HeadF-Column1-Header1">Option</th>
+                            <th class="TableStyle-standard-HeadF-Column1-Header1">Default value</th>
+                            <th class="TableStyle-standard-HeadD-Column1-Header1">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="TableStyle-standard-Body-Body1">
+                            <td class="TableStyle-standard-BodyF-Column1-Body1">StartTLS</td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body1">True</td>
+                            <td class="TableStyle-standard-BodyD-Column1-Body1">
+                                <p>Upgrades Active Directory/LDAP server communications to TLS. If disabled, communication with the server is not encrypted.</p>
+                                <p>StartTLS is an extension to the LDAP&#160;protocol that uses the TLS protocol to encrypt communication. This option can't be enabled simultaneously with the <span class="uicontrol">UseLDAPS</span> option.</p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2" MadCap:conditions="">
+                            <td class="TableStyle-standard-BodyF-Column1-Body2">
+                                <p>UseLDAPS</p>
+                            </td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body2">
+                                <p>False</p>
+                            </td>
+                            <td class="TableStyle-standard-BodyD-Column1-Body2">
+                                <p>Enables the use of the LDAPS protocol to encrypt communication. This option can't be enabled simultaneously with the <span class="uicontrol">StartTLS</span> option.</p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body1" MadCap:conditions="">
+                            <td class="TableStyle-standard-BodyF-Column1-Body1">
+                                <p>LDAPSPort</p>
+                            </td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body1">
+                                <p>636</p>
+                            </td>
+                            <td class="TableStyle-standard-BodyD-Column1-Body1">
+                                <p>If the <span class="uicontrol">UseLDAPS</span> option is set to <span class="uicontrol">True</span>, then this port value is used to make the LDAPS&#160;connection.</p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2">
+                            <td class="TableStyle-standard-BodyF-Column1-Body2">ValidateCertificates</td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body2">False</td>
+                            <td class="TableStyle-standard-BodyD-Column1-Body2">Performs validation on certificates received from the AD/LDAP server. If disabled, LDAP server communications may be vulnerable to MITM attacks.
+                                    <p>If enabled, the gateway looks for certificates at the path specified by <code>TrustedCAsDir</code>.</p><p>Teams should ensure that valid certificates for each connected domain are stored on the gateway before they enable this option. If no valid certificates are found, the gateway rejects all connections. </p></td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body1" MadCap:conditions="Primary.do-not-publish">
+                            <td class="TableStyle-standard-BodyC-Column1-Body1">TrustedCAsDir</td>
+                            <td class="TableStyle-standard-BodyC-Column1-Body1">unset</td>
+                            <td class="TableStyle-standard-BodyA-Column1-Body1">Specifies the path to a directory containing public certificates of a
+Certificate Authority (usually managed within Active Directory and distributed
+via Group Policy). The directory and certificates must be readable by the
+sft-gatewayd user and the certificates must be PEM encoded. Subdirectories are
+not checked.                               <p>You can use any path, but <MadCap:variable name="okta-variables.ProductName" /> recommends using <code>/etc/sft/trusted-ldap-certs/</code>.</p><p>For information on certificates, see <MadCap:xref href="../../Adv_Server_Access/docs/gateway-create-cert.htm">Create a public certificate for use with [%=okta-feature-names.ScaleFT%] gateways</MadCap:xref>.</p></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <h3><a name="RDP"></a>RDP 
+options</h3>
+                <p>These options control how the gateway manages Remote Desktop Protocol (RDP) sessions.</p>
+                <p MadCap:conditions="Primary.do-not-publish">These options control how the gateway manages Remote Desktop Protocol (RDP) sessions. Teams must configure these options to route RDP sessions through the gateway to servers enrolled with the server agent or discovered in an AD domain. These options must be configured for the gateway to work with AD-Joined. See <MadCap:xref href="../../Adv_Server_Access/docs/ad-gateways.htm">Gateway support for Active Directory</MadCap:xref>.</p>
+                <p>You must explicitly allow RDP connections with the <code>Enabled </code>option and either the <code>TrustedCAsDir</code> or <code>DangerouslyIgnoreServerCertificates</code> option. <br /></p>
+                <p MadCap:conditions="Primary.do-not-publish">If a team is using the AD-Joined feature, the gateway can still discover Active Directory servers even if RDP support isn't enabled. See <MadCap:xref href="../../Adv_Server_Access/docs/ad-sync.htm">Server discovery</MadCap:xref>.</p>
+                <div class="noteOkta" MadCap:conditions="Primary.do-not-publish">
+                    <p class="noteContent">Ubuntu 20.04, 22.04, or RHEL 8 is required for AD-joined and RDP connections routed through a gateway.</p>
+                </div>
+                <div class="noteOkta">
+                    <p class="noteContent">Ubuntu 20.04, 22.04, RHEL 8, or RHEL 9 is required for RDP connections routed through a gateway.</p>
+                </div>
+                <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                    <col class="TableStyle-standard-Column-Column1" />
+                    <col class="TableStyle-standard-Column-Column1" />
+                    <col class="TableStyle-standard-Column-Column1" />
+                    <thead>
+                        <tr class="TableStyle-standard-Head-Header1">
+                            <th class="TableStyle-standard-HeadF-Column1-Header1">Option</th>
+                            <th class="TableStyle-standard-HeadF-Column1-Header1">Default value</th>
+                            <th class="TableStyle-standard-HeadD-Column1-Header1">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="TableStyle-standard-Body-Body1">
+                            <td class="TableStyle-standard-BodyF-Column1-Body1">Enabled</td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body1">False</td>
+                            <td class="TableStyle-standard-BodyD-Column1-Body1">
+                                <p>Controls RDP functionality for the gateway. This option is disabled by default as RDP
+requires additional configuration. Must be set to <span class="code">True</span> before any RDP conections are allowed.</p>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2" MadCap:conditions="Primary.do-not-publish">
+                            <td class="TableStyle-standard-BodyF-Column1-Body2">TrustedCAsDir</td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body2">unset</td>
+                            <td class="TableStyle-standard-BodyD-Column1-Body2">Specifies the path to a directory containing public certificates signed by a Certificate Authority (usually managed within Active Directory and distributed via Group Policy) The directory and certificates must be readable by the sft-gatewayd user and the certificates must be PEM encoded. Subdirectories are not checked.<p>You can use any path, but <MadCap:variable name="okta-variables.ProductName" /> recommends using <code>/etc/sft/trusted-rdp-certs/</code>.</p><p MadCap:conditions="Primary.do-not-publish">For information on certificates, see <MadCap:xref href="../../Adv_Server_Access/docs/gateway-create-cert.htm">Create a public certificate for use with [%=okta-feature-names.ScaleFT%] gateways</MadCap:xref>.</p></td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body1">
+                            <td class="TableStyle-standard-BodyF-Column1-Body1">DangerouslyIgnoreServerCertificates</td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body1">False</td>
+                            <td class="TableStyle-standard-BodyD-Column1-Body1">Restricts the gateway from validating server certificates when connecting to
+							an RDP host. This flag is dangerous in non-test environments, but may be required if the RDP host has any self-signed certificates.</td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2">
+                            <td class="TableStyle-standard-BodyF-Column1-Body2">MaximumActiveSessions</td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body2">20</td>
+                            <td class="TableStyle-standard-BodyD-Column1-Body2">Controls the number of concurrent RDP sessions allowed by the gateway. After reaching this number of sessions, additional users
+							will receive an error and be unable to connect to the gateway. This is done exclusively for resource and performance reasons.</td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body1">
+                            <td class="TableStyle-standard-BodyC-Column1-Body1">VerboseLogging</td>
+                            <td class="TableStyle-standard-BodyC-Column1-Body1">True</td>
+                            <td class="TableStyle-standard-BodyA-Column1-Body1">Controls the log level of RDP-internal logs. These messages are useful when diagnosing issues but might clutter logs.
+                                <p>Note: Set to <span class="code">False</span> to label all internal RDP log messages as debug.</p></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <h3><a name="capture"></a>Session recording options</h3>
+                <p MadCap:conditions="Primary.review-only">These options control how the gateway stores session recording logs. During a session, the gateway temporarily stores files at a specified location. After a session ends, teams can store the finalized session logs locally on the gateway or upload them to remote platforms such as <MadCap:variable name="3rd Party Integrations.Amazon Web Services" /> (AWS) S3 or Google Cloud Storage (GCS). See <MadCap:xref href="../../Adv_Server_Access/docs/session-capture.htm">Session capture</MadCap:xref>.</p>
+                <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                    <col class="TableStyle-standard-Column-Column1" />
+                    <col class="TableStyle-standard-Column-Column1" />
+                    <col class="TableStyle-standard-Column-Column1" />
+                    <thead>
+                        <tr class="TableStyle-standard-Head-Header1">
+                            <th class="TableStyle-standard-HeadF-Column1-Header1">Option</th>
+                            <th class="TableStyle-standard-HeadF-Column1-Header1">Default value</th>
+                            <th class="TableStyle-standard-HeadD-Column1-Header1">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="TableStyle-standard-Body-Body1">
+                            <td class="TableStyle-standard-BodyF-Column1-Body1">SessionLogFlushInterval</td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body1">10s</td>
+                            <td class="TableStyle-standard-BodyD-Column1-Body1">Specifies a size threshold for session capture logs. After reaching this threshold, logs for an active session are signed and flushed to disk. This option must include a time unit (ms, s, m, h).</td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2">
+                            <td class="TableStyle-standard-BodyF-Column1-Body2">SessionLogMaxBufferSize</td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body2">262144</td>
+                            <td class="TableStyle-standard-BodyD-Column1-Body2">Specifies a size threshold for session capture logs. After reaching this threshold, logs for an active session are signed and flushed.
+					This option is measured in bytes.</td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body1">
+                            <td class="TableStyle-standard-BodyF-Column1-Body1">
+							SessionLogTempStorageDirectory</td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body1">/tmp</td>
+                            <td class="TableStyle-standard-BodyD-Column1-Body1">Specifies a temp directory to store SSH session logs before upload to the specified log destination.
+							<p>The default depends on the operating system. On Linux, the default is generally /tmp, unless the $TMPDIR environment variable is specified.</p><div class="noteOkta"><p class="noteContent">The directories for the temporary and finalized session logs must be located on the same device.</p></div></td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2">
+                            <td class="TableStyle-standard-BodyF-Column1-Body2">
+							LogDestinations</td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body2">unset</td>
+                            <td class="TableStyle-standard-BodyD-Column1-Body2">Specifies where to store finalized session logs. Teams can store logs locally or on AWS or GCS buckets. You can store session logs in multiple locations. If doing so, the logs are sent to the destination in the order specified in the configuration file. Session logs are never sent to <MadCap:variable name="okta-feature-names.Okta Privileged Access" />.
+                                <p>See the following  default values and examples.</p><h5>Example - Linux/BSD</h5><p class="noteContent code">LogDestinations:<br />&#160;&#160;- Type: file<br />&#160;&#160;&#160;&#160;LogDir: /var/log/sft/sessions</p><div class="noteOkta"><p class="noteContent">Gateways can't write to the <code>/home</code>, <code>/root</code>, or <code>/run/user</code> directories.</p></div><h5>Example - AWS</h5><p class="noteContent code">LogDestinations:<br />&#160;&#160;- Type: s3<br />&#160;&#160;&#160;&#160;Bucket: BUCKET-NAME<br />&#160;&#160;&#160;&#160;Region: US-EAST-1<br />&#160;&#160;&#160;&#160;# Use of ec2 instance IAM Role credentials for s3 bucket access is recommended<br />&#160;&#160;&#160;&#160;# To use ec2 instance IAM Role credentials leave Profile, AccesKeyId, SecretKey, and SessionToken BLANK<br />&#160;&#160;&#160;&#160;# Specify Profile for shared credentials<br />&#160;&#160;&#160;&#160;Profile: AWS-PROFILE-NAME<br />&#160;&#160;&#160;&#160;# Specify AccessKeyId, SecretKey, and SessionToken for static credentials<br />&#160;&#160;&#160;&#160;AccessKeyId: SECRET<br />&#160;&#160;&#160;&#160;SecretKey: SECRET<br />&#160;&#160;&#160;&#160;SessionToken: SECRET</p><h5>Example - Google Cloud</h5><p class="noteContent code">LogDestinations:<br />&#160;&#160;- Type: gcs<br />&#160;&#160;&#160;&#160;Bucket: BUCKET-NAME<br />&#160;&#160;&#160;&#160;# Supply one of CredentialsFile or CredentialsJSON (or none to use instance credentials)<br />&#160;&#160;&#160;&#160;CredentialsFile: /path/to/cred/file<br />&#160;&#160;&#160;&#160;CredentialsJSON: |<br />&#160;&#160;&#160;&#160;{<br />&#160;&#160;&#160;&#160;"SOME": "value",<br />&#160;&#160;&#160;&#160;"IN": "json"<br />&#160;&#160;&#160;&#160;}</p></td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body1" MadCap:conditions="">
+                            <td class="TableStyle-standard-BodyC-Column1-Body1">
+                                <p>LogFileNameFormats</p>
+                            </td>
+                            <td class="TableStyle-standard-BodyC-Column1-Body1">
+                                <p><span class="code">SSHRecording: {{StartTime}}-{{.TeamName}}-{{Username}}</span>
+                                </p>
+                                <p><span class="code">RDPRecording: {{StartTime}}-{{Protocol}}-{{.TeamName}}-{{ProjectName}}-{[.ServerName}}-{{.Username}}</span>
+                                </p>
+                            </td>
+                            <td class="TableStyle-standard-BodyA-Column1-Body1">
+                                <p>System administrators can customize and configure <span class="code">logFileNameFormats</span> option to better understand and manage the session recording logs.</p>
+                                <ul>
+                                    <li>
+                                        <p><span class="code">StartTime</span> - The time when the session recording starts. Time conversion is done using ISO 8601 standard format.</p>
+                                    </li>
+                                    <li>
+                                        <p><span class="code">TeamName</span> - The <MadCap:variable name="workflows_connectors.Advanced Server Access" /> team name of the user who trigger the connection session.</p>
+                                    </li>
+                                    <li>
+                                        <p><span class="code">UserName</span> - The name of  user who trigger the SSH&#160;or RDP session.</p>
+                                    </li>
+                                    <li>
+                                        <p><span class="code">Protocol</span> - The connection protocol; either SSH or RDP.</p>
+                                    </li>
+                                    <li>
+                                        <p><span class="code">ProjectName</span> - The name of the project which the target SSH or RDP server belongs to.</p>
+                                    </li>
+                                    <li>
+                                        <p><span class="code">ServerName</span> - The hostname of the target server client connected to in the  SSH or RDP session.</p>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h2><a name="See"></a>Related topics</h2>
+            <ul>
+                <li>
+                    <MadCap:xref href="../tool-setup/pam-install-gateway.htm">Install the [%=okta-feature-names.Okta Privileged Access%] gateway</MadCap:xref>
+                </li>
+                <li>
+                    <MadCap:xref href="pam-gateways-tokens-labels.htm">Create tokens and labels</MadCap:xref>
+                </li>
+            </ul>
+        </div>
+    </body>
+</html>

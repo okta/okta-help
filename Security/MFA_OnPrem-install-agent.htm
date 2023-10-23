@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:conditions="MultiProdPublish.Classic+OIE"
+      MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+   <head>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <meta name="description"
+            content="Configure the Citrix Netscaler Gateway integration to enable MFA against your Okta RADIUS server agent to provide seamless end-user authentication."/>
+   </head>
+   <body>
+      <h1>Install the agent</h1>
+      <p>The On-Prem MFA Agent  (v 1.3.3 or later) supports proxy configuration with your RADIUS enabled on-prem MFA server, including RSA Authentication manager for RSA SecurIDs. </p>
+      <div class="noteOkta">
+         <p class="noteContent">Installs that don't require proxy support can ignore the steps marked <span class="uicontrol">(Proxy only)</span>.</p>
+      </div>
+      <ul>
+         <li>
+            <MadCap:xref href="#Install">Install the Agent</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Troubles">Troubleshooting</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Specifyi">Specifying proxies for existing MFA agent</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Troubles">Troubleshooting</MadCap:xref>
+         </li>
+      </ul>
+      <h2>Before you begin</h2>
+      <ul>
+         <li>Ensure that you have the common UDP port and secret key values available and that the Okta RADIUS agent port 1812 is open. </li>
+      </ul>
+      <h2>
+         <a name="Install"/>Install the agent</h2>
+      <h3>Determine instance ID</h3>
+      <p>The On-Prem MFA Agent installer requires an instance identifier.</p>
+      <ol MadCap:conditions="MultiProdPublish.Classic">
+         <li>In a browser, Navigate to your <span class="uicontrol">Okta Org</span> and Login as an Administrator.</li>
+         <li>Select <span class="menucascade">
+               <span class="uicontrol">Security</span>
+               <span class="uicontrol">Multifactor</span>
+            </span>.</li>
+         <li>Select the <span class="uicontrol">Factor Types</span> tab.</li>
+         <li>Select the factor selected in the <a href="MFA_OnPrem-enable-agent.htm">configure the Okta org</a> task.</li>
+         <li>Click <span class="uicontrol">Add new Agent</span>.</li>
+         <li>Copy the provided instance ID.</li>
+      </ol>
+      <ol MadCap:conditions="MultiProdPublish.OIE">
+         <li>In a browser, Navigate to your <span class="uicontrol">Okta Org</span> and Login as an <span class="uicontrol">Administrator</span>.</li>
+         <li>Select <span class="menucascade">
+               <span class="uicontrol">Security</span>
+               <span class="uicontrol">Authenticators</span>
+            </span>.</li>
+         <li>For either of <span class="uicontrol">On-Prem MFA</span> or <span class="uicontrol">RSA SecurID</span> authenticators used in the <MadCap:xref href="MFA_OnPrem-enable-agent.htm">Configure Okta org and remote client</MadCap:xref>, select <span class="menucascade">
+               <span class="uicontrol">Actions</span>
+               <span class="uicontrol">Edit</span>
+            </span>.</li>
+         <li>Click <span class="uicontrol">Add new Agent</span>.</li>
+         <li>Copy the provided instance ID.</li>
+      </ol>
+      <h3>Run the installer</h3>
+      <ol>
+         <li>Go to the directory where you saved the <span class="uicontrol">On-Prem MFA Agent</span> installer. Run the installer as administrator.</li>
+         <li>Click <span class="uicontrol">Next</span>.</li>
+         <li>Click <span class="uicontrol">Next</span> on the <span class="uicontrol">"Important Information" </span>and<span class="uicontrol"> "License Information"</span> pages.</li>
+         <li>Accept the default installation folder or browse to a different folder and then click <span class="uicontrol">Install</span>.
+			<p>
+               <span class="uicontrol">(Proxy-only):</span> Note the installation path, you need it to enable proxies in later steps.</p>
+         </li>
+         <li>Enter your <span class="uicontrol">Instance ID</span> on the <span class="uicontrol">Okta On-Prem Agent Configuration</span> page. You can find this value in the app's <span class="uicontrol"> Settings</span> page in your Okta org.</li>
+         <li>In the <span class="uicontrol">Register Okta On-Prem MFA Agent</span> dialog enter the fully qualified URL for your org,
+     for example,<span class="url"> https://mycompany.oktapreview.com</span>. Click <span class="uicontrol">Next</span>. <br/>
+         </li>
+         <li>
+            <span class="uicontrol">(Proxy - only)</span> Modify settings to include a proxy. <ol style="list-style-type: lower-alpha;">
+               <li>Leave the Okta <span class="uicontrol">Sign In</span> page without signing in and open a <span class="uicontrol">File Explorer</span> window.</li>
+               <li>Locate your <span id="code">config.properties</span> file (for example, <span class="filepath">&lt;AGENT_INSTALL_PATH&gt;\current\user\config\rsa-securid\config.properties</span>).</li>
+               <li>Open the file in a text editor.</li>
+               <li>Add proxy configuration key/value pairs to the end of the file. A proxy includes the following key/value pairs:<br/>
+                  <span class="codeblock">proxyAddress = http://&lt;ipaddress:[port]&gt; <br/>proxyUsername = &lt;username&gt;<br/>proxyPassword = &lt;password of proxyUsername&gt;</span>
+               </li>
+               <li>Save the file.</li>
+               <li>Return to the installer.</li>
+            </ol>
+            <p>For example, the entry for a proxy using the http protocol that runs on port 3128 of the host at 127.0.0.1 is:</p>
+            <p>
+               <img src="../../Resources/Images/ProxyExample.jpg" id="thumbnail"/>
+            </p>
+            <div class="noteOkta">
+               <p class="noteContent">If all the properties occur on a single line, add  proxy settings beneath it.</p>
+            </div>
+         </li>
+      </ol>
+      <ol MadCap:continue="true">
+         <li>
+            <p>
+               <span class="uicontrol">(Optional)</span> Extend client session timeout. Contact your account representative to change this setting.</p>
+            <p>The default value of 3000 ms is sufficient in most cases, but it may need to be increased in situations where push is being used.</p>
+            <ol style="list-style-type: lower-alpha;">
+               <li>
+                  <p>Open the <span class="code">config.properties</span> file in an editor.</p>
+               </li>
+               <li>
+                  <p>Edit the r<span class="code">adiusSocketTimeoutMs</span> field to a value between 1 - 30000 ms. If the parameter is missing, add it at the bottom of the file.</p>
+               </li>
+            </ol>
+         </li>
+         <li>On the <span class="uicontrol">Sign In</span> screen sign in to Okta.<br/>
+            <div class="noteOkta">
+               <p class="noteContent">When signing in, you must use an account that has one of Super admin, App admin, or API Access Management admin. See <MadCap:xref href="administrators-admin-comparison.htm#OpenIDConnect">OpenID Connect end-to-end scenario</MadCap:xref>.</p>
+            </div>
+         </li>
+         <li>Click the <span class="uicontrol">Allow Access</span> button.</li>
+         <li>Bring the installer to the front to view completion of the install.</li>
+         <li>The <span class="uicontrol">Installation Completed</span> screen appears. If not, see <span class="uicontrol">Troubleshooting</span> below.</li>
+         <li>Click the <span class="uicontrol">Finish</span> button to complete the installation. <br/>
+            <div class="note_tipOkta">
+               <p class="noteContent">Restart Windows to complete the installation. Select <span class="uicontrol">Yes, restart Windows now (recommended)</span> and then click <span class="uicontrol">Finish</span> to immediately restart Windows.</p>
+            </div>
+         </li>
+      </ol>
+      <h2>
+         <a name="Specifyi"/>Specify proxies for existing MFA agent</h2>
+      <ol>
+         <li>Go to your existing installation folder.</li>
+         <li>Edit <span class="filepath">C:\Program Files (x86)\....\Okta On-Prem MFA Agent\current\user\config\rsa-securid\config.properties</span>
+         </li>
+         <li>Add your proxy configurations to the bottom of this file. Example keys are <span class="code">proxyAddress</span>, <span class="code">proxyUsername</span>, or <span class="code">proxyPassword</span>.</li>
+      </ol>
+      <p>The following is a simple configuration for a proxy using the http protocol, with a host of 127.0.0.1 and a port of 3128:</p>
+      <p>
+         <img src="../../Resources/Images/ProxyExample.jpg"/>
+      </p>
+      <p>Note: If all the properties occur on a single line, simply add your proxy settings beneath it.</p>
+      <ol MadCap:continue="true">
+         <li>Save this file and run the installer for MFA-Agent.</li>
+         <li>When the installation completes, a message appears stating it successfully completed. If not, see the <span class="uicontrol">Troubleshooting</span> section.</li>
+      </ol>
+      <h2>
+         <a name="Troubles"/>Troubleshooting</h2>
+      <h3>New installation</h3>
+      <p>If you encountered an error when installing, try to confirm your proxy settings. You can also retry the installation using <span class="code">sslPinningEnabled = false</span>, but you should only use this option if you're confident in how this works.</p>
+      <h3>Upgrade (Proxy only)</h3>
+      <p>If you entered proxy properties that are inaccurate, the installer may appear to succeed, but the agent will eventually fail. To verify these properties, examine the last connected timestamp on your list of agents in the Okta Administrator Dashboard.</p>
+      <div>
+         <h2>Next steps</h2>
+         <p MadCap:conditions="Primary.do-not-publish">
+            <MadCap:xref href="MFA_OnPrem-disable-ssl-pinning.htm">Disabling SSL Pinning</MadCap:xref>
+         </p>
+         <p MadCap:conditions="Primary.do-not-publish">
+            <MadCap:xref href="MFA_OnPrem-install-agent.htm">Install the Agent </MadCap:xref>
+         </p>
+         <p>
+            <MadCap:xref href="MFA_OnPrem-HA.htm">Configuring High Availability</MadCap:xref>
+         </p>
+      </div>
+   </body>
+</html>

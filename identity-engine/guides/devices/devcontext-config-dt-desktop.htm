@@ -1,0 +1,835 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+   <head>
+      <link href="../../../../Resources/TableStyles/standard-shaded-rows.css"
+            rel="stylesheet"
+            MadCap:stylesheetType="table"/>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <link href="" rel="stylesheet" type="text/css"/>
+   </head>
+   <body>
+      <h1>Configure Device Trust on desktop devices</h1>
+      <p>Learn how to deploy Device Trust on macOS and Windows computers. </p>
+      <p>Okta and your EMM solution must be conﬁgured before you create app-level policies that leverage Device Trust. </p>
+      <p>Note: If you use Device Trust to enable a password experience (Okta FastPass) for macOS users, Apple Extensible SSO must be conﬁgured in your EMM solution. See <a href="../../devices/config-credential-sso-ext-macos.htm">Conﬁgure Extensible SSO for Safari and native apps on managed macOS devices</a>.</p>
+      <h2>Choose a certiﬁcate authority
+        </h2>
+      <p>Windows and macOS device management requires a certiﬁcate authority (CA) that can issue client certiﬁcates to targeted devices. Device Trust uses these client certiﬁcates to determine whether devices are managed or not. Application sign-on policies grant or deny access to an application or prompt for more authentication factors based on the device state.</p>
+      <p>You can use Okta as a CA or use your own existing CA if you already have one in place.</p>
+      <h2>Provide your own certiﬁcate authority for Device Context</h2>
+      <p>If you use your own certiﬁcate authority (CA), your environment requires a PKI infrastructure integrated with your EMM solution to distribute Okta-provided client certiﬁcates to targeted devices. In addition to distributing certiﬁcates, your EMM software renews certiﬁcates before they expire and revokes certiﬁcates from your EMM server and managed devices when devices are no longer managed.</p>
+      <p>In addition to devices managed by your existing EMM solution, Okta can manage devices that have a certiﬁcate deployed by an existing Active Directory Certiﬁcate Services (ADCS) infrastructure. In this case, the device must have a certiﬁcate deployed from the same CA that is set up in Okta.</p>
+      <h2>Start this procedure</h2>
+      <p>
+         <MadCap:xref href="#Task">Task 1: Conﬁgure the SCEP Payload</MadCap:xref>
+      </p>
+      <p>
+         <MadCap:xref href="#Task2">Task 2: In Okta, conﬁgure management attestation and upload your certiﬁcate</MadCap:xref>
+      </p>
+      <h3>
+         <a name="Task"/>Task 1: Conﬁgure the SCEP Payload</h3>
+      <p>Make sure SCEP proﬁles are targeted at the <span class="uicontrol">USER</span> level, not the <span class="uicontrol">DEVICE</span> level. This ensures that the certiﬁcate is deployed to the login keychain and accessible to Okta Verify. Your SCEP policy requires a user context. Multiple users can use the same device, but only if each user is from a separate org. The enrolled user must be managed by your EMM solution and possess a certiﬁcate.</p>
+      <p>Conﬁgure the SCEP payload using these settings:</p>
+      <table style="mc-table-style: url('../../../../Resources/TableStyles/standard-shaded-rows.css');"
+             class="TableStyle-srb_header_alt_shade"
+             cellspacing="0">
+         <tbody>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                  <span class="uicontrol">Key</span>
+               </td>
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                  <span class="uicontrol">Type</span>
+               </td>
+               <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                  <span class="uicontrol">Value</span>
+               </td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                  <span class="uicontrol">KeyUsage</span>
+               </td>
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Integer</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">Set to <span class="uicontrol">signing</span> so Okta Verify can sign the nonce sent from the Okta server.</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                  <span class="uicontrol">AllowAllAppAccess</span>
+               </td>
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Boolean</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Set to <span class="uicontrol">true</span> so Okta Verify can sign requests without prompting users to sign in. Otherwise, users are prompted to allow Okta Verify to access the key.</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+               <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">
+                  <span class="uicontrol">KeysExtractable</span>
+               </td>
+               <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">Boolean</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">Set to <span class="uicontrol">false</span> so that it cannot be copied to another device easily.</td>
+            </tr>
+         </tbody>
+      </table>
+      <h3>
+         <a name="Task2"/>Task 2: In Okta, conﬁgure management attestation and upload your certiﬁcate</h3>
+      <ol>
+         <li>In the Admin Console, go to <span class="menucascade">
+               <span class="uicontrol">Security</span>
+               <span class="uicontrol">Device integrations</span>
+            </span>.</li>
+         <li>On the <span class="uicontrol">Endpoint Management</span> page, click <span class="uicontrol">Add platform</span>.</li>
+         <li>
+                Select <span class="uicontrol">Desktop (Windows and macOS only)</span> and click <span class="uicontrol">Next</span>.
+            </li>
+         <li>Select <span class="uicontrol">Use my own certiﬁcate authority</span> for the Certiﬁcate authority and click <span class="uicontrol">Save</span>.</li>
+         <li>Click <span class="uicontrol">Save</span>.</li>
+         <li>On the <span class="uicontrol">Certiﬁcate authority</span> page, click <span class="uicontrol">Add certiﬁcate authority</span>.</li>
+         <li>In the <span class="uicontrol">Add certiﬁcate authority</span> dialog box, browse to the Intermediate CA that will be used to issue the client certiﬁcate. If you have multiple such issuers, upload all of them one at a time.</li>
+         <ul>
+            <li>Note: Okta doesn't support PKCS#7, PKCS#12, or PFX certiﬁcate formats.</li>
+            <li>Certiﬁcates are uploaded automatically. A message appears if uploads are successful. To view details, click <span class="uicontrol">View root certiﬁcate chain details</span>.</li>
+         </ul>
+         <li>Click <span class="uicontrol">Close</span>.</li>
+      </ol>
+      <h2>Use Okta as a CA</h2>
+      <p>EMM solutions use the Simple Certiﬁcate Enrollment Protocol (SCEP) to issue certiﬁcates to managed devices. When conﬁguring Okta as a CA, you can set the SCEP challenge type to Static, Dynamic, or Delegated. Some EMM solutions (such as Jamf Pro) support multiple challenge types, while others support only one. Before you conﬁgure Okta as a CA, determine what challenge type your EMM app supports or recommends.</p>
+      <h3>Use static SCEP challenge with Jamf Pro on macOS devices</h3>
+      <ol>
+         <li>
+            <MadCap:xref href="#Conﬁgure2">Conﬁgure management attestation and generate a SCEP URL</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Create">Create a static SCEP proﬁle
+        </MadCap:xref>
+         </li>
+      </ol>
+      <h4>
+         <a name="Conﬁgure"/>Conﬁgure management attestation and generate a SCEP URL and Secret Key
+        </h4>
+      <p>Note: This procedure applies to any EMM solution that supports pushing the Apple SCEP EMM payload.</p>
+      <ol>
+         <li>In the Okta Admin Console, go to <span class="menucascade">
+               <span class="uicontrol">Security</span>
+               <span class="uicontrol">Device integrations</span>
+            </span>.</li>
+         <li>On the <span class="uicontrol">Endpoint management</span> page, click <span class="uicontrol">Add platform</span>.
+				<p>Note: If you add more than one conﬁguration for the same type of platform, see this <MadCap:xref href="../../devices/known-issues.htm#MultConfigSamePlatKI">Known Issue</MadCap:xref>.</p>
+         </li>
+         <li>Select <span class="uicontrol">Desktop (Windows and macOS only)</span> and click <span class="uicontrol">Next</span>.
+         </li>
+         <li>On the <span class="uicontrol">Add device management platform</span> page, configure these settings:<ul>
+               <li>
+                  <span class="uicontrol">Certiﬁcate authority</span>: Select <span class="uicontrol">Use Okta as certiﬁcate authority</span>.</li>
+               <li>
+                  <span class="uicontrol">SCEP URL challenge type</span>: Select <span class="uicontrol">Static SCEP URL</span>.</li>
+               <li>Click <span class="uicontrol">Generate</span>.</li>
+               <li>
+                  <span class="uicontrol">SCEP URL</span>: Copy and save the value. You will need this value later.</li>
+               <li>
+                  <span class="uicontrol">Secret key</span>: Copy and save the value. You will need this value later</li>
+               <p>Note: Save the <span class="uicontrol">SCEP URL</span> and <span class="uicontrol">Secret key</span> in a safe place. This is the only time they appear in the Okta Admin Console.</p>
+            </ul>
+         </li>
+         <li>Click <span class="uicontrol">Save</span>.</li>
+      </ol>
+      <h4>
+         <a name="Create"/>Create a static SCEP proﬁle
+        </h4>
+      <ol>
+         <li>In Jamf Pro, go to <span class="menucascade">
+               <span class="uicontrol">Computers</span>
+               <span class="uicontrol">Conﬁguration Proﬁle</span>
+           </span> s.</li>
+         <li>Click <span class="uicontrol">+ New</span>.</li>
+         <li>Go to <span class="menucascade">
+               <span class="uicontrol">Options</span>
+               <span class="uicontrol">General</span>
+            </span>.</li>
+         <li>On the General proﬁle page, enter these values:</li>
+         <ul>
+            <li>
+               <span class="uicontrol">Name</span>: Enter a name for the proﬁle.</li>
+            <li>
+               <span class="uicontrol">Description</span>: Optional. Enter a description of the proﬁle.</li>
+            <li>
+               <span class="uicontrol">Level</span>: Select User Level.</li>
+         </ul>
+         <li>Go to <span class="menucascade">
+               <span class="uicontrol">Options</span>
+               <span class="uicontrol">SCEP</span>
+            </span>.</li>
+         <li>Click <span class="uicontrol">Conﬁgure</span>.</li>
+         <li>On the SCEP proﬁle page, enter the following values and click <span class="uicontrol">Save</span>:</li>
+         <ul>
+            <li>
+               <span class="uicontrol">URL</span>: Enter the <span class="uicontrol">SCEP URL</span> you saved in step 6b above.</li>
+            <li>
+               <span class="uicontrol">Name</span>: Enter a name for the SCEP proﬁle.</li>
+            <li>
+               <span class="uicontrol">Subject</span>: Enter a subject.
+					<p>Choose a name that indicates that the certiﬁcate is used as the device management signal to Okta. As a best practice, you can also include proﬁle variables provided by Jamf Pro to include the device ID (UDID). For a list of supported variables, see Jamf Pro document <a href="https://docs.jamf.com/10.21.0/jamf-pro/administrator-guide/Computer_Configuration_Profiles.html"
+                     target="_blank"
+                     rel="noopener">Payload Variables for Computer</a>
+                  <a href="https://docs.jamf.com/10.21.0/jamf-pro/administrator-guide/Computer_Configuration_Profiles.html"
+                     target="_blank"
+                     rel="noopener">Conﬁguration Proﬁles</a>.</p>
+            </li>
+            <li>
+               <span class="uicontrol">Challenge type</span>: Static.</li>
+            <li>
+               <span class="uicontrol">Challenge</span>: Copy and paste the secret key you generated in step 6e.</li>
+            <li>
+               <span class="uicontrol">Verify Challenge</span>: Copy and paste the Secret key again.</li>
+            <li>
+               <span class="uicontrol">Key Size</span>: select 2048.</li>
+            <li>
+               <span class="uicontrol">Use as digital signature</span>: Select this option.</li>
+            <li>
+               <span class="uicontrol">Allow export from keychain</span>: Leave this option clear.</li>
+            <li>
+               <span class="uicontrol">Allow all apps access</span>: Select this option.</li>
+         </ul>
+      </ol>
+      <h3>Use dynamic SCEP challenge with Jamf Pro on macOS devices</h3>
+      <ol>
+         <li>
+            <MadCap:xref href="#Conﬁgure2">Conﬁgure management attestation and generate a SCEP URL</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Create2">Create a dynamic SCEP proﬁle in Jamf Pro
+        </MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Verify">Verify that the Okta CA was installed on your devices
+        </MadCap:xref>
+         </li>
+      </ol>
+      <h4>
+         <a name="Conﬁgure2"/>Conﬁgure management attestation and generate a SCEP URL</h4>
+      <p>Note: This procedure applies to any EMM solution that supports pushing the Apple SCEP EMM payload.</p>
+      <ol>
+         <li>In the Okta Admin Console, go to <span class="menucascade">
+               <span class="uicontrol">Security</span>
+               <span class="uicontrol">Device integrations</span>
+            </span>.</li>
+         <li>On the <span class="uicontrol">Endpoint management</span> page, click <span class="uicontrol">Add platform</span>.
+				</li>
+         <li>Select <span class="uicontrol">Desktop (Windows and macOS only)</span> and click <span class="uicontrol">Next</span>.
+         </li>
+         <li>Click <span class="uicontrol">Next</span>.</li>
+         <li>On the Add device management platform page, configure these settings:</li>
+         <ul>
+            <li>
+               <span class="uicontrol">Certiﬁcate authority</span>: Select <span class="uicontrol">Use Okta as certiﬁcate authority</span>.</li>
+            <li>
+               <span class="uicontrol">SCEP URL challenge type</span>: Select <span class="uicontrol">Dynamic SCEP URL</span> and click <span class="uicontrol">Generic</span>.</li>
+            <li>Click <span class="uicontrol">Generate</span>.</li>
+            <li>
+               <span class="uicontrol">SCEP URL</span>: Copy and save the value. You will need this value later.</li>
+            <li>
+               <span class="uicontrol">Challenge URL</span>: Copy and save the value. You will need this value later.</li>
+            <li>
+               <span class="uicontrol">Username</span>: Copy and save the value. You will need this value later.</li>
+            <li>
+               <span class="uicontrol">Password</span>: To reveal the password, click <span class="uicontrol">Show password</span>. Copy and save the value. You will need this value later.
+               <p>Note: Save the Password in a safe place. This is the only time it appears in the Okta Admin Console.</p>
+            </li>
+         </ul>
+         <li>Click <span class="uicontrol">Save</span>.</li>
+      </ol>
+      <h4>
+         <a name="Create2"/>Create a dynamic SCEP proﬁle in Jamf Pro
+        </h4>
+      <ol>
+         <li>In Jamf Pro, go to <span class="menucascade">
+               <span class="uicontrol">Computers</span>
+               <span class="uicontrol">Conﬁguration Proﬁles</span>
+            </span>.</li>
+         <li>Click <span class="uicontrol">+ New</span>.</li>
+         <li>Go to <span class="menucascade">
+               <span class="uicontrol">Options </span>
+               <span class="uicontrol">General</span>
+            </span>.</li>
+         <li>On the General proﬁle page, enter the following information:</li>
+         <ul>
+            <li>
+               <span class="uicontrol">Name</span>: Enter a name for the proﬁle.</li>
+            <li>
+               <span class="uicontrol">Description</span>: Optional. Enter a description of the proﬁle.</li>
+            <li>
+               <span class="uicontrol">Level</span>: Select <span class="uicontrol">User Level</span>.</li>
+         </ul>
+         <li>Go to <span class="menucascade">
+               <span class="uicontrol">Options</span>
+               <span class="uicontrol">SCEP</span>
+            </span>.</li>
+         <li>Click <span class="uicontrol">Conﬁgure</span>.</li>
+         <li>On the SCEP proﬁle page, enter the following information:</li>
+         <ul>
+            <li>
+               <span class="uicontrol">URL</span>: Enter the <span class="uicontrol">SCEP URL</span> you saved in step 5 above.</li>
+            <li>
+               <span class="uicontrol">Name</span>: Enter a name for the SCEP proﬁle.</li>
+            <li>
+               <span class="uicontrol">Subject</span>: Enter a subject.<p>Okta recommends choosing a name that indicates that the certiﬁcate is used as the device management signal to Okta. As a best practice, you can also include proﬁle variables provided by Jamf Pro to include the device ID (UDID). For a list of supported variables, see Jamf Pro document <a href="https://docs.jamf.com/10.21.0/jamf-pro/administrator-guide/Computer_Configuration_Profiles.html"
+                     target="_blank"
+                     rel="noopener">Payload Variables for</a>
+                  <a href="https://docs.jamf.com/10.21.0/jamf-pro/administrator-guide/Computer_Configuration_Profiles.html"
+                     target="_blank"
+                     rel="noopener"> Computer Conﬁguration Proﬁles.</a>
+               </p>
+            </li>
+            <li>
+               <span class="uicontrol">Challenge type</span>: Select <span class="uicontrol">Dynamic-Microsoft CA</span>
+               <ul>
+                  <li>
+                     <span class="uicontrol">URL To SCEP Admin</span>: Enter the <span class="uicontrol">Challenge URL</span> you saved in step 5 above.</li>
+                  <li>
+                     <span class="uicontrol">Username</span>: Enter the <span class="uicontrol">UserName</span> you saved in step 5 above.</li>
+                  <li>
+                     <span class="uicontrol">Password</span>: Enter the passwordyou saved in step 5 above.</li>
+                  <li>
+                     <span class="uicontrol">Verify Password</span>: Re-enter the <span class="uicontrol">Password</span> you saved.</li>
+               </ul>
+            </li>
+            <li>
+               <span class="uicontrol">Key Size</span>: Select <span class="uicontrol">2048</span> and select <span class="uicontrol">Use as digital signature</span>.</li>
+            <li>
+               <span class="uicontrol">Allow export from keychain</span>: Leave this unselected. It is good security practice to mark the certiﬁcate as non-exportable.</li>
+            <li>
+               <span class="uicontrol">Allow all apps access</span>: Select this option.</li>
+         </ul>
+         <li>Click <span class="uicontrol">Save</span>.</li>
+         <li>Conﬁgure the targets that the proﬁle will be deployed to:</li>
+         <ol style="list-style-type: lower-alpha;">
+            <li>Click <span class="uicontrol">Conﬁguration Proﬁles</span>.</li>
+            <li>Click the applicable conﬁguration proﬁle name.</li>
+            <li>Click the <span class="uicontrol">Scope</span> tab.</li>
+            <li>Click <span class="uicontrol">Edit</span>.</li>
+            <li>Click <span class="uicontrol">+ Add</span>.</li>
+            <li>Locate the required deployment targets, and then click <span class="uicontrol">Add</span>.</li>
+         </ol>
+         <li>Click <span class="uicontrol">Save</span>.</li>
+      </ol>
+      <h4>
+         <a name="Verify"/>Verify that the Okta CA was installed on your devices
+        </h4>
+      <p>On a macOS device managed by Jamf Pro, make sure the SCEP proﬁle is installed.</p>
+      <ol>
+         <li>Go to <span class="menucascade">
+               <span class="uicontrol">System Preference</span>
+               <span class="uicontrol">Proﬁles</span>
+            </span>.</li>
+         <li>Verify that your dynamic SCEP proﬁle is installed.</li>
+         <li>Open <span class="menucascade">
+               <span class="uicontrol">Keychain</span>
+               <span class="uicontrol">Login</span>
+            </span>.</li>
+         <li>Verify that a client certiﬁcate and associated private key exists.</li>
+      </ol>
+      <h3>Configure Okta as a CA for Windows using Workspace ONE</h3>
+      <ol>
+         <li>
+            <MadCap:xref href="#In">In Okta, download the x509 certiﬁcate </MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#In2">In Okta, conﬁgure management attestation, generate a SCEP URL and a Secret Key
+        </MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#In3">In Workspace ONE, create a static SCEP proﬁle </MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#In4">In Workspace ONE, Add/Edit a Certiﬁcate Template</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#In5">In Workspace ONE, deﬁne a device proﬁle to deploy the Okta Intermediate CA to the Intermediate Store on devices
+        </MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#In6">In Workspace ONE, deﬁne a user proﬁle to deploy the Okta CA-issued client certiﬁcate to the Personal Store on devices for management attestation
+        </MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#On">On a Windows computer, verify the certiﬁcate installation</MadCap:xref>
+         </li>
+      </ol>
+      <h4>
+         <a name="In"/>In Okta, download the x509 certiﬁcate </h4>
+      <p>The x509 certiﬁcate you download from Okta is the Organization Intermediate certiﬁcate.</p>
+      <ol>
+         <li>In the Okta Admin Console, go to <span class="menucascade">
+               <span class="uicontrol">Security</span>
+               <span class="uicontrol">Device integrations</span>
+               <span class="uicontrol">Certificate authority</span>
+            </span>.
+         </li>
+         <li>For the <span class="uicontrol">Okta CA</span> Certiﬁcate Authority, click the <span class="uicontrol">Download x509 certiﬁcate</span> icon in the <span class="uicontrol">Actions</span> column.</li>
+      </ol>
+      <p>You will upload the certiﬁcate to Workspace ONE later.</p>
+      <h4>
+         <a name="In2"/>In Okta, conﬁgure management attestation, generate a SCEP URL and a Secret Key
+        </h4>
+      <ol>
+         <li>In the Okta Admin Console, go to <span class="menucascade">
+               <span class="uicontrol">Security</span>
+               <span class="uicontrol">Device integrations</span>
+            </span>.</li>
+         <li>On the <span class="uicontrol">Endpoint management</span> page, click <span class="uicontrol">Add platform</span>.
+				<p>Note: If you add more than one conﬁguration for the same type of platform, see this <MadCap:xref href="../../devices/known-issues.htm#MultConfigSamePlatKI">Known Issue</MadCap:xref>.</p>
+         </li>
+         <li>Select <span class="uicontrol">Desktop (Windows and macOS only)</span> and click <span class="uicontrol">Next</span>.
+         </li>
+         <li>On the <span class="uicontrol">Add device management platform</span> page, configure these settings:</li>
+         <ol style="list-style-type: lower-alpha;">
+            <li>Select <span class="uicontrol">Use Okta as certiﬁcate authority</span> as the Certiﬁcate authority.</li>
+            <li>Select <span class="uicontrol">Static SCEP URL</span> as the SCEP challenge type.</li>
+            <li>Click <span class="uicontrol">Generate</span>.</li>
+            <li>Copy and save the Okta SCEP URL and the Secret key. You will paste these in Workspace ONE in the Create a static SCEP proﬁlephase.
+               <p>Note: Save the <span class="uicontrol">SCEP URL</span> and <span class="uicontrol">Secret Key</span> in a safe place. This is the only time they appear in the Okta Admin Console.</p>
+            </li>
+         </ol>
+         <li>Click <span class="uicontrol">Save</span>.</li>
+      </ol>
+      <h4>
+         <a name="In3"/>In Workspace ONE, create a static SCEP proﬁle </h4>
+      <ol>
+         <li>Sign in to Workspace ONE as an administrator.</li>
+         <li>In Workspace ONE, click <span class="uicontrol">DEVICES</span> (left ribbon bar).</li>
+         <li>Click <span class="menucascade">
+               <span class="uicontrol">Certiﬁcates</span>
+               <span class="uicontrol">Certiﬁcate Authorities</span>
+            </span>.</li>
+         <li>Click <span class="uicontrol">+ ADD</span>.</li>
+         <li>On the Certiﬁcate Authority -Add/Edit page, enter the following values:</li>
+         <ul>
+            <li>
+               <span class="uicontrol">Name</span>: Enter a name for the CA.</li>
+            <li>
+               <span class="uicontrol">Description</span>: Optional. Enter a description for the CA.</li>
+            <li>
+               <span class="uicontrol">Authority type</span>: Select Generic SCEP.</li>
+            <li>
+               <span class="uicontrol">SCEP Provider</span>: Basic is entered automatically and can't be changed.</li>
+            <li>
+               <span class="uicontrol">SCEP URL</span>: Copy and paste the SCEP URL you generated in step 4b above.</li>
+            <li>
+               <span class="uicontrol">Challenge Type</span>: Click <span class="uicontrol">STATIC</span>.</li>
+            <li>
+               <span class="uicontrol">Static Challenge</span>: Copy and paste the Secret Key you generated in step 4d above.</li>
+            <li>
+               <span class="uicontrol">Conﬁrm Challenge Phrase</span>: Copy and paste the Secret Key you generated in step 4d above.</li>
+            <li>
+               <span class="uicontrol">Retry Timeout</span>: Accept the default value of 30.</li>
+            <li>
+               <span class="uicontrol">Max Retries When Pending</span>: Accept the default value of <span class="uicontrol">5</span>, or specify a different number of retries the system allows while the authority is pending.</li>
+            <li>
+               <span class="uicontrol">Enable Proxy</span>: Accept the default value of <span class="uicontrol">DISABLED</span> or select <span class="uicontrol">ENABLED</span> if appropriate for your environment. If you select Enabled, Workspace ONE UEM acts as a proxy between the device and the SCEP endpoint deﬁned in the CA conﬁguration.</li>
+         </ul>
+         <li>Click <span class="uicontrol">TEST CONNECTION</span>. If you select <span class="uicontrol">SAVE</span> before <span class="uicontrol">TEST CONNECTION</span>, the <span class="uicontrol">Test is unsuccessful </span> error appears.</li>
+         <li>After the <span class="uicontrol">Test is successful</span> message appears, click <span class="uicontrol">SAVE AND ADD TEMPLATE</span>. If the test doesn't succeed, ensure that you can access the Okta SCEP URL generated in step 4b above from Workspace ONE UEM.</li>
+      </ol>
+      <h4>
+         <a name="In4"/>In Workspace ONE, Add/Edit a Certiﬁcate Template</h4>
+      <ol>
+         <li>In Workspace ONE, click the <span class="uicontrol">Request Templates</span> tab.</li>
+         <li>Click <span class="uicontrol">+ ADD</span>.</li>
+         <li>On the Certiﬁcate Template -Add/Edit page, enter the following values:</li>
+         <ul>
+            <li>
+               <span class="uicontrol">Name</span>: Enter a name for the template.</li>
+            <li>
+               <span class="uicontrol">Description</span>: Optional. Enter a description for the template.</li>
+            <li>
+               <span class="uicontrol">Certiﬁcate Authority</span>: Select the CA you created in Step 3.</li>
+            <li>
+               <span class="uicontrol">Issuing Template</span>: Leave blank or conﬁgure as appropriate for your implementation.</li>
+            <li>
+               <span class="uicontrol">Subject Name</span>: Enter <span class="menucascade">
+                  <span class="uicontrol">CN = {EmailUserName} managementAttestation</span>
+                  <span class="uicontrol">{DeviceUid}.</span>
+               </span>
+            </li>
+            <li>
+               <span class="uicontrol">Private Key Length</span>: Select <span class="uicontrol">2048</span>.</li>
+            <li>
+               <span class="uicontrol">Private Key Type</span>: Select <span class="uicontrol">Signing</span>.</li>
+            <li>
+               <span class="uicontrol">SAN Type</span>: N/A.</li>
+            <li>
+               <span class="uicontrol">Automatic Certiﬁcate Renewal</span>: Click <span class="uicontrol">DISABLED</span>
+            </li>
+            <li>
+               <span class="uicontrol">Publish Private Key</span>: Click <span class="uicontrol">DISABLED</span>.</li>
+         </ul>
+      </ol>
+      <h4>
+         <a name="In5"/>In Workspace ONE, deﬁne a device proﬁle to deploy the Okta Intermediate CA to the Intermediate Store on devices
+        </h4>
+      <ol>
+         <li>In Workspace ONE, click <span class="uicontrol">RESOURCES</span> (left ribbon bar).</li>
+         <li>Click <span class="menucascade">
+               <span class="uicontrol">Proﬁles &amp; Baselines</span>
+               <span class="uicontrol">Proﬁles</span>
+            </span>.</li>
+         <li>Click <span class="uicontrol">ADD</span>, and then select <span class="uicontrol">Add Proﬁle</span>.</li>
+         <li>Select <span class="menucascade">
+               <span class="uicontrol">Windows</span>
+               <span class="uicontrol">Windows Desktop</span>
+               <span class="uicontrol">Device Proﬁle</span>
+            </span>.</li>
+         <li>On the General page, enter the following information:</li>
+         <ul>
+            <li>
+               <span class="uicontrol">Name</span>: Enter a name for the device proﬁle.</li>
+            <li>
+               <span class="uicontrol">Description</span>: Optional. Enter a description for the device proﬁle.</li>
+            <li>
+               <span class="uicontrol">Deployment</span>: Select <span class="uicontrol">Managed</span>.</li>
+            <li>
+               <span class="uicontrol">Assignment Type</span>: Accept the default or conﬁgure as appropriate for your implementation.</li>
+            <li>
+               <span class="uicontrol">Allow Removal</span>: Accept the default or conﬁgure as appropriate for your implementation.</li>
+            <li>
+               <span class="uicontrol">Managed By</span>: Enter the person or group with administrative access to the proﬁle.</li>
+            <li>
+               <span class="uicontrol">Smart Groups</span>: Begin typing the name of the group and then select it from the list.</li>
+            <li>
+               <span class="uicontrol">Exclusions</span>: You can exclude groups from the proﬁle. Accept the default or conﬁgure as appropriate for your implementation.</li>
+            <li>
+               <span class="uicontrol">Additional Assignment Criteria</span>: You can schedule a deployment schedule.</li>
+            <li>
+               <span class="uicontrol">Removal Date</span>: You can specify when the proﬁle is removed from the device.</li>
+         </ul>
+         <li>Click <span class="uicontrol">Credentials</span> in the left pane.</li>
+         <li>Click <span class="uicontrol">CONFIGURE</span>.</li>
+         <li>On the Credentials page, enter the following information:</li>
+         <ul>
+            <li>
+               <span class="uicontrol">Credential Source</span>: Select <span class="uicontrol">Upload</span>.</li>
+            <li>
+               <span class="uicontrol">Certiﬁcate</span>: Click <span class="uicontrol">Upload</span> and browse to the certiﬁcate you downloaded in Step 1.</li>
+            <li>
+               <span class="uicontrol">Key Location</span>: Accept the default or conﬁgure as appropriate for your implementation.</li>
+            <li>
+               <span class="uicontrol">Certiﬁcate Store</span>: Select <span class="uicontrol">Intermediate</span>.</li>
+         </ul>
+         <li>Click <span class="uicontrol">SAVE AND PUBLISH</span>.</li>
+      </ol>
+      <h4>
+         <a name="In6"/>In Workspace ONE, deﬁne a user proﬁle to deploy the Okta CA-issued client certiﬁcate to the Personal Store on devices for management attestation
+        </h4>
+      <p>This step creates the management payload that pushes the client certiﬁcate information and credential to the client, allowing the client to connect to Okta and request a new client certiﬁcate. The client certiﬁcate is used for management attestation in Okta Verify-enabled ﬂows.</p>
+      <ol>
+         <li>In Workspace ONE, click <span class="uicontrol">RESOURCES</span> (left ribbon bar).</li>
+         <li>Click <span class="menucascade">
+               <span class="uicontrol">Proﬁles &amp; Baselines</span>
+               <span class="uicontrol">Proﬁles</span>
+            </span>.</li>
+         <li>Click <span class="uicontrol">ADD</span>, and then select <span class="uicontrol">Add Proﬁle</span>.</li>
+         <li>Select <span class="menucascade">
+               <span class="uicontrol">Windows</span>
+               <span class="uicontrol">Windows Desktop</span>
+               <span class="uicontrol">User Proﬁle</span>
+            </span>.</li>
+         <li>On the General page, enter the following:</li>
+         <ul>
+            <li>
+               <span class="uicontrol">Name</span>: Enter a name for the user proﬁle.</li>
+            <li>
+               <span class="uicontrol">Description</span>: Optional. Enter a description for the user proﬁle.</li>
+            <li>
+               <span class="uicontrol">Deployment</span>: Select <span class="uicontrol">Managed</span>.</li>
+            <li>
+               <span class="uicontrol">Assignment Type</span>: Select <span class="uicontrol">Auto</span>.</li>
+            <li>
+               <span class="uicontrol">Allow Removal</span>: Select <span class="uicontrol">Always</span>.</li>
+            <li>
+               <span class="uicontrol">Managed By</span>: Optional. Enter additional admin names.</li>
+            <li>
+               <span class="uicontrol">Smart Groups</span>: Enter the same group(s) you speciﬁed in step 5g above.</li>
+            <li>
+               <span class="uicontrol">Exclusions</span>: You can exclude groups from the proﬁle. Accept the default or conﬁgure as appropriate for your implementation.</li>
+            <li>
+               <span class="uicontrol">Additional Assignment Criteria</span>: You can schedule a deployment.</li>
+            <li>
+               <span class="uicontrol">Removal Date</span>: You can specify when the proﬁle is removed from the device.</li>
+         </ul>
+         <li>Click <span class="uicontrol">Credentials</span> in the left pane.</li>
+         <li>Click <span class="uicontrol">CONFIGURE</span>.</li>
+         <li>On the Credentials page, enter the following information:</li>
+         <ul>
+            <li>
+               <span class="uicontrol">Credential Source</span>: Select <span class="uicontrol">Deﬁned Certiﬁcate Authority</span>.</li>
+            <li>
+               <span class="uicontrol">Certiﬁcate Authority</span>: Select the same Certiﬁcate Authority that you conﬁgured previously.</li>
+            <li>
+               <span class="uicontrol">Key Location</span>: Select <span class="uicontrol">TPM If Present</span> to support devices with or without TPM.</li>
+            <li>
+               <span class="uicontrol">Certiﬁcate Store</span>: Select <span class="uicontrol">Personal</span>.</li>
+         </ul>
+         <li>Click <span class="uicontrol">SAVE AND PUBLISH</span>.</li>
+      </ol>
+      <h4>
+         <a name="On"/>On a Windows computer, verify the certiﬁcate installation</h4>
+      <ol>
+         <li>Verify that the client certiﬁcate was installed:</li>
+         <ol style="list-style-type: lower-alpha;">
+            <li>On the Windows computer, click <span class="uicontrol">Start</span>, and then type <span class="uicontrol">cert</span>.</li>
+            <li>Click <span class="uicontrol">Manage user certiﬁcates</span>.</li>
+            <li>
+                   In <span class="uicontrol">Certiﬁcates - Current User</span>, click <span class="menucascade">
+                  <span class="uicontrol">Personal</span>
+                  <span class="uicontrol">Certiﬁcates</span>
+               </span>.
+                </li>
+            <li>Make sure the client certiﬁcate exists.</li>
+         </ol>
+         <li>Verify the certiﬁcate authority (CA):</li>
+         <ol style="list-style-type: lower-alpha;">
+            <li>In <span class="uicontrol">Certiﬁcates - Local Computer</span>, click <span class="menucascade">
+                  <span class="uicontrol">Intermediate Certiﬁcate Authority</span>
+                  <span class="uicontrol">Certiﬁcates</span>
+               </span>.</li>
+            <li>In the <span class="uicontrol">Issued To</span> column, ﬁnd <span class="uicontrol">Organization Intermediate Authority</span>.</li>
+            <li>Make sure the <span class="uicontrol">Issued By</span> column speciﬁes <span class="uicontrol">Organization Root Authority</span> for</li>
+         </ol>
+      </ol>
+      <p>
+         <span class="uicontrol">Organization Intermediate Authority</span>.</p>
+      <h3>Configure Okta as a CA for Windows using Microsoft Intune</h3>
+      <h4>Download the x509 certiﬁcate from Okta</h4>
+      <ol>
+         <li>In the Okta Admin Console, go to <span class="menucascade">
+               <span class="uicontrol">Security</span>
+               <span class="uicontrol">Device Integrations</span>
+               <span class="uicontrol">Certificate Authority</span>
+            </span>.</li>
+         <li>In the <span class="uicontrol">Actions</span> column, click the <span class="uicontrol">Download x509 certiﬁcate</span> icon.
+				<p>You will upload the certiﬁcate to Microsoft Endpoint Conﬁguration Manager (MECM) later.</p>
+         </li>
+      </ol>
+      <h4>Create a Trusted Certiﬁcate proﬁle in MECM</h4>
+      <ol>
+         <li>In Microsoft Endpoint Conﬁguration Manager (MECM), go to <span class="uicontrol">Devices</span>.</li>
+         <li>Click <span class="uicontrol">Conﬁguration proﬁles</span>.</li>
+         <li>Click <span class="uicontrol">+ Create proﬁle</span>.</li>
+         <li>In Create a proﬁle, select these values:<ul>
+               <li>
+                  <span class="uicontrol">Platform</span>: Select <span class="uicontrol">Windows 10 and later</span>.</li>
+               <li>
+                  <span class="uicontrol">Proﬁle</span>: Select <span class="uicontrol">Trusted certiﬁcate</span>.</li>
+            </ul>
+         </li>
+         <li>Click <span class="uicontrol">Create</span>.</li>
+         <li>Follow the steps in the Trusted CertiﬁcateWizard:</li>
+         <ol style="list-style-type: lower-alpha;">
+            <li>Enter a name and (optionally) a description.</li>
+            <li>Click <span class="uicontrol">Next</span>.</li>
+            <li>Select the x509 certiﬁcate that you downloaded from Okta in step 3.</li>
+            <li>
+                    In the <span class="uicontrol">Destination store</span>, select <span class="uicontrol">Computer certiﬁcate store - Intermediate</span>.
+                </li>
+            <li>Click <span class="uicontrol">Next</span>.</li>
+            <li>Assign the trusted certiﬁcate proﬁle to one or more user groups.
+				<p>Note: the user group(s) must be the same as the group(s) you will assign the SCEP proﬁle to in Create a SCEP proﬁle in MECM.</p>
+            </li>
+            <li>Click <span class="uicontrol">Next</span>.</li>
+            <li>Set Applicability Rules.</li>
+            <li>Click <span class="uicontrol">Next</span>.</li>
+            <li>Review the conﬁguration, and then click <span class="uicontrol">Create</span>.</li>
+         </ol>
+      </ol>
+      <h4>Register the AAD app credentials for Okta in Microsoft Azure</h4>
+      <ol>
+         <li>In Microsoft Azure, click <span class="uicontrol">App registrations</span>.</li>
+         <li>Click <span class="uicontrol">+ New</span> registration.</li>
+         <li>On the <span class="uicontrol">Register an application</span> page, enter the following information:</li>
+         <ul>
+            <li>
+               <span class="uicontrol">Name</span>: Enter a meaningful name for the application. Make a note of this for later use.</li>
+            <li>
+               <span class="uicontrol">Supported account types</span>: Select the appropriate, supported account type. Okta tested with <span class="uicontrol">Accounts in this organizational directory only ([Your_Tenant_Name] only - Single tenant)</span> selected.</li>
+            <li>
+               <span class="uicontrol">Redirect URI (optional)</span>: Leave blank or select <span class="uicontrol">Web</span>. Then enter a redirect URI.</li>
+         </ul>
+         <li>Click <span class="uicontrol">Register</span>.</li>
+         <li>On the app page under <span class="uicontrol">Essentials</span>, copy and make a note of the <span class="uicontrol">Application (client) ID</span>.
+			<p>You will paste this value in the Okta Admin Console later.</p>
+         </li>
+         <li>Add a client secret:<ol style="list-style-type: lower-alpha;">
+               <li>In the left pane, click <span class="uicontrol">Certiﬁcates &amp; secrets</span>.</li>
+               <li>Under <span class="uicontrol">Client secrets</span>, click <span class="uicontrol">+ New client secret</span>.</li>
+               <li>In the <span class="uicontrol">Add a client secret</span> section, enter the following information:</li>
+               <ul>
+                  <li>
+                     <span class="uicontrol">Description</span>: Optional. Enter a description of the client secret.</li>
+                  <li>
+                     <span class="uicontrol">Expires</span>: Select an expiration time.</li>
+               </ul>
+               <li>Click <span class="uicontrol">Add</span>.
+		<p>The secret appears under <span class="uicontrol">Client secrets</span>.</p>
+               </li>
+               <li>In the <span class="uicontrol">Client secrets</span> section, copy and make a note of the <span class="uicontrol">Value</span>.</li>
+            </ol>
+         </li>
+         <li>Set Intune scep_challenge_provider permissions:<ol style="list-style-type: lower-alpha;">
+               <li>In the left pane, click <span class="uicontrol">API permissions</span>.</li>
+               <li>Click <span class="uicontrol">+ Add a permission</span>.</li>
+               <li>In the <span class="uicontrol">Request API permissions</span> section, scroll down and then click <span class="uicontrol">Intune</span>.</li>
+               <li>Under <span class="uicontrol">What type of permissions does your application require?</span> click <span class="uicontrol">Application permissions</span>.</li>
+               <li>In the <span class="uicontrol">Select permissions</span> search ﬁeld, enter scep, and select the <span class="uicontrol">scep_challenge_provider</span> checkbox.</li>
+               <li>Click <span class="uicontrol">Add permissions</span>.</li>
+               <li>In the <span class="uicontrol">Conﬁgured permissions</span> section, click G<span class="uicontrol">rant admin consent for [Your_Tenant_Name]</span>.</li>
+               <li>Click <span class="uicontrol">Yes</span> in the message that appears.</li>
+            </ol>
+         </li>
+         <li>Set Microsoft Graph Application.Read.All permissions:</li>
+         <ol style="list-style-type: lower-alpha;">
+            <li>Click <span class="uicontrol">+ Add a permission</span>.</li>
+            <li>In the <span class="uicontrol">Request API permissions</span> section, click <span class="uicontrol">Microsoft Graph</span>.</li>
+            <li>Under <span class="uicontrol">What type of permissions does your application require?</span> click <span class="uicontrol">Application permissions</span>.</li>
+            <li>In the <span class="uicontrol">Select permissions</span> search ﬁeld, enter <code>application</code>, expand <span class="uicontrol">Application</span>, and then select the <span class="uicontrol">Application.Read.All</span> checkbox.</li>
+            <li>Click <span class="uicontrol">Add permissions</span>.</li>
+            <li>In the <span class="uicontrol">Conﬁgured permissions</span> section, click <span class="uicontrol">Grant admin consent for [Your_Tenant_Name]</span>.</li>
+            <li>Click <span class="uicontrol">Yes</span> in the message that appears.</li>
+         </ol>
+         <li>Set Azure Active Directory Graph Application.Read.All permissions:
+				<p>Note: Microsoft Azure portal no longer supports Azure Active Directory Graph. As a workaround, use a PowerShell script to set the Azure Active Directory Graph Application.Read.All permissions.</p>
+            <ol style="list-style-type: lower-alpha;">
+               <li>Create and run a PowerShell script that sets the <span class="uicontrol">Azure Active Directory Graph</span> Application.Read.All permissions. See the PowerShell resources: <ul>
+                     <li>
+                        <a href="https://docs.microsoft.com/en-us/powershell/module/azuread/set-azureadapplication?view=azureadps-2.0"
+                           target="_blank"
+                           rel="noopener">https://docs.microsoft.com/en-us/powershell/module/azuread/set-azu</a>
+                        <a href="https://docs.microsoft.com/en-us/powershell/module/azuread/set-azureadapplication?view=azureadps-2.0"
+                           target="_blank"
+                           rel="noopener">readapplication?view=azureadps-2.0</a> for information about using</li>
+                     <li>
+                        <a href="https://docs.microsoft.com/en-us/powershell/module/azuread/new-azureadserviceapproleassignment?view=azureadps-2.0"
+                           target="_blank"
+                           rel="noopener">https://docs.microsoft.com/en-us/powershell/module/azuread/new-az</a>
+                        <a href="https://docs.microsoft.com/en-us/powershell/module/azuread/new-azureadserviceapproleassignment?view=azureadps-2.0"
+                           target="_blank"
+                           rel="noopener">ureadserviceapproleassignment?view=azureadps-2.0</a> for information about using New-AzureADServiceAppRoleAssignment</li>
+                  </ul>
+               </li>
+               <li>Go to the Microsoft Azure portal and verify the <span class="uicontrol">Azure Active Directory Graph</span> Application.Read.All permission is assigned to the application in the API permission blade.</li>
+            </ol>
+         </li>
+      </ol>
+      <h4>Conﬁgure management attestation and generate a SCEP URL in Okta
+        </h4>
+      <ol>
+         <li>In the Admin Console, go to <span class="menucascade">
+               <span class="uicontrol">Security</span>
+               <span class="uicontrol">Device Integrations</span>
+            </span>.</li>
+         <li>On the <span class="uicontrol">Endpoint Management</span> page, click <span class="uicontrol">Add Platform</span>.
+				<p>Note: If you add more than one conﬁguration for the same type of platform, see this <MadCap:xref href="../../devices/known-issues.htm#MultConfigSamePlatKI">Known Issue</MadCap:xref>.</p>
+         </li>
+         <li>Select <span class="uicontrol">Desktop (Windows and macOS only)</span> and click <span class="uicontrol">Next</span>.</li>
+         <li>Conﬁgure the following settings:<ol style="list-style-type: lower-alpha;">
+               <li>
+                  <span class="uicontrol">Certiﬁcate authority</span>: Select <span class="uicontrol">Use Okta as certiﬁcate authority</span>.</li>
+               <li>
+                  <span class="uicontrol">SCEP URL challenge type</span>: Select <span class="uicontrol">Delegated SCEP URL (Microsoft Intune only)</span>.</li>
+               <li>Enter the values that you copied from Microsoft Azure into the following ﬁelds:<ul>
+                     <li>
+                        <span class="uicontrol">AAD client ID</span>: Enter the value you copied from step 5 above.</li>
+                     <li>
+                        <span class="uicontrol">AAD tenant</span>: Enter your AAD tenant name followed by .onMicrosoft.com.</li>
+                     <li>
+                        <span class="uicontrol">AAD secret</span>: Enter the value you copied from step 6e of above.</li>
+                  </ul>
+               </li>
+            </ol>
+         </li>
+         <li>Click <span class="uicontrol">Generate</span>.</li>
+         <li>Copy and save the Okta SCEP URL. You will paste the URL in Microsoft Endpoint Conﬁguration Manager later.</li>
+      </ol>
+      <h4>Create a SCEP proﬁle in MECM
+        </h4>
+      <ol>
+         <li>In Microsoft Endpoint Conﬁguration Manager (MECM), go to <span class="uicontrol">Devices</span>.</li>
+         <li>Click <span class="uicontrol">Conﬁguration proﬁles</span>.</li>
+         <li>Click <span class="uicontrol">+ Create proﬁle</span>.</li>
+         <li>In Create a proﬁle, enter the following:</li>
+         <ol style="list-style-type: lower-alpha;">
+            <li>
+               <span class="uicontrol">Platform</span>: Windows 10 or later</li>
+            <li>
+               <span class="uicontrol">Proﬁle</span>: SCEP certiﬁcate</li>
+            <li>Click <span class="uicontrol">Create</span>.</li>
+         </ol>
+         <li>In the SCEP Certiﬁcate Wizard, enter a name and (optionally) a description.</li>
+         <li>Click <span class="uicontrol">Next</span>.</li>
+         <li>Enter the following information:</li>
+         <ul>
+            <li>
+               <span class="uicontrol">Certiﬁcate type</span>: User</li>
+            <li>
+               <span class="uicontrol">Subject name format</span> (recommended; other formats will also work): CN={{UserPrincipalName}} ManagementAttestation {{AAD_Device_ID}}</li>
+            <li>
+               <span class="uicontrol">Key storage provider</span>: Enroll to Trusted Platform Module (TPM) KSP if present, otherwise Software KSP</li>
+            <li>
+               <span class="uicontrol">Key usage</span>: Digital signature.</li>
+            <li>
+               <span class="uicontrol">Key length</span>: 2048.</li>
+            <li>
+               <span class="uicontrol">Hash algorithm</span>: Select <span class="uicontrol">SHA-2</span>.</li>
+         </ul>
+         <li>Click <span class="uicontrol">+ Root Certiﬁcate</span>.</li>
+         <li>In the <span class="uicontrol">Root Certiﬁcate</span> pane, select the trusted certiﬁcate that you created earlier in Step 2, and then click <span class="uicontrol">OK</span>.</li>
+         <li>Under <span class="uicontrol">Extended key</span> usage, set <span class="uicontrol">Predeﬁned values</span> to <span class="uicontrol">Client Authentication</span>.</li>
+         <li>Copy the SCEP URL you generated in Step 8 above and paste it into the SCEP Server URLs ﬁeld.</li>
+         <li>Click <span class="uicontrol">Next</span>.</li>
+         <li>Assign the SCEP certiﬁcate to the same user group(s) to which you assigned the <span class="uicontrol">Trusted certiﬁcate proﬁle</span> in step 5f  above.</li>
+         <li>Click <span class="uicontrol">Next</span>.</li>
+         <li>Set Applicability Rules.</li>
+         <li>Click <span class="uicontrol">Next</span>.</li>
+         <li>Review the conﬁguration, and then click <span class="uicontrol">Create</span>.</li>
+      </ol>
+      <h4>Verify the certiﬁcate installation on a Windows computer
+        </h4>
+      <ol>
+         <li>Verify the client certiﬁcate installation:</li>
+         <ol style="list-style-type: lower-alpha;">
+            <li>On the Windows computer, click <span class="uicontrol">Start</span> and type cert and then click <span class="uicontrol">Manage user certiﬁcates</span>.</li>
+            <li>Look in <span class="menucascade">
+                  <span class="uicontrol">Personal</span>
+                  <span class="uicontrol">Certiﬁcates</span>
+               </span>.</li>
+         </ol>
+         <li>Verify the certiﬁcate authority:</li>
+         <ol style="list-style-type: lower-alpha;">
+            <li>On the Windows computer, click <span class="uicontrol">Start</span> and type cert and then click <span class="uicontrol">Manage user certiﬁcates</span>.</li>
+            <li>Look in Intermediate <span class="menucascade">
+                  <span class="uicontrol">Certiﬁcate Authority</span>
+                  <span class="uicontrol">Certiﬁcates</span>
+               </span>.</li>
+            <li>In <span class="uicontrol">Issued To</span>, ﬁnd and double-click <span class="uicontrol">Organization Intermediate Authority</span>.</li>
+            <li>See Issuer: Organization Root Authority.</li>
+         </ol>
+         <li>Verify successful SCEP certiﬁcate installation and ﬂow:</li>
+         <ol style="list-style-type: lower-alpha;">
+            <li>On the Windows computer, click <span class="uicontrol">Start</span>, type <span class="uicontrol">Event</span>, and then click <span class="uicontrol">Event Viewer</span>.</li>
+            <li>Look in <span class="menucascade">
+                  <span class="uicontrol">Applications and Service Logs</span>
+                  <span class="uicontrol">Microsoft</span>
+                  <span class="uicontrol">Windows</span>
+                  <span class="uicontrol">DeviceManagement-Enterprise</span>
+                  <span class="uicontrol">Admin</span>
+               </span>.</li>
+            <li>In the <span class="uicontrol">General</span> tab, ﬁnd:</li>
+            <ul>
+               <li>
+                  <span class="uicontrol">SCEP: Certiﬁcate installed successfully.</span>
+               </li>
+               <li>
+                  <span class="uicontrol">SCEP: Certiﬁcate request generated successfully</span>
+               </li>
+            </ul>
+         </ol>
+      </ol>
+   </body>
+</html>

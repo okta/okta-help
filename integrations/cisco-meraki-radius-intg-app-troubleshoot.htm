@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:fileTags="Tags/okta-authors.Patrick Calnan" MadCap:conditions="MultiProdPublish.Classic+OIE">
+    <head><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1>Troubleshoot Cisco Meraki integrations</h1>
+        <p>Troubleshoot the Cisco Meraki integration.</p>
+        <ul MadCap:conditions="Primary.do-not-publish">
+            <li>
+                <MadCap:xref href="#Certific">Certificate errors</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#RADIUS">RADIUS agent logging level</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Examine">Examine logs or capture packets</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Interpre">Interpreting Wireshark captures</MadCap:xref>
+            </li>
+        </ul>
+        <h3><a name="Certific"></a>General certificate error</h3>
+        <p>This type of error occurs in the following situations:<ul><li>The CA certificate  wasn't added on the client machine</li><li>The wrong CA certificate was added on the client machine</li><li>An incorrect Wi-Fi network is used</li></ul><img src="../../Resources/Images/hybrid-access/cisco-meraki-radius-intg-ts.OSX.png" class="thumbnail" /></p>
+        <h3>Extended key usage set certificate error</h3>
+        <p>
+            <h3>Description</h3>
+            <p>Configuration appears correct when compared with <MadCap:xref href="cisco-meraki-radius-intg.htm">Configure Cisco Meraki to interoperate with Okta using RADIUS</MadCap:xref>. However, a WiFi or VPN connection doesn't get established.</p>
+            <h3>Symptoms</h3>
+            <ul>
+                <li>The following log statement is visible in the RADIUS agent logs at the DEBUG level: 
+				<span class="codeblock">DEBUG - 	...finished handshake - will transfer app data</span></li>
+                <li>One of the following error codes are present in the  supplicant logs: 
+
+			<span class="codeblock">0x80090349 (-2146892983 SEC_E_CERT_WRONG_USAGE)
+0x80420101 (-2143158015 EAP_E_USER_CERT_INVALID)</span></li>
+                <li>One or more of the following error messages are present in the supplicant logs:
+<span class="codeblock">The user {user} dialed a connection named {connection-name} which has failed. The error code returned on failure is -2146892983
+Reason: Explicit Eap failure received
+		Error: 0x80420101
+		EAP Reason: 0x80090349
+		EAP Root cause String:
+		EAP Error: 0x80420101.</span></li>
+            </ul>
+            <h3>Solution</h3>
+            <blockquote>
+                <p>Replace the current certificate with a new updated certificate.</p>
+                <p>Examine and updated the Extended Key Usage(EKU) attributes as required.</p>
+            </blockquote>
+        </p>
+        <h3><a name="RADIUS"></a>RADIUS agent logging level</h3>
+        <p>To set the log level in the RADIUS agent:<ol><li>Using a text editor, open the <span class="filepath">log4j.properties</span> file from the installation folder <span class="filepath">C:\Program Files (x86)\Okta\Okta RADIUS Agent\current\user\config\radius\</span></li><li>Change the last instance of <span class="codeph">info</span> to <span class="codeph">debug</span> (verbose) or <span class="codeph">trace</span> (very verbose). <p>The update should resemble these example: </p><span class="codeblock">log4j.rootLogger=debug, app, stdout</span><p>This is another example:</p><span class="codeblock">log4j.rootLogger=trace, app, stdout</span><div MadCap:conditions="Primary.review-only">Post RADIUS agent v2.15.0 log4j.properties was replaced with log4j.xml. Replace all level="info" with the appropriate level. For example:<span class="codeblock" xml:space="preserve">. . . 
+&lt;Logger name="app" level="debug" additivity="false"&gt;
+  &lt;AppenderRef ref="app"/&gt;&lt;/Logger&gt; 
+. . . </span></div></li><li>Save the change and close the editor.</li></ol></p>
+        <h3><a name="Examine"></a>Examine logs or capture packets</h3>
+        <p>To examine logs or capture packets:<ul><li>On Mac, to display log information during connection attempts:<p>Open a command prompt and execute the command:</p><span class="codeblock">log show --predicate 'subsystem == "com.apple.eapol"'</span><p>Attempt to connect to the WiFi access point.</p><p>Examine the log, which will product results similar to:</p><span class="codeblock">2019-04-10 15:38:53.868667-0400 0x1caacd   Default     0x0                  17296  0    eapolclient: [com.apple.eapol:Client] en0 START uid 501 gid 20
+2019-04-10 15:38:54.062713-0400 0x1caacd   Default     0x0                  17296  0    eapolclient: [com.apple.eapol:Client] en0: 802.1X User Mode
+2019-04-10 15:39:02.510875-0400 0x1caacd   Default     0x0                  17296  0    eapolclient: [com.apple.eapol:Client] en0 EAP-TTLS: successfully authenticated
+2019-04-10 15:39:11.117972-0400 0x1caacd   Default     0x0                  17296  0    eapolclient: [com.apple.eapol:Client] en0 STOP</span></li><li>On Meraki cloud admin dashboard, navigate to <span class="uicontrol">Network-wide</span>, and select either <span class="uicontrol">Packet capture</span> or <span class="uicontrol">Event Log</span>, as shown below.<p><img src="../../Resources/Images/hybrid-access/meraki_15.png" class="thumbnail" /></p></li></ul></p>
+        <h3><a name="Interpre"></a>Interpreting Wireshark captures</h3>
+        <p>At a high level, there are three stages in the communication between the supplicant/AP and the RADIUS server when an authentication takes place:<ul><li>exchange of EAP-Identity and EAP-Start messages</li><li>TLS Handshake, starting with a ClientHello</li><li>RADIUS Access-Accept, followed by a 4-way EAPoL handshake between the AP and supplicant</li></ul></p>
+    </body>
+</html>

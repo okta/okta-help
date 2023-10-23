@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-topic-status.Ready for Review,Tags/okta-authors.Jeanette Smith" MadCap:onlyLocalStylesheets="False" MadCap:searchable="True">
+    <head>
+        <link href="../../Resources/TableStyles/standard.css" rel="stylesheet" MadCap:stylesheetType="table" /><title>CASB Configuration Guide | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+        <meta name="description" content="Integrate a cloud access security broker with Okta to improve organizational security while providing a unified end-user authentication experience." />
+    </head>
+    <body>
+        <h1>CASB configuration guide</h1>
+        <h2>About CASB</h2>
+        <p>A cloud access security broker (CASB) is a software tool or service that sits between an organization's on-premises infrastructure and a cloud provider's infrastructure. A CASB acts as a gatekeeper, allowing the organization to extend the reach of their security policies beyond their own infrastructure.</p>
+        <h2>CASB and the Okta OIN</h2>
+        <p>To simplify integrating with inline or reverse proxy CASBs, Okta has developed functionality that allows admins to override various default settings associated with our published OIN apps that use SAML for federation. The settings can also be applied to Microsoft Office 365 app.</p>
+        <p>The values that can be overridden are:</p>
+        <ul>
+            <li>Assertion Consumer Service URL (ACS)</li>
+            <li>Audience</li>
+            <li>Recipient</li>
+            <li>Destination</li>
+        </ul>
+        <p>To override these settings admins must use our API to populate the <span class="code">$app.settings.signOn</span> object with the appropriate override values which are:</p>
+        <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+            <col class="TableStyle-standard-Column-Column1" />
+            <col class="TableStyle-standard-Column-Column1" />
+            <col class="TableStyle-standard-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-standard-Head-Header1">
+                    <th style="text-align: left;" class="TableStyle-standard-HeadF-Column1-Header1">SAML&#160;Property</th>
+                    <th style="text-align: left;" class="TableStyle-standard-HeadF-Column1-Header1">SignOn</th>
+                    <th style="text-align: left;" class="TableStyle-standard-HeadD-Column1-Header1">Example Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td class="TableStyle-standard-BodyF-Column1-Body1">Assertion Consumer Service URL</td>
+                    <td class="TableStyle-standard-BodyF-Column1-Body1">ssoAcsUrlOverride</td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body1">https://casb-provider.com/ssoAcsUrlOverride</td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body2">
+                    <td class="TableStyle-standard-BodyF-Column1-Body2">Audience
+
+</td>
+                    <td class="TableStyle-standard-BodyF-Column1-Body2">audienceOverride</td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body2">https://casb-provider.com/audienceOverride</td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td class="TableStyle-standard-BodyF-Column1-Body1">Destination</td>
+                    <td class="TableStyle-standard-BodyF-Column1-Body1">destinationOverride</td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body1">https://casb-provider.com/destinationOverride</td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body2">
+                    <td class="TableStyle-standard-BodyC-Column1-Body2">Recipient</td>
+                    <td class="TableStyle-standard-BodyC-Column1-Body2">recipientOverride</td>
+                    <td class="TableStyle-standard-BodyA-Column1-Body2">https://casb-provider.com/recipientOverride</td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>Configure CASB for a Specific App</h2>
+        <p>Here is an example of how to configure CASB for a specific app:</p>
+        <p>You can use an iframe to embed an end-user home page into your existing portal. </p>
+        <ol>
+            <li>
+                <p> <MadCap:snippetText src="../../Resources/Snippets/task steps/Security_API.flsnp" /></p>
+            </li>
+            <li>
+                <p> Create a new <MadCap:xref href="../Security/API.htm">API token</MadCap:xref>. </p>
+            </li>
+            <li>
+                <p>Get the app details by making an API&#160;call as follows:</p>
+                <MadCap:codeSnippet>
+                    <MadCap:codeSnippetCopyButton />
+                    <MadCap:codeSnippetBody MadCap:useLineNumbers="True" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">curl -X GET \
+  https://{{Okta host}}/api/v1/apps/{{App ID}} \
+  -H 'Authorization: SSWS {{ API Key }}' \
+  -H 'Accept: application/json'
+</MadCap:codeSnippetBody>
+                </MadCap:codeSnippet>
+                <p>The API&#160;ID can be obtained from your app's URL, as shown here:&#160;</p>
+                <p>
+                    <img src="../../Resources/Images/casb-1.png" />
+                </p>
+            </li>
+            <li>
+                <p>Copy the API response into a text editor.</p>
+            </li>
+            <li>
+                <p>Update the app data by means of an API call as shown in the example below.</p>
+                <p>Note: The  attributes displayed are the minimum required ones. Replace the actual values with your saved data (see the signOn section in your API&#160;response).</p>
+                <MadCap:codeSnippet>
+                    <MadCap:codeSnippetCopyButton />
+                    <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">
+curl -X PUT \
+  https://{{Okta host}}/api/v1/apps/{{App ID}} \
+  -H 'Authorization: SSWS {{ API Key }}' \
+  -H 'Accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{ 
+    "label": "Amazon Web Services",
+    "name": "amazon_aws",
+    "signOnMode": "SAML_2_0",
+    "settings": {
+      "app": {
+        "appFilter": null,
+        "awsEnvironmentType": "aws.amazon",
+        "groupFilter": "aws_(?{{accountid}}\\d+)_(?{{role}}[a-zA-Z0-9+=,.@\\-_]+)",
+        "secretKey": null,
+        "accessKey": null,
+        "loginURL": "https://console.aws.amazon.com/ec2/home",
+        "identityProviderArn": "arn:aws:iam::456272127071:saml-provider/OktaRainVladDobrikov2,arn:aws:iam::456272127071:role/RoleOktaRainVladDobrikov",
+        "overrideAcsURL": null,
+        "sessionDuration": 3600,
+        "secretKeyEnc": null,
+        "roleValuePattern": "arn:aws:iam::${accountid}:saml-provider/OKTA,arn:aws:iam::${accountid}:role/${role}"
+      },
+      "signOn": {
+        "defaultRelayState": "defaultRelayStateOverride",
+        "ssoAcsUrlOverride": "https://casb-provider.com/ssoAcsUrlOverride",
+        "audienceOverride": "https://casb-provider.com/audienceOverride",
+        "recipientOverride": "https://casb-provider.com/recipientOverride",
+        "destinationOverride": "https://casb-provider.com/destinationOverride"
+      }
+    }
+  }'</MadCap:codeSnippetBody>
+                </MadCap:codeSnippet>
+                <p xml:space="preserve">For Office 365, ensure that WS-Federation Configuration is set to Manual. Automatic configurations with multiple domain federation will result in an error.</p>
+            </li>
+            <li>
+                <p>Perform a SAML login from Okta for the application you just updated.</p>
+            </li>
+        </ol>
+    </body>
+</html>

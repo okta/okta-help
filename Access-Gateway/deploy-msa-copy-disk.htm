@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/deploy-msa-copy-disk.htm" /><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <div>
+            <h1>Copy disk</h1>
+            <div>
+                <p>Uploading and configuring a disk image is a time consuming process. When configuring an <MadCap:variable name="okta-feature-names.Access Gateway" /> cluster, a disk is required per instance. Okta recommends the best practice of creating and uploading a disk(primary) and then replicating that disk as many times as required using snapshots (copies for cluster members).</p>
+                <p>During this task you will:</p>
+                <ul>
+                    <li>Create a snapshot</li>
+                    <li>Create a disk from a snapshot</li>
+                    <li>Repeat the disk creation as required for your <MadCap:variable name="okta-feature-names.Access Gateway" /> cluster</li>
+                </ul>
+            </div>
+            <div class="note_cautionOkta">
+                <p class="noteContent">Ensure that you have run the <span class="uicontrol">az disk revoke-access</span> command or its UI equivalent, before replicating the disk. Failure to revoke prior access to the disk can cause commands to time out or fail  due to the disk being unavailable. </p>
+            </div>
+            <ul class="tabs" data-tabs="data-tabs" data-deep-link="true" id="production-tabs">
+                <li class="tabs-title is-active"><a href="#console-panel" aria-selected="true">Console</a>
+                </li>
+                <li class="tabs-title"><a href="#command-panel">Command Line</a>
+                </li>
+            </ul>
+            <div class="tabs-content" data-tabs-content="production-tabs">
+                <div class="tabs-panel is-active" id="console-panel">
+                    <h3>Create a snapshot</h3>
+                    <ol>
+                        <li>
+                            <p>Sign in or return to the Microsoft Azure Portal</p>
+                        </li>
+                        <li>
+                            <p>From the menu, select <span class="uicontrol">All Services</span> and search for <span class="uicontrol">Disks</span>.</p>
+                            <p>Alternatively, select <span class="uicontrol">Disks</span> from the favorites list.</p>
+                        </li>
+                        <li>
+                            <p>Select the disk you created in the prior step. </p>
+                            <p>The Disk page for the disk opens.</p>
+                        </li>
+                        <li>
+                            <p>From the menu, select <span class="uicontrol">Create snapshot</span>.</p>
+                        </li>
+                        <li>
+                            <p>Enter a name for the snapshot. </p>
+                            <p>Okta recommends a name that represents the version of <MadCap:variable name="okta-feature-names.Access Gateway" /> the disk is based. For example, Okta-AccessGateway-2020.5.0-Snapshot.</p>
+                        </li>
+                        <li>
+                            <p>Choose a Resource group for the snapshot. </p>
+                            <p>Okta recommends you use the Resource Group used to hold the parent disk. </p>
+                        </li>
+                        <li>
+                            <p>For <span class="uicontrol">Account type</span>, select <span class="uicontrol">Standard (HDD)</span>.</p>
+                        </li>
+                        <li>
+                            <p>Click <span class="uicontrol">Create</span>. A snapshot of the disk is created.</p>
+                            <p>It can take a few minutes for the snapshot process to complete. </p>
+                        </li>
+                    </ol>
+                    <h3>Create a disk copy</h3>
+                    <ol>
+                        <li>
+                            <p>Select <span class="uicontrol">Create a resource</span> in the left menu.</p>
+                        </li>
+                        <li>
+                            <p>In the search box, enter <span class="uicontrol">managed disk</span> and then select <span class="uicontrol">Managed Disks</span> from the list.</p>
+                            <p>The Managed Disks page opens.</p>
+                        </li>
+                        <li>
+                            <p>Click <span class="uicontrol">Create</span>.</p>
+                        </li>
+                        <li>
+                            <p>Enter a name for the new disk.</p>
+                            <p>Okta recommends using a name that represents the disks intended use. For example, Okta-AccessGateway-2021.5.0-Admin, Okta-AccessGateway-2021.5.0-Worker1, Okta-AccessGateway-2021.5.0-Worker2, and so on. </p>
+                        </li>
+                        <li>
+                            <p>Choose a <span class="uicontrol">Resource group</span> for the disk.</p>
+                            <p>Okta recommends you use the Resource Group used to hold the parent disk.</p>
+                        </li>
+                        <li>
+                            <p>For <span class="uicontrol">Account type</span>, select either <span class="uicontrol">Standard (HDD)</span> or <span class="uicontrol">Premium (SSD) storage</span>.</p>
+                            <p>Okta recommends you use the Premium storage for disk and Standard storage for snapshots. </p>
+                        </li>
+                        <li>
+                            <p>In <span class="uicontrol">Source type</span>, ensure <span class="uicontrol">Snapshot</span> is selected.</p>
+                        </li>
+                        <li>
+                            <p>In the <span class="uicontrol">Source snapshot</span> drop-down box, select the snapshot you created earlier. </p>
+                        </li>
+                    </ol>
+                </div>
+                <div class="tabs-panel" id="command-panel"><a name="command-panel"></a>
+                    <ol>
+                        <li>
+                            <p>Sign in or return to the Microsoft Azure command line interface.</p>
+                            <p><span class="code">az login</span>
+                            </p>
+                        </li>
+                        <li>
+                            <p>Use the <span class="code">az disk list</span> command to list the details of  available disks.</p>
+                            <p><span class="code">az disk list --resource-group &lt;resource-group&gt;</span>
+                                <p>In this example, <span class="code">&lt;resource-group&gt;</span> is the name of the previously created resource group.</p>
+                                <p>If you replace <span class="code">&lt;resource-group&gt;</span> with <span class="code">AccessGateway</span>, the following result appears:</p>
+                                <p><span class="codeblock">{
+. . .
+"encryptionSettingsCollection": null,"hyperVgeneration": "V1",
+"id": "/subscriptions/8bc.../resourceGroups/AccessGateway. . ./disks/AG2020-05-00",
+"location": "eastus",
+. . .
+}</span>
+                                </p>
+                            </p>
+                        </li>
+                        <li>
+                            <p>Use the <span class="code">az snapshot create</span> command to create a snapshot of the existing disk.</p>
+                            <MadCap:codeSnippet>
+                                <MadCap:codeSnippetCopyButton />
+                                <MadCap:codeSnippetBody MadCap:useLineNumbers="True" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">az snapshot create --resource-group &lt;resource-group&gt; \
+                   --source &lt;diskid&gt; \
+                   --name &lt;disk-name&gt;</MadCap:codeSnippetBody>
+                            </MadCap:codeSnippet>
+                            <p><![CDATA[								]]><ul><li><span class="code">&lt;resource-group&gt;</span> is the name of the previously created resource group.</li><li><span class="code">&lt;disk-id&gt;</span> is the value of the ID field from the <span class="code">az disk list</span>.</li><li><span class="code">&lt;disk-name&gt;</span> is the name of the snapshot you're creating.</li></ul></p>
+                            <p>If you replace <span class="code">&lt;resource-group&gt;</span> with <span class="code">AccessGateway</span>, and <span class="code">&lt;disk-name&gt;</span> with <span class="code">AG2020-05.0</span>, the following result appears:</p>
+                            <p><span class="codeblock">{    . . .
+   encryptionSettingsCollection": null,
+   hyperVgeneration": "V1",
+   "id": "/subscriptions/8bc9effd-.../snapshots/. . . .snapshot",
+   . . . 
+}</span>
+                            </p>
+                        </li>
+                        <li>
+                            <p>Use the <span class="code">az disk create</span> command to create a disk from an existing snapshot.</p>
+                            <MadCap:codeSnippet>
+                                <MadCap:codeSnippetCopyButton />
+                                <MadCap:codeSnippetBody MadCap:useLineNumbers="True" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">az disk create --resource-group &lt;resource-group&gt; \
+  --name &lt;disk-name&gt; --source &lt;snapshot-id&gt;</MadCap:codeSnippetBody>
+                            </MadCap:codeSnippet>
+                            <p>
+                                <ul>
+                                    <li><span class="code">&lt;resource-group&gt;</span> is the name of the previously created resource group.</li>
+                                    <li><span class="code">&lt;snapshot-id&gt;</span> is the value of the ID field from the <span class="code">az snapshot create</span> command. Use <span class="code">az snapshot list --resource-group &lt;resource-group&gt;</span> to view a list of the snapshots.</li>
+                                    <li><span class="code">&lt;disk-name&gt;</span> is the name of the disk you're creating.</li>
+                                </ul> <p>If you replace <span class="code">&lt;resource-group&gt;</span> with <span class="code">AccessGateway</span>, <span class="code">&lt;disk-name&gt;</span> with <span class="code">AG2020-05.0</span>, and <span class="code">&lt;snapshot-id&gt;</span> with <span class="code">AccessGateway</span>, the following result appears:</p><span class="codeblock">{
+    "creationData": {
+    "createOption": "Copy",
+    . . . 
+    "id": "/subscriptions/8bc9effd-...e/disks/AccessGateway. . .-Admin",
+    "location":"eastus"
+    . . .
+} 
+</span></p>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <p>Repeat as required to create the required number of disks for the intended cluster size.</p>
+        <div class="noteOkta">
+            <p class="noteContent">Okta recommends that you reserve the original disk for expanding the cluster instead of using it for any member. </p>
+        </div>
+        <div>
+            <h3>Related topics</h3>
+            <p>See <a href="https://docs.microsoft.com/en-us/cli/azure/snapshot?view=azure-cli-latest">Managing snapshots using Azure CLI</a>.</p>
+            <p>See <a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/managed-disks-overview">Managed disks overview.</a></p>
+        </div>
+        <div>
+            <h2>Next steps</h2>
+            <p>
+                <MadCap:xref href="deploy-msa-create-vm.htm">Create  VM</MadCap:xref>
+            </p>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/deploy-msa-create-and-populate-mdisk.htm" /><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <div>
+            <h1>Upload, create, and populate a managed disk</h1>
+            <div>
+                <p>Create a managed disk to populate with the <MadCap:variable name="okta-feature-names.Access Gateway" /> image.</p>
+                <ul>
+                    <li>
+                        <MadCap:xref href="#Download">Download and decompress</MadCap:xref>
+                    </li>
+                    <li>
+                        <MadCap:xref href="#Install">Install Microsoft Azure CLI and AZCopy tools</MadCap:xref>
+                    </li>
+                    <li>
+                        <MadCap:xref href="#Create">Create and populate a managed disk</MadCap:xref>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <h2><a name="Download"></a>Download and decompress</h2>
+                <ol>
+                    <li>Connect to the new VM using the IP&#160;address from the prior task and establish an ssh session.
+					<p><span class="code">ssh okta@AA.BB.CC.DD.</span></p></li>
+                    <li>Use <span class="code">wget</span> to download the latest <MadCap:variable name="okta-feature-names.Access Gateway" /> Microsoft Azure fixed disk image.<p><span class="code">cd /home/okta 
+wget  https://download.oag.okta.com/ga/oag_azure.vhd.gz</span></p></li>
+                    <li>Unpack the fixed disk image to a temporary location on the <span class="code">/datadrive.</span> <p><span class="code">sudo mkdir /datadrive/temp
+sudo cp oag.vhd.gz /datadrive/temp
+sudo gunzip -v /datadrive/temp/oag_azure.vhd.gz --keep</span></p></li>
+                </ol>
+                <div class="noteOkta">
+                    <p class="noteContent">Depending on the size of the disk and the speed of the VM, it can take 60 to 90 minutes to decompress the disk file.
+					<p>If you encounter <span class="uicontrol">ssh</span> timeout issues, consider running the decompress process in the background using <span class="uicontrol">nohup</span> and routing the output to a log file. </p><p><span class="code">nohup sudo nohup gunzip . . . &gt; unzip.log 2&gt;&amp;1 &amp;</span></p></p>
+                </div>
+            </div>
+            <div>
+                <h2><a name="Install"></a>Install Microsoft Azure CLI and AZCopy tools</h2>
+                <ol>
+                    <li>Change the directory: <p><span class="code">cd /datadrive/temp</span></p></li>
+                    <li>Install Microsoft Azure CLI using this command:
+					<p><span class="code">curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash</span></p></li>
+                    <li>Install Azcopy using this command:
+						<p><span class="code">sudo wget https://aka.ms/downloadazcopy-v10-linux
+sudo tar -xvf downloadazcopy-v10-linux</span></p></li>
+                </ol>
+            </div>
+            <div>
+                <h2><a name="Create"></a>Create and populate a managed disk</h2>
+                <ol>
+                    <li>After installing the Microsoft Azure environment, sign in using this command:<p><span class="code">az login</span></p></li>
+                    <li>Sign in to <span class="code">az copy</span>.<p><span class="code">cd /datadrive/temp/azcopy_linux_amd64_10.3.4
+sudo ./azcopy login --tenant-id=&lt;tenant id from output of az login&gt;</span></p></li>
+                    <li>Sign in or return to the Microsoft Azure command line interface:<p><span class="code">az login</span></p></li>
+                    <li>Use the <span class="code">az disk create</span> command to create a disk large enough to contain the OVA disk file. 
+							<p><span class="code">az disk create -n &lt;virtual-disk&gt;\
+--resource-group &lt;resource-group&gt; --location &lt;“location”&gt;\
+--for-upload --upload-size-bytes &lt;size&gt; --sku standard_lrs</span></p><ul><li><span class="code">&lt;virtual-disk&gt;</span> is the name of the virtual disk. It's typically the same as the OVA&#160;disk, but without the suffix.</li><li><span class="code">&lt;resource-group&gt;</span> is the name of the previously created resource group. For example, "AccessGateway".</li><li><span class="code">&lt;location&gt;</span> is the location of the resource group. For example "eastus". </li><li><span class="code">&lt;size&gt;</span> is the size of the disk in bytes. For example 236246270464. Note this is the size, in bytes, of the downloaded <MadCap:variable name="okta-feature-names.Access Gateway" /> disk image.</li><li><span class="code">--sku standard_lrs</span> is a required parameter.</li></ul><p>Run this command and replace <span class="code">&lt;resource-group&gt;</span> with <span class="code">AccessGateway</span>, <span class="code">&lt;location&gt;</span> with <span class="code">eastus</span>, and <span class="code">&lt;size&gt;</span> with <span class="code">236246270464</span>:</p><p><span class="code">az disk create -n Okta-AccessGatewayDisk --resource-group AccessGateway \
+    --location eastus --for-upload --upload-size-bytes 236246270464 \
+    --sku standard_lrs</span></p><p>When you run this command, the following results appear:</p><p><span class="codeblock">
+{   "creationData": {
+        "createOption": "Upload",
+		"imageReference": null,
+        "sourceResourceId": null,
+        "sourceUniqueId": null,
+        "sourceUri": null,
+        "storageAccountId": null,
+		"uploadSizeBytes": 20972032
+    },. . . 
+    "tags": {},
+    "timeCreated": "2020-04-20T17:51:29.894626+00:00",
+    "type": "Microsoft.Compute/disks",
+    "uniqueId": "d1485574-. . . ",
+    "zones": null
+}</span></p><div class="noteOkta"><p class="noteContent">The file size of the created disk must be an exact match to the file size used when copying up the disk image. Use a command, such as <span class="code">ls -ln</span>, to determine the file size in bytes.</p></div></li>
+                    <li>Use the <span class="code">az disk grant-access</span>  command to create a shared access token, which can be used to grant access to the previously created disk.
+							<p><span class="code" xml:space="preserve"> az disk grant-access -n &lt;virtual-disk&gt; -g &lt;resource-group&gt; --access-level Write \
+                 --duration-in-seconds 86400</span></p><p>Where:</p><ul><li><span class="code">&lt;virtual-disk&gt;</span> is the name of the virtual disk.</li><li><span class="code">&lt;resource-group&gt;</span> is the name of the previously created resource group. </li><li><span class="code">--access-level Write</span> is the required write access level.</li><li><span class="code">--duration-in-seconds 86400</span> is the lifetime of the shared access token in seconds.</li></ul><p><p>Run this command and replace <span class="code">&lt;virtual-disk&gt;</span> with <span class="code">Okta-AccessGatewayDisk</span>, and <span class="code">&lt;resource-group&gt;</span> with <span class="code">AccessGateway</span>:</p><span class="code">az disk grant-access -n Okta-AccessGatewayDisk --resource-group AccessGateway \ 
+         --access-level Write --duration-in-seconds 86400</span></p><p>Which produces the following results:</p><p><span class="code">"accessSas": "https://md-. . . VY1SlQ79TOnwoMaVHjaqkmVlU%3D"</span></p></li>
+                    <li>Upload the disk file using the <span class="code">azcopy copy</span> command.
+							<p><span class="code">cd /datadrive/temp/azcopy_linux_amd64_10.3.4
+sudo ./azcopy copy &lt;path-to-disk&gt; &lt;accessSas&gt; --blob-type PageBlob</span></p><p><ul><li><span class="code">&lt;path-to-disk&gt;</span> is the fully qualified path to the fixed disk previously created.</li><li><span class="code">&lt;accessSas&gt;</span> is the value from the <span class="code">az disk grant-access</span> command. </li></ul></p><p>Here is an example of the <span class="code">azcopy copy</span> command with the parameters populated with values:</p><p><span class="code">sudo ./azcopy copy /datadrive/temp/oag.vhd "https://md-impexp-t4pdnf22n02h.blob.core.windows.net/p15jhr4gwqhl/abcd?sv=2017-04-17&amp;sr=b&amp;si=b1154122-1458-4f02-a226-1554c66938c0&amp;sig=vGnmhmKMY92r3ecQLlAEXtEHzRCFTsa5rrIxNsQqaZY%3D" -blob-type PageBlob</span></p><div class="noteOkta"><p class="noteContent">Azcopy uses the <span class="code">AZCOPY_CONCURRENCY_VALUE</span> environment variable to control the upload process. Setting this variable to <span class="code">AUTO</span> causes Azcopy to attempt to optimize the upload process. 
+							</p></div><p>Here is an example of a command using the <span class="code">AZCOPY_CONCURRENCY_VALUE</span> environment variable:</p><span class="code">export AZCOPY_CONCURRENCY_VALUE=AUTOsudo nohup sudo ./azcopy copy /datadrive/temp/oag.vhd \
+     "https://md-. . . VY1SlQ79TOnwoMaVHjaqkmVlU%3D" \
+     --blob-type PageBlob &gt; /tmp/azcopy.log 2&gt;&amp;1 &amp;</span></li>
+                    <li>Monitor the copy using a command similar to this one:
+					<p><span class="code">tail -f /tmp/azcopy.log</span></p><p>When you run the <span class="code">tail</span> command, the following results appear:</p><p><span class="codeblock">
+INFO: Scanning...
+Job 50d659dd-6174-fe4d-78b1-5f97e305fdee has started
+Log file is located at: ~/.azcopy/50d659dd-6174-fe4d-78b1-5f97e305fdee.log
+INFO: Trying 4 concurrent connections (initial starting point)
+INFO: Trying 16 concurrent connections (seeking optimum)
+. . . 
+INFO: Trying 5 concurrent connections (at optimum)
+. . .
+Elapsed Time (Minutes): 78.9381
+Total Number Of Transfers: 1
+Number of Transfers Completed: 1
+. . . 
+Total Bytes Transferred: 236223201792 
+Final Job Status: Completed</span></p></li>
+                    <li>Once copied, use the  <span class="code">az disk revoke-access</span> command to revoke the previously granted access.
+					<p><span class="code">az disk revoke-access --name "&lt;virtual-disk&gt;" --resource-group "&lt;resource-group&gt;"</span></p><ul><li><span class="code">&lt;virtual-disk&gt;</span> is the name of the disk where access was granted.</li><li><span class="code">&lt;resource-group&gt;</span> is the resource group that contains the disk.</li></ul><p>Here is an example of the <span class="code">az disk revoke-access</span> command with the parameters populated with values:</p><p><span class="code">az disk revoke-access --name "Okta-AccessGateway-2020.5.0" --resource-group "AccessGateway"</span></p><p>Running this command produces the following results:</p><p><span class="code">- Running</span></p><div class="noteOkta"><p class="noteContent">Failure to run the <span class="code">az disk revoke-access</span> command results in an error when you attempt to create a VM as the disk will not be available for use.</p><p class="noteContent">If you don't run the <span class="code">az disk revoke-access</span> command, the process results in an error when you attempt to create a VM as the disk isn't available for use.</p></div></li>
+                </ol>
+            </div>
+            <div>
+                <h3>Related topics</h3>
+                <p><a href="https://docs.microsoft.com/en-us/cli/azure/disk?view=azure-cli-latest">az disk commands</a>
+                </p>
+            </div>
+            <div>
+                <h2>Next steps</h2>
+                <p>
+                    <MadCap:xref href="deploy-msa-copy-disk.htm">Copy disk</MadCap:xref>
+                </p>
+            </div>
+        </div>
+    </body>
+</html>

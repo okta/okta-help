@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:fileTags="Tags/okta-authors.Patrick Calnan"
+      MadCap:conditions="MultiProdPublish.Classic+OIE">
+   <head>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <meta name="description"
+            content="Configure the Citrix Netscaler Gateway integration to enable MFA against your Okta RADIUS server agent to provide seamless end-user authentication."/>
+   </head>
+   <body>
+      <h1>Configure the  VMware Horizon View Connection Server</h1>
+      <p>During this task we will configure the <span class="wintitle">VMware Horizon View Connection Server</span> to use the Okta RADIUS Server Agent as a RADIUS Authenticator.</p>
+      <h3>Steps</h3>
+      <p>Configuration of the VmWare Horizon View Connection server includes:</p>
+      <ol>
+         <li>
+            <MadCap:xref href="#Define">Defining a RADIUS Authenticator</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Configur">Configuring Advanced Authentication Settings</MadCap:xref>
+         </li>
+      </ol>
+      <h2>Before you begin</h2>
+      <ul>
+         <li>Ensure that you have the common UDP port and secret key values available.</li>
+      </ul>
+      <h2>
+         <a name="Define"/>Defining a RADIUS Authenticator</h2>
+      <ol>
+         <li>Sign in to the VMware Horizon Administrator console with sufficient privileges.</li>
+         <li>Navigate to <span class="menucascade">
+               <span class="uicontrol">View Configuration</span>
+               <span class="uicontrol">Servers</span>
+               <span class="uicontrol">Connection Servers</span>
+            </span>, and highlight the connection server to work with.</li>
+         <li>Click <span class="uicontrol">Edit</span> in the top submenu.</li>
+         <li>In the dialog that opens, select the <span class="uicontrol">Authentication</span> tab.</li>
+         <li>Scroll down to the <span class="uicontrol">Advanced Authentication</span> section.</li>
+         <li>Set the <span class="uicontrol">2-factor authentication</span> value to <span class="uicontrol">RADIUS</span>.</li>
+         <li>Click the <span class="uicontrol">Manage Authenticators</span> button. </li>
+         <li>In the dialog that opens, click <span class="uicontrol">Add</span>. The screen below displays.<p>
+               <img src="../../Resources/Images/horizon_1.png" id="img_new"/>
+            </p>
+         </li>
+         <li>
+            <p>Enter values, as shown:</p>
+            <ul>
+               <li>
+                  <span class="uicontrol">Label</span>: Enter a unique label.</li>
+               <li>
+                  <span class="uicontrol">Description</span>: Enter an option description. </li>
+               <li>
+                  <span class="uicontrol">Hostname/Address</span>: IP or Name of Okta RADIUS Server Agent</li>
+               <li>
+                  <span class="uicontrol">Authentication port</span>: Port configured in step x (1812)</li>
+               <li>
+                  <span class="uicontrol">Accounting port</span>: 0</li>
+               <li>
+                  <span class="uicontrol">Authentication type</span>: PAP</li>
+               <li>
+                  <span class="uicontrol">Server timeout</span>: 60</li>
+               <li>
+                  <span class="uicontrol">Max attempts</span>: 1</li>
+               <li>
+                  <span class="uicontrol">Realm prefix</span>: Optional see username assignment value</li>
+               <li>
+                  <span class="uicontrol">Realm suffix</span>: Optional see username assignment value</li>
+            </ul>
+         </li>
+         <li>Click <span class="uicontrol">Next</span>. </li>
+         <li>Optionally, you can configure a <span class="uicontrol">Secondary Authentication Server</span>, using the same settings in step 9 above with a different label and description.</li>
+         <li>Click <span class="uicontrol">Finish</span> to save all settings.
+					</li>
+      </ol>
+      <h2>
+         <a name="Configur"/>Configuring Advanced Authentication Settings</h2>
+      <p>Advanced authentication settings are used to control the behavior that the View Connection Server uses and enforces. Once enabled, the View Connection server performs authentication against the two-factor authentication first. User experiences can differ.</p>
+      <p>If you force two-factor and Windows user name matching, the VMware Horizon View (RADIUS) application username value (set in Part 2, above) must match your Active Directory username, including any Realm prefix and Realm suffix values.
+      </p>
+      <ul>
+         <li>
+            <p>
+               <span class="uicontrol">Enforce two-factor and Windows user name matching</span>
+            </p>
+            <p MadCap:conditions="Primary.do-not-publish">If you force two-factor and Windows user name matching, the VMware Horizon View (RADIUS) application username value (set in Part 2, above) must match your Active Directory username, including any Realm prefix and Realm suffix values.</p>
+            <p>This feature is usually enabled. One situation in which you may choose to disable this feature is to allow these usernames to differ so users can perform their initial authentications using their own Okta credentials and then sign in to Windows/AD using a shared or common account.</p>
+            <p>The screen shot below uses this configuration. </p>
+            <p>
+               <img src="../../Resources/Images/horizon_3.png" id="img_new"/>
+            </p>
+            <div class="noteOkta">
+               <p class="noteContent">In this flow the VMware Horizon View (RADIUS) application MUST have its RADIUS Authentication Behavior configured so that Okta performs primary authentication is <span class="uicontrol">unchecked</span>.
+<br/>
+                  <img src="../../Resources/Images/hybrid-access/vmware-horizon-radius-intg-okta-auth-unchecked.png"
+                       id="img_new"/>
+               </p>
+            </div>
+            <p>Tests 2 and 4 in the testing section. </p>
+         </li>
+         <li>
+            <span class="uicontrol">Use the same user name and password for RADIUS and Windows authentication</span>
+            <p MadCap:conditions="Primary.do-not-publish">If you force two-factor and Windows user name matching, the VMware Horizon View (RADIUS) application username value (set in Part 2, above) must match your Active Directory username, including any Realm prefix and Realm suffix values.</p>
+            <p>If you enable this setting, the Okta password and Windows/AD Password for the user must match,  and the VMware Horizon View (RADIUS) application must be configured to perform primary authentication. You can use this setting when Okta is performing delegated authentication for users.</p>
+            <p>If you disable this setting, the Okta username can be different than the Windows/AD username and the VMware Horizon View (RADIUS) application can be configured to NOT perform primary authentication making the Okta password irrelevant.</p>
+            <p>The screen shown below uses this configuration. I</p>
+            <p>
+               <img src="../../Resources/Images/Horizon_4.png" id="img_new"/>
+            </p>
+            <div class="noteOkta">
+               <p class="noteContent">In this flow the VMware Horizon View (RADIUS) application MUST have its RADIUS Authentication Behavior configured so that <span class="uicontrol">Okta performs primary authentication</span> is <span class="uicontrol">checked</span>.<br/>
+                  <img src="../../Resources/Images/hybrid-access/vmware-horizon-radius-intg-okta-auth-checked.png"
+                       id="img_new"/>
+               </p>
+            </div>
+            <p>Tests 1 and 3, in the testing section.</p>
+         </li>
+      </ul>
+      <div class="noteOkta">
+         <p class="noteContent">The values you select for these two options change the sign in experience and dictate what settings you can configure in Okta.</p>
+      </div>
+      <div>
+         <h2>Next steps</h2>
+         <p>
+            <MadCap:xref href="vmware-horizon-radius-intg-config-opt.htm">VMware Horizon View optional settings</MadCap:xref>
+         </p>
+      </div>
+   </body>
+</html>

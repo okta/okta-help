@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link href="../../../Resources/TableStyles/standard-shaded-rows.css" rel="stylesheet" MadCap:stylesheetType="table" /><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1>Oracle E-Business suite classic external application reference architecture</h1>
+        <p>The EBS classic external <MadCap:variable name="okta-feature-names.Access Gateway" /> architecture represents a set of components required for protecting an external traditional use only Oracle E-Business Suite installation using <MadCap:variable name="okta-feature-names.Access Gateway" />, Oracle Access Gate and an instance of either Oracle Internet Directory (OID) or Oracle User Directory(OUD). It represents a starting point for other architectures where an <MadCap:variable name="okta-feature-names.Access Gateway" /> cluster protects and provides SSO for an EBS external use application.</p>
+        <p>This architecture is designed to meet the following requirements:<ul><li>Provide external access to an Oracle E-Business Suite application where Oracle AccessGate, and Oracle OID or Oracle OUD are required.</li><li>Fault tolerant -  Providing additional instances of <MadCap:variable name="okta-feature-names.Access Gateway" />, as cluster workers, such that if one is unavailable the cluster continues to perform normally. </li><li>Manage capacity - Providing additional instances of <MadCap:variable name="okta-feature-names.Access Gateway" /> to handle expected load. </li></ul></p>
+        <div>
+            <h2>Benefits and drawbacks</h2>
+            <table style="mc-table-style: url('../../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+                <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                <thead>
+                    <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                        <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Benefits</th>
+                        <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">Drawbacks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                        <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1">
+                            <ul>
+                                <li>Provides basic fault tolerance and capacity support</li>
+                                <li>Can be expanded with additional workers as required to add capacity</li>
+                                <li>Load balanced</li>
+                            </ul>
+                        </td>
+                        <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body1">
+                            <ul>
+                                <li>Complex - Requires Oracle AccessGate, as well as either Oracle OID or Oracle OUD.</li>
+                                <li>Pre <MadCap:variable name="okta-feature-names.Access Gateway" /> DMZ based load balancer must support session affinity (sticky sessions)</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <h3>Architecture</h3>
+        <img src="../../../Resources/Images/access-gateway/ref-arch-ebs-2.png" id="img_new" class="thumbnail" />
+        <h3>Components</h3>
+        <table style="mc-table-style: url('../../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+            <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+            <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+            <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                        Location
+                    </th>
+                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Component</th>
+                    <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td rowspan="2" class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">External internet</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">&#160;Okta org</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                        <MadCap:snippetBlock src="../../../Resources/Snippets/access-gateway/ref-arch-okta-description.flsnp" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                        EBS Users
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
+                        Oracle E-Business Suite users, located in the external network. Accessing Oracle E-Business Suite applications located within the internal network.<br />Accessing Oracle E-Business Suite using URL <span class="url">ebs-external.example.com</span>.
+                    </td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Firewall</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                        External internet to DMZ
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                        Traditional firewall between the external internet and the DMZ hosting <MadCap:variable name="okta-feature-names.Access Gateway" />.
+                    </td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td rowspan="2" class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">DMZ</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                        Pre <MadCap:variable name="okta-feature-names.Access Gateway" /> load balancer
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
+                        Balances load between external users (clients)&#160;and the <MadCap:variable name="okta-feature-names.Access Gateway" /> cluster. <br />Positioned between clients and  <MadCap:variable name="okta-feature-names.Access Gateway" /> cluster.
+                    </td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><MadCap:variable name="okta-feature-names.Access Gateway" /> workers
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1"><MadCap:variable name="okta-feature-names.Access Gateway" /> cluster, located in the DMZ is used to provide access to applications used by  external internet clients.
+                    </td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Firewall</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                        DMZ to internal
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
+                        Traditional firewall between the DMZ and the internal network.
+                    </td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td rowspan="6" class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Internal network</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><MadCap:variable name="okta-feature-names.Access Gateway" /> workers
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1"><MadCap:variable name="okta-feature-names.Access Gateway" /> cluster, located in the DMZ is used to provide access to applications used by  external internet clients.
+                    </td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><MadCap:variable name="okta-feature-names.Access Gateway" /> admin</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2"><MadCap:variable name="okta-feature-names.Access Gateway" /> admin node,  handling configuration, configuration backups, log forwarding and similar activities. Accessed by administrators within the internal network.</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Oracle AccessGate instance</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Oracle AccessGate instance - used to obtain EBS session cookie.<br />Default port 6801. <br />In architecture shown using URL <span class="url">ebs-accessgate.example.com:6801</span></td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Oracle EBS Login </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">Oracle EBS login - traditional internal EBS login.<br />Passed EBS session in header attributes.<br />In architecture shown using URL <span id="code">ebs-internal.example.com:8000</span><br />Default port 8000. Regularly synchronized with the EBS Database.</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Oracle OID/OUD </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Oracle OUD/oid instance - used for user GUID lookup based on EBS user identity.<br />In architecture shown using URL <span class="url">ebs-oid.example.com:3060</span><br />Default port 3060. Regularly synchronized with the EBS Database.</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">Oracle EBS&#160;Database </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">Oracle EBS Database - providing supporting details for Oracle OID/OUD.</td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <h2>Other considerations</h2>
+            <p><MadCap:variable name="okta-feature-names.Access Gateway" /> creates a datastore to interact with Oracle OID/OUD.</p>
+        </div>
+        <div>
+            <h2>Related topics</h2>
+            <p>
+                <MadCap:xref href="../add-oracle-ebs-sso.htm">Add an Oracle E-Business Suite application</MadCap:xref>
+            </p>
+            <p>
+                <MadCap:xref href="ref-arch-flow.htm">Common [%=okta-feature-names.Access Gateway%] flows</MadCap:xref>
+            </p>
+            <p>
+                <MadCap:xref href="../about-oag-dns.htm">About [%=okta-feature-names.Access Gateway%] DNS use</MadCap:xref>
+            </p>
+            <p>
+                <MadCap:xref href="../about-high-availability.htm">About [%=okta-feature-names.Access Gateway%] high availability</MadCap:xref>
+            </p>
+            <p><a href="../about-oag-prereqs.htm">About [%=okta-feature-names.Access Gateway%] prerequisites</a>
+            </p>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:fileTags="Tags/okta-authors.Naini Khajanchi">
+    <head>
+        <link href="../../../Resources/TableStyles/standard.css" rel="stylesheet" MadCap:stylesheetType="table" /><title>[%=Heading.Level1%]</title>
+        <link href="" rel="stylesheet" type="text/css" />
+        <meta name="description" content="Use Okta Expression Language (EL) to specify users and reviewers for an access certification campaign." />
+    </head>
+    <body>
+        <h1>Examples of <MadCap:variable name="okta-feature-names.Okta EL" /></h1>
+        <p><MadCap:variable name="okta-feature-names.Okta EL" /> (EL) allows super admins, app admins, and customs admins with specific permissions to reference, transform, and combine user attributes and group information. While creating or modifying an a policy rule, you can use <MadCap:variable name="okta-feature-names.Okta EL" /> expressions to define the user scope.</p>
+        <h3><a name="Tips"></a>Tips</h3>
+        <ul>
+            <li>Review the <a href="https://developer.okta.com/docs/reference/okta-expression-language-in-identity-engine/" target="_blank"><MadCap:variable name="okta-feature-names.Okta EL" /></a> documentation to familiarize yourself with the syntax.</li>
+            <li>Ensure that your expression evaluates to a boolean when defining users:<ul style="list-style-type: circle;"><li>True to include the users from the rule.</li><li>False to exclude users from the rule.</li></ul></li>
+            <li>Start with simple expressions and gradually add conditions to make sure that your expression works as expected.</li>
+            <li>Test your expression using the <span class="uicontrol">Preview</span> functionality.</li>
+            <li>Use any value stored on a user’s profile to restrict the scope of a rule.</li>
+            <li>Use either the group's ID or name to reference a group in your expression. <MadCap:variable name="okta-variables.ProductName" /> recommends that you use a group's ID because it doesn’t change.</li>
+            <li>Use the following symbols to denote an operator:<ul style="list-style-type: circle;"><li><span class="code">AND</span> or <span class="code">&amp;&amp;</span> to denote the And operator.</li><li><span class="code">OR</span> or <span class="code">||</span> to denote the Or operator.</li><li><span class="code">!</span> to denote the Not operator.</li></ul></li>
+        </ul>
+        <h4>Sample expressions</h4>
+        <table style="width: 100%;margin-left: 0;margin-right: auto;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+            <col class="TableStyle-standard-Column-Column1" />
+            <col class="TableStyle-standard-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-standard-Head-Header1">
+                    <th class="TableStyle-standard-HeadF-Column1-Header1">Use case</th>
+                    <th class="TableStyle-standard-HeadD-Column1-Header1">Sample expression</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td class="TableStyle-standard-BodyF-Column1-Body1">Restrict a rule to members of a certain group. </td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body1">
+                        Use either of these expressions:
+                        <ul><li><p><span class="code">user.isMemberOf({'group.profile.name': 'West Coast Users'})</span><![CDATA[ 
+]]></p></li><li><p><span class="code">user.isMemberOf({'group.id': '00gjitX9HqABSoqTB0g3'})</span></p></li></ul></td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body2">
+                    <td class="TableStyle-standard-BodyF-Column1-Body2">Include all users except members of certain groups.</td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body2">
+                        Use either of these expressions:
+                        <ul><li><p><span class="code">!user.isMemberOf({'group.profile.name': 'West Coast Users'}) 
+</span> </p></li><li><p><span class="code">!user.isMemberOf({'group.id': '00gjitX9HqABSoqTB0g3'})</span></p></li></ul></td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td class="TableStyle-standard-BodyF-Column1-Body1">Include users who are a member of both groups.</td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body1"><span class="code">user.isMemberOf({'group.id': '00gjitX9HqABSoqTB0g3'}) &amp;&amp; user.isMemberOf({'group.id': '00garwpuyxHaWOkdV0g4'})
+</span>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body2">
+                    <td class="TableStyle-standard-BodyF-Column1-Body2">Only include users who are a member of at least one of the two groups.</td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body2">
+						Use either of these expressions:
+                        <ul><li><p><span class="code">user.isMemberOf({'group.id': '00gjitX9HqABSoqTB0g3'}) || user.isMemberOf({'group.id': '00garwpuyxHaWOkdV0g4'})
+</span> </p></li><li><p><span class="code">user.isMemberOf({'group.id': {'00gjitX9HqABSoqTB0g3', '00garwpuyxHaWOkdV0g4'}})</span></p></li></ul></td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td class="TableStyle-standard-BodyF-Column1-Body1">Include users who are a member of one group but aren't a member of another group</td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body1"><span class="code">user.isMemberOf({'group.profile.name': 'West Coast Users'}) &amp;&amp; !user.isMemberOf({'group.id': '00garwpuyxHaWOkdV0g4'})</span>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body2">
+                    <td class="TableStyle-standard-BodyF-Column1-Body2">
+                        <p>Include users with Active status in the rule. </p>
+                    </td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body2">
+                        <p><span class="code">user.status == 'ACTIVE'</span>
+                        </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body1" MadCap:conditions="Primary.do-not-publish">
+                    <td class="TableStyle-standard-BodyF-Column1-Body1">
+                        <p>
+                            <MadCap:annotation MadCap:createDate="2023-04-11T16:11:26.7942316-04:00" MadCap:creator="naini.khajanchi" MadCap:initials="NA" MadCap:comment="https://okta.slack.com/archives/C7K8CP09W/p1681243570277459?thread_ts=1681152523.884449&amp;cid=C7K8CP09W" MadCap:editor="naini.khajanchi" MadCap:editDate="2023-04-11T16:11:27.7124729-04:00">Exclude </MadCap:annotation>users with Deprovisioned or Suspended status for campaigns.</p>
+                        <p>These users retain their group assignments even when they're in a Suspended or Deactivated state. However, these users only retain their app assignments in a Suspended state.  </p>
+                    </td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body1">
+                        <p><span class="code">user.status not in ['DEPROVISIONED','SUSPENDED']</span>
+                        </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body2">
+                    <td class="TableStyle-standard-BodyF-Column1-Body2">Restrict a rule based on the user's profile attributes, such as department, state, or cost center.</td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body2">For exact matches, use: 
+<span class="code">user.profile.department != null &amp;&amp; user.profile.department == "Finance Department"</span><p>
+For partial matches, use:
+<span class="code">user.profile.department != null &amp;&amp; user.profile.department.contains("Finance")</span></p></td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td class="TableStyle-standard-BodyC-Column1-Body1">
+                        <p>Use a combination of user profile attributes and groups to define complex expressions to include the following users:
+					</p>
+                        <ul>
+                            <li>Users who are in the Human Resources department or a department with the word 'Communications' in the name; and</li>
+                            <li>Users who aren’t a member of the EMEA group; and</li>
+                            <li>Users who are in at least one of three groups (Interns, Contractors, or Partners).</li>
+                        </ul>
+                    </td>
+                    <td class="TableStyle-standard-BodyA-Column1-Body1"><span class="code">user.profile.department != null &amp;&amp;(user.profile.department.contains("Communications") || user.profile.department == "Human Resources") &amp;&amp; 
+
+!user.isMemberOf({'group.profile.name': 'EMEA'}) &amp;&amp; user.isMemberOf({'group.profile.name': {"Interns", "Contractors", "Partners"}})
+</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2><span>Related topics</span>
+        </h2>
+        <p>
+            <MadCap:xref href="manage-policy.htm">Manage policy</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="preview-policy.htm">Preview policy</MadCap:xref>
+        </p>
+    </body>
+</html>

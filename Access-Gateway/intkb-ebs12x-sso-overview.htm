@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:conditions="Primary.review-only" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/intkb-ebs12x-sso-overview.htm" /> <title>[%=Heading.Level1%] | Okta</title></head>
+    <body>
+        <h1> Oracle EBS 12.X Single Sign On (SSO) integration</h1>
+        <ol>
+            <li>Summary
+==========</li>
+        </ol>
+        <p>Okta <MadCap:variable name="okta-feature-names.Access Gateway" /> / Oracle EBS 12.X Single Sign On (SSO) integration.</p>
+        <p>In a standard EBS OAM SSO integration, EBS administrator must install and configure the Oracle EBS, OID/OUD, OAM in order to acheive the SSO objective. It is expensive, time consuming and has very limited capability to integrate with the modern cloud based identity providers.</p>
+        <p>Okta has developed the <MadCap:variable name="okta-feature-names.Access Gateway" /> integration platform, which enables existing EBS SSO infrastructure to be quickly and easily be cloud ready. Now the EBS system admin can use any number of market leading identity provider as the IDP, and provide SSO functionality to the existing EBS users.</p>
+        <ol start="2">
+            <li>Deployment Architecture
+==========================</li>
+        </ol>
+        <p>Most of the 30000 EBS customers in the world consists of on premises deployment, which was the only way to run an EBS environment in the past. The newer Oracle offering have started to move the EBS to the cloud, where Oracle can host it either in a private cloud, or even in public cloud.</p>
+        <p>Hence, in order to facilitate the SSO with an existing EBS environment, we need to address a number of technical issues, ie: Deployment topology, SSO identity provider integration, EBS user repository synchronization.</p>
+        <p>Let's examine the following two common deployment architectures:</p>
+        <ul>
+            <li>A single-domain <MadCap:variable name="okta-feature-names.Access Gateway" /> / EBS SSO integration architecture.</li>
+        </ul>
+        <p>
+            <img src="../../Resources/Images/access-gateway/EBS122-OUD-SSO-Architecture-SD.png" alt="EBS122 OUD SSO Architecture SD.png" class="thumbnail" />
+        </p>
+        <ul>
+            <li>A multi-domain <MadCap:variable name="okta-feature-names.Access Gateway" /> / EBS SSO integration architecture.</li>
+        </ul>
+        <p>
+            <img src="../../Resources/Images/access-gateway/EBS122-OUD-SSO-Architecture.png" alt="EBS122 OUD SSO Architecture.png" class="thumbnail" />
+        </p>
+        <p>In the deployment scenarios shown above, we have eliminated the standard Oracle Access Manager layer, and replaced it with the Okta Access Gateway and a standard cloud based Identity Provider (ie: OKTA, OneLogin or Oracle IDCS), while maintaining the Oracle EBS AccessGate and Oracle OID as the backend services to facilitate the SSO transaction.</p>
+        <p>A Single-Domain deployment is a very common architecture where the EBS is hosted inhouse, along with the user repository datasource OID/OUD. While a Cross-Domain deployment applies to a more robust hosted EBS environment.</p>
+        <p>For example, Electronic Arts has its EBS servers hosted in the Oracle Cloud (eaebs.oracleoutsourcing.com), while the OID/OUD (oid1.ea.com) resides internally inside their own datacenter. This is a very common practice where the company wants to retain the user data inhouse, without exposing them in the cloud.</p>
+        <p>We will look at the difference in the integration process in detail below.</p>
+        <ol start="3">
+            <li>EBS <MadCap:variable name="okta-feature-names.Access Gateway" /> SSO Configuration Steps
+========================================</li>
+        </ol>
+        <p> Pre-requisite: EBS 12.X baseline reference installation must be up and running, ready for integration. </p>
+        <p>The EBS SSO integration process consists the following 3 major steps:</p>
+        <ol>
+            <li>
+                <p>Modify EBS SSO related System Profile attributes and register OID/OUD with EBS.</p>
+            </li>
+            <li>
+                <p>Oracle AccessGate web application deployment.</p>
+            </li>
+            <li>
+                <p>Configure Access Gateway with the EBS 12 Application with IDP</p>
+            </li>
+        </ol>
+        <p>3.1. Modify EBS SSO related System Profile attributes and register OID/OUD with EBS.</p>
+        <p>The purpose of adjusting the EBS system profile and register the OUD with EBS are two folds. First, it enables synchronization between EBS user and the user entries in OID. There are 3 distinct synchronization routes: 1. Bi-directional where user created in EBS will automatically pushed to the OID ldap server, and vise versa. 2. EBS → OID: this is a one way sync, from EBS to OID. 3. OID → EBS: this is a one way sync, from OID to EBS. In addition, the system profile allows a site wide redirect, which is how the SSO process is triggered. When the user tries to access EBS at its base url (ie:</p>
+        <p>https://ebs1.gateway.info</p>
+        <p>), EBS server will redirect the user to the pre-defined SSO url if it doesnt detect a valid session. In our integration process, the SSO url would be the Access Gateway EBS application url. *EBS System Profiles involved:* * Application Authentication Agent:</p>
+        <p>https://ebs121demosso.gateway.info/ebsauth-ebs121demo</p>
+        <p>- This is the Access Gateway AccessGate URL, where the application context is "ebsauth-ebs121demo" of the AccessGate web app. * Applications SSO Type: SSWAw/SSO * Applications SSO Auto Link User: Enable * Applications SSO Login Types: Both (This in fact triggers the SSO, once turn off, the SSO user profile change, reset pw locally all work) * Application SSO LDAP Synchronization: Enable * Applications SSO Enable OID Identity Add Event: Enable * Link Applications user with OID user with same username: Enable *EBS OID Registration:*  The registration command can only be run after the OID/DIP are installed and configured, as it needs to communicate with the DIP in order to create the necessary synchronization profile  *Note:*</p>
+        <p>OID/DIP installation guide</p>
+        <p>Here is an output run of the registration process. [source,highlightjs,highlight] ---- ############################################### **We will register the Instance and OID here.** ############################################### [</p>
+        <p>oracle@ebs121-demo</p>
+        <p>bin]$ ./txkrun.pl -script=SetSSOReg -registerinstance=yes -infradbhost=oid1.gateway.info -ldapport=3060 -ldapportssl=3131 -ldaphost=oid1.gateway.info -oidadminuser=cn=orcladmin -oidadminuserpass=Password1 -appspass=apps You are registering ORACLE HOME only. *** Log File = /home/ebs121/applmgr/inst/apps/VIS_ebs121-demo/logs/appl/rgf/TXK/txkSetSSOReg_Mon_May_15_17_41_41_2017.xml Beginning input parameter validation for Oracle Home Instance registration. Input parameter validation for Oracle Home Instance registration completed. BEGIN ORACLE HOME INSTANCE REGISTRATION: Oracle Home Instance preferences stored successfully. Oracle Home Instance registered successfully. End of /home/ebs121/applmgr/apps/apps_st/appl/fnd/12.0.0/patch/115/bin/txkSetSSOReg.pl : No Errors encountered [</p>
+        <p>oracle@ebs121-demo</p>
+        <p>bin]$ txkrun.pl -script=SetSSOReg -registeroid=yes -ldaphost=oid1.gateway.info -ldapport=3060 -oidadminuser=cn=orcladmin -oidadminuserpass=Password1 -appspass=apps -instpass=Password1 -appname=ebs1213demo -svcname=ebs1213demoOID1 -provisiontype=1 -dbldapauthlevel=0 You are registering this instance with OID Server. *** Log File = /home/ebs121/applmgr/inst/apps/VIS_ebs121-demo/logs/appl/rgf/TXK/txkSetSSOReg_Mon_May_15_17_47_04_2017.xml Beginning input parameter validation for OID registration. Input parameters validation for OID registration completed. BEGIN OID REGISTRATION: Beginning to register Application and Service containers if necessary. Application and Service containers were created successfully if necessary. Beginning to register application in Oracle Internet Directory. Registration of application in Oracle Internet Directory completed successfully. -&gt; LOADING: /home/ebs121/applmgr/apps/apps_st/appl/fnd/12.0.0/admin/template/AppsOIDRegistration.tmp Beginning to register provisioning profile in Oracle Internet Directory. Registration of provisioning profile in Oracle Internet Directory completed successfully. Application is now registered successfully with provisioning in Oracle Internet Directory. End of /home/ebs121/applmgr/apps/apps_st/appl/fnd/12.0.0/patch/115/bin/txkSetSSOReg.pl : No Errors encountered ----</p>
+        <p>3.2. Oracle AccessGate web application deployment</p>
+        <p>The Oracle AccessGate (AG) is a web application that can be deployed on a standard Oracle WebLogic Server. In our standard practice, we can install the AG on the same WebLogic domain as the OID is hosted, and we can then managed the OID managed server and the AG managed server via the same WebLogic console.</p>
+        <p>Deploying AG is a fairly involved process. The main steps are to install a Weblogic Server, create a JDBC datasource that will communicate to the EBS database, deploy the AG web application.</p>
+        <p>Here is the doc link that shows those steps in detail: <a href="http://support.okta.com/?post_type=ht_kb&amp;p=1052&amp;preview=true">Oracle AccessGate Deployment</a></p>
+        <h2>3.3. Configure Access Gateway with the EBS 12 Application with IDP</h2>
+        <p>Once the AG is successfully deployed, we can proceed to create the Access Gateway AG application. This is a fairly straight forward exercise, with one important detail: <span class="uicontrol">Cookie Domain</span></p>
+        <p>As explained above in the architecture section, EBS and the corresponding AG can be hosted on a single cookie domain, or on a different cookie domain. The reason it is extremely import is the fact that for a single domain scenario, the browser can consumer the cookies that were created in AG and forward them to the target EBS. Once EBS server receives the valid cookie, it allows the user to login and creates the necessary EBS session cookie and be done with it.</p>
+        <p>But in a Cross Domain scenario, the browser will not forward the AG domain cookie to the EBS server, as it is a security violation.</p>
+        <p>Hence there must be a mechanism in place to handle the cookies from one cookie domain to the next. This is where the Access Gateway landing page comes into place. The landing page performs the necessary cookie transformation so the browser will then forward the necessary cookie to the target EBS server.</p>
+        <p>The following doc links details the 2 distinct process in preparing the EBS environment and create the AG application in the Access Gateway:</p>
+        <ul>
+            <li>
+                <p>Single Domain Access Gateway Application: <a href="http://support.okta.com/?post_type=ht_kb&amp;p=986&amp;preview=true">Oracle AccessGate Integration SingleDomain</a></p>
+            </li>
+            <li>
+                <p>Cross Domain Access Gateway Application: <a href="http://support.okta.com/?post_type=ht_kb&amp;p=1002&amp;preview=true">Oracle AccessGate Integration CrossDomain</a></p>
+            </li>
+        </ul>
+        <ol start="4">
+            <li>Appendix A: Oracle Document Links
+====================================</li>
+        </ol>
+        <p>Here are the Oracle doc links that are useful for this entire integration process.</p>
+        <ul>
+            <li>
+                <p>EBS Oracle Applications Release Notes, Release 12.1.1 (<a href="https://support.oracle.com/epmos/faces/DocumentDisplay?_afrLoop=34179948623160&amp;id=798258.1&amp;_afrWindowMode=0&amp;_adf.ctrl-state=fi6tdp6t2_519">Doc ID 798258.1</a>) Oracle E-Business Suite Installation and Upgrade Notes Release 12 (12.1.1) for Linux x86-64 (<a href="https://support.oracle.com/epmos/faces/DocumentDisplay?_afrLoop=34212744496719&amp;id=761566.1&amp;_afrWindowMode=0&amp;_adf.ctrl-state=fi6tdp6t2_568">Doc ID 761566.1</a>) Interoperability Notes EBS 12.0 and 12.1 with Database 11gR2 (<a href="https://support.oracle.com/epmos/faces/DocumentDisplay?_afrLoop=34242339904621&amp;parent=DOCUMENT&amp;sourceId=761566.1&amp;id=1058763.1&amp;_afrWindowMode=0&amp;_adf.ctrl-state=fi6tdp6t2_617">Doc ID 1058763.1</a>) MD5 Checksums for R12.1.1 Rapid Install Media (<a href="https://support.oracle.com/epmos/faces/DocumentDisplay?_afrLoop=34353711115952&amp;id=802195.1&amp;_afrWindowMode=0&amp;_adf.ctrl-state=fi6tdp6t2_740">Doc ID 802195.1</a>)</p>
+            </li>
+            <li>
+                <p>E-Business Suite Release 12.1 With Oracle Access Manager 11gR2 (11.1.2) (<a href="https://support.oracle.com/epmos/faces/DocumentDisplay?_afrLoop=33368902953750&amp;id=2045154.1&amp;_afrWindowMode=0&amp;_adf.ctrl-state=fi6tdp6t2_4">Doc ID 2045154.1</a>)</p>
+            </li>
+            <li>
+                <p>Oracle E-Business Suite Security Guide (<a href="https://docs.oracle.com/cd/E26401_01/doc.122/e22952/T156458T580814.htm#sso_profiles">Part Number E22952-18</a></p>
+            </li>
+            <li>
+                <p>Registering Oracle E-Business Suite Release 12 with Oracle Internet Directory 11gR1 and Single Sign-On (<a href="https://support.oracle.com/epmos/faces/DocumentDisplay?_afrLoop=33685562851151&amp;parent=DOCUMENT&amp;sourceId=2045154.1&amp;id=1370938.1&amp;_afrWindowMode=0&amp;_adf.ctrl-state=fi6tdp6t2_102">Doc ID 1370938.1</a>)</p>
+            </li>
+            <li>
+                <p>Using the Latest Oracle Internet Directory 11gR1 Patchset with Single Sign-on and Oracle E-Business Suite (<a href="https://support.oracle.com/epmos/faces/DocumentDisplay?_afrLoop=33766198900673&amp;parent=DOCUMENT&amp;sourceId=2045154.1&amp;id=876539.1&amp;_afrWindowMode=0&amp;_adf.ctrl-state=fi6tdp6t2_151">Doc ID 876539.1</a>)</p>
+            </li>
+            <li>
+                <p>Troubleshooting Oracle Access Manager and Oracle E-Business Suite AccessGate (<a href="https://support.oracle.com/epmos/faces/DocumentDisplay?_afrLoop=33832753723816&amp;id=1077460.1&amp;_afrWindowMode=0&amp;_adf.ctrl-state=fi6tdp6t2_200">Doc ID 1077460.1</a>)</p>
+            </li>
+            <li>
+                <p>Oracle E-Business Suite Software Development Kit for Java (includes AppsDataSource, Java Authentication and Authorization Service, session management) Readme - Patch 13882058 (<a href="https://support.oracle.com/epmos/faces/DocumentDisplay?_afrLoop=33863000693238&amp;parent=DOCUMENT&amp;sourceId=974949.1&amp;id=974949.1&amp;_afrWindowMode=0&amp;_adf.ctrl-state=fi6tdp6t2_249">Doc ID 974949.1</a>)</p>
+            </li>
+            <li>
+                <p>Latest Oracle E-Business Suite AccessGate for Single Sign-On Integration with Oracle Access Manager (<a href="https://support.oracle.com/epmos/faces/DocumentDisplay?_afrLoop=33921028524680&amp;parent=DOCUMENT&amp;sourceId=2045154.1&amp;id=2202932.1&amp;_afrWindowMode=0&amp;_adf.ctrl-state=fi6tdp6t2_323">Doc ID 2202932.1</a>)</p>
+            </li>
+            <li>
+                <p><a href="https://support.oracle.com/epmos/faces/DocumentDisplay?_afrLoop=33921028524680&amp;parent=DOCUMENT&amp;sourceId=2045154.1&amp;id=2202932.1&amp;_afrWindowMode=0&amp;_adf.ctrl-state=fi6tdp6t2_323">Oracle EBS 12.1 Administrator Guide</a>
+                </p>
+            </li>
+            <li>
+                <p>How to Configure 11g DIP for SSL Mode 2 Server Authentication (<a href="https://support.oracle.com/epmos/faces/DocumentDisplay?_afrLoop=34064475081014&amp;id=1203927.1&amp;_afrWindowMode=0&amp;_adf.ctrl-state=fi6tdp6t2_372">Doc ID 1203927.1</a>)</p>
+            </li>
+            <li>
+                <p>How to create an SHA2 certificate using oracle wallet and ORAPKI ? (<a href="https://support.oracle.com/epmos/faces/DocumentDisplay?_afrLoop=34098465037410&amp;id=1914184.1&amp;_afrWindowMode=0&amp;_adf.ctrl-state=fi6tdp6t2_421">Doc ID 1914184.1</a>)</p>
+            </li>
+            <li>
+                <p>RDA - Health Check / Validation Engine Guide (<a href="https://support.oracle.com/epmos/faces/ui/km/DocContentDisplay.jspx?_afrLoop=34432870336568&amp;id=250262.1&amp;_afrWindowMode=0&amp;_adf.ctrl-state=fi6tdp6t2_936">Doc ID 250262.1</a>)</p>
+            </li>
+            <li>
+                <p>Using JDK 7.0 Latest Update with Oracle E-Business Suite Release 12.0 and 12.1 (<a href="https://support.oracle.com/epmos/faces/DocumentDisplay?_afrLoop=34470126005063&amp;parent=DOCUMENT&amp;sourceId=761566.1&amp;id=1467892.1&amp;_afrWindowMode=0&amp;_adf.ctrl-state=fi6tdp6t2_965">Doc ID 1467892.1</a>)</p>
+            </li>
+            <li>
+                <p>Upgrading OracleAS 10g Forms and Reports in Oracle E-Business Suite Release 12 (<a href="https://support.oracle.com/epmos/faces/DocumentDisplay?_afrLoop=34507157344871&amp;parent=DOCUMENT&amp;sourceId=1468837.1&amp;id=437878.1&amp;_afrWindowMode=0&amp;_adf.ctrl-state=fi6tdp6t2_1014">Doc ID 437878.1</a>)</p>
+            </li>
+            <li>
+                <p>Deploying JRE (Native Plug-in) for Windows Clients in Oracle E-Business Suite Release 12 (<a href="https://support.oracle.com/epmos/faces/DocumentDisplay?_afrLoop=34532268598609&amp;parent=SrDetailText&amp;sourceId=3-14769057781&amp;id=393931.1&amp;_afrWindowMode=0&amp;_adf.ctrl-state=fi6tdp6t2_1063">Doc ID 393931.1</a>)</p>
+            </li>
+            <li>
+                <p>Upgrading to the Latest OracleAS 10g 10.1.3.x Patch Set in Oracle E-Business Suite Release 12 (<a href="https://support.oracle.com/epmos/faces/DocumentDisplay?_afrLoop=34611661448903&amp;id=454811.1&amp;_afrWindowMode=0&amp;_adf.ctrl-state=fi6tdp6t2_1161">Doc ID 454811.1</a>)</p>
+            </li>
+            <li>
+                <p>Oracle E-Business Suite Release 12.1.3+ Recommended Patch Collection 5 ( RPC5 ) (<a href="https://support.oracle.com/epmos/faces/DocumentDisplay?_afrLoop=34636028234092&amp;id=2152266.1&amp;_afrWindowMode=0&amp;_adf.ctrl-state=fi6tdp6t2_1210">Doc ID 2152266.1</a>)</p>
+            </li>
+            <li>
+                <p>Oracle E-Business Suite Release 12.1.3 Readme (<a href="https://support.oracle.com/epmos/faces/DocumentDisplay?_afrLoop=34781600246206&amp;id=1080973.1&amp;_afrWindowMode=0&amp;_adf.ctrl-state=fi6tdp6t2_1259">Doc ID 1080973.1</a>)</p>
+            </li>
+        </ul>
+        <ol start="5">
+            <li>Appendix B: Server HardWare Requirements
+===========================================</li>
+        </ol>
+        <p>Server Hardware Requirements</p>
+        <h2>5.1. EBS Server</h2>
+        <ul>
+            <li>Linux 6.8, 8 core, 500G hard drive, 8G memory</li>
+        </ul>
+        <h2>5.2. DB/OID/DIP Server</h2>
+        <ul>
+            <li>Linux 6.8, 4 core, 60G hard drive, 4G memory</li>
+        </ul>
+        <h2>5.3. Access Gateway Appliance</h2>
+        <ul>
+            <li>Standard Access Gateway configuration applies.</li>
+        </ul>
+    </body>
+</html>

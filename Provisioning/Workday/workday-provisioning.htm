@@ -1,0 +1,1492 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:searchable="True"
+      MadCap:fileTags="Tags/okta-authors.Jeanette Smith">
+   <head>
+      <link href="../../../Resources/TableStyles/standard.css"
+            rel="stylesheet"
+            MadCap:stylesheetType="table"/>
+      <title>Workday Provisioning | Okta</title>
+      <link href="" rel="stylesheet" type="text/css"/>
+      <meta name="description"
+            content="Configure Workday user provisioning in order for Okta to import Workday users and group memberships and provide end user SSO."/>
+   </head>
+   <body>
+      <h1>Workday</h1>
+      <p>
+         <MadCap:variable name="okta-variables.ProductName"/> can import users and groups from Workday through its standard API. Three types of imports are supported: </p>
+      <ul>
+         <li>
+            <MadCap:xref href="#Full">Full imports</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Incremen">Incremental imports</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Real">Real Time Sync imports</MadCap:xref>
+         </li>
+      </ul>
+      <h3>
+         <a name="Full"/>Full imports</h3>
+      <p>Full imports bring in all workers and all base and custom attributes. Full imports are time-consuming but must be scheduled to perform reconciliation between the two systems and to bring attributes that aren't supported in the other import types. Typically, this task is performed once per week. The full import includes base attributes, non-future, and future effective dated custom attributes. It also includes any changes that incremental or Real Time Sync imports omitted.</p>
+      <h3>
+         <a name="Incremen"/>Incremental imports</h3>
+      <p>Incremental imports bring data for workers that Workday identifies as updated since the last incremental import. Changes must be in the base or non-effective future dated custom attributes for the worker to be included. Changes to effective dated custom attributes alone don't trigger an incremental import. Included in the incremental import are base attributes, non-future, and future effective dated custom attributes. Incremental imports should be scheduled at an interval that supports regular business processes. Typically, this would be at least once per day and can be scheduled as frequently as once an hour. For more information, see <MadCap:xref href="incremental-imports.htm">Incremental Imports</MadCap:xref>.</p>
+      <h3>
+         <a name="Real"/>Real Time Sync imports</h3>
+      <p>Real Time Sync (RTS) is used to trigger an update from Workday to <MadCap:variable name="okta-variables.ProductName"/> in real time. It should be used for changes where timeliness is critical such as immediate termination of a worker. A business process must be configured in Workday to send the trigger to <MadCap:variable name="okta-variables.ProductName"/> to start this process. Included in the RTS import are base attributes, non-future, and future effective dated custom attributes. For more information, see <MadCap:xref href="workday-rts.htm">Workday Real Time Sync</MadCap:xref>.</p>
+      <p>The optimal configuration of these import types ensures optimal data accuracy and timeliness of data moving from Workday to <MadCap:variable name="okta-variables.ProductName"/>. When you configure imports, consider the features and limitations of each import type.</p>
+      <p>
+         <MadCap:variable name="okta-variables.ProductName"/> supports two typical scenarios: import from Workday, and Workday-driven IT provisioning.</p>
+      <h3>
+         <a name="Import_from_Workday"/>Import from Workday</h3>
+      <p>Import from Workday to <MadCap:variable name="okta-variables.ProductName"/> includes users and groups. <MadCap:variable name="okta-variables.ProductName"/> users are created from imported Workday users, and imported Workday groups can be used to assign apps. Workday no longer manages users after they've been imported into <MadCap:variable name="okta-variables.ProductName"/>. Updates made to the user in Workday don't affect the associated <MadCap:variable name="okta-variables.ProductName"/> user.</p>
+      <h3>
+         <a name="Workday_driven_IT"/>Workday-driven IT provisioning</h3>
+      <p>
+         <MadCap:variable name="okta-variables.ProductName"/> integrates with Workday to drive IT provisioning. When a Workday user is imported into <MadCap:variable name="okta-variables.ProductName"/>, Workday continues to manage them. Updates and terminations made in Workday are reflected in <MadCap:variable name="okta-variables.ProductName"/> and downstream apps. This arrangement enables Workday to manage employee and contractor access to apps. Workday-driven IT provisioning is a superset of the functionality provided by imports from Workday. Therefore, the instructions for configuring Workday-driven IT provisioning are also relevant to import from Workday scenarios.</p>
+      <div class="noteOkta">
+         <ul>
+            <li>
+               <p class="noteContent">
+                  <MadCap:variable name="okta-variables.ProductName"/> imports only users who have the First Day Of Work and Hire Date attributes or fields populated in Workday</p>
+            </li>
+            <li>
+               <p class="noteContent">If you're using Active Directory and you have Profile Push enabled, see <MadCap:xref href="../../Directory/ad-agent-configure-provisioning.htm">Configure Active Directory provisioning settings</MadCap:xref>
+               </p>
+            </li>
+         </ul>
+      </div>
+      <p>With Workday-driven IT provisioning, <MadCap:variable name="okta-variables.ProductName"/> supports the following worker lifecycle events:</p>
+      <ul>
+         <li>
+            <p>New hire
+                </p>
+            <ul>
+               <li>A new Worker is hired in Workday</li>
+               <li>
+                  <MadCap:variable name="okta-variables.ProductName"/> imports the new Worker and creates an <MadCap:variable name="okta-variables.ProductName"/> user profile</li>
+               <li>
+                  <MadCap:variable name="okta-variables.ProductName"/> creates accounts in downstream apps (AD included)</li>
+            </ul>
+         </li>
+         <li>
+            <p>Updates
+                </p>
+            <ul>
+               <li>A Workday user's attribute is changed in Workday</li>
+               <li>
+                  <MadCap:variable name="okta-variables.ProductName"/> imports the attribute change</li>
+               <li>
+                  <MadCap:variable name="okta-variables.ProductName"/> updates the attribute in downstream apps (AD included)</li>
+            </ul>
+         </li>
+         <li>
+            <p>Termination
+                </p>
+            <ul>
+               <li>A Worker is terminated in Workday</li>
+               <li>
+                  <MadCap:variable name="okta-variables.ProductName"/> imports the status change</li>
+               <li>
+                  <MadCap:variable name="okta-variables.ProductName"/> deactivates the <MadCap:variable name="okta-variables.ProductName"/> user and accounts in downstream apps (AD included)</li>
+            </ul>
+         </li>
+         <li>
+            <p>Rehire</p>
+            <ul>
+               <li>A terminated Worker is rehired in Workday</li>
+               <li>The deactivated <MadCap:variable name="okta-variables.ProductName"/> user needs to be manually reactivated in <MadCap:variable name="okta-variables.ProductName"/>
+               </li>
+               <li>
+                  <MadCap:variable name="okta-variables.ProductName"/> imports and links the rehired Worker with the reactivated <MadCap:variable name="okta-variables.ProductName"/> user</li>
+            </ul>
+         </li>
+      </ul>
+      <h2>Prerequisites<a name="Requirements"/>
+      </h2>
+      <p>Before you configure provisioning in <MadCap:variable name="okta-variables.ProductName"/>, ensure that these requirements are met:</p>
+      <ul>
+         <li>
+            <MadCap:xref href="#Add">Add a Workday app instance and configure SSO</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Create">Create an Integration System User in Workday</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Grant">Grant permission to an Integration System User</MadCap:xref>
+         </li>
+      </ul>
+      <h3>
+         <a name="Add"/>Add a Workday app instance and configure SSO</h3>
+      <p>You already added a Workday app instance in <MadCap:variable name="okta-variables.ProductName"/> and configured SSO. See <a href="https://saml-doc.okta.com/SAML_Docs/How-to-Configure-SAML-2.0-for-Workday.html">How to Configure SAML 2.0 for Workday</a>. </p>
+      <p>For general information about applications and adding applications, see <MadCap:xref href="../../Apps/apps-add-applications.htm">Add existing app integrations</MadCap:xref>.</p>
+      <h3>
+         <a name="Create"/>Create an Integration System User in Workday</h3>
+      <p>
+         <MadCap:variable name="okta-variables.ProductName"/> accesses the Workday APIs with a special type of Workday user known as an integration system user. To create one, enter <span class="userinput">create integration system user</span> in the search box and click the resulting task. Follow the directions to create a username and password.</p>
+      <h3>
+         <a name="Grant"/>Grant permission to an Integration System User</h3>
+      <p>Grant the Integration System User permission to access the web services needed for the <MadCap:variable name="okta-variables.ProductName"/> Workday integration through Workday Security Groups.</p>
+      <ol>
+         <li>To create a Security Group, enter <span class="userinput">create security group</span> in the search box.</li>
+         <li>Click <span class="uicontrol">Create Security Group</span> in the search results.</li>
+         <li>Select <span class="uicontrol">Integration System Security Group (Unconstrained)</span> from the <span class="uicontrol">Type of Tenanted Security Group</span> dropdown.</li>
+         <li>Enter a name for the group.</li>
+         <li>On the next page, add your integration system user to the list under <span class="wintitle">Integration System Users</span>. To return to this group for future edits, enter the security group name in the search box.</li>
+         <li>To integrate with <MadCap:variable name="okta-variables.ProductName"/>, the security group requires appropriate access to these business domains:
+				<ul>
+               <li>
+                  <span class="userinput">External Account Provisioning</span> (permissions: Get and Put)</li>
+               <li>
+                  <span class="userinput">Worker Data: Public Worker Reports</span> (permissions: Get and Put)</li>
+               <li>
+                  <span class="userinput">Worker Data: Work Contact Information</span> (permissions: Get and Put)</li>
+               <li>
+                  <span class="userinput">Worker Data: Current Staffing Information</span> (permissions: Get)</li>
+               <li>
+                  <span class="userinput">Worker Data: All Positions</span> (permissions: Get)</li>
+               <li>
+                  <span class="userinput">Worker Data: Business Title on Worker Profile</span> (permissions: Get)</li>
+            </ul>
+         </li>
+         <li>Set the correct integrated permissions for each business domain:<ol style="list-style-type: lower-alpha;">
+               <li>Enter <span class="userinput">Domain Security Configuration</span> in the search box.</li>
+               <li>Click the resulting report.</li>
+               <li>Enter the business domain name in the search field, and then click <span class="uicontrol">OK</span>.</li>
+               <li>Select <span class="menucascade">
+                     <span class="uicontrol">Domain</span>
+                     <span class="uicontrol">Edit Security Policy Permissions</span>
+                  </span> from the dropdown menu beside the domain name.</li>
+               <li>Add your security group to the appropriate section under <span class="wintitle">Integrated Permissions</span>. Use the required permissions for the business domain (<span class="uicontrol">Get</span> or <span class="uicontrol">Get and Put</span>) to determine where to place the group.</li>
+               <p>
+                  <div class="noteOkta">
+                     <p class="noteContent">Verify with Workday to make sure all the required permissions are configured for the security group</p>
+                  </div>
+               </p>
+            </ol>
+         </li>
+         <li>Workday might alert you to activate the security policy changes. If you don't activate the changes, the integration user account aren't granted the necessary permissions.</li>
+         <li>Activate the changes:<ol style="list-style-type: lower-alpha;">
+               <li>Search for <span class="userinput">Activate Pending Security Policy Changes</span>.</li>
+               <li>Click the resulting task.</li>
+               <li>Enter a comment (required), and then click <span class="uicontrol">OK</span>.</li>
+               <li>Verify the changes that need to be activated.</li>
+            </ol>
+         </li>
+      </ol>
+      <h2>Procedures</h2>
+      <ul>
+         <li>
+            <MadCap:xref href="#Installi">Configure Workday provisioning </MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Enable">Enable Workday provisioning features in [%=okta-variables.ProductName%]</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#ADimportprov">Manage Workday Provisioning Groups</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Provisioning">Map Attributes</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Custom2">Custom expressions</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Workday2">Workday custom attributes</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Workday3">Workday field overrides</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Custom">Custom attributes imported with a custom report</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Use">Use Paginated Custom Reports  (recommended)</MadCap:xref>
+         </li>
+      </ul>
+      <h3>
+         <a name="Installi"/>Configure Workday provisioning </h3>
+      <p>To set up the API integration, go to the <MadCap:variable name="okta-variables.ProductName"/>
+         <span class="uicontrol">Provisioning</span> tab in your Workday instance:</p>
+      <p>Select <span class="uicontrol">Enable API Integration</span> and then configure the other fields, as required.</p>
+      <p>Note: You must configure values for <span class="uicontrol">API Username</span>, <span class="uicontrol">API Password</span>, and <span class="uicontrol">WebServices Endpoint</span>. The remaining settings are optional.</p>
+      <ul>
+         <li>
+            <span class="uicontrol">API Username</span>: The format is
+            <span class="varname">[integration system user name]@[tenant]</span>. For example: <span class="userinput">wd_integration@oktademo</span>. Find the tenant name in your Workday URL.</li>
+         <li>
+            <span class="uicontrol">API Password</span>: The password for the integration system user.</li>
+         <li>
+            <span class="uicontrol">WebServices Endpoint</span>: Find the tenant name in your Workday URL. To obtain the web services endpoint, look up the WSDL of any of the web services in your org:<ol style="list-style-type: lower-alpha;">
+               <li>Search for <span class="userinput">public web services</span>.</li>
+               <li>Under <span class="uicontrol">Reports</span>, select <span class="uicontrol">Public Web Services</span>.</li>
+               <li>From the <span class="uicontrol">Public Web Services</span> list, select a service, open its dropdown menu and select <span class="menucascade">
+                     <span class="uicontrol">Web Service</span>
+                     <span class="uicontrol">View WSDL</span>
+                  </span>. which displays the full WSDL in a separate window.</li>
+               <li>Search the WSDL page for <span class="userinput">soapbind:address</span> to see the web services endpoint corresponding to the web service that you chose.</li>
+               <li>For the <MadCap:variable name="okta-variables.ProductName"/> configuration, you only need the URL up to the tenant name. For example, if the value in the WSDL window <span class="url">is https://implcc.workday.com/ccx/service/okta_pt1/Human_Resources/v19</span>, then enter <span class="userinput">https://impl-cc.workday.com/ccx/service/okta_pt1</span>.</li>
+            </ol>
+         </li>
+         <li>
+            <span class="uicontrol">Integration System Id</span> (optional): See <a href="#WDcustomattributes">Workday Custom Attributes</a>.</li>
+         <li>
+            <span class="uicontrol">Department Field</span> (optional): This value determines which worker attribute to use for the department attribute of the user in <MadCap:variable name="okta-variables.ProductName"/>. By default, the value is Business Unit.</li>
+         <li>
+            <span class="uicontrol">Pre-Start Interval</span> (optional): This value determines how many days before the hire date you should have the user imported and activated in <MadCap:variable name="okta-variables.ProductName"/>. For more information, see <MadCap:xref href="#Pre-star">Pre-start Interval Details</MadCap:xref>.</li>
+         <li>
+            <span class="uicontrol">Sync Personal Phones</span> (optional): With this option, <MadCap:variable name="okta-variables.ProductName"/> can use personal phone numbers accessed from Workday if work phone numbers are otherwise unavailable.</li>
+         <li>
+            <span class="uicontrol">Only Import Workers with Workday</span> (optional): This option allows you to import only Workday workers who have Workday accounts and automatically filter out workers who don't. By clicking this option, your next import includes only valid Workday workers.</li>
+         <li>
+            <span class="uicontrol">Immediate Termination Reasons</span> (optional): If you use the Real Time Sync feature, use this to match the Termination_Subcategory_ID for each termination reason, as identified in the Workday Integration IDs. This entry must be a Regex expression. See <MadCap:xref href="workday-rts.htm">Workday Real Time Sync</MadCap:xref>.</li>
+         <li>
+            <span class="uicontrol">Deactivate on Last Day of Work</span> (optional): With this option, users are deactivated based on the last day of work instead of the termination date. The user deactivation takes place when their Last Day of Work matches the current date. </li>
+         <li>
+            <span class="uicontrol">Timezone aware terminations</span> (optional): With this option, users are deactivated based on the current time in their time zone or location. See  <MadCap:xref href="#Time">Time Zone Aware Deactivation</MadCap:xref> for more details. </li>
+      </ul>
+      <h3>
+         <a name="Enable"/>Enable Workday provisioning features in <MadCap:variable name="okta-variables.ProductName"/>
+      </h3>
+      <p>Select <span class="uicontrol">To <MadCap:variable name="okta-variables.ProductName"/>
+         </span> in the left panel, enable Profile Source, and set up import rules:
+</p>
+      <ul>
+         <li>
+            <MadCap:xref href="#Schedule">Scheduled Imports</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Workday">Workday as Profile Source</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Pre-star">Pre-start Interval Details</MadCap:xref>
+         </li>
+      </ul>
+      <h4>
+         <a name="Schedule"/>Scheduled Imports</h4>
+      <p>
+The User Import provisioning feature is automatically enabled when provisioning is enabled. Edit the settings for this feature as required.</p>
+      <p>
+
+For the <a href="#Workday_driven_IT">Workday-driven IT Provisioning</a> scenario, <MadCap:variable name="okta-variables.ProductName"/> recommends setting up scheduled import and automatic confirmation so that worker lifecycle events in Workday are periodically propagated to <MadCap:variable name="okta-variables.ProductName"/> without manual intervention. The number of workers in Workday can slow the import, so don't schedule them too frequently.
+</p>
+      <div class="noteOkta">
+         <p class="noteContent">The Workday integration supports incremental imports as part of Scheduled Imports. For details, see <MadCap:xref href="incremental-imports.htm">Incremental Imports</MadCap:xref>. </p>
+      </div>
+      <p>We recommend that you first import your users manually. Then, schedule your imports according to your import results. If the import takes too long, adjust the schedule.</p>
+      <h4>
+         <a name="Workday"/>Workday as Profile Source</h4>
+      <p>Workday as a Profile Source should also be enabled in the Workday-driven IT provisioning scenario so that Workday manages the <MadCap:variable name="okta-variables.ProductName"/> users. Workday should be listed as the highest priority Profile Source, specifically above the Active Directory (AD) instance where it creates users.</p>
+      <h4>
+         <a name="Pre-star"/>Pre-Start Interval Details</h4>
+      <p>The Pre-Start Interval is an optional field for early provisioning of Workday users. It allows you to onboard a user account into <MadCap:variable name="okta-variables.ProductName"/> before the official Worker/Employee Date (the employee's actual start date). The interval shows how many days before a Workday user's Worker/Employee Date <MadCap:variable name="okta-variables.ProductName"/> evaluates the user for early import. If the feature is enabled, <MadCap:variable name="okta-variables.ProductName"/> evaluates the Workday PreHire Date; If it falls within the set interval, <MadCap:variable name="okta-variables.ProductName"/> imports the user.</p>
+      <p>For example, if you set the Pre-Start Interval in <MadCap:variable name="okta-variables.ProductName"/> to 7 days, and the PreHire Date of a Workday account is set to 7 days before the Worker/Employee Date, <MadCap:variable name="okta-variables.ProductName"/> imports the account. In this same scenario, if the PreHire Date is greater than the 7 day interval configured in <MadCap:variable name="okta-variables.ProductName"/>, <MadCap:variable name="okta-variables.ProductName"/> doesn't consider it for import until the beginning of the window defined by the Pre-Start Interval.</p>
+      <p>Note the following points:</p>
+      <ul>
+         <li>If the Pre-Start Interval isn't zero, future-dated Workday user updates are imported ahead of time by the number of days specified. For example, a Workday provisioning group membership change scheduled with an effective date two days in the future is reflected in <MadCap:variable name="okta-variables.ProductName"/> immediately after the next import if the Pre-Start Interval value is set to three.</li>
+         <li>The Pre-Start Interval is ignored for termination date and attribute values imported through Custom Reports. If you need to set a Pre-Start Interval for new hires, but don't want other updates to happen ahead of time, create and import attributes from Custom Reports into <MadCap:variable name="okta-variables.ProductName"/> instead of using the base Workday profile attributes in <MadCap:variable name="okta-variables.ProductName"/>. You can also use Group Membership Rules based on the Custom Report attributes for group assignment in <MadCap:variable name="okta-variables.ProductName"/>.</li>
+         <li>You must have Profile Sourcing enabled to use the Pre-Start Interval option.</li>
+         <li>Set the interval to the time you need for
+					onboarding.</li>
+         <li>The interval defines when a user is eligible to be imported ahead of their actual start date. It doesn't define when to import the user.</li>
+      </ul>
+      <h3>
+         <a name="ADimportprov"/>Manage Workday Provisioning Groups</h3>
+      <p>With Workday Provisioning Groups you can import workers into <MadCap:variable name="okta-variables.ProductName"/> in an organized way. Like Active Directory Security Groups, imported Workday Provisioning Groups can be seen
+		under <span class="menucascade">
+            <span class="uicontrol">Directory</span>
+            <span class="uicontrol">Groups</span>
+         </span>. These groups can be used like any other <MadCap:variable name="okta-variables.ProductName"/> group: for app assignments and multi­factor authentication (MFA) policy assignments. The groups can also be used to drive provisioning into Active Directory and other applications. Provisioning groups must be created manually inside Workday. After you create them, the groups and associated memberships become part of the import into <MadCap:variable name="okta-variables.ProductName"/>.</p>
+      <ul>
+         <li>
+            <MadCap:xref href="#Grant2">Grant Provisioning Group Admin privileges to a Workday Administrator</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Assign">Assign Workday Workers to Provisioning Groups</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Provisio">Provision Users to Active Directory with Provisioning Groups</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Change">Change Provisioning Groups</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Consider">Considerations</MadCap:xref>
+         </li>
+      </ul>
+      <h4>
+         <a name="Grant2"/>Grant Provisioning Group Admin privileges to a Workday Administrator</h4>
+      <p>Before a Workday admin can manage Provisioning Groups, ensure that they have the correct privileges. If you search for
+				provisioning groups and don't see options to create, delete, or edit Provisioning Groups, then the admin doesn't have the required privileges.</p>
+      <p>To add Provisioning Group access, follow these steps:</p>
+      <ol>
+         <li>Enter <span class="userinput">domain security</span> in the <span class="uicontrol">Search</span> bar and select <span class="uicontrol">Domain Security Policies for Functional Area</span>.</li>
+         <li>Enter <span class="userinput">System</span>, and then click <span class="uicontrol">OK</span>.</li>
+         <li>In the left pane, scroll down and expand the <span class="uicontrol">Security Administration</span> folder. Then click <span class="uicontrol">Provisioning Group Administration</span>.</li>
+         <li>Next to <span class="uicontrol">Provisioning Group Administration</span> in the right pane, click the ellipsis to reveal a dropdown and select <span class="uicontrol">Domain Security Policy</span>. <ul>
+               <li>If the second item is <span class="uicontrol">Enable</span>, the policy is currently disabled. To enable it, click <span class="uicontrol">Enable</span> and confirm your selection.</li>
+               <li> If the second item is <span class="uicontrol">Disable</span>, the policy is currently enabled. Move to the next step.</li>
+            </ul>
+         </li>
+         <li>Under the <span class="uicontrol">Report/Task Permissions</span> list, ensure that the admin is a member of one of the Security Groups with view and modify permissions. If not, click the dropdown menu next to <span class="uicontrol">Domain Security Policy</span>, and then select <span class="menucascade">
+               <span class="uicontrol">Domain Security Policy</span>
+               <span class="uicontrol">Edit Permissions</span>
+            </span> to add the right Security Group to the list. Ensure that both view and modify permissions are configured.</li>
+      </ol>
+      <h4>
+         <a name="Assign"/>Assign Workday Workers to Provisioning Groups</h4>
+      <p>Workday workers can be manually assigned to provisioning groups within Workday; however, provisioning groups are most effective when configured to have automated assignments based on conditional rules as defined in a business process within Workday. Because it involves modifying a business process inside Workday, a Workday HR administrator should perform this step. Contact Workday Support for more details.</p>
+      <h4>
+         <a name="Provisio"/>Provision Users to Active Directory with Provisioning Groups</h4>
+      <p>
+         <MadCap:variable name="okta-variables.ProductName"/> can automate the creation, update, and deactivation of users from Workday to Active Directory (AD). <MadCap:variable name="okta-variables.ProductName"/> drives provisioning through Workday provisioning groups. In short, a Workday provisioning group is tied to one (or more) AD organization unit (OU) within <MadCap:variable name="okta-variables.ProductName"/>. When a user is created in Workday and assigned to a properly configured provisioning group, <MadCap:variable name="okta-variables.ProductName"/> imports that user from Workday and creates a user in AD under the corresponding OU. </p>
+      <div class="noteOkta">
+         <p class="noteContent">Users can also be deactivated based on the time zone of their location, see <MadCap:xref href="#Time">Time Zone Aware Deactivation</MadCap:xref> for more details.</p>
+      </div>
+      <p>To provision users to AD with provisioning groups:</p>
+      <ol>
+         <li>Sign in to <MadCap:variable name="okta-variables.ProductName"/>.</li>
+         <li>Find the desired Workday provisioning group under <span class="menucascade">
+               <span class="uicontrol">Directory</span>
+               <span class="uicontrol">Groups</span>
+            </span>.</li>
+         <li>Click the group.</li>
+         <li>Click <span class="uicontrol">Manage Directories</span>.</li>
+         <li>Select the AD domains to associate with the Workday provisioning group.</li>
+         <li>Select the AD OU within which you wish to provision accounts.</li>
+         <li>Click <span class="uicontrol">Done</span>.</li>
+         <li>In the <MadCap:variable name="okta-variables.ProductName"/> AD Settings tab, enable Provision new Active Directory accounts from <MadCap:variable name="okta-variables.ProductName"/>.</li>
+      </ol>
+      <h4>
+         <a name="Change"/>Change Provisioning Groups</h4>
+      <p>Adding an existing Worker to a different provisioning group in Workday results in a membership change in the associated group in <MadCap:variable name="okta-variables.ProductName"/>. However, the OU location of the associated AD user does not change. This is because <MadCap:variable name="okta-variables.ProductName"/> only adds AD users to a particular OU during AD user creation, updates do not apply.</p>
+      <h4>
+         <a name="Consider"/>Considerations</h4>
+      <p>Group Addition:  Newly created Workday groups are synchronized into <MadCap:variable name="okta-variables.ProductName"/> only in the following scenarios:</p>
+      <ul>
+         <li>Full Import: This brings in any new Workday  Provisioning groups and creates them in <MadCap:variable name="okta-variables.ProductName"/>.</li>
+         <li>Incremental Import: This brings in any new Workday  Provisioning groups and creates them in <MadCap:variable name="okta-variables.ProductName"/>
+         </li>
+         <li>RTS: The creation of a Workday  Provisioning group alone doesn't trigger an RTS event to create the group in <MadCap:variable name="okta-variables.ProductName"/>.  However, after the Workday Provisioning groups have been created in Workday, any other RTS event that is triggered will also include the group information and create the new groups in <MadCap:variable name="okta-variables.ProductName"/>.</li>
+      </ul>
+      <p>Group Removal:  Groups deleted from Workday are removed from <MadCap:variable name="okta-variables.ProductName"/> only during a full import:</p>
+      <ul>
+         <li>Full Import: This removes any group from <MadCap:variable name="okta-variables.ProductName"/> that is linked to a Workday group that no longer exists.</li>
+         <li>Incremental imports and RTS do NOT remove deleted Workday groups from <MadCap:variable name="okta-variables.ProductName"/>.</li>
+      </ul>
+      <p>Group Name Changes:  The following behaviors occur in <MadCap:variable name="okta-variables.ProductName"/> when a group name is changed from within Workday.</p>
+      <ul>
+         <li>Any RTS event picks up the Workday group name change, and writes the new name into <MadCap:variable name="okta-variables.ProductName"/> as a new and separate group within <MadCap:variable name="okta-variables.ProductName"/>.</li>
+         <li>With RTS, when any user who's a member of the group is updated, they're removed from the original group in <MadCap:variable name="okta-variables.ProductName"/> and added to the newly created <MadCap:variable name="okta-variables.ProductName"/> group.  If that user got application assignments from the original group (with the old name), they will lose them.</li>
+         <li>Any new user who is added to the Workday Provisioning group (with the new name), causes the group to be written to <MadCap:variable name="okta-variables.ProductName"/>. However, this new user won't be assigned to an application or removed from one,  because the group (with the new name) in <MadCap:variable name="okta-variables.ProductName"/> has never had an application associated.</li>
+         <li>If an incremental import runs, the results are the same as the preceding RTS scenarios.  The group (with the old name) isn't removed, but users who have been updated since the last import are moved from the group (with the old name) to group (with the new name). This results in application unassignment or deprovisioning.</li>
+         <li>If a full import runs, the group (with the old name) is removed, causing everyone in it to be unassigned or deprovisioned from any associated apps accordingly.  The group (with the new name) is imported, and associated users are added to it. No applications are associated.</li>
+      </ul>
+      <div class="noteOkta">
+         <p class="noteContent">If you have to rename a group in Workday, create a new group instead.</p>
+      </div>
+      <p>Workday Group name changes can result in unwanted behavior downstream in <MadCap:variable name="okta-variables.ProductName"/>. To work around this issue, create a group with the desired name in Workday and assign users to it. Wait for an import or an RTS job to create the new group in <MadCap:variable name="okta-variables.ProductName"/>. </p>
+      <p>After the newly created group is brought into <MadCap:variable name="okta-variables.ProductName"/>, set it up the same as the group that you wanted to rename. When the user memberships, group rules, and application assignments are the same for both groups, you can remove the old group (with the original name) from Workday and update <MadCap:variable name="okta-variables.ProductName"/> by running a full import. </p>
+      <p>Since all users, rules, and application assignments have been duplicated to the new group, no one should lose access to any applications or assignments.</p>
+      <h3>
+         <a name="Provisioning"/>Map Attributes</h3>
+      <a name="attributes"/>
+      <ul>
+         <li>
+            <MadCap:xref href="#Map">Map Attributes from Workday to an [%=okta-variables.ProductName%] User Profile</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Map2">Map attributes to an AD user profile</MadCap:xref>
+         </li>
+      </ul>
+      <h4>
+         <a name="Map"/>Map Attributes from Workday to an <MadCap:variable name="okta-variables.ProductName"/> User Profile</h4>
+      <p>As shown in the Universal Directory (UD) Profile Editor, the base profile that <MadCap:variable name="okta-variables.ProductName"/> imports from Workday consists of 20 attributes. Some of the attribute mappings from the Workday user to the <MadCap:variable name="okta-variables.ProductName"/> user exist by default, but others need to be created manually. The table below contains the recommended mappings for typical use cases.</p>
+      <table style="mc-table-style: url('../../../Resources/TableStyles/standard.css');"
+             class="TableStyle-standard"
+             cellspacing="0">
+         <col style="width: 415px;" class="TableStyle-standard-Column-Column1"/>
+         <col class="TableStyle-standard-Column-Column1" style="width: 585px;"/>
+         <thead>
+            <tr class="TableStyle-standard-Head-Header1">
+               <th class="TableStyle-standard-HeadF-Column1-Header1">
+                  <p>Workday</p>
+               </th>
+               <th class="TableStyle-standard-HeadD-Column1-Header1">
+                  <p>Okta</p>
+               </th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">appuser.accountType</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">userType</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">appuser.businessTitle
+
+</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body2">title</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">appuser.businessUnit</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">department</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">appuser.city</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body2">city</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">appuser.countryCode</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">countryCode</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">appuser.email</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body2">email</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">appuser.employeeID</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">employeeNumber</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">appuser.firstName</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body2">firstName</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">appuser.lastName</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">lastName</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">appuser.location</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body2">locale</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">appuser.managerId</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">managerId</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">appuser.managerUserName</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body2">manager</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">appuser.mobilePhone</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">mobilePhone</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">appuser.postalCode</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body2">zipCode</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">appuser.secondEmail
+
+</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">secondEmail</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">appuser.state</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body2">state</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">appuser.streetAddress
+
+</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">streetAddress</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">appuser.supervisoryOrg
+
+</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body2">organization</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyC-Column1-Body1">appuser.workPhone
+
+</td>
+               <td class="TableStyle-standard-BodyA-Column1-Body1">primaryPhone</td>
+            </tr>
+         </tbody>
+      </table>
+      <div class="noteOkta">
+         <p class="noteContent">When Workday is configured to write to AD (and UD is enabled), the <MadCap:variable name="okta-variables.ProductName"/> admin must manually map some attributes between the Workday app user profile and the <MadCap:variable name="okta-variables.ProductName"/> user profile and the <MadCap:variable name="okta-variables.ProductName"/> user profile and the AD user profile. This allows attributes to flow from Workday to <MadCap:variable name="okta-variables.ProductName"/> and then to AD.</p>
+      </div>
+      <h4>
+         <a name="Map2"/>Map attributes to an AD user profile</h4>
+      <p>Workday as a Source typically involves creating AD users. Some of the attribute mappings from <MadCap:variable name="okta-variables.ProductName"/> user to AD user exist by default, but others need to be created manually. The following table contains the recommended mappings for typical use cases.</p>
+      <table style="mc-table-style: url('../../../Resources/TableStyles/standard.css');"
+             class="TableStyle-standard"
+             cellspacing="0">
+         <col style="width: 563px;" class="TableStyle-standard-Column-Column1"/>
+         <col class="TableStyle-standard-Column-Column1" style="width: 585px;"/>
+         <thead>
+            <tr class="TableStyle-standard-Head-Header1">
+               <th class="TableStyle-standard-HeadF-Column1-Header1">
+                  <p>Okta</p>
+               </th>
+               <th class="TableStyle-standard-HeadD-Column1-Header1">
+                  <p>Active Directory</p>
+               </th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">user.email</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">email</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">user.firstName
+
+</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body2">firstName</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">user.lastName
+
+</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">lastName
+
+</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">hasWorkdayUser() ? (findWorkdayUser().managerUserName + "@" + target_app.namingContext) : null
+
+</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body2">managerUpn</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">substringBefore(user.login, "@")
+
+</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">samAccountName
+
+</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">user.streetAddress
+
+</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body2">streetAddress</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">user.middleName
+
+</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">middleName</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">hasWorkdayUser() ? findWorkdayUser().employeeID : user.employeeNumber</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body2">employeeID</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">hasWorkdayUser() ? findWorkdayUser().supervisoryOrg : user.department</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">department</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">user.honorificPrefix
+
+</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body2">honorificPrefix
+
+</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">
+                  <p>user.state</p>
+               </td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">
+                  <p>state</p>
+               </td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">
+                  <p>user.countryCode</p>
+               </td>
+               <td class="TableStyle-standard-BodyD-Column1-Body2">
+                  <p>countryCode</p>
+               </td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">
+                  <p>user.preferredLanguage</p>
+               </td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">
+                  <p>preferredLanguage</p>
+               </td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">
+                  <p>user.city</p>
+               </td>
+               <td class="TableStyle-standard-BodyD-Column1-Body2">
+                  <p>city</p>
+               </td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">hasWorkdayUser() ? findWorkdayUser().businessTitle : user.title</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">title
+
+</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">user.zipCode
+
+</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body2">postalCode</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">
+                  <p>user.division</p>
+               </td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">
+                  <p>division</p>
+               </td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">
+                  <p>user.mobilePhone</p>
+               </td>
+               <td class="TableStyle-standard-BodyD-Column1-Body2">
+                  <p>mobilePhone</p>
+               </td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">
+                  <p>hasWorkdayUser() ? findWorkdayUser().businessUnit : user.costCenter</p>
+               </td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">
+                  <p>departmentNumber</p>
+               </td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">
+                  <p>hasWorkdayUser() ? findWorkdayUser().location : null</p>
+               </td>
+               <td class="TableStyle-standard-BodyD-Column1-Body2">
+                  <p>deliveryOffice</p>
+               </td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">
+                  <p>user.primaryPhone</p>
+               </td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">
+                  <p>telephoneNumber</p>
+               </td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">
+                  <p>hasWorkdayUser() ? findWorkdayUser().employeeID : user.employeeNumber</p>
+               </td>
+               <td class="TableStyle-standard-BodyD-Column1-Body2">
+                  <p>employeeNumber</p>
+               </td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyC-Column1-Body1">
+                  <p>user.honorificSuffix</p>
+               </td>
+               <td class="TableStyle-standard-BodyA-Column1-Body1">
+                  <p>honorificSuffix</p>
+               </td>
+            </tr>
+         </tbody>
+      </table>
+      <a name="customexpressions"/>
+      <h3>
+         <a name="Custom2"/>Custom expressions</h3>
+      <p>UD supports the use of custom expressions in profile mappings to transform attributes. As shown in the table above, custom expressions are used to populate the SAM Account Name and Manager (UPN).</p>
+      <p>The Manager (UPN) attribute is important for linking managers in AD. This is the full custom expression for Manager (UPN):</p>
+      <span class="codeblock">hasWorkdayUser()?(findWorkdayUser().managerUserName + "@" + target_app.namingContext):null</span>
+      <p>The custom expression triggers this action: If the Workday profile exists for this <MadCap:variable name="okta-variables.ProductName"/> user, then find the <span class="uicontrol">managerUserName</span> attribute of the Workday profile that was imported into <MadCap:variable name="okta-variables.ProductName"/> and append <span class="userinput">@[AD domain]</span> to populate the Manager (UPN) attribute.</p>
+      <p>
+         <MadCap:variable name="okta-variables.ProductName"/> uses the Manager (UPN) attribute to find the Active Directory user in AD that is this <MadCap:variable name="okta-variables.ProductName"/> user's manager, and links the two AD users together. This custom expression can be modified to construct the Manager (UPN) attribute differently to suit special AD environments.</p>
+      <p>Two other situations can result in additional custom expressions appearing in the Provision to AD profile mappings. The first is when UD is turned on for a pre-existing Workday as a Source deployment. The second is when the Workday integration is added to <MadCap:variable name="okta-variables.ProductName"/> first, before AD is added. In both cases, the Workday attributes of Business Title, Location, Supervisory Organization, Business Unit, and Employee ID are mapped directly to their corresponding AD attributes directly through custom expressions.</p>
+      <a name="WDcustomattributes"/>
+      <h3>
+         <a name="Workday2"/>Workday custom attributes</h3>
+      <p>Custom attributes can be imported by using the Field Overrides functionality, which is described in the following section. </p>
+      <p>Functionality to import attributes  through a separate custom report endpoint has been deprecated. Existing custom report configurations aren't affected, but new app instances won't have these configuration options.</p>
+      <h3>
+         <a name="Workday3"/>Workday field overrides</h3>
+      <p>Field Overrides are an alternate way to pull custom attribute information from Workday that replaces the existing custom report facility.</p>
+      <p>Custom attributes are imported using a separate custom report endpoint as described in <MadCap:xref href="#Custom">Custom attributes imported with a custom report</MadCap:xref>. This adds to the complexity of imports because the connector must work with two separate endpoints and merge data from both to have a complete profile for a user.  Custom reports are also discouraged by Workday, especially for large amounts of data.  In response to the limitations of custom reports, Workday has introduced support into their primary API to fetch these custom attributes through Field Overrides.</p>
+      <p>Using Field Overrides simplifies the import process and improves performance.</p>
+      <ul>
+         <li>
+            <MadCap:xref href="#Configur">Configuration</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Field">Field override property types</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Configur2">Configure Workday  to use field overrides in [%=okta-variables.ProductName%]</MadCap:xref>
+         </li>
+      </ul>
+      <h4>
+         <a name="Configur"/>Configuration</h4>
+      <p>To use Field Overrides, Workday administrators must create a new Field Override Integration System within Workday, add the desired custom attributes to it, and configure <MadCap:variable name="okta-variables.ProductName"/> to use this Integration System when fetching worker data.</p>
+      <p>To create a Field Override Integration:</p>
+      <ol>
+         <li>Log in  to your Workday account as an adminstrator, search for Integration System in the search bar, and then click <span class="uicontrol">Create Integration System.</span>
+         </li>
+         <li>Enter the following:<ul>
+               <li>
+                  <span class="uicontrol">System Name</span>: Enter a name for your System Integration.</li>
+               <li>
+                  <span class="uicontrol">Comment</span>: Optionally add a comment.</li>
+               <li>
+                  <span class="uicontrol">Template</span>: Select <span class="uicontrol">worker</span> from the <span class="uicontrol">New using template</span> drop-down menu.</li>
+            </ul>
+         </li>
+         <li>Press <span class="uicontrol">Enter</span>.</li>
+         <li>From the list of results, select <span class="uicontrol">Core Connector: Worker</span>, then click <span class="uicontrol">OK</span>:</li>
+         <li>You're redirected to a page for your freshly created Integration System.</li>
+         <li>Scroll down to the <span class="uicontrol">Custom Integration Services</span> section, and click the + (plus) sign.</li>
+         <li>Click <span class="uicontrol">Create</span>.</li>
+         <li>Select <span class="uicontrol">Create Integration Field Override Service</span> from the list of services.</li>
+         <li>Enter a Name for the Field Override Service, and select <span class="uicontrol">Worker</span> as the Business Object:</li>
+         <li>Add more fields to your Field Override Service by clicking the + (plus) sign. Property types are based on the property name, so if you want to have properties of different types, refer to Field Override Property Types for more information about the property types and naming conventions. Then click <span class="uicontrol">OK</span>.</li>
+         <li>Now you have created your Integration Service is created, you need to configure the field mappings. Go to <span class="menucascade">
+               <span class="uicontrol">Actions</span>
+               <span class="uicontrol">Integration System</span>
+               <span class="uicontrol">Configure Integration Field Overrides</span>
+            </span>.</li>
+         <li>Select your Integration Service from the list on the left, and configure the mappings for your fields. Type and search for a desired field. Make sure that property types are matching.</li>
+         <li>After you have mapped all the properties, click <span class="uicontrol">OK</span>, then click <span class="uicontrol">Done</span>:</li>
+         <li>Search for your Integration System in Workday, then go to <span class="menucascade">
+               <span class="uicontrol">Actions</span>
+               <span class="uicontrol">Integration IDs</span>
+               <span class="uicontrol">View IDs</span>
+            </span>.</li>
+         <li>Copy and save the value of Integration_System_ID. You need this value to set up and update your provisioning settings.</li>
+      </ol>
+      <h4>
+         <a name="Field"/>Field override property types</h4>
+      <p>As opposed to using a Custom Report, with Field Override, there's no way to get the attribute type from Integration System setup. This means that all custom properties are treated as strings. If you want to have a custom property be treated as another type by <MadCap:variable name="okta-variables.ProductName"/> (that is, boolean or number), you need to take an extra step and add the prefix to a property name (step 9).  <MadCap:variable name="okta-variables.ProductName"/> detects this prefix, transforms it to a property type, and then removes the prefix (that is, the prefix doesn't appear in the <MadCap:variable name="okta-variables.ProductName"/> Profile Editor).</p>
+      <p>To make <MadCap:variable name="okta-variables.ProductName"/> honor types from Field Override, you need to name the property with property type and property name separated by colon as follows:
+         <span class="varname">&lt;property_type&gt;:&lt;property_name&gt;</span>.
+         For example, <span class="userinput">string:homePhoneNumber</span>
+      </p>
+      <p>Supported types are:</p>
+      <ul>
+         <li>string</li>
+         <li>boolean</li>
+         <li>integer</li>
+         <li>number</li>
+         <li>decimal</li>
+      </ul>
+      <p>The table shows  how the property names are transformed.</p>
+      <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');"
+             class="TableStyle-standard"
+             cellspacing="0">
+         <col style="width: 222px;" class="TableStyle-standard-Column-Column1"/>
+         <col style="width: 201px;" class="TableStyle-standard-Column-Column1"/>
+         <col style="width: 33%;" class="TableStyle-standard-Column-Column1"/>
+         <col style="width: 33%;" class="TableStyle-standard-Column-Column1"/>
+         <thead>
+            <tr class="TableStyle-standard-Head-Header1">
+               <th class="TableStyle-standard-HeadF-Column1-Header1">Workday Field Override Name</th>
+               <th class="TableStyle-standard-HeadF-Column1-Header1">
+                  <MadCap:variable name="okta-variables.ProductName"/> Property Type</th>
+               <th class="TableStyle-standard-HeadF-Column1-Header1">
+                  <MadCap:variable name="okta-variables.ProductName"/> Transformed Property Name</th>
+               <th class="TableStyle-standard-HeadD-Column1-Header1">Comment</th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">string:my_awesome_string_property	</td>
+               <td class="TableStyle-standard-BodyF-Column1-Body1">string</td>
+               <td class="TableStyle-standard-BodyF-Column1-Body1">my_awesome_string_property</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">
+                  <MadCap:variable name="okta-variables.ProductName"/> will import this property as string and will create a custom property in the Profile Editor with the name my_awesome_string_property and type string</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">boolean:boolean_property	</td>
+               <td class="TableStyle-standard-BodyF-Column1-Body2">boolean</td>
+               <td class="TableStyle-standard-BodyF-Column1-Body2">boolean_property</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body2">
+                  <MadCap:variable name="okta-variables.ProductName"/> will import this property as boolean, and will create a custom property in the Profile Editor with the name boolean_property and type boolean
+</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">string_by_default</td>
+               <td class="TableStyle-standard-BodyF-Column1-Body1">string</td>
+               <td class="TableStyle-standard-BodyF-Column1-Body1">string_by_default</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">
+                  <MadCap:variable name="okta-variables.ProductName"/> will import this property as string since there's no type specified, which means it's a string by default. <MadCap:variable name="okta-variables.ProductName"/> will create a custom property in Profile Editor with the name string_by_default and type string
+</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">not_a_type:property_name	</td>
+               <td class="TableStyle-standard-BodyF-Column1-Body2">string</td>
+               <td class="TableStyle-standard-BodyF-Column1-Body2">not_a_type:property_name</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body2">
+                  <MadCap:variable name="okta-variables.ProductName"/> will import this property as string since the type doesn't match any known type, which means it's a string by default. <MadCap:variable name="okta-variables.ProductName"/> will create a custom property in the Profile Editor with the name not_a_type:property_name and type string. The property prefix won't be stripped out because it's not a known type
+</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">integer:integer_property</td>
+               <td class="TableStyle-standard-BodyF-Column1-Body1">integer</td>
+               <td class="TableStyle-standard-BodyF-Column1-Body1">integer_property</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">
+                  <MadCap:variable name="okta-variables.ProductName"/> will import this property as integer and will create a custom property in the Profile Editor with the name integer_property and type integer
+</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">decimal:decimal_property</td>
+               <td class="TableStyle-standard-BodyF-Column1-Body2">decimal</td>
+               <td class="TableStyle-standard-BodyF-Column1-Body2">decimal_property</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body2">
+                  <MadCap:variable name="okta-variables.ProductName"/> will import this property as decimal and will create a custom property in the Profile Editor with the name decimal_property and type decimal
+</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyC-Column1-Body1">number:number_property</td>
+               <td class="TableStyle-standard-BodyC-Column1-Body1">number</td>
+               <td class="TableStyle-standard-BodyC-Column1-Body1">number_property</td>
+               <td class="TableStyle-standard-BodyA-Column1-Body1">
+                  <MadCap:variable name="okta-variables.ProductName"/> will import this property as number and will create a custom property in the Profile Editor with the name number_property and type number
+</td>
+            </tr>
+         </tbody>
+      </table>
+      <h4>
+         <a name="Configur2"/>Configure Workday  to use field overrides in <MadCap:variable name="okta-variables.ProductName"/>
+      </h4>
+      <ol>
+         <li>In <MadCap:variable name="okta-variables.ProductName"/>, select Applications, search for and select your Workday app instance, then click <span class="menucascade">
+               <span class="uicontrol">Provisioning</span>
+               <span class="uicontrol">Integration</span>
+            </span>. You will see the new configuration property: Integration System Id.</li>
+         <li>Click <span class="uicontrol">Edit</span> and paste the ID of your Integration System you got from step 15 above, then click <span class="uicontrol">Save</span>.</li>
+         <li>
+            <p>Go to the Profile Editor and select your Workday application.</p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Add Attribute</span>. Check if the new properties from your Integration System appear in the list of attributes. If they're not listed, click <span class="uicontrol">Refresh Attribute List</span> and select the attributes that you want to add. Click <span class="uicontrol">Save</span>.</p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Mappings</span> in the Profile Editor and map the attributes.</p>
+         </li>
+      </ol>
+      <h3>
+         <a name="Custom"/>Custom attributes imported with a custom report</h3>
+      <p>This functionality has been deprecated. Existing custom report configurations aren't affected, but this option isn't available for new app instances.</p>
+      <p>A custom Workday report must be created that contains a list of attributes. <MadCap:variable name="okta-variables.ProductName"/> imports these attributes, and UD maps them to the user profile and to downstream app user profiles.</p>
+      <ul>
+         <li>
+            <MadCap:xref href="#Create2">Create a custom report in Workday</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Optimize">Optimize the Import Time of Custom Report</MadCap:xref>
+         </li>
+      </ul>
+      <h4>
+         <a name="Create2"/>Create a custom report in Workday</h4>
+      <ol>
+         <li>Sign in to Workday.</li>
+         <li>Search for create custom report, then select the resulting task.</li>
+         <li>Complete the following fields:<ul>
+               <li>Create a report name in the <span class="uicontrol">Report Name</span> field.</li>
+               <li>Choose <span class="uicontrol">Advanced</span> as the <span class="uicontrol">Report Type</span>, this displays in the <span class="uicontrol">Web Service Enable</span> checkbox.</li>
+               <li>Check the <span class="uicontrol">Web Service Enable</span> checkbox.</li>
+               <li>Click <span class="uicontrol">OK</span>.</li>
+            </ul>
+         </li>
+         <li>Add desired attributes to the custom report.</li>
+         <li>If you want to change the imported attribute's name, modify the Column Heading Override XML Alias column.</li>
+         <ul>
+            <li>
+               <p>Add the Workday ID attribute to the custom report:</p>
+               <p>Change the Column Heading Override XML Alias to Workday_ID.</p>
+               <p>Without Workday_ID, <MadCap:variable name="okta-variables.ProductName"/> won't successfully import custom attributes.</p>
+            </li>
+         </ul>
+         <li>After creating the custom report, click the ellipsis after the report name and go to <span class="menucascade">
+               <span class="uicontrol">Web Service</span>
+               <span class="uicontrol">View Urls</span>
+            </span>.</li>
+         <li>Get the following URLs by right-clicking the link and selecting <span class="uicontrol">Copy URL</span>:<ol style="list-style-type: lower-alpha;">
+               <li>XSD (under Simple XML heading)</li>
+               <li>JSON (under JSON heading)</li>
+            </ol>
+         </li>
+         <li>Share the custom report with your integration user:<ol style="list-style-type: lower-alpha;">
+               <li>Search for Edit Custom Report.</li>
+               <li>Find your custom report.</li>
+               <li>Select the <span class="menucascade">
+                     <span class="uicontrol">Share Tab</span>
+                     <span class="uicontrol">Share with specific authorized groups and users</span>
+                  </span>.</li>
+               <li>Select your integration user.</li>
+            </ol>
+         </li>
+      </ol>
+      <h4>
+         <a name="Optimize"/>Optimize the Import Time of Custom Report</h4>
+      <p>The combination of large numbers of users with large numbers of custom attributes, especially calculated fields, can result in long import times into <MadCap:variable name="okta-variables.ProductName"/>, up to several hours. It can also result in a long lag upon saving the provisioning settings, as <MadCap:variable name="okta-variables.ProductName"/> imports the custom report to validate that it's formatted correctly.</p>
+      <p>You can estimate how long the import might take without setting up the full integration in <MadCap:variable name="okta-variables.ProductName"/>. To do so, access your Workday Custom Report JSON url by opening the report link in a web browser or using a tool such as Postman. Enter your workday admin credentials when prompted.</p>
+      <p>In the rare case that the import takes more than 2 hours to run, the <MadCap:variable name="okta-variables.ProductName"/> service will timeout the open connection. In this case, contact <MadCap:variable name="okta-variables.ProductName"/> Support and request that the connection timeout period be extended to greater than 2 hours.</p>
+      <h3>
+         <a name="Use"/>Use Paginated Custom Reports  (recommended)</h3>
+      <p>In rare situations, setting up a paginated custom report may be helpful. Pagination means that <MadCap:variable name="okta-variables.ProductName"/> makes a per-user call to pull the custom report for a given user, instead of making a single call for all users.</p>
+      <p>If it is not possible to extend the 2-hour connection timeout limit to accommodate an import that takes longer than 2 hours, pagination makes a separate per-user call. However, the overall import time will increase significantly.</p>
+      <p>A paginated custom report can reduce the lag time after saving the provisioning settings because the validation only needs to check the custom report for one user. However, this is only useful if the settings aren't frequently changed as it increases import time.</p>
+      <p>
+         <MadCap:variable name="okta-variables.ProductName"/> recommends using non-paginated reports in most use cases.</p>
+      <h4>Create a Paginated Workday Custom Report </h4>
+      <div class="noteOkta">
+         <p class="noteContent">Not applicable if the org has less than 5000 users.</p>
+      </div>
+      <p>Imports from Workday with custom reports can time out with over 5000 users. The solution is to create a paginated custom report, which allows <MadCap:variable name="okta-variables.ProductName"/> to import chunks of Worker data without timing out. To use this option, follow these steps:</p>
+      <ol>
+         <li>Under the <span class="uicontrol">Filter</span> tab, set up your filter:</li>
+         <p>
+            <img src="../../../Resources/Images/workday7-1.png"
+                 class="thumbnail"
+                 alt="workday7-1.png"/>
+         </p>
+         <li>Under the <span class="uicontrol">Prompts</span> tab, specify the prompt default values:</li>
+         <p>
+            <img src="../../../Resources/Images/workday_new_1.png"
+                 class="thumbnail"
+                 alt="workday_new_1.png"/>
+         </p>
+         <li>Find the Workday ID of the Integration user (recommended) or the admin who is the owner of the report. If the report owner other than the Integration user, it must be shared with the Integration user.</li>
+         <li>View the generated URLs by clicking <span class="menucascade">
+               <span class="uicontrol">Actions</span>
+               <span class="uicontrol">Web Service</span>
+               <span class="uicontrol">View URLs</span>
+            </span>.</li>
+         <li>In the <span class="uicontrol">Employee_ID_Prompt</span> field, enter the Workday ID found in step 3.</li>
+         <p>
+            <div class="noteOkta">
+               <p class="noteContent">Do not deprovision or remove an active admin. If this happens, you'll need to regenerate the URLs by entering a new admin's Workday ID.</p>
+            </div>
+         </p>
+         <li>Obtain the newly paginated URLs by right-clicking on the link and selecting <span class="uicontrol">Copy URL</span>:<ol style="list-style-type: lower-alpha;">
+               <li>XSD (under the Simple XML heading)</li>
+               <li>JSON (under the JSON heading)</li>
+            </ol>
+         </li>
+         <li>Generate the reports as before, adding the new URLs.</li>
+         <li>In <MadCap:variable name="okta-variables.ProductName"/>, navigate to the Workday app, then select the <span class="uicontrol">Provisioning</span> tab.</li>
+         <li>Paste the URL from step 6a (above) into the Custom Report Simple XML XSD URL field (optional). <MadCap:variable name="okta-variables.ProductName"/> uses the XSD URL to get the custom report's schema.</li>
+         <li>Paste the URL from step 6b (above) into the Custom Report JSON URL field (optional). <MadCap:variable name="okta-variables.ProductName"/> uses the JSON URL to get the custom report's data.</li>
+         <p>
+            <MadCap:variable name="okta-variables.ProductName"/> can now import any attribute from Workday via the custom report web services endpoint. Final steps include extending the Workday app user profile, the <MadCap:variable name="okta-variables.ProductName"/> app user profile, and optionally the AD user profile with the new attributes, and mapping attributes between profiles and applying transformations, if required.</p>
+         <p>See <MadCap:xref href="../../Users-Groups-Profiles/usgp-user-profiles-main.htm">Work with Universal Directory user types.</MadCap:xref>
+         </p>
+      </ol>
+      <h3>Known limitations</h3>
+      <ul>
+         <li>
+            <MadCap:variable name="okta-variables.ProductName"/> does not display Arabic characters imported from Workday correctly.</li>
+         <li>Removing a custom attribute in Workday, then importing into <MadCap:variable name="okta-variables.ProductName"/>, does not erase the custom attribute value that was previously imported.</li>
+         <li>If you receive the following error message during profile updates (phone device values) to Workday:</li>
+      </ul>
+      <blockquote>
+         <p>
+            <img src="../../../Resources/Images/workday_prov_1.png"
+                 class="thumbnail"
+                 alt="workday_prov_1.png"/>
+         </p>
+      </blockquote>
+      <blockquote>
+         <p>Then your Workday tenant is configured with custom Phone_Device_Type_Id values. You need to reset them to use the Workday-configured factory default values as follows:</p>
+         <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');"
+                class="TableStyle-standard"
+                cellspacing="0">
+            <col style="width: 166px;" class="TableStyle-standard-Column-Column1"/>
+            <col style="width: 133px;" class="TableStyle-standard-Column-Column1"/>
+            <thead>
+               <tr class="TableStyle-standard-Head-Header1">
+                  <th class="TableStyle-standard-HeadF-Column1-Header1">Name</th>
+                  <th class="TableStyle-standard-HeadD-Column1-Header1">Value</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr class="TableStyle-standard-Body-Body1">
+                  <td class="TableStyle-standard-BodyF-Column1-Body1">MOBILE</td>
+                  <td class="TableStyle-standard-BodyD-Column1-Body1">Mobile</td>
+               </tr>
+               <tr class="TableStyle-standard-Body-Body2">
+                  <td class="TableStyle-standard-BodyF-Column1-Body2">FAX</td>
+                  <td class="TableStyle-standard-BodyD-Column1-Body2">Fax</td>
+               </tr>
+               <tr class="TableStyle-standard-Body-Body1">
+                  <td class="TableStyle-standard-BodyF-Column1-Body1">TELEPHONE</td>
+                  <td class="TableStyle-standard-BodyD-Column1-Body1">Telephone</td>
+               </tr>
+               <tr class="TableStyle-standard-Body-Body2">
+                  <td class="TableStyle-standard-BodyC-Column1-Body2">PAGER</td>
+                  <td class="TableStyle-standard-BodyA-Column1-Body2">Pager</td>
+               </tr>
+            </tbody>
+         </table>
+      </blockquote>
+      <h2>Features</h2>
+      <h3>Contractor to Full-Time Employee Conversion</h3>
+      <ul>
+         <li>In order to be able to use Workday Contractor to Full-Time Employee conversion support, you must modify your Workday tenant setup to configure Universal ID for workers first. Once configured, Universal ID only applies to newly created workers of the tenant. In order to back port it to existing workers you must manually update these Workday profiles using
+					<a href="https://community.workday.com/sites/default/files/file-hosting/productionapi/Human_Resources/v29.2/Put_Universal_Identifier.html"
+               target="_blank">Workday's API</a>. Without a Universal ID, <MadCap:variable name="okta-variables.ProductName"/> will be unable to detect that a contractor has been converted to full-time.  This may lead to duplicate workers in some cases.</li>
+         <li>Mapping Universal ID from Workday to <MadCap:variable name="okta-variables.ProductName"/> is optional and is not required for this feature to work.</li>
+      </ul>
+      <h4>Universal ID</h4>
+      <p>What is Universal ID?</p>
+      <p>On the Workday side, Contractor and Full-Time workers are two separate entities with two separate Workday IDs. Universal ID configuration allows you to link these together by setting the same secondary ID for both (Universal ID).</p>
+      <p>Why is Universal ID needed:</p>
+      <p>If your Workday Provisioning integration is configured with pre-hire interval, but Universal ID isn't configured, <MadCap:variable name="okta-variables.ProductName"/> pulls in the Contractor worker and the future Full-Time user (pre-hire). As a result, <MadCap:variable name="okta-variables.ProductName"/> creates a duplicate entry in the <span class="uicontrol">Import</span> tab.  This happens because those two workers in Workday have different Workday IDs, and Okta can't detect that they are the same user.</p>
+      <p>How does it work:</p>
+      <p>When Universal ID is configured in Workday, as part of the Contractor to Full-Time conversion feature, Okta detects if there are any workers coming in as pre-hires that have the same Universal ID as the currently active and existing workers. If there are such pre-hires, we filter them out while the currently existing workers with the same Universal ID are present.</p>
+      <p>When the Contractor worker is deactivated and the import from Workday is running, a Full-Time user will be the one we select, as the Contractor is no longer an option.</p>
+      <p>Upon conversion, the Okta user is deactivated and then reactivated. This is expected behavior, from Okta's perspective, the Contractor worker is terminated and new Full-Time worker is hired.</p>
+      <p>This was implemented to support cases when a Contractor worker is terminated, but the hire date of the Full-Time user is not the same day.</p>
+      <p>For example: A Contractor was converted to Full-Time, but they wanted to take a week off before the start date as Full-Time worker. The Full-Time worker will not be imported until their actual start date.</p>
+      <p>For the conversion to work automatically, you need to enable the minimum set of configuration options on <span class="uicontrol">ProvisioningTo Okta</span> tab, as follows:</p>
+      <p>User Creation &amp; Matching:</p>
+      <blockquote>
+         <p>Auto-confirm exact matches</p>
+         <p>Auto-confirm new users</p>
+      </blockquote>
+      <p>Profile &amp; Lifecycle Sourcing:</p>
+      <blockquote>
+         <p>Reactivate suspended Okta users (optional, depends on your setup)</p>
+         <p>Reactivate deactivated Okta user</p>
+      </blockquote>
+      <p>There might be a gap between Contractor user deactivation and Full-Time user reactivation. This is usually caused by the timezone difference between Workday's termination/hire dates for user and the time zone that Workday tenant is operating. Currently, Okta supports only Time Zone-Aware terminations, but doesn't consider the time zone when importing new hires.</p>
+      <p>To learn how to configure Universal ID for your Workday tenant (note that you need a Workday Community account to access these articles) see:</p>
+      <ul>
+         <li>
+            <a href="https://doc.workday.com/reader/3DMnG~27o049IYFWETFtTQ/BFComPGujVu9T193LKZJ0Q"
+               target="_blank">Create ID Definitions and Sequence Generators</a>.</li>
+         <li>
+            <a href="https://doc.workday.com/reader/gJQvxHUyQOZv_31Vknf~3w/Xvlcr7jyAH9hNWYz9NNr8g"
+               target="_blank">Set Up Workday IDs</a>.</li>
+      </ul>
+      <h3>
+         <a name="Deactiva"/>Deactivation</h3>
+      <p>During imports (Scheduled, RTS, and Incremental), <MadCap:variable name="okta-variables.ProductName"/> performs a query to determine if any workers have been terminated in the last 24 hours or will be terminated within the next 24 hours. Workers that fall into this category will have the following rules applied to determine:
+
+</p>
+      <ul>
+         <li>
+            <p>
+               <MadCap:xref href="#Immediate_Deactivation_Reasons">Immediate Deactivation</MadCap:xref>: If the termination reason of the worker matches one of the configured immediate termination reasons within <MadCap:variable name="okta-variables.ProductName"/>, the worker is deactivated immediately. </p>
+         </li>
+         <li>
+            <MadCap:xref href="#Time">Time Zone Aware Deactivation</MadCap:xref>: If the termination reasons are not matched, then the termination/last day worked date of the worker are compared to the current time. <MadCap:variable name="okta-variables.ProductName"/> relies on the timezone provided by Workday within the termination date when determining if the deactivation time has come to pass. Typically Workday returns the termination date as midnight PST. If the current time is after that date, then the worker is deactivated.</li>
+      </ul>
+      <ul>
+         <li>
+            <p>Workers with a future termination date and a matching immediate termination reason will be terminated one day early. For example, if termination Date is 2022/10/22 and current Date is 2022/10/21, and the Immediate Termination reason matches; the user will be terminated as part of the import on 2022/10/21 - one day prior to their termination date.</p>
+         </li>
+         <li>
+            <p>Workers still only terminate at midnight UTC unless Time Zone Aware Deactivation is enabled.</p>
+            <ul>
+               <li>See <MadCap:xref href="#Time">Time Zone Aware Deactivation</MadCap:xref>  for workaround.</li>
+            </ul>
+         </li>
+      </ul>
+      <h4>
+         <a name="Immediate_Deactivation_Reasons"/>Immediate Deactivation Reasons</h4>
+      <p>By default, <MadCap:variable name="okta-variables.ProductName"/> waits until the end of the day to take action on a terminated Worker in Workday. Such actions might include un-assigning them from the Workday app or deactivating them. However, if the termination reasons for the Worker match those specified in Immediate Termination Reasons and the termination date is set to the current date, <MadCap:variable name="okta-variables.ProductName"/> will take action immediately after receiving the event from Workday.</p>
+      <h4>Configure Immediate Deactivation Reasons</h4>
+      <ol>
+         <li>
+            <p>In <MadCap:variable name="okta-variables.ProductName"/>, select the  Provisioning tab for the Workday app.</p>
+         </li>
+         <li>
+            <p>Enter some Immediate Termination Reasons with the required termination subcategory, as described in Workday.</p>
+            <p> You can also use Regex expressions to specify deactivation reasons. </p>
+            <p MadCap:conditions="Primary.do-not-publish">For example: Terminate_Employee_Involuntary* means that all terminated Workers with that prefix in any of their Termination_Subcategory_ID(s) will be immediately unassigned from the Workday app and deactivated in <MadCap:variable name="okta-variables.ProductName"/>.</p>
+            <p> Regex Examples:</p>
+            <p>Use the pipe (|) OR operator to list multiple deactivation reasons. The following regex defines multiple possible immediate deactivation reasons. Here all deactivated workers with any of the following termination reasons will be immediately unassigned from the Workday app and deactivated in <MadCap:variable name="okta-variables.ProductName"/>: </p>
+            <span class="codeblock">Terminate_Employee_Voluntary_DissatisfiedPay|
+Terminate_Employee_Involuntary_Harassment|
+Terminate_EmployeeImmediateTerm_ImmediateTerm|
+Terminate_Employee_Voluntary_Commute</span>
+            <p>Use ^.*&lt;TerminationReason&gt;$ to match termination reasons that end with the specified expression. For example, adding the following to the above expression additionally matches any reasons that end with DissatisfiedPay:</p>
+            <span class="codeblock">^.*DissatisfiedPay$</span>
+            <p>Use ^&lt;TerminationReason&gt;.* to match termination reasons that start with the specified expression. For example, adding the following additionally matches any reasons that begin with Terminate_Employee_Voluntary:</p>
+            <span class="codeblock">^Terminate_Employee_Voluntary.*</span>
+            <p>Furthermore, you can use combinations of both, for example:</p>
+            <span class="codeblock">^.*DissatisfiedPay$|^.*Involuntary_Harassment$|
+^.*ImmediateTerm$|^Terminate_Employee_Voluntary.*</span>
+            <p>Be careful when creating these expressions and make sure they are strictly applied to the right workers  and not anyone else.</p>
+         </li>
+      </ol>
+      <p>Notes:
+        </p>
+      <ul>
+         <li>
+            <p>There can be no default value for this text box.</p>
+         </li>
+         <li>
+            <p>Termination Reasons are selected in Workday under Reason and Secondary Reasons in Workday:</p>
+            <p>
+               <img src="../../../Resources/Images/workday-termination.png"
+                    class="thumbnail"/>
+            </p>
+         </li>
+         <li>
+            <p>Termination_Subcategory_ID(s) that identify each termination reason can be found by searching for the following in Workday: Integration IDs, then selecting the Business Object: Terminationsubcategory:</p>
+            <p>
+               <img src="../../../Resources/Images/workday-termination2.jpeg"
+                    class="thumbnail"/>
+            </p>
+         </li>
+      </ul>
+      <p>The chart below illustrates various outcomes based upon termination variables:</p>
+      <div>
+         <div>
+            <table border="1"
+                   style="mc-table-style: url('../../../Resources/TableStyles/standard.css');"
+                   class="TableStyle-standard"
+                   cellspacing="0">
+               <col class="TableStyle-standard-Column-Column1"/>
+               <col style="width: 192px;" class="TableStyle-standard-Column-Column1"/>
+               <col class="TableStyle-standard-Column-Column1"/>
+               <col class="TableStyle-standard-Column-Column1"/>
+               <thead>
+                  <tr class="TableStyle-standard-Head-Header1">
+                     <th class="TableStyle-standard-HeadF-Column1-Header1">
+                        <p>Pre-hire interval set?</p>
+                     </th>
+                     <th class="TableStyle-standard-HeadF-Column1-Header1">
+                        <p>Immediate termination reason matches?</p>
+                     </th>
+                     <th class="TableStyle-standard-HeadF-Column1-Header1">
+                        <p>Use last day of work?</p>
+                     </th>
+                     <th class="TableStyle-standard-HeadD-Column1-Header1">
+                        <p>Outcome</p>
+                     </th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr class="TableStyle-standard-Body-Body1">
+                     <td style="text-align: center;"
+                         class="TableStyle-standard-BodyF-Column1-Body1">
+                        <div>
+                           <div>
+                                    </div>
+                        </div>
+                     </td>
+                     <td style="text-align: center;"
+                         class="TableStyle-standard-BodyF-Column1-Body1">
+                        <div>
+                           <div>
+                                    </div>
+                        </div>
+                     </td>
+                     <td style="text-align: center;"
+                         class="TableStyle-standard-BodyF-Column1-Body1">
+                        <div>
+                           <div>
+                                    </div>
+                        </div>
+                     </td>
+                     <td class="TableStyle-standard-BodyD-Column1-Body1">
+                        <div>
+                           <div>
+                              <p>
+															Worker will become deactivated after their
+															termination date has come to pass 
+														</p>
+                           </div>
+                        </div>
+                     </td>
+                  </tr>
+                  <tr class="TableStyle-standard-Body-Body2">
+                     <td style="text-align: center;"
+                         class="TableStyle-standard-BodyF-Column1-Body2">
+                        <div>
+                           <div>
+                                    </div>
+                        </div>
+                     </td>
+                     <td style="text-align: center;"
+                         class="TableStyle-standard-BodyF-Column1-Body2">
+                        <div>
+                           <div>
+                                    </div>
+                        </div>
+                     </td>
+                     <td style="text-align: center;"
+                         class="TableStyle-standard-BodyF-Column1-Body2">
+                        <div>
+                           <div>
+                              <p>●</p>
+                           </div>
+                        </div>
+                     </td>
+                     <td class="TableStyle-standard-BodyD-Column1-Body2">
+                        <div>
+                           <div>
+                              <p>
+															Worker will become deactivated after their
+															last day of work has come to pass
+														</p>
+                           </div>
+                        </div>
+                     </td>
+                  </tr>
+                  <tr class="TableStyle-standard-Body-Body1">
+                     <td style="text-align: center;"
+                         class="TableStyle-standard-BodyF-Column1-Body1">
+                        <div>
+                           <div>
+                                    </div>
+                        </div>
+                     </td>
+                     <td style="text-align: center;"
+                         class="TableStyle-standard-BodyF-Column1-Body1">
+                        <div>
+                           <div>
+                              <p>●</p>
+                           </div>
+                        </div>
+                     </td>
+                     <td style="text-align: center;"
+                         class="TableStyle-standard-BodyF-Column1-Body1">
+                        <div>
+                           <div>
+                                    </div>
+                        </div>
+                     </td>
+                     <td class="TableStyle-standard-BodyD-Column1-Body1">
+                        <div>
+                           <div>
+                              <p>
+															Worker will become deactivated 1 day prior
+															to their termination date coming to pass
+														</p>
+                           </div>
+                        </div>
+                     </td>
+                  </tr>
+                  <tr class="TableStyle-standard-Body-Body2">
+                     <td style="text-align: center;"
+                         class="TableStyle-standard-BodyF-Column1-Body2">
+                        <div>
+                           <div>
+                                    </div>
+                        </div>
+                     </td>
+                     <td style="text-align: center;"
+                         class="TableStyle-standard-BodyF-Column1-Body2">
+                        <div>
+                           <div>
+                              <p>●</p>
+                           </div>
+                        </div>
+                     </td>
+                     <td style="text-align: center;"
+                         class="TableStyle-standard-BodyF-Column1-Body2">
+                        <div>
+                           <div>
+                              <p>●</p>
+                           </div>
+                        </div>
+                     </td>
+                     <td class="TableStyle-standard-BodyD-Column1-Body2">
+                        <div>
+                           <div>
+                              <p>
+															Worker will become deactivated 1 day prior
+															to their termination date coming to pass
+														</p>
+                           </div>
+                        </div>
+                     </td>
+                  </tr>
+                  <tr class="TableStyle-standard-Body-Body1">
+                     <td style="text-align: center;"
+                         class="TableStyle-standard-BodyF-Column1-Body1">
+                        <div>
+                           <div>
+                              <p>●</p>
+                           </div>
+                        </div>
+                     </td>
+                     <td style="text-align: center;"
+                         class="TableStyle-standard-BodyF-Column1-Body1">
+                        <div>
+                           <div>
+                                    </div>
+                        </div>
+                     </td>
+                     <td style="text-align: center;"
+                         class="TableStyle-standard-BodyF-Column1-Body1">
+                        <div>
+                           <div>
+                                    </div>
+                        </div>
+                     </td>
+                     <td class="TableStyle-standard-BodyD-Column1-Body1">
+                        <div>
+                           <div>
+                              <p>
+															Worker will become deactivated after their
+															termination date has come to pass
+														</p>
+                           </div>
+                        </div>
+                     </td>
+                  </tr>
+                  <tr class="TableStyle-standard-Body-Body2">
+                     <td style="text-align: center;"
+                         class="TableStyle-standard-BodyF-Column1-Body2">
+                        <div>
+                           <div>
+                              <p>●</p>
+                           </div>
+                        </div>
+                     </td>
+                     <td style="text-align: center;"
+                         class="TableStyle-standard-BodyF-Column1-Body2">
+                        <div>
+                           <div>
+                                    </div>
+                        </div>
+                     </td>
+                     <td style="text-align: center;"
+                         class="TableStyle-standard-BodyF-Column1-Body2">
+                        <div>
+                           <div>
+                              <p>●</p>
+                           </div>
+                        </div>
+                     </td>
+                     <td class="TableStyle-standard-BodyD-Column1-Body2">
+                        <div>
+                           <div>
+                              <p>
+															Worker will become deactivated after their
+															last day of work has come to pass
+														</p>
+                           </div>
+                        </div>
+                     </td>
+                  </tr>
+                  <tr class="TableStyle-standard-Body-Body1">
+                     <td style="text-align: center;"
+                         class="TableStyle-standard-BodyF-Column1-Body1">
+                        <div>
+                           <div>
+                              <p>●</p>
+                           </div>
+                        </div>
+                     </td>
+                     <td style="text-align: center;"
+                         class="TableStyle-standard-BodyF-Column1-Body1">
+                        <div>
+                           <div>
+                              <p>●</p>
+                           </div>
+                        </div>
+                     </td>
+                     <td style="text-align: center;"
+                         class="TableStyle-standard-BodyF-Column1-Body1">
+                        <div>
+                           <div>
+                                    </div>
+                        </div>
+                     </td>
+                     <td class="TableStyle-standard-BodyD-Column1-Body1">
+                        <div>
+                           <div>
+                              <p>
+															Worker will become deactivated after their
+															termination date has come to pass
+														</p>
+                           </div>
+                        </div>
+                     </td>
+                  </tr>
+                  <tr class="TableStyle-standard-Body-Body2">
+                     <td style="text-align: center;"
+                         class="TableStyle-standard-BodyC-Column1-Body2">
+                        <div>
+                           <div>
+                              <p>●</p>
+                           </div>
+                        </div>
+                     </td>
+                     <td style="text-align: center;"
+                         class="TableStyle-standard-BodyC-Column1-Body2">
+                        <div>
+                           <div>
+                              <p>●</p>
+                           </div>
+                        </div>
+                     </td>
+                     <td style="text-align: center;"
+                         class="TableStyle-standard-BodyC-Column1-Body2">
+                        <div>
+                           <div>
+                              <p>●</p>
+                           </div>
+                        </div>
+                     </td>
+                     <td class="TableStyle-standard-BodyA-Column1-Body2">
+                        <div>
+                           <div>
+                              <p>
+															Worker will become deactivated after their
+															last day of work has come to pass
+														</p>
+                           </div>
+                        </div>
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+      </div>
+      <h4>
+         <a name="Time"/>Time Zone Aware Deactivation</h4>
+      <p>The Workday Integration now supports Time Zone-Aware Deactivations where a worker's termination is processed based on the time zone of the worker's Location in Workday. </p>
+      <p>This feature is available for all Workday applications and can be enabled by checking Timezone aware terminations on the Provisioning tab.</p>
+      <p>Limitation: Time Zone Aware Reactivation is not currently supported.</p>
+      <p>In order for the Time Zone-Aware Deactivations feature to work successfully, you need to give additional required permissions to the integration System User or System Group listed below then activate those permissions, as described below:</p>
+      <p>Domain Security Policy Permissions.</p>
+      <ul>
+         <li>Follow steps a-e (part of step 7) of <MadCap:xref href="#Grant">Grant permission to an Integration System User</MadCap:xref> for the following domains:<ul>
+               <li>"Worker Data:Manage locations"</li>
+               <li>Use Manage: Location if Worker Data:Manage locations isn't available.</li>
+            </ul>
+         </li>
+      </ul>
+      <p>
+         <MadCap:variable name="okta-variables.ProductName"/> detects the location of the worker and processes their scheduled termination (based on either Termination Date or Last Day of Work) based on the associated time zone of that location. This worker will then be deactivated on the next scheduled import after midnight in the time zone of that worker.</p>
+      <p>If the worker has a preferred time zone in the Workday set, aside from their location, then that time zone takes precedence over their detected location's timezone.  Order of precedence of determining time zone is as follows:</p>
+      <ol>
+         <li>Preferred time zone of the worker</li>
+         <li>Time zone of the worker's location</li>
+         <li>Pacific Standard Time (PST)</li>
+      </ol>
+      <p>For example, Cathy is based in Sydney, Australia, and that location in Workday has a time zone of GMT+10.</p>
+      <p>Cathy is scheduled to be terminated on July 4th. If the Time Zone Deactivation feature is not enabled, Cathy's termination would be processed on the next import after midnight UTC as all deactivations are fixed on the UTC time zone (GMT+0). With the Time Zone Deactivation feature enabled, Cathy will be deactivated in <MadCap:variable name="okta-variables.ProductName"/> on the next import after midnight in Sydney time (GMT+10). Effectively, Cathy will be deactivated 10 hours prior to when she would have been deactivated in the past. </p>
+      <h2>Related topics</h2>
+      <p>
+         <MadCap:xref href="incremental-imports.htm">Incremental imports</MadCap:xref>
+      </p>
+      <p>
+         <MadCap:xref href="workday-rts.htm">Workday Real Time Sync</MadCap:xref>
+      </p>
+      <p>
+         <MadCap:xref href="workday-email-phone-writeback.htm">Workday Email and Phone writeback</MadCap:xref>
+      </p>
+      <p>
+         <MadCap:xref href="workday-writeback-enhancement.htm">Workday writeback enhancement</MadCap:xref>
+      </p>
+      <p>
+         <MadCap:xref href="best-practices.htm">Best practices and FAQ</MadCap:xref>
+      </p>
+   </body>
+</html>

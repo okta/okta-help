@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link href="" rel="stylesheet" type="text/css" />
+        <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/advanced-oag-policy-development.htm" />
+        <link href="../../Resources/TableStyles/standard-shaded-rows.css" rel="stylesheet" MadCap:stylesheetType="table" /><title>[%=Heading.Level1%] | Okta</title>
+        <meta name="description" content="Manage Access Gateway Application Policies to restrict or allow access to on-prem applications based on admin-created, app-specific policies." />
+    </head>
+    <body>
+        <h1>Develop advanced <MadCap:variable name="okta-feature-names.Access Gateway" /> policy</h1>
+        <div>
+            <p>An advanced policy consists of one or more statements. Policy statements:</p>
+            <ul>
+                <li>Run in the order specified.</li>
+                <li>End with a semicolon.</li>
+                <li>Can define variables.</li>
+                <li>Can read and write <MadCap:variable name="okta-feature-names.Access Gateway" /> and HTTP&#160;session variables.</li>
+                <li>Support if/then style conditional constructs.</li>
+                <li>Support grouping statements into blocks.</li>
+                <li>Support short circuiting, causing execution to cease at that point.</li>
+                <li>Support changing and returning HTTP status codes.</li>
+                <li>Support URL&#160;rewriting.<br /></li>
+            </ul>
+            <div>
+                <h2>Known issues</h2>
+                <h3>Edit and validate a previously created valid policy</h3>
+                <MadCap:snippetBlock src="../../Resources/Snippets/access-gateway/known-issues-valid-policy.flsnp" />
+            </div>
+            <div>
+                <h3>Define an advanced policy</h3>
+                <p>To define an advanced policy:</p>
+                <ol>
+                    <li>Sign in to the <MadCap:variable name="okta-feature-names.Access&#160;Gateway UI" />.</li>
+                    <li>Click the <span class="uicontrol">Applications</span> tab.</li>
+                    <li>Click <span class="uicontrol">Edit</span>.<br /><br /><img src="../../Resources/Images/access-gateway/admin-policy-guide-advanced.01.png" id="img_new" alt="Click the pencil icon next to any application to open for update." class="thumbnail" /><br /></li>
+                    <li>Click <span class="uicontrol">Policies</span>.<br /></li>
+                    <li>Click <span class="uicontrol">Edit</span>.<br /><img src="../../Resources/Images/access-gateway/admin-policy-guide-advanced.03.png" id="img_new" alt="Click the pencil to open a policy for edit." class="thumbnail" /></li>
+                    <li>Expand <span class="uicontrol">Advanced</span>.</li>
+                    <li>In the <span class="uicontrol">Custom Configuration</span> box, enter the advanced policy. For example:<span class="codeblock">set $TEST "some value";
+proxy_set_header header_test $TEST;</span></li>
+                    <li>
+                        <p>Click <span class="uicontrol">Not Validated</span> to validate the syntax of the custom configuration. If the validation is successful, the button change to <span class="uicontrol">Validated</span>. If it doesn't, correct any syntax errors and revalidate. </p>
+                    </li>
+                    <li>Click <span class="uicontrol">Okay</span> to save the custom configuration.</li>
+                    <li>Click <span class="uicontrol">Done</span> to complete the application editing session. </li>
+                </ol>
+            </div>
+            <div>
+                <h3><a name="Custom_Configuration"></a>Custom Configuration</h3>
+                <p>A custom configuration consists of comments, one or more statements, session data, performing various tests, and executing follow-up actions on those tests. Custom configurations support the following constructs:</p>
+                <ul>
+                    <li>
+                        <MadCap:xref href="#Comments">Comments</MadCap:xref>
+                    </li>
+                    <li>
+                        <MadCap:xref href="#Embedded">Embedded or predefined variables</MadCap:xref>
+                    </li>
+                    <li>
+                        <MadCap:xref href="#User">User variables</MadCap:xref>
+                    </li>
+                    <li>
+                        <MadCap:xref href="#Conditio">Conditionals</MadCap:xref>
+                    </li>
+                    <li>
+                        <MadCap:xref href="#Return">Return codes</MadCap:xref>
+                    </li>
+                    <li>
+                        <MadCap:xref href="#Directiv">Directives</MadCap:xref>
+                    </li>
+                </ul>
+                <div>
+                    <h4><a name="Comments"></a>Comments</h4>
+                    <p>A <span class="code">#</span> precedes every comment.</p><span class="codeblock">#This is a comment.
+ #This comment, preceded by a space.
+set $TEST "some value"; #this is also a valid comment.
+</span>
+                </div>
+                <div>
+                    <h4><a name="Embedded"></a>Embedded or predefined variables<br /></h4>
+                    <p>Embedded variables include all HTTP&#160;session, cookie, query, and request header fields, and more than 50 named variables. It's customary to use a prefix when naming and accessing these variables. Common prefixes include:</p>
+                    <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+                        <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                        <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                        <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                        <thead>
+                            <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                                <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Prefix</th>
+                                <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                                    <p>Use</p>
+                                </th>
+                                <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><span class="uicontrol">arg_</span>
+                                </td>
+                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                                    <p>Access query arguments</p>
+                                </td>
+                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">arg_name, where name represents a query variable.</td>
+                            </tr>
+                            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><span class="uicontrol">cookie_</span>
+                                </td>
+                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Access cookie fields</td>
+                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">cookie_<i style="font-style: normal; font-weight: normal;">name</i>, where name represents some cookie field.</td>
+                            </tr>
+                            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><span class="uicontrol">http_</span>
+                                </td>
+                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Access arbitrary header field</td>
+                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">http_email, where email represents some field in the header. </td>
+                            </tr>
+                            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2"><span class="uicontrol">sent_http_</span>
+                                </td>
+                                <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">Response header field</td>
+                                <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">sent_http_email, where email represents some field in the response header. </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>A partial list of variables includes:</p>
+                    <ul>
+                        <li><span class="code">$args</span> - All arguments in the request.</li>
+                        <li><span class="code">$request_uri</span> - complete original request URI (with arguments).</li>
+                        <li><span class="code">$uri</span> - Content URI&#160;in request.</li>
+                        <li><span class="code">$request_body</span> - Request body.</li>
+                    </ul>
+                    <p>See <a href="http://nginx.org/en/docs/http/ngx_http_core_module.html#var_sent_http_" title="Embedded variables." alt="Embedded variables.">Embedded variables</a> for the complete list of embedded variables.</p>
+                </div>
+                <div>
+                    <h4><a name="User"></a>User variables</h4>
+                    <p>You can define variables in a custom configuration. You can use them in assignments and in conditional statements.</p>
+                    <p>General format:</p><span class="codeblock">set $variablename value;</span>
+                    <p>Example:
+<br /></p><span class="codeblock">#create a variable TEST, containing the value "test value"
+set $TEST "test value";</span>
+                </div>
+                <div>
+                    <h4><a name="Conditio"></a>Conditionals</h4>
+                    <p>Conditional statements let you choose whether to execute code based on variable states. </p>
+                    <p>The general format of a conditional statement is:</p><span class="codeblock">if (condition) { statement1; statement2; . . . statementn; }</span>
+                    <p>Where <span class="code">condition</span> is:</p>
+                    <ul>
+                        <li>A variable name. False if empty or <span class="uicontrol">0</span>, otherwise true.</li>
+                        <li>Comparison between two variables using equality (<span class="codeph">=</span>) and inequality (<span class="codeph">!=</span>) operators. </li>
+                        <li>Matching of a variable against a regular expression. </li>
+                    </ul>
+                    <p>Example:
+                        <br /></p><span class="codeblock"># If the query parameter 'test' contains the value 'demo'
+#&#160;then no authorization required.<br />if ($arg_test = "demo") {
+    set $policy_type "NO_AUTH";}</span>
+                    <p>In addition, the <span class="codeph">break</span> directive stops further statement execution. The following provides an example of using the break directive:</p><span class="codeblock">if ($arg_test = "demo") {
+    set $policy_type "NO_AUTH";
+    break;
+}
+#Statements after break not executed if condition is true</span>
+                    <p>See <a href="http://nginx.org/en/docs/http/ngx_http_rewrite_module.html#if">if statement</a> for more information on if statements.</p>
+                </div>
+                <div>
+                    <h4><a name="Return"></a>Return codes</h4>
+                    <p>Stops processing and returns the specified code to a client. </p>
+                    <p>General format:</p><span class="codeblock">return numericReturnCode [optional url];</span>
+                    <p>Example:</p><span class="codeblock">#Stop executing and return a 404
+return 404;</span>
+                </div>
+                <div>
+                    <h4><a name="Directiv"></a>Directives</h4>
+                    <p>Call directives from the custom configuration, similar to function calls in programming languages. Directives can take parameters. See <a href="https://nginx.org/en/docs/dirindex.html" title="Alphabetical list of all NGNIX directives." alt="Alphabetical list of all NGNIX directives.">Alphabetical list of all NGNIX directives</a>.</p>
+                    <p>The general format of a directive is:</p><span class="codeblock">directive_name [parameter1 [parameter2 [parametern]]];</span>
+                    <div class="noteOkta">
+                        <p class="noteContent">Custom configurations only support directives that specify the location context. For example:<img src="../../Resources/Images/access-gateway/admin-user-policy-guide-advanced.directive.example.png" alt="An example of a directive which supports location. " /></p>
+                    </div>
+                    <p>Some examples of directives include the following:</p>
+                    <div>
+                        <h5>Proxy hide header</h5>
+                        <p style="font-weight: normal;">By default certain header fields are hidden. The <span class="code">proxy_hide_header</span> field directive can be used to hide other headers.</p>
+                        <p style="font-weight: normal;">General format:</p>
+                        <blockquote><span class="codeblock">proxy_set_header field value;</span>
+                            <p>Value can contain text, variables, and their combinations. </p>
+                        </blockquote>
+                        <p>Example:</p><span class="codeblock">proxy_set_header Host       $proxy_host;</span>
+                    </div>
+                    <div>
+                        <h5>Proxy set header</h5>
+                        <p>Allows redefining or appending fields to the request header.</p>
+                        <p>General format:</p><span class="codeblock">proxy_hide_header field;</span>
+                        <p>Example:</p><span class="codeblock">proxy_hide_header secondaryEmailAddress;</span>
+                    </div>
+                    <div>
+                        <h5>Proxy Redirecting</h5>
+                        <p>Specify the values to change in the Location and Refresh header fields of a proxied server response.&#160;</p>
+                        <p>General format:</p><span class="codeblock">proxy_redirect redirect replacement;</span>
+                        <p>Example:</p><span class="codeblock">proxy_redirect http://general.domain.tbd/abc http://abc.domain.tld;</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h2><a name="Next_Steps"></a>Next Steps</h2>
+        <MadCap:snippetBlock src="../../Resources/Snippets/access-gateway/ApplicationNextSteps.flsnp" />
+    </body>
+</html>

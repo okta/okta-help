@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/monitoring-metrics-conf-prometheus.htm" /><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1>Configure Prometheus</h1>
+        <p>Configure <MadCap:variable name="okta-feature-names.Access Gateway" /> targets to use <a href="https://prometheus.io/" target="_blank">Prometheus</a> for monitoring metrics. </p>
+        <div>
+            <h2>Before you begin</h2>
+            <p>Configure <MadCap:variable name="okta-feature-names.Access Gateway" /> to support monitoring. See <MadCap:xref href="monitoring-metrics-configure.htm">Configure metric monitoring</MadCap:xref>.</p>
+            <p>Download and install Prometheus. You can also install Prometheus using: <span class="code">brew install prometheus</span>. </p>
+        </div>
+        <div>
+            <h2>Define <MadCap:variable name="okta-feature-names.Access Gateway" /> targets for Prometheus</h2>
+            <div class="noteOkta">
+                <p class="noteContent">Prometheus can be installed in various locations. This page assumes an installation directory of <span class="code">/usr/local/prometheus/2.32.1</span>.</p>
+            </div>
+            <p>To configure prometheus to monitor <MadCap:variable name="okta-feature-names.Access Gateway" />:</p>
+            <ol>
+                <li>Determine the IP address of all instances of <MadCap:variable name="okta-feature-names.Access Gateway" /> being monitored. See <MadCap:xref href="deploy-post-install-determineOAG-ip.htm">Determine [%=okta-feature-names.Access Gateway%] IP&#160;address</MadCap:xref>.</li>
+                <li>Open a command prompt and go to the directory that contains <span class="filepath">prometheus.yml</span>.<span class="codeblock">cd /usr/local/prometheus/2.32.1.
+ls prometheus.yml
+. . . </span></li>
+                <li>Open the <span class="filepath">prometheus.yml</span> configuration file in your preferred text editor.</li>
+                <li>In the <span class="code">scrape_configs:</span> section, add a <span class="code">static_configs:</span> subsection and a set of appropriate targets.
+						<p>These updates should resemble the following:</p><span class="codeblock">scrape_configs:
+    - job_name: "prometheus"
+        scrape_interval: 5s
+        #
+        # Other configuration
+        # . . . 
+        static_configs:
+           - targets: ['192.168.x.x:8889']
+           - targets: ['192.168.x.y:8889']
+           - targets: ['192.168.x.z:8889']
+</span></li>
+                <li>Add as many targets as required.</li>
+                <li>Save the changes and exit the editor.</li>
+                <li>Restart prometheus using a command similar to:<span class="codeblock">bin/prometheus -config=prometheus.yml</span></li>
+            </ol>
+        </div>
+        <div MadCap:conditions="Primary.review-only">
+            <h3>Next steps</h3>
+            <p MadCap:conditions="Primary.do-not-publish">
+                <MadCap:xref href="monitoring-metrics-configure.htm">Configure metrics monitoring</MadCap:xref>
+            </p>
+            <p MadCap:conditions="Primary.do-not-publish">
+                <MadCap:xref href="monitoring-metrics-call.htm">Test Metrics&#160;monitoring with REST</MadCap:xref>
+            </p>
+            <p>
+                <MadCap:xref href="monitoring-metrics-supported-ex.htm">Supported exporters</MadCap:xref>
+            </p>
+        </div>
+    </body>
+</html>

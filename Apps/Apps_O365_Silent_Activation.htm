@@ -1,0 +1,371 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:conditions="MultiProdPublish.Classic+OIE"
+      MadCap:fileTags="Tags/okta-authors.Mark Cowan">
+   <head>
+      <link href="../../Resources/TableStyles/standard.css"
+            rel="stylesheet"
+            MadCap:stylesheetType="table"/>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <meta name="description"
+            content="Enable Office 365 Silent Activation to reduce authentication issues by removing app authentication for in-network Windows machines."/>
+   </head>
+   <body>
+      <h1>Office 365 Silent Activation: New Implementations</h1>
+      <p MadCap:conditions="Primary.do-not-publish">OFFICE365_WINDOWS_TRANSPORT_SUPPORT</p>
+      <p MadCap:conditions="Primary.do-not-publish">EA 2017.45 GA PRE NEW ORGS 2019.12.0, GA PRODUCTION 2020.01.0 BACK TO EA, GA PRE 2020.07.0</p>
+      <div class="noteOkta">
+         <img src="../../Resources/Images/assets/Icons/Notes/Help.png"
+              class="noteImgFloat"
+              title="Info"
+              alt="Info"/>
+         <p class="noteHeading">Note</p>
+         <p class="noteContent">The steps in this topic apply to orgs that implemented this feature for the first time after September 1, 2019 (after the 2019.09.0 release). If you have implemented the Early Access version of this feature prior to the 2019.09.0 release, refer to the instructions in <MadCap:xref href="Apps_O365_Silent_Activation_Before_2019_09.htm">Office 365 Silent Activation (Deprecated)</MadCap:xref>.
+			</p>
+      </div>
+      <p>Okta silent activation for Microsoft Office 365 provides a seamless experience for accessing Microsoft Office on shared workstations or VDI environments. Using Okta as an identity provider, once your end users have logged into a domain-joined Windows machine, they are automatically signed into Office 365 applications.</p>
+      <p MadCap:conditions="Primary.do-not-publish">For more information on how to setup a shared workstation for Microsoft Office 365, refer to <a href="https://docs.microsoft.com/en-us/DeployOffice/overview-of-shared-computer-activation-for-office-365-proplus">Overview of shared computer activation for Office 365 ProPlus</a> on the Microsoft website.
+</p>
+      <h2>
+                    Before you begin</h2>
+      <ul>
+         <li>Active Directory domain(s) integrated with your Okta org. See <MadCap:xref href="../Directory/ad-agent-main.htm">Active Directory integration</MadCap:xref>.</li>
+         <li>Permissions in Active Directory to configure a Service Principle Name (SPN). See Microsoft doc: <a href="https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/cc731241(v=ws.11)#delegating-authority-to-modify-spns">Delegating Authority to Modify SPNs</a>.</li>
+         <li>The user's Active Directory UPN must match the Office 365 UPN. The Office 365 application username can be configured to map any AD attribute. See Microsoft doc: <a href="https://docs.microsoft.com/en-us/office365/enterprise/prepare-for-directory-synchronization?redirectSourcePath=%252fen-us%252farticle%252fprepare-to-provision-users-through-directory-synchronization-to-office-365-01920974-9e6f-4331-a370-13aea4e82b3e">Prepare to provision users through directory synchronization to Office 365</a>.</li>
+         <li>All Office 365 end users must have valid licenses.</li>
+         <li>All end users must be assigned to the Office 365 instance associated with their specific domain.</li>
+         <li>Users must be able to reach domain controllers.</li>
+      </ul>
+      <h2>Supported apps and configurations</h2>
+      <ul>
+         <li>All versions of Windows currently supported by Microsoft</li>
+         <li>
+Office 2016 and later</li>
+         <li>Supported apps: Word, Excel, Outlook, OneNote, Skype for Business, PowerPoint, Access and Publisher</li>
+         <li>
+            <p>RC4_HMAC_MD5 encryption is not supported with AD Single Sign-On and Office 365 Silent Activation. When using ADSSO or Office 365 Silent Activation, Okta recommends using AES 128-bit (AES-128) or AES 256-bit (AES-256) encryption.</p>
+         </li>
+      </ul>
+      <h2>
+Start this procedure </h2>
+      <p>This procedure includes the following main steps:</p>
+      <p>
+         <MadCap:xref href="#A.">1. Create a service account and an SPN </MadCap:xref>
+      </p>
+      <p>
+         <MadCap:xref href="#B.">2. Configure your browsers on Windows</MadCap:xref>
+      </p>
+      <p>
+         <MadCap:xref href="#C.">3. Enable Kerberos authentication
+</MadCap:xref>
+      </p>
+      <p>
+         <MadCap:xref href="#D.">4. Enable Silent Activation
+</MadCap:xref>
+      </p>
+      <p>
+         <MadCap:xref href="#E.">5. Test Office 365 Silent Activation
+</MadCap:xref>
+      </p>
+      <div class="noteOkta">
+         <img src="../../Resources/Images/assets/Icons/Notes/Help.png"
+              class="noteImgFloat"
+              title="Important Note"
+              alt="Important Note"/>
+         <p class="noteHeading">Important</p>
+         <p class="noteContent">
+            <MadCap:snippetBlock src="Office365-Snippets/References/sa-limitations.flsnp"/>
+         </p>
+      </div>
+      <h3>
+         <a name="A."/>
+A. Create a service account and an SPN </h3>
+      <div class="noteOkta">
+         <img src="../../Resources/Images/assets/Icons/Notes/Help.png"
+              class="noteImgFloat"
+              title="Note"
+              alt="Note"/>
+         <p class="noteContent">When creating a service account:</p>
+         <p class="noteContent">
+            <ul>
+               <li>For the Okta tenant Kerberos service, use a domain user account  instead of a domain admin account.</li>
+               <li>To further lock down the account, turn on the <span class="uicontrol">logon to</span> restriction with a fictitious host name and mark the account  as <span class="uicontrol">Account is sensitive and cannot be delegated</span>. </li>
+            </ul>
+         </p>
+      </div>
+      <ol>
+         <li>Sign in to a server from which you can access Active Directory Users and Computers.</li>
+         <li>
+            <p>Right-click the folder where you want to create the new service account and select <span class="menucascade">
+                  <span class="uicontrol">New</span>
+                  <span class="uicontrol">User</span>
+               </span>.</p>
+         </li>
+         <li>
+            <p>Create the new account with the following values:</p>
+            <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard.css');"
+                   class="TableStyle-standard"
+                   cellspacing="0">
+               <col class="TableStyle-standard-Column-Column1"/>
+               <col class="TableStyle-standard-Column-Column1"/>
+               <thead>
+                  <tr class="TableStyle-standard-Head-Header1">
+                     <th class="TableStyle-standard-HeadF-Column1-Header1">
+                        <p>Field</p>
+                     </th>
+                     <th class="TableStyle-standard-HeadD-Column1-Header1">
+                        <p>Value</p>
+                     </th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr class="TableStyle-standard-Body-Body1">
+                     <td class="TableStyle-standard-BodyF-Column1-Body1">User logon name</td>
+                     <td class="TableStyle-standard-BodyD-Column1-Body1">&lt;username&gt;</td>
+                  </tr>
+                  <tr class="TableStyle-standard-Body-Body2">
+                     <td class="TableStyle-standard-BodyC-Column1-Body2">User logon name (pre-Windows 2000)</td>
+                     <td class="TableStyle-standard-BodyA-Column1-Body2">&lt;username&gt; (can be any username)
+</td>
+                  </tr>
+               </tbody>
+            </table>
+            <div class="noteOkta">
+               <img src="../../Resources/Images/assets/Icons/Notes/Help.png"
+                    class="noteImgFloat"
+                    title="Info"
+                    alt="Info"/>
+               <p class="noteContent">The service account username must be 16 characters at minimum, including the domain name, . Additionally, admin permissions are not required for the service account, but specific permissions are needed to set the SPN. See Microsoft doc: <a href="https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/cc731241(v=ws.11)">Delegating Authority to Modify SPNs</a>.
+					</p>
+            </div>
+         </li>
+         <li>Click <span class="uicontrol">Next</span>.</li>
+         <li>
+            <p>Create a password that is a minimum of 14 characters, and check the <span class="uicontrol">Password never expires</span> box.</p>
+            <p>
+               <img src="../../Resources/Images/O365_SilentAWin2.png" class="thumbnail"/>
+            </p>
+         </li>
+         <li>Click <span class="uicontrol">Next</span>.</li>
+         <li>
+            <p>Run the following command to configure an SPN for the service account:</p>
+            <span class="codeblock">setspn -S HTTP/&lt;yourorg&gt;.kerberos.&lt;oktaorgtype&gt;.com &lt;username&gt;
+</span>
+            <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard.css');"
+                   class="TableStyle-standard"
+                   cellspacing="0">
+               <col class="TableStyle-standard-Column-Column1"/>
+               <col class="TableStyle-standard-Column-Column1"/>
+               <thead>
+                  <tr class="TableStyle-standard-Head-Header1">
+                     <th class="TableStyle-standard-HeadF-Column1-Header1">Placeholder</th>
+                     <th class="TableStyle-standard-HeadD-Column1-Header1">Value</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr class="TableStyle-standard-Body-Body1">
+                     <td id="code" class="TableStyle-standard-BodyF-Column1-Body1">yourorg</td>
+                     <td class="TableStyle-standard-BodyD-Column1-Body1">Your Okta org name</td>
+                  </tr>
+                  <tr class="TableStyle-standard-Body-Body2">
+                     <td id="code" class="TableStyle-standard-BodyF-Column1-Body2">oktaorgtype</td>
+                     <td class="TableStyle-standard-BodyD-Column1-Body2">Your Okta org type. For example, okta, oktapreview, okta-emea, or okta-gov.</td>
+                  </tr>
+                  <tr class="TableStyle-standard-Body-Body1">
+                     <td id="code" class="TableStyle-standard-BodyC-Column1-Body1">username</td>
+                     <td class="TableStyle-standard-BodyA-Column1-Body1">Username that you created in previous steps.</td>
+                  </tr>
+               </tbody>
+            </table>
+            <p style="font-weight: bold;">Example: <span class="code">setspn -S HTTP/atkodemo.kerberos.oktapreview.com OktaSilentActivation</span>
+            </p>
+            <p>
+               <img src="../../Resources/Images/Office365/sa-cmd-1.png" class="thumbnail"/>
+            </p>
+         </li>
+         <li>
+            <p>Verify that the SPN is correct by running the following
+command: </p>
+         </li>
+         <span class="codeblock">setspn -l &lt;username&gt;
+</span>
+         <p>
+            <img src="../../Resources/Images/Office365/sa-cmd-2.png" class="thumbnail"/>
+         </p>
+      </ol>
+      <h3>
+         <a name="B."/>B. Configure your browsers on Windows</h3>
+      <ol>
+         <li>
+            <p style="font-weight: normal;">Enable Integrated Windows Authentication on the browser.</p>
+            <p style="font-weight: normal;">In Internet Explorer,</p>
+            <ol style="list-style-type: lower-alpha;">
+               <li>Go to <span class="menucascade">
+                     <span class="uicontrol">Settings</span>
+                     <span class="uicontrol">Internet Options</span>
+                     <span class="uicontrol">Advanced</span>
+                  </span>.</li>
+               <li>On the <span class="uicontrol">Advanced</span> tab, scroll down to the <span class="uicontrol">Security</span> settings, and select <span class="uicontrol">Enable Integrated Windows Authentication.</span>
+               </li>
+               <li>
+                  <p>Click <span class="uicontrol">OK.</span>
+                  </p>
+                  <div class="noteOkta">
+                     <img src="../../Resources/Images/assets/Icons/Notes/Help.png"
+                          class="noteImgFloat"
+                          title="Important Note"
+                          alt="Important Note"/>
+                     <p class="noteHeading">Important</p>
+                     <p class="noteContent">Make sure that Internet Explorer can save session cookies (<span class="menucascade">
+                           <span class="uicontrol">Internet Options</span>
+                           <span class="uicontrol">Privacy</span>
+                           <span class="uicontrol">Settings</span>
+                           <span class="uicontrol">Advanced</span>
+                        </span>). If it can't, neither SSO nor standard sign in can work.</p>
+                  </div>
+               </li>
+            </ol>
+         </li>
+         <li>
+            <p style="font-weight: normal;">Configure the Local Intranet Zone to trust Okta.</p>
+            <MadCap:snippetBlock src="Office365-Snippets/Procedures/configure-local-intranet.flsnp"/>
+         </li>
+         <li style="font-weight: normal;">Create a Global Policy Object (GPO) to roll this out to all client machines that will use Silent Activation.</li>
+      </ol>
+      <h3>
+         <a name="C."/>C. Enable Kerberos authentication
+</h3>
+      <p>In the <span class="wintitle">Okta Admin Console</span>:</p>
+      <ol>
+         <li>Go to  <span class="menucascade">
+               <span class="uicontrol">Security</span>
+               <span class="uicontrol">Delegated Authentication</span>
+            </span>.</li>
+         <li>On the <span class="uicontrol">Delegated Authentication</span> page, click the <span class="uicontrol">Active Directory</span> tab.</li>
+         <li>
+Scroll down to the <span class="uicontrol">Agentless Desktop SSO and Silent Activation</span> section and click <span class="uicontrol">Edit</span>.</li>
+         <li>Under <span class="uicontrol">Active Directory Instances</span>, find the instance for which you configured the service account.</li>
+         <li>
+            <p>Configure this instance with the following username format:</p>
+            <table style="mc-table-style: url('../../Resources/TableStyles/standard.css');"
+                   class="TableStyle-standard"
+                   cellspacing="0">
+               <col class="TableStyle-standard-Column-Column1"/>
+               <col class="TableStyle-standard-Column-Column1"/>
+               <thead>
+                  <tr class="TableStyle-standard-Head-Header1">
+                     <th class="TableStyle-standard-HeadF-Column1-Header1">Field</th>
+                     <th class="TableStyle-standard-HeadD-Column1-Header1">Value</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr class="TableStyle-standard-Body-Body1">
+                     <td class="TableStyle-standard-BodyF-Column1-Body1">Desktop SSO</td>
+                     <td class="TableStyle-standard-BodyD-Column1-Body1">Enabled
+</td>
+                  </tr>
+                  <tr class="TableStyle-standard-Body-Body2">
+                     <td class="TableStyle-standard-BodyF-Column1-Body2">Service Account Username</td>
+                     <td class="TableStyle-standard-BodyD-Column1-Body2">
+                        <p>&lt;username&gt;</p>
+                        <p>This is the Active Directory sign-on name that you created in STEP 1, without any domain suffix or Netbios name prefix. It can be the sAMAccountName or the username part of the UPN. These two may be the same string unless the org admin chose to use different values. This field is case sensitive. When the UPN prefix differs from sAMAccountName, the service account username needs to be the same as the UPN and include the domain suffix. For example, agentlessDsso@mydomain.com.</p>
+                     </td>
+                  </tr>
+                  <tr class="TableStyle-standard-Body-Body1">
+                     <td class="TableStyle-standard-BodyC-Column1-Body1">Service Account Password</td>
+                     <td class="TableStyle-standard-BodyA-Column1-Body1">Your Active Directory password</td>
+                  </tr>
+               </tbody>
+            </table>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Save</span>.</p>
+         </li>
+      </ol>
+      <p>Kerberos authentication is now enabled for the Office 365 app instance.</p>
+      <h3>
+         <a name="D."/>D. Enable Silent Activation
+</h3>
+      <p>In the <span class="wintitle">Okta Admin Console</span>:</p>
+      <ol>
+         <li>Go to <span class="menucascade">
+               <span class="uicontrol">Applications</span>
+               <span class="uicontrol">your Office 365 app instance</span>
+               <span class="uicontrol">Sign on tab</span>
+               <span class="uicontrol">Edit</span>
+            </span>.</li>
+         <li>In the <span class="uicontrol">Silent Activation</span> section, select the check box to enable silent activation for the app instance.</li>
+         <li>
+            <span class="uicontrol">Save</span> the settings.</li>
+      </ol>
+      <p>
+         <img src="../../Resources/Images/Office365/sil-act.png"
+              class="thumbnail"
+              MadCap:conditions="MultiProdPublish.Classic"/>
+      </p>
+      <p>
+         <img src="../../Resources/Images/Office365/OIE/silent-act.png"
+              MadCap:conditions="MultiProdPublish.OIE"
+              class="thumbnail"/>
+      </p>
+      <p>Silent Activation is now enabled for the Office 365 app instance.</p>
+      <h3>
+         <a name="E."/>E. Test Office 365 Silent Activation
+</h3>
+      <ol>
+         <li>
+            <p>Run the Office 365 Client.</p>
+            <p>On a machine that has an Office 2016 client installed,</p>
+            <ol style="list-style-type: lower-alpha;">
+               <li>Open an Office 2016 client application such as Microsoft Word.</li>
+               <li>
+                  <p>Confirm that you are signed in and  the client is automatically activated.</p>
+                  <p> You should see a message like the one below:</p>
+                  <p>
+                     <img src="../../Resources/Images/O365_SilentA9.png" class="thumbnail"/>
+                  </p>
+               </li>
+            </ol>
+         </li>
+         <li>
+            <p>Confirm the authentication through Kerberos endpoint in Okta.</p>
+            <p>In the <span class="wintitle">Okta Admin Console</span>:</p>
+            <ol style="list-style-type: lower-alpha;">
+               <li>Go to <span class="menucascade">
+                     <span class="uicontrol">Reports</span>
+                     <span class="uicontrol">System Log</span>
+                  </span>.</li>
+               <li>
+                On the <span class="wintitle">System Log</span> page, find the sign-in event.</li>
+               <li>
+                  <p> Expand the event to go to
+<span class="menucascade">
+                        <span class="uicontrol">Event</span>
+                        <span class="uicontrol">System</span>
+                        <span class="uicontrol">LegacyEventType</span>
+                     </span>.</p>
+                  <p> The entry should indicate that the user was authenticated through the Kerberos endpoint.</p>
+                  <p>
+                     <img src="../../Resources/Images/O365_SilentA8.png" class="thumbnail"/>
+                  </p>
+               </li>
+            </ol>
+         </li>
+      </ol>
+      <p>You have now successfully set up Silent Activation for Office 365.</p>
+      <h2 MadCap:conditions="MultiProdPublish.Classic,Primary.do-not-publish">Related topics</h2>
+      <ul>
+         <li>
+            <p MadCap:conditions="MultiProdPublish.Classic,Primary.do-not-publish">
+               <MadCap:xref href="../Security/O365_Client-Access-Policies.htm">Office 365 Client Access Policies</MadCap:xref>
+            </p>
+         </li>
+         <li>
+            <p MadCap:conditions="MultiProdPublish.Classic,Primary.do-not-publish">
+               <MadCap:xref href="../Security/policies/about-app-signon-policies.htm">Add Sign On policies for applications</MadCap:xref>
+            </p>
+         </li>
+      </ul>
+   </body>
+</html>

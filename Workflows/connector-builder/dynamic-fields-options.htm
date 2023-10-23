@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Jeanette Smith,Tags/okta-authors.Nikita Apraj">
+    <head>
+    </head>
+    <body>
+        <h1>Add a dynamic dropdown field: HTTP example</h1>
+        <p>Builders can use Helper Flows to populate an <span class="uicontrol">Options</span> dropdown when an HTTP call is needed to retrieve a list of items.</p>
+        <p> The following example uses two flows to create the list for the dropdown:</p>
+        <ul>
+            <li>
+                <p>A processing flow that shapes the results into the correct list object</p>
+            </li>
+            <li>
+                <p> A flow to retrieve the list</p>
+            </li>
+        </ul>
+        <h2>Processing flow</h2>
+        <p>The processing flow accepts each individual item from the list of items that is retrieved by the iterating flow.  It's used to extract the key/value pair from each item and return it to the calling flow in the proper shape to create the dropdown list.</p>
+        <p>Flows used to return a list of dropdown items should return an object in the following shape:</p>
+        <MadCap:codeSnippet>
+            <MadCap:codeSnippetCopyButton />
+            <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">[
+   {
+      "value":"English",
+      "key":"en_us"
+   },
+   {
+      "value":"Chinese (Simplified)",
+      "key":"zh_CN"
+   },
+   {
+      "value":"Danish",
+      "key":"da"
+   }
+]</MadCap:codeSnippetBody>
+        </MadCap:codeSnippet>
+        <p>To create a processing flow:</p>
+        <ol>
+            <li>
+                <p>Switch to the <span class="uicontrol">Flows</span> tab. </p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">+ New Flow</span> to create a new flow.</p>
+            </li>
+            <li>
+                <p>Add a Helper Flow card as the first card in your flow.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Save</span> and name the flow <code>Dropdown List Processing</code>.</p>
+            </li>
+            <li>
+                <p>Enter <code>Processes a list of items and reformats it to be used as a dropdown</code> as the flow description, select the <span class="uicontrol">Save all data that passes through the Flow?</span> checkbox, and click <span class="uicontrol">Save</span>.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Click or drag to create</span> to add a field to the Helper Flow card.</p>
+            </li>
+            <li>
+                <p>Add a label, enter <code>list_item</code> as its name, and then click <span class="uicontrol">Enter</span>.</p>
+            </li>
+            <li>
+                <p>Select the object type for the field from the dropdown. Default is <span class="uicontrol">Text</span>.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Add function</span>, then add a <span class="uicontrol">Get Multiple</span> function card to the flow.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">list_item</span> field from the Helper Flow card into the <span class="uicontrol">object</span> input of the Get Multiple card.</p>
+            </li>
+            <li>
+                <p>Add the key names for the values you want to extract as outputs to the Get Multiple card.</p>
+            </li>
+            <li>
+                <p>To add two fields to the Flow Control Return card, click <span class="uicontrol">Click or drop here to create</span> and enter a key name twice. Name one field <span class="code">key</span> and another named <span class="code">value</span>.  When the dropdown is created, the <span class="uicontrol">key</span> will be displayed to users and the <span class="uicontrol">value</span> will be passed into the flow.  It's not required that the key and value be named differently.</p>
+            </li>
+            <li>
+                <p>Drag the field from the Get Multiple card that the user will see into the <span class="uicontrol">key</span> field on the Return card.</p>
+            </li>
+            <li>
+                <p>Drag the field from the Get Multiple card that will be passed into the flow into the <span class="uicontrol">value</span> field on the Return card.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Save</span> and <span class="uicontrol">Test</span>.</p>
+            </li>
+        </ol>
+        <p>
+            <img src="../../../Resources/Images/Workflows/connector-builder/dynamic-processing-flow-options-example.png" />
+        </p>
+        <h3>Retrieval flow</h3>
+        <p>The retrieval flow is used to retrieve a list of objects from the service.  It makes an HTTP request, identifies the list of objects in the request, and passes the list to the processing flow.</p>
+        <p> To create a retrieval flow:</p>
+        <ol>
+            <li>
+                <p>Switch to the <span class="uicontrol">Flows</span> tab. Click <span class="uicontrol">+ New Flow</span> to create a new flow.</p>
+            </li>
+            <li>
+                <p>Add a Helper Flow card as the first card in your flow.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Save</span> and name the flow <code>Get List of &lt;object&gt;</code>, where  &lt;object&gt; is the type of object being retrieved.</p>
+            </li>
+            <li>
+                <p>Enter <code>Retrieves a list of &lt;x&gt; from the service and passes it to a helper Flow to be processed</code> as the flow description, select <span class="uicontrol">Save all data that passes through the Flow?</span>, and click <span class="uicontrol">Save</span>.</p>
+            </li>
+            <li>
+                <p>Add a Call Flow card as the first card in the flow.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Choose Flow</span>.</p>
+            </li>
+            <li>
+                <p>Build an <span class="uicontrol">httpHelper</span> flow or select a previously created <span class="uicontrol">http_helper</span> flow. See <MadCap:xref href="capia-httphelper.htm">Build an httpHelper Flow</MadCap:xref>. The card is automatically populated with the inputs defined in the <span class="uicontrol">http_helper</span> flow. </p>
+            </li>
+            <li>
+                <p>Enter <span class="code">GET</span> as the request method.</p>
+            </li>
+            <li>
+                <p>Enter the relative URL for the endpoint.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">auth</span> object from the Helper Flow card to the <span class="uicontrol">Connection</span> input field of the Call Flow card.</p>
+            </li>
+            <li>
+                <p>For the outputs on the Call Flow card, you’ll need to define the same keys as the http_helper flow’s outputs:</p>
+                <ul>
+                    <li>
+                        <p><span class="uicontrol">status_code</span> (Number)</p>
+                    </li>
+                    <li>
+                        <p><span class="uicontrol">headers</span> (Object)</p>
+                    </li>
+                    <li>
+                        <p><span class="uicontrol">body</span> (Object)</p>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <p>Add an Object Get card to your flow.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">body</span> field from the Call Flow card into the <span class="uicontrol">object</span> field of the Get card.</p>
+            </li>
+            <li>
+                <p>The shape of the list that's returned varies based upon the service. In the <span class="uicontrol">path</span> field, you’ll need to enter the dot notation syntax to locate the list.  For example, <span class="code">&lt;object&gt;.items</span>.  Note: it’s possible that this card is unnecessary.</p>
+            </li>
+            <li>
+                <p>To name the output field <code>item_list</code>, click on the field’s dropdown and click <span class="uicontrol">customize</span>.</p>
+            </li>
+            <li>
+                <p>Add a List Map card to the flow.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">categories_list</span> field from the Get card into the <span class="uicontrol">list</span> field of the Map card.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Choose Flow</span> and select the <span class="uicontrol">Dropdown List&#160;Processing</span> flow from the previous example.</p>
+            </li>
+            <li>
+                <p>Select the dropdown beside <span class="uicontrol">list_item</span> and click <span class="uicontrol">Item</span>.  This will pass each item from <span class="uicontrol">item_list</span> to the processing flow and return a new, correctly formatted list.</p>
+            </li>
+            <li>
+                <p>Rename the output on the Map card as <span class="code">new_item_list</span>.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">auth</span> object from the Helper Flow card to the <span class="uicontrol">Connection</span> input field of the List Map card.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Click or drop here to create</span> to create a field on the Control Return card and label the field <span class="uicontrol">output</span>.  This label is required to be recognized by the platform.</p>
+            </li>
+        </ol>
+        <div class="note_cautionOkta">
+            <p class="noteContent">The label <span class="uicontrol">output</span> is required for this field. If you assign any other label to this field, it will not be recognized by the platform.</p>
+        </div>
+        <ol MadCap:continue="true">
+            <li>
+                <p>Drag the <span class="uicontrol">new_item_list</span> field from the Map card into the <span class="uicontrol">output</span> field on the Return card.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Save</span> and <span class="uicontrol">Test</span>.</p>
+            </li>
+        </ol>
+        <p>
+            <img src="../../../Resources/Images/Workflows/connector-builder/dynamic-retrieval-flow-options-example.png" />
+        </p>
+        <h2>Next steps</h2>
+        <p>
+            <MadCap:xref href="capia-httphelper.htm">Build an httpHelper flow</MadCap:xref>
+        </p>
+    </body>
+</html>

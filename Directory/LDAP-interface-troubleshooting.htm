@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:conditions="MultiProdPublish.Classic+OIE" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head><title>[%=Heading.Level1%] | Okta</title>
+        <meta name="description" content="Troubleshoot common LDAP Interface issues." />
+    </head>
+    <body>
+        <h1>LDAP interface troubleshooting</h1>
+        <p>Before you contact Support, use this troubleshooting information to  identify the cause of the error you experienced.</p>
+        <br />
+        <h3>Time limit exceeded</h3>
+        <p>If an LDAP request takes more than two minutes to evaluate, the LDAP Interface stops evaluating and returns error code 3 (time limit exceeded).</p>
+        <br />
+        <h3>SSL connection errors for Java-based clients</h3>
+        <p>If you receive an error similar to the following, all it tells you is that there was a handshake failure.</p>
+        <div class="terminal">
+            <div class="terminal-toolbar"><span class="terminal-circle red"></span><span class="terminal-circle yellow"></span><span class="terminal-circle green"></span>
+            </div>
+            <div class="terminal-content">
+                <div>Connection failed, reason: An error occurred while attempting to send the LDAP message to server example.com:636:  SSLHandshakeException(message='Received fatal alert: handshake_failure', trace='getSSLException(Alerts.java:192) / </div>
+            </div>
+        </div>
+        <p>If you use the -Djavax.net.debug=ssl option and rerun your code, you'll see:</p>
+        <div class="terminal">
+            <div class="terminal-toolbar"><span class="terminal-circle red"></span><span class="terminal-circle yellow"></span><span class="terminal-circle green"></span>
+            </div>
+            <div class="terminal-content">
+                <div>
+** ClientHello, TLSv1.1
+RandomCookie:  GMT: 1533235844 bytes = { 170, 242, 15, 98, 234, 169, 49, 26, 115, 187, 61, 59, 207, 79, 238, 178, 101, 91, 146, 111, 234, 35, 3, 227, 163, 195, 75, 47 }
+Session ID:  {}
+Cipher Suites: [TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA, TLS_RSA_WITH_AES_128_CBC_SHA, TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA, TLS_ECDH_RSA_WITH_AES_128_CBC_SHA, TLS_DHE_RSA_WITH_AES_128_CBC_SHA, TLS_DHE_DSS_WITH_AES_128_CBC_SHA, TLS_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA, TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA, SSL_RSA_WITH_3DES_EDE_CBC_SHA, TLS_ECDH_ECDSA_WITH_3DES_EDE_CBC_SHA, TLS_ECDH_RSA_WITH_3DES_EDE_CBC_SHA, SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA, SSL_DHE_DSS_WITH_3DES_EDE_CBC_SHA, TLS_EMPTY_RENEGOTIATION_INFO_SCSV]
+Compression Methods:  { 0 }
+Extension elliptic_curves, curve names: {secp256r1, secp384r1, secp521r1, sect283k1, sect283r1, sect409k1, sect409r1, sect571k1, sect571r1, secp256k1}
+Extension ec_point_formats, formats: [uncompressed]
+Extension server_name, server_name: [type=host_name (0), value=&amp;lt;org&amp;gt;.ldap.okta.com]
+                
+Connection reader for connection 0 to &amp;lt;org&amp;gt;.ldap.okta.com:636, WRITE: TLSv1.1 Handshake, length = 145
+<br />Connection reader for connection 0 to &amp;lt;org&amp;gt;.ldap.okta.com:636, READ: TLSv1.2 Alert, length = 2
+Connection reader for connection 0 to &amp;lt;org&amp;gt;.ldap.okta.com:636, RECV TLSv1.2 ALERT:  fatal, handshake_failure
+Connection reader for connection 0 to &amp;lt;org&amp;gt;.example.okta.com:636, called closeSocket()
+Connection reader for connection 0 to &amp;lt;org&amp;gt;.example.okta.com:636, handling exception: javax.net.ssl.SSLHandshakeException: Received fatal alert: handshake_failure
+                </div>
+            </div>
+        </div>
+        <p>The above message shows that the client sent a TLSv1.1 packet and the server responded with TLSv1.2 and it rejected the request.</p>
+        <br />
+        <h3>SSL troubleshooting for C-based clients</h3>
+        <p>For C-based clients, you can use SSLTap or openSSL. For example, the following failure shows SSL handshake failure due to SSLv3.</p>
+        <div class="terminal">
+            <div class="terminal-toolbar"><span class="terminal-circle red"></span><span class="terminal-circle yellow"></span><span class="terminal-circle green"></span>
+            </div>
+            <div class="terminal-content">
+                <div>
+[ldap-tools]$ openssl s_client -connect &lt;org&gt;.ldap.okta.com:636 -ssl3
+CONNECTED(00000003)
+140736084694024:error:1408F10B:SSL routines:SSL3_GET_RECORD:wrong version number:s3_pkt.c:365:
+---
+					no peer certificate available
+---
+					No client certificate CA names sent
+---
+					SSL handshake has read 5 bytes and written 0 bytes
+---
+New, (NONE), Cipher is (NONE)
+Secure Renegotiation IS NOT supported
+No ALPN negotiated
+SSL-Session:
+Protocol  : SSLv3
+Cipher    : 0000
+Session-ID:
+Session-ID-ctx:
+Source-Key:
+Key-Arg   : None
+PSK identity: None
+PSK identity hint: None
+SRP username: None
+Start Time: 1533239615
+Timeout   : 7200 (sec)
+Verify return code: 0 (ok)
+
+                </div>
+            </div>
+        </div>
+        <br />
+        <h3>Handshake failure due to unsupported cipher</h3>
+        <p>The following is an example that shows that SSL handshake is rejected due to unsupported cipher.</p>
+        <div class="terminal">
+            <div class="terminal-toolbar"><span class="terminal-circle red"></span><span class="terminal-circle yellow"></span><span class="terminal-circle green"></span>
+            </div>
+            <div class="terminal-content">
+                <div>
+                           [ldap-tools]$ openssl s_client -connect &lt;org&gt;.ldap.okta.com:636 -tls1_2 -cipher DES-CBC3-SHA
+                            CONNECTED(00000003)
+                            140736084694024:error:14094410:SSL routines:ssl3_read_bytes:sslv3 alert handshake failure:s3_pkt.c:1498:SSL alert number 40
+                            140736084694024:error:1409E0E5:SSL routines:ssl3_write_bytes:ssl handshake failure:s3_pkt.c:659:
+                            ---
+                            no peer certificate available
+                            ---
+                           No client certificate CA names sent
+                           ---
+                            SSL handshake has read 7 bytes and written 0 bytes
+                            ---
+                            New, (NONE), Cipher is (NONE)
+                            Secure Renegotiation IS NOT supported
+                            No ALPN negotiated
+                            SSL-Session:
+                            Protocol  : TLSv1.2
+                            Cipher    : 0000
+                            Session-ID:
+                            Session-ID-ctx:
+                            Source-Key:
+                            Key-Arg   : None
+                            PSK identity: None
+                            PSK identity hint: None
+                            SRP username: None
+                            Start Time: 1533239822
+                            Timeout   : 7200 (sec)
+                            Verify return code: 0 (ok)
+                        </div>
+            </div>
+        </div>
+    </body>
+</html>

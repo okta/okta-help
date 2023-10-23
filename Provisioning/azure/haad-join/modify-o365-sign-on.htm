@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:fileTags="Tags/okta-authors.Mark Cowan">
+    <head><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1>Configure Office 365 sign-on rules to allow on-prem and cloud access</h1>
+        <p>Once you’ve successfully federated your Office 365 domain in Okta, you need to configure a sign-on policy for the Office 365 app to allow both on-premises and cloud access.</p>
+        <p>User login requests authenticate against Azure AD to receive a Primary Refresh Token (PRT). This token is granted along with a Windows 10 device registration, and uses the WINLOGON service. However, the WINLOGON service uses legacy authentication, which is blocked by Okta’s default Office 365 sign-on policy. Therefore, you need to configure the Office 365 app-level sign-on policy to allow the WINLOGON service.</p>
+        <p>However, MFA can’t be enforced on legacy authentication requests, making it susceptible to cyber attacks such as password spray. Therefore, we recommend minimizing the use of legacy authentication.</p>
+        <p>This procedure involves the following tasks:</p>
+        <ol>
+            <li>
+                <p>
+                    <MadCap:xref href="#Configur">Configure sign-on rules in Okta</MadCap:xref>
+                </p>
+            </li>
+            <li>
+                <p>
+                    <MadCap:xref href="#Block">Block legacy authentication on the Microsoft side</MadCap:xref>
+                </p>
+            </li>
+        </ol>
+        <h3><a name="Configur"></a>Configure sign-on rules in Okta</h3>
+        <p>There are two ways in which you can allow Hybrid AAD joined devices to securely connect to Azure AD while minimizing the use of legacy authentication:</p>
+        <p style="font-weight: bold;"><a name="1."></a>1. Allow only select user agent strings to use legacy authentication
+        </p>
+        <p>You can filter specific trusted clients using the Office 365 app sign-on rules to allow them access to Office 365 resources, for example <span class="code">Windows-AzureAD-Authentication-Provider</span>. It gives you a finer control over user agents that can access the Office 365 apps. See <MadCap:xref href="../../../Apps/Office365/custom-client-filter.htm">Allow or deny custom clients in Office 365 sign on policy</MadCap:xref>.</p>
+        <p MadCap:conditions="Primary.do-not-publish">
+            <img src="../../../../Resources/Images/Office365/custom-filter-haad.png" class="thumbnail" />
+        </p>
+        <p style="font-weight: bold;"><a name="2."></a>2. Allow legacy authentication only within local intranet and require MFA for non-locals</p>
+        <p>There are two parts in this procedure:</p>
+        <h4 style="font-weight: bold;">a. Allow legacy authentication only within local intranet</h4>
+        <p>In your Microsoft tenant, disable all Microsoft services that use legacy authentication. Then, in Okta, modify the Office 365 app sign-on policy to allow legacy authentication only when the device is in the local intranet. See the following docs:</p>
+        <ul>
+            <li><a href="https://docs.microsoft.com/en-us/azure/active-directory/conditional-access/block-legacy-authentication">How to: Block legacy authentication to Azure AD with Conditional Access</a> (Microsoft docs)</li>
+            <li MadCap:conditions="MultiProdPublish.Classic">
+                <p>
+                    <MadCap:xref href="../../../Security/O365_Client-Access-Policies.htm">Get started with Office 365 sign on policies</MadCap:xref>
+                </p>
+            </li>
+            <li MadCap:conditions="MultiProdPublish.OIE">
+                <p>
+                    <MadCap:xref href="../../../Apps/Office365/o365-sign-on-policies-main.htm">Get started with Office 365 sign on policies</MadCap:xref>
+                </p>
+            </li>
+        </ul>
+        <h4 style="font-weight: bold;">b. Require MFA while outside local intranet</h4>
+        <p>If a user is using a device that is not on your local intranet, require them to successfully complete an MFA prompt before granting them access to Azure AD resources. In Azure AD, create a Conditional Access Policy that requires MFA for such users, and then in Okta, modify your Office 365 app setting to use Okta MFA to satisfy Azure AD MFA.</p>
+        <p>In this scenario, Azure AD redirects the user to Okta to complete the MFA prompt. Upon successful completion of the prompt, Okta passes the MFA claim to Azure AD, and then Azure AD allows the user to access the Microsoft resources. This streamlines the sign-in experience for the user as they have to complete only one MFA prompt. See <MadCap:xref href="../../../Apps/Office365/Use_Okta_MFA_Azure_AD_MFA.htm">Use Okta MFA to satisfy Azure AD MFA requirements for Office 365</MadCap:xref>.</p>
+        <p>
+            <img src="../../../../Resources/Images/Office365/deploy-device-based-conditional-access.png" class="thumbnail" />
+        </p>
+        <p>We recommend using a combination of Conditional Access Policy and Office 365 app sign-on policy to ensure wide security coverage. Okta enforces its sign-on policy at each sign-on event. After sign-on, Azure AD enforces its Conditional Access Policy at a regular interval to ensure that the access is secure.</p>
+        <h3><a name="Block"></a>Block legacy authentication on the Microsoft side</h3>
+        <p>Once you’ve configured appropriate sign-on rules in Okta, create authentication policies in Microsoft to block legacy authentication for all Microsoft services. Assign these policies to users. See <a href="https://docs.microsoft.com/en-us/exchange/clients-and-mobile-in-exchange-online/disable-basic-authentication-in-exchange-online">Disable Basic authentication in Exchange Online</a> (Microsoft docs).</p>
+        <h2>Next steps</h2>
+        <p>
+            <MadCap:xref href="configure-hybrid-join.htm">Configure Hybrid Join in Azure AD</MadCap:xref>
+        </p>
+    </body>
+</html>

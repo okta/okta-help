@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/add-oracle-ebs-sso.htm" /><title>[%=Heading.Level1%]</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1>Integrate an Oracle E-Business Suite&#160;application with <MadCap:variable name="okta-feature-names.Access Gateway" /></h1>
+        <p>Oracle E-Business Suite (EBS) applications differ from traditional applications in that <MadCap:variable name="okta-feature-names.Access Gateway" /> creates and provides an EBS&#160;session cookie used by subsequent EBS calls. <MadCap:variable name="okta-feature-names.Access Gateway" /> doesn't reverse proxy all EBS requests as it does with other application types. </p>
+        <p>There are two ways to integrate an EBS application with <MadCap:variable name="okta-feature-names.Access Gateway" />:</p>
+        <ul>
+            <li>Classic process flow</li>
+            <li>Rapid process flow</li>
+        </ul>
+        <p>This topic describes the architecture of these process flows and provides instructions for implementing them.</p>
+        <p>
+            <MadCap:snippetBlock src="../../Resources/Snippets/access-gateway/tip-app-header.flsnp" />
+        </p>
+        <h2>Architecture</h2>
+        <table style="width: 100%;margin-left: 0;margin-right: auto;">
+            <col style="width: 50%;" />
+            <col style="width: 50%;" />
+            <thead>
+                <tr>
+                    <th>EBS Rapid process flow</th>
+                    <th>EBS Classic process flow</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="text-align: center;">
+                        <img style="text-align: center;" src="../../Resources/Images/access-gateway/ebs-rapid-flow.png" alt="EBS Rapid flow" class="thumbnail" />
+                    </td>
+                    <td style="text-align: center;">
+                        <img style="text-align: center;" src="../../Resources/Images/access-gateway/ebs-classic-flow.png" alt="EBS Classic Flow" class="thumbnail" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;vertical-align: top;">
+                        <ol>
+                            <li>The user signs in.</li>
+                            <li><MadCap:variable name="okta-variables.ProductName" /> sends the user identity to EBS.</li>
+                            <li><MadCap:variable name="okta-feature-names.Access Gateway" /> verifies the EBS user and generates an EBS&#160;session.</li>
+                            <li>The user is redirected to EBS with the EBS session cookie.</li>
+                        </ol>
+                    </td>
+                    <td style="text-align: left;vertical-align: top;">
+                        <ol>
+                            <li>The user signs in.</li>
+                            <li><MadCap:variable name="okta-variables.ProductName" /> sends the user identity to EBS.</li>
+                            <li><MadCap:variable name="okta-feature-names.Access Gateway" /> looks up the GUID using the EBS user identity.</li>
+                            <li><MadCap:variable name="okta-feature-names.Access Gateway" /> sends the GUID&#160;(header) or Oracle AccessGate, which generates an EBS cookie.</li>
+                            <li>The user is redirected to EBS with the EBS session cookie.</li>
+                        </ol>
+                    </td>
+                </tr>
+                <tr>
+                    <td>See <MadCap:xref href="add-oracle-ebs-rapid-ref-arch.htm">Oracle E-Business Suite with [%=okta-feature-names.Access Gateway%] Rapid SSO&#160;reference architecture</MadCap:xref>.</td>
+                    <td>See <MadCap:xref href="add-oracle-ebs-classic-ref-arch.htm">Oracle E-Business Suite with [%=okta-feature-names.Access Gateway%] Classic SSO&#160;reference architecture</MadCap:xref>.</td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <h2><a name="Before You Begin"></a>Before you begin</h2>
+            <p>Ensure that you meet these requirements before you begin this procedure. </p>
+            <ul>
+                <MadCap:snippetBlock src="../../Resources/Snippets/access-gateway/App.Core.Prereqs.flsnp" />
+                <li>Verify that the EBS version is supported.  <MadCap:variable name="okta-feature-names.Access Gateway" /> supports the following EBS versions:
+				
+					<MadCap:snippetBlock src="../../Resources/Snippets/access-gateway/supported-app-version-orcl-ebs.flsnp" /></li>
+            </ul>
+            <ul>
+                <li>If you use the EBS Classic process flow, verify that EBS is configured with Oracle AccessGate and Oracle Internet Directory (OID) or Oracle User Directory (OUD).</li>
+                <li>If you use the EBS Rapid process flow, verify that EBS is configured and available.</li>
+                <li>If you use the EBS Rapid process flow, verify that EBS_USER is mapped to an Okta org user.</li>
+                <li>If you use the EBS Rapid process flow, verify that the EBS owner has created a DBC file and that it's available to the <MadCap:variable name="okta-feature-names.Access Gateway" /> owner. See <MadCap:xref href="#Configur">Integrate an Oracle E-Business Suite&#160;application with [%=okta-feature-names.Access Gateway%]</MadCap:xref> for instructions on how to configure EBS for Rapid single sign-on (SSO).
+				
+				<div class="noteOkta"><p class="noteContent">Rapid EBS SSO uses domain cookies to communicate between <MadCap:variable name="okta-feature-names.Access Gateway" /> and the EBS&#160;server. The domain used by the protected service and the externally facing instance of the gateway must share the same domain.</p></div></li>
+            </ul>
+        </div>
+        <h2><a name="Tasks"></a>Workflow</h2>
+        <ol>
+            <li>Optional. Create a group to assign to the application. See <MadCap:xref href="add-oracle-ebs-sso-group.htm">Add an Okta org group</MadCap:xref>.</li>
+            <li>Rapid process flow only: configure EBS&#160;for use with <MadCap:variable name="okta-feature-names.Access Gateway" /> and generate the required DSC file. See <MadCap:xref href="add-oracle-ebs-sso-config-rapid.htm">Configure Oracle E-Business Suite for Rapid SSO and create the DBC file</MadCap:xref>.</li>
+            <li>Create an application for either Rapid or Classic EBS SSO. See <MadCap:xref href="add-oracle-ebs-sso-app.htm">Create the Rapid or Classic EBS application </MadCap:xref>.</li>
+            <li>Test the integration. See <MadCap:xref href="add-oracle-ebs-sso-test.htm">Test the Oracle E-Business Suite integration</MadCap:xref>.</li>
+            <li>Troubleshoot the integration. See <MadCap:xref href="add-oracle-ebs-troubleshooting.htm">Troubleshoot Oracle E-Business Suite applications</MadCap:xref>.</li>
+        </ol>
+        <div>
+            <h2><a name="Next_Steps"></a>Related topics</h2>
+            <MadCap:snippetBlock src="../../Resources/Snippets/access-gateway/ApplicationNextSteps.flsnp" />
+        </div>
+    </body>
+</html>

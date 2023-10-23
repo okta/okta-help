@@ -1,0 +1,780 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:searchable="True"
+      MadCap:fileTags="Tags/okta-authors.Jeanette Smith">
+   <head>
+      <link href="../../../Resources/TableStyles/standard-shaded-rows.css"
+            rel="stylesheet"
+            MadCap:stylesheetType="table"/>
+      <link href="../../../Resources/TableStyles/standard.css"
+            rel="stylesheet"
+            MadCap:stylesheetType="table"/>
+      <title>Workday Email and Phone Writeback | Okta</title>
+      <link href="" rel="stylesheet" type="text/css"/>
+      <meta name="description"
+            content="Set up Workday email and phone writeback to control how Okta end-user emails and phone numbers flow to Workday."/>
+   </head>
+   <body>
+      <h1>Workday Email and Phone writeback</h1>
+      <p>Writeback enables profile sources, such as <MadCap:variable name="okta-variables.ProductName"/> and <MadCap:variable name="3rd Party Integrations.AD"/>, to write email and phone number attributes to Workday.  You can only use writeback with these two Workday attributes.</p>
+      <p>There's also a Workday writeback enhancement where <MadCap:variable name="okta-variables.ProductName"/> makes separate calls to update work and home contact information. This helps ensure that Workday business processes don't block writeback when home contact information for a user is missing. See <MadCap:xref href="workday-writeback-enhancement.htm">Workday writeback enhancement</MadCap:xref>.</p>
+      <h2>Prerequisites<a name="Requirements"/>
+      </h2>
+      <p>Set up provisioning for Workday. See <MadCap:xref href="workday-provisioning.htm">Workday Provisioning</MadCap:xref>
+      </p>
+      <h2>Procedures</h2>
+      <h3>Configure Workday</h3>
+      <p>In order for the writeback feature to work successfully, you need to grant additional required permissions to the integration system user/System Group. Then activate the permissions.</p>
+      <ol>
+         <li>
+            <p>Domain Security Policy Permissions.</p>
+            <p>Follow steps a-e (part of step 7) of <MadCap:xref href="workday-provisioning.htm#Grant">Grant permission to an Integration System User</MadCap:xref> for the domain "Worker Data: Maintain Contact Information" – Get and Put.</p>
+         </li>
+         <li>
+            <p>Business Process Security Policy Permissions.</p>
+            <ul>
+               <li>
+                  <p>Search for <span class="userinput">bp:contact change</span>, and then edit the Business Process Policy:</p>
+                  <p>
+                     <img src="../../../Resources/Images/workday_writeback1.png"
+                          class="thumbnail"
+                          alt="workday_writeback1"/>
+                  </p>
+               </li>
+               <li>
+                  <p>Assign the Integration System User's security group created in <MadCap:xref href="workday-provisioning.htm#Create">Create an Integration System User in Workday</MadCap:xref> to <span class="wintitle">Initiating Action: Maintain Contact Information (Web Service)</span>:</p>
+                  <p>
+                     <img src="../../../Resources/Images/workday_writeback2.png"
+                          class="thumbnail"
+                          alt="workday_writeback2"/>
+                  </p>
+               </li>
+            </ul>
+         </li>
+         <li>
+            <p>Follow step 7 in <MadCap:xref href="workday-provisioning.htm#Grant">Grant permission to an Integration System User</MadCap:xref> to activate the  security policies mentioned in Requirements under Creating an Integrator System User in Workday.</p>
+         </li>
+      </ol>
+      <h3>Configure <MadCap:variable name="okta-variables.ProductName"/>
+      </h3>
+      <ol>
+         <li>
+            <MadCap:snippetBlock src="../../../Resources/Snippets/task steps/Applications_Applications.flsnp"/>
+         </li>
+         <li>Open your Workday app integration. </li>
+         <li>
+            <p>Go to the <span class="uicontrol">Provisioning</span> tab.</p>
+         </li>
+         <li>
+            <p>Select <span class="uicontrol">To App</span> under <span class="wintitle">Settings</span>. Then, under <span class="uicontrol">Workday Attribute Mappings</span>, select <span class="uicontrol">Go to Profile Editor</span>.</p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Go to Profile Editor</span> in the <span class="wintitle">Workday Attribute Mappings</span> section.</p>
+         </li>
+         <li>
+            <p>For each Workday attribute that writeback supports, click <span class="uicontrol">Add Attribute</span>. Choose the attribute to add and click <span class="uicontrol">Save</span>. This is done by discovering attributes from Workday and mapping to relevant <MadCap:variable name="okta-variables.ProductName"/> attributes.</p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Refresh Attributes</span>.</p>
+         </li>
+         <li>
+            <p>Add the required Workday attributes, and then click <span class="uicontrol">Save</span>. See <MadCap:xref href="#Supporte">Supported attributes</MadCap:xref> for a complete list of available attributes.</p>
+            <p>Each attribute has three different data types which are explained below. In the table, the attribute Work Email is used as an example:</p>
+            <table class="TableStyle-standard"
+                   style="mc-table-style: url('../../../Resources/TableStyles/standard.css');"
+                   cellspacing="0">
+               <col class="TableStyle-standard-Column-Column1" style="width: 301px;"/>
+               <col style="width: 104px;" class="TableStyle-standard-Column-Column1"/>
+               <col class="TableStyle-standard-Column-Column1"/>
+               <col class="TableStyle-standard-Column-Column1" style="width: 305px;"/>
+               <col class="TableStyle-standard-Column-Column1"/>
+               <thead>
+                  <tr class="TableStyle-standard-Head-Header1">
+                     <th class="TableStyle-standard-HeadF-Column1-Header1">Attribute Name</th>
+                     <th class="TableStyle-standard-HeadF-Column1-Header1">Type</th>
+                     <th class="TableStyle-standard-HeadF-Column1-Header1">Required/Optional</th>
+                     <th class="TableStyle-standard-HeadF-Column1-Header1">Comments</th>
+                     <th class="TableStyle-standard-HeadD-Column1-Header1">Sample Values</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr class="TableStyle-standard-Body-Body1">
+                     <td align="left" class="TableStyle-standard-BodyF-Column1-Body1">EmailAddressData Work EmailAddress</td>
+                     <td align="left" class="TableStyle-standard-BodyF-Column1-Body1">String</td>
+                     <td align="left" class="TableStyle-standard-BodyF-Column1-Body1">Required</td>
+                     <td align="left" class="TableStyle-standard-BodyF-Column1-Body1">Map to <MadCap:variable name="okta-variables.ProductName"/> user attribute</td>
+                     <td align="left" class="TableStyle-standard-BodyD-Column1-Body1">OktaCustomWorkEmail</td>
+                  </tr>
+                  <tr class="TableStyle-standard-Body-Body2">
+                     <td align="left" class="TableStyle-standard-BodyF-Column1-Body2">EmailAddressData Work Primary</td>
+                     <td align="left" class="TableStyle-standard-BodyF-Column1-Body2">Boolean</td>
+                     <td align="left" class="TableStyle-standard-BodyF-Column1-Body2">Required</td>
+                     <td align="left" class="TableStyle-standard-BodyF-Column1-Body2">Set this to <span class="userinput">true</span> when  the work email written back to Workday needs to be set as Primary, set value as true. Default is false.</td>
+                     <td align="left" class="TableStyle-standard-BodyD-Column1-Body2">true</td>
+                  </tr>
+                  <tr class="TableStyle-standard-Body-Body1">
+                     <td align="left" class="TableStyle-standard-BodyC-Column1-Body1">EmailAddressData Work Public</td>
+                     <td align="left" class="TableStyle-standard-BodyC-Column1-Body1">Boolean</td>
+                     <td align="left" class="TableStyle-standard-BodyC-Column1-Body1">Required</td>
+                     <td align="left" class="TableStyle-standard-BodyC-Column1-Body1">If Work email that is pushed needs to be set as Public, Set value as true. Default is false.</td>
+                     <td align="left" class="TableStyle-standard-BodyA-Column1-Body1">false</td>
+                  </tr>
+               </tbody>
+            </table>
+            <p>Workday Contact information has 2 parameters: Primary and Public:</p>
+            <p>Primary: This parameter defines if the contact information is of type Primary or Additional.</p>
+            <p>Public: This parameter defines if the contact information visibility is Public or Private.</p>
+            <p>
+               <img src="../../../Resources/Images/workday6.png"
+                    class="thumbnail"
+                    alt="workday6"/>
+            </p>
+            <p>See <a href="#Resources">Resources</a> for a list of the Workday attributes that are currently supported.</p>
+         </li>
+         <li>
+            <p>Map the newly added attribute to relevant <MadCap:variable name="okta-variables.ProductName"/> attributes. Click <span class="uicontrol">Map Attributes</span>
+            </p>
+         </li>
+         <li>
+            <p>Select <span class="wintitle">
+                  <MadCap:variable name="okta-variables.ProductName"/> to Workday</span>, map the attributes as shown below, and then click <span class="uicontrol">Save Mappings</span>:</p>
+            <p>
+               <img src="../../../Resources/Images/workdayenhancements1.png"
+                    class="thumbnail"
+                    alt="workdayenhancements1"/>
+            </p>
+         </li>
+         <p>Example Expression Language Function
+            </p>
+         <p>Note: See <a href="https://developer.okta.com/reference/okta_expression_language/#string-functions"
+               target="_blank">Okta expression language</a> for reference.</p>
+         <p>To parse phone numbers:</p>
+         <p>For user.mobilePhone = +1 (415) 123-4567 x 12345:</p>
+         <p>
+            <span class="codeblock">Work Mobile Phone AreaCode: String.substringBefore(String.substringAfter(user.mobilePhone, "(" ), ")" ) -&gt; 415</span>
+         </p>
+         <p>
+            <span class="codeblock">Work Mobile Phone InternationalPhoneCode: String.removeSpaces(String.substringBefore(String.substringAfter(user.mobilePhone, "+" ), "(" )) -&gt; 1</span>
+         </p>
+         <p>
+            <span class="codeblock">Work Mobile Phone PhoneNumber: String.removeSpaces(String.substringBefore(String.substringAfter(user.mobilePhone, ")" ), "x" )) --&gt; 123-4567</span>
+         </p>
+         <p>
+            <span class="codeblock">Work Mobile Phone PhoneExtension: String.removeSpaces(String.substringAfter(user.mobilePhone, "x")) -&gt; 12345</span>
+         </p>
+         <li>
+            <p>Attribute-Level Sourcing</p>
+            <p>In the typical Workday writeback use case, Workday is set as the overall Profile Source. However, to have email or phone number written back into Workday, configure attribute-level sourcing with <MadCap:variable name="okta-variables.ProductName"/>, Active Directory, or some other app as Profile Source for those specific attributes. See the following example:</p>
+            <ul>
+               <li>
+                  <p>Go to <span class="menucascade">
+                        <span class="uicontrol">Directory</span>
+                        <span class="uicontrol">Profile Editor</span>
+                     </span>.</p>
+               </li>
+               <li>
+                  <p>Select <MadCap:variable name="okta-variables.ProductName"/> in the left <span class="uicontrol">FILTERS</span> panel, then click <span class="uicontrol">Profile</span>.</p>
+               </li>
+               <li>
+                  <p>Select <span class="uicontrol">Edit</span>.</p>
+               </li>
+               <li>
+                  <p>Select the profile source of your choice, then click <span class="uicontrol">Save Profile</span>.</p>
+               </li>
+               <li>
+                  <p>Go to <span class="uicontrol">Attributes</span>, then select <span class="menucascade">
+                        <span class="uicontrol">Custom</span>
+                        <span class="uicontrol">Filter</span>
+                     </span>.</p>
+               </li>
+               <li>
+                  <p>Select User permission and Source priority.</p>
+               </li>
+               <li>Click <span class="uicontrol">Save attribute</span> to complete the setup.</li>
+            </ul>
+         </li>
+      </ol>
+      <h2>Known limitations</h2>
+      <ul>
+         <li>
+            <p>For Workday v.15: Unlike the Workday user interface, the Workday API doesn't have format validation/rules for phone number or email (for example: Phone number format must be 3 Digits + Optional dash (or dot) + 4 digits).</p>
+            <p>Workday v29 does perform format validation/rules for phone number and email.</p>
+         </li>
+         <li>
+            <p>After <MadCap:variable name="okta-variables.ProductName"/> sets the Primary Workday attributes, it doesn't set it back to NULL. This is because of a Workday validation rule that does not allow NULL values.</p>
+         </li>
+      </ul>
+      <h2>Resources<a name="Resources"/>
+      </h2>
+      <h3>
+         <a name="Supporte"/>Supported attributes</h3>
+      <table class="TableStyle-srb_header_alt_shade"
+             style="mc-table-style: url('../../../Resources/TableStyles/standard-shaded-rows.css');"
+             cellspacing="0">
+         <col class="TableStyle-srb_header_alt_shade-Column-Column1"/>
+         <col class="TableStyle-srb_header_alt_shade-Column-Column1"/>
+         <col style="width: 75px;"
+              class="TableStyle-srb_header_alt_shade-Column-Column1"/>
+         <col class="TableStyle-srb_header_alt_shade-Column-Column1"/>
+         <thead>
+            <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+               <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                  <p>S. No</p>
+               </th>
+               <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                  <p>Attribute Name</p>
+               </th>
+               <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                  <p>Type</p>
+               </th>
+               <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">
+                  <p>Description</p>
+               </th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">1</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">EmailAddressData Home EmailAddress</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">string</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">emailAddressDataHomeEmailAddress</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">2</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">EmailAddressData Home Primary</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">boolean</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">emailAddressDataHomePrimary</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">3</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">EmailAddressData Home Public</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">boolean</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">emailAddressDataHomePublic</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">4</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">EmailAddressData Work EmailAddress</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">string</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">emailAddressDataWorkEmailAddress</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">5</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">EmailAddressData Work Primary</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">boolean</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">emailAddressDataWorkPrimary</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">6</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">EmailAddressData Work Public</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">boolean</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">emailAddressDataWorkPublic</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">7</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">PhoneData Home Fax AreaCode</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">string</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">phoneDataHomeFaxAreaCode</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">8</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">PhoneData Home Fax InternationalPhoneCode</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">string</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">phoneDataHomeFaxInternationalPhoneCode</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">9</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">PhoneData Home Fax PhoneExtension</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">string</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">phoneDataHomeFaxPhoneExtension</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">10</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">PhoneData Home Fax PhoneNumber</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">string</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">phoneDataHomeFaxPhoneNumber</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">11</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">PhoneData Home Fax Primary</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">boolean</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">phoneDataHomeFaxPrimary</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">12</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">PhoneData Home Fax Public</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">boolean</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">phoneDataHomeFaxPublic</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">13</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">PhoneData Home Mobile AreaCode</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">string</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">phoneDataHomeMobileAreaCode</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">14</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">PhoneData Home Mobile InternationalPhoneCode</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">string</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">phoneDataHomeMobileInternationalPhoneCode</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">15</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">PhoneData Home Mobile PhoneExtension</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">string</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">phoneDataHomeMobilePhoneExtension</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">16</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">PhoneData Home Mobile PhoneNumber</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">string</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">phoneDataHomeMobilePhoneNumber</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">17</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">PhoneData Home Mobile Primary</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">boolean</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">phoneDataHomeMobilePrimary</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">18</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">PhoneData Home Mobile Public</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">boolean</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">phoneDataHomeMobilePublic</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">19</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">PhoneData Home Pager AreaCode</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">string</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">phoneDataHomePagerAreaCode</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">20</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">PhoneData Home Pager InternationalPhoneCode</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">string</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">phoneDataHomePagerInternationalPhoneCode</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">21</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">PhoneData Home Pager PhoneExtension</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">string</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">phoneDataHomePagerPhoneExtension</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">22</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">PhoneData Home Pager PhoneNumber</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">string</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">phoneDataHomePagerPhoneNumber</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">23</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">PhoneData Home Pager Primary</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">boolean</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">phoneDataHomePagerPrimary</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">24</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">PhoneData Home Pager Public</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Boolean</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">phoneDataHomePagerPublic</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">25</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">PhoneData Home Telephone AreaCode</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">string</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">phoneDataHomeTelephoneAreaCode</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">26</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">PhoneData Home Telephone InternationalPhoneCode</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">string</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">phoneDataHomeTelephoneInternationalPhoneCode</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">27</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">PhoneData Home Telephone PhoneExtension</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">string</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">phoneDataHomeTelephonePhoneExtension</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">28</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">PhoneData Home Telephone PhoneNumber</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">string</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">phoneDataHomeTelephonePhoneNumber</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">29</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">PhoneData Home Telephone Primary</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Boolean</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">phoneDataHomeTelephonePrimary</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">30</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">PhoneData Home Telephone Public</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">boolean</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">phoneDataHomeTelephonePublic</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">31</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">PhoneData Work Fax AreaCode</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">string</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">phoneDataWorkFaxAreaCode</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">32</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">PhoneData Work Fax InternationalPhoneCode</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">string </td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">phoneDataWorkFaxInternationalPhoneCode</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">33</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">PhoneData Work Fax PhoneExtension</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">string</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">phoneDataWorkFaxPhoneExtension</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">34</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">PhoneData Work Fax PhoneNumber</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">string</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">phoneDataWorkFaxPhoneNumber</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">35</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">PhoneData Work Fax Primary</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">boolean</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">phoneDataWorkFaxPrimary</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">36</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">PhoneData Work Fax Public</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">boolean</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">phoneDataWorkFaxPublic</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">37</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">PhoneData Work Mobile AreaCode</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">string</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">phoneDataWorkMobileAreaCode</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">38</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">PhoneData Work Mobile InternationalPhoneCode</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">string</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">phoneDataWorkMobileInternationalPhoneCode</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">39</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">PhoneData Work Mobile PhoneExtension</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">string</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">phoneDataWorkMobilePhoneExtension</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">40</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">PhoneData Work Mobile PhoneNumber</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">string</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">phoneDataWorkMobilePhoneNumber</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">41</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">PhoneData Work Mobile Primary</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">boolean</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">phoneDataWorkMobilePrimary</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">42</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">PhoneData Work Mobile Public</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">boolean</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">phoneDataWorkMobilePublic</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">43</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">PhoneData Work Pager AreaCode</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">string</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">phoneDataWorkPagerAreaCode</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">44</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">PhoneData Work Pager InternationalPhoneCode</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">string</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">phoneDataWorkPagerInternationalPhoneCode</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">45</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">PhoneData Work Pager PhoneExtension</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">string</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">phoneDataWorkPagerPhoneExtension</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">46</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">PhoneData Work Pager PhoneNumber</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">string</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">phoneDataWorkPagerPhoneNumber</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">47</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">PhoneData Work Pager Primary</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">boolean</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">phoneDataWorkPagerPrimary</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">48</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">PhoneData Work Pager Public</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">boolean</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">phoneDataWorkPagerPublic</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">49</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">PhoneData Work Telephone AreaCode</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">string</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">phoneDataWorkTelephoneAreaCode</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">50</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">PhoneData Work Telephone InternationalPhoneCode</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">string</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">phoneDataWorkTelephoneInternationalPhoneCode</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">51</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">PhoneData Work Telephone PhoneExtension</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">string</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">phoneDataWorkTelephonePhoneExtension</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">52</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">PhoneData Work Telephone PhoneNumber</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">string</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">phoneDataWorkTelephonePhoneNumber</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">53</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">PhoneData Work Telephone Primary</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">boolean</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">phoneDataWorkTelephonePrimary</td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">54</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">PhoneData Work Telephone Public</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">boolean</td>
+               <td align="left"
+                   class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">phoneDataWorkTelephonePublic</td>
+            </tr>
+         </tbody>
+      </table>
+   </body>
+</html>

@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:fileTags="Tags/okta-authors.Jeanette Smith">
+    <head><title>Enable group-based role mapping in Okta | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1><a name="Step"></a>Enable group-based role mapping in <MadCap:variable name="okta-variables.ProductName" /></h1>
+        <p>After importing the Amazon Web Services (AWS) role  and management groups into <MadCap:variable name="okta-variables.ProductName" />, you need to configure the <MadCap:variable name="okta-variables.ProductName" /> AWS app to translate AWS role-group membership into entitlements that AWS can understand syntactically.</p>
+        <ol>
+            <li>
+                <MadCap:snippetBlock src="../../../Resources/Snippets/task steps/Applications_Applications.flsnp" />
+            </li>
+            <li>
+                <p>Enter AWS in the Search field.</p>
+            </li>
+            <li>Click AWS Account Federation, then select the <span class="uicontrol">Sign On</span> tab.</li>
+            <li>Click <span class="uicontrol">Edit</span> in the <span class="uicontrol">Settings</span> section.</li>
+            <li>Under <span class="uicontrol">Advanced Sign-on Settings</span> area, make sure <span class="uicontrol">Use Group Mapping</span> is checked.</li>
+            <li>
+                <p>Complete these fields:</p>
+            </li>
+            <ul>
+                <li><span class="uicontrol">App Filter</span>: Enter a comma-separated list of apps  for AWS entitlement mapping. This field provides additional security and avoids the issue of rogue admins creating groups following a certain syntax in order to intentionally gain unauthorized access to a specific AWS account or role. If you created your groups in Active Directory, enter <code>active_directory</code>, or enter <code>okta</code> to limit use to local <MadCap:variable name="okta-variables.ProductName" /> groups. For other applications, you can use values such as: <code>bamboohr</code> for the Bamboo HR app or <code>okta</code>, <code>egnyte</code> for <MadCap:variable name="okta-variables.ProductName" /> + Egnyte groups.
+            </li>
+                <li><span class="uicontrol">Group Filter</span>: Enter a RegEx expression to filter AWS related groups and extract accountid and role. If you use the  default AWS role group syntax (<code>aws#[account alias]#[role name]#[account #]</code>), then you can  use this RegEx string:</li>
+            </ul><pre style="text-align: left;margin-left: 40px;">^aws\#\S+\#(?{{role}}[\w\-]+)\#(?{{accountid}}\d+)$</pre>
+            <p style="text-align: left;margin-left: 40px;">This RegEx expression logically equates to: find groups that start with AWS, then #, then a string of text, then #, then the AWS role, then #, then the AWS account ID.</p>
+            <p style="text-align: left;margin-left: 40px;">You can also use this RegEx expression:</p><pre style="text-align: left;margin-left: 40px;">aws_(?{{accountid}}\d+)_(?{{role}}[a-zA-Z0-9+=,.@\-_]+)</pre>
+            <p style="text-align: left;margin-left: 40px;">If you don't use a default RegEx expression, create a RegEx expression that properly filters your AWS role groups, and captures the AWS role name and account ID within two distinct RegEx groups named {{role}} and {{accountid}}.</p>
+            <ul>
+                <li><span class="uicontrol">Role Value Pattern</span>: This field takes the AWS role and account ID captured within the syntax of your AWS role groups and translates it into the proper syntax AWS requires in the <MadCap:variable name="okta-variables.ProductName" /> SAML assertion. This enables users to view their accounts and roles when they sign in.</li>
+            </ul>
+            <p style="text-align: left;margin-left: 40px;">Field syntax:</p><pre xml:space="preserve" style="text-align: left;margin-left: 40px;">arn:aws:iam::${accountid}:saml-provider/[SAML Provider Name],</pre><pre xml:space="preserve" style="text-align: left;margin-left: 40px;">arn:aws:iam::${accountid}:role/${role}</pre>
+            <p style="text-align: left;margin-left: 40px;">Replace [SAML Provider Name] with the name of the SAML provider for your AWS accounts. The rest of the string should not be altered, only copied and pasted.</p>
+            <li style="text-align: left;margin-left: 40px;">Click Save.</li>
+        </ol>
+        <h2>Next steps</h2>
+        <p>
+            <MadCap:xref href="aws-assign-aws-groups.htm">Assign AWS management groups to the [%=okta-variables.ProductName%] AWS app</MadCap:xref>
+        </p>
+    </body>
+</html>

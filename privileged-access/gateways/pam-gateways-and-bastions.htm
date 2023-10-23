@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:fileTags="Tags/okta-authors.Arshabhi Rai">
+    <head>
+        <link href="../../../Resources/TableStyles/standard.css" rel="stylesheet" MadCap:stylesheetType="table" />
+        <link rel="canonical" href="https://help.okta.com/asa/en-us/Content/Topics/Adv_Server_Access/docs/gateways-and-bastions.htm" /><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+        <meta name="description" content="Learn how to use Advanced Server Access gateways with and without bastions." />
+    </head>
+    <body>
+        <h1><MadCap:variable name="okta-feature-names.Okta Privileged Access" /> gateways and bastions</h1>
+        <p>Gateways are inserted at project ingress when you connect using SSH&#160;to a server on a project that has gateways enabled. To ensure that any combination of gateways and bastions that you use match your networking requirements, it's useful to understand the connection ordering behavior between gateways and bastions. For example, you might have a situation where you have a single network bastion that you can't use as a gateway.</p>
+        <p>There are three general possibilities when using gateways and bastions:</p>
+        <ul>
+            <li>
+                <MadCap:xref href="#Gateways">Gateways without bastions</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Gateways2">Gateways with bastions configured in [%=okta-feature-names.ScaleFT%]</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Gateways3">Gateways with bastions configured using the command line</MadCap:xref>
+            </li>
+        </ul>
+        <h2><a name="Gateways"></a>Gateways without bastions</h2>
+        <p>In this basic scenario, a gateway is always traversed before connecting to a server on a project where gateways are enabled.</p>
+        <h2><a name="Gateways2"></a>Gateways with bastions configured in <MadCap:variable name="okta-feature-names.Okta Privileged Access" /></h2>
+        <p>The following situations may occur when you configure the <span class="code">Bastion</span> option in the server agent configuration file. See <MadCap:xref href="../server-agent/pam-configure-server-agent.htm">Configure the [%=okta-feature-names.Okta Privileged Access%] server agent</MadCap:xref>. These servers are considered to be bastions managed by <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> since they are not specified manually by users from the command line.</p>
+        <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+            <col class="TableStyle-standard-Column-Column1" />
+            <col class="TableStyle-standard-Column-Column1" />
+            <col class="TableStyle-standard-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-standard-Head-Header1">
+                    <th class="TableStyle-standard-HeadF-Column1-Header1">
+                        <p>Projects</p>
+                    </th>
+                    <th class="TableStyle-standard-HeadF-Column1-Header1">
+                        <p>Gateway requirements</p>
+                    </th>
+                    <th class="TableStyle-standard-HeadD-Column1-Header1">
+                        <p>Description</p>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td class="TableStyle-standard-BodyF-Column1-Body1">
+                        <p>Servers and bastion in same project </p>
+                    </td>
+                    <td class="TableStyle-standard-BodyF-Column1-Body1">
+                        <p>Both need a gateway</p>
+                    </td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body1">
+                        <p>If the server and bastion both belong to a project that requires a gateway, the gateway is inserted prior to the bastion. Clients connect to the gateway, then the bastion, and then to the target server.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body2">
+                    <td class="TableStyle-standard-BodyF-Column1-Body2">
+                        <p>Servers and bastion  in different projects</p>
+                    </td>
+                    <td class="TableStyle-standard-BodyF-Column1-Body2">
+                        <p>Server needs a gateway</p>
+                    </td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body2">
+                        <p>The gateway is inserted between the bastion and the target server. The client connects to the bastion, then the gateway, and then to the target server.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td class="TableStyle-standard-BodyF-Column1-Body1">Servers and bastion  in different projects</td>
+                    <td class="TableStyle-standard-BodyF-Column1-Body1">
+                        <p>Bastion needs a gateway</p>
+                    </td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body1">
+                        <p>The gateway is inserted prior to the bastion. The client connects to the gateway, then the bastion, and then to the target server.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body2">
+                    <td class="TableStyle-standard-BodyC-Column1-Body2">Servers and bastion  in different projects</td>
+                    <td class="TableStyle-standard-BodyC-Column1-Body2">
+                        <p>Both need a gateway</p>
+                    </td>
+                    <td class="TableStyle-standard-BodyA-Column1-Body2">
+                        <p>Gateways are inserted both before the bastion and the server. </p>
+                        <p>The client connects to Gateway-1, then the bastion, then Gateway-2, and finally to the target server. In this example, only gateway B records the session.</p>
+                        <div class="noteOkta">
+                            <p class="noteContent">Teams can configure the same server to function as Gateway-1 and Gateway-2. This can result in a cycle, if the gateway selectors for both projects allow it. This isn't harmful, but <MadCap:variable name="okta-variables.ProductName" /> recommends teams configure projects to avoid unnecessary network hops.</p>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2><a name="Gateways3"></a>Gateways with bastions configured using the command line</h2>
+        <p>In addition to bastions that are automatically used by properly configuring the <MadCap:variable name="okta-feature-names.ScaleFT" /> server agent, clients can specify bastions to use by using the <span class="code">--via</span> or <span class="code">--bastion</span> flags with the <MadCap:variable name="okta-feature-names.ScaleFT" /> client. See <MadCap:xref href="../clients/pam-client-cli-commands.htm">Use the [%=okta-feature-names.Okta Privileged Access%] client</MadCap:xref>.</p>
+        <p>The behavior of bastions configured using the command line flags is the same as that for bastions that are configured in <MadCap:variable name="okta-feature-names.ScaleFT" />. Bastions specified using the command line are always added before bastions that were configured through their server agent configuration. For example, suppose you have BastionA, a bastion specified using the command line, and BastionB, a bastion  specified through its server agent configuration. If you attempt to reach a target through both bastions, then the connection would go from the client to BastionA, then BastionB, and then to the target server. Depending on the project configuration, gateways would be inserted at project ingress.</p>
+        <h2>Related topics</h2>
+        <ul>
+            <li>
+                <MadCap:xref href="../tool-setup/pam-install-gateway.htm">Install the [%=okta-feature-names.ScaleFT%] gateway</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="pam-gateways.htm">[%=okta-feature-names.ScaleFT%] gateways</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="pam-session-capture.htm">Session capture</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

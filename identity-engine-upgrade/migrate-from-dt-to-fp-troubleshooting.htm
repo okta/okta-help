@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:searchable="True"
+      MadCap:fileTags="Tags/okta-authors.Kimli Welsh">
+   <head>
+      <link href="../../Resources/TableStyles/standard.css"
+            rel="stylesheet"
+            MadCap:stylesheetType="table"/>
+      <title>[%=Heading.Level1%]</title>
+      <link href="" rel="stylesheet" type="text/css"/>
+   </head>
+   <body>
+      <h1>Troubleshoot <MadCap:variable name="okta-feature-names.Device Trust"/> after upgrade</h1>
+      <p>Consider the following troubleshooting and verification procedures when you migrate from <MadCap:variable name="okta-feature-names.Device Trust"/> (<MadCap:variable name="okta-feature-names.Classic Engine"/>) to <MadCap:variable name="okta-feature-names.Okta FastPass"/>:</p>
+      <ul>
+         <li>
+            <p>
+               <MadCap:xref href="#TroubleshootWindows">Device Trust deactivation error        </MadCap:xref>
+            </p>
+         </li>
+         <li>
+            <p>
+               <MadCap:xref href="#Troubles">Troubleshoot Windows devices</MadCap:xref>
+            </p>
+         </li>
+         <li>
+            <p>
+               <MadCap:xref href="#TroubleshootMacos">Troubleshoot macOS devices</MadCap:xref>
+            </p>
+         </li>
+      </ul>
+      <h2>
+         <a name="TroubleshootWindows"/>Device Trust deactivation error        </h2>
+      <p>In <MadCap:variable name="okta-feature-names.Identity Engine"/>, you need authentication policies for devices that aren't trusted. If you didn't  configure these correctly, you receive an error when you try to deactivate <MadCap:variable name="okta-feature-names.Device Trust"/> (<MadCap:variable name="okta-feature-names.Classic Engine"/>. The error message varies, depending on affected authentication policies.</p>
+      <p>
+         <img src="../../Resources/Images/identity-engine-upgrade/migrate-dt-fp-tbl-cant-delete-config-2.png"
+              class="thumbnail"/>
+         <img src="../../Resources/Images/identity-engine-upgrade/migrate-dt-fp-tbl-cant-delete-config-1.png"
+              class="thumbnail"/>
+      </p>
+      <p>For example, your <MadCap:variable name="okta-feature-names.Device Trust"/> (<MadCap:variable name="okta-feature-names.Classic Engine"/>) app sign-on policy might have the following configuration:</p>
+      <ul>
+         <li>
+            <span class="wintitle">CLIENT</span>:  Windows and/or macOS
+					</li>
+         <li>
+            <span class="wintitle">Device Trust</span>: Not trusted
+					</li>
+         <li>
+            <span class="wintitle">ACCESS</span>: Denied
+					</li>
+      </ul>
+      <p>This policy migrated to <MadCap:variable name="okta-feature-names.Identity Engine"/> as:</p>
+      <ul>
+         <li>
+            <span class="wintitle">AND Device state is</span>: Registered
+					</li>
+         <li>
+            <span class="wintitle">AND Device management is</span>: Not managed
+					</li>
+         <li>
+            <span class="wintitle">THEN Access is</span>: Denied
+					</li>
+      </ul>
+      <p>The following images illustrate these two configurations:</p>
+      <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard.css');"
+             class="TableStyle-standard"
+             cellspacing="0">
+         <col class="TableStyle-standard-Column-Column1"/>
+         <col class="TableStyle-standard-Column-Column1"/>
+         <thead>
+            <tr class="TableStyle-standard-Head-Header1">
+               <th class="TableStyle-standard-HeadF-Column1-Header1">
+                  <p>
+                     <MadCap:variable name="okta-feature-names.Classic Engine"/> app sign-on policy</p>
+               </th>
+               <th class="TableStyle-standard-HeadD-Column1-Header1">
+                  <p>
+                     <MadCap:variable name="okta-feature-names.Identity Engine"/> authentication policy</p>
+               </th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyC-Column1-Body1">
+                  <img src="../../Resources/Images/identity-engine-upgrade/migrate-dt-fp-13-classic-asop-config.png"
+                       class="thumbnail"/>
+               </td>
+               <td class="TableStyle-standard-BodyA-Column1-Body1">
+                  <img src="../../Resources/Images/identity-engine-upgrade/migrate-dt-fp-14-oie-asop-config.png"
+                       class="thumbnail"/>
+               </td>
+            </tr>
+         </tbody>
+      </table>
+      <p>Before you delete the legacy <MadCap:variable name="okta-feature-names.Device Trust"/> configuration, revise the <MadCap:variable name="okta-feature-names.Identity Engine"/> authentication policy to deny access to devices that aren't enrolled in <MadCap:variable name="okta-feature-names.Okta FastPass"/>. </p>
+      <ol>
+         <li>Create one or more <span class="uicontrol">Allow</span> rules to define when to allow access to the app. Assign these rules the highest priority.</li>
+         <li>Create a <span class="wintitle">Denied</span> catch-all rule that applies to users who don't match the permissive rules you created in step 1. Assign the <span class="wintitle">Denied</span> catch-all rule the lowest priority, just above the <MadCap:variable name="okta-variables.ProductName"/> default rule.  </li>
+      </ol>
+      <p>Your first rule should allow registered, managed devices:</p>
+      <ul>
+         <li>
+            <span class="wintitle">AND Device state is</span>: Registered
+					</li>
+         <li>
+            <span class="wintitle">AND Device management is</span>: Managed
+					</li>
+         <li>
+            <span class="wintitle">THEN Access is</span>: Allow
+					</li>
+      </ul>
+      <p>A later rule should deny all other devices.</p>
+      <ul>
+         <li>
+            <span class="wintitle">AND Device state is</span>: Any</li>
+         <li>
+            <span class="wintitle">THEN Access is</span>: Deny
+					</li>
+         <p>
+            <img src="../../Resources/Images/identity-engine-upgrade/migrate-dt-fp-15-oie-asop-config.png"
+                 class="thumbnail"/>
+         </p>
+      </ul>
+      <p>Example 1:</p>
+      <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard.css');"
+             class="TableStyle-standard"
+             cellspacing="0">
+         <col class="TableStyle-standard-Column-Column1"/>
+         <col class="TableStyle-standard-Column-Column1"/>
+         <col class="TableStyle-standard-Column-Column1"/>
+         <col class="TableStyle-standard-Column-Column1"/>
+         <col class="TableStyle-standard-Column-Column1"/>
+         <thead>
+            <tr class="TableStyle-standard-Head-Header1">
+               <th class="TableStyle-standard-HeadF-Column1-Header1">
+								Rule
+							</th>
+               <th class="TableStyle-standard-HeadF-Column1-Header1">
+								Rule name
+							</th>
+               <th class="TableStyle-standard-HeadF-Column1-Header1">
+								User group
+							</th>
+               <th class="TableStyle-standard-HeadF-Column1-Header1">
+								IF
+							</th>
+               <th class="TableStyle-standard-HeadD-Column1-Header1">
+								THEN
+							</th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">1</td>
+               <td class="TableStyle-standard-BodyF-Column1-Body1">
+								Group A managed
+							</td>
+               <td class="TableStyle-standard-BodyF-Column1-Body1">A</td>
+               <td class="TableStyle-standard-BodyF-Column1-Body1">Require registered, managed devices</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">Allow with 1FA</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">2</td>
+               <td class="TableStyle-standard-BodyF-Column1-Body2">
+								Group A other
+							</td>
+               <td class="TableStyle-standard-BodyF-Column1-Body2">A</td>
+               <td class="TableStyle-standard-BodyF-Column1-Body2">Any device state</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body2">Allow with 2FA</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">3</td>
+               <td class="TableStyle-standard-BodyF-Column1-Body1">
+								Group B managed
+							</td>
+               <td class="TableStyle-standard-BodyF-Column1-Body1">B</td>
+               <td class="TableStyle-standard-BodyF-Column1-Body1">Require registered, managed devices</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">Allow with 1FA</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyC-Column1-Body2">4</td>
+               <td class="TableStyle-standard-BodyC-Column1-Body2">
+								Catch-all Rule
+							</td>
+               <td class="TableStyle-standard-BodyC-Column1-Body2">Any</td>
+               <td class="TableStyle-standard-BodyC-Column1-Body2">Any</td>
+               <td class="TableStyle-standard-BodyA-Column1-Body2">Denied</td>
+            </tr>
+         </tbody>
+      </table>
+      <p>Example 2:</p>
+      <p>
+         <img src="../../Resources/Images/identity-engine-upgrade/migrate-dt-fp-16-oie-asop-config.png"
+              class="thumbnail"/>
+      </p>
+      <h2>
+         <a name="Troubles"/>Troubleshoot Windows devices</h2>
+      <h3>Verify that  Integrated Windows Authentication (IWA) works as expected</h3>
+      <div style="padding-left: 5px;padding-right: 5px;padding-top: 5px;padding-bottom: 5px;background-color: #f7f7f7;">
+         <p>On the client device, go to the following URLs (replace [IWA_DOMAIN_NAME] with your IWA domain name), and verify that it works as expected:</p>
+         <ul>
+            <li>
+               <span class="url">http://[IWA_DOMAIN_NAME]/IWA/iwa_test.aspx</span>
+            </li>
+            <p>Verify that it appears correctly in the browser.</p>
+            <li>
+               <span class="url">http://[IWA_DOMAIN_NAME]/IWA/authenticatd.aspx</span>
+            </li>
+            <p>Verify that <span class="uicontrol">Userid</span>, <span class="uicontrol">UserPrincipalname</span>, <span class="uicontrol">UserprincipalName</span>(Transformed), and <span class="uicontrol">Security Identifier</span> appear.</p>
+            <li>
+               <span class="url">http://[IWA_DOMAIN_NAME]/IWA/auth.aspx</span>
+            </li>
+            <p>Verify that you go to the <MadCap:variable name="okta-variables.ProductName"/> sign-in page.</p>
+         </ul>
+      </div>
+      <h3>Verify that a <MadCap:variable name="okta-feature-names.Device Trust"/> client is deployed to the client device</h3>
+      <div style="padding-left: 5px;padding-right: 5px;padding-top: 5px;padding-bottom: 5px;background-color: #f7f7f7;">
+         <ol>
+            <li>In Windows, click <span class="menucascade">
+                  <span class="uicontrol">Start</span>
+                  <span class="uicontrol">Add or remove programs</span>
+               </span>.</li>
+            <li>Search for <span class="uicontrol">Okta Device Registration Task</span>.</li>
+         </ol>
+      </div>
+      <h3>Verify that a <MadCap:variable name="okta-feature-names.Device Trust"/> mutual TLS client certificate is installed</h3>
+      <div style="padding-left: 5px;padding-right: 5px;padding-top: 5px;padding-bottom: 5px;background-color: #f7f7f7;">
+         <ol>
+            <li>
+               <p>In the Microsoft Management Console (MMC), open the Certificate Manager (click <span class="menucascade">
+                     <span class="uicontrol">Start</span>
+                     <span class="uicontrol">certmgr.msc</span>
+                  </span>).</p>
+            </li>
+            <li>
+               <p>Verify that an Okta <span class="uicontrol"> MTLS - [userName]</span> certificate is present.</p>
+               <p>If the certificate wasn't present, open Task Scheduler (click <span class="menucascade">
+                     <span class="uicontrol">Start</span>
+                     <span class="uicontrol">Task Scheduler</span>
+                  </span>) and run <span class="uicontrol">okta-devicetrust-usertask</span>.</p>
+            </li>
+         </ol>
+      </div>
+      <h3>Verify that <MadCap:variable name="okta-feature-names.Device Trust"/> Enrollment works as expected</h3>
+      <div style="padding-left: 5px;padding-right: 5px;padding-top: 5px;padding-bottom: 5px;background-color: #f7f7f7;">
+         <ol>
+            <li>In the Microsoft Management Console (MMC), open the Certificate Manager (click <span class="menucascade">
+                  <span class="uicontrol">Start</span>
+                  <span class="uicontrol">certmgr.msc</span>
+               </span>).</li>
+            <li>Delete the <span class="uicontrol">Okta MTLS - [username]</span> certificate.</li>
+            <li>Open a Command Prompt.</li>
+            <li>Change directories to “Program Files\Okta\DeviceTrust”.</li>
+            <li>Run <span class="code">OktaDeviceReg.exe --user --verbose --force</span>.</li>
+            <p>A new command window appears.</p>
+            <li>Verify that errors don't exist, and that a new certificate is enrolled on the client device.</li>
+         </ol>
+      </div>
+      <h3>Verify that a rule requires  registered and managed devices</h3>
+      <div style="padding-left: 5px;padding-right: 5px;padding-top: 5px;padding-bottom: 5px;background-color: #f7f7f7;">
+         <ol>
+            <li>
+               <MadCap:snippetText src="../../Resources/Snippets/task steps/Security_Authentication_Policy.flsnp"/>
+            </li>
+            <li>
+						Select the policy that you want to update.
+					</li>
+            <li>
+						Click the <span class="wintitle">Rules</span> tab.
+					</li>
+            <li>View the policy information, and then verify that one of the rules in the policy specifies:
+					<ul>
+                  <li>
+                     <span class="wintitle">Device</span>: Registered, Managed</li>
+                  <li>
+                     <span class="wintitle">User must authenticate with</span>: Any 1 factor type</li>
+               </ul>
+            </li>
+         </ol>
+      </div>
+      <h3>Review the Admin System logs</h3>
+      <div style="padding-left: 5px;padding-right: 5px;padding-top: 5px;padding-bottom: 5px;background-color: #f7f7f7;">
+         <p>Go to <a href="https://help.okta.com/okta_help.htm?id=dt-win-desktop">Enforce Okta Device Trust for managed Windows computers</a>, and see the <span class="menucascade">
+               <span class="uicontrol">Troubleshooting</span>
+               <span class="uicontrol">Basic Troubleshooting</span>
+               <span class="uicontrol">SystemLog</span>
+            </span> section.</p>
+         <p>If you're using a Trusted Platform Module (TPM), see <a href="https://help.okta.com/en-us/Content/Topics/device-trust/dt-win-tpm.htm"
+               target="_blank">Enhance Windows Device Trust security with Trusted Platform Module (TPM)</a>.</p>
+      </div>
+      <h2>
+         <a name="TroubleshootMacos"/>Troubleshoot macOS devices</h2>
+      <div style="padding-left: 5px;padding-right: 5px;padding-top: 5px;padding-bottom: 5px;background-color: #f7f7f7;">
+         <p>Verify that a <MadCap:variable name="okta-feature-names.Device Trust"/> client is deployed to the client device. See "To verify installation from a terminal" at <a href="https://help.okta.com/okta_help.htm?id=ext_Device_Trust_MacOS">Enforce Okta Device Trust for Jamf Pro-managed macOS device</a>.</p>
+      </div>
+      <h2>Related topics</h2>
+      <p>
+         <MadCap:xref href="dt-upgrade-considerations.htm">Device Trust </MadCap:xref>
+      </p>
+   </body>
+</html>

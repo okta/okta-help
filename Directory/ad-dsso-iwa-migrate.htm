@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:searchable="True"
+      MadCap:conditions="MultiProdPublish.Classic+OIE"
+      MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+   <head>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <link href="" rel="stylesheet" type="text/css"/>
+      <meta name="description"
+            content="To simplify user access management, move from Integrated Windows Authentication (IWA) to agentless Desktop Single Sign-on (ADSSO)."/>
+   </head>
+   <body>
+      <h1>Migrate from Integrated Windows Authentication to agentless Desktop Single Sign-on</h1>
+      <p>To simplify user access management, <MadCap:variable name="okta-variables.ProductName"/> encourages you to move from Integrated Windows Authentication (IWA) to agentless Desktop Single Sign-on (ADSSO). <MadCap:variable name="okta-variables.ProductName"/> is no longer adding new IWA functionality  and offers only limited support and bug fixes.</p>
+      <ol>
+         <li>
+            <MadCap:xref href="Configuring_Agentless_SSO.htm">Configure agentless Desktop Single Sign-on</MadCap:xref>.
+            </li>
+         <li MadCap:conditions="MultiProdPublish.Classic">
+                Set IWA as a failover option for ADSSO. See <MadCap:xref href="ad-iwa-configure-failover.htm">Configure failover for the [%=okta-variables.ProductName%] IWA Web agent</MadCap:xref>.
+</li>
+         <li MadCap:conditions="MultiProdPublish.OIE">Set IWA as a failover option for ADSSO:<ol style="list-style-type: lower-alpha;">
+               <li>In the <MadCap:variable name="okta-feature-names.Administrator dashboard"/>, go to <span class="menucascade">
+                     <span class="uicontrol">Security</span>
+                     <span class="uicontrol"> Delegated Authentication</span>
+                  </span>. </li>
+               <li>In the <span class="uicontrol">On-Prem Desktop SSO</span> area, click <span class="uicontrol">Edit</span>.</li>
+               <li>Under <span class="uicontrol">Failover</span>, select a fail over setting:<ul>
+                     <li>
+                        <span class="uicontrol">Redirect to backup IWA if primary goes offline</span> — When selected, <MadCap:variable name="okta-variables.ProductName"/> automatically switches to a healthy IWA Web agent if your primary IWA Web agent goes offline. Your AD Agent checks the health of each IWA Web agent that you have set up.</li>
+                     <li>
+                        <span class="uicontrol">Only redirect to primary IWA agent</span> (default)	— When selected, if the primary IWA agent goes offline, users are redirected back to the primary IWA agent when it is brought back online. You would typically select this option if you have not configured a backup IWA Web agent or you do not want to redirect users to a global redirect URL.	</li>
+                     <li>
+                        <span class="uicontrol">Only redirect to the following URL</span>
+— When selected, users are redirected to a URL that you specify. This is typically used to direct to a load balancer. </li>
+                  </ul>
+               </li>
+               <li>Click <span class="uicontrol">Save</span>.</li>
+            </ol>
+         </li>
+         <li>
+                Test your ADSSO configuration. See <MadCap:xref href="ad-dsso-test.htm">Test the agentless Desktop Single Sign-on configuration</MadCap:xref>.
+            </li>
+         <li>
+            <p>Delete routing rules. </p>
+            <ol style="list-style-type: lower-alpha;">
+               <li>
+                  <p>In the Admin Console, go to <span class="menucascade">
+                        <span class="uicontrol">Security</span>
+                        <span class="uicontrol">Identity Providers</span>
+                        <span class="uicontrol">Routing Rules</span>
+                     </span>.</p>
+               </li>
+               <li>
+                  <p>Identify and delete all rules using an identity provider of OnPremDSSO.</p>
+               </li>
+            </ol>
+            <div class="noteOkta">
+               <p class="noteContent">If you use Device Trust on desktop devices, do not complete the next steps until the device trust configuration has been removed prior to or after upgrade.</p>
+            </div>
+         </li>
+         <li>
+            <MadCap:annotation MadCap:createDate="2022-09-26T13:16:25.8421941-05:00"
+                               MadCap:creator="Graham Smith"
+                               MadCap:initials="GR"
+                               MadCap:comment="another option (instead of the Note) is to just add the detail here.\r\n\r\nMake ADSSO active. If you use Device Trust on desktop devices, don't do this until you remove device trust configuration.\r\na. In the...\r\nb. Scroll to..."
+                               MadCap:editor="Graham Smith"
+                               MadCap:editDate="2022-09-26T13:17:14.7109417-05:00">Make ADSSO active:
+</MadCap:annotation>
+            <ol style="list-style-type: lower-alpha;">
+               <li>In the <MadCap:variable name="okta-feature-names.Administrator dashboard"/>, go to <span class="menucascade">
+                     <span class="uicontrol">Security</span>
+                     <span class="uicontrol">Delegated Authentication</span>
+                  </span>.
+                    </li>
+               <li>
+                        Scroll to <span class="uicontrol">Agentless Desktop SSO and Silent Activation</span>.
+                    </li>
+               <li>
+                        Click <span class="uicontrol">Edit</span> and select <span class="uicontrol">On</span>.
+                    </li>
+               <li>
+                        Scroll down and click <span class="uicontrol">Save</span>.
+                    </li>
+            </ol>
+         </li>
+         <li>
+            <MadCap:annotation MadCap:createDate="2022-09-26T13:17:23.1362649-05:00"
+                               MadCap:creator="Graham Smith"
+                               MadCap:initials="GR"
+                               MadCap:comment="see previous annotation"
+                               MadCap:editor="Graham Smith"
+                               MadCap:editDate="2022-09-26T13:17:35.0940202-05:00">
+                Disable the Okta IWA agent:
+</MadCap:annotation>
+            <ol style="list-style-type: lower-alpha;">
+               <li>In the <MadCap:variable name="okta-feature-names.Administrator dashboard"/>, go to <span class="menucascade">
+                     <span class="uicontrol">Security</span>
+                     <span class="uicontrol"> Delegated Authentication</span>
+                  </span>.
+                    </li>
+               <li>
+                        Scroll to <span class="uicontrol">On-Prem Desktop SSO</span>.
+                    </li>
+               <li>
+                       Click <span class="uicontrol">Edit</span> and select <span class="uicontrol">Off</span>.
+                    </li>
+               <li>
+                       Scroll down and click <span class="uicontrol">Save</span>.
+                    </li>
+            </ol>
+         </li>
+         <li>
+                Optional. Delete  the Okta IWA agent:
+                <ol style="list-style-type: lower-alpha;">
+               <li>In the <MadCap:variable name="okta-feature-names.Administrator dashboard"/>, go to <span class="menucascade">
+                     <span class="uicontrol">Security</span>
+                     <span class="uicontrol">Delegated Authentication</span>
+                  </span>.
+                    </li>
+               <li>
+                       Scroll to <span class="uicontrol">On-Prem Desktop SSO</span>.
+                    </li>
+               <li>
+                        Click <span class="uicontrol">Edit</span> and scroll to the <span class="uicontrol">IWA Agents</span> section.
+                    </li>
+               <li>
+                        Click <span class="uicontrol">Delete</span>
+                  <img src="../../Resources/Images/remove_icon.png"/> and <span class="uicontrol">Delete Agent</span> in the <span class="uicontrol">Delete IWA Agent</span> dialog.
+                    </li>
+               <li>Optional. Repeat step d to delete additional Okta IWA agents.</li>
+            </ol>
+         </li>
+      </ol>
+   </body>
+</html>

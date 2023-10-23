@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:fileTags="Tags/okta-authors.Patrick Calnan"
+      MadCap:conditions="MultiProdPublish.Classic+OIE">
+   <head>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <meta name="description"
+            content="Configure the Citrix Netscaler Gateway integration to enable MFA against your Okta RADIUS server agent to provide seamless end-user authentication."/>
+   </head>
+   <body>
+      <h1>Configure the Check Point SmartConsole </h1>
+      <p>During this task we will configure Check Point to use the Okta RADIUS app.<br/>
+      </p>
+      <div>
+         <h3>Steps</h3>
+         <ul>
+            <li>
+               <MadCap:xref href="#Step">Define a RADIUS server object</MadCap:xref>
+            </li>
+            <li>
+               <MadCap:xref href="#Configu">Configure a policy to use RADIUS authentication</MadCap:xref>
+            </li>
+            <li>
+               <MadCap:xref href="#Configur">Configure browser access to the Check Point Mobile Access SSL VPN portal</MadCap:xref>
+            </li>
+         </ul>
+      </div>
+      <h2>Before you begin</h2>
+      <ul>
+         <li>Ensure that you have the common UDP port and secret key values available.</li>
+      </ul>
+      <h2>
+         <a name="Step"/>Define a RADIUS server object</h2>
+      <ol>
+         <li>Launch the Check Point SmartConsole (Windows OS only).	</li>
+         <li>From the upper left corner menu, navigate to <span class="menucascade">
+               <span class="uicontrol">New object</span>
+               <span class="uicontrol">New Host</span>
+            </span>
+            <p>
+               <img src="../../Resources/Images/checkpoint1.png"/>
+            </p>
+         </li>
+         <li>Enter the following:
+						<ul>
+               <li>
+                  <span class="uicontrol">Name</span>: A unique name for the host where the  RADIUS server is installed. For example, <span class="uicontrol">MyHost</span>.</li>
+               <li>
+                  <span class="uicontrol">IPv4 address</span>:  A unique IP address for the host where the  RADIUS server is installed. For example, <span class="uicontrol">192.168.1.101</span>.</li>
+               <li>Click <span class="uicontrol">OK</span>.</li>
+            </ul>
+         </li>
+         <p>
+            <img src="../../Resources/Images/checkpoint2.png"/>
+         </p>
+         <li>From the upper left corner menu, navigate to <span class="menucascade">
+               <span class="uicontrol">New object</span>
+               <span class="uicontrol">More object types</span>
+               <span class="uicontrol">Server</span>
+               <span class="uicontrol">More New RADIUS</span>
+            </span>, then enter the following:
+                   <ul>
+               <li>
+                  <span class="uicontrol">Name</span>: A unique name for the RADIUS server. For example, <span class="uicontrol">MyRADIUS</span>.                    </li>
+               <li>
+                  <span class="uicontrol">Host</span>: Select the Host you defined above.
+                    </li>
+               <li>
+                  <span class="uicontrol">Service</span>: Change to <span class="uicontrol">NEW-RADIUS</span> to match UDP port 1812 set in the RADIUS App earlier.
+                    </li>
+               <li>
+                  <span class="uicontrol">Shared Secret</span>: Enter the RADIUS Secret defined in the Okta RADIUS App earlier.
+                    </li>
+               <li>
+                  <span class="uicontrol">Version</span>: Select <span class="uicontrol">RADIUS Ver 2.0</span>.
+                    </li>
+               <li>
+                  <span class="uicontrol">Protocol</span>: Select <span class="uicontrol">PAP</span>.
+                    </li>
+               <li>
+                  <span class="uicontrol">Priority</span>:<span class="uicontrol">1</span> is the default. Modify as needed when using multiple RADIUS servers.
+                    </li>
+               <li>
+                      	Click <span class="uicontrol">OK</span>.                    </li>
+            </ul>
+            <p>
+               <img src="../../Resources/Images/checkpoint3.png"/>
+            </p>
+         </li>
+         <li>From the upper left corner menu, navigate to <span class="menucascade">
+               <span class="uicontrol">Global Properties</span>
+               <span class="uicontrol">Advances</span>
+               <span class="uicontrol">SecuRemote/SecuClient</span>
+            </span>, check <span class="uicontrol">add_radius_groups</span>, then click <span class="uicontrol">OK</span>:					<p>
+               <img src="../../Resources/Images/checkpoint4.png"/>
+            </p>
+         </li>
+         <li>Define the RADIUS user groups.
+            <p>Note: It is not necessary to define RADIUS user groups if there is no requirement to use that group as a Participant User Group. </p>
+            <ul>
+               <li>From the upper left corner menu, navigate to <span class="menucascade">
+                     <span class="uicontrol">New object</span>
+                     <span class="uicontrol">more object types</span>
+                     <span class="uicontrol">user</span>
+                     <span class="uicontrol">new user group</span>
+                  </span>.</li>
+               <li>Enter the name of the group in the following format:
+                  <span class="code">RAD_&lt;group to which the RADIUS users belong&gt;</span>.
+                     <p>Note: For older version the format might be different. Refer to your admin guide for details.</p>
+               </li>
+               <li>
+                  <p>Make sure the group is empty. Click <span class="uicontrol">OK</span>, then click <span class="uicontrol">Close</span>.</p>
+               </li>
+            </ul>
+            <p>
+               <img src="../../Resources/Images/checkpoint5.png"/>
+            </p>
+            <p>
+               <img src="../../Resources/Images/checkpoint6.png"/>
+            </p>
+         </li>
+      </ol>
+      <h2>
+         <a name="Configu"/>Configure a policy to use RADIUS authentication</h2>
+      <p>In this step, we'll describe the following two  use cases: </p>
+      <p>Remote Access VPN client Example</p>
+      <ol>
+         <li>
+            <p>In the SmartConsole, edit the gateway object and select <span class="uicontrol">IPSec VPN</span>:</p>
+            <p>
+               <img src="../../Resources/Images/checkpoint_new1.png"/>
+            </p>
+         </li>
+         <li>
+            <p>While editing the gateway object, select <span class="uicontrol">Link Selection</span> in the IPSec VPN branch. If needed, also modify the gateway address to use the external gateway address.</p>
+            <p>
+               <img src="../../Resources/Images/checkpoint7.png"/>
+            </p>
+         </li>
+         <li>Select the <span class="menucascade">
+               <span class="uicontrol">VPN Clients</span>
+               <span class="uicontrol">Office Mode</span>
+            </span> branch and enable <span class="uicontrol">Allow Office Mode</span> for all users using the default  <span class="uicontrol">CP_default_Office_Mode_addresses_pool</span>  object:</li>
+         <p>
+            <img src="../../Resources/Images/checkpoint8.png"/>
+         </p>
+         <li>
+            <p>Navigate to <span class="menucascade">
+                  <span class="uicontrol">VPN Clients</span>
+                  <span class="uicontrol">Authentication</span>
+                  <span class="uicontrol">Settings</span>
+               </span>, then in the <span class="uicontrol">Single Authentication Clients Settings</span> dialog, select <span class="uicontrol">RADIUS</span> as the <span class="uicontrol">Authentication method</span> and for <span class="uicontrol">Server</span>, select  the RADIUS server we created earlier. Click <span class="uicontrol">OK</span> when done.</p>
+         </li>
+         <p>
+            <img src="../../Resources/Images/checkpoint9.png"/>
+         </p>
+         <li>
+            <p>Navigate to <span class="uicontrol">SECURITY POLICIES</span>then select <span class="uicontrol">Access Control</span>. This displays <span class="uicontrol">Access Tools VPN Communities</span>. Click <span class="uicontrol">VPN Communities</span>. Double-click to open the <span class="uicontrol">RemoteAccess</span> community, then click <span class="uicontrol">+</span> (plus) to add the gateway.</p>
+         </li>
+         <p>
+            <img src="../../Resources/Images/checkpoint10.png"/>
+         </p>
+         <li>
+            <p>Click <span class="uicontrol">Participant User Groups</span> and accept the default <span class="uicontrol">All Users</span>.</p>
+         </li>
+      </ol>
+      <h2>
+         <a name="Configur"/>Configure browser access to the Check Point Mobile Access SSL VPN portal</h2>
+      <ol>
+         <li>Right-click the <span class="uicontrol">Access Control Policy</span> and select <span class="uicontrol">Edit Policy</span>. Select the <span class="uicontrol">Access Control Layer</span> menu box, then select <span class="uicontrol">Edit Layer</span> and <span class="uicontrol">Enable Mobile Access</span> in the policy:</li>
+         <p>
+            <img src="../../Resources/Images/checkpoint11.png"/>
+         </p>
+         <li>
+            <p>Select <span class="uicontrol">Mobile Access</span> in the <span class="uicontrol">Access Control</span> policy. Click the link to open the <span class="uicontrol">Mobile Access Policy</span> in SmartDashboard.</p>
+            <p>
+               <img src="../../Resources/Images/checkpoint_new2.png"/>
+            </p>
+         </li>
+         <li>In the lower left corner click on the <span class="uicontrol">Users</span> object. Right-click <span class="uicontrol">External User Profiles</span> and navigate to <span class="menucascade">
+               <span class="uicontrol">New External User Profile</span>
+               <span class="uicontrol">Match all users</span>
+            </span>:	</li>
+         <p>
+            <img src="../../Resources/Images/checkpoint12.png"/>
+         </p>
+         <li>The following <span class="uicontrol">External User Profile Properties</span> dialog opens:</li>
+         <p>
+            <img src="../../Resources/Images/checkpoint13.png"/>
+         </p>
+         <li>
+            <p>Select <span class="uicontrol">Authentication</span> and select <span class="uicontrol">RADIUS</span> as the <span class="uicontrol">Authentication Scheme</span>, then select the RADIUS server configured above, for example: <span class="uicontrol">RadiusServer-1</span>. Click <span class="uicontrol">OK</span> when done:</p>
+         </li>
+         <p>
+            <img src="../../Resources/Images/checkpoint14.png"/>
+         </p>
+         <li>
+            <p>Click <span class="uicontrol">OK</span>, then click the <span class="uicontrol">Menu</span> button then select  <span class="menucascade">
+                  <span class="uicontrol">File -</span>
+                  <span class="uicontrol">Update</span>
+               </span>. Close the SmartDashboard to return to the SmartConsole.</p>
+         </li>
+         <li>Click <span class="uicontrol">Install Policy</span> to publish the changes and install the policy on the R80 gateway.				</li>
+      </ol>
+      <div>
+         <h2>Next steps</h2>
+         <p>
+            <MadCap:xref href="check-point-radius-intg-configure-opt.htm">Configure Check Point optional settings</MadCap:xref>
+         </p>
+      </div>
+   </body>
+</html>

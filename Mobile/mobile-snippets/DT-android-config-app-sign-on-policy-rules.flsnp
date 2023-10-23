@@ -1,0 +1,328 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd">
+   <body>
+      <div>
+         <h3>Before you begin</h3>
+         <ul>
+            <li>Only App, Org, and Super admins can configure app Sign On policies.</li>
+            <li>When processing a sign-on policy rule for an app configured with the <span class="uicontrol">Trust</span> or <span class="uicontrol">Not trusted</span> condition, Okta  suspends normal rule processing and lets Okta Mobile assess whether or not the device is trusted. If Okta Mobile assesses the device to be untrusted, one of the following occurs:</li>
+            <ul>
+               <li>If you configured  a sign-on policy rule to deny untrusted devices, users are prompted to enroll in the MDM provider configured in <span class="menucascade">
+                     <span class="uicontrol">Security</span>
+                     <span class="uicontrol">Device Trust</span>
+                  </span>.</li>
+               <li>If you configured  a sign-on policy rule to issue an MFA challenge to users with untrusted devices, such users are challenged with MFA.</li>
+            </ul>
+            <li>
+               <p>
+						Do not disable the Android Device Trust setting on the <span class="menucascade">
+                     <span class="uicontrol">Security</span>
+                     <span class="uicontrol">Device Trust</span>
+                  </span> page if you have also configured an app sign-on policy that allows trusted Android devices. Otherwise, your Device Trust configuration will be in an inconsistent state and users with untrusted devices may not be shown messages with guidance on how to secure their device.
+					</p>
+            </li>
+            <li>(Applies only during the Early Access phase of this Device Trust solution) If you ask Okta Support to disable this Device Trust solution for your org (which is <u>separate from</u> the global Device Trust setting that you enabled in <a href="#PartA">Part A</a>), make sure to first change the Device Trust setting in the app sign-on policy rules to <span class="uicontrol">Any</span> (<span class="menucascade">
+                  <span class="uicontrol">Applications</span>
+                  <span class="uicontrol">app</span>
+                  <span class="uicontrol">Sign On</span>
+               </span>). If you do not make this change and then later have Okta Support re-enable Device Trust capability for your org, the Device Trust setting in app sign-on policy rules will take effect immediately, which you may not have expected.</li>
+         </ul>
+         <h3>Overview</h3>
+         <MadCap:snippetBlock src="AppSignOnRules_bulletedList.flsnp"/>
+         <MadCap:snippetBlock src="sign-on-policies-white-list.flsnp"/>
+         <h3>Procedure</h3>
+         <div class="noteOkta">
+            <p class="noteContent">The example below shows Device Trust rules for managing access to Office 365. For other apps, note that the section <span class="wintitle">If the user's client is any of these</span> is not present.</p>
+         </div>
+         <ol>
+            <li>In Okta, go to <span class="uicontrol">Applications</span> and click the SAML or WS-Fed-enabled app that you want to protect with Device Trust.</li>
+            <li>Click the <span class="wintitle">Sign On</span> tab, scroll down to the <span class="wintitle">Sign On Policy</span>, and click <span class="uicontrol">Add Rule</span>.</li>
+            <li>Configure one or more rules using the following example as a guide. </li>
+         </ol>
+         <p MadCap:conditions="Primary.do-not-publish"> These examples illustrate how you can  design an app sign-on policy that allows access to web browsers and Modern Auth clients, requires MFA for all access, and denies access to untrusted Android devices.</p>
+         <h3>Allowlist Examples</h3>
+         <p>
+            <a name="WL-Rule1"/>
+            <MadCap:dropDownHotspot>Example Rule 1 – Web browser; Modern Auth; Android; Trusted; Allow access + MFA </MadCap:dropDownHotspot>
+         </p>
+         <p MadCap:targetName="TWL-Rule1">
+            <img src="../../../Resources/Images/dt-android-rule-1.png"/>
+         </p>
+         <ol>
+            <li>Enter a descriptive name for the rule.</li>
+         </ol>
+         <h4>CONDITIONS</h4>
+         <ol MadCap:continue="true">
+            <li>Under <span class="uicontrol">People</span>, specify whether to apply the rule to individuals only or to individuals and groups. The People option you select must be the same for all the rules you create for this example.</li>
+            <li>Under <span class="uicontrol">Location</span>, specify the user location to which the rule will apply. The Location option you select must be the same for all the rules you create for this example.</li>
+            <li>Configure client settings:</li>
+            <p>Type:
+						</p>
+            <p>
+               <span style="font-family: 'Wingdings'; color: #007dc1;">þ</span>
+               <span class="uicontrol">Web browser or Modern Auth client</span> is selected.</p>
+            <p>
+               <span style="font-family: 'Wingdings'">¨</span>
+               <span class="uicontrol">Exchange ActiveSync client</span> is is unselected.</p>
+            <p style="font-weight: normal;">Mobile:
+						</p>
+            <p>
+               <span style="font-family: 'Wingdings'">¨</span>
+               <span class="uicontrol">iOS</span> is unselected.</p>
+            <p>
+               <span style="font-family: 'Wingdings'; color: #007dc1;">þ</span>
+               <span class="uicontrol">Android</span> is selected.</p>
+            <p>
+               <span style="font-family: 'Wingdings'">¨</span>
+               <span class="uicontrol">Other mobile</span> is unselected.</p>
+            <p>Desktop: </p>
+            <p>
+               <span style="font-family: 'Wingdings'">¨</span>
+               <span class="uicontrol">Windows</span> is unselected.</p>
+            <p>
+               <span style="font-family: 'Wingdings'">¨</span>
+               <span class="uicontrol">macOS</span> is unselected.</p>
+            <p>
+               <span style="font-family: 'Wingdings'">¨</span>
+               <span class="uicontrol">Other desktop</span> is unselected.</p>
+            <li>Configure  <span class="uicontrol">Device Trust</span>.</li>
+            <div class="noteOkta">
+               <p class="noteContent">In order for options in the <span class="wintitle">Device Trust</span> section to be available, you must deselect all options in the <span class="wintitle">Client</span> section except <span class="uicontrol">Web browser or Modern Auth client</span> and <span class="uicontrol">iOS</span>.</p>
+            </div>
+            <p>
+               <span style="font-family: 'Wingdings'">¨</span>
+               <span class="uicontrol">Any</span> is unselected.</p>
+            <p>
+               <span style="font-family: 'Wingdings'; color: #007dc1;">þ</span>
+               <span class="uicontrol">Trusted</span> is selected.</p>
+            <p>
+               <span style="font-family: 'Wingdings'">¨</span>
+               <span class="uicontrol">Not trusted</span> is unselected.</p>
+         </ol>
+         <p>ACTIONS</p>
+         <ol MadCap:continue="true">
+            <li>Configure <span class="uicontrol">Access</span>:</li>
+            <p>
+               <span class="uicontrol">Allowed</span> is selected.</p>
+            <p>
+               <span style="font-family: 'Wingdings'; color: #007dc1;">þ</span>
+               <span class="uicontrol">Prompt for factor</span> is selected.</p>
+            <li>Click <span class="uicontrol">Save</span>.</li>
+            <li>Create <span class="wintitle">Rule 2</span>.</li>
+         </ol>
+         <p>
+            <a name="WL-Rule2"/>
+            <MadCap:dropDownHotspot>Example Rule 2 – Web browser; Modern Auth; All platforms except Android; Any Trust; Allow access + MFA </MadCap:dropDownHotspot>
+         </p>
+         <p MadCap:targetName="TWL-Rule2">
+            <img src="../../../Resources/Images/dt-android-rule-2.png"/>
+         </p>
+         <ol>
+            <li>Enter a descriptive name for the rule.</li>
+         </ol>
+         <p>CONDITIONS</p>
+         <ol MadCap:continue="true">
+            <li>
+						Under <span class="uicontrol">People</span>, select the same <span class="uicontrol">People</span> option that you selected in <a href="#WL-Rule1">Rule 1</a>.  The <span class="uicontrol">People</span> option must be the same for all rules in this example.</li>
+            <li>Under <span class="uicontrol">Location</span>, select the same <span class="uicontrol">Location</span> option that you selected in <a href="#WL-Rule1">Rule 1</a>.  The <span class="uicontrol">Location</span> option must be the same for all rules in this example.</li>
+            <li>Configure client settings:</li>
+            <p>Type:
+						</p>
+            <p>
+               <span style="font-family: 'Wingdings'; color: #007dc1;">þ</span>
+               <span class="uicontrol">Web browser or Modern Auth client</span> selected.</p>
+            <p>
+               <span style="font-family: 'Wingdings'">¨</span>
+               <span class="uicontrol">Exchange ActiveSync client</span> is unselected.</p>
+            <p style="font-weight: normal;">Mobile:
+						</p>
+            <p>
+               <span style="font-family: 'Wingdings'; color: #007dc1;">þ</span>
+               <span class="uicontrol">iOS</span> is selected. </p>
+            <p>
+               <span style="font-family: 'Wingdings'">¨</span>
+               <span class="uicontrol">Android</span> is unselected.</p>
+            <p>
+               <span style="font-family: 'Wingdings'; color: #007dc1;">þ</span>
+               <span class="uicontrol">Other mobile</span> is selected.</p>
+            <p>Desktop: </p>
+            <p>
+               <span style="font-family: 'Wingdings'; color: #007dc1;">þ</span>
+               <span class="uicontrol">Windows</span> is selected</p>
+            <p>
+               <span style="font-family: 'Wingdings'; color: #007dc1;">þ</span>
+               <span class="uicontrol">macOS</span> is selected</p>
+            <p>
+               <span style="font-family: 'Wingdings'; color: #007dc1;">þ</span>
+               <span class="uicontrol">Other desktop</span> is selected</p>
+            <li>Configure  <span class="uicontrol">Device Trust</span>.</li>
+            <div class="noteOkta">
+               <p class="noteContent">In order for options in the <span class="wintitle">Device Trust</span> section to be available, you must deselect all options in the <span class="wintitle">Client</span> section except <span class="uicontrol">Web browser or Modern Auth client</span> and <span class="uicontrol">iOS</span>.</p>
+            </div>
+            <p>
+               <span style="font-family: 'Wingdings'; color: #007dc1;">þ</span>
+               <span class="uicontrol">Any</span> is selected.</p>
+            <p>
+               <span style="font-family: 'Wingdings'">¨</span>
+               <span class="uicontrol">Trusted</span> is unselected.</p>
+            <p>
+               <span style="font-family: 'Wingdings'">¨</span>
+               <span class="uicontrol">Not trusted</span> is unselected.</p>
+         </ol>
+         <p>ACTIONS</p>
+         <ol MadCap:continue="true">
+            <li>Configure <span class="uicontrol">Access</span>.</li>
+            <p>
+               <span class="uicontrol">Allowed</span> is selected.</p>
+            <p>
+               <span style="font-family: 'Wingdings'; color: #007dc1;">þ</span>
+               <span class="uicontrol">Prompt for factor</span> is selected.</p>
+            <li>Click <span class="uicontrol">Save</span>.</li>
+            <li>Create <span class="wintitle">Rule 3</span>.</li>
+         </ol>
+         <p>
+            <a name="WL-Rule3"/>
+            <MadCap:dropDownHotspot>Example Rule 3 – Web browser; Modern Auth; Android; Not Trusted; Deny access</MadCap:dropDownHotspot>
+         </p>
+         <p MadCap:targetName="TWL-Rule3">
+            <img src="../../../Resources/Images/dt-android-rule-3.png"/>
+         </p>
+         <ol>
+            <li>Enter a descriptive name for the rule.</li>
+         </ol>
+         <p>CONDITIONS</p>
+         <ol MadCap:continue="true">
+            <li>
+						Under <span class="uicontrol">People</span>, select the same <span class="uicontrol">People</span> option that you selected in <a href="#WL-Rule1">Rule 1</a>. The <span class="uicontrol">People</span> option you select must be the same for all rules you create for this example.</li>
+            <li>Under <span class="uicontrol">Location</span>, select the same <span class="uicontrol">Location</span> option that you selected in <a href="#WL-Rule1">Rule 1</a>. The <span class="uicontrol">Location</span> option you select must be the same for all rules you create for this example.</li>
+            <li>Configure client settings:</li>
+            <p>Type:
+						</p>
+            <p>
+               <span style="font-family: 'Wingdings'; color: #007dc1;">þ</span>
+               <span class="uicontrol">Web browser or Modern Auth client</span> selected.</p>
+            <p>
+               <span style="font-family: 'Wingdings'">¨</span>
+               <span class="uicontrol">Exchange ActiveSync client</span> is unselected.</p>
+            <p style="font-weight: normal;">Mobile:
+						</p>
+            <p>
+               <span style="font-family: 'Wingdings'">¨</span>
+               <span class="uicontrol">iOS</span> is unselected.</p>
+            <p>
+               <span style="font-family: 'Wingdings'; color: #007dc1;">þ</span>
+               <span class="uicontrol">Android</span> is selected.</p>
+            <p>
+               <span style="font-family: 'Wingdings'">¨</span>
+               <span class="uicontrol">Other mobile</span> is unselected.</p>
+            <p>Desktop: </p>
+            <p>
+               <span style="font-family: 'Wingdings'">¨</span>
+               <span class="uicontrol">Windows</span> is unselected.</p>
+            <p>
+               <span style="font-family: 'Wingdings'">¨</span>
+               <span class="uicontrol">macOS</span> is unselected.</p>
+            <p>
+               <span style="font-family: 'Wingdings'">¨</span>
+               <span class="uicontrol">Other desktop</span> is unselected.</p>
+            <li>Configure  <span class="uicontrol">Device Trust</span>.</li>
+            <div class="noteOkta">
+               <p class="noteContent">In order for options in the <span class="wintitle">Device Trust</span> section to be available, you must deselect all options in the <span class="wintitle">Client</span> section except <span class="uicontrol">Web browser or Modern Auth client</span> and <span class="uicontrol">iOS</span>.</p>
+            </div>
+            <p>
+               <span style="font-family: 'Wingdings'">¨</span>
+               <span class="uicontrol">Any</span> is unselected.</p>
+            <p>
+               <span style="font-family: 'Wingdings'">¨</span>
+               <span class="uicontrol">Trusted</span> is unselected.</p>
+            <p>
+               <span style="font-family: 'Wingdings'; color: #007dc1;">þ</span>
+               <span class="uicontrol">Not trusted</span> is selected.</p>
+         </ol>
+         <p>ACTIONS</p>
+         <ol MadCap:continue="true">
+            <li>Configure <span class="uicontrol">Access</span>.</li>
+            <p>
+               <span class="uicontrol">Denied</span> is selected.</p>
+            <li>Click <span class="uicontrol">Save</span>.</li>
+            <li>Create <span class="wintitle">Rule 4</span>.</li>
+         </ol>
+         <p>
+            <a name="WL-Rule4"/>
+            <MadCap:dropDownHotspot>Example Rule 4 – Any client; All platforms; Any Trust; Deny access</MadCap:dropDownHotspot>
+         </p>
+         <p MadCap:targetName="TWL-Rule4">
+            <img src="../../../Resources/Images/dt-android-rule-4.png"/>
+         </p>
+         <ol>
+            <li>Enter a descriptive name for the rule.</li>
+         </ol>
+         <p>CONDITIONS</p>
+         <ol MadCap:continue="true">
+            <li>
+						Under <span class="uicontrol">People</span>, select the same <span class="uicontrol">People</span> option that you selected in <a href="#WL-Rule1">Rule 1</a>. The <span class="uicontrol">People</span> option you select must be the same for all rules you create for this example.</li>
+            <li>Under <span class="uicontrol">Location</span>, select the same <span class="uicontrol">Location</span> option that you selected in <a href="#WL-Rule1">Rule 1</a>. The <span class="uicontrol">Location</span> option you select must be the same for all rules you create for this example.</li>
+            <li>Configure client settings:</li>
+            <p>Type:
+						</p>
+            <p>
+               <span style="font-family: 'Wingdings'; color: #007dc1;">þ</span>
+               <span class="uicontrol">Web browser or Modern Auth client</span> selected.</p>
+            <p>
+               <span style="font-family: 'Wingdings'; color: #007dc1;">þ</span>
+               <span class="uicontrol">Exchange ActiveSync client</span> is selected.</p>
+            <p style="font-weight: normal;">Mobile:
+						</p>
+            <p>
+               <span style="font-family: 'Wingdings'; color: #007dc1;">þ</span>
+               <span class="uicontrol">iOS</span> is selected.</p>
+            <p>
+               <span style="font-family: 'Wingdings'; color: #007dc1;">þ</span>
+               <span class="uicontrol">Android</span> is selected.</p>
+            <p>
+               <span style="font-family: 'Wingdings'; color: #007dc1;">þ</span>
+               <span class="uicontrol">Other mobile</span> is selected.</p>
+            <p>Desktop: </p>
+            <p>
+               <span style="font-family: 'Wingdings'; color: #007dc1;">þ</span>
+               <span class="uicontrol">Windows</span> is selected.</p>
+            <p>
+               <span style="font-family: 'Wingdings'; color: #007dc1;">þ</span>
+               <span class="uicontrol">macOS</span> is selected.</p>
+            <p>
+               <span style="font-family: 'Wingdings'; color: #007dc1;">þ</span>
+               <span class="uicontrol">Other desktop</span> is selected.</p>
+            <li>Configure  <span class="uicontrol">Device Trust</span>.</li>
+            <div class="noteOkta">
+               <p class="noteContent">In order for options in the <span class="wintitle">Device Trust</span> section to be available, you must deselect all options in the <span class="wintitle">Client</span> section except <span class="uicontrol">Web browser or Modern Auth client</span> and <span class="uicontrol">iOS</span>.</p>
+            </div>
+            <p>
+               <span style="font-family: 'Wingdings'; color: #007dc1;">þ</span>
+               <span class="uicontrol">Any</span> is selected.</p>
+            <p>
+               <span style="font-family: 'Wingdings'">¨</span>
+               <span class="uicontrol">Trusted</span> is unselected.</p>
+            <p>
+               <span style="font-family: 'Wingdings'">¨</span>
+               <span class="uicontrol">Not trusted</span> is unselected. </p>
+         </ol>
+         <p>
+            <span style="color: #4cd882;">ACTIONS</span>
+         </p>
+         <ol MadCap:continue="true">
+            <li>Configure <span class="uicontrol">Access</span>.</li>
+            <p>
+               <span class="uicontrol">Denied</span> is selected.</p>
+            <li>Click <span class="uicontrol">Save</span>.</li>
+         </ol>
+         <p>
+            <a name="WL-Rule5"/>
+            <MadCap:dropDownHotspot>Rule 5  — Default sign on rule – Any client; All platforms; Any Trust; Allow access</MadCap:dropDownHotspot>
+         </p>
+         <p>The Default sign-on rule is already created and cannot be edited. Note that in this allowlist example, the Default rule is never reached because it is effectively negated by Rule 4.</p>
+         <p MadCap:targetName="TWL-Rule5">
+            <img src="../../../Resources/Images/dt-android-rule-5-default.png"/>
+         </p>
+      </div>
+   </body>
+</html>

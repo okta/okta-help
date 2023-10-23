@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:fileTags="Tags/okta-authors.Robert Milkovich">
+   <head>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <link href="" rel="stylesheet" type="text/css"/>
+   </head>
+   <body>
+      <h1>Configure simple security with one-factor authentication</h1>
+      <p>In this use case, only the one-factor type is required to authenticate. The main objective is to show how <MadCap:variable name="okta-feature-names.Okta FastPass"/> offers a passwordless experience. If the policy doesn't require biometrics, this example is classified as a medium assurance level.</p>
+      <h2>Create a bookmark app</h2>
+      <ol>
+         <li>In the Admin Console, go to <span class="menucascade">
+               <span class="uicontrol">Applications</span>
+               <span class="uicontrol">Applications</span>
+           </span>.
+         </li>
+         <li>Select <span class="uicontrol">Browse App Catalog</span>.</li>
+         <li>Search for <span class="uicontrol">Bookmark App</span>, and select it when it appears in the search results. </li>
+         <li>Click <span class="uicontrol">Add Integration</span>.</li>
+         <li>Change the Application label to <span class="uicontrol">Bookmark App 1</span>.</li>
+         <li>Enter a <span class="uicontrol">URL</span> and click <span class="uicontrol">Done</span>. Because this app is for demonstration purposes only, you can choose any URL you like. In a real environment, use the URL of the app you're setting up SSO for.</li>
+         <li>Select the <span class="uicontrol">Assignments</span> tab.</li>
+         <li>Select <span class="menucascade">
+               <span class="uicontrol">Assign</span>
+               <span class="uicontrol">Assign to Groups</span>
+           </span>, and then select <span class="uicontrol">Assign</span> for <span class="menucascade">
+               <span class="uicontrol">
+                  <MadCap:variable name="okta-feature-names.Okta FastPass"/>
+              </span>
+               <span class="uicontrol">Group 1</span>
+            </span>. Don't click the group name unless you want to review the group properties.</li>
+         <li>Click <span class="uicontrol">Done</span>.</li>
+      </ol>
+      <h2>Create an <MadCap:variable name="okta-feature-names.app sign-on policy"/> rule</h2>
+      <p>Create an <MadCap:variable name="okta-feature-names.app sign-on policy"/> rule to allow for one-factor authentication so users can sign in without a password. After you save the rule, prioritize it over the default catch-all rule. </p>
+      <ol>
+         <li>
+            <MadCap:snippetText src="../../../../Resources/Snippets/task steps/Security_Authentication_Policy.flsnp"/>
+         </li>
+         <li>Create an authentication policy (see <MadCap:xref href="../../policies/create-auth-policy.htm">Create an [%=okta-feature-names.app sign-on policy%]</MadCap:xref> for instructions), or select a policy from the list.</li>
+         <li>If you're creating a new authentication policy, select the <span class="wintitle">Applications</span> tab and add the <span class="uicontrol">Bookmark App 1</span> application. See <MadCap:xref href="../../policies/share-auth-policies.htm">Add apps to an authentication policy</MadCap:xref> for instructions. Otherwise, select the authentication policy you want to use.</li>
+         <li>Select the <span class="uicontrol">Rules</span> tab. The default catch-all rule allows access with one factor (password).</li>
+         <li>Click <span class="uicontrol">Add Rule</span>.</li>
+         <li>In the <span class="uicontrol">Add Rule</span> dialog, add a rule name (for example, <span class="uicontrol">Bookmark App 1 rule</span>).</li>
+         <li>In the <span class="uicontrol">IF User's user type is</span> field, select <span class="uicontrol">Any user type</span>.</li>
+         <li>In the <span class="uicontrol">AND User's group membership includes</span> field, select<span class="uicontrol"> At least one of the following groups</span>. </li>
+         <li>Start typing the name of the group you created in the prerequisites (<span class="uicontrol">
+               <MadCap:variable name="okta-feature-names.Okta FastPass"/> Group 1)</span> and then select it. </li>
+         <li>In the <span class="uicontrol">AND User is</span> field, select <span class="uicontrol">Any user</span>.</li>
+         <li>In the <span class="uicontrol">AND</span>
+            <span class="uicontrol">Device State is</span> field, select <span class="uicontrol">Registered</span>. <ul>
+               <li>If a device is registered, the <MadCap:variable name="okta-feature-names.Sign-In Widget"/> polls the user's device to see if <MadCap:variable name="okta-feature-names.Okta Verify"/> is installed. If it is, and if an account for that particular org is registered with <MadCap:variable name="okta-feature-names.Okta Verify"/>, <MadCap:variable name="okta-variables.ProductName"/> is able to identify the user. </li>
+               <li>Selecting this option also prompts the user to install <MadCap:variable name="okta-feature-names.Okta Verify"/> and register their device on first use.</li>
+            </ul>
+            <ul>
+               <div class="noteOkta">
+                  <p class="noteContent">If you select <span class="uicontrol">Any</span> instead of <span class="uicontrol">Registered</span>, the user will always see the sign-in page and the <MadCap:variable name="okta-feature-names.Sign-In Widget"/> will not silently poll <MadCap:variable name="okta-feature-names.Okta Verify"/> to authenticate the user. It may also prevent <MadCap:variable name="okta-feature-names.Okta FastPass"/> from working reliably in some cases. </p>
+                  <p class="noteContent">To avoid this, select <span class="uicontrol">Registered</span>. <span class="uicontrol">Registered</span> also means that if <MadCap:variable name="okta-feature-names.Okta Verify"/> is installed, the user will not see other authenticators, even if they also have them installed. </p>
+                  <p class="noteContent">If you require a permissive <MadCap:variable name="okta-feature-names.app sign-on policy"/> that includes <MadCap:variable name="okta-feature-names.Okta FastPass"/>, and you select the <span class="uicontrol">Any</span> option for the <span class="uicontrol">AND</span>
+                     <span class="uicontrol">Device State is</span> field, configure two policies, ranking the first policy higher than the second:</p>
+                  <p>
+                     <ol style="list-style-type: lower-alpha;">
+                        <li>
+                           <p class="noteContent">One <MadCap:variable name="okta-feature-names.Okta FastPass"/>-enabled <MadCap:variable name="okta-feature-names.app sign-on policy"/> with the <span class="uicontrol">AND Device State is</span> field set to <span class="uicontrol">Registered</span>
+                           </p>
+                        </li>
+                        <li>
+                           <p class="noteContent">One <MadCap:variable name="okta-feature-names.app sign-on policy"/> with the <span class="uicontrol">AND Device State is</span> field set to <span class="uicontrol">Any</span> to allow the use of additional authenticators that you want to enable</p>
+                        </li>
+                     </ol>
+                  </p>
+               </div>
+            </ul>
+         </li>
+         <li>Use default values for <span class="uicontrol">AND Device Platform is</span> (<span class="uicontrol">Any platform</span>), and <span class="uicontrol">AND User's IP is</span> (<span class="uicontrol">Any IP</span>).</li>
+         <li>Leave the <span class="uicontrol">AND The following custom expression is true</span> field blank.</li>
+         <li>For the <span class="uicontrol">AND User must authenticate with</span> field, select <span class="uicontrol">Possession factor</span>.
+				<div class="noteOkta">
+               <p class="noteContent">If you choose <span class="uicontrol">Any 1 factor type</span>, the <MadCap:variable name="okta-feature-names.app sign-on policy"/> presents the user with a list of their enrolled authenticators (including password), allowing them to pick whichever one they want to use.</p>
+            </div>
+         </li>
+         <li>In the <span class="uicontrol">AND Access with <MadCap:variable name="okta-feature-names.Okta FastPass"/> is granted</span> field, select <span class="uicontrol">Without the user approving a prompt in <MadCap:variable name="okta-feature-names.Okta Verify"/> or providing biometrics</span>. If you choose the other option, <span class="uicontrol">If the user approves a prompt in <MadCap:variable name="okta-feature-names.Okta Verify"/> or provides biometrics</span>, the user will always see the sign-in screen and will have to select <span class="uicontrol">Sign in with <MadCap:variable name="okta-feature-names.Okta FastPass"/>
+            </span>. </li>
+         <li>In the<span class="uicontrol"> AND Password re-authentication frequency field</span>, select <span class="uicontrol">Every sign-in attempt</span>. That means the authenticator has to be verified every time the user accesses the app. If you choose <span class="uicontrol">Re-authenticate after</span>, the authenticator will re-authenticate if it hasn't been used within the given timeframe. The re-authentication frequency timestamp indicates the start of the authorization period and doesn't change when the authorization is reused for another app. It changes when the authorization period expires and needs to be reauthorized.</li>
+         <li>Click <span class="uicontrol">Save</span>.</li>
+      </ol>
+      <h2>Test the user sign-in experience</h2>
+      <p>Whenever you change settings, clear the browser before you test them.</p>
+      <ol>
+         <li>In another browser instance or incognito window, go to the End-User Dashboard for this org. </li>
+         <li>Select <span class="uicontrol">Bookmark App 1</span>.</li>
+         <li>Verify that you're signed in to the app without any user interaction. </li>
+      </ol>
+      <h2>Alternate sign-in flow</h2>
+      <p>If you select <span class="uicontrol">Any</span> instead of <span class="uicontrol">Registered</span> in the <span class="uicontrol">Device State</span> field,  users are always redirected to the <MadCap:variable name="okta-variables.ProductName"/>
+         <MadCap:variable name="okta-feature-names.Sign-In Widget"/> (no silent authentication).
+       </p>
+      <p>
+         <img src="../../../../Resources/Images/oie-dg-passwordless-06.png"
+              id="img_new"
+              class="thumbnail"/>
+      </p>
+      <p>
+         <img src="../../../../Resources/Images/oie-dg-passwordless-07.png"
+              id="img_new"
+              class="thumbnail"/>
+      </p>
+   </body>
+</html>

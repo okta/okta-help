@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:searchable="True"
+      MadCap:fileTags="Tags/okta-authors.Jeanette Smith">
+   <head>
+      <link href="../../../Resources/TableStyles/standard.css"
+            rel="stylesheet"
+            MadCap:stylesheetType="table"/>
+      <title>Google Provisioning | Okta</title>
+      <link href="" rel="stylesheet" type="text/css"/>
+      <meta name="description"
+            content="Learn the recommended way to provision Google Workspace users to Okta using SAML or AD to provide users with seamless SSO."/>
+   </head>
+   <body>
+      <h1>Google Workspace </h1>
+      <p>Learn how to configure provisioning for Google Workspace in your <MadCap:variable name="okta-variables.ProductName"/> org.</p>
+      <h2>Overview</h2>
+      <h3>Recommended setup</h3>
+      <p>
+         <img src="../../../Resources/Images/gsuite-setup.jpeg" class="thumbnail"/>
+      </p>
+      <p>This is the recommended setup:</p>
+      <ul>
+         <li>Configure SAML between <MadCap:variable name="okta-variables.ProductName"/> and Google.</li>
+         <li>Enable provisioning and have all the options enabled.</li>
+         <li>Enable password push which synchronizes a user's <MadCap:variable name="okta-variables.ProductName"/> password with their Google Workspace password. A password is still needed for clients such as POP3/IMAP clients for email.</li>
+      </ul>
+      <p>This recommendation is also valid in scenarios where Active Directory integration is needed.</p>
+      <p>With AD integration, these are the benefits for end users:</p>
+      <ul>
+         <li>Seamless Desktop SSO when logging in behind the firewall</li>
+         <li>Access to Google Workspace via <MadCap:variable name="okta-variables.ProductName"/> using SAML and AD credentials from outside the firewall</li>
+         <li>Email clients requiring username and password now leverage the users' AD password (one less password for the end user to remember due to AD password synchronization)</li>
+      </ul>
+      <h3>Recommended rollout</h3>
+      <ol>
+         <li>For SSO, use SAML if possible. It enables centralized access management since all web-based sessions have to go through <MadCap:variable name="okta-variables.ProductName"/> as the identity provider.
+</li>
+         <li>Test SAML with a small group of users first. Using the Network masks feature in Google, you can limit the SAML-enabled users to a small audience (for example, several IT staff) to test the configuration and the end-user experience.
+</li>
+         <li>It's important to inform end users that they have to modify the account settings in order to use Google Personal and Google Workspace together in the same browser session. This setting is independent of whether or not <MadCap:variable name="okta-variables.ProductName"/> has been deployed. Google requires this setting configuration to allow sharing of session cookies.
+</li>
+         <li>Be aware that some apps from Google Marketplace may not be tightly integrated with Google Workspace in terms of SSO. Let <MadCap:variable name="okta-variables.ProductName"/> know about any issues, and <MadCap:variable name="okta-variables.ProductName"/> Support might be able to help you solve the problems.
+</li>
+         <li>Passwords in Google Workspace are recommended. <MadCap:variable name="okta-variables.ProductName"/> recommends enabling the password synchronization feature with Google Workspace. Change Password URL should be configured to point users back to <MadCap:variable name="okta-variables.ProductName"/> if they try to change their passwords from within Google Workspace when password synchronization is turned on. The URL will take the user back to <MadCap:variable name="okta-variables.ProductName"/>.
+</li>
+         <li>Google Workspace users assigned to the Super Administrator role can bypass SSO and log in directly to https://admin.google.com.
+</li>
+         <li>When you enable provisioning, and choose the admin credentials for the integration, consider using a system account. If an end-user account is used, ensure that password reset is handled correctly and the <MadCap:variable name="okta-variables.ProductName"/> API settings are updated accordingly.
+</li>
+         <li>If Google Workspace users are created primarily in Google Workspace with an existing process outside of <MadCap:variable name="okta-variables.ProductName"/>, account creation should not be enabled in <MadCap:variable name="okta-variables.ProductName"/>. User import (through API or CSV) can map existing Google Workspace accounts with <MadCap:variable name="okta-variables.ProductName"/> users. This action should be ongoing to bootstrap new users.
+</li>
+         <li>
+            <MadCap:variable name="okta-variables.ProductName"/> recommends enabling user deactivation/reactivation to ensure that users are automatically deactivated if they're deactivated in <MadCap:variable name="okta-variables.ProductName"/> or in AD, which is integrated with <MadCap:variable name="okta-variables.ProductName"/>.</li>
+      </ol>
+      <h2>Prerequisites<a name="Requirements"/>
+      </h2>
+      <ul>
+         <li>Add a Google Workspace app instance and configure SSO. The assumption is that you have already added a Google Workspace app instance in <MadCap:variable name="okta-variables.ProductName"/> and have configured SSO. See <a href="https://saml-doc.okta.com/SAML_Docs/How-to-Enable-SAML-2.0-in-Google-Apps.html"
+               target="_blank">How to Configure SAML 2.0 for Google Workspace</a>.
+			<p>For general information about adding applications, see <MadCap:xref href="../../Apps/apps-add-applications.htm">Add existing app integrations</MadCap:xref>.</p>
+         </li>
+         <li>
+            <p>Google Workspace: Enable the API Access checkbox in Google Workspace:
+				<ol>
+                  <li>Sign in to your Google Workspace admin console.</li>
+                  <li>Go to <span class="menucascade">
+                        <span class="uicontrol">Security</span>
+                        <span class="uicontrol">API Controls</span>
+                     </span>.</li>
+                  <li>Select <span class="uicontrol">Unrestricted</span>.</li>
+               </ol>
+            </p>
+         </li>
+      </ul>
+      <h2>Provisioning features</h2>
+      <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');"
+             class="TableStyle-standard"
+             cellspacing="0">
+         <col class="TableStyle-standard-Column-Column1" style="width: 15%;"/>
+         <col class="TableStyle-standard-Column-Column1"/>
+         <tbody>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">Push Groups</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">Groups and their members can be pushed to remote systems. For more information, see <MadCap:xref href="../../Users-Groups-Profiles/usgp-about-group-push.htm">About Group Push</MadCap:xref> and <MadCap:xref href="../../Users-Groups-Profiles/usgp-group-push-operations.htm">Group Push operations</MadCap:xref>.</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">Import New Users</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body2">New users created in the third-party application will be downloaded and turned in to new AppUser objects, for matching against existing OKTA users.<p>Specifically: This is an implicit feature when provisioning is configured - meaning with the username/password set up and verified. Import allows <MadCap:variable name="okta-variables.ProductName"/> to map active Google accounts to an <MadCap:variable name="okta-variables.ProductName"/> user. This is usual for the initial app assignment bootstrap. For file-based account mapping you can also use CSV (similar to API import).</p>
+               </td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">Schema Discovery</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">Import additional user attributes from Google Workspace. </td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">Profile Sourcing</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body2">New users created through <MadCap:variable name="okta-variables.ProductName"/> will also be created in the third-party application.</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">Push New Users</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">New users created through <MadCap:variable name="okta-variables.ProductName"/> will also be created in the third-party application.<p>Specifically: Account creation allows <MadCap:variable name="okta-variables.ProductName"/> to create new accounts in Google Workspace. Note that Google Workspace doesn't  reuse a recently deleted username (1 week restriction) for a new account. The Google Workspace user will go through a welcome routine from Google when they sign in.</p>
+               </td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">
+                  <p>Push empty values for custom fields</p>
+               </td>
+               <td class="TableStyle-standard-BodyD-Column1-Body2">
+                  <p>Selecting this option allows pushing empty values to non-required custom fields.</p>
+               </td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">Push Password Updates</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">Changes to the user's password are automatically synchronized to the application.<p>Specifically: This feature allows <MadCap:variable name="okta-variables.ProductName"/> to synchronize the password used by the <MadCap:variable name="okta-variables.ProductName"/> user to log in to <MadCap:variable name="okta-variables.ProductName"/>, then into Google Workspace. If a user is not associated with an AD account or <MadCap:variable name="okta-variables.ProductName"/>-delegated authentication to AD is not enabled, the user logs into <MadCap:variable name="okta-variables.ProductName"/> with their <MadCap:variable name="okta-variables.ProductName"/> password. That is the value that is pushed out to Google Workspace.</p>
+                  <p>If a user is tied to an AD user and <MadCap:variable name="okta-variables.ProductName"/>-delegated authentication to AD is enabled, then the AD password will be pushed out to Google Workspace when the user logs into their <MadCap:variable name="okta-variables.ProductName"/> org (for example, myorg.okta.com)</p>
+                  <p>Even with SAML enabled, there are use cases where a password is needed in Google Workspace. Other mail and calendar clients (desktop or mobile) utilize a separate authentication mechanism and require a Google Workspace user name and password for setup. Synchronizing the password with <MadCap:variable name="okta-variables.ProductName"/> means one less password to be managed by the end user. This is a standard deployment model for many existing <MadCap:variable name="okta-variables.ProductName"/> customers.</p>
+                  <p>Note: <MadCap:variable name="okta-variables.ProductName"/> password policy should match Google's requirements for provisioning to work.</p>
+               </td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">Push Profile Updates</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body2">Updates made to the user's profile through <MadCap:variable name="okta-variables.ProductName"/> will be pushed to the third-party application.<p>Specifically: Any profile changes detected in <MadCap:variable name="okta-variables.ProductName"/> will be pushed to Google Workspace. This includes first name, last name, etc. Some attributes, such as department and title, are only used for push profile and will not work for import user. Those attributes only work if they were initially updated from <MadCap:variable name="okta-variables.ProductName"/>.</p>
+               </td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyC-Column1-Body1">Push User Deactivation/Reactivate Users</td>
+               <td class="TableStyle-standard-BodyA-Column1-Body1">Deactivating the user through <MadCap:variable name="okta-variables.ProductName"/> removes the user from the organization and all teams in the third party application. Reactivating the user through <MadCap:variable name="okta-variables.ProductName"/> will reactivate the user in the third-party application.<p>Specifically: <MadCap:variable name="okta-variables.ProductName"/> deactivates a user's Google Workspace account when the user is deactivated in <MadCap:variable name="okta-variables.ProductName"/>. While Google Workspace allows an account to be completely deleted in Google Workspace, the deletion is a rather destructive operation that removes all emails, documents, pages, and so on created by this user. For most enterprises, this is not the desired operation. <MadCap:variable name="okta-variables.ProductName"/> sets the user to the inactive state - allowing administrators to go in and clean things up before deciding on whether a hard deletion is necessary.</p>
+               </td>
+            </tr>
+         </tbody>
+      </table>
+      <h2>Procedures</h2>
+      <ul>
+         <li>
+            <MadCap:xref href="#Configur">Configure Google Workspace provisioning</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Configur2">Configure Profile and Lifecycle sourcing</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#User">Assign users to the Google Workspace app</MadCap:xref>
+         </li>
+      </ul>
+      <h3>
+         <a name="Configur"/>Configure Google Workspace provisioning</h3>
+      <p>Configure your Provisioning settings for Google Workspace as follows:</p>
+      <ol>
+         <li>
+            <p>In <MadCap:variable name="okta-variables.ProductName"/>, select the <span class="wintitle">Provisioning</span> tab for the Google Workspace app, then click <span class="uicontrol">Configure API Integration</span>.</p>
+         </li>
+         <li>
+            <p>Check <span class="uicontrol">Enable API integration</span>, then click <span class="uicontrol">Authenticate with Google Workspace.</span>
+            </p>
+         </li>
+         <li>
+            <p>Enter your Google Workspace Admin account credentials, then click <span class="uicontrol">Log In</span>
+            </p>
+            <ul>
+               <li>
+                  <p>Enter your admin username.</p>
+               </li>
+               <li>
+                  <p>Enter your admin password.</p>
+               </li>
+               <li>
+                  <p>Review the list of permissions Google will grant <MadCap:variable name="okta-variables.ProductName"/> to perform in your Google Workspace tenant. If acceptable click <span class="uicontrol">Allow</span>:</p>
+               </li>
+            </ul>
+         </li>
+         <li>Back on the <span class="wintitle">Provisioning</span> page in <MadCap:variable name="okta-variables.ProductName"/> you'll see messages confirming successful authentication. Click <span class="uicontrol">Save</span>.</li>
+         <li>
+            <p>Select <span class="uicontrol">To App</span>, then select the Provisioning features you want to enable, then click <span class="uicontrol">Save</span>.</p>
+         </li>
+      </ol>
+      <h3>
+         <a name="Configur2"/>Configure Profile and Lifecycle sourcing</h3>
+      <ol>
+         <li>
+            <p>Select To <MadCap:variable name="okta-variables.ProductName"/>, then select Allow Google Workspace to source <MadCap:variable name="okta-variables.ProductName"/> users.</p>
+         </li>
+         <li>
+            <p>When a user is deactivated in Google Workspace, you can choose what action <MadCap:variable name="okta-variables.ProductName"/> takes against the matching <MadCap:variable name="okta-variables.ProductName"/> user by using the Profile and Lifecycle Sourcing options.</p>
+            <p>The options for when a user is deactivated in the app are:</p>
+            <ul>
+               <li>
+                  <span class="uicontrol">Do nothing</span>: Google Workspace is unassigned from the <MadCap:variable name="okta-variables.ProductName"/> user.</li>
+               <li>
+                  <span class="uicontrol">Deactivate</span>: The <MadCap:variable name="okta-variables.ProductName"/> user is deactivated and is no longer be able to sign in or access <MadCap:variable name="okta-variables.ProductName"/>.  If re-activated in Google Workspace in the future, the <MadCap:variable name="okta-variables.ProductName"/> user will go through the re-activation process in <MadCap:variable name="okta-variables.ProductName"/>. The user will go through the initial <MadCap:variable name="okta-variables.ProductName"/> user setup procedure again.</li>
+               <li>Suspend: The <MadCap:variable name="okta-variables.ProductName"/> user is suspended and is no longer be able to sign in or access <MadCap:variable name="okta-variables.ProductName"/>.  If re-activated in Google Workspace in the future, the user will become re-activated in <MadCap:variable name="okta-variables.ProductName"/> and no further steps are needed. The <MadCap:variable name="okta-variables.ProductName"/> user can sign in to <MadCap:variable name="okta-variables.ProductName"/>.</li>
+            </ul>
+         </li>
+      </ol>
+      <h3>
+         <a name="User"/>Assign users to the Google Workspace app</h3>
+      <ol>
+         <li>
+            <p>Open the app, go to the <span class="wintitle">Assignments</span> tab, and click <span class="uicontrol">Assign to People</span>.</p>
+         </li>
+         <li>
+            <p>In the <span class="wintitle">Assign Google Workspace app to People</span> dialog, select a user, then click <span class="uicontrol">Assign</span>.</p>
+         </li>
+         <li>
+            <p>You can select which Organizational unit will be pushed. Set Deactivation options and <span class="uicontrol">Manage licenses</span> options for users. See <a href="#User">Managing Google Workspace Users</a>).</p>
+         </li>
+      </ol>
+      <h2>Google Workspace schema discovery</h2>
+      <p>By default, the following base attributes are imported from Google Workspace:</p>
+      <blockquote>
+         <p>FIRST_NAME</p>
+         <p>LAST_NAME</p>
+         <p>EMAIL</p>
+         <p>SECOND_EMAIL</p>
+         <p>MOBILE_PHONE</p>
+      </blockquote>
+      <p>Google Workspace also supports User's Schema Discovery, so you can add extra attributes to User's Profile.</p>
+      <h3>
+            Enhanced schema discovery
+            </h3>
+      <p>With enhanced schema discovery you can use custom user schemas defined in Google Workspace. <MadCap:variable name="okta-variables.ProductName"/> will import all custom user schemas to provide you the ability to manage these attributes.  On import, <MadCap:variable name="okta-variables.ProductName"/> brings in these custom attributes from your users just like normal attributes, and also pushes them to Google Workspace on create and update operations.</p>
+      <p>
+         <MadCap:variable name="okta-variables.ProductName"/> also supports importing multi-valued custom attributes from Google Workspace.  They are represented as dynamic arrays in <MadCap:variable name="okta-variables.ProductName"/>. There is a limitation for Boolean multi-value properties, as these are not currently supported within Universal Directory and are ignored during schema import.  Multi-valued boolean properties won't be visible in the Profile Editor.</p>
+      <p>If you are unable to use schema discovery, re-authenticate using OAuth.</p>
+      <h3>Add schema attributes</h3>
+      <ol>
+         <li>
+            <p>In the <MadCap:variable name="okta-variables.ProductName"/> Admin Console, go to  <span class="menucascade">
+                  <span class="uicontrol">Directory</span>
+                  <span class="uicontrol">Profile Editor</span>
+               </span>.</p>
+         </li>
+         <li>
+            <p>Select the <span class="uicontrol">APPS</span> section in the left navigation bar, then find your app in the list.</p>
+         </li>
+         <li>
+            <p>Check the list of attributes, and if you decide you need more, click <span class="uicontrol">Add Attribute</span>. A list of extended attributes appears.</p>
+         </li>
+         <li>
+            <p>Select the attributes you want to add, then click <span class="uicontrol">Save</span>.</p>
+         </li>
+         <li>
+            <p>You can now import and push these user attribute values to or from Google Workspace.</p>
+         </li>
+      </ol>
+   </body>
+</html>

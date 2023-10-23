@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:searchable="True"
+      MadCap:fileTags="Tags/okta-authors.Kimli Welsh">
+   <head>
+      <title>[%=Heading.Level1%]</title>
+      <link href="" rel="stylesheet" type="text/css"/>
+   </head>
+   <body>
+      <h1>Turn off <MadCap:variable name="okta-feature-names.Device Trust"/> on mobile devices</h1>
+      <p>Identity Engine doesn't support Device Trust on mobile devices. If your organization uses mobile devices, or a combination of desktop and mobile devices, turn off  Device Trust for mobile devices before you upgrade.</p>
+      <h2>Before you begin</h2>
+      <ul>
+         <li>
+            <p>If you have IWA Agents configured in <MadCap:variable name="okta-feature-names.Classic Engine"/>, take note of the configuration settings. In the Admin Console, go to <span class="menucascade">
+                  <span class="uicontrol">Security</span>
+                  <span class="uicontrol">Delegated Authentication</span>
+               </span>
+               <span class="wintitle">IWA Agents</span>.
+</p>
+            <p>
+               <img src="../../Resources/Images/identity-engine-upgrade/migrate-dt-fp-1-iwa-agents.png"
+                    class="thumbnail"
+                    alt="The screenshot provides an example of configured IWA Agents."
+                    title="The screenshot provides an example of configured IWA Agents."/>
+            </p>
+            <p>These settings are no longer available in the Admin Console after upgrade. </p>
+            <p MadCap:conditions="Primary.do-not-publish">
+               <MadCap:annotation MadCap:createDate="2022-12-13T18:45:13.9249213-05:00"
+                                  MadCap:creator="Andreea Jurj"
+                                  MadCap:initials="AN"
+                                  MadCap:comment="This belongs to the post-upgrade topic"
+                                  MadCap:editor="Andreea Jurj"
+                                  MadCap:editDate="2022-12-13T18:45:28.0934344-05:00">To support rollback scenarios, don't make IWA changes after upgrade</MadCap:annotation>.</p>
+         </li>
+         <li>
+            <p>Using your mobile device management (MDM) tool, take an inventory of all devices that have <MadCap:variable name="okta-feature-names.Device Trust"/> certificates. This helps ensure that the same devices continue to work on <MadCap:variable name="okta-feature-names.Identity Engine"/> after upgrade.</p>
+         </li>
+         <li>
+            <p>Ensure that users have the latest version of <MadCap:variable name="okta-feature-names.Okta Verify"/>. <MadCap:variable name="okta-feature-names.Okta Verify"/> registers the device in the Universal Directory and detects the presence of management certificates on the device. These certificates attest that a device is managed or trusted.</p>
+         </li>
+      </ul>
+      <h2>Start this task</h2>
+      <p MadCap:conditions="Primary.do-not-publish">
+         <MadCap:annotation MadCap:createDate="2022-12-13T18:51:08.9626062-05:00"
+                            MadCap:creator="Andreea Jurj"
+                            MadCap:initials="AN"
+                            MadCap:comment="Maybe move to feature changes.\r\n\r\nklw: This p was moved to feature changes, but this section needs an opening paragraph still."
+                            MadCap:editor="Andreea Jurj"
+                            MadCap:editDate="2023-01-03T16:18:09.9882528-05:00">During the migration, only desktop (Windows or macOS) devices are transferred to <MadCap:variable name="okta-feature-names.Identity Engine"/>. </MadCap:annotation>There's no automated migration for mobile devices. Mobile devices use <MadCap:variable name="okta-feature-names.Okta Verify"/>.</p>
+      <ol>
+         <li>Determine what type of devices you have. <MadCap:snippetText src="../../Resources/Snippets/task steps/Security_DeviceTrust.flsnp"/> If <span class="uicontrol">Enable iOS <MadCap:variable name="okta-feature-names.Device Trust"/>
+            </span> or <span class="uicontrol">Enable Android <MadCap:variable name="okta-feature-names.Device Trust"/>
+            </span> is selected, you have mobile devices. If you have only mobile devices or a mix of mobile and desktop devices in your org, go to the next step.
+			</li>
+         <p>
+            <img src="../../Resources/Images/identity-engine-upgrade/migrate-dt-fp-2-enable-ios-android-dt.png"
+                 class="thumbnail"/>
+         </p>
+         <p>If you have only desktop devices in your org, go to <MadCap:xref href="dt-remove-iwa-routing-rules.htm">Remove   Integrated Windows Authentication routing rules</MadCap:xref>.</p>
+         <li>Change the app sign-on policy condition for mobile devices to <span class="uicontrol">Any</span>:
+            	<ol style="list-style-type: lower-alpha;">
+               <li>
+                  <MadCap:snippetText src="../../Resources/Snippets/task steps/Applications_Applications.flsnp"/>
+               </li>
+               <li>
+                  <p>Select the policy that you want to update.</p>
+               </li>
+               <li>In the <span class="wintitle">Sign On Policy</span> section, locate any mobile device (<span class="uicontrol">iOS</span>, <span class="uicontrol">Android</span>, or <span class="uicontrol">Other mobile</span>) policy rules that don't have the <MadCap:variable name="okta-feature-names.Device Trust"/> state set to <span class="uicontrol">Any</span>.</li>
+               <li>Click <span class="uicontrol">Edit</span>, and select <span class="uicontrol">Any</span>.</li>
+               <p>
+                  <img src="../../Resources/Images/identity-engine-upgrade/migrate-dt-fp-3-asop-mobile-dt.png"
+                       class="thumbnail"/>
+               </p>
+               <li>Click <span class="uicontrol">Save</span>.</li>
+            </ol>
+         </li>
+         <li>Disable Mobile <MadCap:variable name="okta-feature-names.Device Trust"/> policies:
+        		<ol style="list-style-type: lower-alpha;">
+               <li>
+                  <MadCap:snippetText src="../../Resources/Snippets/task steps/Security_General.flsnp"/>
+               </li>
+               <li>In the <span class="wintitle">
+                     <MadCap:variable name="okta-variables.ProductName"/> Mobile</span> section, click <span class="uicontrol">Edit</span>.</li>
+               <li>In the <span class="wintitle">APP SETTINGS</span> section, clear the <span class="uicontrol">Apply device trust policies when accessing apps in Okta Mobile</span> checkbox.</li>
+               <p>
+                  <img src="../../Resources/Images/identity-engine-upgrade/migrate-dt-fp-4-disable-mobile-dt.png"
+                       class="thumbnail"/>
+               </p>
+            </ol>
+         </li>
+         <li>Turn off Mobile <MadCap:variable name="okta-feature-names.Device Trust"/>:
+				<ol style="list-style-type: lower-alpha;">
+               <li>
+                  <MadCap:snippetText src="../../Resources/Snippets/task steps/Security_DeviceTrust.flsnp"/>
+               </li>
+               <li>If <span class="uicontrol">Enable iOS <MadCap:variable name="okta-feature-names.Device Trust"/>
+                  </span> or <span class="uicontrol">Enable Android <MadCap:variable name="okta-feature-names.Device Trust"/>
+                  </span> is selected, click <span class="uicontrol">Edit</span>.</li>
+               <li>Clear the checkbox.</li>
+               <li>Click <span class="uicontrol">Save</span>.</li>
+            </ol>
+         </li>
+         <li>Deploy <MadCap:variable name="okta-feature-names.Okta Verify"/> to mobile devices.
+            	</li>
+         <li>Remove the Integrated Windows Authentication (IWA) routing rules. See <MadCap:xref href="dt-remove-iwa-routing-rules.htm">Delete   Integrated Windows Authentication routing rules</MadCap:xref>.
+				</li>
+      </ol>
+      <h2>Related topics</h2>
+      <p>
+         <MadCap:xref href="migrate-from-dt-to-fp-faqs.htm">From [%=okta-feature-names.Device Trust%] to [%=okta-feature-names.Okta FastPass%]</MadCap:xref>
+      </p>
+      <p>
+         <MadCap:xref href="migrate-from-dt-to-fp-troubleshooting.htm">Troubleshoot [%=okta-feature-names.Device Trust%] after upgrade</MadCap:xref>
+      </p>
+   </body>
+</html>

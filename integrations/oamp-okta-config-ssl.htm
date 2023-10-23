@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:fileTags="Tags/okta-authors.Patrick Calnan"
+      MadCap:conditions="MultiProdPublish.Classic">
+   <head>
+      <link href="../../Resources/TableStyles/standard-shaded-rows.css"
+            rel="stylesheet"
+            MadCap:stylesheetType="table"/>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <meta name="description"
+            content="Configure MFA for Oracle Access Manager to use OAM as an IdP to provide users with SSO and MFA."/>
+   </head>
+   <body>
+      <h1>Enable SSL on OAM servers </h1>
+      <p>[Optional] During this task we will use the WebLogic Server console to enable SSL (HTTPS) on OAM servers.</p>
+      <div>
+         <p>To enable SSL options for OAM servers:</p>
+         <ol>
+            <li>Login to the WebLogic Server Administration Console.</li>
+            <li>In the Domain Structure pane expand <span class="menucascade">
+                  <span class="uicontrol">DomainName</span>
+                  <span class="uicontrol">Environment</span>
+                  <span class="uicontrol">Servers</span>
+               </span>. </li>
+            <li>Select a server.</li>
+            <li>In <span class="wintitle">Change Center</span>, click <span class="uicontrol">Lock &amp; Edit</span>.
+                    <div class="noteOkta">
+                  <p class="noteContent">If the WebLogic Server Console preference <span class="uicontrol">Automatically Acquire Lock and Activate changes</span> is not set then you will not need to click <span class="uicontrol">Lock &amp; Edit</span>.</p>
+               </div>
+            </li>
+            <li>Select <span class="menucascade">
+                  <span class="uicontrol">Configuration</span>
+                  <span class="uicontrol">SSL</span>
+               </span>
+            </li>
+            <li>Expand the <span class="uicontrol">Advanced</span> section. </li>
+            <li>From <span class="uicontrol">Hostname Verification</span> select <span class="uicontrol">None</span>. </li>
+            <li>Check <span class="uicontrol">Use JSSE SSL</span>.</li>
+            <li>Click <span class="uicontrol">Save</span>.</li>
+            <li>In <span class="uicontrol">Change Center</span> click <span class="uicontrol">Activate Changes</span>.</li>
+            <li>Restart the server instance. </li>
+         </ol>
+      </div>
+      <blockquote MadCap:conditions="Primary.do-not-publish">
+         <h2>Locating Logs</h2>
+         <p>Oracle WebLogic Server maintains logs by domain and individual server. The file, <span class="filepath">server-diagnostic.log</span>, contains useful debugging information. The server diagnostic log file can be found in:</p>
+         <table style="mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');"
+                class="TableStyle-srb_header_alt_shade"
+                cellspacing="0">
+            <col class="TableStyle-srb_header_alt_shade-Column-Column1"/>
+            <col style="width: 525px;"
+                 class="TableStyle-srb_header_alt_shade-Column-Column1"/>
+            <thead>
+               <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                  <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Server</th>
+                  <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">Location</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                  <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Administration Server</td>
+                  <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                     <span class="filepath">${DOMAIN_HOME}/servers/AdminServer/logs</span>
+                  </td>
+               </tr>
+               <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                  <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">Managed Server</td>
+                  <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">
+                     <span class="code">${DOMAIN_HOME}/servers/servername&gt;/logs</span>
+                     <br/>
+                     <p>Where <span class="varname">servername</span> is one of the OAM server names. </p>
+                  </td>
+               </tr>
+            </tbody>
+         </table>
+      </blockquote>
+      <blockquote MadCap:conditions="Primary.do-not-publish">
+         <h2>Restarting WebLogic Server instances from the command line</h2>
+         <p>WebLogic Server instances can be started and stopped from the command line.</p>
+         <p>To manage WebLogic Server instances at the command line:</p>
+         <ol>
+            <li>On the Administration server machine, open a command prompt.</li>
+            <li>Change directory to <span class="filepath">${DOMAIN_HOME}/bin</span>.</li>
+            <li>Excute a stop or start command as described below:</li>
+            <li>
+               <table style="mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');"
+                      class="TableStyle-srb_header_alt_shade"
+                      cellspacing="0">
+                  <col class="TableStyle-srb_header_alt_shade-Column-Column1"/>
+                  <col class="TableStyle-srb_header_alt_shade-Column-Column1"/>
+                  <thead>
+                     <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                        <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Server &amp; Command</th>
+                        <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">Command</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Administration Server - Shut Down</td>
+                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                           <ul>
+                              <li>Linux: <span class="code">nohup ./stopWebLogic.sh &amp;</span>
+                              </li>
+                              <li>Windows: <span class="code">stopWebLogic.cmd</span>
+                              </li>
+                           </ul>
+                        </td>
+                     </tr>
+                     <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Administration Server - Start</td>
+                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
+                           <ul>
+                              <li>Linux: <span class="code">nohup ./startWebLogic.sh  &amp;</span>
+                              </li>
+                              <li>Windows: <span class="code">startWeblogic.cmd</span>
+                              </li>
+                           </ul>
+                        </td>
+                     </tr>
+                     <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Managed Server - Shutdown</td>
+                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                           <ul>
+                              <li>Linux: <span class="code">nohup ./stopManagedWebLogic.sh serverName</span>
+                                 <span class="code">&amp;</span>
+                              </li>
+                              <li>Windows: <span class="code">startManagedWebLogic.cmd serverName</span>
+                              </li>
+                           </ul>
+                        </td>
+                     </tr>
+                     <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                        <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">Managed Server Start </td>
+                        <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">
+                           <ul>
+                              <li>Linux: <span class="code">nohup ./startManagedWebLogic.sh serverName</span>
+                                 <span class="code">&amp;</span>
+                              </li>
+                              <li>Windows: <span class="code">startManagedWebLogic.cmd serverName</span>
+                              </li>
+                           </ul>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </li>
+         </ol>
+      </blockquote>
+      <blockquote MadCap:conditions="Primary.do-not-publish">
+         <h2>Restaring WebLogic Server instance from the Admin Console</h2>
+         <p>When configured to use <a href="https://docs.oracle.com/middleware/12213/wls/NODEM/starting_nodemgr.htm"
+               title="WebLogic Server - Using Node Manager"
+               alt="WebLogic Server - Using Node Manager">Node Manager</a>, WebLogic Server instances can be started and stopped from the Administration Console. To manage WebLogic Server instances using the WebLogic Administration Console:</p>
+         <ol>
+            <li>Login to the WebLogic Server Administration Console.</li>
+            <li>In the Domain Structure pane expand <span class="menucascade">
+                  <span class="uicontrol">DomainName</span>
+                  <span class="uicontrol">Environment</span>
+                  <span class="uicontrol">Servers</span>
+               </span>. </li>
+            <li>Select the <span class="uicontrol">Control</span> tab.</li>
+            <li>Select one or more rows representing the WebLogic Server instances to manage.</li>
+            <li>To start servers click <span class="uicontrol">Start</span>.<br/>To shutdown servers click <span class="menucascade">
+                  <span class="uicontrol">Shutdown</span>
+                  <span class="uicontrol">Force shutdown now</span>
+               </span>
+            </li>
+         </ol>
+         <p>Node manager will then  perform the requested operation in the background.</p>
+      </blockquote>
+      <div>
+         <h2>Next steps</h2>
+         <p>[Optionally] <MadCap:xref href="oamp-okta-config-ssl.htm">Enable SSL on OAM servers </MadCap:xref>
+         </p>
+      </div>
+   </body>
+</html>

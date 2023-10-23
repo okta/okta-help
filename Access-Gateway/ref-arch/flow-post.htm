@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link href="../../../Resources/TableStyles/standard-shaded-rows.css" rel="stylesheet" MadCap:stylesheetType="table" /><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1>Post <MadCap:variable name="okta-feature-names.Access Gateway" /> flow</h1>
+        <p>Requests can be initiated to a service provider directly or using an Okta tenant. &#160;<br /><MadCap:variable name="okta-feature-names.Access Gateway" /> flows go through a number of steps for each request after a flow is initiated. The following diagram and state transition description describe this flow.</p>
+        <p>
+            <img src="../../../Resources/Images/access-gateway/ref-arch-general-steps.png" id="img_new" />
+            <br />
+        </p>
+        <table style="mc-table-style: url('../../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+            <col class="TableStyle-srb_header_alt_shade-Column-Column1" style="width: 33px;" />
+            <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+            <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+            <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">State</th>
+                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Description</th>
+                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Error</th>
+                    <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">Success</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Initial</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1" colspan="3">Starting state, where request has yet to be made. </td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Domain served</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">DNS entry points to <MadCap:variable name="okta-feature-names.Access Gateway" />but Domain not served by <MadCap:variable name="okta-feature-names.Access Gateway" />.</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Unknown host
+Status code:400
+The requested host:'domain.tld' is not being served by this <MadCap:variable name="okta-feature-names.Access Gateway" />.</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">Continue</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Session does not exists</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Session does not exist, perform defined application login behavior.</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Failed authentication, Okta supplied page.</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Continue</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Validate session integrity</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Validate session according to <a href="../task-define-application-behaviors.htm#No_Session/Session_Expired">session integrity behavior</a>.</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                        <p>Error, as defined in behavior. 
+Or one of:
+
+    </p>
+                        <ul>
+                            <li>
+                                <p>App is offline
+- App is disabled (503)</p>
+                                <p>App is in maintenance - App is in maint mode (503)</p>
+                            </li>
+                        </ul>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">Continue</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Create session</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><MadCap:variable name="okta-feature-names.Access Gateway" /> session is created.
+Attributes populated and stored into session cache.</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">N/A</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Continue</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2" rowspan="2">Evaluate deep linking </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><a href="../task-manage-adv-settings.htm">Advanced  &gt; Deep linking</a> (Disabled).</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">N/A</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">Route to the specified post login url.</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                        <p><a href="../task-manage-adv-settings.htm">Advanced  &gt; Deep linking</a> (Enabled).</p>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                        <p>N/A</p>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                        <p>Route to the provided URL Normally <span id="code">http://domain.tld/somepath</span>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                        <p>Evaluate policy</p>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                        <p>Evaluate <a href="../about-application-policy.htm">policy</a> for selected URI</p>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                        <p>403 (Access denied via policy)</p>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
+                        <p>403 (Access denied via policy)</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1">
+                        <p>Forward request</p>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1">
+                        <p>Rewrite request and forward to protected resource</p>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body1" colspan="2">Application dependent.</td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>Related topics</h2>
+        <p>
+            <MadCap:xref href="../ref-architectures.htm">Reference architectures</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="../about-oag-dns.htm">About [%=okta-feature-names.Access Gateway%] DNS use</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="../about-high-availability.htm">About [%=okta-feature-names.Access Gateway%] high availability</MadCap:xref>
+        </p>
+        <p><a href="../about-oag-prereqs.htm">About [%=okta-feature-names.Access Gateway%] prerequisites</a>
+        </p>
+    </body>
+</html>

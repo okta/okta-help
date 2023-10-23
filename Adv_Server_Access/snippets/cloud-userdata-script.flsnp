@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd">
+    <head>
+    </head>
+    <body><span class="codeblock">#!/bin/bash
+echo "Add an enrollment token"
+sudo mkdir -p /var/lib/sftd
+echo "&lt;enrollment-token&gt;" | sudo tee /var/lib/sftd/enrollment.token
+export DEBIAN_FRONTEND=noninteractive
+
+echo "Add a basic sftd configuration"
+sudo mkdir -p /etc/sft/
+sftcfg=$(cat &lt;&lt;EOF
+---
+# CanonicalName: Specifies the name clients should use/see when connecting to this host.
+CanonicalName: "ubuntu-target"
+EOF
+)
+echo -e "$sftcfg" | sudo tee /etc/sft/sftd.yaml
+
+echo "Retrieve information about new packages"
+sudo apt-get update
+sudo apt-get install -y curl
+
+echo "Add the ScaleFT testing apt repo to your /etc/apt/sources.list system config file"
+echo "deb http://pkg.scaleft.com/deb/ linux main" | sudo tee -a /etc/apt/sources.list
+
+echo "Trust the repository signing key"
+curl -C - https://dist.scaleft.com/pki/scaleft_deb_key.asc | sudo apt-key add -
+
+echo "Retrieve information about new packages"
+sudo apt-get update
+
+echo "Install sftd"
+sudo apt-get install scaleft-server-tools
+</span>
+        <p>Note: This script creates an <span class="code">sftd.yaml</span> file for your server and uses <span class="code">ubuntu-target</span> as its canonical name. Modify and generate this information as needed to fit your team and project environments.</p>
+    </body>
+</html>

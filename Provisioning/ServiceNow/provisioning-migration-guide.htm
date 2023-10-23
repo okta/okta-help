@@ -1,0 +1,338 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:searchable="True"
+      MadCap:fileTags="Tags/okta-authors.Jeanette Smith">
+   <head>
+      <title>ServiceNow Provisioning Migration Guide | Okta</title>
+      <link href="" rel="stylesheet" type="text/css"/>
+      <meta name="description"
+            content="Simplify ServiceNow user management with Okta’s ServiceNow UD migration for Universal Directory, and eliminate the deprecated ServiceNow plugin."/>
+   </head>
+   <body>
+      <h1>ServiceNow UD Provisioning migration guide</h1>
+      <p>Learn how to migrate your existing ServiceNow integration to use Universal Directory (UD).</p>
+      <h2>What's new</h2>
+      <ul>
+         <li>Support for ServiceNow Geneva version and above</li>
+         <li>User Schema Discovery support with unlimited custom attributes</li>
+         <li>Flexible user attribute mapping support</li>
+         <li>The <MadCap:variable name="okta-variables.ProductName"/> ServiceNow plugin is no longer required for provisioning</li>
+      </ul>
+      <h2>Before you begin</h2>
+      <p>You need to know what settings you are using for your current ServiceNow app instance: <MadCap:xref href="#Determin">Determine your current ServiceNow configuration</MadCap:xref>
+      </p>
+      <p>You should configure your new ServiceNow UD app instance to be as close to your current ServiceNow instance as possible:<MadCap:xref href="#Configur"> Configure a new ServiceNow UD app instance</MadCap:xref>
+      </p>
+      <h2>Procedure</h2>
+      <p>High level procedure for migrating your existing ServiceNow integration to use UD:</p>
+      <ol>
+         <li>Configure a new instance as close as possible to your existing ServiceNow app instance.</li>
+         <li>Transfer your existing users to it. </li>
+         <li>Copy over any existing mappings you may have. </li>
+      </ol>
+      <p>Detailed steps:</p>
+      <ul>
+         <li>
+            <MadCap:xref href="#Determin">Determine your current ServiceNow configuration</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Configur">Configure a new ServiceNow UD app instance</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Migratio">Migrate your Service Now app</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Mig">Migrate using Group Assignment</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Migrate">Migrate using Import and Auto-confirm           </MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Migratin">Migrate users with the same email address in ServiceNow</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Migratio2">Migration for Pushed Groups</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Verify">Verify your migration</MadCap:xref>
+         </li>
+      </ul>
+      <h3>
+         <a name="Determin"/>Determine your current ServiceNow configuration</h3>
+      <ol>
+         <li>In <MadCap:variable name="okta-variables.ProductName"/>, go to your ServiceNow - Eureka or any later released app instance.</li>
+         <li>Go to the <span class="wintitle">Sign On</span> tab for this app and check the following settings:</li>
+         <ul>
+            <li>
+               <span class="uicontrol">SSO mode</span>: Either <span class="uicontrol">SWA</span> or <span class="uicontrol">SAML</span>. Use the same mode for your new ServiceNow UD app.</li>
+            <li>For SWA configured apps, check the password settings (for example, User sets username and password). Use the same settings for your new ServiceNow UD app.</li>
+            <li>For SWA configured apps, check the <span class="uicontrol">Application username format</span>. Use the same value for your new ServiceNow UD app.</li>
+            <p>
+               <img src="../../../Resources/Images/snow_ud_1.png" class="thumbnail"/>
+            </p>
+         </ul>
+         <li>
+            <p>Go to  <span class="menucascade">
+                  <span class="uicontrol">Provisioning</span>
+                  <span class="uicontrol">To Apps</span>
+               </span>. Make note of the features that are enabled. Enable the same features for your new ServiceNow UD app to avoid missing or overwriting user's data. Enable all provisioning features if you want to manage all user's data from Okta:</p>
+            <p>
+               <img src="../../../Resources/Images/snow_ud_2.png" class="thumbnail"/>
+            </p>
+            <ul>
+               <li>
+                  <p>If the Sync Password feature is not enabled for your existing ServiceNow app, it means you may allow end-users to set their passwords depending upon the setting you select under <span class="uicontrol">Secure Web Authentication</span> on the <span class="uicontrol">Sign On</span> tab.</p>
+               </li>
+               <ul>
+                  <li>
+                     <p>
+                        <span class="uicontrol">Administrator sets username and password</span>: In this case, you have to manually enter passwords for all migrated users. <MadCap:variable name="okta-variables.ProductName"/> recommends that you enable this feature before migration to avoid having to manually enter passwords for all migrated users.</p>
+                  </li>
+                  <li>
+                     <p>
+                        <span class="uicontrol">User sets username and password</span>: In this case, following migration, end users must enter  valid usernames and passwords they are using for the current ServiceNow SWA app. </p>
+                  </li>
+                  <li>
+                     <p>
+                        <span class="uicontrol">Administrator sets username, user sets password</span>: In this case, after migration, end users must enter valid passwords they are using for the current ServiceNow SWA app. </p>
+                  </li>
+               </ul>
+               <li>
+                  <p>If the <span class="uicontrol">Update user attributes</span> feature is disabled for your existing ServiceNow app, you may have some unsynchronized users, which can be missed during migration. If you have users with updated profiles in ServiceNow, for example, an updated email address, these users cannot be auto-confirmed during import. To migrate such users, they have to be manually confirmed.</p>
+               </li>
+               <li>
+                  <p>If the <span class="uicontrol">Deactivation</span> feature is disabled for your existing ServiceNow app, you may run into issues during user migration to your new ServiceNow UD instance. If you have unassigned users from your existing ServiceNow app, but who are not actually deactivated on the ServiceNow side, these users would be auto-confirmed for the new ServiceNow UD app. You can manually unassign such users after migration.</p>
+               </li>
+            </ul>
+         </li>
+         <li>
+            <p>Open the <span class="wintitle">Profile Editor</span>, locate your current ServiceNow app and check the current mappings. You will have to copy these to your new ServiceNow UD app. If you have custom mappings, these also need to be copied over.</p>
+            <p>
+               <img src="../../../Resources/Images/snow_ud_3.png" class="thumbnail"/>
+            </p>
+         </li>
+      </ol>
+      <h3>
+         <a name="Configur"/>Configure a new ServiceNow UD app instance</h3>
+      <ol>
+         <li>
+            <MadCap:snippetBlock src="../../../Resources/Snippets/task steps/Applications_Applications.flsnp"/>
+         </li>
+         <li>
+            <p>Locate ServiceNow UD then click <span class="uicontrol">Add.</span>
+            </p>
+         </li>
+         <li>
+            <p>Enter the <span class="uicontrol">Base URL</span> for your ServiceNow tenant, then click <span class="uicontrol">Next.</span>
+            </p>
+         </li>
+         <li>
+            <p>Select the same <span class="uicontrol">SIGN ON METHOD</span> as your current ServiceNow - Eureka app instance, then click <span class="uicontrol">Done</span>.</p>
+            <p>See <MadCap:xref href="#Determin">Determine your current ServiceNow configuration.</MadCap:xref>
+            </p>
+         </li>
+         <li>
+            <p>Select the <span class="wintitle">Provisioning</span> tab and then <span class="uicontrol">Configure API Integration</span>.</p>
+         </li>
+         <li>
+            <p>Click <span class="menucascade">
+                  <span class="uicontrol">To App</span>
+                  <span class="uicontrol">Go to Profile Editor.</span>
+               </span>
+            </p>
+         </li>
+         <p>Note: If you have the <span class="uicontrol">Location</span> attributes in your current Service Now - Eureka app, you need to add it to the new ServiceNow UD app as follows:</p>
+         <p>Click <span class="uicontrol">Add Attribute</span>, select the <span class="uicontrol">Location</span> attribute, then click <span class="uicontrol">Save.</span>
+         </p>
+         <li> Click <span class="uicontrol">Map Attributes</span>, then go to <MadCap:variable name="okta-variables.ProductName"/> to ServiceNow UD.</li>
+         <li> Copy and paste mappings from your current Service Now - Eureka for all duplicated attributes, then click <span class="uicontrol">Save Mappings.</span>
+         </li>
+      </ol>
+      <p>If you have your current ServiceNow app configured with Active Directory, you need to also copy and paste mappings for all attributes to be the same as your current app.</p>
+      <p>If you have custom mappings for your current ServiceNow app such as
+         <span class="varname">adUser.tshirt &gt; oktaUser.title &gt; snowUser.title </span>
+         and have configured <span class="varname">tshirt</span> as the column name for the title attribute in ServiceNow Provisioning, you need to configure the same mapping for your new app instance as follows:</p>
+      <ol>
+         <li>
+            <p>Import user attributes from ServiceNow.</p>
+         </li>
+         <li>
+            <p>Add the <span class="varname">tshirt</span> attribute to the user profile.</p>
+         </li>
+         <li> Configure mapping as follows: <span class="varname">adUser.tshirt &gt; oktaUser.tshirt &gt; snowUser.tshirt</span>.</li>
+      </ol>
+      <p>For example, if there is  a T-shirt Size attribute in the <MadCap:variable name="okta-variables.ProductName"/> profile; and the ServiceNow title attribute is not currently used by the org:</p>
+      <ol>
+         <li>
+            <p>Mappings are set to <span class="varname">user.tshirt → ServiceNow appuser.title</span></p>
+            <p>
+               <img src="../../../Resources/Images/snow_ud_10.png" class="thumbnail"/>
+            </p>
+         </li>
+         <li> In the provisioning section of the ServiceNow app, tshirt is configured as the column name that title maps to.</li>
+         <p>
+            <img src="../../../Resources/Images/snow_ud_11.png" class="thumbnail"/>
+         </p>
+         <p>Mappings will now look like this example:</p>
+         <p>
+            <img src="../../../Resources/Images/snow_ud_12.png" class="thumbnail"/>
+         </p>
+      </ol>
+      <h3>
+         <a name="Migratio"/>Migrate your Service Now app</h3>
+      <p>The migration steps might differ if your current ServiceNow app is configured with SWA or SAML SSO. The differences are highlighted.</p>
+      <ol>
+         <li>Disable all provisioning features for your existing ServiceNow app.</li>
+         <li>Configure a new ServiceNow UD app instance. See <MadCap:xref href="#Configur">Configure a new ServiceNow UD app instance</MadCap:xref>.</li>
+         <li>Depending on how your current ServiceNow app integration is configured, we recommend two separate migration flows:<ul>
+               <li>
+                  <p>
+                     <MadCap:xref href="#Mig">
+				Migrate using Group Assignment
+</MadCap:xref>
+                  </p>
+                  <p>Use this method if the following criteria are met, otherwise use <MadCap:xref href="#Migrate">Migrate using Import and Auto-confirm</MadCap:xref>:</p>
+                  <ul>
+                     <li>All users are assigned via group level for your current ServiceNow - Eureka app instance. </li>
+                     <li>All users in groups are sorted by the following attributes and have the same values for them: Department, Cost Center and Location (if it is added - See <MadCap:xref href="#Configur">Configure a new ServiceNow UD app instance</MadCap:xref>)</li>
+                     <li>All users in groups have the same values for the Time zone and Company attributes on ServiceNow side. These attributes aren't supported by the old Service Now app but are supported in the new UD app.</li>
+                  </ul>
+                  <p>Note: The values of some attributes could be overwritten for all users during the migration. If this is not critical for you, proceed with the migration flow using Group assignment. </p>
+               </li>
+               <li>
+                  <p>
+                     <MadCap:xref href="#Migrate">Migrate using Import and Auto-confirm           </MadCap:xref>
+                  </p>
+               </li>
+            </ul>
+         </li>
+      </ol>
+      <h3>
+         <a name="Mig"/>Migrate using Group Assignment</h3>
+      <p>Contact <a href="https://support.okta.com/help/s/" target="_blank">Okta Support</a> to ensure your organization has the APPLICATION_ENTITLEMENT_POLICY feature flag enabled. This feature allows you to map user attributes instead of static values in group assignments (for example, user.department instead of Financial for all users in the group).</p>
+      <p>Before migration, <MadCap:variable name="okta-variables.ProductName"/> recommends you try a test migration:</p>
+      <h4>Your current ServiceNow app is not configured with Active Directory and all attributes are mapped to the <MadCap:variable name="okta-variables.ProductName"/> user profile</h4>
+      <ol>
+         <li>Create a new test group in <MadCap:variable name="okta-variables.ProductName"/>.</li>
+         <li>Create a new test user in <MadCap:variable name="okta-variables.ProductName"/> and  set values for attributes mapped to ServiceNow (manager, department, cost center).</li>
+         <li>Add this user to the test group.</li>
+         <li>Assign the test group to your current ServiceNow app (make sure you have provisioning features enabled) and check the user is created on the ServiceNow side with the correct attributes values.</li>
+         <li>Disable provisioning for your current ServiceNow app.</li>
+         <li>Assign the test group to your new ServiceNow UD app and map the same Active Directory attributes.</li>
+         <li>Check that the user is linked and the user's profile is updated in ServiceNow only for attributes that don't exist in the old Service Now app.</li>
+      </ol>
+      <h4>Your current ServiceNow app is configured with Active Directory:</h4>
+      <ol>
+         <li>Create a new test group in Active Directory.</li>
+         <li>Create a new test user in Active Directory and set up all attributes that are mapped from Active Directory to ServiceNow (such as manager, department, cost center).</li>
+         <li>Add the new test user to the test group.</li>
+         <li>Go to <MadCap:variable name="okta-variables.ProductName"/> and perform an import from Active Directory.</li>
+         <li>Confirm the test user exists in <MadCap:variable name="okta-variables.ProductName"/>.</li>
+         <li>Assign the test group with the test user to your old ServiceNow app.</li>
+         <li>Make sure the user is created with the correct attribute values.</li>
+         <li>Disable provisioning for your old ServiceNow app.</li>
+         <li>Assign the test group to your new ServiceNow UD app and map the same Active Directory attributes.</li>
+         <li>Verify users and their profiles.</li>
+      </ol>
+      <p>If you run into issues during your test migration, check the settings for inconsistencies, correct them and try again. If the test migration is successful, you can start the migration process for all groups.</p>
+      <p>During migration you might encounter data loss for some users and might have to rewriting the user's profile.</p>
+      <p>After testing is complete, you can continue with migration:</p>
+      <ol>
+         <li>Identify one or more groups in <MadCap:variable name="okta-variables.ProductName"/> which collectively include all users assigned to your current ServiceNow integration.</li>
+         <li>Make sure you have disabled provisioning features for your current ServiceNow app.</li>
+         <li>Go to your new ServiceNow UD app and assign the group.</li>
+         <li>During the assignment, set  all group level attributes accordingly.</li>
+      </ol>
+      <p>If you have blank values for some attributes for users in the group, you may set Not Selected from the dropdown list, or specify a value.</p>
+      <MadCap:snippetBlock src="snippets/Hide-Deactivate.flsnp"/>
+      <MadCap:snippetBlock src="snippets/end-user-flow.flsnp"/>
+      <h3>
+         <a name="Migrate"/>Migrate using Import and Auto-confirm           </h3>
+      <p>Before migration, <MadCap:variable name="okta-variables.ProductName"/> recommends you try a test migration:</p>
+      <ol>
+         <li>In your existing ServiceNow UD app instance, go to <span class="menucascade">
+               <span class="uicontrol">Provisioning</span>
+               <span class="uicontrol">To Okta</span>
+            </span>. In the <span class="uicontrol">User Creation &amp; Matching</span> section select Imported user is an exact match to <MadCap:variable name="okta-variables.ProductName"/> user if - Email matches:</li>
+         <p>
+            <img src="../../../Resources/Images/snow_ud_14.png" class="thumbnail"/>
+         </p>
+         <li>Import new users in your new ServiceNow UD instance. Make sure all users are matches and can be linked to existing users.</li>
+         <p>Notes:</p>
+         <ul>
+            <li>If the <span class="uicontrol">Push Profile</span> feature is disabled for your existing ServiceNow app, you might be missing some users after migration to the new Service Now UD app. You need to manually confirm them after migration.</li>
+            <li>If the <span class="uicontrol">Deactivation</span> feature is disabled for your existing ServiceNow app,  you may  find some matches for users who aren't assigned to your current  ServiceNow app.  You should manually unassign these users after migration.</li>
+            <li>If you have different users in ServiceNow with the same email address, you may encounter mismatch issues. In this case, see <MadCap:xref href="#Migratin">Migrating users with the same email address in ServiceNow</MadCap:xref>.</li>
+         </ul>
+         <li> Confirm test user and check that the import is successful.</li>
+      </ol>
+      <p>Notes:</p>
+      <ul>
+         <li>
+            <p>If you encountered issues during test migration, check the settings for inconsistencies, correct them to be the same as for your current ServiceNow app, and try again. If the test migration is successful, you can start the process of migration for all users.</p>
+         </li>
+         <li>
+            <p>During migration you might encounter loss of data for some users and might have to rewrite the user's profile.</p>
+         </li>
+      </ul>
+      <p>When the testing is complete, you may continue with migration:</p>
+      <ol>
+         <li>In your ServiceNow UD app instance, go to  <span class="menucascade">
+               <span class="uicontrol">Provisioning</span>
+               <span class="uicontrol">To Okta</span>
+            </span>. In the <span class="uicontrol">User Creation &amp; Matching</span> section select Imported user is an exact match to <MadCap:variable name="okta-variables.ProductName"/> user if - Email matches and Auto-confirm exact matches: </li>
+         <p>
+            <img src="../../../Resources/Images/snow_ud_15.png" class="thumbnail"/>
+         </p>
+         <li>Import new users in your new ServiceNow UD instance. All existing users should be auto-confirmed. All groups are imported as well for the new ServiceNow UD, so you may have duplicate groups.</li>
+         <li>The following additional actions may be required depending upon how your old ServiceNow app was configured:
+                    <ul>
+               <li>
+                  <p>If the <span class="uicontrol">Push Profile</span> feature is disabled for your old ServiceNow app and you miss some users during migration to the new ServiceNow UD app, you need to manually confirm them. </p>
+                  <p>Important: Do not create new users. Link existing users only:</p>
+                  <p>
+                     <img src="../../../Resources/Images/snow_ud_16.png" class="thumbnail"/>
+                  </p>
+                  <p>[1] Find your user → [2] Click on "arrow" → [3] Select "EXISTING <MadCap:variable name="okta-variables.ProductName"/> user I specify" and enter username for your existing user.</p>
+               </li>
+               <li>If the <span class="uicontrol">Deactivation</span> feature is disabled for your existing ServiceNow app and you find some confirmed users which shouldn't be, you can unassign such users after migration manually.</li>
+               <li>For SWA configurations only: If you have configured Administrator sets username and password for your existing ServiceNow app, you need to manually enter passwords for all migrated users: Go to <span class="uicontrol">Assignment</span>, select the user, click <span class="uicontrol">Edit</span> then <span class="uicontrol">Set password</span>.</li>
+               <li>For SWA configurations only: If you have configured User sets username and password, your end users need to enter the valid username and password they are using for the current ServiceNow SWA app, after migration. </li>
+               <li>For SWA configurations only: If you have configured Administrator sets username, user sets password,  your end users need to enter the valid password they are using for the current ServiceNow SWA app, after migration. </li>
+            </ul>
+         </li>
+         <li>When the import is complete, <MadCap:variable name="okta-variables.ProductName"/> suggests you either Hide or Deactivate the old ServiceNow app from the <MadCap:variable name="okta-feature-names.Okta End-User Dashboard"/>.</li>
+      </ol>
+      <MadCap:snippetBlock src="snippets/Hide-Deactivate.flsnp"/>
+      <MadCap:snippetBlock src="snippets/end-user-flow.flsnp"/>
+      <h3>
+         <a name="Migratin"/>Migrate users with the same email address in ServiceNow</h3>
+      <p>If you are migrating users with the same email address in ServiceNow, <MadCap:variable name="okta-variables.ProductName"/> recommends that you use single user assignment, as follows:</p>
+      <ol>
+         <li>Make sure you have disabled provisioning for your current (old) Service Now app instance.</li>
+         <li>Identify the users in <MadCap:variable name="okta-variables.ProductName"/> who have the same email address in both ServiceNow and <MadCap:variable name="okta-variables.ProductName"/>.</li>
+         <li>Check that all attribute values are the same for both <MadCap:variable name="okta-variables.ProductName"/> and ServiceNow users to avoid overwriting values.</li>
+         <li>Assign these users to the new ServiceNow UD app instance.</li>
+         <li>Check users in ServiceNow; the user profile should be updated only for the new attributes.</li>
+      </ol>
+      <h3>
+         <a name="Migratio2"/>Migration for Pushed Groups</h3>
+      <ol>
+         <li>Go to your old ServiceNow - Eureka or any later released app instance, unlink and delete the pushed group.</li>
+         <li>Go to your new  ServiceNow UD app instance and push this group.</li>
+      </ol>
+      <p>Note: You receive an error if you attempt to push the same group from you new ServiceNow app, without first deleting it from your old ServiceNow app:</p>
+      <p>
+         <img src="../../../Resources/Images/snow_ud_17.png" class="thumbnail"/>
+      </p>
+      <h3>
+         <a name="Verify"/>Verify your migration</h3>
+      <ul>
+         <li>Check System Logs about importing users.</li>
+         <li>Verify that the number of imported users matches the number of existing users for your existing ServiceNow app instance.</li>
+         <li>Sign in via the application tile for the new ServiceNow UD app and check the user's permissions.</li>
+         <li>Check the Dashboard  for errors.</li>
+      </ul>
+   </body>
+</html>

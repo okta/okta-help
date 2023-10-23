@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Arshabhi Rai">
+    <head>
+        <link href="../../Resources/TableStyles/standard.css" rel="stylesheet" MadCap:stylesheetType="table" />
+        <link rel="canonical" href="https://help.okta.com/asa/en-us/Content/Topics/Adv_Server_Access/docs/user-management-linux.htm" /><title>[%=Heading.Level1%] | Okta</title>
+        <meta name="description" content="User Management for Advanced Server Access is automatically enabled and allows admins to securely provision and manage end-user lifecycles." />
+    </head>
+    <body>
+        <h1>User management in Linux</h1>
+        <p>The following table explains how <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> manages users on Linux servers.</p>
+        <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+            <col class="TableStyle-standard-Column-Column1" />
+            <col class="TableStyle-standard-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-standard-Head-Header1">
+                    <th class="TableStyle-standard-HeadF-Column1-Header1">Area</th>
+                    <th class="TableStyle-standard-HeadD-Column1-Header1">Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td class="TableStyle-standard-BodyF-Column1-Body1">Usernames</td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body1">
+                        <p>By default, <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> creates server usernames that follow the most restrictive Linux naming conventions. Usernames can contain lowercase letters (a-z), numbers (0-9), dashes (-), and underscores (_), can't be a reserved name, and have a maximum length of 32 characters. In the event a username collision occurs, an attempt is made to differentiate between users by appending a number  to the server username.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body2">
+                    <td class="TableStyle-standard-BodyF-Column1-Body2">Server account permissions</td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body2">
+                        <p>The permissions that users are assigned when they log into server resources with their individual accounts are restricted to end user, non-administrative permissions.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td class="TableStyle-standard-BodyF-Column1-Body1">User creation</td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body1">
+                        <p>Users are created and configured on Linux using standard tools, such as <span class="code">useradd</span> and <span class="code">groupmod</span>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body2">
+                    <td class="TableStyle-standard-BodyF-Column1-Body2">User and group updates</td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body2">
+                        <p>Standard tools are used to manage user and group updates, such as <span class="code">usermod</span>, <span class="code">groupadd</span>, and <span class="code">groupmod</span>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td class="TableStyle-standard-BodyF-Column1-Body1">User deletion</td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body1">
+                        <p>Users are deleted with <span class="code">userdel</span>.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body2" MadCap:conditions="Primary.do-not-publish">
+                    <td class="TableStyle-standard-BodyC-Column1-Body2">Authorized principals file</td>
+                    <td class="TableStyle-standard-BodyA-Column1-Body2">
+                        <div class="noteOkta">
+                            <p class="noteContent">This feature is being rolled out to all <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> customers through Q1 2023. No action is required on your part to enable this feature for your <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> team.</p>
+                        </div>
+                        <p><MadCap:variable name="okta-variables.ProductName"></MadCap:variable>&#160;<MadCap:variable name="okta-feature-names.PolicySync"></MadCap:variable> uses the OpenSSH daemon (sshd) <span class="code">AuthorizedPrincipalsFile</span> configuration option. See <a href="https://www.freebsd.org/cgi/man.cgi?query=sshd_config&amp;apropos=0&amp;sektion=0&amp;manpath=FreeBSD+11.0-RELEASE+and+Ports&amp;arch=default&amp;format=html" target="_blank">sshd_config</a> for more information on <span class="code">AuthorizedPrincipalsFile</span>.</p>
+                        <p>When <MadCap:variable name="okta-feature-names.PolicySync" /> is enabled, the <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> server agent creates the file <span class="code">.asa_authorized_principals</span> in the home directory of each user, on each server that they have access to. You can change where this file is created by setting the <span class="code">AuthorizedPrincipalsFile</span> option in your <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> server agent's <span class="code">sftd.yaml</span> configuration file. To configure the location, you must use one of the supported per-user tokens:&#160;</p>
+                        <ul>
+                            <li><span class="code">%h</span>: This expands to the user's home directory path.</li>
+                            <li><span class="code">%u</span>: This expands to the user's username.</li>
+                            <li><span class="code">%U</span>: This expands to the user's UID.</li>
+                        </ul>
+                        <p>For example, to configure <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> to create the authorized principals file in the user's home directory, add the following to a server's <span class="code">sftd.yaml</span> configuration file:</p>
+                        <p><span class="code">AuthorizedPrincipalsFile:&#160;"%h/.asa_authorized_principals"</span>
+                        </p>
+                        <p>The <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> server agent also updates the server's <span class="code">sshd_config</span> file with the AuthorizedPrincipalsFile directive as defined in <span class="code">sftd.yaml</span>.</p>
+                        <div class="noteOkta">
+                            <img src="../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Note" alt="Note">
+                            </img>
+                            <p class="noteContent">While the <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> server agent, <span class="code">sftd</span>, modifies <span class="code">sshd_config</span>, it's highly recommended that you do not modify it, either manually or through automation. Modifying the contents of <span class="code">sshd_config</span> can lead to unsupported or broken configurations.</p>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:onlyLocalStylesheets="False" MadCap:fileTags="Tags/okta-authors.Arshabhi Rai">
+    <head>
+        <link href="../../../Resources/TableStyles/standard.css" rel="stylesheet" MadCap:stylesheetType="table" />
+        <link rel="canonical" href="https://help.okta.com/asa/en-us/Content/Topics/Adv_Server_Access/docs/aws-ubuntu-userdata-cloud.htm" /><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+        <meta name="description" content="Deploy Advanced Server Access to Ubuntu/Debian AWS instances using user data and a linked cloud account." />
+    </head>
+    <body>
+        <h1>Deploy an&#160;AWS server with a cloud account</h1>
+        <p>This topic explains how to  deploy an&#160;Ubuntu or Debian Amazon Web Services (AWS) cloud server with systemd to your <MadCap:variable name="okta-feature-names.ScaleFT" /> team.    You may need to modify this process to fit your specific needs.</p>
+        <p>Creating a cloud server with user data means installing the <MadCap:variable name="okta-feature-names.ScaleFT" /> server agent when you create a server with a cloud provider.&#160;Using user data to install software on a new cloud server can be done through any cloud provider, though the user data that is used helps dictate the specific software that's needed. For <MadCap:variable name="okta-feature-names.ScaleFT" />, user data is used is to install the <MadCap:variable name="okta-feature-names.ScaleFT" />&#160;agent on your cloud server. Installing the <MadCap:variable name="okta-feature-names.ScaleFT" /> server agent on a cloud server doesn't need to be done when the cloud server is created, but running the installation as user data alongside a server's creation ensures that your cloud deployment is as safe and secure as possible. </p>
+        <ul>
+            <li>
+                <MadCap:xref href="#Prerequi">Prerequisites</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Create">Create a server from the AWS Management console</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Enroll">Enroll your server in Advanced Server Access by attaching your cloud account</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Next">Next steps</MadCap:xref>
+            </li>
+        </ul>
+        <h2><a name="Prerequi"></a>Prerequisites</h2>
+        <MadCap:snippetBlock src="../snippets/cloud-req-aws.flsnp" />
+        <MadCap:snippetBlock src="../snippets/cloud-req-asa.flsnp" />
+        <h2><a name="Create"></a>Create a server from the AWS Management console</h2>
+        <ol>
+            <li>Sign in to the <a href="https://aws.amazon.com/console/">AWS Management console</a>.
+            </li>
+            <li>Click the <span class="uicontrol">Services</span> tab at the top of the console and select the <span class="uicontrol">EC2</span> option in the <span class="uicontrol">Compute</span> category to create a new EC2 Server.</li>
+            <li>Click <span class="uicontrol">Launch Instance</span>.</li>
+            <li>On the <span class="uicontrol">Choose an Amazon Machine&#160;Image</span> page, scroll down and select <span class="uicontrol">Ubuntu server 16.04 LTS (HVM), SSD&#160;Volume Type</span>.
+                <p>Doing this sets your new instance as an Ubuntu/Debian Server with systemd.</p></li>
+            <li>On the <span class="uicontrol">Choose an Instance Type</span> page, click <span class="uicontrol">Next:&#160;Configure Instance Details</span>.</li>
+            <li>Select the <span class="uicontrol">Advanced Details</span> box on the <span class="uicontrol">Configure Instance Details</span> page to access the <span class="uicontrol">User Data</span> field.</li>
+            <li>
+                    Enter the following text into the <span class="uicontrol">User data</span> field:
+                    <span class="codeblock">#!/bin/bash
+echo "deb http://pkg.scaleft.com/deb linux main" | sudo tee -a /etc/apt/sources.list
+curl -C - https://dist.scaleft.com/pki/scaleft_deb_key.asc | sudo apt-key add -
+sudo apt-get update
+sudo apt-get install -y scaleft-server-tools</span></li>
+            <li>Click <span class="uicontrol">Review and Launch</span>, then click <span class="uicontrol">Launch</span>.
+                <p>The <span class="uicontrol">Select an existing key pair or create a new key pair</span> dialog appears.</p></li>
+            <li> Select the <span class="uicontrol">Proceed without a key pair</span> option from the dropdown menu.</li>
+            <li>Confirm and acknowledge your choice by selecting the relevant checkbox, then click <span class="uicontrol">Launch Instances</span>.</li>
+            <li>Click <span class="uicontrol">View Instances</span>.
+                <p>You should see the new server being initialized on the <span class="uicontrol">Instances</span> page.</p></li>
+        </ol>
+        <h2><a name="Enroll"></a>Enroll your server in Advanced Server Access by attaching your cloud account</h2>
+        <ol>
+            <li>In the Amazon Web Services&#160;management console, select the dropdown menu next to your profile name at the top of the page and click <span class="uicontrol">My Account</span>.</li>
+            <li>Copy your account ID&#160;number under <span class="uicontrol">Account Settings</span>.</li>
+            <li>Navigate to your team's dashboard within the <MadCap:variable name="okta-feature-names.ScaleFT" /> console.</li>
+            <li>Click the <span class="uicontrol">Projects</span> header at the top of the console and select a project for your server.</li>
+            <li>Click the <span class="uicontrol">Enrollment</span> tab within your project's console.</li>
+            <li>Click <span class="uicontrol">Add Cloud Account</span>.</li>
+            <li>Paste your Amazon Web Services&#160;account ID&#160;number in the <span class="uicontrol">Account ID</span>&#160;field, and add a description if needed.</li>
+            <li>Click <span class="uicontrol">Submit</span>.</li>
+            <li>Go to the <span class="uicontrol">Servers</span> tab and confirm that your new server is listed.</li>
+        </ol>
+        <p>Confirm that your new servers are listed in the <span class="uicontrol">Server</span> tab of your <MadCap:variable name="okta-feature-names.ScaleFT" /> project before you attempt to connect to them.</p>
+        <h2><a name="Next"></a>Next steps</h2>
+        <p>
+            <MadCap:xref href="verify-server-enrolled.htm">Verify server enrollment</MadCap:xref>
+        </p>
+    </body>
+</html>

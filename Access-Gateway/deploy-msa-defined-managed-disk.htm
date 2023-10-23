@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/deploy-msa-defined-managed-disk.htm" /><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <div>
+            <h1>Create Microsoft Azure Managed Disk</h1>
+            <div>
+                <p>Microsoft Azure VMs are a combination of disk images and Virtual Machine definitions.</p>
+                <p>To create an Microsoft Azure managed disk:</p>
+                <ul>
+                    <li>Create a an empty managed disk.</li>
+                    <li>Populate the managed disk with the converted <MadCap:variable name="okta-feature-names.Access Gateway" /> disk.</li>
+                </ul>
+            </div>
+            <ul class="tabs" data-tabs="data-tabs" data-deep-link="true" id="production-tabs">
+                <li class="tabs-title is-active"><a href="#console-panel" aria-selected="true">Console</a>
+                </li>
+                <li class="tabs-title"><a href="#command-panel">Command Line</a>
+                </li>
+            </ul>
+            <div class="tabs-content" data-tabs-content="production-tabs">
+                <div class="tabs-panel is-active" id="console-panel">
+                    <ol>
+                        <li>
+                            <p>Create an empty managed disk.</p>
+                            <ol style="list-style-type: lower-alpha;">
+                                <li>Sign in or return to the Microsoft Azure Portal.</li>
+                                <li>From the menu click <span class="uicontrol">Create a resource</span>.</li>
+                                <li>Search for <span class="uicontrol">Managed Disks</span>.</li>
+                                <li>In Managed Disks, click <span class="uicontrol">Create</span>. </li>
+                                <li>In the Create managed disk pane, enter a disk name, and select a resource group from the resource group drop-down box. </li>
+                                <li>Click <span class="uicontrol">Change size</span> to select an appropriate size. It should be same size of the previously created VHD disk or larger than that..</li>
+                                <li>Click <span class="uicontrol">Review +&#160;create</span>.</li>
+                            </ol>
+                        </li>
+                        <li>
+                            <p>Populate the empty disk.</p>
+                            <ol style="list-style-type: lower-alpha;">
+                                <li>Sign in or return to the Microsoft Azure Portal.</li>
+                                <li>From the menu, click <span class="uicontrol">Storage Accounts</span>.</li>
+                                <li>
+                                    <p>Select the storage account where the Security Access Manager VHD file will be uploaded to.</p>
+                                    <p>If you do not have a storage account, click <span class="uicontrol">Add</span> to create one.</p>
+                                </li>
+                                <li>In <span class="uicontrol">BLOB SERVICE</span>, click <span class="uicontrol">Containers</span>.</li>
+                                <li>Select the container to house the VHD&#160;file.<br />If you do not have a container click <span class="uicontrol">+ Container</span> to create one. </li>
+                                <li>Click <span class="uicontrol">Upload</span> and navigate to the location of the VHD file.</li>
+                                <li>From the Blob type drop-down box, select <span class="uicontrol">Page Blob</span>.</li>
+                                <li>Click <span class="uicontrol">Upload</span>. Upload time varies based on disk size and upload speed.</li>
+                            </ol>
+                        </li>
+                    </ol>
+                </div>
+                <div class="tabs-panel" id="command-panel">
+                    <ol>
+                        <li>
+                            <p>Create an empty managed disk.</p>
+                            <ol style="list-style-type: lower-alpha;">
+                                <li>Sign in or return to the Microsoft Azure command line interface.<br /><span class="codeblock">az login</span></li>
+                                <li>Using the <span class="code">az disk create</span> command create a disk large enough to contain the OVA&#160;disk file. <br /><span class="codeblock">az disk create -n &lt;virtual-disk&gt; -g &lt;resource-group&gt; -l &lt;location&gt; --for-upload --upload-size-bytes &lt;size&gt;&gt; --sku standard_lrs</span><br /><p>Where: </p><ul><li><span class="uicontrol">&lt;virtual-disk&gt;</span> is the name of the virtual disk. Typically the same as the OVA&#160;disk without suffix.</li><li><span class="uicontrol">&lt;resource-group&gt;</span> is the name of the previously created resource group. For example, AccessGateway.</li><li><span class="uicontrol">&lt;location&gt;</span> is the location of the resource group. For example, eastus. </li><li><span class="uicontrol">&lt;size&gt;</span> is the size of the disk in bytes. For example, 236223201792.</li><li><span class="code">--sku standard_lrs</span> is a required parameter.<br /></li></ul><p>For example:<br /></p><span class="codeblock">az disk create -n Okta-AccessGateway-2019.4.5 -g OAG -l eastus --for-upload --upload-size-bytes 236223201792 --sku standard_lrs</span></li>
+                            </ol>Which produces the following results:<br /><span class="codeblock">{<br></br>    "creationData": {<br></br>    "createOption": "Upload",<br></br>    "imageReference": null,<br></br>    "sourceResourceId": null,<br></br>    "sourceUniqueId": null,<br></br>    "sourceUri": null,<br></br>    "storageAccountId": null,<br></br>    "uploadSizeBytes": 20972032<br></br>    },. . . <br></br>    "tags": {}, <br></br>    "timeCreated": "2019-12-20T17:51:29.894626+00:00",<br></br>    "type": "Microsoft.Compute/disks",<br></br>    "uniqueId": "d1485574-. . . ",<br></br>    "zones": null<br></br>}</span><br /><div class="noteOkta"><p class="noteContent">The file size of the created disk must be an exact match to the file size used when copying up the disk image. <br />Use a command, such as <span class="code">ls -l</span> (linux) or <span class="code">dir</span> (Windows), to determine the file size in bytes. </p></div><div class="noteOkta"><p class="noteContent">Carefully note the uniqueID field, which can be used to create snapshots of the disk. </p></div></li>
+                        <li>Populate the empty disk.<br /><div class="noteOkta"><p class="noteContent">The following section requires the use of <span class="code">azcopy</span>. See <a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-v10">Storage Use AZCopy</a> to download and install an operating system appropriate version of <span class="code">azcopy</span></p></div><ol style="list-style-type: lower-alpha;"><li>Use the <span class="uicontrol">az disk grant-access</span> command to to create an Shared Access Token. You can use this token to grant access to the previously created disk.<br /><span class="codeblock">az disk grant-access -n &lt;virtual-disk&gt; -g &lt;resource-group&gt; --access-level Write --duration-in-seconds 86400</span><br />Where:<br /><ul><li>&lt;virtual-disk&gt; is the name of the virtual disk </li><li><span class="uicontrol">&lt;resource-group&gt;</span> is the name of the previously created resource group. </li><li><span class="code">--access-level Write</span> is the required write access level</li><li><span class="code">--duration-in-seconds 86400</span> in the lifetime of the Shared Access Token in seconds.<br /></li></ul><br />For example:<br /> <span class="codeblock">az disk grant-access -n Okta-AccessGateway-2019.4.5 -g OAG --access-level Write --duration-in-seconds 86400</span><p>Which produces the following results:<br /><span class="codeblock">"accessSas": "https://md-. . . VY1SlQ79TOnwoMaVHjaqkmVlU%3D"</span></p></li><li>Upload the disk file using the <span class="code">azcopy copy</span> command.<br /><span class="codeblock">azcopy copy &lt;path-to-disk&gt; "&lt;accessSas&gt;" --blob-type PageBlob</span> </li><li>Where:<br /><ul><li><span class="uicontrol">&lt;path-to-disk&gt;</span> is the fully qualified path to the fixed disk previously created.</li><li><span class="uicontrol">&lt;accessSas&gt;</span> is the value from the <span class="code">az disk grant-access</span> command. </li></ul><br /><br /><div class="noteOkta"><p class="noteContent">Azcopy uses the <span class="code">AZCOPY_CONCURRENCY_VALUE</span> environment variable to control the upload process. <br />Setting this variable to <span class="code">AUTO</span> causes Azcopy to attempt to optimize the upload process. <br /></p></div><br />For example:<span class="codeblock">export AZCOPY_CONCURRENCY_VALUE=AUTO<br />azcopy copy Okta-AccessGateway-2019.4.5 "https://md-. . . VY1SlQ79TOnwoMaVHjaqkmVlU%3D" --blob-type PageBlobexample</span><br />				Which produces the following results:<br /><span class="codeblock">INFO: Scanning...<br></br>Job 50d659dd-6174-fe4d-78b1-5f97e305fdee has started<br></br>Log file is located at: ~/.azcopy/50d659dd-6174-fe4d-78b1-5f97e305fdee.log<br></br>INFO: Trying 4 concurrent connections (initial starting point)<br></br>INFO: Trying 16 concurrent connections (seeking optimum)           <br></br>. . . <br></br>INFO: Trying 5 concurrent connections (at optimum)                                     <br></br>. . .<br></br>Elapsed Time (Minutes): 78.9381<br></br>Total Number Of Transfers: 1<br></br>Number of Transfers Completed: 1<br></br>. . . <br></br>TotalBytesTransferred: 236223201792<br></br>Final Job Status: Completed<br></br></span></li><li>Revoke access to the using <span class="code">az disk revoke</span>.<br /><span class="codeblock">az disk revoke-access -n &lt;virtual-disk&gt; -g &lt;resource-group&gt;</span><br />Where:<br /><ul><li><span class="uicontrol">&lt;virtual-disk&gt;</span> is the name of the virtual disk </li><li><span class="uicontrol">&lt;resource-group&gt;</span> is the name of the previously created resource group. </li></ul><p>For example:</p><span class="codeblock">az disk revoke-access -n oag-2019-12-30-disk1.fixed.vhd -g OAG </span></li></ol></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h3>Related topics</h3>
+            <ul>
+                <li>See <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resources-cli">Manage Azure resources using Azure CLI</a></li>
+                <li>See <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resource-groups-portal">Manage Azure resource groups using the Azure portal</a></li>
+            </ul>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:conditions="Primary.do-not-publish"
+      MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+   <head>
+      <link rel="canonical"
+            href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/deploy-oci-prepare-image.htm"/>
+      <link href="../../Resources/TableStyles/standard.css"
+            rel="stylesheet"
+            MadCap:stylesheetType="table"/>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <link href="" rel="stylesheet" type="text/css"/>
+   </head>
+   <body>
+      <h1>Prepare Image for deployment to OCI</h1>
+      <p>Oracle Cloud Infrastructure cannot import the Access Gateway OVA unchanged. <br/>
+         <br/>
+      </p>
+      <ol>
+         <li>Start VirtualBox.</li>
+         <li>Choose <span class="menucascade">
+               <span class="uicontrol">File</span>
+               <span class="uicontrol">Import Appliance</span>
+            </span>.</li>
+         <li>Navigate to the downloaded Access Gateway OVA file and click <span class="uicontrol">Open</span>.</li>
+         <li>Click <span class="uicontrol">Continue</span>. </li>
+         <li>Enter the following values in the <span class="wintitle">Appliance Settings</span> dialog:
+            <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard.css');"
+                   class="TableStyle-standard"
+                   cellspacing="0">
+               <col style="width: 187px;" class="TableStyle-standard-Column-Column1"/>
+               <col style="width: 50%;" class="TableStyle-standard-Column-Column1"/>
+               <thead>
+                  <tr class="TableStyle-standard-Head-Header1">
+                     <th class="TableStyle-standard-HeadF-Column1-Header1">Field</th>
+                     <th class="TableStyle-standard-HeadD-Column1-Header1">Value</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr class="TableStyle-standard-Body-Body1">
+                     <td class="TableStyle-standard-BodyF-Column1-Body1">
+                        <span class="uicontrol">Name</span>
+                     </td>
+                     <td class="TableStyle-standard-BodyD-Column1-Body1">A meaningful name for the OVA (for example, AccessGateway4.5).</td>
+                  </tr>
+                  <tr class="TableStyle-standard-Body-Body2">
+                     <td class="TableStyle-standard-BodyF-Column1-Body2">
+                        <span class="uicontrol">MAC Address Policy</span>
+                     </td>
+                     <td class="TableStyle-standard-BodyD-Column1-Body2">Select <span class="uicontrol">Generate New MAC addresses for all network adapters</span>.<br/>
+                     </td>
+                  </tr>
+                  <tr class="TableStyle-standard-Body-Body1">
+                     <td class="TableStyle-standard-BodyC-Column1-Body1">
+                        <span class="uicontrol">Import hard drives as VDI</span>
+                     </td>
+                     <td class="TableStyle-standard-BodyA-Column1-Body1">
+                        <p>Clear this checkbox if it's currently selected.</p>
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+         </li>
+         <li>Click <span class="uicontrol">Import</span>. Wait for the import to complete.</li>
+         <li MadCap:conditions="Primary.review-only">Prepare the image for Export:<br/>Note: The following commands are for reference only. Customers CANNOT perform these actions.<br/>This section WILL NOT be included in the formal documentation (review documentation only)<br/>
+            <ol style="list-style-type: lower-alpha;">
+               <li>
+                  <p>Connect via Support VPN</p>
+               </li>
+               <li>
+                  <p>Update boot options to send output to serial port (enables troubleshooting of new VM)</p>
+                  <p>Edit /etc/default/grub</p>
+                  <p>Confirm that it contains the following lines</p>
+                  <p>
+                     <span class="codeblock">GRUB_SERIAL_COMMAND="serial --unit=0 --speed=115200"
+GRUB_TERMINAL="serial console"</span>
+                  </p>
+                  <p>Append this to the end of the GRUB_CMDLINE_LINUX parameter:</p>
+                  <p>
+                     <span class="code">console=tty1 console=ttyS0,115200</span>
+                  </p>
+                  <p>Rebuild grub configuration</p>
+                  <p>
+                     <span class="code">sudo grub2-mkconfig -o /boot/grub2/grub.cfg</span>
+                  </p>
+               </li>
+               <li>
+                  <p>Enable paravirtualized device drivers</p>
+                  <p>Rebuild initrd with the dracut tool, telling it to add the qemu module</p>
+                  <p>
+                     <span class="code">sudo dracut --logfile /var/log/dracut.log --force --add qemu</span>
+                  </p>
+                  <p>Confirm that the drivers are present:</p>
+                  <p>
+                     <span class="code">sudo lsinitrd | grep virtio</span>
+                  </p>
+                  <p>Should product output similar to:</p>
+                  <p>
+                     <span class="codeblock">-rw-r--r-- 1 root root 7828 Jul 29 13:08 usr/lib/modules/3.10.0-957.27.2.el7.x86_64/kernel/drivers/block/virtio_blk.ko.xz<br/>-rw-r--r-- 1 root root 12960 Jul 29 13:07 usr/lib/modules/3.10.0-957.27.2.el7.x86_64/kernel/drivers/char/virtio_console.ko.xz<br/>-rw-r--r-- 1 root root 8176 Jul 29 13:07 usr/lib/modules/3.10.0-957.27.2.el7.x86_64/kernel/drivers/scsi/virtio_scsi.ko.xz<br/>drwxr-xr-x 2 root root 0 Nov 21 17:21 usr/lib/modules/3.10.0-957.27.2.el7.x86_64/kernel/drivers/virtio<br/>-rw-r--r-- 1 root root 4552 Jul 29 13:08 usr/lib/modules/3.10.0-957.27.2.el7.x86_64/kernel/drivers/virtio/virtio.ko.xz<br/>-rw-r--r-- 1 root root 9920 Jul 29 13:08 usr/lib/modules/3.10.0-957.27.2.el7.x86_64/kernel/drivers/virtio/virtio_pci.ko.xz<br/>-rw-r--r-- 1 root root 8284 Jul 29 13:08 usr/lib/modules/3.10.0-957.27.2.el7.x86_64/kernel/drivers/virtio/virtio_ring.ko.xz</span>
+                  </p>
+               </li>
+            </ol>
+         </li>
+         <li>From the virtual machine list, select the name of the virtual machine just imported.</li>
+         <li>Right-click and choose <span class="uicontrol">Export to OCI</span>.</li>
+         <li>Select Open Virtualization Format 2.0.</li>
+         <li>Ensure that the file name for the export ends in OVA.</li>
+         <li>Under <span class="uicontrol">MAC Address Policy,</span> select <span class="uicontrol">Include all network adapter MAC addresses</span>.</li>
+         <li>Click <span class="uicontrol">Continue</span>.</li>
+      </ol>
+      <div class="noteOkta">
+         <p class="noteContent">It's possible to export a VirtualBox image directly to Oracle Cloud Infrastructure from VirtualBox. To do so, follow the instructions for configuring a profile as described in <MadCap:xref href="setup-oracle-oci-cli.htm">Setup Oracle OCI Command Line</MadCap:xref> and create a compartment and a storage bucket. You can now export the VM directly to OCI. See your VirtualBox documentation for more information on exporting to OCI.</p>
+      </div>
+   </body>
+</html>

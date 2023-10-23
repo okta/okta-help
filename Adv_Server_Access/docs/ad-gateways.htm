@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:fileTags="Tags/okta-authors.Arshabhi Rai">
+    <head><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+        <meta name="description" content="Learn how to configure an ASA gateway to work with an Active Directory domain." />
+    </head>
+    <body>
+        <div MadCap:conditions="MultiProdPublish.PYPContent">
+            <h1>Configure an <MadCap:variable name="okta-feature-names.ScaleFT" /> gateway for AD-Joined</h1>
+            <p>Teams can configure their <MadCap:variable name="okta-feature-names.ScaleFT" /> gateways to discover available servers and forward Remote Desktop Protocol (RDP) connections to an Active Directory (AD) domain.</p>
+            <p><MadCap:variable name="okta-variables.ProductName" /> recommends configuring your network and gateway to restrict direct access to servers within the AD domain. This allows teams to use <MadCap:variable name="okta-feature-names.ScaleFT" /> for things like authentication and auditing without comprising the security of the network. Teams may need to perform network and gateway configuration. Okta recommends using separate gateways for server discovery and RDP connections.</p>
+            <h2>Requirements</h2>
+            <ul>
+                <li MadCap:conditions="Primary.live-site-only">
+                    <MadCap:annotation MadCap:createDate="2022-08-16T18:41:18.8301298-04:00" MadCap:creator="Isaac" MadCap:initials="ID" MadCap:comment="Remove with devicetools 1.62.x" MadCap:editor="Isaac" MadCap:editDate="2022-08-16T18:41:21.9442189-04:00">Install the gateway on a device running Ubuntu 20.04, 22.04, or RHEL 8<br />See <MadCap:xref href="gateway-install-ubuntu.htm">Install the [%=okta-feature-names.ScaleFT%] gateway on Ubuntu or Debian</MadCap:xref>.</MadCap:annotation>
+                </li>
+                <li MadCap:conditions="Primary.review-only">
+                    <MadCap:annotation MadCap:createDate="2022-08-16T18:41:04.8180385-04:00" MadCap:creator="Isaac" MadCap:initials="ID" MadCap:comment="Add with devicetools 1.62.x" MadCap:editor="Isaac" MadCap:editDate="2022-08-16T18:41:06.0350346-04:00">Install </MadCap:annotation>the gateway on a device running Ubuntu 20.04, 22.04, or RHEL 8<br />See <MadCap:xref href="gateway-install-ubuntu.htm">Install the [%=okta-feature-names.ScaleFT%] gateway on Ubuntu or Debian</MadCap:xref>.</li>
+                <li>Update the gateway to v1.59.0 or later</li>
+            </ul>
+            <h2>Start this task</h2>
+            <ol>
+                <li>Create an authentication certificate. <MadCap:xref href="gateway-create-cert.htm">Create a certificate for use with [%=okta-feature-names.ScaleFT%] gateways</MadCap:xref>.</li>
+                <li>Move the certificate to the gateway.</li>
+                <li>Configure LDAP options for the gateway. See <MadCap:xref href="gateway-configure.htm#LDAP">LDAP 
+options</MadCap:xref>.</li>
+                <li>Configure RDP options for the gateway. See <MadCap:xref href="gateway-configure.htm#RDP">RDP 
+options</MadCap:xref>.</li>
+                <li>Verify DNS name resolution of any target AD domains.  Possible options:<ul><li>Create a cloud DNS&#160;forwarding rule.</li><li>Add AD domain controllers as DNS&#160;servers to <span class="filepath">resolv.conf</span> or resolvconf. Port 53 must be open between the gateway and DNS server.<ol style="list-style-type: lower-alpha;"><li>From the terminal, install resolvconf with the following command: <span class="code">sudo apt install resolvconf</span></li><li>Enable the resolvconf service with the following command: <span class="code">sudo systemctl enable --now resolvconf.service</span></li><li>Add the domain controller nameserver IP address to the following file <span class="filepath">/etc/resolvconf/resolv.conf.d/head</span></li><li>Update the resolvconf subscribers with the following command: <span class="code">sudo resolvconf -u</span></li></ol></li></ul></li>
+                <li>Verify that clients can reach the gateway over the network. See <MadCap:xref href="gateway-configure.htm#connections">Connection Options</MadCap:xref>.</li>
+                <li>Configure your network to allow proxied connections through the gateway. Possible options:<ul><li>Create firewall rules to limit RDP traffic (port 3389) to only gateway hosts with known static IPs.</li><li>Add target servers to a private network and limit inbound access to  <MadCap:variable name="okta-feature-names.ScaleFT" /> gateways only.</li></ul></li>
+            </ol>
+            <h2 MadCap:conditions="Primary.do-not-publish">Connections</h2>
+            <p MadCap:conditions="Primary.do-not-publish">The exact setup for proxying connections through the gateway depends on your specific network configuration, but two possible options are to:</p>
+            <ul>
+                <li MadCap:conditions="Primary.do-not-publish">Create firewall rules to limit traffic on port 3389 (used for RDP connections) to only gateway hosts with known static IPs.</li>
+                <li MadCap:conditions="Primary.do-not-publish">Add target servers to a private network and limit inbound access to only an <MadCap:variable name="okta-feature-names.ScaleFT" /> gateway.</li>
+            </ul>
+            <div class="noteOkta" MadCap:conditions="Primary.do-not-publish">
+                <p class="noteContent">To troubleshoot a connection to an AD domain, use the <code>--log-level debug</code> command.</p>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:searchable="True"
+      MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+   <head>
+      <link rel="canonical"
+            href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/add-oracle-ebs-sso-config-rapid.htm"/>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <link href="" rel="stylesheet" type="text/css"/>
+   </head>
+   <body>
+      <h1>Configure Oracle E-Business Suite for Rapid SSO and create the DBC file</h1>
+      <div>
+         <div>
+            <div class="noteOkta">
+               <p class="noteContent">This topic only applies to integrations using <MadCap:variable name="okta-feature-names.Access Gateway"/> Rapid Single Sign-On (SSO) integration. If you're integrating with Oracle EBS classic (using Oracle AccessGate and Oracle Internet Directory/Universal Directory), skip this section. </p>
+            </div>
+            <h2>
+               <a name="Create"/>Create required user and assign roles</h2>
+            <ol>
+               <li>Go to the Oracle E-Business Suite console and sign in as sysadmin. For example: <span class="userinput">http://ebs-internal.example.com:8000/OA_HTML/AppsLogin</span>.</li>
+               <li>On the Oracle E-Business Suite <span class="wintitle">Home</span> page, scroll down the <span class="wintitle">Navigator</span> panel and expand the <span class="wintitle">User Management</span> section.</li>
+               <li>Click <span class="uicontrol">Users</span>. The <span class="wintitle">User Maintenance</span> page appears.</li>
+               <li>Select <span class="uicontrol">User Account</span> from the <span class="uicontrol">Register</span> dropdown.</li>
+               <li>Click <span class="uicontrol">Go</span>. The <span class="wintitle">Create User account</span> page appears.</li>
+               <li>Enter the following details to create the OAGSSOUSER user, and then click <span class="uicontrol">Submit</span>:
+					<ul>
+                     <li>
+                        <span class="uicontrol">User Name</span>: Use the OAGSSOUSER account.</li>
+                     <li>
+                        <span class="uicontrol">Password</span>: Use a secure password.</li>
+                     <li>
+                        <span class="uicontrol">Description</span>: Enter a description, such as OAG user account for SSO.</li>
+                     <li>
+                        <span class="uicontrol">Password Expiration</span>: Select <span class="uicontrol">None</span>.</li>
+                  </ul>
+               </li>
+               <li>Click <span class="uicontrol">Assign Roles</span>. The <span class="wintitle">Update User</span> page appears. </li>
+               <li>Click <span class="uicontrol">Assign Roles</span>.</li>
+               <li>In the <span class="uicontrol">Search</span> field enter <span class="uicontrol">APPS_SCHEMA_CONNECT</span> and click <span class="uicontrol">Go</span>. This role grants the user the right to communicate with the EBS database.</li>
+               <li>Enter an appropriate <span class="uicontrol">Justification</span>, such as <span class="userinput">Required for OAG SSO</span>.</li>
+               <li>Select the current date for the <span class="uicontrol">Active From</span> date.</li>
+               <li>Click <span class="uicontrol">Apply</span>. </li>
+               <li>Leave this browser window open so you can return to it when you perform the <MadCap:xref href="#Enable">Enable Oracle E-Business Suite for single sign-on</MadCap:xref> procedure.</li>
+            </ol>
+         </div>
+         <h2>
+            <a name="Enable"/>Enable Oracle E-Business Suite for single sign-on</h2>
+         <ol>
+            <li>Start the <span class="wintitle">Java Control Panel</span> from your operating system menu.</li>
+            <li>Select the <span class="wintitle">Security</span> tab.</li>
+            <li>Add your Oracle E-Business Suite host to the exception list.</li>
+            <li>Return to the Oracle E-Business Suite console browser window.</li>
+            <li>In the <span class="wintitle">Navigation</span> pane, scroll to <span class="wintitle">System Administrator</span> and expand <span class="menucascade">
+                  <span class="uicontrol">System Administrator</span>
+                  <span class="uicontrol">Profile</span>
+                  <span class="uicontrol">System</span>
+               </span>. A Java applet launches. </li>
+            <li>If a security warning appears, click <span class="uicontrol">I accept the risk</span> and then <span class="uicontrol">Run</span>. This warning may appear twice.<br/>
+            </li>
+            <li>Select <span class="menucascade">
+                  <span class="uicontrol">System Administrator</span>
+                  <span class="uicontrol">Profile</span>
+                  <span class="uicontrol">System</span>
+               </span> and search for the <span class="uicontrol">Application Authenticate Agent</span> profile.
+				</li>
+            <li>Update the <span class="uicontrol">Site</span> to the EBS route that <MadCap:variable name="okta-feature-names.Access Gateway"/> uses to authenticate the user, such as <span class="userinput">https://ebssso.example.com</span>. This field must contain the fully qualified domain name of the application  protected by <MadCap:variable name="okta-feature-names.Access Gateway"/>. </li>
+            <li>Click <span class="uicontrol">Save</span>.
+				</li>
+            <li>In the <span class="uicontrol">Window</span> menu, select <span class="uicontrol">Find System Profile Values</span>.
+				Alternatively, select <span class="menucascade">
+                  <span class="uicontrol">System Administrator</span>
+                  <span class="uicontrol">Profile</span>
+                  <span class="uicontrol">System</span>
+               </span>.</li>
+            <li> Search for the <span class="userinput">Applications SSO Type</span>.</li>
+            <li>Change <span class="uicontrol">Applications SSO Type</span> from <span class="uicontrol">SSWA</span> to <span class="uicontrol">SSWA/w SSO</span>. </li>
+            <li>Click <span class="uicontrol">Save</span>.
+				</li>
+            <li>From the <span class="uicontrol">Window</span> menu, select <span class="uicontrol">Find System Profile Values</span>. Alternatively, select <span class="menucascade">
+                  <span class="uicontrol">System Administrator</span>
+                  <span class="uicontrol">Profile</span>
+                  <span class="uicontrol">System</span>
+               </span>.</li>
+            <li>Find <span class="uicontrol">Applications SSO Logins Type</span> and verify that it's set to  <span class="uicontrol">BOTH</span>. </li>
+            <li>Click <span class="uicontrol">Save</span>. </li>
+            <li>In the <span class="uicontrol">Window</span> menu, select <span class="uicontrol">Find System Profile Values</span>.
+				Alternatively, select <span class="menucascade">
+                  <span class="uicontrol">System Administrator</span>
+                  <span class="uicontrol">Profile</span>
+                  <span class="uicontrol">System</span>
+               </span>.</li>
+            <li>Search for <span class="uicontrol">%Session Cookie%</span>.</li>
+            <li>Change <span class="uicontrol">Oracle Applications Session Cookie Domain</span> to <span class="uicontrol">DOMAIN</span>. </li>
+            <li>Click <span class="uicontrol">Save</span>.</li>
+            <li>Exit the Java applet.</li>
+            <li>Exit the Oracle E-Business Suite console.</li>
+            <li>Reboot Oracle E-Business Suite. This can take 15–30 minutes. </li>
+         </ol>
+         <div class="noteOkta">
+            <p class="noteContent">
+               <MadCap:variable name="okta-feature-names.Access Gateway"/> uses the E-Business Suite API to communicate with the E-Business Suite database. Confirm with your E-Business Suite administrator which port this communication uses and ensure that it's open between <MadCap:variable name="okta-feature-names.Access Gateway"/> and the back end E-Business Suite database. Typically this connection uses port 1521, but other ports may be used.</p>
+         </div>
+         <div>
+            <h2>
+               <a name="Register"/>Register <MadCap:variable name="okta-feature-names.Access Gateway"/> with Oracle E-Business Suite</h2>
+            <ol>
+               <li>On your Oracle E-Business Suite server, find and uncompress the <span class="filepath">ebs.war</span> web application. You can download this app from the Oracle Identity Cloud Service console.<br/>
+               </li>
+               <li>
+                  <p>Extract the <span class="filepath">fndext.&lt;Major&gt;.&lt;minor&gt;.&lt;revision&gt;.jar</span> file  in the WEB-INF/lib folder inside the <span class="filepath">ebs.war</span> file. The <span class="codeph">findext.jar</span> may have been unpacked for a previous app installation.</p>
+                  <span class="codeblock">$find . -name 'fundext*.jar.
+/u01/install/APPS/fs1/EBSapps/comn/java/classes/oracle/apps/fnd/jar/fndext.jar</span>
+               </li>
+               <li>Open a command prompt and change the directory to the location where the file was unpacked.</li>
+               <li>Copy the <span class="filepath">fndext-M.m.rev.jar</span> file to the E-Business Suite host using a command similar to this one:
+<p>
+                     <span class="codeblock">scp fndext-2.0.8.jar oracle@&lt;EBS_IP&gt;:/home/oracle</span>
+                  </p>
+               </li>
+               <li>Open a Secure Shell session into the EBS host using a command similar to this one:
+<p>
+                     <span class="codeblock">ssh oracle@&lt;EBS_IP&gt;</span>
+                  </p>
+               </li>
+               <li>Configure the environment for E-Business Suite using a command similar to this one:
+<p>
+                     <span class="codeblock">. /u01/install/APPS/EBSapps.env run</span>
+                  </p>
+               </li>
+               <li>Prepare the EBSSDK directory using a command similar to this one:
+<p>
+                     <span class="codeblock">cd $HOME; mkdir EBSSDK; mv fndext-2.0.8.jar; cd EBSSDK</span>
+                  </p>
+               </li>
+               <li>Configure desktop app security using a command similar to this one. Replace <span class="codeph">&lt;your ebs domain name&gt;</span> with the address of your EBS domain:<p>
+                     <span class="codeblock">java oracle.apps.fnd.security.AdminDesktop apps/apps CREATE NODE_NAME=&lt;your ebs domain name&gt;
+DBC=/u01/install/APPS/fs1/inst/apps/EBSDB_apps/appl/fnd/12.0.0/secure/EBSDB.dbc</span>
+                  </p>
+               </li>
+               <li>Confirm that a DBC file was created using a command similar to this one:
+<p>
+                     <span class="codeblock">cat  EBSDB.dbc</span>
+                  </p>
+                  <p>Running this command presents results similar to this output:</p>
+                  <p>
+                     <span class="codeblock">#Desktop DB Settings
+#Tue Nov 19 20:15:56 EST 2019
+FNDNAM=APPS
+APPL_SERVER_ID=97BDEC3E76E2113EE05304FD140A235E23699099323052021210255403175980
+APPS_JDBC_URL=jdbc\:oracle\:thin\:@(DESCRIPTION\=(
+                                     ADDRESS_LIST\=(LOAD_BALANCE\=YES)
+                                                   (FAILOVER\=YES)
+                                                   (ADDRESS\=
+                                                    (PROTOCOL\=tcp)
+                                                    (HOST\=apps.example.com)
+                                                    (PORT\=1521)))
+                                     (CONNECT_DATA\=(SERVICE_NAME\=EBSDB)))
+GWYUID=APPLSYSPUB/PUB</span>
+                  </p>
+               </li>
+            </ol>
+            <div class="noteOkta">
+               <p class="noteContent">You need the contents of this file when you create the  Rapid EBS app in <MadCap:variable name="okta-feature-names.Access Gateway"/>.</p>
+            </div>
+            <div class="noteOkta">
+               <p class="noteContent">The string <span class="userinput">EBSDB</span> in <span class="userinput">(CONNECT_DATA\=(SERVICE_NAME\=EBSDB)</span> becomes the cookie name for the EBS app. Verify that these cookie names are unique for each EBS app. If two or more EBS apps use the same cookie name, an invalid session ID error message appears when you attempt to sign in to any of those apps.</p>
+            </div>
+            <h2>
+               <a name="Test"/>Test the connection</h2>
+            <ol>
+               <li>Confirm local authentication by accessing <span class="userinput">http://ebs.example.com:8000/OA_HTML/AppsLocalLogin.jsp</span>.</li>
+               <li>Open a Secure Shell session into the host running the EBS database using a command similar to this one:
+					<p>
+                     <span class="codeblock">ssh oracle@&lt;EBS_IP&gt;</span>
+                  </p>
+               </li>
+               <li>Go to the directory that contains <span class="codeph">listener.ora</span>.</li>
+               <li>Run this command to examine the contents of <span class="codeph">listener.ora</span>:
+							<p>
+                     <span class="codeblock">tcp.validnode_checking = NO
+tcp.invited_nodes = ( ebs.example.com )</span>
+                  </p>
+               </li>
+               <li>Restart the listener.</li>
+            </ol>
+         </div>
+      </div>
+      <div>
+         <h2>Next steps</h2>
+         <p>
+            <MadCap:xref href="add-oracle-ebs-sso-app.htm">Create the Rapid or Classic EBS application </MadCap:xref>
+         </p>
+      </div>
+   </body>
+</html>

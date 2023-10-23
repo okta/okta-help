@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/monitoring-basic.htm" />
+        <link href="../../Resources/TableStyles/standard-shaded-rows.css" rel="stylesheet" MadCap:stylesheetType="table" /><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1>Basic REST&#160;API&#160;monitoring</h1>
+        <p>The <MadCap:variable name="okta-feature-names.Access Gateway" /> Monitoring REST&#160;API&#160;endpoint can be used to determine the current health of an <MadCap:variable name="okta-feature-names.Access Gateway" /> cluster or stand alone instance. </p>
+        <MadCap:snippetBlock src="../../Resources/Snippets/access-gateway/AvailSince2021-07.flsnp" />
+        <div class="noteOkta">
+            <p class="noteContent">The monitoring REST&#160;API&#160;endpoint is disabled by default. See <a href="manage-monitoring.htm#enable">Enable or Disable monitoring</a> in the <a href="manage-monitoring.htm">Managing REST API&#160;monitoring</a> documentation for more information. </p>
+        </div>
+        <h2>Request</h2>
+        <p>You make a GET request to a node's <span class="code">/basic_status</span> endpoint to retrieve basic monitoring information. </p>
+        <p>Include the following in your request:</p>
+        <ul>
+            <li><span class="code">Host</span>: Always <span class="code">monitoring.rest.service.oag</span>. </li>
+        </ul>
+        <p>The following curl example requests the node's status using the default endpoint:</p><span class="codeblock">
+curl -k -X GET -H "Host:monitoring.rest.service.oag" https://gw.{gateway.tld}/basic_status
+</span>
+        <h2>On success</h2>
+        <p>On success, the following results are returned:</p><span class="codeblock">Active connections: {total active and waiting connections}
+server accepts handled requests
+{server accepts} {handled accepts} {total requests}
+Reading: {reads} Writing: {writes} Waiting: {waits}</span>
+        <p>Defined as:</p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+            <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+            <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Field</th>
+                    <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Active connections</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">The current number of active client connections including Waiting connections.</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">server accepts</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">The total number of accepted client connections.</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">handled</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">The total number of handled connections. <p>Generally, this parameter value is the same number of connections that the server handles, unless some resource limits have been reached.</p></td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">requests</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">The total number of client requests</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Reading</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">The current number of connections where <MadCap:variable name="okta-feature-names.Access Gateway" /> is reading the request header.</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Writing</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">The current number of connections where nginx is writing the response back to the client.</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1">Waiting</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body1">The current number of idle client connections waiting for a request.</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>For example:</p><span class="codeblock">Active connections: 291
+server accepts handled requests
+16630948 16630948 31070465
+Reading: 6 Writing: 179 Waiting: 106</span>
+        <h2>Other return results</h2>
+        <div>
+            <h3>400 Unknown host</h3>
+            <p>The status endpoint is disabled.</p>
+            <p>Example:</p><span class="codeblock">&lt;html&gt;&lt;head&gt;&lt;title&gt;Access Gateway&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+. . .
+&lt;p&gt;Status code: 400. . .
+The request . . .  is not being served by this Access Gateway.&lt;/p&gt;
+. . . 
+&lt;/body&gt;
+&lt;/html&gt;</span>
+        </div>
+        <div>
+            <h3>403 Forbidden</h3>
+            <p>The client IP address hasn't been authorized to access the endpoint.</p>
+            <p>Example:</p><span class="codeblock">&lt;html&gt;&lt;head&gt;&lt;title&gt;403 Forbidden&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+. . . 
+&lt;/body&gt;
+&lt;/html&gt;</span>
+        </div>
+        <h3>Related topics</h3>
+        <div>
+            <p>
+                <MadCap:xref href="command-line-console-reference.htm">Command Line Management Console reference</MadCap:xref>
+            </p>
+            <p>
+                <MadCap:xref href="manage-monitoring.htm">Managing REST API&#160;monitoring</MadCap:xref>
+            </p>
+            <p>
+                <MadCap:xref href="oag-log-files-rest-monitoring.htm">REST&#160;Monitoring management events</MadCap:xref>
+            </p>
+        </div>
+    </body>
+</html>

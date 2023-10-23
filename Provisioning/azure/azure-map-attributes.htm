@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:fileTags="Tags/okta-authors.Mark Cowan">
+    <head>
+        <link href="../../../Resources/TableStyles/standard.css" rel="stylesheet" MadCap:stylesheetType="table" /><title>Map Azure Active Directory attributes to Okta attributes | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1>Map Azure Active Directory attributes to Okta attributes</h1>
+        <p>To use Azure Active Directory for user authentication, you need to map Azure Active Directory user attributes to <MadCap:variable name="okta-variables.ProductName" /> attributes.</p>
+        <h2>Before you begin
+</h2>
+        <ul>
+            <li>
+                <p>Complete <MadCap:xref href="azure-identify-identity-provider.htm">Make Azure Active Directory an identity provider</MadCap:xref>.</p>
+            </li>
+            <li>
+                <p>Decide which claims you want to map to these required attributes in Okta: <span class="code">login</span>, <span class="code">email</span>, <span class="code">firstName</span>, and <span class="code">lastName</span>.</p>
+            </li>
+        </ul>
+        <div class="note_cautionOkta">
+            <img src="../../../Resources/Images/assets/Icons/Notes/Alert.png" class="noteImgFloat" title="Caution" alt="Caution" />
+            <p>
+                <ul>
+                    <li>If you are using UPN for both the <span class="code">login</span> and <span class="code">email</span> attributes, you must map it to both attributes.</li>
+                    <li>Creating a new user through JIT may fail if any of the required attributes is empty or incorrectly mapped.
+			</li>
+                </ul>
+            </p>
+        </div>
+        <ul>
+            <li>
+                <p>Accordingly, set the correct claim values for the Okta app in Azure AD. See the Microsoft Doc: <a href="https://docs.microsoft.com/en-us/azure/active-directory/manage-apps/configure-saml-single-sign-on#user-attributes-and-claims" target="_blank">User attributes and claims</a>.</p>
+            </li>
+        </ul>
+        <h2>Start this procedure</h2>
+        <p>This procedure involves the following tasks:</p>
+        <ol>
+            <li>
+                <p>
+                    <MadCap:xref href="#Disable">Disable attribute mappings from Azure AD to Okta</MadCap:xref>
+                </p>
+            </li>
+            <li>
+                <p>
+                    <MadCap:xref href="#Add">Add custom attributes</MadCap:xref>
+                </p>
+            </li>
+            <li>
+                <p>
+                    <MadCap:xref href="#Map">Map Azure AD attributes to Okta</MadCap:xref>
+                </p>
+            </li>
+        </ol>
+        <h3><a name="Disable"></a>Disable attribute mappings from Azure AD to Okta</h3>
+        <ol>
+            <li>
+                <MadCap:snippetText src="../../../Resources/Snippets/task steps/Directory_ProfileEditor.flsnp" />
+            </li>
+            <li>In the <span class="uicontrol">Search</span> field, enter <span class="userinput">AAD</span> or the name you assigned to Azure Active Directory when you added it as an identity provider (IdP).</li>
+            <li>Click <span class="uicontrol">Profile</span> next to the directory. <MadCap:variable name="okta-feature-names.Profile Editor" /> opens. </li>
+            <li>In <MadCap:variable name="okta-feature-names.Profile Editor" />, configure the user mappings:<ol style="list-style-type: lower-alpha;"><li>Click <span class="uicontrol">Mappings</span> and select <span class="uicontrol">Configure User mappings</span>.</li><li>Select the <span class="uicontrol">&lt;AAD Application Name&gt;&#160;to Okta User</span> tab, and in the second drop down for each attribute, select <span class="uicontrol">Do not map</span> for all of the attributes except the <span class="uicontrol">login</span> attribute.</li><li>Click <span class="uicontrol">Save Mappings</span> and <span class="uicontrol">Apply updates now</span>.</li></ol></li>
+            <li>Repeat step 4 for any additional custom user mappings that exist for your org.</li>
+        </ol>
+        <h3><a name="Add"></a>Add custom Azure AD&#160;attributes in Okta</h3>
+        <ol>
+            <li>Under <span class="uicontrol">FILTERS</span> in the <MadCap:variable name="okta-feature-names.Profile Editor" /> for your Azure AD IdP, select <span class="uicontrol">Custom</span>. </li>
+            <li>Delete these attributes: <span class="uicontrol">First Name</span>, <span class="uicontrol">Last Name</span>, and <span class="uicontrol">Email</span>. <div class="noteOkta"><img src="../../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Note" alt="Note" /><p class="noteContent">We delete these attributes because their <span class="uicontrol">Variable Name</span> and <span class="uicontrol">External&#160;Name</span> fields aren't editable. In the next step, we'll add custom attributes, where you can edit these fields.</p></div></li>
+            <li>Click the <span class="uicontrol">Add Attribute</span> button. The <span class="wintitle">Add Attribute</span> window opens.</li>
+            <li>
+                <p>To create the <span class="uicontrol">Email</span> attribute, complete these fields:</p>
+                <p>
+                    <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                        <col class="TableStyle-standard-Column-Column1" />
+                        <col class="TableStyle-standard-Column-Column1" />
+                        <thead>
+                            <tr class="TableStyle-standard-Head-Header1">
+                                <th class="TableStyle-standard-HeadF-Column1-Header1">Field</th>
+                                <th class="TableStyle-standard-HeadD-Column1-Header1">Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="TableStyle-standard-Body-Body1">
+                                <td class="TableStyle-standard-BodyF-Column1-Body1">Display name</td>
+                                <td class="TableStyle-standard-BodyD-Column1-Body1">Email or any other name you want to assign to this email. </td>
+                            </tr>
+                            <tr class="TableStyle-standard-Body-Body2">
+                                <td class="TableStyle-standard-BodyF-Column1-Body2">Variable name</td>
+                                <td class="TableStyle-standard-BodyD-Column1-Body2"><span class="code">email</span>
+                                    <p>This name is used to refer this attribute in profile mappings and expressions.</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-standard-Body-Body1">
+                                <td class="TableStyle-standard-BodyC-Column1-Body1">External name</td>
+                                <td class="TableStyle-standard-BodyA-Column1-Body1">The claim you want to map to this attribute. For example,  <span class="code">http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </p>
+            </li>
+            <li>Click <span class="uicontrol">Save and Add Another</span> to save this attribute and add another.</li>
+            <li>
+                <p>Repeat Step 4 and 5 to add these attributes:&#160;First Name, Last Name, and UPN (optional). Use the following values:</p>
+                <div>
+                    <p>For First Name:</p>
+                    <p>
+                        <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                            <col class="TableStyle-standard-Column-Column1" />
+                            <col class="TableStyle-standard-Column-Column1" />
+                            <thead>
+                                <tr class="TableStyle-standard-Head-Header1">
+                                    <th class="TableStyle-standard-HeadF-Column1-Header1">Field</th>
+                                    <th class="TableStyle-standard-HeadD-Column1-Header1">Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="TableStyle-standard-Body-Body1">
+                                    <td class="TableStyle-standard-BodyF-Column1-Body1">Display name</td>
+                                    <td class="TableStyle-standard-BodyD-Column1-Body1">First Name or any other name you want to assign to the first name. </td>
+                                </tr>
+                                <tr class="TableStyle-standard-Body-Body2">
+                                    <td class="TableStyle-standard-BodyF-Column1-Body2">Variable name</td>
+                                    <td class="TableStyle-standard-BodyD-Column1-Body2"><span class="code">firstName</span>
+                                        <p>This name is used to refer this attribute in profile mappings and expressions.</p>
+                                    </td>
+                                </tr>
+                                <tr class="TableStyle-standard-Body-Body1">
+                                    <td class="TableStyle-standard-BodyC-Column1-Body1">External name</td>
+                                    <td class="TableStyle-standard-BodyA-Column1-Body1">The claim you want to map to this attribute. For example,  <span class="code">http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </p>
+                </div>
+                <div>
+                    <p>For Last Name:</p>
+                    <p>
+                        <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                            <col class="TableStyle-standard-Column-Column1" />
+                            <col class="TableStyle-standard-Column-Column1" />
+                            <thead>
+                                <tr class="TableStyle-standard-Head-Header1">
+                                    <th class="TableStyle-standard-HeadF-Column1-Header1">Field</th>
+                                    <th class="TableStyle-standard-HeadD-Column1-Header1">Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="TableStyle-standard-Body-Body1">
+                                    <td class="TableStyle-standard-BodyF-Column1-Body1">Display name</td>
+                                    <td class="TableStyle-standard-BodyD-Column1-Body1">Last Name or any other name you want to assign to the last name. </td>
+                                </tr>
+                                <tr class="TableStyle-standard-Body-Body2">
+                                    <td class="TableStyle-standard-BodyF-Column1-Body2">Variable name</td>
+                                    <td class="TableStyle-standard-BodyD-Column1-Body2"><span class="code">lastName</span>
+                                        <p>This name is used to refer this attribute in profile mappings and expressions.</p>
+                                    </td>
+                                </tr>
+                                <tr class="TableStyle-standard-Body-Body1">
+                                    <td class="TableStyle-standard-BodyC-Column1-Body1">External name</td>
+                                    <td class="TableStyle-standard-BodyA-Column1-Body1">The claim you want to map to this attribute. For example,  <span class="code">http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </p>
+                </div>
+                <div>
+                    <p>For UPN (optional):</p>
+                    <p>
+                        <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                            <col class="TableStyle-standard-Column-Column1" />
+                            <col class="TableStyle-standard-Column-Column1" />
+                            <thead>
+                                <tr class="TableStyle-standard-Head-Header1">
+                                    <th class="TableStyle-standard-HeadF-Column1-Header1">Field</th>
+                                    <th class="TableStyle-standard-HeadD-Column1-Header1">Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="TableStyle-standard-Body-Body1">
+                                    <td class="TableStyle-standard-BodyF-Column1-Body1">Display name</td>
+                                    <td class="TableStyle-standard-BodyD-Column1-Body1">UPN or any other name you want to assign to the UPN. </td>
+                                </tr>
+                                <tr class="TableStyle-standard-Body-Body2">
+                                    <td class="TableStyle-standard-BodyF-Column1-Body2">Variable name</td>
+                                    <td class="TableStyle-standard-BodyD-Column1-Body2"><span class="code">upn</span>
+                                        <p>This name is used to refer this attribute in profile mappings and expressions.</p>
+                                    </td>
+                                </tr>
+                                <tr class="TableStyle-standard-Body-Body1">
+                                    <td class="TableStyle-standard-BodyC-Column1-Body1">External name</td>
+                                    <td class="TableStyle-standard-BodyA-Column1-Body1">The claim you want to map to this attribute. For example,  <span class="code">http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </p>
+                </div>
+            </li>
+        </ol>
+        <h3><a name="Map"></a>Map Azure AD attributes to Okta</h3>
+        <ol>
+            <li>Click <span class="uicontrol">Mappings</span> and select <span class="uicontrol">Configure User mappings</span>.</li>
+            <li>Select the <span class="uicontrol">&lt;AAD Application Name&gt; to Okta User</span> tab. </li>
+            <li>Map the custom Azure AD attributes you created to the Okta User Profile as shown below: 
+				<p><table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0"><col class="TableStyle-standard-Column-Column1" /><col class="TableStyle-standard-Column-Column1" /><thead><tr class="TableStyle-standard-Head-Header1"><th class="TableStyle-standard-HeadF-Column1-Header1">Azure AD&#160;attribute</th><th class="TableStyle-standard-HeadD-Column1-Header1">Okta attribute</th></tr></thead><tbody><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyF-Column1-Body1"><p><span class="code">email</span> or <span class="code">upn</span> or <span class="code">subjectNameId</span> </p><p>Choose the correct attribute depending on what the user will use while authenticating into Okta.</p></td><td class="TableStyle-standard-BodyD-Column1-Body1"><p><span class="code">login</span></p></td></tr><tr class="TableStyle-standard-Body-Body2"><td class="TableStyle-standard-BodyF-Column1-Body2"><p><span class="code">email</span> or <span class="code">upn</span> or <span class="code">subjectNameId</span></p><p>Choose the correct attribute depending on what the user's primary email is or will be.</p></td><td class="TableStyle-standard-BodyD-Column1-Body2"><p><span class="code">email</span></p></td></tr><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyF-Column1-Body1"><span class="code">firstName</span></td><td class="TableStyle-standard-BodyD-Column1-Body1"><span class="code">firstName</span></td></tr><tr class="TableStyle-standard-Body-Body2"><td class="TableStyle-standard-BodyF-Column1-Body2"><span class="code">lastName</span></td><td class="TableStyle-standard-BodyD-Column1-Body2"><span class="code">lastName</span></td></tr><tr class="TableStyle-standard-Body-Body1" MadCap:conditions=""><td class="TableStyle-standard-BodyC-Column1-Body1"><p><span class="code">upn</span></p><p>Optional. </p></td><td class="TableStyle-standard-BodyA-Column1-Body1"><p><span class="code">nameidentifier</span></p></td></tr></tbody></table></p><p><img src="../../../Resources/Images/Office365/aad-mapping.png" class="thumbnail" /></p></li>
+            <li>Click <span class="uicontrol">Save Mappings</span> and <span class="uicontrol">Apply updates now</span>.</li>
+        </ol>
+        <h2>Next steps</h2>
+        <p>
+            <MadCap:xref href="azure-test-integration.htm">Test the Azure Active Directory integration</MadCap:xref>
+        </p>
+    </body>
+</html>

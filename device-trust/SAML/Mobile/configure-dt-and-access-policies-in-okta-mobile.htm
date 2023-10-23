@@ -1,0 +1,370 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:fileTags="Tags/okta-topic-status.Ready for Review,Tags/okta-authors.Kimli Welsh"
+      MadCap:searchable="True">
+   <head>
+      <link href="../../../../Resources/TableStyles/standard.css"
+            rel="stylesheet"
+            MadCap:stylesheetType="table"/>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <link href="" rel="stylesheet" type="text/css"/>
+      <meta name="description"
+            content="Set up an LDAP integration using the Okta Java LDAP agent to enable Okta authentication using LDAP credentials."/>
+   </head>
+   <body>
+      <h1>Step 3: Configure Routing Rules, <MadCap:variable name="okta-feature-names.Device Trust"/>, and Client Access Policies in Okta for iOS and Android Devices</h1>
+      <MadCap:snippetBlock src="../../ws1-snippets/ea-feature-mgr-WS1.flsnp"/>
+      <h2>Prerequisites </h2>
+      <p>
+         <MadCap:xref href="configure-vidm-idp-okta.htm">Step 1: Configure  [%=Mobile.VIDM%] as an Identity Provider in [%=okta-variables.ProductName%]</MadCap:xref>
+      </p>
+      <p>
+         <MadCap:xref href="configure-okta-apps-vidm.htm">Step 2: Configure Okta application source in [%=Mobile.VIDM%]</MadCap:xref>
+      </p>
+      <p>The Okta Device Trust feature simplifies the administration of conditional access policies for iOS and Android devices in the <MadCap:variable name="Mobile.WS1-trademark"/>+Okta integration. Device Trust and access policies for apps are configured only in the Okta Admin console.</p>
+      <p>When iOS or Android Device Trust is configured in Okta, users are redirected to <MadCap:variable name="Mobile.VIDM"/> for authentication using the Mobile SSO (iOS) or Mobile SSO (Android) authentication method. <MadCap:variable name="Mobile.VIDM"/> returns device posture information to Okta in the SAML response.</p>
+      <p>The access policies you configure in Okta then determine whether the device must be trusted in order to access the application. If the device is untrusted, a device enrollment page is displayed.</p>
+      <p>For the purposes of this integration, you must perform the following tasks to configure the Device Trust feature in the Okta Admin console:</p>
+      <ol>
+         <li>Configure Okta identity provider routing rules for iOS and Android devices.</li>
+         <li>Enable the global Device Trust setting in Okta.</li>
+         <li>Configure app sign-on policy rules in Okta.</li>
+         <li>Configure Default Access Policy in <MadCap:variable name="Mobile.VIDM"/>.</li>
+      </ol>
+      <p class="earlyaccess">Verify that the Device SSO Response, Enable Force Authn Request, and Enable Authentication Failure Notification properties in the Okta application source configuration in VMware Identity Manager are set to <span class="uicontrol">Yes</span>. These properties are a requirement for the device trust solution for iOS and Android devices. For more information, see <MadCap:xref href="configure-okta-apps-vidm.htm">Step 2: Configure Okta application source in [%=Mobile.VIDM%]</MadCap:xref>.</p>
+      <h2>
+         <a name="config-routing-rules-mobile-devices"/>Configure Identity Provider Routing rules in Okta for mobile devices</h2>
+      <MadCap:snippetBlock src="../../ws1-snippets/dti-ws1-configure-idp-routing-rules-okta.flsnp"
+                           MadCap:conditionTagExpression="include[&#34;Devices.iOS and Android&#34; or &#34;SnippetConditionsForDevices.iOS and Android&#34;] exclude[&#34;SnippetConditionsForDevices.macOS and Windows&#34;] "/>
+      <h2>
+         <a name="enable-device-trust-in-okta"/>Enable Device Trust settings in Okta</h2>
+      <p>This section describes how to enable Device Trust specifically for this  <MadCap:variable name="Mobile.VMware"/>
+         <MadCap:variable name="Mobile.WS1"/> + <MadCap:variable name="okta-variables.ProductName"/> integration. When configured, these settings work together with the <a href="#config-routing-rules-mobile-devices">IDP Routing Rules</a> to redirect authentication requests from iOS and/or Android devices and target applications to Workspace ONE. Other authentication requests are processed through the default routing rule. </p>
+      <div>
+         <MadCap:snippetBlock src="../../../Mobile/mobile-snippets/DT_iOS_DontDisableDTIfTrustedSignOnPolicy.flsnp"/>
+         <ol>
+            <li>
+               <MadCap:snippetText src="../../../../Resources/Snippets/task steps/Security_DeviceTrust.flsnp"/>
+            </li>
+            <li>In the <span class="wintitle">iOS Device Trust</span> or <span class="wintitle">Android Device Trust</span> section, click <span class="uicontrol">Edit</span>.</li>
+            <li>Select <span class="uicontrol">Enable [iOS or Android]  Device Trust</span>.</li>
+            <li>In <span class="wintitle">Trust is established by</span>, select <MadCap:variable name="Mobile.VMware" style="font-weight: bold;"/>. </li>
+            <li>In <span class="wintitle">Integration type</span>, select <span class="uicontrol">SAML-based (<MadCap:variable name="Mobile.WS1-UEM-short" style="font-weight: bold;"/>+vIDM)</span>.</li>
+            <p>
+               <img src="../../../../Resources/Images/dti-enable-dt-ws1.png"
+                    class="thumbnail"/>
+            </p>
+            <li>Click <span class="uicontrol">Next</span>. </li>
+            <li MadCap:conditions="SnippetConditionsForDevices.iOS and Android">In <span class="wintitle">Device Identity provider</span>, select the Identity Provider you created in <MadCap:variable name="okta-variables.ProductName"/> for <MadCap:variable name="Mobile.VIDM"/> as detailed in <MadCap:xref href="configure-dt-and-access-policies-in-okta-mobile.htm#config-routing-rules-mobile-devices">Configure Identity Provider Routing rules in Okta for mobile devices</MadCap:xref>.</li>
+            <li>(Optional) In <span class="uicontrol">the Mobile device management provider</span> field, <MadCap:variable name="Mobile.WS1" style="font-weight: bold;"/> is pre-populated by default. You can modify this if necessary. The MDM provider you enter here is displayed to end users during device enrollment.</li>
+            <li>
+               <a name="In"/>In the <span class="uicontrol">Enrollment link</span> field, enter a web address where end users with unmanaged devices will be redirected.
+				For example, you may want to send these users to a page with enrollment instructions, or the <MadCap:variable name="Mobile.WS1"/> enrollment page. </li>
+            <li>Click <span class="uicontrol">Save</span>. </li>
+         </ol>
+      </div>
+      <h2>
+         <a name="config-app-signon-policy-in-okta"/>Configure App Sign On Policy rules in Okta</h2>
+      <div>
+         <ul>
+            <li>Only App, Org, and Super  admins can configure app Sign On policies.</li>
+            <li>
+               <MadCap:snippetBlock src="../../../Mobile/mobile-snippets/DT_iOS_DontDisableDTIfTrustedSignOnPolicy.flsnp"/>
+            </li>
+            <li MadCap:conditions="SnippetConditionsForDevices.iOS and Android">If you ask Okta to disable this Device Trust solution for your org (which is separate from the Device Trust setting that you enabled in <MadCap:xref href="configure-dt-and-access-policies-in-okta-mobile.htm#enable-device-trust-in-okta">Enable Device Trust settings in Okta</MadCap:xref>, make sure to first change the Device Trust setting in the app sign on policy rules to <span class="uicontrol">Any</span> (Applications &gt; app &gt; Sign On). If you do not make this change and then later have Okta re-enable Device Trust capability for your org, the Device Trust setting in app sign on policy rules will take effect immediately, which you may not have expected.</li>
+         </ul>
+         <MadCap:snippetBlock src="../../../Mobile/mobile-snippets/AppSignOnRules_bulletedList.flsnp"/>
+         <MadCap:snippetBlock src="../../../Mobile/mobile-snippets/sign-on-policies-white-list.flsnp"/>
+         <h3>Procedure</h3>
+         <p class="earlyaccess">Note: The allowlist example below shows Device Trust rules for managing access to <MadCap:variable name="Mobile.O365" style="font-weight: bold;"/>. For other apps, note that the section If the user's client is any of these is not present.</p>
+         <ol>
+            <li>
+               <MadCap:snippetText src="../../../../Resources/Snippets/task steps/Applications_Applications.flsnp"/>
+            </li>
+            <li>Click the SAML or WS-Fed-enabled app that you want to protect with Device Trust.</li>
+            <li>Click the <span class="wintitle">Sign On</span> tab.</li>
+            <li>Scroll down to the <span class="wintitle">Sign On Policy</span>, and then click <span class="uicontrol">Add Rule</span>.</li>
+            <li>Configure one or more rules using the following example allowlist as a guide. </li>
+         </ol>
+         <p MadCap:conditions="Primary.do-not-publish"> This example illustrates how you can  design an app sign on policy that allows access to web browsers and Modern Auth clients, require MFA for all access, and deny access to untrusted iOS devices.</p>
+         <div>
+            <h3>Example Allowlist</h3>
+            <p>Users with untrusted devices are guided through <MadCap:variable name="Mobile.WS1"/> enrollment or redirected to the destination of the Enrollment link configured in <a href="#In">this step</a>.</p>
+            <h4>
+               <a name="WL-Rule1"/>
+                    Example Rule 1: Web browser; Modern Auth; iOS and/or Android; Trusted; Allow access + MFA 
+                </h4>
+            <p>
+               <img src="../../../../Resources/Images/WS1-integration-beta-rule-1.png"
+                    style="mc-thumbnail-max-height: 250px;mc-thumbnail: popup;"/>
+            </p>
+            <ol>
+               <li>Enter a descriptive name for the rule.</li>
+            </ol>
+            <ol MadCap:continue="true">
+               <li>Under <span class="wintitle">PEOPLE</span>, specify whether to apply the rule to individuals only or to individuals and groups. The option you select must be the same for all the rules you create for this example.</li>
+               <li>Under <span class="wintitle">LOCATION</span>, specify the user location to which the rule will apply. The option you select must be the same for all the rules you create for this example.</li>
+               <li>Under <span class="wintitle">CLIENT</span>, configure the following settings:</li>
+               <p>
+                  <span class="uicontrol">Web browser</span>: Selected</p>
+               <p>
+                  <span class="uicontrol"> Modern Auth client</span>: Selected</p>
+               <p>
+                  <span class="uicontrol">Exchange ActiveSync client</span>: Unselected</p>
+               <p>Mobile										</p>
+               <p>
+                  <span class="uicontrol">iOS</span>: Selected.</p>
+               <p>
+                  <span class="uicontrol">Android</span> Selected</p>
+               <p>
+                  <span class="uicontrol">Other mobile</span>: Unselected</p>
+               <p>Desktop</p>
+               <p>
+                  <span class="uicontrol">Windows</span>: Unselected</p>
+               <p>
+                  <span class="uicontrol">macOS</span>: Unselected</p>
+               <p>
+                  <span class="uicontrol">Other desktop</span>: Unselected</p>
+               <li>Under <span class="uicontrol">DEVICE TRUST</span>, configure the following:</li>
+               <MadCap:snippetBlock src="../../../Mobile/mobile-snippets/snippet-tip-make-trusted-options-appear.flsnp"/>
+               <p>
+                  <span class="uicontrol">Any</span>: Unselected</p>
+               <p>
+                  <span class="uicontrol">Trusted</span>: Unselected</p>
+               <p>
+                  <span class="uicontrol">Not trusted</span>: Unselected</p>
+            </ol>
+            <ol MadCap:continue="true">
+               <li>Configure <span class="uicontrol">Access</span>:</li>
+               <p>
+                  <span class="uicontrol">Allowed</span>: Selected</p>
+               <p>
+                  <span class="uicontrol">Prompt for factor</span>: Selected</p>
+               <li>Click <span class="uicontrol">Save</span>.</li>
+               <li>Create <span class="uicontrol">Rule 2</span>.</li>
+            </ol>
+            <h4>
+               <a name="WL-Rule2"/>
+                    Example Rule 2: Web browser; Modern Auth; All platforms except  iOS and/or Android; Any Trust; Allow access + MFA 
+                </h4>
+            <p>
+               <img src="../../../../Resources/Images/WS1-integration-beta-rule-2.png"
+                    style="mc-thumbnail-max-height: 250px;mc-thumbnail: popup;"/>
+            </p>
+            <ol>
+               <li>Enter a descriptive name for the rule.</li>
+            </ol>
+            <p>
+               <span class="uicontrol">Conditions</span>
+            </p>
+            <ol MadCap:continue="true">
+               <li>
+										Under <span class="uicontrol">PEOPLE</span>, select the same People option that you selected in <a href="#WL-Rule1">Rule 1</a>.  The option you select must be the same for all the rules you create for this example.</li>
+               <li>Under <span class="uicontrol">LOCATION</span>, select the same Location option that you selected in <a href="#WL-Rule1">Rule 1</a>.  The option you select must be the same for all the rules you create for this example.</li>
+               <li>Under <span class="uicontrol">CLIENT</span>, configure the following settings:</li>
+               <p>
+                  <span class="uicontrol">Web browser</span>: Selected</p>
+               <p>
+                  <span class="uicontrol"> Modern Auth client</span>: Selected </p>
+               <p>
+                  <span class="uicontrol">Exchange ActiveSync client</span>: Unselected </p>
+               <p>Mobile										</p>
+               <p>
+                  <span class="uicontrol">iOS</span>: Unselected </p>
+               <p>
+                  <span class="uicontrol">Android</span> Selected</p>
+               <p>
+                  <span class="uicontrol">Other mobile</span> Selected </p>
+               <p>Desktop</p>
+               <p>
+                  <span class="uicontrol">Windows</span>: Selected </p>
+               <p>
+                  <span class="uicontrol">macOS</span>: Selected </p>
+               <p>
+                  <span class="uicontrol">Other desktop</span>: Selected </p>
+               <li>Under <span class="uicontrol">DEVICE TRUST</span>, configure the following:</li>
+               <MadCap:snippetBlock src="../../../Mobile/mobile-snippets/snippet-tip-make-trusted-options-appear.flsnp"/>
+               <p>
+                  <span class="uicontrol">Any</span>: Selected</p>
+               <p>
+                  <span class="uicontrol">Trusted</span>: Unselected </p>
+               <p>
+                  <span class="uicontrol">Not trusted</span>Unselected</p>
+            </ol>
+            <p>
+               <span class="uicontrol">Actions</span>
+            </p>
+            <ol MadCap:continue="true">
+               <li>Configure <span class="uicontrol">Access</span>.</li>
+               <p>
+                  <span class="uicontrol">Allowed</span> is selected.</p>
+               <p>
+                  <span class="uicontrol">Prompt for factor</span> is selected.</p>
+               <li>Click <span class="uicontrol">Save</span>.</li>
+               <li>Create <span class="uicontrol">Rule 3</span>.</li>
+            </ol>
+            <h4>
+               <a name="WL-Rule3"/>
+                    Example Rule 3: Web browser; Modern Auth;  iOS and/or Android; Not Trusted; Deny access
+                </h4>
+            <p>
+               <img src="../../../../Resources/Images/WS1-integration-beta-rule-3.png"
+                    class="thumbnail"/>
+            </p>
+            <ol>
+               <li>Enter a descriptive name for the rule.</li>
+            </ol>
+            <p>
+               <span class="uicontrol">Conditions</span>
+            </p>
+            <ol MadCap:continue="true">
+               <li>
+										Under <span class="uicontrol">PEOPLE</span>, select the same People option that you selected in <a href="#WL-Rule1">Rule 1</a>. The option you select must be the same for all the rules you create for this example.</li>
+               <li>Under <span class="uicontrol">LOCATION</span>, select the same Location option that you selected in <a href="#WL-Rule1">Rule 1</a>. The option you select must be the same for all the rules you create for this example.</li>
+               <li>Under <span class="uicontrol">CLIENT</span>, configure the following settings:</li>
+               <p>
+                  <span class="uicontrol">Web browser</span>: Selected </p>
+               <p>
+                  <span class="uicontrol"> Modern Auth client</span>: Selected</p>
+               <p>
+                  <span class="uicontrol">Exchange ActiveSync client</span>: Unselected</p>
+               <p>Mobile										</p>
+               <p>
+                  <span class="uicontrol">iOS</span>: Selected</p>
+               <p>
+                  <span class="uicontrol">Android</span>: Selected</p>
+               <p>
+                  <span class="uicontrol">Other mobile</span>: Unselected</p>
+               <p>Desktop</p>
+               <p>
+                  <span class="uicontrol">Windows</span>: Unselected</p>
+               <p>
+                  <span class="uicontrol">macOS</span>: Unselected</p>
+               <p>
+                  <span class="uicontrol">Other desktop</span>: Unselected</p>
+               <li>Under <span class="uicontrol">DEVICE TRUST</span>, configure the following:</li>
+               <MadCap:snippetBlock src="../../../Mobile/mobile-snippets/snippet-tip-make-trusted-options-appear.flsnp"/>
+               <p>
+                  <span class="uicontrol">Any</span>: Unselected</p>
+               <p>
+                  <span class="uicontrol">Trusted</span>: Unselected.</p>
+               <p>
+                  <span class="uicontrol">Not trusted</span>: Selected.</p>
+            </ol>
+            <p>
+               <span class="uicontrol">Actions</span>
+            </p>
+            <ol MadCap:continue="true">
+               <li>Configure <span class="uicontrol">Access</span>.</li>
+               <p>
+                  <span class="uicontrol">Denied</span> is selected.</p>
+               <li>Click <span class="uicontrol">Save</span>.</li>
+            </ol>
+            <h4>Example Rule 4: Default sign on rule – Any client, All platforms; Any Trust; Allow access</h4>
+            <p>The Default sign on rule is already created and cannot be edited. In this example, the Default rule is never reached because it is effectively negated by Rule 3. </p>
+            <p>
+               <img src="../../../../Resources/Images/SignOnPolicies_DefaultRule.png"
+                    style="mc-thumbnail-max-height: 250px;mc-thumbnail: popup;"/>
+            </p>
+            <div style="line-height:120%;">
+               <br/>
+            </div>
+         </div>
+      </div>
+      <h2>
+         <a name="config-default-access-policy-in-vidm"/>Configure Default Access Policy in <MadCap:variable name="Mobile.VIDM"/>
+      </h2>
+      <div>
+         <p>Update the default access policy in <MadCap:variable name="Mobile.VIDM"/> to include policy rules for iOS and Android devices. The default access policy governs the behavior of the <MadCap:variable name="Mobile.WS1"/> catalog. Configuring mobile SSO policy rules is mandatory as it is part of passing device trust information to apps.</p>
+         <p>Create policy rules for iOS and Android with Mobile SSO as the authentication method and with Okta authentication as the fallback method. Also configure the rules for <MadCap:variable name="Mobile.WS1"/> app and Hub app, and Web browser. Make sure that the policy rules are in the correct order.</p>
+         <ol>
+            <li>Log in to the <MadCap:variable name="Mobile.VIDM"/> console as the System administrator.</li>
+            <li>Click the <span class="wintitle">Identity &amp; Access Management</span> tab, then click the <span class="wintitle">Policies</span> tab.</li>
+            <li>Click <span class="uicontrol">Edit Default Access Policy</span>.</li>
+            <li>In the <span class="wintitle">Edit Policy</span> wizard, click <span class="uicontrol">Configuration</span>.</li>
+            <li>Click <span class="uicontrol">Add Policy Rule</span> and create a policy rule for iOS devices.
+				<ol>
+                  <li>Set Mobile SSO (iOS) as the first authentication method and Okta authentication as the fallback authentication method.</li>
+                  <div>
+                     <p>If a user's network range is <span class="uicontrol">ALL RANGES</span> and the user is accessing content from <span class="uicontrol">iOS</span>, then perform the action <span class="uicontrol">Authenticate using</span> and the user may authenticate with <span class="uicontrol">Mobile SSO (iOS)</span>.</p>
+                     <p>If the preceding method fails or is not applicable, then users authenticate with <span class="uicontrol">Okta Auth Method</span>.</p>
+                  </div>
+                  <div MadCap:conditions="SnippetConditionsForDevices.iOS and Android">Note: For Okta Auth Method, select the authentication method you created for the Okta IdP in <MadCap:xref href="configure-okta-idp-vidm.htm#complete-create-new-idp">Complete creating a new Identity Provider in [%=Mobile.VIDM%]</MadCap:xref>.</div>
+                  <li>Click <span class="uicontrol">Save</span>.</li>
+               </ol>
+            </li>
+            <li>Click <span class="uicontrol">Add Policy Rule</span> and create a similar policy rule for Android devices.<ol>
+                  <li>Set Mobile SSO (Android) as the first authentication method and <MadCap:variable name="okta-variables.ProductName"/> authentication as the fallback authentication method.
+							
+							
+				<div>
+                        <p>If a user's network range is <span class="uicontrol">ALL RANGES</span> and the user is accessing content from <span class="uicontrol">Android</span>, then perform the action <span class="uicontrol">Authenticate using</span> with <span class="uicontrol">Mobile SSO (Android)</span>.</p>
+                        <p>	If the preceding method fails or is not applicable, then users authenticate with <span class="uicontrol">Okta Auth Method</span>.</p>
+                     </div>
+                  </li>
+                  <li>Click <span class="uicontrol">Save</span>.</li>
+               </ol>
+            </li>
+            <li>Configure the policy rule for <MadCap:variable name="Mobile.WS1"/> app and Hub app.<ol>
+                  <li>Click the policy rule for Workspace ONE app and Hub app to edit it.</li>
+                  <li>Configure the rule.<div>
+                        <p>If a user's network range is <span class="uicontrol">ALL RANGES</span> and the user is accessing content from <span class="uicontrol">
+                              <MadCap:variable name="Mobile.WS1"/> app or Hub app</span>, then perform this action: <span class="uicontrol">Authenticate using</span>
+                        </p>
+                        <p>with <span class="uicontrol">Mobile SSO (for iOS)</span>.</p>
+                        <p>	If the preceding method fails or is not applicable, then users authenticate with <span class="uicontrol">Mobile SSO (for Android)</span>.</p>
+                        <p>	If the preceding method fails or is not applicable, then use <span class="uicontrol">Okta Auth Method</span>.</p>
+                     </div>
+                  </li>
+               </ol>
+            </li>
+            <li>Arrange the policy rules in the following order, listed from top to bottom:<ol>
+                  <li>
+                     <MadCap:variable name="Mobile.WS1"/> app or Hub app				<MadCap:variable name="Mobile.mobileplatform"/> or <MadCap:variable name="Mobile.UEM-platform"/>
+                  </li>
+                  <li>
+                     <MadCap:variable name="Mobile.mobileplatform"/> or <MadCap:variable name="Mobile.UEM-platform"/>
+                  </li>
+                  <li>Web browser</li>
+               </ol>
+            </li>
+         </ol>
+      </div>
+      <h2>
+         <a name="recommendations-native-android-apps"/>Example of how to configure settings for Native Android apps</h2>
+      <div>
+         <p> To provide the best user experience for users on <MadCap:variable name="Mobile.UEM-platform"/> devices, you can configure certain settings for the <MadCap:variable name="Mobile.UEM-platform"/> mobile SSO flow.</p>
+         <p>Native <MadCap:variable name="Mobile.UEM-platform"/> apps require the <MadCap:variable name="Mobile.VMware"/> Tunnel to be downloaded and installed on end users' devices. As a best practice for a <MadCap:variable name="Mobile.WS1"/>+Okta integration environment, configure the Auto deployment setting for each native <MadCap:variable name="Mobile.UEM-platform"/> app so that the app and tunnel are automatically deployed on users' devices after they enroll. Also enable Managed Access for the apps.</p>
+         <p>You configure these settings in the <MadCap:variable name="Mobile.VMware"/>
+            <MadCap:variable name="Mobile.WS1-UEM-short"/> console.</p>
+         <ol>
+            <li>In <MadCap:variable name="Mobile.WS1-UEM-short"/>, go to the <span class="menucascade">
+                  <span class="uicontrol">Apps &amp; Books</span>
+                  <span class="uicontrol">Applications</span>
+                  <span class="uicontrol">Native</span>
+               </span> page.</li>
+            <li>Click the app name.</li>
+            <li>Click <span class="uicontrol">Assign</span>.</li>
+            <li>Click <span class="uicontrol">Add Assignment</span> to add a new assignment or select the assignment to edit and click <span class="uicontrol">Edit</span>.</li>
+            <li>Configure the assignment according to your needs and include the following selections as a best practice:<ul>
+                  <li>App Delivery Method: <span class="uicontrol">AUTO</span>
+                  </li>
+                  <li>Managed Access: <span class="uicontrol">ENABLED</span>
+                  </li>
+                  <li>App Tunneling: <span class="uicontrol">ENABLED</span>
+                  </li>
+               </ul>
+            </li>
+            <div> When you enable App Tunneling, you also need to select the VPN configuration profile to use for the app.</div>
+            <p>Example:</p>
+            <p>
+               <img src="../../../../Resources/Images/dti-android-native-best-practice.png"
+                    class="thumbnail"/>
+            </p>
+            <li>Save the assignment.</li>
+         </ol>
+         <p>After users enroll their devices, the app appears in the catalog. The app icon indicates that the tunnel is included. When users install the app, both the app and the tunnel are installed.</p>
+      </div>
+   </body>
+</html>

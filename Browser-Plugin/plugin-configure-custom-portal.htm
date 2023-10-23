@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:conditions="MultiProdPublish.Classic+OIE" MadCap:fileTags="Tags/okta-authors.Robert Milkovich">
+    <head><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+        <meta name="description" content="Maintain a uniform end-user authentication experience by configuring end-user portals to use the Okta Browser Plugin." />
+    </head>
+    <body>
+        <h1>Configure custom end-user portals with the <MadCap:variable name="okta-feature-names.Okta Browser Plugin" /></h1>
+        <p>You can configure the <MadCap:variable name="okta-feature-names.Okta Browser Plugin" /> to behave on your custom portal exactly as it behaves in the <MadCap:variable name="okta-feature-names.Okta End-User Dashboard" />. </p>
+        <p>After you configure the plugin, it informs your custom portal that about its presence. You can configure your custom portal to detect when the plugin isn’t installed and  prompt end users to install the plugin.</p>
+        <p>The plugin also makes the following API calls to <MadCap:variable name="okta-variables.ProductName" /> to update its state:
+			
+					</p>
+        <ul>
+            <li>
+                <p><span class="filepath">/api/plugin/2/sites</span>
+                </p>
+                <p>Retrieves information about the list of sites on your custom portal. This is useful for SSO scenarios.</p>
+            </li>
+            <li>
+                <p><span class="filepath">/api/v1/users/me/home/tabs</span>
+                </p>
+                <p>Retrieves  information about the location of  tabs and apps on the portal. The plugin uses this to construct the <span class="uicontrol">Your Apps</span> menu that is displayed  when end users click the blue plugin icon.</p>
+            </li>
+            <li>
+                <p><span class="filepath">/api/internal/enduser/home</span>
+                </p>
+                <p>Retrieves information about the currently signed-in user, such as what plugin settings are enabled.</p>
+            </li>
+            <li>
+                <p><span class="filepath">/api/plugin/2/hashed-self-service-sites</span>
+                </p>
+                <p>Retrieves information useful for adding apps on-the-fly.</p>
+            </li>
+        </ul>
+        <h2>Configure your portal as a CORS-trusted origin</h2>
+        <ol>
+            <li>
+                <MadCap:snippetBlock src="../../Resources/Snippets/task steps/Security_API.flsnp" />
+            </li>
+            <li>Click the <span class="wintitle">Trusted Origins</span> tab.</li>
+            <li>
+                <p>Click <span class="uicontrol">Add Origin</span> and configure settings.</p>
+                <ul>
+                    <li>
+                        <p><span class="uicontrol">Name</span>: Enter your organization's origin name.</p>
+                    </li>
+                    <li>
+                        <p><span class="uicontrol">Origin URL</span>: Enter the URL for the origin you want to trust. For example, <span class="url">https://example.okta.com</span>.</p>
+                    </li>
+                    <li>
+                        <p><span class="uicontrol">Type</span>
+                        </p>
+                        <ul>
+                            <li>
+                                <p><span class="uicontrol">CORS</span>: Select this option to permit the JavaScript hosted on your websites to make an <span class="code">XMLHttpRequest</span> to the <MadCap:variable name="okta-variables.ProductName" /> API using an <MadCap:variable name="okta-variables.ProductName" /> session cookie. </p>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>Click <span class="uicontrol">Save</span>. </li>
+        </ol>
+        <h2>Modify your custom portal</h2>
+        <p>Next, configure your portal as a CORS-trusted origin.</p>
+        <ol>
+            <li>
+                <p>Modify your custom portal HTML by adding the following hidden iFrame. This  sends a <span class="code">pluginVersion</span> <span class="code"> postMessage</span> request to the iFrame when the iFrame loads: </p>
+                <MadCap:codeSnippet>
+                    <MadCap:codeSnippetCopyButton />
+                    <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve" style="mc-code-lang: HTML;">&lt;iframe id="okta-frame"
+	style="display:none"
+	src="https://example.okta.com/app/UserHome/plugin-info"
+	onload="this.contentWindow.postMessage('pluginVersion', 'https://example.okta.com/app/UserHome/plugin-info')"/&gt;</MadCap:codeSnippetBody>
+                </MadCap:codeSnippet>
+            </li>
+            <li>
+                <p>Add some JavaScript code to your site to handle the <span class="code">postMessage</span> response from the iFrame. For example:
+</p>
+                <MadCap:codeSnippet>
+                    <MadCap:codeSnippetCopyButton />
+                    <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve" style="mc-code-lang: JavaScript;">window.addEventListener('message', function (event) {
+  if (event.origin === 'https://example.okta.com' &amp;&amp; 
+      event.data &amp;&amp; 
+      event.data.detected) {
+    doSomething(event.data.pluginVersion);
+}});
+</MadCap:codeSnippetBody>
+                </MadCap:codeSnippet>
+            </li>
+        </ol>
+        <h2>How it works </h2>
+        <ol>
+            <li>The <MadCap:variable name="okta-feature-names.Okta Browser Plugin" /> examines all frames on the page to detect if there’s one frame of the form <span class="url">https://*.okta.com/app/UserHome*</span>. The plugin then informs that frame that the plugin is installed.</li>
+            <li>
+                <p>The <MadCap:variable name="okta-variables.ProductName" /> server receives the request and validates that it trusts the iFrame owner origin. After validating the trust relationship, the <MadCap:variable name="okta-variables.ProductName" /> server responds with a JSP page containing Javascript code. This code responds to  <span class="code">postMessage</span> requests from a trusted origin with the following JSON:</p>
+                <MadCap:codeSnippet>
+                    <MadCap:codeSnippetCopyButton />
+                    <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve" style="mc-code-lang: JavaScript;">{
+  detected: true/false
+  pluginVersion: x.y.z // if plugin is present
+}</MadCap:codeSnippetBody>
+                </MadCap:codeSnippet>
+            </li>
+            <li>The plugin detects that it's on an <span class="code">/app/UserHome/plugin-info</span> endpoint that loaded successfully. It then updates its state accordingly by making the four API calls to <MadCap:variable name="okta-variables.ProductName" /> as described earlier.</li>
+            <li>
+                <p>Code similar to the following handles the <span class="code">postMessage</span> response from the iFrame:
+</p>
+                <MadCap:codeSnippet>
+                    <MadCap:codeSnippetCopyButton />
+                    <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve" style="mc-code-lang: JavaScript;">window.addEventListener('message', function (event) {
+  if (event.origin === 'https://example.okta.com' &amp;&amp;
+      event.data &amp;&amp; 
+      event.data.detected) {
+    doSomething(event.data.pluginVersion);
+  }
+});</MadCap:codeSnippetBody>
+                </MadCap:codeSnippet>
+            </li>
+        </ol>
+        <h2>Security considerations </h2>
+        <p><MadCap:variable name="okta-variables.ProductName" /> requires an authenticated session for this functionality.</p>
+        <p>The <span class="code">/plugin-info</span> endpoint is denied access if the following conditions exist:</p>
+        <ul>
+            <li>The admin hasn't defined any trusted origin.</li>
+            <li>The request referrer (such as the parent frame) isn’t in the list of CORS-trusted origins defined by the admin.</li>
+        </ul>
+        <h2>Configure a fully working example</h2>
+        <p>To see a working example of this feature, create a local web server (for example, a <span class="code">node.js</span> server) to host a simple HTML page. </p>
+        <p>The following example hosts the page on <span class="url">https://example.okta.com</span>.</p>
+        <MadCap:codeSnippet>
+            <MadCap:codeSnippetCopyButton />
+            <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve" style="mc-code-lang: HTML;">&lt;leve&gt;
+&lt;head&gt;
+     &lt;script&gt;
+       window.addEventListener('message', function (event) {
+        if (event.origin === 'https://example.okta.com' &amp;&amp;
+              event.data &amp;&amp;
+              event.data.detected) {
+            document.getElementById('pluginVersion').innerHTML = event.data.pluginVersion;
+        }
+      });
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  Plugin Detected: &lt;b&gt;&lt;span id="pluginVersion"&gt;&lt;/span&gt;&lt;/b&gt;
+  &lt;iframe id="okta-frame"
+          style="display:none"
+          src="https://example.okta.com/app/UserHome/plugin-info"
+          onload="this.contentWindow.postMessage('pluginVersion', 'https://example.okta.com/app/UserHome/plugin-info')"/&gt;
+&lt;/body&gt;
+&lt;html&gt;
+</MadCap:codeSnippetBody>
+        </MadCap:codeSnippet>
+    </body>
+</html>
