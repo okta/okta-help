@@ -1,0 +1,446 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:conditions="Primary.do-not-publish"
+      MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+   <head>
+      <link rel="canonical"
+            href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/oracle-accessgate-install.htm"/>
+      <title>[%=Heading.Level1%] | Okta</title>
+   </head>
+   <body>
+      <h2>Introduction</h2>
+      <p>Oracle AccessGate (OAG) lies at the heart of the EBS SSO experience,
+along with Okta Access Gateway. Unlike the older Oracle Access Manager
+AccessGate, the EBS AccessGate uses the header variables sent from the
+SSO system (ie: Okta Access Gateway) to create a native user-session for
+the target EBS, like any other SSO-enabled web application.</p>
+      <p>The OAG application requires the Oracle Internet Directory (OID) as its
+user repository to enable SSO. This is due to the fact that E-Business
+Suite needs to be registered with OID for Single Sign On. Additionally,
+E-Business Suite uses orclguid in OID to map the Single Sign On user
+with the corresponding local user profile. During authentication, EBS
+AccessGate expects the SSO system to return orclguid and EBS username
+(stored as a user-attribute in SSO user store) in two header variables,
+USER_ORCLGUID and USER_NAME respectively.</p>
+      <p>Due to the unique nature of this integration, we can not use the auto
+deployment script that comes with EBS server. This is due to the fact
+that most of the EBS SSO integrations we configure host the EBS
+application in a different environment than the Access Gateway and
+AccessGate. Therefore, the auto deployment script can not handle this
+type of topology. We want to have full control of where we deploy it,
+how we deploy it, and what domain we host the AccessGate as there are
+integration platforms that might require CrossDomain SSO functionality
+as well.</p>
+      <p>In this white paper, we will demonstrate how to deploy the Oracle
+AccessGate.</p>
+      <h2>OAG Deployment</h2>
+      <p>The OAG deployment consists of 3 main processes.</p>
+      <ol>
+         <li>
+            <p>Prepare pre-requisite items.</p>
+         </li>
+         <li>
+            <p>Deploy OAG</p>
+         </li>
+         <li>
+            <p>Validate OAG Deployment</p>
+         </li>
+      </ol>
+      <h2>Pre-requisites before Deployment</h2>
+      <p>OAG can be deployed on any Weblogic Server 10.3.6. In most cases, we
+will create a WLS Managed Server within the OID/DIP infrastructure and
+deploy the OAG application on the Managed Server.</p>
+      <p>A EBS generated dbc file is required for the deployment of OAG.</p>
+      <p>Make sure an EBS service ID is created (ie: "MYEBSUSER" or "ASADMIN").
+This ID must have UMX|APPS_SCHEMA_CONNECT access.</p>
+      <p>Make sure to download the OAG jar file from Oracle eDelivery site (Patch
+P18131618 EBS AccessGate 1.2.3).</p>
+      <h2>Command to generate the EBS DBC file:</h2>
+      <span class="codeblock">source apps-vis.env
+
+java oracle.apps.fnd.security.AdminDesktop apps/apps CREATE NODE_NAME=oid1.gateway.info DBC=/home/ebs121/applmgr/inst/apps/VIS_ebs121-demo/appl/fnd/12.0.0/secure/VIS.dbc
+
+cat VIS_OID1.ICSYNERGY.INFO.dbc
+#Desktop DB Settings
+#Wed Dec 20 18:09:40 CST 2017
+FNDNAM=APPS
+APPL_SERVER_ID=60CF841E58F639BBE050A8C0660A740A42113618361790919377415661991414
+APPS_JDBC_URL=jdbc\:oracle\:thin\:@(DESCRIPTION\=(ADDRESS_LIST\=(LOAD_BALANCE\=YES)(FAILOVER\=YES)(ADDRESS\=(PROTOCOL\=tcp)(HOST\=ebs121-demo.gateway.info)(PORT\=1521)))(CONNECT_DATA\=(SERVICE_NAME\=VIS)))
+GWYUID=APPLSYSPUB/PUB
+</span>
+      <p>Validate the dbc file using FirstExample.java. It's a helloworld type of
+program that uses the dbc file and makes a database connection to the
+EBS tables, just as the AccessGate would.</p>
+      <p>Change the necessary database connection string to suite your specific
+environment.</p>
+      <p>Ensure that ojdbc6.jar and AccessGate fndext.jar are available in the
+classpath. You can copy ojdbc6.jar jar file from the Weblogic server
+environment.</p>
+      <h2>Run the java command below to test the dbc file</h2>
+      <span class="codeblock">// The code is on /home/oracle/tmp on ofr1-demo.gateway.info
+// To compile this program, do the following:
+// /u01/vsun-sofware/JDK-17u80/jdk1.7.0_80/bin/javac -cp ./fndext.jar:./ojdbc6.jar:$CLASSPATH FirstExample.java
+
+// To run this program, do the following:
+// /u01/vsun-sofware/JDK-17u80/jdk1.7.0_80/bin/java -cp ./fndext.jar:./ojdbc6.jar:$CLASSPATH FirstExample
+
+// You need 3 things to run this:
+// 1. fndext.jar and ojdbc6.jar file
+// 2. the EBS DBC file
+// 3. jdbc id/pw
+
+
+//STEP 1. Import required packages
+import java.io.File;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+import oracle.apps.fnd.ext.jdbc.datasource.AppsDataSource;
+
+public class FirstExample {
+   // JDBC driver name and database URL
+   static final String JDBC_DRIVER = "oracle.apps.fnd.ext.jdbc.datasource.AppsDataSource";
+   static final String DB_URL = "jdbc:oracle:thin:@ebs121-demo.gateway.info:1521:VIS";
+
+   public static void main(String[] args) {
+
+   AppsDataSource ads = null;
+   Connection conn = null;
+   Statement stmt = null;
+   String expr = "select user_name from fnd_user where user_id like '1013482'";
+   ResultSet rs = null;
+   try {
+        ads = new AppsDataSource();
+        ads.setDescription("Apps Demo");
+        ads.setUser("ASADMIN");
+        ads.setPassword("b-B3ZB58");
+        ads.setDbcFile ("/home/oracle/tmp/1.dbc");
+        conn = ads.getConnection();
+        stmt = conn.createStatement (ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        rs = stmt.executeQuery ( expr );
+        ResultSetMetaData rsmd = rs.getMetaData();
+        int columnsNumber = rsmd.getColumnCount();
+        while (rs.next()) {
+       for (int i = 1; i &lt;= columnsNumber; i++) {
+           if (i &gt; 1) System.out.print(",  ");
+           String columnValue = rs.getString(i);
+           System.out.print(columnValue + " " + rsmd.getColumnName(i));
+       }
+       System.out.println("");
+   }
+    }
+    catch (Exception e)
+    {
+        e.printStackTrace();
+    }
+
+   System.out.println("Goodbye!");
+}
+}
+</span>
+      <h2>Deploy Oracle Access Gate</h2>
+      <h3>Create JDBC DataSource</h3>
+      <ol>
+         <li>
+            <p>Log in to the WebLogic Console.</p>
+         </li>
+         <li>
+            <p>Go to <span class="menucascade">
+                  <span class="uicontrol">Domain Structure</span>
+                  <span class="uicontrol">Services</span>
+                  <span class="uicontrol">Data Sources</span>
+               </span>.</p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">New</span> to create a new datasource and select <span class="uicontrol">Generic Data
+Source</span>.</p>
+         </li>
+         <li>
+            <p>Enter values for:</p>
+            <ol>
+               <li>
+                  <p>Name of the DataSource</p>
+               </li>
+               <li>
+                  <p>JNDI Name</p>
+               </li>
+               <li>
+                  <p>DataSource Type: Oracle</p>
+               </li>
+               <li>
+                  <p>DataBase Driver: "Oracle's Drive (Thin) for Instance
+connections; Version: 9.0.1.9.2.0.10,11"</p>
+                  <p>
+                     <img src="../../Resources/Images/access-gateway/tutorials-deploy-OAG-1.png"
+                          alt="Oracle OAG Deployment"
+                          style="mc-thumbnail: popup;mc-thumbnail-max-width: 250px;mc-thumbnail-max-height: auto;border-left-style: solid;border-left-width: 1px;border-left-color: #d3d3d3;border-right-style: solid;border-right-width: 1px;border-right-color: #d3d3d3;border-top-style: solid;border-top-width: 1px;border-top-color: #d3d3d3;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #d3d3d3;"
+                          class="thumbnail"/>
+                  </p>
+               </li>
+            </ol>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Next</span>.</p>
+         </li>
+         <li>
+            <p>For a non-XA data source, clear the <span class="uicontrol">Supports Global
+Transactions</span> checkbox.</p>
+         </li>
+         <li>
+            <p>Enter values for:</p>
+            <ol>
+               <li>
+                  <p>DataBase Name: (SID of Oracle EBS DB)</p>
+               </li>
+               <li>
+                  <p>Hostname (DB hostname)</p>
+               </li>
+               <li>
+                  <p>Port (DB Port)</p>
+               </li>
+               <li>
+                  <p>DB username (ie: ASADMIN)</p>
+               </li>
+               <li>
+                  <p>Password for DB username</p>
+               </li>
+            </ol>
+         </li>
+         <li>
+            <p>Confirm password and click <span class="uicontrol">Next</span>.</p>
+            <p>
+               <img src="../../Resources/Images/access-gateway/tutorials-deploy-OAG-4.png"
+                    alt="Oracle OAG Deployment"
+                    style="mc-thumbnail: popup;mc-thumbnail-max-width: 250px;mc-thumbnail-max-height: auto;border-left-style: solid;border-left-width: 1px;border-left-color: #d3d3d3;border-right-style: solid;border-right-width: 1px;border-right-color: #d3d3d3;border-top-style: solid;border-top-width: 1px;border-top-color: #d3d3d3;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #d3d3d3;"
+                    class="thumbnail"/>
+            </p>
+         </li>
+         <li>
+            <p>Enter <span class="uicontrol">Driver Class Name</span>:
+<span class="userinput">oracle.apps.fnd.ext.jdbc.datasource.AppsDataSource and JDBC URL (ie: jdbc:oracle:thin:@ebs121-demo.gateway.info:1521:VIS)</span>
+            </p>
+         </li>
+         <li>
+            <p>Enter the <span class="uicontrol">JDBC URL</span> (for example, <span class="userinput">jdbc:oracle:thin:@ebs121-demo.gateway.info:1521:VIS</span>)</p>
+         </li>
+         <li>
+            <p>In the <span class="uicontrol">Properties</span> field, add a new property after the user
+property: <span class="userinput">dbcFile= &lt;file path&gt;</span>
+            </p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Test Connection</span>. You will get a message indicating a
+successful connection to the EBS DB.</p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Next</span> after a successful test. Check the checkbox for the
+appropriate target server, and cick <span class="uicontrol">Finish</span>.</p>
+         </li>
+      </ol>
+      <h3>Deploy OAG</h3>
+      <ol>
+         <li>
+            <p>Log in to WLS console.</p>
+         </li>
+         <li>
+            <p>Click <span class="menucascade">
+                  <span class="uicontrol">Deployment</span>
+                  <span class="uicontrol">Install</span>
+               </span>.</p>
+         </li>
+         <li>
+            <p>Enter the path to the AccessGate war file, and click <span class="uicontrol">Next</span>.</p>
+         </li>
+         <li>
+            <p>Select <span class="uicontrol">Install this deployment as application</span> and click
+<span class="uicontrol">Next</span>.</p>
+         </li>
+         <li>
+            <p>Select the AccessGate Managed Server <span class="uicontrol">eag_server1</span>.</p>
+         </li>
+         <li>
+            <p>Name the deployment accordingly with the EBS instance (for example,
+ebsauth_ebs121demo).</p>
+         </li>
+         <li>
+            <p>Update the context root for the AccessGate to be more specific to
+your environment (for example, ebsauth-ebs121demo).</p>
+            <p> This context root is the application context
+where the Access Gateway will protected.
+</p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Save</span>.</p>
+         </li>
+         <li>
+            <p>Update Plan.xml with the EBS SSO-related information. See <a href="https://support.oracle.com/epmos/faces/DocumentDisplay?_afrLoop=493627499004743&amp;id=1077460.1&amp;_afrWindowMode=0&amp;_adf.ctrl-state=gi3s1fnoj_372#manual">Oracle
+Doc
+1077460.1</a>
+for more information.</p>
+            <p> For details on Update the Plan.xml, see
+Oracle Doc 1077460.1
+Section 5: Set Oracle E-Business Suite AccessGate configuration
+parameters
+mentioned above.
+Sample Plan.xml from the Okta Lab OAG:</p>
+            <span class="codeblock">&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;deployment-plan xmlns="http://xmlns.oracle.com/weblogic/deployment-plan" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.oracle.com/weblogic/deployment-plan http://xmlns.oracle.com/weblogic/deployment-plan/1.0/deployment-plan.xsd"&gt;
+  &lt;application-name&gt;ebsauth_ebs121demo&lt;/application-name&gt;
+&lt;variable-definition&gt;
+    &lt;variable&gt;
+      &lt;name&gt;app_SSO_SERVER_TYPE&lt;/name&gt;
+      &lt;value&gt;OAM&lt;/value&gt;
+    &lt;/variable&gt;
+    &lt;variable&gt;
+      &lt;name&gt;app_CONNECTION_REF&lt;/name&gt;
+      &lt;value&gt;jdbc/JDBC AppsDataSource-1&lt;/value&gt;
+    &lt;/variable&gt;
+    &lt;variable&gt;
+      &lt;name&gt;app_APPL_SERVER_ID&lt;/name&gt;
+      &lt;value&gt;4F99CAA182A37162E050A8C0660A4DB533095795391574515454246815672712&lt;/value&gt;
+    &lt;/variable&gt;
+    &lt;variable&gt;
+      &lt;name&gt;app_LOG_CONFIG_FILE&lt;/name&gt;
+      &lt;value&gt;default&lt;/value&gt;
+    &lt;/variable&gt;
+    &lt;variable&gt;
+      &lt;name&gt;app_SSO_SERVER_RELEASE&lt;/name&gt;
+      &lt;value&gt;10&lt;/value&gt;
+    &lt;/variable&gt;
+    &lt;variable&gt;
+      &lt;name&gt;app_SSO_SERVER_URL&lt;/name&gt;
+      &lt;value&gt;https://ebs121demosso.gateway.info/sso&lt;/value&gt;
+    &lt;/variable&gt;
+    &lt;variable&gt;
+      &lt;name&gt;app_WEBGATE_LOGOUT&lt;/name&gt;
+      &lt;value&gt;https://ebs121demosso.gateway.info/spgwLogout&lt;/value&gt;
+    &lt;/variable&gt;
+    &lt;variable&gt;
+        &lt;name&gt;app_LOG_CONFIG_FILE&lt;/name&gt;
+        &lt;value&gt;/home/oracle/logging.properties&lt;/value&gt;
+    &lt;/variable&gt;
+  &lt;/variable-definition&gt;
+  &lt;module-override&gt;
+    &lt;module-name&gt;fndauth.war&lt;/module-name&gt;
+    &lt;module-type&gt;war&lt;/module-type&gt;
+    &lt;module-descriptor external="true"&gt;
+      &lt;root-element&gt;weblogic-web-app&lt;/root-element&gt;
+      &lt;uri&gt;WEB-INF/weblogic.xml&lt;/uri&gt;
+      &lt;hash-code&gt;1495656967991&lt;/hash-code&gt;
+    &lt;/module-descriptor&gt;
+    &lt;module-descriptor external="false"&gt;
+      &lt;root-element&gt;web-app&lt;/root-element&gt;
+      &lt;uri&gt;WEB-INF/web.xml&lt;/uri&gt;
+&lt;variable-assignment&gt;
+      &lt;name&gt;app_SSO_SERVER_TYPE&lt;/name&gt;
+      &lt;xpath&gt;/web-app/context-param/[param-name="SSO_SERVER_TYPE"]/param-value&lt;/xpath&gt;
+      &lt;operation&gt;replace&lt;/operation&gt;
+    &lt;/variable-assignment&gt;
+    &lt;variable-assignment&gt;
+      &lt;name&gt;app_CONNECTION_REF&lt;/name&gt;
+      &lt;xpath&gt;/web-app/context-param/[param-name="CONNECTION_REF"]/param-value&lt;/xpath&gt;
+      &lt;operation&gt;replace&lt;/operation&gt;
+    &lt;/variable-assignment&gt;
+    &lt;variable-assignment&gt;
+      &lt;name&gt;app_APPL_SERVER_ID&lt;/name&gt;
+      &lt;xpath&gt;/web-app/context-param/[param-name="APPL_SERVER_ID"]/param-value&lt;/xpath&gt;
+      &lt;operation&gt;replace&lt;/operation&gt;
+    &lt;/variable-assignment&gt;
+    &lt;variable-assignment&gt;
+      &lt;name&gt;app_LOG_CONFIG_FILE&lt;/name&gt;
+      &lt;xpath&gt;/web-app/context-param/[param-name="LOG_CONFIG_FILE"]/param-value&lt;/xpath&gt;
+      &lt;operation&gt;replace&lt;/operation&gt;
+    &lt;/variable-assignment&gt;
+    &lt;variable-assignment&gt;
+      &lt;name&gt;app_SSO_SERVER_RELEASE&lt;/name&gt;
+      &lt;xpath&gt;/web-app/context-param/[param-name="SSO_SERVER_RELEASE"]/param-value&lt;/xpath&gt;
+      &lt;operation&gt;replace&lt;/operation&gt;
+    &lt;/variable-assignment&gt;
+    &lt;variable-assignment&gt;
+      &lt;name&gt;app_SSO_SERVER_URL&lt;/name&gt;
+      &lt;xpath&gt;/web-app/context-param/[param-name="SSO_SERVER_URL"]/param-value&lt;/xpath&gt;
+      &lt;operation&gt;replace&lt;/operation&gt;
+    &lt;/variable-assignment&gt;
+    &lt;variable-assignment&gt;
+      &lt;name&gt;app_WEBGATE_LOGOUT&lt;/name&gt;
+      &lt;xpath&gt;/web-app/context-param/[param-name="WEBGATE_LOGOUT"]/param-value&lt;/xpath&gt;
+      &lt;operation&gt;replace&lt;/operation&gt;
+    &lt;/variable-assignment&gt;
+    &lt;/module-descriptor&gt;
+    &lt;module-descriptor external="true"&gt;
+      &lt;root-element&gt;wldf-resource&lt;/root-element&gt;
+      &lt;uri&gt;META-INF/weblogic-diagnostics.xml&lt;/uri&gt;
+    &lt;/module-descriptor&gt;
+  &lt;/module-override&gt;
+  &lt;config-root&gt;/home/oracle/accessgate/p18131618_R12_GENERIC/plan&lt;/config-root&gt;
+&lt;/deployment-plan&gt;
+</span>
+         </li>
+         <li>
+            <p>Redeploy the OAG application. Go to <span class="menucascade">
+                  <span class="uicontrol">Deployment</span>
+                  <span class="uicontrol">Update</span>
+               </span>.</p>
+            <p>
+               <img src="../../Resources/Images/access-gateway/tutorials-deploy-OAG-13.png"
+                    alt="Oracle OAG Deployment"
+                    style="mc-thumbnail: popup;mc-thumbnail-max-width: 250px;mc-thumbnail-max-height: auto;border-left-style: solid;border-left-width: 1px;border-left-color: #d3d3d3;border-right-style: solid;border-right-width: 1px;border-right-color: #d3d3d3;border-top-style: solid;border-top-width: 1px;border-top-color: #d3d3d3;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #d3d3d3;"
+                    class="thumbnail"/>
+            </p>
+         </li>
+         <li>
+            <p>Select <span class="uicontrol">Redeploy this application</span> and click <span class="uicontrol">Next</span>.</p>
+         </li>
+         <li>
+            <p>Confirm the deployment war file name and path and click <span class="uicontrol">Finish</span>.</p>
+         </li>
+         <li>
+            <p>Go to <span class="menucascade">
+                  <span class="uicontrol">Control</span>
+                  <span class="uicontrol">Start</span>
+               </span>, and select <span class="uicontrol">Servicing all requests</span>.</p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Activate Changes</span> to complete this deployment.</p>
+         </li>
+         <li>
+            <p>Restart OAG Managed Server: <span class="uicontrol">eag_server1</span>.</p>
+         </li>
+      </ol>
+      <h3>Validate OAG Deployment</h3>
+      <p>After the OAG is successfully deployed, perform a unit test before we
+attach the Access Gateway to this integration.</p>
+      <p>Install Firefox Modified Header Add-On for this testing exercise.</p>
+      <p>Make sure we have a test user that exists in EBS, OUD, IDP</p>
+      <ol>
+         <li>
+            <p>Enable the Firefox Modified Header AddOn.</p>
+         </li>
+         <li>
+            <p>Add the headers USER_NAME, USER_ORCLGUID as shown:</p>
+            <p>
+               <img src="../../Resources/Images/access-gateway/tutorials-deploy-OAG-17.png"
+                    alt="Oracle OAG Deployment"
+                    style="mc-thumbnail: popup;mc-thumbnail-max-width: 250px;mc-thumbnail-max-height: auto;border-left-style: solid;border-left-width: 1px;border-left-color: #d3d3d3;border-right-style: solid;border-right-width: 1px;border-right-color: #d3d3d3;border-top-style: solid;border-top-width: 1px;border-top-color: #d3d3d3;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #d3d3d3;"/>
+            </p>
+         </li>
+         <li>
+            <p>You can validate the GUID in OID using the ODSM console.</p>
+            <p>
+               <img src="../../Resources/Images/access-gateway/tutorials-deploy-OAG-18.png"
+                    alt="Oracle OAG Deployment"
+                    style="mc-thumbnail: popup;mc-thumbnail-max-width: 250px;mc-thumbnail-max-height: auto;border-left-style: solid;border-left-width: 1px;border-left-color: #d3d3d3;border-right-style: solid;border-right-width: 1px;border-right-color: #d3d3d3;border-top-style: solid;border-top-width: 1px;border-top-color: #d3d3d3;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #d3d3d3;"/>
+            </p>
+         </li>
+         <li>
+            <p>Use Firefox and access the OAG url (for example,<a href="http://oid1.gateway.info:7010/ebsauth_ebs121demo">http://oid1.gateway.info:7010/ebsauth_ebs121demo</a>).</p>
+         </li>
+         <li>
+            <p>Verify that the user can successfully SSO into EBS and land at the
+EBS home page.</p>
+         </li>
+      </ol>
+   </body>
+</html>

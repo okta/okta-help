@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Arshabhi Rai">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/asa/en-us/Content/Topics/Adv_Server_Access/docs/services.htm" /><title>[%=Heading.Level1%] | Okta</title>
+        <meta name="description" content="Services for Advanced Server Access provides fine-grained control over user authentication and access to company servers and resources." />
+    </head>
+    <body>
+        <h1>Services</h1>
+        <p>Services allow you to authenticate and login to servers using a service user. This enables you to leverage the security of ephemeral certificates when building automation that requires access to remote servers.</p>
+        <h2>Services example</h2>
+        <p>Let's explore services with a basic example. Let's suppose you use your CI servers to deploy the latest build to your application servers. A typical solution for this would be to use static SSH keys without a passphrase and rely on SSH to perform whatever operations are required on the remote server. By defining a service in  <MadCap:variable name="okta-feature-names.ScaleFT" /> you'll be able to eliminate the static credential, and ensure that your CI user only has access to production when you intend it to.</p>
+        <p>Let's dive deeper into this example and explore how you could configure Jenkins to use service authentication to SSH to remote hosts.</p>
+        <p>To get started, configure these basic requirements first:</p>
+        <ol>
+            <li>Install the  <MadCap:variable name="okta-feature-names.ScaleFT" /> <span class="disableGlossary">agent</span> and enroll the server in  <MadCap:variable name="okta-feature-names.ScaleFT" />.</li>
+            <li>Install the <MadCap:variable name="okta-feature-names.ScaleFT" /> <span class="disableGlossary">client</span> on the server.</li>
+            <li>Identify the UID of the Jenkins user (for example, on Linux you can use a command similar to: <span class="code">id -u &lt;username&gt;</span>).</li>
+            <li>Create a service user and add an API key to it.</li>
+            <li>Make sure the service user is provisioned on the servers you'd like to access.</li>
+        </ol>
+        <p>Now you can create a service which can securely authenticate to servers with Jenkins.</p>
+        <p>To create a service, navigate to the services tab on the server details page of the source server you identified earlier, where Jenkins is running.</p>
+        <p>Here you should see a list of existing services for this server and a button to create a new service. Click this button and it will prompt you to select the service user to authenticate as and the UID of the Jenkins user.</p>
+        <p>The final step is to configure sft to use service authentication instead of expecting an enrolled client. For example, to do this on your jenkins server, run the command: <span class="code">sft config service_auth.enable true</span> </p>
+        <p>You should now be able to SSH to remote hosts managed by  <MadCap:variable name="okta-feature-names.ScaleFT" /> using the command: <span class="code">sft ssh &lt;server-name&gt;</span>.</p>
+        <p>In order to fully leverage service authentication in Jenkins, you will want to configure an SSH proxycommand for the jenkins user so that you can transparently authenticate while using any command that relies on SSH. To do this, run <span class="code">sft proxycommand --config</span>, and copy the output into the SSH configuration file for the Jenkins user (for example, <span class="code">/home/jenkins/.ssh/config</span>).</p>
+        <h2>Related topics</h2>
+        <ul>
+            <li>
+                <MadCap:xref href="setup/ssh.htm">SSH setup</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="service-users.htm">Service users</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

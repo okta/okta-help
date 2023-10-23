@@ -1,0 +1,1267 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:fileTags="Tags/okta-authors.Ian Hakes" xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd">
+    <head>
+        <link href="../../../Resources/TableStyles/standard.css" rel="stylesheet" MadCap:stylesheetType="table" /><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+        <meta name="coveo:title" content="About Low Latency flow criteria" />
+        <meta name="coveo:method-description" content="Low latency flows must meet specific criteria to run in a high velocity execution mode." />
+    </head>
+    <body>
+        <div data-content-id="hoc-main-content">
+            <h1>Criteria for low-latency flows</h1>
+            <p>Several elements can negatively impact the latency of your flow:</p>
+            <p>Resource contention on the service</p>
+            <ul>
+                <li>If you're processing a large amount of data while  simultaneously executing a flow on the same system, there are fewer resources available.</li>
+            </ul>
+            <p>Rate limits</p>
+            <ul>
+                <li>Most connectors from third parties contain built-in logic that prevents excess calls to their systems (for example, to prevent denial of service attacks). Flows that minimize executions against a remote system avoid these rate limits.</li>
+            </ul>
+            <p>Logic errors</p>
+            <ul>
+                <li>The extensive capabilities of <MadCap:variable name="okta-feature-names.Okta Workflows" /> allow you to create flows  that can  perform large data scans. These scans can extend beyond the intended scope of the flow, or even enter into unintended loops or recursions. You can reduce this impact with careful planning and testing of a flow before implementation.</li>
+            </ul>
+            <p>Performance differences between supported features or integrations</p>
+            <ul>
+                <li>There may be different scale profiles between different Workflow features. For example, the Tables feature in Workflows runs separately from the core runtime system. Flows that use the Tables feature can see performance issues compared to other flows that run solely on the core system.</li>
+            </ul>
+            <p>To help resolve the impact of resource contention, the Low-latency feature moves eligible use cases  over to an environment with less resource contention.</p>
+            <h2>Supported use cases</h2>
+            <p>Initially, the Low-latency feature supports the following use cases for low-latency mode. When you create a flow with the initial condition listed, it always starts in low-latency mode.</p>
+            <table style="mc-table-style: url('../../../Resources/TableStyles/standard.css');width: 100%;" class="TableStyle-standard" cellspacing="0">
+                <col class="TableStyle-standard-Column-Column1" style="width: 67%;" />
+                <col class="TableStyle-standard-Column-Column1" style="width: 33%;" />
+                <thead>
+                    <tr class="TableStyle-standard-Head-Header1">
+                        <th class="TableStyle-standard-HeadF-Column1-Header1">
+                            <p>Condition</p>
+                        </th>
+                        <th class="TableStyle-standard-HeadD-Column1-Header1">
+                            <p>Example use case</p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>Flow begins with the <span class="wintitle">API Endpoint</span> card</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <p>Inline hooks</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>Flow starts with any of the Okta connector event cards</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">
+                            <p>First-party event hooks</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>Flow starts with a webhook from a third party through a connector card</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <p>Third-party webhooks</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyC-Column1-Body2">
+                            <p>Flow uses a <span class="wintitle">Delegated Flow</span> event card</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyA-Column1-Body2">
+                            <p>Delegated flows</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h2>Low-latency constraints</h2>
+            <p> There are technical requirements that your flow must meet  to run in low-latency mode. If your flow violates any of the following constraints, Okta removes it from the low-latency mode and returns it to the standard mode for execution.
+</p>
+            <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                <col class="TableStyle-standard-Column-Column1" style="width: 25%;" />
+                <col class="TableStyle-standard-Column-Column1" style="width: 75%;" />
+                <thead>
+                    <tr class="TableStyle-standard-Head-Header1">
+                        <th class="TableStyle-standard-HeadF-Column1-Header1">
+                            <p>Constraint</p>
+                        </th>
+                        <th class="TableStyle-standard-HeadD-Column1-Header1">
+                            <p>Description</p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">Excess resource usage</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">Flow exceeds the resource constraint limits for execution. See <MadCap:xref href="../workflows-system-limits.htm#Supporte">Supported use cases</MadCap:xref>.</td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">Rate limits</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">Flow uses a third-party connector and receives an <span class="msgblock">HTTP 429 Too Many Requests</span> error or any other rate limit error.</td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">Explicit pauses</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">Flow explicitly pauses the execution using one of the <span class="wintitle">Wait For</span>, <span class="wintitle">Wait Until</span> or <span class="wintitle">Pause</span> cards.</td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">Timeouts</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">Flow doesn't finish within the default timeout period for an HTTP connection (60 seconds).</td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">Streaming actions</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">Flow uses connector cards with data streaming. These cards are designed to process large datasets and rarely finish within the timeout limit.</td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">Using asynchronous features</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">
+                            <p>Flow is marked to run in the background without blocking another flow. For example, the <span class="wintitle">Call Flow Async</span> card.</p>
+                            <p> For function cards that call a helper flow synchronously, the helper flow starts in low-latency mode but is subject to the same constraints as the parent flow. </p>
+                            <p>If the parent calls a helper flow asynchronously, the parent flow can continue in low-latency mode. However, the helper flow isn't eligible for low-latency mode and executes in standard mode.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyC-Column1-Body1"><span class="wintitle">HTTP Close</span> card</td>
+                        <td class="TableStyle-standard-BodyA-Column1-Body1">
+                            <p>Flow uses the <span class="wintitle">HTTP Close</span> card to manually close a connection.</p>
+                            <p>The <span class="wintitle">HTTP Close</span> card is eligible for low-latency mode. However, using it causes the remainder of the flow to be ineligible for low latency mode, because it implies that the rest of the flow executes asynchronously.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h2>Specific function card constraints</h2>
+            <p>Generally, <MadCap:variable name="okta-feature-names.Okta Workflows" /> function cards are  eligible for use in flows executing in low-latency mode. However, there are exceptions where the execution of the function involves:</p>
+            <ul>
+                <li>
+                    <p>Large data size</p>
+                </li>
+                <li>
+                    <p>Calling helper flows</p>
+                </li>
+                <li>
+                    <p>Looping and recursion</p>
+                </li>
+                <li>
+                    <p>Table operations</p>
+                </li>
+            </ul>
+            <p>Cards that are outside of the general eligibility for low-latency mode can be classified as being either in a yellow or red zone as outlined in the following table. A dash in the table indicates that no cards exist for that zone.</p>
+            <ul>
+                <li>
+                    <p>Yellow classification implies that the card is eligible to start in low-latency mode. However that card has a higher risk of running into system resource constraints depending on the data being processed. </p>
+                </li>
+                <li>
+                    <p>Red classification is for cards that are ineligible for low-latency mode.</p>
+                </li>
+            </ul>
+            <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                <col class="TableStyle-standard-Column-Column1" style="width: 40%;" />
+                <col class="TableStyle-standard-Column-Column1" style="width: 30%;" />
+                <col class="TableStyle-standard-Column-Column1" style="width: 30%;" />
+                <thead>
+                    <tr class="TableStyle-standard-Head-Header1">
+                        <th class="TableStyle-standard-HeadF-Column1-Header1">
+                            <p>Category</p>
+                        </th>
+                        <th class="TableStyle-standard-HeadF-Column1-Header1">
+                            <p>Yellow</p>
+                        </th>
+                        <th class="TableStyle-standard-HeadD-Column1-Header1">
+                            <p>Red</p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">Events (used to invoke a flow)</td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <ul>
+                                <li>
+                                    <p>Helper flow</p>
+                                </li>
+                            </ul>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <ul>
+                                <li>
+                                    <p><span class="wintitle">Schedule</span>
+                                    </p>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">API Connector (HTTP)</td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <ul>
+                                <li>
+                                    <p><span class="wintitle">Delete</span>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">Get</span>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">Post</span>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">Put</span>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">Raw Request</span>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">Close</span>
+                                    </p>
+                                </li>
+                            </ul>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">-</td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">File</td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <ul>
+                                <li>
+                                    <p>All functions</p>
+                                </li>
+                            </ul>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">-</td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">Flow Control</td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <ul>
+                                <li>
+                                    <p><span class="wintitle">Call Flow</span>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">Repeat</span>
+                                    </p>
+                                </li>
+                            </ul>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">
+                            <ul>
+                                <li>
+                                    <p><span class="wintitle">Pause</span>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">Pause Raw</span>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">Wait For</span>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">Wait Until</span>
+                                    </p>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">Flows</td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <ul>
+                                <li>
+                                    <p><span class="wintitle">Export Flow</span>
+                                    </p>
+                                </li>
+                            </ul>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">-</td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">Folders</td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <ul>
+                                <li>
+                                    <p><span class="wintitle">Export Folder</span>
+                                    </p>
+                                </li>
+                            </ul>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">-</td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">List</td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <ul>
+                                <li>
+                                    <p><span class="wintitle">Filter Custom</span>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">Find Custom</span>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">For Each</span>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">For Each - Ignore Errors</span>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">Map</span>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">Sort Custom</span>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">Unique Custom</span>
+                                    </p>
+                                </li>
+                            </ul>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">-</td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">Object</td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <ul>
+                                <li>
+                                    <p><span class="wintitle">For Each</span>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">Map</span>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">Map to List</span>
+                                    </p>
+                                </li>
+                            </ul>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">-</td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyC-Column1-Body1">Tables</td>
+                        <td class="TableStyle-standard-BodyC-Column1-Body1">
+                            <ul>
+                                <li>
+                                    <p><span class="wintitle">Clear Table</span>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">Create Row</span>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">Create Table</span>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">Delete Row</span>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">Export to CSV</span>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">Import from CSV</span>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">Read Row</span>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">Read Table</span>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">Search Rows</span>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">Update Row</span>
+                                    </p>
+                                </li>
+                            </ul>
+                        </td>
+                        <td class="TableStyle-standard-BodyA-Column1-Body1">-</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h2>Specific connector constraints</h2>
+            <p>Workflow connector cards are eligible for low-latency mode, as custom connector events are implemented using webhooks, which cause an invoked flow to start in low-latency mode.  However, any connector action cards included in the flow must complete within the 60-second time restriction. Any third-party API actions must respond promptly and without error so that the flow finishes in time.</p>
+            <p> Also note that any streaming actions during execution move a flow out of low-latency mode.  Streaming actions typically process  large data sets and may take minutes or hours to complete.</p>
+            <p>Generally, <MadCap:variable name="okta-feature-names.Okta Workflows" /> connector cards are classified as being in a yellow zone. This means that the card has a higher risk of running into system resource constraints or network latency. The exceptions to this classification are outlined in the following table.  A dash in the table indicates that no cards exist for that zone.</p>
+            <ul>
+                <li>
+                    <p>Connector cards in the green zone are eligible for low-latency mode.</p>
+                </li>
+                <li>
+                    <p>Connector cards in the red zone are ineligible for low-latency mode. Any card marked with an asterisk can stream records as part of the card, so it's classified in the red zone.</p>
+                </li>
+            </ul>
+            <h3>First-party connectors</h3>
+            <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                <col class="TableStyle-standard-Column-Column1" style="width: 40%;" />
+                <col class="TableStyle-standard-Column-Column1" style="width: 30%;" />
+                <col class="TableStyle-standard-Column-Column1" style="width: 30%;" />
+                <thead>
+                    <tr class="TableStyle-standard-Head-Header1">
+                        <th class="TableStyle-standard-HeadF-Column1-Header1">
+                            <p>Connector name</p>
+                        </th>
+                        <th class="TableStyle-standard-HeadF-Column1-Header1">
+                            <p>Green</p>
+                        </th>
+                        <th class="TableStyle-standard-HeadD-Column1-Header1">
+                            <p>Red</p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <MadCap:xref href="../connector-reference/adobeusermanagement/adobeusermanagement.htm">Adobe User Management connector</MadCap:xref>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">- </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <ul>
+                                <li>
+                                    <p><span class="wintitle">List Group Members</span>*</p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">List Groups</span>*</p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">List Users</span>*</p>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <MadCap:xref href="../connector-reference/advancedserveraccess/advancedserveraccess.htm">[%=workflows_connectors.Advanced Server Access%] connector</MadCap:xref>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">-</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">
+                            <ul>
+                                <li>
+                                    <p><span class="wintitle">List Projects for Team</span>*</p>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <MadCap:xref href="../connector-reference/airtable/airtable.htm">[%=workflows_connectors.Airtable%] connector</MadCap:xref>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">-</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">-</td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>
+                                <MadCap:xref href="../connector-reference/asana/asana.htm">[%=workflows_connectors.Asana%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>-</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">
+                            <p>-</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>
+                                <MadCap:xref href="../connector-reference/atlassianadmin/atlassianadmin.htm">[%=workflows_connectors.Atlassian Admin%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>-</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <p>-</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>
+                                <MadCap:xref href="../connector-reference/awslambda/awslambda.htm">[%=workflows_connectors.AWS Lambda%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>-</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">
+                            <p>-</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>
+                                <MadCap:xref href="../connector-reference/awss3/awss3.htm">AWS S3 connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>-</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <ul>
+                                <li>
+                                    <p><span class="wintitle">Search Objects</span>*</p>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>
+                                <MadCap:xref href="../connector-reference/awssso/awssso.htm">[%=workflows_connectors.AWS Multi-Account Access%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>-</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">
+                            <p>-</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>
+                                <MadCap:xref href="../connector-reference/azuread/azuread.htm">[%=workflows_connectors.AzureAD%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>-</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <ul>
+                                <li>
+                                    <p><span class="wintitle">Search Contacts</span>*</p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">Search Group Members</span>*</p>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>
+                                <MadCap:xref href="../connector-reference/box/box.htm">[%=workflows_connectors.Box%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>All event cards</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">
+                            <p>-</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>
+                                <MadCap:xref href="../connector-reference/datagrail/datagrail.htm">[%=workflows_connectors.DataGrail%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>-</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <p>-</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>
+                                <MadCap:xref href="../connector-reference/docusign/docusign.htm">[%=workflows_connectors.DocuSign%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>-</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">
+                            <p>-</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>
+                                <MadCap:xref href="../connector-reference/dropboxforbusiness/dropboxforbusiness.htm">[%=workflows_connectors.Dropbox for Business%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>-</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <p>-</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>
+                                <MadCap:xref href="../connector-reference/duosecurityadmin/duosecurityadmin.htm">[%=workflows_connectors.Duo Security Admin%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>-</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">
+                            <p>-</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>
+                                <MadCap:xref href="../connector-reference/evidentidverify/evidentidverify.htm">[%=workflows_connectors.Evident ID%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>All event cards</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <p>-</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>
+                                <MadCap:xref href="../connector-reference/excelonline/excelonline.htm">[%=workflows_connectors.Excel Online%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>All event cards</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">
+                            <p>-</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>
+                                <MadCap:xref href="../connector-reference/freshservice/freshservice.htm">[%=workflows_connectors.Freshservice%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>All event cards</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <ul>
+                                <li>
+                                    <p><span class="wintitle">Search Tickets</span>*</p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">Search Users</span>*</p>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>
+                                <MadCap:xref href="../connector-reference/github/github.htm">[%=workflows_connectors.GitHub%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>-</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">
+                            <p>-</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>
+                                <MadCap:xref href="../connector-reference/gmail/gmail.htm">[%=workflows_connectors.Gmail%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>All event cards</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <p>-</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>
+                                <MadCap:xref href="../connector-reference/googlecalendar/googlecalendar.htm">[%=workflows_connectors.Google Calendar%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>All event cards</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">
+                            <p>-</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>
+                                <MadCap:xref href="../connector-reference/googlecloudfunctions/googlecloudfunctions.htm">[%=workflows_connectors.Google Cloud Functions%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>-</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <p>-</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>
+                                <MadCap:xref href="../connector-reference/googledrive/googledrive.htm">[%=workflows_connectors.Google Drive%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>All event cards</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">
+                            <p>-</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>
+                                <MadCap:xref href="../connector-reference/googlesheets/googlesheets.htm">[%=workflows_connectors.Google Sheets%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>All event cards</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <p>-</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>
+                                <MadCap:xref href="../connector-reference/googledirectory/googledirectory.htm"> Admin connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>-</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">
+                            <ul>
+                                <li>
+                                    <p><span class="wintitle">Search Users</span>*</p>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>
+                                <MadCap:xref href="../connector-reference/hubspotcrm/hubspotcrm.htm">[%=workflows_connectors.HubSpot%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>-</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <p>-</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>
+                                <MadCap:xref href="../connector-reference/jamf/jamf.htm">Jamf Pro Classic API connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>-</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">
+                            <p>-</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>
+                                <MadCap:xref href="../connector-reference/jira/jira.htm">[%=workflows_connectors.Jira%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>All event cards</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <p>-</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>
+                                <MadCap:xref href="../connector-reference/jiraservicedesk/jiraservicedesk.htm">[%=workflows_connectors.Jira Service Desk%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>All event cards</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">
+                            <p>-</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>
+                                <MadCap:xref href="../connector-reference/marketo/marketo.htm">[%=workflows_connectors.Marketo%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>-</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <p>-</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>
+                                <MadCap:xref href="../connector-reference/microsoftteams/microsoftteams.htm">[%=workflows_connectors.Microsoft Teams%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>-</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">
+                            <ul>
+                                <li>
+                                    <p><span class="wintitle">List Channel Members</span>*</p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">List Members</span>*</p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">Search Chats</span>*</p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">Search Teams</span>*</p>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>
+                                <MadCap:xref href="../connector-reference/mixpanel/mixpanel.htm">[%=workflows_connectors.Mixpanel%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>-</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <p>-</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>
+                                <MadCap:xref href="../connector-reference/office365calendar/office365calendar.htm"> Office 365 Calendar connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>-</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">
+                            <ul>
+                                <li>
+                                    <p><span class="wintitle">Search Events</span>*</p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">Search Rooms</span>*</p>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>
+                                <MadCap:xref href="../connector-reference/office365mail/office365mail.htm">[%=workflows_connectors.Office 365 Mail%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>All event cards</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <ul>
+                                <li>
+                                    <p><span class="wintitle">Search Emails</span>*</p>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>
+                                <MadCap:xref href="../connector-reference/okta/okta.htm">[%=okta-variables.ProductName%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>All event cards</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">
+                            <ul>
+                                <li>
+                                    <p><span class="wintitle">Find Users</span>*</p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">Get Users Groups</span>*</p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">List Applications Assigned to Group</span>*</p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">List Applications Assigned to Users</span>*</p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">List Groups Assigned to Application</span>*</p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">List Group Members</span>*</p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">List Users Assigned to Application</span>*</p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">List Users with Filter</span>*</p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">List Users with Search</span>*</p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">Search Applications</span>*</p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">Search Group Rules</span>*</p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">Search Groups</span>*</p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">Search System Logs</span>*</p>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>
+                                <MadCap:xref href="../connector-reference/onedrive/onedrive.htm">[%=workflows_connectors.OneDrive%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>All event cards</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <ul>
+                                <li>
+                                    <p><span class="wintitle">List Permissions</span>*</p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">Search Files or Folders</span>*</p>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>
+                                <MadCap:xref href="../connector-reference/onetrust/onetrust.htm">[%=workflows_connectors.OneTrust%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>-</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">
+                            <p>-</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>
+                                <MadCap:xref href="../connector-reference/opsgenie/opsgenie.htm">[%=workflows_connectors.Opsgenie%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>-</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <ul>
+                                <li>
+                                    <p><span class="wintitle">Search Users</span>*</p>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>
+                                <MadCap:xref href="../connector-reference/pagerduty/pagerduty.htm">[%=workflows_connectors.PagerDuty%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>All event cards</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">
+                            <ul>
+                                <li>
+                                    <p><span class="wintitle">Search Schedules</span>*</p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">Search Teams</span>*</p>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>
+                                <MadCap:xref href="../connector-reference/proofpoint/proofpoint.htm">[%=workflows_connectors.Proofpoint%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>All event cards</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <p>-</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>
+                                <MadCap:xref href="../connector-reference/salesforce/salesforce.htm">[%=workflows_connectors.Salesforce%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>All event cards</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">
+                            <p>-</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>
+                                <MadCap:xref href="../connector-reference/sendgrid/sendgrid.htm">[%=workflows_connectors.SendGrid%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>-</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <p>-</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>
+                                <MadCap:xref href="../connector-reference/servicenow/servicenow.htm">[%=workflows_connectors.ServiceNow%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>All event cards</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">
+                            <ul>
+                                <li>
+                                    <p><span class="wintitle">Search Groups</span>*</p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">Search Requests</span>*</p>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>
+                                <MadCap:xref href="../connector-reference/shopify/shopify.htm">[%=workflows_connectors.Shopify%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>-</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <p>-</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>
+                                <MadCap:xref href="../connector-reference/slack/slack.htm">[%=workflows_connectors.Slack%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>All event cards</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">
+                            <p>-</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>
+                                <MadCap:xref href="../connector-reference/slackadmin/slackadmin.htm">[%=workflows_connectors.Slack%] Admin connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>-</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <p>-</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>
+                                <MadCap:xref href="../connector-reference/smartrecruiters/smartrecruiters.htm">[%=workflows_connectors.SmartRecruiters%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>-</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">
+                            <p>-</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>
+                                <MadCap:xref href="../connector-reference/smartsheet/smartsheet.htm">[%=workflows_connectors.Smartsheet%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>All event cards</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <ul>
+                                <li>
+                                    <p><span class="wintitle">List Groups</span>*</p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">Search Users</span>*</p>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>
+                                <MadCap:xref href="../connector-reference/zendesk/zendesk.htm">[%=workflows_connectors.Zendesk%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>All event cards</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">
+                            <ul>
+                                <li>
+                                    <p><span class="wintitle">Search Organizations</span>*</p>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyC-Column1-Body1">
+                            <p>
+                                <MadCap:xref href="../connector-reference/zoom/zoom.htm">[%=workflows_connectors.Zoom%] connector</MadCap:xref>
+                            </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyC-Column1-Body1">
+                            <p>-</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyA-Column1-Body1">
+                            <p>-</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3>Third-party connectors</h3>
+            <table style="mc-table-style: url('../../../Resources/TableStyles/standard.css');width: 100%;" class="TableStyle-standard" cellspacing="0">
+                <col class="TableStyle-standard-Column-Column1" style="width: 40%;" />
+                <col class="TableStyle-standard-Column-Column1" style="width: 30%;" />
+                <col class="TableStyle-standard-Column-Column1" style="width: 30%;" />
+                <thead>
+                    <tr class="TableStyle-standard-Head-Header1">
+                        <th class="TableStyle-standard-HeadF-Column1-Header1">
+                            <p>Connector name</p>
+                        </th>
+                        <th class="TableStyle-standard-HeadF-Column1-Header1">
+                            <p>Green</p>
+                        </th>
+                        <th class="TableStyle-standard-HeadD-Column1-Header1">
+                            <p>Red</p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <MadCap:xref href="../connector-reference/kandji/kandji.htm">[%=workflows_connectors.Kandji%] connector</MadCap:xref>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>- </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <ul>
+                                <li>
+                                    <p><span class="wintitle">List Blueprints</span>*</p>
+                                </li>
+                                <li>
+                                    <p><span class="wintitle">List Devices</span>*</p>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <MadCap:xref href="../connector-reference/pendo/pendo.htm">[%=workflows_connectors.Pendo%] connector</MadCap:xref>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">-</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">-</td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <MadCap:xref href="../connector-reference/recordedfutureidentityintelligence/recordedfutureidentityintelligence.htm">Recorded Future Identity Intelligence connector</MadCap:xref>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">-</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">-</td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyC-Column1-Body2">
+                            <MadCap:xref href="../connector-reference/securecodewarrior/securecodewarrior.htm">[%=workflows_connectors.Secure Code Warrior%] connector</MadCap:xref>
+                        </td>
+                        <td class="TableStyle-standard-BodyC-Column1-Body2">-</td>
+                        <td class="TableStyle-standard-BodyA-Column1-Body2">-</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h2>Related topics</h2>
+            <p>
+                <MadCap:xref href="about-execution-limits.htm">Execution limits</MadCap:xref>
+            </p>
+            <p>
+                <MadCap:xref href="../workflows-system-limits.htm">Workflows system limits</MadCap:xref>
+            </p>
+            <p>
+                <MadCap:xref href="../execute/flow-history-view-details.htm">View flow execution details</MadCap:xref>
+            </p>
+        </div>
+    </body>
+</html>

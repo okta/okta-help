@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-topic-status.Ready for Review,Tags/okta-authors.Mark Cowan" MadCap:onlyLocalStylesheets="False" MadCap:searchable="True">
+    <head><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+        <meta name="description" content="Use Okta’s WS-Federation template application to create WS-Federation enabled apps that provide a familiar and secure end-user authentication experience." />
+    </head>
+    <body>
+        <h1>Configure the Okta Template WS Federation Application</h1>
+        <p>Okta provides a WS-Federation template app through which you can create WS-Fed enabled apps on demand.</p>
+        <p>When using this template application, Okta acts as the IdP (Identity Provider) and the target application is the SP (service provider).</p>
+        <p>For WS-Fed, Okta (acting as the IDP) supports SP-initiated authentication. The following is the authentication flow:</p>
+        <ol>
+            <li>Go to the target SP first or click the app in Okta. You shouldn't have a session established with the SP. </li>
+            <li>The SP redirects the user to the configured Login URL (Okta's generated app instance URL) sending a passive request. </li>
+            <li>Okta is sent a passive request (assuming you have an existing Okta session). </li>
+            <li>Okta sends a response to the configured SP. </li>
+            <li>The SP receives the response and verifies that the claims are correct. This establishes a session on the SP side. </li>
+            <li>You're authenticated. </li>
+        </ol>
+        <p>There's more configuration required on the target app (SP) that you're using to configure WS-Fed. Okta provides this information in our WS-Fed app instructions (accessible from the Sign on tab in the WS-Fed app screen). The instructions contain the following: realm, issuer, passive URL (normally only needed in the SP-initiated flow mentioned previously). The configuration is app-dependent. <MadCap:variable name="okta-variables.ProductName" /> recommends that you check with your SP vendor to see if turning on WS-Fed is an all-or-nothing feature.</p>
+        <h4><a name="Realm"></a>Realm Names</h4>
+        <p>The realm name must be unique for the IdP. Not all relying parties support the usage of a generated, unique endpoint on a per-party basis. The WS-Federation Template App supports two realm modes.</p>
+        <ul>
+            <li>
+                <p>Shared endpoint with an Okta-generated realm name</p>
+                <p>If you leave the realm name empty, Okta generates a realm name with the app's external key; for example <code>https://[orgname].okta.com/app/template_wsfed/sso/wsfed/passive</code>. The relying party uses a common endpoint for requests, and the target app instance is identified by the <code>wtrealm=urn:okta:app:[key]</code> query parameter.</p>
+            </li>
+            <li>
+                <p>App endpoint with a customer-defined realm name</p>
+                <p>If you specify a realm name, Okta generates an app-specific endpoint; for example, <code>https://[orgname].okta.com/apt/template_wsfed/[key]/sso/wsfed/</code>. Realm names can be reused, since the namespace is the app and not global. The realm name is validated for matching with the configured value and isn't used for anything else.</p>
+            </li>
+        </ul>
+        <p>In both configurations, the issuer of the SAML Assertion is always the app instance key; for example <code>http://www.okta.com/[key]</code>. The audience is always the configured Audience Restriction value. Okta recommends using the same value as the realm name, but you can use a different value, if necessary.</p>
+        <h2>Add and configure Template WS-Fed</h2>
+        <p>The first thing that you need to do is to add the Template WS-Fed app to your org. You must add the private app first as a super user.</p>
+        <ol>
+            <li>In the <MadCap:variable name="okta-feature-names.Administrator dashboard" />, go to <span class="uicontrol">Applications</span>, click <span class="uicontrol">Add Application</span>, and then enter <span class="userinput">Template WS-Fed</span> in the <span class="uicontrol">Search</span> box.</li>
+            <li>Complete the following fields in the Template WS-Fed app. Refer to your target application's (SP) documentation for more information on what you need to enter in these fields. <ul><li><span class="uicontrol">Application Label</span>: Give your app a label to display on your users' home pages. </li><li><span class="uicontrol">Web Application URL</span>: Launch URL for the web application; for example, <code>http://example.com</code>.</li><li><span class="uicontrol">Realm</span>: One of several domains that are configured to share resources securely. The realm is the uniform resource identifier (URI) of the application. It's the identity that's sent to the Okta IdP when signing in. Okta generates the realm for you if you don't specify one, as indicated in the setup instructions. See <a href="#Realm">Realm Names</a> above for more information.</li><li><span class="uicontrol">ReplyTo URL</span>: This is the WS-Fed SP endpoint (that is, where your users log in). For example, http://test.acme.com/example-post-sign/. </li><li><span class="uicontrol">AllowReplyToOverride</span>: This enables a web application to override the ReplyTo URL with a reply parameter.</li><li><span class="uicontrol">Name ID format</span>: The value you choose depends on the application. This is the username format that you send in the WS-Fed response. Consult the SP documentation for this information. </li><li><span class="uicontrol"><span class="uicontrol">Audience Restriction</span>: </span>This is the entity ID of the SP. It's provided by the SP and must match exactly. Consult the SP documentation to get this information. </li><li><span class="uicontrol">Assertion Authentication Context</span>: This tells you the type of authentication restriction. This typically must be set to Password Protected Transport. Consult the SP documentation to get this information. </li><li><span class="uicontrol"><span class="uicontrol">Attribute Statements (Optional)</span>: </span>You can federate user attributes such as Okta profile fields, LDAP, Active Directory, and Workday values. The SP uses the federated WS-Fed attribute values accordingly. See <a href="Apps_Mapping_AD_LDAP_and_Workday_Values.htm" target="_blank">Mapping Active Directory, LDAP, and Workday Values in a Template SAML 2.0 or WS Fed Application</a> for more information. </li><li><span class="uicontrol">Group Name (Optional)</span>: Enter a name for this attribute to include in the WS-Fed response attribute statement. Then enter the groups (using expressions) in the group filter field to specify which groups are included with this attribute. Any users that belong to the group you've filtered will be included in the WS-Fed response attribute statement. </li><li><span class="uicontrol">Group Attribute Value</span>: Specifies the WS-Fed assertion attribute value for filtered groups. This attribute is only applied to Active Directory groups.Choices are WindowsDomainQualifiedName, samAccountName, and dn.</li><li><span class="uicontrol">Group filter (Optional)</span>: Specify which User Groups you want included with the attribute you configured in the Group Name field. Enter a regular expression to use to filter the groups. If the matching User Group has a corresponding AD group, then the attribute statement includes the value of the attribute specified by <span class="term">Group Attribute Value</span>. If the matching User Group doesn't contain a corresponding AD group, then the group name is used in the attribute statement.</li><li><span class="uicontrol">Username Attribute Statements</span>: Specifies additional username attribute statements to include in the WS-Fed assertion. This simplifies integration with .NET apps that ignore subject statements. Your choices include username, UPN, username and UPN, and none.</li><li><span class="uicontrol"> Custom Attribute Statements</span>: Defines custom SAML attribute statements. </li><li><span class="uicontrol"> Signature Algorithm</span>: Select either SHA1 or SHA256.</li><li><span class="uicontrol"> Digest Algorithm</span>: Select either SHA1 or SHA256.</li><li><span class="uicontrol"> Application Visibility (Optional)</span>: You can choose to hide  the application icon from your users' home pages. </li></ul></li>
+        </ol>
+        <h2>Configure WS-Fed in the target application (SP) </h2>
+        <p>For WS-Fed to work, you must perform some additional steps in the target application (SP). </p>
+        <p><span class="uicontrol">Note</span>: <MadCap:variable name="okta-variables.ProductName" /> recommends that you contact the vendor for your SP and determine if enabling SAML is an all or nothing option. Okta provides all of the necessary configuration information you need to make in the target SP.</p>
+        <p>To access this information, do the following:</p>
+        <ol>
+            <li>Click the instance of the template app you added. </li>
+            <li>Select the <span class="uicontrol">Sign-on</span> tab and click <span class="uicontrol">View Setup Instructions</span>.<p><img src="../../Resources/Images/ws-fed_view_setup_instructions.png" /></p></li>
+            <li>In the instructions, scroll to the <span class="uicontrol">Configuration Data</span> section where you can get all the necessary SP endpoint configuration information.</li>
+        </ol>
+        <h3>Test the app</h3>
+        <p>Assign a user to the app and verify that they're able to authenticate successfully.</p>
+        <h2>Related topic</h2>
+        <p>
+            <MadCap:xref href="Apps_Configure_Template_App.htm">Configure the Okta Template App and Okta Plugin Template App</MadCap:xref>
+        </p>
+    </body>
+</html>

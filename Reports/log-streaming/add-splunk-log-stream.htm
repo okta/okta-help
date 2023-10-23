@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:fileTags="Tags/okta-authors.Mark Cowan">
+    <head><title>[%=Heading.Level1%]</title>
+        <link href="" rel="stylesheet" type="text/css" />
+        <meta name="description" content="Add a Splunk log stream in Okta and configure it to send System Log events to Splunk." />
+    </head>
+    <body>
+        <h1>Add a <MadCap:variable name="3rd Party Integrations.Splunk Cloud" /> log stream</h1>
+        <h2>Before you begin</h2>
+        <p>Before you can create a  log stream, you must first create an HTTP&#160;Event Collector (HEC)&#160;token on <MadCap:variable name="3rd Party Integrations.Splunk Cloud" />. See <a href="https://docs.splunk.com/Documentation/SplunkCloud/latest/Data/UsetheHTTPEventCollector" target="_blank">Set up and use HTTP&#160;Event Collector in Splunk Web</a>.</p>
+        <div class="noteOkta">
+            <p class="noteContent">When you create the HEC token, don't select the checkbox <span class="uicontrol">Enable indexer acknowledgment</span>. <MadCap:variable name="okta-variables.ProductName" /> log streaming doesn't support this feature.</p>
+        </div>
+        <h2>Add a <MadCap:variable name="3rd Party Integrations.Splunk Cloud" /> HEC to <MadCap:variable name="okta-variables.ProductName" /> log streaming</h2>
+        <ol>
+            <li>
+                <p> Sign in to your <MadCap:variable name="okta-variables.ProductName" /> org as a super admin. </p>
+            </li>
+            <li>
+                <p>
+                    <MadCap:snippetText src="../../../Resources/Snippets/task steps/Reports_LogStreaming.flsnp" /> This page shows all of the log stream targets available in your org.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Add Log Stream</span> to start the log stream wizard.</p>
+            </li>
+            <li>
+                <p>Select <span class="uicontrol"><MadCap:variable name="3rd Party Integrations.Splunk Cloud"></MadCap:variable></span> from the catalog. Click <span class="uicontrol">Next</span>.</p>
+            </li>
+            <li>
+                <p>Fill in the configuration details for your <MadCap:variable name="3rd Party Integrations.Splunk Cloud" /> log stream: </p>
+                <ul>
+                    <li>
+                        <p>Name: Provide a unique name for this log stream in <MadCap:variable name="okta-variables.ProductName" />.</p>
+                    </li>
+                    <li>
+                        <p>Splunk Edition: Select the edition.</p>
+                    </li>
+                    <li>
+                        <p>Host: Enter the domain for your <MadCap:variable name="3rd Party Integrations.Splunk Cloud" /> instance. For example, <span class="userinput">acme.splunkcloud.com</span>.</p>
+                    </li>
+                    <li>
+                        <p>HEC&#160;Token: The token from your <MadCap:variable name="3rd Party Integrations.Splunk Cloud" /> HTTP&#160;Event Collector (HEC). </p>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Save</span>. You receive a confirmation message.</p>
+            </li>
+        </ol>
+        <p>The log stream that you just added appears on the Log Streaming page with its status as <span class="uicontrol">Active</span>.  </p>
+        <h2 MadCap:conditions="Primary.do-not-publish">Configure the <MadCap:variable name="3rd Party Integrations.Splunk Cloud" /> log stream in the <MadCap:variable name="3rd Party Integrations.Splunk Cloud" /> console</h2>
+        <p MadCap:conditions="Primary.do-not-publish">You must configure your <MadCap:variable name="3rd Party Integrations.Splunk Cloud" /> log stream to accept partner events from <MadCap:variable name="okta-variables.ProductName" />.<br /></p>
+        <ol MadCap:conditions="Primary.do-not-publish">
+            <li>
+                <p>In the AWS console, go to <MadCap:variable name="3rd Party Integrations.Amazon EventBridge" />.</p>
+            </li>
+            <li>
+                <p>Select <span class="uicontrol">Partner event sources</span> from the Integration section of the navigation panel.</p>
+            </li>
+            <li>
+                <p>If you successfully activated an <MadCap:variable name="3rd Party Integrations.AWS EventBridge" /> log stream in <MadCap:variable name="okta-variables.ProductName" />, you should see a partner event source in the Pending status with a name following the format:</p>
+                <p><span class="url">aws.partner/okta.com/yourOktaSubdomain/yourAWSEventSourceName</span>
+                </p>
+            </li>
+            <li>
+                <p>Select the log stream and click <span class="uicontrol">Associate with an event bus</span>.</p>
+            </li>
+            <li>
+                <p>Select the required permissions for the log stream on the Associate with event bus page. Click <span class="uicontrol">Associate</span>. Your partner event source is active and events are available in the corresponding event bus.</p>
+            </li>
+            <li>
+                <p>Select <span class="uicontrol">Rules</span> from the <span class="wintitle">Events</span> section of the navigation panel. For more information, see <a href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-saas.html#eb-create-rule-partner-events" target="_blank">AWS - Creating a rule that matches SaaS partner events</a>.</p>
+                <p MadCap:conditions="Primary.do-not-publish">This note is required while <MadCap:variable name="okta-variables.ProductName" /> is not a selectable partner from the list. When that changes, revisit this note and check with Vitalii S if technical details are required.
+                </p>
+                <div class="noteOkta">
+                    <p class="noteContent">To ensure that <MadCap:variable name="3rd Party Integrations.AWS EventBridge" /> receives all logging events from <MadCap:variable name="okta-variables.ProductName" />  when you create rule, select <span class="uicontrol">Pre-defined pattern by service</span> for the <span class="uicontrol">Event matching pattern</span> and then select <span class="uicontrol">All Events</span> as your <span class="uicontrol">Service provider</span>. </p>
+                </div>
+            </li>
+            <li>
+                <p>Perform an action in <MadCap:variable name="okta-variables.ProductName" /> to generate an event, such as signing in/out of the Admin Console. You can then view the corresponding events within the event bus.</p>
+            </li>
+        </ol>
+        <h2>Related topics</h2>
+        <p>
+            <MadCap:xref href="edit-target-status.htm">Edit the status of your log stream</MadCap:xref>
+        </p>
+    </body>
+</html>

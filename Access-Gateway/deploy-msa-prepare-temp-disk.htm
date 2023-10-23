@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/deploy-msa-prepare-temp-disk.htm" /><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <div>
+            <h1>Prepare temporary VM disk</h1>
+            <div>
+                <p>Create a temporary disk to contain the <MadCap:variable name="okta-feature-names.Access Gateway" /> MS&#160;Azure disk image. Clone the image and associate it with a VM.</p>
+                <p>To prepare a disk mounted on a Microsoft Azure VM:</p>
+            </div>
+            <div>
+                <ol>
+                    <li>Connect to the VM using the IP&#160;address from the prior task.<span class="codeblock">ssh okta@AA.BB.CC.DD.</span></li>
+                    <li>Find the disk using  <span class="code">dmesg| grep "SCSI disk"</span> command.					<p>For example:</p><span class="codeblock" xml:space="preserve"># dmesg | grep "SCSI disk"
+[    2.234786] sd 3:0:1:0: [sdb] Attached SCSI disk
+[    2.243805] sd 0:0:0:0: [sda] Attached SCSI disk
+[    2.503937] sd 5:0:0:0: [sdc] Attached SCSI disk</span><div class="noteOkta"><p class="noteContent">Ubuntu 18.04 by default uses two disks /dev/sda and /dev/sdb. Making the third disk added in the last task /dev/sdc. </p><p class="noteContent">In use disks can be confirmed using a command such as <span class="code">df -h | grep /dev/sd</span> which will produce output similar to:<span class="codeblock">/dev/sda1        29G  1.4G   28G   5% /
+/dev/sda15      105M  4.4M  100M   5% /boot/efi
+/dev/sdb1        16G   45M   15G   1% /mnt 
+</span></p></div></li>
+                    <li>Create a primary disk partition  using the <span class="code">sudo fdisk /dev/sdc</span> command		:<p>For example:</p><span class="codeblock">sudo fdisk /dev/sdc
+. . . 
+Command (m for help) n
+Partition type
+p   primary (0 primary, 0 extended, 4 free)
+e   extended (container for logical partitions)
+Select (default p): p
+Partition number (1-4, default 1): 1
+First sector (2048-1048575999, default 2048):
+Last sector, +sectors or +size{K,M,G,T,P} (2048-1048575999, default 1048575999):[cr]
+Command (m for help): w
+. . .
+Syncing disks.
+</span></li>
+                    <li>Create a pfile system on the disk the <span class="code">sudo mkfs -t ext4 /dev/sdc1</span> command  as shown below			:<p>For example:</p><span class="codeblock">sudo mkfs -t ext4 /dev/sdc1
+mke2ds 1.44.1 . . . 
+. . .
+Writing superblocsl and filesystem accounting information: done
+</span></li>
+                    <li>Create a mount point for the new disk using <span class="code">mkdir</span> as shown below:<br /><span class="codeblock">sudo mkdir /datadrive
+</span></li>
+                    <li>Mount the disk to the new mount point using <span class="code">mount</span> as shown below:<br /><span class="codeblock">sudo mount /dev/sdc1 /datadrive
+</span></li>
+                    <li>Determine the UUID&#160;of the disk using the <span class="code">blkid</span> command as shown below:<br /><span class="codeblock">sudo -i blkid  | grep sdc1
+/dev/sdc1: UUID="1fcbf355-d641-4fcf-8817-0b4b492413ac" TYPE="ext4" PARTUUID="75642bad-01"</span></li>
+                    <li>Using an editor such as  <span class="code">nano</span> or vi add a new entry to /etc/fstab which should resemble:<br /><span class="codeblock">sudo nano /etc/fstab&gt;
+UUID="1fcbf355-d641-4fcf-8817-0b4b492413ac"      /datadrive   ext4   defaults,nofail   1 2</span></li>
+                    <li>Reboot the VM, reconnect and verify that the new file system is mounted:<br /><span class="codeblock">sudo shutdown -r now
+ssh okta@ip address
+df -h |&#160;grep sdc1</span><p>The new device should show approximate 467GB free.</p></li>
+                </ol>
+            </div>
+            <div>
+                <h3>Related topics</h3>
+                <p>See <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resources-cli">Manage Azure resources using Azure CLI.</a></p>
+                <p>See <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resource-groups-portal">Manage Azure resource groups using the Azure portal</a>.</p>
+            </div>
+            <div>
+                <h2>Next steps</h2>
+                <p>
+                    <MadCap:xref href="deploy-msa-create-and-populate-mdisk.htm">Upload, create and populate managed disk</MadCap:xref>
+                </p>
+            </div>
+        </div>
+    </body>
+</html>

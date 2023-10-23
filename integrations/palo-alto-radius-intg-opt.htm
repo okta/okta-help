@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:fileTags="Tags/okta-authors.Patrick Calnan"
+      MadCap:conditions="MultiProdPublish.Classic+OIE">
+   <head>
+      <link href="../../Resources/TableStyles/standard.css"
+            rel="stylesheet"
+            MadCap:stylesheetType="table"/>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <meta name="description"
+            content="Configure the Citrix Netscaler Gateway integration to enable MFA against your Okta RADIUS server agent to provide seamless end-user authentication."/>
+   </head>
+   <body>
+      <h1>Configure optional settings</h1>
+      <p>The Palo Alto Networks Gateway supports several optional settings, including:</p>
+      <ul>
+         <li>
+            <a href="#ClientIP">Client IP Reporting</a>
+         </li>
+         <li>
+            <a href="#GroupResp">Groups response</a>
+         </li>
+         <li>
+            <a href="#DoublePrompting">Managing repeat prompting</a>
+         </li>
+      </ul>
+      <h2>
+         <a name="ClientIP"/>Configure Client IP Reporting</h2>
+      <p>The Palo Alto Networks NGFW does not Send the Client IP using the standard Attribute Value Pairs (AVP) such as 31 (Calling-Station-Id). Rather, it sends the data using a Vendor Specific Attribute (VSA).  </p>
+      <p>To configure Okta to  parse, report, and enforce policy based on  the source client IP Address, configure the Okta Palo Alto Radius App in the Okta Admin Console.</p>
+      <p>Enter the following settings in Advanced RADIUS Settings, as shown below.</p>
+      <ul>
+         <li>
+            <span class="uicontrol">Client IP:</span> Check Report client IP.</li>
+         <li>
+            <span class="uicontrol">RADIUS End User IP Attributes:</span> 26 Vendor-Specific, 7</li>
+      </ul>
+      <p>
+         <img src="../../Resources/Images/palo_alto_networks_16.png"/>
+      </p>
+      <p>Open the Palo Alto Networks <span class="uicontrol">Administrative Shell</span> and run the following commands:</p>
+      <p>
+         <span class="codeblock">set authentication radius-vsa-on client-source-ip</span>
+      </p>
+      <h2>
+         <a name="GroupResp"/>Configure Groups Response</h2>
+      <div>
+         <p>The Palo Alto Network Gateway does not receive groups using the standard Attribute Value Pairs (AVP) of 11 (Filter-Id) and 25 (Class). Instead it relies on <a href="https://www.paloaltonetworks.com/documentation/70/pan-os/pan-os/authentication/radius-vendor-specific-attributes-for-palo-alto-networks-devices">Vendor Specific Attributes. </a>
+         </p>
+         <MadCap:snippetBlock src="../../Resources/Snippets/integrations/configure-groups-responce.flsnp"/>
+      </div>
+      <h2>
+         <a name="DoublePrompting"/>Repeat prompting for credentials and enabling cookies</h2>
+      <p>In certain situations GlobalProtect will prompt twice for credentials when configured with Okta RADIUS. This second prompt can be avoided by enabling cookies for the Global Protect login. In this situation the the GlobalConnect portal generates a cookie that the RADIUS Gateway accepts within a short time window, typically 60 seconds or less.</p>
+      <h3>Enable cookie generation on GlobalProtect Portal:</h3>
+      <ol>
+         <li>Connect to the Global Protect Porta. </li>
+         <li>Navigate to <span class="menucascade">
+               <span class="uicontrol">Network</span>
+               <span class="uicontrol">GlobalProtect</span>
+               <span class="uicontrol">Portals</span>
+            </span>.</li>
+         <li>Open <span class="uicontrol">Portal Profile</span>.</li>
+         <li>Select the <span class="uicontrol">Agent</span> tab and then click <span class="uicontrol">Agent Config</span>.</li>
+         <li>Enable <span class="uicontrol">Generate cookie for authentication override</span>.</li>
+         <li>Set the Cookie Lifetime. For RADIUS this is typically 60-90 seconds. </li>
+         <li>Select Certificate to <span class="uicontrol">Encrypt/Decrypt Cookie</span>.</li>
+      </ol>
+      <h3>Enable Cookie Acceptance in GlobalProtect Gateway</h3>
+      <ol>
+         <li>Navigate to <span class="menucascade">
+               <span class="uicontrol">Network</span>
+               <span class="uicontrol">GlobalProtect</span>
+               <span class="uicontrol">Gateways</span>
+            </span>
+         </li>
+         <li>Open the <span class="uicontrol">Gateway Profile</span>.</li>
+         <li>Select the <span class="uicontrol">Agent</span> tab.</li>
+         <li>Click <span class="uicontrol">Client Settings</span> and open <span class="uicontrol">Client Config</span>.</li>
+         <li>Select the <span class="uicontrol">Authentication Override</span> tab and enable <span class="uicontrol">Accept cookie for authentication override</span>.</li>
+         <li>Set the <span class="uicontrol">Cookie Lifetime</span>. For RADIUS this is typically 60-90 seconds.</li>
+         <li>Select <span class="uicontrol">Certificate</span> to <span class="uicontrol">Encrypt/Decrypt Cookie</span>. Note: This must be the same certificate used in the prior step.
+         </li>
+      </ol>
+      <div>
+         <h2>Next steps</h2>
+         <p>
+            <MadCap:xref href="palo-alto-radius-intg-test.htm">Test the  Palo Alto Networks VPN integration</MadCap:xref>
+         </p>
+      </div>
+   </body>
+</html>

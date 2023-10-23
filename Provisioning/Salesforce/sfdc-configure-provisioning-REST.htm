@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:searchable="True"
+      MadCap:fileTags="Tags/okta-authors.Jeanette Smith">
+   <head>
+      <MadCap:changeData>
+         <MadCap:AddChange MadCap:userName="InfoDev"
+                           MadCap:initials="IN"
+                           MadCap:id="3"
+                           MadCap:timestamp="2022-01-20T14:57:16.2101948-08:00"/>
+      </MadCap:changeData>
+      <title>Configure Salesforce OAuth and REST integration| Okta</title>
+      <link href="" rel="stylesheet" type="text/css"/>
+   </head>
+   <body>
+      <h1>Configure OAuth and REST integration</h1>
+      <p>
+         <MadCap:annotation MadCap:createDate="2022-01-20T17:52:13.7199570-05:00"
+                            MadCap:creator="InfoDev"
+                            MadCap:initials="IN"
+                            MadCap:comment="Maybe move this to the beginning. Make it the first sentence, and then follow with the authorization detail. See the tracked example."
+                            MadCap:editor="InfoDev"
+                            MadCap:editDate="2022-01-21T14:25:37.5019583-05:00">This</MadCap:annotation> topic describes how <MadCap:annotation MadCap:createDate="2022-01-21T07:49:05.5275829-05:00"
+                            MadCap:creator="InfoDev"
+                            MadCap:initials="IN"
+                            MadCap:comment="Multiple infiitive phrases &#34;to...&#34; make this hard to parse.\r\nIs this revision still accurate?...\r\n\r\nYou can configure the Salesforce integration to use REST APIs for OAuth authentication."
+                            MadCap:editor="InfoDev"
+                            MadCap:editDate="2022-01-21T14:26:33.9678851-05:00">to configure the Salesforce integration to use REST APIs to authenticate using OAuth.</MadCap:annotation>
+      </p>
+      <p>
+         <MadCap:annotation MadCap:createDate="2022-01-21T07:52:19.7014851-05:00"
+                            MadCap:creator="InfoDev"
+                            MadCap:initials="IN"
+                            MadCap:comment="Here's an attempt at streamlining the above comments. "
+                            MadCap:editor="InfoDev"
+                            MadCap:editDate="2022-01-21T14:27:00.1439969-05:00">You</MadCap:annotation> can configure the Salesforce integration to use REST APIs for OAuth authentication. Before Salesforce can access REST API resources, it must be authorized as a safe visitor. To do this, use a connected app and an OAuth 2.0 authorization flow.  See <a href="https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_oauth_and_connected_apps.htm">Authorization Through Connected Apps and OAuth 2.0</a>.</p>
+      <h2>Before you begin</h2>
+      <ol>
+         <li>
+            <MadCap:annotation MadCap:createDate="2022-01-21T07:56:51.1932606-05:00"
+                               MadCap:creator="InfoDev"
+                               MadCap:initials="IN"
+                               MadCap:comment="Let's change these bullets to numbers. It looks like the sequence matters, so we don't want to imply with bullets that you can start anywhere."
+                               MadCap:editor="InfoDev"
+                               MadCap:editDate="2022-01-21T07:57:16.7493797-05:00">C</MadCap:annotation>reate an administrator account in Salesforce. You<MadCap:change MadCap:changes="3">'</MadCap:change>ll use this account to create the OAuth consumer key and consumer secret used in Salesforce REST integration.</li>
+         <li>Create a custom user profile in Salesforce. This is required for both SOAP and REST integrations See <MadCap:xref href="sfdc-enable-provisioning.htm">Enable Salesforce provisioning.</MadCap:xref>
+         </li>
+         <li>In Salesforce, create a connected app and enable OAuth Settings for API Integration.
+			<ul>
+               <li>To create a Connected App, perform the steps in <a href="https://help.salesforce.com/articleView?id=connected_app_create_basics.htm&amp;type=5">Configure Basic Connected App Settings</a>. </li>
+               <li>To enable OAuth Settings, perform the steps in
+              <a href="https://help.salesforce.com/articleView?id=connected_app_create_api_integration.htm&amp;type=5">Enable OAuth Settings for API Integration</a>. Use the following settings
+				<ul>
+                     <li>
+                        <span class="uicontrol">Enable for Device Flow</span>: disabled</li>
+                     <li>
+                        <span class="uicontrol">Callback URL</span>: https://system-admin.okta.com/admin/app/generic/oauth20redirect
+							<p>Copy and paste this URL as-is.</p>
+                     </li>
+                     <li>
+                        <span class="uicontrol">Use digital signatures</span>: disabled</li>
+                     <li>
+                        <span class="uicontrol">Selected OAuth scopes</span>:<ul>
+                           <li>Manage user data via APIs (api)</li>
+                           <li>Perform requests at any time (refresh_token, offline_access)</li>
+                        </ul>
+                     </li>
+                     <li>
+                        <span class="uicontrol">Require Secret for Web Server Flow</span>: enabled</li>
+                     <li>
+                        <span class="uicontrol">Require Secret for Refresh Token Flow</span>: enabled</li>
+                     <li>
+                        <span class="uicontrol">Enable Client Credentials Flow</span>: disabled</li>
+                     <li>
+                        <span class="uicontrol">Introspect All Tokens</span>: disabled</li>
+                     <li>
+                        <span class="uicontrol">Configure ID Token</span>: disabled</li>
+                     <li>
+                        <span class="uicontrol">Enable Asset Tokens</span>: disabled</li>
+                     <li>
+                        <span class="uicontrol">Enable Single Logout</span>: disabled</li>
+                  </ul>
+               </li>
+            </ul>
+         </li>
+         <li>Allow up to ten minutes for your changes to take effect before using the connected app.</li>
+         <li>After your changes are saved, note your Consumer Key and Consumer Secret <MadCap:annotation MadCap:createDate="2022-01-21T09:00:18.4369194-05:00"
+                               MadCap:creator="InfoDev"
+                               MadCap:initials="IN"
+                               MadCap:comment="is this in Salesforce? Think we need to clarify"
+                               MadCap:editor="InfoDev"
+                               MadCap:editDate="2022-01-21T09:00:27.1320440-05:00">in <a href="https://help.salesforce.com/articleView?id=connected_app_create_api_integration.htm&amp;type=5">Enable OAuth Settings for API Integration</a>.</MadCap:annotation> You'll use these to configure your Provisioning later.</li>
+         <li>On the page where you found your Consumer Key and Consumer Secret, click Manage. Verify that Refresh Token Policy is set to Refresh token is valid until revoked. </li>
+      </ol>
+      <h2>Configure OAuth and REST integration </h2>
+      <div class="noteOkta">
+         <p class="noteContent">For existing customers:</p>
+         <p>
+            <MadCap:annotation MadCap:createDate="2022-01-21T12:45:37.5573744-05:00"
+                               MadCap:creator="InfoDev"
+                               MadCap:initials="IN"
+                               MadCap:comment="Suggest relocating bullet two and three, so the first one will no longer need to be a bullet. Just a paragraph in the note."
+                               MadCap:editor="InfoDev"
+                               MadCap:editDate="2022-01-21T12:46:04.0604294-05:00">Ev</MadCap:annotation>en after you enable this  feature, SOAP credentials (admin username and password) are<MadCap:annotation MadCap:createDate="2022-01-21T07:33:03.7013383-05:00"
+                               MadCap:creator="InfoDev"
+                               MadCap:initials="IN"
+                               MadCap:comment="still ? Feels like this sentence needs &#34;still&#34; to emphasize that SOAP is the default provisionining method "
+                               MadCap:editor="InfoDev"
+                               MadCap:editDate="2022-01-21T07:34:00.5045199-05:00"> still used</MadCap:annotation> for <MadCap:annotation MadCap:createDate="2022-01-21T07:34:11.4988574-05:00"
+                               MadCap:creator="InfoDev"
+                               MadCap:initials="IN"
+                               MadCap:comment="all provisioning operations"
+                               MadCap:editor="InfoDev"
+                               MadCap:editDate="2022-01-21T07:34:15.5140414-05:00">all provisioning operations</MadCap:annotation>. Therefore, if you haven’t configured SOAP credentials , or OAuth credentials <MadCap:annotation MadCap:createDate="2022-01-21T07:39:11.5755389-05:00"
+                               MadCap:creator="InfoDev"
+                               MadCap:initials="IN"
+                               MadCap:comment="this is a little ambiguous. I know you mean &#34;the task after this note&#34; but there are seven steps that follow. "
+                               MadCap:editor="InfoDev"
+                               MadCap:editDate="2022-01-21T07:39:43.6529054-05:00">(the next step)</MadCap:annotation>, you will get an invalid API credentials error for any provisioning operation.</p>
+      </div>
+      <ol>
+         <li>In the Admin Console go to <span class="menucascade">
+               <span class="uicontrol">Provisioning</span>
+               <span class="uicontrol">Integration</span>
+            </span>.</li>
+         <li>Enter the following:<ul>
+               <li>
+                  <span class="uicontrol">OAuth Consumer Key</span>: Consumer Key from your Salesforce OAuth settings </li>
+            </ul>
+            <ul>
+               <li>
+                  <span class="uicontrol">OAuth Consumer Secret</span>: Consumer Secretfrom your Salesforce OAuth settings </li>
+            </ul>
+         </li>
+         <li>Click <span class="uicontrol">Authenticate with Salesforce.com</span>. </li>
+         <li>In the new Salesforce.com window, enter the administrator username and password that you used to create the Connected OAuth App. If you previously entered SOAP credentials, you don't need to enter them again.</li>
+         <li>Click <span class="uicontrol">Allow</span> to permit access to your Connected App.</li>
+         <li> Click <span class="uicontrol">Save</span>.</li>
+      </ol>
+      <p>Your Salesforce integration is now integrated. If you previously used SOAP credentials (admin username and password), you can switch back by disabling this feature.</p>
+   </body>
+</html>

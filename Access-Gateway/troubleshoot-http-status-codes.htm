@@ -1,0 +1,505 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link href="../../Resources/TableStyles/standard-shade-col1.css" rel="stylesheet" MadCap:stylesheetType="table" />
+        <link href="" rel="stylesheet" type="text/css" />
+        <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/trouble-shooting-guide.htm" />
+        <link href="../../Resources/TableStyles/standard-shaded-rows.css" rel="stylesheet" MadCap:stylesheetType="table" /><title>[%=Heading.Level1%] | Okta</title>
+        <meta name="description" content="Use the Access Gateway troubleshooting guide to resolve issues with your organization’s Access Gateway deployment." />
+    </head>
+    <body>
+        <h1>Troubleshoot HTTP status codes</h1>
+        <div>
+            <p><MadCap:variable name="okta-feature-names.Access Gateway"></MadCap:variable> displays HTTP status codes on the <MadCap:variable name="okta-feature-names.Access&#160;Gateway UI"></MadCap:variable> to indicate when an operation didn't work as expected.</p>
+            <div class="noteOkta">
+                <p class="noteContent"><MadCap:variable name="okta-feature-names.Access Gateway"></MadCap:variable> HTTP status codes are different from back-end application codes. If you see an HTTP status code outside of the <MadCap:variable name="okta-feature-names.Access&#160;Gateway UI"></MadCap:variable>, investigate it in the back-end application that produced it.</p>
+            </div>
+            <ul>
+                <li>
+                    <MadCap:xref href="#HttpStatusCodesDesc">HTTP status codes and descriptions</MadCap:xref>
+                </li>
+                <li>
+                    <MadCap:xref href="#CaptureHttpStatusCode">Capture the HTTP status code</MadCap:xref>
+                </li>
+                <li>
+                    <MadCap:xref href="#Tracking">Find the tracking ID</MadCap:xref>
+                </li>
+                <li>
+                    <MadCap:xref href="#Status_Code_400">Status code 400: Unknown Host Status</MadCap:xref>
+                </li>
+                <li>
+                    <MadCap:xref href="#Status_Code_403">Status code 403: Access Denied to Resource</MadCap:xref>
+                </li>
+                <li>
+                    <MadCap:xref href="#Resource_Not_Found">Status code 404: Resource Not Found</MadCap:xref>
+                </li>
+                <li>
+                    <MadCap:xref href="#Status_Code_405">Status code 405: Access Denied</MadCap:xref>
+                </li>
+                <li>
+                    <MadCap:xref href="#Status_Code_413">Status code 413: Request Entity Too Large Code</MadCap:xref>
+                </li>
+                <li>
+                    <MadCap:xref href="#Status_Code_500">Status code 500: Internal Server Error</MadCap:xref>
+                </li>
+                <li>
+                    <MadCap:xref href="#Status_Code_50s">Troubleshoot HTTP status codes</MadCap:xref>
+                </li>
+                <li>
+                    <MadCap:xref href="#Status_Code_503">Status code 503: Application is unavailable </MadCap:xref>
+                </li>
+                <li>
+                    <MadCap:xref href="#Status_Code_504">Status code 504: Time-out errors</MadCap:xref>
+                </li>
+            </ul>
+            <p>For other errors, see <MadCap:xref href="trouble-shooting-guide.htm">Troubleshoot miscellaneous issues</MadCap:xref>.</p>
+            <h2>
+                <p>Before you begin</p>
+            </h2>
+            <p>To troubleshoot HTTP status codes, you must meet the following prerequisites:</p>
+            <ul>
+                <li>You have admin access to your Okta org.</li>
+                <li>You have access to the <MadCap:variable name="okta-feature-names.Access Gateway CMD" />.</li>
+                <li>You can retrieve and monitor logs from network appliances and application servers.</li>
+                <li>You can identify an HTTP status code that appears in a log statement.</li>
+            </ul>
+        </div>
+        <div>
+            <h2><a name="HttpStatusCodesDesc"></a>HTTP status codes and descriptions</h2>
+            <p><MadCap:variable name="okta-feature-names.Access Gateway" /> and other applications return the following status codes to the browser during any event. They're also captured in the access log for troubleshooting issues.</p>
+            <table border="1" style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+                <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                <tbody>
+                    <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                        <td style="font-weight: bold;" class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Status Code</td>
+                        <td style="font-weight: bold;" class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Description</td>
+                    </tr>
+                    <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">200</td>
+                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">Success</td>
+                    </tr>
+                    <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">400</td>
+                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Access Gateway isn't serving the application being called by IP address or hostname</td>
+                    </tr>
+                    <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">401</td>
+                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">Session doesn't exist</td>
+                    </tr>
+                    <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">403</td>
+                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Policy rule denied access to resource</td>
+                    </tr>
+                    <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">404</td>
+                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">Unknown page, content, or resource</td>
+                    </tr>
+                    <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">405</td>
+                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Session integrity failure</td>
+                    </tr>
+                    <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                            <p>413</p>
+                        </td>
+                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
+                            <p>Request entity too large</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">500</td>
+                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Server-side error</td>
+                    </tr>
+                    <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">502</td>
+                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">A back-end application isn't available</td>
+                    </tr>
+                    <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">503</td>
+                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Application is in maintenance, inactive, or offline mode </td>
+                    </tr>
+                    <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                        <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">504</td>
+                        <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">Request to back-end application timed out</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h2><a name="CaptureHttpStatusCode"></a>Capture the HTTP status code</h2>
+            <p>Sometimes, you might not see an <MadCap:variable name="okta-feature-names.Access Gateway" /> error page, depending on the application or error type. If this happens, capture the HTTP status code from the browser using the browser developer tools.</p>
+            <p>See <a href="https://developer.chrome.com/docs/devtools/network/reference/#headers" target="blank" title="Google documentation" alt="Google documentation">Google documentation</a> for instructions. For other browsers, consult that browser's documentation for instructions.</p>
+        </div>
+        <div>
+            <h2><a name="Tracking"></a>Find the tracking ID</h2>
+            <p>If there's an internal server error, <MadCap:variable name="okta-feature-names.Access Gateway" /> generates a tracking ID. The tracking ID appears on the <MadCap:variable name="okta-feature-names.Access Gateway" /> error page. You can use this tracking ID to identify the event and its corresponding log messages from the log files while troubleshooting.</p>
+            <p>Click <span class="uicontrol">Tracking ID</span> to copy it and the associated error message provided in the log.</p>
+            <p>
+                <p>This is an example of a log statement with the tracking ID:</p><span class="codeblock" xml:space="preserve">Gateway host:[&lt;host URL&gt;]referrer:[&lt;IDP SSO URL&gt;]error:[Login Error] tracking ID:[6eff1f9ca3] 
+        details:[Requester/RequestDenied: Could not validate the following SAML AuthnRequest from partner Test App: ]</span>
+            </p>
+        </div>
+        <h2><a name="Status_Code_400"></a>Status code 400: <a name="Unknown_Host_Status"></a>Unknown Host Status</h2>
+        <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shade-col1.css');" class="TableStyle-standard-shade-col1" cellspacing="0">
+            <col class="TableStyle-standard-shade-col1-Column-Column1" width="15%" />
+            <col class="TableStyle-standard-shade-col1-Column-Column" width="85%" />
+            <tbody>
+                <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">Message</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1">The requested host: &lt;Requested Hostname&gt; is not being served by this <MadCap:variable name="okta-feature-names.Access Gateway" />.</td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body2">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body2">Description</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body2">The DNS record resolves to the <MadCap:variable name="okta-feature-names.Access Gateway" />, and there's no service or application available on the <MadCap:variable name="okta-feature-names.Access Gateway" /> with the corresponding host name.</td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">Log statement example</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1">
+                        <p><span class="codeblock">Mar  7 15:26:26 localhost.localdomain icsDefault443Access &lt;host URL&gt; &lt;IP ADDRESS&gt; - -
+[07/Mar/2018:15:26:26 -0600] "GET / HTTP/1.1" 400 1992 "-" "Mozilla/5.0 (Windows NT 6.1; Win64; x64)
+AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36" "-" 0.035 0.035</span>
+                        </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body2">
+                    <td class="TableStyle-standard-shade-col1-BodyB-Column1-Body2">Validation and mitigation steps</td>
+                    <td class="TableStyle-standard-shade-col1-BodyA-Column-Body2">
+                        <ol>
+                            <li>Verify that you're using the correct URL.</li>
+                            <li>Verify that the <span class="uicontrol">Public Domain</span> field in the <MadCap:variable name="okta-feature-names.Access Gateway" /> application is correct.</li>
+                            <li>Verify that your DNS or local hosts file correctly addresses the hostname and IP address.</li>
+                            <li>Verify that your application is configured properly with the relevant hostname.</li>
+                        </ol>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2><a name="Status_Code_403"></a>Status code 403: <a name="Access_Denied_to_Resource"></a>Access Denied to Resource</h2>
+        <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shade-col1.css');" class="TableStyle-standard-shade-col1" cellspacing="0">
+            <col class="TableStyle-standard-shade-col1-Column-Column1" width="15%" />
+            <col class="TableStyle-standard-shade-col1-Column-Column" width="85%" />
+            <tbody>
+                <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">Message</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1">Access to resource <span class="uicontrol">&lt;Requested Resource&gt;</span> in application “Requested Applications” has been denied.</td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body2">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body2">Description</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body2">The <MadCap:variable name="okta-feature-names.Access Gateway" /> returns this status code when the policy engine denies access to a protected resource. You might receive this status code if there's a condition where certain access to a resource is intentionally prohibited.</td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">Log statement example</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1">
+                        <p><span class="codeblock">Mar  7 15:36:22 localhost ACCESS_GATEWAY ACCESS AUTHZ POLICY INFO USER_AUTHZ
+
+[SESSION_id="aa3b92617708c430ad74acbd6b1cf23f4809b48141"SUBJECT="&lt;User login ID&gt;" RESOURCE="/test"
+METHOD="GET" POLICY="test" POLICY_TYPE="PROTECTED_REGEX" DURATION="0" APP="&lt;Application name/ description&gt;"
+APP_TYPE="SAMPLEIDPHEADER2015_APP" APP_DOMAIN="&lt;App domain URL&gt;" RESULT="DENY" REASON="Groups=(?!.*Everyone:)
+-SESSIONID=_aa3b92617708c430ad74acbd6b1cf23f4809b48141 RelayDomain=&lt;Relay domain URL&gt; static1=static1
+secret=secretvalue spgw_username=&lt;User ID&gt; UserName=&lt;User ID&gt; spgw_username=&lt;User ID&gt;
+cloud:identity:domain=&lt;IDP tenant subdomain&gt; workEmail=&lt;User work email
+attribute&gt;cloud:identity:tenant=&lt;IDP tenant subdomain&gt; givenName=&lt;User first name&gt; familyName=&lt;User last name&gt;
+email=&lt;User email&gt; SourceAuthNType=urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport
+RemoteIP=192.168.1.4 USER_AGENT=Mozilla/5.0 (WindowsNT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)
+Chrome/64.0.3282.186 Safari/537.36 creationTime=1520458088124 maxInactiveInterval=3600000
+maxActiveInterval=28800000 lastAccessedTime=1520458092027 " REMOTE_IP="&lt;IP Address&gt;" USER_AGENT="Mozilla/5.0
+(Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36"]
+deny access to resource</span>
+                        </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body2">
+                    <td class="TableStyle-standard-shade-col1-BodyB-Column1-Body2">Validation and mitigation steps</td>
+                    <td class="TableStyle-standard-shade-col1-BodyA-Column-Body2">
+                        <ol>
+                            <li>Verify that this is an error and not an intentional denied resource.</li>
+                            <li>Verify and fix the defined policy in the <MadCap:variable name="okta-feature-names.Access Gateway" /> application.</li>
+                            <li>Verify that the user is allowed access by the policy.</li>
+                            <li><a href="http://support.okta.com">Contact Support</a> if the application resource is still inaccessible.</li>
+                        </ol>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2><a name="Status_Code_404"></a>Status code 404: <a name="Resource_Not_Found"></a>Resource Not Found</h2>
+        <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shade-col1.css');" class="TableStyle-standard-shade-col1" cellspacing="0">
+            <col class="TableStyle-standard-shade-col1-Column-Column1" width="15%" />
+            <col class="TableStyle-standard-shade-col1-Column-Column" width="85%" />
+            <tbody>
+                <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">Message</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1">The page you are trying to access does not exist.</td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body2">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body2">Description</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body2">The <MadCap:variable name="okta-feature-names.Access Gateway" /> returns this status code when the requested resource is unavailable.</td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">Log statement example</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1">
+                        <p><span class="codeblock">Apr 5 03:59:57 oag01 icsIcsgwAccess &lt;Gateway domain&gt; &lt;Gateway IP address&gt; - - [05/Apr/2018:03:59:57 -0500]
+"GET / HTTP/1.1" 404 1922"-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)
+Chrome/65.0.3325.181 Safari/537.36" "&lt;Gateway IP address&gt;" 0.019 0.019</span>
+                        </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body2">
+                    <td class="TableStyle-standard-shade-col1-BodyB-Column1-Body2">Validation and mitigation steps</td>
+                    <td class="TableStyle-standard-shade-col1-BodyA-Column-Body2">
+                        <ol>
+                            <li>Verify the URL, and ensure that the resource still exists and is pointed toward the correct location.</li>
+                            <li>If the resource is inaccessible, contact <MadCap:variable name="okta-feature-names.Okta Support" />.</li>
+                        </ol>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2><a name="Status_Code_405"></a>Status code 405: Access Denied</h2>
+        <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shade-col1.css');" class="TableStyle-standard-shade-col1" cellspacing="0">
+            <col class="TableStyle-standard-shade-col1-Column-Column1" width="15%" />
+            <col class="TableStyle-standard-shade-col1-Column-Column" width="85%" />
+            <tbody>
+                <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">Message</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1">The <MadCap:variable name="okta-feature-names.Access Gateway" /> has detected an anomaly in user access to the &lt;Requested Application&gt;.</td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body2">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body2">Description</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body2">The <MadCap:variable name="okta-feature-names.Access Gateway" /> returns this status code when it detects a possible issue with session integrity to prevent sessions from being hijacked. This can also happen when a user switches networks with an active session in place.</td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">Log statement example</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1">
+                        <p><span class="codeblock" xml:space="preserve">Apr  2 15:19:32  ACCESS AUTHZ SESSION WARN USER_SESSION [SESSION_id="0e53b206b5aa2d8b93cdf7f48c4c5ca51e2eeff494" 
+SUBJECT="&lt;User ID&gt;" APP="IDP Sample Header App 1" APP_TYPE="SAMPLEIDPHEADER2015_APP" APP_DOMAIN="&lt;App domain URL&gt;"RESULT="DENY" 
+REASON="SESSION_INTEGRITY_REMOTEIP_MISMATCH" REMOTE_IP="&lt;Remote IP address&gt;" USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; 
+x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36"] SRF Request RemoteIP(http_x_real_ip): 
+&lt;User IP address&gt; failed to match session RemoteIP: &lt;Remote IP address&gt; Apr  2 15:19:32  IDPsampleheaderapp1 &lt;App domain URL&gt; 
+&lt;User IP address&gt; - - [02/Apr/2018:15:19:32 -0500] "GET / HTTP/1.1" 405 2050 "&lt;IDP SSO URL&gt;" "Mozilla/5.0 (Windows NT 10.0; 
+Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36" "&lt;User IP address&gt;" 0.010 0.010.</span>
+                        </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body2">
+                    <td class="TableStyle-standard-shade-col1-BodyB-Column1-Body2">Validation and mitigation steps</td>
+                    <td class="TableStyle-standard-shade-col1-BodyA-Column-Body2">
+                        <ol>
+                            <li>Verify with the user if they changed networks during an active session with <MadCap:variable name="okta-feature-names.Access Gateway" />.</li>
+                            <li>If step 1 is confirmed, the user must restart the browser and log in again to start a new session.</li>
+                        </ol>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2><a name="Status_Code_413"></a>Status code 413: <a name="Request_Entity_Too_Large_Code"></a>Request Entity Too Large Code</h2>
+        <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shade-col1.css');" class="TableStyle-standard-shade-col1" cellspacing="0">
+            <col class="TableStyle-standard-shade-col1-Column-Column1" width="15%" />
+            <col class="TableStyle-standard-shade-col1-Column-Column" width="85%" />
+            <tbody>
+                <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">Message</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1">The <MadCap:variable name="okta-feature-names.Access Gateway" /> displays error 413 if the file being uploaded is larger than 1 megabyte.</td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body2">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body2">Description</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body2">By default, the <MadCap:variable name="okta-feature-names.Access Gateway" /> is set to allow file uploads that are less than 1 megabyte.</td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                    <td class="TableStyle-standard-shade-col1-BodyB-Column1-Body1">Validation and mitigation steps</td>
+                    <td class="TableStyle-standard-shade-col1-BodyA-Column-Body1">
+                        <ol>
+                            <li>Use the browser's developer tools to confirm that the HTTP status code returned by the <MadCap:variable name="okta-feature-names.Access Gateway" /> is 413.</li>
+                            <li>To increase the file upload limit, click the <span class="wintitle">Applications</span> tab.</li>
+                            <li>Click the <span class="uicontrol">Edit App</span> icon for the corresponding application.</li>
+                            <li>Open the <span class="uicontrol">Advanced</span> dropdown menu within the application.</li>
+                            <li>Slide the <span class="uicontrol">Maximum File Upload Size Adjuster</span> to an appropriate size.</li>
+                        </ol>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2><a name="Status_Code_500"></a>Status code 500: <a name="Internal_Server_Error"></a>Internal Server Error</h2>
+        <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shade-col1.css');" class="TableStyle-standard-shade-col1" cellspacing="0">
+            <col class="TableStyle-standard-shade-col1-Column-Column1" width="15%" />
+            <col class="TableStyle-standard-shade-col1-Column-Column" width="85%" />
+            <tbody>
+                <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">Message</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1">An unexpected server error has occurred. The error has been logged. Contact your support service if you face this error message.</td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body2">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body2">Description</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body2">Error in an <MadCap:variable name="okta-feature-names.Access Gateway" /> component.</td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">Log statement example</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1">
+                        <p><span class="codeblock">Apr 2 22:53:10  IDPsampleheaderapp1 2018/04/02 22:53:10 [info] 26875#0: *3909 client closed connection while
+
+waiting for request, client: 192.168.10.20, server: 0.0.0.0:443Apr  2 22:53:10  IDPsampleheaderapp1 
+&lt;App domain URL&gt; &lt;IP address&gt; - - [02/Apr/2018:22:53:10 -0500] 
+"GET /GOPYX48z5/module.php/icsgw/as_login.php?AuthId=k3x6WX20E&amp;ReturnTo=https://&lt;App domain URL&gt; HTTP/1.1" 
+302 2707 "&lt;Gateway domain URL&gt;" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+(KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36" "-" 0.006 0.006</span>
+                        </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body2">
+                    <td class="TableStyle-standard-shade-col1-BodyB-Column1-Body2">Validation and mitigation steps</td>
+                    <td class="TableStyle-standard-shade-col1-BodyA-Column-Body2">Contact <MadCap:snippetText src="../../Resources/Snippets/okta-support-link.flsnp" />.</td>
+                </tr>
+            </tbody>
+        </table>
+        <h2><a name="Status_Code_502"></a>Status code 502: <a name="Application_is_Not_Responding"></a>Application is Not Responding</h2>
+        <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shade-col1.css');" class="TableStyle-standard-shade-col1" cellspacing="0">
+            <col class="TableStyle-standard-shade-col1-Column-Column1" width="15%" />
+            <col class="TableStyle-standard-shade-col1-Column-Column" width="85%" />
+            <tbody>
+                <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">Message</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1">The backend web application &lt;Requested Application&gt; is not receiving user requests from the <MadCap:variable name="okta-feature-names.Access Gateway" /> and is not available for usage.</td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body2">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body2">Description</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body2"><MadCap:variable name="okta-feature-names.Access Gateway" /> returns this error when it fails to connect to the back-end application it's protecting.</td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">Log statement example</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1"><span class="codeblock" xml:space="preserve">Apr  5 04:01:38 oag01 icsadmin &lt;Gateway domain URL&gt; &lt;IP address&gt; - - [05/Apr/2018:04:01:38 -0500] "GET / HTTP/1.1" 502 2130
+"-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36"
+"-" 0.006 0.000, 0.000 : 0.005</span>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body2">
+                    <td class="TableStyle-standard-shade-col1-BodyB-Column1-Body2">Validation and mitigation steps</td>
+                    <td class="TableStyle-standard-shade-col1-BodyA-Column-Body2">
+                        <ol>
+                            <li>Ensure that the app is working and the protected URL specified in <MadCap:variable name="okta-feature-names.Access Gateway" /> is reachable.</li>
+                            <li>Ensure that the DNS record is resolvable.</li>
+                            <li>Ensure that the back-end application is reachable from the server that hosts the <MadCap:variable name="okta-feature-names.Access Gateway" /> appliance. See the cURL connectivity test section in <MadCap:xref href="manage-network-interfaces.htm">Manage network interfaces</MadCap:xref>.</li>
+                            <li>If using a load-balancing solution, individually verify whether any of the <MadCap:variable name="okta-feature-names.Access Gateway" /> appliances are causing the issue.</li>
+                        </ol>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2><a name="Status_Code_503"></a>Status code 503: Application is unavailable </h2>
+        <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shade-col1.css');" class="TableStyle-standard-shade-col1" cellspacing="0">
+            <col class="TableStyle-standard-shade-col1-Column-Column1" width="15%" />
+            <col class="TableStyle-standard-shade-col1-Column-Column" width="85%" />
+            <tbody>
+                <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">Messages:</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1">
+                        <ul>
+                            <li>Application &lt;Requested Application&gt; has been disabled and isn't available for usage.</li>
+                            <li>The application &lt;Requested Application&gt; is temporarily not available for usage.</li>
+                            <li>The application &lt;Requested Application&gt; is not functioning correctly and has been taken offline. This outage has been logged.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body2">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body2">Description</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body2">
+                        <p><MadCap:variable name="okta-feature-names.Access Gateway" /> shows this warning page when an application has been disabled, hasn't been activated, is in maintenance mode, or has been taken offline.</p>
+                        <p>If an administrator has temporarily removed access to an application, the application is also disabled in the Identity Provider. Verify the application status with the application owner or appropriate manager before you change any settings in the <MadCap:variable name="okta-feature-names.Access&#160;Gateway UI" />.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">Log statement examples</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1">
+                        <p>The application has been disabled or is not activated:</p><span class="codeblock" xml:space="preserve">Mar  7 16:56:39 localhost ACCESS_GATEWAY ACCESS AUTHZ POLICY INFO USER_AUTHZ [SESSION_ID="N/A" SUBJECT=""
+
+RESOURCE="/" METHOD="GET" POLICY="INACTIVE" POLICY_TYPE="NO_AUTH" DURATION="0" APP="IDP Sample Header App"
+APP_TYPE="SAMPLEIDPHEADER2015_APP" APP_DOMAIN="&lt;App domain URL&gt;" RESULT="ALLOW" REASON=" - N/A"
+REMOTE_IP="&lt;Remote IP address&gt;" USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+(KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36"] allow access to resource.</span>
+                        <p>The application is in maintenance:</p><span class="codeblock" xml:space="preserve">Mar  7 16:58:23 localhost ACCESS AUTHZ POLICY INFO USER_AUTHZ [SESSION_ID="N/A" SUBJECT="" RESOURCE="/" METHOD="GET"
+POLICY="ACTIVE_MAINT" POLICY_TYPE="NO_AUTH" DURATION="0" APP="IDP Sample Header App" APP_TYPE="SAMPLEIDPHEADER2015_APP"
+APP_DOMAIN="&lt;App domain URL&gt;" RESULT="ALLOW" REASON=" - N/A" REMOTE_IP="&lt;Remote IP address&gt;" USER_AGENT="Mozilla/5.0
+(Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36"] allow access to resource</span>
+                        <p>The application is offline:</p><span class="codeblock" xml:space="preserve">Apr  2 15:02:33  ACCESS_GATEWAY ACCESS AUTHZ POLICY INFO USER_AUTHZ [SESSION_ID="N/A" SUBJECT=""
+
+RESOURCE="/favicon.ico" METHOD="GET" POLICY="ACTIVE_OFFLINE" POLICY_TYPE="NO_AUTH" DURATION="0"
+APP="IDP Sample Header App 1" APP_TYPE="SAMPLEIDPHEADER2015_APP" APP_DOMAIN="&lt;App domain URL&gt;" RESULT="ALLOW"
+REASON=" - N/A" REMOTE_IP="&lt;Remote IP address&gt;" USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:59.0)
+Gecko/20100101 Firefox/59.0"] allow access to resource Apr  2 15:02:33  IDPsampleheaderapp1 &lt;App domain URL&gt;
+&lt;IP address&gt; - - [02/Apr/2018:15:02:33 -0500] "GET /favicon.ico HTTP/1.1" 503 2063 "-" "Mozilla/5.0 (Windows NT
+10.0; Win64; x64; rv:59.0) Gecko/20100101 Firefox/59.0" "-" 0.011 0.011</span>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body2">
+                    <td class="TableStyle-standard-shade-col1-BodyB-Column1-Body2">Validation and mitigation steps</td>
+                    <td class="TableStyle-standard-shade-col1-BodyA-Column-Body2">
+                        <ol>
+                            <li>Open the <MadCap:variable name="okta-feature-names.Access&#160;Gateway UI" />.</li>
+                            <li>Click the <span class="wintitle">Applications</span> tab.</li>
+                            <li>Verify that the status of your application is <span class="wintitle">Inactive</span>, <span class="wintitle">Maintenance</span>, or <span class="wintitle">Offline</span>.</li>
+                            <li>Edit the application.</li>
+                            <li>Change the application status to <span class="uicontrol">Application is Active</span> when the application comes back online, maintenance is complete, or after you fix the application configuration error.</li>
+                        </ol>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2><a name="Status_Code_504"></a>Status code 504: Time-out errors</h2>
+        <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shade-col1.css');" class="TableStyle-standard-shade-col1" cellspacing="0">
+            <col class="TableStyle-standard-shade-col1-Column-Column1" width="15%" />
+            <col class="TableStyle-standard-shade-col1-Column-Column" width="85%" />
+            <tbody>
+                <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">Messages:</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1">
+                        <ul>
+                            <li>The 504 Gateway Timeout error message is an Oracle E-Business Suite (EBS) integration timeout error.</li>
+                            <li>The backend web application &lt;Requested Application&gt; is not responding in a timely manner to user requests from the <MadCap:variable name="okta-feature-names.Access Gateway" /> and/or isn't available for usage.</li>
+                            <li>The application doesn't render if the back-end application takes longer than 60 seconds to respond.</li>
+                            <li>The backend web application &lt;Requested Application&gt; is not receiving user requests from the <MadCap:variable name="okta-feature-names.Access Gateway" /> and not available for usage.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body2">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body2">Description</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body2">
+                        <p>These errors appear when <MadCap:variable name="okta-feature-names.Access Gateway" /> times out when connecting to an internal application, waiting for a response from a back-end application, or if an Oracle EBS registration isn't working or has been erased from the instance.</p>
+                        <p>If the Oracle EBS integration isn't working, the application doesn't provide the GUID, and the USER_ORCLGUID header doesn't appear in the <MadCap:variable name="okta-feature-names.Access Gateway" /> logs when debug is enabled.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">Log statement examples</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1">
+                        <p>Oracle EBS integration timeout error:</p><span class="codeblock" xml:space="preserve">Apr  2 15:49:53  oracleaccessgatetest1 &lt;App domain URL&gt; &lt;App IP address&gt; - - [02/Apr/2018:15:49:53 -0500] 
+"GET /accessgate/ssologin HTTP/1.1" 504 2050 "&lt;IDP federation response&gt;" "Mozilla/5.0 (Windows NT 10.0; 
+Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36" "-" 1.017 1.002 : 0.008</span>
+                        <p>Back-end application timeout:</p><span class="codeblock">Mar  7 17:47:32 localhost.localdomain headerssoapp11 2018/03/07 17:47:32 [error] 6703#0: *4793 upstream timed out
+(110: Connection timed out) while connecting to upstream, client: &lt;Client IP address&gt;, server: &lt;Server domain URL&gt;,
+request: "GET / HTTP/1.1", upstream: "http://1.1.1.1:80/", host: "&lt;Host URL&gt;", referrer:
+"&lt;Access Gateway Admin UI URL&gt;"</span>
+                        <p>Application render failure:</p><span class="codeblock" xml:space="preserve">Mar  7 17:47:32 localhost.localdomain headerssoapp11 2018/03/07 17:47:32 [error] 6703#0: *4793 upstream timed
+out (110: Connection timed out) while connecting to upstream, client: &lt;Client IP address&gt;, server: &lt;Server
+domain URL&gt;, request: "GET / HTTP/1.1", upstream: "http://1.1.1.1:80/", host: "&lt;Host domain URL&gt;", referrer:
+"&lt;Access Gateway Admin UI URL&gt;"</span>
+                        <p>Internal application timeout:</p><span class="codeblock" xml:space="preserve">Mar  7 17:47:32 localhost.localdomain headerssoapp11 2018/03/07 17:47:32 [error] 6703#0: *4793 upstream timed
+out (110: Connection timed out) while connecting to upstream, client: &lt;Client IP address&gt;, server:
+&lt;Server domain URL&gt;, request: "GET / HTTP/1.1", upstream: "http://1.1.1.1:80/", host: "&lt;Server domain URL&gt;",
+referrer: "&lt;Access Gateway Admin UI URL&gt;"</span>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body2">
+                    <td class="TableStyle-standard-shade-col1-BodyB-Column1-Body2">Validation and mitigation steps</td>
+                    <td class="TableStyle-standard-shade-col1-BodyA-Column-Body2">
+                        <ol>
+                            <li>Verify that the application is responding.</li>
+                            <li>Verify that the application URL is reachable from the <MadCap:variable name="okta-feature-names.Access Gateway" />.</li>
+                            <li>Verify that the connection to the application isn't blocked at any stage.</li>
+                            <li>Test the connectivity to the back-end application from the <MadCap:variable name="okta-feature-names.Access Gateway" />.</li>
+                            <li>If the application or Oracle EBS is expected to take longer than 60 seconds to respond, change the response time:<ol style="list-style-type: lower-alpha;"><li>Go to <span class="wintitle">Application Settings</span>.</li><li>From the <span class="uicontrol">Advanced</span> dropdown menu, select <span class="uicontrol">Backend Timeout duration</span>.</li><li>Change the value to a longer timeout duration.</li></ol></li>
+                            <li>If the issue is an Oracle EBS integration timeout error, troubleshoot and fix the Oracle EBS&#160;application instance.</li>
+                        </ol>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

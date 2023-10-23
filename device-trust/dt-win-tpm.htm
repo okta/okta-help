@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:searchable="True"
+      MadCap:fileTags="Tags/okta-authors.Kimli Welsh">
+   <head>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <link href="" rel="stylesheet" type="text/css"/>
+      <meta name="description"
+            content="Use a Trusted Platform Module built to ensure the private key used in Windows Device Trust cannot be maliciously copied."/>
+   </head>
+   <body>
+      <h1>Enhance Windows Device Trust security with Trusted Platform Module (TPM)</h1>
+      <p>This document describes how to leverage the security benefits of the Trusted Platform Module (TPM) by installing Okta Device Registration Task version 1.4.1 or later on your <span class="disableGlossary">domain</span>-joined Device Trust-secured Windows computers with TPM 1.2 or 2.0. Use this document in conjunction with the main Okta Device Trust document for Windows, <MadCap:xref href="../Mobile/Okta_Mobile_Device_Trust_Windows-desktop.htm"
+                      target="_blank">Enforce Okta Device Trust for managed Windows computers</MadCap:xref>.</p>
+      <p>TPM is a microchip built into most Windows computers. It is designed to provide tamper-resistant security functions, primarily involving encryption keys. When used with the Okta Device Trust solution for Windows computers, TPM prevents malicious actors from copying the Private Key from Windows devices.  If TPM is present and enabled on the device, installing Okta Device Registration Task version 1.4.1 or later generates a hardware-based key used by the Okta Device Trust solution for Windows computers. If a device lacks TPM, or if you install Registration Task version 1.4.1 or later using the method that skips support for TPM (described below), the Registration Task generates a software-based key (pre-1.4.1 behavior).</p>
+      <h2>
+         <a name="Requirem"/>Prerequisites</h2>
+      <ul>
+         <li>Okta Device Registration Task 1.4.1 or later</li>
+         <li>Windows domain-joined computers</li>
+         <li>Windows 8 and 10, 32- and 64-bit</li>
+         <li>Internet Explorer, Edge, and Chrome browsers</li>
+         <li>TPM is enabled, activated, and owned. For definitions of these terms, see the Microsoft document <a href="https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-8.1-and-8/jj889441(v=ws.11)"
+               target="_blank">TPM Fundamentals</a>.</li>
+         <li> Windows 10 computers running v1803 Build 17134.254 or earlier must have <a href="https://support.microsoft.com/en-us/help/4346783/windows-10-update-kb4346783"
+               target="_blank">Cumulative Update KB4346783</a>
+         </li>
+         <li>TPM security benefits will not take effect on Windows devices already enrolled in this Device Trust solution until the certificate is renewed</li>
+         <li>For some Windows computers, it may be necessary to enable TPM in the BIOS (though it is typically enabled by default). If TPM is not enabled, the Okta Device Registration Task generates a software-based key instead of a hardware-based key.</li>
+      </ul>
+      <div class="noteOkta">
+         <img src="../../Resources/Images/assets/Icons/Notes/icon-lightbulb.png"
+              class="noteImgFloat"
+              title="Tip"
+              alt="Tip"/>
+         <p class="noteHeading">Tip</p>
+         <p class="noteContent">You can use GPO to <a href="https://docs.microsoft.com/en-us/windows/security/information-protection/tpm/trusted-platform-module-services-group-policy-settings"
+               target="_blank">centrally configure several TPM Services</a>.</p>
+      </div>
+      <h2>
+         <a name="Procedur"/>Procedures</h2>
+      <p>Perform the procedure to obtain and install the Device Registration Task. Perform the other procedures if appropriate for your implementation.</p>
+      <h3>
+         <a name="Obtain"/>Obtain and install the Device Registration Task</h3>
+      <ol>
+         <li>In the <MadCap:variable name="okta-feature-names.Administrator dashboard"/>, go to <span class="menucascade">
+               <span class="uicontrol">Settings</span>
+               <span class="uicontrol">Downloads</span>
+            </span>, scroll to <MadCap:variable name="okta-feature-names.Okta Device Trust"/> Windows Agents, and download Okta Device Registration Task version 1.4.1 or later.</li>
+         <li>Install the registration task as described in <a href="../Mobile/Okta_Mobile_Device_Trust_Windows-desktop.htm#B.2"
+               target="_blank">section 2.2</a> of <MadCap:xref href="../Mobile/Okta_Mobile_Device_Trust_Windows-desktop.htm"
+                         target="_blank">Enforce Okta Device Trust for managed Windows computers</MadCap:xref>. </li>
+         <p>
+            <div class="noteOkta">
+               <p class="noteHeading">Note</p>
+               <p class="noteContent">Make sure to read the information about proxy servers and certificate handling in <MadCap:xref href="../Mobile/Okta_Mobile_Device_Trust_Windows-desktop.htm#PartB"
+                               target="_blank">STEP 2 —  Enroll the [%=okta-feature-names.Device Trust%] certificate on domain-joined Windows computers</MadCap:xref> of the document <MadCap:xref href="../Mobile/Okta_Mobile_Device_Trust_Windows-desktop.htm"
+                               target="_blank">Enforce Okta Device Trust for managed Windows computers</MadCap:xref>.</p>
+            </div>
+         </p>
+         <p>
+            <MadCap:snippetBlock src="other-snippets/win-dt-tpm-cumulative-update.flsnp"/>
+         </p>
+      </ol>
+      <h3>Install the Device Registration Task without the TPM security enhancement (optional)</h3>
+      <p>You can install version 1.4.1 with or without enabling TPM security enhancements. Either way, version 1.4.1 provides the following fixes:</p>
+      <ul>
+         <li>Fixes an issue that caused Chrome browser settings to be removed when the Device Registration Task was uninstalled.</li>
+         <li>
+            <p>Fixes an issue where uninstalling the Device Registration Task removed the automatic certificate selection setting in Chrome. The setting is designed to prevent the browser from prompting end users to select the certificate during the device trust flow.</p>
+         </li>
+      </ul>
+      <p>If you don't want to leverage the TPM security benefits enabled by Okta Device Registration Task version 1.4.1, you can include the argument <span class="code">SkipTPM=true</span> in the installation command as shown below: </p>
+      <span class="codeblock">OktaDeviceRegistrationTaskSetup.exe /q2 OktaURL=&lt;URL&gt;  SkipTPM=true</span>
+      <h3>Check the status of the TPM (optional)</h3>
+      <p>It may be useful to check the status of TPM. To do so, open the TPM Management console either from a command prompt or the Start menu.</p>
+      <ul>
+         <li>From a command prompt, enter  <span class="code">TPM.msc</span>
+         </li>
+         <li>From the <span class="uicontrol">Start</span> button search field, enter <span class="code">TPM</span>
+         </li>
+      </ul>
+      <p>
+         <img src="../../Resources/Images/TPM-status.png" class="thumbnail"/>
+      </p>
+      <h2>
+         <a name="Known"/>Known issues</h2>
+      <ul>
+         <li>TPM security is not implemented when Okta Device Registration Task 1.4.1 is installed on Windows 7 computers – Version 1.4.1 works with Windows 7 computers but without TPM  security enhancements. A software-based key is generated instead of a hardware-based key. Additionally, version 1.4.1 provides other fixes unrelated to TPM security.</li>
+         <li>Update necessary for Windows 10 machines running v1803 Build 17134.254 or earlier – <MadCap:snippetText src="other-snippets/win-dt-tpm-cumulative-update.flsnp"/>
+         </li>
+         <div>
+            <li>You must manually delete the old certificate if you are reverting from Device Registration Task 1.4.0  to 1.3.1 – Otherwise, the following exception is thrown: <span class="code">Invalid provider type specified</span>.</li>
+            <h3>Delete the certificate manually</h3>
+            <ol>
+               <li>Go to <span class="uicontrol">Start</span> and enter <span class="userinput">mmc</span> in the search field to open the console.</li>
+               <li>Go to <span class="uicontrol">File</span> and click <span class="uicontrol">Add/Remove Snap-in</span>.</li>
+               <li>Select <span class="uicontrol">Certificates</span> and then click <span class="uicontrol">Add</span>.</li>
+               <li>In the  Certificates snap-in dialog box, select <span class="uicontrol">My user account</span>.</li>
+               <li>Click <span class="uicontrol">Finish</span>.</li>
+               <li>Click <span class="uicontrol">OK</span>.</li>
+               <li>Under Console Root, expand  <span class="uicontrol">Certificates - Current User</span>.</li>
+               <li>Expand the Personal folder, click <span class="uicontrol">Certificates</span>, right-click the <span class="uicontrol">Okta MTLS certificate</span>, and then choose <span class="uicontrol">Delete</span>.</li>
+               <p>
+                  <img src="../../Resources/Images/dt-win-delete-cert.png" class="thumbnail"/>
+               </p>
+            </ol>
+         </div>
+      </ul>
+      <h2>
+         <a name="Addition"/>Related topics</h2>
+      <p>
+         <MadCap:xref href="../Mobile/Okta_Mobile_Device_Trust_Windows-desktop.htm"
+                      target="_blank">Enforce Okta Device Trust for managed Windows computers</MadCap:xref>
+      </p>
+      <p>
+         <a href="https://docs.microsoft.com/en-us/windows/security/information-protection/tpm/tpm-recommendations"
+            target="_blank">TPM recommendations</a>
+      </p>
+      <p>
+         <a href="https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-8.1-and-8/jj889441(v=ws.11)"
+            target="_blank">TPM Fundamentals</a>
+      </p>
+      <p>
+         <a href="https://docs.microsoft.com/en-us/windows/security/information-protection/tpm/trusted-platform-module-overview"
+            target="_blank">Trusted Platform Module Technology Overview</a>
+      </p>
+      <p>
+         <a href="https://support.microsoft.com/en-us/help/4346783/windows-10-update-kb4346783"
+            target="_blank">Cumulative Update KB4346783</a>
+      </p>
+      <p>
+         <a href="https://docs.microsoft.com/en-us/windows/security/information-protection/tpm/initialize-and-configure-ownership-of-the-tpm"
+            target="_blank">Troubleshoot TPM</a>
+      </p>
+      <p>
+         <a href="https://docs.microsoft.com/en-us/windows/security/information-protection/tpm/trusted-platform-module-services-group-policy-settings"
+            target="_blank">TPM Group Policy settings</a>
+      </p>
+   </body>
+</html>

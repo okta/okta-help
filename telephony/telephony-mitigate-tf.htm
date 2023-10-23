@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Nikita Apraj">
+    <head>
+        <link href="../../Resources/TableStyles/standard-horizonal-borders-only.css" rel="stylesheet" MadCap:stylesheetType="table" />
+    </head>
+    <body>
+        <h1>Prevent or mitigate telephony-based fraud</h1>
+        <p>International revenue sharing fraud (IRSF)—often referred to as toll fraud—is the use of a telecommunications product or service without the intent to pay for that product or service. This type of fraud most often involves attackers who use a phone system to generate a high volume of international calls on expensive routes. 
+Because toll fraud can be costly and interfere with business operations, the topics in this section provide recommendations and best practices for toll fraud mitigation.</p>
+        <p>People involved in a toll fraud attack make calls to premium-rate numbers and take a cut of the revenue generated from these calls. Because the costs associated with the fraudulent calling activity are charged back to the customer by the telecommunications provider, it is important to take steps to prevent or minimize the chances of an attack succeeding. </p>
+        <p>Toll fraud attacks can take many forms, but most typically involves involve telephony services in countries that have expensive calling rates, such as Latvia, Somalia, and Gambia. If your organization does business with customers or suppliers in  countries with expensive calling rates, you should be aware of the risk and cost of toll fraud attacks and how attacks might affect traffic from legitimate users.</p>
+        <h2>Before you begin</h2>
+        <p>You should review these recommendations and best practices if any of the following apply to your organization: </p>
+        <ul>
+            <li>
+                <p>
+
+You are using Voice OTP or SMS OTP for multifactor authentication.
+</p>
+            </li>
+            <li MadCap:conditions="MultiProdPublish.OIE">
+                <p>You have enabled<MadCap:annotation MadCap:createDate="2022-07-03T15:11:18.1494577-04:00" MadCap:creator="Ian Hakes" MadCap:initials="IDMH" MadCap:comment="SSR is OIE-only beginning in 2022.08.0" MadCap:editor="Ian Hakes" MadCap:editDate="2022-07-03T15:13:16.6385465-04:00">  self-service registration</MadCap:annotation> on one or more of your Okta orgs.</p>
+            </li>
+            <li>
+                <p>
+You use an Okta-hosted or a custom Sign-In Widget for any of your Okta orgs. 
+</p>
+            </li>
+            <li>
+                <p>You are using the Okta Authentication API or the Factors API for telephony use cases. 
+</p>
+            </li>
+            <li MadCap:conditions="MultiProdPublish.Classic">
+                <p>You have enabled a custom user provisioning solution. 
+</p>
+            </li>
+            <li MadCap:conditions="MultiProdPublish.OIE">
+                <p>You have enabled a custom user provisioning or <MadCap:annotation MadCap:createDate="2022-07-03T15:13:30.5330135-04:00" MadCap:creator="Ian Hakes" MadCap:initials="IDMH" MadCap:comment="SSR is OIE-only beginning in 2022.08.0" MadCap:editor="Ian Hakes" MadCap:editDate="2022-07-03T15:13:31.5339567-04:00">self-service registration</MadCap:annotation> solution. 
+</p>
+            </li>
+        </ul>
+        <h2>How vulnerable is my Okta organization to toll fraud?</h2>
+        <p>Your Okta organization might be vulnerable to toll fraud attacks if the organization allows certain activities. For example, the organization might be vulnerable to toll fraud attacks if you have set up authentication to allow the following conditions:</p>
+        <ul>
+            <li MadCap:conditions="MultiProdPublish.Classic">
+                <p>You allow users to self-register without requiring strong proof of their identity. This might be the case if you have custom user provisioning solutions  enabled on your org.</p>
+            </li>
+            <li MadCap:conditions="MultiProdPublish.OIE">
+                <p>You allow users to self-register without requiring strong proof of their identity. This might be the case if you have custom user provisioning or <MadCap:annotation MadCap:createDate="2022-07-03T15:15:37.6514507-04:00" MadCap:creator="Ian Hakes" MadCap:initials="IDMH" MadCap:comment="SSR is OIE-only beginning in 2022.08.0" MadCap:editor="Ian Hakes" MadCap:editDate="2022-07-03T15:15:59.0366695-04:00">self-service registration</MadCap:annotation> solutions enabled on your org.</p>
+            </li>
+            <li>
+                <p>You allow Voice or SMS as authentication factors for registration or sign-in activity.</p>
+            </li>
+        </ul>
+        <p>If your organization supports any of these features, people seeking to commit fraud can abuse account creation or sign-in activity, then initiate Voice MFA calls to expensive countries by providing fake phone numbers.</p>
+        <p>You should note that Okta always enforces back-end Voice MFA security measures. However, to give your organization flexibility, Okta does not impose any specific business logic for account creation. Therefore, Okta does not enforce identity proofing or the deactivation of potentially malicious users by default.</p>
+        <p>While Okta continuously improves the tools available to help mitigate toll fraud attacks, you should follow the recommendations in this article to protect your organization.</p>
+        <h3>Why you should protect your organization from toll fraud attacks</h3>
+        <p>There are many practical reasons you should try to protect your organization from toll fraud attacks. For example, toll fraud attacks create fake accounts on your service. A proliferation of fake accounts might result in:</p>
+        <ul>
+            <li>
+                <p>Higher operational costs required to identify and remove fake accounts.</p>
+            </li>
+            <li>
+                <p>Devaluation of your user base and the reliability of your user information, including non-quality leads, users that will never visit your site again, lowered engagement with your service, higher cost to acquire new users.</p>
+            </li>
+            <li>
+                <p>Fraudulent selling activity (if applicable).</p>
+            </li>
+            <li>
+                <p>Blocking of legitimate traffic by providers if sender numbers are identified as generating low engagement communications.</p>
+            </li>
+        </ul>
+        <p>The results of a toll fraud attack can lead to negative consequences, such as:</p>
+        <ul>
+            <li>
+                <p>High volumes of toll traffic might result in delaying or preventing the delivery of Voice and SMS messages for legitimate users.</p>
+            </li>
+            <li>
+                <p>Providers blocking numbers from certain countries might result in blocking SMS and Voice delivery to legitimate accounts.</p>
+            </li>
+            <li>
+                <p>Increased costs for usage above the purchased contract aMAU count and for using telephony APIs.</p>
+            </li>
+        </ul>
+        <h3>How Okta mitigates toll fraud on your behalf</h3>
+        <p>Okta has implemented the following measures to mitigate the impact of toll fraud:</p>
+        <ul>
+            <li>
+                <p>Service cap for SMS and Voice traffic</p>
+                <p>If your Okta organization hits the service cap limit, all Voice and SMS MFA traffic is blocked for the org for 24 hours. If this occurs, the recipients making the requests receive an HTTP 429 error message.</p>
+            </li>
+            <li>
+                <p>Per-user Voice and SMS rate limits</p>
+                <p>Per-user voice and SMS enrollment rate limits are enforced to prevent a single user from flooding your org with malicious calls.</p>
+            </li>
+            <li>
+                <p>Alerts during an active attack</p>
+                <p>The Okta support team will notify you if there is an active toll fraud attack on one or more of your Okta organizations.</p>
+            </li>
+        </ul>
+        <h2>Steps you can take to mitigate toll fraud</h2>
+        <p>There are several steps you can take to mitigate toll fraud attacks. Okta recommends that you review and implement these steps to protect your organization from toll fraud activity and mitigate the effects caused by toll fraud attack.</p>
+        <h3>Use network zones to block malicious traffic pre-authentication</h3>
+        <p>If you are aware of known malicious IP addresses attempting to access your Okta org(s), you can use network zones to block traffic pre-authentication. Blocking traffic before authentication prevents attackers from accessing your Okta sign-in and registration pages if the attempt is initiated from an IP or network identified in your network zone policy. </p>
+        <p>To learn more about blocking access pre-authentication, see:</p>
+        <ul>
+            <li>
+                <p>
+                    <MadCap:xref href="../Security/network/create-ip-zone.htm">Create an IP Zone</MadCap:xref>
+                </p>
+            </li>
+            <li MadCap:conditions="MultiProdPublish.Classic">
+                <p>
+                    <MadCap:xref href="../Security/network/create-dynamic-zone.htm">Create a Dynamic Zone</MadCap:xref>
+                </p>
+            </li>
+            <li MadCap:conditions="MultiProdPublish.OIE">
+                <p>
+                    <MadCap:xref href="../identity-engine/network/create-dynamic-zone.htm">Create a Dynamic Zone</MadCap:xref>
+                </p>
+            </li>
+        </ul>
+        <h3>Disable Voice MFA or control Voice MFA per group</h3>
+        <p>If you do not need Voice MFA enabled for any user in your Okta org, you can deactivate it using the Admin Console. The specific steps for removing Voice as a factor for authentication depend on whether you are using Okta Classic or Okta Identity Engine. </p>
+        <p MadCap:conditions="MultiProdPublish.OIE">For more information about removing Voice from your multifactor authentication policies as an Okta administrator, see <MadCap:xref href="../identity-engine/authenticators/configure-phone.htm">Configure phone authenticator</MadCap:xref>.</p>
+        <p MadCap:conditions="MultiProdPublish.Classic">For more information about removing Voice from your multifactor authentication policies as an Okta administrator, see <MadCap:xref href="../Security/mfa/voicecall.htm">Voice Call authentication (MFA)</MadCap:xref>.</p>
+        <p>If you do need Voice MFA, do not allow enrollment for new accounts until some form of identity proofing has been completed to ensure that the account is not fraudulent.</p>
+        <p>If you will never require Voice MFA for your Okta organization, you can contact Okta support to disable this feature entirely.</p>
+        <h3>Check your user provisioning methods</h3>
+        <p>If applicable, Okta recommends that you reevaluate how you create and provision user accounts to determine if additional security measures might prevent fake accounts from being created. For example, consider adding the following security methods to your exisiting account creation and provisioning methods:</p>
+        <ul>
+            <li>
+                <p>Block account creation from known or potentially malicious geographic locations</p>
+            </li>
+            <li>
+                <p>Validate user registration using email-based verification</p>
+            </li>
+            <li>
+                <p>Integrate with identity proofing tools to determine if the email address may be coming from a fake domain</p>
+            </li>
+            <li>
+                <p>Implement rate limiting on custom registration pages to stop fraudsters from generating fake accounts in large volumes</p>
+            </li>
+            <li>
+                <p>Deactivate fake users on your org to prevent fraudsters from rotating through the fake accounts to generate calls</p>
+            </li>
+        </ul>
+        <h3>Monitor malicious activity and deactivate bad actors</h3>
+        <p>The following query illustrates how you can monitor suspicious voice activity in the Okta System Log.</p>
+        <MadCap:codeSnippet>
+            <MadCap:codeSnippetCopyButton />
+            <MadCap:codeSnippetBody MadCap:useLineNumbers="True" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve" style="mc-code-lang: SQL;">event_type="system.voice.send_phone_verification_call"
+    stats count values(client_geographical_context_country) 
+    as Country dc(target1_alternate_id) 
+    as unique_count_phone_numbers 
+    by actor_alternate_id, client_ip_address, client_user_agent_raw_user_agent
+    where count &gt; 20
+    table actor_alternate_id, client_ip_address, client_user_agent_raw_user_agent, Country, unique_count_phone_numbers</MadCap:codeSnippetBody>
+        </MadCap:codeSnippet>
+        <p>Note these fields are also available when using the Okta Identity Cloud Add-on for Splunk.</p>
+        <p>This query checks the field <span class="varname">system.voice.send_phone_verification_call</span> and analyzes if the count of the combination of User, IP Address &amp; User Agent is greater than a certain threshold (in this example, where the count greater than 20). You can set the threshold depending on the time frame of the search. If the search is run every hour, you can set the threshold to a value that is higher than the benign activity during the hour.</p>
+        <p>This sample query uses the following fields:</p>
+        <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-horizonal-borders-only.css');margin-left: 0;margin-right: auto;" class="TableStyle-standard-horizonal-borders-only" cellspacing="14">
+            <col style="width: 594px;" class="TableStyle-standard-horizonal-borders-only-Column-Column1" />
+            <col class="TableStyle-standard-horizonal-borders-only-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-standard-horizonal-borders-only-Head-Header1">
+                    <th class="TableStyle-standard-horizonal-borders-only-HeadE-Column1-Header1">Field</th>
+                    <th class="TableStyle-standard-horizonal-borders-only-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-standard-horizonal-borders-only-Body-Body1">
+                    <td class="TableStyle-standard-horizonal-borders-only-BodyE-Column1-Body1"><span class="varname">event_type</span>
+                    </td>
+                    <td class="TableStyle-standard-horizonal-borders-only-BodyD-Column1-Body1">An event recorded by Okta based on the user action. In this case, the event indicates that phone call verification was initiated.</td>
+                </tr>
+                <tr class="TableStyle-standard-horizonal-borders-only-Body-Body1">
+                    <td class="TableStyle-standard-horizonal-borders-only-BodyE-Column1-Body1"><span class="varname">actor_alternate_id</span>
+                    </td>
+                    <td class="TableStyle-standard-horizonal-borders-only-BodyD-Column1-Body1">The email address of the user.</td>
+                </tr>
+                <tr class="TableStyle-standard-horizonal-borders-only-Body-Body1">
+                    <td class="TableStyle-standard-horizonal-borders-only-BodyE-Column1-Body1"><span class="varname">client_ip_address</span>
+                    </td>
+                    <td class="TableStyle-standard-horizonal-borders-only-BodyD-Column1-Body1">
+                        <p> The IP address of the user.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-horizonal-borders-only-Body-Body1">
+                    <td class="TableStyle-standard-horizonal-borders-only-BodyE-Column1-Body1"><span class="varname">client_user_agent_raw_user_agent</span>
+                    </td>
+                    <td class="TableStyle-standard-horizonal-borders-only-BodyD-Column1-Body1">The user agent identifying string.</td>
+                </tr>
+                <tr class="TableStyle-standard-horizonal-borders-only-Body-Body1">
+                    <td class="TableStyle-standard-horizonal-borders-only-BodyE-Column1-Body1"><span class="varname">target1_alternate_id</span>
+                    </td>
+                    <td class="TableStyle-standard-horizonal-borders-only-BodyD-Column1-Body1">The mobile phone number to which the verification call was sent.</td>
+                </tr>
+                <tr class="TableStyle-standard-horizonal-borders-only-Body-Body1">
+                    <td class="TableStyle-standard-horizonal-borders-only-BodyB-Column1-Body1"><span class="varname">client_geographical_context_country</span>
+                    </td>
+                    <td class="TableStyle-standard-horizonal-borders-only-BodyA-Column1-Body1">The geolocation of the user’s IP address.</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>Based on the output returned by the query, you can identify and delete any bad actors or fake users in your org.</p>
+        <h3>Contact Okta Support to receive a list of allowed countries</h3>
+        <p>If you are confident in the specific list of countries servicing your customers and would like to block voice MFA calls to all other countries, contact <a href="https://support.okta.com/">Okta Support</a>. Okta Support can block all countries to which there should be no voice MFA traffic.</p>
+        <p>You can also contact Okta Support to modify the rate limits on your organization. If you are experiencing increased toll fraud attacks or an increase in the creation of fake user accounts, Okta Support can work with you to create strict rate limits on voice and SMS enrollment endpoints, decreasing the frequency of new accounts that can be created on your org.</p>
+        <h3>Integrate with identity proofing solutions for new account creation</h3>
+        <p>You can enable user self-verification through document-based or knowledge-based proofs  to improve identity confidence and approve access for authorized individuals. See <a href="https://www.okta.com/identity-proofing/">Identity Proofing</a> to learn more.</p>
+        <p>If you have any additional questions on toll fraud, contact Okta Support.</p>
+        <h2>Related topics </h2>
+        <p>
+            <MadCap:xref href="about-telephony.htm">Telephony</MadCap:xref>
+        </p>
+        <p><a href="telephony-how-to-tasks.htm"><MadCap:xref href="telephony-how-to-tasks.htm">Configure and use telephony</MadCap:xref></a>
+        </p>
+        <p>
+            <MadCap:xref href="telephony-inline-hook.htm">Customize your telephony service provider</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="telephony-compliance.htm">Regulatory compliance</MadCap:xref>
+        </p>
+    </body>
+</html>

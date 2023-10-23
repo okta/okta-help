@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+        <meta name="description" content="Use Application Policies to control access to company resources." />
+    </head>
+    <body>
+        <h1>Troubleshoot upgrades</h1>
+        <p>Common problems and solutions for troubleshooting the <MadCap:variable name="okta-feature-names.Access Gateway" /> upgrade process. </p>
+        <h3>Topics</h3>
+        <ul>
+            <li>
+                <MadCap:xref href="#Upgradin">Upgrade from 2019.2.0</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Error">yum.oag.okta.com is unreachable</MadCap:xref>
+            </li>
+        </ul>
+        <div>
+            <h2><a name="Upgradin"></a>Upgrade from 2019.2.0</h2>
+            <p>When updating from <MadCap:variable name="okta-feature-names.Access Gateway" /> 2019.2.0, first you must remove the  oracle-instantclient18.3-basic package.</p>
+            <p>To remove the package:</p>
+            <ol>
+                <li>Sign in to <MadCap:variable name="okta-feature-names.Access Gateway CMD" />.</li>
+                <li>Select the <span class="uicontrol">System</span> menu.</li>
+                <li>Select <span class="uicontrol">Remove Package</span>.</li>
+                <li>Remove oracle-instantclient18.3-basic. </li>
+                <li>Return to the <span class="uicontrol">System</span> menu and select <span class="uicontrol">Update</span>.</li>
+                <li>Proceed with the update as usual. </li>
+            </ol>
+        </div>
+        <div>
+            <h2><a name="Error"></a>yum.oag.okta.com is unreachable</h2>
+            <p>If the <MadCap:variable name="okta-feature-names.Access Gateway" /> yum repository is unreachable, an upgrade error resembling the following appears:</p>
+            <p>
+                <img src="../../Resources/Images/access-gateway/troubleshoot-upgrades-yum-error.png" class="thumbnail" />
+            </p>
+            <p>Ensure that the repository yum.oag.okta.com is reachable from the <MadCap:variable name="okta-feature-names.Access Gateway" /> node being upgraded. You can test access using various commands.</p>
+            <p>Using the <MadCap:variable name="okta-feature-names.Access Gateway CMD" />, go to <span class="uicontrol">Network</span>, choose <span class="uicontrol">d</span>, and then enter <span class="userinput">yum.oag.okta.com</span>.  For example:</p><span class="codeblock">Access Gateway Administration ...
+1 - Network
+...
+
+Choice: 1 [cr]
+Access Gateway Network Setup . . .
+1 - Manage network interfaces
+. . . 
+d - DNS Lookup 
+Choice: d [cr]
+IP Address/Hostname to lookup: yum.oag.okta.com [cr]
+IP&#160;Address/Hostname of DNS&#160;server: 8.8.8.8 [cr]
+
+Server: 8.8.8.8
+Address:&#160;8.8.8.8
+Non-authoritative answer:
+yum.oag.okta.com	canonical name = yumalb-531408569.us-west-2.elb.amazonaws.com.
+Name:	yumalb-531408569.us-west-2.elb.amazonaws.com
+Address: 52.35.178.214
+Name:	yumalb-531408569.us-west-2.elb.amazonaws.com
+Address: 54.68.110.208</span>
+            <p>Using traceroute ensures that there's a route to yum.oag.okta.com from inside the network hosting <MadCap:variable name="okta-feature-names.Access Gateway" />. traceroute isn't able to trace a complete route to yum.oag.okta.com due to limitations of AWS EC2 configuration. For example:<span class="codeblock">traceroute yum.oag.okta.com
+. . . 
+traceroute to yum. . . .amazonaws.com (. . . ), 64 hops max, 52 byte packets
+1  10.0.0.1 (10.0.0.1)  5.436 ms  2.345 ms  1.925 ms
+2  96.120.70.225 (96.120.70.225)  25.870 ms  11.372 ms  11.922 ms
+3  96.110.31.121 (96.110.31.121)  11.035 ms  12.135 ms  11.204 ms
+4  be-319-ar01.needham.ma.boston.comcast.net (96.108.47.81)  20.129 ms  13.427 ms  14.012 ms
+5  be-32031-cs03.newyork.ny.ibone.comcast.net (96.110.42.9)  22.085 ms
+6  be-32021-cs02.newyork.ny.ibone.comcast.net (96.110.42.5)  22.305 ms
+. . . 
+&lt;ctrl-c&gt;						</span></p>
+        </div>
+        <div class="noteOkta">
+            <p class="noteContent">The traceroute command isn't installed on <MadCap:variable name="okta-feature-names.Access Gateway" /> nodes by default. </p>
+        </div>
+        <h3>Related topics</h3>
+        <ul>
+            <li>
+                <MadCap:xref href="upgrade.htm">Upgrade using the Command Line console </MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

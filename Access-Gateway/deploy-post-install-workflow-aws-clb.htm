@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/deploy-post-install-workflow-aws-clb.htm" />
+        <link href="../../Resources/TableStyles/standard.css" rel="stylesheet" MadCap:stylesheetType="table" /><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1>Configure Amazon Web Services load balancers</h1>
+        <ul>
+            <li>
+                <MadCap:xref href="#Connect">Connect to the Amazon EC2 console</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Configur">Configure basic&#160;load balancer settings</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Configur2">Configure security settings</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Configur3">Configure security group</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Configur4">Configure routing</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Register">Register targets and create the load balancer</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Register2">Register load balancer with DNS service provider</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Enable">Enable sticky sessions</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Testing">Test</MadCap:xref>
+            </li>
+        </ul>
+        <h3>Before you begin</h3>
+        <p>Ensure that: </p>
+        <ul>
+            <li>You have a previously configured <MadCap:variable name="okta-feature-names.Access Gateway" /> high availability cluster with at least one worker.</li>
+            <li>You have internal IP&#160;addresses for all <MadCap:variable name="okta-feature-names.Access Gateway" /> cluster members including the admin node.</li>
+            <li>You know the VPCs that the <MadCap:variable name="okta-feature-names.Access Gateway" /> cluster are using.</li>
+            <li>You have the external domain for the load balancer. For example oag-external.com. </li>
+            <li>You have the necessary credentials with your DNS service provider to create the required records.</li>
+        </ul>
+        <h2>To configure an AWS&#160;EC2 Load Balancer</h2>
+        <div>
+            <h3><a name="Connect"></a>Connect to the Amazon EC2 console</h3>
+            <ol>
+                <li>Open a browser to  the AWS EC2 console (<a href="https://console.aws.amazon.com/ec2/" target="_blank">https://console.aws.amazon.com/ec2/</a>).</li>
+                <li>Sign in to the AWS Console.</li>
+            </ol>
+        </div>
+        <div>
+            <h3><a name="Configur"></a>Configure basic load balancer settings</h3>
+            <ol>
+                <li>Click <span class="uicontrol">Load Balancers</span> under <span class="uicontrol">Load Balancing</span>.</li>
+                <li>Click <span class="uicontrol">Create Load Balancer.</span></li>
+                <li><span class="uicontrol">Create</span> an <span class="uicontrol">Application Load Balancer</span>. </li>
+                <li>In <span class="wintitle">Step 1:&#160;Configure load Balancer</span>, specify the following:<table style="mc-table-style: url('../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0"><col class="TableStyle-standard-Column-Column1" /><col class="TableStyle-standard-Column-Column1" /><col class="TableStyle-standard-Column-Column1" /><thead><tr class="TableStyle-standard-Head-Header1"><th class="TableStyle-standard-HeadF-Column1-Header1">Field</th><th class="TableStyle-standard-HeadF-Column1-Header1"><p>Section</p></th><th class="TableStyle-standard-HeadD-Column1-Header1">Value</th></tr></thead><tbody><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol">Name</span></td><td class="TableStyle-standard-BodyF-Column1-Body1">Basic Configuration</td><td class="TableStyle-standard-BodyD-Column1-Body1">A meaningful name for load balancer, such as AccessGatewayLoadBalancer. You can only use alphabetic characters in the name.</td></tr><tr class="TableStyle-standard-Body-Body2"><td class="TableStyle-standard-BodyF-Column1-Body2"><span class="uicontrol">Scheme</span></td><td class="TableStyle-standard-BodyF-Column1-Body2">Basic Configuration</td><td class="TableStyle-standard-BodyD-Column1-Body2"><p>Select <span class="uicontrol">internet-facing</span>.</p></td></tr><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol">IP&#160;address type</span></td><td class="TableStyle-standard-BodyF-Column1-Body1">Basic Configuration</td><td class="TableStyle-standard-BodyD-Column1-Body1">Select <span class="uicontrol">IPV4</span>. </td></tr><tr class="TableStyle-standard-Body-Body2"><td class="TableStyle-standard-BodyF-Column1-Body2"><span class="uicontrol">Load Balancer Protocol</span></td><td class="TableStyle-standard-BodyF-Column1-Body2">Listeners</td><td class="TableStyle-standard-BodyD-Column1-Body2">Select <span class="uicontrol">HTTPS</span>. Don't add a second listener.</td></tr><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyC-Column1-Body1"><span class="uicontrol">Availability Zones</span></td><td class="TableStyle-standard-BodyC-Column1-Body1">Availability Zones</td><td class="TableStyle-standard-BodyA-Column1-Body1"><p>For each VPC&#160;that contains <MadCap:variable name="okta-feature-names.Access Gateway" /> nodes, select the checkboxes of all Availability Zones in use. For example, if you have nodes in us-west-1 and us-west-2, select the checkboxes for both zones.</p></td></tr></tbody></table></li>
+                <li>Click <span class="uicontrol">Next: Configure Security Settings</span>.</li>
+            </ol>
+        </div>
+        <div>
+            <h3><a name="Configur2"></a>Configure security settings</h3>
+            Configuring security settings includes requesting and configuring a certificate for the load balancer.&#160;Alternatively, you can reuse an existing certificate.<ol><li>On the <span class="wintitle">Configure Security Settings</span> page, click <span class="uicontrol">Request a new certificate from ACM</span>. A new tab opens and the <span class="wintitle">Request a Certificate wizard</span> starts.<div class="note_cautionOkta"><p class="noteContent">It's useful to keep the <span class="uicontrol">Configure Security Settings</span> tab open. You may need to create another load balancer and it can be difficult to return to this page.</p></div></li><li>Enter the name of the external domain in the <span class="uicontrol">Domain Name</span> field. You can add more names and DNS&#160;names to the certificate.</li><li>Click <span class="uicontrol">Next</span>. </li><li>Select an appropriate DNS&#160;validation method, typically <span class="uicontrol">DNS Validation</span> and click <span class="uicontrol">Next</span>.</li><li>Optional. Add any required tags. </li><li>Click <span class="uicontrol">Review</span>. </li><li>Review the request, using <span class="uicontrol">Previous</span> to correct any errors and click <span class="uicontrol">Confirm and request</span>. Validation occurs and a CNAME&#160;name/value pair is generated.</li><li>Expand the domain name section for the given domain name and note the name and value field values. Connect to your DNS&#160;Service provider and add a CNAME&#160;record that contains the name and value pair.<span class="uicontrol"> </span>The name value provided by AWS includes a trailing suffix representing the domain that the certificate was generated against. The domain name portion, for example_a15cab. . .8ba8<span class="code">.example.com</span>  isn't used when defining a cname record.</li><li>Copy and paste the name, without <span class="url">.example.com</span> into hostname field, and copy the <span class="uicontrol">value</span> field into <span class="uicontrol">target</span>. </li><li>Save the CNAME&#160;record. Leave this tab  open for later use. </li><li>Return to the AWS&#160;console.</li><li>In the <span class="wintitle">Request a certificate</span> tab, click <span class="uicontrol">Continue</span>. AWS confirms the certificate. </li><li>It may take a few minutes for AWS&#160;to validate the certificate, after which you can close this tab. </li><li>Return to the <span class="uicontrol">Configure Security Settings</span> tab.</li><li>Click the <span class="uicontrol">Refresh</span> icon to refresh the known certificates list.</li><li>Select your certificate and click <span class="uicontrol">Next:&#160;Configure Security Groups</span>.</li></ol></div>
+        <div>
+            <h3><a name="Configur3"></a>Configure security group</h3>
+            The security group used with the <MadCap:variable name="okta-feature-names.Access Gateway" /> cluster has more permissions than those required by the load balancer. The following steps demonstrate how to create a security group that only allows HTTPS:<ol><li>In the <span class="uicontrol">Assign a security group</span> field, select <span class="uicontrol">Create a new security</span> group. </li><li>Enter a name for the group (for example, <span class="userinput">AccessGatewayLB-SecurityGroup</span>). </li><li>A&#160;single rule is added by default. Modify this rule to specify <MadCap:annotation MadCap:createDate="2020-09-02T15:25:17.9965278-04:00" MadCap:creator="naini.khajanchi" MadCap:initials="NA" MadCap:comment="should this be in bold format?" MadCap:editor="naini.khajanchi" MadCap:editDate="2020-09-02T15:25:31.0040911-04:00">HTTP over port 443</MadCap:annotation>. Leave all other fields set to their default values. </li><li>Click <span class="uicontrol">Next:&#160;Configure Routing</span>. </li></ol></div>
+        <div>
+            <h3><a name="Configur4"></a>Configure routing</h3>
+            Routing specifies the targets of the load balancer and health check settings.<ol><li>In the target group, specify:<table style="mc-table-style: url('../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0"><col class="TableStyle-standard-Column-Column1" style="width: 220px;" /><col class="TableStyle-standard-Column-Column1" /><thead><tr class="TableStyle-standard-Head-Header1"><th class="TableStyle-standard-HeadF-Column1-Header1">Field</th><th class="TableStyle-standard-HeadD-Column1-Header1">Value</th></tr></thead><tbody><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol">Target Group</span></td><td class="TableStyle-standard-BodyD-Column1-Body1">New target group</td></tr><tr class="TableStyle-standard-Body-Body2"><td class="TableStyle-standard-BodyF-Column1-Body2">Name</td><td class="TableStyle-standard-BodyD-Column1-Body2">Any appropriate name, such as AccessGatewayLB-TargetGroup</td></tr><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyF-Column1-Body1">Protocol</td><td class="TableStyle-standard-BodyD-Column1-Body1">HTTPS</td></tr><tr class="TableStyle-standard-Body-Body2"><td class="TableStyle-standard-BodyC-Column1-Body2">Port</td><td class="TableStyle-standard-BodyA-Column1-Body2">443</td></tr></tbody></table></li><li>Expand the <span class="uicontrol">Advanced</span> section.</li><li>Specify Success Code as <span class="uicontrol">400</span>.<div class="noteOkta"><p class="noteContent">You must return to the Health Check section to specify a more robust health check. </p></div></li><li>Click <span class="uicontrol">Next:&#160;Register targets</span>.</li></ol></div>
+        <div>
+            <h3><a name="Register"></a>Register targets and create the load balancer</h3>
+            Targets represent the <MadCap:variable name="okta-feature-names.Access Gateway" /> nodes that the load balancer interacts with.<ol><li>In the <span class="uicontrol">Instances</span> pane, select each line representing a member of <MadCap:variable name="okta-feature-names.Access Gateway" /> cluster. This can include the admin node and should include all worker nodes.</li><li>Click <span class="uicontrol">Add to registered</span>. &#160;All selected instances should now show registered. </li><li>Click <span class="uicontrol">Review</span>. Examine the settings making any require changes.</li><li>Click <span class="uicontrol">Create</span> to create the load balancer. This can take a few minutes to complete.</li></ol></div>
+        <div>
+            <h3><a name="Register2"></a>Register load balancer with DNS service provider</h3>
+        </div>
+        <p>Steps to associate a load balancer with DNS vary depending on the DNS provider.</p>
+        <ol>
+            <li>In the AWS&#160;console,<MadCap:annotation MadCap:createDate="2020-09-02T15:30:00.7710044-04:00" MadCap:creator="naini.khajanchi" MadCap:initials="NA" MadCap:comment="please clarify" MadCap:editor="naini.khajanchi" MadCap:editDate="2020-09-02T15:30:07.6347806-04:00"> example the load balancer external name</MadCap:annotation>. shown in the <span class="uicontrol">DNS name</span> column of the load balancers list.</li>
+            <li>Connect to your DNS&#160;service provider and add a CNAME&#160;record mapping the AWS load balancer name to the external name. 
+			<p>For example: CNAME <span class="uicontrol">host: www.[your external name]</span>, target: <span class="uicontrol">aws...com</span>.</p></li>
+            <li>Return to the AWS console.</li>
+        </ol>
+        <div>
+            <h3><a name="Enable"></a>Enable sticky sessions</h3>
+            <p>Load balancers must specify sticky sessions.</p>
+            <ol>
+                <li>
+
+					If required, in the navigation pane, go to <span class="uicontrol">Load Balancing</span> and click <span class="uicontrol">Load Balancers</span>. A list of all defined load balancers displays. </li>
+                <li>Select the newly created load balancer.</li>
+                <li>On the <span class="uicontrol">Description</span> tab, click <span class="uicontrol">Edit stickiness</span>. The Edit stickiness page displays. </li>
+                <li>Select <span class="uicontrol">Enable load balancer generated cookie stickiness</span>.</li>
+                <li>In <span class="uicontrol">Expiration Period</span>, enter the expiration period in seconds. This field should match the session timeout field for <MadCap:variable name="okta-feature-names.Access Gateway" />.</li>
+                <li>Click <span class="uicontrol">Save</span>.</li>
+            </ol>
+        </div>
+        <div>
+            <h3><a name="Testing"></a>Test</h3>
+            <p>You can test load balancers using a header-based application. Complete this section if an application doesn't already exist<MadCap:annotation MadCap:createDate="2020-09-02T15:33:08.9345926-04:00" MadCap:creator="naini.khajanchi" MadCap:initials="NA" MadCap:comment="do we mean, for example ...?" MadCap:editor="naini.khajanchi" MadCap:editDate="2020-09-02T15:33:30.0648236-04:00"> for <span class="uicontrol">www.[external domain].com</span>.</MadCap:annotation></p>
+            <ol>
+                <li>Return to or sign in to the <MadCap:variable name="okta-feature-names.Access&#160;Gateway UI" />.</li>
+                <li>Select the <span class="uicontrol">Applications</span> tab. </li>
+                <li>Click <span class="uicontrol">Add</span>.</li>
+                <li>Select <span class="uicontrol">Sample Header</span>.</li>
+                <li>In the <span class="uicontrol">Essentials</span> tab specify the following:<table style="mc-table-style: url('../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0"><col class="TableStyle-standard-Column-Column1" /><col class="TableStyle-standard-Column-Column1" /><thead><tr class="TableStyle-standard-Head-Header1"><th class="TableStyle-standard-HeadF-Column1-Header1">Field</th><th class="TableStyle-standard-HeadD-Column1-Header1">Value</th></tr></thead><tbody><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol">Name</span></td><td class="TableStyle-standard-BodyD-Column1-Body1">An appropriate name for the application, such as Load Balancer Header Test.</td></tr><tr class="TableStyle-standard-Body-Body2"><td class="TableStyle-standard-BodyF-Column1-Body2"><span class="uicontrol">Public Domain</span></td><td class="TableStyle-standard-BodyD-Column1-Body2">www.[external domain]. For example, www.oag-external.com. </td></tr><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyC-Column1-Body1"><span class="uicontrol">Groups</span></td><td class="TableStyle-standard-BodyA-Column1-Body1"><span class="uicontrol">Everyone</span></td></tr></tbody></table></li>
+                <li>Click <span class="uicontrol">Next</span>. The <span class="uicontrol">Attributes</span> tab opens.</li>
+                <li>Click <span class="uicontrol">Next</span>. The <span class="uicontrol">Policies</span> tab opens.</li>
+                <li>Click <span class="uicontrol">Done</span>.</li>
+                <li>Open a new browser or a private browsing tab.</li>
+                <li>Enter the URL associated with the application.</li>
+                <li>The <MadCap:variable name="okta-feature-names.Access Gateway" /> sample header app page should display.</li>
+            </ol>
+        </div>
+        <h2>Related resources</h2>
+        <p>
+            <MadCap:xref href="about-load-balancers.htm">About load balancers</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="deploy-workflow-aws.htm">Amazon Web Services (AWS) deploy tasks</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="deploy-post-install-workflow-aws-health.htm">Improving AWS&#160;load balancer health monitoring</MadCap:xref>
+        </p>
+    </body>
+</html>

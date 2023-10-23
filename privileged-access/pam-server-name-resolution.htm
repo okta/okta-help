@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd">
+    <head>
+    </head>
+    <body>
+        <h1>Server name resolution</h1>
+        <p><MadCap:variable name="okta-feature-names.Okta Privileged Access" /> implements a custom name resolution system, which is used to resolve user-supplied names to a server registered with  <MadCap:variable name="okta-feature-names.Okta Privileged Access" />.</p>
+        <p>For example, if you run <span class="code">sft ssh web0</span> the name <span class="code">web0</span> will be resolved in  <MadCap:variable name="okta-feature-names.Okta Privileged Access" />. Likewise, if the <span class="disableGlossary">agent</span> on <span class="code">web0</span> has a config file that specifies <span class="code">Bastion: bastion.example.com</span>, then <span class="code">bastion.example.com</span> will be resolved to establish a tunnel to <span class="code">web0</span>.</p>
+        <p>If  <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> is unable to resolve a name to an enrolled server,  it will fall back to using locally supported name resolution and authentication methods to access the server. For example, if you run <span class="code">sft ssh web0.example.com</span> and <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> is unable to resolve <span class="code">web0.example.com</span> to a server enrolled in  <MadCap:variable name="okta-feature-names.Okta Privileged Access" />, then the client behaves as though you ran <span class="code">ssh web0.example.com</span> without using  <MadCap:variable name="okta-feature-names.Okta Privileged Access" />.</p>
+        <h2>Active servers</h2>
+        <p><MadCap:variable name="okta-feature-names.Okta Privileged Access" /> only matches names against active servers. A server is considered active if all of the following conditions are true:</p>
+        <ol>
+            <li>The server was enrolled in  <MadCap:variable name="okta-feature-names.Okta Privileged Access" /></li>
+            <li>The server was not subsequently deleted from  <MadCap:variable name="okta-feature-names.Okta Privileged Access" /></li>
+            <li>The  <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> <span class="disableGlossary">agent</span> was recently running on the server, and able to contact the  <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> platform. Currently the threshold is 96 hours (4 days), but this is subject to change.</li>
+        </ol>
+        <p>As a special case, if an Unmanaged Server is created in  <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> it will be considered active until it is deleted.</p>
+        <h2>Matching</h2>
+        <p>When resolving a name,  <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> will look for any server matching one of the following values.</p>
+        <h3>Server ID</h3>
+        <p>The server's <span class="code">id</span>, a random UUID automatically assigned by the  <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> platform during enrollment.</p>
+        <h3>Hostname</h3>
+        <p>The server's <span class="code">hostname</span>, as reported by the operating system on the server. If the OS hostname ends in ".local", then this will be ignored by the platform. For example, if the OS hostname is <span class="code">web0.local</span>, you can access the server as <span class="code">web0</span>, but not as <span class="code">web0.local</span>.</p>
+        <p>If a <span class="code">CanonicalName</span> value is specified in the  <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> <span class="disableGlossary">agent</span> configuration, then this value is used in place of the OS hostname.</p>
+        <h3>AltNames</h3>
+        <p>Any <span class="code">AltNames</span> values specified in the <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> <span class="disableGlossary">agent</span> configuration file on the server. <span class="code">AltNames</span> can be used to add additional aliases to servers.</p>
+        <h3>Default IP address</h3>
+        <p>The default IP address of the server, as determined by  <MadCap:variable name="okta-feature-names.Okta Privileged Access" />.</p>
+        <h3><span class="disableGlossary">Instance</span> ID</h3>
+        <p>If the server is an AWS or GCE cloud <span class="disableGlossary">instance</span>, then this is the provider-assigned ID of the <span class="disableGlossary">instance</span>.</p>
+        <h2>Ambiguous names</h2>
+        <p>If a name supplied to the  <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> client resolves to more than one server, the client will return an error to avoid inadvertently connecting to an unintended server.</p>
+        <p>One side effect of this is that if a server is replaced with a new server that has the same hostname, or if the <span class="disableGlossary">agent</span> is forced to re-enroll, a user with administrative privileges will need to manually delete the original server record before the new one can be addressed by the shared name. Alternatively, users can specify an unambiguous name such as the server ID, or wait for the original server record to become inactive.</p>
+        <p>If a <span class="code">Bastion</span> name supplied in a  <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> <span class="disableGlossary">agent</span> configuration is ambiguous, the  <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> platform will attempt to choose the best fit by ranking matches in descending order of preference by matching:</p>
+        <ol>
+            <li><span class="code">id</span> or <span class="code">CanonicalName</span></li>
+            <li>Cloud <span class="disableGlossary">Instance</span> ID</li>
+            <li>Hostname</li>
+            <li><span class="code">AltNames</span>
+            </li>
+            <li>Default IP Address</li>
+        </ol>
+        <p>Ties are broken arbitrarily.</p>
+        <h2>IP addresses</h2>
+        <p>After a server has been resolved,  <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> attempts to determine the IP address that should be used to address the server.</p>
+        <p>If the server is being accessed directly by the  <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> client, the client attempts to use the server's default IP address as described in the following section.</p>
+        <p>If the server is being accessed via one or more bastions, and the immediately preceding bastion resides in the same AWS VPC or GCE Network as the server,  <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> will prefer the server's corresponding private IP address. Otherwise  <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> will use the default IP address.</p>
+        <h3>Default IP address</h3>
+        <p>Each server enrolled in  <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> is assigned a default IP address, which is the first available value from:</p>
+        <ol>
+            <li>An <span class="code">AccessAddress</span> value specified in the  <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> <span class="disableGlossary">agent</span> configuration file.</li>
+            <li>The <span class="code">public_ip_v4</span> address of an AWS <span class="disableGlossary">instance</span>,  based on the instance's metadata.</li>
+            <li>The external or internal IP&#160;address of a GCE or Azure instance, based on the instance's metadata.</li>
+            <li>The numerically lowest IPv4 address in a public address range.</li>
+            <li>The numerically lowest IPv4 address in a private range.</li>
+        </ol>
+        <h2>Related topics</h2>
+        <ul>
+            <li>
+                <MadCap:xref href="server-agent/pam-configure-server-agent.htm">Configure the [%=okta-feature-names.Okta Privileged Access%] server agent</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

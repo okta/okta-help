@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:onlyLocalStylesheets="False" MadCap:fileTags="Tags/okta-topic-status.Ready for Review,Tags/okta-authors.Mark Cowan" MadCap:searchable="True" MadCap:conditions="MultiProdPublish.Classic+OIE">
+    <head><title>[%=Heading.Level1%]</title>
+        <link href="" rel="stylesheet" type="text/css" />
+        <meta name="description" content="Customize the look and feel of emails that Okta sends to end users by setting a custom email domain." />
+    </head>
+    <body>
+        <h1>Configure  a custom email address</h1>
+        <p>A custom email address presents a  branded experience to your end users. Email that <MadCap:variable name="okta-variables.ProductName" /> sends to your end users appears to come from your custom email domain instead of <span class="varname">noreply@okta.com</span>. You can switch to a different custom domain or revert to the default <MadCap:variable name="okta-variables.ProductName" /> domain, but you can use only one email domain  at a time.</p>
+        <p MadCap:conditions="Primary.do-not-publish">Okta sends your super admins a confirmation email after your custom domain is configured and operating correctly. To  ensure continuous operation, Okta polls your custom email domain once every 24 hours. If a problem occurs, Okta alerts super admins by email, and Okta-generated emails are sent from the default domain <span class="varname">noreply@okta.com</span> until the problem is resolved. </p>
+        <h2>About admin roles for this task</h2>
+        <p>You must be a super admin or org admin with access to the DNS records of your public custom domain. </p>
+        <h2>Before you begin</h2>
+        <p>Okta strongly recommends that your organization implement the <a href="https://www.proofpoint.com/us/blog/user-protection/what-sender-policy-framework-spf">Sender Policy Framework</a> (SPF) to prevent sender address forgery. If you already implement SPF in your custom domain, be aware that you must <a href="https://developer.okta.com/docs/guides/custom-url-domain/main/" target="_blank">update the SPF record</a>.</p>
+        <h2>Start this task</h2>
+        <ol>
+            <li style="font-weight: normal;">
+                <MadCap:snippetText src="../../Resources/Snippets/task steps/Customizations_Brands.flsnp" />
+            </li>
+            <li style="font-weight: normal;">Select a brand.</li>
+            <li style="font-weight: normal;">Click <span class="uicontrol">Domains</span>.</li>
+            <li>Click <span class="uicontrol">Configure</span>. </li>
+            <li>For detailed further <MadCap:annotation MadCap:createDate="2023-02-09T11:21:41.2440157-07:00" MadCap:creator="Mark Cowan" MadCap:initials="MEC" MadCap:comment="All of the steps below are in the dev doc. PM suggested not duplicatng. Agrred, but seting DNP just in case for future resurrection." MadCap:editor="Mark Cowan" MadCap:editDate="2023-02-09T11:22:58.0752809-07:00">instructions</MadCap:annotation>, see <a href="https://developer.okta.com/docs/guides/custom-url-domain/overview/" target="_blank">Customize domain and email address</a>.</li>
+        </ol>
+        <ol MadCap:conditions="Primary.do-not-publish">
+            <li>
+                <p MadCap:conditions="Primary.do-not-publish">
+                    <img src="../../Resources/Images/CustomEmail_SenderLink.png" style="width: 254px;height: 228px;" MadCap:targetName="CustEmailDomain_SenderLink" />
+                </p>
+            </li>
+            <li><a name="ConfigEmailSender"></a>Select a sender in the <span class="uicontrol">Configure Email Sender</span> dialog box.<p MadCap:conditions="Primary.do-not-publish"><img src="../../Resources/Images/CustEmailDomain_ConfigEmailSender.png" style="width: 422px; height: 317px;" MadCap:targetName="CustEmailDomain_Configure Email Sender" class="thumbnail" /></p></li>
+            <li>
+                If you selected <span class="uicontrol">Custom email domain</span>, enter or edit information in the following fields:
+                <ul><li><span class="uicontrol">Email address to send from</span></li><li><span class="uicontrol">Name of sender</span></li><li><span class="uicontrol">Mail domain to send from</span>. This must be a unique mail domain that your organization has dedicated for Okta to send mail from. In step 8, you will add this mail domain to your SPF&#160;record as an include-statement.
+
+
+					</li></ul></li>
+            <li>Save your changes.
+
+					<ul><li>The <span class="uicontrol">Save</span> button appears if you chose <span class="varname">noreply@okta.com</span>, or if you chose a custom email domain and your org's DNS records don't need to be updated. You are finished after you click <span class="uicontrol">Save</span>.</li><li>The <span class="uicontrol">Save &amp; View Required DNS Records</span> button appears if you chose a custom email domain and your org's DNS records need to be updated before your settings can take effect. </li></ul></li>
+            <li>Update your DNS records using the provided values.	<br /><p><img src="../../Resources/Images/CustEmailDomain_DNS records.png" class="thumbnail" /></p></li>
+            <li>Select a DNS update option:<ul><li><span class="uicontrol">I've updated the DNS records</span> — Okta begins polling your DNS records until it detects your updates (up to 24 hours). Your configuration is pending until the DNS updates are detected. </li><li><span class="uicontrol">I will update the DNS records later</span> — Your records aren't polled. Your configuration is incomplete until you update the relevant DNS records and click <span class="uicontrol">I've updated the DNS records</span>. You can update the records at any time.</li></ul></li>
+            <li>Add the <a href="https://www.proofpoint.com/us/blog/user-protection/what-sender-policy-framework-spf">SPF</a> record to your DNS zone (root domain). <a name="Update"></a>Or, if your root domain already has an SPF record, update it to prevent spoofers from sending mail that mimics your domain. <br /><br />An SPF&#160;record specifies the mail servers that your organization has authorized to send mail from your domain. For example, if you only send mail from Microsoft Office 365, your SPF record has an include-statement like this:<br /><span class="code">example.com TXT</span>&#160;&#160;&#160;&#160;&#160;&#160;<span style="font-family: 'Courier New';" class="code">v=spf1 include:spf.protection.outlook.com -all</span><br /><ol style="list-style-type: lower-alpha;"><li>Add another include-statement specifying the host shown in the first CNAME row in the <span class="uicontrol">Configure Email Sender</span> dialog box. This is also the mail domain that you specified  in the <span class="uicontrol">Mail domain to send from </span>field.<br /><img src="../../Resources/Images/CustEmailDomain_DNS records_hostname_cropped.png" class="thumbnail" /><br /></li></ol><ol style="list-style-type: lower-alpha;" MadCap:continue="true"><li>Add the host to the existing record to configure a combined SPF record like this:<br /><span class="code">example.com TXTv=spf1 include:oktamail.example.com include:spf.protection.outlook.com -all</span></li></ol></li>
+        </ol>
+        <p>Okta sends your super admins a confirmation email after your custom domain is configured and operating correctly. To  ensure continuous operation, Okta polls your custom email domain once every 24 hours. If a problem occurs, Okta alerts super admins by email, and Okta-generated emails are sent from the default domain <span class="varname">norelpy@okta.com</span> until the problem is resolved. </p>
+        <h2>Known issues</h2>
+        <ul>
+            <li>You can't configure <MadCap:variable name="okta-variables.ProductName" /> to send emails through a domain that uses SendGrid. Instead, configure a subdomain on your DNS&#160;provider for custom <MadCap:variable name="okta-variables.ProductName" /> emails.					</li>
+            <li>You can't have more than 10 DNS lookups in your SPF record.
+</li>
+            <li>You can't use more than one custom email address at a time but you can switch to a different custom email address. If you switch to an org in the same cell, its custom email address must have a different top-level domain.	</li>
+        </ul>
+        <h2>Related topics</h2>
+        <p><a href="Settings_Email.htm">Customize an email template</a>
+        </p>
+        <p><a href="settings-customization-general.htm" target="_blank"><MadCap:xref href="settings-configure-custom-URL.htm">Configure a custom domain</MadCap:xref></a>
+        </p>
+        <p><a href="custom-error-pages.htm">Configure a custom Okta-hosted error page</a>
+        </p>
+        <h4>External sources</h4>
+        <ul>
+            <li><a href="https://www.proofpoint.com/us/blog/user-protection/what-sender-policy-framework-spf" target="_blank">What is Sender Policy Framework (SPF)?</a>
+            </li>
+            <li><a href="https://www.godaddy.com/help/manage-dns-680">Manage DNS</a>
+            </li>
+            <li>Check global propagation: <span href="https://www.whatsmydns.net/" class="url">https://www.whatsmydns.net/</span></li>
+            <li>Check DNS records online: <span href="http://mxtoolbox.com/DNSLookup.aspx" class="url">http://mxtoolbox.com/DNSLookup.aspx</span></li>
+        </ul>
+    </body>
+</html>

@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link href="../../../Resources/TableStyles/standard-shaded-rows.css" rel="stylesheet" MadCap:stylesheetType="table" /><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1>Kerberos cluster application reference architecture</h1>
+        <p>The Kerberos cluster <MadCap:variable name="okta-feature-names.Access Gateway" /> architecture represents a set of components required for Kerberos based authentication and authorization using <MadCap:variable name="okta-feature-names.Access Gateway" /> and a redundant Kerberos cluster. This architecture represents an environment providing fault tolerance for both <MadCap:variable name="okta-feature-names.Access Gateway" /> and Kerberos.</p>
+        <p>&#160;This architecture is designed to meet the following requirements:<br /><ul><li>Protect a Kerberos (Windows IIS) based service.</li><li>Meets basic fault tolerance and high availability needs for <MadCap:variable name="okta-feature-names.Access Gateway" /></li><li>Meet basic fault tolerance and high availability for the Kerberos domain and Key Distribution Center (KDC).</li></ul></p>
+        <h2>Benefits and drawbacks</h2>
+        <table style="mc-table-style: url('../../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+            <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+            <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Benefits</th>
+                    <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">Drawbacks</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1">
+                        <ul>
+                            <li>Can be used to replace VPN.</li>
+                            <li>Provides basic fault tolerance and capacity support.</li>
+                            <li>Can be expanded with additional workers as required to add capacity.</li>
+                            <li>Load balanced.</li>
+                            <li>Admin instance is accessed behind the firewall.</li>
+                            <li>Kerberos domain and KDC are both fault tolerant and redundant. </li>
+                        </ul>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body1">
+                        <ul>
+                            <li>Complex <MadCap:variable name="okta-feature-names.Access Gateway" /> domain.</li>
+                            <li>More complex Kerberos domain.</li>
+                            <li>Pre <MadCap:variable name="okta-feature-names.Access Gateway" /> DMZ based load balancer must support session affinity (sticky sessions).</li>
+                        </ul>&#160;</td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>Architecture</h2>
+        <img src="../../../Resources/Images/access-gateway/ref-arch-kerb-2.png" id="img_new" class="thumbnail" />
+        <h3>Components</h3>
+        <table style="mc-table-style: url('../../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+            <col class="TableStyle-srb_header_alt_shade-Column-Column1" style="width: 159px;" />
+            <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+            <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                        <p>Location</p>
+                    </th>
+                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Component</th>
+                    <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1" rowspan="4" style="vertical-align: middle;padding-left: 7px;padding-right: 7px;padding-top: 7px;padding-bottom: 7px;border-right-style: solid;border-right-width: 1px;border-right-color: #c0c0c0;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #c0c0c0;">
+                        External internet
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Web clients</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                        <MadCap:snippetBlock src="../../../Resources/Snippets/access-gateway/ref-arch-client-description.flsnp" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><span class="url">consumer-app1.example.com</span>
+                        URLs not shown
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
+                        URL representing the application an external web client would enter to access one of the applications secured by <MadCap:variable name="okta-feature-names.Access Gateway" />. Typically all URLs of this nature are served by, and resolve to, the <MadCap:variable name="okta-feature-names.Access Gateway" /> instance.
+                    </td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Okta org</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                        <MadCap:snippetBlock src="../../../Resources/Snippets/access-gateway/ref-arch-okta-description.flsnp" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Okta org Universal Directory</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
+                        <MadCap:snippetBlock src="../../../Resources/Snippets/access-gateway/reference-arch-desc-oktaud.flsnp" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1" style="vertical-align: middle;padding-left: 7px;padding-right: 7px;padding-top: 7px;padding-bottom: 7px;border-right-style: solid;border-right-width: 1px;border-right-color: #c0c0c0;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #c0c0c0;">
+                        Firewall
+                        </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                        External internet to DMZ
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                        Traditional firewall between the external internet and the DMZ hosting <MadCap:variable name="okta-feature-names.Access Gateway" />.
+                    </td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2" rowspan="2" style="vertical-align: middle;padding-left: 7px;padding-right: 7px;padding-top: 7px;padding-bottom: 7px;border-right-style: solid;border-right-width: 1px;border-right-color: #c0c0c0;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #c0c0c0;">DMZ</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Pre <MadCap:variable name="okta-feature-names.Access Gateway" /> load balancer. </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">Pre  load balancer	Balances load between clients and the  cluster. Positioned between clients and the  cluster.</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><MadCap:variable name="okta-feature-names.Access Gateway" />
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1"><MadCap:variable name="okta-feature-names.Access Gateway" /> cluster, located in the DMZ is used to provide access to applications used by  external internet clients. <br />Contains a Kerberos service and a&#160;keytab.<br />See <MadCap:xref href="../add-app-kerberos-create-keytab.htm">Create keytab</MadCap:xref> for details of creating a keytab.<br />See <MadCap:xref href="../add-app-kerberos-add-ker-service.htm">Add Kerberos service</MadCap:xref> for details of defining a <MadCap:variable name="okta-feature-names.Access Gateway" /> Kerberos service. <br />Typically hosted in a virtual environment such as Amazon Web Services, MS&#160;Azure, Oracle OCI or something similar. See <MadCap:xref href="../manage-deployment.htm">Manage [%=okta-feature-names.Access Gateway%] deployment</MadCap:xref>.</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2" style="vertical-align: middle;padding-left: 7px;padding-right: 7px;padding-top: 7px;padding-bottom: 7px;border-right-style: solid;border-right-width: 1px;border-right-color: #c0c0c0;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #c0c0c0;">
+                        Firewall                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                        DMZ to internal firewall
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
+                       Traditional firewall between&#160;DMZ and the internal network.
+                    </td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1" rowspan="4" style="vertical-align: middle;padding-left: 7px;padding-right: 7px;padding-top: 7px;padding-bottom: 7px;border-right-style: solid;border-right-width: 1px;border-right-color: #c0c0c0;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #c0c0c0;">
+                        Internal network                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Service/Protected application</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                        &#160;The set of protected web resources, in this case Microsoft Services, accessed using the <span class="url">consumer-app1.internal-example.com</span> URLs. 
+                        <p>Supported versions:<br /></p><MadCap:snippetBlock src="../../../Resources/Snippets/access-gateway/supported-app-version-microsoft.flsnp" /></td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                        Pre internal Kerberos domain load balance
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
+                        Load balancer for the Kerberos domain service cluster.
+                    </td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1">
+						Microsoft domain service cluster with Key Distribution Center
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body1">
+                        Domain service cluster containing a Key Distribution Center (KDC) . <br />In this architecture the Domain service/KDC represents multiple instances acting as a cluster. 
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>Other considerations</h2>
+        <MadCap:snippetBlock src="../../../Resources/Snippets/access-gateway/ref-arch-simple-0-other-considerations.flsnp" />
+        <div>
+            <h2>Related topics</h2>
+            <p>
+                <MadCap:xref href="ref-arch-flow.htm">Common [%=okta-feature-names.Access Gateway%] flows</MadCap:xref>
+            </p>
+            <p>
+                <MadCap:xref href="../about-oag-dns.htm">About [%=okta-feature-names.Access Gateway%] DNS use</MadCap:xref>
+            </p>
+            <p>
+                <MadCap:xref href="../about-high-availability.htm">About [%=okta-feature-names.Access Gateway%] high availability</MadCap:xref>
+            </p>
+            <p><a href="../about-oag-prereqs.htm">About [%=okta-feature-names.Access Gateway%] prerequisites</a>
+            </p>
+        </div>
+    </body>
+</html>

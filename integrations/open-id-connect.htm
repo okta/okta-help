@@ -1,0 +1,498 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:fileTags="Tags/okta-authors.Patrick Calnan"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:conditions="MultiProdPublish.Classic+OIE">
+   <head>
+      <link href="../../Resources/TableStyles/standard-shaded-rows.css"
+            rel="stylesheet"
+            MadCap:stylesheetType="table"/>
+      <link href="../../Resources/TableStyles/standard.css"
+            rel="stylesheet"
+            MadCap:stylesheetType="table"/>
+      <title>Generic OpenID Connect | Okta</title>
+      <meta name="description"
+            content="Provide a unified end-user authentication experience and reduce common admin-related user management tasks with the Generic OpenID Connect IdP."/>
+   </head>
+   <body>
+      <h1>Generic OpenID Connect</h1>
+      <p MadCap:conditions="Primary.do-not-publish">Generic OpenID Connect allows users to login to an Okta org with their existing account at an OIDC Identity Provider (IdP), like Yahoo, Salesforce, or your own custom OIDC IdP. A list of tested IdPs is available in the FAQ.</p>
+      <p MadCap:conditions="Primary.do-not-publish">Specifically, this beta version enables the following:</p>
+      <ul MadCap:conditions="Primary.do-not-publish">
+         <li>Connect a third-party identity provider that supports OIDC, like Yahoo or Salesforce, to Okta.</li>
+         <li>Connect your own (custom) identity provider that supports OIDC.</li>
+         <li>Configure federation between Okta orgs using OIDC, as a replacement for SAML.</li>
+      </ul>
+      <p MadCap:conditions="Primary.do-not-publish">
+         <span class="uicontrol">Important</span>: The released feature may not have the same interfaces, data structures, or limitations as this beta version. Do not use this version in production applications or environments at this time.</p>
+      <p MadCap:conditions="Primary.do-not-publish">All questions, comments, and concerns should be directed to Aarish Grover at <a href="mailto:aarish.grover@okta.com?subject=Generic OpenID Conntect Beta">aarish.grover@okta.com</a>. In addition, all feedback is appreciated. If you have an Okta CSM, include the CSM on the message. Please do not contact Okta Support; the support team does not support beta programs.</p>
+      <p MadCap:conditions="Primary.do-not-publish">The feedback period for this beta version is expected to end in October 2018. Okta appreciates your timely feedback!</p>
+      <p>Generic OpenID Connect (OIDC) allows users to sign in to an Okta org using their credentials from their existing account at an OIDC Identity Provider (IdP). A generic OIDC IdP can be a third-party IdP that supports OIDC, such as Salesforce or Yahoo, or your own custom IdP. You can also configure federation between Okta orgs using OIDC as a replacement for SAML. If you want your users to be able to sign in using an existing database of credentials and sync their accounts in to Universal Directory from the external IdP, configure your Okta org to use a generic OIDC IdP.</p>
+      <h2>Features</h2>
+      <p>Configuring a generic OIDC IdP allows you to use the following features:</p>
+      <ul>
+         <li>
+            <span class="uicontrol">User Registration</span>: Capture the Profile attributes from a generic OIDC IdP user and store those attributes in Okta's Universal Directory.</li>
+         <li>
+            <span class="uicontrol">User Authentication</span>: After a user is registered, continue to use that generic OIDC IdP for user authentication, thus eliminating the need to store an additional username and password for that user.</li>
+         <li>
+            <span class="uicontrol">Profile Sync</span>: If a user updates their profile, those changes can be reflected inside Okta the next time that they use the IdP to sign in.</li>
+         <li>
+            <span class="uicontrol">Support for Multiple Social Profiles</span>: Multiple Social Profiles can all be linked to one Okta user.</li>
+         <li>
+            <span class="uicontrol">OAuth 2.0 Scope Configuration</span>: Specify OAuth 2.0 scopes to fully control which attributes are linked to Okta.</li>
+      </ul>
+      <p>For detailed information on usage and set up, see <a href="https://developer.okta.com/authentication-guide/generic-oidc/">Generic OpenID Connect Identity Providers</a>.</p>
+      <div MadCap:conditions="Primary.do-not-publish">
+         <h2> Limitations</h2>
+         <p>This beta version only supports identity providers that support OIDC. Many providers support OAuth2, but have not added support for OIDC, which runs on top of OAuth2. Please refer to the FAQs for details about which IdPs have been tested.</p>
+         <h2>Step-by-step Configuration Guide</h2>
+         <p>There are seven parts to the configuration, including prerequisites and testing. Answers to frequently asked questions are also provided.</p>
+         <MadCap:dropDown>
+            <MadCap:dropDownHead>
+               <MadCap:dropDownHotspot>
+                  <a name="Part"/> Part 1 – Prerequisites</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+               <p>To use this beta version, make sure the following items are in place.</p>
+               <ul>
+                  <li>
+                     <p>Admin access to an Okta Org</p>
+                     <p>Sign up for a developer org at <a href="https://developer.okta.com/signup/">https://developer.okta.com/signup/</a>
+                     </p>
+                  </li>
+                  <li>
+                     <p>Feature enabled </p>
+                     <p>Contact <a href="mailto:aarish.grover@okta.com?subject=Okta Generic OpenID Connect Beta">aarish.grover@okta.com</a> to request the <code style="font-size: 11pt;">GENERIC_OIDC_IDP</code> flag and to receive additional setup information.</p>
+                  </li>
+                  <li>
+                     <p>Identity provider (custom or third party)</p>
+                     <p>The identity provider must be OIDC-compliant.</p>
+                  </li>
+               </ul>
+            </MadCap:dropDownBody>
+         </MadCap:dropDown>
+         <MadCap:dropDown>
+            <MadCap:dropDownHead>
+               <MadCap:dropDownHotspot>
+                  <a name="Part2"/> Part 2 – Overview</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+               <p>In this guide details the following:</p>
+               <ul>
+                  <li>IdP App/Client – Creating an application with the identity provider used to authenticate and authorize the user.</li>
+                  <li>IdP at Okta – Configuring the Identity providers as well as mapping between Okta Users and IdP users.</li>
+                  <li>Okta OIDC App – Use this ahis app to consume the response from the Identity provider after authentication and authorization, allowing user access to Okta.</li>
+               </ul>
+               <p>The sequence to enable users to login to an Okta org with their existing account at an OIDC Identity Provider (IdP) is shown below.</p>
+               <p>
+                  <img src="../../Resources/Images/openid_connect_beta_1.png"/>
+               </p>
+               <p>Okta is acting as an "app" in this scenario, authenticated by the IdP. Therefore, the first step is to create a client/app at the IdP.</p>
+            </MadCap:dropDownBody>
+         </MadCap:dropDown>
+         <MadCap:dropDown>
+            <MadCap:dropDownHead>
+               <MadCap:dropDownHotspot>
+                  <a name="Part3"/> Part 3 – Create a Client with the IdP</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+               <p>Create an application/client with the IdP to use for authentication and authorization. IN this beta guide, the Yahoo IdP is used and an application is created at developer.yahoo.com.</p>
+               <p>Please note the following.</p>
+               <ul>
+                  <li>In order to configure this IdP in Okta in the following steps, copy and save the Client ID and Client Secret provided by the IdP once the application has been created.</li>
+                  <li>You must specify a callback domain. This is the URL to which the IdP returns the authentication response (Access token and ID token); therefore, it should be a secure domain that you own. Your okta org works for this purpose. In this guide aarish.oktapreview.com is used as the callback domain.</li>
+                  <li>By default Okta requires first name, last name, email and login attributes for a user; so these should be included in the data returned by the IdP. For the Yahoo IdP you can enable this by selecting <span class="menucascade">
+                        <span class="uicontrol">Profiles</span>
+                        <span class="uicontrol">Read/Write Public and Private</span>
+                     </span>. You can change these requirements by editing the Okta UD profile for users.</li>
+               </ul>
+               <p>These three requirements are shown in the Yahoo screenshots below:</p>
+               <p>
+                  <img src="../../Resources/Images/openid_connect_beta_2.png"/>
+               </p>
+            </MadCap:dropDownBody>
+         </MadCap:dropDown>
+         <MadCap:dropDown>
+            <MadCap:dropDownHead>
+               <MadCap:dropDownHotspot>
+                  <a name="Part4"/> Part 4 – Add and OpenID Connect Identity Provider to Okta</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+               <p>From your Okta admin console, navigate to <span class="menucascade">
+                     <span class="uicontrol">Security</span>
+                     <span class="uicontrol">Identity Providers</span>
+                  </span>. On the Identity Providers page, select <span class="menucascade">
+                     <span class="uicontrol">Add Identity Provider</span>
+                     <span class="uicontrol">Add OpenID Connect IdP</span>
+                  </span>, as shown below. If the <span class="uicontrol">Add OpenID Connect IdP</span> option is not available, verify with your CSM the <code style="font-size: 11pt;">GENERIC_OIDC_IDP</code> beta flag is enabled.</p>
+               <p>
+                  <img src="../../Resources/Images/openid_connect_beta_3.png"/>
+               </p>
+               <p>Fill in the wizard with the details provided by your identity provider.</p>
+               <p>The General Settings are as follows:</p>
+               <ul>
+                  <li>
+                     <span class="uicontrol">Name</span>: The name you want to use for this identity provider.</li>
+                  <li>
+                     <span class="uicontrol">Client ID</span>: The Client ID of your IdP application created in the previous step.</li>
+                  <li>
+                     <span class="uicontrol">Client Secret</span>: The Client Secret of  your IdP application also created in the previous step.</li>
+                  <li>
+                     <span class="uicontrol">Scopes</span>: The scopes you enter here to includewhen Okta makes an OIDC request to the IdP</li>
+               </ul>
+               <p>Note: For Yahoo, the scope containing required details is <span class="uicontrol">sdpp-w</span>. Please add the scopes of your chosen IdP which contain first name, last name and email, as these details are required to create or link the user to Okta's Universal directory by default. You can change these requirements by editing the Okta UD profile for users.</p>
+               <p>The endpoints can be found in the IdP's  well-known configuration document, if one is available For Yahoo, the configuration is located at <a href="https://login.yahoo.com/.well-known/openid-configuration">https://login.yahoo.com/.well-known/openid-configuration</a>.</p>
+               <p>The following endpoint URIs from the well known configuration are required.</p>
+               <ul>
+                  <li>
+                     <span class="uicontrol">Issuer</span>: The Identifier of the OpenID Connect Provider</li>
+                  <li>
+                     <span class="uicontrol">Authorization endpoint</span>: The URL of the IdPs OAuth 2.0 Authorization Endpoint.</li>
+                  <li>
+                     <span class="uicontrol">Token endpoint</span>: The URL of the IdPs Token Endpoint for Access and ID tokens.</li>
+                  <li>
+                     <span class="uicontrol">JWKS endpoint</span>: The URL of the IdPs JSON Web Key Set document. This document contains signing keys that are uses to validate the signatures from the provider.</li>
+                  <li>
+                     <span class="uicontrol">Userinfo endpoint</span>: endpoint for getting identity information about the user.</li>
+               </ul>
+               <p>A sample of the completed general settings and endpoints is shown below.</p>
+               <p>
+                  <img src="../../Resources/Images/openid_connect_beta_4.png"/>
+               </p>
+            </MadCap:dropDownBody>
+         </MadCap:dropDown>
+         <MadCap:dropDown>
+            <MadCap:dropDownHead>
+               <MadCap:dropDownHotspot>
+                  <a name="Part5"/> Part 5 – Configure user creation and account linking properties</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+               <p>When a user first signs in to Okta using the generic OIDC Identity provider, their IdP user profile is mapped to an Okta Universal Directory profile. This Just in Time (JIT) user account creation/linking is bootstrapped with default mappings based on standard claims defined by OpenID connect specification. You can view and modify the mappings  by selecting <span class="uicontrol">Edit Mappings</span> from the <span class="uicontrol">Configure</span> dropdown in the Identity Providers table, as shown below.</p>
+               <p>
+                  <img src="../../Resources/Images/openid_connect_beta_5.png"/>
+               </p>
+               <p>The mappings are shown below. In this case,  the default mapping with email is used as the login.</p>
+               <p>
+                  <img src="../../Resources/Images/openid_connect_beta_6.png"/>
+               </p>
+               <p>The following table contains the default minimum set of attributes required to create a user in UD. Please note that the minimum set of attributes can change based on your org configuration.</p>
+               <table style="mc-table-style: url('../../Resources/TableStyles/standard.css');"
+                      class="TableStyle-standard"
+                      cellspacing="0">
+                  <col style="width: 182px;" class="TableStyle-standard-Column-Column1"/>
+                  <col class="TableStyle-standard-Column-Column1"/>
+                  <tbody>
+                     <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1"
+                            style="font-weight: bold;">Field</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1"
+                            style="font-weight: bold;">Detail</td>
+                     </tr>
+                     <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                           <span style="font-family: 'Courier New'; font-size: 11pt;">login</span>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">Required. Mapped to email by default.</td>
+                     </tr>
+                     <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1"
+                            style="font-family: 'Courier New';font-size: 11pt;">first_name</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">Optional</td>
+                     </tr>
+                     <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2"
+                            style="font-family: 'Courier New';font-size: 11pt;">last_name</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">Optional</td>
+                     </tr>
+                     <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyC-Column1-Body1"
+                            style="font-family: 'Courier New';font-size: 11pt;">email</td>
+                        <td class="TableStyle-standard-BodyA-Column1-Body1">Optional. Mapped to Email and  by default.</td>
+                     </tr>
+                  </tbody>
+               </table>
+               <h4>Create a new attribute [optional]</h4>
+               <p>If a particular attribute does not exist in Okta's Universal Directory, but is a part of the user's IdP profile, you can add it. For example, the following steps add an additional userID attribute to map with a unique userID stored by the Identity provider. </p>
+               <ol>
+                  <li>New attributes can be added by selecting Edit Profile from the <span class="uicontrol">Configure</span> drop down button on the Identity Providers screen.<p>
+                        <img src="../../Resources/Images/openid_connect_beta_7a.png"/>
+                     </p>
+                  </li>
+                  <li>
+                     <p>In the <span class="uicontrol">Profile Editor</span> that launches, select <span class="uicontrol">Add Attribute</span>, as shown below.</p>
+                     <p>
+                        <img src="../../Resources/Images/openid_connect_beta_7.png"/>
+                     </p>
+                  </li>
+                  <li>
+                     <p>Add the desired attribute. The example shown below creates an attribute named <span class="code">userID</span> with a String data type You can also choose to define attribute length constraints and set attributes as required if attribute is critical for user creation. When done, select <span class="uicontrol">Save</span>. This attribute is now available in the Configure Mappings screen and can be mapped to the corresponding IdP <span class="code">userID</span> attribute.</p>
+                     <p>
+                        <img src="../../Resources/Images/openid_connect_beta_7b.png"/>
+                     </p>
+                  </li>
+               </ol>
+            </MadCap:dropDownBody>
+         </MadCap:dropDown>
+         <MadCap:dropDown>
+            <MadCap:dropDownHead>
+               <MadCap:dropDownHotspot>
+                  <a name="Part6"/>Part 6 – Create and Assign an App in Okta</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+               <p>Create an OIDC app in Okta for the flow. This app consumes the response from the identity provider after authentication and authorization to allow user access to Okta. </p>
+               <ol>
+                  <li>Create a companion application in Okta selecting <span class="menucascade">
+                        <span class="uicontrol">Applications</span>
+                        <span class="uicontrol">Create Application</span>
+                     </span>, as shown below.
+						<p>
+                        <img src="../../Resources/Images/openid_connect_beta_8.png"/>
+                     </p>
+                  </li>
+                  <li>
+                     <p>Select <span class="uicontrol">Create New App</span>, then, and select <span class="uicontrol">Web</span> for the platform and  <span class="uicontrol">OpenID Connect</span> as the sign-on method, and click <span class="uicontrol">Create</span>, as shown below.</p>
+                     <p>
+                        <img src="../../Resources/Images/openid_connect_beta_9.png"/>
+                     </p>
+                     <p>
+                        <img src="../../Resources/Images/openid_connect_beta_10.png"/>
+                     </p>
+                  </li>
+                  <li>
+                     <p>Enter an <span class="uicontrol">Application name</span> and <span class="uicontrol">Login redirect URI</span>, and then click <span class="uicontrol">Save</span>, as shown below.</p>
+                     <p>The Login redirect URI is where Okta sends the user after completing authentication and authorization. In this example, the user is redirected to the Okta org <span class="url">aarish.oktapreview.com</span> after successful authentication with the Okta application. The login redirect URI must be an absolute URI (https://domain.com).</p>
+                     <p>
+                        <img src="../../Resources/Images/openid_connect_beta_11.png"/>
+                     </p>
+                  </li>
+                  <li>After saving the screen shown below opens. Copy the <span class="varname">Client ID</span> for the Okta application. You will need this later.<p>
+                        <img src="../../Resources/Images/openid_connect_beta_12.png"/>
+                     </p>
+                  </li>
+               </ol>
+               <p>
+                  <p>Assign this application to a group of users. You can create a specific group if you would like to segregate users who sign in through this IdP, or allow access to all users. In this case,  assign this application to the "everyone" group to allow all users to sign in through the Yahoo IdP.</p>
+               </p>
+               <ol>
+                  <li>On the <span class="wintitle">Applications</span> page for the app you just create, select <span class="uicontrol">Assignments</span>, click the <span class="uicontrol">Assign</span> button, and then select <span class="uicontrol">Assign to Groups</span> from the drop down list that opens, as shown below.<p>
+                        <img src="../../Resources/Images/openid_connect_beta_14.png"/>
+                     </p>
+                  </li>
+                  <li>On the screen that opens, click <span class="uicontrol">Assign</span> for the <span class="uicontrol">Everyone</span> group, and then click <span class="uicontrol">Done</span> as shown below.<p>
+                        <img src="../../Resources/Images/openid_connect_beta_15.png"/>
+                     </p>
+                  </li>
+               </ol>
+            </MadCap:dropDownBody>
+         </MadCap:dropDown>
+         <MadCap:dropDown>
+            <MadCap:dropDownHead>
+               <MadCap:dropDownHotspot>
+                  <a name="Part7"/>Part 7 – Test the Flow</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+               <p>To test the flow, first add a new identity provider to Okta, and then, configure the authorize URL to use the Okta application Client ID in the previous section.</p>
+               <ol>
+                  <li>Navigate to <span class="menucascade">
+                        <span class="uicontrol">Security</span>
+                        <span class="uicontrol">Identity Provider</span>
+                     </span>s, and then select the provider you added in Part 4, above. Copy the <span class="uicontrol">Authorize URL</span>.<p>
+                        <img src="../../Resources/Images/openid_connect_beta_16.png"/>
+                     </p>
+                  </li>
+                  <li>Use the Authorize URL to create a test URL. <p>The authorize URL is structured as follows and contains fields which need to be filled before it can be used to test the authentication flow.</p>
+                     <span class="codeblock">
+https://aarish.oktapreview.com/oauth2/v1/authorize?
+   idp=0oa2nfga61N6Hm7F70g7&amp;
+   client_id={clientId}&amp;
+   response_type={responseType}&amp;
+   response_mode={responseMode}&amp;
+   scope={scopes}&amp;
+   redirect_uri={redirectUri}&amp;
+   state={state}&amp;
+   nonce={nonce}
+</span>
+                  </li>
+                  <li>
+                     <p>To build the authorize URI for this IdP, configure the following fields:</p>
+                     <table style="mc-table-style: url('../../Resources/TableStyles/standard.css');"
+                            class="TableStyle-standard"
+                            cellspacing="0">
+                        <col style="width: 174px;" class="TableStyle-standard-Column-Column1"/>
+                        <col class="TableStyle-standard-Column-Column1"/>
+                        <col style="width: 380px;" class="TableStyle-standard-Column-Column1"/>
+                        <tbody>
+                           <tr class="TableStyle-standard-Body-Body1">
+                              <td class="TableStyle-standard-BodyF-Column1-Body1"
+                                  style="font-weight: bold;">Field</td>
+                              <td class="TableStyle-standard-BodyF-Column1-Body1"
+                                  style="font-weight: bold;">Required</td>
+                              <td class="TableStyle-standard-BodyD-Column1-Body1"
+                                  style="font-weight: bold;">Description</td>
+                           </tr>
+                           <tr class="TableStyle-standard-Body-Body2">
+                              <td class="TableStyle-standard-BodyF-Column1-Body2">idp</td>
+                              <td class="TableStyle-standard-BodyF-Column1-Body2">Required</td>
+                              <td class="TableStyle-standard-BodyD-Column1-Body2">This is unique for each identity provider we add to Okta and should not be changed in the authroize URI.</td>
+                           </tr>
+                           <tr class="TableStyle-standard-Body-Body1">
+                              <td class="TableStyle-standard-BodyF-Column1-Body1">client_id</td>
+                              <td class="TableStyle-standard-BodyF-Column1-Body1">Required</td>
+                              <td class="TableStyle-standard-BodyD-Column1-Body1">This is where the client ID saved while creating the Okta application is added. This is NOT the client id from the IdP itself.</td>
+                           </tr>
+                           <tr class="TableStyle-standard-Body-Body2">
+                              <td class="TableStyle-standard-BodyF-Column1-Body2">response_type</td>
+                              <td class="TableStyle-standard-BodyF-Column1-Body2">Required</td>
+                              <td class="TableStyle-standard-BodyD-Column1-Body2">Determines the authorization processing flow to be used, including what parameters are returned from the endpoints used. When using the Authorization Code Flow, this value is <span class="uicontrol">code</span>.</td>
+                           </tr>
+                           <tr class="TableStyle-standard-Body-Body1">
+                              <td class="TableStyle-standard-BodyF-Column1-Body1">response_mode</td>
+                              <td class="TableStyle-standard-BodyF-Column1-Body1">Optional</td>
+                              <td class="TableStyle-standard-BodyD-Column1-Body1">Informs the Authorization Server of the mechanism to be used for returning parameters from the Authorization Endpoint.</td>
+                           </tr>
+                           <tr class="TableStyle-standard-Body-Body2">
+                              <td class="TableStyle-standard-BodyF-Column1-Body2">scope</td>
+                              <td class="TableStyle-standard-BodyF-Column1-Body2">Required</td>
+                              <td class="TableStyle-standard-BodyD-Column1-Body2">The scopes for which you want to request authorization. These must be separated by a space. You can request any of the standard OIDC scopes about users, such as <span class="code">profile</span> and <span class="code">email</span> or custom claims. Including the <span class="code">openid</span> scope is mandatory.</td>
+                           </tr>
+                           <tr class="TableStyle-standard-Body-Body1">
+                              <td class="TableStyle-standard-BodyF-Column1-Body1">redirect_uri</td>
+                              <td class="TableStyle-standard-BodyF-Column1-Body1">Required</td>
+                              <td class="TableStyle-standard-BodyD-Column1-Body1">Redirection URI to which the response will be sent. This URI MUST exactly match one of the Redirection URI values used during the registration of the IdP application.</td>
+                           </tr>
+                           <tr class="TableStyle-standard-Body-Body2">
+                              <td class="TableStyle-standard-BodyF-Column1-Body2">state</td>
+                              <td class="TableStyle-standard-BodyF-Column1-Body2">Recommended</td>
+                              <td class="TableStyle-standard-BodyD-Column1-Body2">Opaque value used to maintain state between the request and the callback. Typically, Cross-Site Request Forgery (CSRF, XSRF) mitigation is done by cryptographically binding the value of this parameter with a browser cookie.</td>
+                           </tr>
+                           <tr class="TableStyle-standard-Body-Body1">
+                              <td class="TableStyle-standard-BodyC-Column1-Body1">nonce</td>
+                              <td class="TableStyle-standard-BodyC-Column1-Body1">Optional</td>
+                              <td class="TableStyle-standard-BodyA-Column1-Body1">String value used to associate a Client session with an ID Token, and to mitigate replay attacks. The value is passed through unmodified from the Authentication Request to the ID Token. Sufficient entropy MUST be present in the nonce values used to prevent attackers from guessing values.</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <p>An example URI filling in the above fields using client Id obtained while creating the Okta application, is as follows.</p>
+                     <p>
+                        <blockquote>https://aarish.oktapreview.com/oauth2/v1/authorize?idp=0oag35hjieHBf1bsb0h7&amp;client_id=0oag35aouqu4OeuQ10h7&amp;response_type=code&amp;response_mode=fragment&amp;scope=openid+profile+email&amp;redirect_uri=https://aarish.oktapreview.com&amp;state=ADFTG3&amp;nonce=1588585</blockquote>
+                     </p>
+                  </li>
+                  <li>
+                     <p>If the response type is <code style="font-size: 11pt;">id_token</code>, enable implicit (Hybrid) in your Okta app general settings that you created in <a href="#Part6">Part 6</a>, above, as shown below.</p>
+                     <p>
+                        <img src="../../Resources/Images/openid_connect_beta_22.png"/>
+                     </p>
+                  </li>
+                  <li>Executing this URI in an incognito browser window tests the complete authorization flow, starting with the Yahoo Sign in page, where the user enters their credentials.<p>
+                        <img src="../../Resources/Images/openid_connect_beta_17.png"/>
+                     </p>
+                     <p>
+                        <img src="../../Resources/Images/openid_connect_beta_18.png"/>
+                     </p>
+                  </li>
+                  <li>
+                     <p>After authentication, the user must authorize access to their data by selecting <span class="uicontrol">Agree</span> in the screen shown below. In this example, user profile read/write/public/private access was requested.</p>
+                     <p>
+                        <img src="../../Resources/Images/openid_connect_beta_19.png"/>
+                     </p>
+                  </li>
+                  <li>
+                     <p>After the user authorizes access by clicking on agree, a profile is created in Okta and the user is redirected to the Okta org to which they are seeking access, in this case aarish.oktapreview.com, as shown below. When the user is redirected to Okta, the flow is completely tested.</p>
+                     <p>
+                        <img src="../../Resources/Images/openid_connect_beta_20.png"/>
+                     </p>
+                  </li>
+               </ol>
+            </MadCap:dropDownBody>
+         </MadCap:dropDown>
+         <MadCap:dropDown>
+            <MadCap:dropDownHead>
+               <MadCap:dropDownHotspot>
+                  <a name="Part8"/>Frequently Asked Questions</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+               <MadCap:dropDown>
+                  <MadCap:dropDownHead>
+                     <MadCap:dropDownHotspot>What grant types are supported?</MadCap:dropDownHotspot>
+                  </MadCap:dropDownHead>
+                  <MadCap:dropDownBody>
+                     <p>By default, all OIDC IdPs are configured with <span class="uicontrol">Authorize Code</span> grant type in Okta. This can be changed to Implicit (Hybrid) flow by accessing the settings of the App that was created in Okta during in <a href="#Part6">Part 6</a>, above.</p>
+                  </MadCap:dropDownBody>
+               </MadCap:dropDown>
+               <MadCap:dropDown>
+                  <MadCap:dropDownHead>
+                     <MadCap:dropDownHotspot>What IdPs have been tested?</MadCap:dropDownHotspot>
+                  </MadCap:dropDownHead>
+                  <MadCap:dropDownBody>
+                     <table style="mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');"
+                            class="TableStyle-srb_header_alt_shade"
+                            cellspacing="0">
+                        <col class="TableStyle-srb_header_alt_shade-Column-Column1"/>
+                        <col style="width: 209px;"
+                             class="TableStyle-srb_header_alt_shade-Column-Column1"/>
+                        <col class="TableStyle-srb_header_alt_shade-Column-Column1"
+                             style="width: 427px;"/>
+                        <tbody>
+                           <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                              <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"
+                                  style="font-weight: bold;">IdP</td>
+                              <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"
+                                  style="font-weight: bold;">Status</td>
+                              <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1"
+                                  style="font-weight: bold;">Details</td>
+                           </tr>
+                           <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                              <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Yahoo</td>
+                              <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Tested and working</td>
+                              <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">It is necessary to include the sddp-w scope during app creation at developer.yahoo.com</td>
+                           </tr>
+                           <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                              <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">SalesForce</td>
+                              <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Tested and working</td>
+                              <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1"> </td>
+                           </tr>
+                           <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                              <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">TrustedKey</td>
+                              <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">Tested and working</td>
+                              <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">Please include first name, last name and email address in the scope field of the authorize URI.</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </MadCap:dropDownBody>
+               </MadCap:dropDown>
+               <MadCap:dropDown>
+                  <MadCap:dropDownHead>
+                     <MadCap:dropDownHotspot>Does this work with custom HTML and an Okta hosted widget?</MadCap:dropDownHotspot>
+                  </MadCap:dropDownHead>
+                  <MadCap:dropDownBody>
+                     <p>This works with custom HTML and an Okta hosted widget. You can create a custom button that references the authorize URI to accomplish this. The following needs to be added to the Sign in widget configuration, replacing {Authorize URI} with your Authorize URI.</p>
+                     <p>// The following example adds a custom button underneath the login form on the primary authentication page</p>
+                     <p>The button can be styled with a custom CSS.</p>
+                     <span class="codeblock">
+    customButtons: [{
+        title: 'Sign in with Yahoo',
+        className: 'btn-customAuth',
+        click: function() {
+          // Paste Authorize URI here
+          window.location.href = '{Authorize URI}';
+        }
+    }]</span>
+                  </MadCap:dropDownBody>
+               </MadCap:dropDown>
+               <MadCap:dropDown>
+                  <MadCap:dropDownHead>
+                     <MadCap:dropDownHotspot>How do I create a sign in button for my home page?</MadCap:dropDownHotspot>
+                  </MadCap:dropDownHead>
+                  <MadCap:dropDownBody>
+                     <p>One option is to create a link that the user clicks in order to log in, as shown in the sample below. The href for that link would be the Authorize URL that you created previously. After clicking this link, the user will be prompted to sign in with the social provider.</p>
+                     <blockquote>
+                        <p>&lt;a href="https://aarish.oktapreview.com/oauth2/v1/authorize?idp=0oa2nfga61N6Hm7F70g7&amp;client_id=0oa2nfbzb97Tojy3O0g7&amp;response_type=code&amp;response_mode=fragment&amp;scope=openid+profile&amp;redirect_uri=https://aarish.oktapreview.com&amp;state=XYUT&amp;nonce=A6YUI"&gt;Login With Yahoo&lt;/a&gt;</p>
+                     </blockquote>
+                  </MadCap:dropDownBody>
+               </MadCap:dropDown>
+            </MadCap:dropDownBody>
+         </MadCap:dropDown>
+      </div>
+   </body>
+</html>

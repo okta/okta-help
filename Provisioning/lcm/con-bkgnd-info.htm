@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Nikita Apraj" MadCap:conditions="Primary.do-not-publish">
+    <head><title>[%=Heading.Level1%] | Okta</title>
+        <meta name="description" content="Section includes user management, Profile Mastering,  AD integration, LDAP integration, App-driven integration, Workday, Salesforce, Microsoft Office 365, lifecycle state, Import User Schema feature, Schema Discovery, JIT Provisioning, CSV file, Triggering events and user identity flow, app configuration, and user app assignment." />
+    </head>
+    <body>
+        <h1>Background information</h1>
+        <p>To better grasp Okta Provisioning, it's helpful to understand user management in Okta and how apps are configured and users are assigned to them. </p>
+        <h2><a name="User"></a>User management</h2>
+        <p>The Okta Provisioning workflow begins with user management. When you add a user to Okta, you are creating a user account—or user profile, for the user in the Universal Directory. This directory is the user store for all Okta users. </p>
+        <p>User accounts often originate in a third-party app.  During provisioning, if an account already exists in the app that matches the one in Okta, then the Okta account and app account are matched and linked.</p>
+        <p>Users are managed (sourced) based on the method used to add them to Okta. The following are the possible methods:</p>
+        <ul>
+            <li>
+                <p>Manually creating users in Okta</p>
+                <ul>
+                    <li>
+                        <p>Users manually added in Okta are sourced by Okta and Okta is the single source of truth for these users. This means Okta manages or "sources" the user information, making this information the most current "source" of user information.</p>
+                        <p>Example:</p>
+                        <p>By integrating with Salesforce for provisioning, users created in Okta are pushed down to Salesforce, but continue to be managed in Okta. Updates and terminations made in Okta are reflected in Salesforce (and any other integrated, third-party application that’s part of the process). This downstream connection enables you to have a single source of truth,  where any changes made in Okta are reflected in Salesforce. As the single source of truth, Okta manages employee and contractor access to applications.</p>
+                    </li>
+                    <li>Okta pushes user information to the integrated, third-party application, which results in the creation of a user account within the application. </li>
+                    <li>When user account information is updated in Okta, this information is pushed down to the integrated, third-party app where the application user account is also updated.</li>
+                </ul>
+            </li>
+            <li>
+                <p>Importing (reading) users from a directory service or app</p>
+                <p>Examples:</p>
+                <ul>
+                    <li>Directory service such as AD or LDAP (see <a href="../../Directory/directory-AD-importusers.htm">Import Active Directory users</a>)</li>
+                    <li>HR-management app such as Workday (see <a href="../Workday/workday-provisioning.htm">Workday Provisioning</a>)</li>
+                    <li>CRM app such as Salesforce (<a href="https://saml-doc.okta.com/Provisioning_Docs/Salesforce_Provisioning">see Configuring Provisioning for Salesforce</a>)</li>
+                    <li>App suite such as Microsoft Office 365 (see <a href="../../Apps/Office365-Deployment/provision-users.htm?cshid=ext-o365-provisioning">Provision users to Office 365</a>)</li>
+                </ul>
+                <ul>
+                    <li>Users created in a directory service or integrated, third-party application are pushed up to Okta and turned into new AppUser objects, for matching against existing Okta user accounts, or creating new Okta user accounts.</li>
+                    <li>
+                        <p>Profile Sourcing is a more sophisticated version of read (import) users. It flags an application as the source of truth for user attribute information on users pulled in from the application. Sourcing defines the flow and maintenance of user-object attributes and their lifecycle state. When a user profile is sourced from a given resource (directory or application), the Okta user profile’s attributes and lifecycle state are derived exclusively from that resource. In other words, an Okta user sourced by Active Directory (or an HR system) has an Okta profile. However, the profile cannot be edited in Okta by the user or Okta admin, and derives its information exclusively from Active Directory. If the lifecycle state of the user in Active Directory moves to Disabled, the linked Okta user also switches to the corresponding lifecycle state of Deactivated on the next import.</p>
+                        <p>Okta is periodically adding profile sourcing capabilities to an expanding number of apps and directories (see <a href="../../Directory/eu-profile-masters.htm">Profile sourcing</a>).</p>
+                    </li>
+                    <li>
+                        <p>The Import User Schema feature—also known as Schema Discovery, imports additional user attributes from apps such as Salesforce.</p>
+                    </li>
+                    <li>The import of users is achieved through one of the following integration technologies:<ul><li><p>AD integration</p><p>Okta's lightweight, on-premises AD agent that synchronizes with your AD configuration. You can set up Real-time Synchronization and Just-In-Time (JIT) Provisioning to ensure that you always have the latest user profiles and do not have to wait for scheduled imports.</p></li><li><p>LDAP integration</p><p>Okta provides integration with several popular LDAP vendors using a lightweight agent. Okta's LDAP agent provides Real-Time Synchronization and JIT Provisioning, similar to its AD agent.</p></li><li><p>App-driven integration</p><p>This app supports profile sourcing, a CRM-driven app such as Salesforce, or an HR-driven app such as Workday. Automated provisioning from an HR-driven app is useful for organizations that want to use their HR systems as their main user store—as their single source of truth. AD becomes a downstream provisioning target. This feature provides ongoing profile synchronization and ensures efficient on-boarding.</p></li></ul></li>
+                    <li>
+                        <p>  JIT Provisioning enables automatic user account creation in Okta the first time a user authenticates with AD Delegated Authentication, Desktop SSO, or inbound SAML.</p>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <p>Importing users from a CSV file</p>
+                <p>For this import, users are managed in Okta and any user profile changes are pushed down to the integrated, third-party app.</p>
+                <p>See <a href="../../Directory/eu-csv-import.htm">Import users from a CSV file</a>.</p>
+            </li>
+        </ul>
+        <p>Events impacting a user's lifecycle trigger certain provisioning functions that can change the user's lifecycle state (see <a href="con-okta-prov.htm">Okta Provisioning functions</a>). These can include such events as  an employee position change, app license expiration, and employment termination (see <a href="#Triggeri">Triggering events and user identity flow</a>).</p>
+        <h2><a name="Triggeri"></a>Triggering events and user identity flow</h2>
+        <p>As part of Okta Lifecycle Management (LCM), Okta Provisioning is instrumental in the onboarding, transitioning, support, and off-boarding (deprovisioning) of employees and external users in an organization. The flow of a user's identity throughout the different lifecycle stages is known as a user’s <span class="term">lifecycle state change</span>. Events that trigger a lifecycle change put into action a process that  ensures access to resources stay compliant with business and security policies.</p>
+        <p>The following are events that would trigger a user lifecycle change.</p>
+        <ul style="list-style-type: square;">
+            <li>
+                <p>Employee is hired</p>
+                <p>When an employee is hired, HR needs to create an account for that user. Depending on the organization, it is then up to a combination of HR, IT, and the employee supervisors to grant access to all of the apps and accounts they will need, as well as to introduce and enforce the organization's security requirements. With the proliferation of cloud apps, IT organizations may have to manage user accounts in numerous administrator consoles for each app. This can be quite difficult, if not unmanageable. Okta Provisioning reduces IT overhead and helps to automate user management.</p>
+            </li>
+            <li>
+                <p>Employee is promoted, changes roles, or adopts or drops various software tools</p>
+                <p>For these scenarios, user access requirements change. Organizations may restructure or acquire new businesses, bringing along new employees. They can also require temporary or permanent app access for contractors and partners.</p>
+            </li>
+            <li>
+                <p>Employee left an organization</p>
+                <p>As employees leave an organization, a process can be initiated by various departments to deactivate users. The user account needs to be deactivated. Deprovisioning deactivates the user account from the Okta Universal Directory. Deprovisioning ensures that persons who are no longer in your organization do not have access to sensitive applications and data. </p>
+                <p>You can deprovision users in Okta or from an external user store, such as AD or a CRM app, such as Salesforce. Typically, user deactivation is triggered from an external user store and it flows into Okta. In any case, deactivated users are automatically deprovisioned from supported apps. Admins receive an email describing any apps that require them to manually deprovision from users.</p>
+            </li>
+            <li>
+                <p>Employee changed groups</p>
+                <p>When a user is removed from the group that was providing him access to certain apps,  the user is deprovisioned from these apps. As a member of a new group, the user inherits access to the apps belonging to the group.</p>
+            </li>
+            <li>
+                <p>App removed from user</p>
+                <p>For a particular reason, a user no longer needs an app or the app is no longer available to the user (such as an expired license). In this case, deprovisioning is important for compliance reasons and to help you maintain an accurate usage count for your applications.</p>
+            </li>
+        </ul>
+        <p>
+            <img src="../../../Resources/Images/LCM-Prov/LCM.png" style="width: 610px;height: 311px;" />
+        </p>
+        <h2><a name="App"></a>App configuration</h2>
+        <p>In order to manage user lifecycle between Okta and an app, provisioning for an app must be enabled.</p>
+        <h2><a name="User2"></a>User app assignment</h2>
+        <p>Below are the scenarios in which a user can be given access to an app. Based on your organization, a particular scenario may fit your needs better than another.</p>
+        <ul style="list-style-type: square;">
+            <li>
+                <p>Individual user or users</p>
+                <ul>
+                    <li>For an organization having one or a few members, it may be best to directly assign the app to user.</li>
+                    <li>You can assign the desired app to the user or the user to the desired app. See <MadCap:xref href="../../users-groups-profiles/usgp-assign-apps.htm">Assign applications to users</MadCap:xref>.</li>
+                </ul>
+            </li>
+            <li>
+                <p>Users originating from an external source, such as an application</p>
+                <ul>
+                    <li>For an organization having user groups well organized in an HR-management app such as Workday or a directory service such as AD or LDAP</li>
+                    <li>You can assign the application group to the desired app or the desired app to the application group.</li>
+                </ul>
+            </li>
+            <li>
+                <p>Users best served by an Okta group and rules</p>
+                <ul>
+                    <li> If there are users across various locations such as Okta, apps, and directories, it may be best to assign all these user stores to an Okta group with access rights to the desired app. </li>
+                    <li>This scenario is based on an Okta user group and a rule. Using an Okta user group assigned certain app access is a best practice for assigning users app access to imported users in an app group. When an app group is imported into Okta, the members of that group will be assigned to the Okta user group, and thus the members will inherit the app access of the Okta user group. The assignment of users from the imported app group into the Okta user group is controlled by rules.</li>
+                </ul>
+            </li>
+        </ul>
+        <div style="padding-left: 15px;padding-right: 15px;padding-top: 15px;padding-bottom: 15px;border-left-style: solid;border-left-width: 5px;">
+            <p>Note
+            </p>
+            <p>Users can also be assigned roles and permissions as long as the integrated, third-party application to which they are assigned has functionality within Okta.</p>
+        </div>
+        <p>Related topics
+        </p>
+        <p>
+            <MadCap:xref href="../../Apps/apps-manage-assignments.htm">Manage app integration assignments</MadCap:xref>
+        </p>
+        <p>What's next?
+        </p>
+        <p>Now that you have some background information, let's learn more about <MadCap:xref href="con-okta-prov.htm">About provisioning</MadCap:xref>. </p>
+    </body>
+</html>

@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:fileTags="Tags/okta-authors.Nikita Apraj"
+      MadCap:searchable="True">
+   <head>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <link href="" rel="stylesheet" type="text/css"/>
+      <meta name="description"
+            content="The Custom TOTP Factor Early Access feature enables end users to authenticate to Okta-managed applications with a TOTP hardware token."/>
+   </head>
+   <body>
+      <h1>Configure the <MadCap:variable name="3rd Party Integrations.Custom OTP"/> authenticator</h1>
+      <p>The <MadCap:variable name="3rd Party Integrations.Custom OTP"/> authenticator provides a one-time password (OTP) through a hardware or software security token.</p>
+      <p>To use this authenticator, admins add the <MadCap:variable name="3rd Party Integrations.Custom OTP"/> authenticator to <MadCap:variable name="okta-variables.ProductName"/>. Then they must pass the <span class="code">Authenticator ID</span> and <span class="code">sharedSecret</span> elements through the <a href="https://developer.okta.com/docs/reference/api/factors/#enroll-custom-hotp-factor"
+            target="blank"
+            title="Okta Factors API"
+            alt="Okta Factors API">
+            <MadCap:variable name="okta-variables.ProductName"/> Factors API</a> for each token.</p>
+      <p>When users sign in to <MadCap:variable name="okta-variables.ProductName"/> after the authenticator has been activated, they're prompted to enter a code that the admin provides to them. After that, users  provide the code they see in their OTP app or on their token to verify their identity when they sign in. </p>
+      <p>You can add as many Custom OTP authenticator instances as you require and each instance has its own configuration. This lets you assign groups of users to different instances of the authenticator for greater control and security.</p>
+      <div class="noteOkta">
+         <p class="noteContent">This authenticator only supports standard OTP tokens. Proprietary implementations or non-standard tokens aren't supported.</p>
+      </div>
+      <p>
+         <MadCap:xref href="#Before_you_begin">Before you begin</MadCap:xref>
+      </p>
+      <p>
+         <MadCap:xref href="#Add_Custom_OTP_as_an_authenticator">Add [%=3rd Party Integrations.Custom OTP%] as an authenticator</MadCap:xref>
+      </p>
+      <p>
+         <MadCap:xref href="#Enroll_end_users">Enroll end users</MadCap:xref>
+      </p>
+      <p>
+         <MadCap:xref href="#Apply_a_multifactor_policy_to_a_Custom_OTP_authenticator">Apply a multifactor policy to a [%=3rd Party Integrations.Custom OTP%] authenticator</MadCap:xref>
+      </p>
+      <p>
+         <MadCap:xref href="#End-user_experience">End-user experience</MadCap:xref>
+      </p>
+      <p>
+         <MadCap:xref href="#Related_topics">Related topics</MadCap:xref>
+      </p>
+      <h2>
+         <a name="Before_you_begin"/>Before you begin</h2>
+      <ul>
+         <li>Review the <a href="https://developer.okta.com/docs/reference/api/factors/#enroll-custom-hotp-factor"
+               target="blank"
+               title="Okta Factors API"
+               alt="Okta Factors API">
+               <MadCap:variable name="okta-variables.ProductName"/> Factors API</a> documentation and the instructions for enrolling end users in the Custom HOTP factor.</li>
+         <li>If the <MadCap:variable name="3rd Party Integrations.Custom OTP"/> authenticator isn't already enabled for your org, contact <a href="https://support.okta.com/help/s/?language=en_US"
+               target="blank"
+               title="Okta Support"
+               alt="Okta Support">
+               <MadCap:variable name="okta-variables.ProductName"/> Support</a> to enable it.</li>
+         <li>Generate unique shared secrets for each user that you want to enroll in the <MadCap:variable name="3rd Party Integrations.Custom OTP"/> authenticator.</li>
+         <li>Provide end users with a hardware or software security token programmed with a unique shared secret.</li>
+         <li>If you use an HMAC algorithm or shared secret encoding in your OTP implementation, have this information ready before you begin the procedure.</li>
+      </ul>
+      <h2>
+         <a name="Add_Custom_OTP_as_an_authenticator"/>Add <MadCap:variable name="3rd Party Integrations.Custom OTP"/> as an authenticator</h2>
+      <ol>
+         <li>
+            <MadCap:snippetBlock src="../../../Resources/Snippets/task steps/Security_Authenticators.flsnp"/>
+         </li>
+         <li>On the <span class="wintitle">Setup</span> tab, click <span class="uicontrol">Add Authenticator</span>.</li>
+         <li>Click <span class="uicontrol">Add</span> on the <span class="wintitle">
+               <MadCap:variable name="3rd Party Integrations.Custom OTP"/>
+            </span> tile.</li>
+         <li>Configure the following settings:<ul>
+               <li>
+                  <p>
+                     <span class="uicontrol">Authenticator name</span>
+                  </p>
+               </li>
+               <li>
+                  <p>
+                     <span class="uicontrol">OTP length</span>
+                  </p>
+               </li>
+               <li>
+                  <p>
+                     <span class="uicontrol">HMAC Algorithm</span>. Select the algorithm that matches your implementation.</p>
+               </li>
+               <li>
+                  <p>
+                     <span class="uicontrol">Time step</span>. See <span class="uicontrol">Clock drift interval</span>.</p>
+               </li>
+               <li>
+                  <p>
+                     <span class="uicontrol">Clock drift interval</span>. This setting allows you to build in tolerance for any difference between the token's current time and the server's current time. This value is measured in seconds. To calculate the interval during which users are allowed to enter their code, multiply the <span class="uicontrol">Time step</span> value by the <span class="uicontrol">Clock drift interval</span> value. For example, with a <span class="uicontrol">Time step</span> value of 60 seconds and a <span class="uicontrol">Clock drift interval</span> value of 5, the result of 60 X 5 is 300. This means that <MadCap:variable name="okta-variables.ProductName"/> will accept passcodes within 300 seconds before or after the end user enters their code.</p>
+               </li>
+               <li>
+                  <p>
+                     <span class="uicontrol">Shared secret encoding</span>. Select the algorithm that matches your implementation.</p>
+               </li>
+            </ul>
+         </li>
+      </ol>
+      <div class="noteOkta">
+         <p class="noteContent">You can't edit an OTP configuration after you've created it. Verify your selections before you proceed to the next step.</p>
+      </div>
+      <ol start="5">
+         <li>Click <span class="uicontrol">Add</span>. <MadCap:variable name="okta-variables.ProductName"/> generates the Authenticator ID, which will be is used to enroll a user in the <MadCap:variable name="3rd Party Integrations.Custom OTP"/> authenticator using the <MadCap:variable name="okta-variables.ProductName"/> Factors API.</li>
+         <li>Obtain the Authenticator ID:<ol style="list-style-type: lower-alpha;">
+               <li>Click <span class="uicontrol">Actions</span>.</li>
+               <li>Click <span class="uicontrol">Authenticator ID &amp; Info</span>.</li>
+               <li>Click the clipboard icon to copy the Authenticator ID. You'll enter this ID as the <span class="code">factorProfileId</span> when you enroll users in the <MadCap:variable name="okta-variables.ProductName"/> Factors API.</li>
+            </ol>
+         </li>
+      </ol>
+      <h2>
+         <a name="Enroll_end_users"/>Enroll end users</h2>
+      <p>Use the Enroll Custom HOTP Factor functionality in the <a href="https://developer.okta.com/docs/reference/api/factors/#enroll-custom-hotp-factor"
+            target="blank"
+            title="Okta Factors API"
+            alt="Okta Factors API">
+            <MadCap:variable name="okta-variables.ProductName"/> Factors API</a> to enroll users.</p>
+      <p>A user can be enrolled in only one <MadCap:variable name="3rd Party Integrations.Custom OTP"/> authenticator instance at a time. Ensure that no user appears in multiple instances.</p>
+      <p>
+         <MadCap:variable name="okta-variables.ProductName"/> recommends that you verify your configuration works by testing it on a few users before enrolling all other users. This allows you to limit the effect of configuration errors to only a few users and then correct them before enrolling the rest of your users.</p>
+      <div class="noteOkta">
+         <p class="noteContent">You can't edit a <MadCap:variable name="3rd Party Integrations.Custom OTP"/> authenticator profile after it has been created. If you discover configuration errors in a <MadCap:variable name="3rd Party Integrations.Custom OTP"/> authenticator profile, you can re-enroll all affected users in a new <MadCap:variable name="3rd Party Integrations.Custom OTP"/> authenticator profile. You may delete a <MadCap:variable name="3rd Party Integrations.Custom OTP"/> authenticator profile after you've removed all users from it.</p>
+      </div>
+      <p>Verify that you have the following information for each user for making the API call:</p>
+      <ul>
+         <li>Factor type: <span class="code">token:hotp</span>
+         </li>
+         <li>Provider: <span class="code">CUSTOM</span>
+         </li>
+         <li>Profile ID (the Authenticator ID obtained during the setup procedure)</li>
+         <li>Shared secret</li>
+      </ul>
+      <div class="noteOkta">
+         <p class="noteContent">Verify that the correct userId is assigned to each <span class="code">factorID</span> and that they're assigned to the correct security token. If these values don't correspond to the correct end user, an error occurs when the end user attempts to authenticate.</p>
+      </div>
+      <h2>Add a multifactor policy to a <MadCap:variable name="3rd Party Integrations.Custom OTP"/> authenticator</h2>
+      <ol>
+         <li>In the Admin Console, go to <span class="menucascade">
+               <span class="uicontrol">Security</span>
+               <span class="uicontrol">Authenticators</span>
+            </span>.</li>
+         <li>On the <span class="uicontrol">Enrollment</span> tab, click <span class="uicontrol">Add a policy</span>.</li>
+         <li>Enter a name and description for this policy.</li>
+         <li>Assign the multifactor policy to groups.</li>
+         <li>Select the <span class="uicontrol">Optional</span> or <span class="uicontrol">Required</span> option for the <MadCap:variable name="3rd Party Integrations.Custom OTP"/> authenticator instance. If you customized the name of the instance, find the customized name instead of <span class="uicontrol">Custom OTP</span>.</li>
+         <li>Click <span class="uicontrol">Create Policy</span>.</li>
+         <li>To add rules to the policy, see <MadCap:xref href="../policies/add-mfa-policy-rule.htm">Configure an authentication enrollment policy rule</MadCap:xref>.</li>
+      </ol>
+      <h2>Edit a multifactor policy to a <MadCap:variable name="3rd Party Integrations.Custom OTP"/> authenticator</h2>
+      <ol>
+         <li>In the Admin Console, go to <span class="menucascade">
+               <span class="uicontrol">Security</span>
+               <span class="uicontrol">Authenticators</span>
+            </span>.</li>
+         <li>On the <span class="uicontrol">Enrollment</span> tab, select the policy that you want to edit and click <span class="uicontrol">Edit</span>.</li>
+         <li>In <span class="uicontrol">Effective factors</span>, select the <span class="uicontrol">Optional</span> or <span class="uicontrol">Required</span> option for the <MadCap:variable name="3rd Party Integrations.Custom OTP"/> authenticator instance. If you customized the name of the instance, find the customized name instead of <span class="uicontrol">
+               <MadCap:variable name="3rd Party Integrations.Custom OTP"/>
+            </span>.</li>
+         <li>Click <span class="uicontrol">Update Policy</span>.</li>
+         <li>To add rules to the policy, see <MadCap:xref href="../policies/add-mfa-policy-rule.htm">Configure an authentication enrollment policy rule</MadCap:xref>.</li>
+      </ol>
+      <h2>
+         <a name="End-user_experience"/>End-user experience</h2>
+      <ol>
+         <li>According to the <MadCap:variable name="okta-feature-names.Okta sign-on policies"/>, the user is prompted to confirm their identity with an authenticator when signing in to <MadCap:variable name="okta-variables.ProductName"/> or accessing an <MadCap:variable name="okta-variables.ProductName"/>-protected app.</li>
+         <li>The user selects the <MadCap:variable name="3rd Party Integrations.Custom OTP"/> authenticator (or the customized name of the authenticator instance).</li>
+      </ol>
+      <ul>
+         <li>If the user was enrolled successfully from the <MadCap:variable name="okta-variables.ProductName"/> Factors API, they're prompted to enter the passcode that appears on their security token.</li>
+         <li>If the end user wasn't enrolled successfully from the API, they receive an error directing them to contact their administrator.</li>
+      </ul>
+      <div class="noteOkta">
+         <p class="noteContent">To protect your sensitive corporate resources from unauthorized access, <MadCap:variable name="okta-variables.ProductName"/> enforces a rate limit on unsuccessful authentication attempts from your <MadCap:variable name="okta-variables.ProductName"/>-enrolled third-party OTP authenticators. A cumulative limit of five unsuccessful authentication attempts is enforced over a rolling five-minute period. If unsuccessful authentications exceed the rate limit, authentication isn't allowed until the rate limit period has elapsed. <MadCap:variable name="okta-variables.ProductName"/> returns HTTP status code 429, indicating "too many requests". A message appears on the user interface and an entry is written to the System Log.</p>
+      </div>
+      <div>
+         <h2>
+            <a name="Related_topics"/>Related topics</h2>
+         <p>
+            <MadCap:xref href="../policies/create-mfa-policy.htm">Create an authentication enrollment policy</MadCap:xref>
+         </p>
+         <p>
+            <MadCap:xref href="../policies/add-mfa-policy-rule.htm">Configure an authentication enrollment policy rule</MadCap:xref>
+         </p>
+         <p>
+            <a href="https://developer.okta.com/docs/reference/api/factors/#enroll-custom-hotp-factor"
+               target="blank"
+               title="Okta Factors API"
+               alt="Okta Factors API">Okta Factors API</a>
+         </p>
+      </div>
+   </body>
+</html>

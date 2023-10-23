@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:conditions="MultiProdPublish.Classic+OIE">
+    <head>
+        <link href="../../Resources/TableStyles/standard.css" rel="stylesheet" MadCap:stylesheetType="table" /><title>API Rate Limits | Okta</title>
+        <meta name="description" content="API endpoint throttling limits protect the Okta service from load spikes or service interruptions." />
+    </head>
+    <body><a name="Security_API"></a>
+        <h1>API rate limits</h1><a name="api_rate_limiting"></a>
+        <p>API endpoint throttling limits protect the Okta service (in
+			Production and Preview tenants) from load spikes or service interruptions caused by
+			submitted requests (whether unintentional or as a Denial of Service attack). This
+			strategy has been adopted across the industry in many SaaS applications and platforms
+			to maintain consistent service levels for customers. Requests that hit the rate limits
+		return a <code>429 Too Many Requests</code> HTTP status code.</p>
+        <p>Public applications are aggressively rate-limited to prevent abuse and require primary authentication to be successfully completed before releasing any metadata about a user. For more information, see <a href="http://developer.okta.com/docs/api/resources/authn.html">Okta Authentication API</a>. For detailed information about default Okta API rate limits, including working with headers that report the limit in each API response, see <a href="https://developer.okta.com/docs/reference/rate-limits/">Rate Limits</a>.</p>
+        <p>Other default rate limits by endpoint are available in the following table. If an endpoint isn't in this list, you can view  it in the <MadCap:variable name="okta-feature-names.Administrator dashboard" /> in <span class="menucascade"><span class="uicontrol">Reports</span><span class="uicontrol">Rate Limits</span><span class="uicontrol">APIs</span></span>. See <a href="https://developer.okta.com/docs/reference/rl-dashboard/#apis-table" target="_blank">APIs table</a>. <MadCap:variable name="okta-variables.ProductName" /> may raise or
+		lower the limits without notice in the process of maintaining the service.</p>
+        <p>
+            <MadCap:xref href="#Concurre">Concurrent Rate Limits</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="#Default">Default Rate Limits</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="#End-User">End-User Rate Limit</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="#API">API rate limits by token</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="#Burst">Burst rate limits</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="#Requesti">Requesting Exceptions</MadCap:xref>
+        </p>
+        <table style="mc-table-style: url('../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+            <thead>
+                <tr class="TableStyle-standard-Head-Header1">
+                    <th colspan="1" rowspan="1" class="TableStyle-standard-HeadF-Column1-Header1">
+                        <p>Rate Limited URI</p>
+                    </th>
+                    <th colspan="1" rowspan="1" class="TableStyle-standard-HeadD-Column1-Header1">
+                        <p>Requests per minute</p>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td class="TableStyle-standard-BodyF-Column1-Body1">
+                        <p style="mc-disable-glossary-terms: true;">/app/{app}/{key}/sso/saml</p>
+                    </td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body1" style="text-align: right;">
+                        <p>750</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body2">
+                    <td colspan="1" rowspan="1" class="TableStyle-standard-BodyF-Column1-Body2">
+                        <p style="mc-disable-glossary-terms: true;">/app/office365/{key}/sso/wsfed/active</p>
+                    </td>
+                    <td colspan="1" rowspan="1" class="TableStyle-standard-BodyD-Column1-Body2" style="text-align: right;">2,000</td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td class="TableStyle-standard-BodyF-Column1-Body1">
+                        <p>/app/office365/{key}/sso/wsfed/passive</p>
+                    </td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body1" style="text-align: right;">
+                        <p>250</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body2">
+                    <td colspan="1" rowspan="1" class="TableStyle-standard-BodyF-Column1-Body2" style="mc-disable-glossary-terms: true;">
+                        <p>/app/template_saml_2_0/{key}/sso/saml</p>
+                    </td>
+                    <td colspan="1" rowspan="1" class="TableStyle-standard-BodyD-Column1-Body2" style="text-align: right;">
+                        <p>2,500</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td colspan="1" rowspan="1" class="TableStyle-standard-BodyF-Column1-Body1" style="mc-disable-glossary-terms: true;">
+                        <p>/login/do-login</p>
+                    </td>
+                    <td colspan="1" rowspan="1" class="TableStyle-standard-BodyD-Column1-Body1" style="text-align: right;">
+                        <p>200</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body2">
+                    <td class="TableStyle-standard-BodyF-Column1-Body2" style="mc-disable-glossary-terms: true;">
+                        <p>/login/login.htm</p>
+                    </td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body2" style="text-align: right;">
+                        <p>850</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td colspan="1" rowspan="1" class="TableStyle-standard-BodyF-Column1-Body1" style="mc-disable-glossary-terms: true;">
+                        <p>/login/sso_iwa_auth</p>
+                    </td>
+                    <td colspan="1" rowspan="1" class="TableStyle-standard-BodyD-Column1-Body1" style="text-align: right;">
+                        <p>500</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body2">
+                    <td class="TableStyle-standard-BodyF-Column1-Body2" style="mc-disable-glossary-terms: true;">/login/agentlessDSSO</td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body2" style="text-align: right;">1000</td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td class="TableStyle-standard-BodyF-Column1-Body1" style="mc-disable-glossary-terms: true;">/api/plugin/{protocol version}/form-cred/{app user IDs}/{form site option}</td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body1" style="text-align: right;">650</td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body2">
+                    <td class="TableStyle-standard-BodyF-Column1-Body2" style="mc-disable-glossary-terms: true;">/api/plugin/{protocol version}/sites</td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body2" style="text-align: right;">150</td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td class="TableStyle-standard-BodyF-Column1-Body1" style="mc-disable-glossary-terms: true;">/bc/fileStoreRecord</td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body1" style="text-align: right;">500</td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body2">
+                    <td class="TableStyle-standard-BodyC-Column1-Body2" style="mc-disable-glossary-terms: true;">/bc/globalFileStoreRecord</td>
+                    <td class="TableStyle-standard-BodyA-Column1-Body2" style="text-align: right;">500</td>
+                </tr>
+            </tbody>
+        </table>
+        <h2><a name="Concurre"></a>Concurrent rate limits</h2>
+        <p>To protect the service for all customers, Okta enforces concurrent rate limits. These limits are distinct from the org-wide, per minute API rate limits.</p>
+        <p>For concurrent rate limits, traffic is measured in three different areas: agent traffic, Microsoft Office 365 traffic, and all other traffic, including API requests. Counts in one area aren't included in counts for the other two areas.</p>
+        <ul>
+            <li> For agent traffic, Okta measured each org’s traffic and set the limit at above the highest usage in the last four weeks.</li>
+            <li>For Microsoft Office 365 traffic, the limit is 75 concurrent transactions per org.</li>
+            <li>For all other traffic including API requests, the limit is 75 concurrent transactions per org.</li>
+        </ul>
+        <p>The first request to exceed the concurrent limit returns an HTTP 429 error, and the first error every sixty seconds is written to the log. Reporting concurrent rate limits once a minute keeps log volume manageable.</p>
+        <h2><a name="Default"></a>Default rate limits</h2>
+        <p>API endpoint throttling limits have been created to protect the Okta service (in Production and Preview tenants) from load spikes or service interruptions caused by submitted requests, whether unintentional or as a Denial of Service attack. This strategy has been adopted across the industry in many SaaS applications and platforms to maintain consistent service levels for customers. Requests that hit the rate limits return a <span class="msgblock">429 Too Many Requests</span> HTTP status code.</p>
+        <p>Public applications are aggressively rate-limited to prevent abuse and require primary authentication to be successfully completed before releasing any metadata about a user. </p>
+        <h2><a name="End-User"></a>End-user rate limit</h2>
+        <p>Okta limits the number of requests from the Okta user interface to 40 requests per user per 10 seconds per endpoint. This rate limit protects users from each other, and from other API requests in the system.</p>
+        <p>If a user is able to exceed this limit, they're locked out until the rate limit passes, and a message is written to the user interface and the System Log.</p>
+        <h2><a name="API"></a>API rate limits by token</h2>
+        <p>By default, <MadCap:variable name="okta-variables.ProductName" /> API tokens created through the <MadCap:variable name="okta-feature-names.Administrator dashboard" /> (<span class="menucascade"><span class="uicontrol">Security</span><span class="uicontrol">API</span><span class="uicontrol">Tokens</span></span>) are configured to have 50 percent of an API endpoint's rate limit. This configuration avoids one API token exceeding the endpoint's rate limit violation in an org with multiple API tokens. You can change the default API token capacity values in the <MadCap:variable name="okta-feature-names.Administrator dashboard" />. See <a href="https://help.okta.com/okta_help.htm?id=ext_API#set-token-rate-limits" target="_blank">Set token rate limits</a>.</p>
+        <p>Reducing the rate limit across all APIs for each API token prevents one API token from consuming the entire endpoint rate, assists with investigating rate-limit violations, and prevents future violations.</p>
+        <h2><a name="Burst"></a>Burst rate limits</h2>
+        <p>Burst rate limits provide your org with additional requests above an endpoint limit. This burst limit avoids suspension of end users based on unplanned traffic. See <a href="https://developer.okta.com/docs/reference/rate-limits/#burst-rate-limits" target="_blank">Burst rate limits</a>.</p>
+        <h2><a name="Requesti"></a>Requesting exceptions</h2>
+        <p>While endpoint throttling is enforced uniformly for all Okta customers, there are
+			occasionally scenarios where a customer request for a temporary rate limit increase can
+			be accommodated. An example would be an initial deployment scenario where a large
+			number of users and groups are being imported to Okta. In such a scenario, the customer
+		can seek to make arrangements for a temporary exception.</p>
+        <p>Requests must be received 10 business days before the time frame during which an
+			increase is required. To request an exception, open a case with Okta Support and
+		provide the following details:</p>
+        <ul>
+            <li>Org Name
+
+				<ul><li>Provide the entire URL</li><li>ex. https://cloudcompany.okta.com or https://unicorn.oktapreview.com</li></ul></li>
+            <li>Endpoints and Rates
+
+				<ul><li>Which URI's need to have their limits increased</li><li>How much of an increase is required?</li></ul></li>
+            <li>Start date and time</li>
+            <li>End date and time</li>
+            <li>Business Justification
+
+				<p>Provide details on your organizations requirements that drive the
+					request.</p></li>
+        </ul>
+        <p>Okta reserves the right to rate limit other functionality to prevent abuse, spam,
+			denial-of-service attacks, or other security issues. Where possible Okta offers a
+		descriptive error code.</p>
+        <h2>Related topics</h2>
+        <p>
+            <MadCap:xref href="API.htm">API token management</MadCap:xref>
+        </p>
+    </body>
+</html>

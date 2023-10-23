@@ -1,0 +1,406 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd">
+    <head>
+        <link href="../../Resources/TableStyles/standard-shaded-rows.css" rel="stylesheet" MadCap:stylesheetType="table" />
+    </head>
+    <body>
+        <h1>Configure Kubernetes access management</h1>
+        <h2>Prerequisites</h2>
+        <ul>
+            <li>An existing <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> team with the  Kubernetes access management feature enabled</li>
+            <li>An existing K8s cluster</li>
+            <li>A device with Terraform and the OktaPAM Terraform provider installed and configured</li>
+            <li>A device with the <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> client v1.61.2 or greater installed</li>
+            <li>A device with <span class="code">kubectl</span> installed</li>
+        </ul>
+        <h2>Prepare the OktaPAM Terraform provider</h2>
+        <p>To start, admins must create a Terraform file that defines the cluster resources to create within <MadCap:variable name="okta-feature-names.Okta Privileged Access" />. This file also needs to include authentication information for a specific <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> team. For details, see <a href="https://registry.terraform.io/providers/okta/oktapam/latest/docs#authentication" target="_blank">Authentication</a>.</p>
+        <h3>Example</h3>
+        <p><span class="codeblock">terraform {
+	required_providers {
+		oktapam = {
+			source = "okta/oktapam"
+			version = "0.2.1"
+		}
+	}
+}
+
+provider "oktapam" {
+	# Authentication options
+	oktapam_key = # An Okta PAM API Key
+	oktapam_secret = # An Okta PAM API Secret
+	oktapam_team = # An Okta PAM Team Name
+
+}			</span>
+        </p>
+        <h2>Configure <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> for Kubernetes access management</h2>
+        <p>For <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> to manage access to Kubernetes clusters, both <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> and managed clusters need to be configured with information about each other.</p>
+        <p><MadCap:variable name="okta-feature-names.Okta Privileged Access" /> requires that for each cluster to be managed, a corresponding cluster object must be created and updated with the cluster’s API server address and the TLS certificate used by the cluster’s API server. Each Kubernetes-managed cluster must be configured to use <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> as an OIDC authentication endpoint. The OktaPAM Terraform provider supports Kubernetes-specific resources that are used to configure <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> with this information for each cluster.</p>
+        <p>After resources for your cluster have been created in <MadCap:variable name="okta-feature-names.Okta Privileged Access" />,  <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> administrators can review information about the clusters from the Kubernetes section of the <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> console.</p>
+        <ul>
+            <li>
+                <p><span class="wintitle">Clusters</span> tab: Displays a list of all previously added clusters. Teams can quickly see associated labels on this page as well. Clicking a specific cluster opens a detailed view where teams can retrieve the OIDC authentication URL associated with the cluster.</p>
+            </li>
+        </ul>
+        <ul>
+            <li>
+                <p><span class="wintitle">Clusters Groups</span> tab: Displays a list of all previously added cluster groups. Teams can see labels for each cluster group on this page.</p>
+            </li>
+        </ul>
+        <h3>Task 1: Add a cluster to <MadCap:variable name="okta-feature-names.Okta Privileged Access" /></h3>
+        <p>First, <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> resource administrators  must add resource blocks that define one or more K8s cluster resources to create within <MadCap:variable name="okta-feature-names.Okta Privileged Access" />. Each cluster resource has an associated OIDC URL that is later used to configure authentication for the specific cluster. Teams can add multiple clusters at the same time, but they must create a separate resource block for each cluster.</p>
+        <p>Teams can optionally define one of more label selectors for the cluster resource. These labels allow teams to control group access to each cluster.</p>
+        <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+            <col class="TableStyle-srb_header_alt_shade-Column-Column1" style="width: auto;" />
+            <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                    <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1" colspan="2">Request</th>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Parameter</th>
+                    <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><span class="code">auth_mechanism</span>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">The specific mechanism used to provide auth details to the cluster. Currently, only  <span class="code">OIDC_RSA2048</span> is supported.</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><span class="code">key</span>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">A human-readable name used to identify the cluster within Advanced Server Access. It can't include spaces. Allowed characters: A-Z, 0–9.</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><span class="code">labels</span>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">A map of labels used to control group access in Advanced Server Access.</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2" colspan="2"><span class="wintitle">Response</span>
+                    </td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><span class="wintitle">Property</span>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1"><span class="wintitle">Description</span>
+                    </td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><span class="code">id</span>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">The ID of the created resource within <MadCap:variable name="okta-feature-names.Okta Privileged Access" />.</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><span class="code">oidc_issuer_url</span>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">The OIDC Issuer URL to use when configuring your K8s cluster.</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2" colspan="2"><span class="wintitle">Example</span>
+                        <p><span class="codeblock">resource "oktapam_kubernetes_cluster" "asa_docs" {
+	auth_mechanism    = "OIDC_RSA2048"
+	key		 = "asadocs"
+	labels		= { env = "prod", tier = "gold" }
+}	</span>
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Task 2: Update <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> with cluster information</h3>
+        <p> <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> needs additional information about clusters that it's managing for it to manage <span class="code">kubectl</span> configuration files and ensure that users can access clusters. This information includes the API server address of the cluster and the certificate that is used for the HTTPS connection established with the cluster’s API server. Depending on how your cluster is created and where it's hosted, you can get this information from a Terraform state file that is created for clusters built with Terraform, or from the cluster management console or API server.</p>
+        <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+            <col class="TableStyle-srb_header_alt_shade-Column-Column1" style="width: auto;" />
+            <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                    <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1" colspan="2">Request</th>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Parameter</th>
+                    <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><span class="code">cluster_id</span>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">The ID of the cluster returned from the <span class="code">oktapam_kubernetes_cluste</span>r resource.</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><span class="code">api_url</span>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">The HTTPS URL for the Kubernetes cluster. This is the endpoint that is configured in the user’s <span MadCap:createDate="2023-04-05T16:33:01.2288986-06:00" MadCap:creator="Mark Cowan" MadCap:initials="MEC" MadCap:comment="span.code ?" MadCap:editor="Mark Cowan" MadCap:editDate="2023-04-05T16:33:19.1854024-06:00" class="code">kubeconfig</span> files by the <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> client.</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><span class="code">public_certificate</span>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">PEM encoded TLS certificate used by the cluster’s API server. This certificate is used by <span class="code">kubectl</span> to verify the certificate presented by the cluster’s API server. <div class="noteOkta"><p class="noteContent">For AWS EKS clusters, the trusted certificate is displayed on the AWS EKS details page. However, the certificate data must be converted to PEM format before it can be passed to this resource. The <span class="code">base64 -decode</span> command can perform this conversion.</p></div></td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2" colspan="2"><span class="wintitle">Response</span>
+                    </td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><span class="wintitle">Property</span>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1"><span class="wintitle">Description</span>
+                    </td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><span class="code">id</span>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">The ID of the created resource within <MadCap:variable name="okta-feature-names.Okta Privileged Access" />.</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><span class="code">oidc_issuer_url</span>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">The OIDC Issuer URL to use when configuring your K8s cluster.</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2" colspan="2"><span class="wintitle">Example</span>
+                        <p><span class="codeblock">resource "oktapam_kubernetes_cluster_connection" "asa_docs" {
+	cluster_id         = oktapam_kubernetes_cluster.asa_docs.id
+	api_url            = data.tls_certificate.asa_docs.url
+	public_certificate = data.tls_certificate.asa_docs.certificates[0].cert_pem
+}<![CDATA[	]]></span>
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Task 3: Create a cluster group</h3>
+        <p>Finally, admins must create one or more cluster group resource blocks. Cluster groups map existing <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> groups to Kubernetes clusters and allow teams to define specific labels and claims for each group. Teams can add multiple cluster groups at the same time, but they must create a separate resource block for each group.</p>
+        <p>Labels control which cluster members of a group can access. For example, a team might apply the  <span class="code">env</span>: <span class="code">prod</span> selector to some clusters and the <span class="code">env</span>: <span class="code">dev</span> selector to others. Then they might only assign the  <span class="code">prod</span> label to a specific group.</p>
+        <div class="note_cautionOkta">
+            <p class="noteContent">When specifying the claims that <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> should include in tokens, be certain the key name of the claim created in <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> exactly matches the key name configured in a cluster role binding. Similarly, if the Kubernetes cluster claim value specified in the role binding specifies a prefix to be used (AWS EKS), be sure the claim value configured in <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> includes the prefix and claim value.</p>
+            <p class="noteContent">For example, if the EKS cluster’s OIDC configuration is configured with a <span class="code">groupsPrefix</span> value of <span class="code">pam</span>, and a <span class="code">groupsClaim</span> value of <span class="code">groups</span>, then when creating a ClusterGroup in <MadCap:variable name="okta-feature-names.Okta Privileged Access" />, the claim that is configured should be <span class="code">groups = pam:&lt;groupname&gt;</span>, where &lt;groupname&gt; is the name of a rolebinding that has been created on the cluster.</p>
+        </div>
+        <p>Claims are included in tokens minted by Advanced Server Access and are used by Kubernetes clusters to map a token to a Kubernetes role binding.  All members of a group receive this role when they interact with an associated cluster. </p>
+        <div class="noteOkta">
+            <p class="noteContent">This feature doesn't create or manage role bindings on the cluster. Roles and role bindings mapped to claims must be pre-configured on the cluster.</p>
+        </div>
+        <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+            <col class="TableStyle-srb_header_alt_shade-Column-Column1" style="width: auto;" />
+            <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                    <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1" colspan="2">Request</th>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Parameter</th>
+                    <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><span class="code">cluster_selector</span>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">A label selector used to match K8s clusters.</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><span class="code">group_name</span>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">The human-readable name of an existing <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> group. Values are case-sensitive.</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><span class="code">claims</span>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">A map of claims to include with user credentials for use with cluster authentication. Claims correspond to preconfigured role bindings on the cluster.</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2" colspan="2"><span class="wintitle">Response</span>
+                    </td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><span class="wintitle">Property</span>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1"><span class="wintitle">Description</span>
+                    </td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><span class="code">id</span>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">The ID of the created resource within <MadCap:variable name="okta-feature-names.Okta Privileged Access" />.</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body1" colspan="2"><span class="wintitle">Example</span>
+                        <p><span class="codeblock">
+resource "oktapam_kubernetes_cluster_group" "asa_docs" {
+	cluster_selector  = "env=prod"
+	group_name		= "existingGroup"
+	claims		= { groups = "ExampleGroup" }
+}	</span>
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Task 4: Configure your cluster</h3>
+        <p>After the team creates resources within <MadCap:variable name="okta-feature-names.Okta Privileged Access" />, admins must configure a cluster to use <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> for authentication.</p>
+        <p>When a team adds a cluster with the OktaPam Terraform provider, they receive a unique OIDC authentication URL. Admins use the URL to force the cluster to authenticate users with <MadCap:variable name="okta-feature-names.Okta Privileged Access" />. See the <a href="https://kubernetes.io/docs/reference/access-authn-authz/authentication/#openid-connect-tokens" target="_blank">Kubernetes</a> documentation.</p>
+        <h4>Minikube clusters</h4>
+        <p>If you plan on testing the Kubernetes access management functionality on a <span class="code">minikube</span> cluster, the following table outlines the parameters that need to be passed to the  <span class="code">minikube</span> startup command.</p>
+        <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+            <col class="TableStyle-srb_header_alt_shade-Column-Column1" style="width: auto;" />
+            <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                    <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1" colspan="2">Minikube startup arguments</th>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Parameter</th>
+                    <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><span class="code">apiserver.authorization-mode</span>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Set this to RBAC to enable Kubernetes RBAC on the cluster.</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><span class="code">apiserver.oidc-issuer-url</span>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">The OIDC URL generated by <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> when the Cluster was created. This can be viewed in the Cluster Details page in the <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> dashboard.</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><span class="code">apiserver.oidc-username-claim</span>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">The JWT claim that defines the username.<p>Enter <span MadCap:createDate="2023-04-05T17:25:23.7817382-06:00" MadCap:creator="Mark Cowan" MadCap:initials="MEC" MadCap:comment="code?" MadCap:editor="Mark Cowan" MadCap:editDate="2023-04-05T17:25:28.2352729-06:00" class="code">sub</span>.</p></td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><span class="code">apiserver.oidc-groups-claim</span>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">The JWT claim that defines the group. This value should match one or more Group Claims that are configured in Advanced Server Access ClusterGroups. Usually this should be set to groups.</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><span class="code">apiserver.oidc-client-id</span>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Set this to <span class="code">kubernetes</span>.</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2" colspan="2"><span class="wintitle">Example minikube startup command</span>
+                        <p><span class="codeblock" xml:space="preserve">minikube start \
+	--extra-config=apiserver.authorization-mode=Node,RBAC \
+	--extra-config=apiserver.oidc-issuer-url=\
+	    https://app.scaleft.com/v1/teams/XXXXXX/kubernetes/clusters/XXXX-XXXX-XXXX-XXXX \
+	--extra-config=apiserver.oidc-username-claim=sub \
+	--extra-config=apiserver.oidc-client-id=kubernetes \
+	--extra-config=apiserver.oidc-groups-claim=groups	</span>
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h4>AWS EKS&#160;cluster</h4>
+        <p>AWS EKS clusters require more configuration to authenticate clusters with Advanced Server Access. The following table provides a simple example of how to configure an EKS cluster. For more details, see the <a href="https://docs.aws.amazon.com/eks/latest/userguide/authenticate-oidc-identity-provider.html" target="_blank">EKS Cluster Authentication</a> documentation. An example associate identity YAML file is documented below for use with the <span class="code">eksctl</span> CLI that can be used to configure EKS clusters to enable authentication and access with Advanced Server Access.</p>
+        <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+            <col class="TableStyle-srb_header_alt_shade-Column-Column1" style="width: auto;" />
+            <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                    <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1" colspan="2">EKS&#160;Configuration</th>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Parameter</th>
+                    <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><span class="code">IssuerUrl</span>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">A label selector used to match K8s clusters.</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><span class="code">ClientId</span>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">The human-readable name of an existing <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> Group. Values are case-sensitive.</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><span class="code">UsernameClaim</span>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">A map of claims to include with user credentials for use with cluster authentication. Claims correspond to preconfigured role bindings on the cluster.</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><span class="code">GroupsClaim</span>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">A JWT claim that defines the group. This value should match one or more Group Claims that are configured in Advanced Server Access <span class="code">ClusterGroups</span>. Usually this should be set to groups.</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><span class="code">UsernamePrefix</span>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Optional. A string prepended to users accounts to prevent clashes.<p>Enter any descriptive string, example: <span class="code">ASAUser</span>:.</p></td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><span class="code">GroupsPrefix</span>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">Optional. A string prepended to user groups to prevent clashes.<p>Enter any descriptive string, example: <span class="code">ASAGroup</span>:.</p></td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body1" colspan="2"><span class="wintitle">Example Associate Identity Provider file (for use with eksctl)</span>
+                        <p><span class="codeblock">
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+	name: eks-k8s-beta
+	region: us-east-1
+
+identityProviders:
+	- name: okta-asa-k8s
+	type: oidc
+	issuerUrl: &lt;ASA OIDC URL&gt;
+	clientId: kubernetes
+	usernameClaim: sub
+	groupsClaim: groups	</span><span class="wintitle">Example Cluster Role</span>
+                            <p><span class="codeblock">
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+	name: ASA-readonly
+rules:
+	- apiGroups: ["*"]
+	resources: ["*"]
+	verbs: ["get", "list"]	</span><span class="wintitle">Example Role Binding</span>
+                                <p><span class="codeblock">
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+	name: ASA-readonly-binding
+roleRef:
+	kind: ClusterRole
+	name: ASA-readonly
+	apiGroup: rbac.authorization.k8s.io
+subjects:
+	- kind: Group
+	name: ASAGroup:ExampleGroup
+	apiGroup: rbac.authorization.k8s.io</span>
+                                </p>
+                            </p>
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>Related topics</h2>
+        <ul>
+            <li>
+                <p>
+                    <MadCap:xref href="pam-kubernetes.htm">Kubernetes access management</MadCap:xref>
+                </p>
+            </li>
+            <li>
+                <p>
+                    <MadCap:xref href="pam-kubernetes-cluster-connections.htm">Kubernetes cluster connections</MadCap:xref>
+                </p>
+            </li>
+        </ul>
+        <p>&#160;</p>
+        <p>&#160;</p>
+    </body>
+</html>

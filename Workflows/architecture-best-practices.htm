@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:fileTags="Tags/okta-authors.Ian Hakes">
+    <head>
+        <link href="" rel="stylesheet" type="text/css" />
+        <meta name="coveo:title" content="Best practices for building flows" />
+        <meta name="coveo:method-description" content="Every Workflows tenant is subject to the limits of the flow plan to which it is subscribed." />
+    </head>
+    <body>
+        <div data-content-id="hoc-main-content">
+            <h1><a name="top"></a>Best practices for building flows</h1>
+            <p>
+		To ensure optimum performance in Workflows, follow best practices for building your flows. </p>
+            <ul>
+                <li>
+                    <p>
+                        <MadCap:xref href="#Effectiv">Effective use of the API endpoint</MadCap:xref>
+                    </p>
+                    <ul>
+                        <li>
+                            <p>
+                                <MadCap:xref href="#API">API endpoint timeouts</MadCap:xref>
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <MadCap:xref href="#Structur">Structure flows asynchronously</MadCap:xref>
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <MadCap:xref href="#Place">Place the API Connector Close Card first in a flow</MadCap:xref>
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <MadCap:xref href="#Keep">Keep synchronous flows simple and fast</MadCap:xref>
+                            </p>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <p>
+                        <MadCap:xref href="#Effectiv2">Effective use of the Workflows engine</MadCap:xref>
+                    </p>
+                    <ul>
+                        <li>
+                            <p>
+                                <MadCap:xref href="#Use">Use helper flows to split large processing jobs into many smaller jobs</MadCap:xref>
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <MadCap:xref href="#Filter">Filter large sets</MadCap:xref>
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <MadCap:xref href="#Avoid">Avoid passing lists into helper flows</MadCap:xref>
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <MadCap:xref href="#Use2">Use streaming actions when possible</MadCap:xref>
+                            </p>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <h2><a name="Effectiv"></a>Effective use of the API endpoint</h2>
+            <p>The Workflows API endpoint allows an external client to invoke a flow over HTTP. This is a powerful feature because it expands flows beyond those started by the built-in connector library. However, these flows require attention to ensure they successfully complete. See <MadCap:xref href="learn/about-invoke-api-endpoint-flow.htm">About invoking an API endpoint flow</MadCap:xref>.</p>
+            <h3><a name="API"></a>API endpoint timeouts</h3>
+            <p>The primary challenge with the use of the API endpoint is that the Workflows engine doesn't make latency guarantees. This means that although flows run fast most of the time, sometimes flow execution times can vary by 10X or more.</p>
+            <p>Because the API endpoint closes its connection to a client at 60 seconds, a flow fails if the operation takes any longer than that. Some HTTP clients that invoke an API endpoint flow could have an even lower timeout than the default API timeout. For example, Okta inline hooks have a default timeout of 3 seconds.</p>
+            <h3><a name="Structur"></a>Structure flows asynchronously</h3>
+            <p>A best practice when working with API endpoint flows is to structure your flow to be processed asynchronously. This means the caller (HTTP client) shouldn't need to wait for a specific response.</p>
+            <p>This is especially important when integrating with Okta hooks.  For instance, consider a flow that starts with the synchronous registration or import inline hook. Instead, you can restructure that flow with Okta events that use the asynchronous <span class="wintitle">User Created</span> and <span class="wintitle">User Okta Profile Updated</span> event cards.  Moving to the asynchronous pattern is more advantageous for both systems.  A common example is recording the registration and import of a new user in a third system.  If there isn’t a critical need for it to be there instantaneously, the asynchronous pattern gives a better experience.</p>
+            <h3><a name="Place"></a>Place the API Connector Close Card first in a flow</h3>
+            <p>One way to manage the risk of a timeout is to close the HTTP connection as quickly as possible. One best practice is to add the <span class="wintitle">API Connector Close</span> card as the first card in the flow. This allows the Workflows engine to immediately release its HTTP connection to the caller (HTTP client).  Then the Workflows engine asynchronously processes the rest of the flow. See <MadCap:xref href="function-reference/HTTP/http_close.htm">Close</MadCap:xref>.</p>
+            <p>Another best practice is to use the combination of <span class="wintitle">Call Flow Async</span> and <span class="wintitle">Flow Control Return Raw</span> cards. They allow you to start processing work asynchronously and have fine-grained control over the HTTP response. See <MadCap:xref href="function-reference/Flow-Control/flocontrol_run.htm">Call Flow Async</MadCap:xref> and <MadCap:xref href="function-reference/Flow-Control/flocontrol_returnraw.htm">Return Raw</MadCap:xref>.</p>
+            <p>
+                <img src="../../Resources/Images/Workflows/call-flow-asynch.png" />
+            </p>
+            <h3><a name="Keep"></a>Keep synchronous flows simple and fast</h3>
+            <p>If a client requires a synchronous response, pay extra attention to flow architecture to make sure you aren't introducing unnecessary latency and timeout risk.</p>
+            <ol>
+                <li>
+                    <p>Avoid external network calls. Calls can take hundreds of milliseconds of latency, not including the time the external service takes to process data.  External calls occur in connector cards and HTTP cards.  If external network calls are necessary, create a helper flow and use the <span class="wintitle">Call Flow Async</span> card to remove the calls from the synchronous flow.</p>
+                </li>
+                <li>
+                    <p>Once the response is ready, return it immediately. You can use the <span class="wintitle">API Connector Close</span> card to return a value while the rest of the flow continues processing.</p>
+                </li>
+            </ol>
+            <h2><a name="Effectiv2"></a>Effective use of the Workflows engine</h2>
+            <p>The Workflows engine executes many smaller actions more efficiently than fewer large actions. Flows that use excessive memory may be throttled or stopped to protect system resources. These are important techniques to improve flow performance and avoid out-of-memory, throttling, execution delays, stuck executions, or other issues.</p>
+            <h3><a name="Use"></a>Use helper flows to split large processing jobs</h3>
+            <p>When you can build multiple asynchronous flows, the Workflows engine intelligently schedules the work to complete your flow as fast as possible. If you have a large amount of asynchronous work to do from your parent flow, the best practice is to use the <span class="wintitle">Call Flow Async</span> card.  This card continues processing your parent flow while the engine concurrently executes the helper flow specified as the input.</p>
+            <p> If you have a large list of items and need to process each item in a list, the best practice is to use the <span class="wintitle">For Each - Ignore Errors</span> card.  This card takes a list and runs a helper flow for each item in that list, with optional concurrency.  While the card name implies that it ignores errors, that is only true from the parent flow perspective. You can handle errors in your helper flows. See <MadCap:xref href="function-reference/List/list_asynceach.htm">For Each - Ignore Errors</MadCap:xref>.</p>
+            <h3><a name="Filter"></a>Filter large sets</h3>
+            <p> If you only need to process a subset of items in a list, the best practice is to filter them using the <span class="wintitle">Filter</span> card instead of stopping a helper flow early. See <MadCap:xref href="function-reference/List/list_filterby.htm">Filter</MadCap:xref>.</p>
+            <p>While helper flows are preferable to doing all the processing in a single large flow, keep in mind that the creation and execution of helper flows is overhead. If you can avoid them for jobs that you don't need to process, then your flow runs more efficiently.</p>
+            <h3><a name="Avoid"></a>Avoid passing lists into helper flows</h3>
+            <p>When operating on a list of items and using a <span class="wintitle">For Each</span> card, use the <span class="wintitle">With the following values</span> section to pass only the data that the helper flow needs. You can pull individual data items out of the list you're iterating over by using the interface to pick the individual item to pass. For example, if operating on a list of users, pass only the single user’s required fields into the helper flow instead of the entire user object.</p>
+            <p>
+                <img src="../../Resources/Images/Workflows/foreach.png" />
+            </p>
+            <h3><a name="Use2"></a>Use streaming actions when possible</h3>
+            <p>Streaming actions take lists of results and automatically execute a helper flow for each item asynchronously.  This process is optimized so the parent flow paginates through the data and creates the helper flows with low memory consumption.</p>
+            <p>Be mindful that non-streaming result set options lead to increased flow memory usage.  Cards that feature the option <span class="userinput">Stream Matching Records</span> in the <span class="uicontrol">Result Set</span> field support streaming actions.  The  <span class="wintitle">Find Users</span>, <span class="wintitle">List Users with Search</span>, and <span class="wintitle">List Users Assigned to Applications</span> action cards for the Okta connector return lists and support streaming. See <MadCap:xref href="build/search-with-streaming.htm">Set up the stream matching option with a helper flow</MadCap:xref>.</p>
+            <h2>Related topics</h2>
+            <p>
+                <MadCap:xref href="workflows-elements.htm">Workflow elements</MadCap:xref>
+            </p>
+            <p>
+                <MadCap:xref href="workflow-connect-your-applications.htm">Connect your applications</MadCap:xref>
+            </p>
+            <p><a href="Tutorials/tutorials-workflows-learn.htm">Use case tutorials</a>
+            </p>
+        </div>
+    </body>
+</html>

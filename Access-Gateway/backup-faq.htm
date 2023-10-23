@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link href="../../Resources/TableStyles/standard-shaded-rows.css" rel="stylesheet" MadCap:stylesheetType="table" />
+        <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/backup-faq.htm" /><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1>Backup FAQs</h1>
+        <div>
+            <h2><a name="LooseEarlier"></a>I want to restore a later backup. Will I&#160;lose my earlier backups?</h2>
+            <p>Backups are ordered by date taken. If you restore to a date where backups exist after that date, then the later backups will be impacted. </p>
+            <p>Consider the following scenario, where backups have been taken on Fridays over every week. <br />The following dates are for illustration only and may not conform to actual backup policy. <br />In this example, April 17 was selected as restore.</p>
+            <table style="mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+                <col style="width: 50%;" class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                <col style="width: 50%;" class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                <tbody>
+                    <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1" style="font-weight: bold;">Backups
+                                </td>
+                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1" style="font-weight: bold;">Available post restore
+                                </td>
+                    </tr>
+                    <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">April 3, 2020</td>
+                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">Available (still displayed)</td>
+                    </tr>
+                    <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">April 10, 2020</td>
+                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Available (still displayed)</td>
+                    </tr>
+                    <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">April 17, 2020</td>
+                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">Selected for restore.
+                                    <br />Available (still displayed)</td>
+                    </tr>
+                    <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">April 24, 2020</td>
+                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">No longer available (won't be displayed)</td>
+                    </tr>
+                    <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                        <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">May 1, 2020</td>
+                        <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">No longer available (won't be displayed)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h2><a name="WhereAreMyBackups"></a>Where are my backups?</h2>
+            <p>Several conditions result in <MadCap:variable name="okta-feature-names.Access Gateway" /> showing no backups.</p>
+            <p>Backup is considered to be in an initial or empty state after any of several conditions are met. When in an initial state no backups are displayed. Conditions that result in a backup initial state include:</p>
+            <ul>
+                <li>Post initial deployment: After <MadCap:variable name="okta-feature-names.Access Gateway" /> is initially deployed but before 24 hours have elapsed no backups are available for display.</li>
+                <li>Post upgrade from a pre-backup version: When upgrading from a version of <MadCap:variable name="okta-feature-names.Access Gateway" /> that didn't support backup, to a newer version that now does, no backups are available. Note pre-administrator facing backup backups can be retrieved by <MadCap:variable name="okta-feature-names.Access Gateway" /> support.</li>
+            </ul>
+        </div>
+        <div>
+            <h2><a name="WhereRestore"></a>Where do I perform a restore?</h2>
+            <p>In high availability clusters it's only possible to restore to the admin node. The <MadCap:variable name="okta-feature-names.Access Gateway CMD" /> interface is disabled on worker nodes. Restored configuration is propagated out to all worker nodes. The changes will automatically propagate to the workers. There may be some lag time in between restoring the admin node and the new configuration applying to the workers as requests may be in-flight.</p>
+        </div>
+        <div>
+            <h2><a name="CrossVersion"></a>Can I restore across versions? Are there any version constraints for restore?</h2>
+            <p>Always be sure that the worker nodes are on a version that is the same as or newer than the admin node before restoring. Restore operations only work against configuration. Appliance version isn't involved in backup or restore operations.</p>
+        </div>
+        <div>
+            <h2><a name="HAConsiderations"></a>I have a high-availability cluster fronted by a load balancer. Are there any special considerations for this architecture?</h2>
+            <p>If you're using the admin node to proxy connections, Okta recommends that you remove the admin node from the load-balancer rotation while a restore is in progress.</p>
+        </div>
+        <div>
+            <MadCap:dropDown>
+                <MadCap:dropDownHead>
+                    <MadCap:dropDownHotspot><a name="HowLong"></a>How long do restores take?</MadCap:dropDownHotspot>
+                </MadCap:dropDownHead>
+                <MadCap:dropDownBody>
+                    <p>The actual time a restore takes depends on the size of the <MadCap:variable name="okta-feature-names.Access Gateway" /> high-availability cluster and the number of applications, Data Stores, and other configuration settings. There may be some lag time in between restoring the admin node and the new configuration applying to the workers, as requests may be in-flight.
+If you're planning to restore from a backup in a production environment, Okta recommends scheduling a maintenance window during which downtime would be acceptable. </p>
+                </MadCap:dropDownBody>
+            </MadCap:dropDown>
+        </div>
+    </body>
+</html>

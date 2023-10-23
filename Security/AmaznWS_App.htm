@@ -1,0 +1,674 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:fileTags="Tags/okta-topic-status.Ready for Review,Tags/okta-authors.Patrick Calnan"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:searchable="True"
+      MadCap:conditions="Primary.deprecated">
+   <head>
+      <link href="../../Resources/TableStyles/standard-no-header.css"
+            rel="stylesheet"
+            MadCap:stylesheetType="table"/>
+      <link href="../../Resources/TableStyles/standard.css"
+            rel="stylesheet"
+            MadCap:stylesheetType="table"/>
+      <link href="../../Resources/TableStyles/standard-shaded-rows.css"
+            rel="stylesheet"
+            MadCap:stylesheetType="table"/>
+      <title>The Amazon Workspace App | Okta</title>
+      <link href="" rel="stylesheet" type="text/css"/>
+      <meta name="description"
+            content="End users can authenticate with Amazon Workspaces using the Okta RADIUS agent for MFA and the Amazon Workspace app."/>
+   </head>
+   <body>
+      <h1>Amazon Workspace App</h1>
+      <h2>
+         <a name="Overview"/>Overview</h2>
+      <p>AWS Workspaces (AWSW) supports RADIUS for MFA authentication.</p>
+      <p>The Amazon Workspace app allows use of the Okta RADIUS agent for multi-factor authentication on Amazon Workspaces. End-users can sign into Amazon Workspaces using factors registered with Okta. This integration shows how to configure AWS Workspaces using Active Directory to support authentication using Okta MFA and Okta Verify Push..</p>
+      <figure style="text-align: center;">
+         <img src="../../Resources/Images/integrations/aws.to.okta.arch.png"
+              alt="Amazon Workspaces and Okta MFA over RADIUS architecture"
+              id="img_new"/>
+         <figcaption>Amazon Workspace and Okta MFA over RADIUS architecture</figcaption>
+      </figure>
+      <h2>
+         <a name="Prerequisites"/>Prerequisites</h2>
+      <div>
+         <ul>
+            <li>Amazon Web Services instances, configured as:<ul>
+                  <li>Instance A - represents the Amazon Directory Service virtual machine instance.</li>
+                  <li>Instance B - represents the Windows 2012r2 host where the  Okta RADIUS agent will be installed. <br/>The AWS Directory Service will require the private IP address of Instance B to delegate the MFA challenge over RADIUS..
+</li>
+               </ul>
+            </li>
+            <li>AWS Directory Service instance, configured and pointing to Instance A, running Active Directory.<br/>Note: You must have the <span class="uicontrol">Directory ID</span> of the AWS Directory Service. The <span class="uicontrol">Directory ID</span> is used to determine the name of the Security Group.</li>
+         </ul>
+         <p>Note: The AWS Directory service will require the private IP address of Instance B to delegate the MFA challenge over RADIUS. If that private IP changes the AWS Directory MFA configuration must be updated to reflect the new private IP.</p>
+      </div>
+      <MadCap:dropDown MadCap:conditions="Primary.do-not-publish">
+         <MadCap:dropDownHead>
+            <MadCap:dropDownHotspot>Pre Configuration</MadCap:dropDownHotspot>
+         </MadCap:dropDownHead>
+         <MadCap:dropDownBody>
+            <p>The following are required configuration on the Amazon workspace prior to beginning RADIUS Agent install. The sections following this overview details the steps required. </p>
+            <ul>
+               <li>The Instance A exists and is currently running and host Active Directory.<br/>This instance should resemble:<br/>
+                  <img src="../../Resources/Images/integrations/aws-to-okta.AD.1.png"
+                       id="img_new"/>
+                  <br/>
+               </li>
+            </ul>
+         </MadCap:dropDownBody>
+      </MadCap:dropDown>
+      <MadCap:dropDown>
+         <MadCap:dropDownHead>
+            <MadCap:dropDownHotspot>Required AWS Component Configuration</MadCap:dropDownHotspot>
+         </MadCap:dropDownHead>
+         <MadCap:dropDownBody>
+            <div>
+               <p> The following steps prepare an existing EC2 instance for use with Active Directory, create an AWS Directory service as a connector that points to Active Directory, and launches an associated workspace.</p>
+               <MadCap:dropDown>
+                  <MadCap:dropDownHead>
+                     <MadCap:dropDownHotspot>Prepare an Amazon EC2 Instance</MadCap:dropDownHotspot>
+                  </MadCap:dropDownHead>
+                  <MadCap:dropDownBody>
+                     <div>
+                        <ol>
+                           <li>
+                              <p>In your browser, navigate to Amazon Web Services console and login as an administrator.</p>
+                           </li>
+                           <li>
+                              <p>Select <span class="menucascade">
+                                    <span class="uicontrol">Services</span>
+                                    <span class="uicontrol">EC2.</span>
+                                 </span>
+                              </p>
+                           </li>
+                           <li>
+                              <p>In the left pane select <span class="menucascade">
+                                    <span class="uicontrol">INSTANCES</span>
+                                    <span class="uicontrol">Instances</span>
+                                 </span>. </p>
+                           </li>
+                           <li>
+                              <p>Locate the Active Directory instance (referred to as Instance A), and select it. </p>
+                           </li>
+                           <li>
+                              <p>In the <span class="uicontrol">Description</span> tab, Note the Private IP address of the instance. </p>
+                           </li>
+                           <li>
+                              <p>In the lower right, click the VPC ID value.<br/>
+                                 <img src="../../Resources/Images/integrations/aws-to-okta.WS.2.png"
+                                      id="img_new"/>
+                              </p>
+                           </li>
+                           <li>
+                              <p>In the associated VPC page, note the IPv4 CIDR value.<br/>
+                                 <img src="../../Resources/Images/integrations/aws-to-okta.WS.3.png"
+                                      id="img_new"/>
+                              </p>
+                           </li>
+                           <li>
+                              <p>Navigate to <span class="menucascade">
+                                    <span class="uicontrol">NETWORK &amp; SECURITY</span>
+                                    <span class="uicontrol">Security Groups</span>
+                                 </span>.</p>
+                           </li>
+                           <li>
+                              <p>Open the Instance A security group and click <span class="uicontrol">Add</span> to add inbound rules to enable UDP/TCP for ports 53, 88. and 389 against the IPv4 CIDR.<br/>
+                                 <img src="../../Resources/Images/integrations/aws-to-okta.WS.4.png"
+                                      id="img_new"/>
+                              </p>
+                           </li>
+                        </ol>
+                     </div>
+                  </MadCap:dropDownBody>
+               </MadCap:dropDown>
+               <MadCap:dropDown>
+                  <MadCap:dropDownHead>
+                     <MadCap:dropDownHotspot>Create an AWS Directory Service</MadCap:dropDownHotspot>
+                  </MadCap:dropDownHead>
+                  <MadCap:dropDownBody>
+                     <div>
+                        <ol>
+                           <li>
+                              <p>Return to the <span class="wintitle">Services</span> tab of the AWS Console.</p>
+                           </li>
+                           <li>
+                              <p>Enter <span class="userinput">Directory Service</span> into the search bar and click <span class="uicontrol">Directory Service</span>. <br/>
+                                 <img src="../../Resources/Images/integrations/aws-to-okta.DS.1.png"
+                                      id="img_new"/>
+                              </p>
+                           </li>
+                           <li>
+                              <p>Click <span class="uicontrol">Set up directory</span>.</p>
+                           </li>
+                           <li>
+                              <p>Select <span class="uicontrol">AD Connector</span> as <span class="uicontrol">Directory type</span> and click <span class="uicontrol">Next</span>.  </p>
+                           </li>
+                           <li>
+                              <p>Choose an appropriate size and click <span class="uicontrol">Next</span>. </p>
+                           </li>
+                           <li>
+                              <p>Choose the Instance A VPC, subsets if required, and choose <span class="uicontrol">Next</span>. </p>
+                           </li>
+                           <li>
+                              <p>In the Active Directory information step enter:</p>
+                              <table style="mc-table-style: url('../../Resources/TableStyles/standard.css');"
+                                     class="TableStyle-standard"
+                                     cellspacing="0">
+                                 <col class="TableStyle-standard-Column-Column1"/>
+                                 <col class="TableStyle-standard-Column-Column1"/>
+                                 <thead>
+                                    <tr class="TableStyle-standard-Head-Header1">
+                                       <th class="TableStyle-standard-HeadF-Column1-Header1">Field</th>
+                                       <th class="TableStyle-standard-HeadD-Column1-Header1">Value</th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr class="TableStyle-standard-Body-Body1">
+                                       <td class="TableStyle-standard-BodyF-Column1-Body1">
+                                          <span class="uicontrol">Connected Directory DNS</span>
+                                       </td>
+                                       <td class="TableStyle-standard-BodyD-Column1-Body1">Required: Your domain.<br/>For example: biz.nicopowered.com</td>
+                                    </tr>
+                                    <tr class="TableStyle-standard-Body-Body2">
+                                       <td class="TableStyle-standard-BodyF-Column1-Body2">
+                                          <span class="uicontrol">Connected NetBIOS Name</span>
+                                       </td>
+                                       <td class="TableStyle-standard-BodyD-Column1-Body2">Option. Anything appropriate.<br/>For example: biz. </td>
+                                    </tr>
+                                    <tr class="TableStyle-standard-Body-Body1">
+                                       <td class="TableStyle-standard-BodyF-Column1-Body1">
+                                          <span class="uicontrol">DNS Address</span>
+                                       </td>
+                                       <td class="TableStyle-standard-BodyD-Column1-Body1">The private IP address of instance A, previously captured. </td>
+                                    </tr>
+                                    <tr class="TableStyle-standard-Body-Body2">
+                                       <td class="TableStyle-standard-BodyF-Column1-Body2">
+                                          <span class="uicontrol">Service Account username</span>
+                                       </td>
+                                       <td class="TableStyle-standard-BodyD-Column1-Body2">Username of the active directory account previously created.</td>
+                                    </tr>
+                                    <tr class="TableStyle-standard-Body-Body1">
+                                       <td class="TableStyle-standard-BodyC-Column1-Body1">
+                                          <span class="uicontrol">Service Account password</span>
+                                       </td>
+                                       <td class="TableStyle-standard-BodyA-Column1-Body1">Associated password.</td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                              <p>Click <span class="uicontrol">Next</span> when complete.</p>
+                           </li>
+                           <li>
+                              <p>Review the values and click <span class="uicontrol">Create directory</span>. <br/>						When complete the connector should resemble:<br/>
+                                 <img src="../../Resources/Images/integrations/aws-to-okta.DS.2.png"
+                                      id="img_new"/>
+                              </p>
+                           </li>
+                        </ol>
+                     </div>
+                  </MadCap:dropDownBody>
+               </MadCap:dropDown>
+               <MadCap:dropDown>
+                  <MadCap:dropDownHead>
+                     <MadCap:dropDownHotspot>Launch an Amazon Workspace</MadCap:dropDownHotspot>
+                  </MadCap:dropDownHead>
+                  <MadCap:dropDownBody>
+                     <div>
+                        <ol>
+                           <li>
+                              <p>Navigate to <span class="uicontrol">Workspaces</span>.</p>
+                           </li>
+                           <li>
+                              <p>If required,create a workspace, otherwise select a workspace and click <span class="uicontrol">Launch Workspaces</span>.<br/>
+                                 <img src="../../Resources/Images/integrations/aws-to-AD.WS.1.png"
+                                      id="img_new"/>
+                              </p>
+                           </li>
+                           <li>
+                              <p>From the <span class="uicontrol">Directory</span> dropdown list select a directory to authenticate against and click <span class="uicontrol">Next Step</span>. 			 <img src="../../Resources/Images/integrations/aws-to-AD.WS.2.png"
+                                      id="img_new"/>
+                              </p>
+                           </li>
+                           <li>
+                              <p>Select an appropriate user from the directory service and click <span class="uicontrol">Add Selected</span>.</p>
+                           </li>
+                           <li>
+                              <p>Select a bundle, review your configure and .click <span class="uicontrol">Launch Workspace</span>.</p>
+                           </li>
+                        </ol>
+                     </div>
+                  </MadCap:dropDownBody>
+               </MadCap:dropDown>
+               <p>The Amazon Workspace is now ready for use. </p>
+            </div>
+            <!-- End div pre-config -->
+         </MadCap:dropDownBody>
+      </MadCap:dropDown>
+      <MadCap:dropDown>
+         <MadCap:dropDownHead>
+            <MadCap:dropDownHotspot>Install the RADIUS Agent</MadCap:dropDownHotspot>
+         </MadCap:dropDownHead>
+         <MadCap:dropDownBody>
+            <p>The RADIUS Agent must be installed and configured on Instance B. </p>
+            <p>Installation notes: <br/>
+            </p>
+            <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');"
+                   class="TableStyle-srb_header_alt_shade"
+                   cellspacing="0">
+               <col class="TableStyle-srb_header_alt_shade-Column-Column1"/>
+               <col class="TableStyle-srb_header_alt_shade-Column-Column1"/>
+               <tbody>
+                  <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                     <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Shared Secret</td>
+                     <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1"> During the install of the RADIUS agent you will be required to enter a shared secret. The shared secret value will be required later in the procedure.</td>
+                  </tr>
+                  <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                     <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">Port</td>
+                     <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2"> The RADIUS agent requires a port. Any available port can be used. For the remainder of this procedure the value: 1899 will be used.</td>
+                  </tr>
+               </tbody>
+            </table>
+            <p>
+               <MadCap:snippetBlock src="../../Resources/Snippets/radius-agent-windows-install.flsnp"/>
+               <br/>				For a complete list of all steps as well as detained steps for installing the Okta RADIUS agent see:</p>
+            <ul>
+               <li>
+                  <p>
+                     <MadCap:xref href="../integrations/Agent_Installing_the_Okta_Radius_Agent.htm">Install and configure the Okta RADIUS Server agent</MadCap:xref>
+                  </p>
+               </li>
+               <li>
+                  <p>
+                     <MadCap:xref href="../integrations/radius-best-pract.htm">Okta RADIUS Server Agent Deployment Best Practices</MadCap:xref>
+                  </p>
+               </li>
+            </ul>
+         </MadCap:dropDownBody>
+      </MadCap:dropDown>
+      <MadCap:dropDown>
+         <MadCap:dropDownHead>
+            <MadCap:dropDownHotspot>Add inbound rules on the AWS Instance </MadCap:dropDownHotspot>
+         </MadCap:dropDownHead>
+         <MadCap:dropDownBody>
+            <p>Instance B must be able to communicate with the AWS Directory Service. Inbound rules are used to configure the required ports/protocol to grant the required access.</p>
+            <ol>
+               <li>
+                  <p>In your browser, navigate to your AWS Workspace and login as an administrator.</p>
+               </li>
+               <li>
+                  <p>In a browser Navigate to the AWS Workspace.</p>
+               </li>
+               <li>
+                  <p>Select the <span class="wintitle">Directories</span> tab.</p>
+               </li>
+               <li>
+                  <p>In the <span class="wintitle">Details</span> section for the selected directory note the <span class="uicontrol">Directory ID</span>
+                     <br/>.<img src="../../Resources/Images/integrations/aws-to-okta.1.png"
+                          id="img_new"/> .<br/>
+                  </p>
+               </li>
+               <li>
+                  <p>Navigate to the security groups page and determine the group ID for the associated group name.<img src="../../Resources/Images/integrations/aws-to-okta.2.png"
+                          id="img_new"/>
+                     <br/>
+                  </p>
+               </li>
+               <li>
+                  <p>Using the Group ID, navigate to the security group.</p>
+               </li>
+               <li>
+                  <p>Create an inbound rule with values:<table style="mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');"
+                            class="TableStyle-srb_header_alt_shade"
+                            cellspacing="0">
+                        <col class="TableStyle-srb_header_alt_shade-Column-Column1"/>
+                        <col class="TableStyle-srb_header_alt_shade-Column-Column1"/>
+                        <thead>
+                           <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                              <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Field</th>
+                              <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">Value</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                              <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"
+                                  style="font-weight: bold;">Protocol</td>
+                              <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">UDP</td>
+                           </tr>
+                           <tr class="TableStyle-srb_header_alt_shade-Body-Body2"
+                               style="height: 56px;">
+                              <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2"
+                                  style="font-weight: bold;">Port Range</td>
+                              <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">1899</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <br/>When complete the new inbound rule will resemble:<br/>
+                     <img src="../../Resources/Images/integrations/aws-to-okta.3.png"
+                          id="img_new"/>
+                  </p>
+               </li>
+               <p>Note: You may be required to create a Windows firewall rule to allow UDP traffic on the required port. <br/>
+                  <img src="../../Resources/Images/integrations/aws-to-okta.4.png"
+                       id="img_new"/>
+               </p>
+            </ol>
+         </MadCap:dropDownBody>
+      </MadCap:dropDown>
+      <MadCap:dropDown>
+         <MadCap:dropDownHead>
+            <MadCap:dropDownHotspot>Add the Amazon Workspace app in Okta</MadCap:dropDownHotspot>
+         </MadCap:dropDownHead>
+         <MadCap:dropDownBody>
+            <div>
+               <ol>
+                  <li>
+                     <p>In your browser, Navigate to your Okta Org and Login as an Administrator.</p>
+                  </li>
+                  <li>
+                     <p>From <span class="uicontrol">Application</span>s menu, choose <span class="uicontrol">Applications</span>.</p>
+                  </li>
+                  <li>
+                     <p>On the <span class="wintitle">Applications</span> page, click <span class="uicontrol">Add Application</span>.</p>
+                  </li>
+                  <li>
+                     <p>In the left-side search field, enter the keyword <span class="userinput">Amazon Workspaces</span>.</p>
+                  </li>
+                  <li>
+                     <p>From the resulting list, choose <span class="uicontrol">Amazon Workspace</span> by clicking the <span class="uicontrol">Add</span> button.</p>
+                  </li>
+               </ol>
+               <ol MadCap:continue="true">
+                  <li>In the <span class="uicontrol">Sign-On Options</span> page enter:
+						<table style="mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');"
+                            class="TableStyle-srb_header_alt_shade"
+                            cellspacing="0">
+                        <col class="TableStyle-srb_header_alt_shade-Column-Column1"/>
+                        <col class="TableStyle-srb_header_alt_shade-Column-Column1"/>
+                        <thead>
+                           <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                              <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Option</th>
+                              <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">Value</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                              <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                                 <span class="uicontrol">Authentication</span>
+                              </td>
+                              <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Ensure that Okta performs primary authentication remains unchecked. </td>
+                           </tr>
+                           <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                              <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                                 <span class="uicontrol">Port</span>
+                              </td>
+                              <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">1899. The port used for RADIUS agent integration.</td>
+                           </tr>
+                           <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                              <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                                 <span class="uicontrol">Secret Key</span>
+                              </td>
+                              <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Value used when installing RADIUS agent</td>
+                           </tr>
+                           <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                              <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">
+                                 <span class="uicontrol">Application Username Format</span>
+                              </td>
+                              <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">Use this drop down to specify the username format for users authenticating to Amazon Workspaces. </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </li>
+                  <li>
+                     <p>Click <span class="uicontrol">Save</span>.</p>
+                  </li>
+               </ol>
+               <p>
+                  <span class="uicontrol">Note</span>: Once the application has been added you must assign it to appropriate users or groups within the Active Directory instance.</p>
+            </div>
+         </MadCap:dropDownBody>
+      </MadCap:dropDown>
+      <MadCap:dropDown>
+         <MadCap:dropDownHead>
+            <MadCap:dropDownHotspot>Update the AWS directory configuration and enable MFA</MadCap:dropDownHotspot>
+         </MadCap:dropDownHead>
+         <MadCap:dropDownBody>
+            <p>Amazon Workspaces must be configured for MFA.</p>
+            <MadCap:snippetBlock src="../../Resources/Snippets/DUOPushRADIUSNotSupported.flsnp"/>
+            <ol>
+               <li>Return to the browser open to the Amazon Workspace.</li>
+               <li>
+                  <p>Open the directory configuration.</p>
+               </li>
+               <li>
+                  <p>Select <span class="uicontrol">enable Multi-Factor authentication</span>.</p>
+               </li>
+               <li>
+                  <p>Specify the following values:</p>
+                  <table style="mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');"
+                         class="TableStyle-srb_header_alt_shade"
+                         cellspacing="0">
+                     <col class="TableStyle-srb_header_alt_shade-Column-Column1"/>
+                     <col class="TableStyle-srb_header_alt_shade-Column-Column1"/>
+                     <thead>
+                        <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                           <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Field</th>
+                           <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">Value</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                           <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">RADIUS Server IP</td>
+                           <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Instance B's private IP address</td>
+                        </tr>
+                        <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                           <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Port</td>
+                           <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">1899</td>
+                        </tr>
+                        <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                           <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Shared Secret</td>
+                           <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Value used when installing the Okta RADIUS agent.</td>
+                        </tr>
+                        <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                           <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">Protocol</td>
+                           <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">PAP</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </li>
+               <li>Save the updated configuration.<br/>
+               </li>					When complete the updates should resemble:<br/>
+               <img src="../../Resources/Images/integrations/aws-to-okta.5.png"
+                    id="img_new"/>
+            </ol>
+         </MadCap:dropDownBody>
+      </MadCap:dropDown>
+      <MadCap:dropDown>
+         <MadCap:dropDownHead>
+            <MadCap:dropDownHotspot>Configure Okta MFA factors and polices for MFA enrollment </MadCap:dropDownHotspot>
+         </MadCap:dropDownHead>
+         <MadCap:dropDownBody>
+            <p>To configure factors used for MFA:</p>
+            <ol>
+               <li>
+                  <p>In a browser, Navigate to your Okta Org and Login as an Administrator.</p>
+               </li>
+               <li>
+                  <p>Click <span class="menucascade">
+                        <span class="uicontrol">Security</span>
+                        <span class="uicontrol">Multifactor</span>
+                     </span>.</p>
+               </li>
+               <li>
+                  <p>Select <span class="wintitle">Factor Types</span> tab.</p>
+               </li>
+               <li>
+                  <p>For each factor being enabled, <br/>
+                     <ol style="list-style-type: lower-alpha;">
+                        <li>Select the factor, for example <span class="uicontrol">Okta Verify</span>.</li>
+                        <li>Select <span class="uicontrol">Activate</span> in the <span class="uicontrol">Inactive/Activate</span> drop down. <br/>								Note: For active factors this drop down includes Active/deactivate values. </li>
+                        <li>Configure factor specific settings as appropriate.</li>
+                     </ol>
+                  </p>
+               </li>
+               <li>
+                  <p>Note; Okta recommends that at a Minimum <span class="uicontrol">Okta Verify</span> be specified.</p>
+               </li>
+               <li>
+                  <p>Select the <span class="wintitle">Multifactor</span> tab.<ol style="list-style-type: lower-alpha;">
+                        <li>Click <span class="uicontrol">Add Multifactor Policy</span>.</li>
+                        <li>Name the policy appropriately. </li>
+                        <li>In <span class="uicontrol">Assign to Groups</span>, enter <span class="userinput">everyone</span> and then click <span class="uicontrol">Add</span>. </li>
+                        <li>For <span class="uicontrol">Okta Verify</span> select <span class="uicontrol">Required</span>. </li>
+                        <li>Click <span class="uicontrol">Create Policy</span>.</li>
+                     </ol>
+                  </p>
+               </li>
+               <p>After adding a policy you are directed to Add Rule automatically.  You need not add a rule at this time. </p>
+            </ol>
+            <p>Note: For more information on Multifactor Authentication see <MadCap:xref href="mfa/about-mfa.htm">About multifactor authentication</MadCap:xref>.</p>
+         </MadCap:dropDownBody>
+      </MadCap:dropDown>
+      <MadCap:dropDown>
+         <MadCap:dropDownHead>
+            <MadCap:dropDownHotspot>Provisioning Users</MadCap:dropDownHotspot>
+         </MadCap:dropDownHead>
+         <MadCap:dropDownBody>
+            <p>AWS Workspace users are already managed in Active Directory. In live configurations configure Okta to pull users from Active directory as follows:</p>
+            <ol>
+               <li>
+                  <p>In a browser, Navigate to your Okta Org and Login as an Administrator.</p>
+               </li>
+               <li>
+                  <p>Click <span class="menucascade">
+                        <span class="uicontrol">Directory</span>
+                        <span class="uicontrol">Directory Integrations</span>
+                     </span>.</p>
+               </li>
+               <li>
+                  <p>Click <span class="uicontrol">Add Active Directory</span>.</p>
+               </li>
+               <li>
+                  <p>Click <span class="uicontrol">Setup Active Directory</span>.</p>
+               </li>
+               <li>
+                  <p>Complete the wizard as required.</p>
+               </li>
+               <p>Note: For more information about integrating Active Directory with your Okta tenant see <MadCap:xref href="../Directory/ad-agent-manage-integration.htm">Manage your Active Directory integration</MadCap:xref>.</p>
+            </ol>
+         </MadCap:dropDownBody>
+      </MadCap:dropDown>
+      <MadCap:dropDown>
+         <MadCap:dropDownHead>
+            <MadCap:dropDownHotspot>User Experience</MadCap:dropDownHotspot>
+         </MadCap:dropDownHead>
+         <MadCap:dropDownBody>
+            <p>The following describes the user experience once complete.</p>
+            <MadCap:dropDown>
+               <MadCap:dropDownHead>
+                  <MadCap:dropDownHotspot>Okta MFA enrollment</MadCap:dropDownHotspot>
+               </MadCap:dropDownHead>
+               <MadCap:dropDownBody>
+                  <ol>
+                     <li>
+                        <p>End user receives an activation link in the inbox.<br/>
+                           <img src="../../Resources/Images/integrations/aws-to-UE.MFAEnroll.1.png"
+                                alt="MFA Enrollment welcome email."
+                                id="img_new"/>
+                        </p>
+                     </li>
+                     <p>Note: you can fully customize the email template from Okta admin console.</p>
+                     <li>
+                        <p>When a user clicks on the activation link they are directed to the onboarding page:<br/>
+                           <img src="../../Resources/Images/integrations/aws-to-UE.MFAEnroll.2.png"
+                                alt="MFA Onboarding page"
+                                id="img_new"/>
+                        </p>
+                     </li>
+                     <li>
+                        <p>When a user clicks on the activation link they are directed to the onboarding page:<br/>
+                           <img src="../../Resources/Images/integrations/aws-to-UE.MFAEnroll.3.png"
+                                alt="MFA Onboarding page"
+                                id="img_new"/>
+                        </p>
+                     </li>
+                     <li>
+                        <p>User can click on Configure factor and select a mobile OS::<br/>
+                           <img src="../../Resources/Images/integrations/aws-to-UE.MFAEnroll.4.png"
+                                alt="MFA Onboarding page"
+                                id="img_new"/>
+                        </p>
+                     </li>
+                     <li>
+                        <p>User downloads Okta Verify app on their mobile device. Opens the app and scans the barcode displayed on the laptop:<br/>
+                           <img src="../../Resources/Images/integrations/aws-to-UE.MFAEnroll.6.png"
+                                alt="MFA Onboarding page"
+                                id="img_new"/>
+                           <img src="../../Resources/Images/integrations/aws-to-UE.MFAEnroll.5.png"
+                                alt="MFA Onboarding page"
+                                id="img_new"/>
+                        </p>
+                     </li>
+                     <li>
+                        <p>Okta Verify self-enrollment is complete when user clicks on <span class="uicontrol">Finish</span>
+                           <br/>User may choose to configure additional factors.<br/>
+                           <img src="../../Resources/Images/integrations/aws-to-UE.MFAEnroll.7.png"
+                                alt="MFA Onboarding page"
+                                id="img_new"/>
+                        </p>
+                     </li>
+                     <p>Note: When complete the user is redirected to the Okta dashboard.  </p>
+                  </ol>
+               </MadCap:dropDownBody>
+            </MadCap:dropDown>
+            <MadCap:dropDown>
+               <MadCap:dropDownHead>
+                  <MadCap:dropDownHotspot>AWS Workspace + Okta MFA Challenge</MadCap:dropDownHotspot>
+               </MadCap:dropDownHead>
+               <MadCap:dropDownBody>
+                  <ol>
+                     <li>
+                        <p>Once Okta MFA is enabled within the AWS Workspace, end users will see a MFA field on their workspace sign in page similar to:<br/>
+                           <img src="../../Resources/Images/integrations/aws-to-UE.AWSMFA.1.png"
+                                alt="AWS MFA"
+                                id="img_new"/>
+                        </p>
+                     </li>
+                     <li>
+                        <p>The MFA code can be used in 2 ways:</p>
+                        <ol style="list-style-type: lower-alpha;">
+                           <li>
+                              <p>
+									You can enter the Okta Verify OTP that is displayed on your enrolled mobile phone in Okta Verify App. <br/>Click on your username in the mobile app to display the OTP.
+							If you enter username+password and Okta Verify OTP as MFA code, you'll be signed in automatically.<br/>
+                                 <img src="../../Resources/Images/integrations/aws-to-UE.AWSMFA.2.png"
+                                      alt="AWS MFA"
+                                      id="img_new"/>
+                              </p>
+                           </li>
+                           <li>
+                              <p>You can enter <span class="userinput">push</span> as value.<br/>                                       If you enter username+password and push as MFA code: you will receive a push notification on your enrolled mobile phone. Once you approve, you'll be signed in automatically in your workspace instance.<br/>
+                                 <img src="../../Resources/Images/integrations/aws-to-UE.AWSMFA.3.png"
+                                      alt="AWS MFA"
+                                      id="img_new"/>
+                                 <br/>
+                                 <img src="../../Resources/Images/integrations/aws-to-UE.AWSMFA.4.png"
+                                      alt="AWS MFA"
+                                      id="img_new"/>
+                                 <br/>
+                                 <img src="../../Resources/Images/integrations/aws-to-UE.AWSMFA.5.png"
+                                      alt="AWS MFA"
+                                      id="img_new"/>
+                                 <br/>
+                              </p>
+                           </li>
+                        </ol>
+                     </li>
+                  </ol>
+               </MadCap:dropDownBody>
+            </MadCap:dropDown>
+         </MadCap:dropDownBody>
+      </MadCap:dropDown>
+   </body>
+</html>

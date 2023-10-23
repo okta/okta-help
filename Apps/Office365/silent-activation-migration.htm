@@ -1,0 +1,373 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:conditions="MultiProdPublish.Classic"
+      MadCap:fileTags="Tags/okta-authors.Mark Cowan">
+   <head>
+      <link href="../../../Resources/TableStyles/standard.css"
+            rel="stylesheet"
+            MadCap:stylesheetType="table"/>
+   </head>
+   <body>
+      <h1>Migrate registry-key-based Office 365 Silent Activation to new configuration</h1>
+      <p MadCap:conditions="Primary.do-not-publish">OFFICE365_WINDOWS_TRANSPORT_SUPPORT. This migration doc is Classic-only at this moment.</p>
+      <div class="noteOkta">
+         <ul>
+            <li>
+               <p>This topic is intended for orgs that implemented the Early Access version of this feature prior to the 2019.09.0 release. If this applies to your org, you must complete this migration procedure.</p>
+            </li>
+            <li>
+               <p>If you're implementing this feature for the first time after the 2019.09.0 release,  follow the instructions in <MadCap:xref href="../Apps_O365_Silent_Activation.htm">Office 365 Silent Activation: New Implementations</MadCap:xref>.</p>
+            </li>
+         </ul>
+      </div>
+      <p>This procedure describes how to migrate your registry-key-based Office 365 Silent Activation configuration to the new Kerberos-based configuration. The new configuration uses Kerberos authentication, which eliminates the need for registry keys.</p>
+      <h2>Start this procedure</h2>
+      <p>This procedure includes the following main steps:</p>
+      <p>
+         <MadCap:xref href="#A.">A. Create and test a new Kerberos subdomain</MadCap:xref>
+      </p>
+      <p>
+         <MadCap:xref href="#B.">B. Create and confirm a new DNS record for your org</MadCap:xref>
+      </p>
+      <p>
+         <MadCap:xref href="#C.">C. Test the new setup</MadCap:xref>
+      </p>
+      <div class="noteOkta">
+         <p class="noteContent">
+            <MadCap:snippetBlock src="../Office365-Snippets/References/sa-limitations.flsnp"/>
+         </p>
+      </div>
+      <div>
+         <h3>
+            <a name="A."/>A. Create and test a new Kerberos subdomain</h3>
+         <h4>1. Add a new kerberos subdomain SPN</h4>
+         <div class="note_cautionOkta">
+            <p class="noteContent">Use the same service account that you're using currently. Changing the service account can cause Silent Activation authentication requests to fail.
+			</p>
+         </div>
+         <ol>
+            <li>In your Active Directory environment, open a command prompt as an administrator.</li>
+            <li>
+               <p>Run the following command to add a Kerberos subdomain SPN:</p>
+               <p>
+                  <span class="code">setspn -S HTTP/&lt;yourorg&gt;.kerberos.&lt;oktaorgtype&gt;.com &lt;serviceAccountName&gt;</span>
+               </p>
+               <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');"
+                      class="TableStyle-standard"
+                      cellspacing="0">
+                  <col class="TableStyle-standard-Column-Column1" style="width: 808px;"/>
+                  <col class="TableStyle-standard-Column-Column1"/>
+                  <thead>
+                     <tr class="TableStyle-standard-Head-Header1">
+                        <th class="TableStyle-standard-HeadF-Column1-Header1">
+                           <p>Placeholder</p>
+                        </th>
+                        <th class="TableStyle-standard-HeadD-Column1-Header1">
+                           <p>Value</p>
+                        </th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                           <p>
+                              <span class="code">HTTP/&lt;yourorg&gt;.kerberos.&lt;oktaorgtype&gt;.com</span>
+                           </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">Your SPN.</td>
+                     </tr>
+                     <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                           <p>
+                              <span class="code">oktaorgtype</span>
+                           </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">
+                           <p>Your Okta org type. For example: oktapreview, okta-emea, or okta-gov.</p>
+                        </td>
+                     </tr>
+                     <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyC-Column1-Body1">
+                           <p>
+                              <span class="code">serviceAccountName</span>
+                           </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyA-Column1-Body1">Your service account name. This is the name that you used when configuring the Early Access version of Agentless Desktop SSO.</td>
+                     </tr>
+                  </tbody>
+               </table>
+               <p>Example:</p>
+               <p>
+                  <span class="codeph">setspn -S HTTP/qa-synth.kerberos.oktapreview.com spndefault</span>
+               </p>
+               <div class="noteOkta">
+                  <p class="noteContent">This command doesn't create a Active Directory user account. Instead, it adds a new SPN to the existing AD user account. This command is applicable to all orgs, including those that are using a custom URL.</p>
+               </div>
+            </li>
+            <li>
+               <p>If you have multiple AD forests, repeat step 2 for each forest.</p>
+               <p>SPNs are unique across a forest so you only need to do this once in each forest.</p>
+            </li>
+         </ol>
+         <h4>2. Verify the new Kerberos subdomain SPN</h4>
+         <ol>
+            <li>
+               <p>In Windows PowerShell, enter the following command to confirm that the new DNS and SPN entries are updated:</p>
+               <p>
+                  <span class="codeblock">klist get HTTP/&lt;yourorg&gt;.kerberos.&lt;oktaorgtype&gt;.com</span>
+               </p>
+               <p>For example:</p>
+               <p>
+                  <span class="codeblock">klist get HTTP/atko.kerberos.oktapreview.com</span>
+               </p>
+            </li>
+            <li>
+               <p>Confirm that you get the message about successful ticket retrieval.
+</p>
+               <p>
+                  <img src="../../../Resources/Images/Office365/test-spn-klist-result.png"
+                       class="thumbnail"/>
+               </p>
+            </li>
+         </ol>
+         <h4>3. Add the new Kerberos subdomain to intranet zone</h4>
+         <p>Add <span class="url">https://&lt;yourorg&gt;.kerberos.&lt;oktaorgtype&gt;.com</span> to the intranet site list in your internet settings for all the devices that should use Silent Activation.</p>
+         <MadCap:snippetBlock src="../Office365-Snippets/Procedures/configure-local-intranet.flsnp"/>
+      </div>
+      <div>
+         <h3>
+            <a name="B."/>B. Create and confirm a new DNS record for your org</h3>
+         <p>Prerequisite: Domain administrator privileges  to set the SPN.</p>
+         <h4>1. Create a DNS record for your org</h4>
+         <p>In the <span class="uicontrol">Okta Admin Console</span>, </p>
+         <ol>
+            <li>Go to <span class="menucascade">
+                  <span class="uicontrol">Security</span>
+                  <span class="uicontrol">Delegated Authentication</span>
+               </span>.
+            </li>
+            <li>On the <span class="uicontrol">Delegated Authentication</span> page, click the <span class="uicontrol">Active directory</span> tab.
+</li>
+            <li>
+               <p>Scroll down to the <span class="uicontrol">Agentless Desktop SSO and Silent Activation</span> section and click <span class="uicontrol">Edit</span>.</p>
+            </li>
+            <li>
+               <p>If the <span class="uicontrol">service account username</span> is in the old format (for example:  <span class="userinput">HTTP/&lt;yourorg&gt;.&lt;oktaorgtype&gt;.com</span>), change it to the sAMAccountname or the username part of the UPN of the service account for which you set up the SPN in Part A.
+</p>
+               <div class="noteOkta">
+                  <p class="noteContent">Service account username is case-sensitive.</p>
+               </div>
+               <p>
+                  <img src="../../../Resources/Images/Office365/ui-validate-save.png"
+                       class="thumbnail"/>
+               </p>
+            </li>
+            <li>Select <span class="uicontrol">Validate service account credential on save</span>.</li>
+            <li>Click <span class="uicontrol">Save</span>.</li>
+         </ol>
+         <p>This triggers the creation of a new DNS record for your org. Creating a new DNS record can take a few minutes, or sometimes, a few hours.</p>
+         <h4>2. Confirm the creation of the new DNS record</h4>
+         <p>Use the following <span class="code">dig</span> (Mac) or <span class="code">nslookup</span> (Windows) commands to confirm that the new Kerberos URL is reachable. </p>
+         <div class="noteOkta">
+            <p class="noteContent">If you don't see a success message, run the command again after a few minutes. Sometimes, record creation can take several hours.
+Refer to the respective command reference documentation for more information on the output messages.			</p>
+         </div>
+         <p style="text-decoration: underline;">For Mac</p>
+         <p>
+            <span class="codeblock">$ dig &lt;yourorg&gt;.kerberos.&lt;oktaorgtype&gt;.com
+</span>
+         </p>
+         <p>For example:</p>
+         <p>
+            <img src="../../../Resources/Images/Office365/test-dns-dig-result.png"
+                 class="thumbnail"/>
+         </p>
+         <p>OR</p>
+         <p style="text-decoration: underline;">For Windows</p>
+         <p>
+            <span class="codeblock">$ nslookup &lt;yourorg&gt;.kerberos.&lt;oktaorgtype&gt;.com</span>
+         </p>
+         <p>For example:</p>
+         <p>
+            <img src="../../../Resources/Images/Office365/test-dns-lookup-result.png"
+                 class="thumbnail"/>
+         </p>
+      </div>
+      <div>
+         <h3>
+            <a name="C."/>C. Test the new setup</h3>
+         <h4>Prerequisites</h4>
+         <ul>
+            <li>Test user account that has assigned Office 365 app instance and works with old Silent Activation configuration.</li>
+            <li>Following credentials for the test user account:
+<ul>
+                  <li>
+                     <span class="uicontrol">Domain</span>: <span class="userinput">&lt;yourorg&gt;.kerberos.&lt;oktaorgtype&gt;.com</span>
+                  </li>
+                  <li>
+                     <span class="uicontrol">External ID</span>: External ID of the org in which the test user is. You can find this in the script you used for the org's WS-Fed set up.
+</li>
+                  <li>
+                     <span class="uicontrol">Username</span>: Username part of the test user's UPN.</li>
+                  <li>
+                     <span class="uicontrol">Password</span>: Password for the test user's account.</li>
+               </ul>
+            </li>
+            <li>Admin permissions on Windows.
+</li>
+         </ul>
+         <h4>Procedure</h4>
+         <ol>
+            <li>
+               <p>On Windows, as an admin run the following PowerShell command:</p>
+               <p>
+                  <span class="codeblock">Get-ExecutionPolicy</span>
+               </p>
+            </li>
+            <li>
+               <p>Make a note of the output policy. This value is required for the final step of the procedure.</p>
+               <p>
+                  <img src="../../../Resources/Images/Office365/test-mig-get-policy.png"
+                       class="thumbnail"/>
+               </p>
+            </li>
+            <li>
+               <p>Change the execution policy to <span class="code">Unrestricted</span> using the following command:</p>
+               <p>
+                  <span class="codeblock">Set-ExecutionPolicy Unrestricted</span>
+               </p>
+               <p>
+                  <img src="../../../Resources/Images/Office365/test-mig-set-policy.png"
+                       class="thumbnail"/>
+               </p>
+            </li>
+            <li>
+               <p>Test a user account:</p>
+               <ol style="list-style-type: lower-alpha;">
+                  <li>
+                     <p>Copy the following script into a text file and save the file as <span class="filepath">Test_windowsTransport.ps1</span>.</p>
+                     <MadCap:codeSnippet>
+                        <MadCap:codeSnippetCopyButton/>
+                        <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve" style="mc-code-lang: PowerShell;">param (
+[Parameter(Mandatory=$true,
+HelpMessage="Domain for org. No need to pass Kerberos subdomain.")]
+[string]$domain,
+[Parameter(Mandatory=$true,
+HelpMessage="External id of the Office365 app instance.")]
+[string]$externalId,
+[Parameter(Mandatory=$true,
+HelpMessage="Username for the account on the box that should be used for authentication.")]
+[string]$username,
+[Parameter(Mandatory=$true,
+HelpMessage="Password for the account on the box that should be used for authentication.")]
+[string]$password
+)
+ 
+$HTTPREQUEST_SETCREDENTIALS_FOR_SERVER = 0;
+ 
+$path = "app/office365/{0}/sso/wsfed/windowstransport" -f $externalId
+$url = "https://{0}/{1}" -f $domain, $path
+Write-Host ("Url: {0}" -f $url)
+ 
+$soapPayload =
+@'
+&lt;s:Envelope xmlns:s='http://www.w3.org/2003/05/soap-envelope'
+xmlns:wsa='http://www.w3.org/2005/08/addressing'
+xmlns:wsu='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd'&gt;
+&lt;s:Header&gt;
+&lt;wsa:Action s:mustUnderstand='1'&gt;http://schemas.xmlsoap.org/ws/2005/02/trust/RST/Issue&lt;/wsa:Action&gt;
+&lt;wsa:messageID&gt;urn:uuid:099B1123-4E9C-4244-8F51-B92937BFA08E&lt;/wsa:messageID&gt;
+&lt;wsa:ReplyTo&gt;
+&lt;wsa:Address&gt;http://www.w3.org/2005/08/addressing/anonymous&lt;/wsa:Address&gt;
+&lt;/wsa:ReplyTo&gt;
+&lt;wsa:To s:mustUnderstand='1'&gt;{0}&lt;/wsa:To&gt;
+&lt;/s:Header&gt;
+&lt;s:Body&gt;
+&lt;wst:RequestSecurityToken xmlns:wst='http://schemas.xmlsoap.org/ws/2005/02/trust'&gt;
+&lt;wsp:AppliesTo xmlns:wsp='http://schemas.xmlsoap.org/ws/2004/09/policy'&gt;
+&lt;wsa:EndpointReference&gt;
+&lt;wsa:Address&gt;urn:federation:MicrosoftOnline&lt;/wsa:Address&gt;
+&lt;/wsa:EndpointReference&gt;
+&lt;/wsp:AppliesTo&gt;
+&lt;wst:KeyType&gt;http://schemas.xmlsoap.org/ws/2005/05/identity/NoProofKey&lt;/wst:KeyType&gt;
+&lt;wst:RequestType&gt;http://schemas.xmlsoap.org/ws/2005/02/trust/Issue&lt;/wst:RequestType&gt;
+&lt;/wst:RequestSecurityToken&gt;
+&lt;/s:Body&gt;
+&lt;/s:Envelope&gt;
+'@ -f $url
+ 
+$winHttp = New-Object -Com "WinHttp.WinHttpRequest.5.1"
+$winHttp.open("POST", $url, $false)
+ 
+$winHttp.SetRequestHeader("Content-Type", "application/soap+xml; charset=utf-8")
+$winHttp.SetRequestHeader("SOAPAction", "http://schemas.xmlsoap.org/ws/2005/02/trust/RST/Issue")
+$winHttp.SetRequestHeader("x-client-OS", "10.0.14393")
+$winHttp.SetRequestHeader("x-client-SKU", "Win32")
+$winHttp.SetRequestHeader("x-client-Ver", "v2.2.1.28801")
+ 
+$winHttp.send($soapPayload)
+ 
+if ($winHttp.Status -ne [int]401) {
+Write-Error ("Received unexpected response status: {0}, expected 401." -f $winHttp.Status)
+}
+ 
+Write-Host "Received 401 response status."
+ 
+$winHttp.SetCredentials($username, $password, $HTTPREQUEST_SETCREDENTIALS_FOR_SERVER)
+$winHttp.send($soapPayload)
+ 
+if ($winHttp.Status -ne [int]200) {
+Write-Error ("Received unexpected response status: {0}, expected 200." -f $http.Status)
+}
+ 
+Write-Host ("Received {0} response status." -f $winHttp.Status)
+ 
+$samlTicket = [XML]$winHttp.ResponseText
+ 
+if (-not $samlTicket.Envelope.Body.RequestSecurityTokenResponse.RequestedSecurityToken) {
+Write-Error ("Response did not contain saml ticket.")
+}
+ 
+Write-Host ("Valid SAML ticket received.")</MadCap:codeSnippetBody>
+                     </MadCap:codeSnippet>
+                  </li>
+                  <li>
+                     <p>Run the following command in PowerShell:</p>
+                     <MadCap:codeSnippet>
+                        <MadCap:codeSnippetCopyButton/>
+                        <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve" style="mc-code-lang: PowerShell;">.\Test_windowsTransport.ps1 -domain &lt;yourorg&gt;.kerberos.&lt;oktaorgtype&gt;.com -externalId &lt;orgexternalid&gt; -username &lt;testusername&gt; -password &lt;-testpassword&gt;	</MadCap:codeSnippetBody>
+                     </MadCap:codeSnippet>
+                  </li>
+                  <li>
+                     <p>Confirm that you get the following successful SAML message:</p>
+                     <p>
+                        <span class="codeblock">Valid SAML ticket received.</span>
+                     </p>
+                     <p>
+                        <img src="../../../Resources/Images/Office365/test-mig-test-user.png"
+                             class="thumbnail"/>
+                     </p>
+                     <p>This confirms that Silent Activation is successful for the test user.</p>
+                  </li>
+               </ol>
+            </li>
+            <li>
+               <p>Restore the execution policy to the original value using the following command:</p>
+               <p>
+                  <span class="codeblock">Set-ExecutionPolicy &lt;initialPolicy&gt;</span>
+               </p>
+            </li>
+         </ol>
+      </div>
+      <h2>See also</h2>
+      <p>
+         <MadCap:xref href="../Apps_O365_Silent_Activation.htm">Office 365 Silent Activation: New Implementations</MadCap:xref>
+      </p>
+      <p>
+         <MadCap:xref href="advanced.htm">Advanced integration topics for Office 365</MadCap:xref>
+      </p>
+      <p>
+         <MadCap:xref href="../Office365-Deployment/deploy-main.htm">Microsoft Office 365 deployment guide</MadCap:xref>
+      </p>
+   </body>
+</html>

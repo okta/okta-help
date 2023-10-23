@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:conditions="MultiProdPublish.Classic+OIE"
+      MadCap:fileTags="Tags/okta-authors.Robert Milkovich">
+   <head>
+      <title>Okta ends browser support for TLS 1.1 | Okta</title>
+      <meta name="description"
+            content="Learn why Okta has ended browser support for TLS 1.1 in favor of the more secure TLS 1.2."/>
+   </head>
+   <body>
+      <h1>Okta ends browser support for TLS 1.1</h1>
+      <p>Okta understands that our dependable service is integral to the important work you're doing. Ensuring the security of your environment is a top priority. Okta published a plan to align to industry best practices by making infrastructure changes to our support of Transport Layer Security (TLS) on February 13, 2018. Specifically, effective August 1, 2018, Okta only supports TLS 1.2 connections and no longer supports TLS 1.0 and 1.1 due to security vulnerabilities.</p>
+      <p MadCap:conditions="MultiProdPublish.Classic+OIE">This article describes the changes that you may need to make for Microsoft Internet Explorer browsers in your organization. For TLS 1.2-related information on all Okta products and agents, and the schedule, see <a href="https://support.okta.com/help/Documentation/Knowledge_Article/Migrating-to-TLS-1-2">Migrating to TLS 1.2</a>.</p>
+      <h2>How this might affect your org</h2>
+      <h3>Browser versions</h3>
+      <ul>
+         <li>Most vulnerable: Internet Explorer 10 is set by default to use TLS 1.1. To keep using IE 10 (and embedded browsers on systems running IE 10) with Okta, you must ensure that you configure your browsers to use TLS 1.2 (<span class="menucascade">
+               <span class="uicontrol">Tools</span>
+               <span class="uicontrol">Internet Options</span>
+               <span class="uicontrol">Advanced</span>
+               <span class="uicontrol">Security</span>
+            </span>). You can use a management tool such as Group Policy Object (GPO) to update IE options on multiple workstations throughout your enterprise. For details, see <a href="#Update_IE_Multiple">Update IE on multiple workstations</a>. </li>
+         <p>
+            <img src="../../Resources/Images/TLS_setting_IE_options.png"
+                 class="thumbnail"/>
+         </p>
+      </ul>
+      <ul>
+         <li>Internet Explorer 11 is set by default to use TLS 1.2. If you change your IE 11 browsers to use TLS 1.1 or earlier, you must configure your browsers to use TLS 1.2 (<span class="menucascade">
+               <span class="uicontrol">Tools</span>
+               <span class="uicontrol">Internet Options</span>
+               <span class="uicontrol">Advanced</span>
+               <span class="uicontrol">Security</span>
+            </span>).</li>
+         <li>Clients using IE embedded browsers (such as Microsoft Office 2016 thick clients) will operate correctly on systems with IE browsers configured to use TLS 1.2. Remember, because IE 10 isn't configured with TLS 1.2 by default, an error will occur on clients with embedded IE 10 browsers unless they've been configured to use TLS 1.2.</li>
+         <li>Edge: All versions of Edge are preconfigured to use TLS 1.2.</li>
+         <li>Chrome, Firefox, and Safari: All recent versions of these browsers are preconfigured to use TLS 1.2.</li>
+      </ul>
+      <h3>Update Windows registry if you disabled TLS 1.2 through the registry</h3>
+      <p>You must update your Windows registry only if you disabled TLS 1.2 through the registry. If this applies to workstations in your org, update the registry with the following values to ensure your end users retain access to Okta and Okta-managed apps<br/>
+      </p>
+      <p>
+         <p>
+            <span class="code">[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Server] "Enabled"=dword:00000001</span>
+         </p>
+         <p>
+            <span class="code">[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Server] "DisabledByDefault"=dword:00000000</span>
+         </p>
+         <p>
+            <span class="code">[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client] "Enabled"=dword:00000001</span>
+         </p>
+         <p>
+            <span class="code">[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client] "DisabledByDefault"=dword:00000000</span>
+         </p>
+      </p>
+      <h3>
+         <a name="Update_IE_Multiple"/>Update IE on multiple workstations</h3>
+      <p>If appropriate for your environment, you can use a third-party management tool such as GPO to update IE options on multiple workstations throughout your enterprise.</p>
+      <p>(From a procedure entitled Disable SSL 3.0 and enable TLS 1.0, TLS 1.1, and TLS 1.2 for Internet Explorer in Group Policy in <a href="https://docs.microsoft.com/en-us/security-updates/SecurityAdvisories/2015/3009008">this</a> Microsoft article):
+				</p>
+      <ol>
+         <li>Open <span class="uicontrol">Group Policy Management</span>.</li>
+         <li>In the <span class="uicontrol">Group Policy Management Editor</span>, browse to the following setting:</li>
+         <p>
+            <span class="menucascade">
+               <span class="uicontrol">Computer Configuration</span>
+               <span class="uicontrol">Administrative Templates</span>
+               <span class="uicontrol">Windows Components</span>
+               <span class="uicontrol">Internet Explorer</span>
+               <span class="uicontrol">Internet Control Panel</span>
+               <span class="uicontrol">Advanced Page</span>
+               <span class="uicontrol">Turn off encryption support</span>
+            </span>
+         </p>
+         <li>Double-click the <span class="uicontrol">Turn off Encryption Support</span> setting to edit the setting.</li>
+         <li>Click <span class="uicontrol">Enabled</span>.</li>
+         <p>
+            <img src="../../Resources/Images/GPO-TurnOffEncryptionSupport.png"
+                 class="thumbnail"/>
+         </p>
+      </ol>
+      <ol MadCap:continue="true">
+         <li>In the <span class="wintitle">Options</span> window, change the <span class="uicontrol">Secure Protocol combinations</span> setting to an appropriate setting that enables TLS 1.2 such as Use TLS 1.0, TLS 1.1, and TLS 1.2.</li>
+         <p>Note: It's important to check consecutive versions. Not selecting consecutive versions (for example, checking TLS 1.0 and 1.2 but not checking 1.1) could result in connection errors.</p>
+         <li>Click <span class="uicontrol">OK</span>.</li>
+      </ol>
+      <h3>Enable TLS 1.2 on .NET</h3>
+      <p>TLS 1.2 is supported on .NET 4.6 and above. To determine the version of .NET installed on your system:</p>
+      <ol>
+         <li>Open the registry using <span class="code">regedit.exe</span>.
+                    </li>
+         <li>Go to  <span class="filepath">HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\v4.0.30319 </span>
+            <p>Note: The last number might be slightly different.</p>
+            <p>If that key is missing, .NET 4.6 is not installed.</p>
+         </li>
+         <li>Under that key, search for key SKUs and look under it for <span class="code">.NETFramework,Version=v4.6</span>.
+					
+					<p>If the key is not present, .NET 4.6 is not present on the system.</p>
+         </li>
+      </ol>
+      <p>The link to .NET 4.6.2 installer is: <a href="https://www.microsoft.com/en-us/download/details.aspx?id=53344">https://www.microsoft.com/en-us/download/details.aspx?id=53344</a>.</p>
+      <p>To set TLS 1.2, edit the registry as follows:</p>
+      <ol>
+         <li>Open the registry using <span class="code">regedit.exe</span>.</li>
+         <li>Go to <span class="filepath">HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\v4.0.30319</span>.<p>Note: The last number might be slightly different.</p>
+         </li>
+         <li>Add <span class="code">SchUseStrongCrypto</span> registry <span class="code">DWORD</span> under .NET 4.0 registry option, as shown below.<p>
+               <img src="../../Resources/Images/TLS_12_registry.png" class="thumbnail"/>
+            </p>
+            <p>
+               <span class="code">[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\v4.0.30319]</span>
+            </p>
+            <p>
+               <span class="code">"AspNetEnforceViewStateMac"=dword:00000001</span>
+            </p>
+            <p>
+               <span class="code"> "SchUseStrongCrypto"=dword:00000001</span>
+            </p>
+         </li>
+      </ol>
+      <p>If you're using ADFS, you must restart the service after you enable TLS 1.2 on .NET.</p>
+      <h3>Related topics</h3>
+      <p>
+         <MadCap:xref href="../Miscellaneous/Platforms_Browser_OS_Support.htm">Supported platforms, browsers, and operating systems</MadCap:xref>
+      </p>
+      <p>
+         <MadCap:xref href="plugin-silent-installation.htm">Silently install the Okta Browser Plugin</MadCap:xref>
+      </p>
+      <p>
+         <MadCap:xref href="../Settings/settings-configure-browser-plugin.htm">Configure the Okta Browser Plugin settings</MadCap:xref>
+      </p>
+      <p>
+         <MadCap:xref href="../Settings/Version_Histories/Ver_History_Browser_Plugin.htm">[%=okta-feature-names.Okta Browser Plugin%] version history</MadCap:xref>
+      </p>
+   </body>
+</html>

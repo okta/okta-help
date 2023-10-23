@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/about-oag-architecture-components.htm" /><title>[%=Heading.Level1%] | Okta</title>
+    </head>
+    <body>
+        <h1>Components</h1>
+        <div>
+            <p><MadCap:variable name="okta-feature-names.Access Gateway" /> has a number of architectural components and tiers. <br />The following diagram shows a detailed hypothetical architecture overview of <MadCap:variable name="okta-feature-names.Access Gateway" />, along with ports and protocols used. </p>
+            <p>
+                <img src="../../Resources/Images/access-gateway/architecture-detailed.png" />
+            </p>
+        </div>
+        <h2>Top tier</h2>
+        <p>The topmost tier contains the traditional internet access, typically exposed using a load balancer. Users  access the load balancer using application specific URLs. These URLs then direct them to an <MadCap:variable name="okta-feature-names.Access Gateway" /> worker node in a high availability cluster.</p>
+        <h2>Middle tier</h2>
+        <p>The middle tier contains the <MadCap:variable name="okta-feature-names.Access Gateway" /> cluster, running within a virtual environment, such as Amazon EC2, Microsoft Azure, VMWare,&#160;and others.<br />An <MadCap:variable name="okta-feature-names.Access Gateway" /> cluster is composed of:
+            </p>
+        <p>
+            <div class="noteOkta">
+                <p class="noteContent">The following is the minimum recommended configuration for a high availability <MadCap:variable name="okta-feature-names.Access Gateway" /> cluster.</p>
+            </div>
+            <ul>
+                <li>A load balancer that is visible to the external internet and the <MadCap:variable name="okta-feature-names.Access Gateway" /> cluster.</li>
+                <li>An admin node that manages all application definitions and supports infrastructure, such as data stores and other configuration. </li>
+                <li>Three or more worker nodes that manage all application requests, interact with an Okta tenant for authorization, provide fine-grained access controls, and other behaviors. While <MadCap:variable name="okta-feature-names.Access Gateway" /> can function with fewer than three worker nodes, for high availability the recommended minimum cluster size is three (plus an admin node).</li>
+            </ul>
+            <br />The <MadCap:variable name="okta-feature-names.Access Gateway" /> cluster is typically behind a firewall and accessible only to the Okta tenant, load balancer, supporting services, and underlying protected web application resources.<br />In addition, <MadCap:variable name="okta-feature-names.Access Gateway" /> must also be able to access certain well-defined sites such as:<br /><ul><li> <span class="code">www.okta.com </span> - Used for initial configuration and network testing.</li><li> <span class="code">yum.oag.okta.com</span> - Used for upgrading <MadCap:variable name="okta-feature-names.Access Gateway" />. </li><li><span class="code">vpn.oag.okta.com</span> - Used for support and troubleshooting.</li><li>Other ports as required for DNS, Kerberos, and Syslog access. </li></ul><br />Administrators need to be able to access the <MadCap:xref href="learn-about-oag-interfaces-commandline.htm">command line management console</MadCap:xref> using secure shell (SSH) over port 22 and the <a href="learn-about-oag-interfaces-ui.htm">admin console</a> using HTTPS over port 443. Typically, these tools are used exclusively by admins inside the firewall. Care should be taken not to open port 22 outside the firewall. <br /></p>
+        <MadCap:snippetBlock src="../../Resources/Snippets/access-gateway/ha-config-proxy-warning.flsnp" />
+        <h2>Application tier</h2>
+        <p>Protected web applications, typically running within a client data center, represent the lowest tier in the architecture. These applications must be accessible to <MadCap:variable name="okta-feature-names.Access Gateway" />, but should not&#160;be accessible to the outside world. Separation of the applications is typically handled using a split DNS mechanism where internal resources, such as protected web applications, databases, and other required support, are visible only to <MadCap:variable name="okta-feature-names.Access Gateway" /> and required data center resources. Additionally, a firewall typically separates <MadCap:variable name="okta-feature-names.Access Gateway" /> from the application tier load balancer.<br /><MadCap:variable name="okta-feature-names.Access Gateway" /> supports the use of additional network interfaces, which can be used to separate differing aspects of data center to <MadCap:variable name="okta-feature-names.Access Gateway" /> traffic.</p>
+        <h3>Related topics</h3>
+        <p>
+            <MadCap:xref href="about-load-balancers.htm">About load balancers</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="about-networking-interfaces.htm">About network interfaces</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="about-application-datastores.htm">About application data stores</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="about-oag-prereqs.htm">Prerequisites for deploying [%=okta-feature-names.Access Gateway%]</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="support-matrix.htm">Supported technologies</MadCap:xref>
+        </p>
+    </body>
+</html>

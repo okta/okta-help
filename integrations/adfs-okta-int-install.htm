@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<html MadCap:onlyLocalStylesheets="False" MadCap:fileTags="Tags/okta-authors.Patrick Calnan" xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:conditions="MultiProdPublish.Classic+OIE">
+    <head><title>[%=Heading.Level1%] | Okta</title>
+        <meta name="description" content="Install the Okta ADFS Plugin on your ADFS Server." />
+    </head>
+    <body>
+        <h1>Install the Okta ADFS Plugin on your ADFS Server</h1>
+        <p>After downloading the installer, complete the following steps to install the the ADFS plugin on your ADFS server.</p>
+        <ol>
+            <li>Navigate to the directory where the agent installer was downloaded.</li>
+            <li>Unzip the archive, and run <span class="code">setup.exe</span> as administrator.</li>
+            <li>Click <span class="uicontrol">Next</span> to start the installation.
+					</li>
+            <li>Log back into your Okta org, and navigate to  the <span class="uicontrol">Microsoft ADFS (MFA) application</span> application created in <MadCap:xref href="adfs-okta-int-o-config.htm">Install and configure Microsoft ADFS&#160;in Okta</MadCap:xref>.
+                        </li>
+            <li>The Okta ADFS Adapter install will prompt you for values for <span class="uicontrol">ClientId</span>, <span class="uicontrol">ClientSecret</span>, and <span class="uicontrol">Okta URL</span> <br />For example:&#160;
+                        <ul><li><span class="uicontrol">ClientId</span>: 90aSt67bHgyW9bv</li><li><span class="uicontrol">ClientSecret</span>: 80hglw7bw46hNoTpbnAyqzihouyzia</li><li><span class="uicontrol">OktaURL</span>: <span class="url">https://atkodemoorg.oktapreview.com</span></li></ul><p><img src="../../Resources/Images/okta-adfs11.png" /></p></li>
+            <li>
+                <p>Optionally, register the adapter by checking the <span class="uicontrol">Register Okta ADFS adapter</span> check box. </p>
+                <p>
+                    <img src="../../Resources/Images/okta-adfs35.png" />
+                </p>
+                <p>If you are installing in a Federation Server Farm, do not check <span class="uicontrol">Register Okta ADFS Adapter</span>. <br />Refer to the manual registration procedure detailed in the <a href="adfs-okta-int-farm.htm">Farm Installation Addendum</a>.</p>
+            </li>
+            <li>
+                       Specify the drive and folder where you want to install the Okta MFA Adapter.
+<br />Default: <span class="code">c:\Program Files\Okta MFA Provider\</span><p><img src="../../Resources/Images/okta-adfs12.png" /></p></li>
+            <li>
+                      The install completes, click <span class="uicontrol">Close</span>.</li>
+            <li>If you are installing in a Federation Server Farm, do not check <span class="uicontrol">Register Okta ADFS Adapter</span>. Refer to the manual registration procedure detailed in the <a href="adfs-okta-int-farm.htm">Farm Installation Addendum</a>.</li>
+            <li>ADFS 2019 only
+                <br />If you are installing in ADFS 2019, execute the following in a powershell window.<ol style="list-style-type: lower-alpha;"><li>Open a powershell as administrator.</li><li>Modify script for your okta domain and execute:<br /><MadCap:codeSnippet><MadCap:codeSnippetCopyButton /><MadCap:codeSnippetCaption><p>powershell script</p></MadCap:codeSnippetCaption><MadCap:codeSnippetBody MadCap:useLineNumbers="True" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve"># Please change the value of &lt;customer_subdomain&gt;
+$oktaUrl = "https://&lt;customer_subdomain&gt;.okta.com" 
+$oktaCdnUrl = "https://*.oktacdn.com"
+	
+$CSP = ((Get-AdfsResponseHeaders | Select -ExpandProperty ResponseHeaders).'Content-Security-Policy')
+if (-not ([string]::IsNullOrEmpty($CSP)))
+{
+	$CSP += "; "
+}
+$CSP += 'default-src ' + $oktaUrl + ' ' + $oktaCdnUrl + '; frame-src ' + $oktaUrl + ' ' + $oktaCdnUrl + '; img-src ' + $oktaUrl + ' ' + $oktaCdnUrl
+Set-AdfsResponseHeaders -SetHeaderName Content-Security-Policy -SetHeaderValue $CSP
+Set-AdfsResponseHeaders -EnableCORS $true
+Set-AdfsResponseHeaders -CORSTrustedOrigins $($oktaUrl)</MadCap:codeSnippetBody></MadCap:codeSnippet></li></ol></li>
+        </ol>
+        <div>
+            <h2>Next steps</h2>
+            <p>
+                <MadCap:xref href="adfs-okta-int-enable-mfa.htm">Enable the Okta MFA Provider in ADFS</MadCap:xref>
+            </p>
+        </div>
+    </body>
+</html>

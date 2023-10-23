@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Mark Cowan">
+    <head>
+    </head>
+    <body>
+        <span class="codeblock">param (
+[Parameter(Mandatory=$true,
+HelpMessage="Domain for org. No need to pass kerberos subdomain.")]
+[string]$domain,
+[Parameter(Mandatory=$true,
+HelpMessage="External id of the Office365 app instance.")]
+[string]$externalId,
+[Parameter(Mandatory=$true,
+HelpMessage="Username for the account on the box that should be used for authentication.")]
+[string]$username,
+[Parameter(Mandatory=$true,
+HelpMessage="Password for the account on the box that should be used for authentication.")]
+[string]$password
+)
+
+$HTTPREQUEST_SETCREDENTIALS_FOR_SERVER = 0;
+
+$path = "app/office365/{0}/sso/wsfed/windowstransport" -f $externalId
+$url = "https://{0}/{1}" -f $domain, $path
+Write-Host ("Url: {0}" -f $url)
+
+$soapPayload =
+@'
+&lt;s:Envelope xmlns:s='http://www.w3.org/2003/05/soap-envelope'
+xmlns:wsa='http://www.w3.org/2005/08/addressing'
+xmlns:wsu='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd'&gt;
+&lt;s:Header&gt;
+&lt;wsa:Action s:mustUnderstand='1'&gt;http://schemas.xmlsoap.org/ws/2005/02/trust/RST/Issue&lt;/wsa:Action&gt;
+&lt;wsa:messageID&gt;urn:uuid:099B1123-4E9C-4244-8F51-B92937BFA08E&lt;/wsa:messageID&gt;
+&lt;wsa:ReplyTo&gt;
+&lt;wsa:Address&gt;http://www.w3.org/2005/08/addressing/anonymous&lt;/wsa:Address&gt;
+&lt;/wsa:ReplyTo&gt;
+&lt;wsa:To s:mustUnderstand='1'&gt;{0}&lt;/wsa:To&gt;
+&lt;/s:Header&gt;
+&lt;s:Body&gt;
+&lt;wst:RequestSecurityToken xmlns:wst='http://schemas.xmlsoap.org/ws/2005/02/trust'&gt;
+&lt;wsp:AppliesTo xmlns:wsp='http://schemas.xmlsoap.org/ws/2004/09/policy'&gt;
+&lt;wsa:EndpointReference&gt;
+&lt;wsa:Address&gt;urn:federation:MicrosoftOnline&lt;/wsa:Address&gt;
+&lt;/wsa:EndpointReference&gt;
+&lt;/wsp:AppliesTo&gt;
+&lt;wst:KeyType&gt;http://schemas.xmlsoap.org/ws/2005/05/identity/NoProofKey&lt;/wst:KeyType&gt;
+&lt;wst:RequestType&gt;http://schemas.xmlsoap.org/ws/2005/02/trust/Issue&lt;/wst:RequestType&gt;
+&lt;/wst:RequestSecurityToken&gt;
+&lt;/s:Body&gt;
+&lt;/s:Envelope&gt;
+'@ -f $url
+
+$winHttp = New-Object -Com "WinHttp.WinHttpRequest.5.1"
+$winHttp.open("POST", $url, $false)
+
+$winHttp.SetRequestHeader("Content-Type", "application/soap+xml; charset=utf-8")
+$winHttp.SetRequestHeader("SOAPAction", "http://schemas.xmlsoap.org/ws/2005/02/trust/RST/Issue")
+$winHttp.SetRequestHeader("x-client-OS", "10.0.14393")
+$winHttp.SetRequestHeader("x-client-SKU", "Win32")
+$winHttp.SetRequestHeader("x-client-Ver", "v2.2.1.28801")
+
+$winHttp.send($soapPayload)
+
+if ($winHttp.Status -ne [int]401) {
+Write-Error ("Received unexpected response status: {0}, expected 401." -f $winHttp.Status)
+}
+
+Write-Host "Received 401 response status."
+
+$winHttp.SetCredentials($username, $password, $HTTPREQUEST_SETCREDENTIALS_FOR_SERVER)
+$winHttp.send($soapPayload)
+
+if ($winHttp.Status -ne [int]200) {
+Write-Error ("Received unexpected response status: {0}, expected 200." -f $http.Status)
+}
+
+Write-Host ("Received {0} response status." -f $winHttp.Status)
+
+$samlTicket = [XML]$winHttp.ResponseText
+
+if (-not $samlTicket.Envelope.Body.RequestSecurityTokenResponse.RequestedSecurityToken) {
+Write-Error ("Response did not contain saml ticket.")
+}
+
+Write-Host ("Valid SAML ticket received.")</span>
+    </body>
+</html>

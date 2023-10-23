@@ -1,0 +1,295 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:fileTags="Tags/okta-authors.Jeanette Smith"
+      MadCap:conditions="Primary.do-not-publish">
+   <head>
+      <title>Connect Okta to multiple AWS instances using an API | Okta</title>
+      <meta name="description"
+            content="Section includes high-level design of multiple AWS instances using an API and the step topics to implement this integration. These include Configure Okta as the identity provider in all AWS, Add Okta identity provider as trusted source in your all AWS roles across all AWS accounts, Generate the AWS API access key for Okta to download AWS roles from all accounts, Set up an IAM role in each of the child accounts, and Configure the AWS app in Okta."/>
+   </head>
+   <body>
+      <h1>Connect Okta to multiple AWS instances using an API</h1>
+      <p>If you do not expect to exceed 60 AWS accounts and want a simplified user assignment process all contained within Okta, then connect to Okta using the AWS API.</p>
+      <h2>
+         <a name="High-lev"/>High-level design</h2>
+      <p>Okta can provide SSO and fetch roles across multiple AWS accounts using a single Identity and Access Management (IAM) user account, having permissions to read IAM roles and account information across all connected accounts.</p>
+      <ul style="list-style-type: square;">
+         <li>
+            <p>The  IAM user account is created in an AWS account, known as the source account in Okta.</p>
+         </li>
+         <li>
+            <p>The IAM user account accesses connected accounts. These accounts are children of the IAM user source account. You can designate any AWS account as the IAM user source, as long as there is at least one IAM user account (with the proper permissions) in the AWS instance.</p>
+         </li>
+      </ul>
+      <p>
+         <img src="../../../Resources/Images/aws/aws_new_18.png"/>
+      </p>
+      <h2>
+         <a name="Step4"/>Step 1: Configure Okta as the identity provider in all AWS accounts</h2>
+      <p>Configure Okta as a trusted SAML SSO identity provider in all of your AWS accounts. Use the same metadata and name throughout your accounts. This includes your source account and connected accounts.</p>
+      <h2>Step 2: Add Okta identity provider as trusted source in your all AWS roles across all AWS accounts</h2>
+      <p>Repeat Step 2: Add Okta Identity Provider as a trusted source in your AWS roles for each role in all accounts you wish to set up. This includes roles that you want to access from your source account and connected accounts.</p>
+      <h2>
+         <a name="Step2"/>Step 3: Generate the AWS API access key for Okta to download AWS roles from all accounts</h2>
+      <p>You need to create an AWS user with specific permissions so Okta can dynamically fetch a list of available roles from your accounts. This makes assigning users and groups to specific AWS roles easy and secure for administrators.</p>
+      <p>Complete this procedure for each account you want to connect.</p>
+      <ol>
+         <li>
+            <p>From the AWS Console, choose <span class="menucascade">
+                  <span class="uicontrol">Identity and Access Management (IAM)</span>
+                  <span class="uicontrol">Users</span>
+               </span>, then click <span class="uicontrol">Add user</span>.</p>
+            <p>
+               <img src="../../../Resources/Images/aws/aws_new_9n.png" class="new"/>
+            </p>
+         </li>
+         <li>
+            <p>From the <span class="wintitle">Add user</span> page (step 1 view), specify a user name.</p>
+            <p>Example: OktaSSOuser</p>
+         </li>
+         <li>
+            <p>From the <span class="wintitle">Select AWS access type</span> area, select <span class="uicontrol">Programmatic access</span> and then click <span class="uicontrol">Next Permissions</span>.</p>
+            <p>
+               <img src="../../../Resources/Images/aws/aws_new_10n.png" class="new"/>
+            </p>
+         </li>
+         <li>
+            <p>From the <span class="wintitle">Add user page</span> (step 2 view), click Attach existing policies directly and then <span class="uicontrol">Create policy</span>.</p>
+            <p>
+               <img src="../../../Resources/Images/aws/aws_new_11n.png" class="new"/>
+            </p>
+            <p>The <span class="wintitle">Create policy</span> page (step 1 view) opens in a new <span class="wintitle">IAM Management</span> Console browser tab.</p>
+         </li>
+         <li>
+            <p>Click the <span class="wintitle">JSON</span> tab.</p>
+            <p>
+               <img src="../../../Resources/Images/aws/aws_new_c.png"/>
+            </p>
+         </li>
+         <li>
+            <p>Delete the existing code in the <span class="wintitle">JSON</span> tab and then paste the following code in the tab:</p>
+            <span class="codeblock">{
+    "Version": "2012-10-17",
+    "Statement": [
+    {
+        "Effect": "Allow",
+        "Action": [
+            "iam:GetAccountSummary",
+            "iam:ListRoles",
+            "iam:ListAccountAliases",
+            "iam:GetUser",
+            "sts:AssumeRole"
+        ],
+        "Resource": "*"
+    }
+    ]
+}</span>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Review policy</span>.</p>
+         </li>
+         <li>
+            <p>From the <span class="wintitle">Create policy</span> page (step 2 view), enter a policy name and description.</p>
+            <p>Example policy name: OktaSourceAccountPolicy</p>
+            <p>
+               <img src="../../../Resources/Images/aws/aws_new_34.png" class="new"/>
+            </p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Create Policy</span>.</p>
+            <p>The app returns you to the first browser tab where you can continue assigning policies to your IAM user.</p>
+         </li>
+         <li>
+            <p>Click the first <span class="wintitle">IAM Management Console</span> browser tab.</p>
+            <p>
+               <img src="../../../Resources/Images/aws/aws_browser_tabs.png"/>
+            </p>
+         </li>
+         <li>
+            <p>From the <span class="wintitle">Add user</span> page (step 2 view), ensure that <span class="uicontrol">Attach existing policies</span> directly is selected.</p>
+         </li>
+         <li>
+            <p>Locate and select  the policy you just created.</p>
+            <p>Use the <span class="uicontrol">refresh</span> button to update your search.</p>
+            <p>
+               <img src="../../../Resources/Images/aws/aws_new_13n.png" class="new"/>
+            </p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Next: Tags</span>. </p>
+         </li>
+         <li>
+            <p>From the <span class="wintitle">Add user page</span> (step 3 view),  click <span class="uicontrol">Next: Review</span>.</p>
+         </li>
+         <li>
+            <p>From the <span class="wintitle">Add user page</span> (step 4 view), click <span class="uicontrol">Create user</span>.</p>
+         </li>
+         <li>
+            <p>From the <span class="wintitle">Add user page</span> (step 5 view), make a copy of your <span class="uicontrol">access key ID</span> and <span class="uicontrol">secret access key</span>.</p>
+            <p>
+               <img src="../../../Resources/Images/aws/aws_new_33.png" class="new"/>
+            </p>
+            <p>The keys are needed in <MadCap:xref href="#Step">Step 5: Configure the AWS app in Okta</MadCap:xref> to configure the AWS app in Okta.</p>
+            <p>This is the only time that you will be able to see and copy these keys.</p>
+         </li>
+      </ol>
+      <h2>
+         <a name="Step5"/>Step 4: Set up an IAM role in each of the  connected accounts</h2>
+      <p>Now that you have created an AWS user with read permissions for accounts and roles in your source account, each of your remaining connected accounts need to trust the source account user and permit it to read roles.</p>
+      <ol>
+         <li>
+            <p>From a connected account, go to <span class="menucascade">
+                  <span class="uicontrol">Roles</span>
+                  <span class="uicontrol">Create Role</span>
+               </span>.</p>
+         </li>
+         <li>
+            <p>From the <span class="wintitle">Create role</span> page, click <span class="uicontrol">Another AWS account</span>, enter the source account ID, and then click <span class="uicontrol">Next: Permissions</span>.</p>
+            <p>
+               <img src="../../../Resources/Images/aws/aws_newd.png"/>
+            </p>
+            <p>The source account ID can be found by choosing <span class="uicontrol">My Account</span> from the dropdown in the top  right of the AWS Console.</p>
+            <p>
+               <img src="../../../Resources/Images/aws/aws_new_25.png"/>
+            </p>
+         </li>
+         <li>
+            <p>Attach a policy with read access to IAM roles. </p>
+            <p>Example: <i>IAMReadOnlyAccess</i>
+            </p>
+            <p>
+               <img src="../../../Resources/Images/aws/aws_new_27.png"/>
+            </p>
+            <p>Alternatively, you can create a new policy with minimum read permissions attached and then attach the policy to the role that you're creating (see below).</p>
+            <span class="codeblock">{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iam:ListRoles",
+                "iam:ListAccountAliases"
+            ],
+            "Resource": "*"
+        }
+    ]
+}          </span>
+         </li>
+         <li>
+            <p>Name the role <code>Okta-Idp-cross-account-role</code>.</p>
+            <div style="padding-left: 15px;padding-right: 15px;padding-top: 15px;padding-bottom: 15px;border-left-style: solid;border-left-width: 5px;">
+               <p>Important
+                    </p>
+               <p>This is a predefined name for this integration. A different name cannot be used.</p>
+            </div>
+         </li>
+         <li>
+            <p>Repeat this procedure for each connected account, ensuring to use the same source account ID and role name (<code>Okta-Idp-cross-account-role</code>).</p>
+         </li>
+      </ol>
+      <h2>
+         <a name="Step"/>Step 5: Configure the AWS app in Okta</h2>
+      <ol>
+         <li>From the Okta Admin Dashboard, select the <span class="wintitle">Sign On</span> tab for the AWS app and then click <span class="uicontrol">Edit</span>.</li>
+         <li>
+            <p>From the <span class="uicontrol">Advanced Sign-On Settings</span> area, select your environment type  from the <span class="uicontrol">AWS Environment</span> dropdown.</p>
+            <p>If your environment type is not listed, you can set the desired ACS URL in the <span class="uicontrol">ACS URL</span> field.</p>
+         </li>
+         <li>Paste in the Identity Provider ARN field the identity provider ARN that you copied earlier.</li>
+         <li>Specify in the <span class="uicontrol">Session Duration</span> field the desired session duration for users.</li>
+         <li>
+            <p>Click <span class="uicontrol">Save/Next</span>.</p>
+            <p>
+               <img src="../../../Resources/Images/aws/aws_new_28.png"/>
+            </p>
+         </li>
+         <li>
+            <p>Click the <span class="wintitle">Provisioning</span> tab for the AWS app and then click <span class="uicontrol">Edit</span>.</p>
+            <div style="padding-left: 15px;padding-right: 15px;padding-top: 15px;padding-bottom: 15px;border-left-style: solid;border-left-width: 5px;">
+               <p>Note
+                    </p>
+               <p>The AWS app integration does not support provisioning. This setup under the <span class="wintitle">Provisioning</span> tab is required to provide API access to Okta in order to download a list of AWS roles to assign during user assignment. It enables you to assign multiple roles to users and pass those roles in the SAML assertion.</p>
+            </div>
+         </li>
+         <li>
+            <p>Select the <span class="uicontrol">Enable API Integration</span> check box.</p>
+            <ul style="list-style-type: square;">
+               <li>
+                  <p>If your environment type is listed in the <span class="uicontrol">AWS Environment</span> dropdown under the <span class="wintitle">Sign on</span> tab, you do not need to complete the <span class="uicontrol">ACS URL</span> field.</p>
+               </li>
+               <li>
+                  <p>If your environment type is not listed in the <span class="uicontrol">AWS Environment</span> dropdown, then enter your API URL in the <span class="uicontrol">ACS URL</span> field. You may have to contact AWS to learn the API URL for your environment.</p>
+               </li>
+            </ul>
+         </li>
+         <li>
+            <p>In the <span class="uicontrol">Access Key</span> and <span class="uicontrol">Secret Key</span> fields, enter the keys you retrieved and stored in Step 3: Generate the AWS API access key for Okta to download AWS roles from all accounts.</p>
+         </li>
+         <li>
+            <p>Provide a comma-separated list in the <span class="uicontrol">Connected Accounts IDs</span> field of all IDs of the connected accounts.</p>
+            <p>You can find the IDs in each AWS account from the <span class="wintitle">My Accounts</span> page in the top- right area of the AWS Console.</p>
+            <p>
+               <img src="../../../Resources/Images/aws/aws_newe.png"/>
+            </p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Test API credentials</span> to ensure the credentials work for all connected accounts and fix any errors.</p>
+         </li>
+         <li>
+            <p>Enable the desired options to update roles and permissions from AWS.</p>
+            <ul style="list-style-type: square;">
+               <li>
+                  <p>Enable <span class="uicontrol">Create Users</span> and <span class="uicontrol">Update User Attributes</span>
+                  </p>
+                  <p>
+                     <img src="../../../Resources/Images/aws/aws_new_a1.png"/>
+                  </p>
+               </li>
+               <li>
+                  <p>Enable <span class="uicontrol">Create Users</span> (but not <span class="uicontrol">Update User Attributes</span>).</p>
+               </li>
+            </ul>
+            <div style="padding-left: 15px;padding-right: 15px;padding-top: 15px;padding-bottom: 15px;border-left-style: solid;border-left-width: 5px;">
+               <p>Note
+                    </p>
+               <p>You are not creating or updating any users in AWS, but  activating parts of the API that enables Okta to retrieve Okta-trusted roles from the AWS account.</p>
+            </div>
+         </li>
+         <li>Click <span class="uicontrol">Next</span> (or <span class="uicontrol">Save</span>).</li>
+         <li>
+            <p>Assign the AWS app to a test user.</p>
+            <ul style="list-style-type: square;">
+               <li>From the <span class="wintitle">User Assignment</span> page, you can view a list of roles from your source account and connected (secondary) accounts.</li>
+               <li>Okta displays roles in the format: <samp>Account Name - Role Name</samp>.</li>
+               <li>
+                  <p>If AWS accounts have an alias setup, Okta uses the account alias instead of the account name.</p>
+                  <p>Example:  <samp>[Account Alias] - Role Name</samp>.</p>
+               </li>
+               <li>
+                  <p>In the following example, <samp>starks</samp> is used as the account alias.</p>
+                  <p>
+                     <img src="../../../Resources/Images/aws/aws_new_31.png"/>
+                  </p>
+               </li>
+            </ul>
+         </li>
+         <li>Complete the app assignment.</li>
+         <li>
+            <p>Log in to your Okta org as the test user and then select the AWS app.</p>
+            <p>The AWS window lists the roles available to the user in Okta.</p>
+         </li>
+         <li>
+            <p>Select the role to use when logging in to AWS.</p>
+            <p>
+               <img src="../../../Resources/Images/aws/aws_new_32.png"/>
+            </p>
+         </li>
+         <li>
+            <p>Ensure that there are no errors and the user is able to log in with the assigned role.</p>
+         </li>
+         <li>
+            <p>You can return to Okta and assign users and groups (or only groups) to the AWS app.</p>
+         </li>
+      </ol>
+   </body>
+</html>

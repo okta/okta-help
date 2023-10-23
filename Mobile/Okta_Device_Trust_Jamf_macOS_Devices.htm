@@ -1,0 +1,1025 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:fileTags="Tags/okta-topic-status.Ready for Review,Tags/okta-authors.Kimli Welsh"
+      MadCap:searchable="True">
+   <head>
+      <link href="" rel="stylesheet" type="text/css"/>
+      <title>Enforce Okta <MadCap:variable name="okta-feature-names.Device Trust"/> for Jamf Pro-managed macOS devices | Okta</title>
+      <meta name="description"
+            content="Okta Device Trust for Jamf Pro-managed macOS devices prevents unmanaged computers from accessing apps. A Device Registration Task enrolls individual computers."/>
+   </head>
+   <body>
+      <h1>Enforce Okta <MadCap:variable name="okta-feature-names.Device Trust"/> for Jamf Pro managed macOS devices</h1>
+      <p> Okta Device Registration Task v1.3.1 was released  to support Python 3. If you require the Python 2.x script, see <a href="https://okta.okta.com/static/devicetrust/MacOktaDeviceRegistrationTaskSetup.1.2.1.py">Device Registration Task v1.2.1</a>.</p>
+      <p>
+         <MadCap:variable name="okta-feature-names.Okta Device Trust"/> for Jamf Pro managed macOS devices allows you to prevent unmanaged macOS devices from accessing corporate SAML and WS-Fed cloud apps. <MadCap:variable name="okta-feature-names.Okta Device Trust"/> ensures that only known and secured devices can access your Okta-managed applications.</p>
+      <p>
+         <img src="../../Resources/Images/dt-macos-flow.png"
+              alt="The image illustrates how Okta Device Trust is enforced for Jamf Pro managed macOS devices."
+              class="thumbnail"/>
+      </p>
+      <h2>Prerequisites</h2>
+      <a name="Prerequi"/>
+      <p>This solution works with:
+                </p>
+      <ul>
+         <li>Apple computers running <MadCap:xref href="../Miscellaneous/Platforms_Browser_OS_Support.htm">Supported platforms, browsers, and operating systems</MadCap:xref> of macOS.</li>
+         <li>Jamf Pro MDM solution</li>
+         <li>The following browsers and native apps capable of accessing the Okta Keychain on the managed computer when performing the federated authentication flow to Okta:
+						<ul>
+               <li>Browsers: Chrome and Safari browsers</li>
+               <li>Modern Auth-enabled native apps:
+					<ul>
+                     <li>Box</li>
+                     <li>Google Drive</li>
+                     <li>Microsoft Office</li>
+                     <li>Skype for Business</li>
+                     <li>Slack</li>
+                  </ul>
+               </li>
+            </ul>
+         </li>
+         <li> The Okta Device Registration Task is a Python script that completes various tasks (for example, enrollment, and registration). Depending on your OS, complete one of the following, to make sure you use the appropriate version of this script:<ul>
+               <li> If you have macOS 10.15.xx (Catalina), 11.xx (Big Sur), or 12.xx (Monterey), use registration version 1.3.3 or later, which is based on Python 3.</li>
+               <li>If you have  macOS 10.14.xx (Mojave) and are currently using registration script 1.2.1 or earlier, continue to use it as-is, or upgrade to Catalina, Big Sur, or Monterey before using Python 3.</li>
+            </ul>
+         </li>
+      </ul>
+      <h2>Before you begin</h2>
+      <ul>
+         <li>
+            <p>Device Trust deployment is not renewed on devices that are not used to access secure applications. For this reason, it is recommended to issue certificates only to the devices that require access to secure resources.</p>
+         </li>
+         <li>Modern Authentication required for securing Microsoft Office apps: To secure Microsoft Office apps with this <MadCap:variable name="okta-feature-names.Device Trust"/> solution they must be enabled to support Modern Authentication. For more information, see <a href="https://docs.microsoft.com/en-us/office365/enterprise/modern-auth-for-office-2013-and-2016?redirectSourcePath=%252fen-us%252farticle%252fusing-office-365-modern-authentication-with-office-clients-776c0036-66fd-41cb-8928-5495c0f9168a"
+               rel="noreferrer"
+               target="_blank">this</a> Microsoft article. For information about securing Office 365 clients that use legacy protocols, see <a href="../Security/O365_Client-Access-Policies.htm"
+               rel="noreferrer"
+               target="_blank">Office 365 Client Access Policies</a>.</li>
+         <li>
+            <p>
+               <MadCap:variable name="okta-feature-names.Device Trust"/> isn't supported with all versions of Microsoft Office thick clients: This <MadCap:variable name="okta-feature-names.Device Trust"/> solution has been tested to work with Microsoft Office thick client versions 16.13.1 and 16.15. However, it doesn't work with Microsoft Office thick client version 16.14 (build 180610). </p>
+         </li>
+         <li>Prevent iCloud from transferring the Okta keychain to other Apple devices: To prevent iCloud from transferring the Okta keychain from DT-secured macOS devices to other Apple devices, Okta strongly recommends that you create a Configuration Profile in Jamf Pro that disables <span class="uicontrol">Allow iCloud Keychain syncing</span>. (Note: Be aware that disabling syncing blocks all keychain transfers.) See the <a href="#disable-keychain-syncing">Add the modified Okta Device Registration Task to Jamf Pro and distribute it to macOS devices</a>.</li>
+         <li>
+            <p>Webview must have access to the device keychain: <MadCap:variable name="okta-feature-names.Device Trust"/> for managed macOS computers works with any SAML/WS-Fed-enabled app that supports authentication through a webview. The webview in which authentication is performed must have access to the Okta Keychain on the device. To prevent end users from being prompted for consent when the certificate is used in the authentication flow, Okta allows the following apps. See <a href="#PartG">Modify the default allowlist</a>:</p>
+            <ul>
+               <li>Box</li>
+               <li>Chrome</li>
+               <li>Safari</li>
+               <li>Microsoft Office</li>
+               <li>Skype for Business</li>
+               <li>Google Drive</li>
+               <li>Slack</li>
+            </ul>
+         </li>
+         <li>Per-device unbound certificate limit: <MadCap:snippetText src="mobile-snippets/dt-macOS-unbound-cert-limit.flsnp"/>
+         </li>
+         <li>Per-org enrollment limit: A given macOS device can only be secured by the <MadCap:variable name="okta-feature-names.Device Trust"/> configuration of a single Okta org. Put another way, macOS devices can't be secured by the <MadCap:variable name="okta-feature-names.Device Trust"/> configuration of multiple Okta orgs simultaneously. This is because the client certificate issued to the device is signed by the CA of a particular org. This limit applies to Okta Preview and Production orgs.</li>
+         <li>Shared-terminal scenarios are not supported: This <MadCap:variable name="okta-feature-names.Device Trust"/> solution doesn't support shared-terminal scenarios in which multiple Okta end users log in to the same account from the same macOS workstation.</li>
+         <MadCap:snippetBlock src="mobile-snippets/DT-desktop-no-enrollment-in-safe-mode.flsnp"/>
+         <li>End users may need to clear the browser cache: Some browsers (for example, Chrome) cache the <MadCap:variable name="okta-feature-names.Device Trust"/> certificate. After the certificate is renewed automatically (once per year), these browsers may continue to present the expired certificate to Okta instead of the new certificate. In that case, end users are shown the <span class="wintitle">Security requirements</span> message and are denied access to <MadCap:variable name="okta-feature-names.Device Trust"/>-secured apps. Okta recommends that you advise affected end users to clear browser cache by quitting and then restarting the browser (not just closing the browser window).</li>
+         <li>
+            <MadCap:snippetBlock src="mobile-snippets/dt-lock-icon-Home-page-apps.flsnp"/>
+         </li>
+         <li>
+            <p>Apps must support Modern Authentication: To secure Microsoft Office apps with this <MadCap:variable name="okta-feature-names.Device Trust"/> solution they must be enabled to support Modern Authentication. For more information, see the Microsoft article <a href="https://docs.microsoft.com/en-us/office365/enterprise/modern-auth-for-office-2013-and-2016"
+                  target="_blank">How modern authentication works for Office 2013 and Office 2016 client apps</a>. Also see <a href="../Security/O365_Client-Access-Policies.htm">Office 365 Client Access Policies</a>.</p>
+         </li>
+         <li>
+            <MadCap:snippetBlock src="mobile-snippets/DT_VerifyCertEnrollB4TrustSignOnRulemacOS.flsnp"/>
+         </li>
+         <li>
+            <p>Take care when disabling the macOS Device Trust setting: Do not disable the macOS <MadCap:variable name="okta-feature-names.Device Trust"/> setting on the <span class="uicontrol">Security</span>
+               <MadCap:variable name="okta-feature-names.Device Trust"/> page if you have also configured an app sign-on policy that allows trusted macOS devices. Otherwise, your <MadCap:variable name="okta-feature-names.Device Trust"/> configuration will be in an inconsistent state. To disable <MadCap:variable name="okta-feature-names.Device Trust"/> for your org, first remove any app sign on policies that contain a <MadCap:variable name="okta-feature-names.Device Trust"/> setting, then disable macOS <MadCap:variable name="okta-feature-names.Device Trust"/> in <span class="menucascade">
+                  <span class="uicontrol">Security</span>
+                  <span class="uicontrol">
+                     <MadCap:variable name="okta-feature-names.Device Trust"/>
+                  </span>
+               </span>.</p>
+         </li>
+         <li> Before asking Okta Support to disable <MadCap:variable name="okta-feature-names.Device Trust" style="font-weight: bold;"/>: If you ask Okta Support to disable <MadCap:variable name="okta-feature-names.Device Trust"/> capability for your org, make sure to first change the <MadCap:variable name="okta-feature-names.Device Trust"/> setting in the app sign-on policy rules to <span class="uicontrol">Any</span> (<span class="menucascade">
+               <span class="uicontrol">Applications</span>
+               <span class="uicontrol">app</span>
+               <span class="uicontrol">Sign On</span>
+            </span>). If you don't make this change and then later have Okta Support re-enable <MadCap:variable name="okta-feature-names.Device Trust"/> capability for your org, the <MadCap:variable name="okta-feature-names.Device Trust"/> setting in app sign-on policy rules takes effect immediately, which you may not have expected.
+					</li>
+         <li>Verify that clients can complete the MTLS handshake: The Mutual TLS certificate exchange (handshake) in this <MadCap:variable name="okta-feature-names.Device Trust"/> flow occurs on Okta URLs that are separate from your Okta org URL (indicated by the wildcard character (*) in the following example). If you implement endpoint protection software, make sure to configure it in a way that does not block your clients from completing the certificate exchange with Okta. For example, if your organization uses an allowlist to limit outbound traffic, add these exact URLs to the allowlist, including the wildcard character (*):
+
+					<p>
+               <span class="code">*.okta.com</span>
+            </p>
+            <p>
+               <span class="code">*.okta-emea.com</span>
+            </p>
+            <p>
+               <span class="code">*.okta-gov.com</span>
+            </p>
+         </li>
+      </ul>
+      <h2>Procedures</h2>
+      <h3>
+         <span>Step 1. Enable the global <MadCap:variable name="okta-feature-names.Device Trust"/> setting for your org</span>
+      </h3>
+      <a name="Task1"/>
+      <ol>
+         <li>
+            <MadCap:snippetText src="../../Resources/Snippets/task steps/Security_DeviceTrust.flsnp"/>
+         </li>
+         <li>In the macOS <MadCap:variable name="okta-feature-names.Device Trust"/> section, click <span class="uicontrol">Edit</span>.</li>
+         <li>In the wizard that launches, select <span class="uicontrol">Enable macOS <MadCap:variable name="okta-feature-names.Device Trust"/>
+            </span>.</li>
+         <li>
+            <a name="learn-more-link"/>Optional. In the <span class="uicontrol">Learn more</span> field, you can enter an externally-accessible redirect URL where end users with untrusted devices can find more information. The security message shown to these end users will include a Learn more link that redirects to your specified URL.
+
+
+						<p>
+               <img src="../../Resources/Images/DT_Security_URLspecified_2.png"
+                    class="thumbnail"/>
+            </p>
+            <p>If you choose not to specify a URL in this optional field, these end users will be shown the same message but without the <span class="uicontrol">Learn more</span> link. </p>
+            <p>
+               <img src="../../Resources/Images/DT_Security_noURLspecified_2.png"
+                    class="thumbnail"/>
+            </p>
+         </li>
+         <li>In <span class="uicontrol">Trust is established by</span>, select <span class="uicontrol">Jamf Pro</span>.</li>
+         <li>Enter information about the Jamf Pro API, such as the Jamf Pro tenant URL (for example, <span class="code">https://example.jamfcloud.com</span>, not the API URL), credentials, and key.                             <p>This information allows Okta to verify that end user devices are managed by Jamf Pro at the time of certificate enrollment. For Jamf Pro, you need at least these READ privileges to access Jamf APIs in order for Okta to verify that the device is managed:</p>
+            <ul>
+               <li>
+                  <span class="uicontrol">Computers</span> — READ</li>
+               <li>
+                  <span class="uicontrol">Jamf Pro User Accounts &amp; Groups</span> — READ</li>
+               <li>
+                  <span class="uicontrol">Users</span> — READ</li>
+            </ul>
+         </li>
+         <p>
+            <div class="noteOkta">
+               <p class="noteContent">Okta strongly recommends that you create a separate user for API access that is separate from the user your organization uses to access the Jamf Pro admin interface.</p>
+            </div>
+         </p>
+         <li>Click <span class="uicontrol">Test API credentials</span>. A success message appears if a connection is established with your MDM provider's API.</li>
+         <li>Click <span class="uicontrol">Next</span>.</li>
+         <li>On the Configure MDM Provider screen, click <span class="uicontrol">Download</span> to obtain a python script. You'll modify the script later in <a href="#Task2">Step 2. Modify the Okta Device Registration Task</a>.</li>
+         <li>To copy the  provided <span class="uicontrol">Secret Key Value</span> and  <span class="uicontrol">Org URL</span> to your clipboard, click the copy icon  adjacent to the fields. </li>
+         <p>
+            <div class="noteOkta">
+               <p class="noteContent">Make  a note of the provided <span class="uicontrol">Secret Key Value</span> and <span class="uicontrol">Org URL</span>, as this is the only time these will appear in Okta. Also, if you later want to edit your configuration and generate a new <span class="disableGlossary">Secret Key</span> through the <span class="uicontrol">Reset macOS Secret Key</span> button, you must perform this procedure again.</p>
+            </div>
+         </p>
+         <li>Click <span class="uicontrol">Done</span>.</li>
+         <li>Modify the downloaded Okta Device Registration Task as described in <a href="#Task2">Step 2</a>.
+                            <p>The <a href="../Settings/Version_Histories/Ver_History_Device_Trust_MacOS.htm"
+                  rel="noreferrer"
+                  target="_blank">latest version</a> of the Okta Device Registration Task is available from the Okta Admin Console  <span class="menucascade">
+                  <span class="uicontrol">Settings</span>
+                  <span class="uicontrol">Downloads</span>
+               </span> page.</p>
+         </li>
+      </ol>
+      <h3>
+         <a name="Step"/>Step 2. Modify the Okta Device Registration Task
+        </h3>
+      <a name="Task2"/>
+      <div class="noteOkta">
+         <a name="MTLS-handshake"/>
+         <p class="noteContent">The Mutual TLS certificate exchange (handshake) in this Device Trust flow occurs on Okta URLs that are separate from your Okta org URL (indicated by the wildcard character (*) in the following example). If you implement endpoint protection software, make sure to configure it in a way that doesn't block your clients from completing the certificate exchange with Okta. For example, if your organization uses an allowlist to limit outbound traffic, add these exact URLs to the allowlist, including the wildcard character (*):</p>
+         <p>
+            <span class="code">*.okta.com</span>
+         </p>
+         <p>
+            <span class="code">*.okta-emea.com</span>
+         </p>
+         <p>
+            <span class="code">*.okta-gov.com</span>
+         </p>
+      </div>
+      <ol>
+         <li>On the Admin's computer, go to the <span class="uicontrol">Downloads</span> folder and open the script you downloaded from Okta.</li>
+         <li>Modify the script by pasting in the  <span class="uicontrol">Secret Key Value</span> and <span class="uicontrol">Org URL</span> you generated in <a href="#Task1">Step 1. Enable the global setting for your org</a>. </li>
+         <p>When entering the key and the URL, retain the single quotation marks ( ' ) but replace the parentheses and the placeholder text with the actual <span class="uicontrol">Secret Key Value</span> and <span class="uicontrol">Org URL</span>, as shown in the following example:</p>
+         <h4>Example of an unmodified script</h4>
+         <img src="../../Resources/Images/dt-macos-key-url-before.png"
+              class="thumbnail"/>
+         <h4>Example of a modified script. Retain the single quotation marks but not the parentheses.</h4>
+         <img src="../../Resources/Images/dt-macos-key-url-after.png"
+              class="thumbnail"/>
+         <li>Optional. Modify the default app allowlist.</li>
+         <p>By default, the Okta Device Registration Task allows some popular apps so that end users aren't prompted for the keychain password when accessing them. To modify the default allowlist, see <a href="#PartG">Modify the app allowlist</a>.</p>
+         <li>Save the script. </li>
+         <li>Proceed to <a href="#Task4">Step 4. Add the modified Okta Device Registration Task to  Jamf Pro and distribute it to macOS devices</a>.</li>
+      </ol>
+      <h3>
+         <span style="font-size: 14pt;">Step 3. Install Python 3 and Device Trust dependencies</span>
+      </h3>
+      <a name="Task3"/>
+      <ol>
+         <li>
+            <p>If Python 3 is already installed, go to step 2.</p>
+            <p>There are different ways to install Python 3. This step provides installation instructions using the macOS  Xcode command line tool. Okta recommends that you use your preferred method.</p>
+            <p>Optional. Run the following script on your macOS machine to update your macOS environment to Python 3:
+</p>
+            <MadCap:codeSnippet>
+               <MadCap:codeSnippetCopyButton/>
+               <MadCap:codeSnippetBody MadCap:useLineNumbers="True" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">#!/bin/sh
+echo "Checking for the existence of the Apple Command Line Developer Tools"
+/usr/bin/xcode-select -r
+xcodepath='which xcode-select'
+echo "xcode path is $xcodepath"
+$xcodepath -r &amp;&gt; /dev/null
+$xcodepath -p &amp;&gt; /dev/null
+if [[ $? -ne 0 ]]; then
+echo "Apple Command Line Developer Tools not found."
+touch /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress;
+installationPKG=$(/usr/sbin/softwareupdate --list | /usr/bin/grep -B 1 -E 'Command Line Tools' | /usr/bin/tail -2 | /usr/bin/awk -F'*' '/^ \\/ {print $2}' | /usr/bin/sed -e 's/^ *Label: //' -e 's/^ *//' | /usr/bin/tr -d '\n')
+echo "Installing ${installationPKG}"
+/usr/sbin/softwareupdate --install "${installationPKG}" --verbose
+else
+echo "Apple Command Line Developer Tools are already installed."/usr/bin/xcode-select -s /Library/Developer/CommandLineTools
+fi
+exit</MadCap:codeSnippetBody>
+            </MadCap:codeSnippet>
+         </li>
+         <li>
+            <p>Install the Device Trust Dependencies. The updated macOS Device Registration Task requires “python3“ and “pip3“ alias on the device to point to the correct Python 3 installation.</p>
+            <p>Run the following script to install the required Device Trust dependencies:</p>
+         </li>
+         <li>
+            <p>Install the Device Trust Dependencies. The updated macOS Device Registration Task requires “python3“ and “pip3“ alias on the device to point to the correct Python 3 installation.</p>
+            <p>Run the following script to install the required Device Trust dependencies:</p>
+            <p>
+               <MadCap:codeSnippet>
+                  <MadCap:codeSnippetCopyButton/>
+                  <MadCap:codeSnippetBody MadCap:useLineNumbers="True" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">#!/bin/sh
+echo "Running pip3 install --upgrade pip"
+sudo pip3 install --upgrade pip
+echo "Running pip3 install pyobjc-framework-SystemConfiguration"
+sudo pip3 install pyobjc-framework-SystemConfiguration
+exit</MadCap:codeSnippetBody>
+               </MadCap:codeSnippet>
+            </p>
+         </li>
+      </ol>
+      <h3>
+         <span style="font-size: 14pt;">Step 4. Add the modified Okta Device Registration Task to  Jamf Pro and distribute it to macOS devices</span>
+      </h3>
+      <a name="Task4"/>
+      <p>The Okta Device Registration Task is a script that is distributed by  Jamf Pro to the macOS devices you have targeted for this <MadCap:variable name="okta-feature-names.Device Trust"/> solution. When deployed on the device, the Okta Device Registration Task does the following:</p>
+      <MadCap:snippetBlock src="mobile-snippets/dt-macOS-how-script-works.flsnp"/>
+      <p>Create the workflows that make sense for your organization. Make sure  the script successfully runs at least once to enroll the Okta certificate.</p>
+      <ol>
+         <li>In Jamf Pro click the gear icon  to go to <span class="uicontrol">All Settings</span>.</li>
+         <li>Go to <span class="menucascade">
+               <span class="uicontrol">Computer Management</span>
+               <span class="uicontrol">Scripts</span>
+            </span>.</li>
+         <li>Create a new script and paste into it the Okta Device Registration Task you downloaded from Okta in <a href="#Task1">Step 1. Enable the global Device Trust setting for your org</a> and modified in <a href="#Task2">Step 2. Modify the Okta Device Registration Task</a>.</li>
+         <li>Click <span class="uicontrol">Save</span>.</li>
+         <li>Create a policy to deploy the script to one or more Target Computers and/or Target Users:</li>
+         <ol style="list-style-type: lower-alpha;">
+            <li>Go to <span class="menucascade">
+                  <span class="uicontrol">Computers</span>
+                  <span class="uicontrol">Policies</span>
+               </span>.</li>
+            <li>Click <span class="uicontrol">+ New</span>.</li>
+            <li>Click <span class="uicontrol">General</span> in the left pane.</li>
+            <li>Enter a policy a name in the Display Name field.</li>
+            <li> Select the following Trigger events that will initiate the policy:
+								<ul>
+                  <li>
+                     <span class="uicontrol">Enrollment Complete</span> – the script runs immediately after devices complete the enrollment process.</li>
+                  <li>
+                     <span class="uicontrol">Recurring Check-in</span> – the script runs according to the recurring check-in frequency configured in Jamf Pro.</li>
+               </ul>
+            </li>
+            <li>Set the <span class="uicontrol">Execution Frequency</span> to <span class="uicontrol">Once per computer per user</span>.
+                                <p>Note: There are other approaches that you can implement in Jamf Pro to trigger deployment of the script (for example,  Extension Attributes, which allow you to validate that the certificate is on the device and to deploy the certificate if it is missing).</p>
+            </li>
+            <li>Click <span class="uicontrol">Save</span>.</li>
+            <li>Click <span class="uicontrol">Scripts</span> in the left pane, and then click <span class="uicontrol">Configure</span>.</li>
+            <li>Locate the script you created for this policy in step 3, and then click <span class="uicontrol">Add</span>.</li>
+            <li>Click <span class="uicontrol">Scope</span>.</li>
+            <li>In <span class="uicontrol">Target Computers</span> and/or <span class="uicontrol">Target Users</span>, specify the computers and users to whom the policy will apply.</li>
+            <li>Click <span class="uicontrol">Save</span>.</li>
+         </ol>
+         <li>
+            <a name="disable-keychain-syncing"/>Recommended. To prevent iCloud from transferring the Okta keychain from <MadCap:variable name="okta-feature-names.Device Trust"/>-secured macOS devices to other Apple devices, you should create a Configuration Profile in Jamf Pro that disables <span class="uicontrol">Allow iCloud Keychain syncing</span>.
+
+
+							<p>
+               <img src="../../Resources/Images/disable-iCloud-keychaing-sync.png"
+                    class="thumbnail"/>
+            </p>
+         </li>
+         <li>Check the logs in Jamf Pro to verify that the Okta Device Registration Task ran successfully.
+								<ol style="list-style-type: lower-alpha;">
+               <li>Go to <span class="uicontrol">Policies</span> and click your policy.</li>
+               <li>Click <span class="uicontrol">Logs</span> at the bottom of the screen.</li>
+            </ol>
+         </li>
+         <li>Proceed to <a href="#Task5">Step 5. Configure app sign-on policy rules in Okta</a>.</li>
+      </ol>
+      <h3>
+         <span>Step 5.</span>
+         <span> Configure app sign-on policy rules in Okta</span>
+      </h3>
+      <a name="Task5"/>
+      <MadCap:snippetBlock src="mobile-snippets/AppSignOnRules_bulletedList.flsnp"/>
+      <MadCap:snippetBlock src="mobile-snippets/sign-on-policies-white-list.flsnp"/>
+      <h3>
+         <a name="Procedur"/>Procedure</h3>
+      <ol>
+         <li>
+            <MadCap:snippetText src="../../Resources/Snippets/task steps/Applications_Applications.flsnp"/> Click the SAML or WS-enabled app that you want to protect with <MadCap:variable name="okta-feature-names.Device Trust"/>.</li>
+         <li>Click the <span class="uicontrol">Sign On</span> tab.</li>
+         <li>Scroll down to the <span class="uicontrol">Sign On Policy</span>, and click <span class="uicontrol">Add Rule</span>.</li>
+         <li>Configure one or more rules using the following example as a guide.</li>
+      </ol>
+      <div class="noteOkta">
+         <p class="noteContent">This example shows <MadCap:variable name="okta-feature-names.Device Trust"/> rules for managing access to Office 365. For other apps, note that the section If the user's client is any of these isn't present.</p>
+      </div>
+      <h3>Example Allowlist </h3>
+      <h4>
+            Example Rule 1, Exchange ActiveSync; All platforms; Any trust; Allow access
+        </h4>
+      <a name="WL-Rule1"/>
+      <p>
+         <img src="../../Resources/Images/dt-macOS-rules-2-1.png" class="thumbnail"/>
+      </p>
+      <ol>
+         <li>Enter a descriptive name for the rule.</li>
+      </ol>
+      <p>
+         <span class="uicontrol">Conditions</span>
+      </p>
+      <ol MadCap:continue="true">
+         <li>Under <span class="uicontrol">PEOPLE</span>, specify whether to apply the rule to individuals only or to individuals and groups. The option you select must be the same for all the rules you create for this example.</li>
+         <li>Under <span class="uicontrol">LOCATION</span>, specify the user location to which the rule will apply. The option you select must be the same for all the rules you create for this example.</li>
+         <li>Under <span class="uicontrol">CLIENT</span>, configure the following settings:</li>
+         <p>
+            <span class="uicontrol">Web browser</span> unselected.</p>
+         <p>
+            <span class="uicontrol">Modern Auth client</span> unselected.</p>
+         <p>
+            <span class="uicontrol">Exchange ActiveSync client or Legacy Auth client</span> is selected.</p>
+         <p>Mobile									</p>
+         <p>
+            <span class="uicontrol">iOS</span> is selected.</p>
+         <p>
+            <span class="uicontrol">Android</span> is selected.</p>
+         <p>
+            <span class="uicontrol">Other mobile</span> is selected.</p>
+         <p>Desktop</p>
+         <p>
+            <span class="uicontrol">Windows</span> is selected.</p>
+         <p>
+            <span class="uicontrol">macOS</span> is selected.</p>
+         <p>
+            <span class="uicontrol">Other desktop</span> is selected.</p>
+         <li>Under <span class="uicontrol">DEVICE TRUST</span>, configure the following:</li>
+         <li>
+            <div>
+               <p>
+                  <span class="uicontrol">Trusted</span> and <span class="uicontrol">Not trusted</span> options in the <span class="wintitle">
+                     <MadCap:variable name="okta-feature-names.Device Trust"/>
+                  </span> section are selectable only when all of the following options in the Client section are not selected:</p>
+               <ul>
+                  <li>Exchange ActiveSync or Legacy Auth client</li>
+                  <li>Other mobile (for example, BlackBerry)</li>
+                  <li>Other desktop (for example,  Linux)</li>
+               </ul>
+            </div>
+         </li>
+         <p>
+            <span class="uicontrol">Any</span>  is selected.</p>
+         <p>
+            <span class="uicontrol">Trusted</span>  is unselected.</p>
+         <p>
+            <span class="uicontrol">Not trusted</span> is unselected.</p>
+      </ol>
+      <p>ACTIONS</p>
+      <ol MadCap:continue="true">
+         <li>Configure <span class="uicontrol">Access</span>:</li>
+         <p>
+            <span class="uicontrol">Allowed</span> is selected.</p>
+         <p>
+            <span class="uicontrol">Prompt for factor</span> is unselected.</p>
+         <li>Click <span class="uicontrol">Save</span>.</li>
+         <li>Create Rule 2.</li>
+      </ol>
+      <h4>
+           Example Rule 2, Web browser or Modern Auth; macOS; Trusted; Allow access
+        </h4>
+      <a name="WL-Rule2"/>
+      <p>
+         <img src="../../Resources/Images/dt-macOS-rules-2-2.png" class="thumbnail"/>
+      </p>
+      <ol>
+         <li>Enter a descriptive name for the rule.</li>
+      </ol>
+      <p>Conditions</p>
+      <ol MadCap:continue="true">
+         <li>
+									Under <span class="uicontrol">PEOPLE</span>, select the same People option that you selected in <a href="#WL-Rule1">Rule 1</a>. The option you select must be the same for all the rules you create for this example.</li>
+         <li>Under <span class="uicontrol">LOCATION</span>, select the same Location option that you selected in <a href="#WL-Rule1">Rule 1</a>.  The option you select must be the same for all the rules you create for this example.</li>
+         <li>Under <span class="uicontrol">CLIENT</span>, configure the following settings:</li>
+         <p>
+            <span class="uicontrol">Web browser</span> selected.</p>
+         <p>
+            <span class="uicontrol"> Modern Auth client</span> selected.</p>
+         <p>
+            <span class="uicontrol">Exchange ActiveSync client</span> is is unselected.</p>
+         <p>Mobile									</p>
+         <p>
+            <span class="uicontrol">iOS</span> is unselected.</p>
+         <p>
+            <span class="uicontrol">Android</span> is unselected.</p>
+         <p> Other mobile is unselected.</p>
+         <p>Desktop</p>
+         <p>
+            <span class="uicontrol">Windows</span> is unselected.</p>
+         <p>
+            <span class="uicontrol">macOS</span> is selected.</p>
+         <p>
+            <span class="uicontrol">Other desktop</span> is unselected</p>
+         <li>Under <span class="uicontrol">DEVICE TRUST</span>, configure the following:</li>
+         <li>
+            <div>
+               <p>
+                  <span class="uicontrol">Trusted</span> and <span class="uicontrol">Not trusted</span> options in the <span class="wintitle">
+                     <MadCap:variable name="okta-feature-names.Device Trust"/>
+                  </span> section are selectable only when all of the following options in the Client section are not selected:</p>
+               <ul>
+                  <li>Exchange ActiveSync or Legacy Auth client</li>
+                  <li>Other mobile (for example, BlackBerry)</li>
+                  <li>Other desktop (for example,  Linux)</li>
+               </ul>
+            </div>
+         </li>
+         <p>
+            <span class="uicontrol">Any</span>  is unselected.</p>
+         <p>
+            <span class="uicontrol">Trusted</span>  is selected.</p>
+         <p>
+            <span class="uicontrol">Not trusted</span> is unselected.</p>
+      </ol>
+      <p>
+         <span class="wintitle">ACTIONS</span>
+      </p>
+      <ol MadCap:continue="true">
+         <li>Configure <span class="uicontrol">Access</span>.</li>
+         <p>
+            <span class="uicontrol">Allowed</span> is selected.</p>
+         <p>
+            <span class="uicontrol">Prompt for factor</span> is unselected.</p>
+         <li>Click <span class="uicontrol">Save</span>.</li>
+         <li>Create Rule 3.</li>
+      </ol>
+      <h4>
+          Example Rule 3, Web browser or Modern Auth; All platforms except macOS; Any Trust; Allow access + MFA
+        </h4>
+      <a name="WL-Rule3"/>
+      <p>
+         <img src="../../Resources/Images/dt-macOS-rules-2-3.png" class="thumbnail"/>
+      </p>
+      <ol>
+         <li>Enter a descriptive name for the rule.</li>
+      </ol>
+      <p>
+         <span class="wintitle">Conditions</span>
+      </p>
+      <ol MadCap:continue="true">
+         <li>
+									Under <span class="wintitle">PEOPLE</span>, select the same People option that you selected in <a href="#WL-Rule1">Rule 1</a>. The option you select must be the same for all the rules you create for this example.</li>
+         <li>Under <span class="wintitle">LOCATION</span>, select the same Location option that you selected in <a href="#WL-Rule1">Rule 1</a>. The option you select must be the same for all the rules you create for this example.</li>
+         <li>Under <span class="wintitle">CLIENT</span>, configure the following settings:</li>
+         <p>
+            <span class="uicontrol">Web browser</span> selected.</p>
+         <p>
+            <span class="uicontrol"> Modern Auth client</span> selected.</p>
+         <p>
+            <span class="uicontrol">Exchange ActiveSync client</span> is is unselected.</p>
+         <p>Mobile									</p>
+         <p>
+            <span class="uicontrol">iOS</span> is unselected.</p>
+         <p>
+            <span class="uicontrol">Android</span> is selected.</p>
+         <p>
+            <span class="uicontrol">Other mobile</span> is selected.</p>
+         <p>Desktop</p>
+         <p>
+            <span class="uicontrol">Windows</span> is selected.</p>
+         <p>
+            <span class="uicontrol">macOS</span> is selected.</p>
+         <p>
+            <span class="uicontrol">Other desktop</span> is selected.</p>
+         <li>Under <span class="wintitle">DEVICE TRUST</span>, configure the following:</li>
+         <li>
+            <div>
+               <p>
+                  <span class="uicontrol">Trusted</span> and <span class="uicontrol">Not trusted</span> options in the <span class="wintitle">
+                     <MadCap:variable name="okta-feature-names.Device Trust"/>
+                  </span> section are selectable only when all of the following options in the Client section are not selected:</p>
+               <ul>
+                  <li>Exchange ActiveSync or Legacy Auth client</li>
+                  <li>Other mobile (for example, BlackBerry)</li>
+                  <li>Other desktop (for example,  Linux)</li>
+               </ul>
+            </div>
+         </li>
+         <p>
+            <span class="uicontrol">Any</span>  is selected.</p>
+         <p>
+            <span class="uicontrol">Trusted</span>  is unselected.</p>
+         <p>
+            <span class="uicontrol">Not trusted</span> is unselected.</p>
+      </ol>
+      <p>
+         <span class="wintitle">ACTIONS</span>
+      </p>
+      <ol MadCap:continue="true">
+         <li>Configure <span class="uicontrol">Access</span>.</li>
+         <p>
+            <span class="uicontrol">Allowed</span> is selected.</p>
+         <p>
+            <span class="uicontrol">Prompt for factor</span> is selected.</p>
+         <li>Click <span class="uicontrol">Save</span>.</li>
+         <li>Create Rule 4.</li>
+      </ol>
+      <h4>
+            Example Rule 4, Any client type; All platforms; Any Trust; Deny access
+        </h4>
+      <a name="WL-Rule4"/>
+      <p>
+         <img src="../../Resources/Images/dt-macOS-rules-2-4.png" class="thumbnail"/>
+      </p>
+      <ol>
+         <li>Enter a descriptive name for the rule.</li>
+      </ol>
+      <p>Conditions</p>
+      <ol MadCap:continue="true">
+         <li>
+									Under <span class="wintitle">PEOPLE</span>, select the same People option that you selected in <a href="#WL-Rule1">Rule 1</a>. The option you select must be the same for all the rules you create for this example.</li>
+         <li>Under <span class="wintitle">LOCATION</span>, select the same Location option that you selected in <a href="#WL-Rule1">Rule 1</a>. The option you select must be the same for all the rules you create for this example.</li>
+         <li>Under <span class="wintitle">CLIENT</span>, configure the following settings:</li>
+         <p>
+            <span class="uicontrol">Web browser</span> selected.</p>
+         <p>
+            <span class="uicontrol"> Modern Auth client</span> selected.</p>
+         <p>
+            <span class="uicontrol">Exchange ActiveSync client</span> is selected.</p>
+         <p>Mobile									</p>
+         <p>
+            <span class="uicontrol">iOS</span> is selected.</p>
+         <p>
+            <span class="uicontrol">Android</span> is selected.</p>
+         <p>
+            <span class="uicontrol">Other mobile</span> is selected.</p>
+         <p>Desktop</p>
+         <p>
+            <span class="uicontrol">Windows</span> is selected.</p>
+         <p>
+            <span class="uicontrol">macOS</span> is selected.</p>
+         <p>
+            <span class="uicontrol">Other desktop</span> is selected.</p>
+         <li>Under <span class="wintitle">DEVICE TRUST</span>, configure the following:</li>
+         <li>
+            <div>
+               <p>
+                  <span class="uicontrol">Trusted</span> and <span class="uicontrol">Not trusted</span> options in the <span class="wintitle">
+                     <MadCap:variable name="okta-feature-names.Device Trust"/>
+                  </span> section are selectable only when all of the following options in the Client section are not selected:</p>
+               <ul>
+                  <li>Exchange ActiveSync or Legacy Auth client</li>
+                  <li>Other mobile (for example, BlackBerry)</li>
+                  <li>Other desktop (for example,  Linux)</li>
+               </ul>
+            </div>
+         </li>
+         <p>
+            <span class="uicontrol">Any</span>  is selected.</p>
+         <p>
+            <span class="uicontrol">Trusted</span>  is unselected.</p>
+         <p>
+            <span class="uicontrol">Not trusted</span> is unselected.</p>
+      </ol>
+      <p>
+         <span class="wintitle">ACTIONS</span>
+      </p>
+      <ol MadCap:continue="true">
+         <li>Configure <span class="uicontrol">Access</span>.</li>
+         <p>
+            <span class="uicontrol">Denied</span> is selected.</p>
+         <li>Click <span class="uicontrol">Save</span>.</li>
+      </ol>
+      <h4>Example Rule 5, Default sign on rule – Any client, All platforms; Any Trust; Allow access</h4>
+      <p>The Default sign on rule is already created and can't be edited. In this example, the Default rule is never reached because it is effectively negated by Rule 4. </p>
+      <p>
+         <img src="../../Resources/Images/dt-macOS-rules-default.png"
+              class="thumbnail"/>
+      </p>
+      <h2>
+         <span style="font-size: 14pt;">Revoke and remove <MadCap:variable name="okta-feature-names.Device Trust"/> certificates</span>
+      </h2>
+      <a name="Task3"/>
+      <p>You may need to revoke an end user's <MadCap:variable name="okta-feature-names.Device Trust"/> certificate(s) from the Okta Certificate Authority. This is recommended if the computer is lost or stolen, or if the end user is deactivated. To re-secure an end user's computer with <MadCap:variable name="okta-feature-names.Device Trust"/> after revoking their <MadCap:variable name="okta-feature-names.Device Trust"/> certificate(s), you need to remove the revoked certificate from their computer before enrolling a new certificate.</p>
+      <div>
+         <ul>
+            <li>Steps 1 - 4 of this procedure revoke all <MadCap:variable name="okta-feature-names.Device Trust"/> certificates from the Okta Certificate Authority that were issued to the end user. Certificate revocation does not remove existing certificates from macOS computers. In order to re-secure a macOS computer with <MadCap:variable name="okta-feature-names.Device Trust"/> after revoking certificates, you must first remove any existing Device Trust certificate from the computer and then re-enroll the computer with a new certificate as detailed in <a href="#remove-cert">Step 5</a>. The Device Registration Task will not enroll a new certificate if another certificate (whether revoked or not) is present on the computer.</li>
+            <li>When an end user is deactivated Okta also revokes their <MadCap:variable name="okta-feature-names.Device Trust"/> certificate from the Okta Certificate Authority automatically (but does not remove the certificate from their computer). To remove the certificate from the computer, use either removal method described in Step 5.</li>
+         </ul>
+         <ol>
+            <li>
+               <p>
+                  <MadCap:snippetText src="../../Resources/Snippets/task steps/Directory_People.flsnp"/>
+               </p>
+            </li>
+            <li>
+               <p>Click the end user whose <MadCap:variable name="okta-feature-names.Device Trust"/> certificate you want to revoke.</p>
+            </li>
+            <li>
+							In the <span class="wintitle">More Actions</span> menu, click <span class="uicontrol">Revoke Trust Certificate</span>.
+
+
+					<p>
+                  <img src="../../Resources/Images/DT_revokeTrustCert_80per.png"
+                       class="thumbnail"/>
+               </p>
+            </li>
+            <li>
+               <p>Read the message that appears, and then click <span class="uicontrol">Revoke Trust Certificate</span>.</p>
+            </li>
+            <li>
+               <a name="remove-cert"/>To remove the <MadCap:variable name="okta-feature-names.Device Trust"/> certificate for any reason (such as prior to re-securing a computer with <MadCap:variable name="okta-feature-names.Device Trust"/>), first remove any existing <MadCap:variable name="okta-feature-names.Device Trust"/> certificate from the computer. You can use a command line or create an uninstall script in Jamf Pro. Both uninstall methods remove all <MadCap:variable name="okta-feature-names.Device Trust"/> related artifacts from the macOS device.</li>
+            <div class="noteOkta">
+               <p class="noteContent">If you plan to reuse the script that you downloaded and modified in <MadCap:xref href="Okta_Device_Trust_Jamf_macOS_Devices.htm#Step">Step 2. Modify the Okta Device Registration Task</MadCap:xref>, make sure to first remove the Org Token before using it. Also, the token is not necessary for the uninstall operation.</p>
+            </div>
+            <ul>
+               <li>Remove through a command line: Open a terminal on the target computer and issue the command <span class="code">python &lt;fileName&gt;.py uninstall</span> where <span class="code">&lt;fileName&gt;</span> is the name of Okta Device Registration Task. For example, if the name of the Okta Registration Task is <span class="code">MacOktaDeviceRegistrationTaskSetup.1.0.2.py</span>, you would issue this command:
+                                    <p>
+                     <span class="code">python MacOktaDeviceRegistrationTaskSetup.1.0.2.py uninstall</span>
+                  </p>
+               </li>
+               <li>Remove with an uninstall script: Create an uninstall script in Jamf Pro configured to pass the <span class="code">uninstall</span> parameter. For details, see the procedure <a href="http://docs.jamf.com/10.6.0/jamf-pro/administrator-guide/Managing_Scripts.html#src-18787582_id-.ManagingScriptsv10.6.0-AddingaScripttoJamfPro"
+                     target="_blank">Adding a Script to Jamf Pro</a> in Jamf Pro documentation.</li>
+            </ul>
+         </ol>
+      </div>
+      <h2>
+         <a name="PartF"/>
+         <span style="font-size: 14pt;">View certificate enrollment logs</span>
+      </h2>
+      <h3>
+         <a name="View"/>View logs in Jamf Pro</h3>
+      <p>During deployment, the Okta Device Registration Task publishes logs in Jamf at three log levels (INFO, WARN, ERROR). To diagnose deployment issues, Jamf administrators can view deployment logs on a policy or individual computer basis. To generate more granular logs, use the <span class="code">verbose</span> option as the Parameter Value in Jamf Pro. </p>
+      <p>
+         <img src="../../Resources/Images/dt-macos-jamf-policy-logs-verbose.png"
+              class="thumbnail"/>
+      </p>
+      <p>In addition, end users can view log messages on their local macOS computers by having the Console app open while the script runs on their computer.</p>
+      <h3>View logs on macOS computers</h3>
+      <p>You can watch and monitor Okta-related log messages during certificate enrollment. The method depends on the operating system running on the device.
+								</p>
+      <h4>If running version 10.11.6 (OS X El Capitan):</h4>
+      <ol>
+         <li>Open <span class="menucascade">
+               <span class="uicontrol">Utilities</span>
+               <span class="uicontrol">Console</span>
+            </span>.</li>
+         <li>Click <span class="uicontrol">All Messages</span>.</li>
+         <li>Type Okta in the search field and press Enter to filter all Okta-related messages.
+									</li>
+      </ol>
+      <h4>If running either of the following operating systems:</h4>
+      <ul>
+         <li>macOS 10.12.6 (Sierra)</li>
+         <li>macOS 10.13.4 (High Sierra)</li>
+      </ul>
+      <ol>
+         <li>Open <span class="menucascade">
+               <span class="uicontrol">Utilities</span>
+               <span class="uicontrol">Console</span>
+            </span>.</li>
+         <li>Click your device under <span class="uicontrol">Devices</span> in the left pane.</li>
+         <li>Type Okta in the search field and press Enter to filter all Okta-related messages.</li>
+      </ol>
+      <h4>To view past logs for all supported operating systems:</h4>
+      <ol>
+         <li>Open <span class="menucascade">
+               <span class="uicontrol">Utilities</span>
+               <span class="uicontrol">Console</span>
+            </span>.</li>
+         <li>Go to <span class="filepath">/var/log &gt; asl</span> in the left pane.</li>
+         <li>Select the date you want to search on.</li>
+         <li>Type Okta in the search field and press Enter to filter all Okta-related messages.</li>
+      </ol>
+      <h4>To see the system calls executed on the device, run the following command and then execute the Device Registration Task:</h4>
+      <p>
+         <span class="code">log stream --predicate 'eventMessage contains "okta"'</span>
+      </p>
+      <h2>
+         <span style="font-size: 14pt;">Modify the app allowlist</span>
+      </h2>
+      <a name="PartG"/>
+      <p>The Okta Device Registration Task allows some popular apps by default  so that end users aren't prompted for the keychain password when trying to access them. You can customize the default allowlist as described in this procedure. </p>
+      <p>Keep in mind the following: </p>
+      <ul>
+         <li>Keep a copy of your preferred allowlist. Your modified allowlist is overwritten whenever you push a new Okta Device Registration Task to your targeted macOS computers, so you'll have to recreate it. </li>
+         <li>If you add apps to the original Okta-defined allowlist, you should consider testing your modified allowlist with a subset of users before rolling it out to all users.
+                                        </li>
+         <li>Unlike TeamIdentifiers for the other allowed apps, the TeamIdentifier for Safari is simply <span class="code">apple:</span> (notice the colon) without a <span class="code">teamid:</span> prefix. </li>
+         <li> You can allow any SAML/WS-Fed-enabled app that supports authentication through a webview. The webview in which authentication is performed must have access to the Okta Keychain on the device. The original Okta-provided allowlist currently includes the following apps:
+
+										<ul>
+               <li>Box</li>
+               <li>Chrome</li>
+               <li>Safari</li>
+               <li>Microsoft Office</li>
+               <li>Skype for Business</li>
+               <li>Google Drive</li>
+               <li>Slack</li>
+            </ul>
+         </li>
+      </ul>
+      <ol>
+         <li>Find the TeamIdentifier for the app(s) you want to allow:</li>
+         <ol style="list-style-type: lower-alpha;">
+            <li>On a macOS device that has the apps you want to allow, open a command line  and  list the apps in the Applications folder:</li>
+            <p>
+               <span class="code">ls /Applications</span>
+            </p>
+            <li>Find an app's TeamIdentifier <span class="code">codesign -dv --verbose=4 /Applications/exampleapp.app</span>.</li>
+            <p>
+               <span class="code">exampleapp</span> is the app you're investigating.
+                                        </p>
+            <li>Locate the TeamIdentifier value in the output and make a note of it. </li>
+            <p>For example, here's how to find the team TeamIdentifier for RingCentral:</p>
+            <p>
+               <span class="code">codesign -dv --verbose=4/App /Applications/RingCentral\ Meetings.app</span>
+            </p>
+            <p>
+               <img src="../../Resources/Images/dt-teamID-ring-central.png"
+                    class="thumbnail"/>
+            </p>
+         </ol>
+         <li>Modify the allowlist in the Okta Device Registration Task:</li>
+         <h4>Example before modification </h4>
+         <p>Allowlist includes the original Okta-defined allowlist:</p>
+         <img src="../../Resources/Images/dt-macos-whitelist-before-mod.png"
+              class="thumbnail"/>
+         <h4>Example after modification</h4>
+         <p> Allowlist with RingCentral added:</p>
+         <img src="../../Resources/Images/dt-macos-whitelist-after-mod.png"
+              class="thumbnail"/>
+         <li>Save your changes.</li>
+         <li> When appropriate, push the Okta Device Registration Task. See <a href="#Task4">Step 4 - Add the modified Okta Device Registration Task to Jamf Pro and distribute it to macOS devices</a>.</li>
+      </ol>
+      <div class="noteOkta">
+         <p class="noteContent">Keep a copy of your preferred allowlist. Your modified allowlist is overwritten whenever you push a new Okta Device Registration Task to your targeted macOS computers, so you'll have to recreate it.</p>
+      </div>
+      <div>
+         <h2>
+            <a name="Troubleshooting_dt-macOS"/>
+            <span style="font-size: 14pt;">Troubleshooting</span>
+         </h2>
+         <p>The Okta Device Registration Task is a python script that you obtain from Okta, modify, and then upload to Jamf Pro for distribution to the macOS devices you have targeted for this <MadCap:variable name="okta-feature-names.Device Trust"/> solution.</p>
+         <h4>About the Okta Device Registration Task</h4>
+         <p>When deployed on the device, the Okta Device Registration Task does the following:</p>
+         <MadCap:snippetBlock src="mobile-snippets/dt-macOS-how-script-works.flsnp"/>
+         <h4>Basic and Advanced troubleshooting</h4>
+         <p> The two problems that you are most likely to encounter are:</p>
+         <ul>
+            <li>Trusted devices are unable to access <MadCap:variable name="okta-feature-names.Device Trust"/>-secured apps.</li>
+            <li>Untrusted devices are able to access <MadCap:variable name="okta-feature-names.Device Trust"/>-secured apps.</li>
+         </ul>
+         <p>If you encounter either problem, try to correct it by performing Basic Troubleshooting. If the problem persists, perform Advanced Troubleshooting.</p>
+         <h3>
+            <a name="BasicTroubleshooting_dt-macOS"/>Basic Troubleshooting</h3>
+         <p>To perform basic troubleshooting, review the following areas:</p>
+         <h4>Enablement</h4>
+         <p>Verify the following:</p>
+         <ul>
+            <li>This device trust feature is included in your org's version of Okta  (your SKU) </li>
+            <li>You have <a href="#Task1">enabled the global <MadCap:variable name="okta-feature-names.Device Trust"/> setting</a> in
+                  <span class="menucascade">
+                  <span class="uicontrol">Security</span>
+                  <span class="uicontrol">Device Trust</span>
+                  <span class="uicontrol">Enable macOS</span>
+                  <span class="uicontrol">
+                     <MadCap:variable name="okta-feature-names.Device Trust"/>
+                  </span>
+               </span>.
+            </li>
+         </ul>
+         <h4>Registration task</h4>
+         <ul>
+            <p>
+               <li>
+                  <p>Verify that you have correctly configured Jamf Pro to distribute the Device Registration Task to targeted macOS devices as detailed in <a href="#Task4">Part C</a>.</p>
+               </li>
+            </p>
+            <p>You can use the following query to determine which version of the Registration Task is running on the device:
+
+
+									<p>
+                  <span class="code">python ~/Library/Okta/okta_device_trust.py version</span>
+               </p>
+               <li>
+                  <p>Verify that you added the TeamID of the app to the Python 3 script before you deployed the script?</p>
+               </li>
+            </p>
+            <p>If the TeamID of the app is missing from the script, an access prompt displays when attempting to sign on from a third-party app that previously worked with Device Trust in your environment.<p>
+                  <img src="../../Resources/Images/devices_dt_troubleshoot_TeamID_1.png"
+                       class="thumbnail"
+                       title="An example of an access prompt from a third-party app"
+                       alt="Access prompt example"/>
+               </p>
+            </p>
+            <p>Add the TeamID of the app to the Python 3 script, and then redeploy the policy. This image indicates the section of the script to edit, to specify the apps you want to allowlist:
+				<p>
+                  <img src="../../Resources/Images/devices_dt_troubleshoot_TeamID_2.png"
+                       class="thumbnail"
+                       title="Section of the Python 3 script to edit, to specify the apps to whitelist."
+                       alt="Python 3 script section"/>
+               </p>
+            </p>
+         </ul>
+         <h4>Python 3 dependency packages</h4>
+         <p>Are the Python 3 dependency packages installed correctly?</p>
+         <p>If  a module not found error (for example, "ModuleNotFoundError: No module named 'Systemconfiguration'") occurs, confirm that the dependencies from [link to 'install the device trust dependencies"] are set up correctly. </p>
+         <p>Run the following script from Jamf on the computer:</p>
+         <MadCap:codeSnippet>
+            <MadCap:codeSnippetCopyButton/>
+            <MadCap:codeSnippetBody MadCap:useLineNumbers="True" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">#!/bin/sh
+echo "Python location"
+python3 -c "import sys; print(sys.executable)"
+echo "Python version"
+python3 --version
+echo "Python3 Dependency version"
+echo "********************"
+python3 -m pip show pyobjc-framework-SystemConfiguration
+echo "********************"</MadCap:codeSnippetBody>
+         </MadCap:codeSnippet>
+         <h3>Certificate</h3>
+         <div>
+            <h4>Verify that the certificate is installed</h4>
+            <MadCap:snippetBlock src="mobile-snippets/DT_VerifyCertEnrollB4TrustSignOnRulemacOS.flsnp"/>
+            <h5>To verify installation from a terminal:</h5>
+            <h4>Show keychain info</h4>
+            <p>
+               <span class="code">security show-keychain-info okta.keychain</span>
+            </p>
+            <h4>Show the certificate</h4>
+            <p>
+               <span class="code">security find-certificate -a -c 'Okta MTLS' -Z -p okta.keychain</span>
+            </p>
+            <h4>Show the password</h4>
+            <p>
+               <span class="code">security find-generic-password -l device_trust -w</span>
+            </p>
+            <h4>To verify installation through the GUI on targeted devices:</h4>
+            <div>
+               <ol>
+                  <li>On the macOS device, search for Keychain Access.</li>
+                  <li>Double click to open the Keychain Access app.</li>
+                  <li>Verify that the Okta Keychain exists and that it includes the Okta MTLS certificate.</li>
+                  <p>
+                     <img src="../../Resources/Images/dt-macos-keychain-troubleshooting.png"
+                          class="thumbnail"/>
+                  </p>
+                  <p>If the Okta Keychain, the certificate, or the private key are missing, the registration task didn't complete successfully. <a href="#View">View logs in Jamf Pro</a>. </p>
+                  <li>In the <span class="uicontrol">login</span> keychain, verify that the device_trust password and identity preferences appear. </li>
+                  <p>
+                     <img src="../../Resources/Images/dt-macos-keychain-pw-troubleshooting.png"
+                          class="thumbnail"/>
+                  </p>
+                  <p>If the <span class="varname">device_trust</span> password is not present then device trust-secured apps can't access the Okta keychain. To remedy this, uninstall the certificate. Seee <a href="#Task3">Revoke and remove Device Trust certificates</a>. Re-enroll the device. See <a href="#Task4">Step 4. Add the modified Okta Device Registration Task to Jamf Pro and distribute it to macOS devices.</a>
+                  </p>
+               </ol>
+            </div>
+         </div>
+         <div>
+            <h3>Maximum certificate enrollment limit</h3>
+            <p>
+               <MadCap:snippetText src="mobile-snippets/dt-macOS-unbound-cert-limit.flsnp"/>
+            </p>
+         </div>
+         <div>
+            <h3>
+               <a name="MTLS-handshake"/>Prevent an auth failure caused by blocked Mutual TLS certificate exchange
+</h3>
+            <MadCap:snippetBlock src="mobile-snippets/dt-mtls-handshake.flsnp"
+                                 MadCap:conditionTagExpression="include[&#34;SnippetConditionsForDevices.macOS Only&#34;] "/>
+         </div>
+         <h5>Sign-on policy</h5>
+         <p>Verify that you have configured a sign-on policy that:</p>
+         <ul>
+            <li>Is applied to the WS-Fed or SAML app(s) that you want to secure with <MadCap:variable name="okta-feature-names.Device Trust"/>.</li>
+            <li>Is applied to the correct user(s) and/or groups.</li>
+            <li>Includes, at minimum, an Active rule that denies access to untrusted devices.</li>
+         </ul>
+         <h4>
+            <a name="DT_macOS_SysLog"/>System Log</h4>
+         <div>
+            <h3>Verify <MadCap:variable name="okta-feature-names.Device Trust"/> events</h3>
+            <p>Review the <a href="../Reports/Reports_SysLog.htm"
+                  rel="noreferrer"
+                  target="_blank">System Log</a> to verify the following <MadCap:variable name="okta-feature-names.Device Trust"/> System Log events:
+</p>
+            <h4>Authentication</h4>
+            <ul>
+               <li>DisplayMessage: Authentication of device via certificate</li>
+               <li>EventType: <span class="code">user.authentication.authenticate</span>
+               </li>
+            </ul>
+            <h4>Enrollment</h4>
+            <ul>
+               <li>DisplayMessage: <MadCap:variable name="okta-feature-names.Device Trust"/> certificate enrollment</li>
+               <li>EventType: <span class="code">user.credential.enroll</span>
+               </li>
+            </ul>
+            <h4>Issuance	</h4>
+            <ul>
+               <li>DisplayMessage: <MadCap:variable name="okta-feature-names.Device Trust"/> certificate issuance</li>
+               <li>EventType: <span class="code">pki.cert.issue</span>
+               </li>
+            </ul>
+            <h4>Revocation</h4>
+            <ul>
+               <li>DisplayMessage: <MadCap:variable name="okta-feature-names.Device Trust"/> certificate revocation</li>
+               <li>EventType: <span class="code">pki.cert.revoke</span>
+               </li>
+            </ul>
+            <h4>Renewal</h4>
+            <ul>
+               <li>DisplayMessage: <MadCap:variable name="okta-feature-names.Device Trust"/> certificate renewal</li>
+               <li>EventType: <span class="code">pki.cert.renew</span>
+               </li>
+            </ul>
+         </div>
+         <MadCap:snippetBlock src="mobile-snippets/debug-context-device-ids.flsnp"/>
+         <p>Verify Jamf Pro setup</p>
+         <ul>
+            <li>In the Okta Admin Console, are the Secret Key Value and the Org URL correctly populated in the Okta Device Registration Task (see <a href="#Task2">Step 2. Modify the Okta Device Registration Task</a>)?</li>
+            <li>Is the Okta Device Registration Task that you modified and added to Jamf Pro the latest version? (See <a href="../Settings/Settings_Downloads.htm#Device"
+                  rel="noreferrer"
+                  target="_blank">Version History</a>.)</li>
+            <li>Do the trigger events in your Jamf Pro policy  include <span class="wintitle">Enrollment Complete</span> and <span class="wintitle">Recurring Check-in</span>? (See <a href="#Task4">Step 4. Add the modified Okta Device Registration Task to Jamf Pro and distribute it to macOS devices</a>.)</li>
+            <li>
+
+											Have you viewed deployment logs? (See <a href="#PartF">View certificate enrollment logs</a>.)
+										</li>
+            <li>Do Jamf Pro Policy Logs show that the script execution status is <span class="wintitle">Completed</span>? </li>
+            <p>
+               <img src="../../Resources/Images/dt-macos-jamf-policy-logs-troubleshooting.png"
+                    class="thumbnail"/>
+            </p>
+         </ul>
+         <h3>
+            <a name="AdvancedTroubleshooting_dt-macOS"/>Advanced troubleshooting</h3>
+         <p>If basic troubleshooting did not resolve the problem you are experiencing, and the certificate is not installed on the macOS device, check the following:</p>
+         <h3>In the Okta Admin app</h3>
+         <p>Verify that the end user of the macOS device is present and Activated in <span class="menucascade">
+               <span class="uicontrol">Directory</span>
+               <span class="uicontrol">People</span>
+            </span>.</p>
+         <h3>On the macOS device</h3>
+         <h4>Confirm that auto certificate settings are configured in Chrome:</h4>
+         <ol>
+            <li>In Chrome, enter chrome://policy in the address bar, and then press Enter.</li>
+            <li>Click <span class="uicontrol">Show value</span> and verify that the  <span class="wintitle">AutoSelectCertificateForUrls</span> policy displays either of the following values:
+
+					<p>
+                  <span class="code">{"pattern":"https://[cell]-devicetrust.okta.com","filter":{"ISSUER":{"CN":"MTLS Certificate Authority”}}}</span>
+               </p>
+               <p>
+                  <span class="code">{"pattern":"https://[cell]-devicetrust.okta-emea.com","filter":{"ISSUER":{"CN":"MTLS Certificate Authority”}}}</span>
+               </p>
+            </li>
+            <p>
+               <span class="code">[cell]</span> is the cell where your Okta org resides as shown in the footer on your Okta Admin Console.</p>
+         </ol>
+         <h4>Verify that native apps are allowed in the keychain</h4>
+         <p>Issue the following command to verify that allowed apps can access the certificate. See <a href="#PartG">Modify the app allowlist</a>). </p>
+         <p>
+            <span class="code">security dump-keychain -a okta.keychain</span>
+         </p>
+         <p>
+            <img src="../../Resources/Images/dt-macos-dump-keychain-troubleshooting.png"
+                 class="thumbnail"/>
+         </p>
+         <h4>Validate remediation</h4>
+         <p>Try to access a <MadCap:variable name="okta-feature-names.Device Trust"/>-secured app from a browser or thick client. If an error displays while trying to access the app, <span class="uicontrol">Quit</span> and <span class="uicontrol">Close</span> the browser (Chrome or Safari), relaunch the browser, and then try to access the app again.</p>
+      </div>
+      <h2>Known issues</h2>
+      <ul>
+         <li>Security requirements page not shown when accessing O365 native apps: End users with unmanaged macOS devices are not shown the <span class="wintitle">Security requirements</span> page when they try to access Office O365 native apps secured by this <MadCap:variable name="okta-feature-names.Device Trust"/> solution. (This problem occurs only with Office Native apps; it doesn't occur when trying to access O365 apps through desktop browsers like Chrome and Safari.) <p>
+               <img src="../../Resources/Images/DT_Security_URLspecified_2.png"
+                    class="thumbnail"/>
+            </p>
+         </li>
+         <li>Problem accessing Google Backup and Sync app: When signing in to the Backup and Sync app (part of Google Drive), the authentication flow stops on the Google Account page instead of progressing to the app. Google is aware of this issue. To complete signing in, click the <span class="uicontrol">Sign in with your browser instead</span> link in the lower portion of the page.</li>
+      </ul>
+   </body>
+</html>

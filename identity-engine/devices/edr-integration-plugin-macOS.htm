@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:searchable="True"
+      MadCap:fileTags="Tags/okta-authors.Kimli Welsh">
+   <head>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <link href="" rel="stylesheet" type="text/css"/>
+   </head>
+   <body>
+      <h1>Manage endpoint security integration plugins for macOS</h1>
+      <p>Endpoint security integration plugins extend the functionality of the Okta endpoint security integration feature.</p>
+      <p>To enable plugins on macOS devices, you need to configure and deploy a <a href="managed-app-configs-macOS.htm">managed app configuration</a> using your device management solution. The configuration enables <MadCap:variable name="okta-feature-names.Okta Verify"/> to collect trust signals from your EDR client running on the same device.</p>
+      <div class="noteOkta">
+         <p class="noteContent">Currently, Okta EDR integration for macOS only supports CrowdStrike ZTA. Support for other EDR solutions is planned for the future.</p>
+      </div>
+      <ul>
+         <li>
+            <MadCap:xref href="#Before">Before you begin
+			</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#PLIST">Managed app configuration</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Start">Start this task</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Verify">Verify managed app configuration deployment</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Disable">Disable an EDR integration plugin</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Related">Related topics</MadCap:xref>
+         </li>
+      </ul>
+      <div>
+         <h2>
+            <a name="Before"/>Before you begin
+			</h2>
+         <p>Verify that:</p>
+         <ul>
+            <li>EDR integration is enabled for your org</li>
+            <li>macOS devices are:<ul>
+                  <li>
+                     <a href="device-registration.htm" target="_blank">Registered</a> with Okta</li>
+                  <li>Managed by a device management solution that supports managed app configuration</li>
+                  <li>Are running: <ul>
+                        <li>macOS version 10.15 (Catalina) or later</li>
+                        <li>
+                           <MadCap:variable name="okta-feature-names.Okta Verify"/> 1.9.0 or later</li>
+                        <li>CrowdStrike Falcon Agent 6.20 or later</li>
+                     </ul>
+                  </li>
+               </ul>
+            </li>
+            <li>You are familiar with these <MadCap:variable name="3rd Party Integrations.Jamf Pro"/> documents:<ul>
+                  <li>
+                     <a href="https://docs.jamf.com/10.26.0/jamf-pro/administrator-guide/Computer_Configuration_Profiles.html">Computer Configuration Profiles</a>
+                  </li>
+                  <li>
+                     <a href="https://docs.jamf.com/technical-papers/jamf-pro/json-schema/10.19.0/Overview.html">Managing Settings for Computer Applications using JSON Schema and Jamf Pro</a>
+                  </li>
+               </ul>
+            </li>
+         </ul>
+      </div>
+      <h2>
+         <a name="PLIST"/>Managed app configuration</h2>
+      <p>The managed app configuration contains information that <MadCap:variable name="okta-feature-names.Okta Verify"/> uses to create the EDR integration plugin. Entries in the configuration correspond to the EDR vendors that you integrate with Okta. When users try to access a protected resource, <MadCap:variable name="okta-feature-names.Okta Verify"/> reads the entry to collect signals from the EDR. For example, the entry for CrowdStrike looks like this:</p>
+      <MadCap:codeSnippet>
+         <MadCap:codeSnippetCopyButton/>
+         <MadCap:codeSnippetBody MadCap:useLineNumbers="True" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">{
+"name": "com.crowdstrike.zta",
+"description": "File based EDR integration between Okta Verify and the Crowdstrike Falcon agent.",
+"location": "/Library/Application Support/Crowdstrike/ZeroTrustAssessment/OVSignals.zta",
+"type": "FILE",
+"format": "JWT"
+}</MadCap:codeSnippetBody>
+      </MadCap:codeSnippet>
+      <div class="noteOkta">
+         <p class="noteContent">Currently, as shown in the example entry, this EDR integration supports only "type": "FILE" and Crowdstrike.</p>
+      </div>
+      <h3>
+         <MadCap:variable name="3rd Party Integrations.Jamf Pro"/>-specific example</h3>
+      <div class="noteOkta">
+         <p class="noteContent">This example shows how to deploy a managed app configuration using <MadCap:variable name="3rd Party Integrations.Jamf Pro"/>, but any device management solution that supports deploying a managed app configuration to Apple devices should work. </p>
+      </div>
+      <p>In this example, you upload the managed app configurations and two distinct Preference Domains (bundle IDs) to <MadCap:variable name="3rd Party Integrations.Jamf Pro"/>. The configuration must have the following properties:</p>
+      <ul>
+         <li>Identical entries but different names that correspond to their distinct Preference Domain (bundleID) in <MadCap:variable name="3rd Party Integrations.Jamf Pro"/>.</li>
+         <li>The configuration must include an entry with an array of all the integration names attached to:
+				<ul>
+               <li>
+                  <span class="code">Key:</span>
+                  <span class="code">OktaVerify.Plugins</span>
+               </li>
+            </ul>
+         </li>
+         <li>All other entries in the PLIST must be keys corresponding to dictionaries formatted as shown in the CrowdStrike entry example. The key should match the ”name” entry in the dictionary. For example, <span class="code">"OktaVerify.Plugins" = ["com.crowdstrike.zta"]</span>.</li>
+      </ul>
+      <h3>
+         <a name="Start"/>Start this procedure</h3>
+      <ol>
+         <li>In <MadCap:variable name="3rd Party Integrations.Jamf Pro"/>, go to <span class="menucascade">
+               <span class="uicontrol">Computers</span>
+               <span class="uicontrol">Configuration Profiles</span>
+               <span class="uicontrol">+ New</span>
+            </span>.</li>
+         <li>In the left pane, scroll down and select <span class="uicontrol">Application &amp; Custom Settings</span>.</li>
+         <li>Choose a method for uploading the PLIST files to <MadCap:variable name="3rd Party Integrations.Jamf Pro"/>:</li>
+         <ul>
+            <li>
+               <span class="uicontrol">External Applications</span>. Choose <span class="uicontrol">Custom Schema</span>. See <a href="https://docs.jamf.com/technical-papers/jamf-pro/json-schema/10.19.0/Overview.html">Managing Settings for Computer Applications using JSON Schema and Jamf Pro</a>
+               <a href="https://docs.jamf.com/technical-papers/jamf-pro/json-schema/10.19.0/Overview.html">.</a>
+            </li>
+            <li>
+               <span class="uicontrol">Upload</span>. See <a href="https://docs.jamf.com/10.26.0/jamf-pro/administrator-guide/Computer_Configuration_Profiles.html">Computer Configuration Profiles</a>.</li>
+         </ul>
+         <li>In your chosen upload method, enter two identical PLIST payloads. Each payload must have a distinct Preference Domain:<ul>
+               <li>
+                  <span class="wintitle">First payload Preference Domain</span>: <span class="code">com.okta.mobile</span>
+               </li>
+               <li>
+                  <span class="wintitle">Second payload Preference Domain</span>: <span class="code">com.okta.mobile.auth-service-extension</span>
+               </li>
+               <li>
+                  <span class="wintitle">PLIST payload</span>. For example, here's a payload for integrating with CrowdStrike ZTA using <MadCap:variable name="3rd Party Integrations.Jamf Pro"/>:</li>
+               <p>
+                  <MadCap:codeSnippet>
+                     <MadCap:codeSnippetCopyButton/>
+                     <MadCap:codeSnippetBody MadCap:useLineNumbers="True" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;
+&lt;plist version="1.0"&gt;
+&lt;managedAppConfiguration&gt;
+&lt;dict&gt;
+&lt;key&gt;OktaVerify.Plugins&lt;/key&gt;
+&lt;array&gt;
+&lt;string&gt;com.crowdstrike.zta&lt;/string&gt;
+&lt;/array&gt;
+&lt;key&gt;com.crowdstrike.zta&lt;/key&gt;
+&lt;dict&gt;
+&lt;key&gt;description&lt;/key&gt;
+&lt;string&gt;description&lt;/string&gt;
+&lt;key&gt;format&lt;/key&gt;
+&lt;string&gt;JWT&lt;/string&gt;
+&lt;key&gt;location&lt;/key&gt;
+&lt;string&gt;/Library/Application Support/Crowdstrike/ZeroTrustAssessment/data.zta&lt;/string&gt;
+&lt;key&gt;name&lt;/key&gt;
+&lt;string&gt;com.crowdstrike.zta&lt;/string&gt;
+&lt;key&gt;type&lt;/key&gt;
+&lt;string&gt;file&lt;/string&gt;
+&lt;/dict&gt;
+&lt;/dict&gt;
+&lt;/managedAppConfiguration&gt;
+&lt;/plist&gt;</MadCap:codeSnippetBody>
+                  </MadCap:codeSnippet>
+               </p>
+            </ul>
+         </li>
+         <p>
+            <div class="noteOkta">
+               <p class="noteContent">Currently the <span class="code">description</span> field in the PLIST is not used. You can use it to show a message to end users about the signals Okta collects and the benefits of this feature. </p>
+            </div>
+         </p>
+         <li>Go to the <span class="uicontrol">Scope</span> tab and assign the configuration profile to the relevant end-user devices.</li>
+      </ol>
+      <h2>
+         <a name="Verify"/>Verify managed app configuration deployment</h2>
+      <p>There are a few ways to verify that the managed app configuration was deployed successfully to a given device. </p>
+      <h3>Option 1: Check System Preferences</h3>
+      <ol>
+         <li>On the macOS device, click the <span class="uicontrol">System Preferences</span> icon on the dock and hold it. </li>
+         <li>
+            <p>Click <span class="uicontrol">Profiles</span>.</p>
+         </li>
+         <li>
+            <p>Under <span class="uicontrol">Device (Managed)</span>, verify that there's an entry for the profile you created in <MadCap:variable name="3rd Party Integrations.Jamf Pro"/> is listed. For example, an entry may contain the information similar to this:</p>
+            <ul>
+               <li>Description: deploy app config to macOS <MadCap:variable name="okta-feature-names.Okta Verify"/> shared container.</li>
+               <li>Signed: JSS Built-In Signing Certificate</li>
+               <li>Installed: April 1, 2021 at 11:55 AM</li>
+               <li>Settings: Custom Settings</li>
+            </ul>
+         </li>
+      </ol>
+      <h3>Option 2: Look in <span class="code">/Library/Managed Preferences</span>
+      </h3>
+      <div class="noteOkta">
+         <p class="noteContent">Make sure to open Library/Managed Preferences and not Users Library folder.</p>
+      </div>
+      <ol>
+         <li>
+            <p>On the macOS device, go to <span class="code">/Library/Managed Preferences</span>.</p>
+         </li>
+         <li>
+            <p>Verify that the PLIST file is present in these locations:</p>
+            <ul>
+               <li>
+                  <p>Managed Preferences folder</p>
+               </li>
+               <li>
+                  <p>The User subfolder within Managed Preferences.</p>
+               </li>
+            </ul>
+         </li>
+      </ol>
+      <h2>
+         <a name="Disable"/>Disable the EDR integration plugin</h2>
+      <p>If you want to disable the EDR integration plugin for a particular EDR vendor, remove the EDR-specific entry from the PLIST files and then upload them again to <MadCap:variable name="3rd Party Integrations.Jamf Pro"/> as described in <MadCap:xref href="#Start">Start this task</MadCap:xref>.</p>
+      <h2>
+         <a name="Related"/>Next steps</h2>
+      <ul>
+         <li>
+            <MadCap:xref href="edr-integration-validate.htm" target="_blank">Validate your endpoint security integration</MadCap:xref>
+         </li>
+      </ul>
+   </body>
+</html>

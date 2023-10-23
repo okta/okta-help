@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Mark Cowan">
+    <head><title>[%=Heading.Level1%] | Okta</title>
+        <meta name="description" content="Explains different ways of configuring single sign on for Office 365." />
+    </head>
+    <body>
+        <h1>Configure Single Sign-On for Office 365</h1>
+        <p>You can enable users to sign on to <MadCap:variable name="Mobile.O365" /> using one of the following methods:</p>
+        <ul>
+            <li>Secure Web Authentication (SWA)</li>
+            <li>WS-Federation - automatic</li>
+            <li>WS-Federation - manual</li>
+        </ul>
+        <p>SWA is a single sign-on (SSO) method developed by Okta. It stores the end user credentials using strong encryption combined with a customer-specific private key. When the end user clicks the app, Okta securely signs them in using the encrypted credentials. See <MadCap:xref href="../apps-about-swa.htm">SWA app integrations</MadCap:xref>.</p>
+        <p>WS-Federation defines mechanisms to transfer identity information using encrypted SOAP messages. It doesn't require a separate password for <MadCap:variable name="Mobile.O365" />. See <MadCap:xref href="../apps-about-wsfed.htm">WS-Fed app integrations</MadCap:xref>.</p>
+        <h2>Before you begin
+        </h2>
+        <ul>
+            <li>Complete <MadCap:xref href="add-o365.htm">Add Office 365 to Okta</MadCap:xref>.</li>
+            <li>
+                <MadCap:snippetBlock src="../Apps-Snippets/bring-users-in-okta.flsnp" />
+            </li>
+            <li>Disable the Microsoft MFA for the <MadCap:variable name="Mobile.O365" /> admin account that you’re using for WS-Federation. If the MFA is enabled, it can break provisioning and SSO setups in Okta.</li>
+            <li>If you're integrating an Azure AD&#160;tenant that has the <span class="uicontrol">Web Sign-in</span> option <span class="uicontrol">Enabled</span> in <span class="wintitle">Microsoft Endpoint Manager admin center</span>, ensure that its configuration settings allow your Okta org URL. See the Microsoft Doc for <a href="https://docs.microsoft.com/en-us/windows/client-management/mdm/policy-csp-authentication#authentication-configurewebsigninallowedurls">Policy CSP - Authentication</a>.</li>
+        </ul>
+        <p><a name="Start_this_task"></a>
+        </p>
+        <h2>Start this task<br /></h2>
+        <ol>
+            <li>
+                <p>You can use one of the following methods to configure SSO for <MadCap:variable name="Mobile.O365" />:</p>
+                <p>
+                    <ul>
+                        <li>
+                            <MadCap:xref href="#Configur">Configure SSO using Secure Web Authentication</MadCap:xref>
+                        </li>
+                        <li>
+                            <MadCap:xref href="#Configur2">Configure SSO using WS-Federation automatic method</MadCap:xref>
+                        </li>
+                        <li MadCap:conditions="Primary.do-not-publish">
+                            <MadCap:xref href="#Configur4">Configure SSO using WS-Federation - automatic method (Microsoft Graph)</MadCap:xref>
+                        </li>
+                        <li>
+                            <MadCap:xref href="#Configur3">Configure SSO using WS-Federation - manual method</MadCap:xref>
+                        </li>
+                        <li MadCap:conditions="Primary.do-not-publish">
+                            <MadCap:xref href="#Configur5">Configure SSO on using WS-Federation - manual method (Microsoft Graph)</MadCap:xref>
+                        </li>
+                    </ul>
+                </p>
+            </li>
+            <li>After you've configured the SSO, you need to <MadCap:xref href="#Test">Test Single Sign on configuration</MadCap:xref>.</li>
+        </ol>
+        <h3><a name="Configur"></a>Configure SSO on with Secure Web Authentication</h3>
+        <p>You can enable users to sign in to <MadCap:variable name="Mobile.O365" /> using either SWA or WS-Federation. When possible, use WS-Federation because it's more secure than SWA.</p>
+        <p>
+            <img src="../../../Resources/Images/Office365/swa-o365.png" class="thumbnail" MadCap:conditions="MultiProdPublish.Classic" />
+        </p>
+        <p>
+            <img src="../../../Resources/Images/Office365/OIE/sso-swa.png" class="thumbnail" MadCap:conditions="MultiProdPublish.OIE" />
+        </p>
+        <ol>
+            <li>Go to <span class="menucascade"><span class="uicontrol">Office 365</span><span class="uicontrol">Sign on</span><span class="uicontrol">Settings</span><span class="uicontrol">Edit</span></span>.</li>
+            <li>In <span class="uicontrol">Sign on Methods</span>, select <span class="uicontrol">Secure Web Authentication</span>.</li>
+            <li>Select the appropriate option for username and password setup. See <MadCap:xref href="../Apps_Overview_of_Managing_Apps_and_SSO.htm#AboutSWAApps">About SWA Apps</MadCap:xref>.</li>
+            <li>Map username format as explained in section <MadCap:xref href="provision-users.htm#3.">3. Map profile attributes Okta → Office 365</MadCap:xref>.</li>
+            <li>Click <span class="uicontrol">Save</span>.</li>
+        </ol>
+        <h3>Configure SSO on with WS-Federation</h3>
+        <p>There are two ways of configuring WS-Federation: automatic and manually. You can allow Okta to automatically configure WS-Federation or you can manually configure it using the customized PowerShell script provided by Okta. Configuring WS-Federation automatically is recommended because Okta takes care of the back-end procedures.</p>
+        <h4><a name="Configur2"></a>Configure SSO with WS-Federation - automatic method</h4>
+        <ol>
+            <li>Go to <span class="menucascade"><span class="uicontrol">Office 365</span><span class="uicontrol">Sign on</span><span class="uicontrol">Settings</span><span class="uicontrol">Edit</span></span>.</li>
+            <li>In <span class="uicontrol">Sign on Methods</span>, select <span class="menucascade"><span class="uicontrol">WS-Federation</span><span class="uicontrol">Automatic</span></span>.</li>
+            <li>Enter your <span class="uicontrol">Office 365 Administrator Username and Password</span>.
+				<p MadCap:conditions="Primary.do-not-publish">Your <MadCap:variable name="Mobile.O365" /> administrator username and password for WS-Federation are pre-filled if you provided them while setting up provisioning.
+			</p></li>
+            <li>Click <span class="uicontrol">Fetch and Select</span>. This displays a list of all <MadCap:variable name="Mobile.O365" /> domains available for federation.</li>
+            <li>Select domains that you want to federate. </li>
+            <li>Click <span class="uicontrol">Save</span>.</li>
+        </ol>
+        <div class="note_cautionOkta" MadCap:conditions="MultiProdPublish.Classic">
+            <img src="../../../Resources/Images/assets/Icons/Notes/Alert.png" class="noteImgFloat" title="Info" alt="Info" />
+            <p class="noteContent" style="font-weight: bold;">Ensure your administrator credentials for the <MadCap:variable name="Mobile.O365" /> aren't in the domain you're federating.</p>
+            <p class="noteContent">This locks you out of the <MadCap:variable name="Mobile.O365" /> domain. You won’t be able to authenticate yourself in Microsoft 365 Admin Center as you have to authenticate through Okta, where you're treated as a user, not as an admin. Ensure you're using administrator credentials for an account that is on your default <MadCap:variable name="Mobile.O365" /> domain. The default tenant domain is <span class="url"><span class="varname">yourtenant</span>.onmicrosoft.com</span>.</p>
+        </div>
+        <div class="note_cautionOkta" MadCap:conditions="MultiProdPublish.OIE">
+            <img src="../../../Resources/Images/assets/Icons/Notes/Alert.png" class="noteImgFloat" title="Info" alt="Info" />
+            <p class="noteContent" style="font-weight: bold;">Ensure your administrator credentials for the <MadCap:variable name="Mobile.O365" /> are not&#160;in the domain you're federating.</p>
+            <p class="noteContent">This locks you out of the <MadCap:variable name="Mobile.O365" /> domain. You can't authenticate in Microsoft 365 Admin Center because you have to authenticate through Okta, where you're treated as a user (not as an admin). Ensure you're using administrator credentials for an account that is on your default <MadCap:variable name="Mobile.O365" /> domain. The default tenant domain is <span class="url"><span class="varname">yourtenant</span>.onmicrosoft.com</span> (<span class="url"><span class="varname">yourtenant</span>.onmicrosoft.us</span> for <a href="../Office365/gcc-high.htm">GCC&#160;High</a>).</p>
+        </div>
+        <p>
+            <img src="../../../Resources/Images/Office365/ws-fed-auto.png" class="thumbnail" MadCap:conditions="MultiProdPublish.Classic" />
+        </p>
+        <p>
+            <img src="../../../Resources/Images/Office365/OIE/ws-fed-auto.png" class="thumbnail" MadCap:conditions="MultiProdPublish.OIE" />
+        </p>
+        <div MadCap:conditions="Primary.do-not-publish">
+            <h4><a name="Configur4"></a>Configure SSO using WS-Federation - automatic method (Microsoft Graph)</h4>
+            <p>If you enabled the MS Graph federation feature, your navigation is different.</p>
+            <ol>
+                <li>Go to <span class="menucascade"><span class="uicontrol">Office 365</span><span class="uicontrol">Sign on</span><span class="uicontrol">Settings</span><span class="uicontrol">Edit</span></span>.</li>
+                <li>In <span class="uicontrol">Sign on Methods</span>, select <span class="menucascade"><span class="uicontrol">WS-Federation</span><span class="uicontrol">Automatic</span></span>.</li>
+                <li>Click <span class="uicontrol">Authenticate with Microsoft Office 365</span>. You're redirected to the Microsoft account login page.<ol style="list-style-type: lower-alpha;"><li>Sign in to Microsoft as a Global Administrator for your Microsoft tenant.</li><li>Read and accept the requested permissions.</li></ol></li>
+                <li>Click <span class="uicontrol">Fetch and Select</span>. This displays a list of all <MadCap:variable name="Mobile.O365" /> domains available for federation.</li>
+                <li>Select domains that you want to federate. </li>
+                <li>Click <span class="uicontrol">Save</span>.</li>
+            </ol>
+            <div class="note_cautionOkta" MadCap:conditions="MultiProdPublish.Classic">
+                <img src="../../../Resources/Images/assets/Icons/Notes/Alert.png" class="noteImgFloat" title="Info" alt="Info" />
+                <p class="noteContent" style="font-weight: bold;">Ensure your administrator credentials for the <MadCap:variable name="Mobile.O365" /> are not&#160;in the domain you're federating.</p>
+                <p class="noteContent">This locks you out of the <MadCap:variable name="Mobile.O365" /> domain. You won’t be able to authenticate yourself in Microsoft 365 Admin Center as you have to authenticate through Okta, where you're treated as a user, not as an admin. Ensure you're using administrator credentials for an account that is on your default <MadCap:variable name="Mobile.O365" /> domain. The default tenant domain is <span class="url"><span class="varname">yourtenant</span>.onmicrosoft.com</span>.</p>
+            </div>
+            <div class="note_cautionOkta" MadCap:conditions="MultiProdPublish.OIE">
+                <img src="../../../Resources/Images/assets/Icons/Notes/Alert.png" class="noteImgFloat" title="Info" alt="Info" />
+                <p class="noteContent" style="font-weight: bold;">Ensure your administrator credentials for the <MadCap:variable name="Mobile.O365" /> are&#160;not in the domain you're federating.</p>
+                <p class="noteContent">This locks you out of the <MadCap:variable name="Mobile.O365" /> domain. You won’t be able to authenticate yourself in Microsoft 365 Admin Center as you have to authenticate through Okta, where you're treated as a user, not as an admin. Ensure you're using administrator credentials for an account that is on your default <MadCap:variable name="Mobile.O365" /> domain. The default tenant domain is <span class="url"><span class="varname">yourtenant</span>.onmicrosoft.com</span> (<span class="url"><span class="varname">yourtenant</span>.onmicrosoft.us</span> for <a href="../Office365/gcc-high.htm">GCC&#160;High</a>).</p>
+            </div>
+        </div>
+        <h4><a name="Configur3"></a>Configure SSO on with WS-Federation - manual method</h4>
+        <p>
+            <img src="../../../Resources/Images/Office365/ws-fed-man.png" class="thumbnail" MadCap:conditions="MultiProdPublish.Classic" />
+        </p>
+        <p>
+            <img src="../../../Resources/Images/Office365/OIE/ws-fed-man.png" class="thumbnail" MadCap:conditions="MultiProdPublish.OIE" />
+        </p>
+        <ol>
+            <li>Go to <span class="menucascade"><span class="uicontrol">Office 365</span><span class="uicontrol">Sign on</span><span class="uicontrol">Settings</span><span class="uicontrol">Edit</span></span>.
+</li>
+            <li>In <span class="uicontrol">Sign on Methods</span>, select <span class="menucascade"><span class="uicontrol">WS-Federation</span><span class="uicontrol">Manual using PowerShell</span></span>.
+</li>
+            <li>Click <span class="uicontrol">View Setup Instructions</span> for the PowerShell command customized for your domain.
+</li>
+            <li>Copy this command for use in PowerShell.</li>
+        </ol>
+        <p>In PowerShell:</p>
+        <ol>
+            <li MadCap:conditions="MultiProdPublish.Classic">Enter <span class="userinput">Connect-MsolService</span>.</li>
+            <li MadCap:conditions="MultiProdPublish.OIE">Enter <span class="userinput">Connect-MsolService</span> (for <a href="../Office365/gcc-high.htm">GCC&#160;High</a>, enter <span class="userinput">Connect-MsolService  -AzureEnvironment USGovernment</span>).</li>
+            <li>Enter your <MadCap:variable name="Mobile.O365" /> Global Administrator username and password.</li>
+            <li>Enter the copied customized PowerShell command. </li>
+            <li>Ensure that the federation is successful by entering this command:</li><span class="userinput">Get-MsolDomainFederationSettings -DomainName yourdomain.name</span>
+            <br />
+        </ol>
+        <div MadCap:conditions="Primary.do-not-publish">
+            <h4><a name="Configur5"></a>Configure SSO with WS-Federation - manual method (Microsoft Graph)</h4>
+            <p>If you enabled the MS Graph federation feature, the PowerShell commands are different.</p>
+            <ol>
+                <li>Go to <span class="menucascade"><span class="uicontrol">Office 365</span><span class="uicontrol">Sign on</span><span class="uicontrol">Settings</span><span class="uicontrol">Edit</span></span>.
+</li>
+                <li>In <span class="uicontrol">Sign on Methods</span>, select <span class="menucascade"><span class="uicontrol">WS-Federation</span><span class="uicontrol">Manual using PowerShell</span></span>.
+</li>
+                <li>Click <span class="uicontrol">View Setup Instructions</span> for the PowerShell command customized for your domain.
+</li>
+                <li>Copy this command for use in PowerShell.</li>
+            </ol>
+            <p>In PowerShell:</p>
+            <ol>
+                <li MadCap:conditions="MultiProdPublish.Classic">Enter <span class="userinput">Connect-MgGraph -Scopes Directory.AccessAsUser.All</span>.</li>
+                <li MadCap:conditions="MultiProdPublish.OIE">Enter <span class="userinput">Connect-MgGraph -Scopes Directory.AccessAsUser.All</span> (for <a href="../Office365/gcc-high.htm">GCC&#160;High</a>, enter <span class="userinput">Connect-MgGraph -Environment USGov -Scopes Directory.AccessAsUser.All</span>).</li>
+                <li>Enter your <MadCap:variable name="Mobile.O365" /> Global Administrator username and password.</li>
+                <li>Enter the copied customized PowerShell command. </li>
+                <li>Ensure that the federation is successful by entering this command:</li><span class="userinput">Get-MgDomainFederationConfiguration -DomainId yourdomain.name</span>
+            </ol>
+        </div>
+        <h3><a name="Test"></a>Test SSO configuration</h3>
+        <ol>
+            <li>Sign in to Okta as a test user.</li>
+            <li>Open <MadCap:variable name="Mobile.O365" /> from the End-User Dashboard.</li>
+            <li>Ensure that the user is successfully logged in to the <MadCap:variable name="Mobile.O365" /> account.</li>
+        </ol>
+        <h2><span>Next step</span>
+        </h2>
+        <p>
+            <MadCap:xref href="provision-users.htm">Provision users to Office 365</MadCap:xref>
+        </p>
+    </body>
+</html>

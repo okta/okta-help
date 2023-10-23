@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link href="../../../../Resources/TableStyles/standard-shaded-rows.css" rel="stylesheet" MadCap:stylesheetType="table" /><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1>Strategic considerations when deploying <MadCap:variable name="okta-feature-names.app sign-on policies" /></h1>
+        <p><MadCap:variable name="okta-feature-names.App sign-on policies" /> in  Identity Engine are a great way to implement a holistic approach to Identity Access Management (IAM) that focuses on results and outcomes. Okta designed <MadCap:variable name="okta-feature-names.app sign-on policies" /> to allow Okta administrators to operate at a higher level of abstraction by defining the context and user type depending on an application's requirements.</p>
+        <h2>Key concepts and definitions</h2>
+        <p><MadCap:variable name="okta-feature-names.App sign-on policies" />, along with Device Context and Okta FastPass, are a cornerstone of Identity Engine. When evaluating whether a user can be granted access, Identity Engine inspects the context (user itself, device, network, and risk) that the user brings, first at org level and then at app level. It then determines the authentication methods that will be offered based on both <MadCap:variable name="okta-feature-names.Okta sign-on policies" /> and <MadCap:variable name="okta-feature-names.app sign-on policies" />.</p>
+        <h3>Authenticators and authentication methods</h3>
+        <p> An authenticator is a credential owned or controlled by a user, such as a secret phrase, an email account, or an instance of a downloaded app.</p>
+        <p>An authenticator can have one or more authentication methods. The following table lists authenticators and the authentication methods they offer.</p>
+        <table style="mc-table-style: url('../../../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+            <tbody>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><span class="uicontrol">Authenticator</span>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1"><span class="uicontrol">Authentication methods</span>
+                    </td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Phone</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">SMS or voice</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Password</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Secret string or phrase</td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">Okta Verify</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">One-time password, push notification or proof of possession key, Okta FastPass</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Factor type</h3>
+        <p>Authenticators have a factor type. Factor types are something the user knows (knowledge factor), something the user has (possession factor), or something the user is (inherence factor).</p>
+        <h3>Authenticator characteristics</h3>
+        <p>The introduction of authenticators allows for the addition of specific security characteristics.</p>
+        <p>The <span class="uicontrol">Possession</span> factor type supports the following characteristics. Each is valuable to achieve specific outcomes.</p>
+        <ul>
+            <li>Hardware protection: Requires that keys being used to authenticate are stored in secure hardware (TPM, Secure Enclave) on the device. Currently, only Okta Verify meets this constraint. Because hardware protection implies Device bound, that constraint is selected automatically when hardware protection is selected.</li>
+            <li>Phishing resistant: Requires users to provide possession factors that cryptographically verify the login server (the origin). Currently, only FIDO2/WebAuthn satisfies this requirement. Because phishing resistance implies Device bound, that constraint is selected automatically when Phishing-resistant is selected. </li>
+            <li>Device bound: Requires that the factor's keys be stored securely on the device, and that they cannot be transferred to another device without re-enrolling the factor. Email and SMS are the only possession factors that aren't device bound. This constraint is selected automatically if either of the other constraints is selected.</li>
+        </ul>
+        <h3>Authenticator Assurance Levels</h3>
+        <p>Authenticator Assurance Levels (AALs) are included in the National Institute of Standards and Technology (NIST)'s guidelines for digital identity.&#160;AALs define an app's level of confidence that the credential presented for access is truly in the possession of the person whose identity is being asserted to the app. For example, is the one-time password (OTP) or biometric information presented actually tied to the username entered for access?</p>
+        <p>NIST recommends three levels, expressed as AAL1, AAL2, and AAL3, that represent the strength of the authentication process and the binding between an authenticator and the user's identity. AALs define the characteristics of the authentication methods that need to be verified before a specific level of authentication is achieved, such as the number of factors presented or whether the factors are required to be phishing resistant.</p>
+        <p MadCap:conditions="Primary.do-not-publish">The following <MadCap:annotation MadCap:createDate="2022-02-25T17:26:32.4251738-05:00" MadCap:creator="InfoDev" MadCap:initials="IN" MadCap:comment="?" MadCap:editor="InfoDev" MadCap:editDate="2022-02-25T17:26:33.3615226-05:00">example</MadCap:annotation> shows a typical set of authenticators, their supported factor types, and their characteristics, taken from the Okta Admin Console.</p>
+        <h3>Authentication assurance policies</h3>
+        <p>When creating an <MadCap:variable name="okta-feature-names.app sign-on policy" />, the administrator can specify the combination of authenticators, authentication methods, and factor types that are required. This allows them to define the proper assurance level, including:</p>
+        <ul>
+            <li>How the user must authenticate, using one or two factor types</li>
+            <li>Which constraints (specific characteristics required for the authentication method) should be applied to possession factors</li>
+            <li>Whether access with Okta FastPass is allowed, and under which constraints (prompt or biometrics)</li>
+        </ul>
+        <p>This constitutes the authentication assurance policy for the app to which the policy is applied.</p>
+        <h3>Context</h3>
+        <p>When users present themselves to the authentication process, they bring a context with them. This context is a set of information and states about:</p>
+        <ul>
+            <li>The user, their groups (if any), and risk assessment attached to them</li>
+            <li>The network the user is connected to</li>
+            <li>The device the user is using</li>
+        </ul>
+        <p>For a complete description of these aspects see the <a href="../devices/devcontext-main.htm">Device Context Deployment Guide</a>.</p>
+        <h3>Device Context</h3>
+        <p>Device Context is another cornerstone of Identity Engine. It provides maximum visibility on the information and state that the device presents to assess the authentication methods required to grant access to Okta-managed apps. Device Context is a superset of Device Trust. With Device Context, the Okta administrator has access to a rich set of data about the user's device:</p>
+        <ul>
+            <li>Context data and state for managed devices, also known as Device Trust. Device Trust in Identity Engine provides a unified approach for assessing the trust posture of desktop and mobile devices, including:</li>
+            <ul>
+                <li>Indication of whether the device is managed by a 3rd-party management tools</li>
+                <li>Data or signals collected by 3rd-party EDR tools, such as whether a firewall or antivirus solution is present on the device</li>
+            </ul>
+            <li>Whether the device is registered in Okta Universal Directory</li>
+        </ul>
+        <p>This information can be used to create sophisticated policies.</p>
+        <h3><MadCap:variable name="okta-feature-names.Okta sign-on policies" /> and <MadCap:variable name="okta-feature-names.app sign-on policies" /></h3>
+        <p>Global Session Policy is the first gate for policy evaluation. That policy includes the ability to delegate to the <MadCap:variable name="okta-feature-names.app sign-on policy" /> for authentication method selection.</p>
+        <p MadCap:conditions="Primary.do-not-publish">The <MadCap:annotation MadCap:createDate="2022-02-25T17:46:48.9944446-05:00" MadCap:creator="InfoDev" MadCap:initials="IN" MadCap:comment="?" MadCap:editor="InfoDev" MadCap:editDate="2022-02-25T17:46:49.6987001-05:00">following diagram</MadCap:annotation> represents a simple view of the flow between <MadCap:variable name="okta-feature-names.Okta sign-on policies" />, <MadCap:variable name="okta-feature-names.app sign-on policies" />, and the context available to craft the policy.</p>
+        <MadCap:snippetBlock src="asop-osop-work-together.flsnp" />
+        <!-- MadCap:snippetBlock src="Keyconceptsanddefinitions.htm" / -->
+        <h2>Next steps</h2>
+        <p><a href="asop-use-cases.htm">Review and implement use cases</a>
+        </p>
+    </body>
+</html>

@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/deploy-oci-upload2-bucket.htm" /><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1>Upload an OVA&#160;to an OCI storage bucket</h1>
+        <p>Before an <MadCap:variable name="okta-feature-names.Access Gateway" /> OVA&#160;can be imported it must be uploaded to a bucket.<br />During this task we will upload an OVA to a bucket. </p>
+        <ul class="tabs" data-tabs="data-tabs" data-deep-link="true" id="production-tabs">
+            <li class="tabs-title is-active"><a href="#console-panel" aria-selected="true">Console</a>
+            </li>
+            <li class="tabs-title"><a href="#command-panel">Command Line</a>
+            </li>
+        </ul>
+        <div class="tabs-content" data-tabs-content="production-tabs">
+            <div class="tabs-panel is-active" id="console-panel">
+                <ol>
+                    <li>Using the navigation menu in the upper left corner select <span class="uicontrol">Object Storage &gt;&#160;Object Storage</span>.</li>
+                    <li>
+                        <MadCap:annotation MadCap:createDate="2020-09-01T14:53:15.4471181-04:00" MadCap:creator="naini.khajanchi" MadCap:initials="NA" MadCap:comment="I think we should clarify this. " MadCap:editor="naini.khajanchi" MadCap:editDate="2020-09-01T14:53:54.0186717-04:00">In the <span class="wintitle">Buckets in &lt;named&gt;&#160;Compartment</span> pane</MadCap:annotation>, click the name of the bucket. This bucket holds the <MadCap:variable name="okta-feature-names.Access Gateway" /> image.</li>
+                    <li>Click <span class="uicontrol">Upload Object</span>.</li>
+                    <li>In the <span class="uicontrol">Upload Objects</span> dialog, move the <MadCap:variable name="okta-feature-names.Access Gateway" /> OVA from the directory. Alternatively, you can click <span class="uicontrol">Select files</span>, navigate to the directory containing the <MadCap:variable name="okta-feature-names.Access Gateway" /> OVA, and select it.</li>
+                    <li>Click <span class="uicontrol">Upload Objects</span>.</li>
+                    <li>The <span class="uicontrol">Upload Objects</span> dialog shows a percent complete indicator. Wait while the <MadCap:variable name="okta-feature-names.Access Gateway" /> OVA file is uploaded.</li>
+                </ol>
+            </div>
+            <div class="tabs-panel" id="command-panel">
+                <ol>
+                    <li>Return to the OCI command line.</li>
+                    <li>Determine the OCI Object storage namespace by executing the <span class="code">oci os ns get</span> command.<p><span class="codeblock">{ <br></br>"data": "id732ljpics9"<br></br>}</span><br /></p></li>
+                    <li>Determine the OCI Compartment id by executing the <span class="code">oci iam compartment list --all</span> command.<span class="codeblock">{
+    "data": [ {
+	"compartment-id": "ocid1...", 
+       . . .
+       "id": "ocid1.compartment.oc1..aaaaaaaazixo6ywqdhtwetbymmw6gmrxbyaajc4aibnczaihsrfi6n5z7axq",
+	. . . 
+       "name": "OAG", 
+	"time-created": "2019-12-11T20:54:25.053000+00:00"
+	} ]
+}</span></li>
+                    <li>Use the compartment ID to generate a list of all bucket names by executing the <span class="code">oci os bucket list</span> command.<p><span class="code">oci os bucket list --compartment-id &lt;compartment id&gt;</span></p><ul><li><span class="code">&lt;compartment id&gt;</span> represents the compartment containing the target bucket.</li></ul><p>When you run the <span class="code">oci os bucket list</span> command, the following results appear:<br /><span class="codeblock">{
+    "data": [ {
+         "compartment-id": "&lt;compartment id&gt;"
+         . . . 
+	 "name":"OAG&#160;Bucket"
+	 . . . 
+	 } ]
+}</span></p></li>
+                    <li>Run the <span class="code">oci os object put</span> command to upload the OVA into the buck using a command similar to this one:<MadCap:codeSnippet><MadCap:codeSnippetCopyButton /><MadCap:codeSnippetCaption><p>Upload ova</p></MadCap:codeSnippetCaption><MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">oci os object put --namespace &lt;namespace&gt; \
+    --bucket-name &lt;bucket name&gt;\
+    --file &lt;fully qualified path to Access Gateway file&gt; \
+    --name "&lt;name for file in bucket" \
+    --part-size &lt;maximum size of each part of the file upload in MB, default 128&gt;\
+     --parallel-upload-count 5</MadCap:codeSnippetBody></MadCap:codeSnippet><p>Here is an example of the <span class="code">oci os object put</span> command with the parameters populated with values:</p><span class="codeblock">oci os object put --namespace id732ljpics9 \
+    --bucket-name "OAG-bucket \
+    --file ~/Downloads/oag-2021.10.2-1e8896b.ova\
+    --name  "OAG-20210.10.ova"\
+    --part-size 100\
+    --parallel-upload-count 5</span><p>When you run the <span class="code">oci os object put</span> command, the following result appears:</p><span class="codeblock">Upload ID: dab2a2d8-. . . <br />Split file into 15 parts for upload.<br />Uploading object  [#######################################--] 95%<br />{<br /> "etag":"ec4...",<br /> "last-modified": "Thu, 12 Dec 2019 19:46:29 GMT",<br /> "opc-multipart-md5": "J3E5yqVdsL6K5sHeekFZhw==-15"<br />}</span></li>
+                    <li>Wait for the file to upload. </li>
+                </ol>
+            </div>
+            <div>
+                <h3>Related resources</h3>
+                <p><a href="https://docs.cloud.oracle.com/en-us/iaas/Content/Object/Tasks/managingbuckets.htm">Manage Buckets</a> for more information on OCI buckets.</p>
+            </div>
+        </div>
+        <div>
+            <h2>Next steps</h2>
+            <p>
+                <MadCap:xref href="deploy-oci-import.htm">Import an OVA&#160;to OCI</MadCap:xref>
+            </p>
+        </div>
+    </body>
+</html>

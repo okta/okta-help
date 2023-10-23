@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/about-oag-dns.htm" /> <title>[%=Heading.Level1%] | Okta</title><meta name="description" content="Okta Access Gateway helps your organization secure on-prem applications and provide a familiar end-user authentication experience with Okta SSO." /></head>
+    <body>
+        <h1>DNS use</h1>
+        <p>Access Gateway use Domain Name Services (DNS) to resolve application requests to their corresponding application servers.</p>
+        <p><MadCap:variable name="okta-feature-names.Access Gateway" /> acts as a reverse proxy, sitting between clients and web servers. <MadCap:variable name="okta-feature-names.Access Gateway" /> intercepts requests from clients and forwards the requests to back-end web servers. </p>
+        <p><MadCap:variable name="okta-feature-names.Access Gateway" /> resolves public addresses (external) and addresses behind firewalls (internal). <MadCap:variable name="okta-feature-names.Access Gateway" /> may share hostnames with application servers as part of its role as a reverse proxy. When <MadCap:variable name="okta-feature-names.Access Gateway" /> receives an external request to an application, it reverse proxies the request to the internal application server.</p>
+        <p>The following DNS architecture diagram represents this using:</p>
+        <ul>
+            <li><span class="url">app-external.mysite.mycompany.com</span>: The name used by end users to access the application. &#160;DNS resolves this name to the <MadCap:variable name="okta-feature-names.Access Gateway" /> instance. This name can be the same name used internally for the app.</li>
+            <li><span class="url">app-internal</span>: This represents the protected web application (for example, the internal Peoplesoft application described earlier). </li>
+            <li>In this example, <MadCap:variable name="okta-feature-names.Access Gateway" /> and the external application resolve to the same IP address.</li>
+        </ul>
+        <img src="../../Resources/Images/access-gateway/about-oag-dns.png" id="img_new" alt="Access Gateway and DNS use." title="Access Gateway and DNS use." class="thumbnail" />
+        <p>The following sections describe how <MadCap:variable name="okta-feature-names.Access Gateway" /> uses IP addresses.</p>
+        <p>External DNS&#160;entries (also referred to as public or customer-facing DNS entries) represent the URLs that customers use to access applications (for example, <span class="url">peoplesoft.mysite.company.com</span>). </p>
+        <p>External DNS entries:</p>
+        <ul>
+            <li>Are defined in public DNS and are resolvable by anyone.</li>
+            <li>Must be resolvable by <MadCap:variable name="okta-feature-names.Access Gateway" />.</li>
+            <li>Are represented in the preceding diagram by <span class="code">app-external[.mysite.company.com]</span>.</li>
+            <li>Resolve to the IP&#160;address of <MadCap:variable name="okta-feature-names.Access Gateway" />, or a load balancer.</li>
+            <li>Are defined in applications by the <MadCap:variable name="okta-feature-names.Access Gateway" /> <span class="uicontrol">Public Domain</span> application field.</li>
+        </ul>
+        <p>Internal DNS entries are private entries that represent the back-end applications being protected by <MadCap:variable name="okta-feature-names.Access Gateway" />.</p>
+        <p>Internal DNS entries: <br /></p>
+        <ul>
+            <li>Are defined in a private DNS and can typically only be resolved behind an organization's firewall. </li>
+            <li>Must be resolvable by <MadCap:variable name="okta-feature-names.Access Gateway" />.</li>
+            <li>Are represented in the preceding diagram by <span class="code">app-internal*</span>.</li>
+            <li>Are defined in applications by the <MadCap:variable name="okta-feature-names.Access Gateway" /> <span class="uicontrol">Protected Web Resource</span> application field.</li>
+        </ul>
+        <p>A third class of entries are reserved DNS names. These are represented in the architecture diagram by the following entries:</p>
+        <ul>
+            <li><span class="filepath">/etc/hosts:admin</span>: This represents an entry in your local hosts file. This entry is required for initial configuration of <MadCap:variable name="okta-feature-names.Access Gateway" /> and can be ignored or removed once initial deployment is complete. See <MadCap:xref href="deploy-post-install-configure-etc-hosts.htm">Configure Admin /etc/hosts entry</MadCap:xref>.</li>
+            <li><span class="filepath">/etc/hosts:header</span> represents a set of entries primarily used for testing and development. For example when creating a sample header application for testing. Other examples might be proxy, policy or other test entries. These entries are typically ignored or discarded when moving from development to test or production.</li>
+            <li><span class="url">DNS:gw-admin[.mysite.company.com]</span> represents the name of the <MadCap:variable name="okta-feature-names.Access Gateway" /> administration instance and points to the IP address of the <MadCap:variable name="okta-feature-names.Access Gateway" />.</li>
+            <li><span class="url">DNS:gw.[mysite.mycompany.com]</span> must exist and point to the same IP address as <span class="url">gw-admin[.mysite.company.com]</span>. Used by the admin GUI service to route configuration requests.</li>
+        </ul>
+        <p>In high availability clusters, there may be additional DNS entries for the member nodes of the cluster, such as node1, node2, and so on.</p>
+        <div class="noteOkta">
+            <p class="noteContent"><MadCap:variable name="okta-feature-names.Access Gateway" /> applications are independent of each other. For example, your admin domain might be <span class="url">gw.example.com</span> while your header app's domain is <span class="url">header.mycompany.com</span>.</p>
+        </div>
+        <p>The architecture diagram doesn't include entries for <span class="url">company.okta.com</span> or <span class="url">company.oktapreview.com</span>. These are used by <MadCap:variable name="okta-feature-names.Access Gateway" /> when configuring an identity provider&#160;(IdP).<br /></p>
+        <h3>DNS entries and record types</h3>
+        <p>DNS supports two record types, A and CNAME:</p>
+        <ul>
+            <li>A records map a name to one or more IP addresses when the addresses are known and stable.</li>
+            <li>CNAME records map one name to another name.</li>
+        </ul>
+        <p>Typically <MadCap:variable name="okta-feature-names.Access Gateway" /> would use an A record for gateway addresses such as <span class="url">gw-admin.[mysite.company.com]</span> and CNAME records, pointing to the gateway address for all external (<span class="url">app-external*[.mysite.company.com]</span>) addresses.</p>
+    </body>
+</html>

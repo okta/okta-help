@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:conditions="Primary.do-not-publish" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/oracle-oud-install.htm" /> <title>[%=Heading.Level1%] | Okta</title></head>
+    <body>
+        <h2>Introduction</h2>
+        <p>Oracle Unified Directory (OUD) is a required directory component in the
+EBS SSO infrastructure. The main reason is that E-Business Suite has
+hardcoded dependencies on Oracle Directory for this configuration. These
+dependencies mean that you cannot replace Oracle Unified Directory with
+any third-party LDAP directory for this particular configuration. Oracle
+Internet Directory (OID) is a supported LDAP server for the EBS SSO as
+well.</p>
+        <p>In addition, all EBS internally-managed users must posses a Global
+Unique Identifier (GUID), and these GUIDs are generated exclusively by
+Oracle Unified Directory.</p>
+        <p>In this article, we will show how to install OUD and the management
+application called Oracle Directory Server Manager (ODSM).</p>
+        <h2>OUD Installation</h2>
+        <p>The OUD installation consists of 3 main processes.</p>
+        <ol>
+            <li>
+                <p>Prepare the server environment</p>
+            </li>
+            <li>
+                <p>Install the product</p>
+            </li>
+            <li>
+                <p>Validate the environment</p>
+            </li>
+        </ol>
+        <h2>Prepare the Server Environment</h2>
+        <p> Here are
+the OUD version and server requirements for this installation:</p>
+        <p>Server OS: Oracle Linux 6.8 UEK4</p>
+        <p>Server Memory: 4G</p>
+        <p>Server DiskSpace: 60G</p>
+        <p>Server CPU Core: 4</p>
+        <p>WLS Version: 10.3.6</p>
+        <p>OUD Version: 11.1.2.3</p>
+        <p>ADF Version: 11.1.1.9</p>
+        <p> Ensure that all
+prerequisites are met (swap space, disk space, temp space, monitor/X
+server, kernel parameter, o.s. user/group creation). </p>
+        <ol>
+            <li>
+                <p>Make sure you update <span class="filepath">/etc/yum.repos.d</span> to change the repo URL to
+use the public Oracle yum repo for "Latest"/"Addons"/"UEK_latest" 3
+section.</p>
+            </li>
+            <li>
+                <p>Run <span class="code">yum update</span>.</p>
+            </li>
+            <li>
+                <p>Run <span class="code">yum install oracle-ebs-server-R12-preinstall</span> (EBS contains
+almost of all the required paches that any Oracle product requires).</p>
+            </li>
+            <li>
+                <p>Run <span class="code">yum install xterm</span>.</p>
+            </li>
+        </ol>
+        <p> Make sure you have already installed a WebLogic
+Server 10.3.6, which will host the OUD and ODSM Service.
+</p>
+        <h2>Install the OUD</h2>
+        <ol>
+            <li>
+                <p>Install an Oracle WebLogic Server 10.3.6 if it hasn’t already been
+installed. It will be used to host the Oracle Directory Server
+Manager (ODSM).</p>
+            </li>
+            <li>
+                <p>Set environment var $JAVA_HOME.</p>
+            </li>
+            <li>
+                <p>Run the OUD installer below:</p><span class="codeblock">ssh oracle@oud1
+cd OUD-SOFTWARE-DIR
+export JAVA_HOME=/u01/oracle/java-jdk1.7
+./runInstaller -jreLoc $JAVA_HOME
+</span>
+            </li>
+            <li>
+                <p>Skip the software update, and make sure the prerequisite checks are
+all good.</p>
+                <p>
+                    <img src="../../Resources/Images/access-gateway/tutorial-oracle-oud11g-8.png" alt="Oracle OUD Installation" class="thumbnail" />
+                </p>
+            </li>
+            <li>
+                <p>Select the OUD base location. Oracle WLS 10.3.6 must be installed
+prior to the installation of OUD.</p>
+                <p>
+                    <img src="../../Resources/Images/access-gateway/tutorial-oracle-oud11g-9.png" alt="Oracle OUD Installation" class="thumbnail" />
+                </p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Install</span> to start the installation.</p>
+                <p>
+                    <img src="../../Resources/Images/access-gateway/tutorial-oracle-oud11g-10.png" alt="Oracle OUD Installation" class="thumbnail" />
+                </p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Next</span> and then <span class="uicontrol">Finish</span> to complete the installation of
+OUD.</p>
+                <p>
+                    <img src="../../Resources/Images/access-gateway/tutorial-oracle-oud11g-11.png" alt="Oracle OUD Installation" class="thumbnail" />
+                </p>
+            </li>
+        </ol>
+        <h2>Install the Application Developer Framework</h2>
+        <p>Before we install the ODSM web application, we must first install the
+Oracle Application Developer Framework (ADF).</p>
+        <ol>
+            <li>
+                <p>Run the ADF installer below:</p><span class="codeblock">cd ADF-SOFTWARE-DIR/ADF/Disk1
+export JAVA_HOME=/u01/oracle/java-jdk1.7
+/runInstaller -jreLoc $JAVA_HOME
+</span>
+            </li>
+            <li>
+                <p>Make sure the prerequisite checks are all successful.</p>
+            </li>
+            <li>
+                <p>Make sure the Oracle Middleware Home is the same middleware home as
+the OUD server installed earlier.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Next</span>.</p>
+                <p>
+                    <img src="../../Resources/Images/access-gateway/tutorial-oracle-oud11g-29.png" alt="Oracle OUD Installation" class="thumbnail" />
+                </p>
+            </li>
+            <li>
+                <p>Select <span class="uicontrol">Weblogic Server</span> as the App Server, and click <span class="uicontrol">Next</span>.</p>
+                <p>
+                    <img src="../../Resources/Images/access-gateway/tutorial-oracle-oud11g-30.png" alt="Oracle OUD Installation" class="thumbnail" />
+                </p>
+            </li>
+            <li>
+                <p>Verify the installation settings, and click <span class="uicontrol">Install</span> to install
+the ADF framework.</p>
+                <p>
+                    <img src="../../Resources/Images/access-gateway/tutorial-oracle-oud11g-31.png" alt="Oracle OUD Installation" class="thumbnail" />
+                </p>
+            </li>
+        </ol>
+        <h2>Configure ODSM WLS Domain</h2>
+        <ol>
+            <li>
+                <p>Navigate to the WLS common/bin directory.</p><span class="codeblock">cd WLS-MIDDLEWARE-HOME/oracle_common/common/bin
+./config.sh (configure the WLS with a new Domain for the ODSM)
+</span>
+            </li>
+            <li>
+                <p>Select <span class="uicontrol">Create a new WebLogic Domain</span>.</p>
+                <p>
+                    <img src="../../Resources/Images/access-gateway/tutorial-oracle-oud11g-12.png" alt="Oracle OUD Installation" class="thumbnail" />
+                </p>
+            </li>
+            <li>
+                <p>Select the <span class="uicontrol">Oracle Directory Services Manager</span> and <span class="uicontrol">Oracle JRF</span>
+options.</p>
+                <p>
+                    <img src="../../Resources/Images/access-gateway/tutorial-oracle-oud11g-23.png" alt="Oracle OUD Installation" class="thumbnail" />
+                </p>
+            </li>
+            <li>
+                <p>Create a new domain called odsm_domain.</p>
+                <p>
+                    <img src="../../Resources/Images/access-gateway/tutorial-oracle-oud11g-24.png" alt="Oracle OUD Installation" class="thumbnail" />
+                </p>
+            </li>
+            <li>
+                <p>Enter <span class="userinput">weblogic</span> and <span class="userinput">Password1</span> in the <span class="uicontrol">Name</span> and password fields
+(standard username and password).</p>
+                <p>
+                    <img src="../../Resources/Images/access-gateway/tutorial-oracle-oud11g-25.png" alt="Oracle OUD Installation" class="thumbnail" />
+                </p>
+            </li>
+            <li>
+                <p>Select the proper JDK; take default shown.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Next</span> on the <span class="wintitle">Optional Configuration Screen</span>. (By not
+selecting a new server, we are installing the ODSM on the Admin
+server itself in this scenario).</p>
+                <p>
+                    <img src="../../Resources/Images/access-gateway/tutorial-oracle-oud11g-26.png" alt="Oracle OUD Installation" class="thumbnail" />
+                </p>
+            </li>
+            <li>
+                <p>Verify the settings and click <span class="uicontrol">Create</span> (Notice where the ODSM
+domain is located).</p>
+                <p>
+                    <img src="../../Resources/Images/access-gateway/tutorial-oracle-oud11g-32.png" alt="Oracle OUD Installation" class="thumbnail" />
+                </p>
+            </li>
+            <li>
+                <p>Complete the configuration of the new domain.</p>
+            </li>
+        </ol>
+        <h2>Create the OUD instance server</h2>
+        <ol>
+            <li>
+                <p>Create a password file for OUD. Enter <span class="userinput">Password1</span> in the file and save it. We'll use this file later in the installation and configuration of OUD.</p><span class="codeblock">cd /u01/app
+vi oud_pwd</span>
+            </li>
+            <li>
+                <p>Navigate to the OUD instance directory.</p><span class="codeblock">cd /u01/app/oracle/Middleware/Oracle_OUD1
+./oud-setup –cli –hostName oud1.gateway.info –ldapPort 1389 –ldapsPort 1636 –adminConnectorPort 4444 –rootUserDN “cn=oud-orcl” –rootUserPasswordFile /u01/app/oud_pwd –generateSelfSignedCertificate –enableStartTLS –baseDN dc=okta,dc=info –integration generic –sampleData 30 –no-prompt
+
+The OUD ldap port: 1389
+The OUD ldaps port: 1636
+The OUD admin port: 4444
+The OUD root admin user id: oud-orcl
+
+Note: This instance of OUD is ssl enabled
+</span>
+            </li>
+            <li>
+                <p>Patch OUD with the latest Oracle Bundle Patch: See <a href="https://updates.oracle.com/Orion/Services/download?type=readme&amp;aru=21265541">See Doc
+11.1.2.3.170718</a></p><span class="codeblock">Download OUD bundle patch.
+
+cd /u01/app/oracle/Middleware/oracle_common/OPatch
+export ORACLE_HOME=/u01/app/oracle/Middleware/Oracle_OUD1/
+./opatch lsinventory - this is the check the current patch level
+cd /download/OUD-BundlePatch-DIR
+/u01/app/oracle/Middleware/oracle_common/OPatch/opatch apply
+</span>
+            </li>
+            <li>
+                <p>Shut down the OUD Server.</p>
+                <p> Make sure to clear the OUD lock file before the
+restart. Use <span class="code">kill -9</span> to kill the OUD&#160;process.
+</p><span class="codeblock">cd /u01/app/oracle/Middleware/asinst_1/OUD/locks</span><span class="codeblock" xml:space="preserve">mv server.lock serverbadlock
+
+ps -ef | grep OUD
+</span>
+            </li>
+            <li>
+                <p>Start the OUD Server.</p><span class="codeblock">cd /u01/app/oracle/Middleware/asinst_1/OUD/bin
+./start-ds  ## to start the directory server.
+</span>
+            </li>
+        </ol>
+        <h2>Validate the Environment (OUD / ODSM)</h2>
+        <ol>
+            <li>
+                <p>Check OUD status.</p><span class="codeblock">/u01/app/oracle/Middleware/asinst_1/OUD/bin/status
+</span>
+            </li>
+            <li>
+                <p>Access the ODSM WLS console
+(<a href="http://oud1.gateway.info:7001/console">http://oud1.gateway.info:7001/console</a>) and the ODSM GUI
+(<a href="http://oud1.gateway.info:7001/odsm">http://oud1.gateway.info:7001/odsm</a>) to validate the
+environment.</p>
+                <p>
+                    <img src="../../Resources/Images/access-gateway/tutorial-oracle-oud11g-33.png" alt="Oracle OUD Installation" class="thumbnail" />
+                </p>
+            </li>
+        </ol>
+    </body>
+</html>

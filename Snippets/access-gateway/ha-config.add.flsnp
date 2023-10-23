@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd">
+    <body>
+        <div>
+            <h3><a name="AddWorker"></a>Add a worker node to an <MadCap:variable name="okta-feature-names.Access Gateway" />&#160;cluster</h3>
+            <div class="noteOkta">
+                <p class="noteContent">When adding a worker node, both the administration and the worker node must:<ul><li>Have been previously provisioned. </li><li>Be reachable using SSH.</li><li>Have had their keys reset. See <MadCap:xref href="#ResetKey">Reset the key associated with an <MadCap:variable name="okta-feature-names.Access Gateway" /> node.</MadCap:xref></li></ul></p>
+            </div>
+            <div class="note_cautionOkta">
+                <p class="noteContent">When preparing workers, ensure that you're connected to a worker node and not an admin. Running the prepare worker operation on the cluster admin renders the <MadCap:variable name="okta-feature-names.Access&#160;Gateway UI" /> inoperable. <MadCap:variable name="okta-feature-names.Access Gateway" /> version <MadCap:variable name="oag-versions.2021-11" /> and later prohibit this operation. Nodes previously used as admins should be reset before reuse as workers. See <MadCap:xref href="../../../Topics/Access-Gateway/deploy-post-install-reset-commandline.htm">Reset [%=okta-feature-names.Access Gateway%] command line. </MadCap:xref></p>
+            </div>
+            <ol>
+                <li>
+                    <p>Perform these tasks on the Admin node:</p>
+                    <ol style="list-style-type: lower-alpha;">
+                        <li>Connect to the instance <MadCap:variable name="okta-feature-names.Access Gateway CMD" />.<span class="codeblock">ssh oag-mgmt@[admin.tld]</span></li>
+                        <li>Select <span class="uicontrol">5 - System</span>.</li>
+                        <li>Select <span class="uicontrol">8- High Availability Configuration</span>. The <span class="uicontrol">High Availability Configuration</span> menu appears:<span class="codeblock">Access Gateway High Availability Setup (role)
+1 - Reset Key
+2 - Prepare Admin
+3 - Prepare Worker
+4 - List Nodes
+5 - Remove Node
+6 - Check Status
+
+X- Exit
+Choice:</span><MadCap:snippetBlock src="high-availability-menu-roles.flsnp" /></li>
+                        <li>Select <span class="uicontrol">2 - Prepare Admin</span>.<div class="noteOkta"><p class="noteContent">When you configure an admin node for high availability for the first time, select and execute the <span class="uicontrol">1 - Reset Keys</span> option to reset the instance's SSH keys. </p><p class="noteContent">You only need to reset keys once per instance. See <MadCap:xref href="../../../Topics/Access-Gateway/command-line-console-reference.htm"><MadCap:variable name="okta-feature-names.Access Gateway" /> Command Line Management console reference</MadCap:xref>.</p></div><div class="noteOkta"><p class="noteContent"><MadCap:variable name="okta-feature-names.Access Gateway" /> Replication uses the hostname setting from the command line console.  </p><p class="noteContent">Ensure that you update the hostname for both admin and worker nodes using the command line console <span class="menucascade"><span class="uicontrol">System (5)</span><span class="uicontrol">Change Hostname (1)</span></span>.</p></div></li>
+                        <li>The admin node generates and displays an authorization token (for example, oag.okta.com:8ba1c123-715d-4b70-ab5d-0e41493bef73), which must be provided to the worker node. Copy the provided authorization token:<span class="codeblock">
+Authorization token required to initiate setup from worker nodes is given
+below. Copy the following text below this line and paste it on worker node when prompted.
+oag.okta.com:8ba1c123-715d-4b70-ab5d-0e41493bef73
+Worker nodes available so far:
+. . . 			
+</span><span class="codeblock" MadCap:conditions="Primary.review-only">The authorization token required to initiate setup from worker nodes is:
+oag.okta.com:8ba1c123-715d-4b70-ab5d-0e41493bef73 
+Copy the authorization token and paste it on worker node when prompted.
+
+Worker nodes available so far:
+. . . 	</span>The admin node then waits for worker nodes.</li>
+                    </ol>
+                    <div class="noteOkta">
+                        <p class="noteContent">At this point, the admin node waits for connections from worker nodes. Leave the window open until all workers nodes have been added. Entering X prematurely will cause the admin node to assume the process is complete and stop listing for worker node additions. Enter <span class="userinput">X</span> only after adding all worker nodes </p>
+                    </div>
+                    <ol style="list-style-type: lower-alpha;">
+                        <li>Return to the command prompt on the instance, which is being attached as a worker node.</li>
+                    </ol>
+                </li>
+                <li>On each worker node,<ol style="list-style-type: lower-alpha;"><li>Connect to the instance <MadCap:variable name="okta-feature-names.Access Gateway CMD" />.<span class="codeblock">ssh oag-mgmt@[worker.tld]</span></li><li>Select <span class="uicontrol">5 - System</span>.</li><li>Select <span class="uicontrol">8- High Availability Configuration.</span></li><li>Select <span class="uicontrol">3 - Prepare Worker</span>.<div class="noteOkta"><p class="noteContent">When you configure a worker node for high availability for the first time, select and execute the <span class="uicontrol">1 - Reset Keys</span> option to reset the instance's SSH keys. You only need to reset keys once per instance. See <MadCap:xref href="../../../Topics/Access-Gateway/command-line-console-reference.htm"><MadCap:variable name="okta-feature-names.Access Gateway" /> Command Line Management console reference</MadCap:xref>..</p></div></li><li>The worker displays:<span class="codeblock" xml:space="preserve">Checking HA readiness for host worker. . .   
+
+Note: Please ensure that admin node is ready for setup and you have the
+authorization token displayed on admin node.
+
+Enter the authorization token displayed on admin node: &lt;admin...com&gt;:927da506-7efb-4520-bd32-dd03b86f2a9b</span>After it's entered, the worker node connects to the admin node and exchanges authorization and confirmation information similar to the following:<span class="codeblock" xml:space="preserve">Requesting admin node &lt;admin...com&gt; to allow connection  
+Node &lt;worker...com&gt; successfully added on admin node
+Synchronizing current configuration  
+ 
+Press enter to continue ....
+</span></li><li>When prompted, press any key to continue.</li><li>Enter <span class="userinput">X</span> to exit or any other menu item to continue.</li></ol><p>The worker instance is now configured and ready for use.</p></li>
+            </ol>
+            <p>On the admin node:</p>
+            <ol>
+                <li>Return to the admin instance <MadCap:variable name="okta-feature-names.Access Gateway CMD" />. View the results of adding the new worker node, similar to:<span class="codeblock" xml:space="preserve">
+Authorization token required to initiate setup from worker nodes is given
+below. Copy the text below this line and paste it on worker node when prompted.
+
+&lt;admin...com&gt;:927da506-7efb-4520-bd32-dd03b86f2a9b
+Worker nodes available so far:
+&lt;worker1...com&gt;
+&lt;worker2...com&gt;
+&lt;worker3...com&gt;</span></li>
+                <li>Enter <span class="userinput">X</span> to exit or any other menu item to continue.</li>
+            </ol>
+        </div>
+    </body>
+</html>

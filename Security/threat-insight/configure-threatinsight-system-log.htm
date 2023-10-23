@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:conditions="MultiProdPublish.Classic+OIE" MadCap:fileTags="Tags/okta-authors.Barbara Vo">
+    <head><title>[%=Heading.Level1%] | Okta</title>
+    </head>
+    <body>
+        <h1>System Log events for <MadCap:variable name="okta-feature-names.Okta ThreatInsight" /></h1>
+        <p><a name="SystemLogEvents"></a>
+        </p>
+        <p><MadCap:variable name="okta-feature-names.Okta ThreatInsight" /> records requests from potentially malicious IP&#160;addresses in the System Log. It records the following types of events:</p>
+        <ul>
+            <li>Sign-in attempts from suspicious IP addresses</li>
+            <li>Security threat detected</li>
+            <li>Org Under Attack</li>
+        </ul>
+        <h2>View System Log events</h2>
+        <div>
+            <ol>
+                <li>
+                    <MadCap:snippetBlock src="../../../Resources/Snippets/task steps/Security_General.flsnp" />
+                </li>
+                <li>Under <span class="wintitle"><MadCap:variable name="okta-feature-names.Okta ThreatInsight" /> settings</span>, click  <span class="uicontrol">System Log</span>.
+The search field is pre-populated with the query <span class="code">eventType eq "security.threat.detected"</span>.	You can customize this query to find other types of events.			</li>
+                <li>Configure the date range.</li>
+                <li>Click the magnifying glass icon beside the <span class="wintitle">Search</span> field.</li>
+            </ol>
+        </div>
+        <h2>Sign-in attempts from suspicious IP addresses</h2>
+        <p> If <MadCap:variable name="okta-feature-names.Okta ThreatInsight" /> detects sign-on attempts from a potentially suspicious IP address, it sets the  <span class="code">ThreatSuspected</span> field to <span class="code">true</span>. </p>
+        <p>Paste this query into the System Log <span class="wintitle">Search</span> field to find sign-in attempts from suspicious IP addresses:</p>
+        <p><span class="codeph">debugContext.debugData.threatSuspected eq "true"</span>
+        </p>
+        <p>The <span class="code">ThreatSuspected</span> field also appears in the <span class="code">user.session.start</span> and <span class="code">security.threat.detected</span> System Log events.</p>
+        <h2>Security threat detected</h2>
+        <p>The <span class="code">security.threat.detected</span> event only appears in the System Log if a request is deemed a high threat.</p>
+        <p><MadCap:variable name="okta-feature-names.Okta ThreatInsight"></MadCap:variable> evaluates sign-in activity before the user can be identified, so <span class="code">security.threat.detected</span> events don't include a username.</p>
+        <p>The <span class="code">outcome.result</span> field describes how <MadCap:variable name="okta-feature-names.Okta ThreatInsight" /> handled the request:</p>
+        <ul>
+            <li><span class="wintitle">DENY</span>: <MadCap:variable name="okta-feature-names.Okta ThreatInsight" /> terminated the request to prevent malicious actors from consuming the rate limit for your org.</li>
+            <li><span class="wintitle">RATE_LIMIT</span>: <MadCap:variable name="okta-feature-names.Okta ThreatInsight" /> detected suspicious activity.</li>
+            <li><span class="wintitle">ALLOW</span>: <MadCap:variable name="okta-feature-names.Okta ThreatInsight" /> allowed the request to proceed. To find other events with the same transaction ID, enter this query in the search field: <span class="code">transaction.id eq "&lt;TRANSACTION_ID&gt;"</span>. The <span class="code">actor</span> field displays the username associated with the request.</li>
+        </ul>
+        <p>The <span class="code">outcome.reason</span> field displays the reason for the result.</p>
+        <p>Here's an example of a System Log event with a result of DENY:</p>
+        <p>
+            <img src="../../../Resources/Images/security-threatinsight-04.png" class="thumbnail" alt="A System Log event for a blocked request indicates the IP address and reason the request was denied." />
+        </p>
+        <p>Here's an example of a System Log event with a result of RATE_LIMIT:</p>
+        <p>
+            <img src="../../../Resources/Images/Security/SysLog-RateLimit.png" class="thumbnail" alt="A System Log event for suspicious activity indicates the action taken and the reason" />
+        </p>
+        <h2>Org Under Attack</h2>
+        <p>When an org is under attack, <MadCap:variable name="okta-feature-names.Okta ThreatInsight" /> flags IP addresses more aggressively. This can result in more <span class="code">security.threat.detected</span> events appearing in the System Log. </p>
+        <p>Paste these queries into the System Log <span class="wintitle">Search</span> field to find Org Under Attack events:</p>
+        <ul>
+            <li><span class="code">eventType eq “security.attack.start”</span>
+            </li>
+            <li><span class="code">eventType eq “security.attack.end”</span>
+            </li>
+        </ul>
+        <p>The <span class="code">outcome.reason</span> field displays the reason for the result.</p>
+        <p>Here's an example of a System Log event that was flagged as medium risk because of sign-in failures:</p>
+        <p>
+            <img src="../../../Resources/Images/ti-org-under-attack-01.png" class="thumbnail" alt="A System Log event for an org under attack." />
+        </p>
+        <h3>Add potentially malicious IP&#160;addresses to a blocklist</h3>
+        <p>Once you have found System Log events that might indicate malicious activity, you can add the IP&#160;addresses associated with them to a blocklist.</p>
+        <p>The IP&#160;address appears at the top of the event under the <span class="wintitle">Actor</span> column:</p>
+        <p>
+            <img src="../../../Resources/Images/security-threatinsight-04.png" class="thumbnail" alt="A System Log event for a blocked request indicates the IP address and reason the request was denied" />
+        </p>
+        <p>See <MadCap:xref href="../healthinsight/blocklist-network-zone.htm">Blocklist network zones</MadCap:xref> for instructions.</p>
+        <div>
+            <h2>Related topics        </h2>
+            <p>
+                <MadCap:xref href="about-threatinsight.htm">About [%=okta-feature-names.Okta ThreatInsight%]</MadCap:xref>
+            </p>
+            <p>
+                <MadCap:xref href="configure-threatinsight.htm">Configure [%=okta-feature-names.Okta ThreatInsight%]</MadCap:xref>
+            </p>
+            <p>
+                <MadCap:xref href="exempt-ip-zone-threatinsight.htm">Exclude IP zones from [%=okta-feature-names.Okta ThreatInsight%] evaluation</MadCap:xref>
+            </p>
+            <p>
+                <MadCap:xref href="../healthinsight/blocklist-network-zone.htm">Blocklist network zones</MadCap:xref>
+            </p>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:searchable="True"
+      MadCap:fileTags="Tags/okta-authors.Jeanette Smith">
+   <head>
+      <title>Add Okta as a trusted source for AWS roles | Okta</title>
+      <link href="" rel="stylesheet" type="text/css"/>
+   </head>
+   <body>
+      <h1>
+         <a name="Step4"/>Add <MadCap:variable name="okta-variables.ProductName"/> as a trusted source for  AWS roles</h1>
+      <p>After you configure <MadCap:variable name="okta-variables.ProductName"/>  as the <MadCap:variable name="3rd Party Integrations.Amazon Web Services"/> (AWS) account identity provider, you  create or update existing IAM roles for <MadCap:variable name="okta-variables.ProductName"/> to retrieve and assign to users. <MadCap:variable name="okta-variables.ProductName"/> can only provide single sign-on (SSO) for users with roles that have been configured to grant access to the <MadCap:variable name="okta-variables.ProductName"/> SAML identity provider you configured in <MadCap:xref href="aws-configure-saml-sso.htm">Configure AWS accounts and roles for SAML SSO</MadCap:xref>.</p>
+      <ul>
+         <li>
+            <MadCap:xref href="#Grant">Grant SSO access to an existing role</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Grant2">Grant SSO access to a new role</MadCap:xref>
+         </li>
+      </ul>
+      <h2>
+         <a name="Grant"/>Grant SSO access to an existing role</h2>
+      <ol>
+         <li>On the AWS Management Console, click <span class="uicontrol">Roles</span> in the left pane.</li>
+         <li>
+            <p>Select the role that you would like to permit Okta SSO access to.</p>
+         </li>
+         <li>
+            <p>Select the <span class="uicontrol">Trust Relationship</span> tab for the role, then click <span class="uicontrol">Edit Trust Relationship</span>.</p>
+         </li>
+         <li>
+            <p>Modify the IAM trust relationship policy to permit SSO into Okta using the SAML IDP you previously configured:</p>
+         </li>
+         <ul>
+            <li>If the policy document is empty, you can copy and paste the provided policy  and replace <code>&lt;COPY &amp; PASTE SAML ARN VALUE HERE&gt;</code> with the Amazon Resource Name (ARN).</li>
+         </ul>
+      </ol>
+      <MadCap:codeSnippet>
+         <MadCap:codeSnippetCopyButton/>
+         <MadCap:codeSnippetBody MadCap:useLineNumbers="True" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">{
+"Version": "2012-10-17",
+"Statement": [
+{
+"Effect": "Allow",
+"Principal": {
+"Federated": "&lt;COPY &amp; PASTE SAML ARN VALUE HERE&gt;"
+},
+"Action": "sts:AssumeRoleWithSAML",
+"Condition": {
+"StringEquals": {
+"SAML:aud": "https://signin.aws.amazon.com/saml"
+}
+}
+}
+]
+}</MadCap:codeSnippetBody>
+      </MadCap:codeSnippet>
+      <ol>
+         <ul>
+            <li class="slow">
+               <p> If you have a current trust relationship in place, then you may need to modify your existing policy document to also include Okta SSO access. At a minimum, you will need to include everything within the <i>Statement</i> code block.</p>
+            </li>
+         </ul>
+      </ol>
+      <h2>
+         <a name="Grant2"/>Grant SSO access to a new role</h2>
+      <ol>
+         <li>On the AWS Management Console, click Roles in the left pane.</li>
+         <li>
+            <p>Go to <span class="menucascade">
+                  <span class="uicontrol">Roles</span>
+                  <span class="uicontrol">Create Role</span>
+               </span>.</p>
+         </li>
+         <li>
+            <p>Use SAML 2.0 federation type of trusted entity.</p>
+         </li>
+         <li>
+            <p>Select <MadCap:variable name="okta-variables.ProductName"/> (name of your identity provider) as the SAML provider and Allow programmatic and AWS Management Console access, then proceed to Permissions.</p>
+         </li>
+         <li>
+            <p>Select your preferred policy to be assigned to the role you're creating.</p>
+         </li>
+         <li>
+            <p>
+               <span class="uicontrol">Finish Role</span> configuration.</p>
+         </li>
+      </ol>
+      <h2>Next steps</h2>
+      <p>
+         <MadCap:xref href="aws-generate-api-key.htm">Generate the AWS API access key</MadCap:xref>
+      </p>
+   </body>
+</html>

@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:conditions="Primary.do-not-publish" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/oracle-oid-install.htm" /> <title>[%=Heading.Level1%] | Okta</title></head>
+    <body>
+        <h2>Introduction</h2>
+        <p>Oracle Internet Directory (OID) is a required component in the EBS SSO infrastructure. The main reason is that E-Business Suite has hardcoded dependencies on Oracle Internet Directory for this configuration. These dependencies mean that you cannot replace Oracle Internet Directory with any third-party LDAP directory for this particular configuration.</p>
+        <p>In addition, all EBS internally-managed users must posses a Global Unique Identifier (GUID), and these GUID are generated exclusively by Oracle Internet Directory.</p>
+        <p>In this white paper, we will show how to install the OID.</p>
+        <h2>OID Installation</h2>
+        <p>The OID installation consists of 3 main processes.</p>
+        <ol>
+            <li>
+                <p>Prepare the Server Environment</p>
+            </li>
+            <li>
+                <p>Install the Product</p>
+            </li>
+            <li>
+                <p>Validate the Environment</p>
+            </li>
+        </ol>
+        <h2>Prepare the Server Environment</h2>
+        <p> Here are the OID version and Server requirement for this installation Server OS: Oracle Linux 6.8 UEK4 Server Memory: 4G Server DiskSpace: 60G Server CPU Core: 4 OID Version: 11.1.1.9  Ensure that all prereqs. are met (swap space, disk space, temp space, monitor/X server, kernel parameter, o.s. user/group creation). </p>
+        <ol>
+            <li>
+                <p>Review Section <a href="https://docs.oracle.com/middleware/11119/core/INOIM/before.htm#INOIM249">2 Preparing to Install</a> in the Oracle Fusion Middleware Installation Guide for OIM, for a good understanding of all the pre-requisite before installing OID.</p>
+            </li>
+            <li>
+                <p style="text-decoration: underline;">Run <span class="code">yum update</span> with the following necessary OS patches.</p>
+            </li>
+        </ol>
+        <p>+</p><span class="codeblock">yum install binutils–2.20.51.0.2–5.28.el6 compat-libcap1–1.10–1 compat-libstdc++–33–3.2.3–69.el6 compat-libstdc++–33–3.2.3–69.el6.i686 compat-libstdc++–33–3.2.3–69.el6
+gcc–4.4.4–13.el6 gcc-c++–4.4.4–13.el6 glibc–2.12–1.7.el6 glibc–2.12–1.7.el6 glibc-devel–2.12–1.7.el6 libaio–0.3.107–10.el6
+glibc-devel–2.12–1.192.el6.i686 libaio-devel–0.3.107–10.el6 libgcc–4.4.4–13.el6 libstdc++–4.4.4–13.el6 libstdc++–4.4.4–13.el6 libstdc++-devel–4.4.4–13.el6
+libgcc.i686 libstdc++.i686 libstdc++-devel.i686 compat-libstdc++–33.i686 libXext libXtst libXi openmotif–2.2.3 openmotif22–2.2.3 redhat-lsb–4.0–3.el6 sysstat–9.0.4–11.el6 glibc-devel-2.12-1.209.el6_9.1.i686 elfutils-libelf-0.164-2.el6.x86_64 elfutils-libelf-devel-0.164-2.el6.x86_64 elfutils-libs-0.164-2.el6.x86_64
+</span>
+        <h2>Install the Product</h2>
+        <ol>
+            <li>To install the Oracle OID, navigate to the product installation directory, run the installer <span class="code">runInstaller</span> to launch it.</li>
+        </ol>
+        <p>+</p><span class="codeblock">cd Disk1
+export JAVA_OPTIONS=-XX:MaxPermSize=512m (set the JVM env)
+./runInstaller
+</span>
+        <p>+</p>
+        <ol>
+            <li>Click <span class="uicontrol">Next</span></li>
+        </ol>
+        <p>+ <img src="../../Resources/Images/access-gateway/tutorial-oracle-OID-27.jpg" alt="Oracle OID Installation" /></p>
+        <p>+ . Select <span class="uicontrol">Install and Configure</span>, click <span class="uicontrol">Next</span></p>
+        <p>+ </p>
+        <p>+ . Allow the installer to check all available system patches, Click <span class="uicontrol">Next</span> if all status green</p>
+        <p>+</p>
+        <p>Make sure all the Prerequisite checks are successful before continueing the installation. If status shows warning sign, stop and resolve the issue before continueing.</p>
+        <p>+ <img src="../../Resources/Images/access-gateway/tutorial-oracle-OID-29.jpg" alt="Oracle OID Installation" /></p>
+        <p>+ . Select <span class="uicontrol">Create New Domain</span>, Enter the weblogic ID and PASSWORD, Click <span class="uicontrol">Next</span></p>
+        <p>+ <img src="../../Resources/Images/access-gateway/tutorial-oracle-OID-30.jpg" alt="Oracle OID Installation" /></p>
+        <p>+ . Enter the target directory location shown, Click <span class="uicontrol">Next</span></p>
+        <p>+</p>
+        <p>Weblogic Server Directory is where your weblogic instance resides. Weblogic server must be installed before installing the OID</p>
+        <p>+ <img src="../../Resources/Images/access-gateway/tutorial-oracle-OID-31.jpg" alt="Oracle OID Installation" /></p>
+        <p>+ . Skip Email Notification</p>
+        <p>+ . Select only <span class="uicontrol">Oracle Internet Directory</span> and <span class="uicontrol">Oracle Directory Integration Platform</span> checkboxes, Click <span class="uicontrol">Next</span></p>
+        <p>+ <img src="../../Resources/Images/access-gateway/tutorial-oracle-OID-32.jpg" alt="Oracle OID Installation" /></p>
+        <p>+ . Select the <span class="uicontrol">Auto Port Config</span> option.</p>
+        <p>+</p>
+        <p>The default OID port is 3060, SSL port is 3161. The default DIP port is 3131.</p>
+        <p>+ <img src="../../Resources/Images/access-gateway/tutorial-oracle-OID-33.jpg" alt="Oracle OID Installation" /></p>
+        <p>+ . Construct the connection string with the properly hostname:port:service</p>
+        <p>+</p>
+        <p>View the listener.ora for the DB hostname and port information</p>
+        <p>+ <img src="../../Resources/Images/access-gateway/tutorial-oracle-OID-38.jpg" alt="Oracle OID Installation" /></p>
+        <p>+ . Enter the password value for <span class="uicontrol">ODS</span>. Click <span class="uicontrol">Next</span></p>
+        <p>+</p>
+        <p>ODS password is from the RCU installation process</p>
+        <p>+ <img src="../../Resources/Images/access-gateway/tutorial-oracle-OID-34.jpg" alt="Oracle OID Installation" /></p>
+        <p>+ . Enter the password of your choosing for cn=orcladmin. Click <span class="uicontrol">Next</span></p>
+        <p>+ <img src="../../Resources/Images/access-gateway/tutorial-oracle-OID-35.jpg" alt="Oracle OID Installation" /></p>
+        <p>+ . Switch to root, and Run <span class="uicontrol">oracleRoot.sh</span> as instructed. Click <span class="uicontrol">Next</span></p>
+        <p>+</p><span class="codeblock">/u01/app/Middleware/Oracle_IDM1/oracleRoot.sh
+</span>
+        <p>+ <img src="../../Resources/Images/access-gateway/tutorial-oracle-OID-36.jpg" alt="Oracle OID Installation" /></p>
+        <p>+ . Complete the installation process.</p>
+        <p>+ . Create file oid.env in $HOME with entry like the following. Source the env file when necessary.</p>
+        <p>+</p><span class="codeblock">export MW_HOME=/u01/app/oracle/fmw_oid
+export ORACLE_COMMON_HOME=$MW_HOME/oracle_common
+export ORACLE_HOME=$MW_HOME/idm
+export WL_HOME=$MW_HOME/wlserver_10.3
+export JAVA_HOME=/usr/java/jdk1.7.0_51
+export DOMAIN_HOME=$MW_HOME/user_projects/domains/IDMDomain export ORACLE_INSTANCE=$MW_HOME/asinst_1
+export PATH=$ORACLE_INSTANCE/bin:$JAVA_HOME/bin:$PATH
+</span>
+        <p>+ . To start/stop the OID process, Run the following command:</p>
+        <p>+</p><span class="codeblock">/u01/app/Middleware/asinst_1/bin/opmnctl status  -  check OID status
+/u01/app/Middleware/asinst_1/bin/opmnctl startall -  start all the services
+/u01/app/Middleware/asinst_1/bin/opmnctl stopall  -  stop all the services
+</span>
+        <p>+ . To start/stop the OID Managed server, Run the following command:</p>
+        <p>+</p><span class="codeblock">cd $DOMAIN_HOME/bin
+./startManagedWebLogic.sh wls_ods1
+./stopManagedWebLogic.sh wls_ods1
+</span>
+        <p>+ . To start/stop the OID Admin server, Run the following command:</p>
+        <p>+</p><span class="codeblock">cd $DOMAIN_HOME/bin
+./startWebLogic.sh
+./stopWebLogic.sh
+</span>
+        <h2>Validate the Environment</h2>
+        <ol>
+            <li>Run the <span class="code">netstat -an</span> command to check OID LISTENING Port</li>
+        </ol>
+        <p>+</p>
+        <p><span class="codeblock">netstat -an
+grep 7001
+grep LISTEN  --   WLS Admin Console Port
+netstat -an
+grep 7005
+grep LISTEN  --   OID ODSM Port
+</span>
+        </p>
+        <ol>
+            <li>Run the ldapbind command to check oid is working properly.</li>
+        </ol>
+        <p>+</p><span class="codeblock">cd /u01/app/Middleware/Oracle_IDM1/bin
+ldapbind -h oid1.gateway.info -p 3131 -D "cn=orcladmin" -w Password1
+</span>
+        <ol>
+            <li>Navigate to the OID weblogic console, and login with ID: weblogic</li>
+        </ol>
+        <p>+</p><span class="url">http://oid1.gateway.info:7001/console
+</span>
+        <p>+</p>
+        <p>Administration Console is a Web browser-based, graphical user interface that you use to manage a WebLogic Server domain.</p>
+        <p>+ <img src="../../Resources/Images/access-gateway/tutorial-oracle-OID-39.jpg" alt="Oracle OID Installation" /></p>
+        <ol>
+            <li>Navigate to the OID Enterprise Manager Console, login with ID: weblogic</li>
+        </ol>
+        <p>+</p><span class="url">http://oid1.gateway.info:7001/em
+</span>
+        <p>+</p>
+        <p>Enterprise Manager Console is a browser-based tool and the recommended method for monitoring, managing, and configuring Fusion Middleware components. It also provides access to the Weblogic Admin Console</p>
+        <p>+ <img src="../../Resources/Images/access-gateway/tutorial-oracle-OID-40.jpg" alt="Oracle OID Installation" /></p>
+        <p>+ . Navigate to the OID Oracle Directory Server Manager (ODSM) wiith ID: cn=orcladmin</p>
+        <p>+</p><span class="url">http://oid1.gateway.info:7005/odsm
+</span>
+        <p>+</p>
+        <p>ODSM enables you to configure the structure of the directory, define objects in the directory, add and configure users, groups, and other entries. ODSM is the interface you use to manage entries, schema, security, adapters, extensions, and other directory features.</p>
+        <p>+ <img src="../../Resources/Images/access-gateway/tutorial-oracle-OID-37.jpg" alt="Oracle OID Installation" /></p>
+        <p>+ . Select <span class="uicontrol">DIP Server</span> to validate DIP configuration</p>
+        <p>+ <img src="../../Resources/Images/access-gateway/tutorial-oracle-OID-51.jpg" alt="Oracle OID Installation" /></p>
+    </body>
+</html>

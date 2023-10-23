@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:fileTags="Tags/okta-authors.Kimli Welsh">
+    <head><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1>Configure <MadCap:variable name="okta-feature-names.Desktop MFA" /> for Windows</h1>
+        <p><MadCap:variable name="okta-feature-names.Desktop MFA" /> for Windows adds a layer of security to the Windows sign-in process by asking users for extra authentication before allowing computer access. When <MadCap:variable name="okta-feature-names.Desktop MFA" /> for Windows is configured and deployed, users are prompted to set up one or more authentication methods to verify their identity. Users must set up at least one authentication method within the configurable sign-in limit. If the user goes over the limit, they're locked out of the computer and require admin intervention to regain access. </p>
+        <p>Configure <MadCap:variable name="okta-feature-names.Desktop MFA" /> in the Okta <MadCap:variable name="okta-feature-names.Administrator dashboard" />, and then deploy it through your Mobile Device Management (MDM) solution. This pushes a single, packaged installer to desktop computers. The user experience depends on which options you enable and how the Okta org's authentication policies are configured.</p>
+        <h2><a name="winmfa-prereq"></a>Prerequisites</h2>
+        <p>Ensure that you meet these requirements:  </p>
+        <ul>
+            <li>
+                <p>Your <MadCap:variable name="okta-feature-names.Okta Identity Engine" /> org is available. </p>
+            </li>
+            <li>
+                <p><MadCap:variable name="3rd Party Integrations.AD" /> or <MadCap:variable name="3rd Party Integrations.AAD" /> is configured.</p>
+            </li>
+            <li>
+                <p>Your Windows virtual machine or device is joined to <MadCap:variable name="3rd Party Integrations.AD" /> or <MadCap:variable name="3rd Party Integrations.AAD" />.</p>
+            </li>
+            <li>
+                <p>The <MadCap:variable name="okta-feature-names.Okta Verify" />  authenticator is set up in your org.</p>
+            </li>
+            <li>
+                <p><MadCap:variable name="okta-feature-names.Okta Verify" /> push notifications are enabled.</p>
+            </li>
+            <li>
+                <p>Users have <MadCap:variable name="okta-feature-names.Okta Verify" /> installed on a mobile device.</p>
+            </li>
+            <li>
+                <p>Any MDM solution, such as Group Policy or SCCM, is set up and available.</p>
+            </li>
+            <li>
+                <p>Windows 10 version 1709 or later or Windows 11 is installed on the endpoints.</p>
+            </li>
+            <li>
+                <p>.NET 4.8 is installed.</p>
+            </li>
+        </ul>
+        <p>If you use <MadCap:variable name="3rd Party Integrations.YubiKey company name" />, it must be series 5 or greater with&#160;OATH support.&#160;YubiKey&#160;Bio isn't supported. </p>
+        <p>If you use&#160;Windows Server, it must be version 2019 or newer. Note that <MadCap:variable name="3rd Party Integrations.YubiKey company name" /> isn't supported for offline authentication with Windows&#160;Server. </p>
+        <h2>Tasks</h2>
+        <ul>
+            <li>
+                <p>
+                    <MadCap:xref href="#mfa-task-1">Create and configure the Desktop MFA app integration</MadCap:xref>
+                </p>
+            </li>
+            <li>
+                <p>
+                    <MadCap:xref href="#mfa-task-2">Download the Okta Verify for Windows installation file</MadCap:xref>
+                </p>
+            </li>
+            <li>
+                <p>
+                    <MadCap:xref href="deploy-win-mfa.htm">Deploy Desktop MFA for Windows to your endpoints</MadCap:xref>
+                </p>
+            </li>
+            <li>
+                <p>
+                    <MadCap:xref href="configure-win-mfa-policies.htm">Configure Desktop MFA policies</MadCap:xref>
+                </p>
+            </li>
+        </ul>
+        <h2><a name="mfa-task-1"></a>Create and configure the <MadCap:variable name="okta-feature-names.Desktop MFA" /> app integration</h2>
+        <ol>
+            <li>
+                <p>In the <MadCap:variable name="okta-feature-names.Administrator dashboard" />, go to <span class="menucascade"><span class="uicontrol">Settings</span><span class="uicontrol">Account</span><span class="uicontrol">Embedded widget sign-in support</span></span> and ensure that the <span class="uicontrol">Interaction Code</span> checkbox is selected.</p>
+            </li>
+            <li>
+                <p>
+                    <MadCap:snippetText src="../../../Resources/Snippets/task steps/Applications_Applications.flsnp" />
+                </p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Browse App Catalog</span> and search for <span class="wintitle">Desktop MFA</span>.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Add integration</span>.</p>
+                <p>If you get an error message saying <span class="msgblock">This feature isn’t enabled</span>, contact your account representative.</p>
+            </li>
+            <li>
+                <p>On the <span class="wintitle">General Settings</span> page, edit the application label or click <span class="uicontrol">Done</span> to accept the default value. The <MadCap:variable name="okta-feature-names.Okta Verify" /> integration app is created.</p>
+            </li>
+            <li>
+                <p>Click the app to configure it:</p>
+                <ol style="list-style-type: lower-alpha;">
+                    <li>
+                        <p>On the <span class="uicontrol">Sign on</span> tab, go to the <span class="uicontrol">Settings</span> section and click <span class="uicontrol">Edit</span>. Click the <span class="uicontrol">Application username format</span> dropdown menu and select one of the following formats: </p>
+                        <ul style="list-style-type: circle;">
+                            <li>
+                                <p><span class="wintitle">AD&#160;employee ID</span>
+                                </p>
+                            </li>
+                            <li>
+                                <p><span class="wintitle">AD&#160;SAM&#160;account name</span>
+                                </p>
+                            </li>
+                            <li>
+                                <p><span class="wintitle">AD&#160;SAM&#160;account name +&#160;domain</span>
+                                </p>
+                            </li>
+                            <li>
+                                <p><span class="wintitle">AD&#160;user principal name prefix</span>
+                                </p>
+                            </li>
+                            <li>
+                                <p><span class="wintitle">Custom</span>
+                                </p>
+                            </li>
+                            <li>
+                                <p><span class="wintitle">Email</span>
+                                </p>
+                            </li>
+                            <li>
+                                <p><span class="uicontrol">Email prefix</span>
+                                </p>
+                            </li>
+                            <li>
+                                <p><span class="wintitle">Okta</span>
+                                </p>
+                            </li>
+                            <li>
+                                <p><span class="uicontrol">Okta username prefix</span>
+                                </p>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <p>On the <span class="uicontrol">Assignments</span> tab, assign the app to relevant users or security groups.</p>
+                    </li>
+                    <li>
+                        <p><a name="On"></a>On the <span class="uicontrol">General</span> tab, go to the <span class="uicontrol">Client Credentials</span> section to find the client ID and secret. The identifier and secret are generated when you create the app integration. Make note of these values, as you need them when you deploy <MadCap:variable name="okta-feature-names.Desktop MFA" /> for Windows using your MDM solution.</p>
+                    </li>
+                </ol>
+            </li>
+            <li>
+                <MadCap:snippetBlock src="../../../Resources/Snippets/task steps/Click_Save.flsnp" />
+            </li>
+        </ol>
+        <h2><a name="mfa-task-2"></a>Download Okta Verify for Windows</h2>
+        <p><MadCap:variable name="okta-feature-names.Desktop MFA" /> is part of <MadCap:variable name="okta-feature-names.Okta Device Access" />, which uses <MadCap:variable name="okta-feature-names.Okta Verify" /> for device registration and user authentication. In the <MadCap:variable name="okta-feature-names.Administrator dashboard" />, go to <span class="menucascade"><span class="uicontrol">Settings</span> <span class="uicontrol">Downloads</span></span> and download <span class="uicontrol">Okta Verify for Windows (.exe)</span>. If the <MadCap:variable name="okta-feature-names.Okta Device Access" /> product has been enabled for your organization, <MadCap:variable name="okta-feature-names.Desktop MFA" /> can be configured and deployed. Contact your account representative for more information. </p>
+        <h2>Next steps</h2>
+        <p>
+            <MadCap:xref href="deploy-win-mfa.htm">Deploy Desktop MFA for Windows to your endpoints</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="configure-win-mfa-policies.htm">Configure Desktop MFA policies</MadCap:xref>
+        </p>
+    </body>
+</html>

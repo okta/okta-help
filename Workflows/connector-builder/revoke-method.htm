@@ -1,0 +1,260 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd">
+    <head><title>[%=Heading.Level1%] | Okta</title>
+    </head>
+    <body>
+        <h1>Build a revoke flow</h1>
+        <p>A&#160;revoke flow is a system flow that allows a builder the ability to revoke an OAuth 2.0 (or other token-based authentication) token.  </p>
+        <p>A connector’s  <span class="code">revoke</span> method is invoked when a connection is deleted from the platform, or when a user requests their data be deleted. This might be required, for example, to comply with the General Data Protection Regulation. </p>
+        <p>Revoke flows aren't displayed to the end user and are only used by the platform.  The revoke flow has no <span class="wintitle">Options</span> or <span class="wintitle">Input</span> fields.</p>
+        <div class="noteOkta">
+            <p class="noteContent">Not all OAuth services have a revoke endpoint. </p>
+        </div>
+        <div class="note_cautionOkta">
+            <p class="noteContent">To test a token revocation from the <span class="wintitle">Test Connections</span> page, you must first deploy a local connector to your org that contains an active revoke flow. You don't have to name the revoke flow as  <span class="wintitle">revoke</span>.</p>
+            <p class="noteContent" MadCap:conditions="Primary.do-not-publish">If you want to delete a test connection properly by revoking an OAuth token, the following conditions must be met:</p>
+            <ul MadCap:conditions="Primary.do-not-publish">
+                <li>
+                    <p>A version of the connector must contain the <span class="wintitle">revoke</span> method's active flow.</p>
+                </li>
+                <li>
+                    <p>The same version of the connector must be deployed successfully as a local connector.</p>
+                </li>
+            </ul>
+        </div>
+        <p>
+            <img src="../../../Resources/Images/Workflows/connector-builder/revoke-flow.png" class="thumbnail" />
+        </p>
+        <h2>Start this task<br /></h2>
+        <ol>
+            <li>
+                <p>On the <span class="uicontrol">Flows</span> tab, create a flow by clicking <span class="uicontrol">+ New Flow</span> in the upper right corner of the page.</p>
+            </li>
+            <li>
+                <p>At the far left of the page, click <span class="uicontrol">Revoke</span>.</p>
+            </li>
+            <li>
+                <p>Click the <span class="uicontrol">Save</span> button in the toolbar and name the flow.</p>
+            </li>
+            <li>
+                <p>In the flow description field, type <span class="userinput">Revoke an access token from the {your service} service</span>. Select the <span class="uicontrol">Save all data that passes through the Flow</span> option, and click <span class="uicontrol">Save</span>.</p>
+            </li>
+            <li>
+                <p>Add an error handling <span class="wintitle">If Error</span> card as the first card in the flow.</p>
+            </li>
+            <li>
+                <p>Add the flow control <span class="wintitle">Call Flow</span> card inside the <span class="uicontrol">Try</span> section of the card.</p>
+            </li>
+            <li>
+                <p>Click the <span class="uicontrol">Choose Flow</span> button, and then select the <span class="wintitle">httpHelper</span> flow that you created previously. The card automatically populates with the inputs defined in the <span class="wintitle">httpHelper</span> flow.</p>
+            </li>
+            <li>
+                <p>Enter the relative URL for the revoke endpoint. </p>
+            </li>
+            <li>
+                <p>Enter the request method.  This is most likely a <span class="userinput">POST</span> operation.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">auth</span> object from the connector <span class="wintitle">authping</span> card to the <span class="uicontrol">Connection</span> input field of the <span class="wintitle">Call Flow</span> card.</p>
+            </li>
+            <li>
+                <p>Enter any additional information required for the call in the query, headers, or body field.  You may need to add an object <span class="wintitle">Construct</span> card before the <span class="wintitle">Call Flow</span> card to build out any necessary objects.</p>
+            </li>
+            <li>
+                <p>For the outputs on the Helper Flow card, define the same keys as on the httpHelper flow’s outputs: </p>
+                <ul>
+                    <li>
+                        <p><span class="userinput">status_code</span>, <span class="userinput">Number</span></p>
+                    </li>
+                    <li>
+                        <p><span class="userinput">headers</span>, <span class="userinput">Object</span></p>
+                        <p><span class="userinput">body</span>, <span class="userinput">Object</span></p>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <p>Add a flow control <span class="wintitle">Assign</span> card to the right of the <span class="wintitle">Call Flow</span> card that's inside the <span class="wintitle">If Error</span> function. Click <span class="uicontrol">Click or drop here</span> to create and name the field message.</p>
+            </li>
+            <li>
+                <p>Manually add a success message in the new field.  For example, <span class="userinput">The access token was successfully revoked</span>.</p>
+            </li>
+            <li>
+                <p>Click the <span class="uicontrol">View Outputs</span> link at the top right of the <span class="wintitle">Error If</span> card to expand the card's outputs section.</p>
+            </li>
+            <li>
+                <p>In the outputs section, click <span class="uicontrol">Click or drag to create</span> and enter <span class="userinput">status_code</span>. Two inputs appear that read <span class="uicontrol">Drag output here</span>.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">status_code</span> output field from the <span class="wintitle">Call Flow</span> card into the top of the two inputs under the <span class="uicontrol">status_code</span> field.</p>
+            </li>
+            <li>
+                <p>In the outputs section, click <span class="uicontrol">Click or drag to create</span>, and then enter <span class="userinput">message</span>.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">message</span> output field from the <span class="wintitle">Assign</span> card into the top of the two inputs under the <span class="uicontrol">message</span> field.</p>
+            </li>
+            <li>
+                <p>Select the dropdown menu at the top of the <span class="wintitle">If Error</span> card,  and then select <span class="uicontrol">If Error</span>. This is where any service-specific error handling can be managed.</p>
+            </li>
+            <li>
+                <p>Depending on the service, you may need extra keys for the <span class="uicontrol">Error</span> object in the left panel of the <span class="wintitle">If Error</span> card to pull the status code and error messages from the object returned by the service. To add keys, click <span class="uicontrol">Enter key name</span>.</p>
+            </li>
+            <li>
+                <p>Drag these new keys into the corresponding outputs of the <span class="wintitle">If Error</span> card.</p>
+            </li>
+            <li>
+                <p>Add a branching <span class="wintitle">Assign If</span> card to the right of the <span class="wintitle">If Error</span> function card.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">status_code</span> field from the <span class="wintitle">If Error</span> card outputs into the <span class="uicontrol">value a</span> field of the <span class="wintitle">Assign If</span> card. Make sure that the comparison is set to <span class="uicontrol">equal to</span>.</p>
+            </li>
+            <li>
+                <p>In the <span class="uicontrol">value b</span> field, enter the status code of a successful request. Usually, this value is <span class="userinput">200</span>.</p>
+            </li>
+            <li>
+                <p>Change the data type on the <span class="uicontrol">value if true</span> field to <span class="uicontrol">True/False</span>, and then set the value to <span class="uicontrol">True</span>.</p>
+            </li>
+            <li>
+                <p>Change the data type on the <span class="uicontrol">value if false</span> field to <span class="uicontrol">True/False</span>, and then set the value to <span class="uicontrol">False</span>.</p>
+            </li>
+            <li>
+                <p>Change the data type on the output field to <span class="uicontrol">True/False</span>, and then change the name of the field to <span class="userinput">revoked</span>.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">revoked</span> field from the <span class="wintitle">Assign If</span> card into the <span class="uicontrol">revoked</span> input field on the <span class="wintitle">Return</span> card.</p>
+            </li>
+            <li>
+                <p>Add a <span class="wintitle"> Construct</span> card to the end of the flow.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Click or drop here</span> to create and add a label named <span class="userinput">unregisterURL</span>.</p>
+            </li>
+            <li>
+                <p>Enter the URL  where the user can go to manually remove access to the service.  For example, <span class="url">https://www.spotify.com/us/account/apps/</span>.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Click or drop here</span> to create and add a label called  <span class="userinput">text</span>.  This is the text shown to the end user if the token revocation fails for any reason.  Enter a message in this field.  For example, <span class="userinput">Unable to completely revoke access to Spotify.  Visit your account page to manually remove access</span>.</p>
+            </li>
+            <li>
+                <p>Rename the output of this <span class="wintitle">Construct</span> card as <span class="userinput">message</span>, and then drag it into the <span class="uicontrol">message</span> input field on the <span class="wintitle">Return</span> card.</p>
+            </li>
+            <li>
+                <p>Add a <span class="wintitle">Construct</span> card.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Click or drop here</span> to create and add a label named <span class="userinput">statusCode</span>.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">status_code</span> field from the <span class="wintitle">If Error</span> card outputs into the new <span class="uicontrol">statusCode</span> field of the <span class="wintitle">Construct</span> card.</p>
+            </li>
+            <li>
+                <p>Add another input field to the <span class="wintitle">Construct</span> card and name it <span class="userinput">body</span>.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">message</span> output field from the <span class="wintitle">If Error</span> card outputs into the <span class="uicontrol">body</span> field on the <span class="wintitle">Construct</span> card.</p>
+            </li>
+            <li>
+                <p>On the object <span class="wintitle">Construct</span> card, rename the output field to <span class="userinput">serviceResponse</span>.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">serviceResponse</span> output field from the <span class="wintitle">Construct</span> card into the <span class="uicontrol">serviceResponse</span> field on the <span class="wintitle">Return</span> card.</p>
+            </li>
+            <div MadCap:conditions="Primary.do-not-publish">
+                <li>
+                    <p>On the Body object, you need to further define a message key as defined in the httpHelper flow outputs.</p>
+                </li>
+                <li>
+                    <p MadCap:conditions="Primary.do-not-publish">Add an object <span class="wintitle">Construct</span> card after the <span class="wintitle">Call Flow</span> card.</p>
+                </li>
+                <li>
+                    <p MadCap:conditions="Primary.do-not-publish">Click the area that reads <span class="uicontrol">Click or drop here to create</span> and add the label <span class="userinput">revoked</span>.</p>
+                </li>
+                <li>
+                    <p MadCap:conditions="Primary.do-not-publish">Change the data type to True/False, and select <span class="uicontrol">True</span> from the resulting dropdown menu.</p>
+                </li>
+                <li>
+                    <p MadCap:conditions="Primary.do-not-publish">Add another input field on the <span class="wintitle">Construct</span> card using dot notation labeled <span class="userinput">serviceResponse.statusCode</span>.</p>
+                </li>
+                <li>
+                    <p MadCap:conditions="Primary.do-not-publish">Drag the <span class="uicontrol">status_code</span> output field from the <span class="wintitle">Call Flow</span> card into the <span class="uicontrol">serviceResponse.statusCode</span> field.</p>
+                </li>
+                <li>
+                    <p MadCap:conditions="Primary.do-not-publish">Add another input field on the object <span class="wintitle">Construct</span> card using dot notation labeled <span class="userinput">serviceResponse.body</span>.</p>
+                </li>
+                <li>
+                    <p MadCap:conditions="Primary.do-not-publish">Manually add a success message to the <span class="uicontrol">serviceResponse.body</span> field.  For example, <span class="userinput">The access token for this account has been revoked.</span></p>
+                </li>
+                <li>
+                    <p MadCap:conditions="Primary.do-not-publish">Rename the output on the object <span class="wintitle">Construct</span> card to <span class="userinput">successful_revoke</span>.</p>
+                </li>
+                <li>
+                    <p MadCap:conditions="Primary.do-not-publish">Add another <span class="wintitle">Construct</span> card.</p>
+                </li>
+                <li>
+                    <p MadCap:conditions="Primary.do-not-publish">Click the area that reads <span class="uicontrol">Click or drop here to create</span> and add the label <span class="userinput">revoked</span>.</p>
+                </li>
+                <li>
+                    <p MadCap:conditions="Primary.do-not-publish">Change the data type to True/False, and select <span class="uicontrol">False</span> from the resulting dropdown.</p>
+                </li>
+                <li>
+                    <p MadCap:conditions="Primary.do-not-publish">Add another input field on the <span class="wintitle">Construct</span> card using dot notation labeled <span class="userinput">serviceResponse.statusCode</span>.</p>
+                </li>
+                <li>
+                    <p MadCap:conditions="Primary.do-not-publish">Drag the <span class="uicontrol">status_code</span> output field from the <span class="wintitle">Call Flow</span> card into the <span class="uicontrol">serviceResponse.statusCode</span> field of the second <span class="wintitle">Construct</span> card.</p>
+                </li>
+                <li>
+                    <p MadCap:conditions="Primary.do-not-publish">Add another input field on the object <span class="wintitle">Construct</span> card using dot notation labeled <span class="userinput">serviceResponse.body</span>.</p>
+                </li>
+                <li>
+                    <p MadCap:conditions="Primary.do-not-publish">Drag the message key from the body output on the <span class="wintitle">Call Flow</span> card into the <span class="uicontrol">serviceResponse.body</span> input on the second <span class="wintitle">Construct</span> card.  You can also create a custom, more user-friendly message in this field. For example, <span class="userinput">Your access token couldn't be revoked.  Visit the My Apps section of your account to manually remove Okta Workflows access.</span></p>
+                </li>
+                <li>
+                    <p MadCap:conditions="Primary.do-not-publish">Rename the output on the second object <span class="wintitle">Construct</span> card to <span class="userinput">unsuccessful_revoke</span>.</p>
+                </li>
+                <li>
+                    <p MadCap:conditions="Primary.do-not-publish">Add a branching <span class="wintitle">Assign If</span> card.</p>
+                </li>
+                <li>
+                    <p MadCap:conditions="Primary.do-not-publish">Drag the <span class="uicontrol">status_code</span> output from the <span class="wintitle">Call Flow</span> card into the <span class="uicontrol">value a</span> field.</p>
+                </li>
+                <li>
+                    <p MadCap:conditions="Primary.do-not-publish">Change the comparison dropdown to <span class="uicontrol">equal to</span>.</p>
+                </li>
+                <li>
+                    <p MadCap:conditions="Primary.do-not-publish">In the <span class="uicontrol">value b</span> input, manually enter the expected status code of a valid request.  This is usually 200 or 201.</p>
+                </li>
+                <li>
+                    <p MadCap:conditions="Primary.do-not-publish">Drag the <span class="uicontrol">successful_revoke</span> output from the first <span class="wintitle">Construct</span> card into the <span class="uicontrol">value if true</span> input on the <span class="wintitle">Assign If</span> card.</p>
+                </li>
+                <li>
+                    <p MadCap:conditions="Primary.do-not-publish">Drag the <span class="uicontrol">unsuccessful_revoke</span> output from the second <span class="wintitle">Construct</span> card into the <span class="uicontrol">value if false</span> input on the <span class="wintitle">Assign If</span> card.</p>
+                </li>
+                <li>
+                    <p MadCap:conditions="Primary.do-not-publish">Rename the output on the second branching <span class="wintitle">Assign If</span> card to <span class="userinput">revoke_return</span> and make sure that the data type is <span class="uicontrol">Object</span>.</p>
+                </li>
+                <li>
+                    <p MadCap:conditions="Primary.do-not-publish">Click  <span class="uicontrol">Add Outputs</span> on the <span class="wintitle">Return Outputs</span> card.</p>
+                </li>
+                <li>
+                    <p MadCap:conditions="Primary.do-not-publish">Click <span class="uicontrol">Add Field</span> to add a single output field called <span class="userinput">output</span> and type <span class="uicontrol">Object</span> and click <span class="uicontrol">Save</span>.</p>
+                </li>
+                <li MadCap:conditions="Primary.do-not-publish">
+                    <p>Drag the <span class="uicontrol">revoke_return</span> field from the <span class="wintitle">Assign If</span> card to the output field on the <span class="wintitle">Return Outputs</span> card.</p>
+                </li>
+            </div>
+            <li>
+                <p>Click <span class="uicontrol">Save</span> and <span class="uicontrol">Test</span>.</p>
+            </li>
+        </ol>
+        <h2>Next steps</h2>
+        <p>
+            <MadCap:xref href="test-flows.htm">Test your flows</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="connector-builder-flow-history.htm">Check Flow History</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="deployment.htm">Deploy your flows</MadCap:xref>
+        </p>
+    </body>
+</html>

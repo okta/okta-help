@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:fileTags="Tags/okta-authors.Patrick Calnan" MadCap:conditions="MultiProdPublish.Classic+OIE" xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd">
+    <head><title>[%=Heading.Level1%]</title>
+        <link href="" rel="stylesheet" type="text/css" />
+        <meta name="description" content="Use attribute mappings to control what attributes are exchanged during the provisioning process." />
+    </head>
+    <body>
+        <h1>Use Anything-as-a-Source</h1>
+        <p>Anything-as-a-Source (XaaS) allows you to integrate any source of truth with Okta, and realize the benefits of HR-driven provisioning from any source of truth. XaaS gives customers the flexibility to define the terms of synchronization between Okta and the source of truth. Alternatively, some identities don't require representation in Okta, and XaaS can  filter out irrelevant data, syncing only the appropriate identities.</p>
+        <h3>Prerequisites</h3>
+        <ul>
+            <li>
+                <p>Access to Okta profile sourcing capabilities.</p>
+            </li>
+            <li>
+                <p>A source of truth from which you can extract data with the public API, report, file export, or some other mechanism.</p>
+            </li>
+            <li>
+                <p>An API client to make API calls associated with the Anything-as-a-Source feature. This could be an automation platform (such as Okta Workflows) or your own custom-hosted code.</p>
+            </li>
+            <li>
+                <p>An active API token that can call Okta APIs.</p>
+            </li>
+            <li>
+                <p>Access to the Okta Workflows platform if you're using Okta Workflows.</p>
+            </li>
+        </ul>
+        <h2>Build an Anything-as-a-Source Integration</h2>
+        <p>Building an Anything-as-a-Source integration involves the following steps:</p>
+        <ol>
+            <li>
+                <p><a href="#Create">Create and configure a Custom Identity Source</a>.</p>
+            </li>
+            <li>
+                <p><a href="#Synchron">Synchronize data using a Custom Identity Source</a>.</p>
+            </li>
+        </ol>
+        <h3><a name="Create"></a>Create and configure a Custom Identity Source</h3>
+        <p>Before synchronizing data from your source of truth, you must first create an integration in your Okta org by following these steps:</p>
+        <ol>
+            <li>
+                <MadCap:snippetBlock src="../../Resources/Snippets/task steps/Applications_Applications.flsnp" />
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Browse App Catalog</span>.</p>
+            </li>
+            <li>
+                <p>Search the catalog for <span class="userinput">Custom Identity Source</span>. Select it, and then click <span class="uicontrol">Add Integration</span>.</p>
+            </li>
+            <li>
+                <p>Optional. Specify a name for your new integration and indicate if you want to display the app to users.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Done</span>.</p>
+            </li>
+            <li>
+                <p>Go to the <span class="uicontrol">Provisioning</span> tab.</p>
+            </li>
+            <li>
+                <p>Select <span class="uicontrol">Integration</span> under <span class="wintitle">Settings</span>.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Configure API Integration</span>, and then select <span class="uicontrol">Enable API&#160;integration</span>.</p>
+            </li>
+            <li>
+                <p>Select <span class="uicontrol">To <MadCap:variable name="okta-variables.ProductName" /></span> under <span class="wintitle">Settings</span>. </p>
+                <div class="noteOkta">
+                    <p class="noteContent">“To App” provisioning isn't supported for this integration type and these settings are ignored.</p>
+                </div>
+            </li>
+            <li>
+                <p>Configure the integration. For example:</p>
+            </li>
+        </ol>
+        <ul>
+            <li>
+                <p>Configure whether new users should be confirmed manually or automatically by Okta</p>
+            </li>
+            <li>
+                <p>Configure how Okta determines if a new user is a match to an existing user and whether this should be confirmed manually or automatically</p>
+            </li>
+            <li>
+                <p>Specify if this integration serves as a profile source in Okta</p>
+            </li>
+        </ul>
+        <p>You can find the identity source ID (referred to as <span class="code">${identitySourceId}</span>) in the URL for the instance. This ID is needed to configure the source, which is highlighted in the following  URL:</p>
+        <p>
+            <img src="../../Resources/Images/identity_source_id.png" />
+        </p>
+        <h4>Declare an identity source schema</h4>
+        <p>Add attributes to the schema for your integration to specify the data that's sent to <MadCap:variable name="okta-variables.ProductName" /> from the custom identity source.</p>
+        <ol>
+            <li>
+                <MadCap:snippetBlock src="../../Resources/Snippets/task steps/Directory_ProfileEditor.flsnp" />
+            </li>
+            <li>
+                <p>Find your custom identity source among the integrations listed and click <span class="uicontrol">Profile</span>.</p>
+            </li>
+            <li>
+                <p>For each attribute that should be synchronized to <MadCap:variable name="okta-variables.ProductName" /> (for example, for inclusion in the <MadCap:variable name="okta-variables.ProductName" /> profile or use in a profile mapping), do the following:</p>
+                <ol style="list-style-type: lower-alpha;">
+                    <li>
+                        <p>Click <span class="uicontrol">Add Attribute</span>.</p>
+                    </li>
+                    <li>
+                        <p>Select the data type of the attribute (for example, <span class="code">enum</span> or <span class="code">string</span>).</p>
+                    </li>
+                    <li>
+                        <p>Enter a display name, variable name, and (optionally) a description for the new attribute. <a href="https://developer.okta.com/docs/reference/okta-expression-language/">Okta Expression Language</a> is accepted.</p>
+                    </li>
+                    <li>
+                        <p>Specify any other relevant constraints, such as whether the attribute is required, the range, or length constraints.</p>
+                    </li>
+                    <li>
+                        <p>If you have more attributes to add, click <span class="uicontrol">Save and Add Another</span>. When you’ve added the final attribute, click <span class="uicontrol">Save</span>.</p>
+                    </li>
+                    <li>
+                        <p>Go to the <span class="uicontrol">Mappings</span> tab on the <span class="wintitle">Profile Editor</span> page. Click <span class="uicontrol">Configure User Mappings</span>.</p>
+                    </li>
+                </ol>
+            </li>
+            <li>
+                <p>Create mappings from the custom identity source (<span class="code">appuser</span>) attributes on the left to the Okta user on the right.</p>
+            </li>
+        </ol>
+        <p>If a desired attribute hasn't been added to the Okta user profile yet, see <MadCap:xref href="usgp-add-custom-attribute.htm">Add custom attributes to apps, directories, and identity providers.</MadCap:xref></p>
+        <h3><a name="Synchron"></a>Synchronize data with a Custom Identity Source</h3>
+        <p>Now that you've added an identity source integration to your Okta organization, you're ready to synchronize data from your source of truth to Okta. This section describes how to use XaaS APIs to perform this synchronization after data has already been extracted from the source.</p>
+        <div class="noteOkta">
+            <p class="noteContent">Deleting a user that's already been matched using API&#160;calls deactivates the user in <MadCap:variable name="okta-feature-names.UD" />. If the user hasn't already been matched, the user won't appear in <MadCap:variable name="okta-feature-names.UD" /></p>
+        </div>
+        <h4>API Token Creation</h4>
+        <p>First, create an API token by following the steps <a href="https://developer.okta.com/docs/guides/create-an-api-token/create-the-token/">outlined on Okta Developer</a>. You can also copy this token for use in your API client. If Okta Workflows is being used as the API client, this step isn't required, as the Okta connector has access to an authorized API token.</p>
+        <h4>Build a XaaS custom client</h4>
+        <p>For detailed information on how to build a XaaS&#160;custom client, see <a href="https://developer.okta.com/docs/guides/anything-as-a-source/">the guide on Okta Developer</a>.</p>
+        <h4>Okta Workflows</h4>
+        <p>Any XaaS API can be called in <MadCap:variable name="okta-feature-names.Okta Workflows" /> using the <MadCap:variable name="okta-variables.ProductName" /> connector and the Custom API Action card (see <a href="https://help.okta.com/wf/en-us/Content/Topics/Workflows/connector-builder/capia-cards.htm">Custom API Action (CAPIA) cards</a>). The <MadCap:variable name="okta-feature-names.Okta Workflows" /> API Connector (and other connectors) can be used to call any other public HTTP endpoint. For example, this connector could be used to retrieve data directly from a source of truth like an HR system.</p>
+    </body>
+</html>

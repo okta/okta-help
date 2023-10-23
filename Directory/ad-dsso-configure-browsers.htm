@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:searchable="True"
+      MadCap:conditions="MultiProdPublish.Classic+OIE"
+      MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+   <head>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <link href="" rel="stylesheet" type="text/css"/>
+      <meta name="description"
+            content="Complete the tasks necessary to configure browsers for agentless Desktop Single Sign-on on Windows."/>
+   </head>
+   <body>
+      <h1>
+         <a name="ConfigWin"/>Configure browsers for agentless Desktop Single Sign-on on Windows</h1>
+      <p>Agentless DSSO is supported on Windows using Chrome, Chromium versions of Microsoft Edge, Internet Explorer, and Firefox. Previous versions of Microsoft Edge (Legacy) aren't supported.</p>
+      <p>To configure the browsers in a Windows environment for Agentless DSSO: </p>
+      <ul>
+         <li>Create a Group Policy Object (GPO) on a Windows server in the domain to apply the Integrated Windows Authentication (IWA) and URL settings to all Windows client machines in the domain. </li>
+         <li>Enable  IWA on the browsers. </li>
+         <li>Add <MadCap:variable name="okta-variables.ProductName"/> to the local intranet  in Internet Explorer (IE). The <MadCap:variable name="okta-variables.ProductName"/> URLs must include <span class="code">https://&lt;myorg&gt;.kerberos.&lt;okta|oktapreview|okta-emea&gt;.com</span>.</li>
+      </ul>
+      <div class="noteOkta">
+         <p class="noteContent">Note: Agentless DSSO doesn't work if a single user has memberships to more than 600 security groups or if the Kerberos token is too large for Okta to currently consume. If a user with a large Kerberos packet implements or migrates Agentless DSSO, a 400 response appears and they'reredirected to the regular sign-in page.
+</p>
+      </div>
+      <h2>Internet Explorer</h2>
+      <p>Although this procedure is specific to Internet Explorer, you can use a similar process to configure Chrome and Chromium Edge on Windows.</p>
+      <ol>
+         <li>Enable IWA on the browsers:<ol style="list-style-type: lower-alpha;">
+               <li>In Internet Explorer select <span class="menucascade">
+                     <span class="uicontrol">Tools</span>
+                     <span class="uicontrol">Internet Options</span>
+                  </span>. On Windows 10 and above, click the <span class="uicontrol">Settings</span> icon from the Start menu, and search for <span class="uicontrol">Internet Options</span> in the search bar.</li>
+               <li>Click the <span class="uicontrol">Advanced</span> tab, scroll down to the <span class="uicontrol">Security</span> settings, and select <span class="uicontrol">Enable Integrated Windows Authentication</span>.</li>
+               <li>Click <span class="uicontrol">OK</span>.</li>
+            </ol>
+            <p>Note: Make sure that Internet Explorer can save session cookies (<span class="menucascade">
+                  <span class="uicontrol">Internet Options</span>
+                  <span class="uicontrol">Privacy tab</span>
+               </span>). If it can't, neither SSO nor standard sign-in can work.</p>
+         </li>
+         <li> Configure the Local Intranet Zone to trust <MadCap:variable name="okta-variables.ProductName"/>:<ol style="list-style-type: lower-alpha;">
+               <li> In IE, open <span class="menucascade">
+                     <span class="uicontrol">Options </span>
+                     <span class="uicontrol">Security</span>
+                  </span>.</li>
+               <li>Click <span class="menucascade">
+                     <span class="uicontrol">Local Intranet</span>
+                     <span class="uicontrol">Sites</span>
+                     <span class="uicontrol">Advanced</span>
+                  </span> and add the URL for your 	<MadCap:variable name="okta-variables.ProductName"/> org as configured in earlier steps. For example: <span class="code">https://&lt;myorg&gt;.kerberos.&lt;okta|oktapreview|okta-emea&gt;.com</span>.</li>
+               <li>Click <span class="uicontrol">Close</span> and <span class="uicontrol">OK</span> on the other configuration options.</li>
+            </ol>
+         </li>
+         <li>Create a GPO to roll this out to all client machines that will use agentless DSSO.</li>
+      </ol>
+      <h2>Chrome</h2>
+      <p>The Okta URL must be added to the Chrome allowlist. </p>
+      <p>Add the following entry as a string value in the registry:</p>
+      <span class="codeblock" xml:space="preserve">[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome]
+"AuthServerAllowlist"=&lt;myorg&gt;.kerberos.&lt;okta|oktapreview|okta-emea&gt;.com</span>
+      <div class="noteOkta">
+         <p class="noteContent">Note: Replace <span class="code">&lt;myorg&gt;.kerberos.&lt;okta|oktapreview|okta-emea&gt;.com</span> with your Okta org in which Agentless Desktop Single Sign on is configured. For example: <span class="code">acme.kerberos.okta.com</span>.</p>
+      </div>
+      <h2>Firefox</h2>
+      <ol>
+         <li>
+                Open the Firefox web browser, enter <code>about:config</code> in the <span class="uicontrol">Address</span> bar.
+            </li>
+         <li>
+                If the <span class="uicontrol">Proceed with Caution</span> message appears, click <span class="uicontrol">Accept the Risk and Continue</span>.
+            </li>
+         <li>
+                In the <span class="uicontrol">Search preference name</span> field, enter <code>network.negotiate-auth.trusted-uris</code>.
+            </li>
+         <li>
+                Click <span class="uicontrol">Edit</span>, enter <code>&lt;myorg&gt;.kerberos.&lt;okta|oktapreview|okta-emea&gt;.com</code>, and click <span class="uicontrol">Save</span>.
+            </li>
+      </ol>
+      <h2>Next steps</h2>
+      <p>
+         <MadCap:xref href="ad-dsso-enable.htm">Enable agentless Desktop Single Sign-on</MadCap:xref>
+      </p>
+   </body>
+</html>

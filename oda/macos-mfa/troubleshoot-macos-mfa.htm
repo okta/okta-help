@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:fileTags="Tags/okta-authors.Kimli Welsh">
+    <head><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1>Troubleshoot <MadCap:variable name="okta-feature-names.Desktop MFA" /> for macOS</h1>
+        <p>Ensure that you meet all of the <MadCap:xref href="configure-macos-mfa.htm#Prerequi" target="_blank">Prerequisites</MadCap:xref> before you attempt to troubleshoot <MadCap:variable name="okta-feature-names.Desktop MFA" />.</p>
+        <h2>Reset <MadCap:variable name="okta-feature-names.Desktop MFA" /> for all users</h2>
+        <p>Copy and run the following commands from terminal to reset <MadCap:variable name="okta-feature-names.Desktop MFA" /> for all users.</p>
+        <MadCap:codeSnippet>
+            <MadCap:codeSnippetCopyButton />
+            <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">sudo sqlite3 /Library/Application\ Support/com.okta.deviceaccess.servicedaemon/OktaDMFA "delete from enrollment"
+sudo sqlite3 /Library/Application\ Support/com.okta.deviceaccess.servicedaemon/OktaDMFA "delete from factors"
+sudo sqlite3 /Library/Application\ Support/com.okta.deviceaccess.servicedaemon/OktaDMFA "delete from loginhistory"</MadCap:codeSnippetBody>
+        </MadCap:codeSnippet>
+        <h2>Delete an offline factor</h2>
+        <p>If you need to remove an offline authentication factor for a user, use the command <span class="code">sudo sqlite3 /Library/Application\ Support/com.okta.deviceaccess.servicedaemon/OktaDMFA "delete from factors"</span>. Push the command to the user's macOS computer through your MDM to delete an offline factor. </p>
+        <h2>Turn off the Authentication Plugin </h2>
+        <p>If the machine is inaccessible and the end user has access to an admin account, they can log into the system using <a href="https://support.apple.com/guide/mac-help/use-macos-recovery-on-an-intel-based-mac-mchl338cf9a8/mac#:~:text=Restart your Mac.,other apps in macOS Recovery.">recovery mode</a>. If you are in recovery mode as an administrator, you don't need to <span class="code">sudo</span>.</p>
+        <ol>
+            <li>
+                <p>Unlock the disk: click <span class="menucascade"><span class="uicontrol">Utilities</span> <span class="uicontrol">Share Disk</span></span>, and then click the hard disk. </p>
+            </li>
+            <li>
+                <p>Select <span class="uicontrol">Unlock</span>, and then enter the admin password.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Share Disk</span>, and then select <span class="uicontrol">Quit Share Disk</span>.</p>
+            </li>
+            <li>
+                <p>Open terminal and run the following command:&#160;<span class="code">rm -rf  /Library/Security/SecurityAgentPlugins/OktaDAAuthPlugin.bundle/</span>.</p>
+            </li>
+        </ol>
+        <p>This command removes the Authorization Plugin from the machine, and the user should be able to sign in to the machine.</p>
+        <h2>Remove <MadCap:variable name="okta-feature-names.Desktop MFA" /> from a device </h2>
+        <p>Run the following commands to fully remove&#160;<MadCap:variable name="okta-feature-names.Desktop MFA" /> from a macOS device:</p>
+        <ul>
+            <li>
+                <p>Remove the symlink to the Auth Plugin in macOS&#160;<MadCap:variable name="okta-feature-names.Okta Verify" />: <span class="code">sudo rm -rf /Library/Security/SecurityAgentPlugins/OktaDAAuthPlugin.bundle</span></p>
+            </li>
+            <li>
+                <p>Stop the Service&#160;Daemon:&#160;<span class="code">sudo launchctl unload /Library/LaunchDaemons/com.okta.deviceaccess.servicedaemon.plist</span></p>
+            </li>
+            <li>
+                <p>Remove the synlink to the Service Daemon's plist in macOS&#160;<MadCap:variable name="okta-feature-names.Okta Verify" />: <span class="code">sudo rm -f /Library/LaunchDaemons/com.okta.deviceaccess.servicedaemon.plist</span></p>
+            </li>
+            <li>
+                <p>Remove the symlink to the Service Daemon executable in macOS&#160;<MadCap:variable name="okta-feature-names.Okta Verify" />: <span class="code">sudo rm -f /usr/local/bin/OktaDAServiceDaemon</span></p>
+            </li>
+            <li>
+                <p>Remove the <MadCap:variable name="okta-feature-names.Desktop MFA" /> directory:&#160;<span class="code">sudo rm -rf /Library/Application\ Support/com.okta.deviceaccess.servicedaemon/</span></p>
+            </li>
+            <li>
+                <p>Remove macOS&#160;<MadCap:variable name="okta-feature-names.Okta Verify" />, which removes the Auth&#160;Plugin, Service Daemon, and plists: <span class="code">sudo rm -rf "/Applications/Okta Verify.app"</span></p>
+            </li>
+        </ul>
+        <h2>System Logs</h2>
+        <p>Logs are found at <span class="filepath">/var/log/com.okta.deviceaccess/OktaDeviceAccess.log</span>. Alternatively, run the following command from an account with root or sudo access:&#160;<span class="code">sudo log collect --start "2023-09-18 12:00:00" --output /tmp &amp;&amp; tar cvf system_logs.logarchive.tar /tmp/system_logs.logarchive</span>.</p>
+        <p>The output is stored at <span class="filepath">/tmp/system_logs.logarchive.tar</span>.</p>
+        <h2>Known issues</h2>
+        <ul>
+            <li>
+                <p>Users may see "<span class="msgblock">Unusual sign-in attempt to Desktop MFA</span>" when they use <MadCap:variable name="okta-feature-names.Okta Verify" /> push. To remediate this issue, have the user sign in to <span class="url">yourorg.okta.com</span> from the desktop computer.  </p>
+            </li>
+            <li>
+                <p>If the username associated with a user changes, <MadCap:variable name="okta-feature-names.Okta Verify" /> considers it a new user and the existing offline factors don't work. Have the user enroll their offline methods again to gain offline access using <MadCap:variable name="okta-feature-names.Desktop MFA" />.</p>
+            </li>
+        </ul>
+    </body>
+</html>

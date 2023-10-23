@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/about-sessions.htm" /><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1><MadCap:variable name="okta-feature-names.Access Gateway" /> and sessions</h1>
+        <p><MadCap:variable name="okta-feature-names.Access Gateway" /> works with sessions to secure your protected resources. </p>
+        <div>
+            <h2><a name="Understa"></a>Session types and lifecycles</h2>
+            <p><MadCap:variable name="okta-feature-names.Access Gateway" /> uses three session types depending on what the user accesses:</p>
+            <ul>
+                <li>
+                    <p>Okta session: Okta creates a session when the end user directly authenticates to an org or when <MadCap:variable name="okta-feature-names.Access Gateway" /> redirects a request to the org. Admins can configure the conditions for these sessions in the Okta org.</p>
+                </li>
+                <li>
+                    <p><MadCap:variable name="okta-feature-names.Access Gateway" /> session: <MadCap:variable name="okta-feature-names.Access Gateway" /> creates this session after a user requests access to a protected app and Okta authenticates them. Admins manage these sessions in the <MadCap:variable name="okta-feature-names.Access&#160;Gateway UI" />. See <MadCap:xref href="about-application-advanced.htm">Advanced application settings</MadCap:xref> and <MadCap:xref href="task-define-application-behaviors.htm">Define application behaviors</MadCap:xref>.
+<MadCap:variable name="okta-feature-names.Access Gateway" /> doesn't share session information between instances in high availability clusters. When you deploy load balancers in front of your cluster, you must specify session affinity (also known as sticky sessions). This ensures that subsequent requests are routed to the same <MadCap:variable name="okta-feature-names.Access Gateway" /> instance. </p>
+                </li>
+                <li>
+                    <p>Application session: <MadCap:variable name="okta-feature-names.Access Gateway" /> creates this session after Okta authenticates the user or when the request is redirected to the protected app. <MadCap:variable name="okta-feature-names.Access Gateway" /> modifies the web request with header fields, cookies, and other required information, and then delivers it to the protected app. The resource then creates and manages its own application header.  The policies of the application govern the settings of the application session.</p>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <h2>Session flows</h2>
+            <p>You can initiate sessions from <MadCap:variable name="okta-feature-names.Access Gateway" /> or from Okta.</p>
+            <h3><a name="Flow"></a><MadCap:variable name="okta-feature-names.Access Gateway" /> or service provider-based session flow</h3>
+            <p>In this scenario, the end user accesses an application directly. They're granted a single Okta session and a session for each application that they access.</p>
+            <ol>
+                <li>The user attempts to access a protected application directly, not through Okta.</li>
+                <li><MadCap:variable name="okta-feature-names.Access Gateway" /> intercepts the request and redirects it to Okta, which performs the SAML assertion.</li>
+                <li>The user's browser sends a SAML authentication request to Okta and signs in to the application. If authentication is successful, Okta creates an Okta session.</li>
+                <li>Okta generates a SAML assertion for <MadCap:variable name="okta-feature-names.Access Gateway" />.</li>
+                <li>The user's browser presents the SAML assertion to <MadCap:variable name="okta-feature-names.Access Gateway" />. <MadCap:variable name="okta-feature-names.Access Gateway" /> creates an <MadCap:variable name="okta-feature-names.Access Gateway" /> session cookie.</li>
+                <li><MadCap:variable name="okta-feature-names.Access Gateway" /> performs the following tasks:<ol style="list-style-type: lower-alpha;"><li>Creates an <MadCap:variable name="okta-feature-names.Access Gateway" /> session.</li><li>Adds any required application enhancements, such as header or cookie attributes.</li><li>Performs any required rewrites.</li><li>Proxies the request to a backing-protected resource. </li></ol></li>
+                <li>A backing-protected web resource receives the request, creates an application session, and returns a response to <MadCap:variable name="okta-feature-names.Access Gateway" />.</li>
+                <li><MadCap:variable name="okta-feature-names.Access Gateway" /> performs any required rewrites and returns the response. </li>
+            </ol>
+            <h3><a name="Identity"></a>Okta or identity provider-based session flow</h3>
+            <p>In this scenario, the end user accesses an application through their Okta dashboard. They're granted a single Okta session, and a session for each application they access.</p>
+            <ol>
+                <li>The user signs in to Okta, and Okta creates an Okta session for them.</li>
+                <li>The user clicks an application tile in their Okta dashboard and is redirected to <MadCap:variable name="okta-feature-names.Access Gateway" />. </li>
+                <li><MadCap:variable name="okta-feature-names.Access Gateway" /> creates an <MadCap:variable name="okta-feature-names.Access Gateway" /> session.</li>
+                <li><MadCap:variable name="okta-feature-names.Access Gateway" /> performs the following tasks:<ol style="list-style-type: lower-alpha;"><li>Adds any required application enhancements, such as header or cookie attributes.</li><li>Performs any required rewrites.</li><li>Redirects to a backing-protected web resource. </li></ol></li>
+                <li>A backing-protected web resource receives the request, creates application sessions, and returns a response to <MadCap:variable name="okta-feature-names.Access Gateway" />.</li>
+                <li><MadCap:variable name="okta-feature-names.Access Gateway" /> performs any required rewrites and returns the response. </li>
+            </ol>
+        </div>
+        <div>
+            <h2>Single and Universal Logout</h2>
+            <p>Okta federated authentication supports two types of logout flows: </p>
+            <ul>
+                <li>
+                    <p>Single Logout: You can use Single Logout (SLO) to sign out of both the application and Okta sessions simultaneously in service provider-initiated flows. When SLO is enabled, <MadCap:variable name="okta-feature-names.Access Gateway" /> acts as the service provider and Okta acts as the identity provider.</p>
+                </li>
+                <li>
+                    <p>Universal Logout: Admins can configure flows to sign the user out of the application and <MadCap:variable name="okta-feature-names.Access Gateway" /> simultaneously. Universal Logout doesn't sign the user out of Okta.</p>
+                </li>
+            </ul>
+            <p>See <a href="https://help.okta.com/en-us/Content/Topics/Apps/Apps_Single_Logout.htm" target="blank">Configure Single Logout in app integrations</a> and <MadCap:xref href="task-define-application-behaviors.htm">Define application behaviors</MadCap:xref>.</p>
+        </div>
+        <h2>Related topics</h2>
+        <p>
+            <MadCap:xref href="about-application-behaviors.htm">Application behaviors</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="task-define-application-behaviors.htm">Define application behaviors</MadCap:xref>
+        </p>
+    </body>
+</html>

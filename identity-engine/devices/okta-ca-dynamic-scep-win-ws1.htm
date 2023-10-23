@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:searchable="True"
+      MadCap:fileTags="Tags/okta-authors.Kimli Welsh"
+      MadCap:conditions="Primary.do-not-publish">
+   <head>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <link href="" rel="stylesheet" type="text/css"/>
+   </head>
+   <body>
+      <h1>Configure <MadCap:variable name="okta-variables.ProductName"/> as a CA with dynamic SCEP challenge for macOS using <MadCap:variable name="Mobile.WS1"/>
+      </h1>
+      <p>
+         <MadCap:annotation MadCap:createDate="2023-01-10T12:43:24.8094309-08:00"
+                            MadCap:creator="Kimli Welsh"
+                            MadCap:initials="KI"
+                            MadCap:comment="Confirmed with Apoorva on 01/05/23 that this feature is not functional at this time; hiding the page so it's not flagged for review."
+                            MadCap:editor="Kimli Welsh"
+                            MadCap:editDate="2023-01-10T12:44:13.3961601-08:00">Configure </MadCap:annotation>a certificate authority (CA), so you can issue client certificates to your targeted macOS or Windows devices. This procedure describes how to generate a SCEP URL in Okta and create a dynamic Simple Certificate Enrollment Protocol (SCEP) profile in <MadCap:variable name="Mobile.WS1"/>.</p>
+      <h2>Before you begin</h2>
+      <p>Make sure you have access to the following:</p>
+      <ul>
+         <li>Certificates deployed for digital signature, but not for other purposes (for example, encryption)</li>
+         <li>Okta Admin Console</li>
+         <li>
+            <MadCap:variable name="Mobile.WS1"/> admin console</li>
+      </ul>
+      <h2>Start this procedure</h2>
+      <ul>
+         <li>
+            <MadCap:xref href="#Task1">Task 1: Configure management attestation and generate a SCEP URL</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Task2">Task 2: Create a dynamic SCEP profile</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Task3">Task 3: Create a dynamic SCEP profile</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Task4">Task 4: Verify that the Okta CA was installed on your devices</MadCap:xref>
+         </li>
+      </ul>
+      <h3>
+         <a name="Task1"/>Task 1: Configure management attestation and generate a SCEP URL</h3>
+      <ol>
+         <li>In the Okta Admin Console, go to <span class="menucascade">
+               <span class="uicontrol">Security</span>
+               <span class="uicontrol">Device Integrations</span>
+            </span>.</li>
+         <li>Click the <span class="uicontrol">Endpoint management</span> tab.</li>
+         <li>Click <span class="uicontrol">Add platform</span>.
+			
+			</li>
+         <li>Select <span class="uicontrol">Desktop (Windows and macOS only)</span>.</li>
+         <li>Click <span class="uicontrol">Next</span>.</li>
+         <li>On the <span class="uicontrol">Add device management platform</span> page, enter the following:					
+					<ol style="list-style-type: lower-alpha;">
+               <li>
+                  <span class="wintitle">Certificate authority</span>: Select <span class="uicontrol">Use Okta as certificate authority</span>.</li>
+               <li>
+                  <span class="uicontrol">SCEP URL challenge type</span>: Select <span class="uicontrol">Dynamic SCEP URL</span>, and then click <span class="uicontrol">Generic</span>.</li>
+               <li>Click <span class="uicontrol">Generate</span>.</li>
+               <li>SCEP URL: Copy and save the value. You require this value for <a href="#Task2">Task 2</a>.
+</li>
+               <li>Challenge URL: Copy and save the value. You require this value for <a href="#Task2">Task 2</a>.</li>
+               <li>Username: Copy and save the value. You require this value for <a href="#Task2">Task 2</a>.</li>
+               <li>Password: Copy and save the value. You require this value for <a href="#Task2">Task 2</a>.</li>
+               <div class="noteOkta">
+                  <p class="noteContent">Save the SCEP URL, Challenge URL, Username, and Password in a safe place. This is the only time they will appear in the Okta Admin Console.</p>
+               </div>
+            </ol>
+         </li>
+         <li>Click <span class="uicontrol">Save</span>.</li>
+      </ol>
+      <h3>
+         <a name="Task2"/>Task 2: Create an <MadCap:variable name="okta-variables.ProductName"/> CA template in <MadCap:variable name="Mobile.WS1"/>
+      </h3>
+      <p>You can use any device management solution that supports the deployment of an Apple SCEP MDM payload. This procedure assumes you are managing macOS devices with Jamf Pro and configuring a dynamic SCEP profile.</p>
+      <ol>
+         <li>In <MadCap:variable name="Mobile.WS1"/>, click <span class="uicontrol">DEVICES</span> (left ribbon bar) &gt; <span class="menucascade">
+               <span class="uicontrol">Certificates</span>
+               <span class="uicontrol">Certificate Authorities</span>
+            </span>.
+            </li>
+         <li>Click <span class="uicontrol">+ ADD</span>.</li>
+         <li>On the <span class="uicontrol">Certificate Authority - Add/Edit</span> page, enter the following:
+                <ol style="list-style-type: lower-alpha;">
+               <li>
+                  <span class="uicontrol">Name</span>: Enter a name for the CA.</li>
+               <li>
+                  <span class="uicontrol">Description</span>: Optional. Enter a description for the CA.</li>
+               <li>
+                  <span class="uicontrol">Authority Type</span>: Select <span class="uicontrol">Microsoft ADCS</span>.</li>
+               <li>
+                  <span class="uicontrol">Protocol</span>: Click <span class="uicontrol">SCEP</span>.</li>
+               <li>
+                  <span class="uicontrol">Version</span>: Click <span class="uicontrol">NDES 2008/2012</span>.</li>
+               <li>
+                  <span class="uicontrol">SCEP URL</span>: Enter the SCEP URL you saved during <a href="#Task1">Task 1</a>.</li>
+               <li>
+                  <span class="uicontrol">Challenge Type</span>: Click DYNAMIC.</li>
+               <li>
+                  <span class="uicontrol">Challenge Username</span>: Enter the user name you saved during <a href="#Task1">Task 1</a>.</li>
+               <li>
+                  <span class="uicontrol">Challenge Password</span>: Enter the password you saved during<a href="#Task1">Task 1</a>.</li>
+               <li>
+                  <span class="uicontrol">Confirm Challenge Password</span>: Enter the password you saved during <a href="#Task1">Task 1</a>.</li>
+               <li>
+                  <span class="uicontrol">SCEP Challenge URL</span>: Enter the challenge URL you saved during <a href="#Task1">Task 1</a>.</li>
+            </ol>
+         </li>
+         <li>Click <span class="uicontrol">SAVE AND ADD TEMPLATE</span>.</li>
+         <li>Click the <span class="wintitle">Request Templates</span> tab.</li>
+         <li>Click <span class="uicontrol">+ ADD</span>.</li>
+         <li>On the <span class="uicontrol">Certificate Template - Add/Edit</span> page, enter the following:
+                <ol style="list-style-type: lower-alpha;">
+               <li>
+                  <span class="uicontrol">Name</span>: Enter a name for the template.
+                    </li>
+               <li>
+                  <span class="uicontrol">Description</span>: Optional. Enter a description for the template.
+                    </li>
+               <li>
+                  <span class="uicontrol">Certificate Authority</span>: Select the CA you created in step 3a.
+                    </li>
+               <li>
+                  <span class="uicontrol">Subject Name</span>: Enter a subject name. For example, <span class="code">CN = {EmailAddress} managementAttestation {DeviceUid}</span>.
+</li>
+               <div class="noteOkta">
+                  <p class="noteContent">Okta does not require the subject name to be in any particular format. Choose a name that indicates that the certificate is used as the  device management signal to Okta. As a best practice, you can also include profile variables provided by <MadCap:variable name="Mobile.WS1"/> to include the device ID (UDID) and user identifier. For a list of supported variables, see <MadCap:variable name="Mobile.WS1"/> document <a href="https://kb.vmware.com/s/article/2960903"
+                        target="_blank"
+                        title="https://kb.vmware.com/s/article/2960903"
+                        alt="Workspace ONE Lookup Values">Workspace ONE Lookup Values</a>.</p>
+               </div>
+               <li>
+                  <span class="uicontrol">Key length</span>: Select <span class="uicontrol">2048</span>.
+                    </li>
+               <li>
+                  <span class="uicontrol">Private Key Type</span>: Select <span class="uicontrol">Signing</span>.
+                    </li>
+               <li>
+                  <span class="uicontrol">Automatic Certificate Renewal</span>: Click <span class="uicontrol">DISABLED</span>.
+                    </li>
+               <li>
+                  <span class="uicontrol">Publish Private Key</span>: Click <span class="uicontrol">DISABLED</span>.
+                    </li>
+            </ol>
+         </li>
+         <li>Click <span class="uicontrol">SAVE AND ADD TEMPLATE</span>.
+            </li>
+      </ol>
+      <h3>
+         <a name="Task3"/>Task 3: Create a SCEP Profile in <MadCap:variable name="Mobile.WS1"/>
+      </h3>
+      <ol>
+         <li>In <MadCap:variable name="Mobile.WS1"/>, click <span class="uicontrol">RESOURCES</span> (left ribbon bar) &gt; <span class="menucascade">
+               <span class="uicontrol">Profiles &amp; Baselines</span>
+               <span class="uicontrol">Profiles</span>
+            </span>.
+            </li>
+         <li>Click <span class="uicontrol">ADD</span>, and then select <span class="uicontrol">Add Profile</span>.
+            </li>
+         <li>As required, click <span class="uicontrol">Apple macOS</span> or <span class="uicontrol">Windows</span>.
+            </li>
+         <li>If you selected Windows in the previous step, click <span class="uicontrol">Windows Desktop</span>; otherwise, proceed to the next step.
+            </li>
+         <li>Click <span class="uicontrol">User Profile</span>.</li>
+         <li>On the <span class="uicontrol">General</span> page, enter the following:
+			<ol style="list-style-type: lower-alpha;">
+               <li>
+                  <span class="uicontrol">Name</span>: Enter a name for the SCEP profile.</li>
+               <li>
+                  <span class="uicontrol">Description</span>: Optional. Enter a description for the SCEP profile.
+                    </li>
+               <li>
+                  <span class="uicontrol">Deployment</span>: Select <span class="uicontrol">Managed</span>.
+                    </li>
+               <li>
+                  <span class="uicontrol">Assignment Type</span>: Select <span class="uicontrol">Auto</span>.
+                    </li>
+               <li>
+                  <span class="uicontrol">Allow Removal</span>: Select <span class="uicontrol">Always</span>.</li>
+               <li>
+                  <span class="uicontrol">Managed By</span>: Optional. Enter additional admin names.</li>
+               <li>
+                  <span class="uicontrol">Smart Groups</span>: Enter the name of the group that will be managed by the SCEP profile.
+                    </li>
+               <li>
+                  <span class="uicontrol">Exclusions</span>: Click <span class="uicontrol">NO</span>.</li>
+            </ol>
+         </li>
+         <li>Click <span class="uicontrol">SAVE AND PUBLISH</span>.</li>
+         <li>Click <span class="uicontrol">SCEP</span>.</li>
+         <li>On the <span class="uicontrol">SCEP</span> page, enter the following:</li>
+         <ol style="list-style-type: lower-alpha;">
+            <li>
+               <span class="uicontrol">Credential Source</span>: Select <span class="uicontrol">Defined Certificate Authority</span>.</li>
+            <li>
+               <span class="uicontrol">Certificate Authority</span>: Select the CA name that you created.</li>
+            <li>
+               <span class="uicontrol">Certificate Template</span>: Select the certificate template name that you created.</li>
+            <li>
+               <span class="uicontrol">Key Location</span>: Select <span class="uicontrol">TPM Required</span>.</li>
+         </ol>
+         <li>Click <span class="uicontrol">SAVE AND PUBLISH</span>.</li>
+      </ol>
+      <h3>
+         <a name="Task4"/>Task 4: Verify that the Okta CA was installed on your devices</h3>
+      <ol>
+         <li>On a macOS device that is managed by <MadCap:variable name="Mobile.WS1"/>, go to <span class="menucascade">
+               <span class="uicontrol">System Preference</span>
+               <span class="uicontrol">Profiles</span>
+            </span>.</li>
+         <li>Verify that your dynamic SCEP profile is installed.</li>
+         <li>Open <span class="menucascade">
+               <span class="uicontrol">Keychain</span>
+               <span class="uicontrol">Login</span>
+            </span>.</li>
+         <li>Verify that a client certificate and associated private key exists.</li>
+      </ol>
+      <h2>
+         <span>Next steps </span>
+      </h2>
+      <ul>
+         <li>
+            <MadCap:xref href="add-app-signon-policy-desktop.htm">Add an app sign-on policy rule for desktop</MadCap:xref>
+         </li>
+      </ul>
+   </body>
+</html>

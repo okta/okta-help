@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:conditions="Primary.review-only">
+    <head>
+    </head>
+    <body>
+        <h1>About polling events</h1>
+        <p MadCap:conditions="Primary.do-not-publish">Azuqua: content/connector-builder/archives/5700.md</p>
+        <p>Polling Events are one of the two types of events that your connector can contain. Polling events are designed to automatically run on a recurring basis (typically 1-5 minutes). This means that these events will need to read a collection of records, then process collections of records and determine which records have happened since its last iteration.</p>
+        <p>To be able to keep track of the last record that was collected, polling events use a <span class="code">since</span> value. This value allows your API to understand when the last query sent from your connector took place, and can take many forms, although it often is a time stamp sent in your HTTP request. When the user turns on a flow, the flow will call the API to get the current <span class="code">since</span> value. Then, at a specified interval, the event will call the API again and use the <span class="code">since</span> value saved during the previous run to fetch new records.  The engine will automatically execute the flow once for every new record.</p>
+        <h2>The Since Value</h2>
+        <p>The <span class="code">since</span> value is a single piece of data that persists between executions of an event. This means that the data that was set on a previous run of an event can be compared against a current run's dataset. Usually the <span class="code">since</span> value is a time stamp or the ID of the last record collected of a previous iteration. You can use it to compare against the records collected on this iteration.</p>
+        <p>For example, if a service returns a list of all records, and each record is in the form <span class="code">{ "recordName" : "A", "createdAt" : "2017-02-15 8:58:00" }</span>, then, so long as you can keep track of the time the last iteration occurred, you can filter out your list of records to only include those whose <span class="code">createdAt</span> value is greater than that time stamp. The <span class="code">since</span> value would keep track of that time stamp to filter by, and then would be reset to the current time after the list was filtered.</p>
+        <p MadCap:conditions="Primary.review-only">The <span class="code">since</span> value can be defined in the <span class="code">Control.Since</span> module, and once defined may be referred to with double braces as "{{since}}" throughout that Event method.</p>
+        <h2>Build a polling event</h2>
+        <p>Polling events have a fairly well-defined structure that can be used in most connectors. Generally speaking, they'll always include these steps, in approximately this order:</p>
+        <ul>
+            <li>
+                <p>Get a list of items from an API</p>
+            </li>
+            <li>
+                <p>Filter that list based off of the since value that was set on a previous execution. As a side note, sometimes services will allow you to provide a timestamp as a query parameter in the initial request. In those cases, this step is unnecessary, and instead you would pass the since value as that query parameter in the initial API interaction.</p>
+            </li>
+            <li>
+                <p>Update your "since" value with the <span class="code">Control.Since</span> module</p>
+            </li>
+            <li>
+                <p>(Optional, but often needed) Map over each item in the filtered list to render that item into the right format</p>
+            </li>
+            <li>
+                <p>End the method with the new list of formatted and filtered items.</p>
+            </li>
+        </ul>
+        <p>Note: A Polling Event must return a list, even if that list contains just one item in a given iteration</p>
+        <h2>Test a polling event</h2>
+        <p>To test a polling event in the connector builder, you can artificially set the "since" value in the "Run" window, inside the "Since" text area. Inside of this area, put in any value that you want to simulate as the since value from the previous iteration of a method execution. You can also leave it as "null" to simulate the first run of your Polling Event.</p>
+    </body>
+</html>

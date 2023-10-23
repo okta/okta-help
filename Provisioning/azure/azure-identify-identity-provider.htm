@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:fileTags="Tags/okta-authors.Mark Cowan">
+    <head>
+        <link href="../../../Resources/TableStyles/standard.css" rel="stylesheet" MadCap:stylesheetType="table" /><title>Make Azure Active Directory an identity provider | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1>Make Azure Active Directory an Identity Provider</h1>
+        <p>To delegate authentication to Azure Active Directory (AAD), you need to configure it as an identity provider (IdP) in <MadCap:variable name="okta-variables.ProductName" />.</p>
+        <h2>Before you begin</h2>
+        <p>Complete <MadCap:xref href="azure-create-enterprise-app.htm">Create the [%=okta-variables.ProductName%] enterprise app in Azure Active Directory</MadCap:xref> and make note of the following:</p>
+        <ul>
+            <li>
+                <p><span class="uicontrol">Login URL</span>
+                </p>
+            </li>
+            <li>
+                <p><span class="uicontrol">AAD Identifier</span>
+                </p>
+            </li>
+            <li>
+                <p>Downloaded certificate (Base64)</p>
+            </li>
+        </ul>
+        <h2>Start this procedure</h2>
+        <p>This procedure involves the following tasks:</p>
+        <ol>
+            <li>
+                <p>
+                    <MadCap:xref href="#Add">Add Azure AD&#160;as Identity Provider.</MadCap:xref>
+                </p>
+            </li>
+            <li>
+                <p>
+                    <MadCap:xref href="#Update">Update Okta app in Microsoft Azure portal.</MadCap:xref>
+                </p>
+            </li>
+        </ol>
+        <div class="note_tipOkta">
+            <p class="noteContent">This procedure provides steps for using SAML to set up AAD as an <MadCap:variable name="okta-feature-names.Identity Provider full name" />. To use OpenID Connect, see <a href="https://developer.okta.com/docs/guides/add-an-external-idp/azure/main/#create-an-identity-provider-in-okta">Create an Identity Provider in Okta</a>. After you create an IdP&#160;using OpenID&#160;Connect,  you can set up a routing rule for Azure. See <MadCap:xref href="../../Security/configure-routing-rules.htm">Configure identity provider routing rules</MadCap:xref>.</p>
+        </div>
+        <h3><a name="Add"></a>Add Azure AD&#160;as Identity Provider</h3>
+        <ol>
+            <li>
+                <MadCap:snippetBlock src="../../../Resources/Snippets/task steps/Security_IdentityProviders.flsnp" />
+            </li>
+            <li>Click <span class="uicontrol">Add Identity Provider</span> and select <span class="uicontrol">Add SAML 2.0 IdP</span>.</li>
+            <li>Enter <span class="userinput">AAD</span> or your preferred name for the identity provider in the <span class="uicontrol">Name</span> field.</li>
+            <li>
+                <p>Complete the following fields in the <span class="uicontrol">Authentication Settings</span> section:</p>
+                <p>
+                    <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                        <col class="TableStyle-standard-Column-Column1" />
+                        <col class="TableStyle-standard-Column-Column1" />
+                        <thead>
+                            <tr class="TableStyle-standard-Head-Header1">
+                                <th class="TableStyle-standard-HeadF-Column1-Header1" style="font-weight: bold;">Field</th>
+                                <th class="TableStyle-standard-HeadD-Column1-Header1" style="font-weight: bold;">Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="TableStyle-standard-Body-Body1" MadCap:conditions="Primary.review-only">
+                                <td class="TableStyle-standard-BodyF-Column1-Body1">IdP Username</td>
+                                <td class="TableStyle-standard-BodyD-Column1-Body1">If you want to use UPN&#160;as the username, select <span class="uicontrol">idpuser.subjectNameId</span> from the dropdown list. Azure AD&#160;by default sends UPN as NameID.<p MadCap:conditions="Primary.review-only">If you want to use another SAML claim configured in Azure AD, enter that value using the Expression Language. For example, <span class="userinput">idpuser.email</span>.</p><p>Enter <span class="userinput">idpuser.email</span>.</p></td>
+                            </tr>
+                            <tr class="TableStyle-standard-Body-Body2">
+                                <td class="TableStyle-standard-BodyF-Column1-Body2">IdP Username</td>
+                                <td class="TableStyle-standard-BodyD-Column1-Body2">
+                                    <p>Enter <span class="userinput">idpuser.email</span>.</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-standard-Body-Body1">
+                                <td class="TableStyle-standard-BodyF-Column1-Body1">Filter</td>
+                                <td class="TableStyle-standard-BodyD-Column1-Body1">Optional.<p>Select the <span class="uicontrol">Only allow usernames that match defined RegEx pattern</span> checkbox and enter a regular expression pattern. This pattern filters IdP usernames and prevents the IdP from authenticating unintended or privileged users.</p></td>
+                            </tr>
+                            <tr class="TableStyle-standard-Body-Body2">
+                                <td class="TableStyle-standard-BodyF-Column1-Body2">Match against</td>
+                                <td class="TableStyle-standard-BodyD-Column1-Body2">Select an Okta user attribute from the dropdown list. For example, <span class="uicontrol">Okta Username</span>.<p>This Okta user attribute matches against the IdP username to find existing users.</p></td>
+                            </tr>
+                            <tr class="TableStyle-standard-Body-Body1">
+                                <td class="TableStyle-standard-BodyF-Column1-Body1">
+                                    <p>Account Link Policy</p>
+                                </td>
+                                <td class="TableStyle-standard-BodyD-Column1-Body1">Select <span class="uicontrol">Automatic</span> to automatically link incoming IdP users to existing users in Okta.<p>Select <span class="uicontrol">Disabled</span> if you want to manually link users or don't want to link users.</p></td>
+                            </tr>
+                            <tr class="TableStyle-standard-Body-Body2">
+                                <td class="TableStyle-standard-BodyF-Column1-Body2">
+                                    <p>Auto-link Restrictions</p>
+                                </td>
+                                <td class="TableStyle-standard-BodyD-Column1-Body2">Optional. <p>You can restrict automatic account-linking to certain specified groups. </p><p>Select <span class="uicontrol">Specific Groups</span> from the dropdown list and enter group names. The IdP user is automatically linked only if the matching user belongs to any of the specified groups. </p></td>
+                            </tr>
+                            <tr class="TableStyle-standard-Body-Body1">
+                                <td class="TableStyle-standard-BodyC-Column1-Body1">If no match is found</td>
+                                <td class="TableStyle-standard-BodyA-Column1-Body1">Optional. Select <span class="uicontrol">Create new user (JIT)</span> to create a new account for an unmatched user.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </p>
+            </li>
+            <li>
+                <p>Complete the following fields in the <span class="uicontrol">JIT Settings</span> area:</p>
+                <p>
+                    <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                        <col class="TableStyle-standard-Column-Column1" />
+                        <col class="TableStyle-standard-Column-Column1" />
+                        <thead>
+                            <tr class="TableStyle-standard-Head-Header1">
+                                <th class="TableStyle-standard-HeadF-Column1-Header1">Field</th>
+                                <th class="TableStyle-standard-HeadD-Column1-Header1">Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="TableStyle-standard-Body-Body1">
+                                <td class="TableStyle-standard-BodyF-Column1-Body1">Profile Source</td>
+                                <td class="TableStyle-standard-BodyD-Column1-Body1">Select the <span class="uicontrol">Update attributes for existing users</span> checkbox.</td>
+                            </tr>
+                            <tr class="TableStyle-standard-Body-Body2">
+                                <td class="TableStyle-standard-BodyF-Column1-Body2">Reactivation Settings</td>
+                                <td class="TableStyle-standard-BodyD-Column1-Body2">Optional.<p>Select the <span class="uicontrol">Reactivate users who are deactivated in </span><MadCap:variable name="okta-variables.ProductName" style="font-weight: bold;" /> and <span class="uicontrol">Unsuspend users who are suspended in </span><MadCap:variable name="okta-variables.ProductName" style="font-weight: bold;" /> checkboxes.</p></td>
+                            </tr>
+                            <tr class="TableStyle-standard-Body-Body1">
+                                <td class="TableStyle-standard-BodyC-Column1-Body1">Group Assignments</td>
+                                <td class="TableStyle-standard-BodyA-Column1-Body1">Optional. <p>Select an option to define the behavior of group assignments during provisioning.</p><p>You can assign the user to specific groups, add them to missing groups based on a SAML&#160;attribute name and group filter, or do a full sync of groups.</p></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </p>
+            </li>
+            <li>
+                <p>Complete the following fields in the <span class="uicontrol">SAML&#160;Protocol Settings</span> area:</p>
+                <p>
+                    <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                        <col class="TableStyle-standard-Column-Column1" />
+                        <col class="TableStyle-standard-Column-Column1" />
+                        <thead>
+                            <tr class="TableStyle-standard-Head-Header1">
+                                <th class="TableStyle-standard-HeadF-Column1-Header1">Field</th>
+                                <th class="TableStyle-standard-HeadD-Column1-Header1">Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="TableStyle-standard-Body-Body1">
+                                <td class="TableStyle-standard-BodyF-Column1-Body1">IdP Issuer URI</td>
+                                <td class="TableStyle-standard-BodyD-Column1-Body1">Enter the value from the <span class="uicontrol">Azure AD Identifier</span> field that you recorded previously.</td>
+                            </tr>
+                            <tr class="TableStyle-standard-Body-Body2">
+                                <td class="TableStyle-standard-BodyF-Column1-Body2">IdP Single Sign-On URL</td>
+                                <td class="TableStyle-standard-BodyD-Column1-Body2">Enter the value from the Azure AD <span class="uicontrol">Login URL</span> field that you recorded previously.</td>
+                            </tr>
+                            <tr class="TableStyle-standard-Body-Body1">
+                                <td class="TableStyle-standard-BodyC-Column1-Body1">IdP Signature Certificate</td>
+                                <td class="TableStyle-standard-BodyA-Column1-Body1">Click <span class="uicontrol">Browse files</span>, browse to the location of the identity provider PEM or DER key certificate  you downloaded previously, and click <span class="uicontrol">Open</span>.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </p>
+            </li>
+            <li>Click <span class="uicontrol">Add Identity Provider</span>.</li>
+            <li>On the <span class="wintitle">Identity Providers</span> page, click the expand (<img src="../../../Resources/Images/expand_icon.png" />)&#160;icon for the AAD identity provider and record the values in these fields:<ul><li><span class="uicontrol">Assertion Consumer Service URL</span></li><li><span class="uicontrol">Audience URI</span></li></ul></li>
+        </ol>
+        <p>After you add Azure as an IdP, configure a routing rule for it. Routing rules let you to direct users to an IdP based on things like their  device, email domain, or the app they're trying to access. See <MadCap:xref href="../../Security/configure-routing-rules.htm">Configure identity provider routing rules</MadCap:xref>.</p>
+        <h3><a name="Update"></a>Update Okta app in Microsoft Azure portal</h3>
+        <ol>
+            <li>Sign in to the Microsoft Azure portal, click the portal menu icon in the top left, and select <span class="uicontrol">Azure Active Directory</span>.</li>
+            <li>Click <span class="uicontrol">Enterprise applications</span> in the left menu and select <MadCap:variable name="okta-variables.ProductName" /> in the applications list.</li>
+            <li>Click <span class="uicontrol">Single sign-on</span> in the left menu and click <span class="uicontrol">SAML</span>.</li>
+            <li>
+                <p>Click <span class="uicontrol">Edit</span> in the <span class="uicontrol">Basic SAML&#160;Configuration</span> area and complete the following fields:</p>
+                <p>
+                    <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                        <col class="TableStyle-standard-Column-Column1" />
+                        <col class="TableStyle-standard-Column-Column1" />
+                        <thead>
+                            <tr class="TableStyle-standard-Head-Header1">
+                                <th class="TableStyle-standard-HeadF-Column1-Header1">Field</th>
+                                <th class="TableStyle-standard-HeadD-Column1-Header1">Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="TableStyle-standard-Body-Body1">
+                                <td class="TableStyle-standard-BodyF-Column1-Body1">Identifier (Entity ID)</td>
+                                <td class="TableStyle-standard-BodyD-Column1-Body1">Enter the Audience URI value that you recorded in step 8.</td>
+                            </tr>
+                            <tr class="TableStyle-standard-Body-Body2">
+                                <td class="TableStyle-standard-BodyC-Column1-Body2">Reply URL (Assertion Consumer Service URL)</td>
+                                <td class="TableStyle-standard-BodyA-Column1-Body2">Enter the Assertion Consumer Service URL value that you recorded in step 8.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </p>
+            </li>
+            <li>Click <span class="uicontrol">Save</span> and <span class="uicontrol">Close</span>.</li>
+        </ol>
+        <h2>Next steps</h2>
+        <p>
+            <MadCap:xref href="azure-map-attributes.htm">Map Azure Active Directory attributes to Okta attributes</MadCap:xref>
+        </p>
+    </body>
+</html>

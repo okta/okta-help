@@ -1,0 +1,434 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:fileTags="Tags/okta-authors.Kimli Welsh">
+    <head>
+        <link href="../../../../Resources/TableStyles/standard.css" rel="stylesheet" MadCap:stylesheetType="table" /><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1>Configure an <MadCap:variable name="okta-feature-names.app sign-on policy" /> for <MadCap:variable name="okta-feature-names.Okta FastPass" /></h1>
+        <p>Create an <MadCap:variable name="okta-feature-names.app sign-on policy" /> that supports <MadCap:variable name="okta-feature-names.Okta FastPass" />. </p>
+        <div class="noteOkta">
+            <p class="noteContent"><span class="wintitle">Configure strong <MadCap:variable name="okta-feature-names.app sign-on policies"></MadCap:variable> to secure each of your apps</span>
+            </p>
+            <p class="noteContent">When you configure <MadCap:variable name="okta-feature-names.Okta FastPass" />, make sure you remove the default global password requirement from your <MadCap:variable name="okta-feature-names.Okta sign-on policy" />. This change removes responsibility for defining and enforcing authentication criteria from your <MadCap:variable name="okta-feature-names.Okta sign-on policy" /> and transfers it to each of your <MadCap:variable name="okta-feature-names.app sign-on policies" />. Before you remove this global requirement in your <MadCap:variable name="okta-feature-names.Okta sign-on policy" />, make sure you protect all of your apps with a strong <MadCap:variable name="okta-feature-names.app sign-on policy" />. </p>
+        </div>
+        <div class="noteOkta">
+            <p class="noteContent">After you upgrade from an <MadCap:variable name="okta-feature-names.Okta Classic Engine" /> to an <MadCap:variable name="okta-feature-names.Okta Identity Engine" />, end users will have a different user verification experience. With an <MadCap:variable name="okta-feature-names.Okta Classic Engine" />, if your <MadCap:variable name="okta-feature-names.app sign-on policy" /> is configured for two authentication factors (for example, <span class="uicontrol">Password + Another factor</span>, or <span class="uicontrol">Any 2 factor types</span>), users with <MadCap:variable name="okta-feature-names.Okta Verify" /> are required to provide two authentication factors (for example, enter a password and accept an <MadCap:variable name="okta-feature-names.Okta Verify" /> Push notification). When you upgrade to an <MadCap:variable name="okta-feature-names.Okta Identity Engine" />, the same <MadCap:variable name="okta-feature-names.app sign-on policy" /> exists, but the user experience changes. Now (using the same example from earlier), users can only provide <MadCap:variable name="okta-feature-names.Okta Verify" /> Push with biometrics to get access. This is expected behavior because, when the user provided biometrics to unlock their device, the <MadCap:variable name="okta-feature-names.app sign-on policy" /> evaluated that as the first authentication factor.</p>
+        </div>
+        <p>This procedure provides an example of how to configure an <MadCap:variable name="okta-feature-names.app sign-on policy" /> that allows passwordless access to apps.</p>
+        <p>With this policy, users must have <MadCap:variable name="okta-feature-names.Okta Verify" /> installed and enrolled on their device  (see <MadCap:xref href="../device-registration.htm">Device registration</MadCap:xref>) before they can access the apps. Users with unregistered devices are denied access to apps. </p>
+        <ol>
+            <li>
+                <MadCap:snippetText src="../../../../Resources/Snippets/task steps/Security_Authentication_Policy.flsnp" />
+            </li>
+            <li>
+                Select the policy that you want to update.
+                        </li>
+            <li>
+                Click <span class="uicontrol">Add Rule</span>.
+            </li>
+            <li>Create <MadCap:variable name="okta-feature-names.app sign-on policy" /> rules. </li>
+            <p>Use <a href="#Rule">Rule 1 (example)</a>, <a href="#Rule2">Rule 2 (example)</a>, and <a href="#Rule3">Rule 3 (example)</a> as a guide when setting up your <MadCap:variable name="okta-feature-names.app sign-on policy" /> rules. In this example:</p>
+            <ul>
+                <li>
+                    <p>Rule 1 allows seamless access (<MadCap:variable name="okta-feature-names.Okta FastPass" />) to the application if the device is managed, registered, has secure hardware, and the user successfully provides any two authentication factors. </p>
+                </li>
+                <li>
+                    <p>Rule 2 allows access to the application if the device is registered, not manage, and the user successfully provides a password and any other authentication factor except phone or email.</p>
+                </li>
+                <li>
+                    <p>Rule 3 denies access to all users that did not meet Rule 1 or Rule 2.</p>
+                </li>
+            </ul>
+            <div class="noteOkta">
+                <p class="noteContent">The most restrictive rule (Rule 1) is at the top and the least restrictive rule is at the bottom.</p>
+            </div>
+            <p>The following image reflects the rules that are provided as an example: 
+				<p><img src="../../../../Resources/Images/identity-engine/app-signon-policy-pwrdless.png" id="img_new" class="thumbnail" alt="The image displays an example of a sign-on policy for passwordless authentication." /></p></p>
+            <h4><a name="Rule"></a>Rule 1 (example)</h4>
+            <p>This rule applies to users with devices that are managed, registered, and have secure hardware. It allows them to have seamless access to the application. Users are prompted to re-authenticate only if it’s been more than one hour since they last authenticated.</p>
+            <p>Users matching this rule can use any two authentication factor types to access the application. If users want to access the application without entering a password, they must enable biometric authentication in <MadCap:variable name="okta-feature-names.Okta Verify" />. If they have enabled biometrics in <MadCap:variable name="okta-feature-names.Okta Verify" />, they're still prompted for their password (a knowledge factor).</p>
+            <ol style="list-style-type: lower-alpha;">
+                <li>In the <span class="uicontrol">Rule name</span> field, enter a name for the rule. For example, Passwordless: Allow Registered + Managed + Hardware present + 2 factors.</li>
+                <li>		
+				Use the following configuration as a guide for rule 1:
+								</li>
+                <table style="width: 100%;mc-table-style: url('../../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                    <col class="TableStyle-standard-Column-Column1" style="width: 231px;" />
+                    <col class="TableStyle-standard-Column-Column1" />
+                    <col class="TableStyle-standard-Column-Column1" />
+                    <thead>
+                        <tr class="TableStyle-standard-Head-Header1">
+                            <th class="TableStyle-standard-HeadF-Column1-Header1">Condition
+                            </th>
+                            <th class="TableStyle-standard-HeadF-Column1-Header1">Configuration
+                            </th>
+                            <th class="TableStyle-standard-HeadD-Column1-Header1">Description
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="TableStyle-standard-Body-Body1">
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol"><span class="code">IF</span> User's user type is</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol">Any user type</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyD-Column1-Body1">Configures the user type that can access the app. Select one of the following:
+                                <ul><li><p><span class="uicontrol">Any user type</span> (default): Any user type can access the app.</p></li><li><p><span class="uicontrol">One of the following user types</span>: Only specific user types can access the app. In the fields that appear when this option is selected, enter the user types to include and exclude.</p></li></ul></td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2">
+                            <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="uicontrol"><span class="code">AND</span> User's group membership includes</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="uicontrol">Any group</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyD-Column1-Body2">Configures user groups that can access the app. Select one of the following:
+                                <ul><li><p><span class="uicontrol">Any group</span> (default): Users that are part of any group can access the app.</p></li><li><p><span class="uicontrol">At least one of the following groups</span>: Only users that are part of specific groups can access the app. In the fields that appear when this option is selected, enter the groups to include and exclude.</p></li></ul></td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body1">
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="code">AND</span> <span class="uicontrol">User is</span></td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol">Any user</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyD-Column1-Body1">Configures users that can access the app. Select one of the following:
+                                <ul><li><p><span class="uicontrol">Any user</span> (default): Allows any user to access the app.</p></li><li><p><span class="uicontrol">At least one of the following users</span>: Only allows specific users to access the app. In the fields that appear when this option is selected, enter the users to include and exclude.</p></li></ul></td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2">
+                            <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="uicontrol"><span class="code">AND</span> Device state is</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="uicontrol">Registered</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyD-Column1-Body2">Configures whether devices must be registered to access the app. Select one of the following:
+                                <ul><li><p><span class="uicontrol">Any </span>(default): Registered and unregistered devices can access the app.</p></li><li><p><span class="uicontrol">Registered</span>: Only registered devices can access the app.</p></li></ul></td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body1">
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="code">AND</span> <span class="uicontrol">Device management is</span></td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol">Managed</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyD-Column1-Body1">Configures whether devices must be managed to access the app. Select one of the following:
+                                <ul><li><p><span class="uicontrol">Not managed </span>(default): Managed and not managed devices can access the app.</p></li><li><p><span class="uicontrol">Managed</span>: Only managed devices can access the app.</p></li></ul></td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2" MadCap:conditions="">
+                            <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="uicontrol"><span class="code">AND</span> Device assurance policy is</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="uicontrol">Any one of the following device assurance policies</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyD-Column1-Body2">Configures the security-related device conditions that are required. Select one of the following:<ul><li><p><span class="uicontrol">No policy</span>: No device assurance policy is required.</p></li><li><p><span class="uicontrol">Any of the following device assurance policies</span>: From the list that appears when this option is selected, select the required device assurance policy. You can add more than one device assurance policy to cover other scenarios.</p></li></ul><p>See <MadCap:xref href="../device-assurance-policy-rule.htm">Add device assurance to an authentication policy</MadCap:xref>.</p></td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body1">
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol"><span class="code">AND</span> Device platform is</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol">Any platform</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyD-Column1-Body1">Configures the device platform needed to access the app. This option can't be changed from the default if specific device assurance policies are selected in the previous step. Select one of the following:
+                                <ul><li><p><span class="uicontrol">Any platform </span>(default): Any device platform can access the app.</p></li><li><p><span class="uicontrol">One of the following platforms</span>: Only specified device platforms can access the app. From the list that appears when this option is selected, select one or more of the following:&#160;</p></li><ul><li><p>IOS</p></li><li><p>ANDROID</p></li><li><p>WINDOWS</p></li><li><p>MACOS</p></li><li><p>CHROMEOS</p></li><li><p>MOBILE_OTHER</p></li><li><p>DESKTOP_OTHER</p></li></ul></ul></td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2">
+                            <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="uicontrol"><span class="code">AND</span> User's IP is</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="uicontrol">Any IP</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyD-Column1-Body2">Configures the network zone required to access the app. Select one of the following:
+                                <ul><li><p><span class="uicontrol">Any IP </span>(default): Devices with any IP address can access the app.</p></li><li><p><span class="uicontrol">In any network zone defined in <MadCap:variable name="okta-variables.ProductName" /></span>: Only devices in a network zone defined in <MadCap:variable name="okta-variables.ProductName" /> can access the app.</p></li><li><p><span class="uicontrol">In any of the following zones</span>: Only devices within the specified zones can access the app. Enter specific zones in the field that appears.</p></li><li><p><span class="uicontrol">Not in any network zone defined in <MadCap:variable name="okta-variables.ProductName" /></span>: Only devices outside of the network zone defined in <MadCap:variable name="okta-variables.ProductName" /> can access the app.</p></li><li><p><span class="uicontrol">Not in any of the following zones</span>: Only devices outside of the specified zones can access the app. Enter specific zones in the field that appears.</p></li></ul></td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body1">
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol"><span class="code">AND</span> Risk is</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol">Any</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyD-Column1-Body1">Configures the risk score tolerance for sign-in attempts. Select one of the following:
+                                <ul><li><p><span class="uicontrol">Any</span> (default): The risk score can be low, medium, or high.</p></li><li><p><span class="uicontrol">Low</span>: The risk score must be low.</p></li><li><p><span class="uicontrol">Medium</span>: The risk score must be medium.</p></li><li><p><span class="uicontrol">High</span>: The risk score must be high.</p></li></ul><p>See <MadCap:xref href="../../../Security/Security_Risk_Scoring.htm">Risk scoring</MadCap:xref>.</p></td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2">
+                            <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="uicontrol"><span class="code">AND</span> The following custom expression is true</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body2">Optional							</td>
+                            <td class="TableStyle-standard-BodyD-Column1-Body2">Configures additional conditions using the <MadCap:variable name="okta-variables.ProductName" /> Expression Language (EL).
+                                <p>See <MadCap:xref href="../el-about.htm">[%=okta-variables.ProductName%] Expression Language for devices</MadCap:xref>.</p></td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body1" MadCap:conditions="">
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol"><span class="code">AND</span> Client is</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol">Any client</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyD-Column1-Body1">
+                                <MadCap:annotation MadCap:createDate="2023-08-18T14:55:40.3511863-07:00" MadCap:creator="Kimli Welsh" MadCap:initials="KI" MadCap:comment="This option doesn't appear in the UI when following these instructions. Requested that I leave it in, but when this appears should be called out." MadCap:editor="Kimli Welsh" MadCap:editDate="2023-08-18T14:56:25.6120496-07:00">Configures the clients that can access the app. Select one of the following:
+</MadCap:annotation><![CDATA[                                ]]><ul><li><p><span class="uicontrol">Any client </span>(default): Any client can access the app.</p></li><li><p><span class="uicontrol">One of the following clients</span>: Only specified clients can access the app. Choose one or more of the following:&#160;</p></li><ul><li><p>Web browser</p></li><li><p>Modern Authentication</p></li><li><p>Exchange ActiveSync/Legacy Auth</p></li></ul></ul></td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2">
+                            <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="uicontrol"><span class="code">THEN</span> Access is</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="uicontrol">Allowed after successful authentication</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyD-Column1-Body2">Configures the resulting app permissions if all the previous conditions are met:
+                                <ul><li><p><span class="uicontrol">Denied</span>: The device is denied access when all the IF conditions are met.</p></li><li><p><span class="uicontrol">Allowed after successful authentication</span>: The device is allowed access when all the IF&#160;conditions are met and authentication is successful.</p></li></ul></td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body1">
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol"><span class="code">AND</span> User must authenticate with</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol">Any 2 factor types</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyD-Column1-Body1">Configures the authentication that is required to access the app:
+                                <ul><li><p><span class="uicontrol">Password</span> or <span class="uicontrol">Password / IdP</span>: The user must enter a password every time the rule requires re-authentication.</p></li><li><p><span class="uicontrol">Possession factor</span>: The user must provide a possession factor to authenticate. For example, <MadCap:variable name="okta-feature-names.Okta Verify" />, WebAuthn, phone, or email.</p></li><li><p><span class="uicontrol">Any 1 factor type</span> or <span class="uicontrol">Any 1 factor type / IdP</span>: The user must provide a possession, knowledge, or biometric authentication factor. For example, <MadCap:variable name="okta-feature-names.Okta Verify" />, WebAuthn, phone, email, password, or security question.</p></li><li><p><span class="uicontrol">Password + Another factor</span> or <span class="uicontrol">Password / IdP + Another factor</span>: The user must provide a password, and any other authentication factor.</p></li><li><p><span class="uicontrol">Any 2 factor types</span>: The user must provide any two authentication factors.</p></li></ul><p>See <MadCap:xref href="../../authenticators/configure-authenticators.htm">About authenticator configuration</MadCap:xref>.</p></td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2">
+                            <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="uicontrol"><span class="code">AND</span> Possession factor constraints are</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body2">Select the following checkboxes:
+                                <ul><li><p><span class="uicontrol">Hardware protection </span></p></li><li><p><span class="uicontrol">Device bound (excludes phone and email)</span> </p></li></ul></td>
+                            <td class="TableStyle-standard-BodyD-Column1-Body2">Configures the possession factor characteristics:
+                                <ul><li><span class="uicontrol">Phishing resistant</span> (clear by default): Requires the possession factor to be phishing resistant.</li><li><span class="uicontrol">Hardware protected</span> (clear by default): Requires keys to be stored in a hardware-backed keystore (TPM, Secure Enclave).</li><p>Note: By default, <MadCap:variable name="okta-feature-names.Okta Verify" /> attempts to store the <MadCap:variable name="okta-feature-names.Okta Verify" /> keys on the secure hardware of the device: trusted platform module (TPM) for Windows and Android devices, or secure enclave for macOS and iOS devices. If secure hardware is not available, software storage is used. When software storage is used, <MadCap:variable name="okta-feature-names.Okta Verify" /> will not satisfy the <MadCap:variable name="okta-feature-names.app sign-on policy" /> if <span class="uicontrol">Hardware protection</span> is selected as an <span class="uicontrol"><span class="code">AND</span> Possession factor restraints are</span> THEN condition.</p><p>To identify how <span class="uicontrol"><MadCap:variable name="okta-feature-names.Okta Verify" style="font-weight: normal;" /></span> keys are stored for a device, view the <span class="code">secureHardwarePresent</span> device attribute in the Admin Console, or use an <MadCap:variable name="okta-variables.ProductName" /> Expression Language (EL) expression to determine the value of <span class="code">device.profile.secureHardwarePresentview</span>. If this value is true, secure hardware is used.</p><p>See <MadCap:xref href="../el-about.htm">[%=okta-variables.ProductName%] Expression Language for devices</MadCap:xref> and .</p><li><span class="uicontrol">Device Bound (excludes phone and email)</span> (selected by default): Requires factor keys to be stored securely on the device.</li></ul></td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body1">
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol"><span class="code">AND</span> Access with </span><MadCap:variable name="okta-feature-names.Okta FastPass" style="font-weight: bold;" /><span class="uicontrol"> is granted</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol">If the user approves a prompt in <MadCap:variable name="okta-feature-names.Okta Verify" /> or provides biometrics (meets NIST AAL2 requirements)</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyD-Column1-Body1">Configures when access with <MadCap:variable name="okta-feature-names.Okta FastPass" /> is granted:
+                                <ul><li><p><span class="uicontrol">If the user approves a prompt in <MadCap:variable name="okta-feature-names.Okta Verify" /> or provides biometrics (meets NIST AAL2 requirements)</span> (default): The user must prove that they are physically present when using <MadCap:variable name="okta-feature-names.Okta FastPass" /> to authenticate.</p></li></ul><ul><li><p><span class="uicontrol">Without the user approving a prompt in <MadCap:variable name="okta-feature-names.Okta Verify" /> or providing biometrics</span>: The user is not required to approve a prompt in <MadCap:variable name="okta-feature-names.Okta Verify" /> or provide biometrics.</p></li></ul><p>
+See <MadCap:xref href="../../policies/add-okta-sign-on-policy-rule.htm">Add an Okta sign-on policy rule</MadCap:xref> for more information about this setting.</p></td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2">
+                            <td class="TableStyle-standard-BodyC-Column1-Body2"><span class="uicontrol">Re-authentication frequency is</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyC-Column1-Body2"><span class="uicontrol">Re-authenticate after:</span> <span class="uicontrol">1</span> <span class="uicontrol">Hours</span></td>
+                            <td class="TableStyle-standard-BodyA-Column1-Body2">Configures how often a user is required to re-authenticate:
+                                <ul><li><p><span class="uicontrol">Every sign-in attempt</span>: The user must authenticate each time they sign in.</p></li><li><p><span class="uicontrol">Never re-authenticate if the session is active</span>: The user is not required to re-athenticate if they are in an active session.</p></li><li><p><span class="uicontrol">Re-authenticate after (default)</span>: The user is required to re-authenticate after a specified time. The default time is 2 Hours.</p></li></ul></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <li>Click <span class="uicontrol">Save</span>.</li>
+            </ol> </ol>
+        <ol MadCap:continue="true">
+            <h4><a name="Rule2"></a>Rule 2 (example)</h4>
+            <p>This rule applies to users with devices that are registered and not managed. It allows them to access the application after they provide a password and any other authentication factor except phone or email.</p>
+            <p>In addition to providing a password, users matching this rule can choose any enrolled authentication factor (except phone and email). If you select the option <MadCap:variable name="okta-feature-names.Okta Verify" style="font-weight: bold;" /><span class="uicontrol"> user interaction</span> in this rule, users who choose <MadCap:variable name="okta-feature-names.Okta Verify" /> as the authentication factor are prompted to provide user verification (biometrics).</p>
+            <ol style="list-style-type: lower-alpha;">
+                <li>In the <span class="uicontrol">Rule name</span> field, enter a name for the rule. For example, Allow Registered + Not managed + 2 factor (password, possession).</li>
+                <li>		
+				Use the following configuration as a guide for rule 2:</li>
+                <table style="width: 100%;mc-table-style: url('../../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                    <col class="TableStyle-standard-Column-Column1" style="width: 238px;" />
+                    <col class="TableStyle-standard-Column-Column1" style="width: 617px;" />
+                    <col class="TableStyle-standard-Column-Column1" />
+                    <thead>
+                        <tr class="TableStyle-standard-Head-Header1">
+                            <th class="TableStyle-standard-HeadF-Column1-Header1">Condition
+							</th>
+                            <th class="TableStyle-standard-HeadF-Column1-Header1">Configuration
+							</th>
+                            <th class="TableStyle-standard-HeadD-Column1-Header1">Description
+							</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="TableStyle-standard-Body-Body1">
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol"><span class="code">IF</span> User's user type is</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol">Any user type</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyD-Column1-Body1" rowspan="16">See <a href="#Rule">Rule 1 (example)</a>.</td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2">
+                            <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="uicontrol"><span class="code">AND</span> User's group membership includes</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="uicontrol">Any group</span>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body1">
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol"><span class="code">AND</span> User is</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol">Any user</span>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2">
+                            <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="uicontrol"><span class="code">AND</span> Device state is</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="uicontrol">Registered</span>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body1">
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol"><span class="code">AND</span> Device management is</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol">Not managed</span>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2">
+                            <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="uicontrol"><span class="code">AND</span> Device assurance policy is</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="uicontrol">No policy</span>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body1">
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol"><span class="code">AND</span> Device platform is</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol">Any platform</span>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2">
+                            <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="uicontrol"><span class="code">AND</span> User's IP is</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="uicontrol">Any IP</span>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body1">
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol"><span class="code">AND</span> Risk is</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol">Any</span>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2">
+                            <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="uicontrol"><span class="code">AND</span> The following custom expression is true</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body2">Optional.
+							</td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body1">
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol"><span class="code">AND</span> Client is</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol">Any client</span>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2">
+                            <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="uicontrol"><span class="code">THEN</span> Access is</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="uicontrol">Allowed after successful authentication</span>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body1">
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol"><span class="code">AND</span> User must authenticate with</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol">Password + Another factor</span>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2">
+                            <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="uicontrol"><span class="code">AND</span> Possession factor constraints are</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body2">Select the <span class="uicontrol">Device bound (excludes phone and email)</span> checkbox.
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body1">
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol"><span class="code">AND</span> Access with <MadCap:variable name="okta-feature-names.Okta FastPass" style="font-weight: bold;" /> is granted</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol">If the user approves a prompt in <MadCap:variable name="okta-feature-names.Okta Verify" /> or provides biometrics (meets NIST AAL2 requirements)</span>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2">
+                            <td class="TableStyle-standard-BodyC-Column1-Body2"><span class="uicontrol">Re-authentication frequency is</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyC-Column1-Body2">Set the following:
+                                <ul><li><p><span class="uicontrol">Password re-authentication frequency is</span>: <span class="uicontrol">4 Hours</span></p></li><li><p><span class="uicontrol">Re-authentication frequency for all other factors is</span>: <span class="uicontrol">15 Minutes</span></p></li></ul></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <li>
+                    <p>Click <span class="uicontrol">Save</span>.</p>
+                </li>
+            </ol>
+        </ol>
+        <ol MadCap:continue="true">
+            <h4><a name="Rule3"></a>Rule 3 (example)</h4>
+            <p>This rule applies to users that did not match Rule 1 or Rule 2. It is a catch-all rule that denies access to the application.</p>
+        </ol>
+        <ol MadCap:continue="true">
+            <ol style="list-style-type: lower-alpha;">
+                <li>
+                    <p style="text-align: left;">In the <span class="uicontrol">Rule name</span> field, enter a name for the rule. For example, Catch-all Rule.							</p>
+                </li>
+                <li>		
+				Use the following configuration as a guide for rule 3:</li>
+                <table style="width: 100%;mc-table-style: url('../../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                    <col class="TableStyle-standard-Column-Column1" style="width: 239px;" />
+                    <col class="TableStyle-standard-Column-Column1" style="width: 616px;" />
+                    <col class="TableStyle-standard-Column-Column1" />
+                    <thead>
+                        <tr class="TableStyle-standard-Head-Header1">
+                            <th class="TableStyle-standard-HeadF-Column1-Header1">Condition
+                            </th>
+                            <th class="TableStyle-standard-HeadF-Column1-Header1">Configuration
+                            </th>
+                            <th class="TableStyle-standard-HeadD-Column1-Header1">Description
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="TableStyle-standard-Body-Body1">
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol"><span class="code">IF</span> User's user type is</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol">Any user type</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyD-Column1-Body1" rowspan="10">See <a href="#Rule">Rule 1 (example)</a>.</td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2">
+                            <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="uicontrol"><span class="code">AND</span> User's group membership includes</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="uicontrol">Any group</span>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body1">
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol"><span class="code">AND</span> User is</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol">Any user</span>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2">
+                            <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="uicontrol"><span class="code">AND</span> Device state is</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="uicontrol">Any</span>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body1">
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol"><span class="code">AND</span> Device assurance policy is</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol">No policy</span>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2">
+                            <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="uicontrol"><span class="code">AND</span> Device platform is</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="uicontrol">Any platform</span>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body1">
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol"><span class="code">AND</span> User's IP is</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol">Any IP</span>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2">
+                            <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="uicontrol"><span class="code">AND</span> Risk is</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="uicontrol">Any</span>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body1">
+                            <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol"><span class="code">AND</span> The following custom expression is true</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyF-Column1-Body1">Leave blank.
+							</td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2">
+                            <td class="TableStyle-standard-BodyC-Column1-Body2"><span class="uicontrol"><span class="code">THEN</span> Access is</span>
+                            </td>
+                            <td class="TableStyle-standard-BodyC-Column1-Body2"><span class="uicontrol">Denied</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <li>
+                    <p>Click <span class="uicontrol">Save</span>.</p>
+                </li>
+            </ol>
+        </ol>
+        <h2>Related topics</h2>
+        <ul>
+            <li>
+                <MadCap:xref href="../../policies/about-app-sign-on-policies.htm">App sign-on policies</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="../../policies/add-app-sign-on-policy-rule.htm">Add an app sign-on policy rule</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="../device-assurance-policy-rule.htm">Add device assurance to an authentication policy</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

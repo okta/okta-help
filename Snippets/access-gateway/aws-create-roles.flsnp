@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd">
+    <body>
+        <div>
+            <p>The following are required to import a virtual machine (VM) into AWS:</p>
+            <ul>
+                <li>The use of the designated role, <span class="code">vmimport</span>,</li>
+                <li>Specific permissions on the S3 bucket, granted to the <span class="code">vmimport</span> role (for example, read, list, and so on).</li>
+                <li>Assign the <span class="term">vmimport</span> role to the the <span class="code">vmimport</span> <span class="code">command</span> so that the command can read the bucket and create an import job within AWS.</li>
+            </ul>
+            <ul class="tabs" data-tabs="data-tabs" id="production-tabs">
+                <li class="tabs-title"><a href="#console-panel">Console</a>
+                </li>
+                <li class="tabs-title is-active" aria-selected="true"><a href="#command-panel">Command Line</a>
+                </li>
+            </ul>
+            <div class="tabs-content" data-tabs-content="production-tabs">
+                <div class="tabs-panel" id="console-panel">
+                    <div class="noteOkta">
+                        <p class="noteContent">There's no AWS console equivalent to the <span class="uicontrol">vmimport</span> command. See the <span class="uicontrol">Command Line</span> tab for vmimport.</p>
+                    </div>
+                </div>
+                <div class="tabs-panel is-active" id="command-panel">
+                    <ol>
+                        <li>Open a terminal window.</li>
+                        <li>Create the required <span class="code">vmimport</span> IAM identity role to import images:<ol style="list-style-type: lower-alpha;"><li>
+							Create a json file, which represents the trust policy for the <span class="code">vmimport</span> IAM identity role:
+<MadCap:codeSnippet><MadCap:codeSnippetCopyButton /><MadCap:codeSnippetCaption><p>trust-policy.json</p></MadCap:codeSnippetCaption><MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">{
+    "Version": "2012-10-17",
+    "Statement":[ {
+        "Effect": "Allow",
+        "Principal": { "Service": "vmie.amazonaws.com" },
+        "Action": "sts:AssumeRole",
+        "Condition": {
+        "StringEquals":{ "sts:Externalid": "vmimport"}
+            }
+      }]
+}</MadCap:codeSnippetBody></MadCap:codeSnippet></li><li>Create the IAM identity role  using the trust policy:<MadCap:codeSnippet><MadCap:codeSnippetCopyButton /><MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">aws iam create-role --role-name vmimport --assume-role-policy-document "file://~/Downloads/trust-policy.json"</MadCap:codeSnippetBody></MadCap:codeSnippet></li></ol></li>
+                        <li>Create a role policy to associate the new IAM identity with the previously created bucket.
+In the following example, replace <span class="code">BUCKET_NAME</span> with the name of the bucket:<MadCap:codeSnippet><MadCap:codeSnippetCopyButton /><MadCap:codeSnippetCaption>role-policy.json</MadCap:codeSnippetCaption><MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">{
+    "Version":"2012-10-17",
+    "Statement":[{
+        "Effect":"Allow",
+                 "Action":[
+                  "s3:GetBucketLocation",
+                  "s3:GetObject",
+                  "s3:ListBucket" 
+                  ],
+         "Resource":[
+             "arn:aws:s3:::BUCKET_NAME",
+             "arn:aws:s3:::BUCKET_NAME/*"
+          ]
+       }, {
+        "Effect":"Allow",
+                "Action":[
+                  "s3:GetBucketLocation",
+                  "s3:GetObject",
+                  "s3:ListBucket",
+                  "s3:PutObject",
+                  "s3:GetBucketAcl"
+                  ],
+            "Resource":[
+             "arn:aws:s3:::BUCKET-NAME",
+             "arn:aws:s3:::BUCKET-NAME/*"
+             ]
+       }, {
+         "Effect":"Allow",
+                  "Action":[
+                   "ec2:ModifySnapshotAttribute",
+                   "ec2:CopySnapshot",
+                   "ec2:RegisterImage",
+                   "ec2:Describe*"],
+            "Resource":"*"
+        }
+    ]
+}</MadCap:codeSnippetBody></MadCap:codeSnippet></li>
+                        <li>
+                            <p>Grant an inline role policy to <span class="uicontrol">vmimport</span> identity, including various rights to access the S3 bucket and perform ec2 operations. The following command doesn't return a value on success:</p>
+                            <MadCap:codeSnippet>
+                                <MadCap:codeSnippetCopyButton />
+                                <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">aws iam put-role-policy --role-name vmimport --policy-name vmimport --policy-document "file://~/Downloads/role-policy.json"</MadCap:codeSnippetBody>
+                            </MadCap:codeSnippet>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div>
+                <h3>Related topics</h3>
+                <p>See <a href="https://docs.aws.amazon.com/vm-import/latest/userguide/vmie_prereqs.html#iam-permissions-image" target="_blank">IAM Required Permissions</a> for more information on the roles required to run the VM&#160;import command..</p>
+            </div>
+        </div>
+    </body>
+</html>

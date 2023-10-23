@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:conditions="Primary.do-not-publish"
+      MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+   <head>
+      <link rel="canonical"
+            href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/oracle-agile-plm-integration.htm"/>
+      <title>[%=Heading.Level1%] | Okta</title>
+   </head>
+   <body>
+      <h2>Overview</h2>
+      <p>The purpose of this tutorial is to walk you through the single sign-on configuration of Oracle Agile PLM with Access Gateway.</p>
+      <h2>Add Agile ID Asserter</h2>
+      <p>Follow these steps to add the Agile ID asserter.</p>
+      <ol>
+         <li>
+            <p>Log in to the WebLogic console</p>
+         </li>
+         <li>
+            <p>Click <span class="menucascade">
+                  <span class="uicontrol">Security Realms</span>
+                  <span class="uicontrol">AgileRealm</span>
+                  <span class="uicontrol">Providers</span>
+               </span>.</p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Lock &amp; Edit</span>.</p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">New</span>. and enter or select the following values.</p>
+         </li>
+         <li>
+            <p>Enter or select the following values:</p>
+            <ul>
+               <li>
+                  <p>
+                     <span class="uicontrol">Name</span>: AgileIdentityAsserter</p>
+               </li>
+               <li>
+                  <p>
+                     <span class="uicontrol">Type</span>: Agile Identity Asserter</p>
+               </li>
+            </ul>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">OK</span>.</p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">AgileIdentityAsserter</span>.</p>
+         </li>
+         <li>
+            <p>Move the remote-user's Active Type from <span class="uicontrol">Available</span> to <span class="uicontrol">Chosen</span> by selecting it and clicking the right arrow icon.</p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Save</span>. </p>
+         </li>
+         <li>
+            <p>Click the <span class="wintitle">Providers</span> tab.</p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">DefaultAuthenticator</span>.</p>
+         </li>
+         <li>
+            <p>Set <span class="uicontrol">Control Flag</span> to <span class="uicontrol">Sufficient</span>, and click <span class="uicontrol">Save</span>.</p>
+         </li>
+         <li>
+            <p>Click the <span class="wintitle">Providers</span> tab.</p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">AgileIdentityAsserter</span>.</p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">ProviderSpecific</span>, and disable the <span class="wintitle">OAMSDKInstall Dir</span> option. </p>
+         </li>
+         <li>
+            <p>Click the <span class="wintitle">Providers</span> tab, and click <span class="uicontrol">Reorder</span>.</p>
+         </li>
+         <li>
+            <p>Select <span class="uicontrol">AgileAuthenticator</span>, and move it to the top of the list.</p>
+         </li>
+         <li>
+            <p>Select <span class="uicontrol">AgileIdentityAsserter</span>, and move it below the <span class="uicontrol">AgileAuthenticator</span> row. </p>
+            <p>
+               <img src="../../Resources/Images/access-gateway/agileplm-spgw-08b.png"
+                    alt="image"
+                    style="mc-thumbnail: popup;mc-thumbnail-max-width: 250px;mc-thumbnail-max-height: auto;border-left-style: solid;border-left-width: 1px;border-left-color: #d3d3d3;border-right-style: solid;border-right-width: 1px;border-right-color: #d3d3d3;border-top-style: solid;border-top-width: 1px;border-top-color: #d3d3d3;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #d3d3d3;"
+                    class="thumbnail"/>
+            </p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">OK</span>.</p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Activate Changes</span>.</p>
+         </li>
+         <li>
+            <p>Stop the managed server.</p>
+         </li>
+      </ol>
+      <h2>Apply SSO to Agile Server</h2>
+      <p>Follow these steps to apply SSO to XMLP server.</p>
+      <ol>
+         <li>
+            <p>Log in to the Agile Server console as the oracle user.</p>
+         </li>
+         <li>
+            <p>Navigate to <span class="filepath">&lt;Agile Home&gt;/agileDomain/config</span>, and open <span class="filepath">agile.properties</span> for editing.</p>
+         </li>
+         <li>
+            <p>Add the following lines to the end of the file:</p>
+            <p>
+               <span class="codeblock" xml:space="preserve">oam.header.name=remote-user</span>
+               <span class="codeblock" xml:space="preserve">oam.sso.logout.url=/spgwLogout</span>
+            </p>
+         </li>
+         <li>
+            <p>Modify the web.xml file located at <span class="filepath">&lt;Agile Home&gt;/agileDomain/applications/application.ear/&lt;application&gt;.war/WEB-INF/web.xml</span>.</p>
+         </li>
+         <li>
+            <p>Create a backup of the current &lt;application&gt;.ear file.</p>
+         </li>
+         <li>
+            <p>Change <span class="code">&lt;auth-method&gt;FORM&lt;/auth-method&gt;</span> to <span class="code">&lt;auth-method&gt;client-cert,form&lt;/auth-method&gt;</span>.</p>
+         </li>
+         <li>
+            <p>Clear the server tmp folder at <span class="code">&lt;Agile Home&gt;/agileDomain/servers/&lt;Agile Server&gt;/tmp</span>.</p>
+         </li>
+         <li>
+            <p>Repeat steps 1 through 5 for all managed servers.</p>
+         </li>
+      </ol>
+      <h2>Redeploy Agile PLM Application</h2>
+      <ol>
+         <li>
+            <p>Log in to the WebLogic console. </p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Deployments</span>.</p>
+         </li>
+         <li>
+            <p>Select the <span class="uicontrol">Agile</span> option, and click <span class="uicontrol">Update</span>. </p>
+         </li>
+         <li>
+            <p>Verify that the <span class="uicontrol">Source Path</span> value is the same as the path of the .ear file from the preceding section.</p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Finish</span>.</p>
+         </li>
+         <li>
+            <p>Start the managed server.</p>
+         </li>
+      </ol>
+      <h2>Add Agile PLM Application to Access Gateway</h2>
+      <ol>
+         <li>
+            <p>Log in to the Access Gateway Admin Console.</p>
+         </li>
+         <li>
+            <p>Click <span class="menucascade">
+                  <span class="uicontrol">Applications</span>
+                  <span class="uicontrol">Add</span>
+                  <span class="uicontrol">Header Based</span>
+                  <span class="uicontrol">Create</span>
+               </span>.</p>
+         </li>
+         <li>
+            <p>Enter the following settings in the <span class="wintitle">Essentials</span> section for the application:</p>
+            <ul>
+               <li>
+                  <p>
+                     <span class="uicontrol">Label</span>: A name that the end users will recognize in Okta, such as Agile PLM.</p>
+               </li>
+               <li>
+                  <p>Public Domain: The URL you want the users to visit for the application, such as <span class="url">agile.gateway.info</span>.</p>
+               </li>
+               <li>
+                  <p>
+                     <span class="uicontrol">Protected Web Resource</span>: Hostname/IP and port that the application is hosted on. Ensure you end this value with a forward slash, for example,  <span class="url">https://ol6-agile.localdomain:7001/</span>
+                  </p>
+               </li>
+               <li>
+                  <p>
+                     <span class="uicontrol">Groups</span>: The group that you want to assign the app to in the Identity Provider.</p>
+               </li>
+            </ul>
+         </li>
+         <li>
+            <p>Enter the following setting in the <span class="wintitle">Advanced</span> section for the application:</p>
+            <ul>
+               <li>
+                  <p>
+                     <span class="uicontrol">Post Login URL</span>: The URL to the endpoint where you want the user to land after login. In this case, we want the user to land on <span class="url">/Agile</span>. (Based  on our previous example values, this would be: <span class="url">https://agile.gateway.info/Agile</span>).</p>
+               </li>
+            </ul>
+         </li>
+         <li>
+            <p>Enter the following setting in the <span class="wintitle">Behaviors</span> section for the application:</p>
+            <ul>
+               <li>
+                  <p>Select <span class="uicontrol">Use Access Gateway logout page</span> for the <span class="uicontrol">Logout</span> value.</p>
+               </li>
+            </ul>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Next</span>. and modify the existing header to include the following information:</p>
+            <ul>
+               <li>
+                  <p>
+                     <span class="uicontrol">DataSource</span>: IdP</p>
+               </li>
+               <li>
+                  <p>
+                     <span class="uicontrol">Type</span>: Header</p>
+               </li>
+               <li>
+                  <p>
+                     <span class="uicontrol">Name</span>: remote-user</p>
+               </li>
+               <li>
+                  <p>
+                     <span class="uicontrol">Value</span>: Attribute being passed from IdP for the user's username.</p>
+               </li>
+            </ul>
+         </li>
+         <li>
+            <p>Click <span class="menucascade">
+                  <span class="uicontrol">Next</span>
+                  <span class="uicontrol">Done</span>
+               </span>.</p>
+         </li>
+      </ol>
+   </body>
+</html>

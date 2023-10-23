@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:searchable="True"
+      MadCap:conditions="MultiProdPublish.Classic+OIE"
+      MadCap:fileTags="Tags/okta-authors.Nikita Apraj">
+   <head>
+      <title>[%=Heading.Level1%]</title>
+      <link href="" rel="stylesheet" type="text/css"/>
+      <meta name="description"
+            content="Identity Provider (IdP) factor authentication allows admins to enable a custom SAML MFA factor based on a configured Identity Provider. "/>
+   </head>
+   <body>
+      <div MadCap:conditions="MultiProdPublish.Classic">
+         <h1>Custom IdP factor</h1>
+         <p>
+            <MadCap:snippetBlock src="../../Resources/Snippets/ea-banner.flsnp"/>
+         </p>
+         <p>The Custom IdP factor allows admins to enable authentication with an OIDC or SAML Identity Provider (IdP) as extra verification. When configured, the end user sees the option to use the Identity Provider for extra verification and is redirected to that Identity Provider for verification. This verification replaces authentication with another non-password factor, such as <MadCap:variable name="okta-feature-names.Okta Verify"/>.</p>
+         <p>Once a Custom IdP factor has been enabled and added to a multifactor authentication enrollment policy, users  may use it to verify their identity when they sign in to <MadCap:variable name="okta-variables.ProductName"/>. End users are directed to the Identity Provider to authenticate and are then redirected to <MadCap:variable name="okta-variables.ProductName"/> once verification is successful.</p>
+         <p>This factor allows you to:</p>
+         <ul>
+            <li>
+
+			Add a Custom IdP factor for existing SAML or OIDC-based IdP authentication.</li>
+            <li>Link an existing SAML 2.0  IdP or OIDC IdP to use as the Custom IdP factor provider.</li>
+         </ul>
+         <h2>
+            <a name="BeforeYouBegin"/>Before you begin</h2>
+         <ul>
+            <li>Admin access to <MadCap:variable name="okta-variables.ProductName"/> is required to enroll and configure the Custom IdP factor.</li>
+            <li>An existing Identity Provider must be available to use as the additional step-up authentication provider. </li>
+         </ul>
+         <h2>SAML and OIDC claims mapping</h2>
+         <p>
+            <MadCap:variable name="okta-variables.ProductName"/> expects the following claims for SAML and OIDC:</p>
+         <ul>
+            <li>For the SAML response, the <span class="code">subjectNameId</span> claim is mapped to the <MadCap:variable name="okta-variables.ProductName"/> username.</li>
+            <li>For the OIDC response, the <span class="code">preferred_username</span> claim is mapped to the <MadCap:variable name="okta-variables.ProductName"/> username.</li>
+         </ul>
+         <h2>
+            <a name="Procedure"/>Configure a Custom IdP factor</h2>
+         <p>There are two stages to configure a Custom IdP factor: </p>
+         <ol>
+            <li>Add an Identity Provider to <MadCap:variable name="okta-variables.ProductName"/>.</li>
+            <li>
+                Enable the IdP authenticator.            </li>
+         </ol>
+         <h3>
+            <a name="AddIdP"/>Step 1: Add Identity Providers to <MadCap:variable name="okta-variables.ProductName"/>
+         </h3>
+         <ol>
+            <li>
+               <MadCap:snippetBlock src="../../Resources/Snippets/task steps/Security_IdentityProviders.flsnp"/>
+            </li>
+            <li>Click <span class="uicontrol">Add Identity Provider</span> and select the Identity Provider you want to add.</li>
+            <li>Click <span class="uicontrol">Next</span>. The Identity Provider's setup page appears.</li>
+         </ol>
+         <div class="noteOkta">
+            <p class="noteContent">
+               <ul>
+                  <li>Each
+Identity Provider page includes a link to the setup instructions for that Identity Provider. <MadCap:variable name="okta-variables.ProductName"/> recommends that you read these instructions to learn about how to configure your Identity Provider.					</li>
+                  <li>JIT settings aren't supported with the Custom IdP factor.</li>
+               </ul>
+            </p>
+         </div>
+         <h3>
+            <a name="EnableIdPFactor"/>Step 2: Enable the custom IdP factor</h3>
+         <p>Add an Identity Provider as described in step 1 before you can enable the Custom IdP factor.</p>
+         <p>
+            <ol>
+               <li>
+                  <MadCap:snippetText src="../../Resources/Snippets/task steps/Security_Multifactor.flsnp"/>
+               </li>
+               <li>
+                    Click <span class="uicontrol">IdP Factor</span>.
+                </li>
+               <li>
+                    Click <span class="uicontrol">Edit</span>.
+                </li>
+               <li>
+                    Click <span class="uicontrol">Add Custom Factor</span>.
+                </li>
+               <li>Select an Identity Provider from the menu.				</li>
+               <li>Click <span class="uicontrol">Save</span>.</li>
+               <li>
+				Set the custom factor status to <span class="uicontrol">Active</span> to enable it for end users or <span class="uicontrol">Inactive</span> to disable it.</li>
+            </ol>
+            <p>
+                Once the custom factor  is active, go to <span class="uicontrol">Factor</span>
+               <span class="uicontrol">Enrollment</span> and add the <span class="uicontrol">IdP factor</span> to your org's MFA enrollment policy.            </p>
+            <h3>
+               <a name="EndUserExperience"/>End-user experience</h3>
+            <ul>
+               <li>Users are prompted to set up custom factor authentication on their next sign-in.</li>
+               <li>Once the end user has successfully set up the Custom IdP factor, it appears in <span class="menucascade">
+                     <span class="uicontrol">Settings</span>
+                     <span class="uicontrol">Extra Verification</span>
+                  </span>.</li>
+               <li>When an end user triggers the use of a factor, it times out after five minutes. After this, they must trigger the use of the factor again.</li>
+            </ul>
+            <h3>Limitations </h3>
+            <p>Custom IdP factor authentication isn't supported for use with the following:</p>
+            <ul>
+               <li>
+                  <MadCap:variable name="okta-variables.ProductName"/> IWA web agent: The Custom IdP factor authentication can't be used with the <MadCap:variable name="okta-variables.ProductName"/> Integrated Windows Authentication agent (IWA) for Desktop Single Sign-on.</li>
+               <li>Device Trust integrations that use the “Untrusted Allow with MFA” configuration fails.</li>
+               <li>
+                  <MadCap:variable name="okta-feature-names.Okta Mobile"/> users don't have SWA app launch and password autofill or long-lived mobile app dashboard sessions. When <MadCap:variable name="okta-feature-names.Okta Support"/> enables the Custom IdP factor for your org, the web interface appears in place of the app UI.</li>
+               <li>MFA for RDP, MFA for ADFS, RADIUS logins, or other non-browser based sign-in flows don't support the Custom IdP factor.</li>
+               <li>The Custom IdP factor doesn't support the use of Microsoft Azure Active Directory (AD) as an Identity Provider. To use Microsoft Azure AD as an Identity Provider, see <MadCap:xref href="../Provisioning/azure/azure-identify-identity-provider.htm">Make Azure Active Directory an Identity Provider</MadCap:xref>.</li>
+            </ul>
+         </p>
+         <h3>
+            <a name="RelatedLinks"/>Related topics</h3>
+         <p>
+            <MadCap:xref href="Identity_Providers.htm">Identity Providers</MadCap:xref>
+         </p>
+         <p>
+            <MadCap:xref href="policies/policies-home.htm">Sign-on policies</MadCap:xref>
+         </p>
+         <p>
+            <MadCap:xref href="mfa/mfa-home.htm">Multifactor Authentication</MadCap:xref>
+         </p>
+         <p>
+            <MadCap:xref href="Security_General.htm">General Security</MadCap:xref>
+         </p>
+         <p>
+            <MadCap:xref href="network/network-zones.htm">Network zones</MadCap:xref>
+         </p>
+      </div>
+      <p MadCap:conditions="Primary.do-not-publish">OIE content below</p>
+      <div MadCap:conditions="MultiProdPublish.OIE">
+         <h1>Configure the IdP authenticator</h1>
+         <a name="Overview"/>
+         <p>The IdP authenticator allows admins to enable authentication with an OIDC or SAML Identity Provider (IdP) as extra verification. When configured, the end user sees the option to use the Identity Provider for extra verification and is redirected to that Identity Provider for verification. This verification replaces authentication with another non-password authenticator, such as <MadCap:variable name="okta-feature-names.Okta Verify"/>.</p>
+         <p>Once an IdP  authenticator has been enabled and added to an authentication enrollment policy, users  may use it to verify their identity when they sign in to <MadCap:variable name="okta-variables.ProductName"/>. End users are directed to the IdP to authenticate and are then redirected to <MadCap:variable name="okta-variables.ProductName"/> once verification is successful.</p>
+         <p>This authenticator allows you to:</p>
+         <ul>
+            <li>
+
+				Add an IdP authenticator for existing SAML or OIDC-based IdP authentication.</li>
+            <li>Enable or disable the IdP authenticator from the <MadCap:variable name="okta-feature-names.Administrator dashboard"/>.</li>
+            <li>Link an existing SAML 2.0  IdP or OIDC IdP to use as the IdP authenticator provider.</li>
+         </ul>
+         <h2>
+            <a name="BeforeYouBegin"/>Before you begin</h2>
+         <ul>
+            <li>Admin access to <MadCap:variable name="okta-variables.ProductName"/> is required to enroll and configure the desired custom authenticator.</li>
+            <li>An existing Identity Provider must be available to use as the additional step up authentication provider. </li>
+         </ul>
+         <h2>SAML and OIDC claims mapping</h2>
+         <p>
+            <MadCap:variable name="okta-variables.ProductName"/> expects the following claims for SAML and OIDC:</p>
+         <ul>
+            <li>For the SAML response, the <span class="code">subjectNameId</span> claim is mapped to the <MadCap:variable name="okta-variables.ProductName"/> username.</li>
+            <li>For the OIDC response, the <span class="code">preferred_username</span> claim is mapped to the <MadCap:variable name="okta-variables.ProductName"/> username.</li>
+         </ul>
+         <h2>
+            <a name="Procedure"/>Configure an IdP authenticator</h2>
+         <p>There are two stages to configure an IdP authenticator: </p>
+         <ol>
+            <li>Add an Identity Provider to <MadCap:variable name="okta-variables.ProductName"/>.</li>
+            <li>
+					Enable the IdP authenticator.
+				</li>
+         </ol>
+         <h3>
+            <a name="AddIdP"/>Step 1: Add Identity Providers to <MadCap:variable name="okta-variables.ProductName"/>
+         </h3>
+         <ol>
+            <li>
+               <MadCap:snippetBlock src="../../Resources/Snippets/task steps/Security_IdentityProviders.flsnp"/>
+            </li>
+            <li>Click <span class="uicontrol">Add Identity Provider</span> and select the Identity Provider you want to add.</li>
+            <li>Click <span class="uicontrol">Next</span>. The Identity Provider's setup page appears.</li>
+         </ol>
+         <div class="noteOkta">
+            <p class="noteContent">
+               <ul>
+                  <li>Each
+						Identity Provider page includes a link to the setup instructions for that Identity Provider. <MadCap:variable name="okta-variables.ProductName"/> recommends that you read these instructions to learn about how to configure your Identity Provider.					</li>
+                  <li>In the <span class="wintitle">General Settings</span> section on each Identity Provider's page, select the <span class="uicontrol">Factor only</span> option from the <span class="uicontrol">IdP Usage</span> dropdown. You can't use the <span class="uicontrol">SSO only</span> option with the IdP authenticator.</li>
+                  <li>JIT settings aren't supported with the IdP authenticator.</li>
+               </ul>
+            </p>
+         </div>
+         <h3>
+            <a name="EnableIdPFactor"/>Step 2: Enable the IdP authenticator</h3>
+         <p>Add an Identity Provider as described in Step 1 before you can enable the IdP authenticator.</p>
+         <p>
+            <ol>
+               <li>
+                  <MadCap:snippetText src="../../Resources/Snippets/task steps/Security_Authenticators.flsnp"/>
+               </li>
+               <li>
+						Click <span class="uicontrol">Add authenticator</span>.
+					</li>
+               <li>
+					Click <span class="uicontrol">Add</span> on the <span class="uicontrol">IdP Authenticator</span> tile.</li>
+               <li>Select an Identity Provider from the menu. These are the Identity Providers that you added in Step 1 of this procedure.
+					</li>
+               <li>Click <span class="uicontrol">Save</span>.</li>
+               <li>Configure the settings for the IdP authenticator in the authenticator enrollment policy. See <MadCap:xref href="../identity-engine/policies/create-mfa-policy.htm">Create an authentication enrollment policy</MadCap:xref> for instructions.</li>
+            </ol>
+         </p>
+         <h3>
+            <a name="EndUserExperience"/>End-user experience</h3>
+         <ul>
+            <li>End users are prompted to enroll in the IdP authenticator authentication the next time they sign in.</li>
+            <li>After the end user has enrolled in the IdP authenticator, it appears on their <span class="wintitle">Settings</span> page in the <span class="wintitle">Security Methods</span> section.</li>
+            <li>When an end user triggers the use of the IdP authenticator, it times out after five minutes of inactivity. After this they must trigger the use of the IdP authenticator again.</li>
+         </ul>
+         <h3>Limitations </h3>
+         <p>The IdP authenticator isn't supported for use with the following:</p>
+         <ul>
+            <li>This authenticator can't be used with the <MadCap:variable name="okta-variables.ProductName"/> Integrated Windows Authentication agent (IWA) for Desktop Single Sign-on.</li>
+            <li>Device Trust integrations that use the “Untrusted Allow with MFA” configuration fails.</li>
+            <li>MFA for RDP, MFA for ADFS, RADIUS logins, or other non-browser based sign-in flows don't support the IdP authenticator.</li>
+            <li>The IdP authenticator doesn't support the use of Microsoft Azure Active Directory (AD) as an Identity Provider. To use Microsoft Azure AD as an Identity Provider, see <MadCap:xref href="../Provisioning/azure/azure-identify-identity-provider.htm">Make Azure Active Directory an Identity Provider</MadCap:xref>.</li>
+         </ul>
+         <h3>
+            <a name="RelatedLinks"/>Related topics</h3>
+         <p>
+            <MadCap:xref href="Identity_Providers.htm">Identity Providers</MadCap:xref>
+         </p>
+         <p>
+            <MadCap:xref href="../identity-engine/policies/about-policies.htm">Sign-on policies and rules</MadCap:xref>
+         </p>
+         <p>
+            <MadCap:xref href="../identity-engine/authenticators/authentication-main.htm">Authentication</MadCap:xref>
+         </p>
+         <p>
+            <MadCap:xref href="Security_General.htm">General Security</MadCap:xref>
+         </p>
+         <p>
+            <MadCap:xref href="network/network-zones.htm">Network zones</MadCap:xref>
+         </p>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+   <head>
+      <link rel="canonical"
+            href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/computed-application-attributes.htm"/>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <link href="" rel="stylesheet" type="text/css"/>
+   </head>
+   <body>
+      <h1>Adding dynamic application attributes</h1>
+      <p>Dynamic application attributes are attributes which are based on an expression rather then a specific field or value. A example of a dynamic attribute might be a value representing a end users full name, which must be constructed from other elements such as "First name", followed by a space, followed by "Last name" or something similar. <MadCap:variable name="okta-feature-names.Access Gateway"/> can be used to send the result of a dynamic attribute </p>
+      <h2>Topics</h2>
+      <ul>
+         <li>
+            <MadCap:xref href="#Develop">Develop expression</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Add">Add a new computed attribute</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Expressi">Expressions</MadCap:xref>
+         </li>
+         <li>
+            <a href="#Test">Test</a>
+            <br/>
+            <br/>
+         </li>
+      </ul>
+      <div>
+         <h2>
+            <a name="Develop"/>Develop expression</h2>
+         <p>Its beneficial to develop and test your expression before adding a new dynamic attribute.</p>
+         <p>To develop and test a dynamic attribute:</p>
+         <ol>
+            <li>Sign in to your Okta org as an admin.</li>
+            <li>Select <span class="menucascade">
+                  <span class="uicontrol">Directory</span>
+                  <span class="uicontrol">Profile Editor</span>
+               </span>.
+            </li>
+            <li>Select the application which requires the new dynamic attribute.</li>
+            <li>In the attributes section, click <span class="uicontrol">Add Attribute</span>. </li>
+            <li>Add a <span class="uicontrol">String</span> based attribute, entering appropriate <span class="uicontrol">Display</span> and <span class="uicontrol">Variable</span> names. </li>
+            <li>Click <span class="uicontrol">Save</span>.</li>
+            <li>Click <span class="uicontrol">Mappings</span>.</li>
+            <li>Click <span class="uicontrol">Okta to <span class="varname">application name</span></span>.</li>
+            <li>Enter the expression which represents the value of the dynamic attribute value.
+               <p>For example: <span class="code">String.toUpperCase(user.firstName + " " + user.lastName)</span>. <br/>					See the <MadCap:xref href="#Expressi">Expressions</MadCap:xref> section for details on creating expressions.</p>
+               <div>
+                 <img src="../../Resources/Images/access-gateway/dynamic-attributes.png"
+                    id="img_new"/>
+               </div>
+            </li>
+            <li>In the preview section, select an appropriate user and click <span class="uicontrol">Enter</span>.</li>
+            <li>Examine the result. Correct any expression errors and repeat as required. </li>
+            <li>When complete click <span class="uicontrol">Exit Preview</span>.</li>
+            <li>Copy the finished expression for use in the <MadCap:xref href="#Add">Add a new dynamic attribute</MadCap:xref> section. </li>
+            <li>Click <span class="uicontrol">Cancel</span>. </li>
+            <li>The test attribute can now be deleted. </li>
+         </ol>
+      </div>
+      <h2>
+         <a name="Add"/>Add a new dynamic attribute</h2>
+      <ol>
+         <li>Navigate to the <MadCap:variable name="okta-feature-names.Access Gateway UI"/>.</li>
+         <li>From the <span class="wintitle">Topology</span> tab or the <span class="wintitle">Applications</span> tab, open the application. </li>
+         <li>Select the <span class="wintitle">Attributes</span> pane. <br/>
+            <br/>The list of known attributes for the application displays and is similar to:<br/>
+            <br/>
+            <img src="../../Resources/Images/access-gateway/managing-application-attributes.02.png"
+                 alt=""/>
+            <br/>. . . <br/>
+         </li>
+         <li>Click <span class="uicontrol">Add</span> (<img src="../../Resources/Images/access-gateway/icon.plus.png"
+                 style="vertical-align: bottom;"/>) in the attribute list header.<br/>The <span class="uicontrol">New Attribute</span> dialog box appears. You may need to scroll the list  as new attributes are added at the bottom of the page.</li>
+         <li>From the <span class="uicontrol">Data Source</span> drop-down box, select an <span class="uicontrol">IDP</span> . <br/>Computed attributes can only be used with IDP as a data source. <br/>
+         </li>
+         <li>From the <span class="uicontrol">Type</span> drop-down box, select the appropriate target type, either <span class="uicontrol">Header</span> or <span class="uicontrol">Cookie</span>. </li>
+         <li>In the <span class="uicontrol">Name</span> field, enter the name for the header or cookie value expected by the protected Web Resource. </li>
+         <li>Select the value in the Field field, and using the delete key, delete its contents. <br/>Note the error <span class="code">This field is required</span>, will be displayed and can be ignored.</li>
+         <li>Enter an dynamic attribute expression. <br/>For example: <span class="code">String.toUpperCase(user.firstName+"_"+user.lastName) </span>
+            <br/>
+            <div class="noteOkta">
+               <p class="noteContent">Expressions for dynamic attributes must be added by typing the expressing into the <span class="uicontrol">Field</span> field and then hitting enter. <br/>Expressions cannot be cut and pasted into this field.</p>
+            </div>
+         </li>
+         <li>Click <span class="uicontrol">Okay</span> when  complete. </li>
+      </ol>
+      <h2>
+         <a name="Expressi"/>Expressions</h2>
+      <div>
+         <p>You can use expressions to concatenate attributes, manipulate strings, convert data types, and more. Expressions within attribute definitions let you construct wholly new values before they are added to headers or cookies.<br/>
+            <br/>Okta supports a subset of Spring Expression Language (SpEL) functions. <br/>
+         </p>
+         <p>Expressions are combinations of:</p>
+         <ul>
+            <li>Variables - These are the elements found in your Okta user profile.  Examples include user followed by any of the fields listed.  For example, <span class="code">user.firstName</span>, <span class="code">user.lastName</span>, <span class="code">user.email</span> and a host of others. Note that the list of fields is case sensitive, and that firstName is not the same as firstname or FirstName. For a complete list of user variables sign in to your Okta org and navigate to <span class="menucascade">
+                  <span class="uicontrol">Directory</span>
+                  <span class="uicontrol">Profile Source</span>
+                  <span class="uicontrol">Okta Profile</span>
+               </span>.
+            </li>
+            <li>Operations - used to concatenate or otherwise operate on variables. In the example given "+", the plus sign, concatenates two objects together. </li>
+            <li>Functions - used to modify or manipulate variables to achieve a desired result. In the example given, <span class="code">String.toUpperCase</span> returns an all upper case version of its provided input. <br/>For a complete list see
+						<a href="http://developer.okta.com/docs/getting_started/okta_expression_lang.html#functions"
+                  target="_blank">Functions</a> in the 					<a href="http://developer.okta.com/docs/getting_started/okta_expression_lang.html"
+                  target="_blank">Okta Expression Language</a>. </li>
+         </ul>
+      </div>
+      <h2>
+         <a name="Test"/>Test</h2>
+      <p>Testing computed attributes is most easily done using the <MadCap:variable name="okta-feature-names.Access Gateway"/> sample header application. </p>
+      <p>To test an expression:</p>
+      <ol>
+         <li>Add a example header application by following the instructions for <MadCap:xref href="add-sample-header.htm">Add a sample header application</MadCap:xref>.</li>
+         <li>Modify the application as described in the section <MadCap:xref href="#Add">Add a new computed attribute</MadCap:xref>.</li>
+         <li>In an incognito or equivalent window connect to <MadCap:variable name="okta-feature-names.Access Gateway"/> as Admin, navigate to the test application and select <span class="menucascade">
+               <span class="uicontrol">Goto</span>
+               <span class="uicontrol">SP Initiated</span>
+            </span>.
+            <div><img src="../../Resources/Images/access-gateway/computed-application-attributes-test.png"
+                 id="img_new"/></div>
+         </li>
+         <li>Login as required.</li>
+         <li>Examine the result of the computed field.</li>
+      </ol>
+      <div class="noteOkta">
+         <p class="noteContent">An incognito browser window it used to avoid page caching which can in some instances cause unexpected or stale results.</p>
+      </div>
+      <h2>Related topics</h2>
+      <p>
+         <a href="https://developer.okta.com/docs/reference/okta-expression-language/">Okta Expression Language</a>
+      </p>
+   </body>
+</html>

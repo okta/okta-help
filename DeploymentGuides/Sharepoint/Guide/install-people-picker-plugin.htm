@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:fileTags="Tags/okta-authors.Mark Cowan">
+   <head>
+      <title>[%=Heading.Level1%] | Okta</title>
+   </head>
+   <body>
+      <h1>Deploy Okta People Picker for SharePoint agent</h1>
+      <p>Install and deploy the Okta People Picker for SharePoint agent  to your SharePoint farm environment. The following default installation steps activate the feature at the farm level.</p>
+      <h2>Before you begin</h2>
+      <ul>
+         <li>
+            <p>Complete <MadCap:xref href="add-okta-claim-provider.htm">Configure Okta as Claims Provider in [%=3rd Party Integrations.SharePoint On-Premises%]</MadCap:xref>.</p>
+         </li>
+         <li>
+            <p>If you're upgrading the Okta People Picker, completely remove the previous version of the Okta People Picker. See <MadCap:xref href="uninstall-people-picker-auth.htm">Uninstall People Picker and Okta Authentication</MadCap:xref>.</p>
+         </li>
+      </ul>
+      <h2>Start this procedure</h2>
+      <p>This procedure includes the following tasks:</p>
+      <p>
+         <MadCap:xref href="#1.">1. Install Okta People Picker for SharePoint agent</MadCap:xref>
+      </p>
+      <p>
+         <MadCap:xref href="#2.">2. Assign Okta Claims Provider as Trusted Identity Token Issuer</MadCap:xref>
+      </p>
+      <p>
+         <MadCap:xref href="#3.">3. Validate the installation and configuration</MadCap:xref>
+      </p>
+      <h3>
+         <a name="1."/>1. Install Okta People Picker for SharePoint agent</h3>
+      <ol>
+         <li>
+            <p>In the Okta Admin Console, go to <span class="menucascade">
+                  <span class="uicontrol">Settings</span>
+                  <span class="uicontrol">Download</span>
+               </span> and download the Okta People Picker for SharePoint Server 2013 or 2016.</p>
+            <p>
+               <img src="../../../../Resources/Images/sharepoint/dep-pp-1.png"
+                    id="img_new"
+                    style="max-width: 50%;"
+                    MadCap:conditions="Primary.do-not-publish"/>
+            </p>
+         </li>
+         <li>
+            <p>Enter the following PowerShell commands to add and install the Okta SharePoint solution for People Picker:</p>
+            <MadCap:codeSnippet>
+               <MadCap:codeSnippetCopyButton/>
+               <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">Add-SPSolution -LiteralPath "C:\OktaClaimsProviderxx.xxx.wsp"
+Install-SPSolution -Identity "oktaclaimsproviderxx.xxx.wsp" –GACDeployment
+</MadCap:codeSnippetBody>
+            </MadCap:codeSnippet>
+            <p>Replace the <span class="userinput">LiteralPath</span> command-line argument with the path to the downloaded People Picker WSP solution file, and update the Identity command-line argument with the appropriate version-based file name.</p>
+            <div class="noteOkta">
+               <ul>
+                  <li>It might take a few minutes for the agent to be installed and deployed. </li>
+                  <li>You can query your deployment status by entering the following PowerShell command: <span class="userinput">Get-SPSolution</span>.</li>
+                  <li>The status output reads <span class="code">Deployed</span> after the solution has been deployed to the farm. </li>
+                  <li>If the status output continues to read <span class="code">Not deployed</span>, sign into the SharePoint Central Administration console, select <span class="menucascade">
+                        <span class="uicontrol">System Settings</span>
+                        <span class="uicontrol">Manage Farm Solutions</span>
+                     </span>, and check for error messages.</li>
+                  <li>If necessary, cancel the deployment and restart it using the SharePoint Central Administration Management Console.</li>
+               </ul>
+            </div>
+         </li>
+         <li>
+            <p>Deploy the agent using the SharePoint Central Administration Management Console. Confirm the installation and troubleshoot any issues. </p>
+            <div class="noteOkta">
+               <p class="noteContent">
+                  <MadCap:variable name="okta-variables.ProductName"/> recommends that you use a ULS viewer during the People Picker installation procedure to help you diagnose configuration issues.</p>
+            </div>
+            <p>
+               <img src="../../../../Resources/Images/sharepoint/dep-pp-2.png"
+                    class="thumbnail"/>
+            </p>
+         </li>
+      </ol>
+      <h3>
+         <a name="2."/>2. Assign Okta Claims Provider as Trusted Identity Token Issuer</h3>
+      <p>Assign the Okta Claims Provider that was configured during the Okta SSO configuration as the <code>SPTrustedIdentityTokenIssuer</code> for People Picker. </p>
+      <p>If the <code>SPTrustedIdentityTokenIssuer</code> was named something other than <code>Okta</code> during the SSO configuration, update the following commands with the correct values:</p>
+      <MadCap:codeSnippet>
+         <MadCap:codeSnippetCopyButton/>
+         <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">$trust = Get-SPTrustedIdentityTokenIssuer "Okta"
+$trust.ClaimProviderName = "OktaClaimsProvider"
+$trust.Update()
+</MadCap:codeSnippetBody>
+      </MadCap:codeSnippet>
+      <h3>
+         <a name="3."/>3. Validate the installation and configuration</h3>
+      <ol>
+         <li>
+            <p>Enter the following PowerShell command to retrieve the <code>OktaClaimsProvider</code> value:</p>
+            <MadCap:codeSnippet>
+               <MadCap:codeSnippetCopyButton/>
+               <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">Get-SPClaimProvider
+</MadCap:codeSnippetBody>
+            </MadCap:codeSnippet>
+         </li>
+         <li>
+            <p>Make sure that the Okta provider is <code>Enabled</code> and configured as <code>Default</code>.</p>
+            <p>
+               <img src="../../../../Resources/Images/sharepoint/dep-pp-3.png"
+                    class="thumbnail"/>
+            </p>
+         </li>
+      </ol>
+      <h3>Troubleshoot the People Picker</h3>
+      <p>Look for <code>OktaClaimsProvider</code> in the SharePoint ULS logs to monitor the activity of the claims provider. A ULS log viewer is recommended.</p>
+      <h2>Next steps</h2>
+      <p>
+         <MadCap:xref href="configure-people-picker-plugin.htm">Configure Okta SharePoint People Picker agent</MadCap:xref>
+      </p>
+   </body>
+</html>

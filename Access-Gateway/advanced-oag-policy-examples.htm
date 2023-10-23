@@ -1,0 +1,501 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link href="" rel="stylesheet" type="text/css" />
+        <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/advanced-oag-policy-examples.htm" />
+        <link href="../../Resources/TableStyles/standard.css" rel="stylesheet" MadCap:stylesheetType="table" /><title>[%=Heading.Level1%] | Okta</title>
+        <meta name="description" content="Manage Access Gateway Application Policies to restrict or allow access to on-prem applications based on admin-created, app-specific policies." />
+    </head>
+    <body>
+        <h1>Advanced <MadCap:variable name="okta-feature-names.Access Gateway" /> policy examples</h1>
+        <p>This topic provides advanced policy configuration examples. These examples are for illustration and educational purposes only. </p>
+        <ul>
+            <li>
+                <MadCap:xref href="#Fix">Fix case all URI&#160;strings</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Only">Only send field on specific URI requests</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Large">Large file uploads time out</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Force">Force a return on a different URL and error code</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Specify">Specify a behavior based on query arguments</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Rewrite">Rewrite URL&#160;strings</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Don't">Don't Protect certain file types</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Extend">Extend AJAX session handling</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Reject">Reject requests with certain characters</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Websocke">Websocket Security</MadCap:xref>
+            </li>
+        </ul>
+        <div>
+            <h3><a name="Fix"></a>Fix case all URI&#160;strings</h3>
+            <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                <col class="TableStyle-standard-Column-Column1" style="width: 165pt;" />
+                <col class="TableStyle-standard-Column-Column1" style="width: 748px;" />
+                <thead>
+                    <tr class="TableStyle-standard-Head-Header1">
+                        <th class="TableStyle-standard-HeadD-Column1-Header1" colspan="2">Description: Avoid mixed case URIs by translating all URI strings to lower case</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1" style="font-weight: normal;">Required <br style="font-weight: bold;" />Configuration</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">Applied to the <span class="code">root '/'</span> policy which must be changed to an Adaptive policy.<br /></td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyC-Column1-Body2">Example</td>
+                        <td class="TableStyle-standard-BodyA-Column1-Body2"><span class="codeblock" xml:space="preserve">#set all URIs to lower case
+if ($request_uri ~ "/.*/.*$") {
+    set_by_lua_block $request_uri_temp {
+        return string.gsub(ngx.var.request_uri, "?.*", "")
+	}
+	set_by_lua $request_uri_low "return ngx.arg[1]:lower()" $request_uri_temp;
+	rewrite ^ https://$host$request_uri_low;
+}</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h3><a name="Only"></a>Only send field on specific URI requests</h3>
+            <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                <col class="TableStyle-standard-Column-Column1" style="width: 165pt;" />
+                <col class="TableStyle-standard-Column-Column1" style="width: 748px;" />
+                <thead>
+                    <tr class="TableStyle-standard-Head-Header1">
+                        <th class="TableStyle-standard-HeadD-Column1-Header1" colspan="2">Description: Passing all fields to all URLs is often unnecessary. Using custom configuration, a policy can be created to send specific fields on specific requests.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">Required <br style="font-weight: bold;" />Configuration</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <p>Protected rule exists for a given resource. Set attribute as <span class="uicontrol">Don't Send</span>.<br /><img src="../../Resources/Images/access-gateway/admin-user-policy-guide-advanced.example.01.png" id="img_new" alt="Set attribute Don't Send." /></p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyC-Column1-Body2">Example</td>
+                        <td class="TableStyle-standard-BodyA-Column1-Body2">
+                            <p>Add a variable to a header.</p><span class="codeblock">set $TEST " ";   # Set a value for later use
+proxy_set_header header_name $TEST;  #Add a value to the HTTP&#160;Header</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h3><a name="Large"></a>Set large file upload/download timeout</h3>
+            <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                <col class="TableStyle-standard-Column-Column1" style="width: 165pt;" />
+                <col class="TableStyle-standard-Column-Column1" style="width: 748px;" />
+                <thead>
+                    <tr class="TableStyle-standard-Head-Header1">
+                        <th class="TableStyle-standard-HeadD-Column1-Header1" colspan="2">Description: When attempting to upload or download large files through <MadCap:variable name="okta-feature-names.Access Gateway" /> network failed errors are returned</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>Scenario</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <p>An application was integrated with&#160;<MadCap:variable name="okta-feature-names.Access Gateway" /> that transfers large files.  </p>
+                            <p>Files greater than a certain size cause network failure errors.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">Required <br style="font-weight: bold;" />Configuration</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">On the protected rule for the given resource(or the default rule), in the Advanced &gt; Custom configuration, specify a sent timeout.<br /></td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyC-Column1-Body1">Example</td>
+                        <td class="TableStyle-standard-BodyA-Column1-Body1"><span class="codeblock">#
+# Specify a longer timeout for file uploads/downloads to the backend protected resource
+#
+send_timeout 5m;
+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h3><a name="Force"></a>Force a return on a different URL and error code</h3>
+            <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                <col class="TableStyle-standard-Column-Column1" style="width: 165pt;" />
+                <col class="TableStyle-standard-Column-Column1" style="width: 748px;" />
+                <thead>
+                    <tr class="TableStyle-standard-Head-Header1">
+                        <th class="TableStyle-standard-HeadD-Column1-Header1" colspan="2">Description: Sometimes it's required to return a specific return code and URL for a given URI.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">Required <br style="font-weight: bold;" />Configuration</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">Protected rule exists for a given resource. <br /></td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyC-Column1-Body2">Example</td>
+                        <td class="TableStyle-standard-BodyA-Column1-Body2"><span class="codeblock"># Regardless of the behavior,
+# for the given protected resource
+# return 301
+return 301 https://www.okta.com;
+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h3><a name="Specify"></a>Specify a behavior based on query arguments</h3>
+            <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                <col class="TableStyle-standard-Column-Column1" style="width: 165pt;" />
+                <col class="TableStyle-standard-Column-Column1" style="width: 748px;" />
+                <thead>
+                    <tr class="TableStyle-standard-Head-Header1">
+                        <th class="TableStyle-standard-HeadD-Column1-Header1" colspan="2">Description: Behavior for a given URI&#160;can depend on incoming query values. &#160;For example, to skip authentication for test data. </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">Required <br style="font-weight: bold;" />Configuration</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">Protected rule exists for a given resource.<br /></td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyC-Column1-Body2">Example</td>
+                        <td class="TableStyle-standard-BodyA-Column1-Body2"><span class="codeblock">#If the query argument test is equal to demo
+#then set the policy type field to NO_AUTH
+if ($arg_test = "demo") {
+    set $policy_type "NO_AUTH";
+};
+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h3><a name="Rewrite"></a>Rewrite URL&#160;strings</h3>
+            <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                <col class="TableStyle-standard-Column-Column1" style="width: 165pt;" />
+                <col class="TableStyle-standard-Column-Column1" style="width: 748px;" />
+                <thead>
+                    <tr class="TableStyle-standard-Head-Header1">
+                        <th class="TableStyle-standard-HeadD-Column1-Header1" colspan="2">Description:   Despite turns on url re-write in the gateway, some links and redirects point the browser to the wrong place. <br /></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>Scenario</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <p>Public domain: <span class="uicontrol">gw.okta.com</span><br />Internal resource: is <span class="uicontrol">app1.okta.com</span><br />Some links/redirects point to <span class="uicontrol">gw.okta.com</span> instead of <span class="uicontrol">app1.okta.com</span></p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">Required Configuration<br style="font-weight: bold;" /></td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">Protected rule exists for a given resource. <br /></td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1" MadCap:conditions="">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>Notes</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <p>By default <span class="code">subs_filter</span> only works on <span class="code">text/html</span> documents.<br />This example will not work with compressed data. </p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">Example</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2"><span class="codeblock">subs_filter http://gw.okta.com https://app1.okta.com;
+</span>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>Example 2</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1"><span class="codeblock"># specify the types of files to process
+subs_filter_types text/html text/css text/xml;
+#
+# replace source (internal....) with destination (app1...) using flags ig
+# i: ignore case
+# g: replace all matched strings
+subs_filter internaldomain1.okta.com app1.okta.com ig;
+subs_filter internaldomain2.okta.com app1.okta.com ig; </span>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyC-Column1-Body2">
+                            <p>For more information see: </p>
+                        </td>
+                        <td class="TableStyle-standard-BodyA-Column1-Body2">
+                            <p><a href="">https://www.nginx.com/resources/wiki/modules/substitutions/</a>
+                            </p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h3><a name="RedirecAgent"></a>Redirect non-Chrome agents to a different location</h3>
+            <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                <col class="TableStyle-standard-Column-Column1" style="width: 165pt;" />
+                <col class="TableStyle-standard-Column-Column1" style="width: 748px;" />
+                <thead>
+                    <tr class="TableStyle-standard-Head-Header1">
+                        <th class="TableStyle-standard-HeadD-Column1-Header1" colspan="2">Customer wants to prevent bots and other automatic requests from hitting their servers.   <br />Redirect all users not using a specific user agent (in this case, Chrome) to a different URL.
+<br /></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>Scenario</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <p>If the user agent is Chrome, redirect to a specific URL and return 301 (moved permanently).</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">Required <br style="font-weight: bold;" />Configuration</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">Protected rule exists for a given resource. <br /></td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyC-Column1-Body1"><span class="uicontrol">Example</span>
+                        </td>
+                        <td class="TableStyle-standard-BodyA-Column1-Body1"><span class="codeblock">if ($http_user_agent !~* Chrome ) {
+    return 301 https://www.okta.com;
+}</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h3><a name="Don't"></a>Don't protect certain file types</h3>
+            <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                <col class="TableStyle-standard-Column-Column1" style="width: 165pt;" />
+                <col class="TableStyle-standard-Column-Column1" style="width: 748px;" />
+                <thead>
+                    <tr class="TableStyle-standard-Head-Header1">
+                        <th class="TableStyle-standard-HeadD-Column1-Header1" colspan="2">Customer is migrating from another platform and wants to expose all images, style sheets, and similar files.
+<br /></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>Scenario</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <p>Customer used another platform earlier, which required a policy to allow unrestricted access to images, style sheets, and similar files. They would like to do the same with <MadCap:variable name="okta-feature-names.Access Gateway" />. </p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">Required <br style="font-weight: bold;" />Configuration</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">Protected rule exists for a given resource. <br /></td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyC-Column1-Body1">Example</td>
+                        <td class="TableStyle-standard-BodyA-Column1-Body1"><span class="codeblock">if ($request_uri ~ "^.*.png$") {
+   set $policy_type "NO_AUTH";
+}
+if ($request_uri ~ "^.*.jpg$") {
+   set $policy_type "NO_AUTH";
+}
+if ($request_uri ~ "^.*.css$") {
+    set $policy_type "NO_AUTH";
+}</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h3><a name="Extend"></a>Extend AJAX session handling</h3>
+            <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                <col class="TableStyle-standard-Column-Column1" style="width: 165pt;" />
+                <col class="TableStyle-standard-Column-Column1" style="width: 748px;" />
+                <thead>
+                    <tr class="TableStyle-standard-Head-Header1">
+                        <th class="TableStyle-standard-HeadD-Column1-Header1" colspan="2">Applications which use AJAX calls hang or require refresh after session timeout.<br /></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>Scenario</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <p>Customer application makes AJAX calls. <br />Application is idle for a period and session times out. <br />Application then makes a follow up AJAX&#160;call which fails due to inactive session.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">Required <br style="font-weight: bold;" />Configuration</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">Protected rule exists for a given resource. <br /><br /><br /></td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyD-Column1-Body1" colspan="2">
+                            <p> Once included, the associated script executes on the defined interval, checking if a user session is inactive. When a user session expires, the script alerts the user and refreshes the page.  The user then gets a new session if an Okta session exists,  otherwise the user must reauthenticate.</p>
+                            <p>The script accepts three parameters: </p>
+                            <ul>
+                                <li><span class="uicontrol">oagSMTimeoutSeconds</span>: Required, no default. Frequency to run the script to check session in seconds.</li>
+                                <li><span class="uicontrol">oagSMAlertEnabled</span>: Default:<span class="uicontrol">false</span>. Show alert if <span class="uicontrol">true</span>. </li>
+                                <li><span class="uicontrol">oagSMAlertMessage</span>: Message to be displayed in alert. <br />Defaults <span class="uicontrol">Session timed out due to inactivity</span>. </li>
+                            </ul>
+                            <p>Review and select the appropriate scenario below:<br /><br />Applications are considered to be using JQuery if the application page already includes the JQuery library.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">Application uses JQuery<span class="uicontrol"><br /></span>Note: Replace the sample message with a customer facing message.</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2"><span class="codeblock">proxy_set_header Accept-Encoding "";
+</span><span MadCap:conditions="Primary.do-not-publish" class="codeblock">subs_filter_types text/html;
+subs_filter "&lt;/head&gt;"
+"&lt;script type=\"text/javascript\"&gt;
+   window.oagSMParams={\"oagSMTimeoutSeconds\" : 60, \"oagSMAlertEnabled\" : true,
+                       \"oagSMAlertMessage\" : \"Your message to be displayed\"};
+ &lt;/script&gt;
+&lt;script src=\"/AQUNAAsIAAM/js/sessionTimeout.js\"&gt;&lt;/script&gt;&lt;/head&gt;";
+</span>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">Application doesn't use JQuery<br />Note: Replace the sample message with a customer facing message.</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1"><span class="codeblock">proxy_set_header Accept-Encoding "";</span><span MadCap:conditions="Primary.do-not-publish" class="codeblock">
+subs_filter_types text/html;</span><span class="codeblock">subs_filter "&lt;/head&gt;"
+"&lt;script type=\"text/javascript\"&gt;
+    window.oagSMParams={\"oagSMTimeoutSeconds\" : 60, \"oagSMAlertEnabled\" : true,
+                        \"oagSMAlertMessage\" : \"Your message to be displayed\"};
+&lt;/script&gt;
+&lt;script type=\"text/javascript\" src=\"/AQUNAAsIAAM/dist/jquery-2.2.4.min.js\"&gt;
+&lt;/script&gt;
+&lt;script src=\"/AQUNAAsIAAM/js/sessionTimeout.js\"&gt;&lt;/script&gt;&lt;/head&gt;";</span>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">Application uses iFrame and JQuery<span class="uicontrol"><br /></span>Customer must identify a tag to replace, represented by &lt;tag-to-replace&gt;, in one of the iFrame pages. </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2"><span class="codeblock">proxy_set_header Accept-Encoding "";</span><span MadCap:conditions="Primary.do-not-publish" class="codeblock">
+subs_filter_types text/html;</span><span class="codeblock">subs_filter "&lt;/tag-to-replace&gt;"
+"&lt;script type=\"text/javascript\"&gt;
+   window.oagSMParams={\"oagSMTimeoutSeconds\" : 60, \"oagSMAlertEnabled\" : true,
+                       \"oagSMAlertMessage\" : \"Your message to be displayed\"};
+ &lt;/script&gt;
+&lt;script src=\"/AQUNAAsIAAM/js/sessionTimeout.js\"&gt;&lt;/script&gt;&lt;/tag-to-replace&gt;";</span>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyC-Column1-Body1">Application uses iFrame and doesn't use JQuery<span class="uicontrol"><br /></span>Customer must identify a tag to replace represented by &lt;tag-to-replace&gt; in one of the iFrame pages. </td>
+                        <td class="TableStyle-standard-BodyA-Column1-Body1"><span class="codeblock">proxy_set_header Accept-Encoding "";
+</span><span MadCap:conditions="Primary.do-not-publish" class="codeblock">subs_filter_types text/html;</span><span class="codeblock">subs_filter "&lt;/tag-to-replace&gt;"
+"&lt;script type=\"text/javascript\"&gt;
+    window.oagSMParams={\"oagSMTimeoutSeconds\" : 60, \"oagSMAlertEnabled\" : true,
+                        \"oagSMAlertMessage\" : \"Your message to be displayed\"};
+&lt;/script&gt;
+&lt;script type=\"text/javascript\" src=\"/AQUNAAsIAAM/dist/jquery-2.2.4.min.js\"&gt;
+&lt;/script&gt;
+&lt;script src=\"/AQUNAAsIAAM/js/sessionTimeout.js\"&gt;&lt;/script&gt;&lt;/tag-to-replace&gt;";</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h3><a name="Reject"></a>Reject requests with certain characters</h3>
+            <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                <col class="TableStyle-standard-Column-Column1" style="width: 165pt;" />
+                <col class="TableStyle-standard-Column-Column1" style="width: 748px;" />
+                <thead>
+                    <tr class="TableStyle-standard-Head-Header1">
+                        <th class="TableStyle-standard-HeadD-Column1-Header1" colspan="2">Reject
+requests <br /></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>Scenario</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <p>Certain characters are used in attacks on  back-end web applications. <br />Being able to exclude these characters allows these attacks to be avoided. <br /></p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">Required <br style="font-weight: bold;" />Configuration</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">Protected rule exists for a given resource. <br /></td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyC-Column1-Body1">Example</td>
+                        <td class="TableStyle-standard-BodyA-Column1-Body1"><span class="codeblock">header_filter_by_lua_block {
+-- add characters inside of brackets
+reBadChars = '[&gt;&lt;]'
+  if string.match(ngx.var.uri, reBadChars) then
+    ngx.log(ngx.STDERR, "Bad chars found in URI")
+    return ngx.exit(403)
+  end
+}
+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h3><a name="Websocke"></a>WebSocket Security</h3>
+            <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                <col class="TableStyle-standard-Column-Column1" style="width: 165pt;" />
+                <col class="TableStyle-standard-Column-Column1" style="width: 748px;" />
+                <thead>
+                    <tr class="TableStyle-standard-Head-Header1">
+                        <th class="TableStyle-standard-HeadD-Column1-Header1" colspan="2">Working with WebSockets <br /></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                            <p>Scenario</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <p>The WebSocket protocol rides on top of HTTP. <br /><MadCap:variable name="okta-feature-names.Access Gateway" /> must tell the back-end server that it's translating from an HTTP call to a WSS call. <br /></p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">Required <br style="font-weight: bold;" />Configuration</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">
+                            <p>Protected rule exists for each WSS resource. <br />For example, create a protected rule for each WSS resource:</p>
+                            <ol style="list-style-type: lower-alpha;">
+                                <li>Name: websocket</li>
+                                <li>Resource: /uri/to/websocket</li>
+                                <li>Type: protected</li>
+                                <li>Add the two script elements for each individual resource. <br /></li>
+                            </ol>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyC-Column1-Body1"><span class="uicontrol">Example</span>
+                        </td>
+                        <td class="TableStyle-standard-BodyA-Column1-Body1"><span class="codeblock">proxy_set_header Upgrade $http_upgrade;
+proxy_set_header Connection "upgrade";
+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Arshabhi Rai">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/asa/en-us/Content/Topics/Adv_Server_Access/docs/custom-ssh-client.htm" /><title>[%=Heading.Level1%] | Okta</title>
+        <meta name="description" content="Configure Advanced Server Access SSH settings to customize how the ScaleFT client responds to end-user SSH connections." />
+    </head>
+    <body>
+        <h1>Customize SSH configurations for clients</h1>
+        <p><MadCap:variable name="okta-feature-names.Okta Privileged Access" /> allows SSH&#160;customization options for both <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> admins and their teams. Users can adjust how their <span class="disableGlossary">client</span> responds when attempting SSH&#160;connections, and admins can
+        customize how their servers respond to clients initiating connections. Before beginning, make sure that you've installed the ScaleFT Client and run the <code>sft ssh-config</code> command. </p>
+        <h2>Client customization</h2>
+        <p>Depending on your <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> client and your SSH configuration, you should see something like the following within your config file:</p><pre><code># To use ScaleFT proxycommand, add this configuration block to your $HOME/.ssh/config
+Match exec "/usr/local/bin/sft resolve -q  %h"
+ProxyCommand "/usr/local/bin/sft" proxycommand  %h
+UserKnownHostsFile "/Users/Admin/Library/Application Support/ScaleFT/proxycommand_known_hosts"</code></pre>
+        <div class="noteOkta">
+            <p class="noteContent">Any paths provided are from a MacOS perspective and use <code>/Users/<span class="disableGlossary">Admin</span>/</code> as an example folder path. Paths on your machine may read differently. </p>
+        </div>
+        <h2>Customization examples</h2>
+        <ul>
+            <li>
+                <h3>Removing <code>-q</code> from <code>sft resolve</code></h3>
+                <p><code>-q</code> stands for "quiet", meaning that any issues that occur while connecting to your target severs will not be shown to the user or provoke a reaction from your client. This includes the state where you are not logged in. In that event, with <code>-q</code>, your SSH command will fail to find the host and you will not be authorized to access the host inventory in <MadCap:variable name="okta-feature-names.Okta Privileged Access" />. Removing <code>-q</code> from the <code>Match exec</code> line of your config file results in your <span class="disableGlossary">client</span> sending a browser sign in request to the <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> Platform after an SSH attempt fails.</p>
+            </li>
+            <li>
+                <h3>Custom <code>Match</code> directives</h3>
+                <p>Customizing <code>Match</code> directives allow the user to control specific <span class="disableGlossary">client</span> behavior for each server within their team. By identifying potential target servers through a customized <code>Match</code> directive, users can than incorporate other customization options (such as removing <code>-q</code>) to allow their client to take certain actions when trying to connect to a specific server.</p>
+                <p>For example, this is a <code>Match</code> block that could be added to your config file:</p><pre><code>Match Host *ubu* "/usr/local/bin/sft resolve -q  %h"
+ ProxyCommand "/usr/local/bin/sft" proxycommand  %h
+ UserKnownHostsFile "/Users/Admin/Library/Application Support/ScaleFT/proxycommand_known_hosts"</code></pre>
+                <p>This creates a scenario where any attempted connections to servers that have names containing the letters "ubu" will follow the rules listed in this <code>Match</code> block only.</p>
+            </li>
+            <li>
+                <h3>Identifying specific bastions to connect through</h3>
+                <p>Another customization option is to, instead of configuring a bastion via the <span class="disableGlossary">agent</span> configuration file <code>sftd.yaml</code>, dictate to your <span class="disableGlossary">client</span> specific bastions it needs to move through dynamically when attempting SSH connections. This is done through the <code>--via</code> command, which can be added to the ProxyCommand lines of your config file as such:</p>
+                <p><code>ProxyCommand "/usr/local/bin/sft" proxycommand
+--via &lt;bastion&gt; %h    </code>
+                </p>
+                <div class="noteOkta">
+                    <p class="noteContent">Replace <code>&lt;bastion&gt;</code> with the name of your specific bastion.</p>
+                </div>
+            </li>
+        </ul>
+    </body>
+</html>

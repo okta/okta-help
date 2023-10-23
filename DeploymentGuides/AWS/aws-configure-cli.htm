@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:searchable="True"
+      MadCap:fileTags="Tags/okta-authors.Mark Cowan">
+   <head>
+      <title>Configure Okta as IdP for AWS CLI</title>
+      <link href="" rel="stylesheet" type="text/css"/>
+   </head>
+   <body>
+      <h1>
+         <a name="Step2"/>Configure Okta as IdP for AWS CLI</h1>
+      <p>The AWS Command Line Interface (AWS CLI) is an open-source tool that enables users to interact with AWS services using the command-line shell. You can integrate Okta as the Identity Provider (IdP) for the CLI to enhance the security of your AWS environments by allowing developers to use Okta for Single Sign-on. 
+</p>
+      <h2>How it works</h2>
+      <p>You integrate the Okta AWS CLI integration in the Admin Console by connecting an OIDC native app to the SAML-based AWS Account Federation app. The CLI handles authentication through Okta, which then interacts with the AWS Security Token Service (STS) to collect a proper role for the developer using the AWS CLI. </p>
+      <h2>Prerequisites</h2>
+      <ul>
+         <li>
+            <p>Integrate Okta with your AWS accounts. See <MadCap:xref href="aws-deployment.htm">Amazon Web Services Account Federation</MadCap:xref>.</p>
+         </li>
+         <li>
+            <p>Install the AWS CLI for testing the integration. See <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html">Getting started with the AWS CLI</a>.</p>
+         </li>
+      </ul>
+      <h2>Procedure</h2>
+      <p>This setup consists of three separate tasks:</p>
+      <p>
+         <MadCap:xref href="#Task">Configure an OIDC native app</MadCap:xref>
+      </p>
+      <p>
+         <MadCap:xref href="#Task2">Connect the OIDC app to an AWS Account Federation app</MadCap:xref>
+      </p>
+      <p>
+         <MadCap:xref href="#Task3">Test the Okta AWS CLI integration</MadCap:xref>
+      </p>
+      <h3>
+         <a name="Task"/>Configure an OIDC native app</h3>
+      <ol>
+         <li>
+            <p>
+               <MadCap:snippetText src="../../../Resources/Snippets/task steps/Applications_Applications.flsnp"/>
+            </p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Create App Integration</span>.</p>
+         </li>
+         <li>
+            <p>Select <span class="uicontrol">OIDC - OpenID Connect</span> as the Sign-in method.</p>
+         </li>
+         <li>
+            <p>Select <span class="uicontrol">Native Application</span> as the Application type.</p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Next</span>. The <span class="wintitle">New Native App Integration</span> page opens.</p>
+         </li>
+         <li>
+            <p>On the page, specify the <span class="uicontrol">App integration name</span> and a logo (optional).</p>
+         </li>
+         <li>
+            <p>Select the following Grant types:</p>
+            <ul>
+               <li>
+                  <p>Authorization Code</p>
+               </li>
+               <li>
+                  <p>Device Authorization</p>
+               </li>
+               <li>
+                  <p>Token Exchange</p>
+               </li>
+            </ul>
+         </li>
+         <li>
+            <p>Skip <span class="uicontrol">Sign-in redirect URIs</span> and <span class="uicontrol">Sign-out redirect URIs</span>.</p>
+            <p>The AWA CLI app doesn't use these. </p>
+         </li>
+         <li>
+            <p>In <span class="menucascade">
+                  <span class="uicontrol">Assignments</span>
+                  <span class="uicontrol">Controlled access</span>
+               </span>, select <span class="uicontrol">Skip group assignment for now</span>.</p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Save</span>. This creates the app and opens the <span class="uicontrol">General</span> tab for editing or configuring more options. No changes are required.</p>
+         </li>
+         <li>
+            <p>On the <span class="uicontrol">General</span> tab under <span class="uicontrol">Client Credentials</span>, copy the Client ID.</p>
+         </li>
+         <li>
+            <p>On the <span class="wintitle">Assignments</span> tab, assign the app to groups or individuals who use the AWS CLI. See <MadCap:xref href="../../users-groups-profiles/usgp-main.htm">User management</MadCap:xref>.</p>
+         </li>
+      </ol>
+      <h3>
+         <a name="Task2"/>Connect the OIDC app to an AWS Account Federation app</h3>
+      <ol>
+         <li>
+            <p>
+               <MadCap:snippetText src="../../../Resources/Snippets/task steps/Applications_Applications.flsnp"/>
+            </p>
+         </li>
+         <li>
+            <p>Select a configured AWS Account Federation app.</p>
+         </li>
+         <li>
+            <p>On the <span class="uicontrol">Sign On</span> tab, click <span class="uicontrol">Edit</span>. </p>
+         </li>
+         <li>
+            <p>Under <span class="uicontrol">Advanced Sign-on Settings</span>, scroll to <span class="uicontrol">Allowed Web SSO Client</span>.</p>
+         </li>
+         <li>
+            <p>Enter the <span class="uicontrol">Client ID</span> for the OIDC app that you copied in the previous task.</p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Save</span>.</p>
+         </li>
+         <li>
+            <p>Repeat these steps for all other AWS Account Federation apps that you want to connect to the OIDC Native app.</p>
+         </li>
+         <li>
+            <p>Optional. Assign apps to custom authentication policies. See <MadCap:xref href="../../identity-engine/policies/share-auth-policies.htm">Add apps to an authentication policy</MadCap:xref>.</p>
+         </li>
+      </ol>
+      <h3>
+         <a name="Task3"/>Test the Okta AWS CLI integration</h3>
+      <p>Ensure that the integration is working by testing it in the AWS CLI.</p>
+      <ol>
+         <li>
+            <p>In AWS CLI, enter the following command:</p>
+            <p>
+               <span class="userinput">$ okta-aws-cli</span>
+            </p>
+            <p>The following prompt appears: </p>
+            <p>
+               <span class="code">Open the following URL to begin Okta device authorization for the AWS CLI.</span>
+            </p>
+            <p>
+               <span class="code">https://your-org.okta.com/activate?user_code=&lt;usercode&gt;</span>
+            </p>
+         </li>
+         <li>
+            <p>Open the URL in a web browser and follow the prompt.</p>
+         </li>
+         <li>
+            <p>In the AWS CLI, choose an Identity Provider:</p>
+            <p>
+               <span class="code">? Choose an IdP: arn:aws:iam::123456789012:saml-provider/My_IdP</span>
+            </p>
+            <p>Select from the displayed list of SAML IdPs available for the user. </p>
+         </li>
+         <li>
+            <p>Choose an IAM role.</p>
+            <p>
+               <span class="code">? Choose a Role: arn:aws:iam::456789012345:role/My_Role</span>
+            </p>
+            <p>Select from the list of AWS IAM roles associated with the IdP you chose. </p>
+         </li>
+      </ol>
+      <p>The following AWS credentials are loaded (examples): </p>
+      <p style="text-indent: 0.5in;">
+         <span class="code">export AWS_ACCESS_KEY_ID=&lt;key-id&gt;</span>
+      </p>
+      <p style="text-indent: 0.5in;">
+         <span class="code">export AWS_SECRET_ACCESS_KEY=&lt;key-code&gt;</span>
+      </p>
+      <p style="text-indent: 0.5in;">
+         <span class="code">export AWS_SESSION_TOKEN=&lt;token-id&gt;</span>
+      </p>
+      <p>This indicates that you're successfully signed in to your AWS account.</p>
+   </body>
+</html>

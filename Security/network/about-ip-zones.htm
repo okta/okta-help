@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:conditions="MultiProdPublish.Classic+OIE" MadCap:fileTags="Tags/okta-authors.Barbara Vo">
+    <head>
+        <link href="../../../Resources/TableStyles/standard.css" rel="stylesheet" MadCap:stylesheetType="table" /><title>[%=Heading.Level1%] | Okta</title>
+    </head>
+    <body>
+        <h1>IP zones</h1>
+        <p>An IP zone enables admins to define network perimeters around a set of IP addresses. You can add IP addresses for  both gateway servers and trusted proxy servers  to IP zones.</p>
+        <p>You can add IP addresses  to an IP zone using:</p>
+        <ul>
+            <li>Individual IP addresses</li>
+            <li> IP ranges </li>
+            <li>Classless inter-domain routing (CIDR) notation</li>
+        </ul>
+        <p>Trusted proxies are used for determining the request’s client IP address and aren't blocked by <MadCap:variable name="okta-feature-names.Okta ThreatInsight" />. If you add any untrusted proxies to an IP zone, add them as gateways.</p>
+        <h2>IP zone evaluation</h2>
+        <p>When determining whether a request is from inside or outside of an IP zone, consider the IP chain. The IP chain is the IPs of all the network hops between the originating request and <MadCap:variable name="okta-variables.ProductName" />. The following table explains IP chain processing for one or multiple IPs in an IP chain.</p>
+        <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+            <col class="TableStyle-standard-Column-Column1" />
+            <col class="TableStyle-standard-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td class="TableStyle-standard-BodyF-Column1-Body1" style="text-align: left;background-color: #f5f5f5;">IP Chain Type
+                    </td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body1" style="text-align: left;background-color: #f5f5f5;">Description
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body2">
+                    <td class="TableStyle-standard-BodyF-Column1-Body2">IP chain contains one IP</td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body2">
+                        <p>The request is considered to be within a zone if the IP is contained within any of the defined gateways for that zone.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td class="TableStyle-standard-BodyC-Column1-Body1">IP chain contains more than one IP</td>
+                    <td class="TableStyle-standard-BodyA-Column1-Body1">
+                        <p>If the final IP in the chain, the one directly connecting to <MadCap:variable name="okta-variables.ProductName" />, is within any of the defined gateways or proxies for the IP zone.</p>
+                        <ul>
+                            <li>If it's a defined gateway, the request is from within that zone.</li>
+                            <li>If the IP is a defined proxy, then the process repeats for the previous IP in the chain, the one directly connecting to the proxy.</li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="noteOkta">
+            <p class="noteContent">To ensure that Okta considers traffic as coming from a trusted zone, the gateway IP and the proxy IP both need to be in the same zone. If these two IP&#160;addresses are in different zones, requests aren't considered as coming from a trusted zone.</p>
+        </div>
+        <p>IP chain processing repeats until:</p>
+        <ul>
+            <li>A matching Gateway IP is found, in which case the request is from within the network zone or</li>
+            <li>Five IPs in the chain are checked, in which case the request isn't from within the IP zone.</li>
+        </ul>
+        <h2>IP zone example</h2>
+        <table style="border-spacing: 5px 5px;border-top-left-radius: 1px;border-top-right-radius: 1px;border-bottom-right-radius: 1px;border-bottom-left-radius: 1px;border-left-style: solid;border-left-width: 1px;border-left-color: #d3d3d3;border-right-style: solid;border-right-width: 1px;border-right-color: #d3d3d3;border-top-style: solid;border-top-width: 1px;border-top-color: #d3d3d3;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #d3d3d3;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+            <col style="width: 158px;" class="TableStyle-standard-Column-Column1" />
+            <col style="width: 143px;" class="TableStyle-standard-Column-Column1" />
+            <col style="width: 138px;" class="TableStyle-standard-Column-Column1" />
+            <col style="width: 368px;" class="TableStyle-standard-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td style="font-weight: bold;background-color: #f5f5f5;font-size: 12pt;" class="TableStyle-standard-BodyF-Column1-Body1">IP&#160;Chain </td>
+                    <td style="font-weight: bold;background-color: #f5f5f5;font-size: 12pt;" class="TableStyle-standard-BodyF-Column1-Body1">Gateway </td>
+                    <td style="font-weight: bold;background-color: #f5f5f5;font-size: 12pt;" class="TableStyle-standard-BodyF-Column1-Body1">Proxy </td>
+                    <td style="font-weight: bold;background-color: #f5f5f5;font-size: 12pt;" class="TableStyle-standard-BodyD-Column1-Body1">Is the Request From Inside the Zone?</td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body2">
+                    <td class="TableStyle-standard-BodyF-Column1-Body2" style="font-size: 12pt;background-color: #ffffff;">1.1.1.1 </td>
+                    <td class="TableStyle-standard-BodyF-Column1-Body2" style="font-size: 12pt;background-color: #ffffff;">1.1.1.1 </td>
+                    <td class="TableStyle-standard-BodyF-Column1-Body2" style="font-size: 12pt;background-color: #ffffff;">Empty </td>
+                    <td style="text-align: center;font-size: 12pt;background-color: #ffffff;" class="TableStyle-standard-BodyD-Column1-Body2">Y</td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td class="TableStyle-standard-BodyF-Column1-Body1" style="font-size: 12pt;background-color: #ffffff;">1.1.1.1 </td>
+                    <td class="TableStyle-standard-BodyF-Column1-Body1" style="font-size: 12pt;background-color: #ffffff;">1.1.1.1 </td>
+                    <td class="TableStyle-standard-BodyF-Column1-Body1" style="font-size: 12pt;background-color: #ffffff;">2.2.2.2 </td>
+                    <td style="text-align: center;font-size: 12pt;background-color: #ffffff;" class="TableStyle-standard-BodyD-Column1-Body1">Y</td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body2">
+                    <td class="TableStyle-standard-BodyF-Column1-Body2" style="font-size: 12pt;background-color: #ffffff;">1.1.1.1 </td>
+                    <td class="TableStyle-standard-BodyF-Column1-Body2" style="font-size: 12pt;background-color: #ffffff;">Empty </td>
+                    <td class="TableStyle-standard-BodyF-Column1-Body2" style="font-size: 12pt;background-color: #ffffff;">Empty </td>
+                    <td style="text-align: center;font-size: 12pt;background-color: #ffffff;" class="TableStyle-standard-BodyD-Column1-Body2">N</td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td class="TableStyle-standard-BodyF-Column1-Body1" style="font-size: 12pt;background-color: #ffffff;">1.1.1.1 </td>
+                    <td class="TableStyle-standard-BodyF-Column1-Body1" style="font-size: 12pt;background-color: #ffffff;">Empty </td>
+                    <td class="TableStyle-standard-BodyF-Column1-Body1" style="font-size: 12pt;background-color: #ffffff;">1.1.1.1 </td>
+                    <td style="text-align: center;font-size: 12pt;background-color: #ffffff;" class="TableStyle-standard-BodyD-Column1-Body1">N</td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body2">
+                    <td colspan="4" class="TableStyle-standard-BodyD-Column1-Body2" style="font-size: 12pt;background-color: #ffffff;">&#160;</td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td class="TableStyle-standard-BodyF-Column1-Body1" style="font-size: 12pt;background-color: #ffffff;">1.1.1.1, 2.2.2.2 </td>
+                    <td class="TableStyle-standard-BodyF-Column1-Body1" style="font-size: 12pt;background-color: #ffffff;">2.2.2.2 </td>
+                    <td class="TableStyle-standard-BodyF-Column1-Body1" style="font-size: 12pt;background-color: #ffffff;">Empty </td>
+                    <td style="text-align: center;font-size: 12pt;background-color: #ffffff;" class="TableStyle-standard-BodyD-Column1-Body1">Y</td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body2">
+                    <td class="TableStyle-standard-BodyF-Column1-Body2" style="font-size: 12pt;background-color: #ffffff;">1.1.1.1, 2.2.2.2 </td>
+                    <td class="TableStyle-standard-BodyF-Column1-Body2" style="font-size: 12pt;background-color: #ffffff;">2.2.2.2 </td>
+                    <td class="TableStyle-standard-BodyF-Column1-Body2" style="font-size: 12pt;background-color: #ffffff;">3.3.3.3 </td>
+                    <td style="text-align: center;font-size: 12pt;background-color: #ffffff;" class="TableStyle-standard-BodyD-Column1-Body2">Y</td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td class="TableStyle-standard-BodyF-Column1-Body1" style="font-size: 12pt;background-color: #ffffff;">1.1.1.1, 2.2.2.2 </td>
+                    <td class="TableStyle-standard-BodyF-Column1-Body1" style="font-size: 12pt;background-color: #ffffff;">1.1.1.1 </td>
+                    <td class="TableStyle-standard-BodyF-Column1-Body1" style="font-size: 12pt;background-color: #ffffff;">2.2.2.2 </td>
+                    <td style="text-align: center;font-size: 12pt;background-color: #ffffff;" class="TableStyle-standard-BodyD-Column1-Body1">Y</td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body2">
+                    <td class="TableStyle-standard-BodyF-Column1-Body2" style="font-size: 12pt;background-color: #ffffff;">1.1.1.1, 2.2.2.2 </td>
+                    <td class="TableStyle-standard-BodyF-Column1-Body2" style="font-size: 12pt;background-color: #ffffff;">Empty </td>
+                    <td class="TableStyle-standard-BodyF-Column1-Body2" style="font-size: 12pt;background-color: #ffffff;">Empty </td>
+                    <td style="text-align: center;font-size: 12pt;background-color: #ffffff;" class="TableStyle-standard-BodyD-Column1-Body2">N</td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td class="TableStyle-standard-BodyF-Column1-Body1" style="font-size: 12pt;background-color: #ffffff;">1.1.1.1, 2.2.2.2 </td>
+                    <td class="TableStyle-standard-BodyF-Column1-Body1" style="font-size: 12pt;background-color: #ffffff;">Empty </td>
+                    <td class="TableStyle-standard-BodyF-Column1-Body1" style="font-size: 12pt;background-color: #ffffff;">1.1.1.1 </td>
+                    <td style="text-align: center;font-size: 12pt;background-color: #ffffff;" class="TableStyle-standard-BodyD-Column1-Body1">N</td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body2">
+                    <td class="TableStyle-standard-BodyF-Column1-Body2" style="font-size: 12pt;background-color: #ffffff;">1.1.1.1, 2.2.2.2 </td>
+                    <td class="TableStyle-standard-BodyF-Column1-Body2" style="font-size: 12pt;background-color: #ffffff;">Empty </td>
+                    <td class="TableStyle-standard-BodyF-Column1-Body2" style="font-size: 12pt;background-color: #ffffff;">2.2.2.2 </td>
+                    <td style="text-align: center;font-size: 12pt;background-color: #ffffff;" class="TableStyle-standard-BodyD-Column1-Body2">N</td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td class="TableStyle-standard-BodyC-Column1-Body1" style="font-size: 12pt;background-color: #ffffff;">1.1.1.1, 2.2.2.2 </td>
+                    <td class="TableStyle-standard-BodyC-Column1-Body1" style="font-size: 12pt;background-color: #ffffff;">2.2.2.2 </td>
+                    <td class="TableStyle-standard-BodyC-Column1-Body1" style="font-size: 12pt;background-color: #ffffff;">1.1.1.1 </td>
+                    <td style="text-align: center;font-size: 12pt;background-color: #ffffff;" class="TableStyle-standard-BodyA-Column1-Body1">Y</td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>Related topics</h2>
+        <p>
+            <MadCap:xref href="create-ip-zone.htm">Create zones for IP addresses</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="about-dynamic-zones.htm">About dynamic zones</MadCap:xref>
+        </p>
+    </body>
+</html>

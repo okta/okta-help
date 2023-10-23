@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:searchable="True"
+      MadCap:conditions="MultiProdPublish.Classic+OIE"
+      MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+   <head>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <link href="" rel="stylesheet" type="text/css"/>
+      <meta name="description"
+            content="Provides reference information specific to eDirectory LDAP integrations."/>
+   </head>
+   <body>
+      <h1>eDirectory LDAP integration reference</h1>
+      <p>This topic provides reference information specific to eDirectory LDAP integrations. When you're installing the <MadCap:variable name="okta-feature-names.LDAP agent short"/>, you'll need this information to integrate your eDirectory with <MadCap:variable name="okta-variables.ProductName"/>. See <MadCap:xref href="ldap-agent-install-configure.htm">Install and configure the [%=okta-feature-names.LDAP agent short%]</MadCap:xref>.</p>
+      <h2 MadCap:conditions="MultiProdPublish.Classic">Recommended version</h2>
+      <p MadCap:conditions="MultiProdPublish.Classic">LDAP Agent for NetIQ eDirectory 8.8 SP8 (20812.10)</p>
+      <h2>Known issues</h2>
+      <ul>
+         <li>
+            <p>Users requesting a self password reset and who are required to change their password after it is reset by an admin, must provide their new password twice to access the Okta End-User Dashboard.</p>
+         </li>
+         <li>When the provisioning settings indicate <span class="uicontrol">Do nothing</span> when users are deactivated, users remain active in <MadCap:variable name="okta-variables.ProductName"/>. When a single source provides user profile attributes, deactivated users are disconnected from the source and <MadCap:variable name="okta-variables.ProductName"/> becomes the source for user profile attributes.</li>
+      </ul>
+      <h2>Integration configuration</h2>
+      <p>During the initial agent install and configuration  documented in <MadCap:xref href="ldap-agent-install-configure.htm">Install the [%=okta-feature-names.LDAP agent short%]</MadCap:xref>, these are the attributes for eDirectory:</p>
+      <ul>
+         <li>Unique Identifier Attribute — localentryid
+            </li>
+         <li>DN Attribute — entrydn
+            </li>
+         <li>User Object Class — inetorgperson
+            </li>
+         <li>User Object Filter — (objectclass=inetorgperson)
+            </li>
+         <li>*Account Disabled Attribute — loginDisabled
+            </li>
+         <li>*Account Disabled Value — TRUE
+            </li>
+         <li>*Account Enabled Value — FALSE
+            </li>
+         <li>Password Attribute — userpassword
+            </li>
+         <li>Group Object Class — groupofnames
+            </li>
+         <li>Group Object Filter — (objectclass=groupofnames)
+            </li>
+         <li>Member Attribute — member
+</li>
+      </ul>
+      <h2>Schema read</h2>
+      <p>To add attributes from AUX classes,  add the auxiliary class as an Auxiliary Object Class to the directory provisioning configuration. For example, the <code>dc</code> attribute is added to the <MadCap:variable name="okta-variables.ProductName"/> schema attributes  when the Auxiliary Object Class is <code>dcObject</code>.</p>
+      <h2>Password change </h2>
+      <p>Users can change their password  by selecting <span class="uicontrol">Settings</span> on the Okta end user dashboard. </p>
+      <p>If you are using eDirectory specific password settings on your LDAP instance, a password change or reset may fail on <MadCap:variable name="okta-variables.ProductName"/> if a user doesn't have the correct ACL permissions for self-service password change. If this is the case, the password change  fails and returns the error message: <span class="uicontrol">NDS error: no access (-672)</span>.</p>
+      <h2>Password  reset</h2>
+      <p>Password reset is triggered by an administrator or the User Forgot Password flow. Password reset works without adding a specific ACL.</p>
+      <p>Password reset can fail if the new password does not meet the password policy criteria.</p>
+      <h2>Import </h2>
+      <p>eDirectory has a different  modifyTimestamp decimal precision than other LDAP servers. The usual value is 3, but for eDirectory the value must be set to 1. There are two ways to set this value:</p>
+      <ul>
+         <li>If you have eDirectory support enabled and your LDAP agent is version 5.6.2 or higher — the decimal precision should be set to 1 automatically during the install process. It can be changed on the <span class="menucascade">
+               <span class="uicontrol">Directory Integrations</span>
+               <span class="uicontrol">Provisioning</span>
+               <span class="uicontrol">To Okta</span>
+            </span> page.</li>
+      </ul>
+      <ul>
+         <li>If your LDAP agent version is 5.6.0 or 5.6.1 — update the decimal precision of all deployed agents by updating the attribute <code>generalizedTimeMillisecondDecimalPlaces</code> and setting its value to <code>1</code> in the OktaLDAPAgent.conf file.</li>
+         <li>LDAP agent versions prior to 5.6.0 do not support  eDirectory LDAP integrations.</li>
+      </ul>
+      <h2>JIT provisioning</h2>
+      <p>There are no special considerations for eDirectory Just In Time (JIT) provisioning. For user identification (UID), use an email format   to match the default setting for an Okta username. Do not use an external identity provider (IDP)  to trigger sign in.</p>
+      <p>To make sure that JIT provisioning is successful the first time:</p>
+      <ul>
+         <li>the value of the configured naming attribute (such as UID) must not  exist in <MadCap:variable name="okta-variables.ProductName"/>.</li>
+         <li>the value of the configured naming attribute (such as UID) must be unique in all JIT-enabled directories.</li>
+         <li>the required attributes must present. The <MadCap:variable name="okta-variables.ProductName"/> defaults are email, givenName, sn, and uid.</li>
+         <li>the password must be correct.</li>
+         <li>the Account Disabled Attribute must be set to false on the LDAP server.</li>
+      </ul>
+      <p>When JIT provisioning completes successfully, all of the user attributes specified on the LDAP settings page and in the Profile Editor are imported.  To select additional mandatory attributes, use the Profile Editor.</p>
+      <h2>Membership import </h2>
+      <p>During import, if the default eDirectory settings are used,  user groups with the objectClass groupofnames are imported and added to the user specified in the member group attribute.</p>
+      <p>During import, if the membership attribute is set to seeAlso, users are assigned to the groups added to the seeAlso user attribute.</p>
+      <h2>Provisioning</h2>
+      <p>There are no special considerations for eDirectory LDAP integrations.</p>
+      <p>To create and assign passwords when creating user profiles:</p>
+      <ol>
+         <li>Contact <MadCap:variable name="okta-variables.ProductName"/> customer support to enable LDAP push password updates.</li>
+         <li>Disable delegated authentication:</li>
+         <ol style="list-style-type: lower-alpha;">
+            <li>
+                    In the <MadCap:variable name="okta-feature-names.Administrator dashboard"/>, go to <span class="menucascade">
+                     <span class="uicontrol">Security</span>
+                     <span class="uicontrol">Delegated Authentication</span>
+                     <span class="uicontrol">LDAP</span>
+                 </span>.</li>
+            <li>Click <span class="uicontrol">Edit</span> in the <span class="uicontrol">Delegated Authentication</span> pane.</li>
+            <li>Clear the <span class="uicontrol">Enable delegated authentication to LDAP</span> check box.</li>
+            <li>
+                    Click <span class="uicontrol">Save</span>.
+                </li>
+            <li>Accept the default setting to reset all LDAP user passwords and click <span class="uicontrol">Disable LDAP Authentication</span>.</li>
+         </ol>
+         <li>
+                In the <MadCap:variable name="okta-feature-names.Administrator dashboard"/>, go to <span class="menucascade">
+                  <span class="uicontrol">Directory</span>
+                  <span class="uicontrol">Directory Integrations</span>
+                  <span class="uicontrol">LDAP</span>
+                  <span class="uicontrol">Provisioning</span>
+                  <span class="uicontrol">To App</span>
+              </span>.</li>
+         <li>Click <span class="uicontrol">Edit</span>, select <span class="uicontrol">Enable</span> next to <span class="uicontrol">Sync Password</span>, and click <span class="uicontrol">Save</span>. </li>
+         <p>When <span class="uicontrol">Sync Password</span> is enabled, the LDAP agent sends the action PASSWORD_UPDATE when the user signs in for the first time.</p>
+      </ol>
+      <p>To assign existing <MadCap:variable name="okta-variables.ProductName"/> users to LDAP:</p>
+      <ol>
+         <li>
+                In the <MadCap:variable name="okta-feature-names.Administrator dashboard"/>, go to <span class="menucascade">
+                  <span class="uicontrol">Directory</span>
+                  <span class="uicontrol">Directory Integrations</span>
+                  <span class="uicontrol">LDAP</span>
+                  <span class="uicontrol">Provisioning</span>
+                  <span class="uicontrol">To App</span>
+              </span>.</li>
+         <li>Click <span class="uicontrol">Edit</span>, select <span class="uicontrol">Enable</span> next to <span class="uicontrol">Create Users</span>, and click <span class="uicontrol">Save</span>.</li>
+         <li>Click <span class="menucascade">
+               <span class="uicontrol">Directory</span>
+               <span class="uicontrol">Groups</span>
+            </span>.</li>
+         <li>Select the <MadCap:variable name="okta-variables.ProductName"/> group to which you want to assign users.</li>
+         <li>Click <span class="uicontrol">Manage Directories</span>.</li>
+         <li>Select an LDAP instance in the left pane and click <span class="uicontrol">Next</span>.</li>
+         <li>Enter the full distinguished name (DN) for the new user LDAP container in the <span class="uicontrol">Provisioning Destination DN</span> field.</li>
+         <li>Click <span class="uicontrol">Confirm Changes</span>.</li>
+      </ol>
+      <h2> Troubleshooting</h2>
+      <p>If LDAP directory authentication fails, the agent logs display messages similar to the following to assist with diagnosis and resolution:</p>
+      <h4>Agent:Success</h4>
+      <p>POST initiated with result status=SUCCESS, actionType=USER_AUTH_AND_UPDATE, actionId=ADSuirvHXkjvU4It20g3, diagnostic message=, error code=, matched dn=, message=SUCCESS, result code=, vendor=UNDEFINED</p>
+      <h4>Agent: Delauth failure</h4>
+      <p>POST initiated with result status=FAILURE, actionType=USER_AUTH_AND_UPDATE, actionId=ADSzbsNoy4eNjPI090g3, diagnostic message=NDS error: failed authentication (-669), error code=49, matched dn=cn=UserEdirectoryNewOne@edir.com,o=QAUsers,dc=Okta,dc=Com, message=LDAPException(resultCode=49 (invalid credentials), errorMessage='NDS error: failed authentication (-669)', diagnosticMessage='NDS error: failed authentication (-669)'), result code=invalid credentials, vendor=UNDEFINED</p>
+      <h4>Agent: No user </h4>
+      <p>POST initiated with result status=FAILURE, actionType=USER_AUTH_AND_UPDATE, actionId=ADSzbmckuuz7LniPk0g3, diagnostic message=, error code=, matched dn=, message=User not found while executing query: (&amp;(objectclass=inetorgperson)(uid=UserEdirectoryNewOne@edir.com333)), result code=, vendor=UNDEFINED</p>
+      <h4>Agent: Password expired</h4>
+      <p>POST initiated with result status=FAILURE, actionType=USER_AUTH_AND_UPDATE, actionId=ADSu99dXaoVG7gFjG0g3, diagnostic message=8009030C: LdapErr: DSID-0C09042A, comment: AcceptSecurityContext error, data 532, v3839?, error code=49, matched dn=CN=delauth2,CN=\#Users,DC=funnyface,DC=net,DC=local, message=LDAPException(resultCode=49 (invalid credentials), errorMessage='8009030C: LdapErr: DSID-0C09042A, comment: AcceptSecurityContext error, data 532, v3839?', diagnosticMessage='8009030C: LdapErr: DSID-0C09042A, comment: AcceptSecurityContext error, data 532, v3839?'), result code=invalid credentials, vendor=AD_LDS</p>
+      <h4>Agent: User deactivated (loginDisabled = TRUE)</h4>
+      <p>POST initiated with result status=FAILURE, actionType=USER_AUTH_AND_UPDATE, actionId=ADSzbyLP2YaxpJyKI0g3, diagnostic message=NDS error: log account expired (-220), error code=53, matched dn=cn=UserEdirectoryNewOne@edir.com,o=QAUsers,dc=Okta,dc=Com, message=LDAPException(resultCode=53 (unwilling to perform), errorMessage='NDS error: log account expired (-220)', diagnosticMessage='NDS error: log account expired (-220)'), result code=unwilling to perform, vendor=UNDEFINED</p>
+   </body>
+</html>

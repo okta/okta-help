@@ -1,0 +1,314 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:searchable="True"
+      MadCap:fileTags="Tags/okta-authors.Jeanette Smith">
+   <head>
+      <link href="../../../Resources/TableStyles/standard-shaded-rows.css"
+            rel="stylesheet"
+            MadCap:stylesheetType="table"/>
+      <title>Troubleshooting | Okta</title>
+      <link href="" rel="stylesheet" type="text/css"/>
+      <meta name="description"
+            content="Identify and resolve common SSO and attribute issues with the Okta and Google Workspace troubleshooting guide."/>
+   </head>
+   <body>
+      <h1>Troubleshooting</h1>
+      <h2>
+         <a name="Continge"/>Contingency Plan for Disabling SSO</h2>
+      <p>In the case where SSO needs to be disabled between <MadCap:variable name="okta-variables.ProductName"/> and Google Workspace immediately, complete these steps:</p>
+      <ol>
+         <li>Sign in to Google Workspace using the backdoor URL ([http://www.google.com/a/mydomain.com])</li>
+         <li>Select <span class="menucascade">
+               <span class="uicontrol">Advanced Tools</span>
+               <span class="uicontrol">Set up single sign-on (SSO)</span>
+            </span>.</li>
+         <li>Uncheck <span class="uicontrol">Enable Single Sign-on</span>.</li>
+         <li>Un-specify (blank out) the 3 URL fields.</li>
+         <li>Click <span class="uicontrol">Save Changes</span>.</li>
+         <li>The username/password sign-in page re-appears for all end users when they try to access Google Workspace. There may be a lag of 30 seconds before this appears.</li>
+      </ol>
+      <h2>
+         <a name="Google"/>SSO errors</h2>
+      <p>If you are using a Google environment that has Google Context Aware Access (CAA) enabled, you may experience issues clicking on the tiles in Okta. If an access denied screen appears, refreshing the page should fix the issue.</p>
+      <h2>
+         <a name="Google"/>Google API/UI Attribute Inconsistency</h2>
+      <p>
+         <MadCap:variable name="okta-variables.ProductName"/> attributes are mapped to the Google User Schema in the Google Directory API. In some cases, the Google Admin user interface and Contacts app user interface are inconsistent with this Google User Schema. For example, an attribute value might not appear in the user interface, even though it's correctly populated via the API. Additionally, an attribute value entered in the Google Admin User Interface (UI) might not show up in the Google User Schema properly. Google is aware of this inconsistency between user interfaces and API, and are working to resolve it. In general, query the Directory API directly to determine whether <MadCap:variable name="okta-variables.ProductName"/> has correctly pushed user profiles to Google. Learn about the impact of this inconsistency in specific use cases, and how to work around them:</p>
+      <p>
+         <MadCap:xref href="#Validate">Validate User Data in the Google User Schema</MadCap:xref>
+      </p>
+      <p>
+         <MadCap:xref href="#User">User creation in Google Workspace from Okta</MadCap:xref>
+      </p>
+      <p>
+         <MadCap:xref href="#User2">User import from Google Workspace</MadCap:xref>
+      </p>
+      <p>
+         <MadCap:xref href="#User3">User import from Google, and then subsequent update from Okta</MadCap:xref>
+      </p>
+      <h3>
+         <a name="Validate"/>Validate User Data in the Google User Schema</h3>
+      <p>Use Google API Explorer tool to validate user data in the Google User Schema:</p>
+      <ol>
+         <li>Go to: <a href="https://developers.google.com/apis-explorer/#s/admin/directory_v1/directory.users.get">https://developers.google.com/apis-explorer/#s/admin/directory_v1/directory.users.get</a>.</li>
+         <li>Authenticate Oauth with default scopes.</li>
+         <li>Enter the primary email of desired user in the userKey field.
+</li>
+         <p>
+            <img src="../../../Resources/Images/gsuite-1.png"
+                 class="thumbnail"
+                 alt="UserKey value in the Google API Explorer tool"/>
+         </p>
+      </ol>
+      <h3>
+         <a name="User"/>User creation in Google Workspace from <MadCap:variable name="okta-variables.ProductName"/>
+      </h3>
+      <p>The following Google Workspace User base attribute values created in <MadCap:variable name="okta-variables.ProductName"/> and pushed to Google Workspace will not show up in the Contacts app and Google Admin UI, but they will show up in the API:</p>
+      <ul>
+         <li>Second email</li>
+         <li>Street address</li>
+         <li>City</li>
+         <li>State</li>
+         <li>Zip code</li>
+         <li>Country code</li>
+      </ul>
+      <h3>
+         <a name="User2"/>User import from Google Workspace</h3>
+      <p>By default, <MadCap:variable name="okta-variables.ProductName"/> does not import some user attributes entered via the Google Admin UI. This is because these attribute values are incorrectly exposed in the Google User Schema via API. This issue may get resolved at some point by Google, but the suggested workaround is to use a tool like GAM to reconfigure the attribute values such that <MadCap:variable name="okta-variables.ProductName"/> can import them. Note that this issue only affects imports from G Suite. Provisioning of attributes from <MadCap:variable name="okta-variables.ProductName"/> to Google Workspace works successfully.
+
+</p>
+      <p>
+         <img src="../../../Resources/Images/gsuite-2.png"/>
+      </p>
+      <table style="mc-table-style: url('../../../Resources/TableStyles/standard-shaded-rows.css');"
+             class="TableStyle-srb_header_alt_shade"
+             cellspacing="0">
+         <thead>
+            <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+               <td class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Google Admin UI Attribute Name
+                    </td>
+               <td class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Sample Data entered into Google
+                    </td>
+               <td class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Sample Data shown in Google User Schema via API
+                    </td>
+               <td class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Use GAM to reconfigure Sample Data in Google User Schema
+                    </td>
+               <td class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">Attribute will show up in G Suite Base Attribute or Custom Attribute
+                    </td>
+            </tr>
+         </thead>
+         <tbody>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Secondary Email</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">mailto:myemail@test.com</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">emails: address=myemail@test.com, type=custom, customType=""</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">emails: type=work address=myemail@test.com</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                  <ul>
+                     <li>Work email</li>
+                  </ul>
+               </td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Phone (Work)</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">111-111-1111</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">phones: type=work value=111-111-1111</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">no GAM update needed</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
+                  <ul>
+                     <li>Primary phone</li>
+                  </ul>
+               </td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Phone (Home)</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">111-111-1111</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">phones: type=home value=111-111-1111</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">no GAM update needed</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Add as Custom Attribute:
+								<ul>
+                     <li>Phones Home Value</li>
+                  </ul>
+               </td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Phone (Mobile)</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">111-111-1111</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">phones: type=mobile value=111-111-1111</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">no GAM update needed</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
+                  <ul>
+                     <li>Phones WorkMobile Value</li>
+                  </ul>
+               </td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Address (Work)</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">301 Brannan St San Francisco, CA 94105</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">addresses: type=work formatted="301 Brannan St San Francisco, CA 94105"</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">addresses: type=work streetAddress="301 Brannan St" locality="San Francisco" Region="CA" PostalCode="94105"</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                  <ul>
+                     <li>Street address</li>
+                     <li>City</li>
+                     <li>State</li>
+                     <li>Zip code</li>
+                  </ul>
+               </td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Address (Home)</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">301 Brannan St San Francisco, CA 94105</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">addresses: type=home formatted="301 Brannan St San Francisco, CA 94105"</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">addresses: type=home streetAddress="301 Brannan St" locality="San Francisco" Region="CA" PostalCode="94105"</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">Add as Custom Attributes:
+								<ul>
+                     <li>addressesHomeStreetAdress</li>
+                     <li>addressesHomeLocality</li>
+                     <li>addressesHomeRegion</li>
+                     <li>addressesHomePostalCode</li>
+                  </ul>
+               </td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Employee ID</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">123</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">externalIds: type=organization value=123</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">no GAM update needed</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Add as Custom Attribute:
+								<ul>
+                     <li>ExternalIds Organization Value</li>
+                  </ul>
+               </td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Manager</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">admin@oktaskylab.net</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">relations: type=Manager value=admin@oktaskylab.net</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">no GAM update needed</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
+                  <ul>
+                     <li>Manager</li>
+                  </ul>
+               </td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Title</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Sales</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">organizations: title=Sales customType=""</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">organizations: title=Sales type="work"</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                  <ul>
+                     <li>Organizations title</li>
+                  </ul>
+               </td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Employee type</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Engineer</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">organizations: description=Engineer customType=""</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">organizations: description=Engineer customType="work"</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">Add as Custom Attribute:
+								<ul>
+                     <li>Organizations Work Description</li>
+                  </ul>
+               </td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Department</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Engineering</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">organizations: department=Engineering customType=""</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">organizations: department=Engineering customType="work"</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                  <ul>
+                     <li>Organizations department</li>
+                  </ul>
+               </td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+               <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">Cost Center</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">EN101</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">organizations: costCenter=EN101 customType=""</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">organizations: costCenter=EN101 customType="work"</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">
+                  <ul>
+                     <li>Organizations costCenter</li>
+                  </ul>
+               </td>
+            </tr>
+         </tbody>
+      </table>
+      <h3>
+         <a name="User3"/>User import from Google and subsequent update from Okta</h3>
+      <p>For a Google Workspace User who was originally created in Google Admin user interface, updating their profile in <MadCap:variable name="okta-variables.ProductName"/> will not overwrite attribute values that were originally populated in Google Workspace UI and to which <MadCap:variable name="okta-variables.ProductName"/> does not explicitly map to.  For example, if the Cost Center attribute is first filled out in Google Admin user interface, then updating Organizations costCenter in <MadCap:variable name="okta-variables.ProductName"/> will not result in a Google Admin UI update. By contrast, if the Phone (Work) attribute is first filled out in Google Admin UI, then updating Primary phone in Okta will result in an update in the Google Admin UI.
+
+</p>
+      <h2>
+         <a name="Known"/>Known issues and common errors</h2>
+      <ul>
+         <li>
+            <p>Multi-word attributes
+                </p>
+            <p>The Search bar in <span class="menucascade">
+                  <span class="uicontrol">People</span>
+                  <span class="uicontrol">Profile Editor</span>
+                  <span class="uicontrol">Google Workspace User</span>
+                  <span class="uicontrol">Add Attribute</span>
+               </span> sequence cannot search for multi-word attribute names that contain spaces.
+</p>
+         </li>
+         <li>
+            <p>Separate Primary Email attribute</p>
+            <p>The Google Workspace User profile shows a separate Primary Email attribute. This is because the Google Workspace instance was created prior to the January 2015 GA update and is a deprecated implementation. A best practice is to set up a brand new Google Workspace instance in your <MadCap:variable name="okta-variables.ProductName"/> org, and deactivate the old one. If this is not feasible, continue using the existing Google Workspace instance, but don't map any <MadCap:variable name="okta-variables.ProductName"/> user attribute to the Google Workspace User Primary Email attribute.
+</p>
+         </li>
+         <li>
+            <p>Contacts App does not appear</p>
+            <p>After provisioning a user to Google Workspace, the Contacts app doesn't show the updated user profile. This is expected behavior as it takes up to 24 hours for updated values to appear in the Google Workspace Directory section of the Contacts app.</p>
+         </li>
+         <li>
+            <p>How are Google groups affected by <MadCap:variable name="okta-variables.ProductName"/>?
+                </p>
+            <p>
+               <MadCap:variable name="okta-variables.ProductName"/> imports a user's groups when they are imported from Google Workspace or when their Google Workspace account is assigned to their <MadCap:variable name="okta-variables.ProductName"/> account. After a user is imported or assigned, updates to groups in Google Workspace are not reflected in <MadCap:variable name="okta-variables.ProductName"/>.</p>
+            <p>Select Push <MadCap:variable name="okta-variables.ProductName"/> user profiles to Google Workspace to have group changes made within <MadCap:variable name="okta-variables.ProductName"/> pushed to Google Workspace.</p>
+         </li>
+         <li>
+            <p>Import errors
+                </p>
+            <p>If new org units are added in Google, you may need to refresh your application data before running an import or else you may receive the following error:</p>
+            <p>
+               <span class="codeblock">Field error in object GoogleAppBaseProfile on field orgUnitPath: rejected value               </span>
+            </p>
+         </li>
+         <li>
+            <p>Custom Schema Attributes are not showing up
+                </p>
+            <p>If you're using Enhanced Schema Discovery for Google Workspace application, but don't see any new attributes coming to <MadCap:variable name="okta-variables.ProductName"/> in the Profile Editor, you need to re-authenticate on the Provisioning tab, to allow <MadCap:variable name="okta-variables.ProductName"/> to import custom schemas from Google Workspace.</p>
+            <p>To do this, go to the <span class="wintitle">Provisioning</span> tab, then select <span class="uicontrol">API Integration</span> and re-authenticate.</p>
+         </li>
+         <li>
+            <p>Errors during profile updates
+                </p>
+            <p>If you're using Enhanced Schema Discovery for Google Workspace application, and you have imported and assigned some properties from a custom user schema in Google Workspace, and after that you removed that custom user schema from Google Workspace, you may see the following error (New_UserSchema in the image is the deleted schema from Google Workspace):</p>
+            <p>To resolve this error, manually remove custom properties from Okta's Google Workspace user in Profile Editor.</p>
+         </li>
+         <p>
+            <img src="../../../Resources/Images/gsuite_newe.png"
+                 alt="Error message example"
+                 class="thumbnail"/>
+         </p>
+      </ul>
+      <h2>
+         <a name="Addition"/>Google resources</h2>
+      <ul>
+         <li>
+            <a href="https://support.google.com/a/answer/60224?hl=en" target="_blank">Single Sign-On documentation</a>
+         </li>
+         <li>
+            <a href="https://developers.google.com/admin-sdk/" target="_blank">Google Admin SDK's Directory API</a>
+         </li>
+      </ul>
+   </body>
+</html>

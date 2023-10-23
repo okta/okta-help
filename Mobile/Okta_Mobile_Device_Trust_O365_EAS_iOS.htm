@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:onlyLocalStylesheets="False" MadCap:fileTags="Tags/okta-topic-status.Ready for Review,Tags/okta-authors.Kimli Welsh" MadCap:searchable="True">
+    <head><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+        <meta name="description" content="Enforce Okta Device Trust for Exchange ActiveSync on devices with Okta Mobility Management and use certificates to stop unmanaged devices from using Office 365." />
+    </head>
+    <body>
+        <h1><a name="top"></a>Enforce Okta <MadCap:variable name="okta-feature-names.Device Trust" /> for Exchange ActiveSync on OMM-managed iOS devices</h1>
+        <p class="earlyaccess"><MadCap:variable name="okta-variables.EarlyAccess" />
+        </p>
+        <p>This Okta <MadCap:variable name="okta-feature-names.Device Trust" /> solution for Microsoft Office 365 EAS on OMM&#160;managed iOS&#160;devices allows you to do the following: </p>
+        <ul>
+            <li>Configure the iOS mail app to use certificates instead of passwords to allow OMM-enrolled users to authenticate to Microsoft Office 365 Exchange ActiveSync.</li>
+            <li>Configure iOS mail app client access policy to prevent users with unmanaged devices from accessing Microsoft Office 365 Exchange ActiveSync.</li>
+        </ul>
+        <p>
+            <img src="../../Resources/Images/EAS_DT_O365_flow3.png" alt="The image illustrates how Okta Device Trust is enforced for Exchange ActiveSync on OMM-managed iOS devices." class="thumbnail" />
+        </p>
+        <p>This <MadCap:variable name="okta-feature-names.Device Trust" /> solution provides these key benefits:</p>
+        <ul>
+            <li>Allows end users to seamlessly SSO in to their native iOS mail app (EAS) from OMM-enrolled iOS devices</li>
+            <li>Enhances Office 365 Exchange ActiveSync security through enforcement of certificate-based authentication instead of password authentication</li>
+            <li>
+                <p>Prevents users with unmanaged iOS devices from accessing Office365</p>
+            </li>
+            <li>Helps prevent users from becoming locked-out of their account due to Active Directory (AD) password resets</li>
+        </ul>
+        <h2>Prerequisites</h2>
+        <ul>
+            <li>
+						An Office 365 tenant federated to an Okta org with at least one license for Exchange Online
+					</li>
+            <li>
+						A Windows computer to run PowerShell commands
+</li>
+            <li>Azure PowerShell 5.0 (64-bit)</li>
+            <li>
+					An iOS 9 (or higher) device</li>
+        </ul>
+        <h2>   Procedures</h2>
+        <p>This procedure has four main steps: </p>
+        <h3><a name="Step1"></a>Step 1. Enable Exchange ActiveSync certificate-based authentication in Okta</h3>
+        <div class="noteOkta">
+            <p class="noteContent">
+                <ul>
+                    <li>Do not click <span class="uicontrol">Save</span> at the end of Step 1. You will save changes in <a href="#Step3">Step 3: Distribute certificates for EAS to OMM-enrolled devices.</a></li>
+                    <li>If you have set up multiple Office 365 app instances in your org, note that Okta generates a different Okta CA certificate for each Office 365 app instance/domain. This means that you must upload a separate root certificate for each Office 365 app instance/domain that you want to configure with certificate based authentication.</li>
+                </ul>
+            </p>
+        </div>
+        <ol>
+            <li><a name="FromOktaAdminConsole"></a>
+                <MadCap:snippetText src="../../Resources/Snippets/task steps/Applications_Applications.flsnp" /> </li>
+            <li>Click the Office 365 app.</li>
+            <li>Click the <span class="wintitle">Mobile</span> tab.</li>
+            <li>Scroll down to <span class="wintitle">Exchange ActiveSync Settings</span>, and then click <span class="uicontrol">Edit</span>.
+									<p><img src="../../Resources/Images/EAS_CBA_O365.png" class="thumbnail" /></p></li>
+            <li>Select <span class="uicontrol">Enable Exchange ActiveSync</span>.</li>
+            <li>Enter a <span class="uicontrol">Profile name</span>.</li>
+            <li>Select <span class="uicontrol">Enable certificate-based authentication for iOS</span>.</li>
+            <li>Click <span class="uicontrol">Download root certificate</span>.
+									</li>
+            <li>For use later in this procedure, copy and paste the <span class="uicontrol">Certificate Revocation List URL</span> and the <span class="uicontrol">Delta Certificate Revocation List URL</span> into a text editor.
+							<p><img src="../../Resources/Images/EAS_CBA_O365_CLR-DRL.png" class="thumbnail" /></p><div class="note_cautionOkta"><p class="noteContent"><a name="Stop_dontclicksave"></a>Do not click <span class="uicontrol">Save</span> yet. You'll save these settings in <a href="#Step3">Step 3: Distribute certificates for EAS to OMM-enrolled devices</a> after you complete the PowerShell actions detailed in <a href="#Step2">Step 2: Enable Exchange ActiveSync certificate-based authentication in Office 365</a>. If you save  now and then encounter a problem when enabling Exchange ActiveSync Cert Based Authentication in Office 365, your users may not be able to access their mail app.</p></div></li>
+        </ol>
+        <div class="noteOkta">
+            <p class="noteContent">Tell your end users how the above configuration may affect their device and mail account. See <a href="#KnownIssues">Known issues</a>.</p>
+        </div>
+        <h3><a name="Step2"></a>Step 2. Enable Exchange ActiveSync certificate-based authentication in Office 365</h3>
+        <p><a name="FromWinCLI"></a>From a Windows command line, do the following:</p>
+        <ol>
+            <li><a name="Launch"></a>Launch Azure PowerShell 5.0 (64-bit) as an Administrator.
+						
+						
+								
+										
+										
+										
+										
+										
+									<div class="noteOkta"><p class="noteContent">An error message appears if you try to use the x86 (32-bit) version of PowerShell.</p></div></li>
+            <li>
+                <p>Issue the following command to install the AzureAD module for PowerShell:</p>
+                <p><span class="code">Install-Module -Name AzureAD –RequiredVersion 2.0.0.33</span>
+                </p>
+                <ul>
+                    <li>If the message "NuGet provider is required to continue" appears, click <span class="uicontrol">Yes</span> to install and import NuGet provider.</li>
+                    <li>If the message "Untrusted repository" appears, click <span class="uicontrol">Yes to All</span> to install the required modules.</li>
+                </ul>
+            </li>
+            <li>In PowerShell, issue the following command to connect to your Azure AD tenant and authenticate to Office 365:
+						
+						
+									<p><span class="code">Connect-AzureAD</span></p></li>
+            <li>
+                <p>Enter your Office 365 credentials in the <span class="wintitle">Azure Active Directory</span> sign-in screen.</p>
+            </li>
+            <li>To create the necessary PowerShell variables, issue the following commands in PowerShell:
+								
+								
+								
+									<p><span class="code">$cert=Get-Content -Encoding byte "LOCATION OF YOUR CER FILE\filename.cer"</span></p><p>Make sure to replace <span class="code">LOCATION OF YOUR CER FILE\filename.cer</span> with the path and filename of your <span class="code">*.cer</span> file.</p><p><span class="code">$new_ca=New-Object -TypeName Microsoft.Open.AzureAD.Model.CertificateAuthorityInformation</span></p><p><span class="code">$new_ca.AuthorityType=0</span></p><p><span class="code">$new_ca.TrustedCertificate=$cert</span></p></li>
+            <li>To enable certificate revocation in Office 365, issue the following commands, making sure to paste the revocation URLs that you saved earlier: <p><img src="../../Resources/Images/EAS_CBA_O365_CLR-DRL.png" class="thumbnail" /></p><p><span class="code">$new_ca.crlDistributionPoint = "CERTIFICATE REVOCATION LIST URL"</span></p><p>Replace <span class="code">CERTIFICATE REVOCATION LIST URL</span> with the <span class="uicontrol">Certificate Revocation list URL</span> that you saved earlier.</p><p><span class="code">$new_ca.deltaCrlDistributionPoint = "DELTA CERTIFICATE REVOCATION LIST URL"</span></p><p>Replace <span class="code">DELTA CERTIFICATE REVOCATION LIST URL</span> with the <span class="uicontrol">Delta Certificate Revocation list URL</span> that you saved earlier.</p></li>
+            <li>To add the appropriate certificate authority in Office 365, issue the following command:
+									<p><span class="code">New-AzureADTrustedCertificateAuthority -CertificateAuthorityInformation $new_ca</span></p></li>
+            <li>To confirm that the certificate authority was added to Office 365, issue the following command:
+					
+									<p><span class="code">Get-AzureADTrustedCertificateAuthority</span></p><p><img src="../../Resources/Images/EAS_Cert_Install_CLI.png" class="thumbnail" /></p></li>
+            <li>Optional. Issue the following commands to help troubleshoot your configuration, if necessary:
+							<ul><li><p>If you want to add the existing Certificate Authorities to a variable:</p><p><span class="code">$c=Get-AzureADTrustedCertificateAuthority</span></p></li><li><p>If you want to remove a Certificate Authority, issue the following command and choose the correct certificate. Numbering begins at <span class="code">0</span> (zero). For example, to remove the first certificate, enter <span class="code">0</span> as shown below:</p><p><span class="code">Remove-AzureADTrustedCertificateAuthority -CertificateAuthorityInformation $c[0]</span></p></li></ul></li>
+        </ol>
+        <div class="noteOkta">
+            <p class="noteContent">Tell your end users how the above configuration may affect their device and mail account. See <a href="#KnownIssues">Known issues</a>.</p>
+        </div>
+        <h3><a name="Step3"></a>Step 3. Distribute certificates for EAS to OMM-enrolled devices</h3>
+        <ol>
+            <li>Make sure to advise your end users to remove any <a href="#KnownIssues">manually-configured EAS profiles</a> that may be installed on their device.</li>
+            <li>In the Okta Admin Console, return to the <span class="uicontrol">Exchange ActiveSync Settings</span> dialog box and click <span class="uicontrol">Save</span>.</li>
+            <li>Click <span class="uicontrol">Save</span> in the <span class="uicontrol">Confirm Exchange ActiveSync</span> changes message.</li>
+        </ol>
+        <h3><a name="Step4"></a>Step 4. Optional. Prevent unmanaged devices from accessing Office 365 email using the iOS Mail app (EAS)</h3>
+        <div class="noteOkta">
+            <p class="noteContent">Only configure Step 4 if your users have been notified to enroll in Okta Mobility Management.</p>
+        </div>
+        <ol>
+            <li>Configure the Office 365 client access policy:								
+				<li><MadCap:snippetText src="../../Resources/Snippets/task steps/Applications_Applications.flsnp" /> </li><li>Click the Office 365 app instance</li><li>Click the <span class="wintitle">Sign On</span> tab, scroll down to the <span class="wintitle">Sign On Policy</span>, and click <span class="uicontrol">Add Rule</span>.</li><li>Enter a name for the rule and apply it to the appropriate group or users.</li><li>In the <span class="wintitle">Client</span> section, select <span class="uicontrol">Mobile (Exchange ActiveSync)</span> and <span class="uicontrol">iOS</span>.</li><div class="noteOkta"><p class="noteContent">Make sure the other options  are not selected.</p></div><p><img src="../../Resources/Images/ClientAccessPolicies_DT_EAS_iOS.png" class="thumbnail" /></p><ol style="list-style-type: lower-alpha;"><li>In the <span class="wintitle">Actions</span> section, for <span class="uicontrol">When all the conditions above are met, sign on to this application is</span>, select <span class="uicontrol">Denied</span>.
+									</li><li>
+										Click <span class="uicontrol">Save</span>.
+							</li></ol></li>
+            <li>
+								Using an OMM-enrolled iOS device, verify the <MadCap:variable name="okta-feature-names.Device Trust" /> configuration:
+								<ol style="list-style-type: lower-alpha;"><li>
+										Ensure that the OMM-enrolled iOS device is covered by an appropriate Okta mobile policy.
+									</li><li>
+										Launch the native iOS mail app and confirm that email works without the need to authenticate to Office 365.
+									</li><li>
+										Manually create an EAS mail account on the native iOS mail app to confirm that Okta is blocking manually-configured email accounts.
+							</li></ol></li>
+        </ol>
+        <h3>Known issues<a name="KnownIssues"></a></h3>
+        <ul>
+            <li>Continuous password prompt caused by duplicate EAS profiles — iOS 9.3 and iOS 10.2 device users who manually configure the native iOS mail app before enrolling in OMM will have duplicate EAS profiles on their device after OMM enrollment pushes a certificate-based profile to their device automatically. On <span class="uicontrol">iOS 9.3</span> devices, this duplication may cause confusion. On <span class="uicontrol">iOS 10.2</span> devices, in addition to the profile duplication issue, the manually-configured profile doesn't receive email and continuously prompts for a password. To address these issues, we recommend that you advise your users to delete the manually-configured profile from their device. Otherwise, the password prompt appears continuously.</li>
+            <li MadCap:conditions="Primary.do-not-publish">Custom email settings can be lost on Android devices — If you update the existing Exchange ActiveSync (EAS) settings for the Office 365 app by selecting the option <span class="uicontrol">Enable certificate-based authentication for iOS</span>, Okta sends OMM-enrolled, <MadCap:popup><MadCap:popupHead>EAS&#8209;provisioned</MadCap:popupHead><MadCap:popupBody>Applies to Samsung Safe and Android for Work OMM enrollments only.</MadCap:popupBody></MadCap:popup> Android devices  a new EAS profile, even though that option should apply only to iOS devices. Because the new profile replaces the existing profile, end users' custom email settings are wiped out. <MadCap:toggler targets="DT_CBA_Setting" style="color: #0000ff;">Screenshot</MadCap:toggler><p><img src="../../Resources/Images/CBA Setting.png" MadCap:targetName="DT_CBA_Setting" class="thumbnail" /></p></li>
+            <li>Currently, this feature supports only the native iOS mail app on iOS devices.</li>
+            <li>
+                <p>Users may be prompted for credentials — If you unassign and then reassign a CBA-configured Office 365 app instance to users or groups, users trying to access the EAS-enabled native iOS mail client are prompted to enter their credentials. Even after entering credentials, users still receive the message "Cannot Get Mail". Users may need to wait up to several hours before they can access email.</p>
+            </li>
+            <li>Block access to Outlook for iOS or Android — If you don't want your end users to access Outlook for iOS or Android, you can block access as described in the Microsoft article <a href="https://technet.microsoft.com/en-us/library/mt465747(v=exchg.150).aspx">Enabling Outlook for iOS and Android in Exchange Online</a>. Scroll down to <span class="wintitle" style="font-weight: normal;">Blocking Outlook for iOS and Android</span>.</li>
+            <li>
+                <p>CRL cache must refresh — When Okta revokes a certificate, or if the trusted root CA certificate is removed from Exchange Online/O365/Azure AD, CBA EAS-enabled devices using the certificate can still access email until the next time Office 365 invalidates the Certificate Revocation List (CRL) cache and refreshes the CRL. When the cache is refreshed, Microsoft denies the device access to email. Microsoft cache expires once every 24 hours, or whenever the device switches to a different Wi-Fi network.</p>
+            </li>
+            <li>More than one OS type in the header when using the Outlook mail app — When Okta receives a request from the Outlook Mail app on iOS and Android devices, the header contains both iOS and Android, which prevents Okta from precisely identifying the OS type. To ensure that the client access policy is applied in this case, select the <span class="uicontrol">Others</span> option in the Mobile (Exchange ActiveSync<span class="uicontrol">)</span> client access policy. For more information, see <a href="https://support.okta.com/help/Documentation/Knowledge_Article/Getting-Started-with-Office-365-Client-Access-Policies#ClientAccessPolicies">Configuring Rules for Office 365 Client Access Policies</a>.</li>
+        </ul>
+    </body>
+</html>

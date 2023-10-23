@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/upgrade-centos8.htm" /><title>[%=Heading.Level1%]</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1><MadCap:variable name="okta-feature-names.Access Gateway" /> OS</h1>
+        <p>Okta <MadCap:variable name="okta-feature-names.Access Gateway" /> version 2020.09.2 and earlier versions are based on CentOS 7. 
+		  </p>
+        <p><MadCap:variable name="okta-feature-names.Access Gateway" /> version <MadCap:variable name="oag-versions.2020-10" /> through version <MadCap:variable name="oag-versions.2021-08" /> are based on CentOS 8.</p>
+        <p>Both CentOS 7 and CentOS 8 are approaching <a href="https://wiki.centos.org/About/Product">End-of-Life</a>. 
+		  Okta will continue to support earlier versions of CentOS but may discontinue upgrades for these versions in the future.</p>
+        <p><MadCap:variable name="okta-feature-names.Access Gateway" /> version <MadCap:variable name="oag-versions.2021-09" /> and later <MadCap:variable name="okta-feature-names.Access Gateway Full" /> Virtual Appliances (OVAs) are based on Oracle Enterprise Linux (OEL) 8. Oracle Enterprise Linux 8 has numerous benefits over CentOS, including: increased performance, stability, support and more.</p>
+        <div class="noteOkta">
+            <p class="noteContent">
+					To bring an entire cluster up to the latest version of <MadCap:variable name="okta-feature-names.Access Gateway" /> based on Oracle Enterprise Linux (OEL):
+					<ol><li>Add a worker node based on OEL to the cluster.</li><li>Follow these instructions to make the new worker node the admin node.</li><li>When complete, decommission the previous admin node.</li><li>Replace each worker node with new nodes based on the latest version of <MadCap:variable name="okta-feature-names.Access Gateway" /> based on OEL.</li></ol><p>To bring a single instance of <MadCap:variable name="okta-feature-names.Access Gateway" /> up to the latest OEL-based OVAs, you must reinstall <MadCap:variable name="okta-feature-names.Access Gateway" /> completely. Upgrading the operating system of <MadCap:variable name="okta-feature-names.Access Gateway" /> in place isn't supported.</p></p>
+        </div>
+        <p>To upgrade an <MadCap:variable name="okta-feature-names.Access Gateway" /> cluster to the latest version see <a href="about-admin-renomination.htm">Admin renomination</a>.</p>
+        <h2>Before you begin
+</h2>
+        <ul>
+            <li>Ensure you have sufficient capacity to add an <MadCap:variable name="okta-feature-names.Access Gateway" /> instance. During the upgrade process, new instances of <MadCap:variable name="okta-feature-names.Access Gateway" /> replace old instances. Sufficient capacity (memory, disk, and virtual machine (VM) resources) must be available to add a single new instance of <MadCap:variable name="okta-feature-names.Access Gateway" />. As instances are added, old instances are removed. </li>
+            <li>Ensure you have access to and can administer load balancers. During&#160;this OS upgrade, instances running a newer version of the base operating system replace existing <MadCap:variable name="okta-feature-names.Access Gateway" /> instances. You must be able to remove and add instances to your <MadCap:variable name="okta-feature-names.Access Gateway" /> cluster and its associated load balancer.</li>
+            <li>Ensure that you have access to and can edit DNS. During the admin renomination process, a new instance of <MadCap:variable name="okta-feature-names.Access Gateway" /> is added as the cluster admin. This instance  replaces the existing admin instance and must be registered in DNS with the same name as the current admin instance. </li>
+        </ul>
+        <h2>Upgrade process overview</h2>
+        <p><MadCap:variable name="okta-feature-names.Access Gateway" /> clusters built using OVAs running <MadCap:variable name="okta-feature-names.Access Gateway" /> version 2020.09.3 and earlier can't directly upgrade their underlying OS. To perform the upgrade, complete the following process:</p>
+        <div class="noteOkta">
+            <p class="noteContent">While recommended, you aren't required to update to a newer version of the underlying operating system. You can update an older version of the underlying OS to <MadCap:variable name="okta-feature-names.Access Gateway" /> v2020.10.5 and later. Okta reserves the right to stop or limit support for older versions of the underlying operating system at any time.</p>
+        </div>
+        <ol>
+            <li>Determine if the upgrade process is required. Only <MadCap:variable name="okta-feature-names.Access Gateway" /> instances previous to <MadCap:variable name="okta-feature-names.Access Gateway" /> 2020.10.5 need to perform the upgrade process. If your <MadCap:variable name="okta-feature-names.Access Gateway" /> cluster was build using version 2020.10.5 or later you can upgrade normally. See <MadCap:xref href="upgrade.htm">Upgrade [%=okta-feature-names.Access Gateway%] nodes.</MadCap:xref></li>
+            <li>Add a <MadCap:variable name="okta-feature-names.Access Gateway" /> 2020.10.5 Cluster admin. Using the admin renomination process add an admin node. See <MadCap:xref href="admin-renomination-perform.htm">Perform admin renomination</MadCap:xref>.</li>
+            <li>Point the existing admin DNS instance name to the IP&#160;address of the new admin node.</li>
+            <li>Decommission the old admin node. After the renominated admin node is running, decommission the old admin node. Remove it from any load balancers, and then stop and delete the VM.</li>
+            <li>Replace cluster members. For each existing cluster member:<ol style="list-style-type: lower-alpha;"><li>Remove the existing cluster member from the load balancer.</li><li>Add a cluster member that's running <MadCap:variable name="okta-feature-names.Access Gateway" /> 2020.10.5 or later to your virtual environment.</li><li>Add the replacement instance to the load balancer.</li><li>Decommission the node that's been replaced.</li><li>Repeat for each member of the cluster.</li></ol></li>
+        </ol>
+        <div class="noteOkta">
+            <p class="noteContent">While replacing nodes within a cluster should be done in a timely fashion <MadCap:variable name="okta-feature-names.Access Gateway" /> can function in a mixed version environment. Take the time necessary to plan out and upgrade your environment thoughtfully. </p>
+        </div>
+        <h2>Related topics </h2>
+        <p>
+            <MadCap:xref href="determine-oag-version.htm">Determine [%=okta-feature-names.Access Gateway%] version</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="about-admin-renomination.htm">About admin renomination</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="admin-renomination-perform.htm">Perform admin renomination</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="upgrade.htm">Upgrade [%=okta-feature-names.Access Gateway%] nodes </MadCap:xref>
+        </p>
+    </body>
+</html>

@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:fileTags="Tags/okta-authors.Arshabhi Rai">
+    <head><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+        <meta name="description" content="Learn how to link Active Directory accounts to an existing Okta/Advanced Server Access User Profile." />
+    </head>
+    <body>
+        <div MadCap:conditions="MultiProdPublish.PYPContent">
+            <h1>Configure Active Directory account mapping</h1>
+            <h2>Before you begin</h2>
+            <ul>
+                <li>Integrate an <MadCap:variable name="3rd Party Integrations.AD" /> (AD) domain into your <MadCap:variable name="okta-variables.ProductName" /> org</li>
+                <li>
+                    <MadCap:xref href="setup/getting-started.htm">Install [%=okta-feature-names.ScaleFT%] and create a team</MadCap:xref>
+                </li>
+                <li>
+                    <MadCap:xref href="setup/configure-scim.htm">Configure SCIM&#160;for [%=okta-variables.ProductName%]</MadCap:xref>
+                </li>
+            </ul>
+            <h2>Tasks</h2>
+            <ol>
+                <li>
+                    <MadCap:xref href="#Add-attr-profile-temp">Add attribute to the Okta profile template</MadCap:xref>
+                </li>
+                <li><a href="#populate-AD-attributes-for-ASA-users">Map AD attributes to Okta  profiles</a>
+                </li>
+                <li><a href="#add-attributes-to-the-ASA-user-profile-template">Add attribute to the <MadCap:variable name="okta-feature-names.ScaleFT" /> profile template</a>
+                </li>
+                <li><a href="#map-Okta-user-profile-attributes-to-ASA-user-profile-attributes">Map Okta profile attributes to <MadCap:variable name="okta-feature-names.ScaleFT" /> profile attributes</a>
+                </li>
+                <li><a href="#assign-users-or-groups-to-ASA">Assign users or groups to <MadCap:variable name="okta-feature-names.ScaleFT" /></a>
+                    <br />
+                </li>
+                <li>Optional. <a href="#assign-project-level-attribute-overrides">Assign project-level attribute overrides</a></li>
+            </ol>
+            <div>
+                <h2><a name="Add-attr-profile-temp"></a>Add attribute to the Okta profile template</h2>
+                <p>The first step is to add an attribute to the default Okta user profile. This attribute stores one or more AD usernames for a specific Okta account.</p>
+                <p>In the  <MadCap:variable name="okta-feature-names.Administrator dashboard" />, use the <span class="uicontrol">Profile Editor</span> to add an attribute to the default Okta user profile with the <span class="uicontrol">string array</span> data type. You can configure the other settings to meet your organizational needs. See <a href="https://help.okta.com/okta_help.htm?type=oie&amp;id=csh-usgp-add-custom-user-attributes" target="_blank">Add custom attributes to an Okta user profile</a>.</p>
+            </div>
+            <div>
+                <h2><a name="populate-AD-attributes-for-ASA-users"></a>Map AD attributes to Okta profiles</h2>
+                <p>Next, you need to map AD attributes to your Okta user profiles. In the  <MadCap:variable name="okta-feature-names.Administrator dashboard" />, open the <span class="uicontrol">Profile Editor</span>, locate your AD directory integration, and click <span class="uicontrol">Mappings</span>. You need to use an Okta expression to map the AD attributes to a string array. Locate the field that you created and enter the following expression in the left column:</p>
+                <p><span class="code">Arrays.add(Arrays.toCsvString({}),appuser.userName)</span>
+                </p>
+            </div>
+            <div>
+                <h2><a name="add-attributes-to-the-ASA-user-profile-template"></a>Add attributes to the <MadCap:variable name="okta-feature-names.ScaleFT" /> profile template</h2>
+                <div class="noteOkta">
+                    <p class="noteContent">This process isn't needed for new teams. Existing teams can contact <MadCap:variable name="okta-variables.ProductName" /> support for assistance.</p>
+                </div>
+                <p>Next, you must add two attributes to the default <MadCap:variable name="okta-feature-names.ScaleFT" /> user profile. <MadCap:variable name="okta-feature-names.ScaleFT" /> uses these attributes to store AD user accounts available to a user. Both attributes are required and must use the exact settings specified. </p>
+                <p>In the <MadCap:variable name="okta-feature-names.Administrator dashboard" />, use the <span class="uicontrol">Profile Editor</span> to add attributes to the default <MadCap:variable name="okta-feature-names.ScaleFT" /> user profile. </p>
+                <div>
+                    <h3>Active Directory Identity</h3>
+                    <ul>
+                        <li><span class="uicontrol">Data type</span>: <span class="uicontrol">string array</span></li>
+                        <li><span class="uicontrol">Display name</span>: <span class="userinput">Active Directory Identity</span></li>
+                        <li><span class="uicontrol">Variable name</span>: <span class="userinput">activeDirectoryIdentity</span></li>
+                        <li><span class="uicontrol">External name</span>: <span class="userinput">activeDirectoryIdentity</span></li>
+                        <li><span class="uicontrol">External namespace</span>: <span class="userinput">urn:scim:schemas:scaleft:user:1.0</span></li>
+                        <li><span class="uicontrol">Description</span>: <span class="userinput">Comma-separated list of AD accounts available to an <MadCap:variable name="okta-variables.ProductName" /> user. Users must manually enter a password when using these accounts.</span></li>
+                        <li><span class="uicontrol">Scope</span>: <span class="uicontrol">Personal</span></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Active Directory Passwordless Identity</h3>
+                    <ul>
+                        <li><span class="uicontrol">Data type</span>: <span class="uicontrol">string array</span></li>
+                        <li><span class="uicontrol">Display name</span>: <span class="userinput">Active Directory Passwordless Identity</span></li>
+                        <li><span class="uicontrol">Variable name</span>: <span class="userinput">activeDirectoryPasswordlessIdentity</span></li>
+                        <li><span class="uicontrol">External name</span>: <span class="userinput">activeDirectoryPasswordlessIdentity</span></li>
+                        <li><span class="uicontrol">External namespace</span>: <span class="userinput">urn:scim:schemas:scaleft:user:1.0</span></li>
+                        <li><span class="uicontrol">Description</span>: <span class="userinput">Comma-separated list of AD accounts available to an <MadCap:variable name="okta-variables.ProductName" /> user. Users don't need to enter a password when using these accounts.</span></li>
+                        <li><span class="uicontrol">Scope</span>: <span class="uicontrol">Personal</span></li>
+                    </ul>
+                </div>
+                <div class="noteOkta">
+                    <p class="noteContent">Make sure to enter the <span class="uicontrol">External name</span> and <span class="uicontrol">External namespace</span> fields exactly as written.</p>
+                </div>
+                <p>You can configure the other settings to meet your organizational needs.</p>
+            </div>
+            <div>
+                <h2><a name="map-Okta-user-profile-attributes-to-ASA-user-profile-attributes"></a>Map Okta profile attributes to <MadCap:variable name="okta-feature-names.ScaleFT" /> profile attributes</h2>
+                <p>Now you need to map the Okta  user profile attribute to the <MadCap:variable name="okta-feature-names.ScaleFT" /> attribute. In the  <MadCap:variable name="okta-feature-names.Administrator dashboard" />, open the <span class="uicontrol">Profile Editor</span>, locate the <span class="uicontrol">Okta <MadCap:variable name="okta-feature-names.ScaleFT" /> User</span> profile, and click <span class="uicontrol">Mappings</span>. Create a mapping from the Okta user attribute that you created in step 1 to the <MadCap:variable name="okta-feature-names.ScaleFT" /> attribute you created in step 3. See <a href="https://help.okta.com/okta_help.htm?type=oie&amp;id=csh-usgp-map-attributes" target="_blank">Map Okta attributes to app attributes in the Profile Editor</a>.</p>
+            </div>
+            <div>
+                <h2><a name="assign-users-or-groups-to-ASA"></a>Assign users or groups to <MadCap:variable name="okta-feature-names.ScaleFT" /><br /></h2>
+                <p>After you complete the previous steps, your attributes are configured and ready to use. New users assigned to <MadCap:variable name="okta-feature-names.ScaleFT" /> include these attributes. See <a href="https://help.okta.com/okta_help.htm?type=oie&amp;id=csh-assign-apps" target="_blank">Assign applications to users</a>.</p>
+            </div>
+            <div>
+                <h2><a name="assign-project-level-attribute-overrides"></a>Assign project-level attribute overrides</h2>
+                <p>Sometimes an AD account differs across environments. In cases like this, you can override their account attribute on a per-project basis. See <MadCap:xref href="set-project-level-attributes-in-adv-server-access.htm">Set project-level user and group attributes in [%=okta-feature-names.ScaleFT%]</MadCap:xref>.</p>
+            </div>
+        </div>
+    </body>
+</html>

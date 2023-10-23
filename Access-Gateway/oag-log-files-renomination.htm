@@ -1,0 +1,471 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" class="concept" xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/oag-log-files-renomination.htm" /><title>not to be used stand alone</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <p>Events logged when admin renomination takes place.</p>
+        <div>
+            <h3>Nomination - Starting</h3>
+            <p>Description: Events generated when the nomination starts on admin node. </p>
+            <p>Messages: </p>
+            <ul>
+                <li>OAG Version - 2020.8.3, Cluster Manager Version - 2020.1.5.20200803.174755<p>Starting authorized nomination process</p></li>
+                <li>OAG Version - 2020.6.3, Cluster Manager Version - 2020.1.5.20200803.174755</li>
+                <li>Sent nomination.authKey to admin node - existingadmin[.domain.tld]</li>
+            </ul>
+            <p>Examples:</p>
+            <ul>
+                <li><span class="code">2020-08-05T18:40:23.711-07:00 nodeB OAG ADMIN_CONSOLE CLUSTER MANAGER ADMIN NOMINATION INFO 
+							Mgmt console Event [USER="oag-mgmt"] 
+							OAG Version - 2020.6.3, Cluster Manager Version - 2020.1.5.20200803.174755						
+							</span>
+                </li>
+                <li><span class="code">2020-08-05T18:40:23.711-07:00 nodeB OAG ADMIN_CONSOLE CLUSTER MANAGER ADMIN NOMINATION INFO
+							Mgmt console Event [USER="oag-mgmt"] 
+					Starting authorized nomination process - OAG Version - 2020.6.3, Cluster Manager Version - 2020.1.5.20200803.174755</span>
+                </li>
+                <li><span class="code">2020-08-05T18:40:23.905-07:00 nodeB ADMIN_CONSOLE CLUSTER MANAGER ADMIN NOMINATION INFO 
+							Send auth key to admin node [USER="oag-mgmt"] 
+							Sent nomination.authKey to admin node - existingadmin[.domain.tld]</span>
+                </li>
+            </ul>
+            <li>Structured data:<ul><li><span class="code">USER</span> - User performing nomination actions, always oag-mgmt.</li></ul></li>
+            <li>Corrective action :<ul><li> N/A</li></ul></li>
+        </div>
+        <div>
+            <h3>Nomintation - initiated</h3>
+            <p>Description: Events generated when nomination starts on admin node. </p>
+            <p>Messages: </p>
+            <ul>
+                <li>
+						Started nomination process with args: adminNode - [DNS name of existing admin ],
+					<p>nominatedNode - [DNS&#160;name of nominated worker],</p><p>accessGatewayHostname - gw-admin.[domain.tld]</p></li>
+            </ul>
+            <p>Examples:</p>
+            <ul>
+                <li><span class="code">2020-08-04T14:28:48.376-05:00 oag.nodeC.com ADMIN_CONSOLE CLUSTER MANAGER ADMIN NOMINATION INFO Arguments [USER="root"] 
+						Started nomination process with args: adminNode - oag.nodeA.com,nominatedNode - oag.nodeC.com, accessGatewayHostname - gw-admin.[domain.tld]</span>
+                </li>
+            </ul>
+            <li>Structured data:<ul><li><span class="code">USER</span> - User performing nomination actions, always root.</li></ul></li>
+            <li>Corrective action :<ul><li> N/A</li></ul></li>
+        </div>
+        <div>
+            <h3>Nomination - Worker nodes not at correct version</h3>
+            <p>Description: One or more nodes aren't at the required feature version. </p>
+            <p>Messages: </p>
+            <ul>
+                <li>Incompatible node list - [worker.[domain.tld]...] Update worker nodes to version - 2020.8.3 or higher.</li>
+            </ul>
+            <p>Examples:</p>
+            <ul>
+                <li><span class="code">2020-08-04T14:28:48.380-05:00 oag.nodeC.com ADMIN_CONSOLE CLUSTER MANAGER ADMIN NOMINATION ERROR
+							Determine Version Compatibility [USER="root"]
+						Incompatible Node List - oag.nodeB.com,oag.nodeD.com. Update worker nodes to version - 2020.8.3 or higher</span>
+                </li>
+            </ul>
+            <li>Structured data:<ul><li><span class="code">USER</span> - User performing nomination actions, always root.</li></ul></li>
+            <li>Corrective action :<ul><li>Update the worker nodes identified to version 2020.8.3 or later, and then re-run the renomination process. </li></ul></li>
+        </div>
+        <div>
+            <h3>Nomination - Nominated worker detached from cluster</h3>
+            <p>Description: Events generated when the nominated worker has been detached from the cluster before becoming the new admin node. </p>
+            <p>Messages: </p>
+            <ul>
+                <li>Removed nominated admin node - existingadmin[.domain.tld] from HA configuration files </li>
+                <li>
+                    <p>Failed to remove nominated admin node - existingadmin[.domain.tld] from HA configuration files.</p>
+                </li>
+            </ul>
+            <p>Examples:</p>
+            <ul>
+                <li><span class="code">2020-08-04T14:28:48.380-05:00 existingadmin.[.domain.tld] ADMIN_CONSOLE CLUSTER MANAGER ADMIN NOMINATION ERROR
+							Remove nominated node from HA [USER="root"]
+						Removed nominated admin node - name[.domain.tld] from HA configuration files</span>.</li>
+                <li><span class="code">2020-08-04T14:28:48.380-05:00 existingadmin.[domain.tld] ADMIN_CONSOLE CLUSTER MANAGER ADMIN NOMINATION ERROR
+							Remove nominated node from HA [USER="root"]
+						Failed to remove nominated admin node - name[.domain.tld] from HA configuration files</span>.</li>
+            </ul>
+            <li>Structured data:<ul><li><span class="code">USER</span> - User performing nomination actions, always root.</li></ul></li>
+            <li>Corrective action :<ul><li>No action required: If the operation fails, the admin node reverts to its original state. The nominated node is also reverted to its pre-renomination state. </li></ul></li>
+        </div>
+        <div>
+            <h3>Nomination - nominated node cloned</h3>
+            <p>Description: Events generated when current configuration has been transferred to nominated worker. </p>
+            <p>Messages: </p>
+            <ul>
+                <li>Transferred HA configuration files from current admin node - worker[.domain.tld]. </li>
+                <li>Failed to transfer HA configuration files from current admin node - worker[.domain.tld].  </li>
+            </ul>
+            <p>Examples:</p>
+            <ul>
+                <li><span class="code">2020-08-04T14:27:42.345-05:00 oag.nodeC.com ADMIN_CONSOLE CLUSTER MANAGER ADMIN NOMINATION INFO
+							Copy HA configs [USER="root"] 
+						Transferred HA configuration files from current admin node - worker[.domain.tld].</span>
+                </li>
+                <li><span class="code">2020-08-04T14:27:42.345-05:00 oag.nodeC.com ADMIN_CONSOLE CLUSTER MANAGER ADMIN NOMINATION INFO
+							Copy HA configs [USER="root"] 
+							Failed to transfer HA configuration files from current admin node - worker[.domain.tld].
+						</span>
+                </li>
+            </ul>
+            <li>Structured data:<ul><li><span class="code">USER</span> - User performing nomination actions, always oag-mgmt.</li></ul></li>
+            <li>Corrective action :<ul><li> No action required: If the process fails, the nominated worker node reverts to its original state.</li></ul></li>
+        </div>
+        <div>
+            <h3>Nomination - Key exchange</h3>
+            <p>Description: Events generated when the required keys are exchanged between existing admin and nominated admin.  </p>
+            <p>Messages: </p>
+            <ul>
+                <li>Backup of ssh keys completed for nominated node - newadmin.[domain.tld].</li>
+            </ul>
+            <p>Examples:</p>
+            <ul>
+                <li><span class="code">2020-08-04T14:27:42.362-05:00 newadmin[.domain.tld] ADMIN_CONSOLE CLUSTER MANAGER ADMIN NOMINATION INFO 
+							Backup SSH Keys [USER="root"] 
+						Backup of ssh keys completed for nominated node - worker.[domain.tld]</span>
+                </li>
+            </ul>
+            <li>Structured data:<ul><li><span class="code">USER</span> - User performing nomination actions, always oag-mgmt.</li></ul></li>
+        </div>
+        <div>
+            <h3>Nomination - Key exchange</h3>
+            <p>Description: Events generated when the required keys are synchronized between admin and workers. </p>
+            <p>Messages: </p>
+            <ul>
+                <li>Synced known_hosts and authorized_keys of current admin node - worker[.domain.tld] with all worker nodes.</li>
+                <li>
+                    <p>Failed to sync known_hosts and authorized_keys of current admin node - oag.nodeA.com with all worker nodes.</p>
+                </li>
+            </ul>
+            <p>Examples:</p>
+            <ul>
+                <li><span class="code">2020-08-04T14:27:43.823-05:00 oag.nodeC.com ADMIN_CONSOLE CLUSTER MANAGER ADMIN NOMINATION INFO 
+							Sync keys [USER="root"] 
+						Synced known_hosts and authorized_keys of current admin node - worker[.domain.tld] with all worker nodes</span>
+                </li>
+                <li><span class="code">2020-08-04T14:27:43.823-05:00 oag.nodeC.com ADMIN_CONSOLE CLUSTER MANAGER ADMIN NOMINATION INFO 
+							Sync keys [USER="root"]
+						Failed to sync known_hosts and authorized_keys of current admin node - worker[.domain.tld] with all worker nodes</span>
+                </li>
+            </ul>
+            <li>Structured data:<ul><li><span class="code">USER</span> - User performing nomination actions, always root.</li></ul></li>
+            <li>Corrective action :<ul><li>No action required: If the operation fails, the nominated worker node reverts to its original state.</li></ul></li>
+        </div>
+        <div>
+            <h3>Nomination - Update worker high availability configuration</h3>
+            <p>Description: Events generated during exchange of high availability configuration between nominated admin and workers.  </p>
+            <p>Messages: </p>
+            <ul>
+                <li>Prepared HA config file - /tmp/nolock.update_ha_configs.f76c8aea-073b-4241-8960-536fb26573d5.json for worker node - workerX[.domain.tld].</li>
+                <li>Sent nolock.update_ha_configs.f76c8aea-073b-4241-8960-536fb26573d5.json file to worker node - workerX[.domain.tld].</li>
+                <li>Prepared HA config file - /tmp/nolock.update_ha_configs.01880ce6-6ac3-4dd9-ac14-934a301490f3.json for worker node - workerX.[domain.tld]</li>
+                <li>Sent nolock.update_ha_configs.01880ce6-6ac3-4dd9-ac14-934a301490f3.json file to worker node - workerX.[.domain.tld]</li>
+            </ul>
+            <p>Examples:</p>
+            <ul>
+                <li><span class="code">2020-08-04T14:27:43.883-05:00 oag.nodeC.com ADMIN_CONSOLE CLUSTER MANAGER ADMIN NOMINATION INFO 
+							Prep HA config for worker node [USER="root"] 
+							Prepared HA config file - /tmp/nolock.update_ha_configs.f76c8aea-073b-4241-8960-536fb26573d5.json for worker node - workerX[.domain.tld]
+							</span>
+                </li>
+                <li><span class="code">2020-08-04T14:27:44.086-05:00 oag.nodeC.com ADMIN_CONSOLE CLUSTER MANAGER ADMIN NOMINATION INFO 
+							Send HA config to worker node [USER="root"] 
+							Sent nolock.update_ha_configs.f76c8aea-073b-4241-8960-536fb26573d5.json file to worker node - workerX[.domain.tld].
+							</span>
+                </li>
+                <li><span class="code">2020-08-04T14:27:44.107-05:00 oag.nodeC.com ADMIN_CONSOLE CLUSTER MANAGER ADMIN NOMINATION INFO 
+							Prep HA config for worker node [USER="root"] 
+							Prepared HA config file - /tmp/nolock.update_ha_configs.01880ce6-6ac3-4dd9-ac14-934a301490f3.json for worker node -	workerX[.domain.tld]					
+							</span>
+                </li>
+                <li><span class="code">2020-08-04T14:27:44.307-05:00 oag.nodeC.com ADMIN_CONSOLE CLUSTER MANAGER ADMIN NOMINATION INFO 
+							Send HA config to worker node [USER="root"] 
+							Sent nolock.update_ha_configs.01880ce6-6ac3-4dd9-ac14-934a301490f3.json file to worker node - workerX[.domain.tld]. 	
+							</span>
+                </li>
+                <li><span class="code">2020-08-04T14:27:44.307-05:00 oag.nodeC.com ADMIN_CONSOLE CLUSTER MANAGER ADMIN NOMINATION INFO 
+							Send HA config to worker node [USER="root"] 
+							Failed to send nolock.update_ha_configs.01880ce6-6ac3-4dd9-ac14-934a301490f3.json file to worker node - workerX[.domain.tld]. 	
+						</span>
+                </li>
+            </ul>
+            <li>Structured data:<ul><li><span class="code">USER</span> - User performing nomination actions, always root.</li></ul></li>
+            <li>Corrective action :<ul><li> No action required: If the operation fails, the nominated worker node and the impacted worker nodes revert to their original states.</li></ul></li>
+        </div>
+        <div>
+            <h3>Nomination - Update worker high availability configuration</h3>
+            <p>Description: Events generated as workers acknowledge receipt of new high availability configuration.</p>
+            <p>Messages: </p>
+            <ul>
+                <li>Received - <MadCap:annotation MadCap:createDate="2020-09-16T10:42:46.0926088-04:00" MadCap:creator="naini.khajanchi" MadCap:initials="NA" MadCap:comment="should the 0/2, 1/2, and 2/2 come in an order? if so, please change " MadCap:editor="naini.khajanchi" MadCap:editDate="2020-09-16T10:43:13.1702064-04:00">0/2</MadCap:annotation> acknowledgements so far</li>
+                <li>eceived acknowledgment for Worker node - workerX[.domain.tld] with updated Admin Node - newadmin[.domain.tld]</li>
+                <li>Received - 2/2 acknowledgements so far</li>
+                <li>Newly nominated admin node - newadmin[.domain.tld] has been acknowledged by all worker nodes</li>
+                <li>Received acknowledgment 1/2 acknowledgements so far </li>
+            </ul>
+            <p>Examples:</p>
+            <ul>
+                <li><span class="code">2020-08-04T14:27:44.346-05:00 oag.nodeC.com ADMIN_CONSOLE CLUSTER MANAGER ADMIN NOMINATION INFO 
+							Received acknowledgment [USER="root"] 
+					Received - 0/2 acknowledgements so far</span>
+                </li>
+                <li><span class="code">8-04T14:27:54.383-05:00 oag.nodeC.com ADMIN_CONSOLE CLUSTER MANAGER ADMIN NOMINATION INFO 
+							Received acknowledgment [USER="root"] 
+					Received acknowledgment for Worker node - workerX.[domain.tld] with updated Admin Node - newadmin[.domain.tld]</span>
+                </li>
+                <li><span class="code">2020-08-04T14:27:54.428-05:00 oag.nodeC.com ADMIN_CONSOLE CLUSTER MANAGER ADMIN NOMINATION INFO 
+							Received acknowledgment [USER="root"] 
+					Received - 2/2 acknowledgements so far</span>
+                </li>
+                <li><span class="code">2020-08-04T14:28:04.448-05:00 oag.nodeC.com ADMIN_CONSOLE CLUSTER MANAGER ADMIN NOMINATION INFO 
+							Received acknowledgment [USER="root"] 
+					Newly nominated admin node - oag.nodeC.com has been acknowledged by all worker nodes</span>
+                </li>
+                <li><span class="code">2020-08-04T14:28:04.448-05:00 oag.nodeC.com ADMIN_CONSOLE CLUSTER MANAGER ADMIN NOMINATION INFO 
+							Received acknowledgment [USER="root"] 
+					Received acknowledgment 1/2 acknowledgements so far </span>
+                </li>
+            </ul>
+            <li>Structured data:<ul><li><span class="code">USER</span> - User performing nomination actions, always oag-mgmt.</li></ul></li>
+            <li>Corrective action :<ul><li>Contact support to determine why specific worker didn't return acknowledgment. </li></ul></li>
+        </div>
+        <div>
+            <h3>Nomination - Revert existing admin to standalone</h3>
+            <p>Description: Event generated at completion of renomination when the existing admin becomes standalone node.  </p>
+            <p>Messages: </p>
+            <ul>
+                <li>Reset HA configs of older admin node - oldadmin[.domain.tld]</li>
+            </ul>
+            <p>Examples:</p>
+            <ul>
+                <li><span class="code">2020-08-04T14:28:04.806-05:00 oag.nodeC.com ADMIN_CONSOLE CLUSTER MANAGER ADMIN NOMINATION INFO 
+							Reset admin node HA setup [USER="root"] 
+						Reset HA configs of older admin node - oag.nodeA.com</span>
+                </li>
+            </ul>
+            <li>Structured data:<ul><li><span class="code">USER</span> - User performing nomination actions, always root.</li></ul></li>
+            <li>Corrective action :<ul><li> N/A</li></ul></li>
+        </div>
+        <div>
+            <h3>Nomination - Confirmation of reset</h3>
+            <p>Description: Event generated to confirm the reset of an existing admin to <MadCap:annotation MadCap:createDate="2020-09-16T10:53:03.1524910-04:00" MadCap:creator="naini.khajanchi" MadCap:initials="NA" MadCap:comment="standalone node?" MadCap:editor="naini.khajanchi" MadCap:editDate="2020-09-16T10:53:09.4151355-04:00">standalone</MadCap:annotation>. </p>
+            <p>Messages: </p>
+            <ul>
+                <li>Admin nomination process completed successfully for new admin node - existingadmin[.domain.tld]. </li>
+                <li>
+                    <p>Reset HA configs for admin node - existingadmin[.domain.tld]</p>
+                </li>
+            </ul>
+            <p>Examples:</p>
+            <ul>
+                <li><span class="code">2020-08-04T14:28:04.818-05:00 oag.nodeC.com ADMIN_CONSOLE CLUSTER MANAGER ADMIN NOMINATION INFO 
+							Nomination completed [USER="root"] 
+						Admin nomination process completed successfully for new admin node - oldamin[.domain.tld].</span>
+                </li>
+                <li><span class="code">2020-08-04T14:28:04.818-05:00 oag.nodeC.com ADMIN_CONSOLE CLUSTER MANAGER ADMIN NOMINATION INFO 
+							Nomination completed [USER="root"] 
+						Admin nomination process completed successfully for new admin node - oldamin[.domain.tld].</span>
+                </li>
+            </ul>
+            <li>Structured data:<ul><li><span class="code">USER</span> - User performing nomination actions, always root.</li></ul></li>
+            <li>Corrective action :<ul><li> N/A</li></ul></li>
+        </div>
+        <div>
+            <h3>Nomination - Incorrect authorization code</h3>
+            <p>Description: Event generated when the admin user [in]correctly enters the renomination authorization code.</p>
+            <p>Messages: </p>
+            <ul>
+                <li>Authorization token is correct.</li>
+                <li>Authorization token is incorrect. </li>
+                <li>Initiating nomination process on Nominated node - newadmin[.domain.tld].</li>
+                <li>
+                    <p>Sent nolock.start_admin_nomination.json to nominated node - oag.nodeC.com</p>
+                </li>
+            </ul>
+            <p>Examples:</p>
+            <ul>
+                <li><span class="code">2020-08-06T12:15:23.136-05:00 oag.nodeA.com ADMIN_CONSOLE CLUSTER MANAGER ADMIN NOMINATION INFO 
+							Auth Token Verification [USER="oag-mgmt"] 
+						Authorization token is correct</span>
+                </li>
+                <li><span class="code">2020-08-06T12:13:49.224-05:00 oag.nodeA.com ADMIN_CONSOLE CLUSTER MANAGER ADMIN NOMINATION ERROR 
+							Auth Token Verification [USER="oag-mgmt"] 
+						Authorization token is incorrect</span>
+                </li>
+                <li><span class="code">2020-08-06T12:15:23.148-05:00 oag.nodeA.com ADMIN_CONSOLE CLUSTER MANAGER ADMIN NOMINATION INFO 
+							Initiate nomination [USER="oag-mgmt"]
+						Initiating nomination process on Nominated node - newadmin[.domain.tld].</span>
+                </li>
+                <li><span class="code">2020-08-06T12:15:23.423-05:00 oag.nodeA.com ADMIN_CONSOLE CLUSTER MANAGER ADMIN NOMINATION INFO 
+							Initiate nomination [USER="oag-mgmt"] 
+						Sent nolock.start_admin_nomination.json to nominated node - oag.nodeC.com</span>
+                </li>
+            </ul>
+            <li>Structured data:<ul><li><span class="code">USER</span> - User performing nomination actions, always oag-mgmt.</li></ul></li>
+            <li>Corrective action :<ul><li> Re-enter the correct code. </li></ul></li>
+        </div>
+        <div>
+            <h3>Nomination - Existing admin enters maintenance mode</h3>
+            <p>Description: Event generated when the existing admin enters maintenance mode. </p>
+            <p>Messages: </p>
+            <ul>
+                <li>Started Admin Node Nomination App on admin node - existingadmin.[domain.tld] </li>
+            </ul>
+            <p>Examples:</p>
+            <ul>
+                <li><span class="code">2020-08-06T13:06:41.872-05:00 oag.nodeA.com ADMIN_CONSOLE CLUSTER MANAGER UPDATE ADMIN INFO 
+							Started Admin Node Nomination App [USER="oagha"] 
+						Started Admin Node Nomination App on admin node - existingadmin[.domain.tld] </span>
+                </li>
+            </ul>
+            <li>Structured data:<ul><li><span class="code">USER</span> - User performing nomination actions, always root.</li></ul></li>
+            <li>Corrective action :<ul><li> N/A</li></ul></li>
+        </div>
+        <div>
+            <h3>Nomination - Existing admin exit maintenance mode</h3>
+            <p>Description: <MadCap:annotation MadCap:createDate="2020-09-16T10:53:42.3133973-04:00" MadCap:creator="naini.khajanchi" MadCap:initials="NA" MadCap:comment="missing text" MadCap:editor="naini.khajanchi" MadCap:editDate="2020-09-16T10:53:45.0931035-04:00">Event generated when admin exits maintenance mode.</MadCap:annotation></p>
+            <p>Messages: </p>
+            <ul>
+                <li>Activated Admin App for admin node - existingadmin[.domain.tld].</li>
+                <li>Removed Admin Node Nomination Mode App for admin node - existingadmin[.domain.tld].</li>
+                <li>
+                    <p>Reset process completed for admin node - existingadmin[.domain.tld].</p>
+                </li>
+            </ul>
+            <p>Examples:</p>
+            <ul>
+                <li><span class="code">2020-08-06T13:08:05.086-05:00 oag.nodeA.com ADMIN_CONSOLE CLUSTER MANAGER UPDATE ADMIN INFO 
+							Activate Admin App [USER="oagha"] 
+						Activated Admin App for admin node - existingadmin[.domain.tld]</span>
+                </li>
+                <li><span class="code">2020-08-06T13:08:05.105-05:00 oag.nodeA.com ADMIN_CONSOLE CLUSTER MANAGER UPDATE ADMIN INFO 
+							Removed Nomination Mode App [USER="oagha"] 
+						Removed Admin Node Nomination Mode App for admin node - existingadmin[.domain.tld]</span>
+                </li>
+                <li><span class="code">2020-08-06T13:08:05.118-05:00 oag.nodeA.com ADMIN_CONSOLE CLUSTER MANAGER UPDATE ADMIN INFO 
+							Reset process completed [USER="oagha"] 
+						Reset process completed for admin node - existingadmin[.domain.tld] </span>
+                </li>
+            </ul>
+            <li>Structured data:<ul><li><span class="code">USER</span> - User performing nomination actions, always oagha.</li></ul></li>
+            <li>Corrective action :<ul><li> N/A</li></ul></li>
+        </div>
+        <div>
+            <h3>Nomination -Backup triggered on existing admin node</h3>
+            <p>Description: Event generated when a backup is performed on existing admin.</p>
+            <p>Messages: </p>
+            <ul>
+                <li>sudo ...</li>
+            </ul>
+            <p>Examples:</p>
+            <ul>
+                <li><span class="code">2020-08-06T13:06:42.000-05:00 existingadmin[.domain.tld] sudo    
+							oagha : TTY=unknown ; 
+							PWD=/opt/oag/configs/ha/configs.install ; 
+							USER=root ; 
+						COMMAND=/opt/oag/scripts/oag_backup.sh</span>
+                </li>
+            </ul>
+            <li>Structured data:<ul><li><span class="code">USER</span> - User performing nomination actions, always root.</li></ul></li>
+            <li>Corrective action :<ul><li> N/A</li></ul></li>
+        </div>
+        <div>
+            <h3>Nomination - Public and private keys transferred to new admin.  </h3>
+            <p>Description: Event generated required public and private keys are transferred to new admin. </p>
+            <p>Messages: </p>
+            <ul>
+                <li>Copied private key of oagha user from node - existingadmin[.domain.tld to nominated node - newadmin[.domain.tld].</li>
+                <li> Copied public key oagha user from node - existingadmin[.domain.tld] to nominated node - existingadmin[.domain.tld].</li>
+            </ul>
+            <p>Examples:</p>
+            <ul>
+                <li><span class="code">2020-08-06T13:07:43.331-05:00 oag.nodeA.com ADMIN_CONSOLE CLUSTER MANAGER UPDATE ADMIN INFO 
+							Copy user private key [USER="oagha"] 
+						Copied private key of oagha user from node - existingadmin[.domain.tld] to nominated node - newadmin.[domain.tld]</span>
+                </li>
+                <li><span class="code">2020-08-06T13:07:43.515-05:00 oag.nodeA.com ADMIN_CONSOLE CLUSTER MANAGER UPDATE ADMIN INFO 
+							Copy user public key [USER="oagha"] 
+						Copied public key oagha user from node - existing.[domain.tld] to nominated node - newadmin.[domain.tld] </span>
+                </li>
+            </ul>
+            <li>Structured data:<ul><li><span class="code">USER</span> - User performing nomination actions, always root.</li></ul></li>
+            <li>Corrective action :<ul><li> N/A</li></ul></li>
+        </div>
+        <div>
+            <h3>Nomination - Worker node key updates</h3>
+            <p>Description: Event generated when a key is written to a worker node</p>
+            <p>Messages: </p>
+            <ul>
+                <li>Public host keys of nominated admin node - workerX[.domain.tld] has been added to known_hosts file of worker node - newadmin[.domain.tld] </li>
+            </ul>
+            <p>Examples:</p>
+            <ul>
+                <li><span class="code">2020-08-06T13:07:43.228-05:00 oag.nodeB.com ADMIN_CONSOLE CLUSTER MANAGER UPDATE WORKER INFO 
+							Update keys [USER="root"] 
+						Public host keys of nominated admin node - workerX.[domain.tld] has been added to known_hosts file of worker node - newadmin[.domain.tld]</span>
+                </li>
+            </ul>
+            <li>Structured data:<ul><li><span class="code">USER</span> - User performing nomination actions, always root.</li></ul></li>
+            <li>Corrective action :<ul><li> N/A</li></ul></li>
+        </div>
+        <div>
+            <h3>Nomination - Worker configuration updates</h3>
+            <p>Description: Event generated when a worker nodes keys are updated</p>
+            <p>Messages: </p>
+            <ul>
+                <li>Public host keys of nominated admin node - workerX[.domain.tld] has been added to known_hosts file of worker node - newadmin[.domain.tld] </li>
+            </ul>
+            <p>Examples:</p>
+            <ul>
+                <li><span class="code">2020-08-06T13:07:44.505-05:00 oag.nodeB.com ADMIN_CONSOLE CLUSTER MANAGER UPDATE WORKER INFO 
+							Update HA Config [USER="root"] 
+						Updated HA config file - /opt/oag/configs/events/config/ha_configuration.config with nominated admin node as - newadmin[.domain.tld] and worker nodes as - workerX[.domain.tld], workerY[.domain.tld]</span>
+                </li>
+            </ul>
+            <li>Structured data:<ul><li><span class="code">USER</span> - User performing nomination actions, always root.</li></ul></li>
+            <li>Corrective action :<ul><li> N/A</li></ul></li>
+        </div>
+        <div>
+            <h3>Nomination - Acknowledgements</h3>
+            <p>Description: Event generated as nominations are acknowledged. </p>
+            <p>Messages: </p>
+            <ul>
+                <li>Prepared acknowledgment file - /tmp/f76c8aea-073b-4241-8960-536fb26573d5.ack.prep.</li>
+                <li>Sent acknowledgment file - /tmp/f76c8aea-073b-4241-8960-536fb26573d5.ack.prep to nominated admin node - newadmin[.domain.tld]</li>
+            </ul>
+            <p>Examples:</p>
+            <ul>
+                <li><span class="code">2020-08-06T13:07:44.520-05:00 oag.nodeB.com ADMIN_CONSOLE CLUSTER MANAGER UPDATE WORKER INFO 
+							Prepare Ack file [USER="root"] 
+						Prepared acknowledgment file - /tmp/f76c8aea-073b-4241-8960-536fb26573d5.ack.prep</span>
+                </li>
+                <li><span class="code">2020-08-06T13:07:44.734-05:00 oag.nodeB.com ADMIN_CONSOLE CLUSTER MANAGER UPDATE WORKER INFO 
+							Sent Ack file [USER="root"] 
+						Sent acknowledgment file - /tmp/f76c8aea-073b-4241-8960-536fb26573d5.ack.prep to nominated admin node - newadmin[.domain.tld]</span>
+                </li>
+            </ul>
+            <li>Structured data:<ul><li><span class="code">USER</span> - User performing nomination actions, always root.</li></ul></li>
+            <li>Corrective action :<ul><li> N/A</li></ul></li>
+        </div>
+        <div>
+            <h3>Nomination - Successful nomination</h3>
+            <p>Description: Event generated when a nomination completes successfully.</p>
+            <p>Messages: </p>
+            <ul>
+                <li>Admin nomination process completed successfully on worker node - newadmin[.domain.tld].</li>
+            </ul>
+            <p>Examples:</p>
+            <ul>
+                <li><span class="code">2020-08-06T13:07:44.746-05:00 oag.nodeB.com ADMIN_CONSOLE CLUSTER MANAGER UPDATE WORKER INFO 
+							Sent Ack file [USER="root"] 
+						Admin nomination process completed successfully on worker node - newadmin[.domain.tld]</span>
+                </li>
+            </ul>
+            <li>Structured data:<ul><li><span class="code">USER</span> - User performing nomination actions, always root.</li></ul></li>
+            <li>Corrective action :<ul><li> N/A</li></ul></li>
+        </div>
+    </body>
+</html>

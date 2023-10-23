@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd">
+    <head><title>[%=Heading.Level1%] | Okta</title>
+    </head>
+    <body>
+        <h1>Build a webhook event flow</h1>
+        <p><MadCap:variable name="okta-feature-names.Okta Workflows" /> allows you to build event cards that support a webhook framework. This provides a near-real-time response to events occurring on a remote system. Building a webhook event  depends on the features offered by the remote service API,&#160;and the goal of the event card.</p>
+        <p>You can use webhook event flows to build cards for your connector that trigger based on events such as user creation, file deletion, or reports of suspicious activity.</p>
+        <p>For more information on how webhooks work, see <MadCap:xref href="about-webhook-events.htm">Webhook events</MadCap:xref>.</p>
+        <h2>Before you begin</h2>
+        <ul>
+            <li>
+                <MadCap:snippetBlock src="../../../Resources/Snippets/workflows/prereqs-superadmin.flsnp" />
+            </li>
+            <li>
+                <MadCap:snippetBlock src="resources/CB-createconnector.flsnp" />
+            </li>
+            <li>
+                <MadCap:snippetBlock src="resources/CB-quickstartlink.flsnp" />
+            </li>
+        </ul>
+        <h2>Start this task</h2>
+        <ol>
+            <li>
+                <p>Click your new connector to open it in the main panel.</p>
+            </li>
+            <li>
+                <p>On the <span class="uicontrol">Flows</span> tab, create a flow by clicking <span class="uicontrol">+ New Flow</span>.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Add event</span> and from the <span class="wintitle">Events</span> choices, select <span class="uicontrol">Webhook Event</span>.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Add Options</span> to add any options you want to declare for the <span class="wintitle">Webhook Event</span> card.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Configure</span> in the <span class="wintitle">Webhook Registration</span> section to open the webhook registration dialog.</p>
+            </li>
+            <li>
+                <p>In the <span class="wintitle">Registration</span> dialog, click <span class="uicontrol">Choose Flow</span> to  select registration and deregistration helper flows for the webhook event. If no  helper flows exist, you can click <span class="uicontrol">Create new flow</span>.</p>
+                <ul>
+                    <li>
+                        <p><span class="wintitle">Registration Flow</span>
+                        </p>
+                        <p>When your user turns on a flow that contains your deployed webhook event card, the registration helper flow is triggered.</p>
+                        <p>The registration flow registers the unique <span class="uicontrol">Event URL</span> in the external service for your user's flow, so that the service knows where to send the webhook payload.</p>
+                        <MadCap:snippetBlock src="../../../Resources/Snippets/workflows/webhook-reg-eventhooknote1.flsnp" />
+                        <p>After selecting a registration helper flow you can map input fields to pass into it using the option fields present on your webhook event card. This enables you to use the same registration helper flow for multiple webhook event cards by passing in a different option from each webhook card.</p>
+                        <p>The registration helper flow includes a return card with an object field called <span class="uicontrol">Registration Data</span>. This object is used to store any reference needed when the <span class="wintitle">Deregistration Flow</span> runs.</p>
+                        <p>See <MadCap:xref href="webhook-event-register.htm">Register a webhook event</MadCap:xref>.</p>
+                    </li>
+                    <li>
+                        <p><span class="wintitle">Deregistration Flow</span>
+                        </p>
+                        <p>Similar to the registration flow, when your user turns off a flow that contains the deployed webhook event card, the deregistration helper flow is triggered.</p>
+                        <p>Any information defined from the registration flow using the <span class="uicontrol">Registration Data</span> output is available as input for the <span class="wintitle">Deregistration Flow</span> event card.</p>
+                        <p>After selecting a deregistration helper flow, you can map input fields to pass into it using the option fields on your webhook event card. Similar to a registration helper flow, this enables you to use the same deregistration helper flow for multiple webhook event cards.</p>
+                        <p>The deregistration helper flow doesn't include a return card.</p>
+                        <p>See <MadCap:xref href="webhook-event-deregister.htm">Deregister a webhook event</MadCap:xref>.</p>
+                    </li>
+                    <li>
+                        <p>Click <span class="uicontrol">Apply</span> to confirm your registration and deregistration helper flows and their input mappings. Click the garbage pail icon if you need to remove a selected registration or deregistration helper flow.</p>
+                    </li>
+                </ul>
+                <div class="noteOkta">
+                    <p class="noteContent">For webhook event cards, the registration or deregistration flow must complete within 60 seconds or your user's flow won't turn on.</p>
+                </div>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Add Outputs</span> to configure the <span class="wintitle">Return Outputs</span> card for the webhook event flow.</p>
+            </li>
+            <li>
+                <p>In the <span class="wintitle">Options</span> dialog you can specify any outputs you want the webhook to return. Click <span class="uicontrol">Add group</span> to create an output group.</p>
+                <ol style="list-style-type: lower-alpha;">
+                    <li>
+                        <p>Activate  <span class="uicontrol">Enable Run mode</span> if the webhook payload returns a list of records and you want to specify the execution mode for any flows that use this webhook event card. See <MadCap:xref href="webhook-event-runmode.htm">Enable run mode for webhooks</MadCap:xref>.</p>
+                    </li>
+                    <li>
+                        <p>In the <span class="wintitle">Static Output Group</span> pane, provide a <span class="uicontrol">Group Name</span> for this set of outputs. For each field that you want returned as output, provide a <span class="uicontrol">Label</span> and select a <span class="uicontrol">Field Type</span> and a <span class="uicontrol">Data Type</span> from the dropdown menus. The preview card shows you how the return card appears.</p>
+                    </li>
+                    <li>
+                        <p>Click <span class="uicontrol">Add group</span> to add another output groups.</p>
+                        <div class="noteOkta">
+                            <p class="noteContent">If the <span class="uicontrol">Enable Run mode</span> option is active, the event card can only return one output group.</p>
+                        </div>
+                    </li>
+                </ol>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Apply</span> to save the changes to your <span class="wintitle">Return Outputs</span> card.</p>
+            </li>
+            <li>
+                <p>Click the <span class="uicontrol">Save</span> button in the toolbar and name the flow.</p>
+            </li>
+        </ol>
+        <h2>Next steps</h2>
+        <p>
+            <MadCap:xref href="webhook-event-knownissues.htm">Known issues and limitations for webhook event flows</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="test-flows.htm">Test your flows</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="deployment.htm">Deploy your flows</MadCap:xref>
+        </p>
+    </body>
+</html>

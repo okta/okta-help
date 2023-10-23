@@ -1,0 +1,1158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:fileTags="Tags/okta-topic-status.Ready for Review,Tags/okta-authors.Kimli Welsh"
+      MadCap:searchable="True">
+   <head>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <link href="" rel="stylesheet" type="text/css"/>
+      <meta name="description"
+            content="Okta Device Trust for managed Windows computers prevents unmanaged computers from accessing apps. A Device Registration Task enrolls individual workstations."/>
+   </head>
+   <body>
+      <h1>
+         <a name="top"/>Enforce <MadCap:variable name="okta-feature-names.Okta Device Trust"/> for managed Windows computers</h1>
+      <MadCap:microContent id="microcontent1">
+         <p>
+            <MadCap:variable name="okta-feature-names.Okta Device Trust"/> for Windows allows you to prevent unmanaged Windows computers from accessing corporate SAML and WS-Fed cloud apps. It works with any browser or native app that can access the certificate store when performing the federated authentication flow to <MadCap:variable name="okta-variables.ProductName"/>. This includes Edge, Internet Explorer, Chrome, and Microsoft Office clients that support Modern <span class="disableGlossary">Authentication</span>. </p>
+         <p>
+            <img src="../../Resources/Images/dt-win-auth-flow-diagram.png"
+                 alt="The image illustrates how Okta Device Trust is enforced for managed Windows devices."
+                 class="thumbnail"/>
+         </p>
+      </MadCap:microContent>
+      <p>
+         <MadCap:variable name="okta-feature-names.Okta Device Trust"/> for Windows provides these key benefits:</p>
+      <ul>
+         <li>Ensures that only end users on domain-joined Windows computers can seamlessly SSO into SAML and WS-Fed cloud apps</li>
+         <li>
+			Protects enterprise data even when there is no defined network boundary</li>
+         <li>Provides a frictionless end user experience by utilizing the <MadCap:variable name="okta-variables.ProductName"/> Certificate Authority
+			</li>
+         <li>Support for <MadCap:variable name="okta-feature-names.Device Trust"/> enrollment in multi-forest environments.</li>
+      </ul>
+      <h2>
+         <a name="Prerequi"/>Prerequisites</h2>
+      <h3>Client workstations</h3>
+      <ul>
+         <li>Active Directory domain-joined Windows computer(s) running Microsoft Windows 7, Windows 8.1, or Windows 10.</li>
+         <li>.NET Framework version 4.5.2 and later. The Device Registration Task checks whether a supported version of .NET Framework is present, and if not, installs a supported version automatically. See <a href="#KnownIssues">Known Issues</a>.</li>
+      </ul>
+      <h3>Active Directory and IWA servers</h3>
+      <p>See <MadCap:xref href="../Directory/ad-agent-manage-integration.htm">Manage your Active Directory integration</MadCap:xref> and <a href="../Directory/Configuring_Desktop_SSO.htm">IWA agent</a> documentation.</p>
+      <h3>IWA agent</h3>
+      <p>
+         <a href="../Settings/Version_Histories/Ver_History_SSO_IWA_Agent.htm">Device Trust-capable version</a> of the <MadCap:variable name="okta-variables.ProductName"/> IWA web agent. For installation details, see <a href="../Directory/Configuring_Desktop_SSO.htm">IWA documentation</a>. Note: <MadCap:variable name="okta-feature-names.Device Trust"/> enrollment in multi-forest environments requires IWA web app version 1.12.2+. An IWA web app running in one forest can detect and assess the trust posture of Windows desktop devices located in another trusted forest and then allow these devices to enroll in <MadCap:variable name="okta-feature-names.Device Trust for Windows"/>.</p>
+      <h3>Supported browsers</h3>
+      <ul>
+         <li>Microsoft Internet Explorer versions 10 and 11</li>
+         <li>Microsoft Edge (current and previous release)</li>
+         <li>Google Chrome (current and previous release)</li>
+      </ul>
+      <h2>Before you begin</h2>
+      <ul>
+         <li>Web view must have access to the device certificate store: <MadCap:variable name="okta-feature-names.Okta Device Trust for Windows"/> computers works with any SAML/WS-Fed-enabled app that supports authentication through a webview. The web view in which authentication is performed must have access to the certificate store on the device. This includes Microsoft Office clients that support Modern Authentication, among others. See the Microsoft article <a href="https://www.microsoft.com/en-us/microsoft-365/blog/2015/11/19/updated-office-365-modern-authentication-public-preview/"
+               target="_blank">Updated Office 365 modern authentication</a>.  </li>
+         <li>Device + end user authentication requires a network connection: For the IWA web app to authenticate end users and devices, end users must be logged-in to your company's network at the time the Device Registration Task runs. See <a href="#B.1">IWA web app</a>.</li>
+         <MadCap:snippetBlock src="mobile-snippets/DT-desktop-no-enrollment-in-safe-mode.flsnp"/>
+         <li>Support for proxy server environments: To ensure that this device trust solution works in environments that implement a proxy server, you must install Device Registration Task version 1.2.1 or higher through a command line and append the appropriate HttpProxy parameter to the installation command. See <MadCap:xref href="#Install">Install the Registration Task</MadCap:xref>.</li>
+         <li>Make sure that certificates are installed on targeted computers: Before you configure the <span class="uicontrol">Trusted</span> option for apps in <span class="uicontrol">App Sign On Policy</span> rules, you must make sure that certificates are installed in the certificate store on the domain-joined computers you have targeted for this <MadCap:variable name="okta-feature-names.Device Trust"/> solution. If certificates are not installed and the Trusted setting is enabled, users are denied access to the app and are redirected to a security message advising them to contact their administrator. (You can configure the message to include a <span class="uicontrol">Learn more</span> link to more information. See <a href="#PartA">Enable the global <MadCap:variable name="okta-feature-names.Device Trust"/> setting for your org</a>). To verify certificate enrollment, <MadCap:variable name="okta-variables.ProductName"/> recommends that you use your management tool to parse the <span class="uicontrol">Windows Event Viewer</span>, or use a command line to query the user certificate store directly. Look for <span class="uicontrol">
+               <MadCap:variable name="okta-variables.ProductName"/> MTLS certificate</span>.</li>
+         <li>Take care when disabling the <MadCap:variable name="okta-feature-names.Windows Device Trust"/> setting: Don't disable the <MadCap:variable name="okta-feature-names.Windows Device Trust"/> setting on the <span class="menucascade">
+               <span class="uicontrol">Security</span>
+               <span class="uicontrol">
+                  <MadCap:variable name="okta-feature-names.Device Trust"/>
+               </span>
+            </span> page if you have also configured an app sign-on policy that allows trusted Windows devices. Otherwise, your <MadCap:variable name="okta-feature-names.Device Trust"/> configuration will be in an inconsistent state and users with untrusted devices won't be shown the security message advising them to contact their administrator, nor the <span class="uicontrol">Learn more</span> link to more information (if configured; see <a href="#PartA">Enable the global <MadCap:variable name="okta-feature-names.Device Trust"/> setting for your org</a>).</li>
+         <li>
+            <p>Before asking <span class="uicontrol">
+                  <MadCap:variable name="okta-variables.ProductName"/>
+               </span> Support to disable<span class="uicontrol"> </span>
+               <MadCap:variable name="okta-feature-names.Okta Device Trust for Windows"/>: First make sure to change the <MadCap:variable name="okta-feature-names.Device Trust"/> setting in the app sign-on policy rules to Any (Applications &gt; app &gt; Sign On). If you do not make this change and then later have <MadCap:variable name="okta-variables.ProductName"/> Support re-enable <MadCap:variable name="okta-feature-names.Device Trust"/> capability for your org, the <MadCap:variable name="okta-feature-names.Device Trust"/> setting in app sign-on policy rules will take effect immediately, which you may not have expected.</p>
+         </li>
+         <li>
+            <p>To verify installation of the Registration Task, use an appropriate detection setting: After installing the Device Registration Task on your managed Windows computers, SCCM runs a script  to verify that installation was successful. Make sure to specify either <span class="uicontrol">File System</span> or <span class="uicontrol">Registry</span> in your <span class="uicontrol">Detection Rule</span>. Don't use the <span class="uicontrol">Windows Installer</span> setting type to detect the installation, as SCCM cannot detect the Device Registration Task using that setting. </p>
+         </li>
+         <li>Ensure clients can complete the MTLS handshake:  If your org implements proxy servers/proxy clients or endpoint protection software, make sure to configure them in a way that doesn't block the Mutual TLS certificate exchange (handshake) that occurs during this <MadCap:variable name="okta-feature-names.Device Trust"/> flow. See <a href="#MTLS-handshake">Troubleshooting</a>.</li>
+         <li>Shared-terminal scenarios not supported: <MadCap:variable name="okta-feature-names.Okta Device Trust for Windows"/> doesn't support shared-terminal scenarios in which multiple end users log in to the same domain-joined workstation.</li>
+         <li>
+            <MadCap:snippetBlock src="mobile-snippets/dt-lock-icon-Home-page-apps.flsnp"/>
+         </li>
+      </ul>
+      <h2>Procedures</h2>
+      <h3>Enable the global <MadCap:variable name="okta-feature-names.Device Trust"/> setting for your org</h3>
+      <a name="PartA"/>
+      <div class="noteOkta">
+         <p class="noteContent">Do not disable the Windows <MadCap:variable name="okta-feature-names.Device Trust"/> setting on the <span class="menucascade">
+               <span class="uicontrol">Security</span>
+               <span class="uicontrol">
+                  <MadCap:variable name="okta-feature-names.Device Trust"/>
+               </span>
+            </span> page if you have also configured an app sign-on policy that allows trusted Windows devices. Otherwise, your <MadCap:variable name="okta-feature-names.Device Trust"/> configuration will be in an inconsistent state and users with untrusted devices won't be shown the security message advising them to contact their administrator, nor the <span class="uicontrol">Learn more</span> link to more information (if configured; see <a href="Okta_Mobile_Device_Trust_Windows-desktop.htm#LearnMoreStep">Enable the global Device Trust setting for your org</a>).</p>
+      </div>
+      <ol>
+         <li>
+            <MadCap:snippetText src="../../Resources/Snippets/task steps/Security_DeviceTrust.flsnp"/>
+         </li>
+         <li>In the <span class="wintitle">
+               <MadCap:variable name="okta-feature-names.Windows Device Trust"/>
+            </span>section, click <span class="uicontrol">Edit</span>.</li>
+         <li>Select <span class="uicontrol">Enable <MadCap:variable name="okta-feature-names.Windows Device Trust"/>
+            </span>.</li>
+         <li>
+            <a name="LearnMoreStep"/>Optional. In the <span class="uicontrol">Learn more</span> link field, you can enter an externally-accessible redirect URL where end users with untrusted devices can find more information. The security message shown to these end users will include a <span class="uicontrol">Learn more</span> link that redirects to your specified URL.
+							<p>
+               <img src="../../Resources/Images/DT_Security_URLspecified_2.png"
+                    class="thumbnail"/>
+            </p>
+            <p>If you choose not to specify a URL in this optional field, these end users are shown the same message but without the <span class="uicontrol">Learn more</span> link.</p>
+            <p>
+               <img src="../../Resources/Images/DT_Security_noURLspecified_2.png"
+                    class="thumbnail"/>
+            </p>
+         </li>
+         <li>Click <span class="uicontrol">Save</span>.</li>
+         <li>Proceed to Step 2.</li>
+      </ol>
+      <h3>
+         <a name="PartB"/> Enroll the <MadCap:variable name="okta-feature-names.Device Trust"/> certificate on domain-joined Windows computers</h3>
+      <p>Perform the four sub-procedures in this section to ensure that the <MadCap:variable name="okta-feature-names.Device Trust"/> certificate is installed successfully on domain-joined Windows computers.</p>
+      <h3>2.1 Install a <MadCap:variable name="okta-feature-names.Device Trust"/>-supported version of the <MadCap:variable name="okta-variables.ProductName"/> IWA web app in your AD domain
+        </h3>
+      <a name="B.1"/>
+      <p>
+         <MadCap:variable name="okta-feature-names.Okta Device Trust for Windows"/> uses the IWA web app to confirm the security posture of Windows computers and users by validating that both are joined to your Active Directory domain. (Enrollment is also supported in multi-forest environments. See <a href="Okta_Mobile_Device_Trust_Windows-desktop.htm#Prerequi">Prerequisites</a>.) Okta then issues a certificate to the Windows computer enabling <MadCap:variable name="okta-feature-names.Device Trust"/> flows to Okta-federated apps. Private keys associated with the Okta certificate never leave the Windows computer. Certificates are renewed automatically once a year, approximately 30 days before they expire.</p>
+      <p>The role of the IWA web app is limited to the certificate enrollment and renewal process. Once the certificate is installed, the Device Registration Task no longer needs to communicate with the IWA web app in order for end users to access apps. Desktop SSO doesn't need to be <span class="uicontrol">On</span> in <span class="menucascade">
+            <span class="uicontrol">Security</span>
+            <span class="uicontrol">Delegated Authentication</span>
+         </span> for <MadCap:variable name="okta-feature-names.Okta Device Trust for Windows"/> desktop to function. </p>
+      <ol>
+         <li>To download the  IWA web app, configure a link as follows:</li>
+         <p>
+            <span class="varname">https://&lt;org&gt;.&lt;okta/oktapreview&gt;.com/static/agents/iwa/OktaSsoIwa-x.x.x.exe</span>
+         </p>
+         <p>Where:</p>
+         <ul>
+            <li>
+               <span class="code">&lt;org&gt;</span> is the name of your org</li>
+            <li>
+               <span class="code">&lt;okta/oktapreview&gt;</span> denotes either your <MadCap:variable name="okta-variables.ProductName"/> Production or Preview environment.</li>
+            <li>
+               <span class="code">oktaSsoIwa-x.x.x.exe</span> is the version of the IWA web app that supports <MadCap:variable name="okta-feature-names.Device Trust for Windows"/>. For the current <MadCap:variable name="okta-feature-names.Device Trust"/>-capable version, see <a href="../Settings/Version_Histories/Ver_History_SSO_IWA_Agent.htm">SSO IWA Web App Version History</a>.</li>
+         </ul>
+         <p>For example, a link for downloading version 1.11.0 to the org <span class="code">example.oktapreview.com</span> would look like this:</p>
+         <p>
+            <span class="varname">https://example.oktapreview.com/static/agents/iwa/OktaSsoIwa-1.11.0.exe</span>
+         </p>
+         <li>Install the <MadCap:variable name="okta-variables.ProductName"/> IWA web app as detailed in <a href="../Directory/Configuring_Desktop_SSO.htm#top">Install and Configure the Okta IWA Web App for Desktop SSO</a>.</li>
+         <li>
+            <a name="Test_IWA_web_app"/>To make sure that the IWA web agent is operational, test it as <a href="../Directory/Configuring_Desktop_SSO.htm">described in the guide</a>. </li>
+         <li>
+            <a name="ModWebConfig"/>If you use HTTPS for IWA, you must modify the IWA web.config file as follows:</li>
+         <ol style="list-style-type: lower-alpha;">
+            <li>On the server running the IWA web agent, access the file <span class="filepath">C:\inetpub\wwwroot\IWA\web.config</span>
+            </li>
+            <li>Locate the section <span class="code">&lt;system.serviceModel&gt;</span> and replace it with the following:
+                    <MadCap:codeSnippet>
+                  <MadCap:codeSnippetCopyButton/>
+                  <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve" style="mc-code-lang: HTML;">&lt;system.serviceModel&gt;
+&lt;bindings&gt;
+&lt;webHttpBinding&gt;
+&lt;binding name = "SecureBindingForDeviceTrust"&gt;
+&lt;security mode="Transport"&gt;
+&lt;transport clientCredentialType = "Windows" proxyCredentialType="Windows"/&gt;
+&lt;/security&gt;
+&lt;/binding&gt;
+&lt;binding name = "HttpBindingForDeviceTrust"&gt;
+&lt;security mode="TransportCredentialOnly"&gt;
+&lt;transport clientCredentialType = "Windows" proxyCredentialType="Windows"/&gt;
+&lt;/security&gt;
+&lt;/binding&gt;
+&lt;/webHttpBinding&gt;
+&lt;/bindings&gt;
+&lt;services&gt;
+&lt;service name="OktaSSO.DeviceTrust" behaviorConfiguration="OktaSSO.DeviceTrustBehavior"&gt;
+&lt;endpoint binding="webHttpBinding" bindingConfiguration="SecureBindingForDeviceTrust" contract="OktaSSO.IDeviceTrust" behaviorConfiguration="webHttp"/&gt;
+&lt;/service&gt;
+&lt;/services&gt;
+&lt;behaviors&gt;
+&lt;endpointBehaviors&gt;
+&lt;behavior name="webHttp"&gt;
+&lt;webHttp/&gt;
+&lt;/behavior&gt;
+&lt;/endpointBehaviors&gt;
+&lt;serviceBehaviors&gt;
+&lt;behavior name="OktaSSO.DeviceTrustBehavior"&gt;
+&lt;!-- To avoid disclosing metadata information, set the value below to false before deployment --&gt;
+&lt;serviceMetadata httpGetEnabled="false"/&gt;
+&lt;!-- To receive exception details in faults for debugging purposes, set the value below to true.  Set to false before deployment to avoid disclosing exception information --&gt;
+&lt;serviceDebug includeExceptionDetailInFaults="false"/&gt;
+&lt;serviceCredentials&gt;
+&lt;windowsAuthentication allowAnonymousLogons="False" includeWindowsGroups="True"/&gt;
+&lt;/serviceCredentials&gt;
+&lt;/behavior&gt;
+&lt;/serviceBehaviors&gt;
+&lt;/behaviors&gt;
+&lt;/system.serviceModel&gt;</MadCap:codeSnippetBody>
+               </MadCap:codeSnippet>
+               <p>Here's a detailed look at the values that configure HTTP or HTTPS binding:</p>
+               <p>HTTPS binding configured:</p>
+               <MadCap:codeSnippet>
+                  <MadCap:codeSnippetCopyButton/>
+                  <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve" style="mc-code-lang: HTML;">&lt;services&gt;
+&lt;service name="OktaSSO.DeviceTrust" behaviorConfiguration="OktaSSO.DeviceTrustBehavior"&gt;
+&lt;endpoint binding="webHttpBinding" bindingConfiguration="SecureBindingForDeviceTrust" contract="OktaSSO.IDeviceTrust" behaviorConfiguration="webHttp"/&gt;
+&lt;/service&gt;
+&lt;/service</MadCap:codeSnippetBody>
+               </MadCap:codeSnippet>
+               <p>HTTP binding configured:</p>
+               <MadCap:codeSnippet>
+                  <MadCap:codeSnippetCopyButton/>
+                  <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve" style="mc-code-lang: HTML;">&lt;services&gt;
+&lt;service name="OktaSSO.DeviceTrust" behaviorConfiguration="OktaSSO.DeviceTrustBehavior"&gt;
+&lt;endpoint binding="webHttpBinding" bindingConfiguration="HttpBindingForDeviceTrust" contract="OktaSSO.IDeviceTrust" behaviorConfiguration="webHttp"/&gt;
+&lt;endpoint address="mex" binding="mexHttpBinding" contract="IMetadataExchange" /&gt;
+&lt;/service&gt;
+&lt;/services&gt;</MadCap:codeSnippetBody>
+               </MadCap:codeSnippet>
+            </li>
+            <li>Save and close the web.config file.</li>
+            <li>From your Windows command prompt, restart Internet Information Services (IIS) by issuing the following commands:
+											<p>
+                  <span class="code">iisreset /stop</span>
+               </p>
+               <p>
+                  <span class="code">iisreset /start</span>
+               </p>
+            </li>
+            <li>Before proceeding, retest the IWA web app as described in <a href="../Directory/Configuring_Desktop_SSO.htm">Install and Configure the IWA Web App for Desktop SSO</a>.</li>
+            <li>If you haven't already, install the Device Registration Task as described in <a href="#B.2">Obtain and install the Device Registration Task</a>.</li>
+         </ol>
+      </ol>
+      <h3>
+         <a name="B.2"/>2.2 Obtain and install the Device Registration Task
+        </h3>
+      <p>Review this information before you begin.</p>
+      <h3>Trusted Platform Module (TPM)</h3>
+      <p> To leverage the security benefits of TPM, see <MadCap:xref href="../device-trust/dt-win-tpm.htm">Enhance Windows Device Trust security with Trusted Platform Module (TPM)</MadCap:xref>.</p>
+      <h3> Schedule the Registration Task to run when end users are on the corporate network</h3>
+      <p>Once installed on domain-joined computers, the Registration Task runs:</p>
+      <ul>
+         <li>Immediately after it is installed</li>
+         <li>Whenever the user logs on to the computer</li>
+         <li>Once every 24 hours, starting with the time that the Registration Task first ran.</li>
+      </ul>
+      <p>It is important that you configure your management tool to schedule the Registration Task to run when end users are on the corporate network. When the Registration Task runs, it triggers the certificate enrollment flow and creates a Scheduled Task that will run every 24 hours and whenever the user logs on to the computer. This retry behavior helps both certificate enrollment and renewal scenarios. </p>
+      <h3>Automatic certificate renewal can only occur when end users are on the corporate network</h3>
+      <MadCap:snippetBlock src="mobile-snippets/dt-win-cert-renewl-cadence.flsnp"/>
+      <h3>Manually force certificate renewal</h3>
+      <p>You can manually force certificate renewal to try to fix the following problems (requires Device Registration Task 1.3.1 or later):</p>
+      <ul>
+         <li>An end user's certificate was incorrectly or accidentally revoked by the admin through the Admin Console (see <a href="#PartD">Revoke</a>).</li>
+         <li>The certificate was corrupted on the client due to accidental deletion, file corruption, or loss of the  private key.</li>
+      </ul>
+      <p>See <a href="#force-cert-renewal">Force certificate renewal in some circumstances</a>.</p>
+      <h3>Automatic certificate selection</h3>
+      <p>By default, the Registration Task configures registry keys on domain-joined Windows computers to allow supported Chrome, Edge, and IE browsers to automatically select the <MadCap:variable name="okta-feature-names.Device Trust"/> certificate that will be presented to <MadCap:variable name="okta-variables.ProductName"/>. If appropriate for your environment, you can disable this behavior by adding the flag <span class="code">SkipBrowserSetup=true</span> to the installation command.</p>
+      <p>See <a href="#obtain-reg-task">Obtain the registration task</a>. For example, this would be necessary if you want to configure automatic certificate selection using a <a href="#B.4">Group Policy Object (GPO) tool</a>.</p>
+      <p>If you opt not to configure automatic certificate selection — either through the Registration Task or a GPO — end users are prompted to select the certificate when accessing the app. In that case, to make the selection easier for end users, only the <MadCap:variable name="okta-variables.ProductName"/>
+         <MadCap:variable name="okta-feature-names.Device Trust"/> certificate will be shown to them.</p>
+      <h3>Proxy server environment</h3>
+      <p>If your organization routes internet traffic through a proxy server, note the following:</p>
+      <ul>
+         <li>You must install Device Registration Task version 1.2.1 or higher through a command line and append the appropriate <span class="code">HttpProxy</span> parameter to the installation command.
+											<p>See <MadCap:xref href="#Install">Install the Registration Task</MadCap:xref>.</p>
+         </li>
+         <li>If your org implements  proxy servers/proxy clients or endpoint protection software, make sure to configure them in a way that doesn't block the Mutual TLS certificate exchange (handshake) that occurs during this <MadCap:variable name="okta-feature-names.Device Trust"/> flow.
+											<p>See <a href="#MTLS-handshake">Troubleshooting</a>.</p>
+         </li>
+      </ul>
+      <h3>Certificate revocation</h3>
+      <p>You may need to revoke an end user's <MadCap:variable name="okta-feature-names.Device Trust"/> certificate(s) from the <MadCap:variable name="okta-variables.ProductName"/> Certificate Authority. This is recommended if the computer is lost or stolen. To re-secure an end user's computer with <MadCap:variable name="okta-feature-names.Device Trust"/> after revoking their certificate(s), you need to remove the <MadCap:variable name="okta-feature-names.Device Trust"/> certificate from their computer before you enroll a new certificate. Certificate revocation doesn't remove existing certificates from managed Windows computers.</p>
+      <p>See <a href="#PartD">Revoke and remove <MadCap:variable name="okta-feature-names.Device Trust"/> certificates</a>.</p>
+      <h3>Use an appropriate Setting Type in SCCM to verify Device Registration Task installation</h3>
+      <p>After installing the Device Trust client on your managed Windows computers, SCCM runs a script  to verify that installation was successful. Make sure to specify either <span class="userinput">File System</span> or <span class="userinput">Registry</span> in your <span class="uicontrol">Detection Rule</span>. Do not use the <span class="uicontrol">Windows Installer</span> setting type to detect the installation, as SCCM cannot detect the Device Trust client using that setting. </p>
+      <p>
+         <img src="../../Resources/Images/DT_SCCM_FileSystemDetect.png"
+              class="thumbnail"/>
+      </p>
+      <h3>
+         <a name="obtain-reg-task"/>Obtain the Registration Task</h3>
+      <div class="noteOkta">
+         <p class="noteContent">To leverage the security benefits of the Trusted Platform Module (TPM), see <MadCap:xref href="../device-trust/dt-win-tpm.htm">Enhance Windows Device Trust security with Trusted Platform Module (TPM)</MadCap:xref>.</p>
+      </div>
+      <p>
+         <a name="obtain-EA-reg-task"/>
+      </p>
+      <h3>To obtain an Early Access (EA) version of the Registration Task
+								</h3>
+      <p>Unlike the GA version, EA versions of the Device Registration Task are not available from the <span class="wintitle">Downloads</span> page in the <MadCap:variable name="okta-variables.ProductName"/> Admin Console. To obtain an EA version, you must configure a link as follows:</p>
+      <p>
+         <span class="varname">https://&lt;org&gt;.&lt;okta/oktapreview&gt;.com/static/devicetrust/OktaDeviceRegistrationTaskSetup-x.x.x.&lt;msi/exe&gt;</span>
+      </p>
+      <p>Where:</p>
+      <ul>
+         <li>
+            <p>
+               <span class="varname">&lt;org&gt;</span> is the name of your org</p>
+         </li>
+         <li>
+            <p>
+               <span class="varname">&lt;okta/oktapreview&gt;</span> denotes either your <MadCap:variable name="okta-variables.ProductName"/> Production or Preview environment.</p>
+         </li>
+         <li>
+            <p>
+               <span class="code">OktaDeviceRegistrationTaskSetup-<span class="uicontrol">x.x.x</span>
+               </span> is the version of the Registration Task. For the latest version of the Registration Task, see <a href="https://help.okta.com/okta_help.htm?id=ver-hist_dt-win-desktop"
+                  target="_blank">Device Trust for Windows Desktop Registration Task Version History</a>.</p>
+         </li>
+         <li>
+            <p>
+               <span class="code">&lt;msi/exe&gt;</span> is the file type of the Registration Task, either .msi or .exe.</p>
+         </li>
+      </ul>
+      <p>For example, a link for downloading .msi Registration Task version 1.4.0 to <span class="code">example.oktapreview.com</span> would look like this:</p>
+      <pre xml:space="preserve" id="code">https://example.oktapreview.com/static/devicetrust/OktaDeviceRegistrationTaskSetup-1.4.0.msi</pre>
+      <p>For version history, see <a href="https://help.okta.com/okta_help.htm?id=ver-hist_dt-win-desktop"
+            target="_blank">Device Trust for Windows Desktop Registration Task Version History</a>.</p>
+      <h3>To obtain a Generally Available (GA) version of the Registration Task</h3>
+      <p>The latest GA version of the Registration Task is available from the <span class="wintitle">Downloads</span> page in .msi and .exe formats. For version history, see <a href="https://help.okta.com/okta_help.htm?id=ver-hist_dt-win-desktop"
+            target="_blank">Device Trust for Windows Desktop Registration Task Version History</a>.</p>
+      <ol>
+         <li>
+            <MadCap:snippetText src="../../Resources/Snippets/task steps/Settings_Downloads.flsnp"/>
+         </li>
+         <li>Scroll to <span class="uicontrol">
+               <MadCap:variable name="okta-feature-names.Okta Device Trust for Windows"/>
+            </span>
+            <span class="uicontrol">Agents</span> and then click <span class="uicontrol">Download Latest</span> for the type of installer you want (.msi or .exe).</li>
+      </ol>
+      <h3>
+         <a name="Install"/>Install the Registration Task</h3>
+      <p>Install the Registration Task using either of the following methods:
+									<h3>
+            <a name="InstallRegTask_WinDT"/>Method 1: Distribute the Registration Task using a management tool (SCCM)</h3>
+         <p>
+            <a name="DistributeInstaller"/>Follow your organization's procedure for distributing software to domain-joined workstations. If your organization uses SCCM, you may want to refer to the Microsoft article <a href="https://technet.microsoft.com/en-us/library/gg682082.aspx">How to Deploy Applications in Configuration Manager</a>. Execute the appropriate command for <span class="code">*.exe</span> or <span class="code">*.msi</span> installation.</p>
+         <h3>About the Device Registration Task and proxy servers</h3>
+         <p>If your organization routes internet traffic through a proxy server, you must do the following:</p>
+         <h3>Use a command line to install the Device Registration Task and include parameters</h3>
+         <p>Install Device Registration Task version 1.2.2+ through a command line and append the appropriate <span class="code">HttpProxy</span> parameter to the installation command. This is necessary because the Registration Task installer installs these two scheduled tasks:</p>
+         <ul>
+            <li>A user task that runs as the logged-in user.</li>
+            <li>A device task that runs as a network service. If you set up your proxy server(s) as part of your Internet Explorer (IE) configuration, the device task does not detect your IE settings unless you specify that behavior through a command line as shown in the following examples.</li>
+         </ul>
+         <p>Include the parameter appropriate for your environment:</p>
+         <h3>Proxy server environments
+</h3>
+         <p>
+            <span class="code">HttpProxy=http://&lt;your proxy http url&gt;:&lt;port number&gt;</span>
+         </p>
+         <p>For example, the installation command that includes the proxy server parameter would look similar to this for:</p>
+         <p> MSI installation:</p>
+         <p>
+            <span class="code">msiexec /i OktaDeviceRegistrationTaskSetup-1.x.x-xxxxxxx INSTALLDIR="c:\Program Files\Okta\DeviceTrust" EXEOPTIONS="/q2 OktaURL=https://&lt;your Okta org&gt;/ HttpProxy=http://&lt;your proxy http url&gt;:&lt;port number&gt;"</span>
+         </p>
+         <p>EXE installation:</p>
+         <p>
+            <span class="code">OktaDeviceRegistrationTaskSetup-1.0.0-XXXX.exe /q2 OktaURL=https://&lt;your-okta-org-url&gt;.com HttpProxy=http://&lt;your proxy http url&gt;:&lt;port number&gt;</span>
+         </p>
+         <div class="noteOkta">
+            <p class="noteContent">Make sure to add a space if you are also adding the parameter to disable automatic certificate handling.</p>
+         </div>
+         <h3>Proxy Auto-Configuration (PAC) environments</h3>
+         <p>A. Specify the PAC location</p>
+         <p>
+            <span class="code">HttpProxyPacLocation=http://mypacfile.url.location</span>
+         </p>
+         <p>For example, the installation command that includes the PAC location parameter would look similar to this for:</p>
+         <p> MSI installation:</p>
+         <p>
+            <span class="code">msiexec /i OktaDeviceRegistrationTaskSetup-1.x.x-xxxxxxx INSTALLDIR="c:\Program Files\Okta\DeviceTrust" EXEOPTIONS="/q2 OktaURL=https://&lt;your Okta org&gt;/ HttpProxyPacLocation=http://mypacfile.url.location"</span>
+         </p>
+         <p>EXE installation:</p>
+         <p>
+            <span class="code">OktaDeviceRegistrationTaskSetup-1.0.0-XXXX.exe /q2 OktaURL=https://&lt;your-okta-org-url&gt;.com HttpProxyPacLocation=http://mypacfile.url.location</span>
+         </p>
+         <div class="noteOkta">
+            <p class="noteContent">Make sure to add a space if you are also adding the parameter to disable automatic certificate handling.</p>
+         </div>
+         <p>B. Optional. Allow your Okta org</p>
+         <p>If you implement a PAC file in your proxy environment, consider allowing your Okta org by adding an exception to the PAC file like this:</p>
+         <p>
+            <span class="code">if(localHostOrDomainIs(host,"*.okta.com"))</span>
+         </p>
+         <p>
+            <span class="code">{ return "DIRECT"; }</span>
+            <br/>
+         </p>
+         <h3>Ensure clients can complete the MTLS handshake</h3>
+         <MadCap:snippetBlock src="mobile-snippets/dt-mtls-handshake.flsnp"
+                              MadCap:conditionTagExpression="include[&#34;SnippetConditionsForDevices.Windows Only&#34;], exclude[&#34;SnippetConditionsForDevices.Android Only&#34; or &#34;SnippetConditionsForDevices.iOS and Android&#34; or &#34;SnippetConditionsForDevices.iOS Only&#34; or &#34;SnippetConditionsForDevices.macOS and Windows&#34; or &#34;SnippetConditionsForDevices.macOS Only&#34; or SnippetConditionsForDevices.more-about-eol-android-supported-OS or &#34;SnippetConditionsForDevices.Okta Mobile&#34; or &#34;SnippetConditionsForDevices.Okta Verify&#34; or SnippetConditionsForDevices.related-topics-okta-mobile-settings]"/>
+         <p>With automatic certificate challenge handling: MSI installation <span class="filepath">msiexec /i OktaDeviceRegistrationTaskSetup-1.x.x-xxxxxxx INSTALLDIR="c:\Program Files\Okta\DeviceTrust" EXEOPTIONS="/q2 OktaURL=https://&lt;your Okta org&gt;"</span>
+         </p>
+         <p>EXE installation <span class="code">OktaDeviceRegistrationTaskSetup-1.0.0-XXXX.exe /q2 OktaURL=https://&lt;your-okta-org-url&gt;.com</span>
+         </p>
+         <p>Without automatic certificate challenge handling: MSI installation <span class="filepath">msiexec /i OktaDeviceRegistrationTaskSetup-1.x.x-xxxxxxx INSTALLDIR="c:\Program Files\Okta\DeviceTrust" EXEOPTIONS="/q2 OktaURL=https://&lt;your Okta org&gt;/ <span class="uicontrol">SkipBrowserSetup=true</span>"</span>
+         </p>
+      </p>
+      <p>EXE installation</p>
+      <p>
+         <span class="varname">OktaDeviceRegistrationTaskSetup-1.0.0-XXXX.exe /q2 OktaURL=https://&lt;your-okta-org-url&gt;.com/ SkipBrowserSetup=true</span>
+      </p>
+      <h3>Method 2: Manually install the Registration Task</h3>
+      <p>This procedure is provided in case you want to install the Registration Task manually during the testing or Proof of Concept phase of your implementation.</p>
+      <ol>
+         <li>Copy the Registration Task to the domain-joined Windows computer.</li>
+         <li>Run the command prompt as an Administrator. </li>
+         <ol style="list-style-type: lower-alpha;">
+            <li>Click <span class="uicontrol">Start</span>.</li>
+            <li>In the search box, enter <span class="userinput">cmd</span>, and then press <span class="uicontrol">CTRL+SHIFT+ENTER</span>.								</li>
+         </ol>
+         <li>Change directories to the location of the file. </li>
+         <li>Issue the command appropriate for the file type, either *.msi or *.exe. For installation and proxy server details, see the previous section <a href="#InstallRegTask_WinDT">Distribute the Registration Task using a management tool (SCCM)</a>.</li>
+      </ol>
+      <h3>2.3 Verify certificate enrollment before you configure the Trusted option in app sign-on policy rules
+        </h3>
+      <a name="B.3"/>
+      <p>Before you configure the <span class="uicontrol">Trusted</span> option for apps in app sign-on policy rules, you must make sure that certificates are installed in the certificate store on the domain-joined computers you have targeted for this <MadCap:variable name="okta-feature-names.Device Trust"/> solution. If certificates are not installed and the Trusted setting is enabled, users are denied access to the app and are redirected to a security message advising them to contact their administrator. (You can configure the message to include a <span class="uicontrol">Learn more</span> link to more information. See <a href="Okta_Mobile_Device_Trust_Windows-desktop.htm#LearnMoreStep">Enable the global Device Trust setting for your org</a>). To verify certificate enrollment, Okta recommends that you use your management tool to parse the Windows Event Viewer, or use a command line to query the user certificate store directly. Look for <span class="uicontrol">Okta MTLS certificate</span>.</p>
+      <div class="noteOkta">
+         <p class="noteContent">If an end user is deactivated, all <MadCap:variable name="okta-feature-names.Device Trust"/> certificates installed on their domain-joined Windows computer(s) are revoked (but not removed) automatically. To remove revoked certificates, see <a href="#PartD">Revoke and remove Device Trust certificates</a>.</p>
+      </div>
+      <p>Though you'll probably use a management tool to verify that certificates are installed on multiple domain-joined computers, here are two ways to check enrollment on a single computer:</p>
+      <h3>Verify with Windows Event Viewer</h3>
+      <a name="WinEventViewer"/>
+      <ol>
+         <li>Go to <span class="wintitle">Start</span> and enter <span class="userinput">event</span> in the search field.</li>
+         <li>When <span class="uicontrol">Event Viewer</span> appears at the top of the <span class="uicontrol">Start</span> menu, press <span class="uicontrol">Enter</span> to open it.</li>
+         <li>Expand <span class="wintitle">Applications and Services Logs</span>.</li>
+         <li>Click <span class="uicontrol">
+               <MadCap:variable name="okta-feature-names.Okta Device Trust"/>
+            </span> and find Event ID 1000. </li>
+         <p>
+            <img src="../../Resources/Images/Verify_WindowsEventVwr.png"
+                 class="thumbnail"/>
+         </p>
+      </ol>
+      <h3>
+         <a name="Verify"/>Verify with Microsoft Management Console
+								</h3>
+      <ol start="1">
+         <a name="VerifyCert_MMC"/>
+         <li>Go to <span class="uicontrol">Start</span> and enter <span class="userinput">mmc</span> in the search field to open the console.</li>
+         <li>Go to <span class="uicontrol">File</span> and click <span class="uicontrol">Add/Remove Snap-in</span>.</li>
+         <li>Select <span class="uicontrol">Certificates</span> and then click <span class="uicontrol">Add</span>.</li>
+         <li>In the <span class="wintitle">Certificates snap-in</span> dialog box, select <span class="uicontrol">My user account</span>.</li>
+         <li>Click <span class="uicontrol">Finish</span>.</li>
+         <li>Click <span class="uicontrol">OK</span>.</li>
+         <li>Under <span class="wintitle">Console Root</span>, expand <span class="uicontrol">Certificates - Current User</span>.</li>
+         <li>Expand the <span class="uicontrol">Personal</span> folder, click <span class="uicontrol">Certificates</span> and see the <span class="uicontrol">
+               <MadCap:variable name="okta-variables.ProductName"/> MTLS certificate</span>. </li>
+         <p>
+            <img src="../../Resources/Images/Verify_MSFTMgmtConsole2.png"
+                 class="thumbnail"/>
+         </p>
+      </ol>
+      <h3>2.4. Optional. Use GPO to configure browsers to select the certificate automatically.
+        </h3>
+      <p>
+         <a name="B.4"/>If appropriate for your environment, you can use a Group Policy Object (GPO) tool instead of the default capability of the Device Registration Task to configure browsers to automatically select the <MadCap:variable name="okta-feature-names.Device Trust"/> certificate. If you use a GPO tool, make sure that you have added the flag <span class="code">SkipBrowserSetup=true</span> to the Registration Task installation command. See <a href="#B.1">Install a Device Trust-supported version of the Okta IWA web app in your AD domain</a>. </p>
+      <p>If you don't configure automatic certificate selection — either through the Registration Task or a GPO — end users are prompted to select the certificate when accessing the app. To make the selection easier for end users, only the <MadCap:variable name="okta-feature-names.Okta Device Trust"/> certificate will be shown to them  in this case.</p>
+      <div class="noteOkta">
+         <p class="noteContent">Depending on the refresh interval, changes you make using GPO may not be seen immediately on Windows client computers. For more information, see the Microsoft article <a href="https://technet.microsoft.com/en-us/library/cc940895.aspx">Group Policy refresh interval for computers</a>.</p>
+      </div>
+      <h3>To configure Chrome to select the <MadCap:variable name="okta-feature-names.Device Trust"/> certificate automatically</h3>
+      <ol>
+         <li>Download <a href="https://dl.google.com/dl/edgedl/chrome/policy/policy_templates.zip"
+               target="_blank">policy templates</a>.</li>
+         <li>Extract the zip file to the Desktop of the Active Directory Domain Controller.</li>
+         <li>Copy files to folders: </li>
+         <p>Copy:</p>
+         <p>
+            <span class="filepath">C:\end users\Administrator\Desktop\policy_templates\windows\admx\en-US\chrome.adml</span>
+         </p>
+         <p>To:</p>
+         <p>
+            <span class="filepath">C:\Windows\PolicyDefinitions\en-US\</span>
+         </p>
+         <p>Copy:</p>
+         <p>
+            <span class="filepath">C:\end users\Administrator\Desktop\policy_templates\windows\admx\chrome.admx</span>
+         </p>
+         <p>To:</p>
+         <p>
+            <span class="filepath">C:\Windows\PolicyDefinitions\</span>
+         </p>
+         <li>Open the Group Policy Management Console (GMPC).</li>
+         <ol style="list-style-type: lower-alpha;">
+            <li>In the <span class="uicontrol">Start</span> menu type <span class="uicontrol">Run</span>.</li>
+            <li>In <span class="uicontrol">Run</span>, enter <span class="userinput">gpmc.msc</span>.</li>
+         </ol>
+         <li>Expand to the appropriate domain, navigate to <span class="uicontrol">Group Policy Objects</span>, right-click <span class="uicontrol">Default Domain Policy</span>, and then click <span class="uicontrol">Edit</span>.
+											</li>
+         <p>
+            <img src="../../Resources/Images/GPCM_1.png" class="thumbnail"/>
+         </p>
+         <li>Navigate to <span class="menucascade">
+               <span class="uicontrol">Computer Configuration</span>
+               <span class="uicontrol">Policies</span>
+               <span class="uicontrol">Administrative Templates: Policy definitions (ADMX files) retrieved from the local computer</span>
+               <span class="uicontrol">Google Chrome</span>
+               <span class="uicontrol">Content Settings</span>
+            </span>.</li>
+         <li>In the right pane click <span class="uicontrol">Automatically select client certificate for these sites</span>, and then under <span class="uicontrol">Content Settings</span>, click <span class="uicontrol">Edit policy setting</span>.</li>
+         <p>
+            <img src="../../Resources/Images/GPCM_2.png" class="thumbnail"/>
+         </p>
+         <li>In the dialog box that opens, click <span class="uicontrol">Enabled</span>.</li>
+         <li>Under <span class="uicontrol">Options</span>, click <span class="uicontrol">Show</span>.</li>
+         <li>In the <span class="wintitle">Show Contents</span> dialog box, enter a value that specifies the subdomain of your org and indicates whether it applies to your Preview or Production org.</li>
+         <p>
+            <img src="../../Resources/Images/GPCM_3.png" class="thumbnail"/>
+         </p>
+         <P>For example:</P>
+         <p> If your <MadCap:variable name="okta-variables.ProductName"/> Preview org URL is <span class="code">https://[*.]oktapreview.com</span>, you would enter the following value:</p>
+         <p>
+            <span class="code">{"pattern":<span class="varname">"https://[*.]oktapreview.com"</span>,"filter":{"ISSUER":{"CN":"MTLS Certificate Authority"}}}</span>
+         </p>
+         <p>If your <MadCap:variable name="okta-variables.ProductName"/> Production org URL is <span class="url">https://[*.]okta.com</span>, you would enter the following value:</p>
+         <p>
+            <span class="code">{"pattern":"https://[*.]okta.com","filter":{"ISSUER":{"CN":"MTLS Certificate Authority"}}}</span>
+         </p>
+         <li>Click <span class="uicontrol">OK</span>.</li>
+         <li>Confirm that auto certificate settings are configured:</li>
+         <ol style="list-style-type: lower-alpha;">
+            <li>Refresh GPO, either by waiting for the next GPO refresh interval, or by issuing the <span class="code">gpupdate</span> command.
+												</li>
+            <li>In Chrome, enter chrome://policy in the address bar, and then press <span class="uicontrol">Enter</span>.</li>
+            <p>
+               <img src="../../Resources/Images/VerifyPolicy_Chrome.png" class="thumbnail"/>
+            </p>
+            <li>Click <span class="uicontrol">Show value</span> and verify that the policy <span class="uicontrol">AutoSelectCertificateForUrls</span> displays this value:</li>
+            <p>
+               <span class="code">{"pattern":"https://[*.]oktapreview.com","filter":{"ISSUER":{"CN":"MTLS Certificate Authority"}}}</span>
+            </p>
+         </ol>
+         <p>You can also confirm settings through the Windows <span class="uicontrol">Registry Editor</span>:</p>
+         <ol style="list-style-type: lower-alpha;" MadCap:continue="true">
+            <li>Go to <span class="uicontrol">Start</span> and enter <span class="userinput">regedit</span> in the search field</li>
+            <li>In Registry Editor, navigate to:
+               <span class="menucascade">
+                  <span class="uicontrol">HKEY_LOCAL_MACHINE</span>
+                  <span class="uicontrol">SOFTWARE</span>
+                  <span class="uicontrol">Policies</span>
+                  <span class="uicontrol">Google</span>
+                  <span class="uicontrol">Chrome</span>
+                  <span class="uicontrol">AutoSelectCertificateForUrls</span>
+               </span>
+               <p>
+                  <img src="../../Resources/Images/VerifyPolicy_Regedit.png" class="thumbnail"/>
+               </p>
+            </li>
+         </ol>
+      </ol>
+      <h3>To configure IE to select the <MadCap:variable name="okta-feature-names.Device Trust"/> certificate automatically</h3>
+      <ol>
+         <li>From the Active Directory Domain Controller, open the Group Policy Management Console (GMPC).</li>
+         <ol style="list-style-type: lower-alpha;">
+            <li>In the <span class="uicontrol">Start</span> menu type <span class="userinput">Run</span>.</li>
+            <li>In <span class="uicontrol">Run</span>, enter <span class="userinput">gpmc.msc</span> and then press <span class="uicontrol">Enter</span>.</li>
+         </ol>
+         <li>
+												Expand to the appropriate domain, navigate to <span class="uicontrol">Group Policy Objects</span>, right-click <span class="uicontrol">Default Domain Policy</span>, and then click <span class="uicontrol">Edit</span>.
+											</li>
+         <p>
+            <img src="../../Resources/Images/GPCM_1.png" class="thumbnail"/>
+         </p>
+         <li>
+            <a name="trusted-sites-zone"/>Navigate to <span class="menucascade">
+               <span class="uicontrol">Computer Configuration</span>
+               <span class="uicontrol">Policies</span>
+               <span class="uicontrol">Administrative Templates: Policy definitions (ADMX files) retrieved from the local computer</span>
+               <span class="uicontrol">Windows Components</span>
+               <span class="uicontrol">Internet Explorer</span>
+               <span class="uicontrol">Internet Control Panel</span>
+               <span class="uicontrol">Security Page</span>
+               <span class="uicontrol">Trusted Sites Zone</span>
+            </span>.</li>
+         <li>In the right pane under <span class="uicontrol">Settings</span>, double-click <span class="uicontrol">Don't prompt for client certificate selection when no certificates or only one certificate exists</span>.
+											</li>
+         <p>
+            <img src="../../Resources/Images/GPCM_2a_IE.png" class="thumbnail"/>
+         </p>
+         <li> In the dialog box that opens, click <span class="uicontrol">Enabled</span>.
+											</li>
+         <li>Close open windows.</li>
+         <li>Navigate to <span class="menucascade">
+               <span class="uicontrol">Computer Configuration</span>
+               <span class="uicontrol">Policies</span>
+               <span class="uicontrol">Administrative Templates: Policy definitions (ADMX files) retrieved from the local computer</span>
+               <span class="uicontrol">Windows Components</span>
+               <span class="uicontrol">Internet Explorer</span>
+               <span class="uicontrol">Internet Control Panel</span>
+               <span class="uicontrol">Security Page</span>
+            </span>.</li>
+         <li>In the right pane under <span class="uicontrol">Settings</span>, double click <span class="uicontrol">Site to Zone Assignment List</span>. </li>
+         <p>
+            <img src="../../Resources/Images/GPCM_3_IE_SiteToZone.png" class="thumbnail"/>
+         </p>
+         <li>In the dialog box that opens, click <span class="uicontrol">Enabled</span>.
+											</li>
+         <li>Under <span class="uicontrol">Options</span>, next to <span class="uicontrol">Enter the zone assignments here</span>, click <span class="uicontrol">Show</span>.</li>
+         <li>Enter the following in the <span class="uicontrol">Show Contents</span> dialog box:
+
+
+												<ol style="list-style-type: lower-alpha;">
+               <li>In the <span class="uicontrol">Value name</span> column, enter either <span class="code">https://*.okta.com</span> or <span class="code">https://*.oktapreview.com</span> depending on whether you are deploying this feature in your <MadCap:variable name="okta-variables.ProductName"/> Production or Preview org.</li>
+               <li>In the <span class="uicontrol">Value</span> column, enter <span class="userinput">2</span>. This value corresponds to the security zone setting <span class="uicontrol">Trusted sites zone</span> that you configured in <a href="#trusted-sites-zone">Step 3</a>.
+
+
+
+
+											<p>
+                     <img src="../../Resources/Images/GPCM_4_IE_SiteToZone.png" class="thumbnail"/>
+                  </p>
+               </li>
+            </ol>
+         </li>
+         <li>Click <span class="uicontrol">OK</span> to close open windows.</li>
+         <li>Confirm that the GPO settings are configured:</li>
+         <ol style="list-style-type: lower-alpha;">
+            <li>Refresh GPO, either by waiting for the next GPO refresh interval, or by issuing the <span class="code">gpupdate</span> command in a command line.</li>
+            <li>In the <span class="uicontrol">Start</span> menu type <span class="userinput">Run</span>.</li>
+            <li>In <span class="uicontrol">Run</span>, enter <span class="userinput">gpedit.msc</span> and then press <span class="uicontrol">Enter</span>.</li>
+            <li>Navigate to <span class="menucascade">
+                  <span class="uicontrol">Computer Configuration</span>
+                  <span class="uicontrol">Policies</span>
+                  <span class="uicontrol">Administrative Templates: Policy definitions (ADMX files) retrieved from the local computer</span>
+                  <span class="uicontrol">Windows Components</span>
+                  <span class="uicontrol">Internet Explorer</span>
+                  <span class="uicontrol">Internet Control Panel</span>
+                  <span class="uicontrol">Security Page</span>
+                  <span class="uicontrol">Internet Zone</span>
+               </span>.
+												</li>
+            <li>In the right pane under <span class="uicontrol">Settings</span>, double-click <span class="uicontrol">Don't prompt for client certificate selection when no certificates or only one certificate exists</span>.
+												</li>
+            <li>In the dialog box that opens, confirm that the setting is <span class="uicontrol">Enabled</span>.
+												</li>
+            <p>
+               <img src="../../Resources/Images/GPCM_e_IE_VerifyEnabled.png"
+                    class="thumbnail"/>
+            </p>
+         </ol>
+      </ol>
+      <h3>
+         <span style="font-size: 14pt;">Step 3. Configure app sign-on policy rules in <MadCap:variable name="okta-variables.ProductName"/>
+         </span>
+      </h3>
+      <a name="PartC"/>
+      <MadCap:snippetBlock src="mobile-snippets/AppSignOnRules_bulletedList.flsnp"
+                           MadCap:conditionTagExpression="include[&#34;SnippetConditionsForDevices.Windows Only&#34;] "/>
+      <MadCap:snippetBlock src="mobile-snippets/sign-on-policies-white-list.flsnp"/>
+      <h3>
+         <a name="SignInRulesProcedure"/>Procedure</h3>
+      <MadCap:snippetBlock src="../device-trust/dt-snippets/dt-create-app-sign-on-policy-rules.flsnp"/>
+      <div class="noteOkta">
+         <p class="noteContent">This example shows <MadCap:variable name="okta-feature-names.Device Trust"/> rules for managing access to Office 365. For other apps, note that the section <span class="uicontrol">If the user's client is any of these</span> isn't present.</p>
+      </div>
+      <h3>Example Allowlist</h3>
+      <h3>
+         <a name="Ex2_R1"/>Example Rule 1: Exchange ActiveSync or Legacy Auth; All platforms; Any Trust; Allow access</h3>
+      <p>
+         <img src="../../Resources/Images/E2_R1_EAS-AnyP-AnyT-Allow.png"
+              class="thumbnail"/>
+      </p>
+      <ol>
+         <li>Enter a descriptive rule name.</li>
+      </ol>
+      <p>Conditions:</p>
+      <ol MadCap:continue="true">
+         <li>Under <span class="uicontrol">PEOPLE</span>, specify whether to apply the rule to individuals only or to individuals and groups. The option you select must be the same for all the rules you create for this example.</li>
+         <li>Under <span class="uicontrol">LOCATION</span>, specify the user location to which the rule will apply. The option you select must be the same for all the rules you create for this example.</li>
+         <li>Under <span class="uicontrol">CLIENT</span>, configure the following settings:</li>
+         <p>
+            <span class="uicontrol">Web browser</span> unselected.</p>
+         <p>
+            <span class="uicontrol">Modern Auth client</span> unselected.</p>
+         <p>
+            <span class="uicontrol">Exchange ActiveSync client or Legacy Auth client</span> is selected.</p>
+         <p>Mobile									</p>
+         <p>
+            <span class="uicontrol">iOS</span> is selected.</p>
+         <p>
+            <span class="uicontrol">Android</span> is selected.</p>
+         <p>
+            <span class="uicontrol">Other mobile (e.g. BlackBerry)</span> is selected.</p>
+         <p>Desktop</p>
+         <p>
+            <span class="uicontrol">Windows</span> is selected.</p>
+         <p>
+            <span class="uicontrol">macOS</span> is selected.</p>
+         <p>
+            <span class="uicontrol">Other desktop (e.g. Linux)</span> is selected</p>
+         <li>Under <span class="uicontrol">DEVICE TRUST</span>, configure the following:</li>
+         <MadCap:snippetBlock src="mobile-snippets/snippet-tip-make-trusted-options-appear.flsnp"/>
+         <p>
+            <span class="uicontrol">Any</span> is selected.</p>
+         <p>
+            <span class="uicontrol">Trusted</span> is unselected.</p>
+         <p>
+            <span class="uicontrol">Not trusted</span> is unselected.</p>
+      </ol>
+      <p>Actions:</p>
+      <ol MadCap:continue="true">
+         <li>Configure <span class="uicontrol">Access</span>.</li>
+         <p>
+            <span class="uicontrol">Allowed</span> is selected.</p>
+         <li>Click <span class="uicontrol">Save</span>.</li>
+         <li>Create <span class="uicontrol">Rule 2</span>.</li>
+      </ol>
+      <h3>
+         <a name="Ex2_R2"/>Example Rule 2: Web browser or Modern Auth; Windows; Trusted; Allow access  + MFA </h3>
+      <p>
+         <img src="../../Resources/Images/E2_R2_Web-Win-Trust-Allow-MFA.png"
+              class="thumbnail"/>
+      </p>
+      <ol>
+         <li>Enter a descriptive name for the rule.</li>
+      </ol>
+      <p>Conditions:</p>
+      <ol MadCap:continue="true">
+         <li>Under <span class="uicontrol">PEOPLE</span>, select the same People option that you selected in <a href="#Ex2_R1">Rule 1</a>.  The People option needs to be the same for all rules in this example.</li>
+         <li>Under <span class="uicontrol">LOCATION</span>, select the same Location option that you selected in <a href="#Ex2_R1">Rule 1</a>.  The Location option needs to be the same for all rules in this example.</li>
+         <li>Under <span class="uicontrol">CLIENT</span>, configure the following settings:</li>
+         <p>
+            <span class="uicontrol">Web browser</span> selected.</p>
+         <p>
+            <span class="uicontrol">Modern Auth client</span> selected.</p>
+         <p>
+            <span class="uicontrol">Exchange ActiveSync client</span> is unselected.</p>
+         <p>Mobile</p>
+         <p>
+            <span class="uicontrol">iOS</span> is unselected.</p>
+         <p>
+            <span class="uicontrol">Android</span> is unselected.</p>
+         <p>
+            <span class="uicontrol">Other mobile (e.g. BlackBerry)</span> is unselected.</p>
+         <p>Desktop</p>
+         <p>
+            <span class="uicontrol">Windows</span> is selected.</p>
+         <p>
+            <span class="uicontrol">macOS</span> is unselected.</p>
+         <p>
+            <span class="uicontrol">Other desktop  (e.g. Linux)</span> is unselected.</p>
+         <li>Under <span class="uicontrol">DEVICE TRUST</span>, configure the following:</li>
+         <MadCap:snippetBlock src="mobile-snippets/snippet-tip-make-trusted-options-appear.flsnp"/>
+         <p>
+            <span class="uicontrol">Any</span> is unselected.</p>
+         <p>
+            <span class="uicontrol">Trusted</span> is selected.</p>
+         <p>
+            <span class="uicontrol">Not trusted</span> is unselected.</p>
+      </ol>
+      <p>Actions:</p>
+      <ol MadCap:continue="true">
+         <li>Configure <span class="uicontrol">Access</span>:</li>
+         <p>
+            <span class="uicontrol">Allowed</span> is selected.</p>
+         <p>
+            <span class="uicontrol">Prompt for factor</span> is selected.</p>
+         <li>Click <span class="uicontrol">Save</span>.</li>
+         <li>Create <span class="uicontrol">Rule 3</span>.</li>
+      </ol>
+      <h3>
+         <a name="Ex2_R3"/>Example Rule 3: Web browser or Modern Auth; All platforms except Windows; Any Trust, Allow access + MFA </h3>
+      <p>
+         <img src="../../Resources/Images/E2_R3_Web_AllButWin_AnyT_MFA.png"
+              class="thumbnail"/>
+      </p>
+      <ol>
+         <li>Enter a descriptive name for the rule.</li>
+      </ol>
+      <p>Conditions:</p>
+      <ol MadCap:continue="true">
+         <li>Under <span class="uicontrol">PEOPLE</span>, select the same People option that you selected in <a href="#Ex2_R1">Rule 1</a>.  The option must be the same for all rules in this example.</li>
+         <li>Under <span class="uicontrol">LOCATION</span>, select the same Location option that you selected in <a href="#Ex2_R1">Rule 1</a>.  The option must be the same for all rules in this example.</li>
+         <li>Under <span class="uicontrol">CLIENT</span>, configure the following settings:</li>
+         <p>
+            <span class="uicontrol">Web browser</span> selected.</p>
+         <p>
+            <span class="uicontrol">Modern Auth client</span> selected.</p>
+         <p>
+            <span class="uicontrol">Exchange ActiveSync client</span> is unselected.</p>
+         <p>Mobile</p>
+         <p>
+            <span class="uicontrol">iOS</span> is selected.</p>
+         <p>
+            <span class="uicontrol">Android</span> is selected.</p>
+         <p>
+            <span class="uicontrol">Other mobile (e.g. BlackBerry)</span> is selected.</p>
+         <p>Desktop</p>
+         <p>
+            <span class="uicontrol">Windows</span> is selected</p>
+         <p>
+            <span class="uicontrol">macOS</span> is selected</p>
+         <p>
+            <span class="uicontrol">Other desktop  (e.g. Linux)</span> is selected</p>
+         <li>Under <span class="uicontrol">DEVICE TRUST</span>, configure the following:</li>
+         <MadCap:snippetBlock src="mobile-snippets/snippet-tip-make-trusted-options-appear.flsnp"/>
+         <p>
+            <span class="uicontrol">Any</span> is selected.</p>
+         <p>
+            <span class="uicontrol">Trusted</span> is unselected.</p>
+         <p>
+            <span class="uicontrol">Not trusted</span> is unselected.</p>
+      </ol>
+      <p>Actions:</p>
+      <ol MadCap:continue="true">
+         <li>Configure <span class="uicontrol">Access</span>.</li>
+         <p>
+            <span class="uicontrol">Allowed</span> is selected.</p>
+         <p>
+            <span class="uicontrol">Prompt for factor</span> is selected.</p>
+         <li>Click <span class="uicontrol">Save</span>.</li>
+         <li>Create <span class="uicontrol">Rule 4</span>.</li>
+      </ol>
+      <h3>
+         <a name="Ex2_R4"/>Example Rule 4: Any client; All platforms; Any Trust; Deny access</h3>
+      <p>
+         <img src="../../Resources/Images/E2_R4_AnyClien_AnyP_AnyT_Denied.png"
+              class="thumbnail"/>
+      </p>
+      <ol>
+         <li>Enter a descriptive name for the rule.</li>
+      </ol>
+      <p>Conditions:</p>
+      <ol MadCap:continue="true">
+         <li>Under <span class="uicontrol">PEOPLE</span>, select the same People option that you selected in <a href="#Ex2_R1">Rule 1</a>. The option must be the same for all the rules you create for this example.</li>
+         <li>Under <span class="uicontrol">LOCATION</span>, select the same Location option that you selected in <a href="#Ex2_R1">Rule 1</a>. The option must be the same for all the rules you create for this example.</li>
+         <li>Under <span class="uicontrol">CLIENT</span>, configure the following settings:</li>
+         <p>
+            <span class="uicontrol">Web browser</span> selected.</p>
+         <p>
+            <span class="uicontrol"> Modern Auth client</span> selected.</p>
+         <p>
+            <span class="uicontrol">Exchange ActiveSync client</span> is selected.</p>
+         <p>Mobile</p>
+         <p>
+            <span class="uicontrol">iOS</span> is selected.</p>
+         <p>
+            <span class="uicontrol">Android</span> is selected.</p>
+         <p>
+            <span class="uicontrol">Other mobile (e.g. BlackBerry)</span> is selected.</p>
+         <p>Desktop</p>
+         <p>
+            <span class="uicontrol">Windows</span> is selected.</p>
+         <p>
+            <span class="uicontrol">macOS</span> is selected.</p>
+         <p>
+            <span class="uicontrol">Other desktop  (e.g. Linux)</span> is selected.</p>
+         <li>Under <span class="uicontrol">DEVICE TRUST</span>, configure the following:</li>
+         <MadCap:snippetBlock src="mobile-snippets/snippet-tip-make-trusted-options-appear.flsnp"/>
+         <p>
+            <span class="uicontrol">Any</span> is selected.</p>
+         <p>
+            <span class="uicontrol">Trusted</span> is unselected.</p>
+         <p>
+            <span class="uicontrol">Not trusted</span> is unselected.</p>
+      </ol>
+      <p>Actions:</p>
+      <ol MadCap:continue="true">
+         <li>Configure <span class="uicontrol">Access</span>.</li>
+         <p>
+            <span class="uicontrol">Denied</span> is selected.</p>
+         <li>Click <span class="uicontrol">Save</span>.</li>
+      </ol>
+      <h3>
+         <a name="WL-Rule5"/>
+         <MadCap:dropDownHotspot>Example Rule 5: Default sign on rule – Any client; All platforms; Any Trust; Allow access</MadCap:dropDownHotspot>
+      </h3>
+      <p>The Default sign-on rule is already created and cannot be edited. Note that in this allowlist example, the Default rule is never reached because it is effectively negated by Rule 4.</p>
+      <p>
+         <img src="../../Resources/Images/dt-android-rule-5-default.png"
+              class="thumbnail"/>
+      </p>
+      <h2>
+         <span style="font-size: 14pt;">Revoke and remove <MadCap:variable name="okta-feature-names.Device Trust"/> certificates</span>
+      </h2>
+      <a name="PartD"/>
+      <p>
+         <a name="You"/>You may need to revoke an end user's <MadCap:variable name="okta-feature-names.Device Trust"/> certificate(s) from the <MadCap:variable name="okta-variables.ProductName"/> Certificate Authority. This is recommended if the computer is lost or stolen, or if the end user is deactivated. To re-secure an end user's computer with <MadCap:variable name="okta-feature-names.Device Trust"/> after revoking their <MadCap:variable name="okta-feature-names.Device Trust"/> certificate(s), you need to remove the revoked certificate from their computer before enrolling a new certificate.</p>
+      <p>Be aware of the following:</p>
+      <div>
+         <ul>
+            <li>Steps 1 - 4 of this procedure revoke all <MadCap:variable name="okta-feature-names.Device Trust"/> certificates from the Okta Certificate Authority that were issued to the end user. Certificate revocation does not remove existing certificates from managed Windows computers. In order to re-secure a Windows computer with <MadCap:variable name="okta-feature-names.Device Trust"/> after revoking certificates, you must first remove any existing <MadCap:variable name="okta-feature-names.Device Trust"/> certificate from the computer and then re-enroll the computer with a new certificate as detailed in Step 5. The Device Registration Task will not enroll a new certificate if another certificate (whether revoked or not) is present on the computer.</li>
+            <li>Deactivating an end user in Okta also revokes their <MadCap:variable name="okta-feature-names.Device Trust"/> certificate from the Okta Certificate Authority (but does not remove the certificate from their computer).</li>
+         </ul>
+         <ol>
+            <li>
+               <MadCap:snippetText src="../../Resources/Snippets/task steps/Directory_People.flsnp"/>
+            </li>
+            <li>
+               <p>Click the end user whose <MadCap:variable name="okta-feature-names.Device Trust"/> certificate you want to revoke.</p>
+            </li>
+            <li>In the <span class="uicontrol">More Actions</span> menu, click <span class="uicontrol">Revoke Trust Certificate</span>.
+					<p>
+                  <img src="../../Resources/Images/DT_revokeTrustCert_80per.png"
+                       class="thumbnail"/>
+               </p>
+            </li>
+            <li>
+               <p>Read the message that displays, and then click <span class="uicontrol">Revoke Trust Certificate</span>.</p>
+            </li>
+            <li>
+               <p>Optional. If you want to re-secure the end user's computer with <MadCap:variable name="okta-feature-names.Device Trust"/>, first remove any existing <MadCap:variable name="okta-feature-names.Device Trust"/> certificate from the computer.</p>
+               <ul>
+                  <li>
+                     <p>To remove a certificate from a single computer (such as during testing or the Proof of Concept phase of your implementation), use a third-party management tool such as <a href="https://docs.microsoft.com/en-us/dotnet/framework/tools/certmgr-exe-certificate-manager-tool"
+                           target="_blank">Certificate Manager Tool</a> (Certmgr.exe) to remove the certificate issued by the Okta MTLS Certificate Authority.</p>
+                  </li>
+                  <li>
+                     <p>To remove certificates from multiple computers, use a third-party management tool such as <a href="https://support.microsoft.com/en-us/help/816102/how-to-use-group-policy-to-remotely-install-software-in-windows-server"
+                           target="_blank">GPO</a> or <a href="https://docs.microsoft.com/en-us/sccm/core/understand/introduction"
+                           target="_blank">SCCM</a> to remove the certificate issued by the Okta MTLS Certificate Authority.</p>
+                  </li>
+               </ul>
+            </li>
+         </ol>
+      </div>
+      <h2>Troubleshooting</h2>
+      <p>
+         <a name="Troubleshooting_DT-Win"/>
+         <MadCap:variable name="okta-feature-names.Okta Device Trust for Windows"/> generates a certificate on domain-joined Windows devices and presents it to <MadCap:variable name="okta-variables.ProductName"/> when a <MadCap:variable name="okta-feature-names.Device Trust"/>-secured WS-Fed or SAML app is launched. The two problems that you are most likely to encounter are:</p>
+      <ul>
+         <li>Trusted devices are unable to access <MadCap:variable name="okta-feature-names.Device Trust"/>-secured apps.</li>
+         <li>Untrusted devices are able to access <MadCap:variable name="okta-feature-names.Device Trust"/>-secured apps.</li>
+      </ul>
+      <p>If you encounter either problem, try to correct it by performing Basic Troubleshooting. If the problem persists, perform Advanced Troubleshooting.</p>
+      <h3>Basic Troubleshooting</h3>
+      <a name="BasicTroubleshooting_DT-Win"/>
+      <p>To perform basic troubleshooting, review the following areas:</p>
+      <h3>IWA web app installation and setup</h3>
+      <p>Verify the following:</p>
+      <ul>
+         <li>You have <a href="#B.1">installed</a> a <MadCap:variable name="okta-feature-names.Device Trust"/>-capable version of the IWA web app in your Active Directory domain.</li>
+         <li>If you use HTTPS for IWA, you have <a href="#ModWebConfig">modified the IWA web.config file</a> to support HTTPS binding.</li>
+      </ul>
+      <p>If the problem persists, proceed to <a href="#AdvancedTroubleshooting_DT-Win">Advanced Troubleshooting</a>.</p>
+      <h3>Enablement</h3>
+      <p>Verify that you have <a href="#PartB">enabled the global Device Trust setting</a> in <span class="menucascade">
+            <span class="uicontrol">Security</span>
+            <span class="uicontrol">
+               <MadCap:variable name="okta-feature-names.Device Trust"/>
+            </span>
+         </span>.</p>
+      <h3>Registration task</h3>
+      <p>Verify that you have <a href="#DistributeInstaller">distributed</a> the Device Registration Task to Windows domain-joined workstations.</p>
+      <p>Proxy server environments: For the Registration Task installation to succeed in environments that implement a proxy server, you must install Device Registration Task version 1.2.1 or later using a command line and append the appropriate HttpProxy parameter to the installation command. </p>
+      <p>See <MadCap:xref href="#Install">Install the Registration Task</MadCap:xref>. </p>
+      <h3>Certificate</h3>
+      <div>
+         <h3>Verify that the certificate is installed</h3>
+         <ol>
+            <li>Open <span class="uicontrol">Microsoft Management Console</span>. See <a href="#Verify">Verify with Microsoft Management Console</a>.</li>
+            <li>Open the end user's personal store (not the Local computer store).</li>
+            <li>Verify that a single certificate appears under <span class="menucascade">
+                  <span class="uicontrol">Personal</span>
+                  <span class="uicontrol">Certificates</span>
+               </span> issued by <span class="uicontrol">MTLS Certificate Authority</span>.</li>
+            <li>If no certificate appears, see <a href="#AdvancedTroubleshooting_DT-Win">Advanced Troubleshooting</a>.</li>
+         </ol>
+      </div>
+      <div>
+         <h3>
+            <a name="Certific"/>Known Issue – Auth failure caused by blocked Mutual TLS certificate exchange</h3>
+         <p>
+            <a name="MTLS-handshake"/>
+            <MadCap:snippetBlock src="mobile-snippets/dt-mtls-handshake.flsnp"
+                                 MadCap:conditionTagExpression="include[&#34;SnippetConditionsForDevices.Windows Only&#34;] "/>
+         </p>
+      </div>
+      <h3>Sign-on policy</h3>
+      <p>Verify the following:</p>
+      <p>You have <a href="#PartC">configured a sign-on policy</a> that:</p>
+      <ul>
+         <li>Is applied to the WS-Fed or SAML app that you want to secure with <MadCap:variable name="okta-feature-names.Device Trust"/>.</li>
+         <li>Is applied to the correct user(s) and/or groups.</li>
+         <li>Includes, at minimum, an Active <a href="#SignInRulesProcedure">rule</a> that denies access to untrusted devices.</li>
+      </ul>
+      <h3>
+         <a name="DT_Win_SysLog"/>System Log</h3>
+      <p>Review the <a href="../Reports/Reports_SysLog.htm">System Log</a> to verify the following <MadCap:variable name="okta-feature-names.Device Trust"/> System Log events:
+
+								</p>
+      <h3>Authentication</h3>
+      <ul>
+         <li>DisplayMessage: Authentication of device through a certificate</li>
+         <li>EventType: <span class="code">user.authentication.authenticate</span>
+         </li>
+      </ul>
+      <h3>Enrollment</h3>
+      <ul>
+         <li>DisplayMessage: <MadCap:variable name="okta-feature-names.Device Trust"/> certificate enrollment</li>
+         <li>EventType: <span class="code">user.credential.enroll</span>
+         </li>
+      </ul>
+      <h3>Issuance</h3>
+      <ul>
+         <li>DisplayMessage: <MadCap:variable name="okta-feature-names.Device Trust"/> certificate issuance</li>
+         <li>EventType: <span class="code">pki.cert.issue</span>
+         </li>
+      </ul>
+      <h3>Revocation</h3>
+      <ul>
+         <li>DisplayMessage: <MadCap:variable name="okta-feature-names.Device Trust"/> certificate revocation</li>
+         <li>EventType: <span class="code">pki.cert.revoke</span>
+         </li>
+      </ul>
+      <h3>Renewal</h3>
+      <ul>
+         <li>DisplayMessage: <MadCap:variable name="okta-feature-names.Device Trust"/> certificate renewal</li>
+         <li>EventType: <span class="code">pki.cert.renew</span>
+         </li>
+      </ul>
+      <MadCap:snippetBlock src="mobile-snippets/debug-context-device-ids.flsnp"/>
+      <h3>
+         <a name="AdvancedTroubleshooting_DT-Win"/>Advanced Troubleshooting</h3>
+      <p>If Basic Troubleshooting didn't resolve the problem you are experiencing, and the certificate isn't installed on the Windows workstation, check in the following locations:</p>
+      <h3>In the <MadCap:variable name="okta-variables.ProductName"/> Admin Console</h3>
+      <p>Verify the following:</p>
+      <ul>
+         <li>The org has an active Active Directory (AD) integration (<span class="menucascade">
+               <span class="uicontrol">Directory</span>
+               <span class="uicontrol">Directory Integrations</span>
+            </span>)</li>
+         <li>The end user of the domain-joined Windows computer is:
+									<ul>
+               <li>Present in <span class="menucascade">
+                     <span class="uicontrol">Directory</span>
+                     <span class="uicontrol">People</span>
+                  </span>
+               </li>
+               <li>Activated</li>
+               <li>A member of the Active Directory domain</li>
+            </ul>
+         </li>
+         <li>The IWA web app is:
+									<ul>
+               <li>Primary</li>
+               <li>Enabled</li>
+            </ul>
+         </li>
+         <li>A <MadCap:variable name="okta-feature-names.Device Trust"/>-capable <a href="../Settings/Version_Histories/Ver_History_SSO_IWA_Agent.htm">version</a>
+         </li>
+      </ul>
+      <p>(<span class="menucascade">
+            <span class="uicontrol">Security</span>
+            <span class="uicontrol">Delegated Authentication</span>
+            <span class="uicontrol">IWA Agents</span>
+         </span>)</p>
+      <p>
+         <img src="../../Resources/Images/DT_Trouble_IWA_status.png"
+              class="thumbnail"/>
+      </p>
+      <h3>On the IWA server</h3>
+      <h3>Check IIS settings for the IWA web app</h3>
+      <ol>
+         <li>Click <span class="uicontrol">Start</span>.</li>
+         <li>In the search box, enter <span class="uicontrol">IIS</span>.</li>
+         <li>Right click <span class="uicontrol">Internet Information Services Manager</span> and select <span class="uicontrol">Run as administrator</span>.</li>
+         <li>If the IWA web app is configured for SSL, open SSL settings and make sure the option Require SSL is selected.</li>
+         <li>Open the Authentication feature and make sure Windows Authentication is Enabled.</li>
+         <p>
+            <img src="../../Resources/Images/DT_Trouble_IWA_IIS_1.png" class="thumbnail"/>
+         </p>
+      </ol>
+      <h3>Check for errors in the web.config file</h3>
+      <ol>
+         <li>Go to <span class="filepath">C:\Inetpub\wwwroot\IWA\web.config</span>.</li>
+         <li>Use a validation tool to make sure the web.config file contains valid XML syntax.</li>
+         <li>If HTTPS was enabled in IIS on the site, make sure that the web.config file enables <span class="code">SecureBindingForDeviceTrust</span>.</li>
+      </ol>
+      <h3>Check for errors in Windows Logs &gt; Applications and Services Logs &gt; <MadCap:variable name="okta-variables.ProductName"/> Single Sign On</h3>
+      <ol>
+         <li>Click <span class="uicontrol">Start</span>.</li>
+         <li>In the search box, enter <span class="uicontrol">Event Viewer</span>.</li>
+         <li>Expand <span class="uicontrol">Application and Services Logs</span>.</li>
+         <li>Check for errors in <MadCap:variable name="okta-variables.ProductName"/> Single Sign On.</li>
+         <p>
+            <img src="../../Resources/Images/DT_Trouble_AppSvcLogs.png"
+                 class="thumbnail"/>
+         </p>
+      </ol>
+      <h3>On the domain-joined Windows computer</h3>
+      <h3>Make sure <MadCap:variable name="okta-feature-names.Okta Device Trust"/> Tasks were installed and successful:</h3>
+      <ol>
+         <li>Click <span class="uicontrol">Start</span>.</li>
+         <li>In the search box, enter <span class="uicontrol">Task Scheduler</span>.</li>
+         <li>Right click <span class="uicontrol">Task Scheduler</span> and select <span class="uicontrol">Run as administrator</span>.</li>
+         <li>Make sure the <span class="code">okta-devicetrust-devicetask</span> and <span class="code">okta-devicestrust-usertask</span> tasks appear and have completed successfully.</li>
+         <p>
+            <img src="../../Resources/Images/DT_TaskSched.png" class="thumbnail"/>
+         </p>
+      </ol>
+      <h3>Check for errors in Windows Logs &gt; Applications and Services Logs &gt; <MadCap:variable name="okta-feature-names.Okta Device Trust"/>:</h3>
+      <ol>
+         <li>Click <span class="uicontrol">Start</span>.</li>
+         <li>In the search box, enter <span class="uicontrol">Event Viewer</span>.</li>
+         <li>Expand <span class="uicontrol">Application and Services Logs</span>.</li>
+         <li>Click <span class="uicontrol">
+               <MadCap:variable name="okta-feature-names.Okta Device Trust"/>
+            </span>.</li>
+         <p>
+            <img src="../../Resources/Images/DT_EViewer.png" class="thumbnail"/>
+         </p>
+      </ol>
+      <div>
+         <h3>
+            <a name="force-cert-renewal"/>Force certificate renewal in some circumstances</h3>
+         <MadCap:snippetBlock src="mobile-snippets/dt-win-cert-renewl-cadence.flsnp"/>
+         <p>You can manually force certificate renewal to try to fix the following problems (requires Device Registration Task 1.3.1 or later):</p>
+         <ul>
+            <li>An end user's certificate was incorrectly or accidentally revoked by the admin through the Admin Console (see <a href="#PartD">Revoke</a>). </li>
+            <li>The certificate was corrupted on the client due to accidental deletion, file corruption, or loss of the  private key.</li>
+         </ul>
+         <p>Open a command prompt and issue the following command:</p>
+         <p>
+            <span class="filepath">"C:\Program Files\Okta\DeviceTrust\OktaDeviceReg.exe" --user --forceRenewal</span>
+         </p>
+      </div>
+      <h3>Run the task in debug mode as the logged-on user</h3>
+      <ol>
+         <li>Make sure the IWA server is reachable when the task is run (either directly over the internet or through a VPN).</li>
+         <li>Open a command prompt and issue the following command: <p>
+               <span class="code">"C:\Program Files\Okta\DeviceTrust\OktaDeviceReg.exe" --user --debug</span>
+            </p>
+         </li>
+         <li>If the <MadCap:variable name="okta-feature-names.Device Trust"/>certificate isn't generated on the device, the task executes the following actions:
+									<ul>
+               <li>Contacts <MadCap:variable name="okta-variables.ProductName"/> at the registry value pointed to by <span class="code">HKLM\Software\Okta\DeviceTrust\OktaOrgUrl</span> and gets the location of the IWA server for the org.</li>
+               <li>Contacts the IWA server to generate the device token for the device.</li>
+               <li>Contacts the IWA server to generate a user token based on the device token.</li>
+               <li>Contacts <MadCap:variable name="okta-variables.ProductName"/> with the generated user token to generate the certificate.</li>
+               <li>Installs the certificate in the user's personal store.</li>
+            </ul>
+         </li>
+      </ol>
+      <p>The user token is a set of JWT claims signed by the IWA server. You may be asked to copy the token and provide it to <MadCap:variable name="okta-variables.ProductName"/> Support for analysis.</p>
+      <p>
+         <img src="../../Resources/Images/DT_OktaDeviceReg-Running2.png"
+              class="thumbnail"/>
+      </p>
+      <h2>
+         <span style="font-size: 14pt;">Known issues</span>
+         <a name="KnownIssues"/>
+      </h2>
+      <ul>
+         <li>Multiple apps opening simultaneously: If multiple apps secured by <MadCap:variable name="okta-feature-names.Device Trust"/> are configured to open automatically when end users sign in to their <MadCap:variable name="okta-variables.ProductName"/> dashboard from IE or Edge browsers, only one of the apps completes the <MadCap:variable name="okta-feature-names.Device Trust"/> flow. Access to the remaining apps fails and end users are presented a message advising them to contact their administrator. (See <a href="#LearnMoreStep">Enable the global Device Trust setting for your org</a>.)</li>
+         <li>
+            <span class="uicontrol">
+               <MadCap:variable name="okta-feature-names.Okta Device Trust for Windows"/>
+            </span>+ certificate-based IWA for SSO: Configuring this <MadCap:variable name="okta-feature-names.Device Trust"/> solution may cause an incompatibility issue if your org is configured with certificate-based IWA to support SSO for iOS and Android mobile devices. In that case, end users signing in to <MadCap:variable name="okta-variables.ProductName"/> using IWA from Windows computers with a <MadCap:variable name="okta-feature-names.Device Trust"/> certificate <u style="font-style: normal; text-decoration: none;">and</u> an IWA certificate installed may be presented with a certificate picker containing both certificates during the Desktop SSO flow, which may cause confusion. If end users select the <MadCap:variable name="okta-feature-names.Device Trust"/> certificate, they will get a 403 error during the IWA flow.
+					It may be possible to  enable certificate hinting in IIS so that only one certificate is shown to users.	See the Microsoft article <a href="https://technet.microsoft.com/en-au/library/dn786429.aspx">Schannel SSP Technical Overview</a>.		</li>
+         <li>
+            <a name=".NETFramework"/>Checking .NET version: The Device Registration Task checks the version of the .NET Framework running on managed Windows computers. If the version isn't 4.5.2 or later, the Registration Task automatically installs version 4.5.2. During installation, progress indicators and other installation dialog boxes appear on the end user screen.</li>
+      </ul>
+   </body>
+</html>

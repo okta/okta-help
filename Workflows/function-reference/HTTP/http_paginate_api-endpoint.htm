@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Ian Hakes">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/wf/en-us/Content/Topics/Workflows/function-reference/Encryption/encryption_hmac.htm" /><title>[%=Heading.Level1%] | Okta</title>
+        <meta name="coveo:connector" content="HTTP" />
+        <meta name="coveo:method" content="paginate" />
+        <meta name="coveo:method-description" content="Use the Paginate function card against an API endpoint." />
+        <meta name="coveo:method-type" content="action" />
+    </head>
+    <body>
+        <div data-content-id="hoc-main-content">
+            <h1>Paginate: API Endpoint</h1>
+            <MadCap:snippetBlock src="../../connector-builder/resources/cbv2-only-functions.flsnp" />
+            <p>The specifics around paginating against an API endpoint depend heavily on the API in question.  For this example, we’ll imagine a simple link header that includes a URL indicating the next page of records.  The following builds on the concept and implementation introduced in <MadCap:xref href="http_paginate_set-max-page-index.htm">Paginate: Set a Max Page Index</MadCap:xref>.</p>
+            <p>To begin, add some new values to the pagination object:</p>
+            <ul>
+                <li>
+                    <p><span class="code">url</span>: Complete URL used to retrieve the first page of records.  In many services, this will contain both a limit and an offset value.</p>
+                    <ul>
+                        <li>
+                            <p><span class="code">limit</span>: Determines how many records to retrieve starting from the offset.</p>
+                        </li>
+                        <li>
+                            <p><span class="code">offset</span>: Position in the dataset of the last record retrieved.</p>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <p><span class="code">results_list</span>: This is an empty list of objects to which each page of new records will be added.</p>
+                </li>
+                <li>
+                    <p><span class="code">Connection</span>: Pass the connection context along to the helper flow.</p>
+                </li>
+            </ul>
+            <p>
+                <img src="../../../../Resources/Images/Workflows/connector-builder/paginate-construct-endpoint.png" />
+            </p>
+            <p>This is the resulting object:</p>
+            <MadCap:codeSnippet>
+                <MadCap:codeSnippetCopyButton />
+                <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">{
+   "index":0,
+   "max_page_indext":10,
+   "break":false,
+   "url":”https://app.scaleft.com/v1/teams/demo/projects?limit=200&amp;offset=0”,
+   "results_list":[],
+   "Connection":{
+      "blob":{
+         "api_key":"SlESyU45eGxqM8dDi3ucmodj3sJ1AGGQ"
+      }
+   }
+}</MadCap:codeSnippetBody>
+            </MadCap:codeSnippet>
+            <p>The inputs defined on the event card will need to match the keys defined in the object above: <span class="code">page_index</span>, <span class="code">max_page_count</span>, <span class="code">break</span>, <span class="code">url</span>, <span class="code">results_list</span>, and <span class="code">Connection</span>.  The platform will extract the values from the pagination object and make them accessible in the flow.</p>
+            <p>Use the <span class="code">url</span> value to make a call to the service using the HTTP Raw Request function.  Once a response is received, the helper flow will manage the <span class="code">url</span> and <span class="code">results_list</span> to prepare for the next iteration of the pagination function.  Extract the <span class="code">link</span> header from the <span class="code">headers</span> object and the page of <span class="code">results</span> from the <span class="code">body</span> object using Object Get cards.</p>
+            <p>
+                <img src="../../../../Resources/Images/Workflows/connector-builder/paginate-endpoint.png" />
+            </p>
+            <p>Once a page of results has been extracted from the response, it needs to be added to any existing results from previous pagination iterations using the List Union function.  Once that’s complete, it’s time to rebuild the pagination object with the new values collected within the flow.</p>
+            <p>
+                <img src="../../../../Resources/Images/Workflows/connector-builder/paginate-endpoint-rebuild.png" />
+            </p>
+            <p>This is the resulting object:</p>
+            <MadCap:codeSnippet>
+                <MadCap:codeSnippetCopyButton />
+                <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">{
+   "index":1,
+   "max_page_index":10,
+   "break":false,
+   "url":”https://app.scaleft.com/v1/teams/demo/projects?limit=200&amp;offset=200”,
+   "results_list":[
+     “1”,
+     “2”,
+     “3”,
+     “4”,
+     “5”,
+     "..."
+  ],
+   "Connection":{
+      "blob":{
+         "api_key":"SlESyU45eGxqM8dDi3ucmodj3sJ1AGGQ"
+      }
+   }
+}</MadCap:codeSnippetBody>
+            </MadCap:codeSnippet>
+            <p>Finally, you’ll need to determine how the API indicates that there are no more pages of results and manage that much the same way you do with <span class="code">max_page_index</span>.  For our example, we’ll assume that once we’ve received the last page of results that the service drops the <span class="code">link</span> key from the header.  If the <span class="code">link</span> key is missing or empty, then the <span class="code">break</span> key/value pair should be removed from the pagination object using the Object Unset function.  When the pagination object is returned to the parent flow without the <span class="code">break</span> key, the pagination will stop.</p>
+            <p>
+                <img src="../../../../Resources/Images/Workflows/connector-builder/paginate-endpoint-return.png" />
+            </p>
+            <p>This is the resulting object:</p>
+            <MadCap:codeSnippet>
+                <MadCap:codeSnippetCopyButton />
+                <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">{
+   "index":6,
+   "max_page_index":10,
+   "url": "",
+   "results_list":[
+     “1”,
+     “2”,
+     “3”,
+     “4”,
+     “5”,
+     “6”,
+     “7”,
+     “8”,
+     “9”,
+     “10”,
+     "..."
+  ],
+   "Connection":{
+      "blob":{
+         "api_key":"SlESyU45eGxqM8dDi3ucmodj3sJ1AGGQ"
+      }
+   }
+}</MadCap:codeSnippetBody>
+            </MadCap:codeSnippet>
+            <p>
+                <h2>Related topics</h2>
+                <p>
+                    <MadCap:xref href="http_paginate.htm">Paginate</MadCap:xref>
+                </p>
+                <p>
+                    <MadCap:xref href="http_paginate_set-max-page-index.htm">Paginate: Set a Max Page Index</MadCap:xref>
+                </p>
+                <p>
+                    <MadCap:xref href="../functions.htm">Functions in Workflows</MadCap:xref>
+                </p>
+                <p MadCap:conditions="MultiProdPublish.Workflows">
+                    <MadCap:xref href="../../workflows-elements.htm">About the elements of Okta Workflows</MadCap:xref>
+                </p>
+            </p>
+        </div>
+    </body>
+</html>

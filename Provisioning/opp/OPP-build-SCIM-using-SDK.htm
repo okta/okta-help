@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:fileTags="Tags/okta-authors.Nikita Apraj" description="Information that will help you build a customized SCIM connector for on-premises provisioning using the Okta Provisioning Connector SDK.">
+    <head>
+        <link href="../../../Resources/TableStyles/standard-shade-col1.css" rel="stylesheet" MadCap:stylesheetType="table" />
+        <link href="../../../Resources/TableStyles/standard.css" rel="stylesheet" MadCap:stylesheetType="table" /><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+        <meta name="description" content="Information that will help you build a customized SCIM connector for on-premises provisioning using the Okta Provisioning Connector SDK." />
+    </head>
+    <body>
+        <h1>Create SCIM&#160;connectors for on-premises provisioning using SDK</h1>
+        <p>The <MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> lets you provision users from <MadCap:variable name="okta-variables.ProductName" /> to on-premises applications that are installed behind a corporate firewall and import users from corporate applications into your <MadCap:variable name="okta-variables.ProductName" /> org. Communication between <MadCap:variable name="okta-variables.ProductName" /> and on-premises applications occurs through the <MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> and a SCIM server or a provisioning connector built using the Provisioning Connector SDK.</p>
+        <p>Use the information provided here to build a customized SCIM connector for on-premises provisioning using the Provisioning Connector SDK. This information compliments the instructions for creating and testing SCIM connectors and modifying sample code found in <MadCap:xref href="OPP-create-SCIM-connectors.htm">Create SCIM connectors for on-premises provisioning</MadCap:xref>.</p>
+        <h2>Build process</h2>
+        <p>Complete this procedure to develop a SCIM implementation. The bulk of coding and testing occurs in steps 7-8.</p>
+        <ol>
+            <li>Copy the <span class="code">scim-server-example</span> directory to a location of your choice. Perform the rest of the steps inside of the new directory.</li>
+            <li>Delete the <span class="code">src/main/java/com</span> directory to remove the Store implementation.</li>
+            <li>Delete the <span class="code">src/test/java/com</span> directory to remove the Store implementation tests.</li>
+            <li>Open your IDE and edit <span class="code">pom.xml</span> and rename <span class="code">groupId</span> and <span class="code">artifactId</span> as desired.</li>
+            <li>Edit the MANIFEST.MF file and rename as needed.</li>
+            <li>Add your own class (connector) that implements the <span class="code">com.okta.scim.server.service.SCIMService</span> interface.</li>
+            <li>Create and add tests for your new connector.</li>
+            <li>Open <span class="code">webapps/WEB-INF/dispatcher-servlet.xml</span> and change the <span class="code">com.okta.scim.server.example.SCIMServiceImpl</span> to the class that you wrote to implement the SCIMInterface.</li>
+            <li>Run the command <span class="code">mvn verify</span>.</li>
+            <li>Run the .war file in Tomcat and validate it using the <span class="code">scim-sdk-tests</span> tool.</li>
+        </ol>
+        <h2>Javadoc</h2>
+        <p>The <a href="http://developer.okta.com/docs/sdk/opp/javadoc/index.html">Javadoc</a> is the primary technical resource for building SCIM connectors.</p>
+        <h2>Example code</h2>
+        <p>The file Store.java is an example to show how to integrate with the SDK. This class is not performant, concise, or complete. It shows how to work with the data model of the SDK. The Javadoc for Store contains detailed technical information and is the primary resource for your code.</p>
+        <h2>SCIMInterface methods</h2>
+        <p>The following methods are available in the SCIMInterface to build a connector. For detailed information, see the Javadoc or the comments in the file SCIMService.java.</p>
+        <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+            <col class="TableStyle-standard-Column-Column1" />
+            <col class="TableStyle-standard-Column-Column1" />
+            <tbody>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td style="font-weight: bold;background-color: #d3d3d3;" class="TableStyle-standard-BodyF-Column1-Body1">Method</td>
+                    <td style="font-weight: bold;background-color: #d3d3d3;" class="TableStyle-standard-BodyD-Column1-Body1">Use</td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body2">
+                    <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="code">createGroup(SCIMGroup group)</span>
+                    </td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body2">Create a group. All the standard attributes of the SCIM group can be retrieved by using the getters on the GroupResource member of the SCIMGroup object. If there are custom schemas in the SCIMGroup input, you can retrieve them by providing the name of the custom property. (Example : SCIMGroup.getStringCustomProperty("schemaName", "customFieldName")), if the property is of String type. This method is invoked when a POST is made to /Groups with a SCIM payload representing a group to create.
+Note: Implementation of this method requires that you implement the getGroups method as well.</td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="code">createUser(SCIMUser user)</span>
+                    </td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body1">Create a user. All the standard attributes of the SCIM User can be retrieved by using the getters on the UserResource member of the SCIMUser object. If there are custom schemas in the SCIMUser input, you can retrieve them by providing the name of the custom property. (Example : SCIMUser.getStringCustomProperty("schemaName", "customFieldName")), if the property of string type. This method is invoked when a POST is made to /Users with a SCIM payload representing a user to be created.</td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body2">
+                    <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="code">deleteGroup(java.lang.String id)</span>
+                    </td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body2">Delete a particular group. This method is invoked when a DELETE is made to /Groups/{id}.</td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="code">getGroup(java.lang.String id)</span>
+                    </td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body1">Get a particular group. This method is invoked when a GET is made to /Groups/{id}.</td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body2">
+                    <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="code">getGroups(PaginationProperties pageProperties)</span>
+                    </td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body2">Get all the groups. This method is invoked when a GET is made to /Groups In order to support pagination (So that the client and the server) are not overwhelmed, this method supports querying based on a start index and the maximum number of results expected by the client. The implementation is responsible for maintaining indices for the SCIM groups.</td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="code">getImplementedUserManagementCapabilities()</span>
+                    </td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body1">Get all the User Management capabilities implemented in this SCIM Service.</td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body2">
+                    <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="code">getUser(java.lang.String id)</span>
+                    </td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body2">Get a particular user. This method is invoked when a GET is made to /Users/{id}.</td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="code">getUsers(PaginationProperties pageProperties, SCIMFilter filter)</span>
+                    </td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body1">Get all the users. This method is invoked to support pagination and when a GET is made to /Users (to avoid overwhelming the client and the server). This method supports querying based on a start index and the maximum number of results expected by the client. The implementation is responsible for maintaining indices for the SCIM Users. This method also supports querying based on a filter.  This method also supports querying based on a filter. If incremental imports are supported, then this method should support filtering based on the meta.lastModified attribute.
+</td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body2">
+                    <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="code">updateGroup(java.lang.String id, SCIMGroup group)</span>
+                    </td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body2">Update a group. This method is invoked when a PUT is made to /Groups/{id} with the SCIM payload representing a group to update.</td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td class="TableStyle-standard-BodyC-Column1-Body1"><span class="code">updateUser(java.lang.String id, SCIMUser user)</span>
+                    </td>
+                    <td class="TableStyle-standard-BodyA-Column1-Body1">Update a user. This method is invoked when a PUT is made to /Users/{id} with the SCIM payload representing a user to update.</td>
+                </tr>
+            </tbody>
+        </table>
+        <p style="font-weight: bold;">Exceptions</p>
+        <p>The following exceptions are thrown from the methods in the SCIMInterface.</p>
+        <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard-shade-col1.css');" class="TableStyle-standard-shade-col1" cellspacing="0">
+            <col class="TableStyle-standard-shade-col1-Column-Column1" />
+            <col class="TableStyle-standard-shade-col1-Column-Column" />
+            <tbody>
+                <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">EntityNotFoundException</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1">When an update, delete, or get request is received for /Users or /Groups, but the resource with the ID is not found.</td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body2">
+                    <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body2">DuplicateGroupException</td>
+                    <td class="TableStyle-standard-shade-col1-BodyD-Column-Body2">When a create request for /Groups is received, but a duplicate group exists.</td>
+                </tr>
+                <tr class="TableStyle-standard-shade-col1-Body-Body1">
+                    <td class="TableStyle-standard-shade-col1-BodyB-Column1-Body1">OnPremUserManagementException</td>
+                    <td class="TableStyle-standard-shade-col1-BodyA-Column-Body1">If there is any other exceptional condition that you have defined.</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>For EntityNotFoundException and DuplicateGroupException the SDK associates an error code and a message with the exception automatically.</p>
+        <p>For OnPremUserManagementException you can create the exception with any of the following four different properties.</p>
+        <ul>
+            <li>Internal Code - Any arbitrary code to associate with the exception.</li>
+            <li>Description - Description for the exception.</li>
+            <li>Helper URL - If there is any URL for referral to help fix the issue.</li>
+            <li>Exception - Any associated exception.</li>
+        </ul>
+        <p class="noteContent">Note: For all exceptions described above, if the code throws the exception while processing a UM operation, the exception is serialized into a json string that is visible in <MadCap:variable name="okta-variables.ProductName" /> UI, as shown below.</p>
+        <p><span class="code">"Failed on 11-24-2013 11:15:25PM UTC: Unable to delete Group Push mapping target App group ogroup-1: Error while deleting user group ogroup-1: The Provisioning Agent call to deleteGroup failed. Error code: 404, error: Not Found. Errors reported by the connector : {"errors":[{"statusCode":404,"internalCode":"E0000048","description":"Cannot delete the group - Cannot find the group with the id [1004]","help_url":null}]}"</span>
+        </p>
+        <h2>Next steps</h2>
+        <p>
+            <MadCap:xref href="OPP-test-SCIM-server.htm">Test SCIM&#160;connectors for on-premises provisioning</MadCap:xref>
+        </p>
+        <h2>Related topics</h2>
+        <p>
+            <MadCap:xref href="OPP-create-SCIM-connectors.htm">Create SCIM connectors for on-premises provisioning</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="OPP-provision-SCIM-messages.htm">SCIM messages for on-premises provisioning</MadCap:xref>
+        </p>
+    </body>
+</html>

@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:searchable="True"
+      MadCap:fileTags="Tags/okta-authors.Kimli Welsh">
+   <head>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <link href="" rel="stylesheet" type="text/css"/>
+   </head>
+   <body>
+      <h1>Notification services</h1>
+      <p>Notification services enable you to send push notifications to custom-built apps that use the Devices SDK. The Devices SDK allows you to configure your branded push service and embed push notifications and biometric verification directly into your organization's mobile app. Your users don't have to leave your app to perform verification in another app when they attempt to sign in to your service. You can configure notifications using the following push provider services:</p>
+      <ul>
+         <li>
+            <a href="https://developer.apple.com/documentation/usernotifications/registering_your_app_with_apns"
+               title="Apple Push Notification service"
+               alt="Apple Push Notification service"
+               target="_blank">Apple Push Notification service</a>
+         </li>
+         <li>
+            <a href="https://firebase.google.com/docs/reference"
+               title="Google Firebase Cloud Messaging"
+               alt="Google Firebase Cloud Messaging"
+               target="_blank">Google Firebase Cloud Messaging</a>
+         </li>
+      </ul>
+      <h2>
+         <a name="Before_you_begin"/>Before you begin</h2>
+      <p>Deploying custom push verification functionality is a multistep process. First you perform several tasks in the Devices SDK. Then you can configure notification services and the Custom Authenticator. See <a href="https://developer.okta.com/docs/guides/authenticators-custom-authenticator/android/main/"
+            target="_blank">Custom Authenticator integration guide - Android</a> or <a href="https://developer.okta.com/docs/guides/authenticators-custom-authenticator/ios/main/"
+            target="_blank">Custom Authenticator integration guide - iOS</a> for prerequisites and instructions.</p>
+      <h2>Add a notification service</h2>
+      <p>Add a notification service for each push service that you want to integrate with Okta. There's no limit to the number of notification services that you can add, but each notification service name must be unique.</p>
+      <ol>
+         <li>
+            <p>
+               <MadCap:snippetText src="../../../Resources/Snippets/task steps/Security_DeviceIntegrations.flsnp"/>
+            </p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Notification services</span>.</p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Add notification service</span>, and then select the required notification provider.</p>
+         </li>
+         <li>
+            <p>Enter the required information, depending on the notification provider you selected in step 3:</p>
+            <p>For <span class="uicontrol">Apple Push Notification service (APNs)</span>:</p>
+            <ul>
+               <li>
+                  <p>
+                     <span class="uicontrol">Name</span>: Enter a unique name for the Apple Push Notification service.</p>
+               </li>
+               <li>
+                  <p>
+                     <span class="uicontrol">Key ID</span>: Enter the 10-character Key ID that you obtained from your Apple developer account.</p>
+               </li>
+               <li>
+                  <p>
+                     <span class="uicontrol">Team ID</span>: Enter the 10-character Team ID that you used to develop your company's app. Obtain this value from your Apple developer account.</p>
+               </li>
+               <li>
+                  <p>
+                     <span class="uicontrol">Token signing key</span>: Browse for, and then select the token signing key (*.p8 file) you received from Apple. To learn how to obtain an Encryption Key and Key ID from Apple, see the <a href="https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/establishing_a_token-based_connection_to_apns"
+                        target="_blank">Apple documentation</a>.</p>
+               </li>
+            </ul>
+            <p>See Apple Developer Documentation for more information.</p>
+            <p>For <span class="uicontrol">Firebase Cloud Messaging (FCM)</span>:</p>
+            <ul>
+               <li>
+                  <p>
+                     <span class="uicontrol">Name</span>: Enter a unique name for the Firebase Cloud Messaging service.</p>
+               </li>
+               <li>
+                  <p>
+                     <span class="uicontrol">Service account JSON</span>: Enter your service account key in JSON format.</p>
+                  <p>You can use the Google Cloud Console, Google Cloud CLI, or one of the client libraries to create your service account key. See <a href="https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+                        target="_blank">Creating and managing service account keys</a>.</p>
+               </li>
+            </ul>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Add</span>.</p>
+         </li>
+      </ol>
+      <h2>View push notification events</h2>
+      <p>After you add a notification service, you can check the System Log for successful and failed push notifications sent to users. For example, you can view custom push notifications sent to a specific provider the name or that had a specific outcome by querying events recorded in the System Log.</p>
+      <ol>
+         <li>
+            <p>
+               <MadCap:snippetText src="../../../Resources/Snippets/task steps/Security_DeviceIntegrations.flsnp"/>
+            </p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Notification services</span>.</p>
+         </li>
+         <li>
+            <p>Locate the notification service for which you want to view events.</p>
+         </li>
+         <li>
+            <p>Click the <span class="uicontrol">Actions</span> menu, and then choose <span class="uicontrol">Events</span>.</p>
+            <p>The search field is automatically populated to look for events with <span class="code">eventType eq "device.custom_push.send_notification"</span> and with the push provider identifier associated with your selected notification service provider. </p>
+            <p>If you want to change the query, click <span class="uicontrol">Advanced Filters</span>. For example, if you only want to view failed push notifications for a specific provider, follow these steps:</p>
+            <ol style="list-style-type: lower-alpha;">
+               <li>
+                  <p>Click <span class="uicontrol">Advanced Filters</span>.</p>
+               </li>
+               <li>
+                  <p>Click <span class="uicontrol">Add Filter</span>.</p>
+               </li>
+               <li>
+                  <p>Select <span class="code">outcome</span>, and then select <span class="code">outcome.result</span>.</p>
+               </li>
+               <li>
+                  <p>Select <span class="code">FAILURE</span>.</p>
+               </li>
+               <li>
+                  <p>Click <span class="uicontrol">Apply Filter</span>.</p>
+               </li>
+            </ol>
+         </li>
+         <li>
+            <p>Select events of interest.</p>
+            <p>
+               <img src="../../../Resources/Images/devices/custom-push-outcome-failure.png"
+                    class="thumbnail"
+                    alt="View a push notification event in the System Log"/>
+            </p>
+         </li>
+         <li>
+            <p>Click <span class="menucascade">
+                  <span class="uicontrol">System</span>
+                  <span class="uicontrol">SecurityContext</span>
+                  <span class="uicontrol">DebugData</span>
+              </span>  to view more details about the push notification service provider and the event.</p>
+            <p>
+               <img src="../../../Resources/Images/devices/custom-push-failed-provider.png"
+                    class="thumbnail"
+                    alt="View DebugData for details about the push notification service provider"/>
+            </p>
+         </li>
+      </ol>
+      <h2>Edit a notification service</h2>
+      <p>After you add a notification service, you can modify its properties. For example, you can change the name you use to identify the service or replace the account key.</p>
+      <ol>
+         <li>
+            <p>
+               <MadCap:snippetText src="../../../Resources/Snippets/task steps/Security_DeviceIntegrations.flsnp"/>
+            </p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Notification services</span>.</p>
+         </li>
+         <li>
+            <p>Locate the notification service that you want to edit.</p>
+         </li>
+         <li>
+            <p>Click the <span class="uicontrol">Actions</span> menu, and then choose <span class="uicontrol">Edit</span>.</p>
+         </li>
+         <li>
+            <p>Edit the notification service.</p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Save</span>.</p>
+         </li>
+      </ol>
+      <h2>Delete a notification service</h2>
+      <p>Before you delete a notification service, update custom authenticator policies that are associated with it. Deleting a notification service might prevent users from accessing applications that rely on push notifications.</p>
+      <ol>
+         <li>
+            <p>
+               <MadCap:snippetText src="../../../Resources/Snippets/task steps/Security_DeviceIntegrations.flsnp"/>
+            </p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Notification services</span>.</p>
+         </li>
+         <li>
+            <p>Locate the notification service that you want to delete.</p>
+         </li>
+         <li>
+            <p>Click the <span class="uicontrol">Actions</span> menu, and then choose <span class="uicontrol">Delete</span>.</p>
+         </li>
+      </ol>
+      <h2>Related topics</h2>
+      <p>
+         <a href="https://developer.okta.com/docs/guides/authenticators-custom-authenticator/android/main/"
+            target="_blank">Custom authenticator integration guide - Android</a>
+      </p>
+      <p>
+         <a href="https://developer.okta.com/docs/guides/authenticators-custom-authenticator/ios/main/"
+            target="_blank">Custom authenticator integration guide - iOS</a>
+      </p>
+      <p>
+         <MadCap:xref href="../authenticators/custom-authenticator.htm">Configure the [%=okta-feature-names.Custom Authenticator%]</MadCap:xref>
+      </p>
+      <p>
+         <MadCap:xref href="../../Apps/Apps_App_Integration_Wizard_OIDC.htm">Create OIDC app integrations using AIW</MadCap:xref>
+      </p>
+      <p>
+         <a href="https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/establishing_a_token-based_connection_to_apns"
+            title="Establishing a token-based connection to APNs"
+            alt="Establishing a token-based connection to APNs"
+            target="_blank">Establishing a token-based connection to APNs</a>
+      </p>
+      <p>
+         <a href="https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/handling_notification_responses_from_apns"
+            title="Handling notification responses from APNs"
+            alt="Handling notification responses from APNs"
+            target="_blank">Handling notification responses from APNs</a>
+      </p>
+      <p>
+         <a href="https://developer.apple.com/documentation/usernotifications/registering_your_app_with_apns"
+            title="Registering your app with APNs"
+            alt="Registering your app with APNs"
+            target="_blank">Registering your app with APNs</a>
+      </p>
+      <p>
+         <a href="https://firebase.google.com/docs/reference/fcm/rest/v1/ErrorCode"
+            title="Google error codes for FCM failure conditions"
+            alt="Google error codes for FCM failure conditions"
+            target="_blank">Google error codes for FCM failure conditions</a>
+      </p>
+   </body>
+</html>

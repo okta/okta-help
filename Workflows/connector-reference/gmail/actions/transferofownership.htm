@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Ian Hakes">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/wf/en-us/Content/Topics/Workflows/connector-reference/gmail/actions/transferofownership.htm" /><title>[%=Heading.Level1%] | Okta</title>
+        <meta name="coveo:connector" content="gmail" />
+        <meta name="coveo:method-description" content="To use Gmail transfer of ownership features you need to set up a Google Cloud project and service account." />
+        <meta name="coveo:method-name" content="transferofownership" />
+        <meta name="coveo:method-type" content="action" />
+    </head>
+    <body>
+        <div data-content-id="hoc-main-content">
+            <h1>Authorize an Account for Transfer of Ownership Features</h1>
+            <p>To use <MadCap:variable name="workflows_connectors.Gmail" /> transfer of ownership features, you need to set up a Google Cloud project and service account. The API endpoints that are needed to add a delegate or forward emails are only available to service accounts that have been given domain-wide authority.</p>
+            <p>In order to perform the steps in this topic, you must have admin access to a G Suite domain and Google Cloud Platform.</p>
+            <h2>Create a Google Cloud Project</h2>
+            <div class="noteOkta">
+                <img src="../../../../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Note" alt="Note" />
+                <p class="noteContent">It is not necessary to create a new project to complete this procedure. If you already have a Google Cloud project, then go to step 5.</p>
+            </div>
+            <ol>
+                <li>
+                    <p>Go to Google Cloud Platform: https://console.cloud.google.com.</p>
+                </li>
+                <li>
+                    <p>Click the <span class="uicontrol">Quickstart</span> drop-down in the top navigation bar. The project dialog appears.</p>
+                </li>
+                <li>
+                    <p>From the drop-down, select an organization, then click <span class="uicontrol">NEW PROJECT</span>.</p>
+                </li>
+                <li>
+                    <p>Add a project name to the <span class="uicontrol">Project name</span> field, and click <span class="uicontrol">Create</span>.</p>
+                </li>
+            </ol>
+            <h2>Enable the <MadCap:variable name="workflows_connectors.Gmail" /> API for Google Cloud Project</h2>
+            <ol>
+                <li>
+                    <p>In the left navigation pane, select <span class="uicontrol">APIs &amp; Services &gt; Library</span>.</p>
+                </li>
+                <li>
+                    <p>In the search field, type <code><MadCap:variable name="workflows_connectors.Gmail" /></code>. The search results will show <code>Gmail API</code>.</p>
+                </li>
+                <li>
+                    <p>Click <code><MadCap:variable name="workflows_connectors.Gmail" /> API</code> then <span class="uicontrol">Enable</span> on the <span class="uicontrol">Gmail API</span> page.</p>
+                </li>
+            </ol>
+            <p>You have created a Google Cloud project and enabled the <MadCap:variable name="workflows_connectors.Gmail" /> API for it.</p>
+            <h2>Create a Service Account for the Google Cloud Project</h2>
+            <ol>
+                <li>
+                    <p>In the left navigation pane, select <span class="uicontrol">IAM &amp; Admin &gt; Service Accounts</span>.</p>
+                </li>
+                <li>
+                    <p>At the top of the <span class="uicontrol">Service accounts</span> page, click <span class="uicontrol">CREATE SERVICE ACCOUNT</span>.</p>
+                </li>
+                <li>
+                    <p>Add a service account name and description (optional) in the <span class="uicontrol">Service account details</span> section, then click <span class="uicontrol">CREATE</span>.</p>
+                </li>
+                <li>
+                    <p>On the <span class="uicontrol">Service account permissions (optional)</span> page, click <span class="uicontrol">Continue</span>. This step will be completed later.</p>
+                </li>
+                <li>
+                    <p>On the <span class="uicontrol">Grant users access to this service</span> page, click <span class="uicontrol">DONE</span>. This step will also be completed later.</p>
+                </li>
+            </ol>
+            <p>You have created a service account.</p>
+            <h2>Set Up G Suite Domain-Wide Delegation of Authority</h2>
+            <p>To use the endpoints to add a delegate or forward a user's emails, you need a Google Cloud service account with domain-wide authority. By enabling domain-wide authority for a service account, you allow the service account to programmatically access a user's data without any manual authorization on their part.</p>
+            <p>To set up domain-wide delegation of authority:</p>
+            <ol>
+                <li>
+                    <p>Find the service account that you created in the previous task.</p>
+                </li>
+                <li>
+                    <p>Click on the name of the service account or <span class="uicontrol">Actions</span> menu for that account name and select <span class="uicontrol">Edit</span>.</p>
+                </li>
+                <li>
+                    <p>Click the <span class="uicontrol">SHOW DOMAIN-WIDE DELEGATION</span> drop-down.</p>
+                </li>
+                <li>
+                    <p>In the header bar, click <span class="uicontrol">Edit</span>.</p>
+                </li>
+                <li>
+                    <p>Select the <span class="uicontrol">Enable G Suite Domain-wide Delegation</span> box.</p>
+                </li>
+                <li>
+                    <p>Add a name in the <span class="uicontrol">Product name for the consent screen</span> field, and click <span class="uicontrol">Save</span>.</p>
+                </li>
+            </ol>
+            <p>You have set up G Suite domain-wide delegation for your project. The <span class="uicontrol">Client ID</span> field is now populated with a value for the service account that will be associated with the G Suite account. Take note of that <span class="uicontrol">Client ID</span> value.</p>
+            <h2>Register and Add Scopes to the Service Account in G Suite Domain</h2>
+            <ol>
+                <li>
+                    <p>Go to https://admin.google.com</p>
+                </li>
+                <li>
+                    <p>If necessary, authenticate with your login credentials.</p>
+                </li>
+                <li>
+                    <p>Select <span class="uicontrol">Security</span>.</p>
+                </li>
+                <li>
+                    <p>Select <span class="uicontrol">Advanced Settings</span>.</p>
+                </li>
+                <li>
+                    <p>Click <span class="uicontrol">Manage API client access</span>.</p>
+                </li>
+                <li>
+                    <p>In the Authorized API clients list, add the Client ID that was generated in the previous task in the <span class="uicontrol">Client Name</span> field.</p>
+                </li>
+                <li>
+                    <p>In the <span class="uicontrol">One or More API Scopes</span> field, add the required scopes. For adding a delegate or forwarding emails, the required scopes are:</p>
+                </li>
+            </ol>
+            <ul>
+                <li>
+                    <p><code>https://www.googleapis.com/auth/gmail.settings.basic</code>
+                    </p>
+                </li>
+                <li>
+                    <p><code>https://www.googleapis.com/auth/gmail.settings.sharing</code>
+                    </p>
+                </li>
+            </ul>
+            <ol start="8">
+                <li>Click <span class="uicontrol">Authorize</span>, then click <span class="uicontrol">Save</span>.</li>
+            </ol>
+            <p>You have registered your service account with the G Suite domain and added the appropriate permissions (scopes) to the account. The service account can now access users' data in the G Suite domain.</p>
+            <h2>Add users and assign roles in the Google Cloud project</h2>
+            <p>Each user in your Google Cloud project needs permissions to use the Add Delegate, Forward Emails, or Set Auto Reply action card in the Workflows <MadCap:variable name="workflows_connectors.Gmail" /> connector. Each user will need the role of <code>Service Account User</code> on the project level. This role will allow a user to load dynamic dropdown parameters in the action cards.</p>
+            <p>Each user will also need the role of <code>Service Account Token Creator</code> on the service account level. This role assigns the user permissions to generate short-lived credentials for the service account so that it can access user data in the G Suite domain.</p>
+            <p>To add user and assign the <code>Service Account User</code> role:</p>
+            <ol>
+                <li>
+                    <p>Go to https://console.cloud.google.com</p>
+                </li>
+                <li>
+                    <p>Find your Google Cloud project and service account.</p>
+                </li>
+                <li>
+                    <p>From the left navigation pane, click <span class="uicontrol">IAM &amp; Admin</span>.</p>
+                </li>
+                <li>
+                    <p>Select <span class="uicontrol">IAM</span>.</p>
+                </li>
+                <li>
+                    <p>Click <span class="uicontrol">ADD</span>.</p>
+                </li>
+                <li>
+                    <p>In the <span class="uicontrol">New members</span> field, add the user's email address.</p>
+                </li>
+                <li>
+                    <p>In the <span class="uicontrol">Select a role</span> dropdown, select <span class="uicontrol">Service Accounts &gt; Service Account User</span>.</p>
+                </li>
+                <li>
+                    <p>Click <span class="uicontrol">Save</span>.</p>
+                </li>
+            </ol>
+            <p>To add user and assign the <code>Service Account Token Creator</code> role:</p>
+            <ol>
+                <li>
+                    <p>From the left navigation pane, click <span class="uicontrol">IAM &amp; Admin</span>.</p>
+                </li>
+                <li>
+                    <p>Click <span class="uicontrol">Service Accounts</span>.</p>
+                </li>
+                <li>
+                    <p>Click the checkbox for your service account, then click <span class="uicontrol">SHOW INFO PANEL</span>.</p>
+                </li>
+                <li>
+                    <p>In the Permissions section, click <span class="uicontrol">ADD MEMBER</span>.\</p>
+                </li>
+                <li>
+                    <p>In the <span class="uicontrol">New members</span> field, add the user's email address.</p>
+                </li>
+                <li>
+                    <p>In the <span class="uicontrol">Select a role</span> dropdown, select <span class="uicontrol">Service Accounts &gt; Service Account Token Creator</span>.</p>
+                </li>
+                <li>
+                    <p>Click <span class="uicontrol">Save</span>.</p>
+                </li>
+            </ol>
+            <p>You have added a user to your Google Project who can authenticate to the Workflows <MadCap:variable name="workflows_connectors.Gmail" /> connector and use the Add Delegate, Forward Emails, and Set Auto Reply action cards.</p>
+            <MadCap:snippetBlock src="../gmail-see-also.flsnp" />
+        </div>
+    </body>
+</html>

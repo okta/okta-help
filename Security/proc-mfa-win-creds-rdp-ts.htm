@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html MadCap:onlyLocalStylesheets="False" MadCap:conditions="MultiProdPublish.Classic+OIE" xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head><title>[%=Heading.Level1%] | Okta</title>
+        <meta name="description" content="Troubleshoot the MFA for Windows server RDP Credential Provider for Windows." />
+    </head>
+    <body>
+        <h1>Troubleshoot the MFA for Windows Credential Provider</h1>
+        <p>Troubleshooting scenarios and solutions</p>
+        <h3>MFA Bypass dialog displays during sign in</h3>
+        <p>Symptom: </p>
+        <p>The <span class="wintitle">MFA Bypass</span> dialog is displayed when signing in.</p>
+        <p>Solution: </p>
+        <p>Verify in Okta that the user is included in an MFA policy.
+</p>
+        <div class="noteOkta">
+            <p class="noteContent">An App-SignOn Policy is the only policy that is relevant to the Microsoft RDP App.</p>
+        </div>
+        <h3><span class="wintitle">Display Failed</span> dialog displays during sign in </h3>
+        <p>Symptom:</p>
+        <p>The <span class="wintitle">Display Failed</span> dialog is displayed when signing in.</p>
+        <p MadCap:conditions="Primary.do-not-publish">
+            <MadCap:annotation MadCap:createDate="2023-07-26T15:18:47.8291484-04:00" MadCap:creator="naini.khajanchi" MadCap:initials="NA" MadCap:comment="missing" MadCap:editor="naini.khajanchi" MadCap:editDate="2023-07-26T15:18:49.5971183-04:00">Solution</MadCap:annotation>: </p>
+        <p>Verify:</p>
+        <ul>
+            <li>The client ID, the client secret, and the Okta URL are configured correctly.</li>
+            <li>The username entered into the Windows sign in matches the username in Okta.</li>
+        </ul>
+        <h3>Can't RDP into a server</h3>
+        <p>Symptom: </p>
+        <p>End user can't use an RDP client to connect to a Okta Credential Provider for Windows supported workstation or server.          </p>
+        <p>Solution: </p>
+        <p>Verify that <span class="uicontrol">Allow remote connections to this computer</span> and <span class="uicontrol">Allow connections only from computers running Remote Desktop with Network Level Authentication</span>  are enabled as shown in the <span class="wintitle">System Properties</span> dialog.</p>
+        <h3>System.Net.WebException
+displayed					
+						</h3>
+        <p>
+            Symptom: </p>
+        <p>An exception, similar to that shown below, is displayed, the likely case is an older version of TLS. Okta requires TLS 1.2 or later.</p><span class="codeblock">System.Net.WebException: The underlying connection was closed: An unexpected error occurred on a send.
+. . . 
+System.IO.IOException: Unable to read data from the transport connection: An existing connection was forcibly closed by the remote host. 
+. . . 
+System.Net.Sockets.SocketException: An existing connection was forcibly closed by the remote host.</span>
+        <p>
+            Solution: 				    </p>
+        <p>Open a PowerShell terminal as administrator and execute the following script:
+</p>
+        <MadCap:snippetBlock src="../../Resources/Snippets/integration/enable.tls.windows.flsnp" />
+        <h3>Users locked out - disable credential provider using the registry editor</h3>
+        <p>Symptom: </p>
+        <p>End users can no longer use <a href="proc-mfa-win-creds-rdp.htm">MFA&#160;for Windows Credential Provider </a> and the Remote Desktop Protocol to access a Windows host. In effect end users are locked out. </p>
+        <p>Solution: </p>
+        <p>Use the <span class="wintitle">Windows Registry editor</span> to browse the remote servers registry and disable the MFA&#160;for Windows Credential Provider.</p>
+        <div class="noteOkta">
+            <p class="noteContent">This solution disables the MFA for Windows Credential Provider for all users and requires that an administrator have remote access to the registry of the locked server.Extreme caution should be exercised in editing the Windows registry.</p>
+        </div>
+        <ol>
+            <li>
+                <p>Log on to another computer which can reach the host server as the administrator.</p>
+            </li>
+            <li>
+                <p>Open the <span class="uicontrol">Registry Editor</span>.</p>
+            </li>
+            <li>
+                <p>Select <span class="uicontrol">Connect Network&#160;Registry</span>. </p>
+            </li>
+            <li>
+                <p>Enter the hostname of the remote server where the MFA for Windows Credential Provider is installed. </p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Check Names</span>. After a moment the hostname will be validated.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Ok</span>. The remote registry will open.</p>
+            </li>
+            <li>
+                <p>Navigate to <span class="code">HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\Credential Provider Filters</span>.</p>
+            </li>
+            <li>
+                <p>Note the CLSID (or folder name) of the Okta Credential Provider.</p>
+            </li>
+            <li>
+                <p>In <span class="code">HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\Credential Providers</span>, locate the CLSID&#160;from the prior step.</p>
+            </li>
+            <li>
+                <p>Right click and create a new DWORD with the name <span class="userinput">Disabled</span>  and a value of <span class="userinput">1</span>.</p>
+            </li>
+            <li>
+                <p>Restart the server. On restart, the credential provider should be inactive. </p>
+            </li>
+        </ol>
+        <h3>Users locked out - disable credential provider using PSExec</h3>
+        <p>Symptom: </p>
+        <p>End users can no longer use <a href="proc-mfa-win-creds-rdp.htm">MFA&#160;for Windows Credential Provider</a>
+      and the Remote Desktop Protocol to access a Windows host. In effect end users are locked out. </p>
+        <p>Additionally other solutions, such as using the Windows Registry editor remotely, can't be used.</p>
+        <p>Solution:</p>
+        <p> Use psexec to query and modify the registry of the server running the <a href="proc-mfa-win-creds-rdp.htm">MFA&#160;for Windows Credential Provider</a>
+        to disable the provider.</p>
+        <div class="noteOkta">
+            <p class="noteContent">This solution requires the use of the System Internals PsExec application. Available for download from <a href="https://docs.microsoft.com/en-us/sysinternals/downloads/psexec">https://docs.microsoft.com/en-us/sysinternals/downloads/psexec</a>.</p>
+        </div>
+        <div class="noteOkta">
+            <p class="noteContent">Enter-PSSession can be used as an alternative to psexec. See <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/enter-pssession">Enter-PSSession</a>. </p>
+        </div>
+        <ol>
+            <li>Open a command prompt as administrator. Using psexec and the Windows reg query command, list the values found in <span class="code">HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\Credential Provider Filters</span>. For example:<MadCap:codeSnippet><MadCap:codeSnippetCopyButton /><MadCap:codeSnippetCaption><p>Query remote registry</p></MadCap:codeSnippetCaption><MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">psexec \\ipaddress -u username -p password reg query "hklm\software\microsoft\windows\currentversion\authentication\Credential Provider Filters"</MadCap:codeSnippetBody></MadCap:codeSnippet>Where: <span class="code">\\ipaddress</span> - refers to the IP address of the server running the MFA for Windows Credential provider. For example: \\192.168.1.199<span class="code">-u username</span> - refers to a valid user on the remote server represented by \\ipaddress. For example: -u validuser<span class="code">- p password</span> - refers to the password for the user specified by the <span class="code">-u</span> parameter. For example: -p pwdforValiduserWhich should return a result resembling:
+					
+<span class="codeblock">HKEY_LOCAL_MACHINE\software\microsoft\windows\currentversion\authentication\Credential Provider Filters\{6D269AEA-...-02AA9C14F310}
+HKEY_LOCAL_MACHINE\software\microsoft\windows\currentversion\authentication\Credential Provider Filters\{DDC0EED2-...-EDE16A79A0DE}.
+</span></li>
+            <li>For each result shown, query to determine which is the OktaCredentialProvider:<MadCap:codeSnippet><MadCap:codeSnippetCopyButton /><MadCap:codeSnippetCaption><p>Query remote registry</p></MadCap:codeSnippetCaption><MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">psexec \\ipaddress -u username -p password reg query "hklm\software\microsoft\windows\currentversion\authentication\Credential Provider Filters\{6D269AEA-...-02AA9C14F310}"</MadCap:codeSnippetBody></MadCap:codeSnippet>Which should return results similar to:<span class="codeblock">HKEY_LOCAL_MACHINE\software\microsoft\windows\currentversion\authentication\Credential Provider Filters\{6D269AEA-...-02AA9C14F310}
+(Default)    REG_SZ    OktaCredentialProvider</span></li>
+            <li>Using psexec and the reg add command and the class id for the Okta Credential Provider, create a new DWord value with name <span class="userinput">Disabled</span> and value <span class="userinput">1</span>. <MadCap:codeSnippet><MadCap:codeSnippetCopyButton /><MadCap:codeSnippetCaption>Create Disabled entry</MadCap:codeSnippetCaption><MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">psexec \\ipaddress -u username -p password reg add "hklm\software\microsoft\windows\currentversion\authentication\Credential Provider Filters\{value from prior step}" /f /v Disabled /t REG_DWORD /d 1</MadCap:codeSnippetBody></MadCap:codeSnippet>			Where:<span class="code">/f</span> - force overwriting<span class="code">/v {name of new entry}</span>&#160;- Name of new entry being added, Disabled. <span class="code">/t {type}</span> - Type of new entry added, REG_DWORD.<span class="code">/d {value}</span> - Value of new entry, 1. Which should return a result resembling:<span class="codeblock">The operation completed successfully.</span></li>
+            <li>Re-run the prior query which should now return results showing the newly added element and resembling:<span class="codeblock">HKEY_LOCAL_MACHINE\software\microsoft\windows\currentversion\authentication\Credential Provider Filters\{6D269AEA-...-02AA9C14F310}
+(Default)    REG_SZ    OktaCredentialProvider
+             REG_DWORD Disabled 1</span></li>
+            <li>Restart the remote computer using psexec and the shutdown command:<MadCap:codeSnippet><MadCap:codeSnippetCopyButton /><MadCap:codeSnippetCaption><p>Restart remote server</p></MadCap:codeSnippetCaption><MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">psexec \\ipaddress -u username -p password shutdown -f -r -t 0</MadCap:codeSnippetBody></MadCap:codeSnippet>
+					Where:
+					<span class="code">-f</span> - Force running programs to exit without warning.<span class="code">-r</span> - Full shutdown and reboot.<span class="code">-t</span> 0
+
+- Set timeout before shutdown to zero seconds.</li>
+        </ol>
+        <p>On restart the credential provider should be inactive.</p>
+        <p>After the root cause is determined, the Disabled value can be removed with a command similar to:&#160;</p>
+        <MadCap:codeSnippet>
+            <MadCap:codeSnippetCopyButton />
+            <MadCap:codeSnippetCaption>
+                <p>Delete Disabled entry</p>
+            </MadCap:codeSnippetCaption>
+            <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">psexec \\ipaddress -u username -p password reg delete "hklm\software\microsoft\windows\currentversion\authentication\Credential Provider Filters\{class id from prior step}" /f /v Disabled </MadCap:codeSnippetBody>
+        </MadCap:codeSnippet>
+        <h3>Credential provider cannot reach Okta</h3>
+        <p>Symptom: The credential provider cannot reach Okta. This can happen with or without a proxy.
+An exception, similar to that shown below, is thrown.<span class="code">System.Net.WebException: The underlying connection was closed: An unexpected error occurred on a send. </span></p>
+        <p>Complete exception</p>
+<span class="codeblock">exception thrown is - System.Net.WebException: The underlying connection was closed: An unexpected error occurred on a send. ---&gt; 
+System.IO.IOException: Authentication failed because the remote party has closed the transport stream.
+    at System.Net.Security.SslState.StartReadFrame (Byte[] buffer, Int32 readBytes, AsyncProtocolRequest asyncRequest)
+    at System.Net.Security.SslState.StartReceiveBlob(Byte[] buffer, AsyncProtocolRequest asyncRequest)
+    at System.Net.Security.SslState.CheckCompletionBeforeNextReceive(ProtocolToken message, AsyncProtocolRequest asyncRequest)
+    at System.Net.Security.SslState.ForceAuthentication (Boolean receiveFirst, Byte[] buffer, AsyncProtocolRequest asyncRequest)
+    at System.Net.Security.SslState.ProcessAuthentication(LazyAsyncResult lazyResult)
+    at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+    at System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+    at System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state)
+    at System.Net.TlsStream.ProcessAuthentication(LazyAsyncResult result)
+    at System.Net.TlsStream.Write(Byte[] buffer, Int32 offset, Int32 size)
+    at System.Net.PooledStream.Write(Byte[] buffer, Int32 offset, Int32 size)
+    at System.Net.ConnectStream.WritHeaders (Boolean async)
+    --- End of inner exception stack trace ---
+    at System.Net.HttpWebRequest.GetResponse()
+    at OktaWidget.JwtService.GetStateTokenUsingJwt(String username)
+    at OktaWidget.OktaWidgetForm..ctor(String username, Int64 parent, Int64 widgetFlow)
+    at OktaWidget.OktaWidgetClass.displayWidget(Int64 parent, String username, Int64 flow)
+</span>
+        <p>Solution:
+</p>
+        <p>The likely case is that TLS is not correctly enabled. Okta requires TLS 1.2 or later.</p>
+        <p>To correct the issue:</p>
+        <ol>
+            <li>If proxy is in use and TLS is terminated at the proxy disable SslPinningEnabled. See <a href="proc-mfa-win-creds-rdp-install.htm#Modify">Modify additional properties</a> in <MadCap:xref href="proc-mfa-win-creds-rdp-install.htm">Install the Okta Credential Provider for Windows</MadCap:xref>.</li>
+            <li>Enable TLS 1.2 in the registry. Open a PowerShell terminal as administrator and execute the following script:
+
+                    <MadCap:snippetBlock src="../../Resources/Snippets/integration/enable.tls.windows.flsnp" /></li>
+        </ol>
+    </body>
+</html>

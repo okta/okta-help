@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd">
+   <body>
+      <p>Import the OVA using previously created roles.</p>
+      <div>
+         <ul class="tabs" data-tabs="data-tabs" id="production-tabs">
+            <li class="tabs-title">
+               <a href="#console-panel">Console</a>
+            </li>
+            <li class="tabs-title is-active" aria-selected="true">
+               <a href="#command-panel">Command Line</a>
+            </li>
+         </ul>
+         <div class="tabs-content" data-tabs-content="production-tabs">
+            <div class="tabs-panel" id="console-panel">
+               <div class="noteOkta">
+                  <p class="noteContent">AWS requires the <span class="varname">vmimport</span> identity to import a virtual machine (VM).</p>
+                  <p class="noteContent">There's no AWS Console equivalent to the command-line <span class="code">import-image</span> command. </p>
+               </div>
+            </div>
+            <div class="tabs-panel is-active" id="command-panel">
+               <p>Use the <span class="varname">vmimport</span> identity to convert the OVA image to an AMI image:</p>
+               <ol>
+                  <li>
+                     <p>Create a json file that represents the locations for the containers used during the import. When you create your file using the following example, replace:
+							<ul>
+                           <li>
+                              <span class="code">BUCKET_NAME</span> with the name of the bucket (for example, <span class="userinput">access-gateway-bucket</span>).</li>
+                           <li>
+                              <span class="code">DESCRIPTION</span> with a description for the import (for example, <span class="userinput">Okta Access Gateway</span>).</li>
+                           <li>
+                              <span class="code">FILE_NAME</span> with the name of the OVA file (for example, <span class="filepath">Okta-AccessGateway.ova</span>).</li>
+                        </ul>
+                     </p>
+                     <MadCap:codeSnippet>
+                        <MadCap:codeSnippetCopyButton/>
+                        <MadCap:codeSnippetCaption>
+                           <p>containers.json</p>
+                        </MadCap:codeSnippetCaption>
+                        <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">[
+    {
+        "Description": "DESCRIPTION",
+        "Format": "ova",
+        "UserBucket": {
+            "S3Bucket": "BUCKET_NAME",
+            "S3Key": "FILE_NAME"
+        }
+    }
+]</MadCap:codeSnippetBody>
+                     </MadCap:codeSnippet>
+                  </li>
+                  <li>
+                     <p>Begin the import process:</p>
+                     <MadCap:codeSnippet>
+                        <MadCap:codeSnippetCopyButton/>
+                        <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">aws ec2 import-image --description "Okta Access Gateway" --license-type "BYOL" --disk-containers "file://~/Downloads/containers.json" 
+</MadCap:codeSnippetBody>
+                     </MadCap:codeSnippet>
+                  </li>
+                  <li>
+                     <p>Examine the output of the import command and note the task id that's associated with the import process:</p>
+                     <MadCap:codeSnippet>
+                        <MadCap:codeSnippetCopyButton/>
+                        <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">{
+	"Status": "active", 
+	"LicenseType": "BYOL", 
+	"Description": "AG2019.ova.", 
+	"SnapshotDetails": [...], 
+	"Progress": "2", 
+	"StatusMessage": "pending", 
+	    "ImportTaskId": "import-ami-08800a79da64acae7"
+}</MadCap:codeSnippetBody>
+                     </MadCap:codeSnippet>
+                     <p>Check the progress of the import using the task id. The <span class="uicontrol">Progress</span> json element reports the progress as a percentage from 0 to 100. In the following command, replace <span class="code">TASK_ID</span> with the task id output by the preceding import command:</p>
+                     <MadCap:codeSnippet>
+                        <MadCap:codeSnippetCopyButton/>
+                        <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">aws ec2 describe-import-image-tasks --import-task-ids TASK_ID</MadCap:codeSnippetBody>
+                     </MadCap:codeSnippet>
+                     <MadCap:codeSnippet>
+                        <MadCap:codeSnippetCopyButton/>
+                     </MadCap:codeSnippet>
+                     <ol style="list-style-type: lower-alpha;">
+                        <li>
+                           <p>Monitor the import until its <span class="uicontrol">Status</span> changes to completed. Note the value of <span class="uicontrol">ImageId</span> in your output, which should be similar to the following example:</p>
+                           <MadCap:codeSnippet>
+                              <MadCap:codeSnippetCopyButton/>
+                              <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">{
+    "ImportImageTasks": [
+	{
+		"Status": "completed", 
+		"LicenseType": "BYOL", 
+		"Description": "AG2019.ova.",
+		ImageId": "ami-0c20c537e7f8dd6a5"
+}</MadCap:codeSnippetBody>
+                           </MadCap:codeSnippet>
+                        </li>
+                     </ol>
+                  </li>
+                  <li>
+                     <p>Confirm that the import is complete:							<ol style="list-style-type: lower-alpha;">
+                           <li>
+                              <p>Return to the AWS console.</p>
+                           </li>
+                           <li>
+                              <p>Go to <span class="menucascade">
+                                    <span class="uicontrol">Services</span>
+                                    <span class="uicontrol">EC2</span>
+                                 </span>.</p>
+                           </li>
+                           <li>
+                              <p>Select <span class="menucascade">
+                                    <span class="uicontrol">Images</span>
+                                    <span class="uicontrol">AMIs</span>
+                                 </span>.</p>
+                           </li>
+                           <li>
+                              <p>Search for the image whose AMI ID matches the ImageId from the import operation.</p>
+                           </li>
+                        </ol>
+                     </p>
+                  </li>
+               </ol>
+            </div>
+         </div>
+         <h3>Related topics</h3>
+         <p>
+            <a href="https://docs.aws.amazon.com/AmazonS3/latest/gsg/PuttingAnObjectInABucket.html"
+                target="_blank">Putting an Object into an S3 bucket</a>
+         </p>
+         <p>
+            <a href="https://docs.aws.amazon.com/cli/latest/reference/s3/cp.html"
+                target="_blank">S3 cp command</a>.</p>
+      </div>
+   </body>
+</html>

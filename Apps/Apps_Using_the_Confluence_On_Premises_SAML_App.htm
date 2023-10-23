@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Jeanette Smith,Tags/okta-topic-status.Ready for Review" MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:conditions="MultiProdPublish.Classic+OIE">
+    <head><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+        <meta name="description" content="Using the Confluence On-Premises SAML App requires copying the Java archive to the Confluence server. Configure access by IP address, user name, or group name.&#xD;&#xA;" />
+    </head>
+    <body>
+        <h1>Confluence On-Premises</h1>
+        <p>In addition to providing the Confluence Cloud Web application through the Okta Integration Network, Okta also supports single sign-on integration between Okta and the Confluence On-Premises SAML app. To configure the integration, you must install Okta's custom Confluence authenticator on your Confluence server. The <a href="../Settings/Version_Histories/Ver_History_Confluence_Authenticator_Toolkit.htm">Okta Confluence Authenticator Version History</a> article lists the Confluence on-premise versions that support recent versions of the JAR. You can access the latest version of the okta-confluence.jar file from the Okta Downloads page. Download the file before you begin the integration.</p>
+        <p>For more information about Confluence custom authenticators, refer to the page <a href="https://confluence.atlassian.com/kb/single-sign-on-integration-with-the-atlassian-stack-794495126.html">Single Sign-on Integration with JIRA and Confluence</a> on the Atlassian website. For information about configuring provisioning for the app, see <a href="http://saml-doc.okta.com/Provisioning_Docs/Confluence_Provisioning.html">Configuring Provisioning for Confluence (Atlassian)</a>.</p>
+        <p>Note: To ensure that communication between your on-premise Confluence server and Okta is not blocked, you may need to add Okta IP addresses to your <a href="../Security/ip-address-allow-listing.htm#top">allowlist</a>.</p>
+        <h2>Add the On-Premise App to Okta</h2>
+        <ol>
+            <li>Download the appropriate version of the okta-confluence.jar file from the Okta Downloads page. For information about which version of the JAR to download for use with your Confluence On-Premises SAML app, see <a href="../Settings/Version_Histories/Ver_History_Confluence_Authenticator_Toolkit.htm">Okta Confluence Authenticator Version History</a>. Later you will copy this file to your Confluence server.</li>
+            <li>
+                <MadCap:snippetBlock src="../../Resources/Snippets/task steps/Applications_Applications.flsnp" />
+            </li>
+            <li>Click <span class="uicontrol">Browse App Catalog</span> and search for Atlassian Jira Server.</li>
+            <li>On the details page for the app integration, click <span class="uicontrol">Add</span>.
+            </li>
+            <li>Follow the onscreen prompts. Detailed instructions for this part of the installation are provided in <MadCap:xref href="apps-add-applications.htm">Add existing app integrations</MadCap:xref>.               <p>When you have completed initial installation, the <span class="wintitle">Home</span> page of the newly-created app appears.</p></li>
+            <li>On the <span class="wintitle">Assignments</span> tab, assign users to the Confluence On-Premises SAML&#160;app.</li>
+            <li>Click the <span class="wintitle">Sign On</span> tab.
+</li>
+            <li>In the <span class="wintitle">Settings</span> section, click <span class="uicontrol">View Setup Instructions</span> to open the article How to Configure Confluence On-Premise SAML Application.
+The procedure is summarized as follows:   
+				<ul><li>Create a file okta-config-confluence.xml on the Confluence server.</li><li>Paste the provided configuration into okta-config-confluence.xml.</li><li>Update your [confluence_webdir]/WEB-INF/classes/seraph-config.xml:</li><li>Copy okta-confluence.jar to the [confluence_webdir]/WEB-INF/lib directory.</li><li>	Restart your Confluence service.</li></ul></li>
+        </ol>
+        <h3 MadCap:conditions="Primary.do-not-publish">Optional - Filter User Access by IP Address, User Name, or Group Name Hiding this entire section until this feature functions properly, see OKTA-241577 - check with Igor</h3>
+        <p class="p1" MadCap:conditions="Primary.do-not-publish">You can specify whether SAML authentication or service provider authentication is used by IP address, user name, or group name. This option is set in the okta-config-confluence.xml file in the following tags.</p>
+        <p MadCap:conditions="Primary.do-not-publish">The portions highlighted in blue in following code shows the relevant sections of an okta-config-confluence.xml file.</p>
+        <p MadCap:conditions="Primary.do-not-publish">&lt;configuration&gt;<br />			&lt;applications&gt;<br />			&lt;application&gt;<br />			&lt;md:EntityDescriptor ...&gt;....&lt;/md:EntityDescriptor&gt;<br />			&lt;/application&gt;<br />			&lt;/applications&gt;<br /><font color="blue">&lt;!--<br />		The IP range in the &lt;oktaUsers&gt; tag specifies the IP addresses that use the SAML toolkit for authentication. The values in the &lt;ipFrom&gt; and &lt;ipTo&gt; tags specify IP addresses. These tags can contain full IP addresses as shown below or a mask such as 182.0.*.* . The &lt;ipTo&gt; tag is optional. Omit it if the range is completely specified in the &lt;ipFrom&gt; tag. This range has higher priority than the range specified in the &lt;spUsers&gt; tag below.</font></p>
+        <p MadCap:conditions="Primary.do-not-publish"><font color="blue">The IP range in the &lt;spUsers&gt; tag specifies the IP addresses that use the native service provider authentication. The values in the &lt;ipFrom&gt; and &lt;ipTo&gt; tags specify IP addresses, and work as described above. This range has low priority than the range specified in the oktaUsers&gt; tag above.</font>
+        </p>
+        <p MadCap:conditions="Primary.do-not-publish"><font color="blue"> </font>
+        </p>
+        <p MadCap:conditions="Primary.do-not-publish"><font color="blue">&lt;allowedAddresses&gt;<br />				&lt;oktaUsers&gt;<br />				&lt;ipFrom&gt;192.168.3.10&lt;/ipFrom&gt;<br />				&lt;ipTo&gt;192.168.3.220&lt;/ipTo&gt;<br />				&lt;/oktaUsers&gt;<br />				&lt;spUsers&gt;<br />				&lt;ipFrom&gt;*.*.*.*&lt;/ipFrom&gt;<br />				&lt;ipTo&gt;*.*.*.*&lt;/ipTo&gt;<br />				/spUsers&gt;<br />		&lt;/allowedAddresses&gt;</font>
+        </p>
+        <p MadCap:conditions="Primary.do-not-publish"><font color="blue"> </font>
+        </p>
+        <p MadCap:conditions="Primary.do-not-publish"><font color="blue">&lt;!--The values in the &lt;username&gt; tags contained in the &lt;spUsers&gt; tag specify usernames to process with the native service provider authentication. Any number of &lt;username&gt;&lt;/username&gt; tags are permitted.<br />		--&gt;</font>
+        </p>
+        <p MadCap:conditions="Primary.do-not-publish"><font color="blue"> </font>
+        </p>
+        <p MadCap:conditions="Primary.do-not-publish"><font color="blue">&lt;spUsers&gt;<br />				&lt;username&gt;john.doe@acme.com&lt;/username&gt;<br />				&lt;username&gt;john.smith@acme.com&lt;/username&gt;<br />				&lt;username&gt;jira.user@acme.com&lt;/username&gt;<br />				&lt;username&gt;confluence.user@acme.com&lt;/username&gt;<br />		&lt;/spUsers&gt;</font>
+        </p>
+        <p MadCap:conditions="Primary.do-not-publish"><font color="blue"> &lt;!--<br />				The values in the &lt;groupname&gt; tags contained in the &lt;spGroups&gt; tag specify group names to process with the native service provider authentication. Any number of &lt;groupname&gt;&lt;/groupname&gt; tags are permitted.<br />		--&gt;</font>
+        </p>
+        <p MadCap:conditions="Primary.do-not-publish"><font color="blue"> </font>
+        </p>
+        <p MadCap:conditions="Primary.do-not-publish"><font color="blue"> </font>
+        </p>
+        <p MadCap:conditions="Primary.do-not-publish"><font color="blue">&lt;spGroups&gt;<br />				&lt;groupname&gt;jira-grp&lt;/groupname&gt;<br />				&lt;groupname&gt;confluence-grp&lt;/groupname&gt;<br />		&lt;/spGroups&gt;</font>
+        </p>
+        <p MadCap:conditions="Primary.do-not-publish"><font color="blue"> </font>
+        </p>
+        <p MadCap:conditions="Primary.do-not-publish">&lt;/configuration&gt;</p>
+        <h3 MadCap:conditions="Primary.do-not-publish">Processing Details</h3>
+        <p MadCap:conditions="Primary.do-not-publish">If there are any duplications in IP addresses or if an IP address is inadvertently excluded, the following four rules determine the processing procedure.</p>
+        <ul MadCap:conditions="Primary.do-not-publish">
+            <li>If a user is matched in both ranges, the SAML toolkit is used for authentication.</li>
+            <li>If the &lt;allowedAddresses&gt; tag is not present, the SAML toolkit is used for authentication.</li>
+            <li>If user is not matched in either range,  the SAML toolkit is used for authentication.</li>
+            <li>The native Confluence authenticator (the service provider authenticator) is used only if a user is matched in the  &lt;spUsers&gt; range and not in the &lt;oktaUsers&gt; range.</li>
+        </ul>
+    </body>
+</html>

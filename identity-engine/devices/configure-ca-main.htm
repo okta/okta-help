@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:fileTags="Tags/okta-authors.Kimli Welsh">
+    <head><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1>Configure a Certificate Authority</h1>
+        <p>A Certificate Authority (CA) is a trusted entity that manages and issues digital certificates. The digital certificate shows the ownership of the public keys and represents an online identity for the device. </p>
+        <p>When <MadCap:variable name="okta-variables.ProductName" /> evaluates an <MadCap:variable name="okta-feature-names.app sign-on policy" /> that requires managed devices, <MadCap:variable name="okta-variables.ProductName" /> identifies the management status of each device by checking whether they have a client certificate installed. <MadCap:variable name="okta-variables.ProductName" /> attests certificate installation by creating a digital signature with the certificate and validating it on the server. Configuring a CA allows you to issue client certificates to devices to support this operation. You can configure <MadCap:variable name="okta-variables.ProductName" /> as a CA, or provide your own CA.</p>
+        <h2>Option 1: Configure <MadCap:variable name="okta-variables.ProductName" /> as a CA</h2>
+        <p>Configure <MadCap:variable name="okta-variables.ProductName" /> as a CA if you want to save time, streamline how certificates are issued, and avoid the complexity and expense of deploying and maintaining your own public key infrastructure (PKI).</p>
+        <div class="noteOkta">
+            <p class="noteContent">When a device is deleted from the Universal Directory, the certificate that was associated with that device can no longer be used.  To use the same device in the future, you must delete the certificate that was associated with it, and then re-deploy a new certificate to it.</p>
+        </div>
+        <p>To configure <MadCap:variable name="okta-variables.ProductName" /> as a CA, create a Simple Certificate Enrollment Protocol (SCEP) profile in your mobile device management (MDM) software, and then generate a SCEP URL in <MadCap:variable name="okta-variables.ProductName" />. <MadCap:variable name="okta-variables.ProductName" /> provides the following methods for generating a SCEP challenge:</p>
+        <ul>
+            <li>MDM SCEP policy configurations are examples only. Configure SCEP policies based on your organizational needs.</li>
+            <li><span class="uicontrol">Static SCEP URL</span>: The MDM software assigns the same challenge secret to all devices. With this device management configuration, the challenge secret is shared across devices. The shared secret that was created for the configuration is validated, and then a unique client certificate is issued to each device.</li>
+            <p>See the following:</p>
+            <ul>
+                <li>
+                    <MadCap:xref href="okta-ca-static-scep-macos-jamf.htm">Configure Okta as a CA with static SCEP challenge for macOS using [%=3rd Party Integrations.Jamf Pro%]</MadCap:xref>.</li>
+                <li>
+                    <MadCap:xref href="okta-ca-static-scep-win-ws1.htm">Configure Okta as a CA with static SCEP challenge for Windows using [%=Mobile.WS1%]</MadCap:xref>.</li>
+            </ul>
+            <li><span class="uicontrol">Dynamic SCEP&#160;URL (generic)</span>: The MDM software assigns a unique challenge secret to a device. With this configuration, a short-lived unique challenge secret is generated for each device. The secret is not shared with other devices. The device can then redeem the challenge secret for a single client certificate.</li>
+            <p>See <MadCap:xref href="okta-ca-dynamic-scep-macos-jamf.htm">Configure Okta as a CA with dynamic SCEP challenge  for macOS using [%=3rd Party Integrations.Jamf Pro%]</MadCap:xref>.</p>
+            <li><span class="uicontrol">Delegated SCEP URL (MEM)</span>: Microsoft Endpoint Manager (MEM) generates a unique challenge secret for each request. <MadCap:variable name="okta-variables.ProductName" /> verifies the challenge secret, and then generates a client certificate for the device.</li>
+        </ul>
+        <p><MadCap:variable name="okta-variables.ProductName" />
+		revokes device certificates that were issued but not used for successful authentication within 90 days.</p>
+        <div class="noteOkta">
+            <p class="noteContent">Okta as a CA doesn't support <a href="https://www.rfc-editor.org/rfc/rfc8894.html#name-certificate-enrolment-renew" target="_blank">renewal requests</a>. Instead, redistribute the profile before the certificate expires to replace the expired certificate. All MDM SCEP policies should be configured to allow for profile redistribution.</p>
+        </div>
+        <ul>
+            <p>See the following:</p>
+            <ul>
+                <li>
+                    <p>
+                        <MadCap:xref href="okta-ca-delegated-scep-macos-intune.htm">Configure Okta as a CA with delegated SCEP challenge for macOS using MEM</MadCap:xref>.</p>
+                </li>
+                <li>
+                    <p>
+                        <MadCap:xref href="okta-ca-delegated-scep-win-intune.htm">Configure Okta as a CA with delegated SCEP challenge for Windows using [%=Mobile.MS-Intune%]</MadCap:xref>.</p>
+                </li>
+            </ul>
+        </ul>
+        <h2>Option 2: Provide your own CA</h2>
+        <p>When you provide your own CA, <MadCap:variable name="okta-variables.ProductName" /> supports certificate revocation. <MadCap:variable name="okta-variables.ProductName" /> checks the certificate revocation list (CRL) for revoked or on-hold certificates, and then blocks those certificates from sending any management signals. <MadCap:variable name="okta-variables.ProductName" /> only supports CRL endpoints that use the HTTP or HTTPS protocol, and CRLs that are signed by the same intermediate certificate that the admin uploaded. The client certificate should also include the certificate distribution point uniform resource identifier (URI). When these conditions are met, <MadCap:variable name="okta-variables.ProductName" /> downloads the CRL, and then revokes any certificates that are on the CRL. The certificate revocation task occurs in a background process that runs a few times each day. When a certificate is marked as revoked, the client can't use the certificate to set management status. Check your system log events to see details about when a certificate is revoked.</p>
+        <p>You can provide your own CA if your environment has one of the following:</p>
+        <ul>
+            <li>A PKI that is integrated with your MDM software</li>
+            <li>An existing Active Directory Certificate Services (ADCS) infrastructure</li>
+        </ul>
+        <p>If you use your own CA, its certificate must meet the following prerequisites:</p>
+        <ul>
+            <li>Not expired</li>
+            <li>Supports&#160;RSA or&#160;DSA keys</li>
+            <li>A minimum of a 2048-bit key </li>
+            <li>Basic Constraint extension (2.5.29.19) indicates that it's a&#160;CA&#160;(path length &gt;=0)</li>
+            <li>KeyUsage extension (2.5.29.15) includes certificate signing</li>
+        </ul>
+        <div class="noteOkta">
+            <p class="noteContent">Manually delete intermediate CAs that are revoked by the root CA. These aren't automatically deleted.</p>
+        </div>
+        <MadCap:snippetBlock src="snippets/OS-certificate-levels.flsnp" />
+    </body>
+</html>

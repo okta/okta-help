@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:conditions="MultiProdPublish.Classic+OIE"
+      MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+   <head>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <meta name="description"
+            content="Update your existing LDAP integration settings as the needs of your org change."/>
+   </head>
+   <body>
+      <h1>Modify LDAP integration settings</h1>
+      <p>Update your existing integration settings as the needs of your org change.</p>
+      <ol>
+         <li>
+                In the <MadCap:variable name="okta-feature-names.Administrator dashboard"/>, go to <span class="menucascade">
+               <span class="uicontrol">Directory</span>
+               <span class="uicontrol">Directory Integrations</span>
+            </span>.</li>
+         <li>Select the LDAP agent from the list of directories.</li>
+         <li>Click the <span class="uicontrol">Provisioning</span> tab and select <span class="uicontrol">Integration</span> in the <span class="uicontrol">Settings</span> list</li>
+         <li>In the <span class="uicontrol">Version</span> list, select a directory vendor. Vendor-specific configuration templates are provided and pre-populate configuration settings for you. Because each LDAP environment is unique, you must confirm the default values. Not all configuration settings must have values. See <a href="ldap-agent-configure-supported-directories.htm">Configure supported LDAP directory services</a>.</li>
+         <p>If your LDAP vendor is not on the list, complete the configuration fields manually. </p>
+         <li>In the  <span class="uicontrol">Configuration</span> section, complete the following: <ul>
+               <li>
+                  <span class="uicontrol">Unique Identifier Attribute</span>:  Enter the unique immutable attribute of all LDAP objects that will be imported (users and groups). Only objects possessing this attribute can be imported into your Okta org. You can change the auto-populated value during initial setup. If your LDAP server implements <a href="https://www.ietf.org/rfc/rfc4530.txt">RFC 4530</a>, make sure to enter <span class="code">entryuuid</span> in this field. For AD LDS, use <span class="code">objectguid</span>.</li>
+               <li>
+                  <span class="uicontrol">DN Attribute</span>: Enter the attribute on all LDAP objects containing the <span class="uicontrol">Distinguished Name</span> value.</li>
+            </ul>
+         </li>
+         <li>In the <span class="uicontrol">User</span> section, complete the following:
+<ul>
+               <li>
+                  <span class="uicontrol">User Search Base</span>: Enter the DN of the container for user searches (the root of the user subtree). This is the base DN of the container that holds all users  imported into your Okta org. For example: <span class="term">cn=Users, dc=example, dc=com</span>.</li>
+               <li>
+                  <span class="uicontrol">User Object Class</span>: Enter the <span class="term">objectClass</span> of a user that Okta uses in its query when importing users. For example, <span class="userinput">inetorgperson, posixaccount, posixuser</span>.</li>
+               <li>
+                  <a name="AuxObjectClass"/>
+                  <span class="uicontrol">Auxiliary Object Class</span>: Enter a comma-separated list of auxiliary <span class="term">objectClass</span>es. Okta  uses these in its query when importing users. For example, <span class="userinput">auxClass1,auxClass2</span>. </li>
+               <li>
+                  <span class="uicontrol">User Object Filter</span>: Okta auto-populates this field. If you modify the value, it must be a valid LDAP filter.
+		<p>Use standard LDAP search filter notation (RFC 2254). For example:</p>
+                  <span class="code">(&amp;(givenName=Bab*)(|(sn=Jensen)(cn=Babs J*)))</span>
+                  <p>The same filter capability is also in place for Group Objects.</p>
+               </li>
+            </ul>
+            <ul>
+               <li>
+                  <span class="uicontrol">Account Disabled Attribute</span>: Enter the user attribute that indicates whether or not the account is disabled for the user in Okta. If this attribute equals the value specified in the <span class="uicontrol">Account Disabled Value</span> field, the  user account is deactivated. </li>
+               <li>
+                  <span class="uicontrol">Account Disabled Value</span>: Enter the value that indicates that the account is locked (for example, <span class="uicontrol">TRUE</span>).</li>
+               <li>
+                  <span class="uicontrol">Account Enabled Value</span>: Enter the value that indicates that the account is unlocked (for example, <span class="uicontrol">TRUE</span>).</li>
+               <li>
+                  <span class="uicontrol">Password Attribute</span>: Enter the user password attribute.</li>
+               <li>
+                  <span class="uicontrol">Password Expiration Attribute</span>: Enter the attribute name for password expiration. This is usually a Boolean value. If you selected an LDAP directory that isn't on the supported list, refer to your LDAP server documentation and use that value.</li>
+            </ul>
+         </li>
+         <li>In the <span class="uicontrol">Extra User Attributes</span> section, you can specify up to four additional attributes to be imported from LDAP.</li>
+         <li>In the <span class="uicontrol">Group</span> section, complete the following fields:<ul>
+               <li>
+                  <span class="uicontrol">Group Search Base</span>: Enter the DN of the container for group searches (that is, root of the group subtree) that holds all groups that will be imported into your Okta org. For example: <span class="userinput">ou=groups, dc=example, dc=com</span>.</li>
+               <li>
+                  <span class="uicontrol">Group Object Class</span>: Enter the objectClass of a group that Okta uses in its query when importing groups. For example, <span class="userinput">groupofnames</span>, <span class="userinput">groupofuniquenames</span>, <span class="userinput">posixgroup</span>.</li>
+               <li>
+                  <span class="uicontrol">Group Object Filter</span>: By default, Okta auto-populates this field with the objectClass of the group (objectClass=&lt;entered objectClass name&gt;). </li>
+               <li>
+                  <span class="uicontrol">Member Attribute</span>: Enter the attribute containing all the member DNs.</li>
+               <li>
+                  <a name="ldapuserattribute"/>
+                  <span class="uicontrol">User Attribute</span>: Okta uses the member attribute on the group object to determine the user group memberships at runtime. Unless your group object and group filter are explicitly posixGroup and (objectclass=posixGroup), leave the user attribute field empty. If you use posixGroup,  configure the member attribute value to <span class="code">memberUID</span> and the user attribute value to <span class="code">uid</span>.</li>
+            </ul>
+         </li>
+      </ol>
+      <ol MadCap:continue="true">
+         <li>In the <span class="uicontrol">Role</span> section, complete the following fields:<ul>
+               <li>
+                  <span class="uicontrol">Object Class</span>: The objectClass of a role.</li>
+               <li>
+                  <span class="uicontrol">Membership Attribute</span>: The attribute of the user object that indicates role membership (that is, containing the role DNs).</li>
+            </ul>
+         </li>
+      </ol>
+      <ol start="10">
+         <li>
+            <a name="ValidateSettings"/>Validate your configuration settings.<ol style="list-style-type: lower-alpha;" MadCap:continue="true">
+               <li>Enter a <span class="uicontrol">Username</span> in the <span class="uicontrol">Example username</span> field.</li>
+            </ol>
+            <ol style="list-style-type: lower-alpha;"
+                start="3"
+                MadCap:continue="true">
+               <li>
+                  <p>Validate that all returned user details  are correct. If any expected groups aren't listed, group imports may fail later.</p>
+               </li>
+               <li>
+                  <a name="TestConfig"/>Click <span class="uicontrol">Test Configuration</span>.<p>If your configuration settings are valid, the message <span class="uicontrol">Validation successful!</span> appears along with information about the returned user object. If there is a problem with your configuration, or if the user is not found, you are prompted to review your settings.</p>
+               </li>
+            </ol>
+         </li>
+      </ol>
+   </body>
+</html>

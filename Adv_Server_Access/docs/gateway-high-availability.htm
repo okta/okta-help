@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:fileTags="Tags/okta-authors.Arshabhi Rai">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/asa/en-us/Content/Topics/Adv_Server_Access/docs/gateway-high-availability.htm" /><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+        <meta name="description" content="Learn about high availability for Advanced Server Access gateways, including load balancing, status checks, and creating temporary access to a server without a gateway." />
+    </head>
+    <body>
+        <h1><MadCap:variable name="okta-feature-names.ScaleFT" /> gateway high availability</h1>
+        <p>Gateways use various techniques to ensure high availability, which provides more reliability than traditional SSH bastions: </p>
+        <ul>
+            <li>
+                <MadCap:xref href="#Gateway">Gateway load balancing</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Gateway2">Gateway status checks</MadCap:xref>
+            </li>
+            <li MadCap:conditions="Primary.do-not-publish">
+                <MadCap:xref href="#Client-s">Client-side load balancing</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#temp">Configure a temporary gateway bypass</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Troubles">Troubleshoot a gateway</MadCap:xref>
+            </li>
+        </ul>
+        <h2><a name="Gateway"></a>Gateway load balancing</h2>
+        <p>For projects with multiple gateways, <MadCap:variable name="okta-feature-names.ScaleFT" /> routes traffic through a single gateway randomly selected when a client connects to a server. This allows <MadCap:variable name="okta-feature-names.ScaleFT" /> to balance requests across any available gateways. </p>
+        <p>If a specific gateway becomes unavailable, <MadCap:variable name="okta-feature-names.ScaleFT" /> may continue to route requests to the gateway for up to five minutes. During this time, all requests fail. After five minutes, <MadCap:variable name="okta-feature-names.ScaleFT" /> removes the gateway from the pool and begins routing connections to other available gateways. </p>
+        <p>To ensure that requests are handled properly, you should configure gateway load balancing similar to how you'd configure a web application server behind a load balancer. This generally involves the following tasks:</p>
+        <ul>
+            <li>Ensure that clients can connect to the load balancer (port 7234 by default).</li>
+            <li>Ensure that the load balancer can connect to gateways (port 7234 by default).</li>
+            <li>Ensure that gateways can connect to your target servers  (port 22 by default).</li>
+            <li>Configure every gateway to use the same AccessAddress. This must match the domain name or static IP used to access the load balancer.</li>
+        </ul>
+        <p>Different ports are treated as different addresses for clients to connect to and validate the identity of a gateway. Host certificates for multiple gateways are considered valid if they share the same default address. This is detected using cloud instance metadata for servers hosted on <MadCap:variable name="3rd Party Integrations.Amazon Web Services" /> (AWS) or Google Cloud Platform (GCP).</p>
+        <p>After configuring gateways behind a load balancer, Okta recommends adding other health checks to remove gateways from the pool after they become unhealthy or unreachable.</p>
+        <ul>
+            <li>Ensure that gateways are listening on the correct port (7234 by default).</li>
+            <li>Ensure that gateways have sufficient space to store logs.</li>
+            <li>Ensure that gateway CPU and memory usage is operating normally.</li>
+        </ul>
+        <p>See the documentation for your specific cloud provider or load balancer for additional information on how to best implement health checks for your platform and tools.</p>
+        <h2><a name="Gateway2"></a>Gateway status checks</h2>
+        <p>Gateways automatically report health status to <MadCap:variable name="okta-feature-names.ScaleFT" /> every two minutes. This status is used to provide valuable insights that can help control traffic routing when users attempt to connect to a server.</p>
+        <p>If <MadCap:variable name="okta-feature-names.ScaleFT" /> doesn't receive a status from a specific gateway for more than five minutes, the gateway is removed from the pool and connections are sent to other available gateways.  If <MadCap:variable name="okta-feature-names.ScaleFT" /> doesn't receive a status report from any gateways for five minutes, connections are sent to the gateway that most recently reported. If <MadCap:variable name="okta-feature-names.ScaleFT" /> doesn't receive a status report from any gateways for 24 hours, all attempts to connect will fail and you may need to perform other configuration or troubleshooting.</p>
+        <p>You can find the most recent health data by viewing the gateway details from the <MadCap:variable name="okta-feature-names.ScaleFT" /> dashboard.</p>
+        <h2 MadCap:conditions="Primary.do-not-publish"><a name="Client-s"></a>Client-side load balancing</h2>
+        <p MadCap:conditions="Primary.do-not-publish"><MadCap:variable name="okta-feature-names.ScaleFT" /> sends multiple gateways to a client  to choose from. This helps to mitigate any delay between a gateway failing and it being removed from the pool of available gateways. If a connection using one gateway fails, the client will retry the connection using the next available gateway.</p>
+        <h2><a name="temp"></a>Configure a temporary gateway bypass</h2>
+        <p>In the unlikely event that every gateway is inaccessible, you can configure access to servers that bypass gateways but still allow for restricted and audited connections:</p>
+        <ol>
+            <li>Create a temporary <MadCap:variable name="okta-feature-names.ScaleFT" /> group containing only users who need temporary access.</li>
+            <li>Identify the project where the server is enrolled and remove every group.</li>
+            <li>Add the temporary group to the project.</li>
+        </ol>
+        <p>The new group is synchronized to servers. This process may take several minutes, after which time members of the temporary group can access the server. After the incident is resolved, you must manually restore the original groups.</p>
+        <div class="noteOkta">
+            <p class="noteContent">Session capture isn't possible for connections that bypass the gateway. However, user and connection time information is still recorded to the <MadCap:variable name="okta-feature-names.ScaleFT" /> audit log.</p>
+        </div>
+        <h2><a name="Troubles"></a>Troubleshoot a gateway</h2>
+        <p>Teams can troubleshoot gateways by installing the <MadCap:variable name="okta-feature-names.ScaleFT" /> server agent and enrolling the gateway in a project that doesn't require a gateway. Provided the server is active and accessible, users who belong to the associated project can connect to the gateway through SSH.</p>
+        <h2><a name="Related"></a>Related topics</h2>
+        <ul>
+            <li>
+                <MadCap:xref href="install-gateway.htm">Install an [%=okta-feature-names.ScaleFT%] gateway</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="setup/create-a-project.htm">Create a project</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

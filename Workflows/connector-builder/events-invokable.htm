@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:conditions="Primary.review-only">
+    <head>
+    </head>
+    <body>
+        <h1>About invokable events</h1>
+        <p MadCap:conditions="Primary.do-not-publish">Azuqua: content/connector-builder/quickstart/events-and-actions/7551/7556.md</p>
+        <p>Invokable events are events that are triggered by an external service. External services will essentially trigger the event inside your connector by invoking the Flow it occupies.</p>
+        <p>Data from the external service will be passed into your connector event, which you can then use/transform like normal throughout the rest of your event. Most of the time, this will involve simply taking the information passed to you from the service, and formatting the data to match your desired UI structure.</p>
+        <p>To set up an invokable event from inside your Flow, simply select the invokable event and configure it as you need. Then, select the "&lt;/&gt;" icon on the bottom of your event. There, you will see the URL that your external service will need to send data to, to properly trigger your Flow.</p>
+        <p>From there, whenever your service makes a call to our platform, your Flow will trigger your invokable event and subsequently the rest of that Flow.</p>
+        <h2>Implementation</h2>
+        <p>Note: There are two feature flags (boolean) available to Invokable type events.</p>
+        <p>user-invokable</p>
+        <p>invokableList</p>
+        <p>The user-invokable flag enables you to close out a connection in the middle of your connector, using the {{&lt; function_link http close &gt;}}.</p>
+        <p>The invokableList flag enables the event to process a list of items returned by the API in a single request, and process each individual item in the list as a discrete Flow execution. This is useful when a service's event API returns multiple events in a single HTTP request. Existing conenctors that leverage this functionality include Salesforce, Aprimo, et. al.</p>
+        <p>To implement an invokable method, first go to the event that you would like to set to be "invokable". When you hover over its name, you'll see an ellipses menu pop up on the right. Click it, and then select "Configure Method". On this page, you should then select "invokable" under the "Event Type" menu. If you are trying to use user-invokable or invokableList flags, then set your "Event Type" to "Invokable", and click on the name of your method and scroll to the bottom. After the last ] and before the last }, add in a user-invokable and/or invokableList keys as necessary, and set them to true.</p>
+        <p>For example:</p>
+        <p>...</p>
+        <MadCap:codeSnippet>
+            <MadCap:codeSnippetCopyButton />
+            <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">],
+"invokable": true,
+"user-invokable": true,
+"invokableList": true
+}</MadCap:codeSnippetBody>
+        </MadCap:codeSnippet>
+        <p>Important: If you're leveraging the invokableList flag, then it is required that your event returns a list of items (any type), as opposed to returning an object (single item). Commonly this will be list.map or list.filter modules at the end of the event. This is similar to the Polling event model.</p>
+        <p>Once that is complete, you can get started on actually building your connector method.</p>
+        <p>Just like any event, you'll need to build your UI for your params and outputs. After that, all you have to do is set up your modules to consume whatever information is coming from your external service and map it into a format that matches your outputs. Similar to what an Action does.</p>
+        <p>The information passed from your service is accessible through the double brace reference {{input.data.valuePathHere}}, or {{input.raw.headers.path}} if you are using user-invokable triggers.</p>
+        <p>Test</p>
+        <p>Building an invokable event is fairly straightforward, however, testing them is far more difficult. Because the invokable event is triggered by an external service via the Flow it's built on, you cannot trigger an invokable event until it has been built into a Flow.</p>
+        <p>To get around this, it's best to understand what the shape of your data coming from your service is, by either looking at the documentation, or by setting up an API endpoint Flow, and seeing what the body of the trigger request is.</p>
+        <p>Then, inside of your event method, add an Object.Construct that contains the copy-and-pasted object from your trigger request, that you can then use throughout the rest of your event method to test how to properly shape your incoming data. Once you've been able to process your data correctly, you'll need to remove the Object.Construct, and replace those references with {{input.data}}.</p>
+        <p>Then, to truly test, you'll need to deploy your connector and build a Flow with it. At this point, you can then grab the invoke URL from the newly-made Flow and test to see if your data mapping was correct.</p>
+    </body>
+</html>

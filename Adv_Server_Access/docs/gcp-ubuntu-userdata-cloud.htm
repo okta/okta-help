@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:onlyLocalStylesheets="False" MadCap:fileTags="Tags/okta-authors.Arshabhi Rai">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/asa/en-us/Content/Topics/Adv_Server_Access/docs/gcp-ubuntu-userdata-cloud.htm" />
+        <link href="../../../Resources/TableStyles/standard.css" rel="stylesheet" MadCap:stylesheetType="table" /><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+        <meta name="description" content="Deploy Advanced Server Access to Ubuntu/Debian GCP instances using user data and a linked cloud account." />
+    </head>
+    <body>
+        <h1>Deploy a GCP server with a cloud account</h1>
+        <p>This topic explains how to deploy an&#160;Ubuntu or Debian Google Cloud Platform (GCP) server with systemd using user data and a linked GCP project.  You may need to modify this process to fit your specific needs</p>
+        <p>Creating a cloud server with user data means that the <MadCap:variable name="okta-feature-names.ScaleFT" /> server agent is simultaneously installed when you create a server with a cloud provider.&#160;Using user data to install software on a new cloud server can be done through any cloud provider. Installing the <MadCap:variable name="okta-feature-names.ScaleFT" /> Agent on a cloud server doesn't have to be done when the cloud server is created, but running the installation as a startup script alongside a server's creation ensures that your cloud deployment is as safe and secure as possible. </p>
+        <ul>
+            <li>
+                <MadCap:xref href="#Prerequi">Prerequisites</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Token">Create a GCP project</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Attach">Enroll your GCP project in [%=okta-feature-names.ScaleFT%]</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Create">Create  a virtual machine with user data</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Next">Next steps</MadCap:xref>
+            </li>
+        </ul>
+        <h2><a name="Prerequi"></a>Prerequisites</h2>
+        <MadCap:snippetBlock src="../snippets/cloud-req-gcp.flsnp" />
+        <MadCap:snippetBlock src="../snippets/cloud-req-asa.flsnp" />
+        <h2><a name="Token"></a>Create a GCP project</h2>
+        <MadCap:snippetBlock src="../snippets/cloud-create-gcp.flsnp" />
+        <h2><a name="Attach"></a>Enroll your GCP project in <MadCap:variable name="okta-feature-names.ScaleFT" /></h2>
+        <ol>
+            <li>
+				From the Google Cloud Platform console, use the <span class="uicontrol">Select a Project</span> dropdown to see a list of your projects. 
+			</li>
+            <li>Locate the ID&#160;of your Google Cloud Platform project in the ID column, and save it in a secure location.</li>
+            <li>Navigate to the Advanced Server Access dashboard and select <span class="uicontrol">Projects</span>.</li>
+            <li>Click the project that you want to link a cloud account to.</li>
+            <li>Switch to the <span class="uicontrol">Enrollment</span> tab. </li>
+            <li>Click <span class="uicontrol">Add Cloud Account</span>.</li>
+            <li>Select <span class="uicontrol">Google Cloud Platform (GCP)</span> as your cloud provider.</li>
+            <li>Enter your Google Cloud Platform project ID&#160;into the <span class="uicontrol">Account ID</span>&#160;field.</li>
+            <li>Click <span class="uicontrol">Submit</span> to finish enrolling your Google Cloud Platform project.</li>
+        </ol>
+        <h2><a name="Create"></a>Create  a virtual machine with user data</h2>
+        <ol>
+            <li>From the GCP console, select&#160;<span class="uicontrol">Compute Engine</span> and then <span class="uicontrol">VM&#160;instances</span>.</li>
+            <li>If prompted, select your new project from the <span class="uicontrol">Select a project</span> dropdown.</li>
+            <li>Click <span class="uicontrol">Create</span>.<br /></li>
+            <li>Enter a name for your new server and set its region and zone. These values determine where your server is located.</li>
+            <li>Click <span class="uicontrol">Management, security, disks, networking, sole tenancy</span> to expand it.</li>
+            <li>Enter the following into the <span class="uicontrol">Startup Script</span> field:
+<span class="codeblock">#!/bin/bash
+
+sudo mkdir -p /var/lib/sftd					
+export DEBIAN_FRONTEND=noninteractive
+					
+echo "Add a basic sftd configuration"
+sudo mkdir -p /etc/sft/
+sftcfg=$(cat &lt;&lt;EOF
+---
+# CanonicalName: Specifies the name clients should use/see when connecting to this host.
+CanonicalName:            "ubuntu-target"
+EOF
+)
+					
+echo -e "$sftcfg" | sudo tee /etc/sft/sftd.yaml
+					
+echo "Retrieve information about new packages"
+sudo apt-get update
+					
+sudo apt-get install -y curl
+					
+echo "Add the ScaleFT testing apt repo to your /etc/apt/sources.list system config file"
+echo "deb http://pkg.scaleft.com/deb/ linux main" | sudo tee -a /etc/apt/sources.list
+					
+echo "Trust the repository signing key"
+curl -C - https://dist.scaleft.com/pki/scaleft_deb_key.asc | sudo apt-key add -
+					
+echo "Retrieve information about new packages"
+sudo apt-get update
+					
+echo "Install sftd"
+sudo apt-get install scaleft-server-tools</span></li>
+            <li>Click <span class="uicontrol">Create</span>.</li>
+        </ol>
+        <h2><a name="Next"></a>Next steps</h2>
+        <p>
+            <MadCap:xref href="verify-server-enrolled.htm">Verify server enrollment</MadCap:xref>
+        </p>
+    </body>
+</html>

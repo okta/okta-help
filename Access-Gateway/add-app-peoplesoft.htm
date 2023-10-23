@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/add-app-peoplesoft.htm" />
+        <link href="../../Resources/TableStyles/standard-shaded-rows.css" rel="stylesheet" MadCap:stylesheetType="table" /><title>[%=Heading.Level1%]</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1>Add an Oracle PeopleSoft application</h1>
+        <p>The purpose of this page is to walk through the process of setting up an Oracle PeopleSoft application with Okta through the <MadCap:variable name="okta-feature-names.Access&#160;Gateway UI" /> and various Oracle PeopleSoft tools.</p>
+        <h2>Architecture</h2>
+        <table>
+            <col />
+            <tbody>
+                <tr>
+                    <td>
+                        <p>
+                            <img src="../../Resources/Images/access-gateway/peoplesoft-arch.png" alt="PeopleSoft Architecture" />
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Flow
+                        <MadCap:snippetBlock src="../../Resources/Snippets/access-gateway/peoplesoft-flow.flsnp" /></td>
+                </tr>
+                <tr>
+                    <td>For details see <MadCap:xref href="add-app-ps-ref-arch.htm">Oracle PeopleSoft reference architecture</MadCap:xref>.</td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <p><MadCap:variable name="okta-feature-names.Access Gateway" /> works with all major PeopleSoft modules including:</p>
+            <ul>
+                <li>
+                    <p>CRM: <span class="url">/crm/*</span></p>
+                </li>
+                <li>
+                    <p>HCM: <span class="url">/hcm/*</span></p>
+                </li>
+                <li>
+                    <p>Learning: <span class="url">/elm/*</span></p>
+                </li>
+                <li>
+                    <p>Financial: <span class="url">/fscm/*</span></p>
+                </li>
+                <li>
+                    <p>Campus: <span class="url">/camp/*</span></p>
+                </li>
+            </ul>
+            <p>Ensure you use the correct path for your specific module. </p>
+        </div>
+        <div MadCap:conditions="Primary.do-not-publish">
+            <h3>Topics</h3>
+            <ul>
+                <li>
+                    <MadCap:xref href="#Before">Before you begin</MadCap:xref>
+                </li>
+                <li>
+                    <MadCap:xref href="#Tasks">Tasks</MadCap:xref>
+                </li>
+            </ul>
+        </div>
+        <MadCap:snippetBlock src="../../Resources/Snippets/access-gateway/tip-app-header.flsnp" />
+        <h2><a name="Before"></a>Before you begin</h2>
+        <p>Ensure that:</p>
+        <ul>
+            <li>You have access to the PeopleTools desktop client.</li>
+            <li>You have access to the PeopleSoft web portal and can access it as super user.</li>
+            <li>Your specific version of Oracle PeopleSoft is supported. Supported versions include:
+            <MadCap:snippetBlock src="../../Resources/Snippets/access-gateway/supported-app-version-orcl-ps.flsnp" /></li>
+            <li>Appropriate DNS&#160;entries for both the header application and the external exposed new URL exist.<br /><table style="mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0"><col class="TableStyle-srb_header_alt_shade-Column-Column1" /><col class="TableStyle-srb_header_alt_shade-Column-Column1" /><thead><tr class="TableStyle-srb_header_alt_shade-Head-Header1"><th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Value</th><th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">Description</th></tr></thead><tbody><tr class="TableStyle-srb_header_alt_shade-Body-Body1"><td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><span class="url">https://ps-external.example.com</span></td><td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">Legacy application URL. </td></tr><tr class="TableStyle-srb_header_alt_shade-Body-Body2"><td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2"><span class="url">https://ps-internal.example.com</span></td><td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">Protected application URL. </td></tr></tbody></table></li>
+        </ul>
+        <h2><a name="Tasks"></a>Typical workflow</h2>
+        <div class="noteOkta">
+            <p class="noteContent">The PeopleSoft admin and <MadCap:variable name="okta-feature-names.Access Gateway" /> admin tasks can be, and often are, performed in parallel. The following general ordering is recommended.
+                <ol><li>Configure PeopleCode</li><li>Create PUBUSER and configure the PeopleSoft gateway.</li><li>Update the PeopleSoft virtual addressing field.</li><li>Restart PeopleSoft<br /></li></ol><br />				The details of each task are described in thier respective sub tasks.</p>
+        </div>
+        <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+            <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+            <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+            <col class="TableStyle-srb_header_alt_shade-Column-Column1" style="width: -320px;" />
+            <thead>
+                <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                        <p>Task</p>
+                    </th>
+                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                        <p>Description</p>
+                    </th>
+                    <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">
+                        <p>Who</p>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><a href="task-add-okta-group.htm">Create a containing group</a>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                        <ul>
+                            <li>Best practice, create an optional group to be assigned to the application. </li>
+                        </ul>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                        <p><MadCap:variable name="okta-feature-names.Access Gateway" /> admin</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                        <p><a href="add-app-ps-config-pcode.htm">Configure PeopleCode</a>
+                        </p>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                        <ul>
+                            <li>Using PeopleTools, make changes to support header-based authentication from the PS_USER header. </li>
+                        </ul>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
+                        <p>PeopleSoft admin</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                        <p><a href="add-app-ps-config-psoft.htm">Configure PeopleSoft</a> </p>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                        <ul>
+                            <li>Configure PeopleSoft to support SSO, add the required user, configure the associated web profile and set <MadCap:variable name="okta-feature-names.Access Gateway" /> as the proxy address.</li>
+                        </ul>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                        <p>Peoplesoft Admin</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><a href="add-app-ps-app.htm">Create application</a>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                        <ul>
+                            <li>Create the <MadCap:variable name="okta-feature-names.Access Gateway" /> PeopleSoft application. </li>
+                        </ul>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
+                        <p><MadCap:variable name="okta-feature-names.Access Gateway" /> admin</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><a href="add-app-ps-test.htm">Test the application</a>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                        <ul>
+                            <li>Test the application.</li>
+                        </ul>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                        <p><MadCap:variable name="okta-feature-names.Access Gateway" /> admin and PeopleSoft admin</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2" MadCap:conditions="Primary.do-not-publish">
+                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">Troubleshoot</td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">
+                        <ul>
+                            <li>When required troubleshoot the integration. </li>
+                        </ul>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <h2><a name="Next_Steps"></a>Related topics</h2>
+            <MadCap:snippetBlock src="../../Resources/Snippets/access-gateway/ApplicationNextSteps.flsnp" />
+        </div>
+    </body>
+</html>

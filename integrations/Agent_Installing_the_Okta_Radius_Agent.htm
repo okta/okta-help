@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:fileTags="Tags/okta-topic-status.Ready for Review,Tags/okta-authors.Patrick Calnan"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:searchable="True"
+      MadCap:conditions="MultiProdPublish.Classic+OIE">
+   <head>
+      <link href="../../Resources/TableStyles/standard-shaded-rows.css"
+            rel="stylesheet"
+            MadCap:stylesheetType="table"/>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <meta name="description"
+            content="Configure the Okta RADIUS server agent to delegate authentication to Okta for network authentication from devices that don't support SAML."/>
+      <link href="" rel="stylesheet" type="text/css"/>
+   </head>
+   <body>
+      <h1>Install Okta RADIUS Server agent on Windows</h1>
+      <a name="top"/>
+      <p>The Okta RADIUS server agent delegates authentication to Okta using single-factor authentication (SFA) or multifactor authentication (MFA). It installs as a Windows service and supports the Password Authentication Protocol (PAP).</p>
+      <p>A RADIUS client sends the RADIUS agent the credentials (username and password) of a user that's requesting access to the client. Then, based on the org settings: </p>
+      <ul>
+         <li>If MFA is disabled and the user credentials are valid, the user is authenticated.
+			</li>
+         <li>If MFA is enabled and the user credentials are valid, the user is prompted to select a second authentication factor. The user selects one (for example, Google Authenticator or Okta Verify) and obtains a request for a validation code. If the code sent back to the client is correct, the user gains access.
+			</li>
+      </ul>
+      <p>Some applications or services (for example, AWS Workspace) don't provide an MFA selection upon login, but instead ask for the MFA code in addition to the user's username and password. In the event that the user has enrolled in more than one MFA (for example, Okta Verify and Yubikey), there's no need for the user to specify which they are using – their entered code will be processed by each handler until it is validated successfully.</p>
+      <ul>
+         <li>
+            <MadCap:xref href="#Supporte">Supported Operating Systems </MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Requirem">Requirements and limitations</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Tasks">Typical workflow</MadCap:xref>
+         </li>
+      </ul>
+      <h2>
+         <a name="Supporte"/>Supported Operating Systems </h2>
+      <MadCap:snippetBlock src="../../Resources/Snippets/integrations/radius-agent-supported-windows.flsnp"/>
+      <h2>
+         <a name="Requirem"/>Requirements and limitations</h2>
+      <div>
+         <h4>Upgrading to Version 2.2.0 and later and SSL Pinning</h4>
+         <p>RADIUS agent versions 2.2.0 and later are enabled with SSL pinning, providing an extra layer of security. SSL pinning is not enabled by default for current users upgrading to the new agent. If you're upgrading from an agent version earlier than v2.2.0,  do the following after the upgrade.</p>
+         <div class="note_cautionOkta">
+            <p class="noteContent">The following steps should not be performed for agents on a network containing a web security appliance.</p>
+         </div>
+         <ol>
+            <li>Open the folder where the Okta RADIUS agent resides. The default installation folder is <span class="filepath">C:\Program Files (x86)\Okta\Okta RADIUS Agent\</span>
+            </li>
+            <li>From this folder, navigate to <span class="filepath">current\user\config\radius\config.properties</span>. Create back up copies of the config.properties and additional-config.properties files. Open <span class="filepath">current\user\config\radius\config.properties</span> in a text editor.</li>
+            <li>Append the following to the end of the file:<p>
+                  <span class="codeblock">ragent.ssl.pinning = true</span>
+               </p>
+            </li>
+            <li>Save the file.</li>
+            <li>Restart the Okta RADIUS Agent service using the available Windows administrative tools.</li>
+         </ol>
+         <p>This process restricts agent communication to only servers which can present valid certificates with public keys known to the new agents.</p>
+      </div>
+      <h2>
+         <a name="Tasks"/>Typical workflow</h2>
+      <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');"
+             class="TableStyle-srb_header_alt_shade"
+             cellspacing="0">
+         <col class="TableStyle-srb_header_alt_shade-Column-Column1"/>
+         <col class="TableStyle-srb_header_alt_shade-Column-Column1"/>
+         <thead>
+            <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+               <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                  <p>Task</p>
+               </th>
+               <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">
+                  <p>Description</p>
+               </th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Download the RADIUS agent</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                  <MadCap:snippetBlock src="../../Resources/Snippets/validate_SHA512_steps.flsnp"/>
+               </td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Configure RADIUS apps</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
+                  <MadCap:snippetBlock src="../../Resources/Snippets/integrations/radius.app.config.flsnp"/>
+               </td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Install the agent</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                  <MadCap:xref href="Agent_install_windows-install.htm">Install the RADIUS Windows agent</MadCap:xref>
+               </td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Configure additional properties </td>
+               <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
+                  <MadCap:xref href="Agent_install_windows-config.htm">Configure properties</MadCap:xref>
+               </td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Manage the agent</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                  <a name="manage-win-agent"/>You can open the Okta RADIUS Agent Manager to make changes to the Shared Secret, RADIUS Port, and Proxy settings using <span class="menucascade">
+                     <span class="uicontrol">Programs</span>
+                     <span class="uicontrol">Okta RADIUS Agent Manager</span>
+                  </span>.
+                    </td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Access and manage log files</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
+                  <MadCap:xref href="Agent_install_windows-logs.htm">Access and managing log files</MadCap:xref>
+               </td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+               <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                  <p>Troubleshoot</p>
+               </td>
+               <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                  <MadCap:xref href="Agent_install_windows-ts.htm">Troubleshoot the Windows RADIUS agent</MadCap:xref>
+               </td>
+            </tr>
+            <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+               <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">Uninstall the agent</td>
+               <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">
+                  <MadCap:xref href="Agent_install_windows-uninstall.htm">Uninstall the Windows RADIUS agent</MadCap:xref>
+               </td>
+            </tr>
+         </tbody>
+      </table>
+      <div>
+         <h2>Related topics</h2>
+         <p>
+            <MadCap:xref href="getting-started.htm">Getting started with Okta RADIUS Integrations</MadCap:xref>
+         </p>
+         <p>
+            <MadCap:xref href="radius-best-pract.htm">RADIUS server best practices</MadCap:xref>
+         </p>
+         <p>
+            <MadCap:xref href="Agent_Installing_the_Okta_Radius_Agent-linux.htm">Install and configure the Okta RADIUS agent on Linux</MadCap:xref>
+         </p>
+         <p>
+            <MadCap:xref href="Agent_determine_version.htm">Determining installed RADIUS agent version</MadCap:xref>
+         </p>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Arshabhi Rai">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/asa/en-us/Content/Topics/Adv_Server_Access/docs/custom-ssh-server.htm" /><title>[%=Heading.Level1%] | Okta</title>
+        <meta name="description" content="Use a custom Advanced Server Access SSHD configuration to control the way your servers respond to end-user connections." />
+    </head>
+    <body>
+        <h1>Customize SSHD configurations for servers</h1>
+        <p>The system integration model of <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> enables a wide range of customizations to system configurations to be used with <MadCap:variable name="okta-feature-names.Okta Privileged Access" />. For example, <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> admins can use SSHD configuration to customize how their servers respond to clients initiating connections.</p>
+        <div class="noteOkta">
+            <p class="noteContent">The <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> <span class="disableGlossary">agent</span> (sftd)&#160;only adds two to four lines to your SSHD&#160;configuration file (/etc/ssh/sshd_config), including comments.</p>
+        </div>
+        <p>The following are some examples of how <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> admins can customize their SSHD configuration file. </p>
+        <h2 MadCap:conditions="Primary.do-not-publish">Prevent non-<MadCap:variable name="okta-feature-names.Okta Privileged Access" /> authentication in SSHD</h2>
+        <p MadCap:conditions="Primary.do-not-publish">
+              To prevent any members of specific groups <span class="disableGlossary">groups</span> from authenticating with a non-<MadCap:variable name="okta-feature-names.Okta Privileged Access" /> credential, use a <span class="code">Match</span> group to create a set of rules for Authorized Key Files.
+The following code prevents any member of the unix group "asa_dev" from authenticating with a non-<MadCap:variable name="okta-feature-names.Okta Privileged Access" /> credential.</p><span class="codeblock" MadCap:conditions="Primary.do-not-publish">Match Group asa_dev
+&#160;&#160;&#160;&#160;AuthorizedKeysFile none
+&#160;&#160;&#160;&#160;AuthenticationMethods publickey
+&#160;&#160;&#160;&#160;PubkeyAcceptedKeyTypes &lt;insert-accepted-key-here&gt;</span>
+        <p MadCap:conditions="Primary.do-not-publish"><span class="code">Match</span> <span class="disableGlossary">groups</span> should list the name of your <MadCap:variable name="okta-feature-names.Okta Privileged Access" />-managed group name.&#160;</p>
+        <p MadCap:conditions="Primary.do-not-publish">The first line of your <span class="code">Match</span> block should look like as follows: <span class="code">Match Group &lt;ASA-managed-group-name&gt;</span></p>
+        <h2>Prevent interactive bastions sign in</h2>
+        <p>To prevent users from conducting interactive sign in on your bastions, create a <span class="code">Match Group</span> that applies this restriction with the value <span class="code">PermitTTY no</span>. Using a <span class="code">Match Group</span> block allows you to set this restriction for all users within your specified group. If you're an <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> admin, do not add yourself to this group. You can directly add the following config to your SSHD&#160;without configuring the yaml file for this behavior:</p><span class="codeblock">Match Group asa_dev
+&#160; &#160;&#160;&#160;PermitTTY no</span>
+        <div class="noteOkta">
+            <p class="noteContent">While disabling TTYs is a best practice for bastion deployments, it's not a guarantee that all forms of remote execution are prevented. Ensure that your bastions are properly configured to prevent unwanted access.</p>
+        </div>
+        <h2>Configure SSH session expiration</h2>
+        <p>To configure SSH session expiration on Linux, define a <span class="code">TMOUT</span> environment variable. Setting <span class="code">TMOUT</span> allows you to automatically sign out users after a specific period of idle-time.
+                Here is an example of what a defined TMOUT variable looks like:
+              </p><span class="codeblock">TMOUT=300  
+&#160; &#160;&#160;&#160;readonly TMOUT
+&#160; &#160;&#160;&#160;export TMOUT</span>
+        <div class="noteOkta">
+            <p class="noteContent">This definition uses <span class="code">readonly</span> to prevent users from changing its value.</p>
+        </div>
+        <h2>Related topics</h2>
+        <ul>
+            <li>
+                <MadCap:xref href="tool-setup/install-agent.htm">Install the [%=okta-feature-names.Okta Privileged Access%] server agent</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="server-agent/pam-configure-server-agent.htm">Configure the [%=okta-feature-names.Okta Privileged Access%] server agent</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

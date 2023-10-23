@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link href="../../Resources/TableStyles/standard.css" rel="stylesheet" MadCap:stylesheetType="table" />
+        <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/configure-idp-okta.htm" /><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+        <meta name="description" content="Configure your organization’s Okta tenant as an Identity Provider for Access Gateway by creating a service account with a token." />
+    </head>
+    <body>
+        <h1>Configure an Identity Provider in <MadCap:variable name="okta-feature-names.Access Gateway" /></h1>
+        <p>
+            <MadCap:snippetBlock src="../../Resources/Snippets/ea-banner.flsnp" />
+        </p>
+        <div class="noteOkta">
+            <p class="noteContent">Using  Customer Identity Cloud, powered by Auth0, as the IdP for <MadCap:variable name="okta-feature-names.Access Gateway" /> is available on an Early Access basis. Contact <MadCap:snippetText src="../../Resources/Snippets/okta-support-link.flsnp" /> to activate it.</p>
+        </div>
+        <p>Before you can secure applications, you must configure  an <MadCap:variable name="okta-feature-names.Identity Provider full name" /> (IdP) for <MadCap:variable name="okta-feature-names.Access Gateway" />. </p>
+        <p>You can use Workforce Identity Cloud, powered by <MadCap:variable name="okta-variables.ProductName" />, or Customer Identity Cloud, powered by Auth0, as the IdP. <MadCap:variable name="okta-feature-names.Access Gateway" /> and your IdP integrate using SAML and REST APIs.</p>
+        <p>You must have app admin and org admin privileges to perform these  tasks.</p>
+        <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard.css');margin-left: 0;margin-right: auto;" class="TableStyle-standard" cellspacing="0">
+            <col class="TableStyle-standard-Column-Column1" style="width: 502px;" />
+            <col class="TableStyle-standard-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-standard-Head-Header1">
+                    <th class="TableStyle-standard-HeadF-Column1-Header1">
+                        <p>Use Workforce Identity Cloud as the IdP</p>
+                    </th>
+                    <th class="TableStyle-standard-HeadD-Column1-Header1">
+                        <p>Use Customer Identity Cloud as the IdP (Early Access)</p>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td class="TableStyle-standard-BodyC-Column1-Body1">
+                        <ol>
+                            <li>
+                                <MadCap:xref href="#CreateOktaSvcAcct">Create an [%=okta-variables.ProductName%] service account for [%=okta-feature-names.Access Gateway%]</MadCap:xref>.
+                            </li>
+                            <li>
+                                <MadCap:xref href="#CreateOktaToken">Create an [%=okta-variables.ProductName%] API&#160;token</MadCap:xref>.
+                            </li>
+                            <li>
+                                <MadCap:xref href="#ConfigOktaIdP">Use Workforce Identity Cloud as the IdP for [%=okta-feature-names.Access Gateway%]</MadCap:xref>.
+                            </li>
+                        </ol>
+                    </td>
+                    <td class="TableStyle-standard-BodyA-Column1-Body1">
+                        <ol>
+                            <li>
+                                <MadCap:xref href="#CreateAuth0IDSecret">Create an Auth0 Client ID and Client Secret</MadCap:xref>.
+                            </li>
+                            <li>
+                                <MadCap:xref href="#ConfigAuth0IdP">Use Customer Identity Cloud as the IdP for [%=okta-feature-names.Access Gateway%]</MadCap:xref>.
+                            </li>
+                        </ol>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2><a name="CreateOktaSvcAcct"></a>Create an <MadCap:variable name="okta-variables.ProductName"></MadCap:variable> service account for <MadCap:variable name="okta-feature-names.Access Gateway"></MadCap:variable></h2>
+        <p>Okta recommends that you create and use a dedicated service account  to create the <MadCap:variable name="okta-feature-names.Access Gateway" /> API key. <MadCap:variable name="okta-variables.ProductName" /> logs every action performed by an API key under the user account that created the key.</p>
+        <ol>
+            <li>
+                <MadCap:snippetText src="../../Resources/Snippets/task steps/Directory_People.flsnp" />
+            </li>
+            <li>Click <span class="uicontrol">Add person</span>.</li>
+            <li>Enter a name for the service account.</li>
+            <li>Enter a placeholder email for the <span class="uicontrol">Username</span> and <span class="uicontrol">Primary email</span>. For example, <span href="mailto:service.admin@domain.com" class="userinput">service.admin@domain.com</span>.
+				<div class="noteOkta"><p class="noteContent">Use placeholder values for the <span class="uicontrol">Username</span> and <span class="uicontrol">Primary email</span> to avoid interference between the service account and your account. Enter your email address as the <span class="uicontrol">Secondary email</span>. Then, if you need to request a password reset, you're able to activate and maintain the service account.</p></div></li>
+            <li>For the <span class="uicontrol">Secondary email</span>, enter your administrator email address.</li>
+            <li>Select <span class="uicontrol">Send user activation email now</span>, and then click <span class="uicontrol">Save</span>. The account is created and has a status of <span class="uicontrol">Pending user action</span>.</li>
+            <li>
+                <MadCap:snippetText src="../../Resources/Snippets/task steps/Security_Administrators.flsnp" />
+            </li>
+            <li>Click <span class="uicontrol">Add administrator</span>.</li>
+            <li>Select your service account from the <span class="uicontrol">Select admin</span> dropdown.</li>
+            <li>Select <span class="uicontrol">Application Administrator</span> from the <span class="wintitle">Role</span> dropdown.</li>
+            <li>Click <span class="uicontrol">Edit</span> to configure the applications that the account can manage. Choose <span class="uicontrol">Constrain this role to the entire organization</span>. This allows the account to manage all applications or to create a resource set of the applications that the account can manage.  See <a href="https://help.okta.com/okta_help.htm?id=edit-resources-standard-role" target="blank">Edit resources for a standard role assignment</a>.</li>
+            <li>Click <span class="uicontrol">Save resource set</span>.</li>
+            <li>Click <span class="uicontrol">Add assignment</span>.</li>
+            <li>Select <span class="uicontrol">Organization Administrator</span> from the <span class="uicontrol">Role</span> dropdown.</li>
+            <li>Click <span class="uicontrol">Save</span>.</li>
+            <li>Sign out of your Okta admin account.</li>
+            <li>Open the activation email that you received from Okta and click the activation link.</li>
+            <li>Enter a password and a security question for the account.</li>
+            <li>Sign in with the new service account credentials.</li>
+        </ol>
+        <h2><a name="CreateOktaToken"></a>Create an <MadCap:variable name="okta-variables.ProductName"></MadCap:variable> API&#160;token</h2>
+        <ol>
+            <li>
+                <MadCap:snippetText src="../../Resources/Snippets/task steps/Security_API.flsnp" />
+            </li>
+            <li>Click <span class="uicontrol">Create token</span>.</li>
+            <li>Enter a token name that identifies the token's purpose.</li>
+            <li>Click <span class="uicontrol">Create token</span>.</li>
+            <li>Copy the <span class="uicontrol">Token Value</span> and store it in a secure location, such as a password manager. After you close this window, you can no longer view the token value.</li>
+            <li>Click <span class="uicontrol">Ok, got it</span>.</li>
+            <li>Continue with the <MadCap:xref href="#ConfigOktaIdP">Use Workforce Identity Cloud as the IdP for [%=okta-feature-names.Access Gateway%]</MadCap:xref> procedure.</li>
+        </ol>
+        <h2><a name="CreateAuth0IDSecret"></a>Create an Auth0 Client ID and Client Secret</h2>
+        <p>
+            <MadCap:snippetBlock src="../../Resources/Snippets/ea-banner.flsnp" />
+        </p>
+        <ol>
+            <li>Perform the procedure in the <a href="https://auth0.com/docs/get-started/auth0-overview/create-applications/configure-an-identity-provider-in-access-gateway" target="blank" title="Configure an Identity Provider in Access Gateway" alt="Configure an Identity Provider in Access Gateway">Customer Identity Cloud documentation</a>.</li>
+            <li>Continue with the <MadCap:xref href="#ConfigAuth0IdP">Use Customer Identity Cloud as the IdP for [%=okta-feature-names.Access Gateway%]</MadCap:xref> procedure.</li>
+        </ol>
+        <h2>Configure the IdP in <MadCap:variable name="okta-feature-names.Access Gateway" /></h2>
+        <p>You can use either  Workforce Identity Cloud or the Customer Identity Cloud as the IdP for <MadCap:variable name="okta-feature-names.Access Gateway" />.</p>
+        <h3><a name="ConfigOktaIdP"></a>Use Workforce Identity Cloud as the IdP for <MadCap:variable name="okta-feature-names.Access Gateway" /></h3>
+        <ol>
+            <li>In your browser, go to the <MadCap:variable name="okta-feature-names.Access&#160;Gateway UI" /> and sign in as an administrator.</li>
+            <li>Select the <span class="wintitle">Settings</span> tab.</li>
+            <li>Click the <span class="wintitle">Identity Providers</span> pane.</li>
+            <li>Click <span class="uicontrol">+</span> and then select <span class="uicontrol">Workforce Identity Cloud</span>.</li>
+            <li>Enter the following information:
+								<ul><li><span class="uicontrol">Name</span>: Enter a meaningful name for the IdP.</li><li><span class="uicontrol">Okta Org</span>: Enter your org name (for example, <span class="url">orgname.oktapreview.com</span>, <span class="url">orgname.okta.com</span>, or similar)  or custom domain. Don't use the admin interface URL of your org (for example, <span class="url">orgname-admin.okta.com</span>.)</li><li><span class="uicontrol">Okta API Token</span>: Paste the token value that you copied from your Okta org when you created the Okta API token.</li></ul></li>
+            <li>Click <span class="uicontrol">Not Validated</span>. This label changes to <span class="uicontrol">Validated</span> when the Okta API token is successfully validated.</li>
+            <li>Click <span class="uicontrol">Okay</span>. The <span class="wintitle">Settings</span> tab displays your IdP status, which should be <span class="uicontrol">Valid</span>.</li>
+            <li>Click the <span class="wintitle">Topology</span> tab. An icon appears for your IdP, labeled with the name that you entered.</li>
+            <li>Click the icon for your IdP.</li>
+        </ol>
+        <h3><a name="ConfigAuth0IdP"></a>Use Customer Identity Cloud as the IdP for <MadCap:variable name="okta-feature-names.Access Gateway" /></h3>
+        <p>
+            <MadCap:snippetBlock src="../../Resources/Snippets/ea-banner.flsnp" />
+        </p>
+        <ol>
+            <li>In your browser, go to the <MadCap:variable name="okta-feature-names.Access&#160;Gateway UI" /> and sign in as an administrator.</li>
+            <li>Select the <span class="wintitle">Settings</span> tab.</li>
+            <li>Click the <span class="wintitle">Identity Providers</span> pane.</li>
+            <li>Click <span class="uicontrol">+</span> and then select <span class="uicontrol">Customer Identity Cloud</span>.</li>
+            <li>Enter the following information:
+								<ul><li><span class="uicontrol">Name</span>: Enter a meaningful name for the IdP.</li><li><span class="uicontrol">Host</span>: Enter your Auth0 org name (for example, <span class="userinput">orgname.sus.auth0.com</span>).</li></ul></li>
+            <li>In the <span class="wintitle">OAuth Configuration</span> section, enter the following information:<ul><li>In the <span class="uicontrol">Client ID</span> field, paste the Auth0 Client ID.</li><li>In the <span class="uicontrol">Client Secret</span> field, paste the Client Secret.</li></ul></li>
+            <li>Delete the Client ID and Client Secret information from the text editor app where you temporarily stored it.</li>
+            <li>Click <span class="uicontrol">Not Validated</span>. This label changes to <span class="uicontrol">Validated</span> when the Client ID and Client Secret values are validated.</li>
+            <li>Click <span class="uicontrol">Okay</span>. The <span class="wintitle">Settings</span> tab displays your IdP status, which should be <span class="uicontrol">Valid</span>.</li>
+            <li>Click the <span class="wintitle">Topology</span> tab. An icon appears for your IdP, labeled with the name that you entered.</li>
+            <li>Click the icon for your IdP.</li>
+        </ol>
+    </body>
+</html>

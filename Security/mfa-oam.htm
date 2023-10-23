@@ -1,0 +1,241 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:searchable="True"
+      MadCap:conditions="Primary.do-not-publish"
+      MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+   <head>
+      <link href="../../Resources/TableStyles/standard.css"
+            rel="stylesheet"
+            MadCap:stylesheetType="table"/>
+      <title>Oracle Access Manager Plugin | Okta</title>
+      <link href="" rel="stylesheet" type="text/css"/>
+   </head>
+   <body>
+      <h1>Oracle Access Manager Plugin</h1>
+      <MadCap:snippetBlock src="../../Resources/Snippets/beta-banner-open.flsnp"/>
+      <h3 MadCap:conditions="Primary.do-not-publish">Feature Flag: N/A</h3>
+      <h3>Overview</h3>
+      <p>This document illustrates how to set up the Oracle Access Manager plugin to use Okta when accessing OAM applications.</p>
+      <h3>Prerequisites</h3>
+      <ul>
+         <li>Your Okta preview tenant must have this beta feature enabled.</li>
+         <li>OIDC app setup and configuration (refer to Step 1 under Setup and Configuration)</li>
+      </ul>
+      <h3>Accessing and configuring this feature</h3>
+      <h4>Setup and Configuration</h4>
+      <MadCap:dropDown>
+         <MadCap:dropDownHead>
+            <MadCap:dropDownHotspot>Step 1 - Set up the OIDC App</MadCap:dropDownHotspot>
+         </MadCap:dropDownHead>
+         <MadCap:dropDownBody>
+            <p>Refer to <a href="../integrations/oidc-based-mfa-as-a-service.htm">OIDC-based MFA as a Service</a> to set up OIDC.</p>
+         </MadCap:dropDownBody>
+      </MadCap:dropDown>
+      <MadCap:dropDown>
+         <MadCap:dropDownHead>
+            <MadCap:dropDownHotspot>Step 2 - Deploy Okta's authentication plugin </MadCap:dropDownHotspot>
+         </MadCap:dropDownHead>
+         <MadCap:dropDownBody>
+            <ol>
+               <li>Open the OAM Console.</li>
+               <li>Navigate to <span class="uicontrol">Authentication Plug-ins</span>.</li>
+               <li>Click <span class="uicontrol">Import Plug-in</span> to upload a plug-in. The activation status changes to <span class="uicontrol">Uploaded</span>.</li>
+               <li>Click <span class="uicontrol">Distribute Selected</span> to push the plug-in out to the managed servers.</li>
+               <li>Once the distribution is successful, click <span class="uicontrol">Activate Selected</span>.</li>
+               <li>
+                  <p>The location of the plug-in (.jar) is as follows:</p>
+                  <p>Uploaded: <span class="filepath">/app/oracle/product/mw/config/domains/IAMDomain/oam/plugins</span>
+                  </p>
+                  <p>Distributed: <span class="filepath">/app/oracle/product/mw/config/domains/IAMDomain/config/fmwconfig/oam/plugin</span>
+                  </p>
+               </li>
+               <li>Under <span class="menucascade">
+                     <span class="uicontrol">Plug-in Details: Okta Plugin</span>
+                     <span class="uicontrol">Configuration Parameters</span>
+                  </span>, enter the <span class="uicontrol">clientId</span>, <span class="uicontrol">clientSecret</span>, and <span class="uicontrol">url</span>.
+               </li>
+            </ol>
+         </MadCap:dropDownBody>
+      </MadCap:dropDown>
+      <MadCap:dropDown>
+         <MadCap:dropDownHead>
+            <MadCap:dropDownHotspot>Step 3 - Deploy the .war file</MadCap:dropDownHotspot>
+         </MadCap:dropDownHead>
+         <MadCap:dropDownBody>
+            <ol>
+               <li>Log in to the Oracle WebLogic Server Administration Console.</li>
+               <li>Under <span class="uicontrol">Domain Structure</span>, select <span class="menucascade">
+                     <span class="uicontrol">Deployments</span>
+                     <span class="uicontrol">Control</span>
+                     <span class="uicontrol">Install</span>
+                  </span>
+               </li>
+               <li>Select the .war file and click <span class="uicontrol">Next</span>.</li>
+               <li>Select the servers that should be used to deploy the .war file. For example, the Admin and OAM managed servers.</li>
+            </ol>
+         </MadCap:dropDownBody>
+      </MadCap:dropDown>
+      <MadCap:dropDown>
+         <MadCap:dropDownHead>
+            <MadCap:dropDownHotspot>Step 4 - Create an Authentication Module</MadCap:dropDownHotspot>
+         </MadCap:dropDownHead>
+         <MadCap:dropDownBody>
+            <ol>
+               <li>Create an Authentication Module. Navigate to  <span class="wintitle">Authentication Modules</span> and click <span class="uicontrol">Create</span>.</li>
+               <li>Under <span class="wintitle">General</span>, enter the name of the module and an optional description.</li>
+               <li>Under <span class="wintitle">Steps</span>, add a new step name called <span class="userinput">Okta 2FA</span> and select the <span class="uicontrol">OktaPlugin</span>.</li>
+               <li>Enter your clientSecret, clientId, and url. </li>
+               <li>Under <span class="wintitle">Steps Orchestration</span>, set the Initial Step to <span class="uicontrol">Okta 2FA</span>.</li>
+               <li>Set <span class="uicontrol">On Success</span> to <span class="userinput">success</span>.</li>
+               <li>Set <span class="uicontrol">On Failure</span> to <span class="userinput">failure</span>.</li>
+               <li>Set <span class="uicontrol">On Error</span> to <span class="userinput">failure</span>. </li>
+            </ol>
+         </MadCap:dropDownBody>
+      </MadCap:dropDown>
+      <MadCap:dropDown>
+         <MadCap:dropDownHead>
+            <MadCap:dropDownHotspot>Step 5 - Create an Authentication Scheme</MadCap:dropDownHotspot>
+         </MadCap:dropDownHead>
+         <MadCap:dropDownBody>
+            <ol>
+               <li>Create an Authentication Scheme. Navigate to <span class="wintitle">Authentication Scheme</span> and click <span class="uicontrol">Create</span>.</li>
+               <li>Enter the name of the new scheme. For example, OktaMFAScheme.</li>
+               <li>Set <span class="uicontrol">Authentication Level</span> to 2.</li>
+               <li>Set <span class="uicontrol">Challenge Method</span> to FORM.</li>
+               <li>Set <span class="uicontrol">Authentication Module</span> to the Okta Module that you created.</li>
+               <li>Enter the Challenge URL.</li>
+               <li>Set <span class="uicontrol">Context Type</span> to <span class="userinput">customWar</span>.</li>
+               <li>Set the <span class="uicontrol">Context Value</span> to <span class="userinput">/OktaWidget</span>.</li>
+            </ol>
+         </MadCap:dropDownBody>
+      </MadCap:dropDown>
+      <MadCap:dropDown>
+         <MadCap:dropDownHead>
+            <MadCap:dropDownHotspot>Step 6 - Create an Authentication  Policy</MadCap:dropDownHotspot>
+         </MadCap:dropDownHead>
+         <MadCap:dropDownBody>
+            <ol>
+               <li>Create an Authentication Policy. Navigate to <span class="wintitle">Authentication Domain</span>. </li>
+               <li>Navigate to <span class="menucascade">
+                     <span class="uicontrol">WebGateTest</span>
+                     <span class="uicontrol">Authentication Policies</span>
+                     <span class="uicontrol">Protected Resource Policy</span>
+                  </span>.</li>
+               <li>Click <span class="uicontrol">Advanced</span>.</li>
+               <li>Enter the name of the authentication policy. For example, Protected Resource Policy.</li>
+               <li>Under <span class="wintitle">Authentication Scheme</span>, select <span class="uicontrol">LDAPScheme</span>.</li>
+               <li>Navigate to <span class="menucascade">
+                     <span class="uicontrol">Advanced Rules</span>
+                     <span class="uicontrol">Post-Authentication</span>
+                  </span>.</li>
+               <li>Add a rule name called <span class="userinput">
+                     <MadCap:variable name="okta-variables.ProductName"/>
+                  </span>.</li>
+               <li>Under <span class="uicontrol">Condition</span>, enter the following: <span class="code">'true'=='true'</span>
+               </li>
+               <li>Clear the <span class="uicontrol">Deny Access</span> checkbox.</li>
+               <li>Under <span class="uicontrol">If condition is true</span>, set <span class="uicontrol">Switch Authentication Scheme</span> to the Okta MFA scheme you created.</li>
+            </ol>
+         </MadCap:dropDownBody>
+      </MadCap:dropDown>
+      <h4>Post-Configuration</h4>
+      <MadCap:dropDown>
+         <MadCap:dropDownHead>
+            <MadCap:dropDownHotspot>Restart WebLogic Servers from a terminal</MadCap:dropDownHotspot>
+         </MadCap:dropDownHead>
+         <MadCap:dropDownBody>
+            <ol>
+               <li>Open a terminal session.</li>
+               <li>Navigate to <span class="filepath">$DomainHome/bin</span>
+               </li>
+               <li>Run the following commands as described. The server must always be shut down before starting. After executing each command, ensure that you check the <span class="filepath">nohup.out</span> file for server status.</li>
+            </ol>
+            <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard.css');"
+                   class="TableStyle-standard"
+                   cellspacing="0">
+               <col class="TableStyle-standard-Column-Column1"/>
+               <col class="TableStyle-standard-Column-Column1"/>
+               <col class="TableStyle-standard-Column-Column1"/>
+               <thead>
+                  <tr class="TableStyle-standard-Head-Header1">
+                     <th class="TableStyle-standard-HeadF-Column1-Header1">Server</th>
+                     <th class="TableStyle-standard-HeadF-Column1-Header1">Linux  command</th>
+                     <th class="TableStyle-standard-HeadD-Column1-Header1">Windows command</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr class="TableStyle-standard-Body-Body1">
+                     <td class="TableStyle-standard-BodyF-Column1-Body1">Admin Server Shut Down</td>
+                     <td class="TableStyle-standard-BodyF-Column1-Body1">
+                        <span class="codeblock">nohup ./stopWebLogic.sh &amp;</span>
+                     </td>
+                     <td class="TableStyle-standard-BodyD-Column1-Body1">
+                        <span class="codeblock">stopWebLogic.cmd</span>
+                     </td>
+                  </tr>
+                  <tr class="TableStyle-standard-Body-Body2">
+                     <td class="TableStyle-standard-BodyF-Column1-Body2">Admin Server Startup </td>
+                     <td class="TableStyle-standard-BodyF-Column1-Body2">
+                        <span class="codeblock">nohup ./startWebLogic.sh  &amp;</span>
+                     </td>
+                     <td class="TableStyle-standard-BodyD-Column1-Body2">
+                        <span class="codeblock">startWeblogic.cmd</span>
+                     </td>
+                  </tr>
+                  <tr class="TableStyle-standard-Body-Body1">
+                     <td class="TableStyle-standard-BodyF-Column1-Body1">Managed Server Shut Down</td>
+                     <td class="TableStyle-standard-BodyF-Column1-Body1">
+                        <span class="codeblock">nohup ./stopManagedWebLogic.sh "wls_oam1" &amp;</span>
+                     </td>
+                     <td class="TableStyle-standard-BodyD-Column1-Body1">
+                        <span class="codeblock">stopManagedWebLogic.cmd "wls_oam1"</span>
+                     </td>
+                  </tr>
+                  <tr class="TableStyle-standard-Body-Body2">
+                     <td class="TableStyle-standard-BodyC-Column1-Body2">Managed Server Start Up</td>
+                     <td class="TableStyle-standard-BodyC-Column1-Body2">
+                        <span class="codeblock">nohup ./startManagedWebLogic.sh "wls_oam1" &amp;</span>
+                     </td>
+                     <td class="TableStyle-standard-BodyA-Column1-Body2">
+                        <span class="codeblock">startManagedWebLogic.cmd "wls_oam1"</span>
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+         </MadCap:dropDownBody>
+      </MadCap:dropDown>
+      <MadCap:dropDown>
+         <MadCap:dropDownHead>
+            <MadCap:dropDownHotspot>Restart WebLogic Servers from the OAM Console</MadCap:dropDownHotspot>
+         </MadCap:dropDownHead>
+         <MadCap:dropDownBody>
+            <ol>
+               <li>From the OAM console, navigate to <span class="wintitle">Summary of Servers</span>.</li>
+               <li>Select all servers and click <span class="uicontrol">Force Shutdown</span>.</li>
+               <li>Restart the admin server in terminal session using the commands from Step 1.</li>
+               <li>Log in to the admin console and select the remaining servers.</li>
+               <li>Click <span class="uicontrol">Start</span>. Wait for the server status to change to Running.</li>
+            </ol>
+         </MadCap:dropDownBody>
+      </MadCap:dropDown>
+      <MadCap:dropDown>
+         <MadCap:dropDownHead>
+            <MadCap:dropDownHotspot>Configure SSL options for OAM Server</MadCap:dropDownHotspot>
+         </MadCap:dropDownHead>
+         <MadCap:dropDownBody>
+            <ol>
+               <li>From the OAM console, click <span class="uicontrol">OAM Server</span>.</li>
+               <li>Click <span class="uicontrol">SSL</span>.</li>
+               <li>
+                  <p>Select the <span class="wintitle">Advanced</span> section </p>
+               </li>
+               <li>Select <span class="uicontrol">Hostname Verification</span> to <span class="uicontrol">none</span> .</li>
+               <li>Select <span class="uicontrol">Use JSSE SSL</span>. </li>
+               <li>
+                  <span class="uicontrol">Save</span> your settings and restart the OAM Server</li>
+            </ol>
+         </MadCap:dropDownBody>
+      </MadCap:dropDown>
+   </body>
+</html>

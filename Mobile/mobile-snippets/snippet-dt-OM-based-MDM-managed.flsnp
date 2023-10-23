@@ -1,0 +1,448 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Kimli Welsh">
+    <head>
+        <link href="../../../Resources/TableStyles/standard.css" rel="stylesheet" MadCap:stylesheetType="table" />
+    </head>
+    <body>
+        <div>
+            <p>Okta <MadCap:variable name="okta-feature-names.Device Trust" /> for <MadCap:variable name="Mobile.mobileplatform" /> allows you to prevent unmanaged <MadCap:variable name="Mobile.mobileplatform" /> devices from accessing enterprise services through browsers and native applications.</p>
+            <p MadCap:conditions="SnippetConditionsForDevices.iOS Only">
+                <img src="../../../Resources/Images/dt-ios-flow.png" alt="The image illustrates how Okta Device Trust is enforced for Native apps and Safari on MDM-managed iOS devices." class="thumbnail" />
+            </p>
+            <p MadCap:conditions="SnippetConditionsForDevices.Android Only">
+                <img src="../../../Resources/Images/DT-Android3rdPartyMDM-flow-numbered.png" alt="The image illustrates how Okta Device Trust is enforced for Native apps and browsers on MDM-managed Android devices." class="thumbnail" />
+            </p>
+            <h2>Prerequisites</h2>
+            <ul>
+                <li MadCap:conditions="SnippetConditionsForDevices.iOS Only"><MadCap:variable name="Mobile.mobileplatform" /> devices running <a href="../../Miscellaneous/Platforms_Browser_OS_Support.htm">Okta-supported versions</a> of <MadCap:variable name="Mobile.mobileplatform" /></li>
+                <li MadCap:conditions="SnippetConditionsForDevices.Android Only"><MadCap:variable name="Mobile.mobileplatform" /> devices running <MadCap:variable name="Mobile.mobileplatform" /> 5.1 (Lollipop) or higher</li>
+                <li MadCap:conditions="SnippetConditionsForDevices.Android Only">Google Play services</li>
+                <li MadCap:conditions="SnippetConditionsForDevices.Android Only">Android Enterprise management</li>
+                <li MadCap:conditions="SnippetConditionsForDevices.Android Only">Any&#160;Mobile Device Management (MDM) provider that supports managed app configuration</li>
+                <li MadCap:conditions="SnippetConditionsForDevices.iOS Only">MDM&#160;provider support:<ul><li>Minimum – any&#160;Mobile Device Management (MDM) provider that supports managed app configuration</li><li>Recommended – MDM providers that support (1) managed app configuration and (2) the ability to convert an end user-installed <MadCap:variable name="Mobile.Okta Mobile" /> app instance to a managed app</li></ul></li>
+                <li>Apps: </li>
+                <ul>
+                    <li>Any <MadCap:variable name="Mobile.mobileplatform" /> SAML&#160;or WS-Fed cloud app</li>
+                    <li MadCap:conditions="SnippetConditionsForDevices.iOS Only"><MadCap:variable name="Mobile.Okta Mobile" /> 5.12.0+ for iOS, managed by your MDM provider</li>
+                    <li MadCap:conditions="SnippetConditionsForDevices.Android Only"><MadCap:variable name="Mobile.Okta Mobile" /> 5.14.0+ for Android, managed by your MDM provider</li>
+                </ul>
+            </ul>
+            <h2>Before you begin</h2>
+            <ul>
+                <li MadCap:conditions="SnippetConditionsForDevices.iOS Only,Primary.do-not-publish"><MadCap:variable name="okta-feature-names.Device Trust" /> doesn't apply to apps accessed from <MadCap:variable name="Mobile.Okta Mobile" />.
+						</li>
+                <li MadCap:conditions="SnippetConditionsForDevices.iOS Only">Securing access to Box — To secure access to the Box app, Okta recommends that you use <a href="https://community.box.com/t5/How-To-Guides-for-Mobile/Box-for-EMM-Overview-and-FAQs/ta-p/23842">Box for EMM</a>. If you want to use this Okta <MadCap:variable name="okta-feature-names.Device Trust" /> solution instead of <span class="uicontrol">Box for EMM</span>, you must contact Box Support and ask them to enable <span class="uicontrol">Safari View Controller</span> (SVC) for your Box tenant
+						</li>
+                <li MadCap:conditions="SnippetConditionsForDevices.iOS Only">If <MadCap:variable name="okta-feature-names.Device Trust" /> and Okta Mobile Connect are both enabled — End users trying to access an app enabled for <MadCap:variable name="Mobile.Okta Mobile" /> Connect (OMC) and secured by <MadCap:variable name="okta-feature-names.Device Trust" /> go through the <MadCap:variable name="okta-feature-names.Device Trust" /> authentication flow if the app has been configured with any <MadCap:variable name="okta-feature-names.Device Trust" /> sign-on policy rule. Otherwise, they go through the OMC flow.</li>
+                <li MadCap:conditions="SnippetConditionsForDevices.Android Only">Google Play is required for this <MadCap:variable name="okta-feature-names.Device Trust" /> solution — Android devices that aren’t running the Google Play services aren’t supported by Okta <MadCap:variable name="okta-feature-names.Device Trust" />.
+						</li>
+                <li MadCap:conditions="SnippetConditionsForDevices.Android Only">Tapping the Back button prevents access to apps in some case — In orgs that implement Okta MFA, tapping the <span class="uicontrol">Back</span> button on the Android device after satisfying the MFA challenge redirects users to their Okta Home page instead of to the <MadCap:variable name="okta-feature-names.Device Trust" />-secured app they were attempting to access. Advise affected end users to try again without tapping the <span class="uicontrol">Back</span> button.
+						</li>
+                <li MadCap:conditions="SnippetConditionsForDevices.Android Only">Delays possible when pushing <MadCap:variable name="Mobile.Okta Mobile" /> and management hint to devices — You may experience long delays when waiting for the MDM to push the managed <MadCap:variable name="Mobile.Okta Mobile" /> app and the management hint to Android devices. In some cases, the delay is indefinite. This issue appears to originate with Google and they're aware of it.
+						</li>
+                <li>Sign-on policy rules with the Trusted or not trusted condition — When processing a sign-on policy rule for an app configured with the <span class="uicontrol">Trust</span> or <span class="uicontrol">Not trusted</span> condition, Okta  suspends normal rule processing and uses <MadCap:variable name="Mobile.Okta Mobile" /> to assess whether or not the device is trusted. If Okta assesses the device to be untrusted, one of the following occurs:</li>
+                <ul>
+                    <li>If you configure  a sign-on policy rule to deny untrusted devices, users are prompted to enroll in your MDM provider.</li>
+                    <li>If you configure  a sign-on policy rule to issue an MFA&#160;challenge to users with untrusted devices, such users are presented an MFA challenge.</li>
+                </ul>
+                <li>End users aren’t redirected to the app sign-in page sometimes — When this <MadCap:variable name="okta-feature-names.Device Trust" /> solution is enabled, if end users sign in to an Okta-federated Gmail or Salesforce account and later delete the account, they're  redirected to the Okta Home page instead of the app's sign out page.
+						</li>
+                <li>Okta supports password-less authentication only for Office 365 apps (assumes that <MadCap:variable name="Mobile.Okta Mobile" /> is installed) — For all other apps, end users are presented the Okta Sign In page to enter credentials.  Users are then prompted to let <MadCap:variable name="Mobile.Okta Mobile" /> assess the trust status of their device. If the device is trusted (MDM-enrolled), end users can access the app. If <MadCap:variable name="Mobile.Okta Mobile" /> assesses the device to be untrusted, one of the following occurs:
+					
+						<ul><li>If you configured a sign-on policy rule to deny untrusted devices, users with such devices are prompted to enroll in your MDM provider.</li><li>If you configured a sign-on policy rule to present an MFA&#160;challenge to users with untrusted devices, such users are challenged with MFA.</li></ul></li>
+                <li MadCap:conditions="SnippetConditionsForDevices.iOS Only">Web-based MDM enrollment fails for SVC-enabled apps — For customers integrated with an MDM provider that supports web-based enrollment (such as MobileIron), the automatic enrollment flow designed to occur in this device trust solution fails if end users try to access a Safari View Controller-enabled native app (SVC). This happens because SVC apps don't support opening the device’s <span class="uicontrol">Settings</span> page, which is required to complete MDM enrollment. If the app includes a button to launch Safari, end users can tap the button and complete MDM enrollment.
+						</li>
+            </ul>
+            <ul MadCap:conditions="SnippetConditionsForDevices.iOS Only">
+                <li>End users might disable Universal Links inadvertently and be prevented from accessing <MadCap:variable name="okta-feature-names.Device Trust" />-secured apps — If Okta Mobile is installed on the device and an end user taps the upper right corner of the screen (where  breadcrumbs are typically located), the user is prompted to install <MadCap:variable name="Mobile.Okta Mobile" /> even though it's already installed. This happens because tapping that part of the screen inadvertently disables the Universal Link configured to open <MadCap:variable name="Mobile.Okta Mobile" />. An Okta Mobile session is required in order for the user to be authenticated into the app. Advise affected end users that they can open <MadCap:variable name="Mobile.Okta Mobile" /> in this case by performing the following workaround:</li>
+                <ol>
+                    <li>Open the <span class="uicontrol">Notes</span> app.</li>
+                    <li>Create a new note containing this URL: <span style="color: #0000ff;">https://login.okta.com/auth/oktamobile</span></li>
+                    <li>Click <span class="uicontrol">Done</span>. This is necessary to make the URL a hyperlink.</li>
+                    <li>Long press on the link <span style="color: #0000ff;">https://login.okta.com/auth/oktamobile</span>.</li>
+                    <li MadCap:conditions="SnippetConditionsForDevices.Android Only">In the list that opens, tap <span class="uicontrol">Open in "<MadCap:variable name="Mobile.Okta Mobile" />"</span> to launch Okta Mobile. </li>
+                    <p>
+                        <img src="../../../Resources/Images/dt-mdm-ios-open-Okta-Mobile-Note-app.png" class="thumbnail" />
+                    </p>
+                </ol>
+            </ul>
+            <ul>
+                <li>Securing an Okta-federated MDM application with this <MadCap:variable name="okta-feature-names.Device Trust" /> solution — Okta recommends that you not apply a <span class="uicontrol">Not Trusted - Deny</span> app sign policy to your Okta-federated MDM application. Doing so will prevent new users from enrolling their device in your MDM application and accessing other device trust-secured apps.</li>
+                <li>
+                    <MadCap:snippetBlock src="dt-lock-icon-Home-page-apps.flsnp" />
+                </li>
+            </ul>
+            <h2>Procedures</h2>
+            <h3><a name="Step1"></a><span style="font-size: 14pt;">Step 1. Enable the global <MadCap:variable name="okta-feature-names.Device Trust" /> setting for your org</span>
+            </h3>
+            <ol>
+                <li>
+                    <MadCap:snippetText src="../../../Resources/Snippets/task steps/Security_DeviceTrust.flsnp" /> </li>
+                <li>In the <MadCap:variable name="Mobile.mobileplatform" /> <MadCap:variable name="okta-feature-names.Device Trust" /> section, click <span class="uicontrol">Edit</span>.</li>
+                <li>Select <span class="uicontrol">Enable <MadCap:variable name="Mobile.mobileplatform" /> <MadCap:variable name="okta-feature-names.Device Trust" style="font-weight: bold;" /></span>.</li>
+                <li>Select the option(s) that correspond to your MDM&#160;provider:</li>
+                <table border="1" cellpadding="4" style="height: 60px;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                    <col class="TableStyle-standard-Column-Column1" />
+                    <col class="TableStyle-standard-Column-Column1" />
+                    <thead>
+                        <tr class="TableStyle-standard-Head-Header1">
+                            <th class="TableStyle-standard-HeadF-Column1-Header1">MDM</th>
+                            <th class="TableStyle-standard-HeadD-Column1-Header1">Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="TableStyle-standard-Body-Body1">
+                            <td colspan="1" rowspan="1" width="28%" class="TableStyle-standard-BodyF-Column1-Body1"><MadCap:variable name="Mobile.WS1-UEM-short" />
+                                <p>(formerly AirWatch)</p>
+                            </td>
+                            <td class="TableStyle-standard-BodyD-Column1-Body1">
+                                <ul>
+                                    <li>Trust is established by: <MadCap:variable name="Mobile.VMware" /></li>
+                                    <li>Integration type:&#160;Okta client-based (<MadCap:variable name="Mobile.WS1-UEM-short" />)</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2">
+                            <td width="28%" class="TableStyle-standard-BodyF-Column1-Body2">Microsoft Intune</td>
+                            <td class="TableStyle-standard-BodyD-Column1-Body2">
+                                <ul>
+                                    <li>Trust is established by: Microsoft Intune</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body1">
+                            <td colspan="1" rowspan="1" width="28%" class="TableStyle-standard-BodyF-Column1-Body1">MobileIron</td>
+                            <td class="TableStyle-standard-BodyD-Column1-Body1">
+                                <ul>
+                                    <li>Trust is established by: MobileIron</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr class="TableStyle-standard-Body-Body2">
+                            <td colspan="1" rowspan="1" width="28%" class="TableStyle-standard-BodyC-Column1-Body2">None of the above</td>
+                            <td class="TableStyle-standard-BodyA-Column1-Body2">
+                                <ul>
+                                    <li>Trust is established by: Other</li>
+                                    <li>Integration type:&#160;Okta client-based. </li>
+                                </ul>
+                                <div class="note">Important: Don't select the SAML-based option. It doesn't apply to this <MadCap:variable name="okta-feature-names.Device Trust" /> solution.</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <li>Click <span class="uicontrol">Next</span>.</li>
+                <li>
+                    <p>Copy the provided <span class="uicontrol"><span class="disableGlossary">Secret Key</span></span>  to your clipboard by clicking the copy icon adjacent to the field.  You'll enter the <span class="uicontrol"><span class="disableGlossary">Secret Key</span></span> later in your MDM provider's app configuration as described in <a href="#Step2">Step 2</a>. </p>
+                    <div class="noteOkta">
+                        <p class="noteContent">Make a note of the provided <span class="disableGlossary">Secret Key</span> Value, as this is the only time it will appear in Okta. If you generate a new <span class="uicontrol"><span class="disableGlossary">Secret Key</span></span> by clicking the <span class="uicontrol">Reset <MadCap:variable name="Mobile.mobileplatform" /> <span class="disableGlossary">Secret Key</span></span> button, make sure to also update your MDM&#160;configuration with the new key.</p>
+                    </div>
+                </li>
+                <li>  In the <span class="uicontrol">Mobile device management provider</span> field, add or modify the <MadCap:popup><MadCap:popupHead>name of your MDM&#160;provider</MadCap:popupHead><MadCap:popupBody>Okta pre-populates this field if you selected VMware, Microsoft Intune, or MobileIron in Trust is established by.</MadCap:popupBody></MadCap:popup>. The content of this field is displayed to end users when they enroll their device. </li>
+                <li><a name="3PiOSEnrollmentlLink"></a>In the <span class="uicontrol">Enrollment link</span> field, enter a web address for redirecting end users with unenrolled devices.
+							For example, you may want to redirect these users to a page with enrollment instructions or the enrollment page of your selected MDM (assuming the MDM provider supports web-based enrollment).</li>
+                <li>Click <span class="uicontrol">Save</span>. </li>
+                <p>
+                    <img src="../../../Resources/Images/dti-airwatch-secretKey-enrollLink.png" class="thumbnail" />
+                </p>
+                <li>Proceed to Step 2.</li>
+            </ol>
+            <h3><a name="Step2"></a><span style="font-size: 14pt;">Step 2. Integrate Okta into your third party MDM&#160;provider</span>
+            </h3>
+            <h3>Recommended MDM capabilities</h3>
+            <p>At minimum, your MDM must support managed app configuration. For best results, we recommend that you integrate with an MDM&#160;that can do the following:</p>
+            <ul>
+                <li MadCap:conditions="SnippetConditionsForDevices.iOS Only">Set <MadCap:variable name="Mobile.Okta Mobile" /> to be a managed app</li>
+                <li>Set <MadCap:variable name="Mobile.Okta Mobile" /> to install on  end-user devices silently and automatically when they enroll in your chosen MDM</li>
+                <li MadCap:conditions="SnippetConditionsForDevices.Android Only">Set <MadCap:variable name="Mobile.Okta Mobile" /> to install on the work profile of end-user devices silently and automatically when they enroll in your chosen MDM</li>
+                <li MadCap:conditions="SnippetConditionsForDevices.iOS Only">Set the MDM to convert end user-installed <MadCap:variable name="Mobile.Okta Mobile" /> app instances to a managed app</li>
+                <li>Use the managed app configuration to configure the key-value pair                                </li>
+            </ul>
+            <h3>Ensure the best end user experience</h3>
+            <p MadCap:conditions="SnippetConditionsForDevices.iOS Only">Your end users will have a better experience when accessing your managed corporate resources if their <MadCap:variable name="Mobile.mobileplatform" />&#160;device is already enrolled in your MDM provider and Okta Mobile was already installed silently on the device through the MDM provider's app store. If <MadCap:variable name="Mobile.Okta Mobile" /> isn't installed already, end users are guided to install it through the MDM&#160;app store. If <MadCap:variable name="Mobile.Okta Mobile" /> is installed but not already managed by the MDM provider, end users are guided through the app management process before they can access device trust-secured apps.</p>
+            <p MadCap:conditions="SnippetConditionsForDevices.Android Only">Your end users will have a better experience when accessing your managed corporate resources if their <MadCap:variable name="Mobile.mobileplatform" />&#160;device is already enrolled in your MDM provider and <MadCap:variable name="Mobile.Okta Mobile" /> was already installed silently in the device's work profile through the MDM provider's app store. If <MadCap:variable name="Mobile.Okta Mobile" /> isn't installed in the work profile already, end users are guided to install it through the MDM&#160;app store. If <MadCap:variable name="Mobile.Okta Mobile" /> is installed but not already managed by the MDM provider, end users are guided through the app management process before they can access device trust-secured apps.</p>
+            <ol>
+                <li>Configure your MDM&#160;provider to manage <MadCap:variable name="Mobile.Okta Mobile" /> and to install it on end user devices if it isn't installed already.</li>
+                <li>Configure the key-value pairs through your MDM&#160;provider's managed app configuration as described in their documentation:</li>
+                <ul>
+                    <li><span class="uicontrol">Key:</span> Domain
+                                    </li>
+                    <li><span class="uicontrol">Value:</span> Enter the URL of your Okta org</li>
+                    <li><span class="uicontrol">Key:</span> managementHint</li>
+                    <li><span class="uicontrol">Value:</span> Use the <span class="uicontrol"><span class="disableGlossary">Secret Key</span></span> value that you saved in <a href="#Step1">Step 1</a>. </li>
+                    <p>Note: The key-value pairs are case sensitive.</p>
+                </ul>
+                <p>For example: if your MDM requires XML, use this XML format for guidance.</p>
+                <p>
+                    <MadCap:codeSnippet>
+                        <MadCap:codeSnippetCopyButton />
+                        <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve" style="mc-code-lang: HTML;">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE plist PUBLIC “-//Apple//DTD PLIST 1.0//EN” http://www.apple.com/DTDs/PropertyList-1.0.dtd&gt;
+&lt;plist version="1.0"&gt;
+&lt;dict&gt;
+&lt;key&gt;Domain&lt;/key&gt;
+&lt;string&gt;https://“Your domain”.okta.com&lt;/string&gt;
+&lt;key&gt;managementHint&lt;/key&gt;
+&lt;string&gt;“secret key goes here”&lt;/string&gt;
+&lt;/dict&gt;
+&lt;/plist&gt;</MadCap:codeSnippetBody>
+                    </MadCap:codeSnippet>
+                </p>
+                <div MadCap:conditions="SnippetConditionsForDevices.Android Only">
+                    <h4>Configuration tips</h4>
+                    <p>Below are tips for configuring the key-value pairs in select MDM&#160;applications.  As MDM configurations may change without notice, Okta recommends that you always consult your MDM's documentation for the most up-to-date information (see <MadCap:xref href="#Related">Related topics</MadCap:xref>).</p>
+                    <div MadCap:conditions="SnippetConditionsForDevices.Android Only">
+                        <h4>VMware</h4>
+                        <p>For how to add, assign, and manage <MadCap:variable name="Mobile.Okta Mobile" /> with <MadCap:variable name="Mobile.WS1-UEM-short" />, perform the procedures as described in the following <MadCap:variable name="Mobile.WS1-UEM-short" /> documentation:</p>
+                        <ul>
+                            <li><a href="https://docs.vmware.com/en/VMware-AirWatch/9.1/vmware-airwatch-guides-91/GUID-AW91-Add_Apps.html" target="_blank">Adding Applications for Android for Work</a>
+                            </li>
+                            <li><a href="https://docs.vmware.com/en/VMware-AirWatch/9.1/vmware-airwatch-guides-91/GUID-AW91-Assign_Apps_FP02.html" target="_blank">Assign Applications for Android for Work</a>
+                            </li>
+                        </ul>
+                        <div>
+                            <p>In the Assign Applications . . . procedure, make sure to configure these settings as shown:</p>
+                            <ul>
+                                <li><span class="uicontrol">Managed Access</span> – Enable
+</li>
+                                <li><span class="uicontrol">App Delivery Method</span> – Auto</li>
+                                <li><span class="uicontrol">Application Configuration</span>
+                                </li>
+                                <li><span class="disableGlossary" style="font-weight: bold;">Domain</span> – Enter the URL of your Okta org.</li>
+                                <li><span class="uicontrol">Username</span> – Enter your username for your Okta org.</li>
+                                <li><span class="uicontrol">Management Hint</span> – Enter the <span class="uicontrol"><span class="disableGlossary">Secret Key</span></span> value that you saved in <a href="#Step1">Step 1</a>.  (Note: The value is case sensitive.)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <h4>Microsoft Intune</h4>
+                        <p>For how to manage <MadCap:variable name="Mobile.Okta Mobile" /> with <MadCap:variable name="Mobile.MS-Intune" />, perform the procedures as described in the <MadCap:variable name="Mobile.MS-Intune" /> document <a href="https://docs.microsoft.com/en-us/intune/app-configuration-policies-use-android" target="_blank">Add app configuration policies for managed Android Enterprise devices</a>.</p>
+                        <div>
+                            <ul>
+                                <li><span class="uicontrol">Device enrollment type</span> – Managed devices</li>
+                                <li><span class="uicontrol">Associated App</span> – <MadCap:variable name="Mobile.Okta Mobile" /></li>
+                                <li><span class="uicontrol">Configuration settings format</span> – Use configuration designer</li>
+                                <li><span class="disableGlossary" style="font-weight: bold;">Domain (string)</span> – Enter the URL of your Okta org</li>
+                                <li><span class="uicontrol">Username (string)</span> – Enter your username for your Okta org</li>
+                                <li><span class="uicontrol">Management Hint (string)</span> – Enter the <span class="uicontrol"><span class="disableGlossary">Secret Key</span></span> value that you saved in <a href="#Step1">Step 1</a>.  (Note: The value is case sensitive.)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <h4>MobileIron</h4>
+                        <p>For how to manage <MadCap:variable name="Mobile.Okta Mobile" /> with <MadCap:variable name="Mobile.MobileIron" />, perform the procedures provided in the <MadCap:variable name="Mobile.MobileIron" /> document <a href="http://mi.extendedhelp.mobileiron.com/40/all/en/desktop/App_Configuration.htm" target="_blank">App Configuration</a>.</p>
+                        <div>
+                            <p>In the <span class="uicontrol">App Configurations</span> screen, configure settings for:</p>
+                            <ul>
+                                <li><span class="uicontrol">Install on device</span>
+                                </li>
+                                <li><span class="uicontrol">Managed Configurations for Android</span>
+                                </li>
+                                <p><span class="disableGlossary" style="font-weight: bold;">Domain</span> – Enter the URL of your Okta org.</p>
+                                <p><span class="uicontrol">Username</span> – Enter your username for your Okta org.</p>
+                                <p><span class="uicontrol">Management Hint</span> – Enter the <span class="uicontrol"><span class="disableGlossary">Secret Key</span></span> value that you saved in <a href="#Step1">Step 1</a>.  (Note: The value is case sensitive.)</p>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <li>Proceed to Step 3.</li>
+            </ol>
+            <h3><a name="StepC"></a><span style="font-size: 14pt;">Step 3. Configure app sign-on policy rules in Okta</span>
+            </h3>
+            <MadCap:snippetBlock src="AppSignOnRules_bulletedList.flsnp" />
+            <MadCap:snippetBlock src="sign-on-policies-white-list.flsnp" />
+            <h4>Procedure</h4>
+            <p>Note: This example shows <MadCap:variable name="okta-feature-names.Device Trust" /> rules for managing access to Office 365. For other apps, note that the section <span class="uicontrol">If the user's client is any of these</span> isn't present.</p>
+            <MadCap:snippetBlock src="../../device-trust/dt-snippets/dt-create-app-sign-on-policy-rules.flsnp" />
+            <p> This example illustrates how you can  design an app sign-on policy that allows access to web browsers and Modern Auth clients, requires MFA for all access, and denies access to untrusted <MadCap:variable name="Mobile.mobileplatform" /> devices.</p>
+            <h4><a name="WL-Rule1"></a>
+                <MadCap:dropDownHotspot>Example Rule 1 – Web browser or Modern Auth; <MadCap:variable name="Mobile.mobileplatform" />; Trusted; Allow access +&#160;MFA </MadCap:dropDownHotspot>
+            </h4>
+            <p MadCap:conditions="SnippetConditionsForDevices.iOS Only">
+                <img src="../../../Resources/Images/E2_R2_Web-iOS-Trust-Allow-MFA.png" class="thumbnail" />
+            </p>
+            <p MadCap:conditions="SnippetConditionsForDevices.Android Only">
+                <img src="../../../Resources/Images/Web-Android-Trust-Allow-MFA.png" class="thumbnail" />
+            </p>
+            <ol>
+                <li>Enter a descriptive name for the rule.</li>
+            </ol>
+            <p>Conditions</p>
+            <ol MadCap:continue="true">
+                <li>Under <span class="uicontrol">PEOPLE</span>, specify whether to apply the rule to individuals only or to individuals and groups. The option must be the same for all the rules you create for this example.</li>
+                <li>Under <span class="uicontrol">LOCATION</span>, specify the user location to which the rule will apply. The option must be the same for all the rules you create for this example.</li>
+                <li>Under <span class="uicontrol">CLIENT</span>, configure the following settings:</li>
+                <p><span class="uicontrol">Web browser</span> selected.</p>
+                <p><span class="uicontrol">Modern Auth client</span> selected.</p>
+                <p><span class="uicontrol">Exchange ActiveSync client</span> is is unselected.</p>
+                <p>Mobile</p>
+                <div MadCap:conditions="SnippetConditionsForDevices.iOS Only">
+                    <p><span class="uicontrol">iOS</span> is selected.</p>
+                    <p><span class="uicontrol">Android</span> is unselected.</p>
+                    <p><span class="uicontrol">Other mobile</span> is unselected.</p>
+                </div>
+                <div MadCap:conditions="SnippetConditionsForDevices.Android Only">
+                    <p><span class="uicontrol">iOS</span> is unselected.</p>
+                    <p><span class="uicontrol">Android</span> is selected.</p>
+                    <p><span class="uicontrol">Other mobile</span> is unselected.</p>
+                </div>
+                <p>Desktop</p>
+                <p><span class="uicontrol">Windows</span> is unselected.</p>
+                <p><span class="uicontrol">macOS</span> is unselected.</p>
+                <p><span class="uicontrol">Other desktop</span> is unselected.</p>
+                <li>Under <span class="uicontrol">DEVICE&#160;TRUST</span>, configure the following:</li>
+                <MadCap:snippetBlock src="snippet-tip-make-trusted-options-appear.flsnp" />
+                <p><span class="uicontrol">Any</span> is unselected.</p>
+                <p><span class="uicontrol">Trusted</span> is selected.</p>
+                <p><span class="uicontrol">Not trusted</span> is unselected.</p>
+            </ol>
+            <p>Actions</p>
+            <ol MadCap:continue="true">
+                <li>Configure <span class="uicontrol">Access</span>:</li>
+                <p><span class="uicontrol">Allowed</span> is selected.</p>
+                <p><span class="uicontrol">Prompt for factor</span> is selected.</p>
+                <li>Click <span class="uicontrol">Save</span>.</li>
+                <li>Create Rule 2.</li>
+            </ol>
+            <h4><a name="WL-Rule2"></a>
+                <MadCap:dropDownHotspot>Example Rule 2 – Web browser or Modern Auth; All platforms except <MadCap:variable name="Mobile.mobileplatform" />; Any Trust; Allow access +&#160;MFA </MadCap:dropDownHotspot>
+            </h4>
+            <p MadCap:conditions="SnippetConditionsForDevices.iOS Only">
+                <img src="../../../Resources/Images/Web_AllButiOS_AnyT_Allow-MFA.png" class="thumbnail" />
+            </p>
+            <p MadCap:conditions="SnippetConditionsForDevices.Android Only">
+                <img src="../../../Resources/Images/Web_AllButAndroid_AnyT_MFA.png" class="thumbnail" />
+            </p>
+            <ol>
+                <li>Enter a descriptive name for the rule.</li>
+            </ol>
+            <p>Conditions</p>
+            <ol MadCap:continue="true">
+                <li>
+									Under <span class="uicontrol">PEOPLE</span>, select the same People option that you selected in <a href="#WL-Rule1">Rule 1</a>.  The option must be the same for all the rules you create for this example.</li>
+                <li>Under <span class="uicontrol">LOCATION</span>, select the same Location option that you selected in <a href="#WL-Rule1">Rule 1</a>.  The option must be the same for all the rules you create for this example.</li>
+                <li>Under <span class="uicontrol">CLIENT</span>, configure the following settings:</li>
+                <p><span class="uicontrol">Web browser</span> selected.</p>
+                <p><span class="uicontrol">Modern Auth client</span> selected.</p>
+                <p><span class="uicontrol">Exchange ActiveSync client</span> is is unselected.</p>
+                <p>Mobile									
+										<div MadCap:conditions="SnippetConditionsForDevices.iOS Only"><p><span class="uicontrol">iOS</span> is unselected.</p><p><span class="uicontrol">Android</span> is selected.</p><p><span class="uicontrol">Other mobile</span> is selected.</p></div><div MadCap:conditions="SnippetConditionsForDevices.Android Only"><p><span class="uicontrol">iOS</span> is selected.</p><p><span class="uicontrol">Androd</span> is unselected.</p><p><span class="uicontrol">Other mobile</span> is selected.</p></div></p>
+                <p>Desktop</p>
+                <p><span class="uicontrol">Windows</span> is selected</p>
+                <p><span class="uicontrol">macOS</span> is selected</p>
+                <p><span class="uicontrol">Other desktop</span> is selected</p>
+                <li>Under <span class="uicontrol">DEVICE&#160;TRUST</span>, configure the following:</li>
+                <MadCap:snippetBlock src="snippet-tip-make-trusted-options-appear.flsnp" />
+                <p><span class="uicontrol">Any</span> is selected.</p>
+                <p><span class="uicontrol">Trusted</span> is unselected.</p>
+                <p><span class="uicontrol">Not trusted</span> is unselected.</p>
+            </ol>
+            <p>Actions</p>
+            <ol MadCap:continue="true">
+                <li>Configure <span class="uicontrol">Access</span>.</li>
+                <p><span class="uicontrol">Allowed</span> is selected.</p>
+                <p><span class="uicontrol">Prompt for factor</span> is selected.</p>
+                <li>Click <span class="uicontrol">Save</span>.</li>
+                <li>Create Rule 3.</li>
+            </ol>
+            <h4><a name="WL-Rule3"></a>
+                <MadCap:dropDownHotspot>Example Rule 3 – Web browser or Modern Auth; <MadCap:variable name="Mobile.mobileplatform" />; Not Trusted; Deny access</MadCap:dropDownHotspot>
+            </h4>
+            <p MadCap:conditions="SnippetConditionsForDevices.iOS Only">
+                <img src="../../../Resources/Images/R3_Web_iOS_NoTrust_Denied.png" class="thumbnail" />
+            </p>
+            <p MadCap:conditions="SnippetConditionsForDevices.Android Only">
+                <img src="../../../Resources/Images/Web_Android_NoTrust_Denied.png" class="thumbnail" />
+            </p>
+            <ol>
+                <li>Enter a descriptive name for the rule.</li>
+            </ol>
+            <p>Conditions</p>
+            <ol MadCap:continue="true">
+                <li>
+									Under <span class="uicontrol">PEOPLE</span>, select the same People option that you selected in <a href="#WL-Rule1">Rule 1</a>. The option must be the same for all the rules you create for this example.</li>
+                <li>Under <span class="uicontrol">LOCATION</span>, select the same Location option that you selected in <a href="#WL-Rule1">Rule 1</a>. The option must be the same for all the rules you create for this example.</li>
+                <li>Under <span class="uicontrol">CLIENT</span>, configure the following settings:</li>
+                <p><span class="uicontrol">Web browser</span> selected.</p>
+                <p><span class="uicontrol"> Modern Auth client</span> selected.</p>
+                <p><span class="uicontrol">Exchange ActiveSync client</span> is is unselected.</p>
+                <p>Mobile</p>
+                <div MadCap:conditions="SnippetConditionsForDevices.iOS Only">
+                    <p><span class="uicontrol">iOS</span> is selected.</p>
+                    <p><span class="uicontrol">Androd</span> is unselected.</p>
+                    <p><span class="uicontrol">Other mobile</span> is unselected.</p>
+                </div>
+                <div MadCap:conditions="SnippetConditionsForDevices.Android Only">
+                    <p><span class="uicontrol">iOS</span> is unselected.</p>
+                    <p><span class="uicontrol">Android</span> is selected.</p>
+                    <p><span class="uicontrol">Other mobile</span> is unselected.</p>
+                </div>
+                <p>Desktop</p>
+                <p><span class="uicontrol">Windows</span> is unselected.</p>
+                <p><span class="uicontrol">macOS</span> is unselected.</p>
+                <p><span class="uicontrol">Other desktop</span> is unselected.</p>
+                <li>Under <span class="uicontrol">DEVICE&#160;TRUST</span>, configure the following:</li>
+                <MadCap:snippetBlock src="snippet-tip-make-trusted-options-appear.flsnp" />
+                <p><span class="uicontrol">Any</span> is unselected.</p>
+                <p><span class="uicontrol">Trusted</span> is unselected.</p>
+                <p><span class="uicontrol">Not trusted</span> is selected.</p>
+            </ol>
+            <p>Actions</p>
+            <ol MadCap:continue="true">
+                <li>Configure <span class="uicontrol">Access</span>.</li>
+                <p><span class="uicontrol">Denied</span> is selected.</p>
+                <li>Click <span class="uicontrol">Save</span>.</li>
+            </ol>
+            <h4>
+                <MadCap:dropDownHotspot>Example Rule 4 – Any client type; All platforms; Any Trust; Deny access</MadCap:dropDownHotspot>
+            </h4><a name="WL-Rule4"></a>
+            <p>
+                <img src="../../../Resources/Images/dt-macOS-rules-2-4.png" class="thumbnail" />
+            </p>
+            <ol>
+                <li>Enter a descriptive name for the rule.</li>
+            </ol>
+            <p>Conditions</p>
+            <ol MadCap:continue="true">
+                <li>
+										Under <span class="uicontrol">PEOPLE</span>, select the same People option that you selected in <a href="#WL-Rule1">Rule 1</a>. The option must be the same for all the rules you create for this example.</li>
+                <li>Under <span class="uicontrol">LOCATION</span>, select the same Location option that you selected in <a href="#WL-Rule1">Rule 1</a>. The option must be the same for all the rules you create for this example.</li>
+                <li>Under <span class="uicontrol">CLIENT</span>, configure the following settings:</li>
+                <p><span class="uicontrol">Web browser</span> selected.</p>
+                <p><span class="uicontrol">Modern Auth client</span> selected.</p>
+                <p><span class="uicontrol">Exchange ActiveSync client</span> is selected.</p>
+                <p>Mobile										</p>
+                <p><span class="uicontrol">iOS</span> is selected.</p>
+                <p><span class="uicontrol">Android</span> is selected.</p>
+                <p><span class="uicontrol">Other mobile</span> is selected.</p>
+                <p>Desktop</p>
+                <p><span class="uicontrol">Windows</span> is selected.</p>
+                <p><span class="uicontrol">macOS</span> is selected.</p>
+                <p><span class="uicontrol">Other desktop</span> is selected.</p>
+                <li>Under <span class="uicontrol">DEVICE&#160;TRUST</span>, configure the following:</li>
+                <MadCap:snippetBlock src="snippet-tip-make-trusted-options-appear.flsnp" />
+                <p><span class="uicontrol">Any</span> is selected.</p>
+                <p><span class="uicontrol">Trusted</span> is unselected.</p>
+                <p><span class="uicontrol">Not trusted</span> is unselected.</p>
+            </ol>
+            <p>Actions</p>
+            <ol MadCap:continue="true">
+                <li>Configure <span class="uicontrol">Access</span>.</li>
+                <p><span class="uicontrol">Denied</span> is selected.</p>
+                <li>Click <span class="uicontrol">Save</span>.</li>
+            </ol>
+            <h4>Rule 5: Default sign on rule – Any client, All platforms; Any Trust; Allow access</h4>
+            <p>The Default sign on rule is already created and can't be edited. In this example, the Default rule is never reached because it is effectively negated by Rule 4.</p>
+            <p>
+                <img src="../../../Resources/Images/SignOnPolicies_DefaultRule.png" class="thumbnail" />
+            </p>
+            <h2>Known issues</h2>
+            <ul>
+                <li>If Intune is your MDM provider, O365 isn't supported when using this <MadCap:variable name="okta-feature-names.Device Trust" /> solution — If Microsoft Intune is your MDM provider and is federated to Okta, applying a Not Trusted --&gt; Deny app sign-on policy to an Okta-federated O365 app will block end users with unmanaged <MadCap:variable name="Mobile.mobileplatform" /> devices from enrolling their device in Intune. This happens because your O365 app sign-on policy is applied to Intune as well. Okta is investigating this issue. In the mean time, Okta recommends that you use Microsoft Intune MAM to manage access to O365 apps and this Okta <MadCap:variable name="okta-feature-names.Device Trust" /> solution to manage access to other sensitive apps.</li>
+                <li MadCap:conditions="SnippetConditionsForDevices.Android Only">Android 10 (Q) and later versions aren’t supported with this solution — Changes made by Google prevent devices on Android 10 and later versions from communicating their trust posture (Trusted/Not-Trusted) to ISVs such as Okta. Consequently, authentication requests from native apps or Chrome on devices running Android 10 or later versions appear as <span class="uicontrol">Not Trusted</span>. In this scenario Okta prompts users to access protected resources through <MadCap:variable name="Mobile.Okta Mobile" /> to ensure that device posture is evaluated correctly.                        </li>
+                <li MadCap:conditions="SnippetConditionsForDevices.Android Only">Additional prompt may be shown to iPad <span class="disableGlossary" style="font-weight: bold;">users</span> not enrolled in this <MadCap:variable name="okta-feature-names.Device Trust" /> solution — <span class="disableGlossary">End users</span> using Safari to access device trust-secured apps from an unenrolled iPad are prompted to tap a link <span class="uicontrol">Tap here to connect</span>. Tapping the link guides the user through the device enrollment flow. The prompt isn't shown if the user is accessing a native app through the <MadCap:variable name="Mobile.Okta Mobile" /> dashboard.
+                        </li>
+                <li MadCap:conditions="SnippetConditionsForDevices.Android Only">UX issues possible when authenticating to Outlook — Android device users in orgs with a <MadCap:variable name="okta-feature-names.Device Trust" /> sign-on policy configured for Outlook  may see Outlook hang or encounter other UX issues when authenticating to Outlook. The issue is related to a recent change that Microsoft made to the Outlook app affecting its handling of the Okta Sign-In Widget during the federated flow. The resolution for users in all such cases is to force close Outlook and try again. Okta has raised this issue with Microsoft.                        </li>
+            </ul>
+        </div>
+    </body>
+</html>

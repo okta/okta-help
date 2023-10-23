@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:fileTags="Tags/okta-authors.Patrick Calnan"
+      MadCap:conditions="MultiProdPublish.Classic+OIE">
+   <head>
+      <link href="../../Resources/TableStyles/standard.css"
+            rel="stylesheet"
+            MadCap:stylesheetType="table"/>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <meta name="description"
+            content="Configure the Citrix Netscaler Gateway integration to enable MFA against your Okta RADIUS server agent to provide seamless end-user authentication."/>
+   </head>
+   <body>
+      <h1>Configure the Fortinet gateway</h1>
+      <p>During this task we will use the Fortinet web based Admin Console to integrate Fortinet with RADIUS. </p>
+      <h3>Steps</h3>
+      <ol>
+         <li>
+            <MadCap:xref href="#Define">Define a RADIUS Server Profile</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Define2">Define a Firewall Group</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Define3">Define an IPv4 Policy</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Define4">Define Authentication/Portal Mapping</MadCap:xref>
+         </li>
+      </ol>
+      <h2>Before you begin</h2>
+      <ul>
+         <li>Ensure that you have the common UDP port and secret key values available.</li>
+      </ul>
+      <p>In Part 3 you define a RADIUS Server Profile, define a RADIUS server, define a firewall group, define an IPv4 policy, and define Authentication/Portal mapping. Complete these using the Fortinet web based Admin Console.</p>
+      <h2>
+         <a name="Define"/>Define a RADIUS Server Profile</h2>
+      <ol>
+         <li>Sign in to the Fortinet Admin console for the VPN appliance with sufficient privileges</li>
+         <li>Navigate to <span class="menucascade">
+               <span class="uicontrol">User &amp; Device</span>
+               <span class="uicontrol">RADIUS Servers</span>
+            </span>, and then click <span class="uicontrol">Create New</span> to define a new RADIUS server, as shown below.<p>
+               <img src="../../Resources/Images/fortinet-4.png" id="img_new"/>
+            </p>
+         </li>
+         <li>
+            <p>Enter the following values to create a  New RADIUS Server</p>
+            <table style="width: 660px;mc-table-style: url('../../Resources/TableStyles/standard.css');"
+                   class="TableStyle-standard"
+                   cellspacing="0">
+               <col style="width: 374px;" class="TableStyle-standard-Column-Column1"/>
+               <col style="width: 394px;" class="TableStyle-standard-Column-Column1"/>
+               <thead>
+                  <tr class="TableStyle-standard-Head-Header1">
+                     <th class="TableStyle-standard-HeadF-Column1-Header1">Field</th>
+                     <th class="TableStyle-standard-HeadD-Column1-Header1">Value</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr class="TableStyle-standard-Body-Body1">
+                     <td class="TableStyle-standard-BodyF-Column1-Body1">Name</td>
+                     <td class="TableStyle-standard-BodyD-Column1-Body1">Unique and appropriate name (Okta MFA RADIUS)</td>
+                  </tr>
+                  <tr class="TableStyle-standard-Body-Body2">
+                     <td class="TableStyle-standard-BodyF-Column1-Body2">Primary Server IP / Name</td>
+                     <td class="TableStyle-standard-BodyD-Column1-Body2">IP or Name of Okta RADIUS Server Agent</td>
+                  </tr>
+                  <tr class="TableStyle-standard-Body-Body1">
+                     <td class="TableStyle-standard-BodyF-Column1-Body1">Primary Server Secret</td>
+                     <td class="TableStyle-standard-BodyD-Column1-Body1">Secret Key for the Fortinet Fortigate (RADIUS) App defined in Part 2, Step 3, above</td>
+                  </tr>
+                  <tr class="TableStyle-standard-Body-Body2">
+                     <td class="TableStyle-standard-BodyF-Column1-Body2">Secondary Server IP / Name</td>
+                     <td class="TableStyle-standard-BodyD-Column1-Body2">Optional</td>
+                  </tr>
+                  <tr class="TableStyle-standard-Body-Body1">
+                     <td class="TableStyle-standard-BodyF-Column1-Body1">Secondary Server Secret</td>
+                     <td class="TableStyle-standard-BodyD-Column1-Body1">Optional</td>
+                  </tr>
+                  <tr class="TableStyle-standard-Body-Body2">
+                     <td class="TableStyle-standard-BodyF-Column1-Body2">Authentication Method</td>
+                     <td class="TableStyle-standard-BodyD-Column1-Body2">Specify</td>
+                  </tr>
+                  <tr class="TableStyle-standard-Body-Body1">
+                     <td class="TableStyle-standard-BodyF-Column1-Body1">Method</td>
+                     <td class="TableStyle-standard-BodyD-Column1-Body1">PAP</td>
+                  </tr>
+                  <tr class="TableStyle-standard-Body-Body2">
+                     <td class="TableStyle-standard-BodyF-Column1-Body2">NAS IP</td>
+                     <td class="TableStyle-standard-BodyD-Column1-Body2">Blank</td>
+                  </tr>
+                  <tr class="TableStyle-standard-Body-Body1">
+                     <td class="TableStyle-standard-BodyC-Column1-Body1">Include in every User Group</td>
+                     <td class="TableStyle-standard-BodyA-Column1-Body1">unchecked</td>
+                  </tr>
+               </tbody>
+            </table>
+            <p>Note: FortiGate defaults to using port 1812. To modify this setting, follow command line instructions below.</p>
+         </li>
+         <li>Click <span class="uicontrol">OK</span> to save these settings.</li>
+         <li>
+            <p>Set the Remote Authentication Timeout</p>
+            <p>The default timeout for Fortinet is 5 seconds; however, this timeout is insufficient when using Okta Verify Push.  Run following commands from the command line to increase the timeout to 60 seconds.
+				<span class="codeblock">config system global
+    set remoteauthtimeout 60
+end</span>
+            </p>
+         </li>
+         <li>
+            <p>[Optional] Change the Standard Port Definition</p>
+            <p>To define a UDP Port other than the default (usually 1812), run the following commands from the command line.</p>
+            <p>Note: These commands show the full RADIUS definition. <span class="code">MyRadiusSecretKey</span> is the secret key for the Fortinet Fortigate (RADIUS) App defined in Part 2, Step 3, above. The command to define the RADIUS port is highlighted.</p>
+            <span class="codeblock">config user radius
+   edit "Okta MFA RADIUS"
+       set server "10.20.251.19"
+	    set secret MyRadiusSecretKey
+      set radius-port 1814
+      set auth-type pap
+   next
+end</span>
+         </li>
+      </ol>
+      <h2>
+         <a name="Define2"/>Define a Firewall Group</h2>
+      <ol>
+         <li>Navigate to <span class="menucascade">
+               <span class="uicontrol">User &amp; Device</span>
+               <span class="uicontrol">User Groups</span>
+            </span>, and then click <span class="uicontrol">Add</span> to define a new Group Match, as shown below. <br/>Note: Leave the <span class="uicontrol">Groups</span> field blank. <p>
+               <img src="../../Resources/Images/fortinet-5.png"/>
+            </p>
+         </li>
+         <li>
+            <p>Enter the following values to create a  New Firewall Group</p>
+            <table style="width: 660px;mc-table-style: url('../../Resources/TableStyles/standard.css');"
+                   class="TableStyle-standard"
+                   cellspacing="0">
+               <col style="width: 374px;" class="TableStyle-standard-Column-Column1"/>
+               <col style="width: 394px;" class="TableStyle-standard-Column-Column1"/>
+               <thead>
+                  <tr class="TableStyle-standard-Head-Header1">
+                     <th class="TableStyle-standard-HeadF-Column1-Header1">Field</th>
+                     <th class="TableStyle-standard-HeadD-Column1-Header1">Value</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr class="TableStyle-standard-Body-Body1">
+                     <td class="TableStyle-standard-BodyF-Column1-Body1">Name</td>
+                     <td class="TableStyle-standard-BodyD-Column1-Body1">Unique and appropriate name (Okta MFA Radius Group)<br/>
+                     </td>
+                  </tr>
+                  <tr class="TableStyle-standard-Body-Body2">
+                     <td class="TableStyle-standard-BodyF-Column1-Body2">Type</td>
+                     <td class="TableStyle-standard-BodyD-Column1-Body2">Firewall</td>
+                  </tr>
+                  <tr class="TableStyle-standard-Body-Body1">
+                     <td class="TableStyle-standard-BodyF-Column1-Body1">Single Sign-On (RSSO) Members</td>
+                     <td class="TableStyle-standard-BodyD-Column1-Body1">blank</td>
+                  </tr>
+                  <tr class="TableStyle-standard-Body-Body2">
+                     <td class="TableStyle-standard-BodyC-Column1-Body2">Remote Groups</td>
+                     <td class="TableStyle-standard-BodyA-Column1-Body2">
+                        <p>Create New</p>
+                        <p>Remote Server: Use the name created in Step 1, above (Okta MFA Radius)</p>
+                        <p>Group Name: Any (Note: In Fortigate firmware 5.6.5 and above, leave the Group Name blank.)</p>
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+         </li>
+         <li>Click <span class="uicontrol">OK</span> to save these settings.</li>
+      </ol>
+      <h2>
+         <a name="Define3"/>Define an IPv4 Policy</h2>
+      <ol>
+         <li>Navigate to <span class="menucascade">
+               <span class="uicontrol">Policy &amp; Objects</span>
+               <span class="uicontrol">IPv4 Policy</span>
+            </span>, and then locate and edit the policy related to your SSL-VPN interface. Edit the <span class="uicontrol">Source</span>, as shown below.<p>
+               <img src="../../Resources/Images/fortinet-6.png"/>
+            </p>
+         </li>
+         <li>Navigate to the <span class="uicontrol">User Define an IPv4 Policy Select Entries</span> dialog.</li>
+         <li>
+            <p>Select and add the group you created in the previous step (Okta MFA Radius Group).</p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">OK</span> to apply and save the settings.</p>
+         </li>
+      </ol>
+      <h2>
+         <a name="Define4"/>Define Authentication/Portal Mapping</h2>
+      <ol>
+         <li>Navigate to <span class="menucascade">
+               <span class="uicontrol">VPN</span>
+               <span class="uicontrol">SSL-VPN Settings</span>
+            </span>, and then go to the <span class="uicontrol">Authentication/Portal Mapping</span> section, </li>
+         <li>Create a new or edit an existing mapping, as shown below, to grant access to the Firewall group you just created in the previous step.<p>
+               <img src="../../Resources/Images/fortinet-7.png"/>
+            </p>
+         </li>
+         <li>Navigate to the <span class="uicontrol">User Define an IPv4 Policy Select Entries</span> dialog.</li>
+         <li>
+            <p>Click <span class="uicontrol">Apply</span> to apply and save the settings.</p>
+         </li>
+      </ol>
+      <div>
+         <h2>Next steps</h2>
+         <p>
+            <MadCap:xref href="fortinet-radius-intg-opt.htm">Configure optional settings</MadCap:xref>
+         </p>
+      </div>
+   </body>
+</html>

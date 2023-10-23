@@ -1,0 +1,304 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd">
+    <head>
+        <link href="../../../Resources/TableStyles/standard.css" rel="stylesheet" MadCap:stylesheetType="table" />
+    </head>
+    <body>
+        <h1>Configure the <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> <span class="disableGlossary">server agent</span></h1>
+        <p>This topic explains  how to configure the <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> server agent.</p>
+        <ul>
+            <li>
+                <MadCap:xref href="#Command">Command line options</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Configur">Configuration file</MadCap:xref>
+                <ul>
+                    <li>
+                        <MadCap:xref href="#enrollment">Enrollment			</MadCap:xref>
+                    </li>
+                    <li>
+                        <MadCap:xref href="#logs">Logs</MadCap:xref>
+                    </li>
+                    <li>
+                        <MadCap:xref href="#connections">Connections</MadCap:xref>
+                    </li>
+                    <li>
+                        <MadCap:xref href="#access">Access Broker</MadCap:xref>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <MadCap:xref href="#Environm">Environment variables</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#See">Related topics</MadCap:xref>
+            </li>
+        </ul>
+        <h2><a name="Command"></a>Command line options</h2>
+        <ul>
+            <p><span class="code">--conf</span>: Provides an alternative configuration file path.</p>
+            <p><span class="code">--debug-device-info</span>: Prints detected device information to stderr and then exits.</p>
+            <p><span class="code">-h</span>, <span class="code">--help</span>: Displays help.</p>
+            <p><span class="code">-v</span>, <span class="code">--version</span>: Displays version.</p>
+            <p><span class="code">--syslog</span>: Forces syslog logging.</p>
+        </ul>
+        <h2><a name="Configur"></a>Configuration file</h2>
+        <p>You can control the <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> <span class="disableGlossary">server agent</span> by manually creating a configuration file. The location of the configuration file depends on the operating system running the server agent.</p>
+        <ul>
+            <li>
+                <p>Linux: <span class="code">/etc/sft/sftd.yaml</span></p>
+            </li>
+            <li>Windows: <span class="code">C:\Windows\System32\config\systemprofile\AppData\Local\scaleft\sftd.yaml</span></li>
+        </ul>
+        <p>If a configuration file hasn't been created or is unavailable, the server agent uses the following default values.<br /></p>
+        <div class="noteOkta">
+            <p class="noteContent">You must restart the server agent before changes to the configuration file take effect.</p>
+        </div>
+        <hr />
+        <div>
+            <h3><a name="enrollment"></a>Enrollment Options</h3>
+            <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                <col class="TableStyle-standard-Column-Column1" />
+                <col class="TableStyle-standard-Column-Column1" />
+                <col class="TableStyle-standard-Column-Column1" />
+                <thead>
+                    <tr class="TableStyle-standard-Head-Header1">
+                        <th class="TableStyle-standard-HeadF-Column1-Header1">Option</th>
+                        <th class="TableStyle-standard-HeadF-Column1-Header1">Default value</th>
+                        <th class="TableStyle-standard-HeadD-Column1-Header1">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">AutoEnroll</td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">True</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">Forces the server agent to attempt to automatically enroll  during the initial startup.
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">EnrollmentTokenFile</td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">Linux: <span class="code">/var/lib/sftd/enrollment.token</span><p>Windows: <code><span class="code">C:\Windows\System32\config\systemprofile\AppData\Local\scaleft\enrollment.token</span></code></p></td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">Specifies the path to a separate file containing an enrollment token. The default value depends on the operating system running the server agent.
+After the server is enrolled, the server agent deletes this token file.
+                            <p>If using this option, you must manually create the token file and add an enrollment token created on the <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> platform. See <MadCap:xref href="pam-enroll-a-server.htm">Server Enrollment</MadCap:xref>.</p></td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyC-Column1-Body1">InitialURL</td>
+                        <td class="TableStyle-standard-BodyC-Column1-Body1">unset</td>
+                        <td class="TableStyle-standard-BodyA-Column1-Body1">
+                        When <span class="code">AutoEnroll </span>is set to <span class="code">True</span>, this option specifies a URL used to automatically enroll the server. If the <span class="code">EnrollmentTokenFile</span> option is also configured, this option is ignored.
+                            <p style="font-weight: normal;">Note: This option is only used by legacy installations not hosted by <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> instances.</p></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h3><a name="logs"></a>Log Options</h3>
+            <p>The location of the log file depends on the operating system running the server agent.</p>
+            <ul>
+                <li>Linux: <span class="code">sftd</span> uses the system logger when available</li>
+                <li>Windows: <span class="code">C:\Windows\System32\config\systemprofile\AppData\Local\scaleft\Logs</span><br /></li>
+            </ul>
+            <div class="noteOkta">
+                <p class="noteContent">Log files are rotated after 5MB and only the 10 most recent log files are kept.		</p>
+            </div>
+            <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                <col class="TableStyle-standard-Column-Column1" />
+                <col class="TableStyle-standard-Column-Column1" />
+                <col class="TableStyle-standard-Column-Column1" />
+                <thead>
+                    <tr class="TableStyle-standard-Head-Header1">
+                        <th class="TableStyle-standard-HeadF-Column1-Header1">Option</th>
+                        <th class="TableStyle-standard-HeadF-Column1-Header1">Default value</th>
+                        <th class="TableStyle-standard-HeadD-Column1-Header1">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyC-Column1-Body1">LogLevel</td>
+                        <td class="TableStyle-standard-BodyC-Column1-Body1"><span class="code">INFO</span>
+                        </td>
+                        <td class="TableStyle-standard-BodyA-Column1-Body1">Controls the verbosity of the logs.<p>Valid values include:</p><ul><li><span class="code">warn</span></li><li><span class="code">info</span></li><li><span class="code">debug</span></li></ul></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h3><a name="connections"></a>Connection  Options</h3>
+            <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                <col class="TableStyle-standard-Column-Column1" />
+                <col class="TableStyle-standard-Column-Column1" />
+                <col class="TableStyle-standard-Column-Column1" />
+                <thead>
+                    <tr class="TableStyle-standard-Head-Header1">
+                        <th class="TableStyle-standard-HeadF-Column1-Header1">Option</th>
+                        <th class="TableStyle-standard-HeadF-Column1-Header1">Default value</th>
+                        <th class="TableStyle-standard-HeadD-Column1-Header1">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">AccessAddress</td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">unset</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                            <p>Specifies the network address (IPv4 or IPv6) used by clients to access servers with multiple interfaces or behind DNATs.</p>
+                            <div class="noteOkta">
+                                <p class="noteContent">If you set a <span class="code">sftd AccessAddress</span> to DNS FQDN, a message appears on the console warning you that the host key for the IP address has been added to the list of known hosts permanently. See the <a href="https://support.okta.com/help/s/article/When-sshing-a-warning-message-is-seen?language=en_US" target="_blank">KB article</a> for additional information.</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">AccessInterface</td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">unset</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">Specifies the interface used by clients to negotiate connections to the host. Only needed by hosts with a specific public IP&#160;address associated with a known interface.<p style="font-weight: normal;">Example:</p><span class="code">AccessInterface: eth0</span></td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">AltNames</td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">unset</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">
+                        Specifies a list of alternative server hostnames. These names can be used as targets for <span class="code">sft ssh</span>.
+                       <p>Example:</p><span class="code">AltNames:&#160;["web01", "web01.example.com"]</span></td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">Bastion</td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">unset</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">Specifies a bastion host used automatically by clients when connecting to this server.</td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">BufferFile</td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="code">/var/lib/sftd/buffer.db</span>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">Specifies the path prefix to the files used for the server agent local buffer store. Individual buffer file names consist of the path prefix, followed by a period and an incremental number (for example, <span class="code">buffer.db.1</span>). Buffer files are automatically removed after being synchronized.</td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">CanonicalName</td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">unset</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">Specifies the name that clients should use when connecting to this host. This option overrides the name returned by the <span class="code">hostname</span> command.
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">ForwardProxy</td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">unset</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">Specifies the URL of an HTTP CONNECT proxy that the server agent uses for outbound network connectivity to the <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> platform. Alternatively, the <span class="code">HTTPS_PROXY</span> environment variable can be used to configure this proxy.
+                            <p>Example:</p><span class="code">ForwardProxy: https://myproxydomain.com:8080</span></td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">ServerFile</td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="code">/var/lib/sftd/device.server</span>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">Specifies the path to a file used to store the server URL of the server that it will connect to.</td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">SSHDConfigFile</td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="code">/etc/ssh/sshd_config</span>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">Specifies the path to the <span class="code">sshd</span> configuration file.
+                        <p>Note: The server agent will modify this file.</p></td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>SSHDPort</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                            <p>unset</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">Specifies a port to use when negotiating SSH connections. This option is only needed if the default port (22) is not being used.
+This option tells the SFT client (ScaleFT Client-Tools) how to connect to the SFTD Agent (ScaleFT Server-Tools). You must also modify the sshd_config file on the server agent server to listen on the specified port.</td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">TokenFile</td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="code">/var/lib/sftd/device.token</span>
+                        </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">Specifies the path to a file used to store the secret authentication token for <MadCap:variable name="okta-feature-names.Okta Privileged Access" />.
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyC-Column1-Body2">
+                            <p>TrustedUserCAKeysFile</p>
+                        </td>
+                        <td class="TableStyle-standard-BodyC-Column1-Body2"><span class="code">/var/lib/sftd/ssh_ca.pub</span>
+                        </td>
+                        <td class="TableStyle-standard-BodyA-Column1-Body2">Specifies the path to a file used by the server agent to store a list of trusted SSH&#160;certificate authorities.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h3><a name="access"></a>Access Broker Options</h3>
+            <p>The <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> server agent automatically runs an access broker process. The access broker authenticates clients using certificates issued by the
+ <MadCap:variable name="okta-feature-names.Okta Privileged Access" /> platform. </p>
+            <p>
+                <MadCap:conditionalText MadCap:conditions="Primary.do-not-publish">When using on-demand user provisioning for a project, the access broker must be accessible on a specific port (4421 by default). See <MadCap:xref href="../../Adv_Server_Access/docs/on-demand-users.htm">On-demand users</MadCap:xref>.</MadCap:conditionalText> </p>
+            <p>On Windows servers, the access broker is also responsible for proxying RDP&#160;connections. See <MadCap:xref href="../pam-windows.htm">Windows Internals</MadCap:xref>.</p>
+            <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+                <col class="TableStyle-standard-Column-Column1" />
+                <col class="TableStyle-standard-Column-Column1" />
+                <col class="TableStyle-standard-Column-Column1" />
+                <thead>
+                    <tr class="TableStyle-standard-Head-Header1">
+                        <th class="TableStyle-standard-HeadF-Column1-Header1">
+                            <p>Option</p>
+                        </th>
+                        <th class="TableStyle-standard-HeadF-Column1-Header1">
+                            <p>Default value</p>
+                        </th>
+                        <th class="TableStyle-standard-HeadD-Column1-Header1">
+                            <p>Description</p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                        BrokerAccessPort
+                    </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">
+                        4421
+                    </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">Specifies a port used by clients to reach the access broker.</td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                        BrokerListenHost
+                    </td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body2">
+                        unset
+                    </td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body2">Specifies the network address  (IPv4 or IPv6) used by the access broker to listen for connections. By default, the access broker listens for connections on every available interface.
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body1">
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">BrokerListenPort</td>
+                        <td class="TableStyle-standard-BodyF-Column1-Body1">4421</td>
+                        <td class="TableStyle-standard-BodyD-Column1-Body1">Specifies a port used by the access broker to listen for connections.</td>
+                    </tr>
+                    <tr class="TableStyle-standard-Body-Body2">
+                        <td class="TableStyle-standard-BodyC-Column1-Body2">DisableBroker</td>
+                        <td class="TableStyle-standard-BodyC-Column1-Body2">unset</td>
+                        <td class="TableStyle-standard-BodyA-Column1-Body2">Controls the operation status of the access broker. Set to <code>True</code> to restrict the access broker from running on the server.
+                            <p>Note: Disabling the access broker process is not recommended on Windows. See <MadCap:xref href="../pam-windows.htm">Windows Internals</MadCap:xref>.</p></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div MadCap:conditions="Primary.do-not-publish">
+            <h3><a name="Policy"></a><MadCap:variable name="okta-feature-names.PolicySync" /> Labels</h3>
+            <div class="noteOkta">
+                <p class="noteContent">This feature is being rolled out to all <MadCap:variable name="workflows_connectors.Advanced Server Access" /> customers through Q1 2023. No action is required on your part to enable this feature for your <MadCap:variable name="workflows_connectors.Advanced Server Access" /> team.</p>
+            </div>
+            <p><MadCap:variable name="okta-feature-names.PolicySync" /> labels allow teams to define key:value pairs used to control server access to specific groups. Labels are formatted as <span class="code">key:value</span> pairs to allow teams to define a schema that best fits their needs. Teams can add labels within the server configuration file or directly from <MadCap:variable name="okta-feature-names.ScaleFT" />. See <MadCap:xref href="../../Adv_Server_Access/docs/policysync.htm">[%=okta-feature-names.PolicySync%]: Attribute-Based Access Control</MadCap:xref>.</p>
+            <div class="noteOkta">
+                <p class="noteContent">You must indent any key pairs within a <span class="code">Labels</span> YAML dictionary using two spaces:</p>
+                <p class="noteContent code">Labels:
+                            <br />&#160;&#160;<code>label_1: value_1</code><br />&#160;&#160;<code>label_2: value_2</code><br /></p>
+            </div>
+        </div>
+        <h2><a name="Environm"></a>Environment variables</h2>
+        <p>On startup, the server agent reads the following variables:</p>
+        <ul>
+            <li><span class="code">SFT_DEBUG</span>:
+Prints additional debugging to <span class="code">stderr</span> when set.</li>
+        </ul>
+    </body>
+</html>

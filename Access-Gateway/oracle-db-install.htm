@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:conditions="Primary.do-not-publish" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/oracle-db-install.htm" /> <title>[%=Heading.Level1%] | Okta</title></head>
+    <body>
+        <h2>Introduction</h2>
+        <p>EBS SSO infrastructure consists a range of Oracle product components.
+They are Oracle Database, Oracle Internet Directory (OID), Oracle
+Directory Integration Platform (DIP), Oracle Weblogic Application Server
+(WLS) and Oracle AccessGate (OAG).</p>
+        <p>In order to install the Oracle Oracle Internet (OID) Directory service,
+which serves as the backbone of the Oracle EBS Single Sign On
+infrastructure, we must first install the Oracle Database, which is used
+by OID extensively to store all the necessary information.</p>
+        <p>In this white paper, we will show how to install a basic version of the
+Oracle Database on a Linux 6.X server. The database is installed as a
+standalone service, there is no HA configuration involved in this
+installation.</p>
+        <h2>Database Installation</h2>
+        <p>The database installation consists of 3 main processes.</p>
+        <ol>
+            <li>
+                <p>Prepare the Server Environment</p>
+            </li>
+            <li>
+                <p>Install the Product</p>
+            </li>
+            <li>
+                <p>Validate the installation</p>
+            </li>
+        </ol>
+        <h2>Prepare the Server Environment</h2>
+        <p>Here are the DB version and Server requirement for this installation
+Server OS: Oracle Linux 6.8 UEK4 Server Memory: 4G Server DiskSpace: 60G
+Server CPU Core: 4 DB Version: 12.1.0.2 </p>
+        <ol>
+            <li>To install all required packages, for the Oracle Database
+Environment, <span class="uicontrol">Run</span>:</li>
+        </ol>
+        <p>+</p>yum install oracle-rdbms-server-12cR1-preinstall
+<p>+</p><ol><li>To install xTerm for display, <span class="uicontrol">Run</span>:</li></ol><p>+</p>yum install xterm
+<h2>Install the Product</h2><ol><li>To install the Oracle Database, Navigate to the production
+installation directory and Run:</li></ol><p>+</p>./runInstaller
+<p>+</p><ol><li>Unselect the <span class="uicontrol">Update Checkbox</span> below.</li></ol><p>+ <img src="../../Resources/Images/access-gateway/tutorial-oracle-DB-01.jpg" alt="Figure 1.Oracle DB Installation" /></p><p>+</p><ol><li>Select the <span class="uicontrol">Create and Configure</span> button.</li></ol><p>+ <img src="../../Resources/Images/access-gateway/tutorial-oracle-DB-02.png" alt="Figure 2.Oracle DB Installation" /></p><p>+</p><ol><li>Select the <span class="uicontrol">Desktop Class</span> button.</li></ol><p>+ <img src="../../Resources/Images/access-gateway/tutorial-oracle-DB-03-1.png" alt="Figure 3.Oracle DB Installation" /></p><p>+</p><p>Figure 4 below shows the Character set is
+selected as Unicode, container db checkbox is not checked. The reason
+being if we choose the default char set (Non Unicode), the Oracle RCU
+will not create schema with it. If we choose the the container Db
+option, OID will not install against it because it needs a stand alone
+Database, not a container DB.</p><p>+ <img src="../../Resources/Images/access-gateway/tutorial-oracle-DB-04.jpg" alt="Figure 4.Oracle DB Installation" /></p><p>+</p><p>The Oracle Inventory contains the metadata of the
+Oracle products installed on this server. Please feel free to view the
+content of inventory.xml file in this directory for detailed products
+installed.</p><p>+ <img src="../../Resources/Images/access-gateway/tutorial-oracle-DB-05.jpg" alt="Oracle DB Installation" /></p><p>+</p><ol><li>Execute <span class="uicontrol">root.sh</span> as root. This will assign the proper
+directory access for the rest of the installation.</li></ol><p>+ <img src="../../Resources/Images/access-gateway/tutorial-oracle-DB-06.jpg" alt="Fiugre 5.Oracle DB Installation" /></p><p>+</p><ol><li><p>After the Database Configuration Assistant creates the database,
+Navigate to <a href="https://localhost:5500/em">https://localhost:5500/em</a> as a SYS user to manage
+the database using Enterprise Manager Database Express.</p></li><li><p>Click <span class="uicontrol">Password Management</span> to Unlock Accounts. Then, Click <span class="uicontrol">OK</span>
+to continue.</p></li></ol><p>+ <img src="../../Resources/Images/access-gateway/tutorial-oracle-DB-07.jpg" alt="Fiugre 6.Oracle DB Installation" /></p><p>+</p><ol><li>Click close to <span class="uicontrol">Complete</span> the installation.</li></ol><p>+ <img src="../../Resources/Images/access-gateway/tutorial-oracle-DB-14.png" alt="Figure 7.Oracle DB Installation" /></p><h2>Validate the installation</h2><p>Once the Database installation is successfully completed, validate the
+environment with the following commands.</p><ol><li>Run sql command, this will log into the Database as the
+sysadmin account.</li></ol><p>+</p>sqlplus / as sysdba to issue a startup command
+<p>+</p><ol><li>Run sql command, this will display the current Database Meta
+information. (ie: instance name, version, status)</li></ol><p>+</p>select instance_name, version, status, con_id from v$instance;
+<p>+</p><ol><li>Run command lsnrctl, this shows the Database listener
+status. We can also use this command to start/stop the
+listener.</li></ol><p>+</p><span class="codeblock">lsnrctl status
+lsnrctl start
+lsnrctl stop
+</span></body>
+</html>

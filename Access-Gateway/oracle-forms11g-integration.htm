@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:conditions="Primary.do-not-publish" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/oracle-forms11g-integration.htm" /> <title>[%=Heading.Level1%] | Okta</title></head>
+    <body>
+        <h2>Introduction</h2>
+        <p>This article describes how to configure the Okta Access Gateway to enable SSO with the Oracle Forms/Report Server 11gR2.</p>
+        <p>A standard Oracle Forms/Report server is capable of performing SSO via the Oracle OAM integration. In our scenario, the Access Gateway replaces the Oracle OAM and acts on behalf of OAM/WebGate to communicate with the Oracle Forms server via the Oracle HTTP header parameter. Once the Forms server receives the appropriate header value, it will retrieve the RAD entry from the backend LDAP server and authenticate the user with the incoming username.</p>
+        <h2>Create Access Gateway Forms/Report Application</h2>
+        <ol>
+            <li>
+                <p>Log in to the Access Gateway Admin console.</p>
+            </li>
+            <li>
+                <p>Create a <span class="uicontrol">Header-based</span> application and name it appropriately.</p>
+                <p>
+                    <img src="../../Resources/Images/access-gateway/tutorial-oracle-forms11g-16.png" alt="Oracle Forms/Report Installation" class="thumbnail" />
+                </p>
+            </li>
+            <li>
+                <p>Enter the appropriate values for the <span class="uicontrol">Public Domain</span>, <span class="uicontrol">Protected Web Resource</span>, and <span class="uicontrol">Post Login URL</span>.</p>
+                <ul>
+                    <li>
+                        <p><span class="uicontrol">Public Domain</span>: This is the hostname where the Forms user will access the app via the internet/intranet.</p>
+                    </li>
+                    <li>
+                        <p><span class="uicontrol">Protected Web Resource</span>: This is the backend Forms Server. Usually it is the OHS server and its listening port, which fronts the Forms WLS server.</p>
+                    </li>
+                    <li>
+                        <p><span class="uicontrol">Post Login URL</span>: This is the URL where the Forms Applet resides. In the picture shown below, we are accessing the webgate Forms Applet.</p>
+                        <p> Make sure the WebGate Agent protecting the Forms server is disabled. 
+<img src="../../Resources/Images/access-gateway/tutorial-oracle-forms11g-17.png" alt="Oracle Forms/Report Installation" class="thumbnail" /></p>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <p>Set up the appropriate header parameter <span class="uicontrol">OAM_REMOTE_USER</span>, which is expected by the Forms server.</p>
+                <p> The value of this attribute comes from the configured IDP. In this case, we use the "firstName" column. Make sure it matches the OID uid of the user. 
+<img src="../../Resources/Images/access-gateway/tutorial-oracle-forms11g-18.png" alt="Oracle Forms/Report Installation" class="thumbnail" /></p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Done</span> to complete the setup.</p>
+            </li>
+        </ol>
+        <h2>Disable Existing SSO OAM WebGate Agent for Forms server</h2>
+        <p>A typical customer Forms/Report environment would already have the OAM protecting it via the Oracle WebGate web server. WebGate is installed on the Forms/Report server. It contains an OAM Agent that is constantly communicating to OAM for policy authorization.</p>
+        <p>In addition, all SSO Forms/Report users will have valid Resource Access Descriptor (RAD) entries in the corresponding OID/OUD. There is no additional configuration changes required to use the existing RAD via Forms Applet through the Access Gateway.</p>
+        <p>In order to use the Access Gateway to protect the Forms server, we need to disable the existing Oracle WebGate, along with its Agent.</p>
+        <ol>
+            <li>
+                <p>Edit the forms OHS server configuration file shown below.</p>
+            </li>
+            <li>
+                <p>Comment out the include statement for WebGate:</p><span class="codeblock">vi /u01/app/oracle/product/fmw11g/Oracle_OHS11gWG/instances/instance1/config/OHS/ohs1/httpd.conf
+
+# Comment out the include line below to disable WebGate
+#include "/u01/app/oracle/product/fmw11g/Oracle_OHS11gWG/instances/instance1/config/OHS/ohs1/webgate.conf"
+</span>
+            </li>
+        </ol>
+        <h2>Resource Adapter Descriptor</h2>
+        <p>Resource Access Descriptors (RAD) are entries in Oracle Internet Directory that are defined for each user and application that contain the required database connect information. The Forms servlet reads the database connect information from the RAD and passes it along with the command line that starts the Forms Web application. Although the Forms authentication is still database-centric, mod_osso or webgate and the Forms servlet are now integrated in a Web-based authentication server environment.</p>
+        <p>When we integrate the Access Gateway with an existing SSO-enabled Forms server, all the Forms users already have the RAD entries created in the backend OID. The Forms Applet will retrieve the RAD entry automatically when the user completes a SSO authentication into the service, hence the Access Gateway does not need to concern itself with the retrieval of the RAD entry from the backend OID server.</p>
+        <p>Here is a sample RAD entry for user francis.smith. If the RAD entry is missing for the test user, the Forms Applet will prompt for the DB connection string.</p>
+        <p>Use <span class="code">ldapadd</span> to add the RAD entry for test users:</p><span class="codeblock">$/u01/app/Middleware/Oracle_IDM1/bin/ldapadd -h oid1.gateway.info -p 3060 -D “cn=orcladmin” -w Password1 -f francisSmithRAD.ldif`
+
+cat francisSmithRAD.ldif
+
+### Sample LDIF for a RAD enabled user
+
+### User Francis Smith ldif Sample:
+
+dn: cn=francis.smith,cn=users,dc=okta,dc=info
+uid: francis.smith
+mail: francis.smith@gateway.info
+givenName: francis
+cn: francis.smith
+sn: smith
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetorgperson
+objectClass: orcluser
+objectClass: orcluserV2
+userpassword: francis1
+orclpassword: francis1
+
+
+### Owner GUID ldif Sample:
+
+dn: orclownerguid=C4811679FEAC709FE0408D0AA29C0F49, cn=Extended Properties,cn=OracleContext,dc=okta,dc=info
+objectclass: top
+objectclass: orclReferenceObject
+orclownerguid: C4811679FEAC709FE0408D0AA29C0F49
+
+dn: cn=Resource Access Descriptor, orclownerguid=C4811679FEAC709FE0408D0AA29C0F49, cn=Extended Properties,cn=OracleContext,dc=okta,dc=info
+objectclass: top
+objectclass: orclcontainer
+objectclass: orclAuxiliaryGUID
+orclownerguid: C4811679FEAC709FE0408D0AA29C0F49
+cn: Resource Access Descriptor
+
+### RAD ldif Sample:
+
+dn: orclresourcename=fsrad+orclresourcetypename=OracleDB, cn=Resource Access Descriptor,  orclownerGUID=C4811679FEAC709FE0408D0AA29C0F49, cn=Extended Properties , cn=oraclecontext, dc=okta,dc=info
+orclresourcetypename: OracleDB
+orclflexattribute1: orcl112
+orcluseridattribute: scott
+orclownerguid: C4811679FEAC709FE0408D0AA29C0F49
+orclusermodifiable: true
+orclpasswordattribute: tiger
+orclresourcename: fsrad
+objectclass: top
+objectclass: orclresourcedescriptor
+</span>
+    </body>
+</html>

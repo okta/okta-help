@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+   <head>
+      <link href="../../Resources/TableStyles/standard-shaded-rows.css"
+            rel="stylesheet"
+            MadCap:stylesheetType="table"/>
+      <link rel="canonical"
+            href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/admin-settings-logging.htm"/>
+      <link href="../../Resources/TableStyles/standard.css"
+            rel="stylesheet"
+            MadCap:stylesheetType="table"/>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <link href="" rel="stylesheet" type="text/css"/>
+   </head>
+   <body>
+      <h1>Configure log forwarders</h1>
+      <p>
+         <MadCap:variable name="okta-feature-names.Access Gateway"/> enables you to use log forwarders to store your log files in third-party log products.</p>
+      <div>
+         <ul>
+            <li>
+               <MadCap:xref href="#LoggerInput">Create a log forwarder receiver</MadCap:xref>
+            </li>
+            <li>
+               <MadCap:xref href="#AddForwarder">Add a log forwarder in [%=okta-feature-names.Access Gateway%]</MadCap:xref>
+            </li>
+            <li>
+               <MadCap:xref href="#Test">Test log forwarders</MadCap:xref>
+            </li>
+            <li>
+               <MadCap:xref href="about-oag-log-files.htm">[%=okta-feature-names.Access Gateway%] logs</MadCap:xref>
+            </li>
+         </ul>
+      </div>
+      <div>
+         <h2>
+            <a name="Prerequisites"/>Before you begin</h2>
+         <ul>
+            <li>Verify that a third-party log product has already been set up and can receive events from <MadCap:variable name="okta-feature-names.Access Gateway"/>.</li>
+            <li>Use this connection information for the third-party log product:
+
+				<table style="width: 90%;margin-left: 0;margin-right: auto;mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');"
+                      class="TableStyle-srb_header_alt_shade"
+                      cellspacing="0">
+                  <col class="TableStyle-srb_header_alt_shade-Column-Column1"/>
+                  <col class="TableStyle-srb_header_alt_shade-Column-Column1"/>
+                  <thead>
+                     <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                        <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                           <p>Parameter</p>
+                        </th>
+                        <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">
+                           <p>Example</p>
+                        </th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1" width="75%">A fully qualified IP address or DNS-resolvable name of the third-party log product</td>
+                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1" width="25%">
+                           <p>192.168.1.1</p>
+                           <p>my.logproduct.server</p>
+                        </td>
+                     </tr>
+                     <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Protocol</td>
+                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">TCP or UDP</td>
+                     </tr>
+                     <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                        <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1">
+                           <p>Listen port</p>
+                           <p>
+                              <MadCap:variable name="okta-feature-names.Access Gateway"/> validates the logging server connection. Verify that this port is open before you forward logs from <MadCap:variable name="okta-feature-names.Access Gateway"/> to the third-party log product.</p>
+                        </td>
+                        <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body1">5514</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </li>
+            <li>In high availability clusters, when you add a log forwarder definition to the main admin node, the definition propagates to all worker nodes. Worker nodes then send log events directly to the third-party log product server.</li>
+         </ul>
+      </div>
+      <div>
+         <h2>
+            <a name="LoggerInput"/>Create a log forwarder receiver</h2>
+         <p>You must create a location that receives log data from <MadCap:variable name="okta-feature-names.Access Gateway"/>. This might be called a receiver, an input, a listener, a remote listener, or a log forwarder receiver in your third-party log product. </p>
+         <p>See that product's documentation for instructions.</p>
+      </div>
+      <div>
+         <h2>
+            <a name="AddForwarder"/>Add a log forwarder in <MadCap:variable name="okta-feature-names.Access Gateway"/>
+         </h2>
+         <ol>
+            <li>
+                    In your <MadCap:variable name="okta-feature-names.Access Gateway"/> instance,  select <span class="uicontrol">Backups and Logs and Backups</span>.             </li>
+            <li>Select <span class="uicontrol">Log Forwarder</span>.</li>
+            <li>Click <span class="menucascade">
+                  <span class="uicontrol">(+)</span>
+                  <span class="uicontrol">Syslog remote</span>
+               </span>. </li>
+            <li>Configure the following options:
+
+					<ul>
+                  <li>Name: Enter a name for the forwarder.</li>
+                  <li>Feed: Select one of these options:
+
+							<ul>
+                        <li>AUDIT: Log entries representing user authentication.</li>
+                        <li>ACCESS: Log entries for user authorization and application accesses.</li>
+                        <li>MONITOR: Log entries for application configuration (add, delete, modify), certificate configuration, and Auth Module configuration.</li>
+                     </ul>
+                  </li>
+                  <li>Protocol: Select UDP or TCP. This protocol must be the same as the protocol you selected for communication with your third-party logging product.</li>
+                  <li>Host: The DNS-resolvable  hostname or IP address of the of the third-party log product.</li>
+                  <li>Port: The port that you're using to communicate with the third-party log product.</li>
+               </ul>
+            </li>
+            <li>Click <span class="uicontrol">Validate Forwarder</span>. <MadCap:variable name="okta-feature-names.Access Gateway"/> attempts to validate the remote third-party log product connection information. Correct any input errors if they appear. When the connection has been validated, the <span class="uicontrol">Validate Forwarder</span> button changes to <span class="uicontrol">Forwarder Validated</span>. </li>
+            <li>Click <span class="uicontrol">Okay</span>. </li>
+            <li>The log forwarder definition  appears in the list of log forwarders. Its initial status is <span class="uicontrol">Testing</span>, which changes to <span class="uicontrol">Valid</span> when it passes testing.<br/>
+            </li>
+         </ol>
+      </div>
+      <div>
+         <h2>
+            <a name="Test"/>Test log forwarders</h2>
+         <p>After you've configured a receiver for your log events and created a log forwarder in <MadCap:variable name="okta-feature-names.Access Gateway"/>, you can test that everything works as expected.</p>
+         <ol>
+            <li>Configure a system logger in your log server.</li>
+            <li>Configure a log forwarder in <MadCap:variable name="okta-feature-names.Access Gateway"/>. For testing purposes, <MadCap:variable name="okta-variables.ProductName"/> recommends that you use ACCESS mode. This mode records sign-in events to the <MadCap:variable name="okta-feature-names.Access Gateway UI"/>.</li>
+            <li>Verify that your third-party log product is started and is ready to receive events.</li>
+            <li>Sign out of and then back into the <MadCap:variable name="okta-feature-names.Access Gateway"/>
+               <MadCap:variable name="okta-feature-names.Administrator dashboard"/>.</li>
+            <li>Verify that these events appear in the third-party log product feed. See the <MadCap:xref href="#Log">Feed examples</MadCap:xref> section for examples.</li>
+         </ol>
+      </div>
+      <div>
+         <h2>
+            <a name="Log"/>Feed examples</h2>
+         <table style="width: 90%;mc-table-style: url('../../Resources/TableStyles/standard.css');margin-left: 0;margin-right: auto;width: 100%;"
+                class="TableStyle-standard"
+                cellspacing="0">
+            <col class="TableStyle-standard-Column-Column1"/>
+            <col class="TableStyle-standard-Column-Column1"/>
+            <thead>
+               <tr class="TableStyle-standard-Head-Header1">
+                  <th class="TableStyle-standard-HeadF-Column1-Header1">Type</th>
+                  <th class="TableStyle-standard-HeadD-Column1-Header1">Description</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr class="TableStyle-standard-Body-Body1">
+                  <td class="TableStyle-standard-BodyF-Column1-Body1">AUDIT</td>
+                  <td class="TableStyle-standard-BodyD-Column1-Body1">Audit log events include log entries representing user authentication. <br/>
+                     <p>See <MadCap:xref href="oag-log-files-audit.htm">[%=okta-feature-names.Access Gateway%] audit log</MadCap:xref> for details and examples of audit events.</p>
+                     <p>
+                        <span class="uicontrol">Sample events:</span>
+                     </p>
+                     <p>
+                        <span class="codeblock" xml:space="preserve">2020-06-24T10:05:56.000-05:00 example.myaccessgateway.com ACCESS_GATEWAY WEB_CONSOLE - - INFO SYSTEM_STARTUP [] Startup complete, system ready.</span>
+                        <span class="codeblock">2020-06-24T04:00:01.000-05:00 example.myaccessgateway.com ACCESS_GATEWAY WEB_CONSOLE IDP LOCAL INFO SYSTEM_IDP_STATUS [NAME="MyIDP" DOMAIN="someorg.oktapreview.com" TYPE="IDP_OKTA" RESULT="PASS" REASON="VALID"] Success confirming IDP status with: someorg.oktapreview.com.</span>
+                     </p>
+                  </td>
+               </tr>
+               <tr class="TableStyle-standard-Body-Body2">
+                  <td class="TableStyle-standard-BodyF-Column1-Body2">ACCESS</td>
+                  <td class="TableStyle-standard-BodyD-Column1-Body2">Access log events include log entries representing user authorization and application accesses. For example, a particular user accessed a particular application from a given IP address. See <MadCap:xref href="oag-log-files-access.htm">[%=okta-feature-names.Access Gateway%] Access log</MadCap:xref> for details and examples of access events.
+						<p>
+                        <span class="uicontrol">Sample event:</span>
+                     </p>
+                     <span class="codeblock">2020-06-24T09:41:08.000-05:00 example.myaccessgateway.com auth header.myexample.com 10.0.0.110 - - "GET /assets/images/image.png HTTP/2.0" 200 1229 "https://gw-admin.example.com/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36" "-" 0.029 0.028 .<br/>
+                     </span>
+                  </td>
+               </tr>
+               <tr class="TableStyle-standard-Body-Body1">
+                  <td class="TableStyle-standard-BodyC-Column1-Body1">MONITOR</td>
+                  <td class="TableStyle-standard-BodyA-Column1-Body1">Monitor log events include log entries representing application configuration (add, delete, modify), certificate configuration and Auth Module configuration. See <MadCap:xref href="oag-log-files-monitor.htm">[%=okta-feature-names.Access Gateway%] monitor log</MadCap:xref>
+                     <p>
+                        <span class="uicontrol">Sample event:</span>
+                     </p>
+                     <p>
+                        <span class="codeblock">2020-06-25T07:00:02.119-05:00 example.myaccessgateway.com OAG_MONITOR MONITOR DISK_USAGE INFO DISK_USAGE [FILESYSTEM="/dev/mapper/centos-root" MOUNT="/" USAGE="12%"] Mount / is 12% full</span>
+                     </p>
+                  </td>
+               </tr>
+            </tbody>
+         </table>
+         <p>
+            <img src="../../Resources/Images/access-gateway/admin-settings-logging-auth-events.png"
+                 id="img_new"/>
+         </p>
+      </div>
+      <div>
+         <h3>Related topics</h3>
+         <p>
+            <MadCap:xref href="admin-settings-logging-manage.htm">Manage log forwarders</MadCap:xref>
+         </p>
+         <p>
+            <MadCap:xref href="about-oag-log-files.htm">[%=okta-feature-names.Access Gateway%] logs</MadCap:xref>
+         </p>
+         <p>
+            <MadCap:xref href="admin-settings-logging-faq.htm">Administer log forwarding FAQs and best practices</MadCap:xref>
+         </p>
+         <p>
+            <MadCap:xref href="admin-settings-logging-troubleshooting.htm">Troubleshoot administer log forwarding</MadCap:xref>
+         </p>
+      </div>
+   </body>
+</html>

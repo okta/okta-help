@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:searchable="True"
+      MadCap:fileTags="Tags/okta-authors.Robert Milkovich">
+   <head>
+      <title>Factor Sequencing | Okta</title>
+      <link href="" rel="stylesheet" type="text/css"/>
+      <meta name="description"
+            content="Okta Factor Sequencing enables passwordless MFA by requiring end users to successfully pass all specified MFA factors."/>
+   </head>
+   <body>
+      <div MadCap:conditions="MultiProdPublish.Classic">
+         <h1>MFA Factor Sequencing</h1>
+         <p>
+            <MadCap:snippetBlock src="../../Resources/Snippets/ea-banner.flsnp"/>
+         </p>
+         <p>Factor Sequencing allows an end user to authenticate themselves with a series of multifactor authentication (MFA) factors instead of a password.</p>
+         <p>
+            <a name="Overview"/>
+         </p>
+         <ul>
+            <li>Factor Sequencing supports <MadCap:variable name="okta-feature-names.Okta Verify"/> Push and other factors as the primary method of authentication. </li>
+            <li>This feature is supported on <MadCap:variable name="okta-variables.ProductName"/> Mobile only if Password is set as the first factor.</li>
+         </ul>
+         <p>There are two steps to set up Factor Sequencing successfully:</p>
+         <ol>
+            <li>
+               <a href="#SetEnrollmentPolicies">Set  required MFA factors in MFA enrollment policies</a>
+            </li>
+            <li>
+               <a href="#DefineSignOnPolicies">Define the MFA factor sequence</a>
+            </li>
+         </ol>
+         <h2>
+            <a name="BeforeYouBegin"/>Before you begin</h2>
+         <p>Note the following limitations before configuring Factor Sequencing:</p>
+         <ul>
+            <li>You can't use Factor Sequencing when you deploy Identity Provider and IWA sign-in flows. Users aren't prompted to authenticate with other factors when signing in to <MadCap:variable name="okta-variables.ProductName"/> using an external IdP or IWA.</li>
+            <li>Factor Sequencing chains can't be specified for application sign-on policies.</li>
+            <li>A user must be enrolled in the first factor in the factor sequence to be signed in successfully. If they haven't enrolled in the first factor of the sequence, they can't sign in.</li>
+            <li>If the sign-on policy has multiple factor chains, the user must be enrolled in the first factor from at least one factor chain.</li>
+         </ul>
+         <h3>Factor Sequencing and Active Directory </h3>
+         <p>To delegate authentication to Active Directory while using Factor Sequencing, enable the Password factor. Otherwise, <MadCap:variable name="okta-variables.ProductName"/> doesn't check the Active Directory account status during sign-in.</p>
+         <ul>
+            <li>The user account status is only updated at each import from Active Directory to <MadCap:variable name="okta-variables.ProductName"/>. Between imports, a user may sign in to <MadCap:variable name="okta-variables.ProductName"/> with a disabled Active Directory account using a passwordless flow (<MadCap:variable name="3rd Party Integrations.WebAuthn"/> or <MadCap:variable name="okta-feature-names.Okta Verify"/> Push without a password). You can perform a manual import from Active Directory to <MadCap:variable name="okta-variables.ProductName"/> to ensure that these accounts can't sign in.</li>
+            <li>
+               <MadCap:variable name="okta-variables.ProductName"/> only checks the password expiry if a password is required in a factor sequence.  If a user must change their Active Directory password, they can still sign in to <MadCap:variable name="okta-variables.ProductName"/> without a password change using a passwordless flow.</li>
+         </ul>
+         <h2>
+            <a name="SetEnrollmentPolicies"/>Set required MFA factors</h2>
+         <p>In this section, verify that at least one MFA factor is required in your MFA enrollment policies.</p>
+         <ol>
+            <li>From the <MadCap:variable name="okta-feature-names.Administrator dashboard"/>, go to <span class="menucascade">
+                  <span class="uicontrol">Security</span>
+                  <span class="uicontrol">Multifactor</span>
+                  <span class="uicontrol">Factor Enrollment</span>
+               </span> to set the enrollment policies for the factors you have already activated for your  users.</li>
+            <li>Verify that the factors in at least one factor chain are marked as <span class="uicontrol">Required</span> for enrollment. For example, by defining the following two factor sequences in your sign-on policy:</li>
+            <ol style="list-style-type: lower-alpha;">
+               <li>SMS and <MadCap:variable name="okta-feature-names.Okta Verify"/>
+               </li>
+               <li>
+                  <MadCap:variable name="okta-feature-names.Okta Verify"/> and Security Questions</li>
+            </ol>
+            <p>Your end users are required to enroll in the sequenced factors (a) or (b) for successful authentication to take place.</p>
+         </ol>
+         <h2>
+            <a name="DefineSignOnPolicies"/>Define the MFA factor sequence</h2>
+         <p>In this section, edit an <MadCap:variable name="okta-variables.ProductName"/> sign-on policy to specify the sequence of MFA factors when users authenticate to <MadCap:variable name="okta-variables.ProductName"/>.</p>
+         <ol>
+            <li>From the <MadCap:variable name="okta-feature-names.Administrator dashboard"/>, go to <span class="menucascade">
+                  <span class="uicontrol">Security</span>
+                  <span class="uicontrol">Authentication</span>
+                  <span class="uicontrol">Sign On</span>
+               </span>.
+            </li>
+            <li>Select an existing rule or create a rule for end users.</li>
+            <li>After selecting your rule criteria, scroll down to <span class="uicontrol">Authentication</span> to define your factor sequences. </li>
+         </ol>
+         <p>Once your changes are saved, authentication with Factor Sequencing is immediately available to users.</p>
+         <p>Example of Factor Sequencing in the <MadCap:variable name="okta-feature-names.Administrator dashboard"/> when defining a policy rule for MFA enrollment:</p>
+         <p>
+            <img src="../../Resources/Images/mfa-factor-sequencing.png"
+                 style="max-width: 400px;mc-thumbnail: popup;mc-thumbnail-max-height: auto;border-left-style: solid;border-left-width: 1px;border-left-color: #dcdcdc;border-right-style: solid;border-right-width: 1px;border-right-color: #dcdcdc;border-top-style: solid;border-top-width: 1px;border-top-color: #dcdcdc;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #dcdcdc;margin-left: 10px;padding-left: 5px;padding-right: 5px;padding-top: 5px;padding-bottom: 5px;mc-thumbnail-max-width: 200px;"/>
+         </p>
+         <h2>
+            <a name="EndUserExperience"/>End-user experience</h2>
+         <ol>
+            <li>When you activate this feature, the Sign-In Widget changes for your end users. Instead of seeing the <span class="uicontrol">Username</span> and <span class="uicontrol">Password</span> fields on the same page, the user sees only the <span class="uicontrol">Username</span> field on the first page. The user enters their username and clicks <span class="uicontrol">Next</span>.</li>
+            <li>The next pages present each factor in the configured sequence, one on each page. The user authenticates themselves with each factor and clicks <span class="uicontrol">Verify</span>. For example, if you configure a Factor Sequence with the SMS factor first, followed by the <MadCap:variable name="3rd Party Integrations.WebAuthn"/> factor, the user sees the <span class="uicontrol">Username</span> field on the first page, the SMS challenge on the second page, and the <MadCap:variable name="3rd Party Integrations.WebAuthn"/> challenge on the third page.</li>
+            <li>After the user passes all verification steps, the <MadCap:variable name="okta-variables.ProductName"/> dashboard appears.</li>
+         </ol>
+         <h2>
+            <a name="RelatedLinks"/>Related topics</h2>
+         <p>
+            <MadCap:xref href="mfa/mfa-home.htm">Multifactor Authentication</MadCap:xref>
+         </p>
+         <p>
+            <MadCap:xref href="Security_General.htm">General Security</MadCap:xref>
+         </p>
+         <p>
+            <MadCap:xref href="network/network-zones.htm">Network zones</MadCap:xref>
+         </p>
+      </div>
+      <p MadCap:conditions="Primary.do-not-publish">*********&lt;&lt;Identity Engine section &gt;&gt;</p>
+      <div MadCap:conditions="Primary.do-not-publish">
+         <h1>MFA Authenticator Sequencing</h1>
+         <MadCap:snippetBlock src="../../Resources/Snippets/ea-banner.flsnp">
+            </MadCap:snippetBlock>
+         <p>Factor Sequencing allows an end user to authenticate themselves with a series of authenticators instead of a password.            </p>
+         <p>
+            <a name="Overview"/>
+         </p>
+         <ul>
+            <li>Factor Sequencing supports <MadCap:variable name="okta-feature-names.Okta Verify"/> Push and other factors as the primary method of authentication. </li>
+            <li MadCap:conditions="Primary.do-not-publish">This feature is supported on <MadCap:variable name="okta-variables.ProductName"/> Mobile only if password is set as the first factor.</li>
+         </ul>
+         <p>There are two steps to set up Factor Sequencing successfully:</p>
+         <ol>
+            <li>
+               <a href="#SetEnrollmentPolicies">Configure the  required MFA authenticators in authenticator enrollment policies</a>
+            </li>
+            <li>
+               <a href="#DefineSignOnPolicies">Define the MFA factor sequence</a>
+            </li>
+         </ol>
+         <h2>
+            <a name="BeforeYouBegin"/>Before you begin</h2>
+         <p>Note the following limitations before configuring Factor Sequencing:</p>
+         <ul>
+            <li>You can't use Factor Sequencing when you deploy Identity Provider and IWA sign-in flows. Users aren't prompted to authenticate with other authenticators when signing in to <MadCap:variable name="okta-variables.ProductName"/> using an external IdP or IWA.</li>
+            <li>Factor Sequencing chains can't be specified for authentication policies.</li>
+            <li>A user must be enrolled in the first authenticator in the factor sequence to be signed in successfully. If they haven't enrolled in the first authenticator of the sequence, they can't sign in.</li>
+            <li>If the <MadCap:variable name="okta-feature-names.Okta sign-on policy"/> has multiple factor chains, the user must be enrolled in the first authenticator from at least one factor chain.</li>
+         </ul>
+         <h3>Factor Sequencing and Active Directory </h3>
+         <p>To delegate authentication to Active Directory (Active Directory) while using Factor Sequencing, enable the Password authenticator. Otherwise, <MadCap:variable name="okta-variables.ProductName"/> doesn't check the Active Directory account status during sign-in.</p>
+         <ul>
+            <li>The user account status is only updated at each import from Active Directory to <MadCap:variable name="okta-variables.ProductName"/>. Between imports, a user may sign in to <MadCap:variable name="okta-variables.ProductName"/> with a disabled Active Directory account using a passwordless flow (<MadCap:variable name="3rd Party Integrations.WebAuthn"/> or <MadCap:variable name="okta-feature-names.Okta Verify"/> Push without a password). You can perform a manual import from Active Directory to <MadCap:variable name="okta-variables.ProductName"/> to ensure that these accounts can't sign in.</li>
+            <li>
+               <MadCap:variable name="okta-variables.ProductName"/> only checks the password expiry if a password is required in a factor sequence.  If a user must change their Active Directory password, they can still sign in to <MadCap:variable name="okta-variables.ProductName"/> without a password change using a passwordless flow.</li>
+         </ul>
+         <h2>
+            <a name="SetEnrollmentPolicies"/>Configured the required MFA authenticators</h2>
+         <p>In this section, verify that at least one MFA authenticator is required in your authenticator enrollment policies.</p>
+         <ol>
+            <li>From the <MadCap:variable name="okta-feature-names.Administrator dashboard"/>, go to <span class="menucascade">
+                  <span class="uicontrol">Security</span>
+                  <span class="uicontrol">Multifactor</span>
+                  <span class="uicontrol">Factor Enrollment</span>
+               </span> to set the enrollment policies for the authenticators you have already activated for your  users.</li>
+            <li>Verify that the authenticators in at least one factor chain are marked as <span class="uicontrol">Required</span> for enrollment. For example, by defining the following two factor sequences in your <MadCap:variable name="okta-feature-names.Okta sign-on policy"/>:</li>
+            <ol style="list-style-type: lower-alpha;">
+               <li>SMS and <MadCap:variable name="okta-feature-names.Okta Verify"/>
+               </li>
+               <li>
+                  <MadCap:variable name="okta-feature-names.Okta Verify"/> and Security Questions</li>
+            </ol>
+            <p>Your end users are required to enroll in the sequenced authenticators (a) or (b) for successful authentication to take place.</p>
+         </ol>
+         <h2>
+            <a name="DefineSignOnPolicies"/>Define the MFA factor sequence</h2>
+         <p>In this section, edit a <MadCap:variable name="okta-feature-names.Okta sign-on policy"/> to specify the sequence of MFA authenticators when users authenticate to <MadCap:variable name="okta-variables.ProductName"/>.</p>
+         <ol>
+            <li>From the <MadCap:variable name="okta-feature-names.Administrator dashboard"/>, go to <span class="menucascade">
+                  <span class="uicontrol">Security</span>
+                  <span class="uicontrol">Authentication</span>
+                  <span class="uicontrol">Sign On.</span>
+               </span>
+            </li>
+            <li>Select an existing rule or create a rule for end users.</li>
+            <li>After selecting your rule criteria, scroll down to <span class="uicontrol">Authentication</span> to define your factor sequences. </li>
+         </ol>
+         <p>Once your changes are saved, authentication with Factor Sequencing is immediately available to users.</p>
+         <p MadCap:conditions="Primary.do-not-publish">Example of Factor Sequencing in the <MadCap:variable name="okta-feature-names.Administrator dashboard"/> when defining a policy rule for MFA enrollment:</p>
+         <p MadCap:conditions="Primary.do-not-publish">
+            <img src="../../Resources/Images/mfa-factor-sequencing.png"
+                 style="max-width: 400px;mc-thumbnail: popup;mc-thumbnail-max-height: auto;border-left-style: solid;border-left-width: 1px;border-left-color: #dcdcdc;border-right-style: solid;border-right-width: 1px;border-right-color: #dcdcdc;border-top-style: solid;border-top-width: 1px;border-top-color: #dcdcdc;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #dcdcdc;margin-left: 10px;padding-left: 5px;padding-right: 5px;padding-top: 5px;padding-bottom: 5px;mc-thumbnail-max-width: 200px;">
+                </img>
+         </p>
+         <h2>
+            <a name="EndUserExperience"/>End-user experience</h2>
+         <ol>
+            <li>When you activate this feature, the Sign-In Widget changes for your end users. Instead of seeing the <span class="uicontrol">Username</span> and <span class="uicontrol">Password</span> fields on the same page, the user sees only the <span class="uicontrol">Username</span> field on the first page. The user enters their username and clicks <span class="uicontrol">Next</span>.</li>
+            <li>The next pages present each authenticator in the configured sequence, one on each page. The user authenticates themselves with each authenticator and clicks <span class="uicontrol">Verify</span>. For example, if you configure a Factor Sequence with the Phone authenticator first, followed by the <MadCap:variable name="3rd Party Integrations.WebAuthn"/> authenticator, the user sees the <span class="uicontrol">Username</span> field on the first page, the Phone challenge on the second page, and the <MadCap:variable name="3rd Party Integrations.WebAuthn"/> challenge on the third page.</li>
+            <li>After the user passes all verification steps, the <MadCap:variable name="okta-variables.ProductName"/> dashboard appears.</li>
+         </ol>
+         <h2>
+            <a name="RelatedLinks"/>Related topics</h2>
+         <p>
+            <MadCap:xref href="../identity-engine/authenticators/authentication-main.htm">Authentication</MadCap:xref>
+         </p>
+         <p>
+            <MadCap:xref href="Security_General.htm">General Security</MadCap:xref>
+         </p>
+         <p>
+            <MadCap:xref href="network/network-zones.htm">Network zones</MadCap:xref>
+         </p>
+      </div>
+   </body>
+</html>

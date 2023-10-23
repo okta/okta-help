@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:conditions="MultiProdPublish.Classic"
+      MadCap:fileTags="Tags/okta-authors.Tim Howie">
+   <head>
+      <link href="../../Resources/TableStyles/standard.css"
+            rel="stylesheet"
+            MadCap:stylesheetType="table"/>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <meta name="description"
+            content="Write attribute statements with Okta Expression Language to federate Okta user attributes to dynamic SAML attributes."/>
+   </head>
+   <body>
+      <h1>Pass Device Context using Limited Access</h1>
+      <p>Limited Access allows you to configure Okta to pass device context to certain SAML applications through the SAML assertion exchanged during authentication. The applications can then use that information to limit access to certain app-specific behaviors, such as permissions to edit the application or to download files from the application.</p>
+      <p>This feature works with:</p>
+      <ul>
+         <li>Windows, macOS, iOS, and Android devices</li>
+         <li>Custom and OIN SAML app integrations able to consume the device context attribute</li>
+      </ul>
+      <h2>
+         <a name="Prerequi"/>Prerequisites</h2>
+      <h3>In the Okta Admin Console</h3>
+      <ul>
+         <li>Enable Device Trust in the Okta Admin Console (<span class="menucascade">
+               <span class="uicontrol">Security</span>
+               <span class="uicontrol">Device Trust</span>
+            </span>)</li>
+         <li>Configure a Device Trust sign-on policy for the app integration (the <span class="wintitle">Sign On</span> tab of the app)</li>
+      </ul>
+      <p>For details, see the <a href="../device-trust/device-trust-landing.htm" target="_blank">Device Trust document</a> appropriate for your implementation.</p>
+      <h3>In the external application</h3>
+      <p>Configure the external application to consume the device context received in the SAML assertion and specify the behaviors you want to control based on that context.</p>
+      <h2>Supported attribute values</h2>
+      <p>When this feature is configured, Okta passes one of the following attribute values to the external application in the SAML assertion, according to the Attribute Statement and app integration sign-on policy you have configured in Okta.</p>
+      <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard.css');"
+             class="TableStyle-standard"
+             cellspacing="0">
+         <col class="TableStyle-standard-Column-Column1"/>
+         <col class="TableStyle-standard-Column-Column1"/>
+         <thead>
+            <tr class="TableStyle-standard-Head-Header1">
+               <th class="TableStyle-standard-HeadF-Column1-Header1">
+                  <p>Attribute Value</p>
+               </th>
+               <th class="TableStyle-standard-HeadD-Column1-Header1">
+                  <p>Definition</p>
+               </th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">TRUSTED</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">The user's device is trusted, as defined by the Okta app integration sign-on policy</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">NOT_TRUSTED</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body2">The user's device is untrusted, as defined by the Okta app integration sign-on policy</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyC-Column1-Body1">UNKNOWN</td>
+               <td class="TableStyle-standard-BodyA-Column1-Body1">
+                        The device context is unknown because one or both of the following is true:
+                        <ul>
+                     <li>Device Trust is not enabled for the given device type (<span class="menucascade">
+                           <span class="uicontrol">Security</span>
+                           <span class="uicontrol">Device Trust</span>
+                        </span>)</li>
+                     <li>Device Trust is not configured in the app integration sign-on policy (the <span class="wintitle">Sign On Policy</span> section of the <span class="wintitle">Sign On</span> tab of the app)</li>
+                  </ul>
+               </td>
+            </tr>
+         </tbody>
+      </table>
+      <div class="noteOkta">
+         <ul>
+            <li>The Attribute Value passed to the external application is enforced for the duration of the session.</li>
+            <li>You can use Okta <a href="https://developer.okta.com/docs/reference/okta-expression-language/#referencing-user-attributes">Expression Language</a> to map Okta terminology to ISV-specific terminology.</li>
+         </ul>
+      </div>
+      <h2>Procedure</h2>
+      <ol>
+         <li>Complete the <a href="#Prerequi">Prerequisites</a>.</li>
+      </ol>
+      <MadCap:snippetBlock src="Apps-Snippets/custom_attribute_steps.flsnp"/>
+      <ol start="6">
+         <li>In <span class="uicontrol">Value</span>, select <span class="uicontrol">device.trusted</span>.</li>
+         <p>The maximum length for this field is 1024 characters.</p>
+         <p>You can use the <a href="https://developer.okta.com/docs/reference/okta-expression-language/">Okta Expression Language</a> to transform the value as needed for your use case.</p>
+         <p>For example, to map Okta terms for a trusted device context to relevant Salesforce terms, you would enter this statement in the <span class="uicontrol">Value</span> field:</p>
+         <span class="codeblock">device.trusted == "TRUSTED" ? "HIGH ASSURANCE" : "STANDARD"</span>
+         <p>The above statement transforms terms as follows:</p>
+         <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard.css');"
+                class="TableStyle-standard"
+                cellspacing="0">
+            <col class="TableStyle-standard-Column-Column1"/>
+            <col class="TableStyle-standard-Column-Column1"/>
+            <thead>
+               <tr class="TableStyle-standard-Head-Header1">
+                  <th class="TableStyle-standard-HeadF-Column1-Header1">
+                     <p>Okta device context attribute</p>
+                  </th>
+                  <th class="TableStyle-standard-HeadD-Column1-Header1">
+                     <p>Salesforce term</p>
+                  </th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr class="TableStyle-standard-Body-Body1">
+                  <td class="TableStyle-standard-BodyF-Column1-Body1">TRUSTED</td>
+                  <td class="TableStyle-standard-BodyD-Column1-Body1">HIGH ASSURANCE</td>
+               </tr>
+               <tr class="TableStyle-standard-Body-Body2">
+                  <td class="TableStyle-standard-BodyF-Column1-Body2">NOT_TRUSTED</td>
+                  <td class="TableStyle-standard-BodyD-Column1-Body2">STANDARD</td>
+               </tr>
+               <tr class="TableStyle-standard-Body-Body1">
+                  <td class="TableStyle-standard-BodyC-Column1-Body1">UNKNOWN</td>
+                  <td class="TableStyle-standard-BodyA-Column1-Body1">STANDARD</td>
+               </tr>
+            </tbody>
+         </table>
+         <li>To add an additional statement row, click <span class="uicontrol">Add Another</span>. Repeat until all necessary attributes are defined.</li>
+         <li>Click <span class="uicontrol">Next</span>.</li>
+         <li>Click <span class="uicontrol">Finish</span> when done.</li>
+      </ol>
+      <h2>Attribute Statement details</h2>
+      <p>Here is an Attribute Statement sent to an external application through the SAML Assertion that shows the device context of an untrusted device:</p>
+      <span class="codeblock" xml:space="preserve">&lt;?xml version="1.0"?&gt;
+&lt;saml2:AttributeStatement xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion"&gt;
+  &lt;saml2:Attribute Name="DeviceTrustSignal" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified"&gt;
+    &lt;saml2:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string"&gt;
+      NOT_TRUSTED
+    &lt;/saml2:AttributeValue&gt;
+  &lt;/saml2:Attribute&gt;
+&lt;/saml2:AttributeStatement&gt;</span>
+      <h2>Related topics</h2>
+      <p>
+         <MadCap:xref href="../device-trust/device-trust-landing.htm">Okta Device Trust solutions</MadCap:xref>
+      </p>
+      <p>
+         <MadCap:xref href="Apps_App_Integration_Wizard_SAML.htm">Create a SAML integration using AIW</MadCap:xref>
+      </p>
+      <p>
+         <MadCap:xref href="apps-add-applications.htm">Add existing app integrations</MadCap:xref>
+      </p>
+      <p>
+         <MadCap:xref href="Apps_App_Integration_Wizard.htm">Using the App Integration Wizard</MadCap:xref>
+      </p>
+      <p>
+         <a href="https://developer.okta.com/docs/reference/okta-expression-language/">Okta Expression Language</a>
+      </p>
+   </body>
+</html>

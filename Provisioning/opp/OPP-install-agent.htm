@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:fileTags="Tags/okta-authors.Nikita Apraj" xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd">
+    <head><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+        <meta name="description" content="Before configuring on-premises provisioning for an app, install the Linux or Windows Okta Provisioning Agent." />
+    </head>
+    <body>
+        <h1>Install the <MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /></h1>
+        <p>Before configuring on-premises provisioning for an app, install the Linux or Windows <MadCap:variable name="okta-feature-names.Okta Provisioning Agent" />. You can connect your <MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> to multiple on-premises apps, but you must provide a unique SCIM&#160;server URL&#160;for each app. </p>
+        <ul>
+            <li>
+                <MadCap:xref href="#OPP-OPA-InstallLinux">Linux</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#OPP-OPA-InstallWindows">Windows</MadCap:xref>
+            </li>
+        </ul>
+        <h2><a name="OPP-OPA-InstallLinux"></a>Linux</h2>
+        <ol>
+            <li>
+                <MadCap:xref href="OPP-enable-TLS.htm">Enable the Transport Layer Security 1.2 protocol</MadCap:xref>.
+            </li>
+            <li>
+                <MadCap:snippetText src="../../../Resources/Snippets/task steps/Settings_Downloads.flsnp" /> Click <span class="uicontrol">Download Latest</span> for the <MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> (x64 RPM). <p>Alternatively, on your app instance page, go to the <span class="uicontrol">Provisioning</span> tab and then click <span class="uicontrol">Download Provisioning Agent</span>.</p></li>
+            <li>Optional. Generate the  file hash (SHA-512) and confirm the file size to help verify the integrity of the <MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> file:<ol style="list-style-type: lower-alpha;"><li> Sign in  to the Linux server where you downloaded the <MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> and use  this command to generate the file hash (SHA-512) for the <MadCap:variable name="okta-feature-names.Okta Provisioning Agent" />:</li></ol><p style="text-align: left;margin-left: 40px;"><span class="code">sha512sum setup.rpm</span></p><p style="text-align: left;margin-left: 40px;">Replace <span class="code">setup.rpm</span> with the file path of the <MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> you downloaded in step 1.</p><ol style="list-style-type: lower-alpha;" MadCap:continue="true"><li>Use this command to determine the file size of the <MadCap:variable name="okta-feature-names.Okta Provisioning Agent" />:</li></ol><p style="text-align: left;margin-left: 40px;"><span class="code">ls -l setup.rpm</span></p><p style="text-align: left;margin-left: 40px;">Replace <span class="code">setup.rpm</span> with the file path of the <MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> you downloaded in step 1.</p><ol style="list-style-type: lower-alpha;" MadCap:continue="true"><li><MadCap:snippetText src="../../../Resources/Snippets/task steps/Settings_Downloads.flsnp" /></li><li>Scroll down to the Okta Provisioning Agents area and compare the  file hash and file size information you obtained in steps a and  b with the information displayed for the <MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> (x64 RPM).</li></ol></li>
+            <li>When the <MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> is downloaded, sign in as root to your Linux server.</li>
+            <li>Copy the <MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> .rpm file to a scratch directory, and then <span class="code">cd</span> to that directory.</li>
+            <li>Install using yum by entering the following:</li>
+            <p><span class="code">yum localinstall &lt;package name&gt;</span>
+            </p>
+            <p>For example, <span class="code">yum localinstall OktaProvisioningAgent*.rpm</span></p>
+            <li>When you are prompted to continue, enter <span class="code">y</span>.</li>
+            <li>After the installation succeeds, copy the command on your screen and run the script as root:</li>
+            <p><span class="code">sudo /opt/OktaProvisioningAgent/configure_agent.sh</span>
+            </p>
+        </ol>
+        <p style="text-align: left;margin-left: 40px;">When the <MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> agent is installed, the OktaProvisioningAgent process identification number (.pid) file is created at this path /var/run and not /var/run/OktaProvisioningAgent/.</p>
+        <ol MadCap:continue="true">
+            <li>Enter the URL&#160;of you org at the prompt (for example:&#160;<span class="code">https://mycompany.okta.com</span>). </li>
+            <li>In your browser, go to the URL&#160;that you are provided, and sign in with your username and password.</li>
+            <li>To enable the <MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> to access the <MadCap:variable name="okta-variables.ProductName" /> API, click <span class="uicontrol">Allow Access</span>.</li>
+            <p class="noteContent">Note:&#160;If you haven't enabled TLS&#160;1.2 protocol or are using an earlier version, see <MadCap:xref href="OPP-enable-TLS.htm">Enable the Transport Layer Security 1.2 protocol</MadCap:xref>.</p>
+            <li>Return to the command line.&#160;After you receive a successful configuration message, copy and enter the command:</li>
+            <p><span class="code">service OktaProvisioningAgent start</span>
+            </p>
+            <li>To confirm that the <MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> is running, enter the following:</li>
+            <p><span class="code">service OktaProvisioningAgent status</span>
+            </p>
+        </ol>
+        <h2><a name="OPP-OPA-InstallWindows"></a>Windows</h2>
+        <ol>
+            <li>
+                <MadCap:xref href="OPP-enable-TLS.htm">Enable the Transport Layer Security 1.2 protocol</MadCap:xref>.
+            </li>
+            <li>
+                <MadCap:snippetText src="../../../Resources/Snippets/task steps/Settings_Downloads.flsnp" />
+            </li>
+            <li>Click <span class="uicontrol">Download Latest</span> for the Windows  <MadCap:variable name="okta-feature-names.Okta Provisioning Agent" />.</li>
+            <li>Optional. Generate the file hash (SHA-512) and confirm the file size to verify the integrity of the <MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> file:<ol style="list-style-type: lower-alpha;"><li> Open a command prompt and use  this command to generate the file hash (SHA-512) for the <MadCap:variable name="okta-feature-names.Okta Provisioning Agent" />:</li></ol><p style="text-align: left;margin-left: 40px;"><span class="code">CertUtil -hashfile setup.exe SHA512</span></p><p style="text-align: left;margin-left: 40px;">Replace <span class="code">setup.exe</span> with the file path of the <MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> you downloaded in step 2.</p><ol style="list-style-type: lower-alpha;" MadCap:continue="true"><li>Browse to the location where you downloaded the <MadCap:variable name="okta-feature-names.Okta Provisioning Agent" />, right-click the file, select <span class="uicontrol">Properties</span>, record the value displayed in the <span class="uicontrol">Size</span> field, and click <span class="uicontrol">OK</span>.</li><li><MadCap:snippetText src="../../../Resources/Snippets/task steps/Settings_Downloads.flsnp" /></li><li>Scroll down to the <MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> area and compare the  file hash and file size information you obtained in steps a and  b with the information displayed for the <MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> (Windows x64 EXE).</li></ol></li>
+        </ol>
+        <ol MadCap:continue="true">
+            <li>Launch the installer, and then click <span class="uicontrol">Next</span>.</li>
+            <li>In the License Agreement dialog box, click <span class="uicontrol">Next</span>.</li>
+            <li>Optional. Change the installation folder, and then click <span class="uicontrol">Install</span>.</li>
+            <li>Enter your <MadCap:variable name="okta-variables.ProductName" /> Customer Domain URL, and then click <span class="uicontrol">Next</span>.</li>
+        </ol>
+        <p style="text-align: left;margin-left: 40px;">When the <MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> agent is installed, the OktaProvisioningAgent process identification number (.pid) file is created at this path /var/run and not /var/run/OktaProvisioningAgent/.</p>
+        <ol MadCap:continue="true">
+            <li>In your browser, sign in to your org.</li>
+            <li>Grant permission to access the <MadCap:variable name="okta-variables.ProductName" /> API by clicking <span class="uicontrol">Allow Access</span>.</li>
+            <li>Return to the installer, and then click <span class="uicontrol">Finish</span>.</li>
+            <li>Sign in to <MadCap:variable name="okta-variables.ProductName"></MadCap:variable>.</li>
+            <p class="noteContent">Note:&#160;If you haven't enabled TLS&#160;1.2 protocol or are using an earlier version, see <MadCap:xref href="OPP-enable-TLS.htm">Enable the Transport Layer Security 1.2 protocol</MadCap:xref>.</p>
+            <li>In <MadCap:variable name="okta-feature-names.Administrator dashboard" />, select <span class="uicontrol">Agents</span>. Verify that the configured <MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> is in the list.</li>
+        </ol>
+        <h2>Next steps</h2>
+        <p>
+            <MadCap:xref href="OPP-create-app-instance.htm">Create an instance of your on-premises app in [%=okta-variables.ProductName%]</MadCap:xref>
+        </p>
+    </body>
+</html>

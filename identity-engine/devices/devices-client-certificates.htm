@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:fileTags="Tags/okta-authors.Kimli Welsh">
+    <head>
+        <link href="../../../Resources/TableStyles/standard.css" rel="stylesheet" MadCap:stylesheetType="table" /><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1>Client certificates</h1>
+        <p>A client certificate is a type of digital certificate that is issued by a certificate authority (CA). Mobile device management (MDM) software issues client certificates to devices using <MadCap:variable name="okta-variables.ProductName" /> as a CA, or the customer’s own CA (referenced in <MadCap:variable name="okta-variables.ProductName" /> as “provide your own CA”).</p>
+        <h2>How does <MadCap:variable name="okta-variables.ProductName" /> use client certificates?</h2>
+        <p><MadCap:variable name="okta-variables.ProductName" /> uses client certificates to determine if a desktop device (macOS and Windows only) is managed or not.</p>
+        <p>When a device successfully authenticates with <MadCap:variable name="okta-feature-names.Okta FastPass" />, <MadCap:variable name="okta-variables.ProductName" /> binds a client certificate to the device (not the user) and attests certificate installation by creating a digital signature with the client certificate and validating it on the server. The <MadCap:variable name="okta-variables.ProductName" /> server uses the management attestation in the <MadCap:variable name="okta-feature-names.Okta FastPass" /> protocol to satisfy the managed condition in the <MadCap:variable name="okta-feature-names.app sign-on policy" />.</p>
+        <h2>How does client certificate binding work?</h2>
+        <p>To verify that client certificates are securely deployed, client certificates can’t be reused by a device if it was deleted from the <MadCap:variable name="okta-variables.ProductName" /> Universal Directory, or used by more than one device. To achieve this:</p>
+        <ul>
+            <li>
+                <p>The client certificate is bound to the device after successful <MadCap:variable name="okta-feature-names.Okta FastPass" /> authentication.</p>
+            </li>
+            <li>
+                <p>The client certificate is bound to the device, and not to the user.</p>
+            </li>
+            <li>
+                <p>A single client certificate can’t be deployed or used from multiple devices.</p>
+            </li>
+        </ul>
+        <h2>How does the CA affect client certificate binding?</h2>
+        <p>Client certificate binding rules are different, depending on the certificate authority (CA) that issues the client certificate:</p>
+        <ul>
+            <li>
+                <p><MadCap:variable name="okta-variables.ProductName" /> as a CA:</p>
+                <ul>
+                    <li>
+                        <p><MadCap:variable name="okta-variables.ProductName" /> CA manages the lifecycle of the client certificates, so <MadCap:variable name="okta-variables.ProductName" /> doesn’t need to rely on the certificate revocation list (CRL) to perform certificate status validation.</p>
+                    </li>
+                    <li>
+                        <p>The client certificate is revoked on the 91st day after issuance if it is not used in a successful <MadCap:variable name="okta-feature-names.Okta FastPass" /> flow. 90 days provides time between the deployment of the client certificate and enabling an <MadCap:variable name="okta-feature-names.app sign-on policy" /> (management attestation) with the client certificate.</p>
+                    </li>
+                    <li>
+                        <p>Revoked client certificates can’t be re-used.</p>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <p>Provide your own CA:</p>
+                <ul>
+                    <li>
+                        <p>Client certificates are issued by an external CA, so <MadCap:variable name="okta-variables.ProductName" /> uses the CRL to check the certificate status before processing management attestation signals in <MadCap:variable name="okta-feature-names.Okta FastPass" />. For this to work, <MadCap:variable name="okta-variables.ProductName" /> expects the CA and client certificate to include the CRL extension.</p>
+                    </li>
+                    <li>
+                        <p>During the management attestation evaluation if the client certificate is identified as not active in the CRL, <MadCap:variable name="okta-variables.ProductName" /> marks the device as not managed.</p>
+                    </li>
+                    <li>
+                        <p>Similar to <MadCap:variable name="okta-variables.ProductName" /> as CA, the client certificate is bound to the device the first time the device successfully authenticates with <MadCap:variable name="okta-feature-names.Okta FastPass" />.</p>
+                    </li>
+                </ul>
+            </li>
+            <MadCap:snippetBlock src="snippets/OS-certificate-levels.flsnp" />
+        </ul>
+        <h2>How does the lifecycle status of a device affect certificate binding?</h2>
+        <p>Depending on the lifecycle status of a device, a client certificate might be valid, suspended, or revoked.</p>
+        <p>
+            <img src="../../../Resources/Images/devices/device-lifecycle-certificates.png" alt="The image shows the client certificate state based on the device lifecycle status." class="thumbnail" />
+        </p>
+        <div class="noteOkta">
+            <p class="noteContent">For security reasons, a client certificate is associated with the device throughout the lifecycle of the device. It can’t be used for any other device.</p>
+        </div>
+        <p>The following table describes the state of the client certificate during each stage of the device lifecycle:</p>
+        <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');" class="TableStyle-standard" cellspacing="0">
+            <col class="TableStyle-standard-Column-Column1" />
+            <col class="TableStyle-standard-Column-Column1" />
+            <col class="TableStyle-standard-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-standard-Head-Header1">
+                    <th class="TableStyle-standard-HeadF-Column1-Header1">
+                        <p>Device lifecycle status</p>
+                    </th>
+                    <th class="TableStyle-standard-HeadF-Column1-Header1">
+                        <p>Client certificate state</p>
+                    </th>
+                    <th class="TableStyle-standard-HeadD-Column1-Header1">
+                        <p>Description</p>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td class="TableStyle-standard-BodyF-Column1-Body1">Active</td>
+                    <td class="TableStyle-standard-BodyF-Column1-Body1">Valid</td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body1">A client certificate is bound to the device after successful <MadCap:variable name="okta-feature-names.Okta FastPass" /> authentication. 
+
+The client certificate is valid, so the device user is treated as “managed”.</td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body2">
+                    <td class="TableStyle-standard-BodyF-Column1-Body2">Suspended</td>
+                    <td class="TableStyle-standard-BodyF-Column1-Body2">Valid</td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body2">The client certificate is valid, but user authentication cannot provide management attestation to satisfy the <MadCap:variable name="okta-feature-names.app sign-on policy" /> “managed” condition.</td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body1">
+                    <td class="TableStyle-standard-BodyF-Column1-Body1">Deactivated</td>
+                    <td class="TableStyle-standard-BodyF-Column1-Body1">Suspended</td>
+                    <td class="TableStyle-standard-BodyD-Column1-Body1">The client certificate is valid, but user authentication cannot provide management attestation to satisfy the <MadCap:variable name="okta-feature-names.app sign-on policy" /> “managed” condition.</td>
+                </tr>
+                <tr class="TableStyle-standard-Body-Body2">
+                    <td class="TableStyle-standard-BodyC-Column1-Body2">Deleted</td>
+                    <td class="TableStyle-standard-BodyC-Column1-Body2">Revoked</td>
+                    <td class="TableStyle-standard-BodyA-Column1-Body2">When a device is deleted from the <MadCap:variable name="okta-variables.ProductName" /> Universal Directory, the client certificate that was associated with that device is revoked, so it can no longer be used to provide management attestation from any device. 
+
+To use the same device in the future, delete the client certificate from the device, and then re-deploy a new client certificate to it.</td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>Related topics</h2>
+        <p>
+            <MadCap:xref href="devices-lifecycle.htm">Device lifecycle</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="devices-client-certificates-FAQs.htm">Management attestation FAQs</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="okta-ca-static-scep-macos-jamf.htm">Configure Okta as a CA with static SCEP challenge for macOS using [%=3rd Party Integrations.Jamf Pro%]</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="okta-ca-static-scep-win-ws1.htm">Configure Okta as a CA with static SCEP challenge for Windows using [%=Mobile.WS1%]</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="okta-ca-dynamic-scep-macos-jamf.htm">Configure Okta as a CA with dynamic SCEP challenge for macOS using [%=3rd Party Integrations.Jamf Pro%]</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="okta-ca-delegated-scep-win-intune.htm">Configure Okta as a CA with delegated SCEP challenge for Windows using MEM (formally Intune)</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="okta-ca-delegated-scep-macos-intune.htm">Configure Okta as a CA with delegated SCEP challenge for macOS using MEM (formally Intune)</MadCap:xref>
+        </p>
+        <p>&#160;</p>
+    </body>
+</html>

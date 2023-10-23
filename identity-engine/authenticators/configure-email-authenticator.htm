@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:fileTags="Tags/okta-authors.Nikita Apraj">
+    <head><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1>Configure the Email authenticator</h1>
+        <p>The Email authenticator provides two methods for users to authenticate or recover their access to their account:</p>
+        <ol>
+            <li>Click an email magic link.</li>
+            <li>Use a six-digit verification code as a one-time password (OTP).</li>
+        </ol>
+        <p>The <a href="https://developer.okta.com/docs/guides/email-magic-links-overview/aspnet/main/">Email Magic Links overview</a> in the <MadCap:variable name="okta-variables.ProductName" /> developer documentation explains the email magic link and OTP concepts and the differences between them.</p>
+        <p><MadCap:variable name="okta-variables.ProductName" /> sends these authentication methods in a message to the user's primary email address. The user's ability to access the email verifies that the person making the sign-in attempt is the intended user. </p>
+        <p>This method provides a simple way for users to authenticate, but there are some issues to consider if you implement the email authenticator:</p>
+        <ul>
+            <li>If the user doesn't click the email magic link or use the OTP within a set time, their authentication isn't processed.</li>
+            <li>Email isn't always transmitted through secure protocols. Unauthorized third parties can intercept unencrypted messages. Consider assigning a shorter challenge lifetime to your email magic links and OTP codes to mitigate this risk.</li>
+            <li>Networking issues can delay email messages. If the authentication email arrives after the challenge lifetime has expired, users must request another authentication email.
+</li>
+            <li>Email messages can arrive in the user's spam or junk folder. Remind your users to check these folders if their authentication email doesn't appear.
+            </li>
+        </ul>
+        <div>
+            <h2>Add the Email authenticator</h2>
+            <p>For both redirect (<MadCap:variable name="okta-variables.ProductName" />-hosted) and embedded authorization flows, you need to add the Email authenticator to the org:</p>
+            <ol>
+                <li>
+                    <MadCap:snippetText src="../../../Resources/Snippets/task steps/Security_Authenticators.flsnp" />
+                </li>
+                <li>On the <span class="wintitle">Setup</span> tab, click <span class="uicontrol">Add authenticator</span>.</li>
+                <li>Click <span class="uicontrol">Add</span> on the <span class="uicontrol">Email</span> tile.</li>
+                <li>Optional. Change the default <span class="uicontrol">Email challenge lifetime (minutes)</span>.<p>The default value is five minutes, but you can increase the value in five-minute increments, up to 30 minutes.  The accepted best practice is 10 minutes or less. If an end user clicks an expired magic link, they must sign in again.</p><div class="noteOkta"><p class="noteContent">In addition to email challenge links for authentication, <MadCap:variable name="okta-variables.ProductName" /> also applies this expiration value to self-service password resets and account unlocks.<br /></p></div></li>
+            </ol>
+            <ol MadCap:continue="true">
+                <li>
+                    <MadCap:snippetBlock src="../snippets/authenticators-restrict.flsnp" />
+                    <p>Select the scenarios for which end users can use the email authenticator:</p>
+                    <ul>
+                        <li>
+                            <p><span class="uicontrol">Authentication and recovery</span>
+                            </p>
+                        </li>
+                        <li>
+                            <p><span class="uicontrol">Recovery</span>
+                            </p>
+                        </li>
+                    </ul>
+                </li>
+                <li>Click <span class="uicontrol">Add</span>.</li>
+            </ol>
+            <div class="noteOkta">
+                <p class="noteContent">If you’re using embedded authorization for your sign-in flow, you must follow the <span class="wintitle">Integrate Magic Links</span> procedures outlined in the <a href="https://developer.okta.com/docs/guides/email-magic-links-overview/aspnet/main/#integrate-magic-links" title="Email Magic Links overview" target="_blank">Email Magic Links overview</a>.</p>
+            </div>
+        </div>
+        <h2><a name="email-authenticator-euexp"></a>End-user experience</h2>
+        <p>When an end user attempts to sign in, reset their password, or unlock their account, <MadCap:variable name="okta-variables.ProductName" /> sends an email containing a magic link and a one-time password (OTP) code. The end-user documentation describes how to <a href="https://help.okta.com/okta_help.htm?type=eu&amp;id=ext-eu-sign-in-apps-emlotp" target="_blank">sign in with an email magic link or one-time password</a>.</p>
+        <h3>Sign-in attempt </h3>
+        <p>If the end user clicks the email magic link in the same browser and the authentication flow doesn't require any subsequent factors, it automatically signs them in  through a newly opened tab in the same browser. The session ends in the original browser tab.</p>
+        <p>However, the experience is different if the end user receives or opens the magic link email on a different browser or device. They must return to the original browser and click <span class="uicontrol">Enter a verification code instead</span>. Then they can enter their OTP code to complete the verification process.</p>
+        <p>After the end user is verified by the authentication flow, it redirects the end user to the destination configured for the application: </p>
+        <ul>
+            <li>If the end user was attempting to sign in to <MadCap:variable name="okta-variables.ProductName" />, the browser opens their <MadCap:variable name="okta-feature-names.Okta End-User Dashboard" />. </li>
+            <li>If the end user was signing in using an embedded authorization flow, it redirects them to the location specified by the <span class="uicontrol">Email Verification Experience</span> setting. See <MadCap:xref href="../../Apps/apps-configure-settings.htm">Configure settings for app integrations</MadCap:xref>.</li>
+        </ul>
+        <h3>Password reset</h3>
+        <p>
+            <MadCap:annotation MadCap:createDate="2022-06-16T10:26:04.7845130-04:00" MadCap:creator="Ian Hakes" MadCap:initials="IDMH" MadCap:comment="Remove this paragraph once the SSPR feature goes GA in Prod (it will be replaced by the functionality described in the paragraph below)" MadCap:editor="Ian Hakes" MadCap:editDate="2022-06-16T10:26:41.5298273-04:00">For a password reset</MadCap:annotation>, clicking the link in the email sends the end user to a new tab where <MadCap:variable name="okta-variables.ProductName" /> asks them to verify that they made the request. When they affirm the request, the flow ends in the original browser tab, and they can set a new password in the new tab. If the password meets the acceptance criteria, the end user clicks <span class="uicontrol">Back to sign in</span> to return to the sign-in page. If the end user clicks <span class="uicontrol">Enter a verification code instead</span>, they can set a new password in the same tab, after which the sign-in action completes.</p>
+        <div class="noteOkta">
+            <p class="noteContent">The following flow applies if your org was created after the <MadCap:variable name="oag-versions.2022-10" /> release or if you activated the Self-Service Password Reset early access feature.</p>
+        </div>
+        <p>
+            <MadCap:annotation MadCap:createDate="2022-06-14T13:38:52.6901525-04:00" MadCap:creator="Ian Hakes" MadCap:initials="IDMH" MadCap:comment="Update for Self Service Password Reset, going EA in 2022.07.0, GA Prod in 2022.10.0 (?)" MadCap:editor="Ian Hakes" MadCap:editDate="2022-08-22T12:43:28.1440152-04:00"> </MadCap:annotation>For a password reset, if the end user clicks the email magic link using the same browser where they received the email, the link opens a new tab where <MadCap:variable name="okta-variables.ProductName" /> asks them to enter and verify a new password. If the password meets the acceptance criteria, the end user is signed in automatically with the new credentials through the newly opened tab in the same browser. The session ends in the original browser tab.</p>
+        <h3>Account unlock</h3>
+        <p>When unlocking an account, clicking the link in the email sends the end user to a new browser tab for verification. After they affirm the request, the flow ends in the new browser tab, and they can click <span class="uicontrol">Back to sign in</span> on the original browser tab. If the end user clicks <span class="uicontrol">Enter a verification code instead</span>, they enter the code in the original browser tab, after which the unlock action completes and they can click <span class="uicontrol">Back to sign in</span>.</p>
+        <p>However, if the end user receives or opens the email magic link on a different browser or device, they must return to the original browser and click <span class="uicontrol">Enter a verification code instead</span>. Then they can enter the OTP code provided in the email to reset their password and complete the verification process.</p>
+        <div class="noteOkta">
+            <p class="noteContent">The following flow applies if your org was created after the <MadCap:variable name="oag-versions.2022-10" /> release or if you activated the Self-Service Account Unlock early access feature.</p>
+        </div>
+        <p>
+            <MadCap:annotation MadCap:createDate="2022-08-16T13:15:07.5764365-04:00" MadCap:creator="Ian Hakes" MadCap:initials="IDMH" MadCap:comment="Update for Self Service Unlock. Remove EA statement once the feature is GA." MadCap:editor="Ian Hakes" MadCap:editDate="2022-08-16T13:15:32.6845194-04:00">For an account unlock</MadCap:annotation>, if the end user clicks the email magic link using the same browser where they initiated the unlock request, the link opens a new tab where <MadCap:variable name="okta-variables.ProductName" /> asks them to proceed with the next steps. The end user  must complete any step-up operations required by the unlock request. Clicking the email link and any step-up verifications completed by the end user are counted as verification criteria. </p>
+        <p>If the end user meets all the acceptance criteria, they are signed in to the application in that same tab of the browser. The session ends in the original browser tab. </p>
+        <p>However, if the end user receives or opens the email magic link on a different browser or device, they must return to the original browser and click <span class="uicontrol">Enter a verification code instead</span>. Then they can enter the OTP code provided in the email to reset their password and complete the verification process.</p>
+        <h2>Limitations</h2>
+        <ul>
+            <li><MadCap:variable name="okta-variables.ProductName" /> always sends the authentication email to the end user's primary email address.
+            </li>
+            <li>The Email authenticator is automatically enrolled for both authentication and recovery flows when a user verifies their primary email address, or if you provide the primary email address when you create the user account. This ensures that the user doesn't receive redundant email enrollment challenges if they already proved they own the email address, such as after self-service registration, or if they aren't required to prove they own the email address, such as when the admin creates the user account. <MadCap:snippetText src="snippets/make-email-optional.flsnp" /><![CDATA[           ]]></li>
+        </ul>
+        <h2>Related topics </h2>
+        <p>
+            <MadCap:xref href="configure-password.htm">Configure the Password authenticator</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="configure-phone.htm">Configure the Phone authenticator</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="configure-webauthn.htm">Configure the [%=3rd Party Integrations.FIDO2 (WebAuthn)%] authenticator</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="configure-security-question.htm">Configure the [%=okta-feature-names.Security Question%] authenticator</MadCap:xref>
+        </p>
+    </body>
+</html>

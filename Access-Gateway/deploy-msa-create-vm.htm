@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/deploy-msa-create-vm.htm" /><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <div>
+            <h1>Create  <MadCap:variable name="okta-feature-names.Access Gateway" /> VM</h1>
+            <div>
+                <p>To create a Microsoft Azure virtual machine, you must first define it, then associate a previously created disk with the new virtual machine.</p>
+            </div>
+            <ul class="tabs" data-tabs="data-tabs" data-deep-link="true" id="production-tabs">
+                <li class="tabs-title is-active"><a href="#console-panel" aria-selected="true">Console</a>
+                </li>
+                <li class="tabs-title"><a href="#command-panel">Command Line</a>
+                </li>
+            </ul>
+            <div class="tabs-content" data-tabs-content="production-tabs">
+                <div class="tabs-panel is-active" id="console-panel">
+                    <p>Currently there is no way to build a virtual machine using the Microsoft Azure Portal and attach a previously created disk as the operating system disk. See the <span class="wintitle">Command Line</span> tab for details on creating a virtual machine using the command line. </p>
+                    <ol MadCap:conditions="Primary.do-not-publish">
+                        <li>Sign in to the Microsoft Azure Portal</li>
+                        <li>Select <span class="uicontrol">All Services</span> and search for <span class="uicontrol">Virtual Machines.</span> Alternatively, select <span class="uicontrol">Virtual Machines</span> from the favorites list.</li>
+                        <li>Click <span class="uicontrol">+&#160;Add</span></li>
+                        <li>In the <span class="wintitle">Create a virtual machine</span> page:<ul><li>Select a resource group from the <span class="uicontrol">Resource group</span> dropdown.</li><li>In <span class="uicontrol">Virtual machine name</span>, enter a name for the new virtual machine. </li><li>In <span class="uicontrol">Region</span>, select the region containing the previously created managed disk.</li><li>From the <span class="uicontrol">Image</span> dropdown, select <span class="uicontrol">Cent OS-Based 7.7</span>.</li><li>In <span class="uicontrol">Size</span>, select an appropriate image size. </li></ul></li>
+                        <li>Click <span class="uicontrol">Next:&#160;Disks &gt; </span>.</li>
+                        <li>Click <span class="uicontrol">Attach a existing disk</span> and select the previously added disk. You may need to select OS&#160;Disk&#160;Type: Standard HDD. </li>
+                        <li>Ensure that the selected disk is marked '<span class="uicontrol">Read/Write'</span>.</li>
+                        <li>Click <span class="uicontrol">Create and review</span>.</li>
+                        <li>Examine the new virtual machine and determine its external IP&#160;address/</li>
+                    </ol>
+                </div>
+                <div class="tabs-panel" id="command-panel"><a name="command-panel"></a>
+                    <div class="note_cautionOkta">
+                        <p class="noteContent">Ensure that you have run the <span class="code">az disk revoke-access</span> command before creating the disk. Failure to revoke prior access to the disk can cause the virtual machine command to time out, or fail completely due to the disk being unavailable. </p>
+                    </div>
+                    <ol>
+                        <li>
+                            <p>Using the <span class="code">az disk list</span> command, list the details of  available disks.
+<p><span class="code">az disk list --resource-group &lt;resource-group&gt;</span></p><ul><li><span class="code">&lt;resource-group&gt;</span> is the name of the previously created resource group.</li></ul><p>Here is an example of the <span class="code">az disk list</span> command with the parameter populated with a value:</p><span class="code">az disk list --resource-group AccessGateway</span><p>When you run the <span class="code">az disk list</span> command, the following results appear:</p><span class="codeblock">{
+    . . .
+    "encryptionSettingsCollection": null,"hyperVgeneration": "V1",
+    "id": "/subscriptions/8bc.../resourceGroups/AccessGateway. . ./disks/AG2020-05-00",
+    "location": "eastus",
+    . . .
+
+}</span></p>
+                        </li>
+                        <li>Create a virtual machine using the <span class="code">az vm create</span> command:
+								<p><span class="code">az vm create --resource-group &lt;resource-group&gt; --location &lt;region&gt;&gt; \\
+    --size &lt;size of VM&gt; \\
+    --name &lt;name-of-VM&gt; --os-type linux --attach-os-disk &lt;virtual-disk&gt;</span></p><ul><li><span class="code">&lt;region&gt;</span> is the region to hold the virtual machine.</li><li><span class="code">&lt;size&gt;</span> is the sku of the size of the virtual machine. See <span class="code">az vm list-skus --location &lt;region&gt; --output table</span> for a list of available size SKUs. </li><li><span class="code">&lt;name-of-vm&gt;</span> is an name for the virtual machine.</li><li><span class="code">&lt;virtual-disk&gt;</span> is the name of the virtual disk to associate with the virtual machine.</li><li><span class="code">&lt;resource-group&gt;</span> is the name of the previously created resource group to house the virtual machine.</li></ul><p>Here is an example of the <span class="code">az vm create</span> command with the parameters populated with values:</p><p><span class="code">az vm create --resource-group AccessGateway --location eastus \
+    --name AccessGateway --os-type linux \
+    --attach-os-disk AccessGatewayDisk --size Standard_D2s_v3</span></p><p>When you run the <span class="code">az vm create</span> command, the following results appear:</p><span class="codeblock">{- Finished ..
+"fqdns": "",
+"id": "/subscriptions/508555fa. . . /resourceGroups/AccessGateway/providers/Microsoft.Compute/virtualMachines/OAG5.0VM",
+"location": "eastus",
+"macAddress": "00-0D-3A-0E-9C-C1",
+"powerState": "VM running",
+"privateIpAddress": "10.0.0.5",
+"publicIpAddress": "52.167.120.101",
+"resourceGroup": "AccessGateway",
+"zones": ""
+}</span></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h3>Related topics</h3>
+            <p>For more information on Managing Resource groups using the MS&#160;Azure command-line interface, see <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resources-cli">Manage Azure resources using Azure CLI.</a></p>
+            <p>For more information on Managing Resource groups using the MS&#160;Azure user interface, see <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resource-groups-portal">Manage Azure resource groups using the Azure portal</a>.</p>
+        </div>
+        <div>
+            <h2>Next steps</h2>
+            <p>
+                <MadCap:xref href="deploy-msa-open-ports.vm.htm">Configure Networking</MadCap:xref>
+            </p>
+        </div>
+    </body>
+</html>

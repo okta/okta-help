@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/add-app-portal.htm" />
+        <link href="../../Resources/TableStyles/standard-shaded-rows.css" rel="stylesheet" MadCap:stylesheetType="table" /><title>[%=Heading.Level1%]</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1>Add a portal application</h1>
+        <p>Create and configure a header-based application to route incoming traffic to specific back-end servers.</p>
+        <p><MadCap:variable name="okta-feature-names.Access Gateway" /> applications can use policies and specialized policy configurations to create portal applications. A portal directs some traffic to specific back-end servers based on access policy and URI requests, and directs any remaining traffic to another back-end server. </p>
+        <h2>Architecture</h2>
+        <p>
+            <img src="../../Resources/Images/access-gateway/add-app-portal-add-arch.png" id="img_new" class="thumbnail" />
+        </p>
+        <p>When a user requests a resource, the portal receives the request and routes it to an appropriate back-end server. Each request consists of a core URL (for example, <span class="url">www.myportal.com</span>) and specific resources, which are the elements that follow the core URL (for example, <span class="url">/2nd</span> in the preceding diagram).</p>
+        <p>This is demonstrated in the preceding architecture diagram where any requests to <span class="url">www.myportal.com/2nd</span> are routed to <span class="url">2ndbackend.myportal.com</span>, requests to <span class="url">www.myportal.com/3rd</span> are routed to <span class="url">3rdbackend.myportal.com</span>, and other requests are routed to <span class="url">backend.myportal.com</span>. </p>
+        <div>
+            <h2>Rewrites</h2>
+            <p>Portal applications use custom policies and configurations to define access to multiple back-end servers. A default policy redirecs URIs that don't fall under other policies to a default back-end application. Additional policy statements and their configurations are used to rewrite requests and redirect the requests to specific back-end applications. </p>
+            <p>The following table provides examples of how user requests are rewritten to meet the expected behaviors:</p>
+            <table style="mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+                <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                <thead>
+                    <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                        <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">User request</th>
+                        <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">Expected behavior</th>
+                        <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">
+                            <p>Inbound and outbound rewrites</p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><span class="url">myportal.com/</span>
+                        </td>
+                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Redirect to <span class="url">backend.myportal.com</span>. </td>
+                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1"><span class="url">backend.myportal.com</span>
+                            <p><span class="url">myportal.com/</span>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><span class="url">myportal.com/abc.htm</span>
+                        </td>
+                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Redirect to <span class="url">backend.myportal.com/abc.htm</span>.</td>
+                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2"><span class="url">backend.myportal.com/abc.htm</span>
+                            <p><span class="url">myportal.com/abc.htm</span>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><span class="url">myportal.com/2nd</span>
+                        </td>
+                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Redirect to <span class="url">2ndbackend.myportal.com</span> based on <span class="url">/2nd</span>.</td>
+                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1"><span class="url">2ndbackend.myportal.com</span>
+                            <p><span class="url">myportal.com/2nd</span>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><span class="url">myportal.com/2nd/efg.html</span>
+                        </td>
+                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Redirect to <span class="url">2ndbackend.myportal.com</span> based on <span class="url">/2nd</span>.
+						<p>Strip <span class="url">/2nd</span> on inbound rewrite. Add <span class="code">/2nd</span> back on out bound rewrite.</p></td>
+                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2"><span class="url">2ndbackend.myportal.com/efg.htm</span>
+                            <p><span class="url">myportal.com/2nd/efg.htm</span>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><span class="url">myportal.com/3rd</span>
+                        </td>
+                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Redirect to <span class="url">3rdbackend.myportal.com</span> based on <span class="url">/3rd</span>.</td>
+                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1"><span class="url">3rdbackend.myportal.com</span>
+                            <p><span class="url">myportal.com/3rd</span>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                        <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2"><span class="url">myportal.com/3rd/hij.html</span>
+                        </td>
+                        <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">Redirect to <span class="url">3rdbackend.myportal.com</span> based on <span class="url">/3rd</span>. 
+						<p>Strip <span class="code">/3rd</span> on inbound rewrite. Add <span class="url">/3rd</span> on outbound rewrite.</p></td>
+                        <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2"><span class="url">3rdbackend.myportal.com/hij.htm</span>
+                            <p><span class="url">myportal.com/3rd/hij.htm</span>
+                            </p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>The following sections describe each of the policies applied to the preceding examples:</p>
+            <h4>Default</h4>
+            <p>
+                <img src="../../Resources/Images/access-gateway/add-app-portal-default.png" style="width: 1200px;" id="img_new" class="thumbnail" />
+            </p>
+            <p>The default policy is applied to all requests which don't match some other specific policy. The default policy causes requests to be rewritten against the default application domain and then forwarded to the back end application.  After the request is serviced the result is rewritten back to the original domain and returned. </p>
+            <h4>Rewrite policy for requests to /2nd</h4>
+            <p>
+                <img src="../../Resources/Images/access-gateway/add-app-portal-2nd.png" style="width: 1200px;" id="img_new" class="thumbnail" />
+            </p>
+            <p>Each subsequent back-end includes a policy and advanced configuration to rewrite requests as required. In this example, the policy specifies <span class="url">/2nd</span> as the root URI that triggers a rewrite. The rewriting rules remove the URI and redirect the request to a secondary back-end application (<span class="url">2ndbackend.myportal.com</span>).</p>
+            <h4>Rewrite policy for requests to /3rd</h4>
+            <p>
+                <img src="../../Resources/Images/access-gateway/add-app-portal-3rd.png" style="width: 1200px;" id="img_new" class="thumbnail" />
+            </p>
+            <p>Each subsequent back-end includes a policy and advanced configuration to rewrite requests as required. In this example, the policy specifies <span class="url">/3rd</span> as the root URI that triggers a rewrite. The rewriting rules remove the URI and redirect the request to a secondary back-end application (<span class="url">3rdbackend.myportal.com</span>).</p>
+        </div>
+        <h2><a name="Before"></a>Before you begin</h2>
+        <ul>
+            <li>Determine the external URL used by the application, in this example <span class="url">www.myportal.com</span></li>
+            <li>Determine the universe of possible URIs, and their associated back ends. For instance, the sample architecture uses the following:
+			<p><span class="url">www.myportal.com/2nd</span> &gt; <span class="url">2ndbackend.myportal.com</span>.</p><p><span class="url">www.myportal.com/3rd</span> &gt; <span class="url">3rdbackend.myportal.com</span>.</p><p>With all other URIs using <span class="url">backend.myportal.com</span> as their backend.</p></li>
+            <li>Determine all required header attributes required for authentication.</li>
+        </ul>
+        <h2><a name="Tasks"></a>Typical workflow</h2>
+        <table style="width: 100%;mc-table-style: url('../../Resources/TableStyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+            <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+            <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+            <thead>
+                <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                    <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                        <p>Task</p>
+                    </th>
+                    <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">
+                        <p>Description</p>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><a href="add-app-portal-group.htm">Create a containing group</a>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                        <p>Best practice, create an optional group to be assigned to the application. </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><a href="add-app-portal-create.htm">Create header application</a>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
+                        <p>Create a header application which defaults to the shared common back end. </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                        <MadCap:xref href="add-app-portal-cert.htm">Assign Certificate</MadCap:xref>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                        <p>Assign an optional certificate to the application.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                        <MadCap:xref href="add-app-portal-attributes.htm">Add additional attributes</MadCap:xref>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
+                        <p>Add optional, but often necessary, additional attributes to the application.</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                    <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1"><a href="add-app-portal-policy.htm">Add required access policy</a>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                        <p>Add all required policy for all serviced URIs</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                    <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2"><a href="add-app-portal-test.htm">Test the application</a>
+                    </td>
+                    <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">
+                        <p>Test the application using header and policy simulation.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <h2><a name="Next_Steps"></a>Related topics</h2>
+            <MadCap:snippetBlock src="../../Resources/Snippets/access-gateway/ApplicationNextSteps.flsnp" />
+        </div>
+    </body>
+</html>

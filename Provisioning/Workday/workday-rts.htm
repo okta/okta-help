@@ -1,0 +1,1103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:searchable="True"
+      MadCap:fileTags="Tags/okta-authors.Jeanette Smith">
+   <head>
+      <link href="../../../Resources/TableStyles/standard.css"
+            rel="stylesheet"
+            MadCap:stylesheetType="table"/>
+      <link href="../../../Resources/TableStyles/standard-shaded-rows.css"
+            rel="stylesheet"
+            MadCap:stylesheetType="table"/>
+      <title>Workday Real Time Sync | Okta</title>
+      <link href="" rel="stylesheet" type="text/css"/>
+      <meta name="description"
+            content="Workday Real Time Sync enables user attribute updates in Workday to be instantly reflected in the user’s Okta profile."/>
+   </head>
+   <body>
+      <h1>Workday Real Time Sync</h1>
+      <p>Workday Real Time Sync (RTS) allows <MadCap:variable name="okta-variables.ProductName"/> to receive user creation, update, and termination events from Workday on a real-time basis. User changes in Workday are reflected immediately in <MadCap:variable name="okta-variables.ProductName"/> and its downstream applications. </p>
+      <p>RTS is used to trigger an update from Workday to <MadCap:variable name="okta-variables.ProductName"/> in real time. It should be used for changes where timeliness is critical such as immediate termination of a worker. A business process must be configured in Workday to send the trigger to <MadCap:variable name="okta-variables.ProductName"/> to start this process. Included in the RTS import are base attributes, non-future, and future effective dated custom attributes.</p>
+      <p>It is highly recommended that RTS be used in combination with scheduled imports that are run on a 1-2 day interval. This is because some less frequent actions in Workday will not trigger RTS, so scheduled imports are required to reconcile these actions.</p>
+      <p>
+         <img src="../../../Resources/Images/rts-1.png" class="thumbnail"/>
+      </p>
+      <h2>Prerequisites<a name="Requirements"/>
+      </h2>
+      <p>Workday is set up as the Profile Source. For instructions, see <MadCap:xref href="workday-provisioning.htm">Configuring Provisioning for Workday</MadCap:xref>.</p>
+      <h2>Features</h2>
+      <p>Workday actions not supported by Real Time Sync:</p>
+      <ul>
+         <li>Updates to the <code>Second Email</code> attribute do not trigger RTS.</li>
+         <li>Updates to the <code>Manager Username</code> attribute do not trigger RTS.</li>
+      </ul>
+      <div class="noteOkta">
+         <p class="noteContent">Some of the worker attributes, like the <span class="code">Manager Username</span>, cannot be populated in Okta as part of Real-Time Sync. The workaround is to have the attribute added to <MadCap:xref href="workday-provisioning.htm#Workday3">Workday field overrides</MadCap:xref> or to Custom Report (deprecated) configuration.</p>
+      </div>
+      <p>The table displays what does and does not require an update in base attributes to trigger RTS:</p>
+      <table border="1"
+             height="203"
+             width="587"
+             style="mc-table-style: url('../../../Resources/TableStyles/standard.css');"
+             class="TableStyle-standard"
+             cellspacing="0">
+         <col style="width: 242px;" class="TableStyle-standard-Column-Column1"/>
+         <col class="TableStyle-standard-Column-Column1"/>
+         <thead>
+            <tr class="TableStyle-standard-Head-Header1">
+               <th class="TableStyle-standard-HeadF-Column1-Header1">
+                  <p>Features</p>
+               </th>
+               <th class="TableStyle-standard-HeadD-Column1-Header1">
+                  <p>Requires base attribute update to trigger RTS
+
+						(SAMPLE base attributes- firstName, lastName, email)</p>
+               </th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyF-Column1-Body1">Create New user</td>
+               <td colspan="1"
+                   rowspan="1"
+                   style="text-align: center;"
+                   class="TableStyle-standard-BodyD-Column1-Body1">No </td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyF-Column1-Body2">Update User Base Attribute</td>
+               <td colspan="1"
+                   rowspan="1"
+                   style="text-align: center;"
+                   class="TableStyle-standard-BodyD-Column1-Body2">No</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyF-Column1-Body1">Terminate User</td>
+               <td colspan="1"
+                   rowspan="1"
+                   style="text-align: center;"
+                   class="TableStyle-standard-BodyD-Column1-Body1">No</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">Update Users Custom Attribute</td>
+               <td style="text-align: center;"
+                   class="TableStyle-standard-BodyD-Column1-Body2">Yes</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">Create New Group</td>
+               <td style="text-align: center;"
+                   class="TableStyle-standard-BodyD-Column1-Body1">Yes</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">Update Group Name &amp; Description</td>
+               <td style="text-align: center;"
+                   class="TableStyle-standard-BodyD-Column1-Body2">Yes (Not recommended. See <MadCap:xref href="workday-provisioning.htm#ADimportprov">Manage Workday Provisioning Groups.</MadCap:xref>)</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">Update Any Group Settings</td>
+               <td style="text-align: center;"
+                   class="TableStyle-standard-BodyD-Column1-Body1">Yes</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">Add New User To Group</td>
+               <td style="text-align: center;"
+                   class="TableStyle-standard-BodyD-Column1-Body2">No</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">Update User Base Attribute in Group</td>
+               <td style="text-align: center;"
+                   class="TableStyle-standard-BodyD-Column1-Body1">Yes</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyC-Column1-Body2">Remove User From Group</td>
+               <td style="text-align: center;"
+                   class="TableStyle-standard-BodyA-Column1-Body2">Yes</td>
+            </tr>
+         </tbody>
+      </table>
+      <p style="font-weight: bold;">List of Base Attributes</p>
+      <table border="1"
+             height="203"
+             width="587"
+             style="mc-table-style: url('../../../Resources/TableStyles/standard.css');"
+             class="TableStyle-standard"
+             cellspacing="0">
+         <col style="width: 242px;" class="TableStyle-standard-Column-Column1"/>
+         <col style="width: 198px;" class="TableStyle-standard-Column-Column1"/>
+         <col style="width: 207px;" class="TableStyle-standard-Column-Column1"/>
+         <thead>
+            <tr class="TableStyle-standard-Head-Header1">
+               <th class="TableStyle-standard-HeadF-Column1-Header1">
+                  <p>Display Name</p>
+               </th>
+               <th class="TableStyle-standard-HeadF-Column1-Header1">
+                  <p>Variable Name</p>
+               </th>
+               <th class="TableStyle-standard-HeadD-Column1-Header1">
+                  <p>Type</p>
+               </th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyF-Column1-Body1">User Name</td>
+               <td class="TableStyle-standard-BodyF-Column1-Body1">userName</td>
+               <td colspan="1"
+                   rowspan="1"
+                   style="text-align: center;"
+                   class="TableStyle-standard-BodyD-Column1-Body1">String</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyF-Column1-Body2">First Name</td>
+               <td class="TableStyle-standard-BodyF-Column1-Body2">firstName</td>
+               <td colspan="1"
+                   rowspan="1"
+                   style="text-align: center;"
+                   class="TableStyle-standard-BodyD-Column1-Body2">String</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyF-Column1-Body1">Last Name</td>
+               <td class="TableStyle-standard-BodyF-Column1-Body1">lastName</td>
+               <td colspan="1"
+                   rowspan="1"
+                   style="text-align: center;"
+                   class="TableStyle-standard-BodyD-Column1-Body1">String</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">Email</td>
+               <td class="TableStyle-standard-BodyF-Column1-Body2">email</td>
+               <td style="text-align: center;"
+                   class="TableStyle-standard-BodyD-Column1-Body2">String</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">Second Email</td>
+               <td class="TableStyle-standard-BodyF-Column1-Body1">secondEmail</td>
+               <td style="text-align: center;"
+                   class="TableStyle-standard-BodyD-Column1-Body1">String</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">Mobile Phone</td>
+               <td class="TableStyle-standard-BodyF-Column1-Body2">mobilePhone</td>
+               <td style="text-align: center;"
+                   class="TableStyle-standard-BodyD-Column1-Body2">String</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">Employee ID</td>
+               <td class="TableStyle-standard-BodyF-Column1-Body1">employeeID</td>
+               <td style="text-align: center;"
+                   class="TableStyle-standard-BodyD-Column1-Body1">String</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">Worker Type</td>
+               <td class="TableStyle-standard-BodyF-Column1-Body2">accountType</td>
+               <td style="text-align: center;"
+                   class="TableStyle-standard-BodyD-Column1-Body2">String</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">Title</td>
+               <td class="TableStyle-standard-BodyF-Column1-Body1">businessTitle</td>
+               <td style="text-align: center;"
+                   class="TableStyle-standard-BodyD-Column1-Body1">String</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">Manager ID</td>
+               <td class="TableStyle-standard-BodyF-Column1-Body2">managerId</td>
+               <td style="text-align: center;"
+                   class="TableStyle-standard-BodyD-Column1-Body2">String</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">Manager Username</td>
+               <td class="TableStyle-standard-BodyF-Column1-Body1">managerUserName</td>
+               <td style="text-align: center;"
+                   class="TableStyle-standard-BodyD-Column1-Body1">String</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">Street Address</td>
+               <td class="TableStyle-standard-BodyF-Column1-Body2">streetAddress</td>
+               <td style="text-align: center;"
+                   class="TableStyle-standard-BodyD-Column1-Body2">String</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">City</td>
+               <td class="TableStyle-standard-BodyF-Column1-Body1">city</td>
+               <td style="text-align: center;"
+                   class="TableStyle-standard-BodyD-Column1-Body1">String</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">State</td>
+               <td class="TableStyle-standard-BodyF-Column1-Body2">state</td>
+               <td style="text-align: center;"
+                   class="TableStyle-standard-BodyD-Column1-Body2">String</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">Postal Code</td>
+               <td class="TableStyle-standard-BodyF-Column1-Body1">postalCode</td>
+               <td style="text-align: center;"
+                   class="TableStyle-standard-BodyD-Column1-Body1">String</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">Country (ISO-3166)</td>
+               <td class="TableStyle-standard-BodyF-Column1-Body2">countryCode</td>
+               <td style="text-align: center;"
+                   class="TableStyle-standard-BodyD-Column1-Body2">String</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">Supervisory Organization</td>
+               <td class="TableStyle-standard-BodyF-Column1-Body1">supervisoryOrd</td>
+               <td style="text-align: center;"
+                   class="TableStyle-standard-BodyD-Column1-Body1">String</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">Business Unit</td>
+               <td class="TableStyle-standard-BodyF-Column1-Body2">businessUnit</td>
+               <td style="text-align: center;"
+                   class="TableStyle-standard-BodyD-Column1-Body2">String</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">Work Phone</td>
+               <td class="TableStyle-standard-BodyF-Column1-Body1">workPhone</td>
+               <td style="text-align: center;"
+                   class="TableStyle-standard-BodyD-Column1-Body1">
+                  <p>String</p>
+               </td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyC-Column1-Body2">Location</td>
+               <td class="TableStyle-standard-BodyC-Column1-Body2">location</td>
+               <td style="text-align: center;"
+                   class="TableStyle-standard-BodyA-Column1-Body2">String</td>
+            </tr>
+         </tbody>
+      </table>
+      <h4>RTS Deactivation</h4>
+      <ul>
+         <li>RTS follows the same deactivation rules when querying the user in real time. Information about deactivation can be found under <MadCap:xref href="workday-provisioning.htm#Deactiva">Deactivation</MadCap:xref>.</li>
+         <li>Users can be deactivated immediately upon sync if the immediate deactivation reasoning has been set up. See <MadCap:xref href="workday-provisioning.htm#Immediate_Deactivation_Reasons">Immediate Deactivation</MadCap:xref>.</li>
+         <li>Group name change is not recommended in conjunction with RTS. See <MadCap:xref href="workday-provisioning.htm#ADimportprov">Manage Workday Provisioning Groups</MadCap:xref>.</li>
+      </ul>
+      <h2>Procedures</h2>
+      <h3>Workday configuration</h3>
+      <ul>
+         <li>
+            <MadCap:xref href="#Step5">Step 1: Create an Integration System</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Step">Step 2: Add Integration Attributes to the Integration System</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Step2">Step 3: Add Subscriptions to the Integration System</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Step3">Step 4: Associate the Integration User to the Integration System</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Step4">Step 5: Edit Business Process for adding the Integration System</MadCap:xref>
+         </li>
+      </ul>
+      <h4>
+         <a name="Step5"/>Step 1: Create an Integration System</h4>
+      <ol>
+         <li>Sign in to Workday as an administrator.</li>
+         <li>Type <span class="uicontrol">Create Integration System</span> in the search box on the top left corner of the screen.</li>
+         <li>Enter the following information:</li>
+         <ul>
+            <li>
+               <span class="uicontrol">System Name</span>: Name desired for the integration system</li>
+            <li>
+               <span class="uicontrol">Template</span>: Select <span class="uicontrol">New using Template</span>, then select  <MadCap:variable name="okta-variables.ProductName"/>-Worker from the list.</li>
+            <li>Click <span class="uicontrol">OK.</span>
+            </li>
+         </ul>
+         <li>Select <span class="uicontrol">Enable All Services</span> and make sure that all checkboxes under the <span class="uicontrol">Enabled</span> column are selected.</li>
+         <li>You may see the following error. You can ignore it because you finish the configuration in the next section.<p>
+               <img src="../../../Resources/Images/rts-error1.png" class="thumbnail"/>
+            </p>
+         </li>
+         <li>After confirming the values, the Integration System page opens.</li>
+      </ol>
+      <h4>
+         <a name="Step"/>Step 2: Add Integration Attributes to the Integration System</h4>
+      <ol>
+         <li>Click <span class="uicontrol">Actions</span> adjacent to the <span class="uicontrol">Integration System</span>, then go to <span class="menucascade">
+               <span class="uicontrol">Integration System</span>
+               <span class="uicontrol">Configure Integration Attributes</span>
+            </span>:								</li>
+         <li>
+            <p>Click the plus (+) sign for the <MadCap:variable name="okta-variables.ProductName"/> API Endpoint and <MadCap:variable name="okta-variables.ProductName"/>
+               <span class="uicontrol">API Token</span> to add a new entry for each attribute.</p>
+         </li>
+      </ol>
+      <p>
+         <MadCap:variable name="okta-variables.ProductName"/>
+         <span class="uicontrol">API Endpoint</span>
+      </p>
+      <p>In the URL: <span class="url">https://&lt;ENVIRONMENT&gt;/api/v1/app/&lt;Identity Provider ID&gt;/activities/</span>, use these elements:</p>
+      <ul>
+         <li>
+            <span class="uicontrol">Environment</span>: Example: <span class="url">acme.okta.com</span>, <span class="url">mycompany.okta.com</span>
+         </li>
+         <li>
+            <span class="uicontrol">Identity Provider ID</span>: From the <span class="uicontrol">View Setup Instructions</span> link under the <span class="uicontrol">Sign On</span> tab for the Workday app. Use the value generated for <span class="uicontrol">Issuer</span> in the Setup Instructions.</li>
+      </ul>
+      <p>To obtain the <MadCap:variable name="okta-variables.ProductName" style="font-weight: normal;"/> API Token, follow these steps:</p>
+      <ol>
+         <li>
+                Create an Okta service account.
+            </li>
+         <li>
+                Make the service account an Application Administrator of the Workday application.
+            </li>
+         <li>
+                Sign in to Okta as this user.
+            </li>
+         <li>
+
+From the <MadCap:variable name="okta-variables.ProductName"/> Dashboard page, go to Security &gt; API.
+
+</li>
+         <li>Click  Create Token, then enter a relevant name for it.
+
+</li>
+         <li>Copy the token and use it in the form detailed above. </li>
+      </ol>
+      <h4>
+         <a name="Step2"/>Step 3: Add Subscriptions to the Integration System</h4>
+      <ol>
+         <li>Click the ellipsis (three dots) adjacent to the Integration System, then go to <span class="menucascade">
+               <span class="uicontrol">Integration System</span>
+               <span class="uicontrol">Edit Subscriptions</span>
+            </span>.								</li>
+         <li>
+            <p>Under <span class="uicontrol">Subscribe to specific Transaction Types</span>, select items as per the types of events that are required. (Refer to <MadCap:xref href="#Table_3">Table 3</MadCap:xref> for specifications on the types of transactions).</p>
+         </li>
+         <li>
+            <p>Click the minus (–) sign below <span class="uicontrol">External Endpoints</span> to remove the configuration for <span class="uicontrol">External Endpoint</span>.</p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Add Launch Integration</span>, then add the values shown in <MadCap:xref href="#Table_1">Table 1.</MadCap:xref>
+            </p>
+         </li>
+         <li>
+            <p>You may see the following alert. You can ignore it as it will be fixed in the next section.</p>
+            <p>
+               <img src="../../../Resources/Images/rts-error2.png" class="thumbnail"/>
+            </p>
+         </li>
+      </ol>
+      <p>
+         <a name="Table_1"/>Table 1:
+        </p>
+      <table border="1"
+             height="203"
+             width="587"
+             style="mc-table-style: url('../../../Resources/TableStyles/standard.css');"
+             class="TableStyle-standard"
+             cellspacing="0">
+         <thead>
+            <tr class="TableStyle-standard-Head-Header1">
+               <th class="TableStyle-standard-HeadF-Column1-Header1">
+                  <p>Field</p>
+               </th>
+               <th class="TableStyle-standard-HeadF-Column1-Header1">
+                  <p>Value Types</p>
+               </th>
+               <th class="TableStyle-standard-HeadD-Column1-Header1">
+                  <p>Value</p>
+               </th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyF-Column1-Body1">Workers</td>
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyF-Column1-Body1">Determine Value at Runtime</td>
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyD-Column1-Body1">Transaction Targets</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyF-Column1-Body2">As of Entry Moment</td>
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyF-Column1-Body2">Determine Value at Runtime</td>
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyD-Column1-Body2">Transaction Entry Moment</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyC-Column1-Body1">Effective Data</td>
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyC-Column1-Body1">Determine Value at Runtime</td>
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyA-Column1-Body1">Transaction Entry Moment</td>
+            </tr>
+         </tbody>
+      </table>
+      <p>Note: If you receive an error, try inputting Transaction Targets as Workers instead of Transaction Targets.</p>
+      <h4>
+         <a name="Step3"/>Step 4: Associate the Integration User to the Integration System</h4>
+      <p>This Integration System User should be created as described in <MadCap:xref href="workday-provisioning.htm#Create">Create an Integration System User in Workday</MadCap:xref>.</p>
+      <ol>
+         <li>
+            <p>Click the ellipsis (three dots) adjacent to the Integration System, then edit the <span class="uicontrol">Workday account.</span>
+            </p>
+         </li>
+         <li>
+            <p>Select the <span class="uicontrol">Integration System User</span> under <span class="uicontrol">Workday Account</span> and add it. This associates the <span class="uicontrol">Integration User</span> to the <span class="uicontrol">System</span> and completes the setup of the <span class="uicontrol">Integration System</span>.</p>
+         </li>
+      </ol>
+      <h4>
+         <a name="Step4"/>Step 5: Edit Business Process for adding the Integration System</h4>
+      <ol>
+         <li>We use <span class="uicontrol">Hire</span> in this example. For the appropriate business process type, see <MadCap:xref href="#Table_3">Table 3</MadCap:xref>.</li>
+         <li>
+
+Enter <span class="userinput">bp: hire</span> in the <span class="uicontrol">Workday</span> search box.
+
+</li>
+         <li>Select <span class="uicontrol">Hire</span> for <span class="varname">tenant</span>. For example: <span class="uicontrol">Hire for Acme Inc.</span> Do not select the default business process.
+
+</li>
+         <li>Go to <span class="uicontrol">Edit Definition</span>.								</li>
+         <li>
+            <p>We need to add a new step, which will be invoked after the hire process is complete. Find the letter in the <span class="uicontrol">Order</span> column matching the <span class="uicontrol">Yes</span> in the <span class="uicontrol">Complete</span> column. (In this example it's set to a).</p>
+            <p>
+               <img src="../../../Resources/Images/rts-13.jpeg" class="thumbnail"/>
+            </p>
+         </li>
+         <li>
+            <p>Click the plus sign (+) to add a new step.</p>
+         </li>
+         <li>
+            <p>Set the <span class="uicontrol">Order</span> value to <span class="uicontrol">b</span> since we need the Business Process to invoke real time sync after the completion step, which is set to <span class="uicontrol">a</span>.</p>
+         </li>
+         <li>
+            <p>Select the type as <span class="uicontrol">Integration</span>, then click <span class="uicontrol">OK</span> to save. You return to the Business process landing page.</p>
+         </li>
+         <li>
+            <p>You may see the following error. You can ignore it because it will be fixed in the next section.</p>
+            <p>
+               <img src="../../../Resources/Images/rts-error3.png" class="thumbnail"/>
+            </p>
+         </li>
+         <li>
+            <p>There is now a new <span class="uicontrol">Configure Integration System</span> button. Click this to start the configuration process.</p>
+         </li>
+         <li>
+            <p>Select the Integration system that was previously created, then click <span class="uicontrol">OK</span>.</p>
+         </li>
+         <li>
+            <p>Add the values as shown in <MadCap:xref href="#Table_1">Table 1.</MadCap:xref>
+            </p>
+         </li>
+      </ol>
+      <p>
+         <a name="Table_2"/>Table 2</p>
+      <table border="1"
+             height="203"
+             width="587"
+             style="mc-table-style: url('../../../Resources/TableStyles/standard.css');"
+             class="TableStyle-standard"
+             cellspacing="0">
+         <thead>
+            <tr class="TableStyle-standard-Head-Header1">
+               <th class="TableStyle-standard-HeadF-Column1-Header1">
+                  <p>Field</p>
+               </th>
+               <th class="TableStyle-standard-HeadF-Column1-Header1">
+                  <p>Value Types</p>
+               </th>
+               <th class="TableStyle-standard-HeadD-Column1-Header1">
+                  <p>Value</p>
+               </th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyF-Column1-Body1">Workers</td>
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyF-Column1-Body1">Determine Value at Runtime</td>
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyD-Column1-Body1">Worker</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyF-Column1-Body2">As of Entry Moment</td>
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyF-Column1-Body2">Determine Value at Runtime</td>
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyD-Column1-Body2">Date and Time Completed</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyC-Column1-Body1">Effective Date</td>
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyC-Column1-Body1">Determine Value at Runtime</td>
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyA-Column1-Body1">Effective Date</td>
+            </tr>
+         </tbody>
+      </table>
+      <p>This completes the steps for adding the Integration System event to the Business Process.
+
+For the sync between Workday and <MadCap:variable name="okta-variables.ProductName"/>, see  <MadCap:xref href="#Table_3">Table 3</MadCap:xref> for the optimal combination of Business Process and Transaction Type.
+</p>
+      <p>
+         <a name="Table_3"/>Table 3
+        </p>
+      <table border="1"
+             height="536"
+             width="675"
+             style="mc-table-style: url('../../../Resources/TableStyles/standard.css');"
+             class="TableStyle-standard"
+             cellspacing="0">
+         <thead>
+            <tr class="TableStyle-standard-Head-Header1">
+               <th class="TableStyle-standard-HeadF-Column1-Header1">
+                  <p>No. </p>
+               </th>
+               <th class="TableStyle-standard-HeadF-Column1-Header1">
+                  <p>Type</p>
+               </th>
+               <th class="TableStyle-standard-HeadF-Column1-Header1">
+                  <p>Name</p>
+               </th>
+               <th class="TableStyle-standard-HeadD-Column1-Header1">
+                  <p>Event</p>
+               </th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyF-Column1-Body1">1</td>
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyF-Column1-Body1">Business Process</td>
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyF-Column1-Body1">Hire</td>
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyD-Column1-Body1">New hire</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyF-Column1-Body2">2</td>
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyF-Column1-Body2">Business Process</td>
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyF-Column1-Body2">Termination</td>
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyD-Column1-Body2">Termination</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyF-Column1-Body1">3</td>
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyF-Column1-Body1">Business Process</td>
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyF-Column1-Body1">Job Change</td>
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyD-Column1-Body1">Job, Supervisory org. Manager</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyF-Column1-Body2">4</td>
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyF-Column1-Body2">Business Process</td>
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyF-Column1-Body2">Title</td>
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyD-Column1-Body2">Job Title Change</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyF-Column1-Body1">5</td>
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyF-Column1-Body1">Transaction Type</td>
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyF-Column1-Body1">Account Provisioning - Event Lite Type</td>
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyD-Column1-Body1">Workday ID change</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyF-Column1-Body2">6</td>
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyF-Column1-Body2">Transaction Type</td>
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyF-Column1-Body2">Contact Change - Contact Information</td>
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyD-Column1-Body2">Phone number, email change</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyF-Column1-Body1">7</td>
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyF-Column1-Body1">Transaction Type</td>
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyF-Column1-Body1">Edit Workday Account - Edit Workday Account</td>
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyD-Column1-Body1">Username, Employee ID change</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyF-Column1-Body2">8</td>
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyF-Column1-Body2">Transaction Type</td>
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyF-Column1-Body2">Legal Name Change - Legal Name Change Event</td>
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyD-Column1-Body2">Name change</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyC-Column1-Body1">9</td>
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyC-Column1-Body1">Transaction Type</td>
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyC-Column1-Body1">Person Address Change - Event Lite Type</td>
+               <td colspan="1"
+                   rowspan="1"
+                   class="TableStyle-standard-BodyA-Column1-Body1">Address change (Work Address)</td>
+            </tr>
+         </tbody>
+      </table>
+      <h3>Maintain Termination Categories in Workday</h3>
+      <p>
+
+There are two ways to edit or view the categories for termination: </p>
+      <ul>
+         <li>
+
+Search for maintain termination categories in the search box and select termination for results.
+
+</li>
+         <li>Termination IDs via the integration IDs report: search for integration IDs and then select the appropriate values. </li>
+      </ul>
+      <br/>
+      <div>
+         <div>
+            <table border="1"
+                   style="mc-table-style: url('../../../Resources/TableStyles/standard-shaded-rows.css');"
+                   class="TableStyle-srb_header_alt_shade"
+                   cellspacing="0">
+               <col class="TableStyle-srb_header_alt_shade-Column-Column1"/>
+               <col class="TableStyle-srb_header_alt_shade-Column-Column1"/>
+               <col class="TableStyle-srb_header_alt_shade-Column-Column1"/>
+               <col style="width: 346px;"
+                    class="TableStyle-srb_header_alt_shade-Column-Column1"/>
+               <thead>
+                  <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                     <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                        <p>Pre-hire interval set?</p>
+                     </th>
+                     <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                        <p>Immediate deactivation reason matches?</p>
+                     </th>
+                     <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">
+                        <p>Use last day of work?</p>
+                     </th>
+                     <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">
+                        <p>Outcome</p>
+                     </th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                     <td style="text-align: center;"
+                         class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                        <div>
+                           <div>
+                              <p>
+															No														</p>
+                           </div>
+                        </div>
+                     </td>
+                     <td style="text-align: center;"
+                         class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                        <div>
+                           <div>
+                              <p>
+															No														</p>
+                           </div>
+                        </div>
+                     </td>
+                     <td style="text-align: center;"
+                         class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                        <div>
+                           <div>
+                              <p>
+															No
+														</p>
+                           </div>
+                        </div>
+                     </td>
+                     <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                        <div>
+                           <div>
+                              <p>
+															Worker will become deactivated after their
+															termination date has come to pass
+														</p>
+                           </div>
+                        </div>
+                     </td>
+                  </tr>
+                  <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                     <td style="text-align: center;"
+                         class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                        <div>
+                           <div>
+                              <p>
+															No
+														</p>
+                           </div>
+                        </div>
+                     </td>
+                     <td style="text-align: center;"
+                         class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                        <div>
+                           <div>
+                              <p>
+															No
+														</p>
+                           </div>
+                        </div>
+                     </td>
+                     <td style="text-align: center;"
+                         class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                        <div>
+                           <div>
+                              <p>
+															Yes
+														</p>
+                           </div>
+                        </div>
+                     </td>
+                     <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
+                        <div>
+                           <div>
+                              <p>
+															Worker will become deactivated after their
+															last day of work has come to pass
+														</p>
+                           </div>
+                        </div>
+                     </td>
+                  </tr>
+                  <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                     <td style="text-align: center;"
+                         class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                        <div>
+                           <div>
+                              <p>
+															No
+														</p>
+                           </div>
+                        </div>
+                     </td>
+                     <td style="text-align: center;"
+                         class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                        <div>
+                           <div>
+                              <p>
+															Yes
+														</p>
+                           </div>
+                        </div>
+                     </td>
+                     <td style="text-align: center;"
+                         class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                        <div>
+                           <div>
+                              <p>
+															No
+														</p>
+                           </div>
+                        </div>
+                     </td>
+                     <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                        <div>
+                           <div>
+                              <p>
+															Worker will become deactivated 1 day prior
+															to their termination date coming to pass
+														</p>
+                           </div>
+                        </div>
+                     </td>
+                  </tr>
+                  <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                     <td style="text-align: center;"
+                         class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                        <div>
+                           <div>
+                              <p>
+															No
+														</p>
+                           </div>
+                        </div>
+                     </td>
+                     <td style="text-align: center;"
+                         class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                        <div>
+                           <div>
+                              <p>
+															Yes
+														</p>
+                           </div>
+                        </div>
+                     </td>
+                     <td style="text-align: center;"
+                         class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                        <div>
+                           <div>
+                              <p>
+															Yes
+														</p>
+                           </div>
+                        </div>
+                     </td>
+                     <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
+                        <div>
+                           <div>
+                              <p>
+															Worker will become deactivated 1 day prior
+															to their termination date coming to pass
+														</p>
+                           </div>
+                        </div>
+                     </td>
+                  </tr>
+                  <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                     <td style="text-align: center;"
+                         class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                        <div>
+                           <div>
+                              <p>
+															Yes
+														</p>
+                           </div>
+                        </div>
+                     </td>
+                     <td style="text-align: center;"
+                         class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                        <div>
+                           <div>
+                              <p>
+															No
+														</p>
+                           </div>
+                        </div>
+                     </td>
+                     <td style="text-align: center;"
+                         class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                        <div>
+                           <div>
+                              <p>
+															No
+														</p>
+                           </div>
+                        </div>
+                     </td>
+                     <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                        <div>
+                           <div>
+                              <p>
+															Worker will become deactivated after their
+															termination date has come to pass
+														</p>
+                           </div>
+                        </div>
+                     </td>
+                  </tr>
+                  <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                     <td style="text-align: center;"
+                         class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                        <div>
+                           <div>
+                              <p>
+															Yes</p>
+                           </div>
+                        </div>
+                     </td>
+                     <td style="text-align: center;"
+                         class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                        <div>
+                           <div>
+                              <p>
+															No
+														</p>
+                           </div>
+                        </div>
+                     </td>
+                     <td style="text-align: center;"
+                         class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                        <div>
+                           <div>
+                              <p>
+															Yes</p>
+                           </div>
+                        </div>
+                     </td>
+                     <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
+                        <div>
+                           <div>
+                              <p>
+															Worker will become deactivated after their
+															last day of work has come to pass
+														</p>
+                           </div>
+                        </div>
+                     </td>
+                  </tr>
+                  <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                     <td style="text-align: center;"
+                         class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                        <div>
+                           <div>
+                              <p>
+															Yes</p>
+                           </div>
+                        </div>
+                     </td>
+                     <td style="text-align: center;"
+                         class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                        <div>
+                           <div>
+                              <p>
+															Yes</p>
+                           </div>
+                        </div>
+                     </td>
+                     <td style="text-align: center;"
+                         class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                        <div>
+                           <div>
+                              <p>
+															No
+														</p>
+                           </div>
+                        </div>
+                     </td>
+                     <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                        <div>
+                           <div>
+                              <p>
+															Worker will become deactivated after their
+															termination date has come to pass
+														</p>
+                           </div>
+                        </div>
+                     </td>
+                  </tr>
+                  <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                     <td style="text-align: center;"
+                         class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">
+                        <div>
+                           <div>
+                              <p>
+															Yes</p>
+                           </div>
+                        </div>
+                     </td>
+                     <td style="text-align: center;"
+                         class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">
+                        <div>
+                           <div>
+                              <p>
+															Yes</p>
+                           </div>
+                        </div>
+                     </td>
+                     <td style="text-align: center;"
+                         class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">
+                        <div>
+                           <div>
+                              <p>
+															Yes</p>
+                           </div>
+                        </div>
+                     </td>
+                     <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">
+                        <div>
+                           <div>
+                              <p>
+															Worker will become deactivated after their
+															last day of work has come to pass
+														</p>
+                           </div>
+                        </div>
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:conditions="MultiProdPublish.Classic+OIE" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head><title>[%=Heading.Level1%] | Okta</title>
+        <meta name="description" content="Identifies known issues for the LDAP interface." />
+    </head>
+    <body>
+        <h1>LDAP Interface known limitations</h1>
+        <p>The following are the known limitations of the LDAP Interface:</p>
+        <ul>
+            <li>Unix or Linux-based PAM authentication isn't supported.                    </li>
+            <li>Ability to search on <code>memberOf</code> results in longer search times.</li>
+            <li>Support for TLS&#160;1.2 only.</li>
+            <li>Only BIND, UNBIND, and SEARCH&#160;operations are supported, and the StartTLS&#160;extended operation is also supported.</li>
+            <li>The server allows a page size of 1000 entries. If the size of the result exceeds the page size, an LDAP error code is returned. For a large result set, use Simple Pagination Control. See <a href="https://www.ietf.org/rfc/rfc2696.txt">https://www.ietf.org/rfc/rfc2696.txt</a>.
+</li>
+            <li>You must use an <MadCap:variable name="okta-variables.ProductName" /> user ID. If you're using <span class="code">samAccountName</span> as a sign-in value for your apps, authentication fails.
+</li>
+            <li>For LDAP searches that query <span class="code">uniquemember</span> and <span class="code">memberOf</span> attributes, the LDAP Interface iterates through all pages before returning membership response back to the client. 
+                    </li>
+            <li>LDAP Interface defines <span class="code">memberOf</span> as a virtual operational attribute. It's returned only if:
+			<ul><li><span class="code">memberOf</span> is requested in the list of attributes, or </li><li> All operational attributes are requested using '+'</li></ul><p> Querying the <span class="code">memberOf</span> attribute can affect your org rate limits. To avoid rate limit issues, <MadCap:variable name="okta-variables.ProductName" /> recommends using the group membership attribute <span class="code">uniqueMember</span>. This configuration scales API calls with the number of groups and not the number of users.</p><p> Improvements were also made to&#160;other operational attributes that were part of LDAP core schema. This list includes <span class="code">hasSubordinates</span>, <span class="code">structuralObjectClass</span>, <span class="code">entryDN</span>, <span class="code">subschemaSubentry</span>, and <span class="code">numSubordinates</span>. Note that <span class="code">numSubordinates</span> isn't calculated for users and groups containers.</p></li>
+            <li>Sensitive attributes and LDAP Interface searches: LDAP Interface search filters that reference sensitive attributes or attributes that don't exist in the schema won't return any results.
+					<p>For example, if a custom attribute <span class="code">Employee Number</span> is sensitive, then the filter <span class="userinput">employeenumber=123-45-6789</span> won't return any results, nor will the filter <span class="userinput">(|(employeenumber=*)(uniqueIdentifier=*)</span>.</p><p>Additionally, LDAP Interface search filters that reference attributes that aren't in the schema won't return any results. For example, if the attribute <span class="code">xyz</span> doesn't exist in the schema, then the filter <span class="userinput">xyz=foo</span> won't return any results, nor will the filter <span class="userinput">(|(xyz=*)(bar=*))</span>.</p></li>
+            <li>
+                <p>When using <MadCap:variable name="okta-feature-names.Okta Verify" /> multifactor authentication with the LDAP Interface, the IP address reported is the appserver IP rather than the client IP. This is due to limitations in being able to forward the client IP through LDAP.</p>
+            </li>
+            <li>
+                <p>The creation of <MadCap:variable name="okta-variables.ProductName" /> attributes such as <span class="code">user.uid</span> isn't supported. These attributes can't be retrieved by <span class="code">&lt;uid=user.login&gt;</span> attribute searches. Results aren't returned when an attribute search is performed and the user profile contains the <span class="code">user.uid</span> attribute.</p>
+            </li>
+            <li>
+                <p>Group administrators, help desk administrators, and custom administrators whose permissions are limited to viewing and managing the users of their assigned groups may experience a timeout when performing user searches. </p>
+            </li>
+        </ul>
+    </body>
+</html>

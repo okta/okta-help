@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Mark Cowan">
+    <head><title>[%=Heading.Level1%] | Okta</title>
+    </head>
+    <body>
+        <h1>Uninstall Okta People Picker and Okta authentication</h1>
+        <p>This procedure involves the following tasks:</p>
+        <p>
+            <MadCap:xref href="#1.">Uninstall Okta SharePoint People Picker agent</MadCap:xref>
+        </p>
+        <p>
+            <MadCap:xref href="#2.">Uninstall Okta authentication</MadCap:xref>
+        </p>
+        <h3><a name="1."></a>Uninstall Okta SharePoint People Picker agent</h3>
+        <ol>
+            <li>
+                <p>Disable the Okta Trusted Identity Provider.</p>
+                <p> From your SharePoint Central Administration console, go to <span class="menucascade"><span class="uicontrol">General Security</span><span class="uicontrol">Specify Authentication providers</span><span class="uicontrol">Zone (Default)</span></span>.</p>
+                <p>
+                    <img src="../../../../Resources/Images/sharepoint/unins-pp-1.png" class="thumbnail" />
+                </p>
+            </li>
+            <li>
+                <p>Note the People Picker solution name from the SharePoint Solution Management console for later use. </p>
+                <p>From your SharePoint Central Administration console, go to <span class="menucascade"><span class="uicontrol">Manage farm solutions</span><span class="uicontrol">System Settings</span></span>.</p>
+                <p>
+                    <img src="../../../../Resources/Images/sharepoint/unins-pp-2.png" class="thumbnail" />
+                </p>
+            </li>
+            <li>
+                <p>Reset IIS and uninstall the People Picker solution with the following two PowerShell commands:</p>
+                <MadCap:codeSnippet>
+                    <MadCap:codeSnippetCopyButton />
+                    <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">$name = 'OktaClaimsProvider.OktaClaimsProvider'
+$cp = Get-SPClaimProvider | Where-Object {$_.TypeName -eq $name}
+Remove-SPClaimProvider $cp
+</MadCap:codeSnippetBody>
+                </MadCap:codeSnippet>
+            </li>
+            <li>
+                <p>Validate that the Okta SharePoint People Picker agent has been removed by running the following command and confirming that Okta isn't listed:</p>
+                <MadCap:codeSnippet>
+                    <MadCap:codeSnippetCopyButton />
+                    <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">Get-SPClaimProvider
+</MadCap:codeSnippetBody>
+                </MadCap:codeSnippet>
+            </li>
+            <li>
+                <p>Remove the People Picker SharePoint solution with the following PowerShell commands. </p>
+                <p>Enter the People Picker solution WSP name with the solution name that you noted earlier:</p>
+                <MadCap:codeSnippet>
+                    <MadCap:codeSnippetCopyButton />
+                    <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">Uninstall-SPSolution  -Identity  "OktaClaimsProvider2013-2.3.0.0-xxxxx.wsp"
+</MadCap:codeSnippetBody>
+                </MadCap:codeSnippet>
+            </li>
+            <li>
+                <p>Confirm the uninstallation from the SharePoint Central Administration console.</p>
+            </li>
+            <li>
+                <p>Validate that the WSP file is now <code>Not Deployed</code> and there are no troubleshoot errors with the uninstallation. </p>
+                <p>
+                    <img src="../../../../Resources/Images/sharepoint/unins-pp-3.png" class="thumbnail" />
+                </p>
+            </li>
+            <li>
+                <p>Enter the following PowerShell command to remove the SharePoint People Picker solution:</p>
+                <MadCap:codeSnippet>
+                    <MadCap:codeSnippetCopyButton />
+                    <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">Remove-SPSolution  -Identity  "OktaClaimsProvider2013-2.3.0.0-xxxxx.wsp"
+</MadCap:codeSnippetBody>
+                </MadCap:codeSnippet>
+            </li>
+            <li>
+                <p>Confirm that the People Picker solution no longer appears in the SharePoint Central Administration console.</p>
+            </li>
+        </ol>
+        <h3><a name="2."></a>Uninstall Okta authentication</h3>
+        <p>After you have removed the Okta SharePoint People Picker agent, you can remove Okta as an authentication claims provider.</p>
+        <ol>
+            <li>
+                <p>Enter the following PowerShell command:</p>
+                <MadCap:codeSnippet>
+                    <MadCap:codeSnippetCopyButton />
+                    <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">Remove-SPTrustedIdentityTokenIssuer –Identity "Okta"
+</MadCap:codeSnippetBody>
+                </MadCap:codeSnippet>
+            </li>
+            <li>
+                <p>Validate the uninstallation:</p>
+                <p>In your SharePoint Central Administration console, go to the <span class="wintitle">Authentication Providers</span> page  and confirm that Okta is no longer listed.</p>
+            </li>
+        </ol>
+        <h2>Related topics</h2>
+        <p>
+            <MadCap:xref href="deploy-sharepoint.htm">Typical deployment workflow for SharePoint (On-Premises)</MadCap:xref>
+        </p>
+    </body>
+</html>

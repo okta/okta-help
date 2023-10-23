@@ -1,0 +1,272 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd">
+    <head>
+    </head>
+    <body>
+        <h1>Add dynamic input fields: HTTP example</h1>
+        <p>Builders can use helper flows to populate a card’s inputs dynamically when a request to an API is needed to retrieve a list of available fields, or the list of fields required for the action changes based on a user’s choices in the options section.  
+</p>
+        <p>The following basic example uses two flows to create a simple list of inputs: a processing flow that shapes the results into the correct list of objects, and a flow to retrieve the list of fields itself from a service.  This is often used when a service allows for the creation of custom fields or other schema modifications to a user’s instance.  This is only an example meant to relay the basic required flow building. </p>
+        <ul>
+            <li>
+                <p>
+                    <MadCap:xref href="#Build">Build a processing flow</MadCap:xref>
+                </p>
+            </li>
+            <li>
+                <p>
+                    <MadCap:xref href="#Build2">Build a retrieval flow</MadCap:xref>
+                </p>
+            </li>
+            <li>
+                <p>
+                    <MadCap:xref href="#Call">Call the flow from the Inputs dialog</MadCap:xref>
+                </p>
+            </li>
+        </ul>
+        <h2><a name="Build"></a>Build a processing flow</h2>
+        <p>A processing flow accepts each individual item from the list of items returned by the retrieval flow that's documented in the next section. It's used to extract the necessary information from each object and format it into the correct shape with the correct keys.</p>
+        <p>In a scenario, a service returns a simple list of JSON objects that represents the fields that are available in a user's tenant. The processing flow will take the object for each field (for example, <span class="uicontrol">Summary</span>, <span class="uicontrol">Priority</span>, and <span class="uicontrol">Due Date</span>) and format it so the platform can display the list as inputs on the card. This is an example response for illustration purposes only.</p>
+        <MadCap:codeSnippet>
+            <MadCap:codeSnippetCopyButton />
+            <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">[
+   {
+      "required":true,
+      "schema":{
+         "type":"string"
+      },
+      "name":"Summary",
+      "key":"summary"
+   },
+   {
+      "required":false,
+      "schema":{
+         "type":"number"
+      },
+      "name":"Priority",
+      "key":"priority"
+   },
+   {
+      "required":true,
+      "schema":{
+         "type":"date"
+      },
+      "name":"Due Date",
+      "key":"date"
+   }
+]
+</MadCap:codeSnippetBody>
+        </MadCap:codeSnippet>
+        <p>The goal of the flow below is to turn the above API&#160;response into the Workflows supported JSON below.</p>
+        <MadCap:codeSnippet>
+            <MadCap:codeSnippetCopyButton />
+            <MadCap:codeSnippetBody MadCap:useLineNumbers="False" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">[
+   {
+      "displayname":"Summary",
+      "name":"summary",
+      "type":"Text",
+      "required":true
+   },
+   {
+      "displayname":"Priority",
+      "name":"priority",
+      "type":"Number",
+      "required":false
+   },
+   {
+      "schema":{
+         "type":"date"
+      },
+      "displayname":"Due Date",
+      "name":"date",
+      "type":"Date &amp; Time",
+      "required":true
+   }
+]</MadCap:codeSnippetBody>
+        </MadCap:codeSnippet>
+        <p>
+            <img src="../../../Resources/Images/Workflows/connector-builder/dynamic-inputs-http-example.png" style="width: 668px;height: 254px;" />
+        </p>
+        <ol>
+            <li>
+                <p>Click <span class="uicontrol">+ New Flow</span> to create a new flow.</p>
+            </li>
+            <li>
+                <p>Add a Helper Flow card as the first card in your flow.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Save</span> and name the flow <code>Format Input Fields</code>.</p>
+            </li>
+            <li>
+                <p>Enter <code>Processes a list of items and reformats the list to be used as an input list</code> as the flow description, select <span class="uicontrol">Save all data that passes through the flow</span>, and click <span class="uicontrol">Save</span>.</p>
+            </li>
+            <li>
+                <p>Add a field to the Helper Flow card by clicking <span class="uicontrol">Click or drag to create</span>. Add a label, enter <code>field_object</code> as its name, and then click <span class="uicontrol">Enter</span>.</p>
+            </li>
+            <li>
+                <p>Select <span class="uicontrol">Object</span> as the field type.</p>
+            </li>
+            <li>
+                <p>Add an Object Get Multiple function card to the flow.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">field_object</span> field from the Helper Flow card into the object input of the Get Multiple card.</p>
+            </li>
+            <li>
+                <p>Add the key names for the values you want to extract as outputs to the Get Multiple function.  Using the above JSON as an example, those would be <code>name</code>, <code>key</code>, <code>required</code>, and <code>schema.type</code>. Note that <code>required</code> is a True/False boolean field.</p>
+            </li>
+            <li>
+                <p>Add a Branching Lookup function card following the Get Multiple function card.</p>
+            </li>
+            <li>
+                <p>Since the field types (<span class="uicontrol">schema.type</span>) from the service don’t line up with the field types used by Workflows, we’ll want to convert those using the Lookup function card.  Drag the <span class="uicontrol">schema.type</span> field from the Get Multiple function card into the <span class="uicontrol">Value</span> field of the Lookup function card.</p>
+            </li>
+            <li>
+                <p>Enter the type <code>string</code> under the <span class="uicontrol">When Value is</span> column, and <code>Text </code>under the <span class="uicontrol">Then Result is</span> column.</p>
+            </li>
+            <li>
+                <p>Enter the type <code>number</code> under the <span class="uicontrol">When Value is</span> column, and <code>Number</code> under the <span class="uicontrol">Then Result is</span> column.</p>
+            </li>
+            <li>
+                <p>Enter the type <code>date</code> under the <span class="uicontrol">When Value is</span> column, and <code>Date &amp; Time</code> under the <span class="uicontrol">Then Result is</span> column.</p>
+            </li>
+            <li>
+                <p>Enter <code>Text</code> in the <span class="uicontrol">Otherwise Result is</span> field to make sure that an unknown types get a type added.</p>
+            </li>
+            <li>
+                <p>Rename the output on the Lookup card to <span class="uicontrol">converted_type</span>.</p>
+            </li>
+            <li>
+                <p>Add a field called <span class="uicontrol">displayname</span> to the Return card by clicking <span class="uicontrol">Click or drag to create</span>, and drag in the <span class="uicontrol">name</span> field from the output of the Get Multiple function card.</p>
+            </li>
+            <li>
+                <p>Add a field called <span class="uicontrol">name</span> to the Return card by clicking <span class="uicontrol">Click or drag to create</span>, and drag in the <span class="uicontrol">key</span> field from the output of the Get Multiple function card.</p>
+            </li>
+            <li>
+                <p>Add a field called <span class="uicontrol">type</span> to the Return card by clicking <span class="uicontrol">Click or drag to create</span>, and drag in the <span class="uicontrol">converted_type</span> field from the output of the Lookup function card.</p>
+            </li>
+            <li>
+                <p>Add a field called <span class="uicontrol">required</span> to the Return card by clicking <span class="uicontrol">Click or drag to create</span>, and drag in the <span class="uicontrol">required</span> field from the output of the Get Multiple function card.</p>
+            </li>
+            <li>
+                <p>Save and test your flow by pasting a single object from above into the <span class="uicontrol">field_object</span> field on the test dialog.</p>
+            </li>
+        </ol>
+        <h2><a name="Build2"></a>Build a retrieval flow</h2>
+        <p>A retrieval flow is used to retrieve a list of objects from the service. It makes a HTTP request, identifies the list of objects in the request, and passes the list to the above <span class="uicontrol">Format Input Fields</span> processing flow where the list gets shaped into the correct format.</p>
+        <p MadCap:conditions="Primary.do-not-publish">
+            <img src="../../../Resources/Images/Workflows/connector-builder/dynamic-retrieval-flow.png" style="width: 520px;height: 306px;" />
+        </p>
+        <ol>
+            <li>
+                <p>Switch to the <span class="uicontrol">Flows</span> tab. Click <span class="uicontrol">+ New Flow</span> to create a new flow.</p>
+            </li>
+            <li>
+                <p>Add a Helper Flow card as the first card in your flow.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Save</span> and name the flow <code>Retrieve Input Fields</code>.</p>
+            </li>
+            <li>
+                <p>Enter <code>Retrieves a list of available fields and format the list to display as inputs on the connector card</code> as the flow description, select <span class="uicontrol">Save all data that passes through the flow</span>, and click <span class="uicontrol">Save</span>.</p>
+            </li>
+            <li>
+                <p>Add a Flow Control Call Flow function card as the first card in the flow.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Choose Flow</span>.</p>
+            </li>
+            <li>
+                <p>Build an httpHelper flow or select a previously created http_helper flow. See <MadCap:xref href="capia-httphelper.htm">Build an httpHelper flow</MadCap:xref>. The card is automatically populated with the inputs defined in the http_helper flow.</p>
+            </li>
+            <li>
+                <p>Enter <span class="uicontrol">GET</span> as the request method.</p>
+            </li>
+            <li>
+                <p>Enter the relative URL for the endpoint from which you’ll receive the list of fields.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">auth</span> object from the Child Flow card to the <span class="uicontrol">Connection</span> input field of the Call Flow function card.</p>
+            </li>
+            <li>
+                <p>For the outputs on the Call Flow card, you’ll need to define the same keys as the http_helper flow’s outputs: <span class="uicontrol">status_code</span> (Number), <span class="uicontrol">headers</span> (Object), and <span class="uicontrol">body</span> (Object).</p>
+            </li>
+            <li>
+                <p>Add a List Map function card to the flow.</p>
+            </li>
+            <li>
+                <p>Drag the <span class="uicontrol">body</span> field from the Call Flow function card into the <span class="uicontrol">list</span> field of the Map function card.  Remember that this assumes the same object shape as provided in the above object example.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Choose Flow</span> and select the List Input Fields flow from the previous example.</p>
+            </li>
+            <li>
+                <p>Select the dropdown beside <span class="uicontrol">field_object</span> and select <span class="uicontrol">Item</span>. This will pass each item from <span class="uicontrol">field_object</span> to the processing flow and return a new, correctly formatted list.</p>
+            </li>
+            <li>
+                <p>Rename the output on the Map function card to <span class="uicontrol">new_field_object</span>.</p>
+            </li>
+            <li>
+                <p>Create a field on the Flow Control Return function card by clicking <span class="uicontrol">Click or drag to create</span> and label the field <span class="uicontrol">output</span>. This label is required to be recognized by the platform.</p>
+            </li>
+        </ol>
+        <div class="note_cautionOkta">
+            <p class="noteContent">The label <span class="uicontrol">output</span> is required for this field. If you assign any other label to this field, it will not be recognized by the platform.</p>
+        </div>
+        <ol MadCap:continue="true">
+            <li>
+                <p>Drag the <span class="uicontrol">new_field_object</span> field from the Map function card into the output field on the Return card.</p>
+            </li>
+            <li>
+                <p>Save and test your flow.</p>
+            </li>
+        </ol>
+        <h2><a name="Call"></a>Call the flow from the Inputs dialog</h2>
+        <p>These flows get called from the <span class="uicontrol">Inputs</span> section of the dialog.  Here is a quick example of how to use these flows with the dynamic inputs functionality.</p>
+        <ol>
+            <li>
+                <p>Switch to the <span class="uicontrol">Flows</span> tab. Click <span class="uicontrol">+ New Flow</span> to create a new flow.</p>
+            </li>
+            <li>
+                <p>Add an Action card as the first card in your flow.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Save</span> and name the flow <code>Create Item</code>.</p>
+            </li>
+            <li>
+                <p>Enter <code>Create a new item using the custom fields implemented on your instance.</code> as the flow description, select <span class="uicontrol">Save all data that passes through the flow</span>, and click <span class="uicontrol">Save</span>.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Add Inputs</span> on the Connector Action card.</p>
+            </li>
+            <li>
+                <p>Click on the more actions menu next to the <span class="uicontrol">Add group</span> button and click <span class="uicontrol">Add Dynamic Fields</span>.</p>
+            </li>
+            <li>
+                <p>Update the <span class="uicontrol">Group Name</span> field with a descriptive string about the fields that you’re retrieving.  Dynamic Fields are all contained in a single group.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Choose Flow</span>.</p>
+            </li>
+            <li>
+                <p>Select the Retrieve Input Fields flow that you already created.</p>
+            </li>
+            <li>
+                <p>Click <span class="uicontrol">Save</span>.</p>
+            </li>
+            <li>
+                <p>To test these flows, go to the <span class="uicontrol">Deployment</span> tab and click <span class="uicontrol">Deploy test version</span>.</p>
+            </li>
+            <li>
+                <p>Once the deployment is complete, navigate back to the flow builder by clicking  <span class="uicontrol">Home</span> in the top menu.</p>
+            </li>
+            <li>
+                <p>Create a new flow, and add the connector action to the flow.  The input fields should appear on the card.</p>
+            </li>
+        </ol>
+        <h2>Next steps</h2>
+        <p>
+            <MadCap:xref href="capia-httphelper.htm">Build an httpHelper flow</MadCap:xref>
+        </p>
+    </body>
+</html>

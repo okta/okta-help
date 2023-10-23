@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Ian Hakes">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/wf/en-us/Content/Topics/Workflows/function-reference/List/list_reduce.htm" /><title>[%=Heading.Level1%] | Okta</title>
+        <meta name="coveo:connector" content="List" />
+        <meta name="coveo:method" content="reduce" />
+        <meta name="coveo:method-description" content="This function produces a single cumulative value by running a helper flow." />
+        <meta name="coveo:method-type" content="action" />
+    </head>
+    <body>
+        <div data-content-id="hoc-main-content">
+            <h1>Reduce</h1>
+            <p MadCap:conditions="Primary.do-not-publish">This function produces&#160;a single cumulative&#160;value by&#160;running a [Helper Flow]({{&lt; relref "/archives/8760" &gt;}}) for&#160;each item in a list. &#160;For example you can determine the largest number in a list of numbers, count how many text items start with "A" in a list of text, etc. &#160;The result can be any type -- not just a number&#160;--&#160;so you can also use Reduce to build&#160;text, date, true/false, object, or a list of any of those.</p>
+            <p MadCap:conditions="Primary.do-not-publish">Basically this works by calling a flow on each item in the list,&#160;which outputs a "memo" value. &#160;This memo is passed as input to the next iteration, and so on until the whole list has been processed - at that point,&#160;the final memo value becomes the output of this card.</p>
+            <p MadCap:conditions="Primary.do-not-publish">To use this function, you'll need to create the [Helper Flow]({{&lt; relref "/archives/8760" &gt;}}) that gets called for each item.&#160;Define fields on&#160;the&#160;event card that will be the inputs that determine how to increment the cumulative value. At a minimum, you'll need a field for the item from the list (which you can name whatever you want) and a field that will keep track of the accumulated value (which must be named "memo").</p>
+            <p>You can also include other inputs that your flow may need. &#160;After defining your inputs, build the rest of the helper flow, ending with a <span class="uicontrol">Return</span> card (found in the Control category) that returns the new accumulated value - to be passed along with the next item in the list to&#160;the next call of the helper flow, or if there are no more items in the list, this will be the result of the Reduce function. If the accumulated value is a&#160;type other than an object (for example, a number), there should be a single return field of that type and its name doesn't matter. If the accumulator is an object, then there should be one field for each of the keys of the object and the names of the fields must match the key names.</p>
+            <h4>Input Fields</h4>
+            <p>Fill out the Reduce card as follows:</p>
+            <ul>
+                <li>
+                    <p><span class="uicontrol">list:</span> The list to operate on</p>
+                </li>
+                <li>
+                    <p><span class="uicontrol">flow:</span> The helper flow (as described above) that will be called once for each item in the list</p>
+                </li>
+                <li>
+                    <p><span class="uicontrol">with the following values</span>(dynamically generated):</p>
+                    <ul>
+                        <li>
+                            <p><span class="uicontrol">item:</span> (will have whatever name you chose when you created your helper flow) Click in the field that will hold the current item from the list and choose "Item." (Or, in some instances, you may also be able to select a specific path within an object.)</p>
+                        </li>
+                        <li>
+                            <p><span class="uicontrol">memo:</span>&#160;Set the type of this field to be the type you want your final result to be (for example, if you're using Reduce to get a sum, then the type should be number). Provide the starting value (for example, for doing a sum, you'll want to start with zero.)</p>
+                        </li>
+                        <li>
+                            <p>You can have optional additional fields&#160;on the helper flow event card in&#160;helper flow you chose, and those will also show up as input fields.</p>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <h4>Output Fields</h4>
+            <ul>
+                <li><span class="uicontrol">item:</span> The resulting value after the helper flow has executed on each of the items. Make sure to set the type of item to match the type of the input memo.</li>
+            </ul>
+            <h2>Examples</h2>
+            <p>Let's say you have a list of numbers and want to use Reduce to determine&#160;the largest&#160;of those numbers. First you'll need to create a helper flow. Start the flow with a <span class="uicontrol">Helper Flow</span>&#160;event and add two fields: "current item" (a number) and "memo" (a number).</p>
+            <p>The next card is a Control&#160;- <span class="uicontrol">AssignIf</span>&#160;function that outputs&#160;the larger of those two numbers.</p>
+            <p>The final card is a Control - <span class="uicontrol">Return</span> function that&#160;returns the output from the AssignIf&#160;card as the new memo. Save that flow as "inner - max" and turn it on.</p>
+            <p>Now, you can create a List <span class="uicontrol">Reduce</span> card that accepts a list of number. Click <span class="uicontrol">Choose Flow</span> and select the "inner-max" flow you just created. Click the "current item" input and select "Item" from the dropdown. Click the "memo" input and enter zero (as the start value).</p>
+            <p>Here's what your Reduce card will look like:</p>
+            <p>
+                <img src="../../../../Resources/Images/Workflows/list-reduce-2.png" id="img_new" />
+            </p>
+            <p>Here's what the helper flow looks like:</p>
+            <p>
+                <img src="../../../../Resources/Images/Workflows/list-reduce-1.png" id="img_new" />
+            </p>
+            <p>Here's how the Reduce card will work for the above example:</p>
+            <p>Let's say you passed it a list value of <code>[1, 7, 4, 19, 2]</code>. The "inner-max" helper flow will get called 5 times -- once for each item in the list as follows:</p>
+            <ul>
+                <li>
+                    <p>The first time, current item is 1 and memo is 0. The helper flow returns the larger of the two: 1.</p>
+                </li>
+                <li>
+                    <p>The next time, current item is 7 and memo is 1 (the return value from the previous step). The helper flow compares them and returns 7.</p>
+                </li>
+                <li>
+                    <p>The third time, current item is 4 and memo is 7. &#160;The helper flow returns 7.</p>
+                </li>
+                <li>
+                    <p>The fourth time, current item is 19 and memo is 7. The helper flow returns 19.</p>
+                </li>
+                <li>
+                    <p>The final time, current item is 2&#160;and memo is 19. The helper flow returns 19, and since there are no more items in the list, this becomes the final output.</p>
+                </li>
+            </ul>
+            <p>The above example involves&#160;simple math, but you can make your helper flow as&#160;complex as you need.</p>
+            <p>It can contain <span class="uicontrol">If/Else</span> conditions, complex calculations, or application actions.</p>
+            <p>And it's not limited to numbers and math: it can build a different type, such as text (for example, using <span class="uicontrol">Concatenate</span>) or a list (for example, using List <span class="uicontrol">Add to End</span>).</p>
+            <p>Just make sure that the types match for memo and item on the Reduce card and the memo field on the helper flow's event card. And the value returned by the helper flow on the <span class="uicontrol">Return</span> card must also match unless the type is object, in which case there must be a field on the Return card that corresponds to each key of the object and they are&#160;named the same as the keys.</p>
+            <MadCap:snippetBlock src="functions-lists-see-also.flsnp" />
+        </div>
+    </body>
+</html>

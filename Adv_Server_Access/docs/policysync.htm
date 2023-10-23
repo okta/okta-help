@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:fileTags="Tags/okta-authors.Arshabhi Rai">
+    <head>
+        <link rel="canonical" href="https://help.okta.com/asa/en-us/Content/Topics/Adv_Server_Access/docs/policysync.htm" /><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+        <meta name="description" content="Learn how to use Okta PolicySync, which enables you to configure attribute-based access controls (ABAC) for granular server access." />
+    </head>
+    <body>
+        <h1><MadCap:variable name="okta-feature-names.PolicySync" />: Attribute-Based Access Control</h1>
+        <p class="earlyaccess">This feature is being rolled out to all <MadCap:variable name="okta-feature-names.ScaleFT" /> customers through Q1 2023. No action is required on your part to enable this feature for your <MadCap:variable name="okta-feature-names.ScaleFT" /> team.</p>
+        <p><MadCap:variable name="workflows_connectors.Advanced Server Access" /> teams often assign resources to projects  grouped by product or team. For example, you might have separate projects for your accounting, marketing, and engineering teams. The standard method to grant users access to a server in <MadCap:variable name="okta-feature-names.ScaleFT" /> is to enroll the server in a project, assign the users to a group, and add that group to the project. This grants the members of the group access to all the servers that are enrolled in the project. </p>
+        <p>However, there's often a need to grant users access to a subset of servers in a project. You might have a team of database administrators  that need access to all the database servers, regardless of which project a server is enrolled in. In this case, creating a separate project that only contains database servers would break the model of grouping resources by teams. <MadCap:variable name="okta-variables.ProductName" /> <MadCap:variable name="okta-feature-names.PolicySync" /> enables <MadCap:variable name="workflows_connectors.Advanced Server Access" /> administrators to apply Attribute-Based Access Controls  to user groups, which can be used to provide role-based access to resources.  This is accomplished by applying labels to servers and selectors to groups, similar to how clients use label selectors to identify objects in Kubernetes. </p>
+        <div class="noteOkta">
+            <img src="../../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Note" alt="Note" />
+            <p class="noteContent">The <MadCap:variable name="okta-feature-names.PolicySync" /> feature grants access to servers based on label selectors. The <span class="wintitle">Project Group</span> settings (admin or user access options and any sudo entitlements bound to the project group) control the actions that the user can perform. In particular, sudo entitlements assigned to a user are based on all sudo assignments assigned to project groups that the user is a member of. It's best practice to limit the actions a user can perform with sudo assignments. This ensures that sudo entitlements are only configured on the project group to which the user is assigned.</p>
+        </div>
+        <ul>
+            <li>
+                <MadCap:xref href="#Main">Main concepts of [%=okta-feature-names.PolicySync%]</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Use">Use labels and selectors for granular server access</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Related">Related topics</MadCap:xref>
+            </li>
+        </ul>
+        <h2><a name="Main"></a><MadCap:variable name="okta-feature-names.PolicySync" /> concepts</h2>
+        <p>There are three main concepts used with <MadCap:variable name="okta-feature-names.PolicySync" />:&#160;Authorized principals files, labels, and selectors. The following sections detail each of these concepts. </p>
+        <h3><a name="Authoriz"></a>Authorized principals file</h3>
+        <MadCap:snippetBlock src="../snippets/auth_principals_file.flsnp" />
+        <h3><a name="Labels"></a>Labels</h3>
+        <p>Labels are applied to individual servers and allow <MadCap:variable name="okta-feature-names.ScaleFT" /> teams to categorize and sort server access. You can apply a maximum of 50 labels to a server. </p>
+        <p>Labels stored in a <span class="code">key:value</span> format to allow more flexibility for teams. For example, a server might have two labels, <span class="code">env:prod</span> and <span class="code">region:US</span>. As labels can originate from multiple sources, <MadCap:variable name="workflows_connectors.Advanced Server Access" /> automatically adds a prefix to identify the source of the label. If the <span class="code">env:prod</span> label originated from the <MadCap:variable name="workflows_connectors.Advanced Server Access" /> API, the <span class="code">api</span> prefix would be added to appear as <span class="code">api.env:prod</span>. This avoids conflicts if the same label was added from multiple sources, which can happen if a label was specified by both the API and an <MadCap:variable name="workflows_connectors.Advanced Server Access" />  server agent configuration file.</p>
+        <h3><a name="Server"></a>Server selectors</h3>
+        <p>Server selectors are applied to groups and control which servers are available to members of the group. A maximum of 10 server selectors are available per group linked to a project. Server selectors have the following characteristics:</p>
+        <ul>
+            <li>Users in a group with selectors only have access to servers that meet all the requirements of that selector.</li>
+            <li>Users who belong to multiple groups have access to servers that belong to the union of the selectors of those groups.</li>
+            <li>Selector keys can optionally specify the label's source.<ul><li>If the source is included, then only servers that include the label from that source matches. For example, if you use the selector <span class="code">sftd.role=db</span>, only servers whose sftd.yaml configuration file contains the label <span class="code">role: db</span> will match.</li></ul><ul><li>If the source is omitted, then any server that contains the specified label matches. For example, if you use the selector <span class="code">role=db</span>, any servers with the label <span class="code">aws.role: db</span> or <span class="code">sftd.role: db</span> will match.</li></ul></li>
+        </ul>
+        <div class="note_cautionOkta">
+            <img src="../../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Note" alt="Note" />
+            <p class="noteContent">Carefully consider the configuration of your labels and selectors. Ensure that your users have network connectivity to servers in their projects using <MadCap:variable name="okta-feature-names.ScaleFT" /> gateways, if required, based on your network topology.</p>
+        </div>
+        <h2><a name="Use"></a>Use labels and selectors for granular server access</h2>
+        <h3>Prerequisites</h3>
+        <p>To use labels and selectors in your <MadCap:variable name="workflows_connectors.Advanced Server Access"></MadCap:variable> project, the following must be true:</p>
+        <ul>
+            <li>
+                <p>The <MadCap:variable name="okta-feature-names.PolicySync" /> feature flag must be enabled for your <MadCap:variable name="workflows_connectors.Advanced Server Access" /> team.</p>
+            </li>
+            <li>
+                <p>The servers in the project must be running <MadCap:variable name="workflows_connectors.Advanced Server Access" /> server agent version 1.52.1 or later.</p>
+            </li>
+        </ul>
+        <h3><a name="addLabel"></a>Add a label to a server</h3>
+        <p>Teams can add labels from the <MadCap:variable name="okta-feature-names.ScaleFT" /> dashboard. Also, teams can add labels directly to the server agent configuration file (sftd.yaml). See <MadCap:xref href="sftd-configure.htm#Policy">[%=okta-feature-names.PolicySync%] Labels</MadCap:xref>.</p>
+        <ol>
+            <li>Open the <MadCap:variable name="okta-feature-names.ScaleFT"></MadCap:variable> dashboard.</li>
+            <li>Click <span class="uicontrol">Projects</span> and open a project.</li>
+            <li>Go to the <span class="uicontrol">Servers</span> tab.</li>
+            <li> Click the gear <img src="../../../Resources/Images/asa/icon-gear.png" alt="gear icon." /> icon beside the server and select <span class="uicontrol">Edit Labels</span>.</li>
+            <li>Enter one or more labels in the <span class="uicontrol">Add or Remove Labels</span> field, pressing <span class="userinput" style="font-weight: normal;">Enter</span> on your keyboard after entering each label.<br />Note: Labels must follow the <span class="code">key:value</span> format.</li>
+            <li>Click <span class="uicontrol">Submit</span> to save the labels.</li>
+        </ol>
+        <h3><a name="addSelect"></a>Add a server selector to a project group</h3>
+        <p>Teams can assign selectors at the project group level. To assign a selector:</p>
+        <ol>
+            <li>Open the <MadCap:variable name="okta-feature-names.ScaleFT"></MadCap:variable> dashboard.</li>
+            <li>Click <span class="uicontrol">Projects</span> and open a project.</li>
+            <li>Go to the <span class="uicontrol">Groups</span> tab.</li>
+            <li> Click the gear <img src="../../../Resources/Images/asa/icon-gear.png" alt="gear icon." /> icon and select <span class="uicontrol">Edit</span>.</li>
+            <li>Under <span class="wintitle">Server Access</span>, select <span class="uicontrol">Specific Servers</span>.</li>
+            <li>Enter one or more labels in the <span class="uicontrol">Server Selector Tags</span> field, pressing <span class="userinput" style="font-weight: normal;">Enter</span> on your keyboard after entering each label.<br />Note: Labels must follow the <span class="code">key:value</span> format.</li>
+            <li>Click <span class="uicontrol">Update Group</span> to save the selectors.</li>
+        </ol>
+        <h2><a name="Related"></a>Related topics</h2>
+        <p>
+            <MadCap:xref href="sftd-configure.htm">Configure and use the [%=okta-feature-names.ScaleFT%] server agent</MadCap:xref>
+        </p>
+    </body>
+</html>

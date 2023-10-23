@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:searchable="True"
+      MadCap:fileTags="Tags/okta-authors.Nikita Apraj">
+   <head>
+      <link href="../../../Resources/TableStyles/standard-shade-col1.css"
+            rel="stylesheet"
+            MadCap:stylesheetType="table"/>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <link href="" rel="stylesheet" type="text/css"/>
+   </head>
+   <body>
+      <h1>Phone authenticator</h1>
+      <p>Learn about using the phone authenticator in Okta.</p>
+      <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard-shade-col1.css');"
+             class="TableStyle-standard-shade-col1"
+             cellspacing="0">
+         <col class="TableStyle-standard-shade-col1-Column-Column1"/>
+         <col class="TableStyle-standard-shade-col1-Column-Column"/>
+         <tbody>
+            <tr class="TableStyle-standard-shade-col1-Body-Body1">
+               <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">Factor type</td>
+               <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1">
+Possession</td>
+            </tr>
+            <tr class="TableStyle-standard-shade-col1-Body-Body2">
+               <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body2">Method characteristics</td>
+               <td class="TableStyle-standard-shade-col1-BodyD-Column-Body2">
+                  <p>
+User presence</p>
+               </td>
+            </tr>
+            <tr class="TableStyle-standard-shade-col1-Body-Body1">
+               <td class="TableStyle-standard-shade-col1-BodyB-Column1-Body1">Description</td>
+               <td class="TableStyle-standard-shade-col1-BodyA-Column-Body1">The SMS and voice call authenticators require the use of a phone. They send a code in a text message or voice call that the user enters when prompted by <MadCap:variable name="okta-variables.ProductName"/>.</td>
+            </tr>
+         </tbody>
+      </table>
+      <p>The phone authenticator allows users to authenticate themselves using a one-time passcode (OTP) that is delivered to their phone either as an SMS message or as a voice call. It also allows users to enroll their devices and initiate account recovery. </p>
+      <h2>Before you begin</h2>
+      <ul>
+         <li>Review <MadCap:xref href="../../telephony/about-telephony.htm">Telephony</MadCap:xref> to understand the impact of regulatory requirements, toll fraud, technical considerations, and other factors.</li>
+         <li>If you're configuring the phone authenticator for the first time for your org, you must first set up an external telephony service provider. See <MadCap:xref href="../../telephony/choose-telephony-provider.htm">Choose telephony provider</MadCap:xref>.</li>
+         <li>The token lifetime of the OTP sent to the phone authenticator (voice or SMS methods) is five minutes.	</li>
+      </ul>
+      <h2>Start this procedure</h2>
+      <p>Set up the phone authenticator by first adding a telephony inline hook, testing it, and then adding the phone authenticator.</p>
+      <h3>Add a telephony inline hook</h3>
+      <MadCap:snippetBlock src="snippets/add-telephony-inline-hook.flsnp"/>
+      <h3>Test the telephony inline hook</h3>
+      <MadCap:snippetBlock src="snippets/test-telephony-hook.flsnp"/>
+      <h3>Add phone as an authenticator</h3>
+      <p>After you configure and test the telephony inline hook, use it to configure the phone authenticator:</p>
+      <ol>
+         <li>In the <MadCap:variable name="okta-feature-names.Administrator dashboard"/>, go to <span class="menucascade">
+               <span class="uicontrol">Security</span>
+               <span class="uicontrol">Authenticators</span>
+            </span>.</li>
+         <li>On the <span class="wintitle">Setup</span> tab, click <span class="uicontrol">Add Authenticator</span>.</li>
+         <li>Click <span class="uicontrol">Add</span> on the <span class="wintitle">Phone</span> tile. The <span class="wintitle">Add Phone</span> window pops up.</li>
+         <li>In the <span class="uicontrol">User can verify with</span> section, select the methods that users can verify with. You can select <span class="uicontrol">Voice call</span>,<span class="uicontrol">SMS</span>, or both.</li>
+         <li>In the <span class="uicontrol">This authenticator can be used for</span> section, select the actions you want to use the phone authenticator for:<ul>
+               <li>
+                  <span class="uicontrol">Authentication and recovery</span>: This option allows users to use this authenticator to authenticate themselves and recover their account</li>
+               <li>
+                  <span class="uicontrol">Recovery</span>: This option allows users to use this authenticator only for recovering their account. If you choose this option, <MadCap:variable name="okta-variables.ProductName"/> doesn't request authentication during the evaluation of your <MadCap:variable name="okta-feature-names.Okta sign-on policy"/>.</li>
+            </ul>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Add</span>.</p>
+         </li>
+      </ol>
+      <h2>End-user experience</h2>
+      <p>When users sign in to <MadCap:variable name="okta-variables.ProductName"/> for the first time, they see that extra verification is required. They select the phone authenticator, enter a phone number, and choose <span class="uicontrol">SMS</span> or <span class="uicontrol">Voice call</span>, depending on the options you've made available to them. After they verify the phone number, they can use it for <span class="uicontrol">authentication and recovery</span> or <span class="uicontrol">recovery</span> only, depending on how you've set up the authenticator.</p>
+      <p>If the user selects <span class="uicontrol">SMS</span>, they may only provide a mobile phone number. For <span class="uicontrol">Voice call</span>, they may provide a mobile phone number or a phone number with an extension.</p>
+      <p>Toll-free, premium, or invalid phone numbers can't be used for multifactor authentication or device enrollment. Such phone numbers are rejected.</p>
+      <h4>Too many attempts</h4>
+      <p>Okta uses rate limiting to protect against brute-force attacks on SMS authenticators. After entering incorrect credentials for multiple times, users see the message - <span class="msgblock">Too many attempts. Try again later</span>. In this case, they should use a different authenticator to gain access to their account. Set up multiple authenticators for your users to ensure that they have alternatives.</p>
+      <h4>Change in phone number</h4>
+      <p>If the user changes their phone number but doesn't update it in Okta, the voice calls and SMS go to the user's old phone number. In this case, they can't complete verification. They should click <span class="uicontrol">Sign in with something else</span> on the Sign-In Widget, and verify with a different authenticator. Next, they should add another phone numbers in the End-User Dashboard, and replace their old phone number with the new one.</p>
+      <h2>End-user tasks</h2>
+      <p>End users perform these tasks to enroll their phone, use it for signing in, and add another phone number to their account.</p>
+      <h3>Set up the phone authenticator for the first time</h3>
+      <ol>
+         <li>In the <MadCap:variable name="okta-feature-names.Sign-In Widget"/> &gt; <span class="menucascade">
+               <span class="uicontrol">Set up security methods</span>
+               <span class="uicontrol">Phone</span>
+            </span>, Click <span class="uicontrol">Set up</span>.</li>
+         <li>Select <span class="uicontrol">SMS</span> or <span class="uicontrol">Voice call</span>. If you select <span class="uicontrol">SMS</span>, you may only provide a mobile phone number.</li>
+         <li>Select your phone number's country from the <span class="uicontrol">Country</span> dropdown.</li>
+         <li>Type your phone number in the <span class="uicontrol">Phone number</span> field. Don't include the country code, leave out any dashes, and leave out the leading zero if your country's phone system uses them.</li>
+         <li>If you selected <span class="uicontrol">Voice call</span> and your phone number includes an extension number, type it in the <span class="uicontrol">Extension</span> field.</li>
+         <li>Click <span class="uicontrol">Receive a code via SMS</span> or <span class="uicontrol">Receive a code via voice call</span>. You receive a code either by SMS or voice call, depending on which option you select.</li>
+         <li>Type the code in the <span class="uicontrol">Enter Code</span> field.</li>
+         <li>Click <span class="uicontrol">Verify</span>.</li>
+      </ol>
+      <h3>Use your phone to sign in</h3>
+      <ol>
+         <li>Go to your org's sign-in page. Provide your username and any other credentials requested by the <MadCap:variable name="okta-feature-names.Sign-In Widget"/>, such as a password.</li>
+         <li>On the page that lists the available security methods, click <span class="uicontrol">Select</span> beside the <span class="uicontrol">Phone</span> option.</li>
+         <li>To receive a code in an SMS message, click <span class="uicontrol">Receive a code via SMS</span>. To receive a code in a voice call, click <span class="uicontrol">Receive a voice call instead</span>.</li>
+         <li>
+            <MadCap:variable name="okta-variables.ProductName"/> sends an SMS message, or calls the user's phone, and the <MadCap:variable name="okta-feature-names.Sign-In Widget"/> displays the <span class="uicontrol">Enter Code</span> field.</li>
+         <li>Type the code provided in the SMS message or voice call in the <span class="uicontrol">Enter Code</span> field.</li>
+         <li>Click <span class="uicontrol">Verify</span>.</li>
+      </ol>
+      <h3>Add another phone number</h3>
+      <p>After signing in, users can add another phone numbers to their profile.</p>
+      <ol>
+         <li>In the End-User Dashboard, click your username in the upper-right corner.</li>
+         <li>Select <span class="uicontrol">My settings</span>.</li>
+         <li>In the <span class="uicontrol">Security Methods</span> section, click <span class="uicontrol">Set up another</span> beside <span class="uicontrol">Phone</span>.</li>
+         <li>Click <span class="uicontrol">Set up</span>.</li>
+         <li>Select <span class="uicontrol">SMS</span> or <span class="uicontrol">Voice call</span>. If you select <span class="uicontrol">SMS</span>, you may only provide a mobile phone number.</li>
+         <li>Select the country that your phone number is from in the <span class="uicontrol">Country</span> dropdown list.</li>
+         <li>Type your phone number in the <span class="uicontrol">Phone number</span> field. Don't include the country code, leave out any dashes, and leave out the leading zero if your country's phone system uses them.</li>
+         <li>If you selected <span class="uicontrol">Voice call</span> and your phone number includes an extension number, type it in the <span class="uicontrol">Extension</span> field.</li>
+         <li>Click <span class="uicontrol">Receive a code via SMS</span> or <span class="uicontrol">Receive a code via voice call</span>. You receive a code either by SMS or voice call, depending on which option you select.</li>
+         <li>Type the code in the <span class="uicontrol">Enter Code</span> field.</li>
+         <li>Click <span class="uicontrol">Verify</span>.</li>
+      </ol>
+      <p>The new phone number is added. Next time you're signing in, you can choose the phone number you want to use to complete the prompt.</p>
+      <h2>Next steps</h2>
+      <ul>
+         <li>Customize your SMS. See <MadCap:xref href="../../Settings/Settings_SMS.htm">Customize an SMS message</MadCap:xref>.</li>
+         <li>Configure more authenticators to give end users multiple verification options in case they can't access their phone. See <MadCap:xref href="about-authenticators.htm">Multifactor authentication</MadCap:xref>.</li>
+      </ul>
+   </body>
+</html>

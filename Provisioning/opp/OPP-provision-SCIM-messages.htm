@@ -1,0 +1,933 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:fileTags="Tags/okta-authors.Nikita Apraj">
+    <head><title>[%=Heading.Level1%] | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+        <meta name="description" content="An overview of the SCIM messages sent and received for on-premises provisioning." />
+    </head>
+    <body>
+        <h1>SCIM messages for on-premises provisioning</h1>
+        <p><MadCap:variable name="okta-variables.ProductName" /> uses a subset of available SCIM messages to send provisioning instructions to a SCIM server. These are the <MadCap:variable name="okta-variables.ProductName" /> SCIM provisioning messages:</p>
+        <ul>
+            <li>
+                <MadCap:xref href="#Get">Get implemented user management capabilities</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Create">Create a new user</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Create2">Create a pending user</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Import">Import users from an on-premises application into <MadCap:variable name="okta-variables.ProductName" /></MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Import3">Import recently changed users from an on-premises application into <MadCap:variable name="okta-variables.ProductName" /></MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Import2">Import a user profile</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Activate">Activate a user</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Deactiva">Deactivate user</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Reactiva">Reactivate a user</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Push">Push password update</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Push2">Push profile update</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Download">Download groups</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#Create3">Create group</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#updateGr">Update group</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="#deleteGr">Delete group</MadCap:xref>
+            </li>
+        </ul>
+        <h2><a name="Get"></a>Get implemented user management capabilities</h2>
+        <p>This instruction is sent during app instance configuration and asks your connector to return the list of provisioning capabilities your connector has implemented. Based on the result, appropriate provisioning features are supported by the app integration.</p>
+        <h3><MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> HTTP request and JSON message example</h3>
+        <p><span class="codeblock">GET /ServiceProviderConfigs</span>
+        </p>
+        <p>Example</p>
+        <p><span class="codeblock">GET http://acme.com:8080/ServiceProviderConfigs</span>
+        </p>
+        <h3>Expected response from acting SCIM server connector</h3>
+        <p><span class="codeblock">{
+  "schemas":[
+    "urn:scim:schemas:core:1.0",
+    "urn:okta:schemas:scim:providerconfig:1.0"
+  ],
+  "documentationUrl":"https://support.okta.com/scim-fake-page.html",
+  "patch":{
+    "supported":false
+  },
+  "bulk":{
+    "supported":false
+  },
+  "filter":{
+    "supported":true,
+    "maxResults":100
+  },
+  "changePassword":{
+    "supported":true
+  },
+  "sort":{
+    "supported":false
+  },
+  "etag":{
+    "supported":false
+  },
+  "authenticationSchemes":[
+  ],
+  "urn:okta:schemas:scim:providerconfig:1.0":{
+    "userManagementCapabilities":[
+      "GROUP_PUSH",
+      "IMPORT_NEW_USERS",
+      "IMPORT_PROFILE_UPDATES",
+      "PUSH_NEW_USERS",
+      "PUSH_PASSWORD_UPDATES",
+      "PUSH_PENDING_USERS",
+      "PUSH_PROFILE_UPDATES",
+      "PUSH_USER_DEACTIVATION",
+      "REACTIVATE_USERS"
+    ]
+  }
+}</span>
+        </p>
+        <h2><a name="Create"></a>Create a new user</h2>
+        <p>This instruction is sent when you assign a new user to an on-premises application.</p>
+        <p><MadCap:variable name="okta-variables.ProductName" /> sends two messages. The first one determines whether or not the user already exists in the on-premises application. If the user does not exist in the on-premises application, <MadCap:variable name="okta-variables.ProductName" /> sends another message to create the user.</p>
+        <h3><MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> HTTP request and JSON message example</h3>
+        <p><span class="codeblock">GET /Users?filter=userName%20eq%20%22myemail%40example.com%22&amp;startIndex=1&amp;count=100</span>
+        </p>
+        <h3>Expected response from acting SCIM server connector</h3>
+        <p>The following example shows a return when the user does not exist:</p>
+        <p><span class="codeblock">{
+  "schemas": [
+    "urn:scim:schemas:core:1.0"
+  ],
+  "totalResults": 0,
+  "startIndex": 1,
+  "itemsPerPage": 0,
+  "Resources": []
+}</span>
+        </p>
+        <p>The following example shows a return when the user does exist:</p>
+        <p><span class="codeblock">{
+  "totalResults":1,
+  "schemas":["urn:scim:schemas:core:1.0"],
+  "Resources":[
+    {
+      "schemas": [
+        "urn:scim:schemas:core:1.0",
+        "urn:scim:schemas:extension:enterprise:1.0",
+        "urn:okta:onprem_app:1.0:user:custom"
+      ],
+      "id": "102",
+      "userName": "admin",
+      "password": "god",
+      "active": false,
+      "name": {
+        "formatted": "Barbara Jensen",
+        "givenName": "Barbara",
+        "familyName": "Jensen"
+      },
+      "emails": [
+        {
+          "value": "bjensen@example.com",
+          "primary": true,
+          "type": "work"
+        }
+      ],
+      "groups": [
+        {
+          "value": "1002",
+          "display": "secondGroup"
+        }
+      ],
+      "urn:okta:onprem_app:1.0:user:custom": {
+        "isAdmin": true,
+        "isOkta": false,
+        "departmentName": "Administration"
+      }
+    }
+  ]
+}</span>
+        </p>
+        <h3><MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> HTTP request and JSON message example</h3>
+        <p><span class="codeblock">POST /Users</span>
+        </p> <p>Example:</p><p><span class="codeblock">http://acme.com:8080/Users
+"schemas":[
+  "urn:scim:schemas:core:1.0",
+  "urn:okta:onprem_app:1.0:user:custom"
+],
+"userName":"myemail@example.com",
+"emails":[
+  {
+    "primary":true,
+    "value":"myemail@example.com",
+    "type":"primary"
+  },
+  {
+    "primary":false,
+    "value":"mypersonalemail@example.com",
+    "type":"secondary"
+  }
+],
+"phoneNumbers":[
+  {
+    "value":"123-444-5555",
+    "type":"mobile"
+  }
+],
+"name":{
+  "familyName":"LastName",
+  "givenName":"FirstName"
+},
+"active":true,
+"password":"verySecure",
+"urn:okta:onprem_app:1.0:user:custom":{
+  "isAdmin":false,
+  "isOkta":false,
+  "departmentName":"Testing User"
+  }
+}</span></p><h3>Expected response from acting SCIM server connector</h3><p><span class="codeblock">{
+  "id": "d0dd58e43ded4293a61a8760fcba0458",
+  "externalId": "00ustvXq1A8UAuobW0f5",
+  "meta": {
+    "created": "04-17-2020 00:00:00",
+    "lastModified": "04-17-2020 00:00:00",
+    "version": "v1.0"
+  },
+  "schemas": [
+    "urn:scim:schemas:core:1.0",
+    "urn:scim:schemas:extension:okta:1.0"
+  ],
+  "userName": "steph.c@example.com",
+  "displayName": " Steph Curry",
+  "preferredLanguage": "en",
+  "locale": "en-US",
+  "timezone": "America/Los_Angeles",
+  "active": true,
+  "password": "VFhsSlpHVnVkR2wwZVVselRYbFFZWE56ZDI5eVpBPT0=",
+  "emails": [
+    {
+      "value": "steph.c@example.com",
+      "type": "work",
+      "primary": true
+    }
+  ],
+  "groups": [],
+  "name": {
+    "familyName": "Curry",</span></p><h2><a name="Create2"></a>Create a pending user</h2><p>This instruction is sent when an <MadCap:variable name="okta-variables.ProductName" /> user who has not been activated yet in <MadCap:variable name="okta-variables.ProductName" /> is assigned to an on-premises application.</p><h3><MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> HTTP request and JSON message example</h3><p><span class="codeblock">POST /Users
+{
+  "schemas":[
+  "urn:scim:schemas:core:1.0"
+],
+"userName":"myemail-pending@example.com",
+"emails":[
+  {
+    "primary":true,
+    "value":"myemail-pending@example.com",
+    "type":"primary"
+  },
+  {
+    "primary":false,
+    "value":"mypersonalemail-pending@example.com",
+    "type":"secondary"
+  }
+],
+"phoneNumbers":[
+  {
+    "value":"123-444-5555",
+    "type":"mobile"
+  }
+],
+"name":{
+    "familyName":"LastName-pending",
+    "givenName":"FirstName-pending"
+  },
+"active":false,
+"password":"verySecure",
+"groups":[
+  {
+    "display":"secondGroup",
+    "value":"1002"
+  }
+  ]
+}</span></p><h3>Expected response from acting SCIM server connector</h3><p><span class="codeblock">{
+"id": "d0dd58e43ded4293a61a8760fcba0458",
+"externalId": "00ustvXq1A8UAuobW0f5",
+"meta": {
+"created": "04-17-2020 00:00:00",
+"lastModified": "04-17-2020 00:00:00",
+"version": "v1.0"
+},
+"schemas": [
+"urn:scim:schemas:core:1.0",
+"urn:scim:schemas:extension:okta:1.0"
+],
+"userName": "steph.c@example.com",
+"displayName": " Steph Curry",
+"preferredLanguage": "en",
+"locale": "en-US",
+"timezone": "America/Los_Angeles",
+"active": true,
+"password": "VFhsSlpHVnVkR2wwZVVselRYbFFZWE56ZDI5eVpBPT0=",
+"emails": [
+{
+"value": "steph.c@example.com",
+"type": "work",
+"primary": true
+}
+],
+"groups": [],
+"name": {
+"familyName": "Curry",
+"givenName": "Steph"
+},
+"urn:scim:schemas:extension:okta:1.0": {
+"employeeNumber": "30",
+"manager": {
+"value": "Steve Kerr"
+}
+}
+}</span></p><p>Note: This call is almost identical to the create user call except for the inclusion of the active value.</p><h2><a name="Import"></a>Import users from an on-premises application into <MadCap:variable name="okta-variables.ProductName" /></h2><p>This instruction is sent when an admin imports users from an on-premises application into <MadCap:variable name="okta-variables.ProductName" />.</p><p>Note: Your <MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> might make multiple requests to your connector if multiple pages of users exist.</p><h3><MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> HTTP request and JSON message example</h3><p><span class="codeblock">GET /Users?startIndex=1&amp;count=100</span></p><h3>Expected response from acting SCIM server connector</h3><p><span class="codeblock">{
+"schemas": [
+"urn:scim:schemas:core:1.0"
+],
+"totalResults": 3,
+"startIndex": 1,
+"itemsPerPage": 3,
+"Resources": [
+{
+"id": "ce454761d63f4ce4904db3d4b9cc4cc4",
+"externalId": "00uinactiveAuobW0f8",
+"meta": {
+"created": "04-09-2020 00:00:00",
+"lastModified": "10-14-2016 00:00:00",
+"version": "v1.0"
+},
+"schemas": [
+"urn:scim:schemas:core:1.0"
+],
+"userName": "InactiveScim1User1@example.com",
+"displayName": "Inactive Scim1 Test User",
+"preferredLanguage": "en",
+"locale": "en_US",
+"timezone": "America/Los_Angeles",
+"active": false,
+"password": "UVdKalpERXlNelE9",
+"emails": [
+{
+"value": "InactiveScim1User1@example.com",
+"type": "work",
+"primary": true
+}
+],
+"groups": [],
+"name": {
+"familyName": "User",
+"givenName": "Inactive Scim1 Test"
+}
+},
+{
+"id": "d0dd58e43ded4293a61a8760fcba0458",
+"externalId": "00ustvXq1A8UAuobW0f5",
+"meta": {
+"created": "04-17-2020 00:00:00",
+"lastModified": "04-17-2020 00:00:00",
+"version": "v1.0"
+},
+"schemas": [
+"urn:scim:schemas:core:1.0",
+"urn:scim:schemas:extension:okta:1.0"
+],
+"userName": "steph.c@example.com",
+"displayName": " Steph Curry",
+"preferredLanguage": "en",
+"locale": "en-US",
+"timezone": "America/Los_Angeles",
+"active": true,
+"password": "VFhsSlpHVnVkR2wwZVVselRYbFFZWE56ZDI5eVpBPT0=",
+"emails": [
+{
+"value": "steph.c@example.com",
+"type": "work",
+"primary": true
+}
+],
+"groups": [],
+"name": {
+"familyName": "Curry",
+"givenName": "Steph"
+},
+"urn:scim:schemas:extension:okta:1.0": {
+"employeeNumber": "30",
+"manager": {
+"value": "Steve Kerr"
+}
+}
+},
+{
+"id": "45c5f5187556447186bd5a710ba439e9",
+"externalId": "00usabcdeAuobW0f8",
+"meta": {
+"created": "04-09-2020 00:00:00",
+"lastModified": "10-14-2016 00:00:00",
+"version": "v1.0"
+},
+"schemas": [
+"urn:scim:schemas:core:1.0",
+"urn:scim:schemas:extension:okta:1.0"
+],
+"userName": "scim1User1@example.com",
+"displayName": "Scim1 Test User",
+"preferredLanguage": "en",
+"locale": "en_US",
+"timezone": "America/Los_Angeles",
+"active": true,
+"password": "UVdKalpERXlNelE9",
+"emails": [
+{
+"value": "scim1User1@example.com",
+"type": "work",
+"primary": true
+}
+],
+"groups": [
+{
+"value": "8306945c760d4b0e8fae3e806614a19a",
+"display": "ScimOne Group A"
+}
+],
+"name": {
+"familyName": "User",
+"givenName": "Scim1 Test"
+},
+"urn:scim:schemas:extension:okta:1.0": {
+"employeeNumber": "11253"
+}
+}
+]
+}</span></p><h2><a name="Import3"></a>Import recently changed users from an on-premises application into <MadCap:variable name="okta-variables.ProductName" /></h2><p>This instruction is sent when an admin runs an incremental import of users from an on-premises application into <MadCap:variable name="okta-variables.ProductName" />.</p><p>Note: Your <MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> might make multiple requests to your connector if multiple pages of users exist.</p><h3><MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> HTTP request and JSON message example</h3><p><span class="codeblock">GET /Users?filter=meta.lastModified gt “2020-04-07T14:19:34Z”&amp;startIndex=1&amp;count=100</span></p><h3>Expected response from acting SCIM server connector</h3><p><span class="codeblock">{
+"schemas": [
+"urn:scim:schemas:core:1.0"
+],
+"totalResults": 1,
+"startIndex": 1,
+"itemsPerPage": 1,
+"Resources": [
+{
+"id": "d0dd58e43ded4293a61a8760fcba0458",
+"externalId": "00ustvXq1A8UAuobW0f5",
+"meta": {
+"created": "04-17-2020 00:00:00",
+"lastModified": "04-17-2020 00:00:00",
+"version": "v1.0"
+},
+"schemas": [
+"urn:scim:schemas:core:1.0"
+"urn:scim:schemas:extension:okta:1.0"
+],
+"userName": "steph.c@example.com",
+"displayName": " Steph Curry",
+"preferredLanguage": "en",
+"locale": "en_US",
+"timezone": "America/Los_Angeles",
+"active": true,
+"password": "VFhsSlpHVnVkR2wwZVVselRYbFFZWE56ZDI5eVpBPT0=",
+"emails": [
+{
+"value": "steph.c@example.com",
+"type": "work",
+"primary": true
+}
+],
+"groups": [],
+"name": {
+"familyName": "Curry",
+"givenName": "Steph"
+}
+"urn:scim:schemas:extension:okta:1.0": {
+"employeeNumber": "30",
+"manager": {
+"value": "Steve Kerr"
+}
+}
+},
+]
+}</span></p><h2><a name="Import2"></a>Import a user profile</h2><h3><MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> HTTP request and JSON message example</h3><p><span class="codeblock">GET /Users/&lt;Id&gt;</span></p><h3>Expected response from acting SCIM server connector</h3><p><span class="codeblock">{
+"id": "d0dd58e43ded4293a61a8760fcba0458",
+"externalId": "00ustvXq1A8UAuobW0f5",
+"meta": {
+"created": "04-17-2020 00:00:00",
+"lastModified": "04-17-2020 00:00:00",
+"version": "v1.0"
+},
+"schemas": [
+"urn:scim:schemas:core:1.0",
+"urn:scim:schemas:extension:okta:1.0"
+],
+"userName": "steph.c@example.com",
+"displayName": " Steph Curry",
+"preferredLanguage": "en",
+"locale": "en-US",
+"timezone": "America/Los_Angeles",
+"active": true,
+"password": "VFhsSlpHVnVkR2wwZVVselRYbFFZWE56ZDI5eVpBPT0=",
+"emails": [
+{
+"value": "steph.c@example.com",
+"type": "work",
+"primary": true
+}
+],
+"groups": [],
+"name": {
+"familyName": "Curry",
+"givenName": "Steph"
+},
+"urn:scim:schemas:extension:okta:1.0": {
+"employeeNumber": "30",
+"manager": {
+"value": "Steve Kerr"
+}
+}
+}</span></p><p>When <MadCap:variable name="okta-variables.ProductName" /> attempts to provision a user and finds that the user already exists in the on-premises application, <MadCap:variable name="okta-variables.ProductName" /> either pushes the profile of the user to the on-premises application or imports the user profile. This depends on whether or not you have the Push Profile Update option enabled. If it is enabled, <MadCap:variable name="okta-variables.ProductName" /> pushes the profile of the user to the on-premises application. If it is not enabled, it imports the user profile.</p><h2><a name="Activate"></a>Activate a user</h2><p>This instruction is sent when a user who was previously provisioned in inactive state is activated in <MadCap:variable name="okta-variables.ProductName" />.</p><h3><MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> HTTP request and JSON message example</h3><p><span class="codeblock">PUT /Users/&lt;id
+{
+  "schemas":[
+    "urn:scim:schemas:core:1.0",
+    "urn:scim:schemas:extension:enterprise:1.0",
+    "urn:okta:onprem_app:1.0:user:custom"
+  ],
+  "id":"101",
+  "userName":"okta",
+  "name":{
+    "givenName":"John",
+    "familyName":"Smith"
+  },
+  "emails":[
+    {
+      "value":"jsmith@example.com",
+      "primary":true,
+      "type":"work"
+    }
+  ],
+  "active":true,
+  "password":"inSecure",
+  "groups":[
+    {
+      "value":"1001",
+      "display":"firstGroup"
+    },
+    {
+      "value":"1002",
+      "display":"secondGroup"
+    }
+  ],
+  "urn:okta:onprem_app:1.0:user:custom":{
+    "isAdmin":false,
+    "isOkta":true,
+    "departmentName":"Cloud Service"
+  }
+}</span></p> <h3>Expected response from acting SCIM server connector</h3><p><span class="codeblock">{
+  "id": "45c5f5187556447186bd5a710ba439e9",
+  "externalId": "00usabcdeAuobW0f8",
+  "meta": {
+    "created": "10-14-2016 00:00:00",
+    "lastModified": "10-14-2016 00:00:00",
+    "version": "v1.0"
+  },
+  "schemas": [
+    "urn:scim:schemas:core:1.0",
+    "urn:scim:schemas:extension:okta:1.0"
+  ],
+  "userName": "scim1User1@example.com",
+  "displayName": "Scim1 Test User",
+  "preferredLanguage": "en",
+  "locale": "en_US",
+  "timezone": "America/Los_Angeles",
+  "active": true,
+  "password": "VlZaa1MyRnNjRVZTV0d4T1pXeEZPUT09",
+  "emails": [
+    {
+      "value": "scim1User1@example.com",
+      "type": "work",
+      "primary": true
+    }
+  ],
+  "groups": [
+    {
+      "value": "8306945c760d4b0e8fae3e806614a19a",
+      "display": "ScimOne Group A"
+    }
+  ],
+  "name": {
+    "familyName": "User",
+    "givenName": "Scim1 Test"
+  },
+  "urn:scim:schemas:extension:okta:1.0": {
+    "employeeNumber": "11253"
+  }
+}</span></p><h2><a name="Deactiva"></a>Deactivate user</h2><p>This instruction is sent when a user is unassigned from the <MadCap:variable name="okta-variables.ProductName" /> app integration or a user is deactivated in <MadCap:variable name="okta-variables.ProductName" />.</p><h3><MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> HTTP request and JSON message example</h3><p><span class="codeblock">PUT /Users/&lt;id&gt;
+{
+  "schemas":[
+    "urn:scim:schemas:core:1.0",
+    "urn:scim:schemas:extension:enterprise:1.0",
+    "urn:okta:onprem_app:1.0:user:custom"
+  ],
+  "id":"101",
+  "userName":"okta",
+  "name":{
+    "givenName":"John",
+    "familyName":"Smith"
+  },
+  "emails":[
+    {
+      "value":"jsmith@example.com",
+      "primary":true,
+      "type":"work"
+    }
+  ],
+  "active":false,
+  "password":"inSecure",
+  "groups":[
+    {
+      "value":"1001",
+      "display":"firstGroup"
+    },
+    {
+      "value":"1002",
+      "display":"secondGroup"
+    }
+  ],
+  "urn:okta:onprem_app:1.0:user:custom":{
+    "isAdmin":false,
+    "isOkta":true,
+  "departmentName":"Cloud Service"
+  }
+}</span></p><h3>Expected response from acting SCIM server connector</h3><p><span class="codeblock">{
+  "id": "45c5f5187556447186bd5a710ba439e9",
+  "externalId": "00usabcdeAuobW0f8",
+  "meta": {
+    "created": "10-14-2016 00:00:00",
+    "lastModified": "10-14-2016 00:00:00",
+    "version": "v1.0"
+  },
+  "schemas": [
+    "urn:scim:schemas:core:1.0",
+    "urn:scim:schemas:extension:okta:1.0"
+  ],
+  "userName": "scim1User1@example.com",
+  "displayName": "Scim1 Test User",
+  "preferredLanguage": "en",
+  "locale": "en_US",
+  "timezone": "America/Los_Angeles",
+  "active": false,
+  "password": "VlZaa1MyRnNjRVZTV0d4T1pXeEZPUT09",
+  "emails": [
+    {
+      "value": "scim1User1@example.com",
+      "type": "work",
+      "primary": true
+    }
+  ],
+  "groups": [
+    {
+      "value": "8306945c760d4b0e8fae3e806614a19a",
+      "display": "ScimOne Group A"
+    }
+  ],
+  "name": {
+    "familyName": "User",
+    "givenName": "Scim1 Test"
+  },
+  "urn:scim:schemas:extension:okta:1.0": {
+    "employeeNumber": "11253"
+  }
+}</span></p><h2><a name="Reactiva"></a>Reactivate a user</h2><p>This instruction is sent when a previously deactivated user is activated in <MadCap:variable name="okta-variables.ProductName" /></p><h3><MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> HTTP request and JSON message example</h3><p><span class="codeblock">PUT /Users/&lt;id&gt;
+{
+  "schemas":[
+    "urn:scim:schemas:core:1.0",
+    "urn:scim:schemas:extension:enterprise:1.0",
+    "urn:okta:onprem_app:1.0:user:custom"
+  ],
+  "id":"101",
+  "userName":"okta",
+  "name":{
+    "givenName":"John",
+    "familyName":"Smith"
+  },
+  "emails":[
+    {
+      "value":"jsmith@example.com",
+      "primary":true,
+      "type":"work"
+    }
+  ],
+  "active":true,
+  "password":"inSecure",
+  "groups":[
+    {
+      "value":"1001",
+      "display":"firstGroup"
+    },
+    {
+      "value":"1002",
+      "display":"secondGroup"
+    }
+  ],
+  "urn:okta:onprem_app:1.0:user:custom":{
+    "isAdmin":false,
+    "isOkta":true,
+    "departmentName":"Cloud Service"
+  }
+}</span></p><h3>Expected Response from Connector Acting as SCIM Server</h3><p><span class="codeblock">{
+  "id": "45c5f5187556447186bd5a710ba439e9",
+  "externalId": "00usabcdeAuobW0f8",
+  "meta": {
+    "created": "10-14-2016 00:00:00",
+    "lastModified": "10-14-2016 00:00:00",
+    "version": "v1.0"
+  },
+  "schemas": [
+    "urn:scim:schemas:core:1.0",
+    "urn:scim:schemas:extension:okta:1.0"
+  ],
+  "userName": "scim1User1@example.com",
+  "displayName": "Scim1 Test User",
+  "preferredLanguage": "en",
+  "locale": "en_US",
+  "timezone": "America/Los_Angeles",
+  "active": true,
+  "password": "VlZaa1MyRnNjRVZTV0d4T1pXeEZPUT09",
+  "emails": [
+    {
+      "value": "scim1User1@example.com",
+      "type": "work",
+      "primary": true
+    }
+  ],
+  "groups": [
+    {
+      "value": "8306945c760d4b0e8fae3e806614a19a",
+      "display": "ScimOne Group A"
+    }
+  ],
+  "name": {
+    "familyName": "User",
+    "givenName": "Scim1 Test"
+  },
+  "urn:scim:schemas:extension:okta:1.0": {
+    "employeeNumber": "11253"
+  }
+}</span></p> <h2><a name="Push"></a>Push password update</h2><p>This instruction is sent when user changes password on <MadCap:variable name="okta-variables.ProductName" /> and Sync password user provisioning feature  has been enabled on App provisioning tab in <MadCap:variable name="okta-variables.ProductName" />.</p><h3><MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> HTTP request and JSON message example</h3><p><span class="codeblock">PUT /Users/&lt;id&gt;
+{
+  "schemas":[
+    "urn:scim:schemas:core:1.0",
+    "urn:scim:schemas:extension:enterprise:1.0",
+    "urn:okta:onprem_app:1.0:user:custom"
+  ],
+  "id":"101",
+  "userName":"okta",
+  "name":{
+    "givenName":"John",
+    "familyName":"Smith"
+  },
+  "emails":[
+    {
+      "value":"jsmith@example.com",
+      "primary":true,
+      "type":"work"
+    }
+  ],
+  "active":true,
+  "password":"this-is-my-new-password",
+  "groups":[
+    {
+      "value":"1001",
+      "display":"firstGroup"
+    },
+    {
+      "value":"1002",
+      "display":"secondGroup"
+    }
+  ],
+  "urn:okta:onprem_app:1.0:user:custom":{
+    "isAdmin":false,
+    "isOkta":true,
+    "departmentName":"Cloud Service"
+  }
+}</span></p> <h3>Expected response from acting SCIM server connector</h3><p><MadCap:variable name="okta-variables.ProductName" /> assumes that a non-error response from your connector means the pushPasswordUpdate was successful.</p><h2><a name="Push2"></a>Push profile update</h2><p>This instruction is sent when a user's profile changes in <MadCap:variable name="okta-variables.ProductName" /> and the update user provisioning feature has been enabled on <MadCap:variable name="okta-variables.ProductName" />.</p><h3><MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> HTTP request and JSON message example</h3><p><span class="codeblock">PUT request to /Users/101
+ {
+   "schemas":[
+      "urn:scim:schemas:core:1.0",
+      "urn:scim:schemas:extension:enterprise:1.0",
+      "urn:okta:onprem_app:1.0:user:custom"
+   ],
+   "id":"101",
+   "userName":"okta",
+   "name":{
+      "givenName":"John",
+      "familyName":"Taylor"
+   },
+   "emails":[
+      {
+         "value":"jtaylor@example.com",
+         "primary":true,
+         "type":"work"
+      }
+   ],
+   "active":true,
+   "password":"inSecure",
+   "groups":[
+      {
+         "value":"1001",
+         "display":"firstGroup"
+      },
+      {
+         "value":"1002",
+         "display":"secondGroup"
+      }
+   ],
+   "urn:okta:onprem_app:1.0:user:custom":{
+      "isAdmin":false,
+      "isOkta":true,
+      "departmentName":"Cloud Service Management"
+   }
+}</span></p> <h3>Expected response from acting SCIM server connector</h3><p><MadCap:variable name="okta-variables.ProductName" /> assumes that a non-error response from your connector means the pushProfileUpdate was successful. Provided that the feature to store updates to on-premises application users upon creation or update is enabled, then the connector sends back the updated user.</p><h2><a name="Download"></a>Download groups</h2><p>This instruction is sent when an admin imports users into <MadCap:variable name="okta-variables.ProductName" />.</p><h3><MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> HTTP request and JSON message example</h3><p><span class="codeblock">GET request /Groups?startIndex=1&amp;count=100</span></p> <p>Expected Response from Connector Acting as SCIM Server</p><p><span class="codeblock">{
+  "totalResults":2,
+  "schemas":[
+    "urn:scim:schemas:core:1.0"
+  ],
+  "Resources":[
+    {
+      "schemas":[
+        "urn:scim:schemas:core:1.0",
+        "urn:okta:custom:group:1.0"
+      ],
+      "displayName":"firstGroup",
+      "id":"1001",
+      "members":[
+        {
+          "value":"101",
+          "display":"okta"
+        }
+      ],
+      "urn:okta:custom:group:1.0":{
+        "description":"This is the first group"
+      }
+    },
+    {
+      "schemas":[
+        "urn:scim:schemas:core:1.0"
+      ],
+      "displayName":"secondGroup",
+      "id":"1002",
+      "members":[
+        {
+          "value":"101",
+          "display":"okta"
+        },
+        {
+          "value":"102",
+          "display":"admin"
+        }
+      ]
+    }
+  ]
+}</span></p> <p>Expected response from acting SCIM server connector</p><p><span class="codeblock">{
+  "totalResults": 2,
+  "schemas": [
+    "urn:scim:schemas:core:1.0"
+  ],
+  "Resources": [
+    {
+      "schemas": [
+        "urn:scim:schemas:core:1.0",
+        "urn:okta:custom:group:1.0"
+      ],
+      "displayName": "firstGroup",
+      "id": "1001",
+      "members": [
+        {
+          "value": "101",
+          "display": "okta"
+        }
+      ],
+      "urn:okta:custom:group:1.0": {
+        "description": "This is the first group"
+      }
+    },
+    {
+      "schemas": [
+        "urn:scim:schemas:core:1.0"
+      ],
+      "displayName": "secondGroup",
+      "id": "1002",
+      "members": [
+        {
+          "value": "101",
+          "display": "okta"
+        },
+        {
+          "value": "102",
+          "display": "admin"
+        }
+      ]
+    }
+  ]
+}</span></p> <h2><a name="Create3"></a>Create group</h2><p>This instruction is sent when the Group Push feature is enabled for an app integration in <MadCap:variable name="okta-variables.ProductName" />.</p><h3><MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> HTTP request and JSON message example</h3><p><span class="codeblock">POST request to http://localhost:8080/Groups</span></p> <p>Expected Response from Connector Acting as SCIM Server</p><p><span class="codeblock">{
+  "schemas":[
+    "urn:scim:schemas:core:1.0",
+    "urn:okta:custom:group:1.0"
+  ],
+  "displayName":"AppGroup-04",
+  "id":"AppGroup-02",
+  "members":[
+    {
+      "value":"101",
+      "display":"okta"
+    },
+    {
+      "value":"102",
+      "display":"admin"
+    }
+  ],
+  "urn:okta:custom:group:1.0":{
+    "description":"This is the second group"
+  }
+}</span></p> <h2><a name="updateGr"></a>Update group</h2><p>This instruction is sent when the Group Push feature is enabled for an app integration in <MadCap:variable name="okta-variables.ProductName" />.</p><h3><MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> HTTP request and JSON message example</h3><p><span class="codeblock">PUT request to http://localhost:8080/Groups/1002</span></p> <h3>Expected response from acting SCIM server connector </h3><p><span class="codeblock">{
+  "schemas": [
+    "urn:scim:schemas:core:1.0",
+    "urn:okta:custom:group:1.0"
+  ],
+  "displayName": "AppGroup-Changed",
+  "id": "1002",
+  "members": [
+    {
+      "value": "101",
+      "display": "okta admin"
+    },
+    {
+      "value": "102",
+      "display": "okta user"
+    }
+  ],
+  "urn:okta:custom:group:1.0": {
+    "description": "This is the changed first group"
+  }
+}</span></p><h2><a name="deleteGr"></a>Delete group</h2><p>This instruction is sent when the Group Push feature is enabled for an app integration in <MadCap:variable name="okta-variables.ProductName" />.</p><h3><MadCap:variable name="okta-feature-names.Okta Provisioning Agent" /> HTTP request and JSON message example</h3><p><span class="codeblock">DELETE request to http://localhost:8080/Groups/1003</span></p><h3>Expected response from acting SCIM server connector</h3><p><MadCap:variable name="okta-variables.ProductName" /> assumes that a non-error response from your connector means the <code>deleteGroup</code> was successful and the group with the Id 1003 was deleted.</p><h2>Related topics</h2><p><MadCap:xref href="OPP-build-SCIM-using-SDK.htm">Create SCIM connectors for on-premises provisioning using SDK</MadCap:xref></p><p><MadCap:xref href="OPP-create-SCIM-connectors.htm">Create SCIM connectors for on-premises provisioning</MadCap:xref></p><p><MadCap:xref href="OPP-test-SCIM-server.htm">Test SCIM connectors for on-premises provisioning</MadCap:xref></p></body>
+</html>

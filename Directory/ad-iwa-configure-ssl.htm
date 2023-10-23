@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:searchable="True"
+      MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+   <head>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <link href="" rel="stylesheet" type="text/css"/>
+      <meta name="description"
+            content="Configure Secure Socket Layer (SSL) to ensure a secure connection between your Okta IWA Web agent and cloud apps."/>
+   </head>
+   <body>
+      <h1>
+         <a name="ConfigureSSL"/>Configure SSL for the <MadCap:variable name="okta-variables.ProductName"/> IWA Web agent</h1>
+      <p>To ensure a secure connection between your <MadCap:variable name="okta-variables.ProductName"/>
+         <MadCap:variable name="okta-feature-names.IWA Web agent"/> agent and cloud apps, configure Secure Socket Layer (SSL). This is important for security and a hard requirement for authentication on some Windows 10 Universal Applications  such as OneNote and Mail. See <a href="https://support.okta.com/help/s/article/Cannot-sign-into-an-Office-2016-application-on-Windows-10">Cannot sign into an Office 2016 application on Windows 10</a>.</p>
+      <p>
+         <span class="uicontrol">Note:</span> If your IWA Web agent is installed on a server running Windows 2008 R2, you may need to <a href="https://knowledge.digicert.com/quovadis/ssl-certificates/ssl-general-topics/how-to-enable-tls-1_2-on-windows-server-2008-r2.html">enable TLS 1.2 on Windows Server 2008 R2</a>.</p>
+      <h2>Acquire an SSL certificate</h2>
+      <p>
+         <MadCap:variable name="okta-variables.ProductName"/> recommends acquiring an SSL certificate from a third-party certificate authority such as GoDaddy, Verisign, or Digicert.  If you are unfamiliar with creating a certificate signing request and installing an SSL certificate, refer to the documentation provided by your selected Certificate Authority.  The following guides from sslstore are useful references:</p>
+      <p>
+         <a href="https://www.thesslstore.com/knowledgebase/ssl-generate/">CSR Generation for SSL Certificates</a>
+      </p>
+      <p>
+         <a href="https://www.thesslstore.com/knowledgebase/ssl-install/microsoft-iis-7-ssl-installation/">How to Install an SSL/TLS Certificate In Microsoft IIS 7</a>
+      </p>
+      <p>Certificate creation  considerations:</p>
+      <ul>
+         <li>
+            <MadCap:variable name="okta-variables.ProductName"/> recommends acquiring a certificate that has one or more <span class="uicontrol">Subject Alternate Names</span> (SANs).  If the certificate does not contain a SAN, Firefox and Chrome users will encounter an error when their browser attempts to connect to the Desktop SSO web site.</li>
+         <li>The <span class="uicontrol">IWA Redirect URL</span> must match what is entered in the CN or SAN.  For example:<ul>
+               <li>If you plan to use the server's host name as the IWA Redirect URL (for example, https://IWAserver/IWA), the CN or SAN values would  be “IWAServer”.</li>
+               <li>If you plan to use the server's FQDN as the IWA Redirect URL (e.g. https://IWAserver.mycompany.com/IWA), the CN or SAN values would be “IWAserver.mycompany.com”.</li>
+               <li>If your certificate's CN or SAN value is IWAserver, an attempt to connect to https://IWAserver.mycompany.com will fail because the URL will not match what is specified in the certificate.</li>
+            </ul>
+         </li>
+         <li>If you plan on installing Desktop SSO on multiple servers to provide fail over, we strongly recommend acquiring a wild card certificate (for example: *.mycompany.com) OR a certificate that contains SAN entries for each server's URL (for example:  https://IWA1.mycompany.com, https://IWA2.mycompany.com, etc).  This will allow you to use the same certificate on each server.</li>
+      </ul>
+      <h2>Enable SSL</h2>
+      <ol>
+         <li>
+                In the <MadCap:variable name="okta-feature-names.Administrator dashboard"/>, go to <span class="menucascade">
+               <span class="uicontrol">Security</span>
+               <span class="uicontrol">Delegated Authentication</span>
+            </span>.</li>
+         <li>Scroll down to <span class="uicontrol">On-Prem Desktop SSO</span> and click <span class="uicontrol">Edit</span>.</li>
+         <li>In the <span class="uicontrol">IWA Agents</span> area, click <span class="uicontrol">Edit</span>
+            <img src="../../Resources/Images/edit-button.png"/>.
+							</li>
+         <li>
+            <a name="IWARedirectURL"/>In the <span class="uicontrol">IWA redirect URL</span> field, change the URL from <span class="term">http</span> to <span class="term">https</span>.
+<br/>The IWA Redirect URL must use the same naming convention used in the <span class="uicontrol">Common Name</span> field. That is, if the FQDN or host name was used in the <span class="uicontrol">Common Name</span> field, it must also be used in the IWA Redirect URL.							</li>
+         <li>
+                Click <span class="uicontrol">Save</span>.
+            </li>
+      </ol>
+      <h2>Next steps</h2>
+      <p>
+         <MadCap:xref href="ad-iwa-configure-routing-rules.htm">Configure routing rules for the [%=okta-variables.ProductName%] IWA Web agent</MadCap:xref>
+      </p>
+   </body>
+</html>

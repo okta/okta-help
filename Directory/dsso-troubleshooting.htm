@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+    <head><title>[%=Heading.Level1%] | Okta</title>
+        <meta name="description" content="Troubleshoot common Desktop Single Sign-on (DSSO) issues." />
+    </head>
+    <body>
+        <h1>Desktop Single Sign-on troubleshooting</h1>
+        <h4>With Agentless DSSO enabled, you browse to your Okta tenant and see the regular sign in page</h4>
+        <p>You were not routed to the Agentless DSSO endpoint. Confirm your IP address is added to the correct zone and that zone is used for the Agentless DSSO.</p>
+        <h4>I am working remote and  Agentless DSSO doesn't work</h4>
+        <p>In order for Agentless DSSO to work your browser must be able to connect to the Key Distribution Center (KDC) on your domain. This is crucial to the Kerberos validation. If you are unable to reach the KDC you will not obtain a Kerberos ticket and will not be able to authenticate.  If a Virtual Private Network (VPN) is available, use it to join your network. If the KDC is available through the VPN, Agentless DSSO will work.</p>
+        <h4>I am in the right zone and on-prem and Agentless DSSO still fails</h4>
+        <p>Confirm the username and password are correct for the SPN account both in AD and as stored in the Okta configuration. If the account expired or was changed it will break the flow.</p>
+        <h4>I have verified I am in the correct zone, verified the account used for the SPN is correct, I am on-premises and Agentless DSSO still fails</h4>
+        <p>This could suggest some type of Kerberos failure. Using tools such as Wireshark, capture your network traffic during your Agentless DSSO attempt. Once captured, filter for Kerberos traffic. Compare this traffic to the  Event Viewer logs on your KDC.  Using these two tools (or similar) you should be able to uncover Kerberos failures.</p>
+        <div class="noteOkta">
+            <img src="../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Note" alt="Note" />
+            <p class="noteContent"> In order to see debug-level Kerberos events you may need to enable Kerberos event logging. For more information, see <a href="https://support.microsoft.com/en-us/help/262177/how-to-enable-kerberos-event-logging">https://support.microsoft.com/en-us/help/262177/how-to-enable-kerberos-event-logging</a>.</p>
+        </div>
+        <h4>Kerberos validator and sign-in failure      </h4>
+        <p>If the clock skew between your corporate network and Okta Agentless SSO becomes too great, Kerberos validation and sign-in will fail. This issue will not occur if your domain controller's clock is synced to an external time server.</p>
+        <h4>Slow  or failed sign-on experience      </h4>
+        <p>During Agentless DSSO sign-in Okta does a SID look-up. During the EA time frame this is being done with a call to the AD Agent. If you experience a slow  sign-in experience or failed  sign-ins consider increasing the number of polling threads for your AD Agents or adding new AD Agents for your domains. For details on how to do this, see <MadCap:xref href="ad-agent-install-multiple.htm">Install multiple [%=okta-variables.ProductName%] Active Directory agents </MadCap:xref> and <MadCap:xref href="ad-agent-threads.htm">Change the number of [%=okta-variables.ProductName%] Active Directory agent threads</MadCap:xref>.</p>
+        <p>If this occurs, you will see the AD Agent logs filled with a large number of read LDAP calls, without any <span class="code">Next action = NONE</span> lines shown. For example:</p>
+        <p><span class="msgblock">2018/06/11 23:14:34.441 Debug -- N079-H076(57) -- Sending result for READ_LDAP action (id=ADS2n15k1yGW23cn10g7) finished, (executionTime=00:00:00.2196026)</span>
+        </p>
+        <h4 MadCap:conditions="MultiProdPublish.OIE">Desktop SSO not working</h4>
+        <p MadCap:conditions="MultiProdPublish.OIE">Ensure the host name of the server is resolvable from within the client network.</p>
+        <MadCap:snippetBlock src="../../Resources/Snippets/IWA_Office2016Win10_WAM.flsnp" MadCap:conditions="MultiProdPublish.OIE" />
+        <h4 MadCap:conditions="MultiProdPublish.Classic">Desktop SSO/IWA not working</h4>
+        <ul MadCap:conditions="MultiProdPublish.Classic">
+            <li MadCap:conditions="MultiProdPublish.Classic">Ensure the host name of the server is resolvable from within the client network.</li>
+            <li MadCap:conditions="MultiProdPublish.Classic">IWA must be turned on in both the IIS authentication configuration and in the client.</li>
+        </ul>
+        <MadCap:snippetBlock src="../../Resources/Snippets/IWA_Office2016Win10_WAM.flsnp" MadCap:conditions="MultiProdPublish.Classic" />
+        <div class="noteOkta" MadCap:conditions="MultiProdPublish.Classic">
+            <img src="../../Resources/Images/assets/Icons/Notes/Help.png" class="noteImgFloat" title="Note" alt="Note" />
+            <p class="noteContent">If you have installed the Okta IWA SSO agent and used the same Okta Service account that was used to install the <MadCap:variable name="okta-feature-names.AD agent short" />, then you must also change the Okta Service account password in the IIS <span class="uicontrol">Server Manager dashboard</span> &gt;&#160;<span class="uicontrol">Tools</span> &gt;&#160;<span class="uicontrol">Internet Information Services (IIS)&#160;Manager</span> when you change the OktaService account password in AD. </p>
+        </div>
+        <p MadCap:conditions="MultiProdPublish.Classic">The Okta IWA&#160;service is installed under the Application Pools menu. Under <span class="uicontrol">Advanced Settings</span> you can change the Okta Service password to match the new password. Due to caching, the IWA service may not stop immediately. When the cache does reset, IWA will stop working if the OktaService password has not been updated here to match the password you reset in the Active Directory Users and Computers tool and the Services console on the server the agent is installed upon.</p>
+        <h4 MadCap:conditions="MultiProdPublish.Classic">IWA not functioning after a server restart or Group Policy changes</h4>
+        <p MadCap:conditions="MultiProdPublish.Classic">(The Okta IWA service account requires <span class="uicontrol">Logon as a Batch Job</span> and <span class="uicontrol">Log on as a Service</span> permissions. Ensure the service account has these permissions.</p>
+        <h4>What do I do when I receive the <code>The request was aborted: Could not create SSL/TLS secure channel</code> error message?</h4>
+        <p>Your <MadCap:variable name="okta-variables.ProductName" /><MadCap:variable name="okta-feature-names.IWA&#160;Web agent" /> may go offline and the error <code>The request was aborted: Could not create SSL/TLS secure channel</code> can appear if your <MadCap:variable name="okta-variables.ProductName" /><MadCap:variable name="okta-feature-names.IWA&#160;Web agent" /> is:</p>
+        <ul>
+            <li>Installed on a server running <span class="uicontrol">Windows Server 2008 R2 SP1</span>, and</li>
+            <li>Configured to use HTTPS, and</li>
+            <li>Configured for Automatic Fail over.</li>
+        </ul>
+        <p MadCap:conditions="MultiProdPublish.Classic">If your <MadCap:variable name="okta-variables.ProductName" /><MadCap:variable name="okta-feature-names.IWA&#160;Web agent" /> is installed on a server running Windows Server 2008 R2 SP1 and you want to use SSO IWA over secured connections (HTTPS), you must first enable the <span class="uicontrol">TLS 1.2</span> protocol for incoming (e.g. <span class="uicontrol">IIS</span>) connections. This is necessary because the <MadCap:variable name="okta-feature-names.AD agent" /> which tries to use TLS 1.2 whenever possible, may lose connectivity with <MadCap:variable name="okta-variables.ProductName" /><MadCap:variable name="okta-feature-names.IWA&#160;Web agent" /> installed on Windows Server 2008 R2 SP1 servers that are not enabled for TLS 1.2 incoming connections. Windows Server 2008 R2 SP1 supports TLS 1.2 protocol outgoing connections by default. However, support for incoming connections is disabled by default. <MadCap:variable name="okta-variables.ProductName" /> strongly recommends enabling this setting. </p>
+        <ol>
+            <li>On the same Windows 2008 R2 server that hosts your IWA&#160;Web agent, add the following values to the  registry:</li>
+            <div style="padding:10px;border:1px solid black;min-height:30px;min-width:100px;overflow-y:hidden;overflow-x:scroll;">
+                <p style="width:110%;"><pre>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client\DisabledByDefault : 0 (DWORD)</pre>
+                </p>
+                <p style="width:110%;"><pre>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client\Enabled : 1 (DWORD)</pre>
+                </p>
+                <p style="width:110%;"><pre>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Server\DisabledByDefault : 0 (DWORD)</pre>
+                </p>
+                <p style="width:110%;"><pre>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Server\Enabled : 1 (DWORD)</pre>
+                </p>
+            </div>
+            <li>Restart the server.</li>
+        </ol>
+        <h4 MadCap:conditions="MultiProdPublish.Classic">Failed to store IWA config error when installing the agent</h4>
+        <p MadCap:conditions="MultiProdPublish.Classic">During agent installation, if the error message displays,  then you are probably attempting to install a version of the <MadCap:variable name="okta-variables.ProductName" /> IWA&#160;Web agent&#160;in which SSL&#160;pinning is enabled by default and your environment is one in which the agent's support for SSL certificate pinning prevents communication with the <MadCap:variable name="okta-variables.ProductName" /> server. This is most likely to occur in environments that rely on SSL proxies. To allow installation to complete in this case, <MadCap:variable name="okta-variables.ProductName" /> recommends that you <span class="uicontrol">bypass SSL proxy processing</span> by adding the domain <span class="term">okta.com</span> to a allowlist.</p>
+        <p MadCap:conditions="MultiProdPublish.Classic">If SSL certificate pinning is enabled use this procedure to disable it:</p>
+        <ol>
+            <li MadCap:conditions="MultiProdPublish.Classic">Complete steps 1 and 2 of the procedure <MadCap:xref href="ad-iwa-install-agent.htm">Install the [%=okta-variables.ProductName%] [%=okta-feature-names.IWA&#160;Web agent%]</MadCap:xref>.</li>
+            <li MadCap:conditions="MultiProdPublish.Classic">Open a command prompt and enter the following command: <span class="code">OktaSsoIwa.exe OktaDisableSslPinning=1</span></li>
+        </ol>
+        <ol MadCap:continue="true">
+            <li MadCap:conditions="MultiProdPublish.Classic">Press <span class="uicontrol">Enter</span>.</li>
+            <li MadCap:conditions="MultiProdPublish.Classic">Complete the installation. See <MadCap:xref href="ad-iwa-install-agent.htm">Install the [%=okta-variables.ProductName%] [%=okta-feature-names.IWA&#160;Web agent%]</MadCap:xref>.</li>
+        </ol>
+    </body>
+</html>

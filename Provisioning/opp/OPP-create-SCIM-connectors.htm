@@ -1,0 +1,347 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:searchable="True"
+      MadCap:fileTags="Tags/okta-authors.Nikita Apraj">
+   <head>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <link href="../../../Resources/TableStyles/standard.css"
+            rel="stylesheet"
+            MadCap:stylesheetType="table"/>
+      <link href="" rel="stylesheet" type="text/css"/>
+      <meta name="description"
+            content="Create a SCIM connector to provision users from Okta to on-premises applications installed behind a corporate firewall."/>
+   </head>
+   <body>
+      <h1>Create SCIM connectors for on-premises provisioning</h1>
+      <p>
+		The <MadCap:variable name="okta-feature-names.Okta Provisioning Agent"/> lets you provision users from <MadCap:variable name="okta-variables.ProductName"/> to on-premises applications that are installed behind a corporate firewall and to import users from corporate applications into your <MadCap:variable name="okta-variables.ProductName"/> org. Communication between <MadCap:variable name="okta-variables.ProductName"/> and on-premises applications occurs through the <MadCap:variable name="okta-feature-names.Okta Provisioning Agent"/> and a System for Cross-domain Identity Management (SCIM) server or a provisioning connector built using the Provisioning Connector SDK.</p>
+      <p>SCIM is used to connect <MadCap:variable name="okta-variables.ProductName"/> to on-premises applications. No specific knowledge of SCIM is required to build and use a connector. For more information on SCIM, refer to this <a href="https://scim.cloud/specs/draft-scim-api-01.html" target="_blank">specification</a>.</p>
+      <p>The connector receives SCIM messages from the <MadCap:variable name="okta-feature-names.Okta Provisioning Agent"/> and integrates with the on-premises application using the API interface provided by that application. You only need to author the Java code that defines the specifications of the on-premises application. You can create multiple connectors to provide connectivity to different on-premises applications, if necessary.</p>
+      <h2>Before you begin</h2>
+      <p>To use the SDK to create a connector, you need the following:</p>
+      <ul>
+         <li>The SDK package. It's available in <MadCap:variable name="okta-variables.ProductName"/> on the Downloads page. To obtain the package, sign in as an Administrator in <MadCap:variable name="okta-variables.ProductName"/> and go to <span class="menucascade">
+               <span class="uicontrol">Settings</span>
+               <span class="uicontrol">Downloads</span>
+            </span>. Click <span class="uicontrol">Download</span> next to the <MadCap:variable name="okta-variables.ProductName"/> Provisioning Connector SDK in the Admin Downloads section.</li>
+         <li>Minimum Java versions: 1.6 or 1.7 </li>
+         <li>A web server to run your connector as a WAR file</li>
+         <li>An IDE such as Eclipse or IntelliJ (recommended)</li>
+      </ul>
+      <p class="noteContent">Note: Maven is used in the examples to build the SDK.</p>
+      <h2>SDK package contents</h2>
+      <p>The SDK package is a compressed file. The following table describes the contents of the compressed file.</p>
+      <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');"
+             class="TableStyle-standard"
+             cellspacing="0">
+         <col class="TableStyle-standard-Column-Column1"/>
+         <col class="TableStyle-standard-Column-Column1"/>
+         <tbody>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td style="font-weight: bold;background-color: #dcdcdc;"
+                   class="TableStyle-standard-BodyF-Column1-Body1">File</td>
+               <td style="font-weight: bold;background-color: #dcdcdc;"
+                   class="TableStyle-standard-BodyD-Column1-Body1">Description</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">README.TXT</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body2">Package contents description. It contains the same information as this table.</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">LICENSE.TXT</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">All licenses for referenced libraries.</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">
+                  <span class="filepath">lib/scim-server-sdk-*.jar</span>
+               </td>
+               <td class="TableStyle-standard-BodyD-Column1-Body2">SCIM Server Connector SDK library. See the example-server for usage.</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">example-server</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">An example SCIM Server implementation using the Connector SDK. See its README.TXT for full details.</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyC-Column1-Body2">tester</td>
+               <td class="TableStyle-standard-BodyA-Column1-Body2">A stand-alone console application that mimics <MadCap:variable name="okta-variables.ProductName"/> provisioning commands to test a SCIM server and connector implementation in isolation. See its README.TXT for full details.</td>
+            </tr>
+         </tbody>
+      </table>
+      <h2>Create your connector</h2>
+      <p>You can create a connector using connector SDK to integrate on-premises applications with <MadCap:variable name="okta-variables.ProductName"/>. The connector implements the SCIMService interface.</p>
+      <h3>Step 1: Implement SCIMServer Interface using SDK</h3>
+      <p>Write a java connector that implements SCIMService interface.  Details about these methods are documented in the <a href="http://developer.okta.com/docs/sdk/opp/javadoc/index.html"
+            target="_blank">Javadoc.</a>
+      </p>
+      <h4>Selected methods</h4>
+      <p>
+         <span class="code">UserManagementCapabilities[ ] getImplementedUserManagementCapabilities()</span>
+      </p>
+      <p>This method returns the User management/provisioning capabilities implemented by the connector. You must implement this method since it informs the <MadCap:variable name="okta-variables.ProductName"/> provisioning feature that your connector is implemented.</p>
+      <p
+>
+         <span class="code">SCIMUser createUser(SCIMUser user)</span>
+      </p>
+      <p>This method is invoked when <MadCap:variable name="okta-variables.ProductName"/> sends an instruction to create a user in an on-premises application.</p>
+      <p
+>
+         <span class="code">SCIMUser updateUser(String externalId, SCIMUser user)</span>
+      </p>
+      <p>This method is invoked when <MadCap:variable name="okta-variables.ProductName"/> sends an instruction to update an existing user in an on-premises application.</p>
+      <p
+>
+         <span class="code">SCIMUser getUser(String externalId)</span>
+      </p>
+      <p>This method is invoked when <MadCap:variable name="okta-variables.ProductName"/> sends an instruction to get a particular user from an on-premises application.</p>
+      <p
+>
+         <span class="code">SCIMUserQueryResponse getUsers(PaginationProperties pageProperties, SCIMFilter filter)</span>
+      </p>
+      <p>This method is invoked when <MadCap:variable name="okta-variables.ProductName"/> sends an instruction to get a set of users from an on-premises application.</p>
+      <p
+>
+         <span class="code">SCIMGroup createGroup(SCIMGroup group)</span>
+      </p>
+      <p>This method is invoked when <MadCap:variable name="okta-variables.ProductName"/> sends an instruction to create a group in an on-premises application.</p>
+      <p
+>
+         <span class="code">SCIMGroup updateGroup(String externalId, SCIMGroup group)</span>
+      </p>
+      <p>This method is invoked when <MadCap:variable name="okta-variables.ProductName"/> sends an instruction to update a group in an on-premises application.</p>
+      <p
+>
+         <span class="code">SCIMGroupQueryResponse getGroups(PaginationProperties pageProperties)</span>
+      </p>
+      <p>This method is invoked when <MadCap:variable name="okta-variables.ProductName"/> sends an instruction to get all of the groups in an on-premises application.</p>
+      <p
+>
+         <span class="code">void deleteGroup(String externalId)</span>
+      </p>
+      <p>This method is invoked when <MadCap:variable name="okta-variables.ProductName"/> sends an instruction to delete a particular group in an on-premises application.</p>
+      <p>Based on the features supported by the on-premises application, you can decide on the methods to implement.</p>
+      <h3>Capabilities Mapping</h3>
+      <p>When implementing your connector and the SCIMService interface, you tell <MadCap:variable name="okta-variables.ProductName"/> what UserManagementCapabilities you implemented in your connector. This manifests as provisioning features available for the app integration you create in <MadCap:variable name="okta-variables.ProductName"/>. See <MadCap:xref href="OPP-manage.htm">Typical workflow for deploying on-premises provisioning</MadCap:xref> for more details on how to configure an app integration.</p>
+      <p>The following table maps those provisioning features you can set on the app integration in <MadCap:variable name="okta-variables.ProductName"/> to the methods in your SCIMService connector that enable them. These are the UserManagementCapabilities you can set in the code. They aren't visible in <MadCap:variable name="okta-variables.ProductName"/> on the App Instance page.</p>
+      <table style="width: 100%;mc-table-style: url('../../../Resources/TableStyles/standard.css');"
+             class="TableStyle-standard"
+             cellspacing="0">
+         <col class="TableStyle-standard-Column-Column1" style="width: 386px;"/>
+         <col class="TableStyle-standard-Column-Column1"/>
+         <tbody>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td style="font-weight: bold;background-color: #dcdcdc;"
+                   class="TableStyle-standard-BodyF-Column1-Body1">Provisioning feature</td>
+               <td style="font-weight: bold;background-color: #dcdcdc;"
+                   class="TableStyle-standard-BodyD-Column1-Body1">SCIMService Method</td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2" rowspan="2">PUSH_NEW_USER</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body2">
+                  <span class="code">createUser</span>
+               </td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyD-Column1-Body1">
+                  <span class="code">getUsers</span>
+               </td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">PUSH_PASSWORD_UPDATES</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body2">
+                  <span class="code">updateUser</span>
+               </td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1" rowspan="3">PUSH_PENDING_USERS</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">
+                  <span class="code">createUser</span>
+               </td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyD-Column1-Body2">
+                  <span class="code">updateUser</span>
+               </td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyD-Column1-Body1">
+                  <span class="code">getUsers</span>
+               </td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">PUSH_PROFILE_UPDATES</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body2">
+                  <span class="code">updateUser</span>
+               </td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">PUSH_USER_DEACTIVATION</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">
+                  <span class="code">updateUser</span>
+               </td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2">REACTIVATE_USERS</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body2">
+                  <span class="code">updateUser</span>
+               </td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1" rowspan="2">
+                  <p>IMPORT_NEW_USERS</p>
+                  <p>OPP_SCIM_INCREMENTAL_IMPORTS*</p>
+               </td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">
+                  <span class="code">getUsers</span>
+               </td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyD-Column1-Body2">
+                  <span class="code">getGroups</span>
+               </td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyF-Column1-Body1">IMPORT_PROFILE_UPDATES</td>
+               <td class="TableStyle-standard-BodyD-Column1-Body1">
+                  <span class="code">getUser</span>
+               </td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyF-Column1-Body2" rowspan="4">GROUP_PUSH  </td>
+               <td class="TableStyle-standard-BodyD-Column1-Body2">
+                  <span class="code">deleteGroup</span>
+               </td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyD-Column1-Body1">
+                  <span class="code">updateGroup</span>
+               </td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body2">
+               <td class="TableStyle-standard-BodyD-Column1-Body2">
+                  <span class="code">createGroup</span>
+               </td>
+            </tr>
+            <tr class="TableStyle-standard-Body-Body1">
+               <td class="TableStyle-standard-BodyA-Column1-Body1">
+                  <span class="code">getGroup</span>
+               </td>
+            </tr>
+         </tbody>
+      </table>
+      <p>* Enable OPP_SCIM_INCREMENTAL_IMPORTS if your SCIM connector supports filtering on the meta.lastModified attribute with the “gt” attribute operator.</p>
+      <h3>Step 2: Build your connector</h3>
+      <p>Build your connector using maven. See the instructions in the <MadCap:xref href="#Example">Example connectors</MadCap:xref> section.</p>
+      <h3>
+         <a name="Step"/>Step 3: Deploy your connector</h3>
+      <p>Deploy your connector on a web server as a war file.</p>
+      <h3>Step 4: Test your connector</h3>
+      <p>Test your connector using <MadCap:variable name="okta-variables.ProductName"/> Connector Tester tool.</p>
+      <h3>Step 5: Test your connector with <MadCap:variable name="okta-variables.ProductName"/>.</h3>
+      <p>See  <MadCap:xref href="OPP-test-SCIM-server.htm">Test SCIM connectors for on-premises provisioning</MadCap:xref>.</p>
+      <h2>
+         <a name="Example"/>Example connectors</h2>
+      <p>There are two example connectors provided as part of the SDK package.</p>
+      <h3>example-server</h3>
+      <p>The example-server is a simple connector that uses an in-memory data store. You can also use a file-based data store. This example connector integrates with on-premises provisioning and responds to provisioning instructions from <MadCap:variable name="okta-variables.ProductName"/>.</p>
+      <h4>Build the example-server</h4>
+      <p>Example code is provided in the package that creates a working connector where users and groups are kept in an in-memory identity store. A completed connector consists of one .war file.</p>
+      <p>Complete the following steps to build the example-server:</p>
+      <ol>
+         <li>Locate the <span class="filepath">/lib/scim-server-sdk jar</span> file from the SDK root directory.</li>
+         <li>Install it locally with the following Maven command:</li>
+         <p>
+            <span class="code">mvn install:install-file -Dfile=&lt;PATH TO THE JAR&gt; -DgroupId=com.okta.scim.sdk -DartifactId=scim-server-sdk -Dpackaging=jar -Dversion=ab.cd.ef</span>, where <span class="code">ab.cd.ef</span> is the SDK version number. For complete build instructions that include this command with the correct version number, see the <span class="filepath">install.bat</span> and <span class="filepath">install.sh</span> files in the <span class="filepath">/lib</span> folder.</p>
+         <li>
+            <p>Build the connector:</p>
+            <p>
+               <span class="code">mvn package</span>
+            </p>
+         </li>
+         <li>Copy the <span class="filepath">target/scim-server-example-*.war</span> file to your Tomcat directory and run it.</li>
+      </ol>
+      <p style="text-align: left;margin-left: 40px;">You can now use the <MadCap:variable name="okta-variables.ProductName"/> Connector Tester utility to test the connector. To integrate the connector with <MadCap:variable name="okta-variables.ProductName"/> after testing, see <MadCap:xref href="#Step">Step 3: Deploy your connector</MadCap:xref>.</p>
+      <h3>Test your connector</h3>
+      <p>
+         <MadCap:variable name="okta-variables.ProductName"/> provides <MadCap:variable name="okta-variables.ProductName"/> Connector Tester utility to test your SCIM Connector, built using <MadCap:variable name="okta-variables.ProductName"/> Connector SDK or any custom SCIM Connector/server, without connecting to <MadCap:variable name="okta-variables.ProductName"/> and the <MadCap:variable name="okta-feature-names.Okta Provisioning Agent"/>.</p>
+      <p>See  <MadCap:xref href="OPP-test-SCIM-server.htm">Test SCIM connectors for on-premises provisioning</MadCap:xref>.</p>
+      <h3>Deploy your connector</h3>
+      <p>After you create a connector and have copied the .war file to the Tomcat webapps directory, see <MadCap:xref href="OPP-connect-SCIM-connector.htm">Connect to a SCIM connector</MadCap:xref> to integrate the new connector. The five steps listed under the Create your Connector section create an integration between the agent and the SCIM Server you created with the SDK over https. To complete the process, see <MadCap:xref href="#Enable">Enable SSL</MadCap:xref>.</p>
+      <p>While you can use http communication between the agent and the SCIM Server, as described in <MadCap:xref href="#Using">Using http</MadCap:xref>, https is the recommended protocol.</p>
+      <h4>
+         <a name="Using"/>Using http</h4>
+      <p>The use of http is not recommended. <MadCap:variable name="okta-variables.ProductName"/> highly recommends the more secure option of https.</p>
+      <ol>
+         <li>From the <span class="filepath">configure_agent.sh</span> file, search for Configuring <MadCap:variable name="okta-feature-names.Okta Provisioning Agent"/>.</li>
+         <li>Add the command line argument <span class="code">-allowHttp true \</span> to the list of commands.</li>
+      </ol>
+      <h3>
+         <a name="Enable"/>Enable SSL</h3>
+      <p>Supporting SSL for https connections requires the following two steps:</p>
+      <ul>
+         <li>Generating a key for the SCIM Server and exporting a certificate.</li>
+         <li>Importing the certificate that was exported in step 1 into the trust store of the <MadCap:variable name="okta-feature-names.Okta Provisioning Agent"/>.</li>
+      </ul>
+      <p>The following detailed instructions for enabling SSL are also located in the <span class="filepath">example-server/README.txt</span> file.</p>
+      <p>The following five steps enable you to enable SSL using self-signed certificates. To improve security and use certificates signed by trusted third-parties, you can import that type of certificate into the trust store of the <MadCap:variable name="okta-feature-names.Okta Provisioning Agent"/> in step 5.</p>
+      <h4>Step 1: Generate a key</h4>
+      <p>
+         <span class="codeblock" xml:space="preserve">keytool -genkey -alias scim_tom -keyalg RSA -keystore /root/scim_tomcat_keystore
+Enter keystore password:
+Re-enter new password:
+What is your first and last name?
+[Unknown]: localhost
+What is the name of your organizational unit?
+[Unknown]: IT
+What is the name of your organization?
+[Unknown]:MyCompany
+What is the name of your City or Locality?
+[Unknown]: sf
+What is the name of your State or Province?
+[Unknown]: ca
+What is the two-letter country code for this unit?
+[Unknown]: us
+Is CN=K0208, OU=eng, O=okta, L=sf, ST=ca, C=us correct?
+[no]: yes
+Enter key password for &lt;scim_tom&gt;
+      (RETURN if same as keystore password):</span>
+      </p>
+      <p>Note: The answer to the first question, "What is your first and last name?", should be localhost if your Tomcat server is accessed through the localhost URL.</p>
+      <p>If your Tomcat Server is accessed through an IP, such as https://10.11.12.13:8443/, execute the following command to generate the key instead of the preceding  command. This command should be executed from a Java 7 installation. The option <span class="code">-ext san</span> to specify IPs in the SubjectAltNames is available only in Java 7.</p>
+      <p>
+         <span class="code">$JAVA_HOME/bin/keytool -genkey -alias scim_tom -ext san=ip:10.11.12.13 -keyalg RSA -keystore /root/scim_tomcat_keystore</span>
+      </p>
+      <p>Important: If the environmental variable on your system isn't $JAVA_HOME, substitute the correct variable, such as $JAVA_7_HOME, or similar.</p>
+      <h4>Step 2: Go to <span class="filepath">$TOMCAT_HOME/conf/server.xml</span> and enable SSL</h4>
+      <p>Use the following configuration to have Tomcat use the keystore <span class="filepath">/root/scim_tomcat_keystore</span> that was generated from the preceding commands.</p>
+      <MadCap:codeSnippet>
+         <MadCap:codeSnippetCopyButton/>
+         <MadCap:codeSnippetBody MadCap:useLineNumbers="True" MadCap:lineNumberStart="1" MadCap:continue="False" xml:space="preserve">&lt;Connector port="8443" protocol="HTTP/1.1" SSLEnabled="true"
+maxThreads="150" scheme="https" secure="true"
+clientAuth="false" sslProtocol="TLS"
+keystoreFile="/root/scim_tomcat_keystore"
+keystorePass="changeit" /&gt;</MadCap:codeSnippetBody>
+      </MadCap:codeSnippet>
+      <h4>Step 3: Start tomcat and verify that you can reach the server over https.</h4>
+      <h4>Step 4: Export the public certificate out of the keystore generated in step 1.</h4>
+      <p>
+         <span class="codeblock">keytool -export -keystore /root/scim_tomcat_keystore -alias scim_tom -file /root/scim_tomcat.cert
+Enter keystore password:
+Certificate stored in file &lt;/root/scim_tomcat.cert&gt;</span>
+      </p>
+      <h4>Step 5: Import this certificate into the trust store of the <MadCap:variable name="okta-feature-names.Okta Provisioning Agent"/>.</h4>
+      <p>Import the certificate so that it can trust the Tomcat server and so that the connection is secure. You must execute this command on the machine where the <MadCap:variable name="okta-feature-names.Okta Provisioning Agent"/> is installed.</p>
+      <span class="codeblock">/opt/OktaProvisioningAgent/jre/bin/keytool -import -file /root/scim_tomcat.cert -alias scim_tom -keystore /opt/OktaProvisioningAgent/jre/lib/security/cacerts</span>
+      <h2>Next steps</h2>
+      <p>
+         <MadCap:xref href="OPP-test-SCIM-server.htm">Test SCIM connectors for on-premises provisioning</MadCap:xref>
+      </p>
+      <h2>Related topics</h2>
+      <p>
+         <MadCap:xref href="OPP-build-SCIM-using-SDK.htm">Create SCIM connectors for on-premises provisioning using SDK</MadCap:xref>
+      </p>
+      <p>
+         <MadCap:xref href="OPP-provision-SCIM-messages.htm">SCIM messages for on-premises provisioning</MadCap:xref>
+      </p>
+   </body>
+</html>

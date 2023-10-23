@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:onlyLocalStylesheets="False"
+      MadCap:searchable="True"
+      MadCap:fileTags="Tags/okta-authors.Kimli Welsh">
+   <head>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <link href="" rel="stylesheet" type="text/css"/>
+   </head>
+   <body>
+      <h1>Configure Okta as a CA with static SCEP challenge for macOS using <MadCap:variable name="3rd Party Integrations.Jamf Pro"/>
+      </h1>
+      <p>Configuring  a certificate authority (CA) allows you to issue client certificates to your targeted macOS devices. This topic describes how to create a Simple Certificate Enrollment Protocol (SCEP) profile in <MadCap:variable name="3rd Party Integrations.Jamf Pro"/> and generate a certificate URL in Okta.</p>
+      <div class="noteOkta">
+         <p class="noteContent">While you can use any device management solution that supports the deployment of an Apple SCEP MDM payload, this procedure assumes you are managing devices with <MadCap:variable name="3rd Party Integrations.Jamf Pro"/> and configuring a static SCEP profile.</p>
+      </div>
+      <h2>Before you begin</h2>
+      <p>Make sure you have access to the following:</p>
+      <ul>
+         <li>Okta Admin Console</li>
+         <li>Any device management solution that supports the deployment of a SCEP payload. Okta tested with <MadCap:variable name="3rd Party Integrations.Jamf Pro"/>.</li>
+      </ul>
+      <h2>Start this procedure</h2>
+      <ol>
+         <li>
+            <MadCap:xref href="#Generate">Generate a SCEP URL and secret key</MadCap:xref>
+         </li>
+         <li>
+            <MadCap:xref href="#Create">Create a static SCEP profile	</MadCap:xref>
+         </li>
+      </ol>
+      <h3>
+         <a name="Generate"/>Generate a SCEP URL and secret key</h3>
+      <ol>
+         <li>In the Admin Console, go to <span class="menucascade">
+               <span class="uicontrol">Security</span>
+               <span class="uicontrol">Device integrations</span>
+            </span>.</li>
+         <li>On the <span class="uicontrol">Endpoint management</span> tab, click <span class="uicontrol">Add platform</span>.
+			
+			</li>
+         <li>Select <span class="uicontrol">Desktop (Windows and macOS only)</span>, then click <span class="uicontrol">Next</span>.</li>
+         <li>On the <span class="uicontrol">Add device management platform</span> page, select the following options:<ul>
+               <li>
+                  <span class="wintitle">Certificate authority</span>: <span class="uicontrol">Use Okta as certificate authority</span>
+               </li>
+               <li>
+                  <span class="wintitle">SCEP URL challenge type</span>: <span class="uicontrol">Static SCEP URL</span>
+               </li>
+            </ul>
+         </li>
+         <li>Click <span class="uicontrol">Generate</span>.</li>
+         <li>Copy and save the Okta the SCEP URL and the secret key. These values are required in <MadCap:variable name="3rd Party Integrations.Jamf Pro"/>. Save the SCEP URL and secret key in a safe place. This is the only time they will appear in the Okta Admin Console.</li>
+         <li>Click <span class="uicontrol">Save</span>.
+				</li>
+      </ol>
+      <h3>
+         <a name="Create"/>Create a static SCEP profile	</h3>
+      <p>The SCEP profile specifies settings that allow a device to get certificates from a certificate authority (CA) using the Simple Certificate Enrollment Protocol (SCEP). You can use any device management solution that supports SCEP to configure the profile. Because Okta has tested the deployment of SCEP profiles using <MadCap:variable name="3rd Party Integrations.Jamf Pro"/>, the following steps illustrate how to create the profile using <MadCap:variable name="3rd Party Integrations.Jamf Pro"/>.</p>
+      <div class="noteOkta">
+         <p class="noteContent">Okta as a CA doesn't support <a href="https://www.rfc-editor.org/rfc/rfc8894.html#name-certificate-enrolment-renew"
+               target="_blank">renewal requests</a>. Instead, redistribute the profile before the certificate expires to replace the expired certificate. All MDM SCEP policies should be configured to allow for profile redistribution.</p>
+      </div>
+      <p>To create the SCEP profile in <MadCap:variable name="3rd Party Integrations.Jamf Pro"/>.</p>
+      <ol>
+         <li>In <MadCap:variable name="3rd Party Integrations.Jamf Pro"/>, go to <span class="menucascade">
+               <span class="uicontrol">Computers</span>
+               <span class="uicontrol">Configuration Profiles</span>
+            </span>.</li>
+         <li>Click <span class="uicontrol">New</span>.</li>
+         <li>On the  <span class="wintitle">General</span> page, enter the following information:<ul>
+               <li>
+                  <span class="wintitle">Name</span>: Enter a name for the profile.</li>
+               <li>
+                  <span class="wintitle">Description</span>: Optional. Enter a description of the profile. </li>
+               <li>
+                  <span class="wintitle">Level</span>: Select the appropriate level for the certificate. Okta Verify uses this certificate to identify managed devices and managed users. To ensure all users of the device are managed, you should select <span class="uicontrol">Computer Level</span>. If you only want specific users of a device to be identified as managed, you should select <span class="uicontrol">User Level</span>.</li>
+            </ul>
+         </li>
+         <li>Click <span class="uicontrol">SCEP</span>, then click <span class="uicontrol">Configure</span>.</li>
+         <li>For the <span class="uicontrol">SCEP profile</span>, enter the following information:
+<ul>
+               <li>
+                  <span class="wintitle">URL</span>: Paste the SCEP URL you saved in <a href="#Generate">step 1</a>.</li>
+               <li>
+                  <span class="wintitle">Name</span>: Enter a name for the SCEP profile.</li>
+               <li>
+                  <span class="wintitle">Redistribute Profile</span>: Chose a time frame for the profile to be redistributed when its SCEP-issued certificate is the specified number of days from expiring. Okta doesn't support automatic certificate renewal. The profile must be redistributed to replace the expired certificate.</li>
+               <li>
+                  <span class="wintitle">Subject</span>: Enter an appropriate subject name. For example, if you selected <span class="uicontrol">Computer Level</span>, set the subject name to indicate the device name: <span class="userinput">CN=$COMPUTERNAME managementAttestation $UDID</span>. <p>If you selected <span class="uicontrol">User Level</span>, set the subject name to indicate a user: <span class="userinput">CN=$EMAIL managementAttestation $UDID</span>. </p>
+                  <p>Okta does not require the subject name to be in any particular format. Choose a name that indicates that the certificate is used as the  device management signal to Okta. As a best practice, you can also include profile variables provided by <MadCap:variable name="3rd Party Integrations.Jamf Pro"/> to include the device ID (UDID) and user identifier. For a list of supported variables, see <MadCap:variable name="3rd Party Integrations.Jamf Pro"/> document <a href="https://docs.jamf.com/10.21.0/jamf-pro/administrator-guide/Computer_Configuration_Profiles.html"
+                        target="_blank">Payload Variables for Computer Configuration Profiles</a>.</p>
+               </li>
+               <li>
+                  <span class="wintitle">Challenge Type</span>: Select <span class="uicontrol">Static</span>.</li>
+               <li>
+                  <span class="wintitle">Challenge</span>: Paste the secret key you saved in <a href="#Generate">step 1</a>.</li>
+               <li>
+                  <span class="wintitle">Verify Challenge</span>: Paste the secret key again.</li>
+               <li>
+                  <span class="wintitle">Key Size</span>: Select <span class="userinput">2048</span>.</li>
+               <li>
+                  <span class="uicontrol">Use as digital signature</span>: Select this option.</li>
+               <li>
+                  <span class="wintitle">Allow export from keychain</span>: Unselect this option.</li>
+               <li>
+                  <span class="wintitle">Allow all apps access</span>: Select this option.</li>
+            </ul>
+         </li>
+         <li>Click <span class="uicontrol">Save</span>.</li>
+      </ol>
+      <h2>Next steps</h2>
+      <MadCap:xref href="add-app-signon-policy-desktop.htm">Add an app sign-on policy rule for desktop</MadCap:xref>
+   </body>
+</html>

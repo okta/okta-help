@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+       MadCap:onlyLocalStylesheets="False"
+       MadCap:searchable="True"
+       MadCap:fileTags="Tags/okta-authors.Patrick Calnan">
+   <head>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <link href="" rel="stylesheet" type="text/css"/>
+      <meta name="description"
+             content="Configure Universal Principal Name (UPN) transformation on your Okta IWA Web agents if your company has more than one domain and the domain that your users specify when they sign in to work is different from the domain used by your Okta org."/>
+   </head>
+   <body>
+      <h1>
+         <a name="ConfigureUPNTransform"/>Configure the <MadCap:variable name="okta-variables.ProductName"/>
+         <MadCap:variable name="okta-feature-names.IWA Web agent"/> Universal Principal Name</h1>
+      <p>This procedure is applicable only to enterprises with more than one domain, and requires IWA Web agent Version 1.8.1 or later.</p>
+      <p>In Windows Active Directory, the Universal Principal Name (UPN) is the name of a system user presented in an email format. You need to configure UPN transformation on your <MadCap:variable name="okta-variables.ProductName"/>
+         <MadCap:variable name="okta-feature-names.IWA Web agent"/>s if your company has more than one domain and the domain that your users specify when they sign in to work is different from the domain that your <MadCap:variable name="okta-variables.ProductName"/> org is built upon. 			For example, your users sign in to work using <span class="url">username@abc.com</span>, and your <MadCap:variable name="okta-variables.ProductName"/> org contains user names such as <span class="url">username@xyz.com</span>.</p>
+      <p>In this case, the authenticated user names that your company sends to <MadCap:variable name="okta-variables.ProductName"/> will not match the user names in your <MadCap:variable name="okta-variables.ProductName"/> org. Instead of being signed in to their <MadCap:variable name="okta-variables.ProductName"/> dashboards automatically, your users will be prompted to enter their credentials. To fix this, add a rule in the web.config file to transform the authenticated user names that your company sends to your <MadCap:variable name="okta-variables.ProductName"/> org.</p>
+      <p>The match attribute specifies a regular expression that the IWA Web agent uses to check UPNs. If a UPN matches a UPN transformation rule, the IWA Web agent uses the expression specified by the replace attribute to compute a transformed UPN. For more information, see:</p>
+      <ul>
+         <li>
+            <span class="uicontrol">match</span> syntax: <a href="https://msdn.microsoft.com/en-us/library/az24scfc(v=vs.110).aspx"
+                target="_blank">https://msdn.microsoft.com/en-us/library/az24scfc(v=vs.110).aspx</a>
+         </li>
+         <li>
+            <span class="uicontrol">replace</span> syntax: <a href="https://msdn.microsoft.com/en-us/library/ewy2t5e0(v=vs.110).aspx"
+                target="_blank">https://msdn.microsoft.com/en-us/library/ewy2t5e0(v=vs.110).aspx</a>
+         </li>
+      </ul>
+      <p>The IWA Web agent checks all rules consecutively in the order that they are specified in the configuration file and applies the first rule that matches the UPN. If no rule matches the UPN, the IWA Web agent sends the original UPN to <MadCap:variable name="okta-variables.ProductName"/>.</p>
+      <p>Administrators can use the <span class="uicontrol">/IWA/authenticated.aspx</span> page to verify and debug the transformation rules.</p>
+      <ol>
+         <li>Navigate to <span class="filepath">C:\inetpub\wwwroot\IWA</span> and open the file <span class="userinput">web.config</span>.</li>
+      </ol>
+      <ol class="bullets" start="2">
+         <li>Insert the following rule inside the <span class="uicontrol">&lt;upnTransformation&gt;</span> element (a child of the <span class="uicontrol">&lt;oktaSSOConfigGroup&gt;</span> element). The rule will convert all user names from the domain <span class="url">abc.com</span> to the domain <span class="url">xyz.com</span>:</li>
+      </ol>
+      <p style="margin-left: 40px;">
+         <span class="code">&lt;upnTransformation&gt; &lt;rule match="(.+)@abc\.com" replace="${1}@xyz.com" /&gt; &lt;/upnTransformation&gt;</span>
+      </p>
+      <p style="text-align: left;margin-left: 40px;">The same logic can be applied to other common use cases such as transforming <span class="url">company.local</span> to <span class="url">company.com</span>, or <span class="url">company.com</span> to <span class="url">company.okta.com</span>
+      </p>
+   </body>
+</html>

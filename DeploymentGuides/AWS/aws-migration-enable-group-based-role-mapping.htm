@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:onlyLocalStylesheets="False" MadCap:searchable="True" MadCap:fileTags="Tags/okta-authors.Jeanette Smith" MadCap:conditions="Primary.do-not-publish">
+    <head><title>AWS migration - enable group-based role mapping in Okta | Okta</title>
+        <link href="" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <h1>AWS migration - enable group-based role mapping in Okta</h1>
+        <p>Once the groups have been created/imported into Okta, the AWS app you set up earlier must be configured to translate AWS Role group membership into entitlements that AWS can understand syntactically:</p>
+        <ol>
+            <li>Navigate to the AWS app you set up earlier</li>
+            <li>Select the Sign On tab, then click Edit.</li>
+            <li>Locate the App Filter, Group Filter, and Role Value Pattern fields. These fields control how Okta maps your AWS role groups into entitlements for this feature. Configure these fields as follows:<ul><li>App Filter: This filter narrows the list of groups that Okta can use for AWS entitlement mapping to a specific app or directory. This exists for security purposes, to avoid possible situations where rogue admins create groups following a certain syntax in order to intentionally gain unauthorized access to a specific AWS account/role. If you created your groups in Active Directory, you can input active_directory, if you want to limit usage by local Okta groups, input okta. For other application(s) you can use values such as bamboohr for Bamboo HR app or okta, egnyte for Okta + Egnyte groups.</li><li>Group Filter: This filter field uses a Regex expression to only inspect groups from your chosen app filter that follow a specific syntax. If you did chose to use the Okta recommended default AWS role group syntax listed above, then you can simply use the following regex string:<p>^aws\#\S+\#(?{{role}}[\w\-]+)\#(?{{accountid}}\d+)$</p><p>This regex expression logically equate to: find groups that start with AWS, then #, then a string of text, then #, then the AWS role, then #, then the AWS account ID.</p><p>If you didn’t use the default recommended AWS role group syntax, then you must create a regex expression that properly filters your AWS role groups, and captures the AWS role name and AWS Account ID within two distinct Regex groups named {{role}} and {{accountid}} respectively.</p></li><li>Role Value Pattern: This field takes the AWS role and account ID captured within the syntax of your AWS role groups, and translates it into the proper syntax AWS requires in Okta’s SAML assertion to allow users to view their accounts and roles when they sign in.<p>This field should always follow this specific syntax:</p><p>arn:aws:iam::${accountid}:saml-provider/[SAML Provider Name],arn:aws:iam::${accountid}:role/${role}</p></li><li>Replace [SAML Provider Name] with the name of the SAML provider that you set up in all of your AWS accounts. The rest of the string should not be altered, only copied and pasted.</li></ul></li>
+        </ol>
+        <h2>Next steps</h2>
+        <ul>
+            <li>Assign all AWS management mroups to the AWS app in Okta</li>
+        </ul>
+    </body>
+</html>

@@ -1,0 +1,469 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd"
+      MadCap:conditions="Primary.do-not-publish"
+      MadCap:fileTags="Tags/okta-authors.Nikita Apraj">
+   <head>
+      <title>[%=Heading.Level1%] | Okta</title>
+      <meta name="description"
+            content="Walk through the Okta provisioning guide to manage the user lifecycle between Okta and a new Okta-managed application like Salesforce."/>
+   </head>
+   <body>
+      <h1>Provision a new app </h1>
+      <p>This is where you'll find the information you need to provision a new application. This process includes adding an app to Okta, configuring the app for provisioning, and then giving users access to the application. </p>
+      <h2>
+         <a name="Before"/>Before you begin</h2>
+      <h3>
+         <a name="Ensure2"/>Confirm Okta Integration Network application support</h3>
+      <p>
+         <span class="uicontrol">About</span>
+      </p>
+      <p>Salesforce being a popular CRM app, it's already one of 6,000+ apps in the Okta Integration Network (OIN) having provisioning capabilities. But as an exercise, let's go through the quick process to see if Salesforce is OIN supported.</p>
+      <p>
+         <span class="uicontrol">Procedure</span>
+      </p>
+      <ol>
+         <li>
+            <p>Access this <a href="https://www.okta.com/resources/find-your-apps/">website</a> and then specify "Salesforce" in the <span class="uicontrol">Search for your tech</span> field.</p>
+            <p>Located Salesforce apps appear below the search field. </p>
+            <p>
+               <img src="../../../Resources/Images/LCM-Prov/SalesforceSearch.png"
+                    style="width: 691px;height: 62px;"/>
+            </p>
+         </li>
+         <li>
+            <p>To learn more about a located Salesforce app, click on the desired app.</p>
+         </li>
+      </ol>
+      <h3>
+         <a name="AcquireSFDC_DemoAcct"/>Acquire a Salesforce demo account</h3>
+      <p>An <a href="https://developer.salesforce.com/signup">account with Salesforce</a> is required in order to do the Okta Provisioning exercises in this user guide. The demo account offered by Salesforce is a subscription that doesn't expire. You will access this account from within the Okta Preview Sandbox.</p>
+      <h3>
+         <a name="Acquire"/>Acquire an Okta Preview Sandbox account</h3>
+      <p>With the Okta Preview Sandbox, you have complete access to a fully functioning version of Okta to test things like AD integrations and application configurations prior to pushing them out to your full set of users. Running a demo instance in your Okta Preview Sandbox (Okta Preview Org) is recommended for the hands-on experience and to see the power and benefits of Okta Provisioning, using Salesforce as a typical app.</p>
+      <p>If you do not have an Okta Preview Sandbox (<span class="code">&lt;your org&gt;.oktapreview.com</span>), you can get a free, <a href="https://www.okta.com/free-trial/#">30-day trial account</a>  with Okta.  Once you have your account setup, the Trial Okta Org will work like the production environment.</p>
+      <h3>
+         <a name="Ensure"/>Ensure you have a user in Okta</h3>
+      <p>
+         <span class="uicontrol">About</span>
+      </p>
+      <p>
+               
+                    Having at least one user in Okta is necessary to perform the exercises in this guide. If you do not have a user in Okta, this procedure provides the details for manually creating a user in Okta.
+               
+            </p>
+      <p>
+         <span class="uicontrol">Procedure</span>
+      </p>
+      <ol>
+         <li>
+            <p>Launch Okta and on the Sign In page, specify your admin credentials.</p>
+         </li>
+         <li>
+            <p> In the top bar, click <span class="uicontrol">Admin</span>.</p>
+            <p>The Okta Administrator app opens.</p>
+         </li>
+         <li>
+            <p>Click <span class="menucascade">
+                  <span class="uicontrol">Directory</span>
+                  <span class="uicontrol">People</span>
+               </span>.</p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Add Person</span>.</p>
+         </li>
+         <li>
+            <p>From the Add Person dialog, complete all the required fields.</p>
+            <ul>
+               <li>All fields are required, except those marked "optional".</li>
+               <li>Specifying an email address for the <span class="uicontrol">Username</span> field auto completes the <span class="uicontrol">Primary email</span> field.</li>
+            </ul>
+         </li>
+         <li>
+            <p>Select  <span class="uicontrol">Set by admin</span> in the <span class="uicontrol">Password</span> drop-down.</p>
+            <p>
+               <img src="../../../Resources/Images/LCM-Prov/menu_set_by_admin.png"/>
+            </p>
+         </li>
+         <li>
+            <p>Specify a password in the field below the drop-down.</p>
+            <p>
+               <img src="../../../Resources/Images/LCM-Prov/menu_set_by_admi_pw_field.png"/>
+            </p>
+         </li>
+         <li>
+            <p>Deselect the <span class="uicontrol">User must change password on first login</span> checkbox.</p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Save</span>.</p>
+            <ul>
+               <li>You return to the People page where the new user is listed, having a status of active.</li>
+               <li>In a real-life situation, you would have to pass the new user his or her password in order for this user to login to Okta. </li>
+            </ul>
+         </li>
+      </ol>
+      <h2>
+         <a name="1."/>1. Add Salesforce to Okta</h2>
+      <p>
+         <span class="uicontrol">About</span>
+      </p>
+      <p>Adding Salesforce to Okta makes the app available for configuration and user assignment.</p>
+      <p>
+         <span class="uicontrol">Procedure</span>
+      </p>
+      <ol>
+         <li>
+            <p>Go to <span class="menucascade">
+                  <span class="uicontrol">Applications</span>
+                  <span class="uicontrol">Applications</span>
+               </span>.</p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Add Application</span>.</p>
+         </li>
+         <li>
+            <p>Type Salesforce.com in the  <span class="uicontrol">Search for an application</span> field.</p>
+            <p>
+               <img src="../../../Resources/Images/LCM-Prov/search-app-sfdc.png"
+                    style="width: 541px;height: 157px;"/>
+            </p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Add</span> next to Salesforce.com.</p>
+         </li>
+         <li>
+            <p>On the General Settings page, accept all the defaults and then click <span class="uicontrol">Next</span>.</p>
+         </li>
+         <li>
+            <p>On the Sign-On Options page, accept all the defaults and then click <span class="uicontrol">Done</span>.</p>
+            <p>Salesforce.com is now available to be assigned to users in Okta.</p>
+         </li>
+      </ol>
+      <h2>
+         <a name="2."/>2. Configure provisioning for Salesforce</h2>
+      <p>
+         <span class="uicontrol">About</span>
+      </p>
+      <p>Provisioning Salesforce enables you to manage the user lifecycle between Okta and Salesforce.</p>
+      <p>
+         <span class="uicontrol">Procedure</span>
+      </p>
+      <ol>
+         <li>Go to <span class="menucascade">
+               <span class="uicontrol">Applications</span>
+               <span class="uicontrol">Applications</span>
+            </span> and click the Salesforce.com app.</li>
+         <li>Click the <span class="uicontrol">Provisioning</span> tab.</li>
+         <li>Click <span class="uicontrol">Configure API Integration</span>.</li>
+         <li>
+            <p>Select <span class="uicontrol">Enable API integration</span>.</p>
+            <p>The page expands down.</p>
+            <p>
+               <img src="../../../Resources/Images/LCM-Prov/win-enable-api-integration.png"
+                    style="width: 541px;height: 215px;"/>
+            </p>
+         </li>
+         <li>
+            <p>Enter your Salesforce administrator username in the <span class="uicontrol">Username</span> field.</p>
+         </li>
+         <li>
+            <p>Enter your Salesforce password and security token in the <span class="uicontrol">Password + Token</span> field.</p>
+            <ul>
+               <li>Salesforce generates the security token.</li>
+               <li>To obtain a security token from Salesforce:
+                        <ol style="list-style-type: lower-alpha;">
+                     <li>
+                        <p>Open the Salesforce Tenant on a separate tab. </p>
+                     </li>
+                     <li>
+                        <p>Go to <span class="menucascade">
+                              <span class="uicontrol">My User</span>
+                              <span class="uicontrol">Settings</span>
+                           </span>.</p>
+                        <p>
+                           <img src="../../../Resources/Images/LCM-Prov/menu-my-user-settings.png"/>
+                        </p>
+                     </li>
+                     <li>
+                        <p>From the left navigation under <span class="uicontrol">My Personal Information</span>, click <span class="uicontrol">Reset My Security Token</span>.</p>
+                        <p>
+                           <img src="../../../Resources/Images/LCM-Prov/menu-reset-my-security-token.png"/>
+                        </p>
+                     </li>
+                     <li>
+                        <p>From the <span class="wintitle">Reset My Security Token</span> area, click <span class="uicontrol">Reset Security Token</span>.</p>
+                        <p>Salesforce emails you the new security token.</p>
+                     </li>
+                     <li>
+                        <p>Copy the security token from your email.</p>
+                     </li>
+                     <li>
+                        <p>Type your password in the <span class="uicontrol">Password + Token</span> field and then paste the security token in the field along with your password.</p>
+                     </li>
+                  </ol>
+               </li>
+            </ul>
+         </li>
+         <li>
+            <p>To test your API credentials, click <span class="uicontrol">Test API Credentials</span>.</p>
+            <p>If an error occurs, respecify your credentials. </p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Save</span>.</p>
+            <ul>
+               <li>Provisioning is enabled. </li>
+               <li>Okta updates the app screen with provisioning options.</li>
+            </ul>
+            <p>
+               <img src="../../../Resources/Images/LCM-Prov/scn-app-prov-options.png"
+                    style="width: 542px;height: 449px;"/>
+            </p>
+         </li>
+         <li>
+            <p>Ensure <span class="uicontrol">To App</span> is selected in order to push user information down to Salesforce. </p>
+         </li>
+         <li>
+            <p>To specify provisioning options, click <span class="uicontrol">Edit</span>. </p>
+         </li>
+         <li>
+            <p>Enable all the options and then click <span class="uicontrol">Save</span>.</p>
+            <ul>
+               <li>
+                                For additional details, see the screen text for each option.</li>
+               <li>
+                  <p>For the <span class="uicontrol">Create Users</span> option, the default username is the name Okta sets in an application when a new user is added.</p>
+                  <p>To change the default username:</p>
+                  <ol style="list-style-type: lower-alpha;">
+                     <li>Click the <span class="uicontrol">default username</span> link.</li>
+                     <li>
+                        <p>From the <span class="uicontrol">Sign On</span> tab, click <span class="uicontrol">Edit</span> and make the desired selection from the <span class="uicontrol">Application username format</span> drop-down.</p>
+                        <p>
+                           <img src="../../../Resources/Images/LCM-Prov/drop-down-app-user-format.png"/>
+                        </p>
+                     </li>
+                     <li>Click <span class="uicontrol">Save</span>.</li>
+                  </ol>
+               </li>
+               <li>
+                                If you assign a user to Salesforce, Okta will push the user information down to Salesforce and create an account for the user within the app.</li>
+               <li>If you update user information in Okta, Okta updates the user account with this information in Salesforce.
+                            
+                                <p>
+                     <span style="color: #000000;">Example</span>
+                  </p>
+                  <ol>
+                     <li>Go to <span class="menucascade">
+                           <span class="uicontrol">Directory</span>
+                           <span class="uicontrol">People</span>
+                        </span>.</li>
+                     <li>Click the desired user and then the <span class="uicontrol">Profile</span> tab.</li>
+                     <li>
+                        <p>Click <span class="uicontrol">Edit</span>.</p>
+                        <p>
+                           <img src="../../../Resources/Images/LCM-Prov/button-profile-attributes-edit.png"
+                                style="width: 479px;height: 118px;"/>
+                        </p>
+                     </li>
+                     <li>
+                        <p>In the <span class="uicontrol">Title</span> field, specify a title and then click <span class="uicontrol">Save</span>.</p>
+                        <p>
+                           <img src="../../../Resources/Images/LCM-Prov/field-title.png"
+                                style="width: 481px;height: 40px;"/>
+                        </p>
+                     </li>
+                     <li>Map the user title attribute to the appropriate Salesforce attribute.</li>
+                     <ol style="list-style-type: lower-alpha;">
+                        <li>
+                           <p>Go to <span class="menucascade">
+                                 <span class="uicontrol">Applications</span>
+                                 <span class="uicontrol">Applications</span>
+                              </span>.</p>
+                           <li>
+                              <p>Click Salesforce.com.</p>
+                              <p>Click <span class="uicontrol">Provisioning</span> for Salesforce.com.</p>
+                              <p>
+                                 <img src="../../../Resources/Images/LCM-Prov/tab-sfdc-provisioning.png"
+                                      style="width: 436px;height: 135px;"/>
+                              </p>
+                           </li>
+                           <li>
+                              <p>Scroll down to the "Salesforce.com Attribute Mappings" area and then click <span class="uicontrol">Go to Profile Editor</span>.</p>
+                              <p>
+                                 <img src="../../../Resources/Images/LCM-Prov/area-sfdc-attr-mapping.png"
+                                      style="width: 439px;height: 285px;"/>
+                              </p>
+                           </li>
+                           <li>From the Profile Editor page, click <span class="uicontrol">Map Attributes</span>.</li>
+                           <li>From the Salesforce.com User Profile Mappings page, click <span class="uicontrol">Okta to Salesforce.com</span>.</li>
+                           <li>
+                              <p>Locate <span class="code">title</span> and then type <span class="userinput">user.title</span> in the field.</p>
+                              <p>
+                                 <img src="../../../Resources/Images/LCM-Prov/field-user-title.png"
+                                      style="width: 619px;height: 26px;"/>
+                              </p>
+                              <ul>
+                                 <li>The text on the right (<span class="code">title string</span>) is from Salesforce.</li>
+                                 <li>A right-pointing green arrow appears indicating that the user attribute that you specified exists in Okta.</li>
+                              </ul>
+                           </li>
+                           <li>
+                              <p>To test the mapping, specify the user in the <span class="uicontrol">Preview</span> field.</p>
+                              <p>
+                                 <img src="../../../Resources/Images/LCM-Prov/field-preview.png"/>
+                              </p>
+                              <p>The title that you specified in Okta appears on the right in a green box to indicate that the mapping is successful.</p>
+                           </li>
+                           <li>
+                              <p>Click <span class="uicontrol">Exit Preview</span> and then <span class="uicontrol">Save Mapping</span>.</p>
+                           </li>
+                           <li>
+                              <p>Click <span class="uicontrol">Apply updates now</span>.</p>
+                              <ul>
+                                 <li>Once a user is assigned, the title that you specified in Okta is pushed down to Salesforce and appears in  the <span style="font-family: 'Segoe UI Semibold';">Title</span> field of the User Edit page.</li>
+                                 <li>To confirm that the mapping was  established with Salesforce, go to <span class="menucascade">
+                                       <span class="uicontrol">Reports</span>
+                                       <span class="uicontrol">System Log</span>
+                                    </span> and locate the entry, "Update universal directory mapping" with a status of "success".</li>
+                              </ul>
+                           </li>
+                        </li>
+                     </ol>
+                  </ol>
+               </li>
+            </ul>
+         </li>
+      </ol>
+      <h2>
+         <a name="3."/>3. Assign Salesforce to a user</h2>
+      <p>
+         <span class="uicontrol">About</span>
+      </p>
+      <p>With Salesforce configured for provisioning, you can assign the app to a user. Assigning a user to Salesforce achieves the same end.</p>
+      <p>
+         <span class="uicontrol">Procedure</span>
+      </p>
+      <ol>
+         <li>Go to <span class="menucascade">
+               <span class="uicontrol">Applications</span>
+               <span class="uicontrol">Applications</span>
+            </span>.</li>
+         <li>Open the Salesforce.com app.</li>
+         <li>Click the <span class="uicontrol">Assignments</span> tab.</li>
+         <li>
+            <p>From the <span class="uicontrol">Assign</span> drop-down, choose <span class="uicontrol">Assign to People</span>.</p>
+            <p>
+               <img src="../../../Resources/Images/LCM-Prov/menu_assign_people.png"/>
+            </p>
+         </li>
+         <li>
+            <p>From the <span class="uicontrol">Assign Salesforce.com to People</span> dialog, click <span class="uicontrol">Assign</span>.</p>
+         </li>
+         <li>
+            <p>From the <span class="uicontrol">Profile</span> drop-down, choose <span class="uicontrol">Chatter Free User</span>.</p>
+            <p>
+               <img src="../../../Resources/Images/LCM-Prov/drop-down-profile2.png"/>
+            </p>
+         </li>
+         <li>
+            <p>Click <span class="uicontrol">Save and Go Back</span>.</p>
+            <p>Okta returns you to the first <span class="uicontrol">Assign Salesforce.com to People</span> dialog where the user is listed with a disabled <span class="uicontrol">Assigned</span> button. This indicates that Salesforce is now assigned to the user.</p>
+         </li>
+         <li>
+            <p>From the first <span class="uicontrol">Assign Salesforce.com to People</span> dialog, click <span class="uicontrol">Done</span>.</p>
+            <ul>
+               <li>The user is listed in the <span class="uicontrol">Assignment</span> tab with type <span class="term">individual</span>.</li>
+               <li>
+                  <li>To confirm that the user was assigned to  Salesforce, go to <span class="menucascade">
+                        <span class="uicontrol">Reports</span>
+                        <span class="uicontrol">System Log</span>
+                     </span> and locate the entry, "Push user's profile to external application" with a status of "success".</li>
+               </li>
+            </ul>
+         </li>
+      </ol>
+      <MadCap:dropDown>
+         <MadCap:dropDownHead>
+            <MadCap:dropDownHotspot>
+               <a name="AlternativeMethods"/>Alternative methods</MadCap:dropDownHotspot>
+         </MadCap:dropDownHead>
+         <MadCap:dropDownBody>
+            <ul>
+               <li>
+                  <p>Assign user to Salesforce</p>
+                  <p>If you are an admin who created an app in Okta and you need to assign many users to it, it may be easier to go to the app and assign users to the app from there.</p>
+                  <p>However, if you are an admin and you have only one new user, it may be easier to go to that one user and assign all the apps to him from the user rather than going to all the apps and assigning the user to each.</p>
+               </li>
+               <li>
+                  <p>Assign user to Salesforce using groups</p>
+                  <ul>
+                     <li>A common, and efficient way to give users access to an app is to make them members of a group having rights to a desired app. This can be done manually or by rules that determine which users are to be members of the Okta group.</li>
+                     <li>Groups are best used when you have users being added to Okta from various sources.</li>
+                  </ul>
+               </li>
+            </ul>
+         </MadCap:dropDownBody>
+      </MadCap:dropDown>
+      <h2>
+         <a name="4."/>4. Deprovision a user</h2>
+      <p>Deprovisioning is the deactivation of users in an assigned app to which they were provisioned.</p>
+      <ol>
+         <li>Go to <span class="menucascade">
+               <span class="uicontrol">Directory</span>
+               <span class="uicontrol">People</span>
+            </span>.</li>
+         <li>
+            <p>Click on the user.</p>
+         </li>
+         <li>
+            <p>From the user screen, chose <span class="menucascade">
+                  <span class="uicontrol">More Actions</span>
+                  <span class="uicontrol">Deactivate</span>
+               </span>.</p>
+            <p>
+               <img src="../../../Resources/Images/LCM-Prov/menu-more-actions-deact.png"
+                    style="width: 537px;height: 146px;"/>
+            </p>
+         </li>
+         <li>
+            <p>From the Deactivate Person dialog, click <span class="uicontrol">Deactivate</span>.</p>
+            <ul>
+               <li>Now the user cannot sign-in to Okta to access Salesforce.</li>
+               <li>You can always reactivate this user's account at a later time, but the user will have to reset the password.</li>
+               <li>You can go to Salesforce in Okta and see that the user is no longer listed as assigned to it.  </li>
+               <li>In the Salesforce.com tenant, the user  licensing/access is removed.</li>
+            </ul>
+         </li>
+      </ol>
+      <h2>
+         <a name="5."/>5. Reactivate a user</h2>
+      <p>Organizations usually have policies to keep deprovisioned user accounts available for a period of time. This is useful if information needs to be restored.</p>
+      <p>The reactivate process is basically the deprovisioning process in reverse. </p>
+      <ol>
+         <li>Go to <span class="menucascade">
+               <span class="uicontrol">Directory</span>
+               <span class="uicontrol">People</span>
+            </span>.</li>
+         <li>
+            <p>Click on the user.</p>
+            <p>This user has the status of <span class="term">Deactivated</span>.</p>
+         </li>
+         <li>
+            <p>From the user screen, click <span class="uicontrol">Activate</span>.</p>
+            <p>
+               <img src="../../../Resources/Images/LCM-Prov/button_activate.png"
+                    style="width: 538px;height: 84px;"/>
+            </p>
+         </li>
+         <li>
+            <p>From the "Activate Person" dialog, click <span class="uicontrol">Activate</span>.</p>
+            <ul>
+               <li>An activation email will be sent to this person informing them that their account is now active. You can edit the content of these emails on the customize email page.</li>
+               <li>Note that the <span class="uicontrol">Set Password and Activate</span> button contains a blue check mark. This is because you selected the <span class="uicontrol">Set by admin</span> option when adding the user.</li>
+            </ul>
+         </li>
+         <li>
+            <p>Re-assign the Salesforce app to the user.</p>
+            <p>This re-associates the Okta user with the non-active Salesforce.com account and re-activates it.</p>
+         </li>
+      </ol>
+   </body>
+</html>
