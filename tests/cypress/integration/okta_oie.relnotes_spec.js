@@ -29,7 +29,7 @@ describe('OIE release notes production page (en-US)', () => {
     cy.hasLeftSideNav()
     cy.hasTOC(9)
     cy.hasBreadcrumbs('Production')
-    cy.hasTopMenuBar(5, 11)
+    cy.hasTopMenuBar(6, 10)
     cy.hasBodyContent()
     cy.hasTabs(4)
     cy.hasDeferAttrsCorrectlyApplied()
