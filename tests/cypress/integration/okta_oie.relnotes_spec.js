@@ -9,7 +9,7 @@ describe('OIE release notes landing page (en-US)', () => {
     cy.hasLeftSideNav()
     cy.hasTOC(9)
     cy.hasBreadcrumbs('Release notes')
-    cy.hasTopMenuBar(5, 11)
+    cy.hasTopMenuBar(6, 10)
     cy.hasBodyContent()
     cy.hasTiles(5)
     cy.hasDeferAttrsCorrectlyApplied()
