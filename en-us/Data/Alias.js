@@ -677,5 +677,6 @@ xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-iam-permissions\" Link=\"to
 xmlAliasData += '    <Map Name=\"csh-lcm-assign-app-user\" Link=\"topics/provisioning/lcm/lcm-assign-app-user.htm\" ResolvedId=\"16006\" />';
 xmlAliasData += '    <Map Name=\"csh-lcm-assign-app-groups\" Link=\"topics/provisioning/lcm/lcm-assign-app-groups.htm\" ResolvedId=\"16007\" />';
 xmlAliasData += '    <Map Name=\"ext-permission-conditions\" Link=\"topics/security/custom-admin-role/permission-conditions.htm\" ResolvedId=\"19030\" />';
+xmlAliasData += '    <Map Name=\"ext-sfdc-configure-provisioning-rest\" Link=\"topics/provisioning/salesforce/sfdc-configure-provisioning-rest.htm\" ResolvedId=\"16008\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
