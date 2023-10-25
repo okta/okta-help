@@ -9,7 +9,7 @@ describe('Workflows landing page (en-US)', () => {
     cy.hasLeftSideNav()
     cy.hasTOC(10)
     cy.hasBreadcrumbs('Okta Workflows')
-    cy.hasTopMenuBar(5, 11)
+    cy.hasTopMenuBar(6, 10)
     cy.hasBodyContent()
     cy.hasTiles(9)
     cy.hasDeferAttrsCorrectlyApplied()
