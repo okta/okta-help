@@ -4,7 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="typeofcontent" content="documentation" />
         <meta name="audience" content="Okta Access Gateway" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Oracle E-Business Suiteアプリケーションを追加する</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Access Gatewayを使ったOracle E-Business Suiteアプリケーションの統合</title>
         <meta charset="utf-8" />
         <meta name="description" content="" />
         <meta name="author" content="" />
@@ -42,7 +42,6 @@
 
 </style>
         <link href="../../resources/stylesheets/okta-main-new-nav.css" rel="stylesheet" type="text/css" />
-        <link href="../../resources/tablestyles/standard.css" rel="stylesheet" data-mc-stylesheet-type="table" />
         <link rel="canonical" href="https://help.okta.com/oag/en-us/Content/Topics/Access-Gateway/add-oracle-ebs-sso.htm" />
         <script src="../../../Resources/Scripts/jquery.min.js" type="text/javascript">
         </script>
@@ -109,7 +108,7 @@
                 </aside>
                 <div class="off-canvas-content inner-wrap" data-off-canvas-content="">
                     <div data-sticky-container="" class="title-bar-container">
-                        <nav class="title-bar tab-bar sticky" role="banner" data-sticky="" data-options="marginTop:0" style="width:100%" data-sticky-on="only screen and (max-width: 1024px)" data-mc-ignore="true"><a class="skip-to-content fluid-skip showOnFocus" href="#">メインコンテンツにスキップする</a>
+                        <nav class="title-bar tab-bar sticky" role="banner" data-sticky="" data-options="marginTop:0" style="width:100%" data-sticky-on="only screen and (max-width: 1024px)" data-mc-ignore="true"><a class="skip-to-content fluid-skip showOnFocus" href="#">メインコンテンツにスキップ</a>
                             <div class="middle title-bar-section outer-row clearfix">
                                 <div class="menu-icon-container relative clearfix">
                                     <div class="central-account-wrapper">
@@ -292,143 +291,89 @@
                                             <div class="body-main" data-test="bodyContent">
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
-                                                    <h1>Oracle E-Business Suiteアプリケーションを追加する</h1>
-                                                    <p>Oracle eBusiness Suiteと<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>との統合には2つの方法がありますが、通常、ClassicとRapidと呼ばれます。 <br /></p>
+                                                    <h1><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>を使ったOracle E-Business Suiteアプリケーションの統合</h1>
+                                                    <p>Oracle E-Business Suite（EBS）アプリケーションは、後続のEBS呼び出しで使用されるEBSセッションcookieを<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>が作成して提供するという点で、従来のアプリケーションとは異なります。<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>は、他のアプリケーションタイプで行われるような、すべてのEBSリクエストに対するリバースプロキシを行うわけではありません。 </p>
+                                                    <p><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>を使ったEBSアプリケーションの統合には2通りの方法があります。</p>
                                                     <ul>
-                                                        <li>Classicでは、Oracle EBS Oracle Access Gateと、Oracle Internet Directory（OID）またはOracle User Directory（OUD）のいずれかが必要です。</li>
-                                                        <li>Rapidでは、Oracle EBSはEBS資格情報とEBS DCSファイルが必要です。 </li>
+                                                        <li>Classicプロセスフロー</li>
+                                                        <li>Rapidプロセスフロー</li>
                                                     </ul>
+                                                    <p>ここでは、これらのプロセスフローのアーキテクチャについて説明し、それを実装する手順を紹介します。</p>
                                                     <p>
                                                         <div class="noteOkta">
-                                                            <p class="noteContent">このアプリケーションは、ヘッダー変数を使ってユーザー情報を交換します。<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>は、サンプルヘッダーアプリケーションを提供します。<a href="add-generic-header-app.htm" class="MCXref xref">汎用ヘッダーアプリケーションを追加する</a>および<a href="add-sample-header.htm" class="MCXref xref">サンプルヘッダーアプリケーションを追加する</a>をご参照ください。</p>
+                                                            <p class="noteContent">このアプリケーションは、ユーザー情報の交換にヘッダー変数を使用します。<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>のサンプルヘッダーアプリケーションを利用できます。「<a href="add-generic-header-app.htm" class="MCXref xref">汎用ヘッダーアプリケーションを追加する</a>」および「<a href="add-sample-header.htm" class="MCXref xref">サンプルヘッダーアプリケーションを追加する</a>」を参照してください。</p>
                                                         </div>
                                                     </p>
                                                     <h2>アーキテクチャ</h2>
-                                                    <table style="width: 100%;">
+                                                    <table style="width: 100%;margin-left: 0;margin-right: auto;">
                                                         <col style="width: 50%;" />
                                                         <col style="width: 50%;" />
+                                                        <thead>
+                                                            <tr>
+                                                                <th>EBS Rapidプロセスフロー</th>
+                                                                <th>EBS Classicプロセスフロー</th>
+                                                            </tr>
+                                                        </thead>
                                                         <tbody>
                                                             <tr>
-                                                                <td><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../resources/images/access-gateway/ebs-rapid-flow.png" data-mc-popup-alt="EBS Rapid flow"><img class="MCPopupThumbnail img imgthumbnail" data-mc-width="800" data-mc-height="650" src="../../resources/images/access-gateway/ebs-rapid-flow_thumb_220_220.png" style="text-align: center;" alt="EBS Rapidフロー" tabindex="" /></a>
+                                                                <td style="text-align: center;"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../resources/images/access-gateway/ebs-rapid-flow.png" data-mc-popup-alt="EBS Rapid flow"><img class="MCPopupThumbnail img imgthumbnail" data-mc-width="800" data-mc-height="650" src="../../resources/images/access-gateway/ebs-rapid-flow_thumb_220_220.png" style="text-align: center;" alt="EBS Rapidフロー" tabindex="" /></a>
                                                                 </td>
-                                                                <td><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../resources/images/access-gateway/ebs-classic-flow.png" data-mc-popup-alt="EBS Classic Flow"><img class="MCPopupThumbnail img imgthumbnail" data-mc-width="800" data-mc-height="775" src="../../resources/images/access-gateway/ebs-classic-flow_thumb_220_220.png" style="text-align: center;" alt="EBS Classicフロー" tabindex="" /></a>
+                                                                <td style="text-align: center;"><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../resources/images/access-gateway/ebs-classic-flow.png" data-mc-popup-alt="EBS Classic Flow"><img class="MCPopupThumbnail img imgthumbnail" data-mc-width="800" data-mc-height="775" src="../../resources/images/access-gateway/ebs-classic-flow_thumb_220_220.png" style="text-align: center;" alt="EBS Classicフロー" tabindex="" /></a>
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td>
-                                                                    <p>EBS Rapidプロセスフロー</p>
+                                                                <td style="text-align: left;vertical-align: top;">
                                                                     <ol>
                                                                         <li value="1">ユーザーがサインインします。</li>
-                                                                        <li value="2">EBSユーザーIDを送信します。</li>
-                                                                        <li value="3">EBSユーザーを検証します（これは、<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> EBSセッションを生成します）。</li>
-                                                                        <li value="4">EBSセッションクッキーを付けてEBSにリダイレクトします。</li>
+                                                                        <li value="2"><span class="mc-variable okta-variables.ProductName variable">Okta</span>はユーザーIDをEBSに送信します。</li>
+                                                                        <li value="3"><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>はEBSユーザーを検証し、EBSセッションを生成します。</li>
+                                                                        <li value="4">ユーザーは、EBSセッションcookieと併せてEBSにリダイレクトされます。</li>
                                                                     </ol>
                                                                 </td>
-                                                                <td>
-                                                                    <p>EBS Classicプロセスフロー</p>
+                                                                <td style="text-align: left;vertical-align: top;">
                                                                     <ol>
-                                                                        <li value="1">ユーザーはサインインします。</li>
-                                                                        <li value="2">EBSユーザーIDを送信します。</li>
-                                                                        <li value="3">EBSユーザーIDを使用してGUIDを検索します。</li>
-                                                                        <li value="4">GUID（ヘッダー）をOracle Access Gate（EBSクッキーを生成）に送信します。</li>
-                                                                        <li value="5">EBSセッションクッキーを付けてEBSにリダイレクトされます。
-</li>
+                                                                        <li value="1">ユーザーがサインインします。</li>
+                                                                        <li value="2"><span class="mc-variable okta-variables.ProductName variable">Okta</span>はユーザーIDをEBSに送信します。</li>
+                                                                        <li value="3"><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>は、EBSユーザーIDを使ってGUIDをルックアップします。</li>
+                                                                        <li value="4"><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>は、いずれもEBS cookieを生成する、GUID（ヘッダー）またはOracle AccessGateを送信します。</li>
+                                                                        <li value="5">ユーザーは、EBSセッションcookieと併せてEBSにリダイレクトされます。</li>
                                                                     </ol>
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td>詳しくは<a href="add-oracle-ebs-rapid-ref-arch.htm" class="MCXref xref">「Access Gateway Rapid SSO搭載のOracle E-Business Suiteリファレンス アーキテクチャ」</a>をご覧ください。</td>
-                                                                <td>詳しくは<a href="add-oracle-ebs-classic-ref-arch.htm" class="MCXref xref">「Access Gateway Classic SSO搭載のOracle E-Business Suiteリファレンス アーキテクチャ」</a>をご覧ください。</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td colspan="2">Oracle E-Business Suiteアプリケーションは、<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>が後続のEBS呼び出しで使用されるEBSセッションクッキーを作成して提供するという点で、従来のアプリケーションとは異なります。<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>は、他のアプリケーションタイプで行われるように、すべてのEBSリクエストをリバースプロキシするわけではありません。 </td>
+                                                                <td>「<a href="add-oracle-ebs-rapid-ref-arch.htm" class="MCXref xref">Access Gateway Rapid SSO搭載のOracle E-Business Suiteリファレンスアーキテクチャ</a>」を参照してください。</td>
+                                                                <td>「<a href="add-oracle-ebs-classic-ref-arch.htm" class="MCXref xref">Access Gateway Classic SSO搭載のOracle E-Business Suiteリファレンスアーキテクチャ</a>」を参照してください。</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
                                                     <div>
-                                                        <h2><a name="Before You Begin"></a>開始する前に</h2>
-                                                        <h3>以下を確認します：
-            </h3>
+                                                        <h2><a name="Before You Begin"></a>はじめに</h2>
+                                                        <p>この手順を始める前に、次の要件が満たされていることを確認してください。 </p>
                                                         <ul>
-                                                            <li><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>がインストールされ、構成されている。<a href="manage-deployment.htm" class="MCXref xref">「Access Gatewayのデプロイメントを管理する」</a>を参照してください。</li>
-                                                            <li><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>が<span class="mc-variable okta-variables.ProductName variable">Okta</span>テナントをIDプロバイダー（IdP）としてを使用している。「<a href="configure-idp-okta.htm" class="MCXref xref">Okta orgをIDプロバイダーとして構成する</a>」を参照してください。 </li>
-                                                            <li><span class="mc-variable okta-variables.ProductName variable">Okta</span>テナントで管理者権限を有している場合、グループの作成とアプリケーションの割り当てが可能である。 </li>
-                                                            <li>外部アプリのバージョンがサポートされている。OracleE-Business Suiteでサポートされるバージョンは以下の通りです：</li>
-                                                            <ul>
-                                                                <li>v12.1</li>
-                                                                <li>v12.2</li>
-                                                            </ul>
+                                                            <li><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>がインストールされ、構成されている。「<a href="manage-deployment.htm" class="MCXref xref">Access Gatewayのデプロイメントを管理する</a>」を参照してください。</li>
+                                                            <li><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>が<span class="mc-variable okta-variables.ProductName variable">Okta</span> orgをIDプロバイダー（IdP）としてを使用している。「<a href="configure-idp-okta.htm" class="MCXref xref">Access Gateway内のIDプロバイダーを構成する</a>」を参照してください。 </li>
+                                                            <li><span class="mc-variable okta-variables.ProductName variable">Okta</span> orgで管理者権限を持っており、グループの作成やアプリケーションの割り当てが可能である。 </li>
+                                                            <li>EBSのバージョンがサポート対象バージョンであることを確認します。<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>でサポートされるEBSのバージョンは次のとおりです。
+				
+					<ul><li>v12.1</li><li>v12.2</li></ul></li>
                                                         </ul>
-                                                        <h3>Classicプロセスフローの場合、以下を確認します：</h3>
                                                         <ul>
-                                                            <li>Oracle E-Business Suite(EBS)がOracle Access GateおよびOracle Internet Directory (OID)またはOracle User Directory (OUD)で構成されている。 </li>
-                                                        </ul>
-                                                        <h3>Rapidプロセスフローの場合、以下を確認します：</h3>
-                                                        <ul style="list-style-type: square;">
-                                                            <li>Oracle E-Business Suite(EBS)が構成され、利用可能である。</li>
-                                                            <li>DBCファイルがOracle EBSオーナーによって作成され、Access Gateway管理者が利用できる。Rapid SSO用にOracle E-Business Suiteを構成する方法については、<a href="#Configur" class="MCXref xref">「Oracle E-Business Suiteアプリケーションを追加する」</a>を参照してください。<br /><div class="noteOkta"><p class="noteContent">Rapid EBS SSOはAccess GatewayとEBSサーバーとの間の通信にドメインCookieを使用します。保護対象サービスとゲートウェイの外部向けインスタンスで使用されるドメインは、同じドメインを共有しなければなりません。</p></div></li>
-                                                            <li>EBS_USERはOktaテナントユーザーにマップされます。</li>
+                                                            <li>EBS Classicプロセスフローを使うときは、EBSにOracle AccessGateと、Oracle Internet Directory（OID）またはOracle User Directory（OUD）が構成されていることを確認します。</li>
+                                                            <li>EBS Rapidプロセスフローを使うときは、EBSが構成済みで利用可能であることを確認します。</li>
+                                                            <li>EBS Rapidプロセスフローを使うときは、EBS_USERがOkta orgユーザーにマッピングされていることを確認します。</li>
+                                                            <li>EBS Rapidプロセスフローを使うときは、EBS所有者がすでにDBCファイルを作成しており、<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>所有者がこのファイルを利用できる状態になっていることを確認します。EBS for Rapid single sign-on（SSO）の構成手順については、「<a href="#Configur" class="MCXref xref">Access Gatewayを使ったOracle E-Business Suiteアプリケーションの統合</a>」を参照してください。
+				
+				<div class="noteOkta"><p class="noteContent">Rapid EBS SSOでは、<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>とEBSサーバーの間の通信にドメインcookieが使用されます。保護対象サービスが使用するドメインと、外部に接するゲートウェイインスタンスが使用するドメインは、同じドメインを共有する必要があります。</p></div></li>
                                                         </ul>
                                                     </div>
-                                                    <h2><a name="Tasks"></a>一般的なワークフロー</h2>
-                                                    <table style="width: 100%;mc-table-style: url('../../resources/tablestyles/standard.css');" class="TableStyle-standard" cellspacing="0">
-                                                        <col class="TableStyle-standard-Column-Column1" />
-                                                        <col class="TableStyle-standard-Column-Column1" />
-                                                        <thead>
-                                                            <tr class="TableStyle-standard-Head-Header1">
-                                                                <th class="TableStyle-standard-HeadF-Column1-Header1">タスク</th>
-                                                                <th class="TableStyle-standard-HeadD-Column1-Header1">説明</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr class="TableStyle-standard-Body-Body1">
-                                                                <td class="TableStyle-standard-BodyF-Column1-Body1"><a href="add-oracle-ebs-sso-group.htm">包含するグループを作成する</a>
-                                                                </td>
-                                                                <td class="TableStyle-standard-BodyD-Column1-Body1">
-                                                                    <ul>
-                                                                        <li>ベストプラクティスとして、アプリケーションに割り当てる任意グループを作成します。 </li>
-                                                                    </ul>
-                                                                </td>
-                                                            </tr>
-                                                            <tr class="TableStyle-standard-Body-Body2">
-                                                                <td class="TableStyle-standard-BodyF-Column1-Body2">
-                                                                    <p>[Rapidのみ] <a href="add-oracle-ebs-sso-config-rapid.htm">EBS</a>を<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>で使用するよう構成します。</p>
-                                                                </td>
-                                                                <td class="TableStyle-standard-BodyD-Column1-Body2">
-                                                                    <ul>
-                                                                        <li>Oracle EBSを<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>で使用できるよう構成し、必要なDSCファイルを作成します。 </li>
-                                                                    </ul>
-                                                                </td>
-                                                            </tr>
-                                                            <tr class="TableStyle-standard-Body-Body1">
-                                                                <td class="TableStyle-standard-BodyF-Column1-Body1"><a href="add-oracle-ebs-sso-app.htm">EBSアプリケーションを作成する </a>
-                                                                </td>
-                                                                <td class="TableStyle-standard-BodyD-Column1-Body1">
-                                                                    <ul>
-                                                                        <li>RapidまたはClassic EBS SSO向けにアプリケーションを作成します。</li>
-                                                                    </ul>
-                                                                </td>
-                                                            </tr>
-                                                            <tr class="TableStyle-standard-Body-Body2">
-                                                                <td class="TableStyle-standard-BodyF-Column1-Body2"><a href="add-oracle-ebs-sso-test.htm">アプリケーションをテストする</a>
-                                                                </td>
-                                                                <td class="TableStyle-standard-BodyD-Column1-Body2">
-                                                                    <ul>
-                                                                        <li>アプリケーションをテストします。</li>
-                                                                    </ul>
-                                                                </td>
-                                                            </tr>
-                                                            <tr class="TableStyle-standard-Body-Body1">
-                                                                <td class="TableStyle-standard-BodyC-Column1-Body1"><a href="add-oracle-ebs-troubleshooting.htm">トラブルシューティング</a>
-                                                                </td>
-                                                                <td class="TableStyle-standard-BodyA-Column1-Body1">
-                                                                    <ul>
-                                                                        <li>必要に応じて統合のトラブルシューティングを行います。 </li>
-                                                                    </ul>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
+                                                    <h2><a name="Tasks"></a>ワークフロー</h2>
+                                                    <ol>
+                                                        <li value="1">任意。アプリケーションに割り当てるグループを作成します。「<a href="add-oracle-ebs-sso-group.htm" class="MCXref xref">Okta orgグループを追加する</a>」を参照してください。</li>
+                                                        <li value="2">Rapidプロセスフローのみ：EBSを<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>で使用するように構成し、必要なDSCファイルを作成します。「<a href="add-oracle-ebs-sso-config-rapid.htm" class="MCXref xref">Oracle E-Business Suite for Rapid SSOを構成し、DBCファイルを作成する</a>」を参照してください。</li>
+                                                        <li value="3">RapidまたはClassic EBS SSO向けにアプリケーションを作成します。「<a href="add-oracle-ebs-sso-app.htm" class="MCXref xref">RapidまたはClassic EBSアプリケーションを作成する</a>」を参照してください。</li>
+                                                        <li value="4">統合をテストします。「<a href="add-oracle-ebs-sso-test.htm" class="MCXref xref">Oracle E-Business Suite統合をテストする</a>」を参照してください。</li>
+                                                        <li value="5">統合のトラブルシューティングを行います。「<a href="add-oracle-ebs-troubleshooting.htm" class="MCXref xref">Oracle E-Business Suiteアプリケーションのトラブルシューティングを行う</a>」を参照してください。</li>
+                                                    </ol>
                                                     <div>
                                                         <h2><a name="Next_Steps"></a>関連項目</h2>
                                                         <p><a href="about-application-essentials.htm" class="MCXref xref">アプリケーション基本設定</a>
@@ -442,10 +387,11 @@
                                                         </p>
                                                         <p><a href="advanced-oag-policy.htm" class="MCXref xref">高度なAccess Gatewayポリシー</a>
                                                         </p>
-                                                        <p><a href="about-application-behaviors.htm" class="MCXref xref">アプリケーション動作</a>。</p>
+                                                        <p><a href="about-application-behaviors.htm" class="MCXref xref">アプリケーション動作</a>
+                                                        </p>
                                                         <p><a href="task-manage-app-essentials.htm" class="MCXref xref">アプリケーション基本情報を管理する</a>
                                                         </p>
-                                                        <p><a href="managing-application-policy.htm" class="MCXref xref">アクセスコントロールアプリケーションポリシーを管理する </a>
+                                                        <p><a href="managing-application-policy.htm" class="MCXref xref">アクセス制御アプリケーションポリシーを管理する </a>
                                                         </p>
                                                         <p><a href="troubleshoot-application.htm" class="MCXref xref">アプリケーションのトラブルシューティング</a>
                                                         </p>
