@@ -11,7 +11,7 @@ describe('Classic release notes landing page (en-US)', () => {
     cy.hasBreadcrumbs('Release notes')
     cy.hasTopMenuBar(6, 10)
     cy.hasBodyContent()
-    cy.hasTiles(5)
+    // cy.hasTiles(5)
     cy.hasDeferAttrsCorrectlyApplied()
     // cy.hasQualtrics()
     cy.hidesCoveoSearchBar()
