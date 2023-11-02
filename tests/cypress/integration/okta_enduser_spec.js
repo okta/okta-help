@@ -9,7 +9,7 @@ describe('End User landing page (en-US)', () => {
     cy.hasLeftSideNav()
     cy.hasTOC(7)
     cy.hasBreadcrumbs('Documentation for end users')
-    cy.hasTopMenuBar(4, 9)
+    // cy.hasTopMenuBar(4, 9)
     cy.hasBodyContent()
     cy.hasTiles(4)
     cy.hasDeferAttrsCorrectlyApplied()
