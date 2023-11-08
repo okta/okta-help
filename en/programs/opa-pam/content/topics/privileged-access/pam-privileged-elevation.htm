@@ -5,7 +5,7 @@
         <meta name="robots" content="noindex, nofollow" />
         <meta name="typeofcontent" content="documentation" />
         <meta name="audience" content="admin" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Okta Privileged Access accounts</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Privileged elevation</title>
         <meta charset="utf-8" />
         <meta name="description" content="" />
         <meta name="author" content="" />
@@ -288,26 +288,31 @@
                                             <div class="body-main" data-test="bodyContent">
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
-                                                    <h1><span class="mc-variable okta-feature-names.Okta_Privileged_Access variable">Okta Privileged Access</span> accounts</h1>
-                                                    <p><span class="mc-variable okta-feature-names.Okta_Privileged_Access variable">Okta Privileged Access</span> allows <span class="mc-variable okta-variables.ProductName variable">Okta</span> users to access servers through a local server account. These individual user accounts, managed and created by <span class="mc-variable okta-variables.ProductName variable">Okta</span> on each server, are referred to as the principal account for the <span class="mc-variable okta-variables.ProductName variable">Okta</span> user.</p>
-                                                    <p>These local server accounts can either be created on-demand or persist across multiple logins. The <span class="mc-variable okta-feature-names.Okta_Privileged_Access variable">Okta Privileged Access</span> agent installed on the server is responsible for the addition and removal of these accounts.</p>
-                                                    <p>The default account setting is on-demand. Resource admins or delegated resource admins can enable the persistent account for a project. Only one user account can be used at a time.</p>
-                                                    <h2>On-demand account</h2>
-                                                    <p>When a user attempts to access a server, <span class="mc-variable okta-feature-names.Okta_Privileged_Access variable">Okta Privileged Access</span> creates an account. The account grants on-demand users regular user permissions, but not administrative permissions, while it's active.</p>
-                                                    <p>On-demand accounts are deleted if the user logs out, loses access to the server, or if their access request has expired. On Windows servers, the user account associated with the session and their home directory is removed upon account expiry. This also results in the deletion of any data stored within the user's home directory.</p>
-                                                    <div class="noteOkta">
-                                                        <p class="noteContent">To connect to a server through a bastion or <span class="mc-variable okta-feature-names.Okta_Privileged_Access variable">Okta Privileged Access</span> gateway, the server must be accessible from port 4421 of the bastion or gateway. However, for direct connections, the server must be accessible from port 4421 on the client. See <a href="server-agent/pam-configure-server-agent.htm" class="MCXref xref">Configure the Okta Privileged Access server agent</a>.</p>
-                                                    </div>
-                                                    <h2><a name="Persiste"></a>Persistent account</h2>
-                                                    <p>In <span class="mc-variable okta-feature-names.Okta_Privileged_Access variable">Okta Privileged Access</span>, you have the option to enable persistent accounts for any project. Once enabled, a local account is automatically created on all servers within the project for all users who are assigned to <span class="mc-variable okta-feature-names.Okta_Privileged_Access variable">Okta Privileged Access</span>. This feature will be enabled regardless of the security policy settings, but users can access the server using these accounts only if they've been granted access through a security policy.</p>
-                                                    <p>When a user logs in to one of these servers, they use the account that corresponds to their username in <span class="mc-variable okta-feature-names.Okta_Privileged_Access variable">Okta Privileged Access</span>. The username depends on the operating system of the server, which can be either <span class="varname">unix_username</span> or <span class="varname">windows_username</span>.  See <a href="pam-user-attributes.htm" class="MCXref xref">User attributes</a> for additional information.</p>
-                                                    <p>When you activate a persistent account and then deactivate it, all user accounts managed by Okta are deleted. If there are multiple users with identical attributes such as <span class="varname">unix_uid</span>, <span class="varname">unix_username</span>, or <span class="varname">windows_username</span>, <span class="mc-variable okta-feature-names.Okta_Privileged_Access variable">Okta Privileged Access</span> won't be able to determine which user should get that particular username or UID. As a result, a warning message is displayed on the project. These users won't be synced to any servers until an administrator takes corrective action to make the attributes of these users unique.</p>
-                                                    <p>To configure persistent accounts for a project, enable the <span class="wintitle">Account lifecycle</span> setting in a project at any time. </p>
+                                                    <h1>Privileged elevation</h1>
+                                                    <p>As a <span class="mc-variable okta-feature-names.Okta_Privileged_Access variable">Okta Privileged Access</span> security admin, you may need to decide which team members can have full admin permissions on particular servers. </p>
+                                                    <p>When a user is given access to a server, a local account is created for the user with default user permissions. With privileged elevation, the <span class="mc-variable okta-feature-names.Okta_Privileged_Access variable">Okta Privileged Access</span> security admin can optionally decide to grant the user administrative access to the server.</p>
+                                                    <p>Once privileged elevation is enabled, users can access the server through the following methods:</p>
+                                                    <ul>
+                                                        <li><span class="wintitle">RDP access to Windows servers</span>: The user account is added to the local administrators group, granting full local administrator permissions while logged in.</li>
+                                                        <li><span class="wintitle">SSH access to Linux servers</span>: Sudo is configured on the Linux server to grant the <span class="mc-variable okta-variables.ProductName variable">Okta</span> user full sudo privileges while logged in.</li>
+                                                    </ul>
+                                                    <h2>Privileged elevation rules</h2>
+                                                    <ul>
+                                                        <li>Only <span class="mc-variable okta-feature-names.Okta_Privileged_Access variable">Okta Privileged Access</span> security admins can enable privileged elevation.</li>
+                                                        <li>When a user has an active non-admin session on a server and then initiates an admin session on the same server, the non-admin session is automatically terminated. However, any active sessions that have the same permission level as the new session remains unaffected.</li>
+                                                        <li>If there's only one policy that grants admin permission through privileged elevation, the user is connected to the server directly. If there are multiple policies, the user needs to select the server they want to connect to using SSH or RDP.</li>
+                                                        <li>Port 4421 is required to use privileged elevation for <a href="pam-accounts.htm#Persiste" class="MCXref xref">Persistent account</a>.</li>
+                                                        <li><span class="mc-variable okta-feature-names.Okta_Privileged_Access variable">Okta Privileged Access</span> secures local accounts on servers, including vaulted and individual accounts. However, privileged elevation is only available for individual accounts that <span class="mc-variable okta-feature-names.Okta_Privileged_Access variable">Okta Privileged Access</span> manages for each user. Okta doesn't manage privileged elevation for vaulted accounts.</li>
+                                                    </ul>
+                                                    <h2>Enable privileged elevation</h2>
+                                                    <p>To enable privileged elevation, see <a href="pam-policy.htm#Create" class="MCXref xref">Create or update a security policy</a>.</p>
                                                     <h2>Related topics</h2>
                                                     <ul>
-                                                        <li><a href="pam-projects.htm" class="MCXref xref">Projects</a>
+                                                        <li><a href="pam-policy.htm" class="MCXref xref">Security policy</a>
                                                         </li>
-                                                        <li><a href="pam-privileged-elevation.htm" class="MCXref xref">Privileged elevation</a>
+                                                        <li><a href="tool-setup/pam-ssh.htm" class="MCXref xref">SSH setup</a>
+                                                        </li>
+                                                        <li><a href="tool-setup/pam-rdp.htm" class="MCXref xref">RDP setup</a>
                                                         </li>
                                                     </ul>
                                                 </div>
