@@ -103,6 +103,11 @@ function hasTopMenuBar (numTopLinks, numChildLinks) {
       cy.wrap($el)
         .should('have.attr', 'href')
     })
+
+  cy.get('div.dropdown-content')
+    .eq(0)
+    .should('be.visible')
+    .invoke('hide')
 }
 
 function hasBodyContent () {
