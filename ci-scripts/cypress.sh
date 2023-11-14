@@ -1,6 +1,11 @@
 #!/bin/bash
 pushd ${OKTA_HOME}/${REPO}
 
+export UPLOAD_ARTIFACT_URL=${ARTIFACTORY_URL}/topic/com/okta/flare/cypress_${BRANCH}_${SHA:0:10}.zip
+export CURL="curl -Lk -u ${ARTIFACTORY_USERNAME}:${ARTIFACTORY_PASSWORD} -m 30 --connect-timeout 30 -f "
+export CYPRESS_ZIP="cypress.zip"
+export CYPRESS_SCREENS="tests/cypress/screenshots/*"
+
 # Start xvfb
 Xvfb :99 -screen 0 1366x768x16 &
 
@@ -25,6 +30,9 @@ fi
 
 if ! npx cypress run --headless; then
     echo "failed cypress tests"
+
+    zip -r ${CYPRESS_ZIP} ${CYPRESS_SCREENS}
+    ${CURL} --upload-file ${CYPRESS_ZIP} ${UPLOAD_ARTIFACT_URL}
+
     exit ${BUILD_FAILURE}
 fi
-
