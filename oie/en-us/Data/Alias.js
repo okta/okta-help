@@ -682,5 +682,6 @@ xmlAliasData += '    <Map Name=\"csh-opp-install-agent\" Link=\"topics/provision
 xmlAliasData += '    <Map Name=\"csh-opp-create-scim-connectors\" Link=\"topics/provisioning/opp/opp-create-scim-connectors.htm\" ResolvedId=\"16011\" />';
 xmlAliasData += '    <Map Name=\"ext-sfdc-enable-provisioning\" Link=\"topics/provisioning/salesforce/sfdc-enable-provisioning.htm\" ResolvedId=\"16012\" />';
 xmlAliasData += '    <Map Name=\"csh-device-assurance-add\" Link=\"topics/identity-engine/devices/device-assurance-add.htm\" ResolvedId=\"4002\" />';
+xmlAliasData += '    <Map Name=\"csh-admin-session-config-oie\" Link=\"topics/identity-engine/policies/modify-first-party-app-policies.htm#Configure_admin_session\" ResolvedId=\"9011\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
