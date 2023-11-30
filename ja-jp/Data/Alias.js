@@ -551,6 +551,7 @@ xmlAliasData += '    <Map Name=\"ext_Ver_History_Okta_MFA_Provider_for_ADFS\" Li
 xmlAliasData += '    <Map Name=\"ext_Ver_History_On_Prem_MFA_Agent\" Link=\"topics/settings/version_histories/ver_history_on-prem_mfa_agent.htm\" ResolvedId=\"200206\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_OPP_Agent\" Link=\"topics/settings/version_histories/ver_history_opp_agent.htm\" ResolvedId=\"200207\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_RADIUS_Server_Agent\" Link=\"topics/settings/version_histories/ver_history_radius_server_agent.htm\" ResolvedId=\"200208\" />';
+xmlAliasData += '    <Map Name=\"ext_Ver_History_Sharepoint_People_Picker_Agent\" Link=\"topics/settings/version_histories/ver_history_sharepoint_people_picker_agent.htm\" ResolvedId=\"200210\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_SSO_IWA_Agent\" Link=\"topics/settings/version_histories/ver_history_sso_iwa_agent.htm\" ResolvedId=\"200211\" />';
 xmlAliasData += '    <Map Name=\"ext_Verify_IE_Plugin\" Link=\"topics/browser-plugin/browser-plugin-main.htm\" ResolvedId=\"1074\" />';
 xmlAliasData += '    <Map Name=\"ext_vmware_horizon_radius_intg\" Link=\"topics/integrations/vmware-horizon-radius-intg.htm\" ResolvedId=\"200092\" />';
@@ -611,6 +612,7 @@ xmlAliasData += '    <Map Name=\"ver-hist-mfa-cred-win\" Link=\"topics/settings/
 xmlAliasData += '    <Map Name=\"ver-hist-op-mfa-agent\" Link=\"topics/settings/version_histories/ver_history_on-prem_mfa_agent.htm\" ResolvedId=\"1053\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-opp-agent\" Link=\"topics/settings/version_histories/ver_history_opp_agent.htm\" ResolvedId=\"1026\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-radius-server\" Link=\"topics/settings/version_histories/ver_history_radius_server_agent.htm\" ResolvedId=\"1054\" />';
+xmlAliasData += '    <Map Name=\"ver-hist-sharepoint-pp-agent\" Link=\"topics/settings/version_histories/ver_history_sharepoint_people_picker_agent.htm\" ResolvedId=\"1056\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-sso-iwa-agent\" Link=\"topics/settings/version_histories/ver_history_sso_iwa_agent.htm\" ResolvedId=\"1057\" />';
 xmlAliasData += '    <Map Name=\"ver-hist_dt-macOS-desktop\" Link=\"topics/settings/version_histories/ver_history_device_trust_macos.htm\" ResolvedId=\"1064\" />';
 xmlAliasData += '    <Map Name=\"ver-hist_dt-win-desktop\" Link=\"topics/settings/version_histories/ver_history_devicetrust_installer_windows.htm\" ResolvedId=\"1008\" />';
@@ -648,7 +650,7 @@ xmlAliasData += '    <Map Name=\"csh-apps-aiw-saml-advanced\" Link=\"topics/apps
 xmlAliasData += '    <Map Name=\"csh-attribute-statements-saml\" Link=\"topics/apps/aiw-saml-reference.htm\" ResolvedId=\"16003\" />';
 xmlAliasData += '    <Map Name=\"ext-lcm-convert-user-group\" Link=\"topics/provisioning/lcm/lcm-convert-user-group.htm\" ResolvedId=\"16004\" />';
 xmlAliasData += '    <Map Name=\"csh-campaigns\" Link=\"topics/identity-governance/access-certification/campaigns.htm\" ResolvedId=\"13020\" />';
-xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-identity-provider-permissions\" Link=\"topics/security/custom-admin-role/about-role-permissions.htm\" ResolvedId=\"1157\" />';
+xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-identity-provider-permissions\" Link=\"topics/security/custom-admin-role/about-role-permissions.htm\" ResolvedId=\"-2147483648\" />';
 xmlAliasData += '    <Map Name=\"csh-rt-questions\" Link=\"topics/identity-governance/access-requests/request-type-settings.htm#Question\" ResolvedId=\"1173\" />';
 xmlAliasData += '    <Map Name=\"csh-rt-tasks\" Link=\"topics/identity-governance/access-requests/request-type-settings.htm#Task\" ResolvedId=\"1174\" />';
 xmlAliasData += '    <Map Name=\"csh-rt-timer\" Link=\"topics/identity-governance/access-requests/request-type-settings.htm#Timer\" ResolvedId=\"1196\" />';
@@ -672,5 +674,15 @@ xmlAliasData += '    <Map Name=\"ext-campaign-details\" Link=\"topics/identity-g
 xmlAliasData += '    <Map Name=\"ext-create-campaigns\" Link=\"topics/identity-governance/access-certification/iga-ac-create-campaign.htm\" ResolvedId=\"13033\" />';
 xmlAliasData += '    <Map Name=\"ext-campaign-settings\" Link=\"topics/identity-governance/access-certification/campaign-settings.htm\" ResolvedId=\"13034\" />';
 xmlAliasData += '    <Map Name=\"ext-work-with-admin\" Link=\"topics/security/custom-admin-role/work-with-admin.htm\" ResolvedId=\"1255\" />';
+xmlAliasData += '    <Map Name=\"csh-apps-add-app\" Link=\"topics/apps/apps-add-applications.htm\" ResolvedId=\"16005\" />';
+xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-iam-permissions\" Link=\"topics/security/custom-admin-role/about-role-permissions.htm#Identity_and_access_management_permissions\" ResolvedId=\"19029\" />';
+xmlAliasData += '    <Map Name=\"csh-lcm-assign-app-user\" Link=\"topics/provisioning/lcm/lcm-assign-app-user.htm\" ResolvedId=\"16006\" />';
+xmlAliasData += '    <Map Name=\"csh-lcm-assign-app-groups\" Link=\"topics/provisioning/lcm/lcm-assign-app-groups.htm\" ResolvedId=\"16007\" />';
+xmlAliasData += '    <Map Name=\"ext-permission-conditions\" Link=\"topics/security/custom-admin-role/permission-conditions.htm\" ResolvedId=\"19030\" />';
+xmlAliasData += '    <Map Name=\"ext-sfdc-configure-provisioning-rest\" Link=\"topics/provisioning/salesforce/sfdc-configure-provisioning-rest.htm\" ResolvedId=\"16008\" />';
+xmlAliasData += '    <Map Name=\"ext-el-eg\" Link=\"topics/identity-governance/access-certification/iga-el-examples.htm\" ResolvedId=\"16009\" />';
+xmlAliasData += '    <Map Name=\"csh-opp-install-agent\" Link=\"topics/provisioning/opp/opp-install-agent.htm\" ResolvedId=\"16010\" />';
+xmlAliasData += '    <Map Name=\"csh-opp-create-scim-connectors\" Link=\"topics/provisioning/opp/opp-create-scim-connectors.htm\" ResolvedId=\"16011\" />';
+xmlAliasData += '    <Map Name=\"ext-sfdc-enable-provisioning\" Link=\"topics/provisioning/salesforce/sfdc-enable-provisioning.htm\" ResolvedId=\"16012\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
