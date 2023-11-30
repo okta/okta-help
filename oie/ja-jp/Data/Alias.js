@@ -521,6 +521,7 @@ xmlAliasData += '    <Map Name=\"ext_Ver_History_Okta_MFA_Provider_for_ADFS\" Li
 xmlAliasData += '    <Map Name=\"ext_Ver_History_On_Prem_MFA_Agent\" Link=\"topics/settings/version_histories/ver_history_on-prem_mfa_agent.htm\" ResolvedId=\"200206\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_OPP_Agent\" Link=\"topics/settings/version_histories/ver_history_opp_agent.htm\" ResolvedId=\"200207\" />';
 xmlAliasData += '    <Map Name=\"ext_Ver_History_RADIUS_Server_Agent\" Link=\"topics/settings/version_histories/ver_history_radius_server_agent.htm\" ResolvedId=\"200208\" />';
+xmlAliasData += '    <Map Name=\"ext_Ver_History_Sharepoint_People_Picker_Agent\" Link=\"topics/settings/version_histories/ver_history_sharepoint_people_picker_agent.htm\" ResolvedId=\"200210\" />';
 xmlAliasData += '    <Map Name=\"ext_Verify_IE_Plugin\" Link=\"topics/browser-plugin/browser-plugin-main.htm\" ResolvedId=\"1074\" />';
 xmlAliasData += '    <Map Name=\"ext_vmware_horizon_radius_intg\" Link=\"topics/integrations/vmware-horizon-radius-intg.htm\" ResolvedId=\"200092\" />';
 xmlAliasData += '    <Map Name=\"fortinet-radius-intg\" Link=\"topics/integrations/fortinet-radius-intg.htm\" ResolvedId=\"1036\" />';
@@ -568,6 +569,7 @@ xmlAliasData += '    <Map Name=\"ver-hist-mfa-cred-win\" Link=\"topics/settings/
 xmlAliasData += '    <Map Name=\"ver-hist-op-mfa-agent\" Link=\"topics/settings/version_histories/ver_history_on-prem_mfa_agent.htm\" ResolvedId=\"1053\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-opp-agent\" Link=\"topics/settings/version_histories/ver_history_opp_agent.htm\" ResolvedId=\"1026\" />';
 xmlAliasData += '    <Map Name=\"ver-hist-radius-server\" Link=\"topics/settings/version_histories/ver_history_radius_server_agent.htm\" ResolvedId=\"1054\" />';
+xmlAliasData += '    <Map Name=\"ver-hist-sharepoint-pp-agent\" Link=\"topics/settings/version_histories/ver_history_sharepoint_people_picker_agent.htm\" ResolvedId=\"1056\" />';
 xmlAliasData += '    <Map Name=\"vmware-horizon-radius-intg\" Link=\"topics/integrations/vmware-horizon-radius-intg.htm\" ResolvedId=\"1059\" />';
 xmlAliasData += '    <Map Name=\"csh-add-admin-page\" Link=\"topics/security/custom-admin-role/about-admin-page.htm\" ResolvedId=\"19005\" />';
 xmlAliasData += '    <Map Name=\"csh-google-authenticator\" Link=\"topics/identity-engine/authenticators/google-authenticator.htm\" ResolvedId=\"18004\" />';
@@ -628,8 +630,10 @@ xmlAliasData += '    <Map Name=\"csh-attribute-statements-saml\" Link=\"topics/a
 xmlAliasData += '    <Map Name=\"csh-set-default-app-redirect\" Link=\"topics/identity-engine/procedures/set-up-default-app-redirect.htm\" ResolvedId=\"5026\" />';
 xmlAliasData += '    <Map Name=\"ext-about-sign-in-flows\" Link=\"topics/identity-engine/policies/about-sign-in-flows.htm\" ResolvedId=\"5027\" />';
 xmlAliasData += '    <Map Name=\"ext-lcm-convert-user-group\" Link=\"topics/provisioning/lcm/lcm-convert-user-group.htm\" ResolvedId=\"16004\" />';
+xmlAliasData += '    <Map Name=\"csh-email-provider-main\" Link=\"topics/settings/custom-email-provider.htm\" ResolvedId=\"30000\" />';
 xmlAliasData += '    <Map Name=\"csh-campaigns\" Link=\"topics/identity-governance/access-certification/campaigns.htm\" ResolvedId=\"13020\" />';
-xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-identity-provider-permissions\" Link=\"topics/security/custom-admin-role/about-role-permissions.htm\" ResolvedId=\"1157\" />';
+xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-identity-provider-permissions\" Link=\"topics/security/custom-admin-role/about-role-permissions.htm\" ResolvedId=\"-2147483648\" />';
+xmlAliasData += '    <Map Name=\"csh-configure-email-provider\" Link=\"topics/settings/custom-email-provider.htm#Add\" ResolvedId=\"1156\" />';
 xmlAliasData += '    <Map Name=\"csh-access-testing-tool\" Link=\"topics/identity-engine/policies/access-testing-tool.htm\" ResolvedId=\"1168\" />';
 xmlAliasData += '    <Map Name=\"csh-enroll-form-attributes\" Link=\"topics/identity-engine/policies/about-enrollment-form-attribute-rules.htm\" ResolvedId=\"5028\" />';
 xmlAliasData += '    <Map Name=\"csh-rt-questions\" Link=\"topics/identity-governance/access-requests/request-type-settings.htm#Question\" ResolvedId=\"1173\" />';
@@ -664,5 +668,19 @@ xmlAliasData += '    <Map Name=\"ext-campaign-details\" Link=\"topics/identity-g
 xmlAliasData += '    <Map Name=\"ext-create-campaigns\" Link=\"topics/identity-governance/access-certification/iga-ac-create-campaign.htm\" ResolvedId=\"13033\" />';
 xmlAliasData += '    <Map Name=\"ext-campaign-settings\" Link=\"topics/identity-governance/access-certification/campaign-settings.htm\" ResolvedId=\"13034\" />';
 xmlAliasData += '    <Map Name=\"ext-work-with-admin\" Link=\"topics/security/custom-admin-role/work-with-admin.htm\" ResolvedId=\"1255\" />';
+xmlAliasData += '    <Map Name=\"csh-duo-custom-idp\" Link=\"topics/identity-engine/authenticators/configure-idp-authenticator.htm#Custom\" ResolvedId=\"15999\" />';
+xmlAliasData += '    <Map Name=\"csh-apps-add-app\" Link=\"topics/apps/apps-add-applications.htm\" ResolvedId=\"16005\" />';
+xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-iam-permissions\" Link=\"topics/security/custom-admin-role/about-role-permissions.htm#Identity_and_access_management_permissions\" ResolvedId=\"19029\" />';
+xmlAliasData += '    <Map Name=\"csh-lcm-assign-app-user\" Link=\"topics/provisioning/lcm/lcm-assign-app-user.htm\" ResolvedId=\"16006\" />';
+xmlAliasData += '    <Map Name=\"csh-lcm-assign-app-groups\" Link=\"topics/provisioning/lcm/lcm-assign-app-groups.htm\" ResolvedId=\"16007\" />';
+xmlAliasData += '    <Map Name=\"csh-optional-email\" Link=\"topics/identity-engine/authenticators/make-email-optional.htm\" ResolvedId=\"14001\" />';
+xmlAliasData += '    <Map Name=\"csh-skip-auto-enrolling\" Link=\"topics/identity-engine-upgrade/skip-auto-enrolling-email.htm\" ResolvedId=\"14002\" />';
+xmlAliasData += '    <Map Name=\"ext-permission-conditions\" Link=\"topics/security/custom-admin-role/permission-conditions.htm\" ResolvedId=\"19030\" />';
+xmlAliasData += '    <Map Name=\"ext-sfdc-configure-provisioning-rest\" Link=\"topics/provisioning/salesforce/sfdc-configure-provisioning-rest.htm\" ResolvedId=\"16008\" />';
+xmlAliasData += '    <Map Name=\"ext-el-eg\" Link=\"topics/identity-governance/access-certification/iga-el-examples.htm\" ResolvedId=\"16009\" />';
+xmlAliasData += '    <Map Name=\"csh-opp-install-agent\" Link=\"topics/provisioning/opp/opp-install-agent.htm\" ResolvedId=\"16010\" />';
+xmlAliasData += '    <Map Name=\"csh-opp-create-scim-connectors\" Link=\"topics/provisioning/opp/opp-create-scim-connectors.htm\" ResolvedId=\"16011\" />';
+xmlAliasData += '    <Map Name=\"ext-sfdc-enable-provisioning\" Link=\"topics/provisioning/salesforce/sfdc-enable-provisioning.htm\" ResolvedId=\"16012\" />';
+xmlAliasData += '    <Map Name=\"csh-device-assurance-add\" Link=\"topics/identity-engine/devices/device-assurance-add.htm\" ResolvedId=\"4002\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
