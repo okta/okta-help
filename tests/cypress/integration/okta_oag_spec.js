@@ -30,7 +30,7 @@ describe('OAG landing page (ja-JP)', () => {
     cy.hasLeftSideNav()
     cy.hasTOC(8)
     cy.hasBreadcrumbs('Okta Access Gateway')
-    cy.hasTopMenuBar(5, 11)
+    cy.hasTopMenuBar(6, 10)
     cy.hasBodyContent()
     cy.hasTiles(6)
     cy.hasDeferAttrsCorrectlyApplied()
