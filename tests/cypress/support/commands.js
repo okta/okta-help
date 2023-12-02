@@ -81,33 +81,35 @@ function hasBreadcrumbs (topicName) {
 }
 
 function hasTopMenuBar (numTopLinks, numChildLinks) {
-  // All pubs but End User have 5 top-level links and 9 child links
-  // End User pub as 4 top-level links and 6 child links
+  // All pubs but End User have 6 top-level links and 10 child links
+  // End User pub as 4 top-level links and 0 child links
   // Passing these vals in as params to facilitate code reuse
   cy.get('div.navbar > div.dropdown')
   .should(($div) => {
     expect($div).to.have.length(numTopLinks)
   })
 
-  cy.get('div.dropdown-content')
-    .eq(0)
-    .should('be.hidden')
-    .invoke('show')
+  if (numChildLinks > 0) {
+    cy.get('div.dropdown-content')
+      .eq(0)
+      .should('be.hidden')
+      .invoke('show')
 
-  // The menu bar has child links
-  cy.get('div.dropdown-content > div > a')
-    .should(($a) => {
-      expect($a).to.have.length(numChildLinks)
-    })
-    .each(($el) => {
-      cy.wrap($el)
-        .should('have.attr', 'href')
-    })
+    // The menu bar has child links
+    cy.get('div.dropdown-content > div > a')
+      .should(($a) => {
+        expect($a).to.have.length(numChildLinks)
+      })
+      .each(($el) => {
+        cy.wrap($el)
+          .should('have.attr', 'href')
+      })
 
-  cy.get('div.dropdown-content')
-    .eq(0)
-    .should('be.visible')
-    .invoke('hide')
+    cy.get('div.dropdown-content')
+      .eq(0)
+      .should('be.visible')
+      .invoke('hide')
+  }
 }
 
 function hasBodyContent () {
