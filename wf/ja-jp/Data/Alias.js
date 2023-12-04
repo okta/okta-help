@@ -1104,8 +1104,8 @@ xmlAliasData += '    <Map Name=\"ext-servicenow-misc-authorization\" Link=\"topi
 xmlAliasData += '    <Map Name=\"ext-set-monitor-options\" Link=\"topics/workflows/build/set-monitor-options.htm\" ResolvedId=\"1345\" />';
 xmlAliasData += '    <Map Name=\"ext-set-schedule-options\" Link=\"topics/workflows/build/set-schedule-options.htm\" ResolvedId=\"1346\" />';
 xmlAliasData += '    <Map Name=\"ext-sftp\" Link=\"topics/workflows/connector-reference/sftp/sftp.htm\" ResolvedId=\"31073\" />';
-xmlAliasData += '    <Map Name=\"ext-sftp-method-downloadfile\" Link=\"topics/workflows/connector-reference/sftp/actions/downloadfile.htm\" ResolvedId=\"33146\" />';
-xmlAliasData += '    <Map Name=\"ext-sftp-method-uploadfile\" Link=\"topics/workflows/connector-reference/sftp/actions/uploadfile.htm\" ResolvedId=\"33147\" />';
+xmlAliasData += '    <Map Name=\"ext-sftp-method-download\" Link=\"topics/workflows/connector-reference/sftp/actions/downloadfile.htm\" ResolvedId=\"33146\" />';
+xmlAliasData += '    <Map Name=\"ext-sftp-method-upload\" Link=\"topics/workflows/connector-reference/sftp/actions/uploadfile.htm\" ResolvedId=\"33147\" />';
 xmlAliasData += '    <Map Name=\"ext-sftp-method-writefile\" Link=\"topics/workflows/connector-reference/sftp/actions/writefile.htm\" ResolvedId=\"33148\" />';
 xmlAliasData += '    <Map Name=\"ext-sftp-misc-authorization\" Link=\"topics/workflows/connector-reference/sftp/overview/authorization.htm\" ResolvedId=\"31074\" />';
 xmlAliasData += '    <Map Name=\"ext-shopify\" Link=\"topics/workflows/connector-reference/shopify/shopify.htm\" ResolvedId=\"30984\" />';
@@ -1369,5 +1369,10 @@ xmlAliasData += '    <Map Name=\"ext-auth0293ca73ef2a04fe48eaa3bb7876df2e6-metho
 xmlAliasData += '    <Map Name=\"ext-auth0293ca73ef2a04fe48eaa3bb7876df2e6-method-updateuserdind8agfaug\" Link=\"topics/workflows/connector-reference/auth0/actions/updateuser.htm\" ResolvedId=\"6068\" />';
 xmlAliasData += '    <Map Name=\"ext-connectorbuilder-auth-oauth-authzcode\" Link=\"topics/workflows/connector-builder/authentication-oauth2-authcode.htm\" ResolvedId=\"6070\" />';
 xmlAliasData += '    <Map Name=\"ext-connectorbuilder-auth-oauth-clientcred\" Link=\"topics/workflows/connector-builder/authentication-oauth2-clientcred.htm\" ResolvedId=\"6071\" />';
+xmlAliasData += '    <Map Name=\"ext-connectorbuilder-webhookevent\" Link=\"topics/workflows/connector-builder/webhook-event.htm\" ResolvedId=\"6069\" />';
+xmlAliasData += '    <Map Name=\"ext-connectorbuilder-webhookevent-deregister\" Link=\"topics/workflows/connector-builder/webhook-event-deregister.htm\" ResolvedId=\"6072\" />';
+xmlAliasData += '    <Map Name=\"ext-connectorbuilder-webhookevent-knownissues\" Link=\"topics/workflows/connector-builder/webhook-event-knownissues.htm\" ResolvedId=\"6073\" />';
+xmlAliasData += '    <Map Name=\"ext-connectorbuilder-webhookevent-register\" Link=\"topics/workflows/connector-builder/webhook-event-register.htm\" ResolvedId=\"6074\" />';
+xmlAliasData += '    <Map Name=\"ext-connectorbuilder-webhookevent-runmode\" Link=\"topics/workflows/connector-builder/webhook-event-runmode.htm\" ResolvedId=\"6075\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
