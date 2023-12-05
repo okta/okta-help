@@ -9,7 +9,7 @@ describe('End User landing page (en-US)', () => {
     cy.hasLeftSideNav()
     cy.hasTOC(7)
     cy.hasBreadcrumbs('Documentation for end users')
-    // cy.hasTopMenuBar(4, 9)
+    cy.hasTopMenuBar(4, 0)
     cy.hasBodyContent()
     cy.hasTiles(4)
     cy.hasDeferAttrsCorrectlyApplied()
@@ -30,7 +30,7 @@ describe('End User landing page (ja-JP)', () => {
     cy.hasTOC(7)
     // Vendor changed the following string in 12/22 from "エンドユーザー向けのドキュメント"
     cy.hasBreadcrumbs('エンドユーザー向けドキュメント')
-    cy.hasTopMenuBar(4, 9)
+    cy.hasTopMenuBar(4, 0)
     cy.hasBodyContent()
     cy.hasTiles(4)
     cy.hasDeferAttrsCorrectlyApplied()
