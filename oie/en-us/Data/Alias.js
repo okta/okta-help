@@ -666,7 +666,6 @@ xmlAliasData += '    <Map Name=\"ext-campaign-details\" Link=\"topics/identity-g
 xmlAliasData += '    <Map Name=\"ext-create-campaigns\" Link=\"topics/identity-governance/access-certification/iga-ac-create-campaign.htm\" ResolvedId=\"13033\" />';
 xmlAliasData += '    <Map Name=\"ext-campaign-settings\" Link=\"topics/identity-governance/access-certification/campaign-settings.htm\" ResolvedId=\"13034\" />';
 xmlAliasData += '    <Map Name=\"ext-work-with-admin\" Link=\"topics/security/custom-admin-role/work-with-admin.htm\" ResolvedId=\"1255\" />';
-xmlAliasData += '    <Map Name=\"csh-duo-custom-idp\" Link=\"topics/identity-engine/authenticators/configure-idp-authenticator.htm#Custom\" ResolvedId=\"15999\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-add-app\" Link=\"topics/apps/apps-add-applications.htm\" ResolvedId=\"16005\" />';
 xmlAliasData += '    <Map Name=\"csh-cstm-admin-role-iam-permissions\" Link=\"topics/security/custom-admin-role/about-role-permissions.htm#Identity_and_access_management_permissions\" ResolvedId=\"19029\" />';
 xmlAliasData += '    <Map Name=\"csh-lcm-assign-app-user\" Link=\"topics/provisioning/lcm/lcm-assign-app-user.htm\" ResolvedId=\"16006\" />';
@@ -679,6 +678,13 @@ xmlAliasData += '    <Map Name=\"ext-el-eg\" Link=\"topics/identity-governance/a
 xmlAliasData += '    <Map Name=\"csh-opp-install-agent\" Link=\"topics/provisioning/opp/opp-install-agent.htm\" ResolvedId=\"16010\" />';
 xmlAliasData += '    <Map Name=\"csh-opp-create-scim-connectors\" Link=\"topics/provisioning/opp/opp-create-scim-connectors.htm\" ResolvedId=\"16011\" />';
 xmlAliasData += '    <Map Name=\"ext-sfdc-enable-provisioning\" Link=\"topics/provisioning/salesforce/sfdc-enable-provisioning.htm\" ResolvedId=\"16012\" />';
+xmlAliasData += '    <Map Name=\"csh-enable-ge\" Link=\"topics/identity-governance/em/enable-ge.htm\" ResolvedId=\"13035\" />';
+xmlAliasData += '    <Map Name=\"csh-assign-oem\" Link=\"topics/identity-governance/em/assign-em-app.htm\" ResolvedId=\"13036\" />';
+xmlAliasData += '    <Map Name=\"csh-ent-mgt-limitations\" Link=\"topics/identity-governance/em/limitations.htm\" ResolvedId=\"13037\" />';
+xmlAliasData += '    <Map Name=\"csh-create-ent\" Link=\"topics/identity-governance/em/create-entitlement.htm\" ResolvedId=\"13038\" />';
+xmlAliasData += '    <Map Name=\"csh-create-policy\" Link=\"topics/identity-governance/em/create-entitlement-policy.htm\" ResolvedId=\"13039\" />';
+xmlAliasData += '    <Map Name=\"csh-create-bundle\" Link=\"topics/identity-governance/em/create-bundle.htm\" ResolvedId=\"13040\" />';
+xmlAliasData += '    <Map Name=\"csh-policy-el-examples\" Link=\"topics/identity-governance/em/policy-rule-el-examples.htm\" ResolvedId=\"13041\" />';
 xmlAliasData += '    <Map Name=\"csh-device-assurance-add\" Link=\"topics/identity-engine/devices/device-assurance-add.htm\" ResolvedId=\"4002\" />';
 xmlAliasData += '    <Map Name=\"ext-configure-authenticators\" Link=\"topics/identity-engine/authenticators/about-authenticators.htm\" ResolvedId=\"18021\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-authenticators\" Link=\"topics/identity-engine/authenticators/about-authenticators.htm\" ResolvedId=\"18022\" />';
