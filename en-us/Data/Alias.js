@@ -118,6 +118,7 @@ xmlAliasData += '    <Map Name=\"csh-LDAP-deployment\" Link=\"topics/directory/l
 xmlAliasData += '    <Map Name=\"csh-limit-access-dashboard\" Link=\"topics/settings/new-end-user-dashboard.htm\" ResolvedId=\"7001\" />';
 xmlAliasData += '    <Map Name=\"csh-limit-admins\" Link=\"topics/security/healthinsight/limit-admins.htm\" ResolvedId=\"1182\" />';
 xmlAliasData += '    <Map Name=\"csh-log-streams\" Link=\"topics/reports/log-streaming/about-log-streams.htm\" ResolvedId=\"13005\" />';
+xmlAliasData += '    <Map Name=\"csh-mfa-enroll-report\" Link=\"topics/reports/mfa-enrollment-user-report.htm\" ResolvedId=\"9001\" />';
 xmlAliasData += '    <Map Name=\"csh-mfa-home\" Link=\"topics/security/mfa/mfa-home.htm\" ResolvedId=\"18011\" />';
 xmlAliasData += '    <Map Name=\"csh-new-end-user-experience\" Link=\"topics/settings/new-end-user-experience.htm\" ResolvedId=\"7002\" />';
 xmlAliasData += '    <Map Name=\"csh-new-eu-dashboard\" Link=\"topics/settings/new-end-user-dashboard.htm\" ResolvedId=\"1183\" />';
