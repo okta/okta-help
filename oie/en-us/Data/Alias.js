@@ -704,5 +704,7 @@ xmlAliasData += '    <Map Name=\"csh-pam-entitlement-analysis\" Link=\"topics/pr
 xmlAliasData += '    <Map Name=\"csh-pam-entitlement-analysis-job\" Link=\"topics/privileged-access/pam-entitlement-analysis-job.htm\" ResolvedId=\"1303\" />';
 xmlAliasData += '    <Map Name=\"csh-pam-entitlement-aws-connect\" Link=\"topics/privileged-access/pam-entitlement-aws-connect.htm\" ResolvedId=\"1304\" />';
 xmlAliasData += '    <Map Name=\"ext-pam-overview\" Link=\"topics/privileged-access/pam-overview.htm\" ResolvedId=\"1305\" />';
+xmlAliasData += '    <Map Name=\"ext-define-attribute-statements\" Link=\"topics/apps/define-attribute-statements.htm\" ResolvedId=\"19031\" />';
+xmlAliasData += '    <Map Name=\"ext-define-group-attribute-statements\" Link=\"topics/apps/define-group-attribute-statements.htm\" ResolvedId=\"19032\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
