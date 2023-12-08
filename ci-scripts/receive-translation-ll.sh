@@ -18,7 +18,7 @@ popd
 
 set -x
 git status
-echo 'sitemap path: ' ${EN_PATH}/Sitemap.xml
+echo $PWD
 # get en sitemap for syncing ja content
 git restore --source origin/${TRANSLATION_BRANCH} -- ${EN_PATH}/Sitemap.xml
 git status
