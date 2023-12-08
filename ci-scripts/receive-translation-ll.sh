@@ -10,42 +10,27 @@ git fetch --depth=1 origin ${BASE_BRANCH}
 git switch ${BASE_BRANCH}
 git checkout -b ${TRANSLATION_RECEIVING_BRANCH}
 
-
 set -x
-# get ja files from translation branch
 git fetch --depth=1 origin ${TRANSLATION_BRANCH}
 
-git status
-echo $PWD
 # get en sitemap for syncing ja content
 git restore --source origin/${TRANSLATION_BRANCH} -- ${EN_PATH}/Sitemap.xml
-git status
 
+# get ja files from translation branch
 pushd ${JA_PATH}
 git restore --source origin/${TRANSLATION_BRANCH} -- .
 popd
-
 
 # run post processing
 yum -y install python3-devel
 python3 scripts/translation_postprocessing.py ${TARGET}
 
-
-git status
-echo $PWD
-# get en sitemap for syncing ja content
-git restore --source origin/${TRANSLATION_BRANCH} -- ${EN_PATH}/Sitemap.xml
-git status
-
 # revert en sitemap
-# git checkout -- ${EN_PATH}/Sitemap.xml
-# git status
+git checkout -- ${EN_PATH}/Sitemap.xml
 
 git add --all
 git -c user.name='CI Automation' -c user.email=${userEmail} commit -m "$(TZ=UTC+8 date +'%Y-%m-%d %H:%M:%S') Receiving translation for ${TARGET^^} project"
 git push origin ${TRANSLATION_RECEIVING_BRANCH}
-
-exit
 
 export PR_TITLE="Receiving translation for ${TARGET^^}"
 export PR_BODY="${TARGET^^} translation for the latest commit: ${TRANSLATION_COMMITS}"
