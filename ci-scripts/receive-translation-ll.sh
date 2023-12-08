@@ -12,6 +12,13 @@ git checkout -b ${TRANSLATION_RECEIVING_BRANCH}
 
 # get ja files from translation branch
 git fetch --depth=1 origin ${TRANSLATION_BRANCH}
+
+git status
+echo $PWD
+# get en sitemap for syncing ja content
+git restore --source origin/${TRANSLATION_BRANCH} -- ${EN_PATH}/Sitemap.xml
+git status
+
 pushd ${JA_PATH}
 git restore --source origin/${TRANSLATION_BRANCH} -- .
 popd
