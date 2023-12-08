@@ -156,7 +156,7 @@ def walk2(lang_dir, sitemap_files):
                 print("skipping", path)
                 continue
 
-            sitemap_path = path.removeprefix(base_to_remove)
+            sitemap_path = path.replace(base_to_remove, '')
             if not sitemap_path in sitemap_files:
                 print("unknown file:", sitemap_path)
                 files_for_deletion.append(path)
