@@ -31,6 +31,8 @@ python3 scripts/translation_postprocessing.py ${TARGET}
 # git checkout -- ${EN_PATH}/Sitemap.xml
 git status
 
+exit
+
 git add --all
 git -c user.name='CI Automation' -c user.email=${userEmail} commit -m "$(TZ=UTC+8 date +'%Y-%m-%d %H:%M:%S') Receiving translation for ${TARGET^^} project"
 git push origin ${TRANSLATION_RECEIVING_BRANCH}
@@ -60,7 +62,6 @@ then
   exit ${FAILED_SETUP}
 fi
 
-exit
 send_slack_message "${SLACK_CHANNEL}" \
   ":white_check_mark: [${TARGET^^}] translation is ready for review" \
   "Author: ${userEmail} \n PR: ${URL} \n Bacon: ${BACON_LINK}" \
