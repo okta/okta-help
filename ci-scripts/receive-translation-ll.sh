@@ -16,8 +16,10 @@ pushd ${JA_PATH}
 git restore --source origin/${TRANSLATION_BRANCH} -- .
 popd
 
+git status
 # get en sitemap for syncing ja content
 git restore --source origin/${TRANSLATION_BRANCH} -- ${EN_PATH}/Sitemap.xml
+git status
 
 # run post processing
 yum -y install python3-devel
@@ -25,6 +27,7 @@ python3 scripts/translation_postprocessing.py ${TARGET}
 
 # revert en sitemap
 git checkout -- ${EN_PATH}/Sitemap.xml
+git status
 
 git add --all
 git -c user.name='CI Automation' -c user.email=${userEmail} commit -m "$(TZ=UTC+8 date +'%Y-%m-%d %H:%M:%S') Receiving translation for ${TARGET^^} project"
@@ -55,6 +58,7 @@ then
   exit ${FAILED_SETUP}
 fi
 
+exit
 send_slack_message "${SLACK_CHANNEL}" \
   ":white_check_mark: [${TARGET^^}] translation is ready for review" \
   "Author: ${userEmail} \n PR: ${URL} \n Bacon: ${BACON_LINK}" \
