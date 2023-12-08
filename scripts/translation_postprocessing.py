@@ -140,8 +140,8 @@ def restore_release_notes(target):
         shutil.move(release_notes_backup, release_notes)
 
 def remove_stale_files(lang_dir, sitemap_files):
-    """Walk the dir tree from `lang_dir`, applying string replacements
-       for each pair in `pairs`.
+    """Walk the dir tree from `lang_dir`, deletes files which are not included
+       into sitemap.
     """
     files_for_deletion = []
     base_to_remove = lang_dir + '/content/topics/'
