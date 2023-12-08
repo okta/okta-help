@@ -139,6 +139,11 @@ def restore_release_notes(target):
     if os.path.isdir(release_notes_backup):
         shutil.move(release_notes_backup, release_notes)
 
+def sync_files_with_en_folder(target):
+    """ """
+    base_path = en_us if target == 'oce' else target + '/' + en_us;
+
+
 def main(target, pairs_file):
     if target not in targets:
         raise TranslationPostProcessingException(invalid_target % target)

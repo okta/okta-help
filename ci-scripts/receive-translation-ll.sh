@@ -16,7 +16,9 @@ pushd ${JA_PATH}
 git restore --source origin/${TRANSLATION_BRANCH} -- .
 popd
 
+set -x
 git status
+echo 'sitemap path: ' ${EN_PATH}/Sitemap.xml
 # get en sitemap for syncing ja content
 git restore --source origin/${TRANSLATION_BRANCH} -- ${EN_PATH}/Sitemap.xml
 git status
@@ -26,7 +28,7 @@ yum -y install python3-devel
 python3 scripts/translation_postprocessing.py ${TARGET}
 
 # revert en sitemap
-git checkout -- ${EN_PATH}/Sitemap.xml
+# git checkout -- ${EN_PATH}/Sitemap.xml
 git status
 
 git add --all
