@@ -139,12 +139,65 @@ def restore_release_notes(target):
     if os.path.isdir(release_notes_backup):
         shutil.move(release_notes_backup, release_notes)
 
+def remove_stale_files(lang_dir, sitemap_files):
+    """Walk the dir tree from `lang_dir`, applying string replacements
+       for each pair in `pairs`.
+    """
+    files_for_deletion = []
+    base_to_remove = lang_dir + '/content/topics/'
+    release_notes_path = base_to_remove + 'releasenotes/'
+
+    for root, dirs, files in os.walk(lang_dir):
+        for file in files:
+            if not file.endswith('.htm'):
+                continue
+
+            path = os.path.join(root, file)
+
+            if not path.startswith(base_to_remove):
+                continue
+
+            sitemap_file = path.replace(base_to_remove, '')
+            if not sitemap_file in sitemap_files:
+                if path.startswith(release_notes_path):
+                    print("skip rel notes:", sitemap_file)
+                    continue
+                print("delete stale:", sitemap_file)
+                files_for_deletion.append(path)
+
+    for file in files_for_deletion:
+        os.remove(file)
+
+def get_sitemap_files(sitemap_path):
+    matches = []
+
+    file_path_regex = "/en-us/content/topics/(.*htm)</loc>"
+    regexp = re.compile(file_path_regex)
+    with open (sitemap_path, 'r') as sitemap:
+        for line in sitemap:
+            matches += regexp.findall(line)
+
+    return matches
+
+def sync_files_with_en_folder(target):
+    """ Synchronizes file structure in translated folder with english folder.
+        Is required for removing stale files in ja-jp folder.
+    """
+    sitemap_path = en_us if target == 'oce' else target + '/' + en_us
+    sitemap_path += '/Sitemap.xml'
+    sitemap_files = get_sitemap_files(sitemap_path)
+
+    lang_dir = get_lang_dir(target)
+
+    remove_stale_files(lang_dir, sitemap_files)
+
 def main(target, pairs_file):
     if target not in targets:
         raise TranslationPostProcessingException(invalid_target % target)
 
     replace_strings(target, pairs_file)
     restore_release_notes(target)
+    sync_files_with_en_folder(target)
 
 class TranslationPostProcessingException(Exception):
     def __init__(self, msg):
