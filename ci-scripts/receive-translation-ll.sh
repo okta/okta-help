@@ -10,6 +10,8 @@ git fetch --depth=1 origin ${BASE_BRANCH}
 git switch ${BASE_BRANCH}
 git checkout -b ${TRANSLATION_RECEIVING_BRANCH}
 
+
+set -x
 # get ja files from translation branch
 git fetch --depth=1 origin ${TRANSLATION_BRANCH}
 
@@ -22,8 +24,6 @@ git status
 pushd ${JA_PATH}
 git restore --source origin/${TRANSLATION_BRANCH} -- .
 popd
-
-set -x
 
 
 # run post processing
