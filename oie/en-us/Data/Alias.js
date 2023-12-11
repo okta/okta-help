@@ -706,5 +706,15 @@ xmlAliasData += '    <Map Name=\"csh-pam-entitlement-aws-connect\" Link=\"topics
 xmlAliasData += '    <Map Name=\"ext-pam-overview\" Link=\"topics/privileged-access/pam-overview.htm\" ResolvedId=\"1305\" />';
 xmlAliasData += '    <Map Name=\"ext-define-attribute-statements\" Link=\"topics/apps/define-attribute-statements.htm\" ResolvedId=\"19031\" />';
 xmlAliasData += '    <Map Name=\"ext-define-group-attribute-statements\" Link=\"topics/apps/define-group-attribute-statements.htm\" ResolvedId=\"19032\" />';
+xmlAliasData += '    <Map Name=\"ext-pam-gateways\" Link=\"topics/privileged-access/gateways/pam-gateways.htm\" ResolvedId=\"1306\" />';
+xmlAliasData += '    <Map Name=\"ext-pam-groups\" Link=\"topics/privileged-access/pam-groups.htm\" ResolvedId=\"1307\" />';
+xmlAliasData += '    <Map Name=\"ext-pam-clients\" Link=\"topics/privileged-access/clients/pam-clients.htm\" ResolvedId=\"1308\" />';
+xmlAliasData += '    <Map Name=\"ext-pam-projects\" Link=\"topics/privileged-access/pam-projects.htm\" ResolvedId=\"1309\" />';
+xmlAliasData += '    <Map Name=\"ext-pam-secrets-folder\" Link=\"topics/privileged-access/pam-secrets-folder.htm\" ResolvedId=\"1310\" />';
+xmlAliasData += '    <Map Name=\"ext-pam-resource-groups\" Link=\"topics/privileged-access/pam-resource-groups.htm\" ResolvedId=\"1311\" />';
+xmlAliasData += '    <Map Name=\"ext-pam-server-enrollment\" Link=\"topics/privileged-access/server-agent/pam-enroll-a-server.htm\" ResolvedId=\"1312\" />';
+xmlAliasData += '    <Map Name=\"ext-pam-policy\" Link=\"topics/privileged-access/pam-policy.htm\" ResolvedId=\"1313\" />';
+xmlAliasData += '    <Map Name=\"ext-pam-entitlement-analysis\" Link=\"topics/privileged-access/pam-entitlement-analysis.htm\" ResolvedId=\"1314\" />';
+xmlAliasData += '    <Map Name=\"ext-pam-secrets\" Link=\"topics/privileged-access/pam-secrets.htm\" ResolvedId=\"1315\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
