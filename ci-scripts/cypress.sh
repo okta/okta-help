@@ -15,7 +15,7 @@ export DISPLAY=:99.0
 yum update -y
 yum -y install gtk2-2.24* xorg-x11-server-Xvfb libXtst* libXScrnSaver* GConf2* alsa-lib* gtk3
 
-setup_service node v18.0.0
+setup_service node v16.14.0
 setup_service yarn 1.21.1
 
 if ! yarn; then
