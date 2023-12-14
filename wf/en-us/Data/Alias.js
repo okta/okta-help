@@ -1374,5 +1374,13 @@ xmlAliasData += '    <Map Name=\"ext-connectorbuilder-webhookevent-deregister\" 
 xmlAliasData += '    <Map Name=\"ext-connectorbuilder-webhookevent-knownissues\" Link=\"topics/workflows/connector-builder/webhook-event-knownissues.htm\" ResolvedId=\"6073\" />';
 xmlAliasData += '    <Map Name=\"ext-connectorbuilder-webhookevent-register\" Link=\"topics/workflows/connector-builder/webhook-event-register.htm\" ResolvedId=\"6074\" />';
 xmlAliasData += '    <Map Name=\"ext-connectorbuilder-webhookevent-runmode\" Link=\"topics/workflows/connector-builder/webhook-event-runmode.htm\" ResolvedId=\"6075\" />';
+xmlAliasData += '    <Map Name=\"ext-office365admin-method-groupcreated\" Link=\"topics/workflows/connector-reference/azuread/events/groupcreated.htm\" ResolvedId=\"6076\" />';
+xmlAliasData += '    <Map Name=\"ext-office365admin-method-groupdeleted\" Link=\"topics/workflows/connector-reference/azuread/events/groupdeleted.htm\" ResolvedId=\"6077\" />';
+xmlAliasData += '    <Map Name=\"ext-office365admin-method-groupmemberadded\" Link=\"topics/workflows/connector-reference/azuread/events/groupmemberadded.htm\" ResolvedId=\"6078\" />';
+xmlAliasData += '    <Map Name=\"ext-office365admin-method-groupmemberremoved\" Link=\"topics/workflows/connector-reference/azuread/events/groupmemberremoved.htm\" ResolvedId=\"6079\" />';
+xmlAliasData += '    <Map Name=\"ext-office365admin-method-groupupdated\" Link=\"topics/workflows/connector-reference/azuread/events/groupupdated.htm\" ResolvedId=\"6080\" />';
+xmlAliasData += '    <Map Name=\"ext-office365admin-method-usercreated\" Link=\"topics/workflows/connector-reference/azuread/events/usercreated.htm\" ResolvedId=\"6081\" />';
+xmlAliasData += '    <Map Name=\"ext-office365admin-method-userdeleted\" Link=\"topics/workflows/connector-reference/azuread/events/userdeleted.htm\" ResolvedId=\"6082\" />';
+xmlAliasData += '    <Map Name=\"ext-office365admin-method-userupdated\" Link=\"topics/workflows/connector-reference/azuread/events/userupdated.htm\" ResolvedId=\"6083\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
