@@ -1,1 +1,0 @@
-define({"../content/topics/betas/closed/windows-mfa/win-mfa-user-enroll-method.htm":1,"../content/topics/betas/closed/windows-mfa/win-mfa-user-sign-in.htm":2,"../content/topics/betas/closed/windows-mfa/win-mfa.htm":0,});
