@@ -4,7 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="typeofcontent" content="documentation" />
         <meta name="audience" content="OIE Admins" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Configure Hybrid Join in Azure AD | Okta</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Configure Hybrid Join in Azure Active Directory | Okta</title>
         <meta charset="utf-8" />
         <meta name="description" content="" />
         <meta name="author" content="" />
@@ -290,8 +290,8 @@
                                             <div class="body-main" data-test="bodyContent">
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
-                                                    <h1>Configure Hybrid Join in Azure AD</h1>
-                                                    <p>Now that Okta is federated with your Azure AD, Office 365 domain, and on-premises AD is connected to Okta via the AD Agent, we may begin configuring hybrid join.</p>
+                                                    <h1>Configure Hybrid Join in Azure Active Directory</h1>
+                                                    <p>When <span class="mc-variable okta-variables.ProductName variable">Okta</span> is federated with your Azure AD Office 365 domain and on-premises AD is connected to <span class="mc-variable okta-variables.ProductName variable">Okta</span> through the AD Agent, you can begin configuring Hybrid Join.</p>
                                                     <p>There are multiple ways to achieve this configuration. This topic explores the following methods:</p>
                                                     <ol>
                                                         <li value="1">
@@ -308,12 +308,12 @@
                                                         </li>
                                                     </ol>
                                                     <h2>About these methods and the resultant join types</h2>
-                                                    <p>With the Windows Autopilot and an MDM combination, the machine will be registered in Azure AD as <span class="term">Azure AD Joined</span>, and not as <span class="term">Hybrid Azure AD Joined</span>. This is because the machine was initially joined through the cloud and Azure AD.</p>
-                                                    <p>If you want the machine to be registered in Azure AD as <span class="term">Hybrid Azure AD Joined</span>, you also need to set up the Azure AD Connect and GPO method. When both methods are configured, local on-premises GPOs will be applied to the machine account, and with the next Azure AD Connect sync a new entry will appear in Azure AD. At this time you will see two records for the new device in Azure AD - Azure AD Join and Hybrid AD Join. Both are valid.</p>
+                                                    <p>With the Windows Autopilot and an MDM combination, the machine is registered in Azure AD as <span class="term">Azure AD Joined</span>, and not as <span class="term">Hybrid Azure AD Joined</span>. This is because the machine was initially joined through the cloud and Azure AD.</p>
+                                                    <p>If you want the machine to be registered in Azure AD as <span class="term">Hybrid Azure AD Joined</span>, you also need to set up the Azure AD Connect and GPO method. When both methods are configured, local on-premises GPOs are applied to the machine account. With the next Azure AD Connect sync, a new entry appears in Azure AD. Then you'll see two records for the new device in Azure AD: Azure AD Join and Hybrid AD Join. Both are valid.</p>
                                                     <p>For the difference between the two join types, see <a href="https://docs.microsoft.com/en-us/azure/active-directory/devices/concept-azure-ad-join">What is an Azure AD joined device?</a> and <a href="https://docs.microsoft.com/en-us/azure/active-directory/devices/concept-azure-ad-join-hybrid">What is a hybrid Azure AD joined device?</a>  (Microsoft Docs).</p>
                                                     <h2>Start this procedure</h2>
                                                     <h3><a name="Azure"></a>Azure AD Connect and Group Policy Objects</h3>
-                                                    <p>With this combination, you can sync local domain machines with your Azure AD instance. The machines synchronized from local AD will appear in Azure AD as <span class="term">Hybrid Azure AD Joined</span>.</p>
+                                                    <p>With this combination, you can sync local domain machines with your Azure AD instance. The machines synchronized from local AD appear in Azure AD as <span class="term">Hybrid Azure AD Joined</span>.</p>
                                                     <p>This procedure involves the following tasks:</p>
                                                     <ol>
                                                         <li value="1">
@@ -324,10 +324,10 @@
                                                         </li>
                                                         <li value="2">
                                                             <p>Configure Azure AD Connect for Hybrid Join: See <a href="https://docs.microsoft.com/en-us/azure/active-directory/devices/hybrid-azuread-join-managed-domains#configure-hybrid-azure-ad-join">Configure Azure AD Connect for Hybrid Join</a> (Microsoft Docs). </p>
-                                                            <p>During SCP configuration, set the <span class="uicontrol">Authentication Service</span> to the Okta org you’ve federated with your registered Microsoft 365 domain.</p>
+                                                            <p>During Service Connection Point (SCP) configuration, set the <span class="uicontrol">Authentication Service</span> to the Okta org you have federated with your registered Microsoft 365 domain.</p>
                                                         </li>
                                                         <li value="3">
-                                                            <p>Configure the auto-enrollment for a group of devices: Configure Group Policy to allow your local domain devices automatically register through Azure AD Connect as Hybrid Joined machines. </p>
+                                                            <p>Configure the auto-enrollment for a group of devices: configure a group policy to allow your local domain devices to automatically register through Azure AD Connect as Hybrid joined machines. </p>
                                                             <p>See <a href="https://docs.microsoft.com/en-us/windows/client-management/mdm/enroll-a-windows-10-device-automatically-using-group-policy#configure-the-auto-enrollment-for-a-group-of-devices">Enroll a Windows 10 device automatically using Group Policy</a> (Microsoft Docs).</p>
                                                         </li>
                                                     </ol>
@@ -335,13 +335,13 @@
                                                     <p>Once you’ve configured Azure AD Connect and appropriate GPOs, the general flow for connecting local devices looks as follows:</p>
                                                     <ol>
                                                         <li value="1">
-                                                            <p>A new local device will attempt an immediate join by using the Service Connection Point (SCP) you set up during Azure AD Connect configuration to find your Azure AD tenant federation information. The device then reaches out to a Security Token Service (STS) server. The authentication attempt will fail and automatically revert to a synchronized join.</p>
+                                                            <p>A new local device attempts an immediate join by using the SCP you set up during Azure AD Connect configuration to find your Azure AD tenant federation information. The device then reaches out to a Security Token Service (STS) server. The authentication attempt fails and automatically reverts to a synchronized join.</p>
                                                         </li>
                                                         <li value="2">
-                                                            <p>Upon failure, the device will update its userCertificate attribute with a certificate from Azure AD.</p>
+                                                            <p>Upon failure, the device updates its userCertificate attribute with a certificate from Azure AD.</p>
                                                         </li>
                                                         <li value="3">
-                                                            <p>On its next sync interval, Azure AD Connect sends the computer object to Azure AD with the userCertificate value. The device will appear in Azure AD as joined but not registered. The sync interval may vary depending on your configuration. The default interval is 30 minutes.</p>
+                                                            <p>On its next sync interval, Azure AD Connect sends the computer object to Azure AD with the userCertificate value. The device appears in Azure AD as joined but not registered. The sync interval may vary depending on your configuration. The default interval is 30 minutes.</p>
                                                         </li>
                                                         <li value="4">
                                                             <p>Using a scheduled task in Windows from the GPO an Azure AD join is retried.</p>
@@ -351,13 +351,13 @@
                                                         </li>
                                                     </ol>
                                                     <h3><a name="Windows"></a>Windows Autopilot and Microsoft Intune</h3>
-                                                    <p>This method will create local domain objects for your Azure AD devices upon registration with Azure AD.  With this combination, machines synchronized from Azure AD will appear in Azure AD as <span class="term">Azure AD Joined</span>, in addition to being created in the local on-prem AD domain.</p>
+                                                    <p>This method creates local domain objects for your Azure AD devices upon registration with Azure AD.  With this combination, machines synchronized from Azure AD appear in Azure AD as <span class="term">Azure AD Joined</span>, in addition to being created in the local on-premises AD domain.</p>
                                                     <p>This procedure involves the following tasks:</p>
                                                     <ol>
                                                         <li value="1">
                                                             <p>Set up Windows Autopilot and Microsoft Intune in Azure AD: See <a href="https://docs.microsoft.com/en-us/mem/autopilot/windows-autopilot-hybrid">Deploy hybrid Azure AD-joined devices by using Intune and Windows Autopilot</a> (Microsoft Docs).</p>
                                                             <div class="noteOkta">
-                                                                <p class="noteContent">The installer for Intune Connector must be downloaded using the Microsoft Edge browser. Since Microsoft Server 2016 doesn't support the Edge browser, you can use a Windows 10 client with Edge to download the installer and copy it to the appropriate server.</p>
+                                                                <p class="noteContent">The installer for Intune Connector must be downloaded using the Microsoft Edge browser. Since Microsoft Server 2016 doesn't support Edge, you can use Windows 10 to download the installer and copy it to the appropriate server.</p>
                                                             </div>
                                                         </li>
                                                         <li value="2">
@@ -367,16 +367,16 @@
                                                             <p>Test the configuration: Once the Windows Autopilot and Microsoft Intune setup is complete, test the configuration using the following steps:</p>
                                                             <ol style="list-style-type: lower-alpha;">
                                                                 <li value="1">
-                                                                    <p>Ensure the device can resolve the local domain (DNS), but is not joined to it as a member. The new device will be joined to Azure AD from the Windows Autopilot Out-of-Box-Experience (OOBE).</p>
+                                                                    <p>Ensure that the device can resolve the local domain (DNS), but isn't joined to it as a member. The new device is joined to Azure AD from the Windows Autopilot Out-of-Box-Experience (OOBE).</p>
                                                                 </li>
                                                                 <li value="2">
-                                                                    <p>On the <span class="wintitle">Sign in with Microsoft</span> window, enter your username  federated with your Azure account. You will be redirected to Okta for sign on.</p>
+                                                                    <p>On the <span class="wintitle">Sign in with Microsoft</span> window, enter your username  federated with your Azure account. You're redirected to Okta to sign in.</p>
                                                                 </li>
                                                                 <li value="3">
-                                                                    <p>Once the sign-on process is complete, the computer will begin the device set-up through Windows Autopilot OOBE. This may take several minutes.</p>
+                                                                    <p>Once the sign-on process is complete, the computer begins the device set-up through Windows Autopilot OOBE. This may take several minutes.</p>
                                                                 </li>
                                                                 <li value="4">
-                                                                    <p>During this period the client will be registered on the local domain through the Domain Join Profile created as part of setting up Microsoft Intune and Windows Autopilot. A machine account will be created in the specified Organizational Unit (OU). The client machine will also be added as a device to Azure AD and registered with Intune MDM.</p>
+                                                                    <p>During this period the client is registered on the local domain through the Domain Join profile created as part of setting up Microsoft Intune and Windows Autopilot. A machine account is created in the specified Organizational Unit (OU). The client machine is also added as a device to Azure AD and registered with Intune MDM.</p>
                                                                 </li>
                                                             </ol>
                                                         </li>
