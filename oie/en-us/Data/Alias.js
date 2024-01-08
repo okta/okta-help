@@ -717,5 +717,7 @@ xmlAliasData += '    <Map Name=\"ext-pam-policy\" Link=\"topics/privileged-acces
 xmlAliasData += '    <Map Name=\"ext-pam-entitlement-analysis\" Link=\"topics/privileged-access/pam-entitlement-analysis.htm\" ResolvedId=\"1314\" />';
 xmlAliasData += '    <Map Name=\"ext-pam-secrets\" Link=\"topics/privileged-access/pam-secrets.htm\" ResolvedId=\"1315\" />';
 xmlAliasData += '    <Map Name=\"csh-manage-certs\" Link=\"topics/apps/manage-signing-certificates.htm\" ResolvedId=\"9011\" />';
+xmlAliasData += '    <Map Name=\"csh-detect-lockouts\" Link=\"topics/security/security_general.htm#DetectLockouts\" ResolvedId=\"5016\" />';
+xmlAliasData += '    <Map Name=\"csh-stay-signed-in\" Link=\"topics/security/security_general.htm#Organiza\" ResolvedId=\"5030\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
