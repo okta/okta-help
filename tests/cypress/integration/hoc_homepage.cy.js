@@ -31,5 +31,12 @@ describe('Okta H.O.C. landing page (ja-JP)', () => {
     cy.hasDeferAttrsCorrectlyApplied()
     // cy.hasQualtrics()
     cy.hidesCoveoSearchBar()
+
+    cy.get('p[class="tile-title"] > a')
+    .each(($el) => {
+      cy.wrap($el)
+        .should('have.attr', 'href')
+        .and('not.contain', 'en-us')
+    })
   })
 })
