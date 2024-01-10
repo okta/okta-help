@@ -135,4 +135,14 @@ describe('Locale switching', () => {
     cy.switchLocale('言語を変更', 'English (United States)')
     cy.url().should('include', 'wf/en-us/content/topics/workflows/workflows-main.htm')
   })
+
+  it('redirects to expected URLs for H.O.C. home page', () => {
+    visitAndWaitForInitialize('en-us/content/index.htm')
+    cy.switchLocale('Change language', '日本語 (日本)‎')
+    cy.url().should('include', 'ja-jp/content/index.htm')
+
+    visitAndWaitForInitialize('ja-jp/content/index.htm')
+    cy.switchLocale('言語を変更', 'English (United States)')
+    cy.url().should('include', 'en-us/content/index.htm')
+  })
 })
