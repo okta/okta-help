@@ -434,7 +434,7 @@ xmlAliasData += '    <Map Name=\"ext-googledirectory-method-creategroup\" Link=\
 xmlAliasData += '    <Map Name=\"ext-googledirectory-method-createuser\" Link=\"topics/workflows/connector-reference/googledirectory/actions/createuser.htm\" ResolvedId=\"30221\" />';
 xmlAliasData += '    <Map Name=\"ext-googledirectory-method-createuseralias\" Link=\"topics/workflows/connector-reference/googledirectory/actions/createuseralias.htm\" ResolvedId=\"30222\" />';
 xmlAliasData += '    <Map Name=\"ext-googledirectory-method-customapiaction\" Link=\"topics/workflows/connector-reference/googledirectory/actions/customapiaction.htm\" ResolvedId=\"30223\" />';
-xmlAliasData += '    <Map Name=\"ext-googledirectory-method-deactivateuser\" Link=\"topics/workflows/connector-reference/googledirectory/actions/deactivateuser.htm\" ResolvedId=\"30224\" />';
+xmlAliasData += '    <Map Name=\"ext-googledirectory-method-deactivateuser\" Link=\"topics/workflows/connector-reference/googledirectory/actions/suspenduser.htm\" ResolvedId=\"30224\" />';
 xmlAliasData += '    <Map Name=\"ext-googledirectory-method-deletegroup\" Link=\"topics/workflows/connector-reference/googledirectory/actions/deletegroup.htm\" ResolvedId=\"30225\" />';
 xmlAliasData += '    <Map Name=\"ext-googledirectory-method-deleteuser\" Link=\"topics/workflows/connector-reference/googledirectory/actions/deleteuser.htm\" ResolvedId=\"30226\" />';
 xmlAliasData += '    <Map Name=\"ext-googledirectory-method-deleteuseraccesstokens\" Link=\"topics/workflows/connector-reference/googledirectory/actions/deleteuseraccesstoken.htm\" ResolvedId=\"30227\" />';
@@ -1382,5 +1382,7 @@ xmlAliasData += '    <Map Name=\"ext-office365admin-method-groupupdated\" Link=\
 xmlAliasData += '    <Map Name=\"ext-office365admin-method-usercreated\" Link=\"topics/workflows/connector-reference/azuread/events/usercreated.htm\" ResolvedId=\"6081\" />';
 xmlAliasData += '    <Map Name=\"ext-office365admin-method-userdeleted\" Link=\"topics/workflows/connector-reference/azuread/events/userdeleted.htm\" ResolvedId=\"6082\" />';
 xmlAliasData += '    <Map Name=\"ext-office365admin-method-userupdated\" Link=\"topics/workflows/connector-reference/azuread/events/userupdated.htm\" ResolvedId=\"6083\" />';
+xmlAliasData += '    <Map Name=\"ext-bamboohr\" Link=\"topics/workflows/connector-reference/bamboohr/bamboohr.htm\" ResolvedId=\"6085\" />';
+xmlAliasData += '    <Map Name=\"ext-googledirectory-method-suspenduser\" Link=\"topics/workflows/connector-reference/googledirectory/actions/suspenduser.htm\" ResolvedId=\"6084\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
