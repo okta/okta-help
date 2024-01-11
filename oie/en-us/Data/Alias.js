@@ -719,5 +719,17 @@ xmlAliasData += '    <Map Name=\"ext-pam-secrets\" Link=\"topics/privileged-acce
 xmlAliasData += '    <Map Name=\"csh-manage-certs\" Link=\"topics/apps/manage-signing-certificates.htm\" ResolvedId=\"9011\" />';
 xmlAliasData += '    <Map Name=\"csh-detect-lockouts\" Link=\"topics/security/security_general.htm#DetectLockouts\" ResolvedId=\"5016\" />';
 xmlAliasData += '    <Map Name=\"csh-stay-signed-in\" Link=\"topics/security/stay-signed-in.htm\" ResolvedId=\"5030\" />';
+xmlAliasData += '    <Map Name=\"csh-devices-main\" Link=\"topics/identity-engine/devices/devices-main.htm\" ResolvedId=\"5031\" />';
+xmlAliasData += '    <Map Name=\"csh-manage-profile-attributes\" Link=\"topics/users-groups-profiles/usgp-user-profile-attributes-main.htm\" ResolvedId=\"5032\" />';
+xmlAliasData += '    <Map Name=\"csh-apps-main\" Link=\"topics/apps/apps_apps.htm\" ResolvedId=\"5033\" />';
+xmlAliasData += '    <Map Name=\"csh-about-enrollment-policies\" Link=\"topics/identity-engine/policies/about-mfa-enrollment-policies.htm\" ResolvedId=\"5034\" />';
+xmlAliasData += '    <Map Name=\"csh-system-log\" Link=\"topics/reports/reports_syslog.htm\" ResolvedId=\"5035\" />';
+xmlAliasData += '    <Map Name=\"csh-dashboard-monitor-tasks\" Link=\"topics/dashboard/monitor-your-tasks.htm\" ResolvedId=\"5036\" />';
+xmlAliasData += '    <Map Name=\"csh-ad-agent-new-int\" Link=\"topics/directory/ad-agent-new-integration.htm\" ResolvedId=\"5037\" />';
+xmlAliasData += '    <Map Name=\"csh-admin-get-started\" Link=\"topics/security/admin-get-started.htm\" ResolvedId=\"5038\" />';
+xmlAliasData += '    <Map Name=\"csh-oie-get-started\" Link=\"topics/identity-engine/oie-get-started.htm\" ResolvedId=\"5039\" />';
+xmlAliasData += '    <Map Name=\"csh-apps-self-service\" Link=\"topics/apps/apps-selfservice-main.htm\" ResolvedId=\"5040\" />';
+xmlAliasData += '    <Map Name=\"csh-import-monitoring-dash\" Link=\"topics/users-groups-profiles/usgp-view-import-monitoring-dashboard.htm\" ResolvedId=\"5041\" />';
+xmlAliasData += '    <Map Name=\"csh-idp-add-saml\" Link=\"topics/security/idp-add-saml.htm\" ResolvedId=\"18024\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
