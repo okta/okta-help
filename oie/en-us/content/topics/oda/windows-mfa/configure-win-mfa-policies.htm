@@ -293,6 +293,7 @@
                                                 <div role="main" id="mc-main-content">
                                                     <h1><a name="mfa-task-3"></a>Configure <span class="mc-variable okta-feature-names.Desktop_MFA variable">Desktop MFA</span> policies</h1>
                                                     <p>Policies that define how <span class="mc-variable okta-feature-names.Desktop_MFA variable">Desktop MFA</span> works are configured on the Windows endpoint registry keys. </p>
+                                                    <h2><a name="mfa-reg-keys"></a>Configure registry keys</h2>
                                                     <p style="font-weight: normal;">Create a PowerShell script and use your MDM solution to deploy the registry keys to your endpoints. For details see <a href="https://learn.microsoft.com/en-us/mem/intune/apps/intune-management-extension" target="_blank">Use PowerShell scripts on Windows 10/11 devices in Intune</a> in the Microsoft documentation. </p>
                                                     <p style="font-weight: normal;">The registry key is stored at <span class="filepath">HKLM\Software\Policies\Okta\Okta Device Access</span>.</p>
                                                     <p>After initial installation, you can make updates to registry key parameters with PowerShell. Running the Okta Verify installer a second time with command-line parameters doesn't change existing registry key parameters.</p>
@@ -311,63 +312,142 @@
                                                             <tr class="TableStyle-standard-Body-Body2">
                                                                 <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="code">MFARequiredList</span>
                                                                 </td>
-                                                                <td class="TableStyle-standard-BodyF-Column1-Body2">List of users or Active Directory groups that must authenticate with MFA in addition to a password. Users who aren't in this list (including local users) don't have to authenticate with MFA. If the list is empty, users don't have to use MFA to sign in to Windows.<p>The username format to specify individual users is <span class="userinput">username@domain.com</span>. For groups, specify only the group name. </p><p>Users must sign in to Windows at least one time when the computer is online and connected to the organization's network (directly or by VPN). This enables users' Active Directory group membership to be resolved.</p></td>
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body2">List of users or Active Directory groups that must authenticate with MFA in addition to a password. Users who aren't in this list (including local users) don't have to authenticate with MFA. If the list is empty, users don't have to use MFA to sign in to Windows.<p>The username format to specify individual users is <span class="userinput">username@domain.com</span>. For groups, specify only the group name. </p><p>Users must sign in to Windows at least one time when the computer is online and connected to the organization's network (directly or by VPN). This resolves the users' Active Directory group membership.</p></td>
                                                                 <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="code">REG_MULTI_SZ</span>
                                                                 </td>
                                                                 <td class="TableStyle-standard-BodyD-Column1-Body2"><span class="code">*</span> MFA applies to all users</td>
                                                             </tr>
-                                                            <tr class="TableStyle-standard-Body-Body1">
-                                                                <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="code">MaxLoginsWithoutEnrolledFactors</span>
+                                                            <tr class="TableStyle-standard-Body-Body1" data-mc-conditions="">
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="code">MFABypassList</span>
                                                                 </td>
-                                                                <td class="TableStyle-standard-BodyF-Column1-Body1">Defines how many times  users can sign in to Windows without an MFA method. This policy allows new users to postpone setting up MFA methods for the set number of times.<p>If a user exceeds the sign-in attempts limit, access is denied.</p></td>
-                                                                <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="code">REG_DWORD</span>
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body1">Users in this list aren't required to authenticate with MFA. If a user is listed in both <span class="code">MFARequiredList</span> and <span class="code">MFABypassList</span>, <span class="code">MFABypassList</span> takes precedence.</td>
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="code">REG_MULTI_SZ</span>
                                                                 </td>
-                                                                <td class="TableStyle-standard-BodyD-Column1-Body1">50</td>
+                                                                <td class="TableStyle-standard-BodyD-Column1-Body1">Empty</td>
                                                             </tr>
                                                             <tr class="TableStyle-standard-Body-Body2">
-                                                                <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="code">MaxLoginsWithOfflineFactor</span>
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="code">MaxLoginsWithoutEnrolledFactors</span>
                                                                 </td>
-                                                                <td class="TableStyle-standard-BodyF-Column1-Body2">Defines how many times users can sign in to Windows with offline MFA methods (without internet access). This policy also applies when computers are online and the user authenticates with offline MFA methods.<p>If a user exceeds the sign-in attempts limit, access is denied. The user is prompted to connect to the internet to authenticate with an online sign-in method instead.</p></td>
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body2">Defines how many times  users can sign in to Windows without an MFA method. This policy allows new users to postpone setting up MFA methods for the set number of times.<p>If a user exceeds the sign-in attempts limit, access is denied.</p></td>
                                                                 <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="code">REG_DWORD</span>
                                                                 </td>
                                                                 <td class="TableStyle-standard-BodyD-Column1-Body2">50</td>
                                                             </tr>
-                                                            <tr class="TableStyle-standard-Body-Body1" data-mc-conditions="">
-                                                                <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="code">MFAGracePeriodInMinutes</span>
+                                                            <tr class="TableStyle-standard-Body-Body1">
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="code">MaxLoginsWithOfflineFactor</span>
                                                                 </td>
-                                                                <td class="TableStyle-standard-BodyF-Column1-Body1">Defines the length of a grace period (in minutes) that a user has without needing to use MFA after locking the computer. If <span class="code">MFAGracePeriodInMinutes</span> is set to <span class="code">0</span>, the user is prompted to verify their identity using MFA at every log in.<p>The grace period is only applicable when locking the computer. Switching user accounts or restarting the computer prompts the user to verify their identity using MFA.</p></td>
-                                                                <td class="TableStyle-standard-BodyF-Column1-Body1">
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body1">Defines how many times users can sign in to Windows with offline MFA methods (without internet access). This policy also applies when computers are online and the user authenticates with offline MFA methods.<p>If a user exceeds the sign-in attempts limit, access is denied. The user is prompted to connect to the internet to authenticate with an online sign-in method instead.</p></td>
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="code">REG_DWORD</span>
+                                                                </td>
+                                                                <td class="TableStyle-standard-BodyD-Column1-Body1">50</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-standard-Body-Body2" data-mc-conditions="">
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="code">MFAGracePeriodInMinutes</span>
+                                                                </td>
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body2">Defines the length of a grace period (in minutes) that a user has without needing to use MFA after locking the computer. If <span class="code">MFAGracePeriodInMinutes</span> is set to <span class="code">0</span>, the user is prompted to verify their identity using MFA every time they sign in.<p>The grace period is only applicable when locking the computer. Switching user accounts or restarting the computer prompts the user to verify their identity using MFA.</p></td>
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body2">
                                                                     <p><span class="code">REG_DWORD</span>
                                                                     </p>
                                                                 </td>
-                                                                <td class="TableStyle-standard-BodyD-Column1-Body1">60 </td>
-                                                            </tr>
-                                                            <tr class="TableStyle-standard-Body-Body2" data-mc-conditions="">
-                                                                <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="code">AdminContactInfo</span>
-                                                                </td>
-                                                                <td class="TableStyle-standard-BodyF-Column1-Body2">Configurable string to allow end users to contact admins if they're locked out of their computer. This string has no default value.<p>Example: <span class="code">Contact your Help Desk at help@org.com or call 1-800-xxx-xxxx</span>.</p></td>
-                                                                <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="code">REG_SZ</span>
-                                                                </td>
-                                                                <td class="TableStyle-standard-BodyD-Column1-Body2">Empty</td>
+                                                                <td class="TableStyle-standard-BodyD-Column1-Body2">60 </td>
                                                             </tr>
                                                             <tr class="TableStyle-standard-Body-Body1" data-mc-conditions="">
-                                                                <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="code">ExcludePasswordCredProvider</span>
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="code">AdminContactInfo</span>
                                                                 </td>
-                                                                <td class="TableStyle-standard-BodyF-Column1-Body1">The standard Windows password credential provider is disabled by default. To show the Windows credential provider, set this value to <span class="code">0</span>. The Windows password credential provider is restored for end users.</td>
-                                                                <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="code">REG_DWORD</span>
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body1">Configurable string to allow end users to contact admins if they're locked out of their computer. This string has no default value.<p>Example: <span class="code">Contact your Help Desk at help@org.com or call 1-800-xxx-xxxx</span>.</p></td>
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="code">REG_SZ</span>
                                                                 </td>
                                                                 <td class="TableStyle-standard-BodyD-Column1-Body1">Empty</td>
                                                             </tr>
                                                             <tr class="TableStyle-standard-Body-Body2" data-mc-conditions="">
-                                                                <td class="TableStyle-standard-BodyC-Column1-Body2"><span class="code">CredProvidersToExclude</span>
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="code">ExcludePasswordCredProvider</span>
                                                                 </td>
-                                                                <td class="TableStyle-standard-BodyC-Column1-Body2">Any custom credential provider can be filtered out by specifying the provider GUID (for example, <span class="code">{60b78e88-ead8-445c-9cfd-0b87f74ea6cd}</span>). The credential provider is hidden from end users when filtered out by this key.<p>The Okta<span class="mc-variable okta-feature-names.Desktop_MFA variable">Desktop MFA</span> credential provider can't be hidden with this key.</p></td>
-                                                                <td class="TableStyle-standard-BodyC-Column1-Body2"><span class="code">REG_MULTI_SZ</span>
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body2">The standard Windows password credential provider is disabled by default. To show the Windows credential provider, set this value to <span class="code">0</span>. The Windows password credential provider is restored for end users.</td>
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="code">REG_DWORD</span>
+                                                                </td>
+                                                                <td class="TableStyle-standard-BodyD-Column1-Body2">Empty</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-standard-Body-Body1" data-mc-conditions="">
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="code">CredProvidersToExclude</span>
+                                                                </td>
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body1">Any custom credential provider can be filtered out by specifying the provider GUID (for example, <span class="code">{60b78e88-ead8-445c-9cfd-0b87f74ea6cd}</span>). The credential provider is hidden from end users when filtered out by this key.<p>The Okta <span class="mc-variable okta-feature-names.Desktop_MFA variable">Desktop MFA</span> credential provider can't be hidden with this key.</p></td>
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="code">REG_MULTI_SZ</span>
+                                                                </td>
+                                                                <td class="TableStyle-standard-BodyD-Column1-Body1">Empty</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-standard-Body-Body2" data-mc-conditions="">
+                                                                <td class="TableStyle-standard-BodyC-Column1-Body2">
+                                                                    <p><span class="code">EnableSelfServicePasswordReset</span>
+                                                                    </p>
+                                                                </td>
+                                                                <td class="TableStyle-standard-BodyC-Column1-Body2">
+                                                                    <p>Allows users to initiate a password reset if the sign-in password is forgotten.</p>
+                                                                </td>
+                                                                <td class="TableStyle-standard-BodyC-Column1-Body2">
+                                                                    <p><span class="code">REG_DWORD</span>
+                                                                    </p>
                                                                 </td>
                                                                 <td class="TableStyle-standard-BodyA-Column1-Body2">Empty</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
+                                                    <h2><a name="mfa-sspr"></a>Enable self-service password reset </h2>
+                                                    <p class="featureBanner">Early Access release. See <a href="../../security/manage-ea-and-beta-features.htm" class="MCXref xref">Manage Early Access and Beta features</a>.</p>
+                                                    <p>Self-service password reset allows your users to initiate a password reset if they're locked out of the computer. Self-service password reset requires users to be online. Users can't initiate a password reset without an internet connection. The self-service password reset function is designed for the following users:</p>
+                                                    <ul>
+                                                        <li>
+                                                            <p>Users created in Okta </p>
+                                                        </li>
+                                                        <li>
+                                                            <p><span class="mc-variable _3rd_Party_Integrations.AD variable">Active Directory</span> users with delegated authentication</p>
+                                                        </li>
+                                                        <li>
+                                                            <p><span class="mc-variable _3rd_Party_Integrations.AAD variable">Azure Active Directory</span> users, where <span class="mc-variable okta-variables.ProductName variable">Okta</span> is the Identity Provider</p>
+                                                        </li>
+                                                        <li>
+                                                            <p>Okta-sourced users</p>
+                                                        </li>
+                                                    </ul>
+                                                    <p>When a user changes their password with the self-service password reset feature, they're changing their <span class="mc-variable okta-variables.ProductName variable">Okta</span> password, which is then synced with <span class="mc-variable _3rd_Party_Integrations.AD variable">Active Directory</span> or <span class="mc-variable _3rd_Party_Integrations.AAD variable">Azure Active Directory</span>.</p>
+                                                    <p>Before enabling the self-service password reset, ensure your Okta password policy and your AD Agent password policies match. See <a href="../../identity-engine/policies/about-policies.htm" class="MCXref xref">Sign-on policies and rules</a></p>
+                                                    <ol>
+                                                        <li value="1">
+                                                            <p>In the <span class="mc-variable okta-feature-names.Administrator_dashboard variable">Admin Console</span>, open <span class="menucascade"><span class="uicontrol">Settings</span> <span class="uicontrol">Features</span></span>. Locate and enable the following Early access features:</p>
+                                                            <ul>
+                                                                <li>
+                                                                    <p><span class="wintitle">Direct Authentication </span>
+                                                                    </p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="wintitle">IDP My Account API Password</span>
+                                                                    </p>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li value="2">
+                                                            <p>Open <span class="menucascade"><span class="uicontrol">Security</span> <span class="uicontrol">Authenticators</span></span>. On the <span class="uicontrol">Password</span> line, click <span class="menucascade"><span class="uicontrol">Actions</span> <span class="uicontrol">Edit</span></span>.</p>
+                                                        </li>
+                                                        <li value="3">
+                                                            <p>Scroll to the section with the <span class="uicontrol">Add rule</span> button. Click the pencil icon to edit the rule of the policy you want to modify.</p>
+                                                            <ul>
+                                                                <li>
+                                                                    <p>Optional: If you use delegated authority, ensure that the policy applies to Active Directory. Under the <span class="wintitle">Authentication Providers</span> heading, use the dropdown menu to select <span class="mc-variable _3rd_Party_Integrations.AD variable">Active Directory</span>.</p>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li value="4">
+                                                            <p>Next to <span class="uicontrol">Users can perform self-service</span>, enable the <span class="uicontrol">Password reset</span> option.</p>
+                                                        </li>
+                                                        <li value="5">
+                                                            <p>In the <span class="wintitle">Recovery authenticators</span> section, ensure that <span class="uicontrol"><span class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span></span> is selected.</p>
+                                                        </li>
+                                                        <li value="6">
+                                                            <p>Set <span class="wintitle">Additional verification</span> to <span class="uicontrol">Not required</span>. Setting an additional verification requirement causes the password reset option to fail. </p>
+                                                        </li>
+                                                        <li value="7">
+                                                            <p>Click <span class="uicontrol">Save</span>.</p>
+                                                        </li>
+                                                    </ol>
                                                     <h3>Next steps</h3>
                                                     <p><a href="win-mfa-end-user-experience.htm" class="MCXref xref">Desktop MFA user experience</a>
                                                     </p>
@@ -383,7 +463,7 @@
                                     <!-- *********************** Footer rows ********************************* -->
                                     <div class="footer2" data-test="footer">
                                         <div>
-                                            <p class="copyright" data-test="copyrightNotice">©  <span class="mc-variable okta-variables.Year variable">2023</span> <span class="mc-variable okta-variables.CompanyName variable">Okta, Inc</span>. All Rights Reserved. Various trademarks held by their respective owners.
+                                            <p class="copyright" data-test="copyrightNotice">©  <span class="mc-variable okta-variables.Year variable">2024</span> <span class="mc-variable okta-variables.CompanyName variable">Okta, Inc</span>. All Rights Reserved. Various trademarks held by their respective owners.
 	</p>
                                         </div>
                                     </div>
