@@ -721,5 +721,16 @@ xmlAliasData += '    <Map Name=\"ext-pam-entitlement-analysis\" Link=\"topics/pr
 xmlAliasData += '    <Map Name=\"ext-pam-secrets\" Link=\"topics/privileged-access/pam-secrets.htm\" ResolvedId=\"1315\" />';
 xmlAliasData += '    <Map Name=\"csh-manage-certs\" Link=\"topics/apps/manage-signing-certificates.htm\" ResolvedId=\"9011\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-app-signon-policies\" Link=\"topics/security/policies/configure-app-signon-policies.htm\" ResolvedId=\"18023\" />';
+xmlAliasData += '    <Map Name=\"csh-manage-profile-attributes\" Link=\"topics/users-groups-profiles/usgp-user-profile-attributes-main.htm\" ResolvedId=\"5032\" />';
+xmlAliasData += '    <Map Name=\"csh-apps-main\" Link=\"topics/apps/apps_apps.htm\" ResolvedId=\"5033\" />';
+xmlAliasData += '    <Map Name=\"csh-system-log\" Link=\"topics/reports/reports_syslog.htm\" ResolvedId=\"5035\" />';
+xmlAliasData += '    <Map Name=\"csh-dashboard-monitor-tasks\" Link=\"topics/dashboard/monitor-your-tasks.htm\" ResolvedId=\"5036\" />';
+xmlAliasData += '    <Map Name=\"csh-ad-agent-new-int\" Link=\"topics/directory/ad-agent-new-integration.htm\" ResolvedId=\"5037\" />';
+xmlAliasData += '    <Map Name=\"csh-admin-get-started\" Link=\"topics/security/admin-get-started.htm\" ResolvedId=\"5038\" />';
+xmlAliasData += '    <Map Name=\"csh-apps-self-service\" Link=\"topics/apps/apps-selfservice-main.htm\" ResolvedId=\"5040\" />';
+xmlAliasData += '    <Map Name=\"csh-import-monitoring-dash\" Link=\"topics/users-groups-profiles/usgp-view-import-monitoring-dashboard.htm\" ResolvedId=\"5041\" />';
+xmlAliasData += '    <Map Name=\"csh-idp-add-saml\" Link=\"topics/security/idp-add-saml.htm\" ResolvedId=\"18024\" />';
+xmlAliasData += '    <Map Name=\"csh-ac-roles-entitlements\" Link=\"topics/identity-governance/access-certification/campaigns.htm\" ResolvedId=\"13042\" />';
+xmlAliasData += '    <Map Name=\"ext-entitlement-mgt\" Link=\"topics/identity-governance/em/entitlement-mgt.htm\" ResolvedId=\"16019\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
