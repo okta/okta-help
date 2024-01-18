@@ -1384,5 +1384,9 @@ xmlAliasData += '    <Map Name=\"ext-office365admin-method-userdeleted\" Link=\"
 xmlAliasData += '    <Map Name=\"ext-office365admin-method-userupdated\" Link=\"topics/workflows/connector-reference/azuread/events/userupdated.htm\" ResolvedId=\"6083\" />';
 xmlAliasData += '    <Map Name=\"ext-bamboohr\" Link=\"topics/workflows/connector-reference/bamboohr/bamboohr.htm\" ResolvedId=\"6085\" />';
 xmlAliasData += '    <Map Name=\"ext-googledirectory-method-suspenduser\" Link=\"topics/workflows/connector-reference/googledirectory/actions/suspenduser.htm\" ResolvedId=\"6084\" />';
+xmlAliasData += '    <Map Name=\"ext-bamboohr-method-listemployees\" Link=\"topics/workflows/connector-reference/bamboohr/actions/listemployees.htm\" ResolvedId=\"6086\" />';
+xmlAliasData += '    <Map Name=\"ext-bamboohr-method-reademployee\" Link=\"topics/workflows/connector-reference/bamboohr/actions/reademployee.htm\" ResolvedId=\"6087\" />';
+xmlAliasData += '    <Map Name=\"ext-bamboohr-method-updateemployee\" Link=\"topics/workflows/connector-reference/bamboohr/actions/updateemployee.htm\" ResolvedId=\"6088\" />';
+xmlAliasData += '    <Map Name=\"ext-bamboohr-misc-authorization\" Link=\"topics/workflows/connector-reference/bamboohr/overviews/authorization.htm\" ResolvedId=\"6089\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
