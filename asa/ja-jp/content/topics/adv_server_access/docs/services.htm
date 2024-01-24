@@ -143,7 +143,7 @@
                                     <div class="nav-search row">
                                         <form class="search" action="#">
                                             <div class="search-bar search-bar-container needs-pie">
-                                                <input class="search-field needs-pie" type="search" aria-label="［Search（検索）］フィールド" placeholder="検索" />
+                                                <input class="search-field needs-pie" type="search" aria-label="検索フィールド" placeholder="検索" />
                                                 <div class="search-filter-wrapper"><span class="invisible-label" id="search-filters-label">フィルター： </span>
                                                     <div class="search-filter" aria-haspopup="true" aria-controls="sf-content" aria-expanded="false" aria-label="検索フィルター" title="すべてのファイル" role="button" tabindex="0">
                                                     </div>
@@ -290,24 +290,55 @@
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
                                                     <h1>サービス</h1>
-                                                    <p>サービスを利用することで、サービスユーザーを使ってサーバーを認証し、ログインすることができます。これにより、リモートユーザーへのアクセスを必要とする自動化の構築時に一時証明書のセキュリティを活用できます。</p>
+                                                    <p>サービスを利用することで、サービスユーザーを使ってサーバーを認証し、サインインすることができます。これにより、リモートユーザーへのアクセスを必要とする自動化の構築時に一時証明書のセキュリティを活用できます。</p>
                                                     <h2>サービスの例</h2>
-                                                    <p>サービスについて簡単な例を使って説明します。CIサーバーを使って最新のビルドをアプリケーションサーバーにデプロイするとします。そのための一般的なソリューションでは、パスフレーズなしで静的SSHキーを使用し、SSH接続を使ってリモートサーバー上で必要な操作を行います。<span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span>にサービスを定義することで、静的資格情報は不要になり、ユーザーが意図した場合にのみCIユーザーに運用環境にアクセスさせることができます。</p>
+                                                    <p>サービスについて簡単な例を使って説明します。CIサーバーを使って最新のビルドをアプリケーションサーバーにデプロイするとします。そのための一般的なソリューションでは、パスフレーズなしで静的SSHキーを使用し、SSH接続を使ってリモートサーバー上で必要な操作を行います。<span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span>にサービスを定義することで、静的資格情報は不要になり、管理者が意図した場合にのみCIユーザーに本番サーバーへのアクセスを許可できます。</p>
                                                     <p>この例をさらに深く掘り下げて、リモートホストに対するSSH接続を使ったサービス認証が使用されるようにJenkinsを構成する方法について説明します。</p>
-                                                    <p>最初に次の基本要件を構成します。</p>
                                                     <ol>
-                                                        <li value="1"><span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> <span class="disableGlossary">のエージェント</span>をインストールし、サーバーを<span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span>に登録します。</li>
-                                                        <li value="2">サーバーに<span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> <span class="disableGlossary">のクライアント</span>をインストールします。</li>
-                                                        <li value="3">JenkinsユーザーのUIDを特定します（たとえば、Linuxでは<span class="code">id -u &lt;username&gt;</span>のようなコマンドを使用できます）。</li>
-                                                        <li value="4">サービスユーザーを作成し、それにAPIキーを追加します。</li>
-                                                        <li value="5">アクセスするサーバー上でサービスユーザーがプロビジョニングされていることを確認します。</li>
+                                                        <li value="1"><a href="#Set" class="MCXref xref">サーバーを設定する</a>
+                                                        </li>
+                                                        <li value="2"><a href="#Create" class="MCXref xref">サービスアカウントを作成する</a>
+                                                        </li>
+                                                        <li value="3"><a href="#Link" class="MCXref xref">ユーザーをサービスアカウントにリンクする </a>
+                                                        </li>
                                                     </ol>
-                                                    <p>これにより、Jenkinsを使ってサーバーを安全に認証するサービスを作成できるようになります。</p>
-                                                    <p>サービスを作成するには、事前に特定した、Jenkinsが稼働するソースサーバーのサーバー詳細ページを開き、［Services（サービス）］タブに移動します。</p>
-                                                    <p>ここには、そのサーバーの既存のサービスのリストと、新しいサービスを作成するためのボタンが表示されます。このボタンをクリックすると、認証に使用するサービスユーザーとJenkinsユーザーのUIDの選択を求めるプロンプトが表示されます。</p>
-                                                    <p>最後に、登録済みクライアントを期待せずにサービス認証を使用するようにsftを構成します。たとえば、これをJenkinsサーバーで実行するには、次のコマンドを実行します：<span class="code">sft config service_auth.enable true</span> </p>
+                                                    <h3><a name="Set"></a>サーバーを設定する</h3>
+                                                    <p>開始するには、以下を構成します。</p>
+                                                    <ol>
+                                                        <li value="1"><span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> <span class="disableGlossary">のエージェント</span>をインストールし、Jenkinsサーバーを<span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span>に登録します。</li>
+                                                        <li value="2">サーバーに<span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> <span class="disableGlossary">のクライアント</span>をインストールします。</li>
+                                                        <li value="3">JenkinsユーザーのUIDを特定します。たとえば、Linuxでは<span class="code">id -u &lt;username&gt;</span>のようなコマンドを使用できます</li>
+                                                        <li value="4"><span class="code">sft proxycommand --config</span>を実行し、その出力をJenkinsユーザーのSSH構成ファイル（<span class="code">/home/jenkins/.ssh/config</span>など）にコピーします。Jenkinsでサービス認証をフルに活用するには、SSH接続を使用するコマンドを使って透過的に認証できるように、JenkinsユーザーのSSHプロキシコマンドを構成します。</li>
+                                                    </ol>
+                                                    <p>これで、Jenkinsを使用してサーバーに対して安全に認証できるサービスを作成することができます。</p>
+                                                    <h3><a name="Create"></a>サービスアカウントを作成する</h3>
+                                                    <ol>
+                                                        <li value="1">
+                                                            <p><span class="uicontrol">Advanced Server Access</span>のダッシュボードを開きます。</p>
+                                                        </li>
+                                                        <li value="2">サービスユーザーを作成し、それにAPIキーを追加します。「<a href="service-users.htm" class="MCXref xref">サービスユーザー</a>」をご覧ください。</li>
+                                                        <li value="3">
+                                                            <p>Jenkinsが通信する必要があるサーバーを含むプロジェクトにサービスアカウントを割り当てます。</p>
+                                                        </li>
+                                                    </ol>
+                                                    <h3><a name="Link"></a>ユーザーをサービスアカウントにリンクする </h3>
+                                                    <ol>
+                                                        <li value="1">
+                                                            <p><span class="uicontrol">Advanced Server Access</span>のダッシュボードで<span class="uicontrol">「プロジェクト」</span>をクリックします。</p>
+                                                        </li>
+                                                        <li value="2">
+                                                            <p>Jenkinsサーバーが登録されているプロジェクトを選択します。</p>
+                                                        </li>
+                                                        <li value="3">
+                                                            <p><span class="uicontrol">「サーバー」</span>を選択し、サービスユーザーを使用するJenkinsサーバーを選択します。</p>
+                                                        </li>
+                                                        <li value="4"><span class="uicontrol">「サービス」</span>をクリックしてから<span class="uicontrol">「サービスを追加する」</span>をクリックします。 </li>
+                                                        <li value="5">作成したサービスユーザーを<span class="wintitle">「Service User（サービスユーザー）」</span>ドロップダウンから選択し、Jenkins<span class="uicontrol">「ユーザーのUID」</span>を入力します。</li>
+                                                        <li value="6">
+                                                            <p><span class="uicontrol">「送信」</span>をクリックします。</p>
+                                                        </li>
+                                                    </ol>
                                                     <p>これにより、<span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span>が管理するリモートホストに<span class="code">sft ssh &lt;server-name&gt;</span>コマンドでSSH接続できるようになります。</p>
-                                                    <p>Jenkinsでサービス認証をフルに活用するには、SSH接続を使用するコマンドを使って透過的に認証できるように、JenkinsユーザーのSSH ProxyCommandを構成します。これを行うには、<span class="code">sft proxycommand --config</span>を実行し、その出力をJenkinsユーザーのSSH構成ファイル（<span class="code">/home/jenkins/.ssh/config</span>など）にコピーします。</p>
                                                     <h2>関連項目</h2>
                                                     <ul>
                                                         <li><a href="setup/ssh.htm" class="MCXref xref">SSHセットアップ</a>
@@ -325,7 +356,7 @@
                                     <!-- *********************** Footer rows ********************************* -->
                                     <div class="footer2" data-test="footer">
                                         <div>
-                                            <p class="copyright" data-test="copyrightNotice">&copy;  <span class="mc-variable okta-variables.Year variable">2023</span> <span class="mc-variable okta-variables.CompanyName variable">Okta, Inc</span>. All Rights Reserved. それぞれの商標は、それぞれの商標所有者に帰属します。
+                                            <p class="copyright" data-test="copyrightNotice">&copy;  <span class="mc-variable okta-variables.Year variable">2024</span> <span class="mc-variable okta-variables.CompanyName variable">Okta, Inc</span>. All Rights Reserved. それぞれの商標は、それぞれの商標所有者に帰属します。
 	</p>
                                         </div>
                                     </div>
