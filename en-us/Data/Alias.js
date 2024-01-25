@@ -732,5 +732,6 @@ xmlAliasData += '    <Map Name=\"csh-import-monitoring-dash\" Link=\"topics/user
 xmlAliasData += '    <Map Name=\"csh-idp-add-saml\" Link=\"topics/security/idp-add-saml.htm\" ResolvedId=\"18024\" />';
 xmlAliasData += '    <Map Name=\"csh-ac-roles-entitlements\" Link=\"topics/identity-governance/access-certification/campaigns.htm\" ResolvedId=\"13042\" />';
 xmlAliasData += '    <Map Name=\"ext-entitlement-mgt\" Link=\"topics/identity-governance/em/entitlement-mgt.htm\" ResolvedId=\"16019\" />';
+xmlAliasData += '    <Map Name=\"ext-aiw-scim-entitlements\" Link=\"topics/apps/aiw_scim_entitlements.htm\" ResolvedId=\"16020\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
