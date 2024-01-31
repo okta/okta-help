@@ -138,7 +138,7 @@ xmlAliasData += '    <Map Name=\"csh-OPP\" Link=\"topics/provisioning/opp/opp-ma
 xmlAliasData += '    <Map Name=\"csh-org2org-integration\" Link=\"topics/provisioning/org2org/org2org-main.htm\" ResolvedId=\"1505\" />';
 xmlAliasData += '    <Map Name=\"csh-pass-mfa-claim\" Link=\"topics/apps/office365/use_okta_mfa_azure_ad_mfa.htm\" ResolvedId=\"1492\" />';
 xmlAliasData += '    <Map Name=\"csh-passwordless\" Link=\"topics/identity-engine/password-optional/password-optional-disabled.htm\" ResolvedId=\"1515\" />';
-xmlAliasData += '    <Map Name=\"csh-pe-policies\" Link=\"topics/identity-engine/policies/about-profile-enrollment-policies.htm\" ResolvedId=\"6016\" />';
+xmlAliasData += '    <Map Name=\"csh-pe-policies\" Link=\"topics/identity-engine/policies/about-ssr-and-pe.htm\" ResolvedId=\"6016\" />';
 xmlAliasData += '    <Map Name=\"csh-prioritize-profile-sources\" Link=\"topics/users-groups-profiles/usgp-prioritize-profile-source.htm\" ResolvedId=\"15012\" />';
 xmlAliasData += '    <Map Name=\"csh-profile-masters\" Link=\"topics/users-groups-profiles/usgp-about-profile-sourcing.htm\" ResolvedId=\"1233\" />';
 xmlAliasData += '    <Map Name=\"csh-progressiveenrollment-policies\" Link=\"topics/identity-engine/policies/about-pe.htm\" ResolvedId=\"6021\" />';
@@ -591,6 +591,7 @@ xmlAliasData += '    <Map Name=\"csh-administrators-app-admin\" Link=\"topics/se
 xmlAliasData += '    <Map Name=\"csh-administrators-api-access-mgmt-admin\" Link=\"topics/security/administrators-api-access-mgmt-admin.htm\" ResolvedId=\"19021\" />';
 xmlAliasData += '    <Map Name=\"csh-administrators-access-request-admin\" Link=\"topics/security/administrators-access-request-admin.htm\" ResolvedId=\"19022\" />';
 xmlAliasData += '    <Map Name=\"csh-administrators-access-certs-admin\" Link=\"topics/security/administrators-access-certs-admin.htm\" ResolvedId=\"19023\" />';
+xmlAliasData += '    <Map Name=\"csh-customizations-configure-csp\" Link=\"topics/settings/customizations-configure-csp.htm\" ResolvedId=\"16000\" />';
 xmlAliasData += '    <Map Name=\"ext_okta_ends_browser_support_for_TLS_1_1\" Link=\"topics/browser-plugin/okta-ends-browser-support-for-tls-1.1.htm\" ResolvedId=\"1016\" />';
 xmlAliasData += '    <Map Name=\"csh-create-resource-set\" Link=\"topics/security/custom-admin-role/create-resource-set.htm\" ResolvedId=\"19024\" />';
 xmlAliasData += '    <Map Name=\"csh-meta-work-accounts\" Link=\"topics/provisioning/meta/meta-work-accounts-provisioning.htm\" ResolvedId=\"16001\" />';
@@ -733,7 +734,10 @@ xmlAliasData += '    <Map Name=\"csh-import-monitoring-dash\" Link=\"topics/user
 xmlAliasData += '    <Map Name=\"csh-idp-add-saml\" Link=\"topics/security/idp-add-saml.htm\" ResolvedId=\"18024\" />';
 xmlAliasData += '    <Map Name=\"csh-ac-roles-entitlements\" Link=\"topics/identity-governance/access-certification/campaigns.htm\" ResolvedId=\"13042\" />';
 xmlAliasData += '    <Map Name=\"ext-stay-signed-in\" Link=\"topics/security/stay-signed-in.htm\" ResolvedId=\"5042\" />';
+xmlAliasData += '    <Map Name=\"csh-limited-access-oie\" Link=\"topics/apps/oie-pass-device-context-limited-access.htm\" ResolvedId=\"3010\" />';
 xmlAliasData += '    <Map Name=\"ext-entitlement-mgt\" Link=\"topics/identity-governance/em/entitlement-mgt.htm\" ResolvedId=\"16019\" />';
+xmlAliasData += '    <Map Name=\"csh-protected-actions\" Link=\"topics/security/admin-console-protected-actions.htm\" ResolvedId=\"19033\" />';
 xmlAliasData += '    <Map Name=\"ext-aiw-scim-entitlements\" Link=\"topics/apps/aiw_scim_entitlements.htm\" ResolvedId=\"16020\" />';
+xmlAliasData += '    <Map Name=\"ext-config-csp\" Link=\"topics/settings/customizations-configure-csp.htm\" ResolvedId=\"19033\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
