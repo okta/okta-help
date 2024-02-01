@@ -1388,5 +1388,12 @@ xmlAliasData += '    <Map Name=\"ext-bamboohr-method-listemployees\" Link=\"topi
 xmlAliasData += '    <Map Name=\"ext-bamboohr-method-reademployee\" Link=\"topics/workflows/connector-reference/bamboohr/actions/reademployee.htm\" ResolvedId=\"6087\" />';
 xmlAliasData += '    <Map Name=\"ext-bamboohr-method-updateemployee\" Link=\"topics/workflows/connector-reference/bamboohr/actions/updateemployee.htm\" ResolvedId=\"6088\" />';
 xmlAliasData += '    <Map Name=\"ext-bamboohr-misc-authorization\" Link=\"topics/workflows/connector-reference/bamboohr/overviews/authorization.htm\" ResolvedId=\"6089\" />';
+xmlAliasData += '    <Map Name=\"ext-greenhouse\" Link=\"topics/workflows/connector-reference/greenhouse/greenhouse.htm\" ResolvedId=\"6090\" />';
+xmlAliasData += '    <Map Name=\"ext-greenhouse-misc-authorization\" Link=\"topics/workflows/connector-reference/greenhouse/overviews/authorization.htm\" ResolvedId=\"6091\" />';
+xmlAliasData += '    <Map Name=\"ext-greenhouse-method-adduseremailaddress\" Link=\"topics/workflows/connector-reference/greenhouse/actions/adduseremailaddress.htm\" ResolvedId=\"6092\" />';
+xmlAliasData += '    <Map Name=\"ext-greenhouse-method-listcandidates\" Link=\"topics/workflows/connector-reference/greenhouse/actions/listcandidates.htm\" ResolvedId=\"6093\" />';
+xmlAliasData += '    <Map Name=\"ext-greenhouse-method-listusers\" Link=\"topics/workflows/connector-reference/greenhouse/actions/listusers.htm\" ResolvedId=\"6094\" />';
+xmlAliasData += '    <Map Name=\"ext-greenhouse-method-readcandidate\" Link=\"topics/workflows/connector-reference/greenhouse/actions/readcandidate.htm\" ResolvedId=\"6095\" />';
+xmlAliasData += '    <Map Name=\"ext-greenhouse-method-readuser\" Link=\"topics/workflows/connector-reference/greenhouse/actions/readuser.htm\" ResolvedId=\"6096\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
