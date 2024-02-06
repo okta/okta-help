@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="_Skins_okta_html5_topnav_nav_poc" data-mc-search-type="Stem" data-mc-help-system-file-name="okta_help.xml" data-mc-path-to-help-system="../../../../" data-mc-has-content-body="True" data-mc-searchable="True" data-mc-toc-path="[%=System.LinkedHeader%]|[%=System.LinkedHeader%]" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic;Default" data-mc-preload-images="false" data-mc-in-preview-mode="false">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="_Skins_okta_html5_topnav_nav_poc" data-mc-search-type="Stem" data-mc-help-system-file-name="okta_help.xml" data-mc-path-to-help-system="../../../../" data-mc-has-content-body="True" data-mc-toc-path="[%=System.LinkedHeader%]|Clients" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic;Default" data-mc-preload-images="false" data-mc-in-preview-mode="false">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="typeofcontent" content="documentation" />
-        <meta name="audience" content="admin" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Campaigns | Okta</title>
+        <meta name="audience" content="OIE Admins" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>SFT keyring</title>
         <meta charset="utf-8" />
         <meta name="description" content="" />
         <meta name="author" content="" />
@@ -284,48 +284,54 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="oie-label" data-mc-conditions="MultiProdPublish.Classic">
-                                                <img class="oie-label" title="Label: Okta Classic Engine content" src="../../../resources/images/okta-assets/classic_engine.svg" />
+                                            <div class="oie-label" data-mc-conditions="MultiProdPublish.OIE">
+                                                <img class="oie-label" title="Label: Okta Identity Engine content" src="../../../resources/images/okta-assets/identity_engine.svg" />
                                             </div>
                                             <div class="body-main" data-test="bodyContent">
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
-                                                    <h1>Campaigns</h1>
-                                                    <p data-mc-conditions="Primary.live-site-only">Campaigns help ensure that your users have the right level of access to resources like apps (and associated entitlements) and groups.</p>
+                                                    <h1>SFT keyring</h1>
+                                                    <p>If you enable the SFT keyring, all plaintext tokens in the <span class="filepath">state.json</span> file will be encrypted. Once the SFT keyring is established on a system, it is automatically updated when the user logs in to <span class="mc-variable okta-feature-names.Okta_Privileged_Access variable">Okta Privileged Access</span> or attempts to access a server.</p>
+                                                    <p>After the SFT keyring is activated, it can't be reversed.  <span class="mc-variable okta-feature-names.Okta_Privileged_Access variable">Okta Privileged Access</span> employs the  <span class="varname">compat</span> keyring for all operating systems, which doesn't offer encryption. To revert to the default <span class="varname">compat</span> keyring, users need to re-enroll and relogin.</p>
+                                                    <h2>Before you begin</h2>
                                                     <ul>
-                                                        <li>
-                                                            <p>Resource campaigns</p>
-                                                            <p>This campaign type displays all users who have access to a resource.</p>
-                                                            <p>You can select a resource, such as an app or group, and review who has access to it and the associated entitlements and bundles. You can select all users assigned to the resource or define a specific set of users using the <span class="mc-variable okta-feature-names.Okta_EL variable">Okta Expression Language</span>. You can also exclude certain users from the campaign. Run resource campaigns regularly to ensure that access to sensitive resources is limited. </p>
-                                                            <p>Resource campaigns are useful for meeting your audit and compliance requirements.</p>
-                                                        </li>
-                                                        <li>
-                                                            <p>User campaigns</p>
-                                                            <p>This campaign type displays all resources that a user has access to.</p>
-                                                            <p>You can select a specific user or user group and review their assigned resources. Most  privileged access is either requested by the user or it's individually assigned to them. Often reviewers don't need to review access to resources granted through group membership or group rules. User campaigns allow you to set up a campaign where reviewers only need to review access to users’ individually assigned resources and entitlements.</p>
-                                                            <p>User campaigns allow you to manage user’s access to resources efficiently, especially when the user’s relationship with your organization changes due to events such as role, department, or project change.</p>
-                                                            <p>Run user campaigns frequently to ensure that users have the least privileged access.</p>
-                                                        </li>
+                                                        <li>SFT keyring encrypts access tokens. If the keys used to decrypt the tokens are unavailable, decryption is impossible. This prevents unauthorized data exfiltration.</li>
+                                                        <li>SFT keyring on Linux uses D-Bus to connect to a desktop-specific SecretService and proactively secures access tokens. If <span class="userinput">sft</span> can't reach an unlocked SecretService, it will not be able to decrypt those tokens. This may result in being locked out of your tokens while in non-desktop mode if you use Linux on both desktop and non-desktop. To avoid this, you can use the insecure compact keyring by setting <span class="varname">SFT_KEYRING</span> to <span class="userinput">compat</span> in your shell initialization scripts and then re-enrol.</li>
                                                     </ul>
-                                                    <p>You can schedule campaigns in advance, make them recur at specific intervals, and modify them before they launch.</p>
-                                                    <p>A campaign becomes active on the start date and is marked as closed on the end date or when all reviewers in the campaign complete their reviews, whichever happens first. You can launch a campaign before its start date and end an active campaign before its scheduled end date. However, after a campaign launches, you can only reassign review items or end the campaign. You can’t modify a campaign after it ends. </p>
-                                                    <p>You can view active, scheduled, and closed campaigns from the <span class="wintitle">Access certification campaigns</span> page. Recurring campaigns are marked with the <span class="uicontrol">Recurring</span> label on the <span class="wintitle">Scheduled</span> tab to indicate that they’re a part of a series of recurring campaigns. Closed campaigns are stored for 12 months. </p>
-                                                    <p>After you schedule a campaign, it becomes active on the scheduled start date. </p>
-                                                    <p>If a scheduled campaign fails to launch, you receive an email notification.  To view errors, you can do any of the following steps:</p>
-                                                    <ul>
-                                                        <li>Click <span class="uicontrol">View Campaign</span> from the email notification. </li>
-                                                        <li>Open the campaign from the <span class="wintitle">Closed</span> tab of the <span class="wintitle">Access certification campaigns</span> page.</li>
-                                                        <li>Go to the System Log. </li>
-                                                    </ul>
-                                                    <p>Resolve the errors before you recreate the campaign. You may want to note down the <span class="mc-variable okta-variables.ProductName variable">Okta</span> Expression Language expressions for users and reviewers from the <span class="wintitle">Overview</span> section before recreating the campaign. You can delete  a campaign that failed to launch from the <span class="uicontrol">Actions</span> menu.</p>
-                                                    <p>Campaign reviewers can access the review items assigned to them from the <span class="wintitle"><span class="mc-variable okta-variables.ProductName variable">Okta</span> Access Certification Reviews</span> app tile on their dashboard. They can approve, revoke, or reassign the review items.</p>
-                                                    <p>If you, a campaign creator, have included entitlements in the campaign, then reviewers can also see the entitlements or bundle associated with the resource and how the entitlement or bundle was assigned to the user for a review item. They can review access to entitlements and bundles in a similar manner as they review user’s access to apps and groups. They can revoke an entitlement or bundle as individual units, but they can’t revoke a specific entitlement that’s a part of a bundle assigned to the user. Reviewers must manually remediate any entitlements that were assigned to a user by a policy rule.</p>
-                                                    <div class="noteOkta">
-                                                        <p class="noteContent">You can run campaigns to review entitlements for an app only if Governance Engine is enabled for the app. See <a href="../em/enable-ge.htm" class="MCXref xref">Enable Governance Engine</a> and <a href="../em/limitations.htm" class="MCXref xref">Limitations </a>.</p>
-                                                    </div>
-                                                    <h2><span>Related topics</span>
-                                                    </h2>
-                                                    <p><a href="iga-ac-create-campaign.htm" class="MCXref xref">Create campaigns</a>
+                                                    <h2>Setting up the Keyring</h2>
+                                                    <p>SFT keyring must be configured on every device. The operating system comes with a default keyring, and it determines the most suitable one to use. By using the <span class="userinput">system</span> variable in the configuration, the operating system automatically selects the optimal keyring for use.</p>
+                                                    <h3>macOS</h3>
+                                                    <p>SFT keyring encrypts by default on macOS. You can set the keyring using the User Defaults framework:</p>
+                                                    <p><span class="code">$ defaults write com.scaleft.ScaleFT SFTKeyring system</span>
+                                                    </p>
+                                                    <p>Alternatively, you can enable it by setting an environment variable:</p>
+                                                    <p><span class="code">export SFT_KEYRING=system</span>
+                                                    </p>
+                                                    <p>If both are set, the environment variable takes precedence. </p>
+                                                    <p>To disable encryption, use <span class="userinput">compat</span> instead of <span class="userinput">system</span> in the environment variable, and then re-enroll in the team.</p>
+                                                    <h3>Windows</h3>
+                                                    <p>SFT keyring encrypts by default on Windows. You can set the keyring using the registry:</p>
+                                                    <p><span class="code">HKEY_LOCAL_MACHINE\Software\ScaleFT\SFT\Keyring</span>
+                                                    </p>
+                                                    <p>Or</p>
+                                                    <p><span class="code">HKEY_CURRENT_USER\Software\ScaleFT\SFT\Keyring</span>
+                                                    </p>
+                                                    <p>Alternatively, you can set the keyring  using the <span class="varname">SFT_KEYRING</span> environment variable.</p>
+                                                    <p><span class="varname">HKEY_LOCAL_MACHINE</span> takes precedence over both the environment variable and <span class="varname">CURRENT_USER</span> entry. The environment variable takes precedence over the <span class="varname">CURRENT_USER</span> entry.</p>
+                                                    <p>To disable encryption, set the registry key to <span class="userinput">compat</span> instead of <span class="userinput">system</span>, and then re-enroll in the team.</p>
+                                                    <h3>FreeBSD / Linux</h3>
+                                                    <p>In FreeBSD and Linux, keyrings only work in a D-Bus desktop environment. In Linux, the default encryption method is <span class="userinput">system</span>, while in FreeBSD, it's <span class="userinput">compat</span>.</p>
+                                                    <p>To set or update the <span class="varname">SFT_KEYRING</span> environment variable to either <span class="userinput">compat</span> or <span class="userinput">system</span>, add the following to the shell profile:</p>
+                                                    <p><span class="code">export SFT_KEYRING=system</span> </p>
+                                                    <p>Or</p>
+                                                    <p><span class="code">export SFT_KEYRING=compat</span>
+                                                    </p>
+                                                    <h2>Related topics</h2>
+                                                    <p><a href="pam-client-cli-commands.htm" class="MCXref xref">Use the Okta Privileged Access client</a>
+                                                    </p>
+                                                    <p><a href="../tool-setup/install-client.htm" class="MCXref xref">Install the Okta Privileged Access client</a>
+                                                    </p>
+                                                    <p><a href="../server-agent/pam-manage-client-servers.htm" class="MCXref xref">Managed Okta Privileged Access server agent</a>
                                                     </p>
                                                 </div>
                                             </div>
