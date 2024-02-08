@@ -291,7 +291,7 @@
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
                                                     <h1>Deploy an AWS server with an enrollment token</h1>
-                                                    <p>This topic explains how to  deploy an Ubuntu or Debian Amazon Web Services (AWS) cloud server with systemd to your <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> team.   You may need to modify this process to fit your specific needs.</p>
+                                                    <p>This topic explains how to  deploy an Ubuntu or Debian <span class="mc-variable _3rd_Party_Integrations.Amazon_Web_Services variable">Amazon Web Services</span> (AWS) cloud server with systemd to your <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> team.   You may need to modify this process to fit your specific needs.</p>
                                                     <p>Creating a cloud server with user data means installing the <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> <span class="disableGlossary">server agent</span> simultaneously while you create a server with a cloud provider. You can use user data to determine the specific software to install software on a new cloud server.  Installing the <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> server agent on a cloud server doesn't need to be done when the cloud server is created, but running the installation as a startup script alongside a server's creation ensures that your cloud deployment is as safe and secure as possible. </p>
                                                     <ul>
                                                         <li><a href="#Prerequi" class="MCXref xref">Prerequisites</a>
@@ -364,51 +364,18 @@
                                                     <h2><a name="Enroll"></a>Create and enroll your AWS server with user data</h2>
                                                     <ol>
                                                         <li value="1">Access the <a href="https://aws.amazon.com/console/">AWS Management Console</a>.</li>
-                                                        <li value="2">Click the <span class="uicontrol">Services</span> tab at the top of the console and select the <span class="uicontrol">EC2</span> option in the <span class="uicontrol">Compute</span> category to create a new EC2 server.</li>
+                                                        <li value="2">Click the <span class="uicontrol">Services</span> tab at the top of the console and select the <span class="uicontrol">EC2</span> option in the <span class="uicontrol">Compute</span> category to create a EC2 server.</li>
                                                         <li value="3">Click <span class="uicontrol">Launch Instance</span>.
                 <p>The <span class="uicontrol">Choose an Amazon Machine Image (AMI)</span> page opens.</p></li>
                                                         <li value="4">Identify a supported Ubuntu/Debian version and click <span class="uicontrol">Select</span>.              <br />For details, see <a href="supported-os.htm" class="MCXref xref">Supported operating systems</a>.<p>The <span class="uicontrol">Choose an Instance Type</span> page opens.</p></li>
                                                         <li value="5">Click <span class="uicontrol">Next: Configure Instance Details</span>.
                 <p>The <span class="uicontrol">Configure Instance Details</span> page opens.</p></li>
                                                         <li value="6">Expand <span class="uicontrol">Advanced Details</span>.</li>
-                                                        <li value="7">Enter the following into the <span class="uicontrol">User data</span> field:
-                    <span class="codeblock">#!/bin/bash
-echo "Add an enrollment token"
-sudo mkdir -p /var/lib/sftd
-echo "&lt;enrollment-token&gt;" | sudo tee /var/lib/sftd/enrollment.token
-export DEBIAN_FRONTEND=noninteractive
-
-echo "Add a basic sftd configuration"
-sudo mkdir -p /etc/sft/
-sftcfg=$(cat &lt;&lt;EOF
----
-# CanonicalName: Specifies the name clients should use/see when connecting to this host.
-CanonicalName: "ubuntu-target"
-EOF
-)
-echo -e "$sftcfg" | sudo tee /etc/sft/sftd.yaml
-
-echo "Retrieve information about new packages"
-sudo apt-get update
-sudo apt-get install -y curl
-
-echo "Add the ScaleFT testing apt repo to your /etc/apt/sources.list system config file"
-echo "deb http://pkg.scaleft.com/deb/ linux main" | sudo tee -a /etc/apt/sources.list
-
-echo "Trust the repository signing key"
-curl -C - https://dist.scaleft.com/pki/scaleft_deb_key.asc | sudo apt-key add -
-
-echo "Retrieve information about new packages"
-sudo apt-get update
-
-echo "Install sftd"
-sudo apt-get install scaleft-server-tools
-</span><p>Note: This script creates an <span class="code">sftd.yaml</span> file for your server and uses <span class="code">ubuntu-target</span> as its canonical name. Modify and generate this information as needed to fit your team and project environments.</p></li>
-                                                        <li value="8">Replace <span class="code">&lt;enrollment_token&gt;</span> in the user data field with the enrollment token that you created earlier.</li>
-                                                        <li value="9">Click <span class="uicontrol">Review and Launch</span>, then click <span class="uicontrol">Launch</span>.
+                                                        <li value="7">When creating a server in your AWS Management console, you must install Advanced Server Access server agent. Use the  <span class="uicontrol">User data</span> field to install the <span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> server agent. See <a href="install-agent.htm" class="MCXref xref">Install the Advanced Server Access server agent</a> for instructions. <![CDATA[                    ]]></li>
+                                                        <li value="8">Click <span class="uicontrol">Review and Launch</span>, then click <span class="uicontrol">Launch</span>.
                 <p>The <span class="uicontrol">Select an existing key pair or create a new key pair</span> dialog opens.</p></li>
-                                                        <li value="10">Select the  <span class="uicontrol">Proceed without a key pair</span> option from the dropdown menu.</li>
-                                                        <li value="11">Confirm and acknowledge your choice by selecting the relevant checkbox, then click <span class="uicontrol">Launch Instances</span>.</li>
+                                                        <li value="9">Select the  <span class="uicontrol">Proceed without a key pair</span> option from the dropdown menu.</li>
+                                                        <li value="10">Confirm and acknowledge your choice by selecting the relevant checkbox, then click <span class="uicontrol">Launch Instances</span>.</li>
                                                     </ol>
                                                     <h2><a name="Next"></a>Next steps</h2>
                                                     <p><a href="verify-server-enrolled.htm" class="MCXref xref">Verify server enrollment</a>
