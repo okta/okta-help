@@ -719,6 +719,7 @@ xmlAliasData += '    <Map Name=\"ext-pam-entitlement-analysis\" Link=\"topics/pr
 xmlAliasData += '    <Map Name=\"ext-pam-secrets\" Link=\"topics/privileged-access/pam-secrets.htm\" ResolvedId=\"1315\" />';
 xmlAliasData += '    <Map Name=\"csh-manage-certs\" Link=\"topics/apps/manage-signing-certificates.htm\" ResolvedId=\"9011\" />';
 xmlAliasData += '    <Map Name=\"csh-detect-lockouts\" Link=\"topics/security/security_general.htm#DetectLockouts\" ResolvedId=\"5016\" />';
+xmlAliasData += '    <Map Name=\"csh-stay-signed-in\" Link=\"topics/security/security_general.htm#Organiza\" ResolvedId=\"5030\" />';
 xmlAliasData += '    <Map Name=\"csh-stay-signed-in\" Link=\"topics/security/stay-signed-in.htm\" ResolvedId=\"5030\" />';
 xmlAliasData += '    <Map Name=\"csh-devices-main\" Link=\"topics/identity-engine/devices/devices-main.htm\" ResolvedId=\"5031\" />';
 xmlAliasData += '    <Map Name=\"csh-manage-profile-attributes\" Link=\"topics/users-groups-profiles/usgp-user-profile-attributes-main.htm\" ResolvedId=\"5032\" />';

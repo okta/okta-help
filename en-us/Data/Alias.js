@@ -721,6 +721,7 @@ xmlAliasData += '    <Map Name=\"ext-pam-policy\" Link=\"topics/privileged-acces
 xmlAliasData += '    <Map Name=\"ext-pam-entitlement-analysis\" Link=\"topics/privileged-access/pam-entitlement-analysis.htm\" ResolvedId=\"1314\" />';
 xmlAliasData += '    <Map Name=\"ext-pam-secrets\" Link=\"topics/privileged-access/pam-secrets.htm\" ResolvedId=\"1315\" />';
 xmlAliasData += '    <Map Name=\"csh-manage-certs\" Link=\"topics/apps/manage-signing-certificates.htm\" ResolvedId=\"9011\" />';
+xmlAliasData += '    <Map Name=\"csh-stay-signed-in\" Link=\"topics/security/security_general.htm#Organiza\" ResolvedId=\"5030\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-app-signon-policies\" Link=\"topics/security/policies/configure-app-signon-policies.htm\" ResolvedId=\"18023\" />';
 xmlAliasData += '    <Map Name=\"csh-manage-profile-attributes\" Link=\"topics/users-groups-profiles/usgp-user-profile-attributes-main.htm\" ResolvedId=\"5032\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-main\" Link=\"topics/apps/apps_apps.htm\" ResolvedId=\"5033\" />';
