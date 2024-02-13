@@ -43,6 +43,7 @@
 
 </style>
         <link href="../../resources/stylesheets/okta-main-new-nav.css" rel="stylesheet" type="text/css" />
+        <link href="../../resources/tablestyles/standard-shaded-rows.css" rel="stylesheet" data-mc-stylesheet-type="table" />
         <script src="../../../Resources/Scripts/jquery.min.js" type="text/javascript">
         </script>
         <script src="../../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
@@ -292,30 +293,81 @@
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
                                                     <h1>LDAPインターフェイスの既知の制限</h1>
-                                                    <p>LDAPインターフェイスの既知の制限は次のとおりです。</p>
+                                                    <p>LDAPインターフェイスは、<span class="code">BIND</span>、<span class="code">UNBIND</span>、<span class="code">SEARCH</span>のLDAP操作を行うために設計された軽量なツールです。これらの基本機能をLDAPサーバーに依存せずに実行できますが、現在のLDAPサーバーで提供されるすべての高度な機能がサポートされるわけではありません。したがって、LDAPサーバーをLDAPインターフェイスに置き換える前に、その機能と制限を慎重に評価してください。</p>
+                                                    <p>ここでは、一般的な問題と既知の制限を紹介します。ただし、考えられるすべてのシナリオをカバーしているわけではありません。LDAPインターフェイスをLDAP先進化計画に組み入れる前に、OktaセールスチームまたはCSMと連携することをお勧めします。</p>
+                                                    <h2>検索と属性のリファレンス</h2>
                                                     <ul>
-                                                        <li>UnixまたはLinuxベースのPAM認証がサポートされていない。                    </li>
-                                                        <li><code>memberOf</code>の検索機能を使用すると、検索時間が長くなる。</li>
-                                                        <li>TLS 1.2しかサポートしていない。</li>
-                                                        <li>BIND、UNBIND、SEARCH 操作のみがサポートされており、StartTLS拡張操作もサポートされています。</li>
-                                                        <li>サーバーでは、1000エントリーのページサイズが許可されているが、結果のサイズがこのページサイズを超えると、LDAPエラーコードが返される。結果セットが大きい場合は、Simple Pagination Controlを使用します。<a href="https://www.ietf.org/rfc/rfc2696.txt">https://www.ietf.org/rfc/rfc2696.txt</a>を参照してください。
-</li>
-                                                        <li><span class="mc-variable okta-variables.ProductName variable">Okta</span>ユーザーIDを使用する必要がある。アプリのサインイン値に<span class="code">samAccountName</span>を使用している場合は、認証に失敗します。
-</li>
-                                                        <li><span class="code">uniquemember</span>および<span class="code">memberOf</span>属性のクエリを実行するLDAP検索の場合、LDAPインターフェイスがメンバーシップ応答をクライアントに返す前にすべてのページが反復処理される。 
-                    </li>
-                                                        <li>LDAPiインターフェイスで、<span class="code">memberOf</span>が仮想操作属性に定義されている。次の場合にのみ返されます。
-			<ul><li><span class="code">memberOf</span>が属性のリストで要求されている場合 </li><li> すべての操作属性が「+」を使用して要求されている場合</li></ul><p> <span class="code">memberOf</span>属性のクエリを実行すると、orgのレート制限に影響を与える可能性があります。レート制限の問題を回避するために、<span class="mc-variable okta-variables.ProductName variable">Okta</span>ではグループメンバーシップ属性<span class="code">uniqueMember</span>を使用することをお勧めします。この構成では、ユーザー数ではなくグループ数でAPI呼び出しをスケーリングします。</p><p> LDAPのコアスキーマの一部であったその他の操作属性も改善されました。このリストには、<span class="code">hasSubordinates</span>、<span class="code">structuralObjectClass</span>、<span class="code">entryDN</span>、<span class="code">subschemaSubentry</span>、<span class="code">numSubordinates</span>が含まれます。<span class="code">numSubordinates</span>はユーザーおよびグループコンテナーに対しては計算されないことに注意してください。</p></li>
-                                                        <li>大文字と小文字を区別する属性とLDAPインターフェイスの検索：大文字と小文字を区別する属性またはスキーマに存在しない属性を参照するLDAPインターフェイスの検索フィルターは、結果を返さない。
-					<p>たとえば、カスタム属性<span class="code">Employee Number</span>が大文字と小文字を区別する場合、フィルター<span class="userinput">employeenumber=123-45-6789</span>もフィルター<span class="userinput">(|(employeenumber=*)(uniqueIdentifier=*))</span>も結果を返しません。</p><p>さらに、スキーマにない属性を参照するLDAPインターフェイス検索フィルターは結果を返しません。たとえば、属性<span class="code">xyz</span>がスキーマに存在しない場合、フィルター<span class="userinput">xyz=foo</span>もフィルター<span class="userinput">(|(xyz=*)(bar=*))</span>も結果を返しません。</p></li>
+                                                        <li><span class="code">memberOf</span>と<span class="code">uniqueMember</span>の処理時間は、グループメンバーの総数および検索操作を実行する管理者ロールに応じて長くなる可能性があります。より制限されたロールを持つユーザーの場合、検索の処理に要する時間が長くなります。</li>
+                                                        <li>検索結果の数は1ページあたり1000件に制限されます。大規模な結果セットでは、Simple Pagination Control（<a href="https://www.ietf.org/rfc/rfc2696.txt" target="_blank">RFC 2696</a>）が必要になります。</li>
+                                                        <li>LDAPインターフェイスは、<span class="code">memberOf</span>を仮想操作属性として定義します。これは、次の場合にのみ返されます。<ul><li><span class="code">memberOf</span>が要求された属性である場合、または</li><li>すべての操作属性の要求に「<span class="code">+</span>」が使用されている場合</li></ul></li>
                                                         <li>
-                                                            <p>LDAPインターフェイスで<span class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span>の多要素認証を使用する場合、報告されるIPアドレスはクライアントIPではなくアプリサーバーのIPになる。これは、LDAPを介してクライアントIPを転送できる場合の制限によるものです。</p>
+                                                            <p>LDAPインターフェイスで使用できる属性は、完全なLDAPスキーマのサブセットのみを表しており、名前に矛盾がある可能性があります。また、カスタムOktaプロパティはLDAPインターフェイススキーマに反映されません。</p>
+                                                            <p>利用できるLDAPインターフェイススキーマを確認するには、次を使ってLDAPインターフェイス検索を実行します。</p>
+                                                            <table style="width: 100%;mc-table-style: url('../../resources/tablestyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
+                                                                <col class="TableStyle-srb_header_alt_shade-Column-Column1" style="width: auto;" />
+                                                                <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
+                                                                <thead>
+                                                                    <tr class="TableStyle-srb_header_alt_shade-Head-Header1">
+                                                                        <th class="TableStyle-srb_header_alt_shade-HeadF-Column1-Header1">属性</th>
+                                                                        <th class="TableStyle-srb_header_alt_shade-HeadD-Column1-Header1">値</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                                                                            <p>ベースDN</p>
+                                                                        </td>
+                                                                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1"><span class="code">cn=schema</span>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
+                                                                            <p>スコープ</p>
+                                                                        </td>
+                                                                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
+                                                                            <p><span class="code">BASE</span>
+                                                                            </p>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
+                                                                        <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
+                                                                            <p>フィルター</p>
+                                                                        </td>
+                                                                        <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
+                                                                            <p><span class="code">objectclass=subschema</span>
+                                                                            </p>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
+                                                                        <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">
+                                                                            <p>要求する属性</p>
+                                                                        </td>
+                                                                        <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2">
+                                                                            <p> <span class="code">ldapSyntaxes matchingRules attributeTypes objectClasses</span></p>
+                                                                            <p>または、「<span class="code">+</span>」またはすべてのユーザー属性を使用します。</p>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table><![CDATA[		]]></li>
+                                                        <li>
+                                                            <p>サポートされないスキーマ属性が検索クエリに使用されている場合、検索結果は返されません。</p>
+                                                        </li>
+                                                    </ul>
+                                                    <h2>暗号化</h2>
+                                                    <ul>
+                                                        <li>TLS 1.2のみがサポートされます。</li>
+                                                        <li>LDAPインターフェイスは、暗号化された接続を使用する2つの方法、LDAPSとStartTLSをサポートします。LDAPインターフェイスを使用するには、いずれかの方法で接続を暗号化する必要があります。暗号化されていない接続で受信した操作は、すべて直ちに拒否されます。</li>
+                                                    </ul>
+                                                    <h2>認証（BIND）</h2>
+                                                    <ul>
+                                                        <li>
+                                                            <p>UnixまたはLinuxベースのPAM認証はサポートされません。</p>
                                                         </li>
                                                         <li>
-                                                            <p><span class="code">user.uid</span>などの<span class="mc-variable okta-variables.ProductName variable">Okta</span>属性の作成はサポートされていません。これらの属性は<span class="code">&lt;uid=user.login&gt;</span>属性検索では取得できません。属性検索が実行されても、ユーザープロファイルに<span class="code">user.uid</span>属性が含まれている場合、結果は返されません。</p>
+                                                            <p><span class="code">samAccountName</span>はアプリのサインイン値として使用できないため、失敗します。OktaユーザーIDを指定する必要があります。</p>
                                                         </li>
                                                         <li>
-                                                            <p>グループ管理者、ヘルプデスク管理者、および割り当てられたグループのユーザーの表示と管理に権限が制限されているカスタム管理者は、ユーザー検索の実行時にタイムアウトになる場合があります。 </p>
+                                                            <p><span class="mc-variable okta-feature-names.Okta_Verify variable">Okta Verify</span>多要素認証とLDAPインターフェイスを併用する場合、レポートされるIPアドレスはクライアントIPではなく、アプリサーバーIPです。これは、LDAPを通じたクライアントIP転送の制限によるものです。</p>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -328,7 +380,7 @@
                                     <!-- *********************** Footer rows ********************************* -->
                                     <div class="footer2" data-test="footer">
                                         <div>
-                                            <p class="copyright" data-test="copyrightNotice">&copy;  <span class="mc-variable okta-variables.Year variable">2023</span> <span class="mc-variable okta-variables.CompanyName variable">Okta, Inc</span>. All Rights Reserved. それぞれの商標は、それぞれの商標所有者に帰属します。
+                                            <p class="copyright" data-test="copyrightNotice">&copy;  <span class="mc-variable okta-variables.Year variable">2024</span> <span class="mc-variable okta-variables.CompanyName variable">Okta, Inc</span>. All Rights Reserved. それぞれの商標は、それぞれの商標所有者に帰属します。
 	</p>
                                         </div>
                                     </div>
