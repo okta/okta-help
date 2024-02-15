@@ -7,8 +7,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="coveo:connector" content="HTTP" />
         <meta name="coveo:method" content="paginate" />
-        <meta name="coveo:method-description" content="Set how many times the Paginate function card will iterate." />
-        <meta name="coveo:method-type" content="action" /><title>Paginate: Set a Max Page Index | Okta</title>
+        <meta name="coveo:method-description" content="Illustrate how the paginate function card iterates." />
+        <meta name="coveo:method-type" content="action" /><title>Paginate: set a maximum page index | Okta</title>
         <meta charset="utf-8" />
         <meta name="description" content="" />
         <meta name="author" content="" />
@@ -46,7 +46,7 @@
 
 </style>
         <link href="../../../../resources/stylesheets/okta-main-new-nav.css" rel="stylesheet" type="text/css" />
-        <link rel="canonical" href="https://help.okta.com/wf/en-us/Content/Topics/Workflows/function-reference/Encryption/encryption_hmac.htm" />
+        <link rel="canonical" href="https://help.okta.com/wf/en-us/Content/Topics/Workflows/function-reference/http/http_paginate_set-max-page-index.htm" />
         <script src="../../../../../Resources/Scripts/jquery.min.js" type="text/javascript">
         </script>
         <script src="../../../../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
@@ -293,50 +293,93 @@
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
                                                     <div data-content-id="hoc-main-content">
-                                                        <h1>Paginate: Set a Max Page Index</h1>
+                                                        <h1>Paginate: set a maximum page index</h1>
                                                         <p class="beta">This function card is only available in <a href="../../connector-builder/connector-builder.htm" class="MCXref xref">Connector Builder</a>.</p>
-                                                        <p>When working with the Paginate function card, it’s important to have control over how many times the function will iterate.  The Workflows platform has a maximum iteration count of 5000 on this function, and being able to reduce that while testing flows is extremely important.  This example will show how to set a <span class="code">max_page_index</span> of 10 and halt pagination once that index has been reached.  This should be your first task when working with pagination in Workflows.</p>
+                                                        <p>When working with the <span class="wintitle">Paginate</span> function card, it's important to have control over how many times the function iterates. <span class="mc-variable okta-feature-names.Okta_Workflows variable">Okta Workflows</span> limits this function to 5,000 iterations, so it's important to ensure that you don't exceed that count while testing flows.</p>
+                                                        <p>This example shows how to set a <span class="uicontrol">max_page_index</span> of <span class="userinput">10</span> and then halt pagination after reaching that index.</p>
                                                         <div class="note_tipOkta">
-                                                            <p class="noteContent">See <a href="http_paginate.htm" class="MCXref xref">Paginate</a> to get started with this function card, and <a href="http_paginate_api-endpoint.htm" class="MCXref xref">Paginate: API Endpoint</a> for additional best practices when using this card. </p>
+                                                            <p class="noteContent">See <a href="http_paginate.htm" class="MCXref xref">Paginate</a> to get started with this function card and <a href="http_paginate_api-endpoint.htm" class="MCXref xref">Paginate: API endpoint</a> for other best practices when using this card.</p>
                                                         </div>
-                                                        <p>First, create an object with three key/value pairs that will get passed into the Paginate function card.  This is done using the Object Construct card.</p>
-                                                        <p>
-                                                            <img src="../../../../resources/images/workflows/connector-builder/construct_160x293.png" style="width: 160;height: 293;" />
+                                                        <p>Using the <span class="wintitle">Construct</span> object card, create an object with three key value pairs, for example your keys might be:</p>
+                                                        <ul>
+                                                            <li>
+                                                                <p><span class="uicontrol">page_index</span>: Current count of iterations.</p>
+                                                            </li>
+                                                            <li>
+                                                                <p><span class="uicontrol">max_page_index</span>: Maximum number of times that the helper flow should iterate.</p>
+                                                            </li>
+                                                            <li>
+                                                                <p><span class="uicontrol">break</span>: Value that the function checks to stop the loop.</p>
+                                                            </li>
+                                                        </ul>
+                                                        <p><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../../../resources/images/workflows/connector-builder/paginate-construct-basic.png"><img class="MCPopupThumbnail img imgthumbnail" data-mc-width="217" data-mc-height="400" src="../../../../resources/images/workflows/connector-builder/paginate-construct-basic_thumb_220_220.png" style="width: 160px;height: 293px;" tabindex="" /></a>
                                                         </p>
-                                                        <p>This is the resulting object:</p>
+                                                        <p>You can then pass the resulting <span class="uicontrol">object</span> into the <span class="wintitle">Paginate</span> function card:</p>
                                                         <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
-                                                            <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>{<br />    “index”: 0,<br />    “max_page_index”: 10,<br />    “break”: false<br />}</code></pre>
+                                                            <p>
+                                                                <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>{<br />  "page_index": 0,<br />  "max_page_index": 10,<br />  "break": false<br />}</code></pre>
+                                                                </div>
+                                                            </p>
+                                                        </div>
+                                                        <h3>Helper flow</h3>
+                                                        <p>The <span class="wintitle">Paginate</span> function requires a helper flow. The inputs defined in the helper flow  need to match the keys you defined in the pagination <span class="uicontrol">object</span>:</p>
+                                                        <ul>
+                                                            <li>
+                                                                <p><span class="uicontrol">page_index</span>
+                                                                </p>
+                                                            </li>
+                                                            <li>
+                                                                <p><span class="uicontrol">max_page_index</span>
+                                                                </p>
+                                                            </li>
+                                                            <li>
+                                                                <p><span class="uicontrol">break</span>
+                                                                </p>
+                                                            </li>
+                                                        </ul>
+                                                        <p>When the helper flow executes, you need to manage the values passed into the flow. The goal is to track the number of iterations made by the pagination function, so you need to increase the <span class="uicontrol">page_index</span> value with each iteration. You can accomplish this with the <span class="wintitle">Add</span> number function card. </p>
+                                                        <p>Then you reconstruct the new pagination <span class="uicontrol">object</span> so it can be returned to the <span class="wintitle">Paginate</span> function card.</p>
+                                                        <p><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../../../resources/images/workflows/connector-builder/paginate-object.png"><img class="MCPopupThumbnail img imgthumbnail" data-mc-width="750" data-mc-height="397" src="../../../../resources/images/workflows/connector-builder/paginate-object_thumb_220_220.png" tabindex="" /></a>
+                                                        </p>
+                                                        <p>The values in the resulting <span class="uicontrol">object</span> are now:</p>
+                                                        <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
+                                                            <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>{<br />  "page_index": 1,<br />  "max_page_index": 10,<br />  "break": false<br />}</code></pre>
                                                             </div>
                                                         </div>
-                                                        <p>The pagination function requires the use of a helper flow, and the inputs defined on the helper flow event card will need to match the keys defined in the pagination object above:</p>
-                                                        <p><span class="code">page_index</span>, <span class="code">max_page_index</span>, and <span class="code">break</span>.</p>
-                                                        <p> The platform will extract the values from the pagination object and make them accessible in the flow.</p>
-                                                        <p>When the helper flow executes, the values passed into the flow need to be managed.  Since the goal is to track the number of iterations made by the pagination function, the index will need to be increased with each iteration.  This can be done using the Number Add function.  Once the index has been increased, the pagination object needs to be reconstructed so it can be returned to the pagination function.</p>
-                                                        <p>
-                                                            <img src="../../../../resources/images/workflows/connector-builder/paginate-object_523x277.png" style="width: 523;height: 277;" />
+                                                        <p>As the flow iterates, the counter increases. To stop the <span class="wintitle">Pagination</span> function from iterating after <span class="uicontrol">page_index</span> reaches <span class="userinput">10</span> (to match the <span class="uicontrol">max_page_index</span>), you must remove the <span class="uicontrol">break</span> from the <span class="uicontrol">object</span>: </p>
+                                                        <ol>
+                                                            <li value="1">
+                                                                <p>Add an <span class="wintitle">If/Else</span> branching function inside the helper flow. For the <span class="uicontrol">Compare</span> fields, enter that you want to check if <span class="userinput">new_index</span> is equal to <span class="userinput">max_page_index</span>. </p>
+                                                                <p>Click <span class="uicontrol">Save</span>. </p>
+                                                            </li>
+                                                            <li value="2">
+                                                                <p>In the <span class="wintitle">Run when FALSE</span> row, you can drag the updated object to an  <span class="wintitle">Assign</span> card. The object leaves the <span class="wintitle">If/Else</span> card without changes.</p>
+                                                            </li>
+                                                            <li value="3">
+                                                                <p>In the <span class="wintitle">Run when TRUE</span> row (that is triggered when the <span class="uicontrol">page_index</span> equals the <span class="uicontrol">max_page_index</span>), add the  <span class="wintitle">Unset</span> object function to remove the <span class="uicontrol">break</span> key. When the resulting pagination <span class="uicontrol">object</span> returns to the parent flow, the <span class="wintitle">Paginate</span> function checks for the <span class="uicontrol">break</span> path. If that path isn't found in the updated <span class="uicontrol">object</span>, the function completes by stopping the pagination.</p>
+                                                            </li>
+                                                            <li value="4">
+                                                                <p>Click <span class="uicontrol">Create outputs</span> and drag the <span class="wintitle">Output</span> field to the <span class="wintitle">Return</span> flow control card.</p>
+                                                            </li>
+                                                            <li value="5">
+                                                                <p>Drag the output <span class="uicontrol">object</span> from each row to the <span class="wintitle">Outputs</span> field that corresponds to the true or false test result.</p>
+                                                            </li>
+                                                        </ol>
+                                                        <p><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../../../resources/images/workflows/connector-builder/paginate-object-helper.png"><img class="MCPopupThumbnail img imgthumbnail" data-mc-width="1727" data-mc-height="735" src="../../../../resources/images/workflows/connector-builder/paginate-object-helper_thumb_220_220.png" tabindex="" /></a>
                                                         </p>
-                                                        <p>This is the resulting object:</p>
+                                                        <p>When you run the parent flow, the final <span class="uicontrol">object</span> looks like the following:</p>
                                                         <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
-                                                            <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>{<br />    “index”: 1,<br />    “max_page_index”: 10,<br />    “break”: false<br />}</code></pre>
-                                                            </div>
-                                                        </div>
-                                                        <p>Once <span class="code">index</span> reaches 10, the break condition should be removed from the object to stop the pagination function from iterating again.  This can be done using the Branching If/Else function by setting the If condition to <span class="code">index</span> equals <span class="code">max_page_index</span>.  Within that condition, the Object Unset function can be used to remove the <span class="code">break</span> key/value pair.  The resulting new pagination object is then returned to the parent flow and the pagination will stop.</p>
-                                                        <p>
-                                                            <img src="../../../../resources/images/workflows/connector-builder/paginate-object-parent_652x282.png" style="width: 652;height: 282;" />
-                                                        </p>
-                                                        <p>This is the resulting object:</p>
-                                                        <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
-                                                            <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>{<br />    “index”: 10,<br />    “max_page_index”: 10,<br />}</code></pre>
+                                                            <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>{<br />  "page_index": 10,<br />  "max_page_index": 10<br />}</code></pre>
                                                             </div>
                                                         </div>
                                                         <h2>Related topics</h2>
                                                         <p><a href="http_paginate.htm" class="MCXref xref">Paginate</a>
                                                         </p>
-                                                        <p><a href="http_paginate_api-endpoint.htm" class="MCXref xref">Paginate: API Endpoint</a>
+                                                        <p><a href="http_paginate_api-endpoint.htm" class="MCXref xref">Paginate: API endpoint</a>
                                                         </p>
                                                         <p><a href="../functions.htm" class="MCXref xref">Functions in Workflows</a>
                                                         </p>
-                                                        <p data-mc-conditions="MultiProdPublish.Workflows"><a href="../../workflows-elements.htm" class="MCXref xref">Workflow elements</a>
+                                                        <p><a href="../../workflows-elements.htm" class="MCXref xref">Workflow elements</a>
                                                         </p>
                                                     </div>
                                                 </div>

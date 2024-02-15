@@ -1382,8 +1382,7 @@ xmlAliasData += '    <Map Name=\"ext-office365admin-method-groupupdated\" Link=\
 xmlAliasData += '    <Map Name=\"ext-office365admin-method-usercreated\" Link=\"topics/workflows/connector-reference/azuread/events/usercreated.htm\" ResolvedId=\"6081\" />';
 xmlAliasData += '    <Map Name=\"ext-office365admin-method-userdeleted\" Link=\"topics/workflows/connector-reference/azuread/events/userdeleted.htm\" ResolvedId=\"6082\" />';
 xmlAliasData += '    <Map Name=\"ext-office365admin-method-userupdated\" Link=\"topics/workflows/connector-reference/azuread/events/userupdated.htm\" ResolvedId=\"6083\" />';
-xmlAliasData += '    <Map Name=\"ext-workflows-console\" Link=\"topics/workflows/learn/about-workflowsconsole.htm\" ResolvedId=\"6084\" />';
-xmlAliasData += '    <Map Name=\"ext-about-folders\" Link=\"topics/workflows/learn/about-folders.htm\" ResolvedId=\"6085\" />';
+xmlAliasData += '    <Map Name=\"ext-workflows-console\" Link=\"topics/workflows/learn/about-workflowsconsole.htm\" ResolvedId=\"6100\" />';
 xmlAliasData += '    <Map Name=\"ext-bamboohr\" Link=\"topics/workflows/connector-reference/bamboohr/bamboohr.htm\" ResolvedId=\"6085\" />';
 xmlAliasData += '    <Map Name=\"ext-googledirectory-method-suspenduser\" Link=\"topics/workflows/connector-reference/googledirectory/actions/suspenduser.htm\" ResolvedId=\"6084\" />';
 xmlAliasData += '    <Map Name=\"ext-bamboohr-method-listemployees\" Link=\"topics/workflows/connector-reference/bamboohr/actions/listemployees.htm\" ResolvedId=\"6086\" />';
@@ -1399,5 +1398,6 @@ xmlAliasData += '    <Map Name=\"ext-greenhouse-method-readcandidate\" Link=\"to
 xmlAliasData += '    <Map Name=\"ext-greenhouse-method-readuser\" Link=\"topics/workflows/connector-reference/greenhouse/actions/readuser.htm\" ResolvedId=\"6096\" />';
 xmlAliasData += '    <Map Name=\"ext-greenhouse-method-updatecandidate\" Link=\"topics/workflows/connector-reference/greenhouse/actions/updatecandidate.htm\" ResolvedId=\"6097\" />';
 xmlAliasData += '    <Map Name=\"ext-greenhouse-method-updateuser\" Link=\"topics/workflows/connector-reference/greenhouse/actions/updateuser.htm\" ResolvedId=\"6098\" />';
+xmlAliasData += '    <Map Name=\"ext-about-folders\" Link=\"topics/workflows/learn/about-folders.htm\" ResolvedId=\"6099\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
