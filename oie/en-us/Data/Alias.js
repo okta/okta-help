@@ -747,5 +747,6 @@ xmlAliasData += '    <Map Name=\"csh-ver-hist-mfa-cred-win\" Link=\"topics/setti
 xmlAliasData += '    <Map Name=\"csh-ver-hist-confluence-auth-toolkit\" Link=\"topics/settings/version_histories/ver_history_confluence_authenticator_toolkit.htm\" ResolvedId=\"16025\" />';
 xmlAliasData += '    <Map Name=\"csh-ver-hist-jira-auth-toolkit\" Link=\"topics/settings/version_histories/ver_history_jira_authenticator_toolkit.htm\" ResolvedId=\"16026\" />';
 xmlAliasData += '    <Map Name=\"csh-ver-hist-opp-agent\" Link=\"topics/settings/version_histories/ver_history_opp_agent.htm\" ResolvedId=\"16027\" />';
+xmlAliasData += '    <Map Name=\"csh-trusted-app-filter\" Link=\"topics/identity-engine/authenticators/trusted-app-filters-for-fastpass.htm\" ResolvedId=\"3009\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
