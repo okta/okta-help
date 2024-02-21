@@ -1399,5 +1399,14 @@ xmlAliasData += '    <Map Name=\"ext-greenhouse-method-readuser\" Link=\"topics/
 xmlAliasData += '    <Map Name=\"ext-greenhouse-method-updatecandidate\" Link=\"topics/workflows/connector-reference/greenhouse/actions/updatecandidate.htm\" ResolvedId=\"6097\" />';
 xmlAliasData += '    <Map Name=\"ext-greenhouse-method-updateuser\" Link=\"topics/workflows/connector-reference/greenhouse/actions/updateuser.htm\" ResolvedId=\"6098\" />';
 xmlAliasData += '    <Map Name=\"ext-about-folders\" Link=\"topics/workflows/learn/about-folders.htm\" ResolvedId=\"6099\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-devices\" Link=\"topics/workflows/connector-reference/oktadevices/oktadevices.htm\" ResolvedId=\"6118\" />';
+xmlAliasData += '    <Map Name=\"ext-oktadevices-misc-authorization\" Link=\"topics/workflows/connector-reference/oktadevices/overviews/authorization.htm\" ResolvedId=\"6110\" />';
+xmlAliasData += '    <Map Name=\"ext-oktadevices-method-activatedevice\" Link=\"topics/workflows/connector-reference/oktadevices/actions/activatedevice.htm\" ResolvedId=\"6117\" />';
+xmlAliasData += '    <Map Name=\"ext-oktadevices-method-deactivatedevice\" Link=\"topics/workflows/connector-reference/oktadevices/actions/deactivatedevice.htm\" ResolvedId=\"6116\" />';
+xmlAliasData += '    <Map Name=\"ext-oktadevices-method-deletedevice\" Link=\"topics/workflows/connector-reference/oktadevices/actions/deletedevice.htm\" ResolvedId=\"6115\" />';
+xmlAliasData += '    <Map Name=\"ext-oktadevices-method-readdevice\" Link=\"topics/workflows/connector-reference/oktadevices/actions/readdevice.htm\" ResolvedId=\"6114\" />';
+xmlAliasData += '    <Map Name=\"ext-oktadevices-method-searchdevice\" Link=\"topics/workflows/connector-reference/oktadevices/actions/searchdevice.htm\" ResolvedId=\"6113\" />';
+xmlAliasData += '    <Map Name=\"ext-oktadevices-method-suspenddevice\" Link=\"topics/workflows/connector-reference/oktadevices/actions/suspenddevice.htm\" ResolvedId=\"6112\" />';
+xmlAliasData += '    <Map Name=\"ext-oktadevices-method-unsuspenddevice\" Link=\"topics/workflows/connector-reference/oktadevices/actions/unsuspenddevice.htm\" ResolvedId=\"6111\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
