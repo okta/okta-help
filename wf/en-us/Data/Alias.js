@@ -1408,5 +1408,11 @@ xmlAliasData += '    <Map Name=\"ext-oktadevices-method-readdevice\" Link=\"topi
 xmlAliasData += '    <Map Name=\"ext-oktadevices-method-searchdevice\" Link=\"topics/workflows/connector-reference/oktadevices/actions/searchdevice.htm\" ResolvedId=\"6113\" />';
 xmlAliasData += '    <Map Name=\"ext-oktadevices-method-suspenddevice\" Link=\"topics/workflows/connector-reference/oktadevices/actions/suspenddevice.htm\" ResolvedId=\"6112\" />';
 xmlAliasData += '    <Map Name=\"ext-oktadevices-method-unsuspenddevice\" Link=\"topics/workflows/connector-reference/oktadevices/actions/unsuspenddevice.htm\" ResolvedId=\"6111\" />';
+xmlAliasData += '    <Map Name=\"ext-about-helper-flows\" Link=\"topics/workflows/learn/about-helper-flows.htm\" ResolvedId=\"6101\" />';
+xmlAliasData += '    <Map Name=\"ext-about-streaming\" Link=\"topics/workflows/learn/about-streaming.htm\" ResolvedId=\"6102\" />';
+xmlAliasData += '    <Map Name=\"ext-about-delegated-flows\" Link=\"topics/workflows/learn/about-delegated-flows.htm\" ResolvedId=\"6103\" />';
+xmlAliasData += '    <Map Name=\"ext-about-action-cards\" Link=\"topics/workflows/learn/about-action-cards.htm\" ResolvedId=\"6104\" />';
+xmlAliasData += '    <Map Name=\"ext-about-function-cards\" Link=\"topics/workflows/learn/about-function-cards.htm\" ResolvedId=\"6105\" />';
+xmlAliasData += '    <Map Name=\"ext-build-search-streaming\" Link=\"topics/workflows/build/search-with-streaming.htm\" ResolvedId=\"6106\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
