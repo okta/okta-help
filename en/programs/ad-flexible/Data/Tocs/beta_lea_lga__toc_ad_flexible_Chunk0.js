@@ -1,0 +1,1 @@
+define({'/content/topics/directory/ad-bidirectional-group-management-configure.htm':{i:[1],t:['Use Okta Access Certifications to manage AD group membership'],b:['']},'/content/topics/directory/ad-bidirectional-group-management.htm':{i:[0],t:['Bidirectional Group  Management with Active Directory'],b:['']}});
