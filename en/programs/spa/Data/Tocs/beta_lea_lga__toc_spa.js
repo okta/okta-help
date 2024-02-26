@@ -1,0 +1,1 @@
+define({numchunks:1,prefix:'beta_lea_lga__toc_spa_Chunk',chunkstart:['/content/topics/users-groups-profiles/realms/spa/secure-partner-access-portal.htm'],tree:{n:[{i:0,c:0}]}});
