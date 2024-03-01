@@ -730,13 +730,13 @@ xmlAliasData += '    <Map Name=\"csh-ad-agent-new-int\" Link=\"topics/directory/
 xmlAliasData += '    <Map Name=\"csh-admin-get-started\" Link=\"topics/security/admin-get-started.htm\" ResolvedId=\"5038\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-self-service\" Link=\"topics/apps/apps-selfservice-main.htm\" ResolvedId=\"5040\" />';
 xmlAliasData += '    <Map Name=\"csh-import-monitoring-dash\" Link=\"topics/users-groups-profiles/usgp-view-import-monitoring-dashboard.htm\" ResolvedId=\"5041\" />';
-xmlAliasData += '    <Map Name=\"csh-idp-add-saml\" Link=\"topics/security/idp-add-saml.htm\" ResolvedId=\"18024\" />';
+xmlAliasData += '    <Map Name=\"csh-idp-add-saml\" Link=\"topics/security/idp-add-saml.htm\" ResolvedId=\"18039\" />';
 xmlAliasData += '    <Map Name=\"csh-ac-roles-entitlements\" Link=\"topics/identity-governance/access-certification/campaigns.htm\" ResolvedId=\"13042\" />';
 xmlAliasData += '    <Map Name=\"csh-limited-access-oce\" Link=\"topics/apps/pass-device-context-limited-access.htm\" ResolvedId=\"3009\" />';
 xmlAliasData += '    <Map Name=\"ext-entitlement-mgt\" Link=\"topics/identity-governance/em/entitlement-mgt.htm\" ResolvedId=\"16019\" />';
-xmlAliasData += '    <Map Name=\"csh-protected-actions\" Link=\"topics/security/admin-console-protected-actions.htm\" ResolvedId=\"19033\" />';
+xmlAliasData += '    <Map Name=\"csh-protected-actions\" Link=\"topics/security/admin-console-protected-actions.htm\" ResolvedId=\"19037\" />';
 xmlAliasData += '    <Map Name=\"ext-aiw-scim-entitlements\" Link=\"topics/apps/aiw_scim_entitlements.htm\" ResolvedId=\"16020\" />';
-xmlAliasData += '    <Map Name=\"ext-config-csp\" Link=\"topics/settings/customizations-configure-csp.htm\" ResolvedId=\"19033\" />';
+xmlAliasData += '    <Map Name=\"ext-config-csp\" Link=\"topics/settings/customizations-configure-csp.htm\" ResolvedId=\"19038\" />';
 xmlAliasData += '    <Map Name=\"ext-sft-keyring\" Link=\"topics/privileged-access/clients/pam-sft-keyring.htm\" ResolvedId=\"1316\" />';
 xmlAliasData += '    <Map Name=\"csh-ver-hist-onprem-mfa-agent\" Link=\"topics/settings/version_histories/ver_history_on-prem_mfa_agent.htm\" ResolvedId=\"16021\" />';
 xmlAliasData += '    <Map Name=\"csh-ver-hist-mfa-provider-adfs\" Link=\"topics/settings/version_histories/ver_history_okta_mfa_provider_for_adfs.htm\" ResolvedId=\"16022\" />';
@@ -746,5 +746,6 @@ xmlAliasData += '    <Map Name=\"csh-ver-hist-confluence-auth-toolkit\" Link=\"t
 xmlAliasData += '    <Map Name=\"csh-ver-hist-jira-auth-toolkit\" Link=\"topics/settings/version_histories/ver_history_jira_authenticator_toolkit.htm\" ResolvedId=\"16026\" />';
 xmlAliasData += '    <Map Name=\"csh-ver-hist-opp-agent\" Link=\"topics/settings/version_histories/ver_history_opp_agent.htm\" ResolvedId=\"16027\" />';
 xmlAliasData += '    <Map Name=\"csh-atlassian-migration-guide\" Link=\"topics/provisioning/atlassian/migration-guide.htm\" ResolvedId=\"18028\" />';
+xmlAliasData += '    <Map Name=\"ext-usgp-edit-app-provisioning\" Link=\"topics/users-groups-profiles/usgp-edit-app-provisioning.htm\" ResolvedId=\"16028\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
