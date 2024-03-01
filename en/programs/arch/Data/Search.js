@@ -1,1 +1,1 @@
-define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../content/topics/arch/architecture-center.htm'],s:['$'],p:[['$',2]]});
+define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../content/topics/arch/architecture-center.htm'],s:['$'],p:[['$',4]]});
