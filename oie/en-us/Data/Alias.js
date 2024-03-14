@@ -743,6 +743,7 @@ xmlAliasData += '    <Map Name=\"ext-sft-keyring\" Link=\"topics/privileged-acce
 xmlAliasData += '    <Map Name=\"csh-ver-hist-onprem-mfa-agent\" Link=\"topics/settings/version_histories/ver_history_on-prem_mfa_agent.htm\" ResolvedId=\"16021\" />';
 xmlAliasData += '    <Map Name=\"csh-ver-hist-mfa-provider-adfs\" Link=\"topics/settings/version_histories/ver_history_okta_mfa_provider_for_adfs.htm\" ResolvedId=\"16022\" />';
 xmlAliasData += '    <Map Name=\"csh-ver-hist-mfa-cred-win\" Link=\"topics/settings/version_histories/ver_history_okta_mfa_credential_provider_for_windows.htm\" ResolvedId=\"16023\" />';
+xmlAliasData += '    <Map Name=\"csh-ver-hist-hyperdrive-agent\" Link=\"topics/settings/version_histories/ver_history_hyperdrive_agent.htm\" ResolvedId=\"16024\" />';
 xmlAliasData += '    <Map Name=\"csh-ver-hist-confluence-auth-toolkit\" Link=\"topics/settings/version_histories/ver_history_confluence_authenticator_toolkit.htm\" ResolvedId=\"16025\" />';
 xmlAliasData += '    <Map Name=\"csh-ver-hist-jira-auth-toolkit\" Link=\"topics/settings/version_histories/ver_history_jira_authenticator_toolkit.htm\" ResolvedId=\"16026\" />';
 xmlAliasData += '    <Map Name=\"csh-ver-hist-opp-agent\" Link=\"topics/settings/version_histories/ver_history_opp_agent.htm\" ResolvedId=\"16027\" />';
