@@ -454,7 +454,6 @@ xmlAliasData += '    <Map Name=\"ext_Manage_Early_Access_features\" Link=\"topic
 xmlAliasData += '    <Map Name=\"ext_match-user\" Link=\"topics/users-groups-profiles/usgp-matching-imported-users.htm\" ResolvedId=\"1171\" />';
 xmlAliasData += '    <Map Name=\"ext_MFA_OnPrem\" Link=\"topics/security/mfa_onprem.htm\" ResolvedId=\"200160\" />';
 xmlAliasData += '    <Map Name=\"ext_o365_dep_guide\" Link=\"topics/apps/office365-deployment/deploy-main.htm\" ResolvedId=\"1077\" />';
-xmlAliasData += '    <Map Name=\"ext_Okta_3PartyWhitelist\" Link=\"topics/security/okta-allow-cookies.htm\" ResolvedId=\"200161\" />';
 xmlAliasData += '    <Map Name=\"ext_okta_active_directory_agent\" Link=\"topics/directory/ad-agent-manage-integration.htm\" ResolvedId=\"200076\" />';
 xmlAliasData += '    <Map Name=\"ext_okta_active_directory_agent_OLD\" Link=\"topics/directory/ad-agent-main.htm\" ResolvedId=\"200077\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_Active_Directory_Agent_UDMappingchanges\" Link=\"topics/users-groups-profiles/usgp-sourcing-main.htm\" ResolvedId=\"200079\" />';
