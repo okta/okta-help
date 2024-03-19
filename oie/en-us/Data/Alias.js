@@ -756,5 +756,6 @@ xmlAliasData += '    <Map Name=\"csh-realms-assignment\" Link=\"topics/users-gro
 xmlAliasData += '    <Map Name=\"csh-realms-move-users\" Link=\"topics/users-groups-profiles/realms/realms-manage-users.htm\" ResolvedId=\"1318\" />';
 xmlAliasData += '    <Map Name=\"csh-realms-delegate-admin\" Link=\"topics/users-groups-profiles/realms/realms-delegate-realm-management.htm\" ResolvedId=\"1319\" />';
 xmlAliasData += '    <Map Name=\"ext-realms\" Link=\"topics/users-groups-profiles/realms/realms.htm\" ResolvedId=\"1320\" />';
+xmlAliasData += '    <Map Name=\"ext-third-party-cookies\" Link=\"topics/security/okta-allow-cookies.htm\" ResolvedId=\"18040\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
