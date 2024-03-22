@@ -753,5 +753,6 @@ xmlAliasData += '    <Map Name=\"csh-realms-delegate-admin\" Link=\"topics/users
 xmlAliasData += '    <Map Name=\"ext-realms\" Link=\"topics/users-groups-profiles/realms/realms.htm\" ResolvedId=\"1320\" />';
 xmlAliasData += '    <Map Name=\"ext-third-party-cookies\" Link=\"topics/security/okta-allow-cookies.htm\" ResolvedId=\"18040\" />';
 xmlAliasData += '    <Map Name=\"ext-cstm-admin-roles\" Link=\"topics/security/custom-admin-role/custom-admin-roles.htm\" ResolvedId=\"19039\" />';
+xmlAliasData += '    <Map Name=\"ext-configure-mfa-policy\" Link=\"topics/security/policies/configure-mfa-policies.htm\" ResolvedId=\"14003\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
