@@ -290,51 +290,32 @@
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
                                                     <h1>Load balancers</h1>
-                                                    <div class="noteOkta">
-                                                        <p class="noteContent">In version <span class="mc-variable oag-versions.2022-02 variable">2022.2.3</span> Access Gateway introduced internal load balancing. <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> as load balancer is the preferred load balancing method.  See <a href="about-oag-load-balancers.htm" class="MCXref xref">Load balancing</a>.</p>
-                                                    </div>
-                                                    <p> <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> is often deployed in a high availability scenario using a load balancers. Load balancers exist to:</p>
+                                                    <p>You can use load balancers in high-availability scenarios to manage the distribution of requests in <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>. Use <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> as the load balancer to distribute requests across multiple <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> instances. You can use either <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> or third-party products as the load balancer to distribute requests to multiple instances of a back-end protected web resource.</p>
                                                     <ul>
-                                                        <li>Distribute load across multiple instances of <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>. Amazon Web Services, Microsoft Azure, Oracle Cloud Infrastructure all support pre-<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> load balancers. In such scenarios the load balancer must know the health of each worker instance.</li>
-                                                        <li>Distribute load to multiple instances of a back end protected web resource. In these instances, you can use <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>'s built-in internal load balancing and third-party load balancers to distribute load. </li>
+                                                        <li>Any load balancer that you use with <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> must support session affinity. <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> uses sticky sessions, or persistence, to route second and subsequent requests to the same replicated back-end protected web resource. </li>
+                                                        <li>The preferred configuration strategy for an <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> load balancer is round-robin or weighted round-robin.</li>
+                                                        <li>The <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> admin node is typically not included as part of the worker pool when you configure load balancing. </li>
                                                     </ul>
                                                     <p>See <a href="ref-architectures.htm" class="MCXref xref">Reference architectures</a> for more examples of architectures that include load balancers.</p>
                                                     <p><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../resources/images/access-gateway/about-load-balancers-01.png" data-mc-popup-alt="Typical Access Gateway Load Balancer Architecture"><img class="MCPopupThumbnail img imgthumbnail" data-mc-width="800" data-mc-height="321" src="../../resources/images/access-gateway/about-load-balancers-01_thumb_220_220.png" alt="Typical Access Gateway Load Balancer Architecture" tabindex="" id="imgimg_new" /></a>
                                                     </p>
-                                                    <h3>Topics</h3>
-                                                    <ul>
-                                                        <li><a href="#Load" class="MCXref xref">Load balancer configuration</a>
-                                                        </li>
-                                                        <li><a href="#Node" class="MCXref xref">Worker node up check</a>
-                                                        </li>
-                                                        <li><a href="#Cluster" class="MCXref xref">Cluster upgrades and load balancers</a>
-                                                        </li>
-                                                    </ul>
-                                                    <h2><a name="Load"></a>Load balancer configuration</h2>
-                                                    <p>Load balancers:</p>
-                                                    <ul>
-                                                        <li>Sticky sessions or session affinity: Load balancers use session persistence to ensure that requests from a single session are always routed to the server on which they started. Persistence is also known as stickiness or sticky sessions. Any load balancer used with <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> must support session affinity. Session affinity is used by <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> to ensure that second and subsequent requests for a given session are routed to the same <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> node. How session affinity is specified varies by load balancer type, including cookie based or other mechanisms such as hashed source IP and port. </li>
-                                                        <li>Load balancer strategy: The preferred strategy for an <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> load balancer is round-robin or weighted round-robin.<br /></li>
-                                                    </ul>
+                                                    <h2><a name="Node"></a>Check the status of cluster members</h2>
+                                                    <p>Load balancers can determine whether <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> cluster members are up using the <span class="code">/status</span> REST endpoint.</p>
                                                     <div class="noteOkta">
-                                                        <p class="noteContent">When configuring a load balancer, the <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> admin node is typically not included as part of the worker pool. </p>
+                                                        <p class="noteContent">This check only determines whether the worker node NGINX service is up. It doesn’t determine whether downstream resources are up and available.</p>
                                                     </div>
-                                                    <h2><a name="Node"></a>Worker node up check</h2>
-                                                    <p>Load balancers must be able to determine if <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> cluster members are up. <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> provides the <span class="code">/status</span> REST endpoint, which can be used to determine whether a node is up. <br /></p>
-                                                    <div class="noteOkta">
-                                                        <p class="noteContent">This check ONLY determines if the worker node itself is up and functioning. It does NOT determine if downstream resources are up and available.</p>
-                                                    </div>
-                                                    <p>For example:</p>
+                                                    <p>Run this command to check the status of cluster members:</p>
                                                     <p><span class="code">curl -X GET -v -k https://{node.ip}/status -H 'Host:{gw.yourhost.tld}'</span>
                                                     </p>
                                                     <p>See <a href="monitoring-status.htm" class="MCXref xref">Status monitoring</a>.</p>
-                                                    <h2><a name="Cluster"></a>Cluster upgrades and load balancers</h2>
-                                                    <p>To upgrade <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>:</p>
+                                                    <h2><a name="Cluster"></a>Upgrade a high-availability cluster with load balancing</h2>
                                                     <ol>
-                                                        <li value="1">Backup the configuration. See <a href="about-backup-restore.htm" class="MCXref xref">Backup and restore operations</a></li>
-                                                        <li value="2">For the admin instance, secure shell (<span class="code">ssh oag-mgmt@gw.gateway.tld</span>) into the Command Line Management Console.</li>
-                                                        <li value="3">Follow the process for upgrading the <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> appliance. See <a href="upgrade.htm" class="MCXref xref">Upgrade Access Gateway </a>.</li>
-                                                        <li value="4">For each worker node in the <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> high availability cluster.<ol style="list-style-type: lower-alpha;"><li value="1">Take the worker node out of the load balancer rotation.</li><li value="2">Update the worker node.</li><li value="3">Return the worker node to the load balancer rotation.</li></ol></li>
+                                                        <li value="1">Back up the <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> configuration. See <a href="about-backup-restore.htm" class="MCXref xref">Backup and restore operations</a>.</li>
+                                                        <li value="2">Use Secure Shell (<span class="code">ssh oag-mgmt@gw.gateway.tld</span>) to access the <span class="mc-variable okta-feature-names.Access_Gateway_CMD variable">Access Gateway Management console</span>.</li>
+                                                        <li value="3">Upgrade the <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> appliance. See <a href="upgrade.htm" class="MCXref xref">Upgrade Access Gateway </a>.</li>
+                                                        <li value="4">Take each worker node out of the load balancer rotation.</li>
+                                                        <li value="5">Update each worker node.</li>
+                                                        <li value="6">Return the worker node to the load balancer rotation.</li>
                                                     </ol>
                                                     <div>
                                                         <h2>Related topics</h2>
@@ -343,8 +324,6 @@
                                                         <p><a href="task-assign-lb.htm" class="MCXref xref">Enable Access Gateway load balancing in an application</a>
                                                         </p>
                                                         <p><a href="ref-architectures.htm" class="MCXref xref">Reference architectures</a>
-                                                        </p>
-                                                        <p><a href="about-oag-ssl-term.htm" class="MCXref xref">SSL Termination</a>
                                                         </p>
                                                     </div>
                                                 </div>
