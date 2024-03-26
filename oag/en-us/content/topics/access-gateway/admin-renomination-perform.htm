@@ -289,51 +289,37 @@
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
                                                     <h1>Perform admin renomination</h1>
-                                                    <div>
-                                                        <p>Admin renomination is the process of introducing a new <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> admin node running the newest <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> software version.</p>
-                                                        <div class="noteOkta">
-                                                            <p class="noteContent">Admin renomination cannot be used with an <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> cluster running v2020.7.2 or earlier. On <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> clusters running versions prior to v2020.8.3 update the admin node and the nominated admin node to version 2020.08.3 or later before proceeding with admin renomination. <br /><br />To bring an entire cluster up to the latest version of <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> based on Oracle Enterprise Linux (OEL):<br /><ol><li value="1">Add a new worker node based on OEL to the cluster.</li><li value="2">Follow these instructions to make the new  worker node the admin node.</li><li value="3">When complete decommission the previous admin node.</li><li value="4">Replace each worker node with new nodes based on the latest version of <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> based on OEL.</li></ol></p>
-                                                        </div>
-                                                    </div>
-                                                    <p>
-                                                        <br />When performing admin renomination there are primarily two <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> nodes involved: the original admin node and a node nominated as the new admin.  The two admin node strategy limits concerns about loss of configuration and data during the renomination process.</p>
-                                                    <p>During the process:</p>
-                                                    <ul>
-                                                        <li>The admin node manages the overall process, working with each worker to ensure they process proceeds smoothly.</li>
-                                                        <li>The worker node that's brought in to become the new nominated admin, then takes over as admin and  ensures the process completes successfully. </li>
-                                                    </ul>
-                                                    <p>After the process is complete, the nominated worker node takes over with the existing admin node still being available, but as a standalone instance. Afterward you can decommission the original admin node or return it to the cluster as a worker. <br /></p>
+                                                    <p>Admin renomination is the process of adding a node to a cluster and then making it the admin node. </p>
+                                                    <p>The nodes in your cluster must be version 2020.8.3 or higher. If you have a worker node on version 2023.12.0 or higher, then the admin node must also be on version 2023.12.0 or higher. See <a href="task-backup-intro.htm" class="MCXref xref">Backup and restore</a> and <a href="upgrade.htm" class="MCXref xref">Upgrade Access Gateway </a>.</p>
+                                                    <p>The current admin node manages the renomination process until the nominated node becomes the new admin node. The new admin mode then takes over and completes the renomination process. </p>
+                                                    <p>The original admin node remains available for use, but changes to a standalone instance. </p>
+                                                    <p>After the process is complete, you can decommission the original admin node or return it to the cluster as a worker node. </p>
+                                                    <p>This diagram describes each stage of the renomination workflow:</p>
                                                     <p><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../resources/images/access-gateway/about-admin-renomination.png" data-mc-popup-alt="Access Gateway admin node renomination overview"><img class="MCPopupThumbnail img imgthumbnail" data-mc-width="800" data-mc-height="749" src="../../resources/images/access-gateway/about-admin-renomination_thumb_220_220.png" alt="Access Gateway admin node renomination overview" tabindex="" id="imgimg_new" /></a>
                                                     </p>
-                                                    <div class="noteOkta">
-                                                        <p class="noteContent">You can't update <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> clusters prior to v2020.08.3 using the admin renomination process. <br />To update a pre-v2020.08.3, backup the cluster configuration and then update each cluster node individually prior to performing the renomination process.<br />See <a href="task-backup-intro.htm" class="MCXref xref">Backup and restore</a> and <a href="upgrade.htm" class="MCXref xref">Upgrade Access Gateway </a> for more information.</p>
-                                                    </div>
                                                     <div>
-                                                        <p>Admin renomination is composed of the following tasks:</p>
+                                                        <h2>Admin renomination tasks</h2>
                                                         <ul>
-                                                            <li>Select and prepare a worker node to become the new admin - This step requires either adding a new worker node running <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> v2020.08.3 or later, or upgrading an existing worker to <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> version 2020.08.3 or later.<br /></li>
-                                                            <div class="noteOkta">
-                                                                <p class="noteContent">In instances where, for access/management or other purposes, the admin node is in a different network zone then workers, the worker targeted to become the new admin should be moved into the same network zone as the admin.</p>
-                                                                <p class="noteContent">If a new instance is being added, then add this instance in the same network zone as the current admin.</p>
-                                                            </div>
-                                                            <li>Prepare Admin node - This step involves upgrading the cluster admin node to  <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> version 2020.08.3 or later or installing the cluster-manager-package. </li>
-                                                            <li>Using the <span class="mc-variable okta-feature-names.Access_Gateway_CMD variable">Access Gateway Management console</span> connect to the nominated worker node and begin the admin renomination process.</li>
-                                                            <li>Using the <span class="mc-variable okta-feature-names.Access_Gateway_CMD variable">Access Gateway Management console</span> connect to the existing admin node and continue the admin renomination process.</li>
-                                                            <li>Using the <span class="mc-variable okta-feature-names.Access_Gateway_CMD variable">Access Gateway Management console</span> return to the nominated worker node and determine its IP address.</li>
-                                                            <li>Add appropriate DNS entries for the replacement admin node. <br /></li>
+                                                            <li>Add a new worker node to the cluster or select an existing worker node. This is the node that you want to make into an admin node. Upgrade it to the latest <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> version, if required.</li>
+                                                            <li>Verify that the worker node that you want to nominate as the new admin node is in the same network zone as the current admin node. If you're adding a new instance, add it to the same network zone as the current admin node.<br /></li>
+                                                            <li>Upgrade the current admin node to the latest <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> version, if required, or install the cluster-manager-package.</li>
+                                                            <li>Connect to the nominated worker node and begin the admin renomination process.</li>
+                                                            <li>Connect to the existing admin node and continue the admin renomination process.</li>
+                                                            <li>Return to the nominated worker node and obtain its IP address.</li>
+                                                            <li>Add appropriate DNS entries for the replacement admin node.</li>
                                                         </ul>
+                                                        <p>See <a href="admin-renomination-workflow.htm" class="MCXref xref">Admin renomination workflow </a>for instructions.<br /></p>
                                                     </div>
                                                     <div>
                                                         <h3>Related topics</h3>
-                                                        <ul>
-                                                            <li><a href="about-admin-renomination.htm" class="MCXref xref">Admin renomination</a>
-                                                            </li>
-                                                            <li><a href="admin-renomination-workflow.htm" class="MCXref xref">Admin renomination workflow </a>
-                                                            </li>
-                                                            <li><a href="oag-log-files-audit-adminrenom.htm" class="MCXref xref">Admin renomination events</a>
-                                                            </li>
-                                                            <li>See <a href="oag-log-files-audit.htm" class="MCXref xref">Access Gateway audit log</a>for a complete list of all events.</li>
-                                                        </ul>
+                                                        <p><a href="about-admin-renomination.htm" class="MCXref xref">Admin renomination</a>
+                                                        </p>
+                                                        <p><a href="admin-renomination-workflow.htm" class="MCXref xref">Admin renomination workflow </a>
+                                                        </p>
+                                                        <p><a href="oag-log-files-audit-adminrenom.htm" class="MCXref xref">Admin renomination events</a>
+                                                        </p>
+                                                        <p><a href="oag-log-files-audit.htm" class="MCXref xref">Access Gateway audit log</a>
+                                                        </p>
                                                     </div>
                                                 </div>
                                             </div>
