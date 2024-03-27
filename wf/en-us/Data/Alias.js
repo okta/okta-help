@@ -1414,5 +1414,15 @@ xmlAliasData += '    <Map Name=\"ext-about-delegated-flows\" Link=\"topics/workf
 xmlAliasData += '    <Map Name=\"ext-about-action-cards\" Link=\"topics/workflows/learn/about-action-cards.htm\" ResolvedId=\"6104\" />';
 xmlAliasData += '    <Map Name=\"ext-about-function-cards\" Link=\"topics/workflows/learn/about-function-cards.htm\" ResolvedId=\"6105\" />';
 xmlAliasData += '    <Map Name=\"ext-build-search-streaming\" Link=\"topics/workflows/build/search-with-streaming.htm\" ResolvedId=\"6106\" />';
+xmlAliasData += '    <Map Name=\"ext-knowbe4\" Link=\"topics/workflows/connector-reference/knowbe4/knowbe4.htm\" ResolvedId=\"6119\" />';
+xmlAliasData += '    <Map Name=\"ext-knowbe4-misc-authorization\" Link=\"topics/workflows/connector-reference/knowbe4/overviews/authorization.htm\" ResolvedId=\"6120\" />';
+xmlAliasData += '    <Map Name=\"ext-knowbe4-method-customapiactionHeHcTztBH\" Link=\"topics/workflows/connector-reference/knowbe4/actions/customapiaction.htm\" ResolvedId=\"6121\" />';
+xmlAliasData += '    <Map Name=\"ext-knowbe4-method-listgroupusersig5UFM5Efiz\" Link=\"topics/workflows/connector-reference/knowbe4/actions/listgroupusers.htm\" ResolvedId=\"6123\" />';
+xmlAliasData += '    <Map Name=\"ext-knowbe4-method-listgroupsBu4gN9blxgo\" Link=\"topics/workflows/connector-reference/knowbe4/actions/listgroups.htm\" ResolvedId=\"6122\" />';
+xmlAliasData += '    <Map Name=\"ext-knowbe4-method-listusersQWUimRJPRLB\" Link=\"topics/workflows/connector-reference/knowbe4/actions/listusers.htm\" ResolvedId=\"6124\" />';
+xmlAliasData += '    <Map Name=\"ext-knowbe4-method-readgroupt1nwWIgoO6\" Link=\"topics/workflows/connector-reference/knowbe4/actions/readgroup.htm\" ResolvedId=\"6125\" />';
+xmlAliasData += '    <Map Name=\"ext-knowbe4-method-readuseraveiulHJ\" Link=\"topics/workflows/connector-reference/knowbe4/actions/readuser.htm\" ResolvedId=\"6126\" />';
+xmlAliasData += '    <Map Name=\"ext-secureflag\" Link=\"topics/workflows/connector-reference/secureflag/secureflag.htm\" ResolvedId=\"6107\" />';
+xmlAliasData += '    <Map Name=\"ext-secureflag-method-removeUserLicensedB5BYHWer4x\" Link=\"topics/workflows/connector-reference/secureflag/secureflag.htm\" ResolvedId=\"6108\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
