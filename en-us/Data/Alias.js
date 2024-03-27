@@ -736,6 +736,7 @@ xmlAliasData += '    <Map Name=\"ext-entitlement-mgt\" Link=\"topics/identity-go
 xmlAliasData += '    <Map Name=\"csh-protected-actions\" Link=\"topics/security/admin-console-protected-actions.htm\" ResolvedId=\"19037\" />';
 xmlAliasData += '    <Map Name=\"ext-aiw-scim-entitlements\" Link=\"topics/apps/aiw_scim_entitlements.htm\" ResolvedId=\"16020\" />';
 xmlAliasData += '    <Map Name=\"ext-config-csp\" Link=\"topics/settings/customizations-configure-csp.htm\" ResolvedId=\"19038\" />';
+xmlAliasData += '    <Map Name=\"ext-appadmin\" Link=\"topics/security/administrators-app-admin.htm\" ResolvedId=\"6024\" />';
 xmlAliasData += '    <Map Name=\"ext-sft-keyring\" Link=\"topics/privileged-access/clients/pam-sft-keyring.htm\" ResolvedId=\"1316\" />';
 xmlAliasData += '    <Map Name=\"csh-ver-hist-onprem-mfa-agent\" Link=\"topics/settings/version_histories/ver_history_on-prem_mfa_agent.htm\" ResolvedId=\"16021\" />';
 xmlAliasData += '    <Map Name=\"csh-ver-hist-mfa-provider-adfs\" Link=\"topics/settings/version_histories/ver_history_okta_mfa_provider_for_adfs.htm\" ResolvedId=\"16022\" />';
