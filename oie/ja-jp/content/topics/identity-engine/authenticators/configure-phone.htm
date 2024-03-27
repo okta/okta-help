@@ -4,7 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="typeofcontent" content="documentation" />
         <meta name="audience" content="OIE Admins" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>電話認証 | Okta</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>電話Authenticatorの構成 | Okta</title>
         <meta charset="utf-8" />
         <meta name="description" content="" />
         <meta name="author" content="" />
@@ -42,7 +42,6 @@
 
 </style>
         <link href="../../../resources/stylesheets/okta-main-new-nav.css" rel="stylesheet" type="text/css" />
-        <link href="../../../resources/tablestyles/standard-shade-col1.css" rel="stylesheet" data-mc-stylesheet-type="table" />
         <script src="../../../../Resources/Scripts/jquery.min.js" type="text/javascript">
         </script>
         <script src="../../../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
@@ -291,160 +290,92 @@
                                             <div class="body-main" data-test="bodyContent">
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
-                                                    <h1>電話認証</h1>
-                                                    <p>Oktaでの電話認証の使用について説明します。</p>
-                                                    <table style="width: 100%;mc-table-style: url('../../../resources/tablestyles/standard-shade-col1.css');" class="TableStyle-standard-shade-col1" cellspacing="0">
-                                                        <col class="TableStyle-standard-shade-col1-Column-Column1" />
-                                                        <col class="TableStyle-standard-shade-col1-Column-Column" />
-                                                        <tbody>
-                                                            <tr class="TableStyle-standard-shade-col1-Body-Body1">
-                                                                <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body1">要素タイプ</td>
-                                                                <td class="TableStyle-standard-shade-col1-BodyD-Column-Body1">
-所有</td>
-                                                            </tr>
-                                                            <tr class="TableStyle-standard-shade-col1-Body-Body2">
-                                                                <td class="TableStyle-standard-shade-col1-BodyE-Column1-Body2">方式の特徴</td>
-                                                                <td class="TableStyle-standard-shade-col1-BodyD-Column-Body2">
-                                                                    <p>
-ユーザーの存在</p>
-                                                                </td>
-                                                            </tr>
-                                                            <tr class="TableStyle-standard-shade-col1-Body-Body1">
-                                                                <td class="TableStyle-standard-shade-col1-BodyB-Column1-Body1">説明</td>
-                                                                <td class="TableStyle-standard-shade-col1-BodyA-Column-Body1">SMSおよび通話のAuthenticatorでは電話を使用する必要があります。テキストメッセージまたは通話で送られたコードを、<span class="mc-variable okta-variables.ProductName variable">Okta</span>のプロンプトにユーザーが入力します。</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <p>電話Authenticatorを使用すると、ユーザーはSMSメッセージまたは通話として電話に配信されるワンタイムパスコード（OTP）を使用して、自分自身を認証できます。また、ユーザーは自分のデバイスを登録してアカウントの復旧を開始することもできます。 </p>
+                                                    <h1>電話Authenticatorの構成</h1>
+                                                    <p>電話Authenticatorは所有要素であり、ユーザーの存在を確認します。これには、SMSメッセージと音声通話の両方が含まれます。ユーザーは、登録した電話番号にテキストメッセージまたは音声通話として送られるワンタイムパスワード（OTP）を認証に使用します。ユーザーが電話にアクセスできることで、サインインを試みたユーザーが意図したユーザーであることが確認されます。</p>
+                                                    <p>追加のAuthenticatorをセットアップして、ユーザーが電話を利用できない場合の代替策を確実に用意します。たとえば、ユーザーの電話番号が変わったが、それを<span class="mc-variable okta-variables.ProductName variable">Okta</span>で更新していない場合や、ユーザーが電話を紛失した場合などです。ユーザーがサインイン試行失敗の制限を超過すると、電話Authenticatorは一時的に無効化されます。  </p>
                                                     <h2>はじめに</h2>
                                                     <ul>
-                                                        <li><a href="../../telephony/about-telephony.htm" class="MCXref xref">「テレフォニー」</a>を検討して、規制要件、有料詐欺、技術的考慮事項、およびその他の要因の影響を理解します。</li>
-                                                        <li>orgに対して初めて電話認証を設定する場合は、まず外部のテレフォニーサービスプロバイダーを設定する必要があります。<a href="../../telephony/choose-telephony-provider.htm" class="MCXref xref">「Choose telephony provider（テレフォニープロバイダーを選択する）」</a>を参照してください。</li>
-                                                        <li>電話Authenticator（音声またはSMS方式）に送信されるOTPのトークンの有効期間は5分です。	</li>
+                                                        <li><a href="../../telephony/telephony-inline-hook.htm" class="MCXref xref">外部のテレフォニーサービスプロバイダーに連絡します</a>。テレフォニーサービスプロバイダーの選択に関するガイダンスについては、「<a href="../../telephony/choose-telephony-provider.htm" class="MCXref xref">テレフォニープロバイダーを選択する</a>」を参照してください。</li>
+                                                        <li><a href="../../telephony/about-telephony.htm" class="MCXref xref">テレフォニー</a>のドキュメント参照し、規制要件、有料詐欺、技術的考慮事項を理解します。</li>
                                                     </ul>
-                                                    <h2>この手順を開始する</h2>
-                                                    <p>まずテレフォニーインラインフックを追加し、それをテストしてから電話認証機を追加して、電話Authenticatorをセットアップします。</p>
-                                                    <h3>テレフォニーインラインフックの追加</h3>
-                                                    <p>外部テレフォニーサービスを構成した後で、テレフォニーインラインフックを追加することによりOktaと接続します。</p>
-                                                    <ol>
-                                                        <li value="1"><span class="mc-variable okta-feature-names.Administrator_dashboard variable">Admin Console</span>で、<span class="menucascade"><span class="uicontrol">［Workflow（ワークフロー）］</span><span class="uicontrol">［Inline Hooks（インラインフック）］</span></span>の順に移動します。</li>
-                                                        <li value="2"><span class="uicontrol">［Add Inline Hook（インラインフックの追加）］</span>をクリックし、<span class="uicontrol">［Telephony（テレフォニー）］</span>を選択します。</li>
-                                                        <li value="3">テレフォニープロバイダーのインラインフックに対してわかりやすい名前を入力します。</li>
-                                                        <li value="4">ワンタイムパスコード（OTP）をエンドユーザーデバイスに送信するエンドポイントを含む、外部サービスURLを追加します。</li>
-                                                        <li value="5">任意。<span class="uicontrol">［Authentication field（認証フィールド）］</span>ヘッダーフィールドの値を指定します。</li>
-                                                        <li value="6">
-                                                            <p>任意。<span class="uicontrol">［Authentication secret（認証シークレット）］</span>ヘッダーフィールドの値を指定します。</p>
-                                                            <p>外部サービスは、認証シークレットを使用して、リクエストがサービスに対するOktaリクエストであることを検証する必要があります。</p>
-                                                        </li>
-                                                        <li value="7"><span class="uicontrol">［Save（保存）］</span>をクリックして、インラインフックをアクティブにします。</li>
-                                                    </ol>
-                                                    <h3>テレフォニーインラインフックをテストする</h3>
-                                                    <p>サービスプロバイダーのテレフォニーフックを構成したら、<span class="uicontrol">［Preview（プレビュー）］</span>アクションを使用してその動作をテストできます。
-</p>
-                                                    <p>テレフォニーサービスプロバイダーへの接続をテストするには：</p>
+                                                    <h2>電話Authenticatorを追加する</h2>
                                                     <ol>
                                                         <li value="1">
-                                                            <p>Admin Consoleで、<span class="menucascade"><span class="uicontrol">［Workflow（ワークフロー）］</span><span class="uicontrol">［Inline Hooks（インラインフック）］</span></span>の順に移動します。
-</p>
+                                                            <p><span class="mc-variable okta-feature-names.Administrator_dashboard variable">Admin Console</span>で、<span class="menucascade"><span class="uicontrol">［Security（セキュリティ）］</span><span class="uicontrol">［Authenticators］</span></span>に移動します。</p>
                                                         </li>
-                                                        <li value="2">
-                                                            <p><span class="uicontrol">アクティブ</span>であるテレフォニーインラインフックを特定します。</p>
-                                                        </li>
-                                                        <li value="3">
-                                                            <p><span class="uicontrol">［Actions（アクション）］</span>をクリックし、<span class="uicontrol">［Preview（プレビュー）］</span>を選択します。</p>
-                                                        </li>
+                                                        <li value="2"><span class="wintitle">［Setup（設定）］</span>タブで<span class="uicontrol">［Authenticatorを追加］</span>をクリックします。</li>
+                                                        <li value="3"><span class="wintitle">［Phone（電話）］</span>タイルで<span class="uicontrol">［Add（追加）］</span>をクリックします。</li>
                                                         <li value="4">
-                                                            <p>有効なAuthenticatorとして電話が設定されているユーザーのユーザープロファイルを選択します。</p>
-                                                        </li>
-                                                        <li value="5">
-                                                            <p>テストするSMSテキストメッセージまたは通話を発生させるイベントを選択します。</p>
-                                                            <p>たとえば、次のイベントアクションのいずれかを選択します。</p>
+                                                            <p>次のオプションを構成します。</p>
                                                             <ul>
                                                                 <li>
-                                                                    <p>MFAの登録</p>
+                                                                    <p><span class="uicontrol">［User can verify with（ユーザーは次で検証可能）］</span>：<span class="uicontrol">［Voice call（通話）］</span>、<span class="uicontrol">［SMS］</span>または両方を選択できます。</p>
                                                                 </li>
                                                                 <li>
-                                                                    <p>MFAの検証</p>
-                                                                </li>
-                                                                <li>
-                                                                    <p>アカウントのロック解除</p>
-                                                                </li>
-                                                                <li>
-                                                                    <p>パスワードリセット</p>
+                                                                    <p> <span class="uicontrol">［This authenticator can be used for（このAuthenticatorは、次の目的に使用できます）］</span>：</p>
+                                                                    <p><span class="uicontrol">［Authentication and recovery（認証と復旧）］</span>：ユーザーはこのAuthenticatorを使用して認証したり、アカウントを復旧したりできます。
+		</p>
+                                                                    <p><span class="uicontrol">［Recovery（復旧）］</span>：ユーザーはこのAuthenticatorを使用してアカウントを復旧きますが、認証することはできません。
+		</p>
                                                                 </li>
                                                             </ul>
                                                         </li>
-                                                        <li value="6">
-                                                            <p><span class="uicontrol">［Generate Request（リクエストを生成）］</span>をクリックして、テレフォニープロバイダーに送信するHTTPリクエストを生成します。</p>
-                                                            <p>必要に応じて、<span class="uicontrol">［Edit（編集）］</span>をクリックして、生成されたリクエストを編集できます。たとえば、プロファイルを編集して、テスト目的で使用する電話番号にテキストメッセージを送信することができます。</p>
-                                                        </li>
-                                                        <li value="7">
-                                                            <p><span class="uicontrol">［View Response（応答を表示）］</span>をクリックして、サービスプロバイダーからの応答を表示します。</p>
+                                                        <li value="5">
+                                                            <p><span class="uicontrol">［Add（追加）］</span>をクリックします。<span class="uicontrol">［Setup（設定）］</span>タブのリストにAuthenticatorが表示されます。 
+		</p>
                                                         </li>
                                                     </ol>
-                                                    <h3>電話をAuthenticatorとして追加する</h3>
-                                                    <p>テレフォニーインラインフックを構成してテストした後、それを使用して電話Authenticatorを構成します。</p>
+                                                    <h2>Authenticator登録ポリシーに電話を追加する</h2>
+                                                    <p><span class="uicontrol">［Authenticator］</span>で<span class="uicontrol">［Enrollment（登録）］</span>タブに移動し、新規または既存のAuthenticator登録ポリシーにAuthenticatorを追加します。「<a href="../policies/create-mfa-policy.htm" class="MCXref xref">Authenticator登録ポリシーを作成する</a>」を参照してください。</p>
+                                                    <h2>電話Authenticatorを編集または削除する</h2>
+                                                    <p>Authenticatorを編集または削除する前に、このAuthenticatorを使用する既存のポリシーの更新が必要になる場合があります。
+		</p>
                                                     <ol>
-                                                        <li value="1"><span class="mc-variable okta-feature-names.Administrator_dashboard variable">Admin Console</span>で、<span class="menucascade"><span class="uicontrol">［Security（セキュリティ）］</span><span class="uicontrol">［Authenticator］</span></span>に移動します。</li>
-                                                        <li value="2"><span class="wintitle">［Setup（設定）］</span>タブで、<span class="uicontrol">［Add Authenticator（Authenticatorを追加）］</span>をクリックします。</li>
-                                                        <li value="3"><span class="wintitle">［Phone（電話）］</span>タイルで<span class="uicontrol">［Add（追加）］</span>をクリックします。<span class="wintitle">［Add Phone（電話の追加）］</span> ウィンドウが表示されます。</li>
-                                                        <li value="4"><span class="uicontrol">［User can verify with（ユーザーは次で検証可能）］</span>セクションで、ユーザーが検証できる方法を選択します。<span class="uicontrol">通話</span>、<span class="uicontrol">［SMS］</span>または両方を選択できます。</li>
-                                                        <li value="5"><span class="uicontrol">［This authenticator can be used for（このAuthenticatorは以下に使用可能）］</span>セクションで、電話Authenticatorを使用するアクションを選択します。<ul><li><span class="uicontrol">［Authentication and recovery（認証と復旧）］</span>：このオプションは、ユーザーがこのAuthenticatorを使用して自分自身を認証し、アカウントを復旧できるようにします。</li><li><span class="uicontrol">［Recovery（復旧）］</span>：このオプションは、ユーザーがアカウントを復旧するためだけにこのAuthenticatorを使用できるようにします。このオプションを選択した場合は、<span class="mc-variable okta-feature-names.Okta_sign-on_policy variable">グローバルセッションポリシー</span>の評価中に<span class="mc-variable okta-variables.ProductName variable">Okta</span>が認証を要求することはありません。</li></ul></li>
-                                                        <li value="6">
-                                                            <p><span class="uicontrol">［Add（追加）］</span>をクリックします。</p>
-                                                        </li>
+                                                        <li value="1"><span class="uicontrol">［Authenticator］</span>で<span class="uicontrol">［Setup（設定）］</span>タブに移動します。</li>
+                                                        <li value="2">Authenticatorの横にある<span class="uicontrol">［Actions（アクション）］</span>ドロップダウンメニューを開き、<span class="uicontrol">［Edit（編集）］</span>または<span class="uicontrol">［Delete（削除）］</span>を選択します。 </li>
                                                     </ol>
                                                     <h2>エンドユーザーエクスペリエンス</h2>
-                                                    <p><span class="mc-variable okta-variables.ProductName variable">Okta</span>に初めてサインインするユーザーには、追加の検証が必要であることが表示されます。ユーザーが電話Authenticatorを選択するときは、電話番号を入力し、利用可能にしたオプションに応じて<span class="uicontrol">［SMS］</span>または<span class="uicontrol">通話</span>を選択します。電話番号を確認した後は、Authenticatorのセットアップ方法に応じて、その電話番号を<span class="uicontrol">認証と復旧</span>に使用することも、<span class="uicontrol">復旧</span>のみに使用することもできます。</p>
-                                                    <p>ユーザーが<span class="uicontrol">［SMS］</span>を選択した場合、ユーザーは携帯電話番号のみを指定できます。<span class="uicontrol">通話</span>の場合、携帯電話番号または内線付きの電話番号を指定できます。</p>
-                                                    <p>フリーダイヤル、プレミアム、または無効な電話番号は、多要素認証またはデバイス登録には使用できません。このような電話番号は拒否されます。</p>
-                                                    <h4>試行回数が多すぎる</h4>
-                                                    <p>Oktaはレート制限を使用して、SMSAuthenticatorに対する総当たり攻撃から保護します。誤った資格情報を複数回入力した後、ユーザーに次のメッセージが表示されます：<span class="msgblock">「Too many attempts.（試行回数が多すぎます。）Try again later.（後で再度試みてください。）」</span>この場合、アカウントにアクセスするには、別のAuthenticatorを使用する必要があります。ユーザーに複数のAuthenticatorをセットアップして、代替手段を確実に提供できるようにします。</p>
-                                                    <h4>電話番号の変更</h4>
-                                                    <p>ユーザーが電話番号を変更しながらOktaでは更新していない場合、通話とSMSはユーザーの古い電話番号に送信されます。この場合は、検証を完了できません。［Sign-In Widget］で<span class="uicontrol">［Sign in with something else（他の方法でサインインする）］</span>をクリックし、別のAuthenticatorで認証してください。次に、エンドユーザーダッシュボードで別の電話番号を追加し、古い電話番号を新しい電話番号に置き換える必要があります。</p>
+                                                    <p><span class="mc-variable okta-variables.ProductName variable">Okta</span>に初めてサインインするユーザーには、追加の検証が必要であることが表示されます。ユーザーは電話Authenticatorを選択し、電話番号を入力します。次に、利用可能なオプションに応じて<span class="uicontrol">［SMS］</span>または<span class="uicontrol">［Voice call（通話）］</span>を選択します。OTPを使って電話番号を確認したユーザーは、設定に応じて、その電話番号を認証と復旧に使用することも、復旧のみに使用することもできます。OTPの有効期限は5分間です。</p>
+                                                    <p>ユーザーが<span class="uicontrol">［SMS］</span>を選択した場合、ユーザーは携帯電話番号のみを指定できます。<span class="uicontrol">［Voice call（通話）］</span>の場合、携帯電話番号または内線付きの電話番号を指定できます。ユーザーは、フリーダイヤル、プレミアム、または無効な電話番号を使用できません。ユーザーに送信されるSMSメッセージのカスタマイズについては、「<a href="../../settings/settings_sms.htm" class="MCXref xref">SMSメッセージをカスタマイズする</a>」を参照してください。</p>
+                                                    <p>Oktaは、電話Authenticatorに対する総当たり攻撃から保護するためにレート制限を強制適用します。誤った資格情報を複数回入力すると、ユーザーは一時的に電話Authenticatorを使用できなくなります。この場合は、<span class="uicontrol">［Verify with something else（何らかの方法で確認）］</span>オプションを使用することで、別のAuthenticatorを使ってサインインできます。 </p>
                                                     <h2>エンドユーザーのタスク</h2>
-                                                    <p>エンド ユーザーは次のタスクを実行して、電話を登録し、この電話をサインインに使用し、アカウントに別の電話番号を追加します。</p>
-                                                    <h3>電話Authenticatorを初めてセットアップする</h3>
+                                                    <p>電話をセキュリティ方式として構成できるように、これらの手順をエンドユーザーに伝えてください。 </p>
+                                                    <h3>サインイン時に電話番号をセットアップする</h3>
                                                     <ol>
-                                                        <li value="1"><span class="mc-variable okta-feature-names.Sign-In_Widget variable">［Sign-In Widget（サインインウィジェット）］</span>&gt;<span class="menucascade"><span class="uicontrol">［Set up security methods（セキリティメソッドのセットアップ）］</span><span class="uicontrol">［Phone（電話）］</span></span>で、<span class="uicontrol">［Setup（セットアップ）］</span>をクリックします。</li>
-                                                        <li value="2"><span class="uicontrol">［SMS］</span>または<span class="uicontrol">通話</span>を選択します。<span class="uicontrol">［SMS］</span>を選択した場合、携帯電話番号のみを指定できます。</li>
-                                                        <li value="3"><span class="uicontrol">［Country（国）］</span>ドロップダウンリストで、電話番号の国を選択します。</li>
-                                                        <li value="4"><span class="uicontrol">［Phone number（電話番号）］</span>フィールドに電話番号を入力します。国コードを含めず、ダッシュを省略し、国の電話システムで先頭にゼロが使用されている場合はそのゼロを省略します。</li>
-                                                        <li value="5"><span class="uicontrol">通話</span>を選択し、電話番号に内線番号が含まれている場合は、<span class="uicontrol">［Extension（内線）］</span>フィールドに入力します。</li>
-                                                        <li value="6"><span class="uicontrol">［Receive a code via SMS（SMSでコードを受信）］</span>または<span class="uicontrol">［Receive a code via voice call（通話でコードを受信）］</span>をクリックします。選択したオプションに応じて、SMSまたは通話のいずれかでコードを受信します。</li>
-                                                        <li value="7"><span class="uicontrol">［Enter Code（コードを入力）］</span>フィールドにコードを入力します。</li>
-                                                        <li value="8"><span class="uicontrol">［Verify（確認）］</span>をクリックします。</li>
+                                                        <li value="1">orgのサインインページに移動してユーザー名を入力します。  </li>
+                                                        <li value="2"><span class="wintitle">［Set up security methods（セキュリティ方式のセットアップ）］</span>ページで<span class="uicontrol">［phone（電話）］</span>オプションの<span class="uicontrol">［Set up（セットアップ）］</span>をクリックします。</li>
+                                                        <li value="3"><span class="uicontrol">［SMS］</span>または<span class="uicontrol">［Voice call（通話）］</span>を選択します。 </li>
+                                                        <li value="4"><span class="uicontrol">［Country（国）］</span>ドロップダウンリストで電話番号の国を選択します。</li>
+                                                        <li value="5"><span class="uicontrol">［Phone number（電話番号）］</span>フィールドに電話番号を入力します。国コードとダッシュを含めず、国の電話システムで先頭にゼロが使われる場合はそのゼロを省略します。 <ul><li><span class="uicontrol">［SMS］</span>を選択したときは、携帯電話番号のみを指定できます。</li><li><span class="uicontrol">［Voice call（通話）］</span>を選択し、電話番号に内線番号が含まれるときは、<span class="uicontrol">［Extension（内線）］</span>フィールドに入力します。</li></ul></li>
+                                                        <li value="6"><span class="uicontrol">［Recieve a code（コードを受信）］</span>ボタンをクリックします。</li>
+                                                        <li value="7">受け取ったOTPを<span class="uicontrol">［Enter Code（コードを入力）］</span>フィールドに入力し、<span class="uicontrol">［Verify（確認）］</span>をクリックします。 </li>
                                                     </ol>
-                                                    <h3>電話をサインインに使用する</h3>
+                                                    <p>確認が正しく行われたら、その他すべてのプロンプトを完了すると、サインインされます。End-User Dashboardの<span class="menucascade"><span class="uicontrol">［Settings（設定）］</span><span class="uicontrol">［Security Methods（セキュリティ方式）］</span></span>の下に電話番号が表示されます。</p>
+                                                    <h3>Dashboardから電話番号を追加する</h3>
                                                     <ol>
-                                                        <li value="1">orgのサインインページに移動します。ユーザー名と、<span class="mc-variable okta-feature-names.Sign-In_Widget variable">Sign-In Widget</span>によって要求されるその他の資格情報（パスワードなど）を入力します。</li>
-                                                        <li value="2">利用可能なセキュリティ メソッドの一覧が表示されたページで、<span class="uicontrol">［Phone（電話）］</span>オプションの横にある<span class="uicontrol">［Select（選択）］</span>をクリックします。</li>
-                                                        <li value="3">SMSメッセージでコードを受信するには、<span class="uicontrol">［Receive a code via SMS（SMSでコードを受信）］</span>をクリックします。通話でコードを受信するには、</span>［Receive a voice call instead（代わりに通話を受信）］<span class="uicontrol">をクリックします。</li>
-                                                        <li value="4"><span class="mc-variable okta-variables.ProductName variable">Okta</span>がSMSメッセージを送信するか、ユーザーの電話に電話をかけると、<span class="mc-variable okta-feature-names.Sign-In_Widget variable">Okta Sign-in Widget</span>に<span class="uicontrol">［Enter Code（コードを入力）］</span>フィールドが表示されます。</li>
-                                                        <li value="5">SMSメッセージまたは通話で提供されたコードを<span class="uicontrol">［Enter Code（コードを入力）］</span>フィールドに入力します。</li>
-                                                        <li value="6"><span class="uicontrol">［Verify（確認）］</span>をクリックします。</li>
+                                                        <li value="1">End-User Dashboardでユーザー名の下のドロップダウンメニューを開き、<span class="uicontrol">［Settings（設定）］</span>をクリックします。</li>
+                                                        <li value="2"><span class="menucascade"><span class="uicontrol">［Security Methods（セキュリティ方式）］</span><span class="uicontrol">［Phone（電話）］</span></span>に移動し、<span class="uicontrol">［Set up another（ほかにもセットアップ）］</span>をクリックします。</li>
+                                                        <li value="3">求められた場合は、本人確認を行います。</li>
+                                                        <li value="4"><span class="wintitle">［Set up security methods（セキュリティ方式のセットアップ）］</span>ページで電話の<span class="uicontrol">［Set up（セットアップ）］</span>をクリックします。</li>
+                                                        <li value="5"><span class="uicontrol">［SMS］</span>または<span class="uicontrol">［Voice call（通話）］</span>を選択します。 </li>
+                                                        <li value="6"><span class="uicontrol">［Country（国）］</span>ドロップダウンリストで電話番号の国を選択します。</li>
+                                                        <li value="7"><span class="uicontrol">［Phone number（電話番号）］</span>フィールドに電話番号を入力します。国コードとダッシュを含めず、国の電話システムで先頭にゼロが使われる場合はそのゼロを省略します。 <ul><li><span class="uicontrol">［SMS］</span>を選択したときは、携帯電話番号のみを指定できます。</li><li><span class="uicontrol">［Voice call（通話）］</span>を選択し、電話番号に内線番号が含まれるときは、<span class="uicontrol">［Extension（内線）］</span>フィールドに入力します。</li></ul></li>
+                                                        <li value="8"><span class="uicontrol">［Recieve a code（コードを受信）］</span>ボタンをクリックします。</li>
+                                                        <li value="9">受け取ったOTPを<span class="uicontrol">［Enter Code（コードを入力）］</span>フィールドに入力し、<span class="uicontrol">［Verify（確認）］</span>をクリックします。確認が正しく行われると、<span class="wintitle">［Settings（設定）］</span>にリダイレクトされ、<span class="uicontrol">［Security Methods（セキュリティ方式）］</span>に電話番号が表示されます。</li>
+                                                        <li value="10">追加する電話番号ごとに、この手順を繰り返します。</li>
                                                     </ol>
-                                                    <h3>別の電話番号を追加する</h3>
-                                                    <p>サインイン後、ユーザーは自分のプロファイルに別の電話番号を追加できます。</p>
+                                                    <h3>SMSまたは通話を使ってサインインする</h3>
                                                     <ol>
-                                                        <li value="1">Okta End-User Dashboardで、右上隅にあるユーザー名をクリックします。</li>
-                                                        <li value="2"><span class="uicontrol">［My Settings（設定）］</span>を選択します。</li>
-                                                        <li value="3"><span class="uicontrol">［Security Methods（セキュリティ メソッド）］</span>セクションで、<span class="uicontrol">［Phone（電話）］</span>の横にある<span class="uicontrol">［他のセットアップ］</span>をクリックします。</li>
-                                                        <li value="4"><span class="uicontrol">［Setup（セットアップ）］</span>をクリックします。</li>
-                                                        <li value="5"><span class="uicontrol">［SMS］</span>または<span class="uicontrol">通話</span>を選択します。<span class="uicontrol">［SMS］</span>を選択した場合、携帯電話番号のみを指定できます。</li>
-                                                        <li value="6"><span class="uicontrol">［Country（国）］</span>ドロップダウンリストで、電話番号の国を選択します。</li>
-                                                        <li value="7"><span class="uicontrol">［Phone number（電話番号）］</span>フィールドに電話番号を入力します。国コードを含めず、ダッシュを省略し、国の電話システムで先頭にゼロが使用されている場合はそのゼロを省略します。</li>
-                                                        <li value="8"><span class="uicontrol">通話</span>を選択し、電話番号に内線番号が含まれている場合は、<span class="uicontrol">［Extension（内線）］</span>フィールドに入力します。</li>
-                                                        <li value="9"><span class="uicontrol">［Receive a code via SMS（SMSでコードを受信）］</span>または<span class="uicontrol">［Receive a code via voice call（通話でコードを受信）］</span>をクリックします。選択したオプションに応じて、SMSまたは通話のいずれかでコードを受信します。</li>
-                                                        <li value="10"><span class="uicontrol">［Enter Code（コードを入力）］</span>フィールドにコードを入力します。</li>
-                                                        <li value="11"><span class="uicontrol">［Verify（確認）］</span>をクリックします。</li>
+                                                        <li value="1">orgのサインインページに移動してユーザー名を入力します。 </li>
+                                                        <li value="2">電話オプションを利用できないときは、<span class="uicontrol">［Verification（確認）］</span>ページで<span class="uicontrol">［Verify with something else（何らかの方法で確認）］</span>をクリックします。</li>
+                                                        <li value="3"><span class="uicontrol">［Security Methods（セキュリティ方式）］</span>ページで<span class="uicontrol">［Phone（電話）］</span>オプションをクリックします。</li>
+                                                        <li value="4"><span class="uicontrol">［Receive a code via SMS（SMSでコードを受信）］</span>または<span class="uicontrol">［Receive a voice call instead（代わりに通話を受信）］</span>をクリックします。</li>
+                                                        <li value="5">受け取ったOTPを<span class="uicontrol">［Enter Code（コードを入力）］</span>フィールドに入力し、<span class="uicontrol">［Verify（確認）］</span>をクリックします。 </li>
                                                     </ol>
-                                                    <p>新しい電話番号が追加されます。次回サインインするときは、プロンプトを完了するために使用する電話番号を選択できます。</p>
-                                                    <h2>次の手順</h2>
-                                                    <ul>
-                                                        <li>SMSをカスタマイズします。<a href="../../settings/settings_sms.htm" class="MCXref xref">「SMSメッセージをカスタマイズする」</a>を参照してください。</li>
-                                                        <li>携帯電話にアクセスできない場合に備えて、エンドユーザーに複数の検証オプションを提供するため、より多くのAuthenticatorを構成します。<a href="about-authenticators.htm" class="MCXref xref">「多要素認証」</a>を参照してください。</li>
-                                                    </ul>
+                                                    <p>確認が正しく行われたら、その他すべてのプロンプトを完了すると、サインインされます。</p>
+                                                    <h2>関連項目</h2>
+                                                    <p><a href="about-authenticators.htm" class="MCXref xref">多要素認証</a>
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -455,7 +386,7 @@
                                     <!-- *********************** Footer rows ********************************* -->
                                     <div class="footer2" data-test="footer">
                                         <div>
-                                            <p class="copyright" data-test="copyrightNotice">&copy;  <span class="mc-variable okta-variables.Year variable">2023</span> <span class="mc-variable okta-variables.CompanyName variable">Okta, Inc</span>. All Rights Reserved. それぞれの商標は、それぞれの商標所有者に帰属します。
+                                            <p class="copyright" data-test="copyrightNotice">&copy;  <span class="mc-variable okta-variables.Year variable">2024</span> <span class="mc-variable okta-variables.CompanyName variable">Okta, Inc</span>. All Rights Reserved. それぞれの商標は、それぞれの商標所有者に帰属します。
 	</p>
                                         </div>
                                     </div>

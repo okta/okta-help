@@ -293,6 +293,7 @@
                                                 <div role="main" id="mc-main-content">
                                                     <h1><a name="mfa-task-3"></a><span class="mc-variable okta-feature-names.Desktop_MFA variable">Desktop MFA</span>ポリシーを構成する</h1>
                                                     <p><span class="mc-variable okta-feature-names.Desktop_MFA variable">Desktop MFA</span>がどのように機能するかを定義するポリシーは、Windowsエンドポイントレジストリキーに構成されます。 </p>
+                                                    <h2><a name="mfa-reg-keys"></a>レジストリキーを構成する</h2>
                                                     <p style="font-weight: normal;">PowerShellスクリプトを作成し、MDMソリューションを使ってレジストリキーをエンドポイントにデプロイします。詳細については、Microsoftドキュメントで「<a href="https://learn.microsoft.com/ja-jp/mem/intune/apps/intune-management-extension" target="_blank">Use PowerShell scripts on Windows 10/11 devices in Intune（Intune内のWindows 10/11デバイスでのPowerShellスクリプトの使用）</a>」を参照してください。 </p>
                                                     <p style="font-weight: normal;">レジストリキーは、<span class="filepath">HKLM\Software\Policies\Okta\Okta Device Access</span>に保存されます。</p>
                                                     <p>初回インストールの後、PowerShellを使ってレジストリキーパラメーターをアップデートできます。コマンドラインパラメーターを使ってOkta Verifyインストーラーを2回目に実行しても、既存のレジストリキーのパラメーターは変更されません。</p>
@@ -316,58 +317,137 @@
                                                                 </td>
                                                                 <td class="TableStyle-standard-BodyD-Column1-Body2"><span class="code">*</span> MFAはすべてのユーザーに適用されます</td>
                                                             </tr>
-                                                            <tr class="TableStyle-standard-Body-Body1">
-                                                                <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="code">MaxLoginsWithoutEnrolledFactors</span>
+                                                            <tr class="TableStyle-standard-Body-Body1" data-mc-conditions="">
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="code">MFABypassList</span>
                                                                 </td>
-                                                                <td class="TableStyle-standard-BodyF-Column1-Body1">ユーザーがMFA方式を使わずにWindowsにサインインできる回数を定義します。このポリシーにより、新規ユーザーは設定されている回数だけMFA方式のセットアップを延期できます。<p>ユーザーのサインイン試行が制限を超過すると、アクセスは拒否されます。</p></td>
-                                                                <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="code">REG_DWORD</span>
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body1">このリストのユーザーはMFAで認証する必要はありません。ユーザーが<span class="code">MFARequiredList</span>と<span class="code">MFABypassList</span>の両方にリストされている場合は、<span class="code">MFABypassList</span>が優先されます。</td>
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="code">REG_MULTI_SZ</span>
                                                                 </td>
-                                                                <td class="TableStyle-standard-BodyD-Column1-Body1">50</td>
+                                                                <td class="TableStyle-standard-BodyD-Column1-Body1">空</td>
                                                             </tr>
                                                             <tr class="TableStyle-standard-Body-Body2">
-                                                                <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="code">MaxLoginsWithOfflineFactor</span>
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="code">MaxLoginsWithoutEnrolledFactors</span>
                                                                 </td>
-                                                                <td class="TableStyle-standard-BodyF-Column1-Body2">ユーザーがインターネットアクセスなしのオフラインMFA方式を使ってWindowsにサインインできる回数を定義します。このポリシーは、コンピューターがオンライン状態でユーザーが認証にオフラインMFA方式を使用する場合も適用されます。<p>ユーザーのサインイン試行が制限を超過すると、アクセスは拒否されます。代わりにオンラインサインイン方式を使って認証できるように、ユーザーにはインターネットへの接続が求められます。</p></td>
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body2">ユーザーがMFA方式を使わずにWindowsにサインインできる回数を定義します。このポリシーにより、新規ユーザーは設定されている回数だけMFA方式のセットアップを延期できます。<p>ユーザーのサインイン試行が制限を超過すると、アクセスは拒否されます。</p></td>
                                                                 <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="code">REG_DWORD</span>
                                                                 </td>
                                                                 <td class="TableStyle-standard-BodyD-Column1-Body2">50</td>
                                                             </tr>
-                                                            <tr class="TableStyle-standard-Body-Body1" data-mc-conditions="">
-                                                                <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="code">MFAGracePeriodInMinutes</span>
+                                                            <tr class="TableStyle-standard-Body-Body1">
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="code">MaxLoginsWithOfflineFactor</span>
                                                                 </td>
-                                                                <td class="TableStyle-standard-BodyF-Column1-Body1">コンピューターのロック後にユーザーがMFAを使用する必要がない猶予期間の長さ（単位は分）を定義します。<span class="code">MFAGracePeriodInMinutes</span>を<span class="code">0</span>に設定した場合、ユーザーはログインのたびにMFAを使ったID検証を求められます。<p>猶予期間は、コンピューターのロック時にのみ適用されます。ユーザーアカウントを切り替えた、またはコンピューターを再起動した場合、ユーザーはMFAを使ったID検証を求められます。</p></td>
-                                                                <td class="TableStyle-standard-BodyF-Column1-Body1">
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body1">ユーザーがインターネットアクセスなしのオフラインMFA方式を使ってWindowsにサインインできる回数を定義します。このポリシーは、コンピューターがオンライン状態でユーザーが認証にオフラインMFA方式を使用する場合も適用されます。<p>ユーザーのサインイン試行が制限を超過すると、アクセスは拒否されます。代わりにオンラインサインイン方式を使って認証できるように、ユーザーにはインターネットへの接続が求められます。</p></td>
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="code">REG_DWORD</span>
+                                                                </td>
+                                                                <td class="TableStyle-standard-BodyD-Column1-Body1">50</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-standard-Body-Body2" data-mc-conditions="">
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="code">MFAGracePeriodInMinutes</span>
+                                                                </td>
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body2">コンピューターのロック後にユーザーがMFAを使用する必要がない猶予期間の長さ（単位は分）を定義します。<span class="code">MFAGracePeriodInMinutes</span>を<span class="code">0</span>に設定した場合、ユーザーはサインインのたびにMFAを使ったID検証を求められます。<p>猶予期間は、コンピューターのロック時にのみ適用されます。ユーザーアカウントを切り替えた、またはコンピューターを再起動した場合、ユーザーはMFAを使ったID検証を求められます。</p></td>
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body2">
                                                                     <p><span class="code">REG_DWORD</span>
                                                                     </p>
                                                                 </td>
-                                                                <td class="TableStyle-standard-BodyD-Column1-Body1">60 </td>
-                                                            </tr>
-                                                            <tr class="TableStyle-standard-Body-Body2" data-mc-conditions="">
-                                                                <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="code">AdminContactInfo</span>
-                                                                </td>
-                                                                <td class="TableStyle-standard-BodyF-Column1-Body2">ユーザーがコンピューターからロックアウトされた場合に管理者に連絡できるようにするための構成可能な文字列。この文字列にデフォルト値はありません。<p>例：<span class="code">Contact your Help Desk at help@org.com or call 1-800-xxx-xxxx（ヘルプデスク（help@org.com）に連絡するか、1-800-xxx-xxxxまでお電話ください）</span>。</p></td>
-                                                                <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="code">REG_SZ</span>
-                                                                </td>
-                                                                <td class="TableStyle-standard-BodyD-Column1-Body2">空白</td>
+                                                                <td class="TableStyle-standard-BodyD-Column1-Body2">60 </td>
                                                             </tr>
                                                             <tr class="TableStyle-standard-Body-Body1" data-mc-conditions="">
-                                                                <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="code">ExcludePasswordCredProvider</span>
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="code">AdminContactInfo</span>
                                                                 </td>
-                                                                <td class="TableStyle-standard-BodyF-Column1-Body1">デフォルトでは、標準のWindowsパスワード資格情報プロバイダーは無効化されます。Windows資格情報プロバイダーを表示するには、この値を<span class="code">0</span>に設定します。エンドユーザー向けにWindowsパスワード資格情報プロバイダーが復元されます。</td>
-                                                                <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="code">REG_DWORD</span>
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body1">ユーザーがコンピューターからロックアウトされた場合に管理者に連絡できるようにするための構成可能な文字列。この文字列にデフォルト値はありません。<p>例：<span class="code">Contact your Help Desk at help@org.com or call 1-800-xxx-xxxx（ヘルプデスク（help@org.com）に連絡するか、1-800-xxx-xxxxまでお電話ください）</span>。</p></td>
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="code">REG_SZ</span>
                                                                 </td>
-                                                                <td class="TableStyle-standard-BodyD-Column1-Body1">空白</td>
+                                                                <td class="TableStyle-standard-BodyD-Column1-Body1">空</td>
                                                             </tr>
                                                             <tr class="TableStyle-standard-Body-Body2" data-mc-conditions="">
-                                                                <td class="TableStyle-standard-BodyC-Column1-Body2"><span class="code">CredProvidersToExclude</span>
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="code">ExcludePasswordCredProvider</span>
                                                                 </td>
-                                                                <td class="TableStyle-standard-BodyC-Column1-Body2">カスタム資格情報プロバイダーは、プロバイダーのGUID（たとえば、<span class="code">{60b78e88-ead8-445c-9cfd-0b87f74ea6cd}</span>）を指定することでフィルタリングできます。このキーによって除外される資格情報プロバイダーはエンドユーザーに表示されません。<p>Okta<span class="mc-variable okta-feature-names.Desktop_MFA variable">Desktop MFA</span>の資格情報プロバイダーは、このキーを使っても非表示にできません。</p></td>
-                                                                <td class="TableStyle-standard-BodyC-Column1-Body2"><span class="code">REG_MULTI_SZ</span>
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body2">デフォルトでは、標準のWindowsパスワード資格情報プロバイダーは無効化されます。Windows資格情報プロバイダーを表示するには、この値を<span class="code">0</span>に設定します。エンドユーザー向けにWindowsパスワード資格情報プロバイダーが復元されます。</td>
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="code">REG_DWORD</span>
+                                                                </td>
+                                                                <td class="TableStyle-standard-BodyD-Column1-Body2">空</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-standard-Body-Body1" data-mc-conditions="">
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="code">CredProvidersToExclude</span>
+                                                                </td>
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body1">カスタム資格情報プロバイダーは、プロバイダーのGUID（たとえば、<span class="code">{60b78e88-ead8-445c-9cfd-0b87f74ea6cd}</span>）を指定することでフィルタリングできます。このキーによって除外される資格情報プロバイダーはエンドユーザーに表示されません。<p>Okta <span class="mc-variable okta-feature-names.Desktop_MFA variable">Desktop MFA</span>の資格情報プロバイダーは、このキーを使っても非表示にできません。</p></td>
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="code">REG_MULTI_SZ</span>
+                                                                </td>
+                                                                <td class="TableStyle-standard-BodyD-Column1-Body1">空</td>
+                                                            </tr>
+                                                            <tr class="TableStyle-standard-Body-Body2" data-mc-conditions="">
+                                                                <td class="TableStyle-standard-BodyC-Column1-Body2">
+                                                                    <p><span class="code">EnableSelfServicePasswordReset</span>
+                                                                    </p>
+                                                                </td>
+                                                                <td class="TableStyle-standard-BodyC-Column1-Body2">
+                                                                    <p>ユーザーがサインインパスワードを忘れた場合にパスワードリセットを開始できるようにします。</p>
+                                                                </td>
+                                                                <td class="TableStyle-standard-BodyC-Column1-Body2">
+                                                                    <p><span class="code">REG_DWORD</span>
+                                                                    </p>
                                                                 </td>
                                                                 <td class="TableStyle-standard-BodyA-Column1-Body2">空</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
+                                                    <h2><a name="mfa-sspr"></a>セルフサービスによるパスワードリセットを有効にする </h2>
+                                                    <p class="featureBanner">早期アクセスリリース。「<a href="../../security/manage-ea-and-beta-features.htm" class="MCXref xref">早期アクセス機能とBeta機能を管理する</a>」を参照してください。</p>
+                                                    <p>セルフサービスによるパスワードリセットを使用すると、ユーザーがコンピューターからロックアウトされている場合にパスワードリセットを開始できます。セルフサービスによるパスワードリセットでは、ユーザーがオンラインである必要があります。ユーザーはインターネット接続なしにパスワードリセットを開始できません。セルフサービスによるパスワードリセット機能は次のユーザー向けに設計されています。</p>
+                                                    <ul>
+                                                        <li>
+                                                            <p>Oktaで作成されたユーザー </p>
+                                                        </li>
+                                                        <li>
+                                                            <p>代理認証を使用する<span class="mc-variable _3rd_Party_Integrations.AD variable">Active Directory</span>ユーザー</p>
+                                                        </li>
+                                                        <li>
+                                                            <p><span class="mc-variable okta-variables.ProductName variable">Okta</span>がIDプロバイダーである<span class="mc-variable _3rd_Party_Integrations.AAD variable">Azure Active Directory</span>ユーザー</p>
+                                                        </li>
+                                                        <li>
+                                                            <p>Oktaソースのユーザー</p>
+                                                        </li>
+                                                    </ul>
+                                                    <p>ユーザーがセルフサービスによるパスワードリセット機能を使用してパスワードを変更する場合は、<span class="mc-variable okta-variables.ProductName variable">Okta</span>パスワードを変更します。その後、変更したパスワードが<span class="mc-variable _3rd_Party_Integrations.AD variable">Active Directory</span>または<span class="mc-variable _3rd_Party_Integrations.AAD variable">Azure Active Directory</span>と同期されます。</p>
+                                                    <p>セルフサービスによるパスワードリセットを有効にする前に、OktaパスワードポリシーとADエージェントパスワードポリシーが一致することを確認してください。<a href="../../identity-engine/policies/about-policies.htm" class="MCXref xref">「サインオンのポリシーとルール」</a>を参照してください。</p>
+                                                    <ol>
+                                                        <li value="1">
+                                                            <p><span class="mc-variable okta-feature-names.Administrator_dashboard variable">Admin Console</span>で<span class="menucascade"><span class="uicontrol">［Settings（設定）］</span> <span class="uicontrol"> ［Features（機能）］</span></span>を開きます。次の早期アクセス機能を見つけて有効にします。</p>
+                                                            <ul>
+                                                                <li>
+                                                                    <p><span class="wintitle">直接認証 </span>
+                                                                    </p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="wintitle">IDPマイアカウントAPIパスワード</span>
+                                                                    </p>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li value="2">
+                                                            <p><span class="menucascade"><span class="uicontrol">［Security（セキュリティ）］</span> <span class="uicontrol">［Authenticators］</span></span>を開きます。<span class="uicontrol">［Password（パスワード）］</span>行で、<span class="menucascade"><span class="uicontrol">［Actions（アクション）］</span> <span class="uicontrol">［Edit（編集）］</span></span>をクリックします。</p>
+                                                        </li>
+                                                        <li value="3">
+                                                            <p><span class="uicontrol">［Add rule（ルールを追加）］</span>ボタンがあるセクションまでスクロールします。鉛筆アイコンをクリックして、変更するポリシーのルールを編集します。</p>
+                                                            <ul>
+                                                                <li>
+                                                                    <p>任意：委任権限付与を使用する場合は、ポリシーがActive Directoryに適用されることを確認してください。<span class="wintitle">［Authentication Providers（認証プロバイダー）］</span>見出しの下で、ドロップダウンメニューを使用して<span class="mc-variable _3rd_Party_Integrations.AD variable">［Active Directory］</span>を選択します。</p>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li value="4">
+                                                            <p><span class="uicontrol">［Users can perform self-service（ユーザーは次をセルフサービスで実行可能）］</span>の横にある<span class="uicontrol">［Password reset（パスワードリセット）］</span>オプションを有効にします。</p>
+                                                        </li>
+                                                        <li value="5">
+                                                            <p><span class="wintitle">［Recovery authenticators（復旧Authenticator）］</span>セクションで、<span class="uicontrol"><span class="mc-variable okta-feature-names.Okta_Verify variable">［Okta Verify］</span></span>が選択されていることを確認します。</p>
+                                                        </li>
+                                                        <li value="6">
+                                                            <p><span class="wintitle">［Additional verification（追加の検証）］</span>を<span class="uicontrol">［Not required（任意）］</span>に設定します。追加の検証要件を設定すると、パスワードリセットオプションが失敗します。 </p>
+                                                        </li>
+                                                        <li value="7">
+                                                            <p><span class="uicontrol">［Save（保存）］</span>をクリックします。</p>
+                                                        </li>
+                                                    </ol>
                                                     <h3>次の手順</h3>
                                                     <p><a href="win-mfa-end-user-experience.htm" class="MCXref xref">Desktop MFAのユーザーエクスペリエンス</a>
                                                     </p>
@@ -383,7 +463,7 @@
                                     <!-- *********************** Footer rows ********************************* -->
                                     <div class="footer2" data-test="footer">
                                         <div>
-                                            <p class="copyright" data-test="copyrightNotice">&copy;  <span class="mc-variable okta-variables.Year variable">2023</span> <span class="mc-variable okta-variables.CompanyName variable">Okta, Inc</span>. All Rights Reserved. それぞれの商標は、それぞれの商標所有者に帰属します。
+                                            <p class="copyright" data-test="copyrightNotice">&copy;  <span class="mc-variable okta-variables.Year variable">2024</span> <span class="mc-variable okta-variables.CompanyName variable">Okta, Inc</span>. All Rights Reserved. それぞれの商標は、それぞれの商標所有者に帰属します。
 	</p>
                                         </div>
                                     </div>
