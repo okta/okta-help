@@ -756,12 +756,8 @@ xmlAliasData += '    <Map Name=\"csh-realms-assignment\" Link=\"topics/users-gro
 xmlAliasData += '    <Map Name=\"csh-realms-move-users\" Link=\"topics/users-groups-profiles/realms/realms-manage-users.htm\" ResolvedId=\"1318\" />';
 xmlAliasData += '    <Map Name=\"csh-realms-delegate-admin\" Link=\"topics/users-groups-profiles/realms/realms-delegate-realm-management.htm\" ResolvedId=\"1319\" />';
 xmlAliasData += '    <Map Name=\"ext-realms\" Link=\"topics/users-groups-profiles/realms/realms.htm\" ResolvedId=\"1320\" />';
-xmlAliasData += '    <Map Name=\"csh-governance-admin-roles\" Link=\"topics/security/governance-admin-roles/govern-admin-roles.htm\" ResolvedId=\"13043\" />';
-xmlAliasData += '    <Map Name=\"csh-approval-sequence\" Link=\"topics/security/governance-admin-roles/ar-admin-roles.htm\" ResolvedId=\"13044\" />';
-xmlAliasData += '    <Map Name=\"csh-ar-conditions\" Link=\"topics/security/governance-admin-roles/ar-admin-roles.htm\" ResolvedId=\"13045\" />';
 xmlAliasData += '    <Map Name=\"ext-third-party-cookies\" Link=\"topics/security/okta-allow-cookies.htm\" ResolvedId=\"18040\" />';
 xmlAliasData += '    <Map Name=\"ext-cstm-admin-roles\" Link=\"topics/security/custom-admin-role/custom-admin-roles.htm\" ResolvedId=\"19039\" />';
 xmlAliasData += '    <Map Name=\"csh-multiple-ids\" Link=\"topics/identity-engine/policies/create-profile-enrollment-policy-pe.htm\" ResolvedId=\"5043\" />';
-xmlAliasData += '    <Map Name=\"csh-known-issues\" Link=\"topics/security/governance-admin-roles/get-started.htm#Initial\" ResolvedId=\"13046\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
