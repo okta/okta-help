@@ -118,6 +118,7 @@ xmlAliasData += '    <Map Name=\"csh-LDAP-deployment\" Link=\"topics/directory/l
 xmlAliasData += '    <Map Name=\"csh-limit-access-dashboard\" Link=\"topics/settings/new-end-user-dashboard.htm\" ResolvedId=\"7001\" />';
 xmlAliasData += '    <Map Name=\"csh-limit-admins\" Link=\"topics/security/healthinsight/limit-admins.htm\" ResolvedId=\"1182\" />';
 xmlAliasData += '    <Map Name=\"csh-log-streams\" Link=\"topics/reports/log-streaming/about-log-streams.htm\" ResolvedId=\"13005\" />';
+xmlAliasData += '    <Map Name=\"csh-mfa-enroll-report\" Link=\"topics/reports/mfa-enrollment-user-report.htm\" ResolvedId=\"9001\" />';
 xmlAliasData += '    <Map Name=\"csh-mfa-home\" Link=\"topics/security/mfa/mfa-home.htm\" ResolvedId=\"18011\" />';
 xmlAliasData += '    <Map Name=\"csh-new-end-user-experience\" Link=\"topics/settings/new-end-user-experience.htm\" ResolvedId=\"7002\" />';
 xmlAliasData += '    <Map Name=\"csh-new-eu-dashboard\" Link=\"topics/settings/new-end-user-dashboard.htm\" ResolvedId=\"1183\" />';
@@ -706,5 +707,19 @@ xmlAliasData += '    <Map Name=\"csh-pam-entitlement-analysis\" Link=\"topics/pr
 xmlAliasData += '    <Map Name=\"csh-pam-entitlement-analysis-job\" Link=\"topics/privileged-access/pam-entitlement-analysis-job.htm\" ResolvedId=\"1303\" />';
 xmlAliasData += '    <Map Name=\"csh-pam-entitlement-aws-connect\" Link=\"topics/privileged-access/pam-entitlement-aws-connect.htm\" ResolvedId=\"1304\" />';
 xmlAliasData += '    <Map Name=\"ext-pam-overview\" Link=\"topics/privileged-access/pam-overview.htm\" ResolvedId=\"1305\" />';
+xmlAliasData += '    <Map Name=\"ext-define-attribute-statements\" Link=\"topics/apps/define-attribute-statements.htm\" ResolvedId=\"19031\" />';
+xmlAliasData += '    <Map Name=\"ext-define-group-attribute-statements\" Link=\"topics/apps/define-group-attribute-statements.htm\" ResolvedId=\"19032\" />';
+xmlAliasData += '    <Map Name=\"ext-pam-gateways\" Link=\"topics/privileged-access/gateways/pam-gateways.htm\" ResolvedId=\"1306\" />';
+xmlAliasData += '    <Map Name=\"ext-pam-groups\" Link=\"topics/privileged-access/pam-groups.htm\" ResolvedId=\"1307\" />';
+xmlAliasData += '    <Map Name=\"ext-pam-clients\" Link=\"topics/privileged-access/clients/pam-clients.htm\" ResolvedId=\"1308\" />';
+xmlAliasData += '    <Map Name=\"ext-pam-projects\" Link=\"topics/privileged-access/pam-projects.htm\" ResolvedId=\"1309\" />';
+xmlAliasData += '    <Map Name=\"ext-pam-secrets-folder\" Link=\"topics/privileged-access/pam-secrets-folder.htm\" ResolvedId=\"1310\" />';
+xmlAliasData += '    <Map Name=\"ext-pam-resource-groups\" Link=\"topics/privileged-access/pam-resource-groups.htm\" ResolvedId=\"1311\" />';
+xmlAliasData += '    <Map Name=\"ext-pam-server-enrollment\" Link=\"topics/privileged-access/server-agent/pam-enroll-a-server.htm\" ResolvedId=\"1312\" />';
+xmlAliasData += '    <Map Name=\"ext-pam-policy\" Link=\"topics/privileged-access/pam-policy.htm\" ResolvedId=\"1313\" />';
+xmlAliasData += '    <Map Name=\"ext-pam-entitlement-analysis\" Link=\"topics/privileged-access/pam-entitlement-analysis.htm\" ResolvedId=\"1314\" />';
+xmlAliasData += '    <Map Name=\"ext-pam-secrets\" Link=\"topics/privileged-access/pam-secrets.htm\" ResolvedId=\"1315\" />';
+xmlAliasData += '    <Map Name=\"csh-manage-certs\" Link=\"topics/apps/manage-signing-certificates.htm\" ResolvedId=\"9011\" />';
+xmlAliasData += '    <Map Name=\"csh-configure-app-signon-policies\" Link=\"topics/security/policies/configure-app-signon-policies.htm\" ResolvedId=\"18023\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
