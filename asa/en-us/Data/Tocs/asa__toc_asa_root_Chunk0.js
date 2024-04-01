@@ -1,1 +1,1 @@
-define({'/content/topics/adv_server_access/docs/asa-overview.htm':{i:[0],t:['Advanced Server Access'],b:['']}});
+define({'/content/topics/adv_server_access/docs/asa-overview.htm':{i:[0],t:['Advanced Server Access'],b:['']},'/content/topics/adv_server_access/docs/manage-groups-and-projects.htm':{i:[1],t:['Team management'],b:['']},'/content/topics/adv_server_access/docs/user-attributes.htm':{i:[2],t:['User and group attributes'],b:['']}});
