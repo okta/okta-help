@@ -755,9 +755,14 @@ xmlAliasData += '    <Map Name=\"ext-realms\" Link=\"topics/users-groups-profile
 xmlAliasData += '    <Map Name=\"csh-governance-admin-roles\" Link=\"topics/security/governance-admin-roles/govern-admin-roles.htm\" ResolvedId=\"13043\" />';
 xmlAliasData += '    <Map Name=\"csh-approval-sequence\" Link=\"topics/security/governance-admin-roles/ar-admin-roles.htm\" ResolvedId=\"13044\" />';
 xmlAliasData += '    <Map Name=\"csh-ar-conditions\" Link=\"topics/security/governance-admin-roles/ar-admin-roles.htm\" ResolvedId=\"13045\" />';
+xmlAliasData += '    <Map Name=\"ext-about-role-permissions\" Link=\"topics/security/custom-admin-role/about-role-permissions.htm#Agent\" ResolvedId=\"1321\" />';
+xmlAliasData += '    <Map Name=\"csh-ar-export\" Link=\"topics/identity-governance/access-requests/ar-export.htm\" ResolvedId=\"1322\" />';
 xmlAliasData += '    <Map Name=\"ext-third-party-cookies\" Link=\"topics/security/okta-allow-cookies.htm\" ResolvedId=\"18040\" />';
 xmlAliasData += '    <Map Name=\"ext-cstm-admin-roles\" Link=\"topics/security/custom-admin-role/custom-admin-roles.htm\" ResolvedId=\"19039\" />';
 xmlAliasData += '    <Map Name=\"ext-configure-mfa-policy\" Link=\"topics/security/policies/configure-mfa-policies.htm\" ResolvedId=\"14003\" />';
 xmlAliasData += '    <Map Name=\"csh-known-issues\" Link=\"topics/security/governance-admin-roles/get-started.htm#Initial\" ResolvedId=\"13046\" />';
+xmlAliasData += '    <Map Name=\"ext-telephony-inline-hook\" Link=\"topics/telephony/telephony-inline-hook.htm\" ResolvedId=\"14004\" />';
+xmlAliasData += '    <Map Name=\"csh-oce-relnotes-archive-2023\" Link=\"topics/releasenotes/archive/oce-relnotes-2023.htm\" ResolvedId=\"9996\" />';
+xmlAliasData += '    <Map Name=\"csh-oce-relnotes-archive-2022\" Link=\"topics/releasenotes/archive/oce-relnotes-2022.htm\" ResolvedId=\"9995\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
