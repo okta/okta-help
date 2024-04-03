@@ -4,7 +4,7 @@ describe('Classic release notes landing page (en-US)', () => {
   })
 
   it('displays expected content structures in English', () => {
-    cy.hasOktaHOCBanner('Okta product documentation')
+    cy.hasOktaHOCBanner('Okta Docs')
     cy.hasCopyright()
     cy.hasLeftSideNav()
     cy.hasTOC(9)
@@ -24,7 +24,7 @@ describe('Classic release notes production page (en-US)', () => {
   })
 
   it('displays expected content structures in English', () => {
-    cy.hasOktaHOCBanner('Okta product documentation')
+    cy.hasOktaHOCBanner('Okta Docs')
     cy.hasCopyright()
     cy.hasLeftSideNav()
     cy.hasTOC(9)

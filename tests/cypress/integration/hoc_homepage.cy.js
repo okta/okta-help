@@ -4,7 +4,7 @@ describe('Okta H.O.C. landing page (en-US)', () => {
   })
 
   it('displays expected content structures in English', () => {
-    cy.hasOktaHOCBanner('Okta product documentation')
+    cy.hasOktaHOCBanner('Okta Docs')
     cy.hasCopyright()
     cy.hasLeftSideNavHidden()
     cy.hasTopMenuBar(6, 10)
