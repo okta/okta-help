@@ -290,51 +290,32 @@
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
                                                     <h1>ロードバランサー</h1>
-                                                    <div class="noteOkta">
-                                                        <p class="noteContent">Access Gatewayのバージョン<span class="mc-variable oag-versions.2022-02 variable">2022.2.3</span> では、内部負荷分散が導入されました。ロードバランサーとしての<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>は、望ましい負荷分散の方法です。<a href="about-oag-load-balancers.htm" class="MCXref xref">「負荷分散」</a>をご参照ください。</p>
-                                                    </div>
-                                                    <p> <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>は、ロードバランサーを使用する高可用性シナリオでデプロイされることが多いです。ロードバランサーは以下の目的で存在します：</p>
+                                                    <p>高可用性のシナリオでは、ロードバランサーを使用することで<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>内のリクエストの分散を管理できます。リクエストを複数の<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>インスタンスに分散させるには、<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>をロードバランサーとして使用します。<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>またはサードパーティ製品をロードバランサーとして使用して、保護対象バックエンドWebリソースの複数インスタンス間でリクエストを分散できます。</p>
                                                     <ul>
-                                                        <li><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>の複数のインスタンス間に負荷を分散する。Amazon Web Services、Microsoft Azure、Oracle Cloud Infrastructureはすべて、<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>以前のロードバランサーをサポートします。こういったシナリオにおいてロードバランサーは、各ワーカーインスタンスの健全性を把握している必要があります。</li>
-                                                        <li>バックエンド保護されたWebリソースの複数のインスタンスに負荷を分散します。これらのインスタンスでは、<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>に組み込まれた内部負荷分散とサードパーティーのロードバランサーを使用して負荷を分散させることができます。 </li>
+                                                        <li><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>と併用されるすべてのロードバランサーは、セッションアフィニティをサポートする必要があります。複製された同一の保護対象バックエンドWebリソースに2番目以降のリクエストをルーティングするために、<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>はスティッキーセッションまたは永続化を使用します。 </li>
+                                                        <li><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>ロードバランサーで優先される構成戦略は、ラウンドロビンまたは加重ラウンドロビンです。</li>
+                                                        <li>ロードバランサーの構成時に、通常は<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>管理者ノードはワーカープールの一部に含まれません。 </li>
                                                     </ul>
-                                                    <p>ロードバランサーを含むアーキテクチャのさらなる例については、<a href="ref-architectures.htm" class="MCXref xref">「リファレンスアーキテクチャ」</a>をご参照ください。</p>
-                                                    <p><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../resources/images/access-gateway/about-load-balancers-01.png" data-mc-popup-alt="Typical Access Gateway Load Balancer Architecture"><img class="MCPopupThumbnail img imgthumbnail" data-mc-width="800" data-mc-height="321" src="../../resources/images/access-gateway/about-load-balancers-01_thumb_220_220.png" alt="典型的なAccess Gatewayロードバランサーのアーキテクチャ" tabindex="" id="imgimg_new" /></a>
+                                                    <p>ロードバランサーが含まれるアーキテクチャのその他の例については、「<a href="ref-architectures.htm" class="MCXref xref">リファレンスアーキテクチャ</a>」を参照してください。</p>
+                                                    <p><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../resources/images/access-gateway/about-load-balancers-01.png" data-mc-popup-alt="Typical Access Gateway Load Balancer Architecture"><img class="MCPopupThumbnail img imgthumbnail" data-mc-width="800" data-mc-height="321" src="../../resources/images/access-gateway/about-load-balancers-01_thumb_220_220.png" alt="Access Gatewayロードバランサーの典型的なアーキテクチャ" tabindex="" id="imgimg_new" /></a>
                                                     </p>
-                                                    <h3>トピック</h3>
-                                                    <ul>
-                                                        <li><a href="#Load" class="MCXref xref">ロードバランサーの構成</a>
-                                                        </li>
-                                                        <li><a href="#Node" class="MCXref xref">ワーカーノードの稼働チェック</a>
-                                                        </li>
-                                                        <li><a href="#Cluster" class="MCXref xref">クラスターのアップグレードおよびロードバランサー</a>
-                                                        </li>
-                                                    </ul>
-                                                    <h2><a name="Load"></a>ロードバランサーの構成</h2>
-                                                    <p>ロードバランサー：</p>
-                                                    <ul>
-                                                        <li>スティッキーセッションまたはセッションアフィニティ：ロードバランサーはセッション パーシステンスを使用して、1つのセッションからのリクエストが常に開始したサーバーにルーティングされるようにします。パーシステンスは持続性またはスティッキーセッションとしても知られています。<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> で使用されるロードバランサーは、セッションアフィニティをサポートする必要があります。<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>がセッションアフィニティを使用することによって、特定のセッションに対する2番目以降のリクエストが同じ<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>ノードにルーティングされるようにします。セッションアフィニティを指定する方法は、Cookieベースなどのメカニズム（ハッシュされた送信元IPおよびポートなど）などロードバランサーのタイプによって異なります。 </li>
-                                                        <li>ロードバランサーの戦略：<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>ロードバランサーの戦略は、ラウンド ロビンまたは加重ラウンド ロビンが推奨されます。<br /></li>
-                                                    </ul>
+                                                    <h2><a name="Node"></a>クラスターメンバーのステータスを確認する</h2>
+                                                    <p>ロードバランサーは、<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>クラスターメンバーが<span class="code">/status</span> RESTエンドポイントを使って稼働しているかどうかを判断できます。</p>
                                                     <div class="noteOkta">
-                                                        <p class="noteContent">ロードバランサーを構成する場合、<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>管理ノードは通常ワーカープールの一部としては含まれません。 </p>
+                                                        <p class="noteContent">このチェックで判断されるのは、ワーカーノードNGINXサービスが稼働しているかどうかのみです。ダウンストリームリソースが稼働して利用可能であるかどうかは判断されません。</p>
                                                     </div>
-                                                    <h2><a name="Node"></a>ワーカーノードの稼働チェック</h2>
-                                                    <p>ロードバランサーは<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>クラスターメンバーが稼働しているかを確認できる必要があります。<span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>は、ノードが稼働しているかを判断する際に使用できる <span class="code">/status</span> RESTエンドポイントを提供します。 <br /></p>
-                                                    <div class="noteOkta">
-                                                        <p class="noteContent">この確認では、ワーカーノードそのものが稼働および機能しているかのみを判断します。ダウンストリームリソースが稼働および使用可能かは判断しません。</p>
-                                                    </div>
-                                                    <p>例：</p>
+                                                    <p>クラスターメンバーのステータスを確認するには、次のコマンドを実行します。</p>
                                                     <p><span class="code">curl -X GET -v -k https://{node.ip}/status -H 'Host:{gw.yourhost.tld}'</span>
                                                     </p>
-                                                    <p><a href="monitoring-status.htm" class="MCXref xref">「ステータスのモニタリング」</a>をご参照ください。</p>
-                                                    <h2><a name="Cluster"></a>クラスターのアップグレードおよびロードバランサー</h2>
-                                                    <p><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>をアップグレードする方法：</p>
+                                                    <p>「<a href="monitoring-status.htm" class="MCXref xref">ステータスのモニタリング</a>」を参照してください。</p>
+                                                    <h2><a name="Cluster"></a>負荷分散によって高可用性クラスターをアップグレードする</h2>
                                                     <ol>
-                                                        <li value="1">構成をバックアップします。「<a href="about-backup-restore.htm" class="MCXref xref">バックアップおよび復元操作</a>」を参照してください。</li>
-                                                        <li value="2">管理者インスタンスの場合、Shell (<span class="code">ssh oag-mgmt@gw.gateway.tld</span>)をCommand Line Management Consoleで保管します。</li>
-                                                        <li value="3"><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>アプライアンスのアップグレードプロセスに従います。<a href="upgrade.htm" class="MCXref xref">「Access Gatewayのアップグレード」</a>をご参照ください。</li>
-                                                        <li value="4"><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>高可用性クラスターの各ワーカーノードについて。<ol style="list-style-type: lower-alpha;"><li value="1">ワーカーノードをロードバランサーのローテーションから外します。</li><li value="2">ワーカーノードをアップデートします。</li><li value="3">ワーカーノードをロードバランサーのローテーションに戻します。</li></ol></li>
+                                                        <li value="1"><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>の構成をバックアップします。「<a href="about-backup-restore.htm" class="MCXref xref">バックアップおよび復元操作</a>」を参照してください。</li>
+                                                        <li value="2">セキュアシェル（<span class="code">ssh oag-mgmt@gw.gateway.tld</span>）を使って<span class="mc-variable okta-feature-names.Access_Gateway_CMD variable">Access Gateway Managementコンソール</span>にアクセスします。</li>
+                                                        <li value="3"><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>アプライアンスをアップグレードします。「<a href="upgrade.htm" class="MCXref xref">Access Gatewayのアップグレード</a>」を参照してください。</li>
+                                                        <li value="4">ロードバランサーのローテーションから各ワーカーノードを外します。</li>
+                                                        <li value="5">各ワーカーノードを更新します。</li>
+                                                        <li value="6">ワーカーノードをロードバランサーのローテーションに戻します。</li>
                                                     </ol>
                                                     <div>
                                                         <h2>関連項目</h2>
@@ -343,8 +324,6 @@
                                                         <p><a href="task-assign-lb.htm" class="MCXref xref">アプリケーションでAccess Gatewayロードバランシングを有効化する</a>
                                                         </p>
                                                         <p><a href="ref-architectures.htm" class="MCXref xref">リファレンスアーキテクチャ</a>
-                                                        </p>
-                                                        <p><a href="about-oag-ssl-term.htm" class="MCXref xref">SSL終端</a>
                                                         </p>
                                                     </div>
                                                 </div>
