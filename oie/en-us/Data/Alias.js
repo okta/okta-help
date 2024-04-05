@@ -774,6 +774,9 @@ xmlAliasData += '    <Map Name=\"csh-realms-assignment\" Link=\"topics/users-gro
 xmlAliasData += '    <Map Name=\"csh-realms-move-users\" Link=\"topics/users-groups-profiles/realms/realms-manage-users.htm\" ResolvedId=\"1318\" />';
 xmlAliasData += '    <Map Name=\"csh-realms-delegate-admin\" Link=\"topics/users-groups-profiles/realms/realms-delegate-realm-management.htm\" ResolvedId=\"1319\" />';
 xmlAliasData += '    <Map Name=\"ext-realms\" Link=\"topics/users-groups-profiles/realms/realms.htm\" ResolvedId=\"1320\" />';
+xmlAliasData += '    <Map Name=\"ext-realms-delegate-admin\" Link=\"topics/users-groups-profiles/realms/realms-delegate-realm-management.htm\" ResolvedId=\"1321\" />';
+xmlAliasData += '    <Map Name=\"ext-realms-move-users\" Link=\"topics/users-groups-profiles/realms/realms-manage-users.htm\" ResolvedId=\"1322\" />';
+xmlAliasData += '    <Map Name=\"ext-realms-assignment\" Link=\"topics/users-groups-profiles/realms/realms-assignment.htm\" ResolvedId=\"1330\" />';
 xmlAliasData += '    <Map Name=\"csh-governance-admin-roles\" Link=\"topics/security/governance-admin-roles/govern-admin-roles.htm\" ResolvedId=\"13043\" />';
 xmlAliasData += '    <Map Name=\"csh-approval-sequence\" Link=\"topics/security/governance-admin-roles/ar-admin-roles.htm\" ResolvedId=\"13044\" />';
 xmlAliasData += '    <Map Name=\"csh-ar-conditions\" Link=\"topics/security/governance-admin-roles/ar-admin-roles.htm\" ResolvedId=\"13045\" />';
@@ -791,5 +794,6 @@ xmlAliasData += '    <Map Name=\"csh-config-pr-flow\" Link=\"topics/identity-eng
 xmlAliasData += '    <Map Name=\"csh-wf-yubikey-setup\" Link=\"topics/identity-engine/authenticators/pr-set-up-yubikey-flow.htm\" ResolvedId=\"14007\" />';
 xmlAliasData += '    <Map Name=\"csh-pr-onboard-users\" Link=\"topics/identity-engine/authenticators/pr-onboard-users-pr.htm\" ResolvedId=\"14008\" />';
 xmlAliasData += '    <Map Name=\"csh-pr-main\" Link=\"topics/architecture/pr/pr-overview.htm\" ResolvedId=\"14009\" />';
+xmlAliasData += '    <Map Name=\"csh-configure-pe-policy\" Link=\"topics/identity-engine/policies/configure-profile-enrollment-policy.htm\" ResolvedId=\"5044\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
