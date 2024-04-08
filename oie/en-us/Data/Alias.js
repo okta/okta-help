@@ -795,5 +795,8 @@ xmlAliasData += '    <Map Name=\"csh-wf-yubikey-setup\" Link=\"topics/identity-e
 xmlAliasData += '    <Map Name=\"csh-pr-onboard-users\" Link=\"topics/identity-engine/authenticators/pr-onboard-users-pr.htm\" ResolvedId=\"14008\" />';
 xmlAliasData += '    <Map Name=\"csh-pr-main\" Link=\"topics/architecture/pr/pr-overview.htm\" ResolvedId=\"14009\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-pe-policy\" Link=\"topics/identity-engine/policies/configure-profile-enrollment-policy.htm\" ResolvedId=\"5044\" />';
+xmlAliasData += '    <Map Name=\"ext-multiple-ids\" Link=\"topics/identity-engine/policies/create-profile-enrollment-form.htm\" ResolvedId=\"5045\" />';
+xmlAliasData += '    <Map Name=\"ext-add-identifiers\" Link=\"topics/identity-engine/policies/create-profile-enrollment-form.htm\" ResolvedId=\"5046\" />';
+xmlAliasData += '    <Map Name=\"ext-add-apps-user-profile-policy\" Link=\"topics/identity-engine/policies/create-profile-enrollment-form.htm\" ResolvedId=\"5047\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
