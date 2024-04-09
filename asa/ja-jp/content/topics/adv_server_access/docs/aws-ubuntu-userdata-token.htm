@@ -5,7 +5,7 @@
         <meta name="typeofcontent" content="documentation" />
         <meta name="audience" content="admin workflows" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="description" content="ユーザーデータおよび登録トークンを使用して、Ubuntu/Debian AWSインスタンスにAdvanced Server Accessを展開します。" /><title>登録トークンを使ってAWSサーバーをデプロイする｜Okta</title>
+        <meta name="description" content="ユーザーデータおよび登録トークンを使用して、Ubuntu/Debian AWSインスタンスにAdvanced Server Accessをデプロイします。" /><title>登録トークンを使ってAWSサーバーをデプロイする｜Okta</title>
         <meta charset="utf-8" />
         <meta name="description" content="" />
         <meta name="author" content="" />
@@ -291,7 +291,7 @@
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
                                                     <h1>登録トークンを使ってAWSサーバーをデプロイする</h1>
-                                                    <p>このトピックでは、UbuntuまたはDebian Amazon Web Services（AWS）のクラウドサーバーをsystemdを使って<span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span>のチームにデプロイする方法について説明します。このプロセスは、特定のニーズに合わせて修正が必要になる場合があります。</p>
+                                                    <p>このトピックでは、UbuntuまたはDebian <span class="mc-variable _3rd_Party_Integrations.Amazon_Web_Services variable">Amazon Web Services</span>（AWS）のクラウドサーバーをsystemdを使って<span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span>のチームにデプロイする方法について説明します。このプロセスは、特定のニーズに合わせて修正が必要になる場合があります。</p>
                                                     <p>ユーザーデータを使用してクラウドサーバーを作成することは、クラウドプロバイダーを使用してサーバーを作成するのと同時に、<span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span> <span class="disableGlossary">のサーバーエージェント</span>をインストールすることを意味します。ユーザーデータを使用すると、新しいクラウドサーバーにソフトウェアをインストールするための特定のソフトウェアを決定することができます。クラウドサーバーの作成時に、クラウドサーバーに<span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span>のサーバーエージェントをインストールする必要はありませんが、サーバーの作成と同時に起動スクリプトとしてインストールを実行すると、クラウドの展開が可能な限り安全になります。 </p>
                                                     <ul>
                                                         <li><a href="#Prerequi" class="MCXref xref">前提条件</a>
@@ -363,51 +363,19 @@
                                                     <p>トークンが正常に作成されたら、［<span class="uicontrol">Token（トークン）</span>］フィールドの文字列を記録して、後の手順で使用するために安全な場所に保存します。</p>
                                                     <h2><a name="Enroll"></a>ユーザーデータを使ってAWSサーバーを作成、登録する</h2>
                                                     <ol>
-                                                        <li value="1"><a href="https://aws.amazon.com/console/">AWS管理者コンソール</a>にアクセスします。</li>
-                                                        <li value="2">コンソールの上部にある［<span class="uicontrol">Services（サービス）</span>］タブをクリックし、［<span class="uicontrol">Compute（コンピューティング）</span>］カテゴリーの［<span class="uicontrol">EC2</span>］オプションを選択して新しいEC2サーバーを作成します。</li>
-                                                        <li value="3">［<span class="uicontrol">Launch Instance（インスタンスを起動する）</span>］をクリックします。
+                                                        <li value="1"><a href="https://aws.amazon.com/console/">AWS管理コンソール</a>にアクセスします。</li>
+                                                        <li value="2">コンソールの上部にある<span class="uicontrol">［Services（サービス）］</span>タブをクリックし、<span class="uicontrol">［Compute（コンピューティング）］</span>］カテゴリの<span class="uicontrol">［EC2］</span>オプションを選択してEC2サーバーを作成します。</li>
+                                                        <li value="3"><span class="uicontrol">［Launch Instance（インスタンスを起動する）］</span>をクリックします。
                 <p>[<span class="uicontrol">Choose an Amazon Machine Image (AMI) (Amazonマシンイメージを選択する)</span>]ページが開きます。</p></li>
                                                         <li value="4">サポートされているUbuntu/Debianのバージョンを確認して［<span class="uicontrol">Select (選択)</span>］をクリックします。<br />詳細は、「<a href="supported-os.htm" class="MCXref xref">サポートされているオペレーティングシステム</a>」を参照してください。<p>［<span class="uicontrol">Choose an Instance Type (インスタンスタイプを選択する)</span>］ページが開きます。</p></li>
                                                         <li value="5">［<span class="uicontrol">Next: Configure Instance Details（次：インスタンスの詳細を構成する）</span>］をクリックします。
                 <p>［<span class="uicontrol">Configure Instance Details（インスタンスの詳細を構成する）</span>］ページが表示されます。</p></li>
-                                                        <li value="6">［<span class="uicontrol">Advanced Details（詳細情報）</span>］を展開します。</li>
-                                                        <li value="7">［<span class="uicontrol">User Data（ユーザーデータ）</span>］フィールドに以下を入力します：
-                    <span class="codeblock">#!/bin/bash
-echo &quot;Add an enrollment token&quot;
-sudo mkdir -p /var/lib/sftd
-echo &quot;&lt;enrollment-token&gt;&quot; | sudo tee /var/lib/sftd/enrollment.token
-export DEBIAN_FRONTEND=noninteractive
-
-echo &quot;Add a basic sftd configuration&quot;
-sudo mkdir -p /etc/sft/
-sftcfg=$(cat &lt;&lt;EOF
----
-# CanonicalName：このホストへの接続時にクライアントが使用/認識する名前を指定します。CanonicalName: &quot;ubuntu-target&quot;
-EOF
-)
-echo -e &quot;$sftcfg&quot; | sudo tee /etc/sft/sftd.yaml
-
-echo &quot;Retrieve information about new packages&quot;
-sudo apt-get update
-sudo apt-get install -y curl
-
-echo &quot;Add the ScaleFT testing apt repo to your /etc/apt/sources.list system config file&quot;
-echo &quot;deb http://pkg.scaleft.com/deb/ linux main&quot; | sudo tee -a /etc/apt/sources.list
-
-echo &quot;Trust the repository signing key&quot;
-curl -C - https://dist.scaleft.com/pki/scaleft_deb_key.asc | sudo apt-key add -
-
-echo &quot;Retrieve information about new packages&quot;
-sudo apt-get update
-
-echo &quot;Install sftd&quot;
-sudo apt-get install scaleft-server-tools
-</span><p>注：このスクリプトはサーバー用の<span class="code">sftd.yaml</span>ファイルを作成し、正規名として<span class="code">ubuntu-target</span>を使用します。必要に応じて、この情報を変更、生成して、チームとプロジェクトの環境に適合させます。</p></li>
-                                                        <li value="8">［User Data（ユーザーデータ）］フィールドの<span class="code">&lt;enrollment_token&gt;</span>を、以前に作成した登録トークンで置き換えます。</li>
-                                                        <li value="9">［<span class="uicontrol">Review and Launch（確認して起動する）</span>］をクリックし、［<span class="uicontrol">Launch（起動する）</span>］をクリックします。
+                                                        <li value="6"><span class="uicontrol">［Advanced Details（詳細情報）］</span>を展開します。</li>
+                                                        <li value="7">AWS管理コンソールでサーバーを作成するときは、Advanced Server Accessのサーバーエージェントをインストールする必要があります。<span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span>のサーバーエージェントをインストールするには、<span class="uicontrol">［User data（ユーザーデータ）］</span>フィールドを使用します。手順については、「<a href="install-agent.htm" class="MCXref xref">Advanced Server Accessのサーバーエージェントをインストールする</a>」を参照してください。 <![CDATA[                    ]]></li>
+                                                        <li value="8"><span class="uicontrol">［Review and Launch（確認して起動する）］</span>をクリックし、<span class="uicontrol">［Launch（起動する）］</span>をクリックします。
                 <p>［<span class="uicontrol">Select an existing key pair or create a new key pair（既存のキーペアを選択するか新しいキーペアを作成する）</span>］ダイアログが表示されます。</p></li>
-                                                        <li value="10">ドロップダウンメニューから［<span class="uicontrol">Proceed without a key pair（キーペアなしで続行する）</span>］オプションを選択します。</li>
-                                                        <li value="11">関連するチェックボックスをオンにして選択を確認し、［<span class="uicontrol">Launch Instances（インスタンスを起動する）</span>］をクリックします。</li>
+                                                        <li value="9">ドロップダウンメニューから［<span class="uicontrol">Proceed without a key pair（キーペアなしで続行する）</span>］オプションを選択します。</li>
+                                                        <li value="10">関連するチェックボックスをオンにして選択を確認し、［<span class="uicontrol">Launch Instances（インスタンスを起動する）</span>］をクリックします。</li>
                                                     </ol>
                                                     <h2><a name="Next"></a>次の手順</h2>
                                                     <p><a href="verify-server-enrolled.htm" class="MCXref xref">サーバー登録を確認する</a>
