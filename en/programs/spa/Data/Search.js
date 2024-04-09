@@ -1,0 +1,1 @@
+define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../content/topics/users-groups-profiles/realms/spa/secure-partner-access-portal.htm'],s:['access'],p:[['access',0]]});

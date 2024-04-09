@@ -1,0 +1,1 @@
+define({"0":{y:0,u:"../content/topics/users-groups-profiles/realms/spa/secure-partner-access-portal.htm",l:-1,t:"Secure partner access portal",i:1,a:"Secure partner access portal"},});
