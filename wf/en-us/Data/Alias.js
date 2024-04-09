@@ -1423,7 +1423,7 @@ xmlAliasData += '    <Map Name=\"ext-knowbe4-method-listusersqwuimrjprlb\" Link=
 xmlAliasData += '    <Map Name=\"ext-knowbe4-method-readgroupt1nwwigoo6\" Link=\"topics/workflows/connector-reference/knowbe4/actions/readgroup.htm\" ResolvedId=\"6125\" />';
 xmlAliasData += '    <Map Name=\"ext-knowbe4-method-readuseraveiulhj\" Link=\"topics/workflows/connector-reference/knowbe4/actions/readuser.htm\" ResolvedId=\"6126\" />';
 xmlAliasData += '    <Map Name=\"ext-secureflag\" Link=\"topics/workflows/connector-reference/secureflag/secureflag.htm\" ResolvedId=\"6107\" />';
-xmlAliasData += '    <Map Name=\"ext-secureflag-method-removeUserLicensedB5BYHWer4x\" Link=\"topics/workflows/connector-reference/secureflag/secureflag.htm\" ResolvedId=\"6108\" />';
+xmlAliasData += '    <Map Name=\"ext-secureflag-method-removeuserlicensedb5byhwer4x\" Link=\"topics/workflows/connector-reference/secureflag/secureflag.htm\" ResolvedId=\"6108\" />';
 xmlAliasData += '    <Map Name=\"ext-rfidsearch0026feded2c6497abfacc859bdbc2779\" Link=\"topics/workflows/connector-reference/recordedfutureidentityintelligence/recordedfutureidentityintelligence.htm\" ResolvedId=\"6109\" />';
 xmlAliasData += '    <Map Name=\"ext-yubico\" Link=\"topics/workflows/connector-reference/yubico/yubico.htm\" ResolvedId=\"6127\" />';
 xmlAliasData += '    <Map Name=\"ext-miroadminebae4b56e5b94e5091b2377c919d3360\" Link=\"topics/workflows/connector-reference/mirousermanagement/mirousermanagement.htm\" ResolvedId=\"6128\" />';
