@@ -907,21 +907,27 @@ sft config client.timeout_seconds -1</span>
                                                             </tr>
                                                         </tbody>
                                                     </table>
-                                                    <h2><a name="SFT-Keyring"></a>SFTキーリング</h2>
-                                                    <p>SFTキーリングを有効にすると、<span class="filepath">state.json</span>ファイル内のすべてのプレーンテキストトークンが暗号化されます。システムで設定されたSFTキーリングは、ユーザーが<span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span>にログインするか、サーバーにアクセスしようとすると自動的に更新されます。</p>
-                                                    <p>一度アクティブ化されたSFTキーリングを元に戻すことはできません。<span class="mc-variable okta-feature-names.ScaleFT variable">Advanced Server Access</span>は、暗号化機能を備えていない<span class="varname">compat</span>キーリングをすべてのオペレーティングシステム向けに採用しています。ユーザーがデフォルトの<span class="varname">compat</span>キーリングに戻るには、再登録してログインし直す必要があります。</p>
+                                                    <h2><a name="sft-keyring"></a>SFTキーリング</h2>
+                                                    <p>SFTキーリングを有効にすると、<span class="filepath">state.json</span>ファイル内のすべてのプレーンテキストトークンが暗号化されます。システムで設定されたSFTキーリングは、ユーザーが<span class="mc-variable okta-feature-names.Okta_Privileged_Access variable">Okta Privileged Access</span>にログインするか、サーバーにアクセスを試みると自動的に更新されます。</p>
+                                                    <p>アクティブ化されたSFTキーリングを元に戻すことはできません。<span class="mc-variable okta-feature-names.Okta_Privileged_Access variable">Okta Privileged Access</span>は、暗号化機能を備えていない<span class="varname">compat</span>キーリングをすべてのオペレーティングシステム向けに採用しています。デフォルトの<span class="varname">compat</span>キーリングに戻すには、ユーザーは登録し直して再ログインする必要があります。</p>
+                                                    <h3>始める前に</h3>
+                                                    <ul>
+                                                        <li>SFTキーリングはアクセストークンを暗号化します。トークンを復号するためのキーを使用できなければ、復号は不可能です。これにより、未承認のデータ流出を防ぐことができます。</li>
+                                                        <li>LinuxのSFTキーリングは、D-Busを使ってデスクトップに固有のSecretServiceに接続し、アクセストークンをプロアクティブに保護します。<span class="userinput">sft</span>が、ロック解除されたSecretServiceにアクセスできない場合、これらのトークンを復号できなくなります。このために、デスクトップと非デスクトップの両方でLinuxを使用している場合、非デスクトップモードではトークンがロックアウトされる可能性があります。これを回避するには、シェル初期化スクリプトで<span class="varname">SFT_KEYRING</span>を<span class="userinput">compat</span>に設定してから再登録することで、非セキュアなコンパクトキーリングを使用できます。</li>
+                                                    </ul>
                                                     <h3>キーリングのセットアップ</h3>
-                                                    <p>SFTキーリングは、すべてのデバイスに構成する必要があります。オペレーティングシステムはデフォルトのキーリングを備えており、最も適切なキーリングを決定します。構成で<span class="varname">system</span>変数を使用すると、オペレーティングシステムは最適なキーリングを自動的に選択します。</p>
+                                                    <p>SFTキーリングは、すべてのデバイスに構成する必要があります。オペレーティングシステムはデフォルトのキーリングを備えており、最も適切なキーリングを決定します。構成で<span class="userinput">system</span>変数を使用すると、オペレーティングシステムは最適なキーリングを自動的に選択します。</p>
                                                     <h4>macOS</h4>
-                                                    <p>ユーザーのデフォルトフレームワークを使ってキーリングを設定できます。</p>
+                                                    <p>macOSでは、SFTキーリングはデフォルトで暗号化します。ユーザーのデフォルトフレームワークを使ってキーリングを設定できます。</p>
                                                     <p><span class="code">$ defaults write com.scaleft.ScaleFT SFTKeyring system</span>
                                                     </p>
                                                     <p>環境変数を設定してキーリングを有効化することもできます。</p>
                                                     <p><span class="code">export SFT_KEYRING=system</span>
                                                     </p>
-                                                    <p>両方が設定されている場合、環境変数が優先されます。</p>
+                                                    <p>両方が設定されている場合、環境変数が優先されます。 </p>
+                                                    <p>暗号化を無効にするには、環境変数で<span class="userinput">system</span>の代わりに<span class="userinput">compat</span>を使用してチームに登録し直します。</p>
                                                     <h4>Windows</h4>
-                                                    <p>レジストリを使ってキーリングを設定できます。</p>
+                                                    <p>Windowsでは、SFTキーリングはデフォルトで暗号化します。レジストリを使ってキーリングを設定できます。</p>
                                                     <p><span class="code">HKEY_LOCAL_MACHINE\Software\ScaleFT\SFT\Keyring</span>
                                                     </p>
                                                     <p>Or</p>
@@ -929,9 +935,15 @@ sft config client.timeout_seconds -1</span>
                                                     </p>
                                                     <p><span class="varname">SFT_KEYRING</span>環境変数を使ってキーリングを設定することもできます。</p>
                                                     <p><span class="varname">HKEY_LOCAL_MACHINE</span>は、環境変数と<span class="varname">CURRENT_USER</span>エントリの両方に優先します。環境変数は<span class="varname">CURRENT_USER</span>エントリに優先します。</p>
+                                                    <p>暗号化を無効にするには、レジストリキーを<span class="userinput">system</span>の代わりに<span class="userinput">compat</span>に設定してチームに登録し直します。</p>
                                                     <h4>FreeBSD / Linux</h4>
-                                                    <p>FreeBSDとLinuxでは、キーリングはD-Busデスクトップ環境のみで機能します。</p>
-                                                    <p><span class="userinput">SFT_KEYRING</span>環境変数を<span class="userinput">compat</span>または<span class="varname">system</span>に設定できます。</p>
+                                                    <p>FreeBSDとLinuxでは、キーリングはD-Busデスクトップ環境のみで機能します。Linuxではデフォルトの暗号化方式は<span class="userinput">system</span>ですが、FreeBSDでは<span class="userinput">compat</span>です。</p>
+                                                    <p><span class="varname">SFT_KEYRING</span>環境変数を<span class="userinput">compat</span>または<span class="userinput">system</span>に設定する、または更新するには、シェルスクリプトに次の内容を追加します。</p>
+                                                    <p><span class="code">export SFT_KEYRING=system</span>
+                                                    </p>
+                                                    <p>または</p>
+                                                    <p><span class="code">export SFT_KEYRING=compat</span>
+                                                    </p>
                                                     <h2>関連項目</h2>
                                                     <p><a href="sft.htm" class="MCXref xref">Advanced Server Accessのクライアントをインストールする</a>
                                                     </p>
