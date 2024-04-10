@@ -1,1 +1,1 @@
-define({'/content/topics/adv_server_access/docs/asa-overview.htm':{i:[0],t:['Advanced Server Access'],b:['']}});
+define({'/content/topics/adv_server_access/docs/asa-overview.htm':{i:[0],t:['Advanced Server Access'],b:['']},'/content/topics/adv_server_access/docs/audit-events-with-okta-syslog.htm':{i:[3],t:['Audit Events Integration with Okta System Log'],b:['']},'/content/topics/adv_server_access/docs/audit-events.htm':{i:[2],t:['Audit events'],b:['']},'/content/topics/adv_server_access/docs/reference.htm':{i:[1],t:['Reference'],b:['']}});
