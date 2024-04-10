@@ -1423,12 +1423,15 @@ xmlAliasData += '    <Map Name=\"ext-knowbe4-method-listusersqwuimrjprlb\" Link=
 xmlAliasData += '    <Map Name=\"ext-knowbe4-method-readgroupt1nwwigoo6\" Link=\"topics/workflows/connector-reference/knowbe4/actions/readgroup.htm\" ResolvedId=\"6125\" />';
 xmlAliasData += '    <Map Name=\"ext-knowbe4-method-readuseraveiulhj\" Link=\"topics/workflows/connector-reference/knowbe4/actions/readuser.htm\" ResolvedId=\"6126\" />';
 xmlAliasData += '    <Map Name=\"ext-secureflag\" Link=\"topics/workflows/connector-reference/secureflag/secureflag.htm\" ResolvedId=\"6107\" />';
-xmlAliasData += '    <Map Name=\"ext-secureflag-method-removeUserLicensedB5BYHWer4x\" Link=\"topics/workflows/connector-reference/secureflag/secureflag.htm\" ResolvedId=\"6108\" />';
+xmlAliasData += '    <Map Name=\"ext-secureflag-method-removeuserlicensedb5byhwer4x\" Link=\"topics/workflows/connector-reference/secureflag/secureflag.htm\" ResolvedId=\"6108\" />';
 xmlAliasData += '    <Map Name=\"ext-rfidsearch0026feded2c6497abfacc859bdbc2779\" Link=\"topics/workflows/connector-reference/recordedfutureidentityintelligence/recordedfutureidentityintelligence.htm\" ResolvedId=\"6109\" />';
 xmlAliasData += '    <Map Name=\"ext-yubico\" Link=\"topics/workflows/connector-reference/yubico/yubico.htm\" ResolvedId=\"6127\" />';
 xmlAliasData += '    <Map Name=\"ext-miroadminebae4b56e5b94e5091b2377c919d3360\" Link=\"topics/workflows/connector-reference/mirousermanagement/mirousermanagement.htm\" ResolvedId=\"6128\" />';
 xmlAliasData += '    <Map Name=\"ext-miro1c99de8ebb9d42b8b0ec2009efe37cc4\" Link=\"topics/workflows/connector-reference/miroadministration/miroadministration.htm\" ResolvedId=\"6129\" />';
 xmlAliasData += '    <Map Name=\"ext-jamfproapiv2\" Link=\"topics/workflows/connector-reference/jamfproapi/jamfproapi.htm\" ResolvedId=\"6130\" />';
 xmlAliasData += '    <Map Name=\"ext-darwinbox\" Link=\"topics/workflows/connector-reference/darwinbox/darwinbox.htm\" ResolvedId=\"6131\" />';
+xmlAliasData += '    <Map Name=\"ext-ciscoidentityintelligence\" Link=\"topics/workflows/connector-reference/ciscoidentityintelligence/ciscoidentityintelligence.htm\" ResolvedId=\"6134\" />';
+xmlAliasData += '    <Map Name=\"ext-asana-method-createmembership\" Link=\"topics/workflows/connector-reference/asana/actions/createmembership.htm\" ResolvedId=\"6132\" />';
+xmlAliasData += '    <Map Name=\"ext-asana-method-deletemembership\" Link=\"topics/workflows/connector-reference/asana/actions/deletemembership.htm\" ResolvedId=\"6133\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
