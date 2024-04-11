@@ -768,11 +768,15 @@ xmlAliasData += '    <Map Name=\"csh-trusted-app-filter\" Link=\"topics/identity
 xmlAliasData += '    <Map Name=\"csh-user-settings\" Link=\"topics/identity-engine/enduser/eu-settings.htm\" ResolvedId=\"18026\" />';
 xmlAliasData += '    <Map Name=\"csh-atlassian-migration-guide\" Link=\"topics/provisioning/atlassian/migration-guide.htm\" ResolvedId=\"18028\" />';
 xmlAliasData += '    <Map Name=\"ext-usgp-edit-app-provisioning\" Link=\"topics/users-groups-profiles/usgp-edit-app-provisioning.htm\" ResolvedId=\"16028\" />';
+xmlAliasData += '    <Map Name=\"csh-governance-admin-roles\" Link=\"topics/security/governance-admin-roles/govern-admin-roles.htm\" ResolvedId=\"13043\" />';
+xmlAliasData += '    <Map Name=\"csh-approval-sequence\" Link=\"topics/security/governance-admin-roles/ar-admin-roles.htm\" ResolvedId=\"13044\" />';
+xmlAliasData += '    <Map Name=\"csh-ar-conditions\" Link=\"topics/security/governance-admin-roles/ar-admin-roles.htm\" ResolvedId=\"13045\" />';
 xmlAliasData += '    <Map Name=\"ext-about-role-permissions\" Link=\"topics/security/custom-admin-role/about-role-permissions.htm#Agent\" ResolvedId=\"1321\" />';
 xmlAliasData += '    <Map Name=\"csh-ar-export\" Link=\"topics/identity-governance/access-requests/ar-export.htm\" ResolvedId=\"1322\" />';
 xmlAliasData += '    <Map Name=\"ext-third-party-cookies\" Link=\"topics/security/okta-allow-cookies.htm\" ResolvedId=\"18040\" />';
 xmlAliasData += '    <Map Name=\"ext-cstm-admin-roles\" Link=\"topics/security/custom-admin-role/custom-admin-roles.htm\" ResolvedId=\"19039\" />';
 xmlAliasData += '    <Map Name=\"csh-multiple-ids\" Link=\"topics/identity-engine/policies/multiple-identifiers.htm\" ResolvedId=\"5043\" />';
+xmlAliasData += '    <Map Name=\"csh-known-issues\" Link=\"topics/security/governance-admin-roles/get-started.htm#Initial\" ResolvedId=\"13046\" />';
 xmlAliasData += '    <Map Name=\"ext-telephony-inline-hook\" Link=\"topics/telephony/telephony-inline-hook.htm\" ResolvedId=\"14004\" />';
 xmlAliasData += '    <Map Name=\"csh-oie-relnotes-archive-2023\" Link=\"topics/releasenotes/archive/oie-relnotes-2023.htm\" ResolvedId=\"9999\" />';
 xmlAliasData += '    <Map Name=\"csh-oie-relnotes-archive-2022\" Link=\"topics/releasenotes/archive/oie-relnotes-2022.htm\" ResolvedId=\"9998\" />';
