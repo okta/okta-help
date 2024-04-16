@@ -799,5 +799,6 @@ xmlAliasData += '    <Map Name=\"ext-multiple-ids\" Link=\"topics/identity-engin
 xmlAliasData += '    <Map Name=\"ext-add-identifiers\" Link=\"topics/identity-engine/policies/add-identifiers.htm\" ResolvedId=\"5046\" />';
 xmlAliasData += '    <Map Name=\"ext-add-apps-user-profile-policy\" Link=\"topics/identity-engine/policies/select-profile-enrollment-policy.htm\" ResolvedId=\"5047\" />';
 xmlAliasData += '    <Map Name=\"ext-create-api-token\" Link=\"topics/security/api.htm#create-okta-api-token\" ResolvedId=\"5048\" />';
+xmlAliasData += '    <Map Name=\"ext-pam-entitlement-aws-connect\" Link=\"topics/privileged-access/pam-entitlement-aws-connect.htm\" ResolvedId=\"1331\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
