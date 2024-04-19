@@ -27,9 +27,12 @@ python3 scripts/translation_postprocessing.py ${TARGET}
 # revert en-us sitemap
 git checkout -- ${EN_PATH}/Sitemap.xml
 
-git add --all
-git -c user.name='CI Automation' -c user.email=${userEmail} commit -m "$(TZ=UTC+8 date +'%Y-%m-%d %H:%M:%S') Receiving translation for ${TARGET^^} project"
-git push origin ${TRANSLATION_RECEIVING_BRANCH}
+# git add --all
+# git -c user.name='CI Automation' -c user.email=${userEmail} commit -m "$(TZ=UTC+8 date +'%Y-%m-%d %H:%M:%S') Receiving translation for ${TARGET^^} project"
+# git push origin ${TRANSLATION_RECEIVING_BRANCH}
+
+touch $(TZ=UTC+8 date +'%Y-%m-%d_%H-%M-%S')
+commit_sign_push "$(TZ=UTC+8 date +'%Y-%m-%d %H:%M:%S') Receiving translation for ${TARGET^^} project"
 
 export PR_TITLE="Receiving translation for ${TARGET^^}"
 export PR_BODY="${TARGET^^} translation for the latest commit: ${TRANSLATION_COMMITS}"
