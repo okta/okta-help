@@ -30,6 +30,8 @@ git checkout -b ${TRANSLATION_RECEIVING_BRANCH}
 #git checkout -- ${EN_PATH}/Sitemap.xml
 
 touch $(TZ=UTC+8 date +'%Y-%m-%d_%H-%M-%S')
+
+git add --all
 commit_sign_push "$(TZ=UTC+8 date +'%Y-%m-%d %H:%M:%S') Receiving translation for ${TARGET^^} project"
 
 export PR_TITLE="Receiving translation for ${TARGET^^}"
