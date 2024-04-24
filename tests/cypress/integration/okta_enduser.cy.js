@@ -7,7 +7,7 @@ describe('End User landing page (en-US)', () => {
     // cy.hasOktaHOCBanner('Okta Support')
     cy.hasCopyright()
     cy.hasLeftSideNav()
-    cy.hasTOC(7)
+    cy.hasTOC(6)
     cy.hasBreadcrumbs('Documentation for end users')
     cy.hasTopMenuBar(4, 0)
     cy.hasBodyContent()
