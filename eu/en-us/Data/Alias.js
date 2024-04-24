@@ -61,8 +61,6 @@ xmlAliasData += '    <Map Name=\"ext-device-health-windows\" Link=\"topics/end-u
 xmlAliasData += '    <Map Name=\"ext-end-user-set-language\" Link=\"topics/end-user/manage-account-settings.htm#Select\" ResolvedId=\"1502\" />';
 xmlAliasData += '    <Map Name=\"ext-eu-dashboard-notifications\" Link=\"topics/end-user/manage-account-settings.htm#View\" ResolvedId=\"4074\" />';
 xmlAliasData += '    <Map Name=\"ext-eu-settings\" Link=\"topics/end-user/manage-account-settings.htm\" ResolvedId=\"1431\" />';
-xmlAliasData += '    <Map Name=\"ext-eu-sign-in-apps\" Link=\"topics/end-user/eu-sign-in-to-apps.htm\" ResolvedId=\"6019\" />';
-xmlAliasData += '    <Map Name=\"ext-eu-sign-in-apps-emlotp\" Link=\"topics/end-user/eu-sign-in-to-apps.htm#EMLorOTP\" ResolvedId=\"6020\" />';
 xmlAliasData += '    <Map Name=\"ext-generate-random-password\" Link=\"topics/end-user/generate-random-password.htm\" ResolvedId=\"4056\" />';
 xmlAliasData += '    <Map Name=\"ext-ov-add-acct-while-accessing-app-macos\" Link=\"topics/end-user/ov-mng-account-macos.htm\" ResolvedId=\"17003\" />';
 xmlAliasData += '    <Map Name=\"ext-ov-add-acct-while-signin-macos\" Link=\"topics/end-user/ov-setup-macos.htm\" ResolvedId=\"17002\" />';
@@ -83,7 +81,6 @@ xmlAliasData += '    <Map Name=\"ext-ov-user-overview\" Link=\"topics/end-user/o
 xmlAliasData += '    <Map Name=\"ext-plugin-config-settings\" Link=\"topics/end-user/plugin-config-settings.htm\" ResolvedId=\"4052\" />';
 xmlAliasData += '    <Map Name=\"ext-plugin-download-install\" Link=\"topics/end-user/plugin-download_install.htm\" ResolvedId=\"4042\" />';
 xmlAliasData += '    <Map Name=\"ext-random-password\" Link=\"topics/end-user/generate-random-password.htm\" ResolvedId=\"4060\" />';
-xmlAliasData += '    <Map Name=\"ext-sign-in-flows\" Link=\"topics/end-user/sign-in-experience-changes.htm\" ResolvedId=\"18004\" />';
 xmlAliasData += '    <Map Name=\"ext-user-plugin-keyboard\" Link=\"topics/end-user/plugin-keyboard.htm\" ResolvedId=\"4087\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_OMM_End_User\" Link=\"topics/end-user/om-omm-user.htm\" ResolvedId=\"200108\" />';
 xmlAliasData += '    <Map Name=\"ext_end_user_okta_account_chooser\" Link=\"topics/end-user/plugin-switch-accounts.htm\" ResolvedId=\"200180\" />';
