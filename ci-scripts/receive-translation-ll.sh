@@ -27,6 +27,8 @@ python3 scripts/translation_postprocessing.py ${TARGET}
 # revert en-us sitemap
 git checkout -- ${EN_PATH}/Sitemap.xml
 
+touch $(TZ=UTC+8 date +'%Y-%m-%d %H:%M:%S')
+
 git add --all
 commit_sign_push "$(TZ=UTC+8 date +'%Y-%m-%d %H:%M:%S') Receiving translation for ${TARGET^^} project"
 
