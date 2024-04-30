@@ -5,11 +5,11 @@ source setup-translation-ll.sh
 
 export TRANSLATION_RECEIVING_BRANCH="translations-${TARGET}-receive-$(TZ=UTC+8 date +'%Y-%m-%d_%H-%M-%S_%s')"
 
-git checkout -b ${TRANSLATION_RECEIVING_BRANCH}
-touch $(TZ=UTC+8 date +'%Y-%m-%d %H:%M:%S')
-git add --all
-commit_sign_push "$(TZ=UTC+8 date +'%Y-%m-%d %H:%M:%S') Receiving translation for ${TARGET^^} project"
-exit
+# git checkout -b ${TRANSLATION_RECEIVING_BRANCH}
+# touch $(TZ=UTC+8 date +'%Y-%m-%d %H:%M:%S')
+# git add --all
+# commit_sign_push "$(TZ=UTC+8 date +'%Y-%m-%d %H:%M:%S') Receiving translation for ${TARGET^^} project"
+# exit
 
 # topic from latest main
 git fetch --depth=1 origin ${BASE_BRANCH}
