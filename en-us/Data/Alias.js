@@ -51,9 +51,7 @@ xmlAliasData += '    <Map Name=\"csh-assign-apps\" Link=\"topics/users-groups-pr
 xmlAliasData += '    <Map Name=\"csh-oce\" Link=\"index-admin.htm\" ResolvedId=\"1109\" />';
 xmlAliasData += '    <Map Name=\"csh-best-practice-cstm-admin-roles\" Link=\"topics/security/custom-admin-role/best-practices-custom-admin-roles.htm\" ResolvedId=\"13001\" />';
 xmlAliasData += '    <Map Name=\"csh-blacklist-proxies-tor\" Link=\"topics/security/healthinsight/blocklist-proxies-tor.htm\" ResolvedId=\"1284\" />';
-xmlAliasData += '    <Map Name=\"csh-blacklist-zones\" Link=\"topics/security/healthinsight/blocklist-network-zone.htm\" ResolvedId=\"1184\" />';
 xmlAliasData += '    <Map Name=\"csh-blocklist-proxies-tor\" Link=\"topics/security/healthinsight/blocklist-proxies-tor.htm\" ResolvedId=\"11000\" />';
-xmlAliasData += '    <Map Name=\"csh-blocklist-zones\" Link=\"topics/security/healthinsight/blocklist-network-zone.htm\" ResolvedId=\"11001\" />';
 xmlAliasData += '    <Map Name=\"csh-branding\" Link=\"topics/settings/branding.htm\" ResolvedId=\"13003\" />';
 xmlAliasData += '    <Map Name=\"csh-browser-plugin-main\" Link=\"topics/browser-plugin/browser-plugin-main.htm\" ResolvedId=\"1290\" />';
 xmlAliasData += '    <Map Name=\"csh-browser-support\" Link=\"topics/miscellaneous/platforms_browser_os_support.htm\" ResolvedId=\"6015\" />';
@@ -181,7 +179,6 @@ xmlAliasData += '    <Map Name=\"csh_threat_insight\" Link=\"topics/security/thr
 xmlAliasData += '    <Map Name=\"custom-error-pages\" Link=\"topics/settings/custom-error-pages.htm\" ResolvedId=\"1032\" />';
 xmlAliasData += '    <Map Name=\"custom-sign-in-page\" Link=\"topics/settings/branding-pages.htm\" ResolvedId=\"1033\" />';
 xmlAliasData += '    <Map Name=\"Device_Trust\" Link=\"topics/device-trust/device-trust-landing.htm\" ResolvedId=\"1007\" />';
-xmlAliasData += '    <Map Name=\"Device_Trust_EAS_iOS\" Link=\"topics/mobile/okta_mobile_device_trust_o365_eas_ios.htm\" ResolvedId=\"1010\" />';
 xmlAliasData += '    <Map Name=\"Device_Trust_Mobile\" Link=\"topics/device-trust/device-trust-landing.htm\" ResolvedId=\"1009\" />';
 xmlAliasData += '    <Map Name=\"Directory_Directory_Integrations\" Link=\"topics/directory/directory-integrations-main.htm\" ResolvedId=\"1001\" />';
 xmlAliasData += '    <Map Name=\"Directory_Groups\" Link=\"topics/users-groups-profiles/usgp-about-groups.htm#Directory_Groups\" ResolvedId=\"1140\" />';
@@ -324,7 +321,6 @@ xmlAliasData += '    <Map Name=\"ext-workday-provisioning\" Link=\"topics/provis
 xmlAliasData += '    <Map Name=\"ext-workflow-overview\" Link=\"topics/directory/workflow-overview.htm\" ResolvedId=\"1217\" />';
 xmlAliasData += '    <Map Name=\"ext-workplace-provisioning\" Link=\"topics/provisioning/workplace/workplace-by-facebook-provisioning.htm\" ResolvedId=\"8010\" />';
 xmlAliasData += '    <Map Name=\"ext_About_Universal_Directory\" Link=\"topics/users-groups-profiles/usgp-user-profiles-main.htm\" ResolvedId=\"200052\" />';
-xmlAliasData += '    <Map Name=\"ext_access_managed_mobile_apps\" Link=\"topics/mobile/access-managed-mobile-apps.htm\" ResolvedId=\"200104\" />';
 xmlAliasData += '    <Map Name=\"ext_Access_Request_Workflow\" Link=\"topics/apps/apps-selfservice-main.htm\" ResolvedId=\"200008\" />';
 xmlAliasData += '    <Map Name=\"ext_activate_user\" Link=\"topics/users-groups-profiles/usgp-activate-user-account.htm\" ResolvedId=\"1135\" />';
 xmlAliasData += '    <Map Name=\"ext_ad_agent_prerequisites\" Link=\"topics/directory/ad-agent-prerequisites.htm\" ResolvedId=\"11051\" />';
@@ -339,14 +335,12 @@ xmlAliasData += '    <Map Name=\"ext_Administrators\" Link=\"topics/security/adm
 xmlAliasData += '    <Map Name=\"ext_advars\" Link=\"topics/directory/ad-agent-appsettings.htm\" ResolvedId=\"1197\" />';
 xmlAliasData += '    <Map Name=\"ext_Agent_Installing_the_Okta_Radius_Agent\" Link=\"topics/integrations/agent_installing_the_okta_radius_agent.htm\" ResolvedId=\"200054\" />';
 xmlAliasData += '    <Map Name=\"ext_AmaznWS_App\" Link=\"topics/integrations/aws-radius-intg.htm\" ResolvedId=\"200147\" />';
-xmlAliasData += '    <Map Name=\"ext_Android_For_Work\" Link=\"topics/devices/android_for_work.htm\" ResolvedId=\"200043\" />';
 xmlAliasData += '    <Map Name=\"ext_API\" Link=\"topics/security/api.htm\" ResolvedId=\"200148\" />';
 xmlAliasData += '    <Map Name=\"ext_API_Access\" Link=\"topics/security/api_access.htm\" ResolvedId=\"200149\" />';
 xmlAliasData += '    <Map Name=\"ext_API_Access-claims\" Link=\"topics/security/api-config-claims.htm\" ResolvedId=\"1104\" />';
 xmlAliasData += '    <Map Name=\"ext_App_Based_Signon\" Link=\"topics/security/policies/about-app-signon-policies.htm\" ResolvedId=\"200150\" />';
 xmlAliasData += '    <Map Name=\"ext_App_Based_Signon_revised\" Link=\"topics/security/policies/about-app-signon-policies.htm\" ResolvedId=\"200151\" />';
 xmlAliasData += '    <Map Name=\"ext_app_map\" Link=\"topics/users-groups-profiles/usgp-map-attributes-provisioning.htm\" ResolvedId=\"1128\" />';
-xmlAliasData += '    <Map Name=\"ext_application_inventory\" Link=\"topics/devices/application-inventory.htm\" ResolvedId=\"200044\" />';
 xmlAliasData += '    <Map Name=\"ext_apps_about_oidc\" Link=\"topics/apps/apps-about-oidc.htm\" ResolvedId=\"11053\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Active_Directory_Agent_appSettings_Definition\" Link=\"topics/directory/ad-agent-appsettings.htm\" ResolvedId=\"200009\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Adding_an_App_from_the_Browser_Plugin\" Link=\"topics/browser-plugin/plugin-adding-apps.htm\" ResolvedId=\"200010\" />';
@@ -385,7 +379,6 @@ xmlAliasData += '    <Map Name=\"ext_citrix_netscaler_radius_int\" Link=\"topics
 xmlAliasData += '    <Map Name=\"ext_cofigure_ldap_okta_settings\" Link=\"topics/directory/ldap-agent-configure-ldap-import-settings.htm\" ResolvedId=\"15000\" />';
 xmlAliasData += '    <Map Name=\"ext_Configure_App_Approval\" Link=\"topics/apps/apps-selfservice-configureapprovalflow.htm\" ResolvedId=\"1147\" />';
 xmlAliasData += '    <Map Name=\"ext_Configure_Cust_Portal_Leverage_OktaPlugin\" Link=\"topics/browser-plugin/plugin-configure-custom-portal.htm\" ResolvedId=\"200036\" />';
-xmlAliasData += '    <Map Name=\"ext_configure_vpn_profiles\" Link=\"topics/devices/configure-vpn-profiles.htm\" ResolvedId=\"200045\" />';
 xmlAliasData += '    <Map Name=\"ext_Configuring_Agentless_SSO\" Link=\"topics/directory/configuring_agentless_sso.htm\" ResolvedId=\"200056\" />';
 xmlAliasData += '    <Map Name=\"ext_Configuring_Desktop_SSO\" Link=\"topics/directory/configuring_desktop_sso.htm\" ResolvedId=\"200057\" />';
 xmlAliasData += '    <Map Name=\"ext_Create_Group_Rules\" Link=\"topics/users-groups-profiles/usgp-about-group-rules.htm\" ResolvedId=\"1149\" />';
@@ -399,10 +392,6 @@ xmlAliasData += '    <Map Name=\"ext_Dashboard\" Link=\"topics/dashboard/dashboa
 xmlAliasData += '    <Map Name=\"ext_device_trust\" Link=\"topics/device-trust/device-trust-landing.htm\" ResolvedId=\"200112\" />';
 xmlAliasData += '    <Map Name=\"ext_Device_Trust_MacOS\" Link=\"topics/mobile/okta_device_trust_jamf_macos_devices.htm\" ResolvedId=\"1148\" />';
 xmlAliasData += '    <Map Name=\"ext_device_trust_mobile\" Link=\"topics/device-trust/device-trust-landing.htm\" ResolvedId=\"200111\" />';
-xmlAliasData += '    <Map Name=\"ext_devices\" Link=\"topics/devices/devices.htm\" ResolvedId=\"200047\" />';
-xmlAliasData += '    <Map Name=\"ext_devices1\" Link=\"topics/devices/devices.htm\" ResolvedId=\"200113\" />';
-xmlAliasData += '    <Map Name=\"ext_devices_Configure_Wifi\" Link=\"topics/devices/devices_configure_wifi.htm\" ResolvedId=\"200048\" />';
-xmlAliasData += '    <Map Name=\"ext_devices_Mobile_Policies\" Link=\"topics/devices/devices_configure_omm_policies.htm\" ResolvedId=\"200051\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory\" Link=\"topics/directory/directory-integrations-main.htm\" ResolvedId=\"200059\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_AD_agent\" Link=\"topics/directory/ad-agent-main.htm\" ResolvedId=\"200060\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_AD_Field_Mappings\" Link=\"topics/directory/directory_ad_field_mappings.htm\" ResolvedId=\"200061\" />';
@@ -462,11 +451,8 @@ xmlAliasData += '    <Map Name=\"ext_Okta_Active_Directory_Agent_UDMappingchange
 xmlAliasData += '    <Map Name=\"ext_Okta_Device_Trust_Jamf_AirWatch_macOS_Devices\" Link=\"topics/mobile/okta_device_trust_jamf_macos_devices.htm\" ResolvedId=\"200114\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_Device_Trust_Native_Apps_Safari_MDM_Devices\" Link=\"topics/mobile/okta_device_trust_native_apps_safari_mdm_devices.htm\" ResolvedId=\"200115\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_Java_LDAP_Agent\" Link=\"topics/directory/ldap-agent-manage-integration.htm\" ResolvedId=\"200078\" />';
-xmlAliasData += '    <Map Name=\"ext_Okta_Mobile_Device_Trust_O365_EAS_iOS\" Link=\"topics/mobile/okta_mobile_device_trust_o365_eas_ios.htm\" ResolvedId=\"200118\" />';
-xmlAliasData += '    <Map Name=\"ext_Okta_Mobile_Device_Trust_OMM_iOS\" Link=\"topics/mobile/okta_mobile_device_trust_omm_ios.htm\" ResolvedId=\"200120\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_Mobile_Device_Trust_Windows_desktop\" Link=\"topics/mobile/okta_mobile_device_trust_windows-desktop.htm\" ResolvedId=\"200121\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_Mobile_Obtaining_Okta_Android_Installers\" Link=\"topics/mobile/okta_mobile_obtaining_okta_android_installers.htm\" ResolvedId=\"200122\" />';
-xmlAliasData += '    <Map Name=\"ext_Okta_Mobile_Preconfigure_with_Managed_Configurations\" Link=\"topics/mobile/okta_mobile_preconfigure_with_managed_configurations.htm\" ResolvedId=\"200123\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_Mobile_Safari_Extension\" Link=\"topics/mobile/okta_mobile_safari_extension.htm\" ResolvedId=\"200124\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_Mobile_VerHistory\" Link=\"topics/miscellaneous/platforms_browser_os_support.htm\" ResolvedId=\"200125\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_Radius_App\" Link=\"topics/integrations/okta_radius_app.htm\" ResolvedId=\"200162\" />';
@@ -519,7 +505,6 @@ xmlAliasData += '    <Map Name=\"ext_Security_Network\" Link=\"topics/security/n
 xmlAliasData += '    <Map Name=\"ext_Security_Policies\" Link=\"topics/security/policies/policies-home.htm\" ResolvedId=\"200173\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_Using_Sync_Password\" Link=\"topics/directory/security_using_sync_password.htm\" ResolvedId=\"200174\" />';
 xmlAliasData += '    <Map Name=\"ext_self_service_registration_policy\" Link=\"topics/users-groups-profiles/usgp-self-service-registration.htm\" ResolvedId=\"1287\" />';
-xmlAliasData += '    <Map Name=\"ext_Set_up_Android_Enterprise\" Link=\"topics/mobile/omm_set_up_android_enterprise.htm\" ResolvedId=\"200128\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Account\" Link=\"topics/settings/settings_account.htm\" ResolvedId=\"200185\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Add_Custom_Email_Templates_Multiple_Languages\" Link=\"topics/settings/settings_email.htm#Add\" ResolvedId=\"200186\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Configure_A_Custom_Email_Domain\" Link=\"topics/settings/settings_configure_a_custom_email_domain.htm\" ResolvedId=\"200188\" />';
@@ -533,7 +518,6 @@ xmlAliasData += '    <Map Name=\"ext_superadmin\" Link=\"topics/security/adminis
 xmlAliasData += '    <Map Name=\"ext_Supported_Configurations\" Link=\"topics/miscellaneous/platforms_browser_os_support.htm\" ResolvedId=\"200193\" />';
 xmlAliasData += '    <Map Name=\"ext_suspend\" Link=\"topics/users-groups-profiles/usgp-suspend.htm\" ResolvedId=\"1131\" />';
 xmlAliasData += '    <Map Name=\"ext_The_Help_Desk_Admin_Role\" Link=\"topics/security/administrators-help-desk-admin.htm\" ResolvedId=\"200175\" />';
-xmlAliasData += '    <Map Name=\"ext_The_Mobile_App_Store\" Link=\"topics/mobile/the_mobile_app_store.htm\" ResolvedId=\"200129\" />';
 xmlAliasData += '    <Map Name=\"ext_The_User_Admin_Role\" Link=\"topics/security/administrators-group-admin.htm\" ResolvedId=\"200176\" />';
 xmlAliasData += '    <Map Name=\"ext_threatinsight\" Link=\"topics/security/threat-insight/ti-index.htm\" ResolvedId=\"1195\" />';
 xmlAliasData += '    <Map Name=\"ext_User_Lifecycle_Overview\" Link=\"topics/users-groups-profiles/usgp-main.htm\" ResolvedId=\"200082\" />';
@@ -769,5 +753,6 @@ xmlAliasData += '    <Map Name=\"csh-oce-relnotes-archive-2023\" Link=\"topics/r
 xmlAliasData += '    <Map Name=\"csh-oce-relnotes-archive-2022\" Link=\"topics/releasenotes/archive/oce-relnotes-2022.htm\" ResolvedId=\"9995\" />';
 xmlAliasData += '    <Map Name=\"ext-create-api-token\" Link=\"topics/security/api.htm#create-okta-api-token\" ResolvedId=\"5048\" />';
 xmlAliasData += '    <Map Name=\"ext-pam-entitlement-aws-connect\" Link=\"topics/privileged-access/pam-entitlement-aws-connect.htm\" ResolvedId=\"1331\" />';
+xmlAliasData += '    <Map Name=\"ext-apps-deactivate\" Link=\"topics/apps/apps-deactivate.htm\" ResolvedId=\"19047\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
