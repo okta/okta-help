@@ -27,8 +27,17 @@ python3 scripts/translation_postprocessing.py ${TARGET}
 # revert en-us sitemap
 git checkout -- ${EN_PATH}/Sitemap.xml
 
+get_terminus_secret "/" BOT_GPG_ID BOT_GPG_ID
+get_terminus_secret "/" BOT_GPG_KEY_SECR BOT_GPG_KEY_SECR
+
+echo -e "${BOT_GPG_KEY_SECR}" | gpg --import
+git config user.signingkey ${BOT_GPG_ID}
+git config commit.gpgsign true
+git config gpg.program gpg
+
 git add --all
-commit_sign_push "$(TZ=UTC+8 date +'%Y-%m-%d %H:%M:%S') Receiving translation for ${TARGET^^} project"
+git -c user.name='CI Automation' -c user.email=eng-info-dev-github-bot@okta.com commit -m "$(TZ=UTC+8 date +'%Y-%m-%d %H:%M:%S') Receiving translation for ${TARGET^^} project"
+git push origin ${TRANSLATION_RECEIVING_BRANCH}
 
 export PR_TITLE="Receiving translation for ${TARGET^^}"
 export PR_BODY="${TARGET^^} translation for the latest commit: ${TRANSLATION_COMMITS}"
