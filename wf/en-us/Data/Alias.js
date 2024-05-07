@@ -1448,6 +1448,7 @@ xmlAliasData += '    <Map Name=\"ext-oraclehcm-misc-authorization\" Link=\"topic
 xmlAliasData += '    <Map Name=\"ext-oraclehcm-method-readworkerubffsxseca\" Link=\"topics/workflows/connector-reference/oraclehcm/actions/readworker.htm\" ResolvedId=\"6138\" />';
 xmlAliasData += '    <Map Name=\"ext-oraclehcm-method-searchworkersv8qcs7yfa\" Link=\"topics/workflows/connector-reference/oraclehcm/actions/searchworkers.htm\" ResolvedId=\"6139\" />';
 xmlAliasData += '    <Map Name=\"ext-oraclehcm-method-updateworker6kwurjohef\" Link=\"topics/workflows/connector-reference/oraclehcm/actions/updateworker.htm\" ResolvedId=\"6140\" />';
-xmlAliasData += '    <Map Name=\"ext-oktadevices-method-httprequest\" Link=\"topics/workflows/connector-reference/oktadevices/actions/customapiaction.htm\" ResolvedId=\"6141\" />';
+xmlAliasData += '    <Map Name=\"ext-oktadevices-method-httprequest\" Link=\"topics/workflows/connector-reference/oktadevices/actions/customapiaction.htm\" ResolvedId=\"6170\" />';
+xmlAliasData += '    <Map Name=\"ext-oktadevices-method-searchdevice\" Link=\"topics/workflows/connector-reference/oktadevices/actions/searchdevices.htm\" ResolvedId=\"6113\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
