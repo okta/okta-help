@@ -34,7 +34,6 @@ xmlAliasData += '    <Map Name=\"csh-user-dashboard-password-reset\" Link=\"topi
 xmlAliasData += '    <Map Name=\"csh-user-dashboard-set-language\" Link=\"topics/end-user/manage-account-settings.htm#Select\" ResolvedId=\"4014\" />';
 xmlAliasData += '    <Map Name=\"csh-user-generate-random-password\" Link=\"topics/end-user/generate-random-password.htm\" ResolvedId=\"4006\" />';
 xmlAliasData += '    <Map Name=\"csh-user-home\" Link=\"topics/end-user/end-user-home.htm\" ResolvedId=\"4016\" />';
-xmlAliasData += '    <Map Name=\"csh-user-om-omm-user\" Link=\"topics/end-user/om-omm-user.htm\" ResolvedId=\"4004\" />';
 xmlAliasData += '    <Map Name=\"csh-user-om-overview\" Link=\"topics/end-user/om-overview.htm\" ResolvedId=\"4002\" />';
 xmlAliasData += '    <Map Name=\"csh-user-om-user-safari-ext\" Link=\"topics/end-user/om-user-safari-ext.htm\" ResolvedId=\"4003\" />';
 xmlAliasData += '    <Map Name=\"csh-user-ov-manage-account\" Link=\"topics/end-user/ov-overview.htm\" ResolvedId=\"12004\" />';
@@ -61,8 +60,6 @@ xmlAliasData += '    <Map Name=\"ext-device-health-windows\" Link=\"topics/end-u
 xmlAliasData += '    <Map Name=\"ext-end-user-set-language\" Link=\"topics/end-user/manage-account-settings.htm#Select\" ResolvedId=\"1502\" />';
 xmlAliasData += '    <Map Name=\"ext-eu-dashboard-notifications\" Link=\"topics/end-user/manage-account-settings.htm#View\" ResolvedId=\"4074\" />';
 xmlAliasData += '    <Map Name=\"ext-eu-settings\" Link=\"topics/end-user/manage-account-settings.htm\" ResolvedId=\"1431\" />';
-xmlAliasData += '    <Map Name=\"ext-eu-sign-in-apps\" Link=\"topics/end-user/eu-sign-in-to-apps.htm\" ResolvedId=\"6019\" />';
-xmlAliasData += '    <Map Name=\"ext-eu-sign-in-apps-emlotp\" Link=\"topics/end-user/eu-sign-in-to-apps.htm#EMLorOTP\" ResolvedId=\"6020\" />';
 xmlAliasData += '    <Map Name=\"ext-generate-random-password\" Link=\"topics/end-user/generate-random-password.htm\" ResolvedId=\"4056\" />';
 xmlAliasData += '    <Map Name=\"ext-ov-add-acct-while-accessing-app-macos\" Link=\"topics/end-user/ov-mng-account-macos.htm\" ResolvedId=\"17003\" />';
 xmlAliasData += '    <Map Name=\"ext-ov-add-acct-while-signin-macos\" Link=\"topics/end-user/ov-setup-macos.htm\" ResolvedId=\"17002\" />';
@@ -83,9 +80,7 @@ xmlAliasData += '    <Map Name=\"ext-ov-user-overview\" Link=\"topics/end-user/o
 xmlAliasData += '    <Map Name=\"ext-plugin-config-settings\" Link=\"topics/end-user/plugin-config-settings.htm\" ResolvedId=\"4052\" />';
 xmlAliasData += '    <Map Name=\"ext-plugin-download-install\" Link=\"topics/end-user/plugin-download_install.htm\" ResolvedId=\"4042\" />';
 xmlAliasData += '    <Map Name=\"ext-random-password\" Link=\"topics/end-user/generate-random-password.htm\" ResolvedId=\"4060\" />';
-xmlAliasData += '    <Map Name=\"ext-sign-in-flows\" Link=\"topics/end-user/sign-in-experience-changes.htm\" ResolvedId=\"18004\" />';
 xmlAliasData += '    <Map Name=\"ext-user-plugin-keyboard\" Link=\"topics/end-user/plugin-keyboard.htm\" ResolvedId=\"4087\" />';
-xmlAliasData += '    <Map Name=\"ext_Apps_OMM_End_User\" Link=\"topics/end-user/om-omm-user.htm\" ResolvedId=\"200108\" />';
 xmlAliasData += '    <Map Name=\"ext_end_user_okta_account_chooser\" Link=\"topics/end-user/plugin-switch-accounts.htm\" ResolvedId=\"200180\" />';
 xmlAliasData += '    <Map Name=\"ext_End_User_Password_Reset\" Link=\"topics/end-user/manage-account-settings.htm#Reset\" ResolvedId=\"200181\" />';
 xmlAliasData += '    <Map Name=\"ext_ov_endusers\" Link=\"topics/end-user/ov-overview.htm\" ResolvedId=\"1212\" />';
