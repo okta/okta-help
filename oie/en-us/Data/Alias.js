@@ -803,5 +803,6 @@ xmlAliasData += '    <Map Name=\"ext-test-upgrade\" Link=\"topics/identity-engin
 xmlAliasData += '    <Map Name=\"ext-upgrade-faq\" Link=\"topics/identity-engine-upgrade/faq.htm\" ResolvedId=\"19046\" />';
 xmlAliasData += '    <Map Name=\"csh-universal-logout-revocations\" Link=\"topics/itp/universal-logout-revocations.htm\" ResolvedId=\"18041\" />';
 xmlAliasData += '    <Map Name=\"ext-apps-deactivate\" Link=\"topics/apps/apps-deactivate.htm\" ResolvedId=\"19047\" />';
+xmlAliasData += '    <Map Name=\"csh-oda-scep\" Link=\"topics/oda/oda-as-scep.htm\" ResolvedId=\"3012\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
