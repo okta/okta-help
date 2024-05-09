@@ -291,41 +291,38 @@
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
                                                     <h1>Global session policy evaluation</h1>
-                                                    <p>To determine if a policy is applied to a particular user, <span class="mc-variable okta-variables.ProductName variable">Okta</span> evaluates the conditions of the policy and  its rules. </p>
+                                                    <p>To determine if a policy applies to a particular user, <span class="mc-variable okta-variables.ProductName variable">Okta</span> evaluates the conditions of the policy and  its rules. </p>
                                                     <ul>
-                                                        <li><span class="term">Policies</span> contain groups of resources that require similar treatment, such as apps with the same security characteristics or user groups with the same account setup requirements. </li>
-                                                        <li><span class="term">Rules</span> describe the conditions of policy behavior, like requests from a geographical location or whether the user is on or off a trusted network. Every policy has at least one rule. </li>
+                                                        <li><span class="term">Policies</span> contain groups of resources that require similar treatment, like apps with the same security characteristics or user groups with the same account setup requirements. </li>
+                                                        <li><span class="term">Rules</span> describe the conditions of policy behavior, like requests from a geographical location or whether the user is on or off a trusted network. Every policy contains at least one rule. </li>
                                                     </ul>
-                                                    <p>As a best practice, restrictive rules should be placed at the top of the <span class="uicontrol">Priority</span> list. Beyond that, you can create combinations of conditions for multiple scenarios. There isn’t a limit to the number of rules your policies can have. </p>
-                                                    <p>For example, if you create a policy that you assign to the group "Admins," you can create conditions relevant to the needs of administrators. A rule applied to the policy might be one that allows for a self-service unlock only under certain conditions. One condition might be whether a particular admin is off or on your company network.</p>
+                                                    <p>You can create combinations of conditions for different scenarios. As a best practice, place restrictive rules at the top of the <span class="uicontrol">Priority</span> list. There's no limit to the number of rules your policies can have. </p>
+                                                    <p>If you create a policy and assign it to the group "Admins," you can customize conditions relevant to the needs of administrators. For example, you might allow self-service unlock only under certain conditions, such as whether the admin signs in from inside or outside your company network.</p>
                                                     <h2>System Log events</h2>
-                                                    <p>The following System Log events are available to assist with the identification and resolution of authentication issues:</p>
+                                                    <p>The following System Log events are available to help identify and resolve authentication issues:</p>
                                                     <p><code>policy.evaluate_sign_on</code>
                                                     </p>
                                                     <ul>
-                                                        <li>Returns user authentication prompt verification success or failure and provides authenticator enrollment information including the authenticator type and specific authenticator instance used. </li>
+                                                        <li>This event returns the status of the user’s authentication attempt  (success or failure). It provides authenticator enrollment information, including the authenticator type and instance that were used. </li>
                                                         <li>This event is activated when a user enters a code or responds to a push notification. It's not activated when a code or push notification is sent. See <a href="../authenticators/about-authenticators.htm" class="MCXref xref">Multifactor authentication</a>.</li>
                                                     </ul>
                                                     <p><code>user.authentication.auth_via_mfa</code>
                                                     </p>
                                                     <ul>
-                                                        <li>Returns global session policy or <span class="mc-variable okta-feature-names.app_sign-on_policy variable">authentication policy</span> evaluation information including the application being accessed and the policy rule that was matched. Sign-on policy evaluation may occur multiple times during an authentication sequence. </li>
-                                                        <li>This event can have <span class="code">Allow</span>, <span class="code">Deny</span>, and <span class="code">Challenge</span> values. <span class="uicontrol">Challenge</span> indicates that additional user authentication was required.</li>
+                                                        <li>This event returns global session policy or <span class="mc-variable okta-feature-names.app_sign-on_policy variable">authentication policy</span> evaluation information, like the application that the user accessed and the policy rule that matched. The sign-on policy may be evaluated multiple times during an authentication sequence. </li>
+                                                        <li>This event can have <span class="code">Allow</span>, <span class="code">Deny</span>, and <span class="code">Challenge</span> values. <span class="code">Challenge</span> indicates that additional user authentication was required.</li>
                                                     </ul>
                                                     <p><code>user.session.start</code>
                                                     </p>
                                                     <ul>
-                                                        <li>Returns the status of a user's first authenticator verification attempt. If a user enters an incorrect authenticator, <code>VERIFICATION_ERROR</code> is returned.</li>
+                                                        <li>This event returns the status of a user's first authenticator verification attempt associated with establishing an Identity Provider session. If a user enters an incorrect authenticator, <code>VERIFICATION_ERROR</code> is returned.</li>
+                                                        <li>This event is triggered after the primary authentication challenge is provided. It logs the user ID, session start time, and the authentication method used. It doesn't indicate that an access token was granted.</li>
                                                     </ul>
                                                     <p>See <a href="https://help.okta.com/okta_help.htm?type=oie&amp;id=ext_Reports_SysLog">System Log</a> more information.</p>
                                                     <h2>Notes</h2>
                                                     <ul>
-                                                        <li>
-                                                            <p>The global session policy controls how long an overall session is valid, but the <span class="mc-variable okta-feature-names.app_sign-on_policy variable">authentication policy</span>  controls re-authentication frequency.</p>
-                                                        </li>
-                                                        <li>
-                                                            <p>An end user’s session expires according to the <span class="uicontrol">Maximum Okta global session idle time</span> setting in the global session policy. At this point, end users must re-authenticate according to the <span class="mc-variable okta-feature-names.app_sign-on_policy variable">authentication policy</span> rules, regardless of whether they selected the <span class="uicontrol">Keep me signed in</span> option when signing in.</p>
-                                                        </li>
+                                                        <li>The global session policy controls how long an overall session is valid, but the <span class="mc-variable okta-feature-names.app_sign-on_policy variable">authentication policy</span>  controls re-authentication frequency.</li>
+                                                        <li>An end user’s session expires according to the <span class="uicontrol">Maximum Okta global session idle time</span> setting in the global session policy. After that, users must reauthenticate according to the <span class="mc-variable okta-feature-names.app_sign-on_policy variable">authentication policy</span> rules, regardless of whether they selected the <span class="uicontrol">Keep me signed in</span> option when signing in.</li>
                                                     </ul>
                                                     <h2>Related topics</h2>
                                                     <ul>
@@ -334,7 +331,6 @@
                                                         <li><a href="add-okta-sign-on-policy-rule.htm" class="MCXref xref">Add a global session policy rule</a>
                                                         </li>
                                                     </ul>
-                                                    <br />
                                                 </div>
                                             </div>
                                         </div>
