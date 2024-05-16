@@ -1448,5 +1448,11 @@ xmlAliasData += '    <Map Name=\"ext-oraclehcm-misc-authorization\" Link=\"topic
 xmlAliasData += '    <Map Name=\"ext-oraclehcm-method-readworkerubffsxseca\" Link=\"topics/workflows/connector-reference/oraclehcm/actions/readworker.htm\" ResolvedId=\"6138\" />';
 xmlAliasData += '    <Map Name=\"ext-oraclehcm-method-searchworkersv8qcs7yfa\" Link=\"topics/workflows/connector-reference/oraclehcm/actions/searchworkers.htm\" ResolvedId=\"6139\" />';
 xmlAliasData += '    <Map Name=\"ext-oraclehcm-method-updateworker6kwurjohef\" Link=\"topics/workflows/connector-reference/oraclehcm/actions/updateworker.htm\" ResolvedId=\"6140\" />';
+xmlAliasData += '    <Map Name=\"ext-oktadevices-method-httprequest\" Link=\"topics/workflows/connector-reference/oktadevices/actions/customapiaction.htm\" ResolvedId=\"6170\" />';
+xmlAliasData += '    <Map Name=\"ext-oktadevices-method-searchdevice\" Link=\"topics/workflows/connector-reference/oktadevices/actions/searchdevices.htm\" ResolvedId=\"6113\" />';
+xmlAliasData += '    <Map Name=\"ext-openai\" Link=\"topics/workflows/connector-reference/openai/openai.htm\" ResolvedId=\"6141\" />';
+xmlAliasData += '    <Map Name=\"ext-openai-misc-authorization\" Link=\"topics/workflows/connector-reference/openai/overviews/authorization.htm\" ResolvedId=\"6142\" />';
+xmlAliasData += '    <Map Name=\"ext-openai-method-customapiactionc4ak0cyoon\" Link=\"topics/workflows/connector-reference/openai/actions/customapiaction.htm\" ResolvedId=\"6143\" />';
+xmlAliasData += '    <Map Name=\"ext-openai-method-createchatcompletionse1hargsjj\" Link=\"topics/workflows/connector-reference/openai/actions/createchatcompletion.htm\" ResolvedId=\"6144\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
