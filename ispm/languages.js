@@ -1,0 +1,1 @@
+define({data:[{code:'en-us', full:'English (United States)‎', target:'en-us/okta_help.htm'}]});
