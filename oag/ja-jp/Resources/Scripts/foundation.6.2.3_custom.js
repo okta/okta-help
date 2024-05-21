@@ -150,8 +150,13 @@
          * @returns {String} - unique id
          */
         GetYoDigits: function (length, namespace) {
+            const randomBuffer = new Uint32Array(1);
+            var crypto = window.crypto || window.msCrypto;
+            crypto.getRandomValues(randomBuffer);
+            let randomNumber = randomBuffer[0] / (0xffffffff + 1);
+
             length = length || 6;
-            return Math.round(Math.pow(36, length + 1) - Math.random() * Math.pow(36, length)).toString(36).slice(1) + (namespace ? '-' + namespace : '');
+            return Math.round(Math.pow(36, length + 1) - randomNumber * Math.pow(36, length)).toString(36).slice(1) + (namespace ? '-' + namespace : '');
         },
         /**
          * Initialize plugins on any elements within `elem` (and `elem` itself) that aren't already initialized.
@@ -1965,6 +1970,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         easing: _this.options.animationEasing
                     };
                 $(function () {
+                    if (!_this.options) // if destroyed
+                        return;
+
                     if (_this.options.deepLinking) {
                         if (location.hash) {
                             _this.scrollToLoc(location.hash);
