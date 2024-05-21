@@ -800,6 +800,7 @@ xmlAliasData += '    <Map Name=\"ext-add-apps-user-profile-policy\" Link=\"topic
 xmlAliasData += '    <Map Name=\"ext-create-api-token\" Link=\"topics/security/api.htm#create-okta-api-token\" ResolvedId=\"5048\" />';
 xmlAliasData += '    <Map Name=\"ext-pam-entitlement-aws-connect\" Link=\"topics/privileged-access/pam-entitlement-aws-connect.htm\" ResolvedId=\"1331\" />';
 xmlAliasData += '    <Map Name=\"csh-endz\" Link=\"topics/security/network/about-enhanced-dynamic-zones.htm\" ResolvedId=\"19040\" />';
+xmlAliasData += '    <Map Name=\"csh-ednz-ip-service-category\" Link=\"topics/security/network/about-enhanced-dynamic-zones.htm#IP-service-category\" ResolvedId=\"19041\" />';
 xmlAliasData += '    <Map Name=\"csh-create-endz\" Link=\"topics/security/network/create-enhanced-dynamic-zone.htm\" ResolvedId=\"19042\" />';
 xmlAliasData += '    <Map Name=\"ext-post-upgrade-validation-tests\" Link=\"topics/identity-engine-upgrade/self-service/test-plan.htm\" ResolvedId=\"19043\" />';
 xmlAliasData += '    <Map Name=\"ext-custom-sign-in-page\" Link=\"topics/identity-engine-upgrade/self-service/custom-sign-in-page.htm\" ResolvedId=\"19044\" />';
