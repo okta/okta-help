@@ -52,9 +52,7 @@ xmlAliasData += '    <Map Name=\"csh-asop-sq\" Link=\"topics/identity-engine/pol
 xmlAliasData += '    <Map Name=\"csh-assign-apps\" Link=\"topics/users-groups-profiles/usgp-assign-apps.htm\" ResolvedId=\"20008\" />';
 xmlAliasData += '    <Map Name=\"csh-best-practice-cstm-admin-roles\" Link=\"topics/security/custom-admin-role/best-practices-custom-admin-roles.htm\" ResolvedId=\"13001\" />';
 xmlAliasData += '    <Map Name=\"csh-blacklist-proxies-tor\" Link=\"topics/security/healthinsight/blocklist-proxies-tor.htm\" ResolvedId=\"1284\" />';
-xmlAliasData += '    <Map Name=\"csh-blacklist-zones\" Link=\"topics/security/healthinsight/blocklist-network-zone.htm\" ResolvedId=\"1184\" />';
 xmlAliasData += '    <Map Name=\"csh-blocklist-proxies-tor\" Link=\"topics/security/healthinsight/blocklist-proxies-tor.htm\" ResolvedId=\"11000\" />';
-xmlAliasData += '    <Map Name=\"csh-blocklist-zones\" Link=\"topics/security/healthinsight/blocklist-network-zone.htm\" ResolvedId=\"11001\" />';
 xmlAliasData += '    <Map Name=\"csh-branding\" Link=\"topics/settings/branding.htm\" ResolvedId=\"13003\" />';
 xmlAliasData += '    <Map Name=\"csh-browser-plugin-main\" Link=\"topics/browser-plugin/browser-plugin-main.htm\" ResolvedId=\"1290\" />';
 xmlAliasData += '    <Map Name=\"csh-browser-support\" Link=\"topics/miscellaneous/platforms_browser_os_support.htm\" ResolvedId=\"6015\" />';
@@ -799,14 +797,11 @@ xmlAliasData += '    <Map Name=\"ext-add-identifiers\" Link=\"topics/identity-en
 xmlAliasData += '    <Map Name=\"ext-add-apps-user-profile-policy\" Link=\"topics/identity-engine/policies/select-profile-enrollment-policy.htm\" ResolvedId=\"5047\" />';
 xmlAliasData += '    <Map Name=\"ext-create-api-token\" Link=\"topics/security/api.htm#create-okta-api-token\" ResolvedId=\"5048\" />';
 xmlAliasData += '    <Map Name=\"ext-pam-entitlement-aws-connect\" Link=\"topics/privileged-access/pam-entitlement-aws-connect.htm\" ResolvedId=\"1331\" />';
-xmlAliasData += '    <Map Name=\"csh-endz\" Link=\"topics/security/network/about-enhanced-dynamic-zones.htm\" ResolvedId=\"19040\" />';
-xmlAliasData += '    <Map Name=\"csh-create-endz\" Link=\"topics/security/network/create-enhanced-dynamic-zone.htm\" ResolvedId=\"19042\" />';
 xmlAliasData += '    <Map Name=\"ext-post-upgrade-validation-tests\" Link=\"topics/identity-engine-upgrade/self-service/test-plan.htm\" ResolvedId=\"19043\" />';
 xmlAliasData += '    <Map Name=\"ext-custom-sign-in-page\" Link=\"topics/identity-engine-upgrade/self-service/custom-sign-in-page.htm\" ResolvedId=\"19044\" />';
 xmlAliasData += '    <Map Name=\"ext-test-upgrade\" Link=\"topics/identity-engine-upgrade/self-service/test-upgrade.htm\" ResolvedId=\"19045\" />';
 xmlAliasData += '    <Map Name=\"ext-upgrade-faq\" Link=\"topics/identity-engine-upgrade/faq.htm\" ResolvedId=\"19046\" />';
 xmlAliasData += '    <Map Name=\"csh-universal-logout-revocations\" Link=\"topics/itp/universal-logout-revocations.htm\" ResolvedId=\"18041\" />';
 xmlAliasData += '    <Map Name=\"ext-apps-deactivate\" Link=\"topics/apps/apps-deactivate.htm\" ResolvedId=\"19047\" />';
-xmlAliasData += '    <Map Name=\"csh-oda-scep\" Link=\"topics/oda/oda-as-scep.htm\" ResolvedId=\"3012\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
