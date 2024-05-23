@@ -27,7 +27,7 @@ describe('End User landing page (ja-JP)', () => {
     // cy.hasOktaHOCBanner('Oktaサポート')
     cy.hasCopyright()
     cy.hasLeftSideNav()
-    cy.hasTOC(7)
+    cy.hasTOC(6)
     // Vendor changed the following string in 12/22 from "エンドユーザー向けのドキュメント"
     cy.hasBreadcrumbs('エンドユーザー向けドキュメント')
     cy.hasTopMenuBar(4, 0)
