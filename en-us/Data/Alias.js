@@ -654,7 +654,6 @@ xmlAliasData += '    <Map Name=\"ext-create-team\" Link=\"topics/identity-govern
 xmlAliasData += '    <Map Name=\"ext-create-config-list\" Link=\"topics/identity-governance/access-requests/ar-config-sublist.htm\" ResolvedId=\"13026\" />';
 xmlAliasData += '    <Map Name=\"ext-ar-configure\" Link=\"topics/identity-governance/access-requests/ar-configure.htm\" ResolvedId=\"13027\" />';
 xmlAliasData += '    <Map Name=\"ext-ar-rt-sample\" Link=\"topics/identity-governance/access-requests/ar-create-jira-request-type.htm\" ResolvedId=\"13028\" />';
-xmlAliasData += '    <Map Name=\"ext-ar-limits\" Link=\"topics/identity-governance/access-requests/ar-features.htm#Limitations\" ResolvedId=\"13029\" />';
 xmlAliasData += '    <Map Name=\"ext-past-ar-report\" Link=\"topics/identity-governance/past-access-report.htm\" ResolvedId=\"13030\" />';
 xmlAliasData += '    <Map Name=\"ext-campaign-summary-report\" Link=\"topics/identity-governance/campaign-summary.htm\" ResolvedId=\"13031\" />';
 xmlAliasData += '    <Map Name=\"ext-campaign-details\" Link=\"topics/identity-governance/campaign-details.htm\" ResolvedId=\"13032\" />';
@@ -761,6 +760,8 @@ xmlAliasData += '    <Map Name=\"csh-create-endz\" Link=\"topics/security/networ
 xmlAliasData += '    <Map Name=\"ext-apps-deactivate\" Link=\"topics/apps/apps-deactivate.htm\" ResolvedId=\"19047\" />';
 xmlAliasData += '    <Map Name=\"csh-breached-password\" Link=\"topics/security/breached-password-protection/about-breached-password-protection.htm\" ResolvedId=\"18042\" />';
 xmlAliasData += '    <Map Name=\"csh-rcar\" Link=\"topics/identity-governance/access-requests/ar-overview.htm#Conditi\" ResolvedId=\"13047\" />';
+xmlAliasData += '    <Map Name=\"csh-rcar-conditions\" Link=\"topics/identity-governance/access-requests/rcar-conditions.htm\" ResolvedId=\"13048\" />';
+xmlAliasData += '    <Map Name=\"csh-rcar-approval-sequences\" Link=\"topics/identity-governance/access-requests/rcar-conditions.htm#An\" ResolvedId=\"13049\" />';
 xmlAliasData += '    <Map Name=\"csh-rcar-known-issues\" Link=\"topics/identity-governance/access-requests/ar-get-started.htm#Initial\" ResolvedId=\"13050\" />';
 xmlAliasData += '    <Map Name=\"csh-configurable-context\" Link=\"topics/identity-governance/access-certification/ac-get-started.htm\" ResolvedId=\"5049\" />';
 xmlAliasData += '</CatapultAliasFile>';
