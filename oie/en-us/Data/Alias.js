@@ -814,5 +814,6 @@ xmlAliasData += '    <Map Name=\"csh-rcar-conditions\" Link=\"topics/identity-go
 xmlAliasData += '    <Map Name=\"csh-rcar-approval-sequences\" Link=\"topics/identity-governance/access-requests/rcar-conditions.htm#An\" ResolvedId=\"13049\" />';
 xmlAliasData += '    <Map Name=\"csh-rcar-known-issues\" Link=\"topics/identity-governance/access-requests/ar-get-started.htm#Initial\" ResolvedId=\"13050\" />';
 xmlAliasData += '    <Map Name=\"csh-configurable-context\" Link=\"topics/identity-governance/access-certification/ac-get-started.htm\" ResolvedId=\"5049\" />';
+xmlAliasData += '    <Map Name=\"ext-pin-siw3-ver\" Link=\"topics/reference/siw-compare-generations.htm#pin-siw3-ver\" ResolvedId=\"18043\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
