@@ -759,10 +759,12 @@ xmlAliasData += '    <Map Name=\"csh-ednz-ip-service-category\" Link=\"topics/se
 xmlAliasData += '    <Map Name=\"csh-create-endz\" Link=\"topics/security/network/create-enhanced-dynamic-zone.htm\" ResolvedId=\"19042\" />';
 xmlAliasData += '    <Map Name=\"ext-apps-deactivate\" Link=\"topics/apps/apps-deactivate.htm\" ResolvedId=\"19047\" />';
 xmlAliasData += '    <Map Name=\"csh-breached-password\" Link=\"topics/security/breached-password-protection/about-breached-password-protection.htm\" ResolvedId=\"18042\" />';
-xmlAliasData += '    <Map Name=\"csh-rcar\" Link=\"topics/identity-governance/access-requests/ar-overview.htm#Conditi\" ResolvedId=\"13047\" />';
-xmlAliasData += '    <Map Name=\"csh-rcar-conditions\" Link=\"topics/identity-governance/access-requests/rcar-conditions.htm\" ResolvedId=\"13048\" />';
-xmlAliasData += '    <Map Name=\"csh-rcar-approval-sequences\" Link=\"topics/identity-governance/access-requests/rcar-conditions.htm#An\" ResolvedId=\"13049\" />';
-xmlAliasData += '    <Map Name=\"csh-rcar-known-issues\" Link=\"topics/identity-governance/access-requests/ar-get-started.htm#Initial\" ResolvedId=\"13050\" />';
-xmlAliasData += '    <Map Name=\"csh-configurable-context\" Link=\"topics/identity-governance/access-certification/ac-get-started.htm\" ResolvedId=\"5049\" />';
+xmlAliasData += '    <Map Name=\"csh-rcar\" Link=\"topics/identity-governance/access-requests/ar-overview.htm#Conditi\" ResolvedId=\"-2147483648\" />';
+xmlAliasData += '    <Map Name=\"csh-rcar-conditions\" Link=\"topics/identity-governance/access-requests/rcar-conditions.htm\" ResolvedId=\"-2147483648\" />';
+xmlAliasData += '    <Map Name=\"csh-rcar-approval-sequences\" Link=\"topics/identity-governance/access-requests/rcar-conditions.htm#An\" ResolvedId=\"-2147483648\" />';
+xmlAliasData += '    <Map Name=\"csh-rcar-known-issues\" Link=\"topics/identity-governance/access-requests/ar-get-started.htm#Initial\" ResolvedId=\"-2147483648\" />';
+xmlAliasData += '    <Map Name=\"csh-customizable-context\" Link=\"topics/identity-governance/access-certification/ac-get-started.htm\" ResolvedId=\"-2147483648\" />';
+xmlAliasData += '    <Map Name=\"csh-ar-integrate-teams\" Link=\"topics/identity-governance/access-requests/ar-integrate-teams.htm\" ResolvedId=\"7005\" />';
+xmlAliasData += '    <Map Name=\"csh-ar-integrate-slack\" Link=\"topics/identity-governance/access-requests/ar-integrate-slack.htm\" ResolvedId=\"7006\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
