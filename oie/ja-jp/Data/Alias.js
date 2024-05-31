@@ -656,7 +656,6 @@ xmlAliasData += '    <Map Name=\"ext-create-team\" Link=\"topics/identity-govern
 xmlAliasData += '    <Map Name=\"ext-create-config-list\" Link=\"topics/identity-governance/access-requests/ar-config-sublist.htm\" ResolvedId=\"13026\" />';
 xmlAliasData += '    <Map Name=\"ext-ar-configure\" Link=\"topics/identity-governance/access-requests/ar-configure.htm\" ResolvedId=\"13027\" />';
 xmlAliasData += '    <Map Name=\"ext-ar-rt-sample\" Link=\"topics/identity-governance/access-requests/ar-create-jira-request-type.htm\" ResolvedId=\"13028\" />';
-xmlAliasData += '    <Map Name=\"ext-ar-limits\" Link=\"topics/identity-governance/access-requests/ar-features.htm#Limitations\" ResolvedId=\"13029\" />';
 xmlAliasData += '    <Map Name=\"ext-config-okta-verify-options\" Link=\"topics/identity-engine/authenticators/configure-okta-verify-options.htm\" ResolvedId=\"5029\" />';
 xmlAliasData += '    <Map Name=\"ext-arch-overview\" Link=\"topics/architecture/arch-overview.htm\" ResolvedId=\"4001\" />';
 xmlAliasData += '    <Map Name=\"ext-past-ar-report\" Link=\"topics/identity-governance/past-access-report.htm\" ResolvedId=\"13030\" />';
@@ -810,8 +809,13 @@ xmlAliasData += '    <Map Name=\"csh-universal-logout-revocations\" Link=\"topic
 xmlAliasData += '    <Map Name=\"ext-apps-deactivate\" Link=\"topics/apps/apps-deactivate.htm\" ResolvedId=\"19047\" />';
 xmlAliasData += '    <Map Name=\"csh-oda-scep\" Link=\"topics/oda/oda-as-scep.htm\" ResolvedId=\"3012\" />';
 xmlAliasData += '    <Map Name=\"csh-breached-password\" Link=\"topics/security/breached-password-protection/about-breached-password-protection.htm\" ResolvedId=\"18042\" />';
-xmlAliasData += '    <Map Name=\"csh-rcar\" Link=\"topics/identity-governance/access-requests/ar-overview.htm#Conditi\" ResolvedId=\"13047\" />';
-xmlAliasData += '    <Map Name=\"csh-rcar-known-issues\" Link=\"topics/identity-governance/access-requests/ar-get-started.htm#Initial\" ResolvedId=\"13050\" />';
-xmlAliasData += '    <Map Name=\"csh-configurable-context\" Link=\"topics/identity-governance/access-certification/ac-get-started.htm\" ResolvedId=\"5049\" />';
+xmlAliasData += '    <Map Name=\"csh-rcar\" Link=\"topics/identity-governance/access-requests/ar-overview.htm#Conditi\" ResolvedId=\"-2147483648\" />';
+xmlAliasData += '    <Map Name=\"csh-rcar-conditions\" Link=\"topics/identity-governance/access-requests/rcar-conditions.htm\" ResolvedId=\"-2147483648\" />';
+xmlAliasData += '    <Map Name=\"csh-rcar-approval-sequences\" Link=\"topics/identity-governance/access-requests/rcar-conditions.htm#An\" ResolvedId=\"-2147483648\" />';
+xmlAliasData += '    <Map Name=\"csh-rcar-known-issues\" Link=\"topics/identity-governance/access-requests/ar-get-started.htm#Initial\" ResolvedId=\"-2147483648\" />';
+xmlAliasData += '    <Map Name=\"csh-customizable-context\" Link=\"topics/identity-governance/access-certification/ac-get-started.htm\" ResolvedId=\"-2147483648\" />';
+xmlAliasData += '    <Map Name=\"ext-pin-siw3-ver\" Link=\"topics/reference/siw-compare-generations.htm#pin-siw3-ver\" ResolvedId=\"-2147483648\" />';
+xmlAliasData += '    <Map Name=\"csh-ar-integrate-teams\" Link=\"topics/identity-governance/access-requests/ar-integrate-teams.htm\" ResolvedId=\"7005\" />';
+xmlAliasData += '    <Map Name=\"csh-ar-integrate-slack\" Link=\"topics/identity-governance/access-requests/ar-integrate-slack.htm\" ResolvedId=\"7006\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
