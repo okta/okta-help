@@ -9,6 +9,15 @@ executors:
       - image: cimg/node:16.14.0
 
 aliases:
+
+  # https://support.circleci.com/hc/en-us/articles/360045096514-Shallow-Repository-Cloning
+  fast_checkout: &fast_checkout
+    checkout:
+      name: Fast checkout
+      command: |
+        ssh-keyscan -p 443 ssh.github.com >> ~/.ssh/known_hosts
+        git clone --depth 1 "$CIRCLE_REPOSITORY_URL" --branch "$CIRCLE_BRANCH"
+
   restore_cache: &restore_cache
     restore_cache:
       name: Restore Npm Package Cache
@@ -36,9 +45,7 @@ jobs:
         default: false
     executor: node
     steps:
-      # https://support.circleci.com/hc/en-us/articles/360045096514-Shallow-Repository-Cloning
-      # - checkout
-      - run: git clone --depth 1 "$CIRCLE_REPOSITORY_URL" --branch "$CIRCLE_BRANCH"
+      - <<: *fast_checkout
       - <<: *restore_cache
       - <<: *install_node_modules
       - <<: *save_cache
