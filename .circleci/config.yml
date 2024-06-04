@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   cypress: cypress-io/cypress@3
+  advanced-checkout: vsco/advanced-checkout@1.1.0
 
 executors:
   node:
@@ -9,15 +10,6 @@ executors:
       - image: cimg/node:16.14.0
 
 aliases:
-
-  # https://support.circleci.com/hc/en-us/articles/360045096514-Shallow-Repository-Cloning
-  fast_checkout: &fast_checkout
-    run:
-      name: Fast checkout with shallow clone
-      command: |
-        mkdir /home/circleci/.ssh
-        ssh-keyscan -p 443 ssh.github.com >> /home/circleci/.ssh/known_hosts
-        git clone --depth 1 "$CIRCLE_REPOSITORY_URL" --branch "$CIRCLE_BRANCH"
 
   restore_cache: &restore_cache
     restore_cache:
@@ -46,7 +38,7 @@ jobs:
         default: false
     executor: node
     steps:
-      - <<: *fast_checkout
+      - advanced-checkout/shallow-checkout
       - <<: *restore_cache
       - <<: *install_node_modules
       - <<: *save_cache
