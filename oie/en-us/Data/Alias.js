@@ -817,5 +817,7 @@ xmlAliasData += '    <Map Name=\"csh-customizable-context\" Link=\"topics/identi
 xmlAliasData += '    <Map Name=\"ext-pin-siw3-ver\" Link=\"topics/reference/siw-compare-generations.htm#pin-siw3-ver\" ResolvedId=\"-2147483648\" />';
 xmlAliasData += '    <Map Name=\"csh-ar-integrate-teams\" Link=\"topics/identity-governance/access-requests/ar-integrate-teams.htm\" ResolvedId=\"7005\" />';
 xmlAliasData += '    <Map Name=\"csh-ar-integrate-slack\" Link=\"topics/identity-governance/access-requests/ar-integrate-slack.htm\" ResolvedId=\"7006\" />';
+xmlAliasData += '    <Map Name=\"adv_server_access\" Link=\"topics/security/mfa/mfa-enable-admins.htm\" ResolvedId=\"1109\" />';
+xmlAliasData += '    <Map Name=\"csh-admin-mfa\" Link=\"topics/security/mfa/mfa-enable-admins.htm\" ResolvedId=\"14010\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
