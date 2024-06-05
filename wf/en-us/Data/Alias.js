@@ -1292,7 +1292,7 @@ xmlAliasData += '    <Map Name=\"ext-zoom-method-customapiaction\" Link=\"topics
 xmlAliasData += '    <Map Name=\"ext-zoom-method-deactivateuser\" Link=\"topics/workflows/connector-reference/zoom/actions/deactivateuser.htm\" ResolvedId=\"30732\" />';
 xmlAliasData += '    <Map Name=\"ext-zoom-method-deleteuser\" Link=\"topics/workflows/connector-reference/zoom/actions/deleteuser.htm\" ResolvedId=\"30733\" />';
 xmlAliasData += '    <Map Name=\"ext-zoom-method-finduser\" Link=\"topics/workflows/connector-reference/zoom/actions/finduser.htm\" ResolvedId=\"30734\" />';
-xmlAliasData += '    <Map Name=\"ext-zoom-method-getuser\" Link=\"topics/workflows/connector-reference/zoom/actions/getuser.htm\" ResolvedId=\"30735\" />';
+xmlAliasData += '    <Map Name=\"ext-zoom-method-getuser\" Link=\"topics/workflows/connector-reference/zoom/actions/readuser.htm\" ResolvedId=\"30735\" />';
 xmlAliasData += '    <Map Name=\"ext-zoom-method-listgroupmembers\" Link=\"topics/workflows/connector-reference/zoom/actions/listgroupmembers.htm\" ResolvedId=\"30932\" />';
 xmlAliasData += '    <Map Name=\"ext-zoom-method-removeuserfromgroup\" Link=\"topics/workflows/connector-reference/zoom/actions/removeuserfromgroup.htm\" ResolvedId=\"30931\" />';
 xmlAliasData += '    <Map Name=\"ext-zoom-method-searchgroups\" Link=\"topics/workflows/connector-reference/zoom/actions/searchgroups.htm\" ResolvedId=\"30930\" />';
@@ -1476,5 +1476,7 @@ xmlAliasData += '    <Map Name=\"ext-openai-misc-authorization\" Link=\"topics/w
 xmlAliasData += '    <Map Name=\"ext-openai-method-customapiactionc4ak0cyoon\" Link=\"topics/workflows/connector-reference/openai/actions/customapiaction.htm\" ResolvedId=\"6143\" />';
 xmlAliasData += '    <Map Name=\"ext-openai-method-createchatcompletionse1hargsjj\" Link=\"topics/workflows/connector-reference/openai/actions/createchatcompletion.htm\" ResolvedId=\"6144\" />';
 xmlAliasData += '    <Map Name=\"ext-oktadevices-method-searchdevices\" Link=\"topics/workflows/connector-reference/oktadevices/actions/searchdevices.htm\" ResolvedId=\"6113\" />';
+xmlAliasData += '    <Map Name=\"ext-zoom-method-readgroup\" Link=\"topics/workflows/connector-reference/zoom/actions/readgroup.htm\" ResolvedId=\"6183\" />';
+xmlAliasData += '    <Map Name=\"ext-zoom-method-readuser\" Link=\"topics/workflows/connector-reference/zoom/actions/readuser.htm\" ResolvedId=\"6184\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
