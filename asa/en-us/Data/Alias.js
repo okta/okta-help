@@ -40,5 +40,8 @@ xmlAliasData += '    <Map Name=\"ext-asa-policysync\" Link=\"topics/adv_server_a
 xmlAliasData += '    <Map Name=\"csh-asa-client-configuration-advanced\" Link=\"topics/adv_server_access/docs/ad-client-configuration-advanced.htm\" ResolvedId=\"1001\" />';
 xmlAliasData += '    <Map Name=\"csh-ad-user-sync\" Link=\"topics/adv_server_access/docs/ad-user-sync.htm\" ResolvedId=\"1002\" />';
 xmlAliasData += '    <Map Name=\"csh-ad-user-sync-activate\" Link=\"topics/adv_server_access/docs/ad-user-sync-activate.htm\" ResolvedId=\"1003\" />';
+xmlAliasData += '    <Map Name=\"ext-asa-team-roles\" Link=\"topics/adv_server_access/docs/team-roles.htm\" ResolvedId=\"15588\" />';
+xmlAliasData += '    <Map Name=\"ext-asa-group-adduser\" Link=\"topics/adv_server_access/docs/group-add-user.htm\" ResolvedId=\"15589\" />';
+xmlAliasData += '    <Map Name=\"ext-asa-rn\" Link=\"topics/releasenotes/advanced-server-access-release-notes.htm\" ResolvedId=\"13000\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
