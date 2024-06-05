@@ -813,10 +813,11 @@ xmlAliasData += '    <Map Name=\"csh-rcar\" Link=\"topics/identity-governance/ac
 xmlAliasData += '    <Map Name=\"csh-rcar-conditions\" Link=\"topics/identity-governance/access-requests/rcar-conditions.htm\" ResolvedId=\"13048\" />';
 xmlAliasData += '    <Map Name=\"csh-rcar-approval-sequences\" Link=\"topics/identity-governance/access-requests/rcar-conditions.htm#An\" ResolvedId=\"13049\" />';
 xmlAliasData += '    <Map Name=\"csh-rcar-known-issues\" Link=\"topics/identity-governance/access-requests/ar-get-started.htm#Initial\" ResolvedId=\"13050\" />';
-xmlAliasData += '    <Map Name=\"csh-configurable-context\" Link=\"topics/identity-governance/access-certification/ac-get-started.htm\" ResolvedId=\"5049\" />';
+xmlAliasData += '    <Map Name=\"csh-configurable-context\" Link=\"topics/identity-governance/access-certification/ac-get-started.htm\" ResolvedId=\"-2147483648\" />';
 xmlAliasData += '    <Map Name=\"csh-migrate-workspace1-mobile\" Link=\"topics/identity-engine-upgrade/migrate-ws1-dt.htm\" ResolvedId=\"3003\" />';
-xmlAliasData += '    <Map Name=\"csh-customizable-context\" Link=\"topics/identity-governance/access-certification/ac-get-started.htm\" ResolvedId=\"-2147483648\" />';
-xmlAliasData += '    <Map Name=\"ext-pin-siw3-ver\" Link=\"topics/reference/siw-compare-generations.htm#pin-siw3-ver\" ResolvedId=\"-2147483648\" />';
+xmlAliasData += '    <Map Name=\"csh-customizable-context\" Link=\"topics/identity-governance/access-certification/ac-get-started.htm\" ResolvedId=\"5049\" />';
+xmlAliasData += '    <Map Name=\"ext-pin-siw3-ver\" Link=\"topics/reference/siw-compare-generations.htm#pin-siw3-ver\" ResolvedId=\"18043\" />';
+xmlAliasData += '    <Map Name=\"csh-checkout\" Link=\"topics/privileged-access/pam-checkout-checkin.htm\" ResolvedId=\"1010\" />';
 xmlAliasData += '    <Map Name=\"csh-ar-integrate-teams\" Link=\"topics/identity-governance/access-requests/ar-integrate-teams.htm\" ResolvedId=\"7005\" />';
 xmlAliasData += '    <Map Name=\"csh-ar-integrate-slack\" Link=\"topics/identity-governance/access-requests/ar-integrate-slack.htm\" ResolvedId=\"7006\" />';
 xmlAliasData += '    <Map Name=\"adv_server_access\" Link=\"topics/security/mfa/mfa-enable-admins.htm\" ResolvedId=\"1109\" />';
