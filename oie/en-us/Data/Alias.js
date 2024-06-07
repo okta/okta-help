@@ -823,5 +823,6 @@ xmlAliasData += '    <Map Name=\"csh-ar-integrate-slack\" Link=\"topics/identity
 xmlAliasData += '    <Map Name=\"adv_server_access\" Link=\"topics/security/mfa/mfa-enable-admins.htm\" ResolvedId=\"1109\" />';
 xmlAliasData += '    <Map Name=\"csh-admin-mfa\" Link=\"topics/security/mfa/mfa-enable-admins.htm\" ResolvedId=\"14010\" />';
 xmlAliasData += '    <Map Name=\"ext-protected-actions\" Link=\"topics/security/admin-console-protected-actions.htm\" ResolvedId=\"19048\" />';
+xmlAliasData += '    <Map Name=\"csh-android-apps-console\" Link=\"topics/identity-engine/devices/android-apps-in-console.htm\" ResolvedId=\"4003\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
