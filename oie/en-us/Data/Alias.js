@@ -824,5 +824,7 @@ xmlAliasData += '    <Map Name=\"adv_server_access\" Link=\"topics/security/mfa/
 xmlAliasData += '    <Map Name=\"csh-admin-mfa\" Link=\"topics/security/mfa/mfa-enable-admins.htm\" ResolvedId=\"14010\" />';
 xmlAliasData += '    <Map Name=\"ext-protected-actions\" Link=\"topics/security/admin-console-protected-actions.htm\" ResolvedId=\"19048\" />';
 xmlAliasData += '    <Map Name=\"csh-android-apps-console\" Link=\"topics/identity-engine/devices/android-apps-in-console.htm\" ResolvedId=\"4003\" />';
+xmlAliasData += '    <Map Name=\"ext-usgp-app-group-priority\" Link=\"topics/users-groups-profiles/usgp-assign-app-group-priority.htm\" ResolvedId=\"19049\" />';
+xmlAliasData += '    <Map Name=\"ext-usgp-combine-values-use\" Link=\"topics/users-groups-profiles/usgp-combine-values-use.htm\" ResolvedId=\"19050\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
