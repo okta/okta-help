@@ -31,7 +31,7 @@ describe('Classic release notes production page (en-US)', () => {
     cy.hasBreadcrumbs('Production')
     cy.hasTopMenuBar(6, 10)
     cy.hasBodyContent()
-    cy.hasTabs(4)
+    cy.hasTabs(3)
     cy.hasDeferAttrsCorrectlyApplied()
     // cy.hasQualtrics()
     cy.hidesCoveoSearchBar()
