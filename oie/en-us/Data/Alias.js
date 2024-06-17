@@ -785,6 +785,9 @@ xmlAliasData += '    <Map Name=\"ext-cstm-admin-roles\" Link=\"topics/security/c
 xmlAliasData += '    <Map Name=\"csh-multiple-ids\" Link=\"topics/identity-engine/policies/multiple-identifiers.htm\" ResolvedId=\"5043\" />';
 xmlAliasData += '    <Map Name=\"csh-known-issues\" Link=\"topics/security/governance-admin-roles/get-started.htm#Initial\" ResolvedId=\"13046\" />';
 xmlAliasData += '    <Map Name=\"ext-telephony-inline-hook\" Link=\"topics/telephony/telephony-inline-hook.htm\" ResolvedId=\"14004\" />';
+xmlAliasData += '    <Map Name=\"csh-oie-relnotes-archive-2023\" Link=\"topics/releasenotes/archive/oie-relnotes-2023.htm\" ResolvedId=\"9999\" />';
+xmlAliasData += '    <Map Name=\"csh-oie-relnotes-archive-2022\" Link=\"topics/releasenotes/archive/oie-relnotes-2022.htm\" ResolvedId=\"9998\" />';
+xmlAliasData += '    <Map Name=\"csh-oie-relnotes-archive-2021\" Link=\"topics/releasenotes/archive/oie-relnotes-2021.htm\" ResolvedId=\"9997\" />';
 xmlAliasData += '    <Map Name=\"csh-preenrolled-yubikey-main\" Link=\"topics/identity-engine/authenticators/onboard-with-preenrolled-yubikey.htm\" ResolvedId=\"14005\" />';
 xmlAliasData += '    <Map Name=\"csh-config-pr-flow\" Link=\"topics/identity-engine/authenticators/pr-configure-onboarding-flow.htm\" ResolvedId=\"14006\" />';
 xmlAliasData += '    <Map Name=\"csh-wf-yubikey-setup\" Link=\"topics/identity-engine/authenticators/pr-set-up-yubikey-flow.htm\" ResolvedId=\"14007\" />';
