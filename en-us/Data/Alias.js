@@ -654,6 +654,7 @@ xmlAliasData += '    <Map Name=\"ext-create-team\" Link=\"topics/identity-govern
 xmlAliasData += '    <Map Name=\"ext-create-config-list\" Link=\"topics/identity-governance/access-requests/ar-config-sublist.htm\" ResolvedId=\"13026\" />';
 xmlAliasData += '    <Map Name=\"ext-ar-configure\" Link=\"topics/identity-governance/access-requests/ar-configure.htm\" ResolvedId=\"13027\" />';
 xmlAliasData += '    <Map Name=\"ext-ar-rt-sample\" Link=\"topics/identity-governance/access-requests/ar-create-jira-request-type.htm\" ResolvedId=\"13028\" />';
+xmlAliasData += '    <Map Name=\"ext-ar-limits\" Link=\"topics/identity-governance/access-requests/ar-get-started.htm#Limitations\" ResolvedId=\"13029\" />';
 xmlAliasData += '    <Map Name=\"ext-past-ar-report\" Link=\"topics/identity-governance/past-access-report.htm\" ResolvedId=\"13030\" />';
 xmlAliasData += '    <Map Name=\"ext-campaign-summary-report\" Link=\"topics/identity-governance/campaign-summary.htm\" ResolvedId=\"13031\" />';
 xmlAliasData += '    <Map Name=\"ext-campaign-details\" Link=\"topics/identity-governance/campaign-details.htm\" ResolvedId=\"13032\" />';
@@ -750,6 +751,13 @@ xmlAliasData += '    <Map Name=\"ext-cstm-admin-roles\" Link=\"topics/security/c
 xmlAliasData += '    <Map Name=\"ext-configure-mfa-policy\" Link=\"topics/security/policies/configure-mfa-policies.htm\" ResolvedId=\"14003\" />';
 xmlAliasData += '    <Map Name=\"csh-known-issues\" Link=\"topics/security/governance-admin-roles/get-started.htm#Initial\" ResolvedId=\"13046\" />';
 xmlAliasData += '    <Map Name=\"ext-telephony-inline-hook\" Link=\"topics/telephony/telephony-inline-hook.htm\" ResolvedId=\"14004\" />';
+xmlAliasData += '    <Map Name=\"csh-oce-relnotes-archive-2023\" Link=\"topics/releasenotes/archive/oce-relnotes-2023.htm\" ResolvedId=\"9996\" />';
+xmlAliasData += '    <Map Name=\"csh-oce-relnotes-archive-2022\" Link=\"topics/releasenotes/archive/oce-relnotes-2022.htm\" ResolvedId=\"9995\" />';
+xmlAliasData += '    <Map Name=\"csh-oce-relnotes-archive-2021\" Link=\"topics/releasenotes/archive/oce-relnotes-2021.htm\" ResolvedId=\"9994\" />';
+xmlAliasData += '    <Map Name=\"csh-oce-relnotes-archive-2020\" Link=\"topics/releasenotes/archive/oce-relnotes-2020.htm\" ResolvedId=\"9993\" />';
+xmlAliasData += '    <Map Name=\"csh-oce-relnotes-archive-2019\" Link=\"topics/releasenotes/archive/oce-relnotes-2019.htm\" ResolvedId=\"9992\" />';
+xmlAliasData += '    <Map Name=\"csh-oce-relnotes-archive-2018\" Link=\"topics/releasenotes/archive/oce-relnotes-2018.htm\" ResolvedId=\"9991\" />';
+xmlAliasData += '    <Map Name=\"csh-oce-relnotes-archive-2017\" Link=\"topics/releasenotes/archive/oce-relnotes-2017.htm\" ResolvedId=\"9990\" />';
 xmlAliasData += '    <Map Name=\"ext-create-api-token\" Link=\"topics/security/api.htm#create-okta-api-token\" ResolvedId=\"5048\" />';
 xmlAliasData += '    <Map Name=\"ext-pam-entitlement-aws-connect\" Link=\"topics/privileged-access/pam-entitlement-aws-connect.htm\" ResolvedId=\"1331\" />';
 xmlAliasData += '    <Map Name=\"csh-endz\" Link=\"topics/security/network/about-enhanced-dynamic-zones.htm\" ResolvedId=\"19040\" />';

@@ -1,1 +1,1 @@
-define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../content/topics/api/trusted-origins-iframe.htm'],s:['$'],p:[['$',33]]});
+define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../content/topics/api/trusted-origins-iframe.htm'],s:['$'],p:[['$',12]]});
