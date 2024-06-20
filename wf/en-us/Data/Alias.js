@@ -927,7 +927,7 @@ xmlAliasData += '    <Map Name=\"ext-okta-method-usersignedout\" Link=\"topics/w
 xmlAliasData += '    <Map Name=\"ext-okta-method-usersuspended\" Link=\"topics/workflows/connector-reference/okta/events/usersuspended.htm\" ResolvedId=\"30471\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-userunsuspended\" Link=\"topics/workflows/connector-reference/okta/events/userunsuspended.htm\" ResolvedId=\"30472\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-misc-authorization\" Link=\"topics/workflows/connector-reference/okta/overviews/authorization.htm\" ResolvedId=\"30473\" />';
-xmlAliasData += '    <Map Name=\"ext-okta-misc-revoke\" Link=\"topics/workflows/connector-reference/okta/overviews/revoke.htm\" ResolvedId=\"30474\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-misc-revoke\" Link=\"topics/workflows/connector-reference/okta/okta.htm#Revoke\" ResolvedId=\"30474\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-workflows\" Link=\"topics/workflows/workflows-main.htm\" ResolvedId=\"1228\" />';
 xmlAliasData += '    <Map Name=\"ext-onedrive\" Link=\"topics/workflows/connector-reference/onedrive/onedrive.htm\" ResolvedId=\"33048\" />';
 xmlAliasData += '    <Map Name=\"ext-onedrive-method-createfolder\" Link=\"topics/workflows/connector-reference/onedrive/actions/createfolder.htm\" ResolvedId=\"33036\" />';
