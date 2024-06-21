@@ -461,7 +461,7 @@ xmlAliasData += '    <Map Name=\"ext_Okta_Radius_App\" Link=\"topics/integration
 xmlAliasData += '    <Map Name=\"ext_okta_relnotes\" Link=\"topics/releasenotes/okta-relnotes.htm\" ResolvedId=\"200140\" />';
 xmlAliasData += '    <Map Name=\"ext_okta_verify\" Link=\"topics/mobile/okta-verify-overview.htm\" ResolvedId=\"1176\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_Verify_Using\" Link=\"topics/mobile/okta-verify-overview.htm\" ResolvedId=\"200127\" />';
-xmlAliasData += '    <Map Name=\"ext_OPP_build\" Link=\"topics/provisioning/opp/opp-build-scim-using-sdk.htm\" ResolvedId=\"1258\" />';
+xmlAliasData += '    <Map Name=\"ext_OPP_build\" Link=\"topics/provisioning/opp/opp-create-scim-connectors.htm\" ResolvedId=\"1258\" />';
 xmlAliasData += '    <Map Name=\"ext_OPP_configure\" Link=\"topics/provisioning/opp/opp-main.htm\" ResolvedId=\"1259\" />';
 xmlAliasData += '    <Map Name=\"ext_OPP_create_connectors\" Link=\"topics/provisioning/opp/opp-create-scim-connectors.htm\" ResolvedId=\"1261\" />';
 xmlAliasData += '    <Map Name=\"ext_OPP_provision\" Link=\"topics/provisioning/opp/opp-provision-scim-messages.htm\" ResolvedId=\"1263\" />';
