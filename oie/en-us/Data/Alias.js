@@ -702,6 +702,7 @@ xmlAliasData += '    <Map Name=\"csh-pam-secrets-folder\" Link=\"topics/privileg
 xmlAliasData += '    <Map Name=\"csh-pam-entitlement-analysis\" Link=\"topics/privileged-access/pam-entitlement-analysis.htm\" ResolvedId=\"1302\" />';
 xmlAliasData += '    <Map Name=\"csh-pam-entitlement-analysis-job\" Link=\"topics/privileged-access/pam-entitlement-analysis-job.htm\" ResolvedId=\"1303\" />';
 xmlAliasData += '    <Map Name=\"csh-pam-entitlement-aws-connect\" Link=\"topics/privileged-access/pam-entitlement-aws-connect.htm\" ResolvedId=\"1304\" />';
+xmlAliasData += '    <Map Name=\"csh-ac-for-em\" Link=\"topics/identity-governance/access-certification/campaign-settings.htm#Resourcecampaigns\" ResolvedId=\"16018\" />';
 xmlAliasData += '    <Map Name=\"ext-pam-overview\" Link=\"topics/privileged-access/pam-overview.htm\" ResolvedId=\"1305\" />';
 xmlAliasData += '    <Map Name=\"ext-define-attribute-statements\" Link=\"topics/apps/define-attribute-statements.htm\" ResolvedId=\"19031\" />';
 xmlAliasData += '    <Map Name=\"ext-define-group-attribute-statements\" Link=\"topics/apps/define-group-attribute-statements.htm\" ResolvedId=\"19032\" />';
@@ -831,5 +832,6 @@ xmlAliasData += '    <Map Name=\"ext-usgp-combine-values-use\" Link=\"topics/use
 xmlAliasData += '    <Map Name=\"csh-pam-checkout-configure\" Link=\"topics/privileged-access/pam-configure-checkout.htm\" ResolvedId=\"1335\" />';
 xmlAliasData += '    <Map Name=\"csh-pam-checkout-force-checkin\" Link=\"topics/privileged-access/pam-checkout-force-checkin.htm\" ResolvedId=\"1336\" />';
 xmlAliasData += '    <Map Name=\"csh-account-management-policy\" Link=\"topics/identity-engine/policies/create-auth-policy.htm\" ResolvedId=\"5050\" />';
+xmlAliasData += '    <Map Name=\"csh-itp-ul\" Link=\"topics/itp/universal-logout.htm\" ResolvedId=\"18044\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
