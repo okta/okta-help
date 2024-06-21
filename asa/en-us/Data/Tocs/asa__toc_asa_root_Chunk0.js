@@ -1,1 +1,1 @@
-define({'/content/topics/adv_server_access/docs/asa-overview.htm':{i:[0],t:['Advanced Server Access'],b:['']},'/content/topics/releasenotes/advanced-server-access-release-notes-archive-2024.htm':{i:[2],t:['Archive'],b:['']},'/content/topics/releasenotes/advanced-server-access-release-notes.htm':{i:[1],t:['Release Notes'],b:['']}});
+define({'/content/topics/adv_server_access/docs/asa-overview.htm':{i:[0],t:['Advanced Server Access'],b:['']}});
