@@ -460,7 +460,7 @@ xmlAliasData += '    <Map Name=\"ext_Okta_Active_Directory_Agent_UDMappingchange
 xmlAliasData += '    <Map Name=\"ext_Okta_Java_LDAP_Agent\" Link=\"topics/directory/ldap-agent-manage-integration.htm\" ResolvedId=\"200078\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_Mobile_VerHistory\" Link=\"topics/miscellaneous/platforms_browser_os_support.htm\" ResolvedId=\"200125\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_Radius_App\" Link=\"topics/integrations/okta_radius_app.htm\" ResolvedId=\"200162\" />';
-xmlAliasData += '    <Map Name=\"ext_OPP_build\" Link=\"topics/provisioning/opp/opp-build-scim-using-sdk.htm\" ResolvedId=\"1258\" />';
+xmlAliasData += '    <Map Name=\"ext_OPP_build\" Link=\"topics/provisioning/opp/opp-create-scim-connectors.htm\" ResolvedId=\"1258\" />';
 xmlAliasData += '    <Map Name=\"ext_OPP_configure\" Link=\"topics/provisioning/opp/opp-main.htm\" ResolvedId=\"1259\" />';
 xmlAliasData += '    <Map Name=\"ext_OPP_create_connectors\" Link=\"topics/provisioning/opp/opp-create-scim-connectors.htm\" ResolvedId=\"1261\" />';
 xmlAliasData += '    <Map Name=\"ext_OPP_provision\" Link=\"topics/provisioning/opp/opp-provision-scim-messages.htm\" ResolvedId=\"1263\" />';
