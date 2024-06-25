@@ -119,6 +119,7 @@ xmlAliasData += '    <Map Name=\"csh-limit-access-dashboard\" Link=\"topics/sett
 xmlAliasData += '    <Map Name=\"csh-limit-admins\" Link=\"topics/security/healthinsight/limit-admins.htm\" ResolvedId=\"1182\" />';
 xmlAliasData += '    <Map Name=\"csh-log-streams\" Link=\"topics/reports/log-streaming/about-log-streams.htm\" ResolvedId=\"13005\" />';
 xmlAliasData += '    <Map Name=\"csh-mfa-enroll-report\" Link=\"topics/reports/mfa-enrollment-user-report.htm\" ResolvedId=\"9001\" />';
+xmlAliasData += '    <Map Name=\"csh-mfa-for-admins\" Link=\"topics/security/mfa/mfa-enable-admins.htm\" ResolvedId=\"1179\" />';
 xmlAliasData += '    <Map Name=\"csh-mfa-home\" Link=\"topics/security/mfa/mfa-home.htm\" ResolvedId=\"18011\" />';
 xmlAliasData += '    <Map Name=\"csh-new-end-user-experience\" Link=\"topics/settings/new-end-user-experience.htm\" ResolvedId=\"7002\" />';
 xmlAliasData += '    <Map Name=\"csh-new-eu-dashboard\" Link=\"topics/settings/new-end-user-dashboard.htm\" ResolvedId=\"1183\" />';
@@ -287,6 +288,7 @@ xmlAliasData += '    <Map Name=\"ext-obp-security\" Link=\"topics/browser-plugin
 xmlAliasData += '    <Map Name=\"ext-okta-verify-relnotes\" Link=\"topics/releasenotes/okta-verify-release-notes.htm\" ResolvedId=\"1327\" />';
 xmlAliasData += '    <Map Name=\"ext-org2org-intg\" Link=\"topics/provisioning/org2org/org2org-integrate.htm\" ResolvedId=\"13006\" />';
 xmlAliasData += '    <Map Name=\"ext-password-sync-main\" Link=\"topics/directory/password-sync-main.htm\" ResolvedId=\"1241\" />';
+xmlAliasData += '    <Map Name=\"ext-plugin-landing\" Link=\"topics/browser-plugin/browser-plugin-main.htm\" ResolvedId=\"4058\" />';
 xmlAliasData += '    <Map Name=\"ext-preview-inline-hooks\" Link=\"topics/automation-hooks/preview-inline-hooks.htm\" ResolvedId=\"1490\" />';
 xmlAliasData += '    <Map Name=\"ext-proc-mfa-creds-rdp-ts\" Link=\"topics/security/proc-mfa-win-creds-rdp-ts.htm\" ResolvedId=\"4071\" />';
 xmlAliasData += '    <Map Name=\"ext-profile-attribute-mastering\" Link=\"topics/users-groups-profiles/usgp-sourcing-main.htm\" ResolvedId=\"1332\" />';
@@ -391,6 +393,7 @@ xmlAliasData += '    <Map Name=\"ext_custom_error_pages\" Link=\"topics/settings
 xmlAliasData += '    <Map Name=\"ext_custom_okta_hosted_sign_in_page\" Link=\"topics/settings/branding-pages.htm\" ResolvedId=\"200178\" />';
 xmlAliasData += '    <Map Name=\"ext_custom_url_domain\" Link=\"topics/settings/settings-customization-general.htm\" ResolvedId=\"200179\" />';
 xmlAliasData += '    <Map Name=\"ext_Dashboard\" Link=\"topics/dashboard/dashboard.htm\" ResolvedId=\"200037\" />';
+xmlAliasData += '    <Map Name=\"ext_Dashboard_End_User_Notifications\" Link=\"topics/dashboard/dashboard.htm\" ResolvedId=\"200038\" />';
 xmlAliasData += '    <Map Name=\"ext_device_trust\" Link=\"topics/device-trust/device-trust-landing.htm\" ResolvedId=\"200112\" />';
 xmlAliasData += '    <Map Name=\"ext_Device_Trust_MacOS\" Link=\"topics/mobile/okta_device_trust_jamf_macos_devices.htm\" ResolvedId=\"1148\" />';
 xmlAliasData += '    <Map Name=\"ext_device_trust_mobile\" Link=\"topics/device-trust/device-trust-landing.htm\" ResolvedId=\"200111\" />';
@@ -469,6 +472,7 @@ xmlAliasData += '    <Map Name=\"ext_OPP_test\" Link=\"topics/provisioning/opp/o
 xmlAliasData += '    <Map Name=\"ext_Overview_of_JIT\" Link=\"topics/directory/ad-agent-add-update-jit.htm\" ResolvedId=\"200080\" />';
 xmlAliasData += '    <Map Name=\"ext_palo_alto_radius_intg\" Link=\"topics/integrations/palo-alto-radius-intg.htm\" ResolvedId=\"200089\" />';
 xmlAliasData += '    <Map Name=\"ext_Platforms_Browser_OS_Support\" Link=\"topics/miscellaneous/platforms_browser_os_support.htm\" ResolvedId=\"200095\" />';
+xmlAliasData += '    <Map Name=\"ext_plugin_installation\" Link=\"topics/browser-plugin/plugin-silent-installation.htm\" ResolvedId=\"1292\" />';
 xmlAliasData += '    <Map Name=\"ext_preview\" Link=\"topics/releasenotes/preview.htm\" ResolvedId=\"200141\" />';
 xmlAliasData += '    <Map Name=\"ext_proc_mfa_win_creds_rdp\" Link=\"topics/security/proc-mfa-win-creds-rdp.htm\" ResolvedId=\"200163\" />';
 xmlAliasData += '    <Map Name=\"ext_proc_security_behavior_detection\" Link=\"topics/security/proc-security-behavior-detection.htm\" ResolvedId=\"200165\" />';
@@ -740,12 +744,12 @@ xmlAliasData += '    <Map Name=\"csh-realms-move-users\" Link=\"topics/users-gro
 xmlAliasData += '    <Map Name=\"csh-realms-delegate-admin\" Link=\"topics/users-groups-profiles/realms/realms-delegate-realm-management.htm\" ResolvedId=\"1319\" />';
 xmlAliasData += '    <Map Name=\"ext-realms\" Link=\"topics/users-groups-profiles/realms/realms.htm\" ResolvedId=\"1320\" />';
 xmlAliasData += '    <Map Name=\"ext-realms-delegate-admin\" Link=\"topics/users-groups-profiles/realms/realms-delegate-realm-management.htm\" ResolvedId=\"1321\" />';
-xmlAliasData += '    <Map Name=\"ext-realms-move-users\" Link=\"topics/users-groups-profiles/realms/realms-manage-users.htm\" ResolvedId=\"1322\" />';
+xmlAliasData += '    <Map Name=\"ext-realms-move-users\" Link=\"topics/users-groups-profiles/realms/realms-manage-users.htm\" ResolvedId=\"4006\" />';
 xmlAliasData += '    <Map Name=\"ext-realms-assignment\" Link=\"topics/users-groups-profiles/realms/realms-assignment.htm\" ResolvedId=\"1330\" />';
 xmlAliasData += '    <Map Name=\"csh-governance-admin-roles\" Link=\"topics/security/governance-admin-roles/govern-admin-roles.htm\" ResolvedId=\"13043\" />';
 xmlAliasData += '    <Map Name=\"csh-approval-sequence\" Link=\"topics/security/governance-admin-roles/ar-admin-roles.htm\" ResolvedId=\"13044\" />';
 xmlAliasData += '    <Map Name=\"csh-ar-conditions\" Link=\"topics/security/governance-admin-roles/ar-admin-roles.htm\" ResolvedId=\"13045\" />';
-xmlAliasData += '    <Map Name=\"ext-about-role-permissions\" Link=\"topics/security/custom-admin-role/about-role-permissions.htm#Agent\" ResolvedId=\"1321\" />';
+xmlAliasData += '    <Map Name=\"ext-about-role-permissions\" Link=\"topics/security/custom-admin-role/about-role-permissions.htm#Agent\" ResolvedId=\"4007\" />';
 xmlAliasData += '    <Map Name=\"csh-ar-export\" Link=\"topics/identity-governance/access-requests/ar-export.htm\" ResolvedId=\"1322\" />';
 xmlAliasData += '    <Map Name=\"ext-third-party-cookies\" Link=\"topics/security/okta-allow-cookies.htm\" ResolvedId=\"18040\" />';
 xmlAliasData += '    <Map Name=\"ext-cstm-admin-roles\" Link=\"topics/security/custom-admin-role/custom-admin-roles.htm\" ResolvedId=\"19039\" />';
@@ -782,5 +786,7 @@ xmlAliasData += '    <Map Name=\"ext-usgp-app-group-priority\" Link=\"topics/use
 xmlAliasData += '    <Map Name=\"ext-usgp-combine-values-use\" Link=\"topics/users-groups-profiles/usgp-combine-values-use.htm\" ResolvedId=\"19050\" />';
 xmlAliasData += '    <Map Name=\"csh-pam-checkout-configure\" Link=\"topics/privileged-access/pam-configure-checkout.htm\" ResolvedId=\"1335\" />';
 xmlAliasData += '    <Map Name=\"csh-pam-checkout-force-checkin\" Link=\"topics/privileged-access/pam-checkout-force-checkin.htm\" ResolvedId=\"1336\" />';
+xmlAliasData += '    <Map Name=\"ext-ver-hist-okta-hyperspace-agent\" Link=\"topics/settings/version_histories/ver_history_hyperspace_agent.htm\" ResolvedId=\"4004\" />';
+xmlAliasData += '    <Map Name=\"ext-ver-hist-okta-oam-adapter\" Link=\"topics/settings/version_histories/ver_history_mfa_for_oam_plugin.htm\" ResolvedId=\"4005\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
