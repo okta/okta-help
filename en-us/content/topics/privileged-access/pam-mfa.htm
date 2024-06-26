@@ -291,35 +291,52 @@
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
                                                     <h1>Multifactor authentication</h1>
-                                                    <p>Multifactor authentication (MFA) is an additional layer of security that helps verify the identity of a user who is attempting to access a resource protected by <span class="mc-variable okta-feature-names.Okta_Privileged_Access variable">Okta Privileged Access</span>. By enabling MFA, orgs can add a more robust layer of protection to safeguard privileged access to resources, in addition to the <a href="https://help.okta.com/en-us/Content/Topics/Security/policies/about-signon-policies.htm" target="_blank">Okta Sign-On (SSO)</a> and <span class="mc-variable okta-feature-names.Okta_Privileged_Access variable">Okta Privileged Access</span>-specific SSO policies used by your organization.</p>
-                                                    <p><span class="mc-variable okta-feature-names.Okta_Privileged_Access variable">Okta Privileged Access</span> security admins can enable the MFA in the policy rule. It can be enabled for both <span class="mc-variable okta-feature-names.Okta_Identity_Engine variable">Okta Identity Engine</span> and <span class="mc-variable okta-feature-names.Okta_Classic_Engine variable">Okta Classic Engine</span> orgs. After MFA authentication is enabled, each time a user tries to connect to a server with SSH or RDP, <span class="mc-variable okta-feature-names.Okta_Privileged_Access variable">Okta Privileged Access</span> will validate that authentication meets the MFA condition.</p>
+                                                    <p>Multifactor authentication (MFA) is an additional layer of security that helps verify the identity of a user who is attempting to access a resource protected by <span class="mc-variable okta-feature-names.Okta_Privileged_Access variable">Okta Privileged Access</span>. By enabling MFA, orgs can add a more robust layer of protection to safeguard privileged access to resources, in addition to the <a href="../security/policies/about-signon-policies.htm" class="MCXref xref">Okta sign-on policies</a> and <span class="mc-variable okta-feature-names.Okta_Privileged_Access variable">Okta Privileged Access</span>-specific SSO policies used by your organization.</p>
+                                                    <p><span class="mc-variable okta-feature-names.Okta_Privileged_Access variable">Okta Privileged Access</span> security admins can enable the MFA in the policy rule to secure access to servers and secrets. It can be enabled for both <span class="mc-variable okta-feature-names.Okta_Identity_Engine variable">Okta Identity Engine</span> and <span class="mc-variable okta-feature-names.Okta_Classic_Engine variable">Okta Classic Engine</span> orgs. After MFA authentication is enabled, users are prompted to fulfill the MFA condition whenever they try to access a secret. Similarly, if MFA is enabled for server access, <span class="mc-variable okta-feature-names.Okta_Privileged_Access variable">Okta Privileged Access</span> ensures that authentication meets the MFA condition each time a user tries to connect to a server using SSH or RDP.</p>
                                                     <p>To enable MFA, see <a href="pam-policy.htm" class="MCXref xref">Security policy</a>.</p>
+                                                    <p>Learn how multiple authentication and authorization conditions affect user access. See <a href="pam-policy-rule-conditions.htm" class="MCXref xref">Rule conditions</a>.</p>
                                                     <h2>Things to consider when you configure MFA</h2>
-                                                    <ul>
-                                                        <li>Okta recommends that you avoid setting up security policies that overlap with each other. A security policy may overlap when a user belongs to multiple groups used in different security policies, or when the same resource is included in the security rules of two different policies. However, if you do decide to implement such policies, consider the following:<ul><li>When creating security policies that allow access to a resource, it's important to avoid overlapping policies with different MFA settings. If such policies exist, the system enforces the most restrictive MFA requirement when accessing the resource. Therefore, Okta advises against creating overlapping security policies.</li></ul></li>
-                                                    </ul>
-                                                    <ul>
-                                                        <li>If an existing MFA setting is modified in a security policy rule, any MFA challenges that users have completed to access resources governed by the security policy will no longer be valid. As a result, users are required to complete another MFA challenge before being granted access to the resource. This, however, doesn't impact any active sessions.</li>
-                                                        <li>
+                                                    <dl>
+                                                        <dt><span class="wintitle">Avoid setting up policies that overlap with each other</span>
+                                                        </dt>
+                                                        <dd>A security policy may overlap when a user belongs to multiple groups used in different security policies, or when the same resource is included in the security rules of two different policies. When creating security policies that allow access to a resource, it's important to avoid overlapping policies with different MFA settings. If such policies exist, the system enforces the most restrictive MFA requirement when users access the resource:</dd>
+                                                        <dt><span class="wintitle">Modifying MFA setting makes existing MFA challenges invalid</span>
+                                                        </dt>
+                                                        <dd>If an existing MFA setting is modified in a security policy rule, any MFA challenges that users have completed to access resources governed by the security policy are no longer valid. As a result, users are required to complete another MFA challenge before being granted access to the resource. However, this doesn't impact any active sessions.</dd>
+                                                        <dt><span class="wintitle">Phishing resistance takes higher precedence if there are multiple policy rules</span>
+                                                        </dt>
+                                                        <dd>
                                                             <p>If there are multiple policy rules, either in the same or different policies, phishing resistance takes higher precedence. For example, if a policy has MFA enabled with the following rules:</p>
                                                             <ul>
                                                                 <li>Rule 1: Phishing resistant</li>
-                                                                <li>Rule 2: Any two factor types<p>In this scenario, the system selects Rule 1.</p></li>
+                                                                <li>Rule 2: Any two factor types
+                                <p>In this scenario, the system selects Rule 1</p></li>
                                                             </ul>
-                                                        </li>
-                                                        <li>
+                                                        </dd>
+                                                        <dt><span class="wintitle">In multiple phishing-resistant conditions, the one with the lowest re-authentication frequency is selected</span>
+                                                        </dt>
+                                                        <dd>
                                                             <p>If there are multiple phishing resistant type MFA conditions, the system selects the one with the lowest re-authentication frequency. For example, if a policy has MFA enabled and re-authentication frequency configured with the following rules:</p>
                                                             <ul>
                                                                 <li>Rule 1: Phishing resistant with re-authentication frequency set to 3600 minutes</li>
                                                                 <li>Rule 2: Phishing resistant with re-authentication frequency set to 600 minutes</li>
-                                                                <li>Rule 3: Any two factory types with re-authentication frequency set to 4200<p>In this scenario, the system selects Rule 2.</p></li>
+                                                                <li>Rule 3: Any two factory types with re-authentication frequency set to 4200
+                                <p>In this scenario, the system selects Rule 2.</p></li>
                                                             </ul>
-                                                        </li>
-                                                        <li>If security policies have short MFA durations, end users who delay choosing their connection method and account may receive a "server not found" error when attempting to connect to a server. This is because their MFA authentication may have expired. To resolve this issue, users can reconnect to the server and complete the MFA challenge again. After that, they'll be able to connect to the server.</li>
-                                                        <li>Before making an MFA policy active with a phishing resistant authenticator type, ensure that <span class="mc-variable okta-variables.ProductName variable">Okta</span> org-level admin has allowed users to enroll devices such FastPass, YubiKeys, or WebAuthn to prevent phishing attacks.</li>
-                                                    </ul>
-                                                    <h2>Next steps</h2>
+                                                        </dd>
+                                                        <dt><span class="wintitle">For short MFA durations, error occurs if users delay selecting the connection method</span>
+                                                        </dt>
+                                                        <dd>If security policies have short MFA durations, end users who delay choosing their connection method and account may receive a "server not found" error when attempting to connect to a server. This is because their MFA authentication may have expired. To resolve this issue, users can reconnect to the server and complete the MFA challenge again. After that, they can connect to the server.</dd>
+                                                        <dt><span class="wintitle">Ensure that users are allowed to enroll devices such FastPass, YubiKeys, or WebAuthn to prevent phishing attacks</span>
+                                                        </dt>
+                                                        <dd>Before making an MFA policy active with a phishing-resistant authenticator type, ensure that Okta org-level admin has allowed users to enroll devices such as Okta FastPass, YubiKey, or WebAuthn to prevent phishing attacks.</dd>
+                                                    </dl>
+                                                    <h2>Related topics</h2>
                                                     <p><a href="pam-policy.htm" class="MCXref xref">Security policy</a>
+                                                    </p>
+                                                    <p><a href="pam-policy-rule-conditions.htm" class="MCXref xref">Rule conditions</a>
+                                                    </p>
+                                                    <p><a href="pam-secrets.htm" class="MCXref xref">Secrets</a>
                                                     </p>
                                                 </div>
                                             </div>

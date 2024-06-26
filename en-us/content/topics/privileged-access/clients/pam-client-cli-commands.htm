@@ -312,8 +312,6 @@
                                                             </li>
                                                             <li><a href="#env_var" class="MCXref xref">Environment variables</a>
                                                             </li>
-                                                            <li><a href="#SFT" class="MCXref xref">Use the Okta Privileged Access client</a>
-                                                            </li>
                                                         </ul>
                                                     </div>
                                                     <h2><a name="Client"></a>Client commands</h2>
@@ -330,6 +328,37 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
+                                                                <tr class="TableStyle-standard-Body-Body1">
+                                                                    <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="code">sft list-checked-out-resources</span>
+                                                                        <div class="noteOkta">
+                                                                            <p class="noteContent">Checkout is automatically applied when <span class="code">sft ssh</span> and <span class="code">sft rdp</span> commands are used.</p>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td class="TableStyle-standard-BodyF-Column1-Body1">List checkout resources.</td>
+                                                                    <td class="TableStyle-standard-BodyD-Column1-Body1">
+                                                                        <ul>
+                                                                            <li><span class="code">--team {value}</span>: Uses the specified team.</li>
+                                                                            <li><span class="code">--instance {value}</span>: Uses the specified instance of the Okta Privileged Access platform.</li>
+                                                                            <li><span class="code">--output</span>, <span class="code">-o</span>: Formats result in the specified format. Available options include: default, JSON, or describe.</li>
+                                                                            <li><span class="code">--resource-type {value}</span>: Use this to display only resources of the specified type, along with other resource-specific details.</li>
+                                                                            <li><span class="code">--include-pending-checkin</span>: Use this to include checked out resources that are in the checkin process.</li>
+                                                                        </ul>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="TableStyle-standard-Body-Body2">
+                                                                    <td class="TableStyle-standard-BodyF-Column1-Body2"><span class="code">sft checkin</span>
+                                                                    </td>
+                                                                    <td class="TableStyle-standard-BodyF-Column1-Body2">Check in a resource.</td>
+                                                                    <td class="TableStyle-standard-BodyD-Column1-Body2">
+                                                                        <ul>
+                                                                            <li><span class="code">--team {value}</span>: Uses the specified team.</li>
+                                                                            <li><span class="code">--instance {value}</span>: Uses the specified instance of the <span class="mc-variable okta-feature-names.Okta_Privileged_Access variable">Okta Privileged Access</span> platform.</li>
+                                                                            <li><span class="code">--resource-id {value}</span>: The UUID or ORN of the resource to check in.</li>
+                                                                            <li><span class="code">--resource-type {value}</span>: The type of resource to check in. This field is required.</li>
+                                                                            <li><span class="code">--force</span>: Use this to check in resources checked out by other users.</li>
+                                                                        </ul>
+                                                                    </td>
+                                                                </tr>
                                                                 <tr class="TableStyle-standard-Body-Body1">
                                                                     <td class="TableStyle-standard-BodyF-Column1-Body1"><span class="code">sft config</span>
                                                                     </td>
@@ -942,7 +971,7 @@ sft config ssh.port_forward_method native</span>
                                                                 <td class="TableStyle-standard-BodyC-Column1-Body1">
                                                                     <p>ssh.insecure_forward_<span class="disableGlossary">agent</span></p>
                                                                     <div class="noteOkta">
-                                                                        <p class="noteContent">This feature is not compatible with the Windows client.</p>
+                                                                        <p class="noteContent">This feature isn't compatible with the Windows client.</p>
                                                                     </div>
                                                                 </td>
                                                                 <td class="TableStyle-standard-BodyC-Column1-Body1">
@@ -1117,42 +1146,6 @@ sft config client.timeout_seconds -1</span>
                                                             </tr>
                                                         </tbody>
                                                     </table>
-                                                    <h2><a name="sft-keyring"></a>SFT keyring</h2>
-                                                    <p>If you enable the SFT keyring, all of the plaintext tokens in the <span class="filepath">state.json</span> file are encrypted. Once the SFT keyring is established on a system, it automatically updates when the user logs in to <span class="mc-variable okta-feature-names.Okta_Privileged_Access variable">Okta Privileged Access</span> or attempts to access a server.</p>
-                                                    <p>After the SFT keyring is activated, it can't be reversed.  <span class="mc-variable okta-feature-names.Okta_Privileged_Access variable">Okta Privileged Access</span> employs the  <span class="varname">compat</span> keyring for all operating systems, which doesn't offer encryption. To revert to the default <span class="varname">compat</span> keyring, users need to re-enroll and relogin.</p>
-                                                    <h3>Before you begin</h3>
-                                                    <ul>
-                                                        <li>SFT keyring encrypts access tokens. If the keys used to decrypt the tokens are unavailable, decryption is impossible. This prevents unauthorized data exfiltration.</li>
-                                                        <li>SFT keyring on Linux uses D-Bus to connect to a desktop-specific SecretService and proactively secures access tokens. If <span class="userinput">sft</span> can't reach an unlocked SecretService, it will not be able to decrypt those tokens. This may result in being locked out of your tokens while in non-desktop mode if you use Linux on both desktop and non-desktop. To avoid this, you can use the insecure compact keyring by setting <span class="varname">SFT_KEYRING</span> to <span class="userinput">compat</span> in your shell initialization scripts and then re-enrol.</li>
-                                                    </ul>
-                                                    <h3>Setting up the Keyring</h3>
-                                                    <p>SFT keyring must be configured on every device. The operating system comes with a default keyring, and it determines the most suitable one to use. By using the <span class="userinput">system</span> variable in the configuration, the operating system automatically selects the optimal keyring for use.</p>
-                                                    <h4>macOS</h4>
-                                                    <p>SFT keyring encrypts by default on macOS. You can set the keyring using the User Defaults framework:</p>
-                                                    <p><span class="code">$ defaults write com.scaleft.ScaleFT SFTKeyring system</span>
-                                                    </p>
-                                                    <p>Alternatively, you can enable it by setting an environment variable:</p>
-                                                    <p><span class="code">export SFT_KEYRING=system</span>
-                                                    </p>
-                                                    <p>If both are set, the environment variable takes precedence. </p>
-                                                    <p>To disable encryption, use <span class="userinput">compat</span> instead of <span class="userinput">system</span> in the environment variable, and then re-enroll in the team.</p>
-                                                    <h4>Windows</h4>
-                                                    <p>SFT keyring encrypts by default on Windows. You can set the keyring using the registry:</p>
-                                                    <p><span class="code">HKEY_LOCAL_MACHINE\Software\ScaleFT\SFT\Keyring</span>
-                                                    </p>
-                                                    <p>Or</p>
-                                                    <p><span class="code">HKEY_CURRENT_USER\Software\ScaleFT\SFT\Keyring</span>
-                                                    </p>
-                                                    <p>Alternatively, you can set the keyring  using the <span class="varname">SFT_KEYRING</span> environment variable.</p>
-                                                    <p><span class="varname">HKEY_LOCAL_MACHINE</span> takes precedence over both the environment variable and <span class="varname">CURRENT_USER</span> entry. The environment variable takes precedence over the <span class="varname">CURRENT_USER</span> entry.</p>
-                                                    <p>To disable encryption, set the registry key to <span class="userinput">compat</span> instead of <span class="userinput">system</span>, and then re-enroll in the team.</p>
-                                                    <h4>FreeBSD / Linux</h4>
-                                                    <p>In FreeBSD and Linux, keyrings only work in a D-Bus desktop environment. In Linux, the default encryption method is <span class="userinput">system</span>, while in FreeBSD, it's <span class="userinput">compat</span>.</p>
-                                                    <p>To set or update the <span class="varname">SFT_KEYRING</span> environment variable to either <span class="userinput">compat</span> or <span class="userinput">system</span>, add the following to the shell profile:</p>
-                                                    <p><span class="code">export SFT_KEYRING=system</span> </p>
-                                                    <p>Or</p>
-                                                    <p><span class="code">export SFT_KEYRING=compat</span>
-                                                    </p>
                                                     <h2>Related topics</h2>
                                                     <p><a href="../tool-setup/install-client.htm" class="MCXref xref">Install the Okta Privileged Access client</a>
                                                     </p>
