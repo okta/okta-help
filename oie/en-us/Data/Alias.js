@@ -843,5 +843,6 @@ xmlAliasData += '    <Map Name=\"csh-account-management-policy\" Link=\"topics/i
 xmlAliasData += '    <Map Name=\"csh-itp-ul\" Link=\"topics/itp/universal-logout.htm\" ResolvedId=\"18044\" />';
 xmlAliasData += '    <Map Name=\"ext-ver-hist-okta-hyperspace-agent\" Link=\"topics/settings/version_histories/ver_history_hyperspace_agent.htm\" ResolvedId=\"4004\" />';
 xmlAliasData += '    <Map Name=\"ext-ver-hist-okta-oam-adapter\" Link=\"topics/settings/version_histories/ver_history_mfa_for_oam_plugin.htm\" ResolvedId=\"4005\" />';
+xmlAliasData += '    <Map Name=\"ext-usgp-import-safeguard\" Link=\"topics/users-groups-profiles/usgp-import-safeguard.htm\" ResolvedId=\"6026\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);

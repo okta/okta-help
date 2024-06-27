@@ -511,6 +511,7 @@ xmlAliasData += '    <Map Name=\"ext_Security_Network\" Link=\"topics/security/n
 xmlAliasData += '    <Map Name=\"ext_Security_Policies\" Link=\"topics/security/policies/policies-home.htm\" ResolvedId=\"200173\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_Using_Sync_Password\" Link=\"topics/directory/security_using_sync_password.htm\" ResolvedId=\"200174\" />';
 xmlAliasData += '    <Map Name=\"ext_self_service_registration_policy\" Link=\"topics/users-groups-profiles/usgp-self-service-registration.htm\" ResolvedId=\"1287\" />';
+xmlAliasData += '    <Map Name=\"ext_Settings\" Link=\"topics/settings/customizations-index.htm\" ResolvedId=\"200184\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Account\" Link=\"topics/settings/settings_account.htm\" ResolvedId=\"200185\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Add_Custom_Email_Templates_Multiple_Languages\" Link=\"topics/settings/settings_email.htm#Add\" ResolvedId=\"200186\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Configure_A_Custom_Email_Domain\" Link=\"topics/settings/settings_configure_a_custom_email_domain.htm\" ResolvedId=\"200188\" />';
@@ -788,5 +789,6 @@ xmlAliasData += '    <Map Name=\"csh-pam-checkout-configure\" Link=\"topics/priv
 xmlAliasData += '    <Map Name=\"csh-pam-checkout-force-checkin\" Link=\"topics/privileged-access/pam-checkout-force-checkin.htm\" ResolvedId=\"1336\" />';
 xmlAliasData += '    <Map Name=\"ext-ver-hist-okta-hyperspace-agent\" Link=\"topics/settings/version_histories/ver_history_hyperspace_agent.htm\" ResolvedId=\"4004\" />';
 xmlAliasData += '    <Map Name=\"ext-ver-hist-okta-oam-adapter\" Link=\"topics/settings/version_histories/ver_history_mfa_for_oam_plugin.htm\" ResolvedId=\"4005\" />';
+xmlAliasData += '    <Map Name=\"ext-usgp-import-safeguard\" Link=\"topics/users-groups-profiles/usgp-import-safeguard.htm\" ResolvedId=\"6026\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
