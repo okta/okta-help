@@ -1478,5 +1478,6 @@ xmlAliasData += '    <Map Name=\"ext-openai-method-createchatcompletionse1hargsj
 xmlAliasData += '    <Map Name=\"ext-oktadevices-method-searchdevices\" Link=\"topics/workflows/connector-reference/oktadevices/actions/searchdevices.htm\" ResolvedId=\"6113\" />';
 xmlAliasData += '    <Map Name=\"ext-zoom-method-readgroup\" Link=\"topics/workflows/connector-reference/zoom/actions/readgroup.htm\" ResolvedId=\"6183\" />';
 xmlAliasData += '    <Map Name=\"ext-zoom-method-readuser\" Link=\"topics/workflows/connector-reference/zoom/actions/readuser.htm\" ResolvedId=\"6184\" />';
+xmlAliasData += '    <Map Name=\"ext-url-delimiters-specialcharacters\" Link=\"topics/workflows/function-reference/url/delimiters-specialcharacters.htm\" ResolvedId=\"6185\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
