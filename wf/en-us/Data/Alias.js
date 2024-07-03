@@ -58,6 +58,7 @@ xmlAliasData += '    <Map Name=\"ext-amazons329-method-readobjecttags\" Link=\"t
 xmlAliasData += '    <Map Name=\"ext-amazons329-method-searchbuckets\" Link=\"topics/workflows/connector-reference/awss3/actions/searchbuckets.htm\" ResolvedId=\"33064\" />';
 xmlAliasData += '    <Map Name=\"ext-amazons329-method-searchobjects\" Link=\"topics/workflows/connector-reference/awss3/actions/searchobjects.htm\" ResolvedId=\"33065\" />';
 xmlAliasData += '    <Map Name=\"ext-amazons329-method-tagobject\" Link=\"topics/workflows/connector-reference/awss3/actions/tagobject.htm\" ResolvedId=\"33066\" />';
+xmlAliasData += '    <Map Name=\"ext-amazons329-method-uploadobject\" Link=\"topics/workflows/connector-reference/awss3/actions/uploadobject.htm\" ResolvedId=\"33067\" />';
 xmlAliasData += '    <Map Name=\"ext-amazons329-misc-authorization\" Link=\"topics/workflows/connector-reference/awss3/overviews/authorization.htm\" ResolvedId=\"33068\" />';
 xmlAliasData += '    <Map Name=\"ext-applications-connections\" Link=\"topics/workflows/learn/about-applications-connections.htm\" ResolvedId=\"1336\" />';
 xmlAliasData += '    <Map Name=\"ext-asana\" Link=\"topics/workflows/connector-reference/asana/asana.htm\" ResolvedId=\"30010\" />';
