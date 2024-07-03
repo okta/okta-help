@@ -755,7 +755,6 @@ xmlAliasData += '    <Map Name=\"csh-ar-export\" Link=\"topics/identity-governan
 xmlAliasData += '    <Map Name=\"ext-third-party-cookies\" Link=\"topics/security/okta-allow-cookies.htm\" ResolvedId=\"18040\" />';
 xmlAliasData += '    <Map Name=\"ext-cstm-admin-roles\" Link=\"topics/security/custom-admin-role/custom-admin-roles.htm\" ResolvedId=\"19039\" />';
 xmlAliasData += '    <Map Name=\"ext-configure-mfa-policy\" Link=\"topics/security/policies/configure-mfa-policies.htm\" ResolvedId=\"14003\" />';
-xmlAliasData += '    <Map Name=\"csh-known-issues\" Link=\"topics/security/governance-admin-roles/get-started.htm#Initial\" ResolvedId=\"13046\" />';
 xmlAliasData += '    <Map Name=\"ext-telephony-inline-hook\" Link=\"topics/telephony/telephony-inline-hook.htm\" ResolvedId=\"14004\" />';
 xmlAliasData += '    <Map Name=\"csh-oce-relnotes-archive-2023\" Link=\"topics/releasenotes/archive/oce-relnotes-2023.htm\" ResolvedId=\"9996\" />';
 xmlAliasData += '    <Map Name=\"csh-oce-relnotes-archive-2022\" Link=\"topics/releasenotes/archive/oce-relnotes-2022.htm\" ResolvedId=\"9995\" />';
@@ -790,5 +789,6 @@ xmlAliasData += '    <Map Name=\"csh-pam-checkout-force-checkin\" Link=\"topics/
 xmlAliasData += '    <Map Name=\"ext-ver-hist-okta-hyperspace-agent\" Link=\"topics/settings/version_histories/ver_history_hyperspace_agent.htm\" ResolvedId=\"4004\" />';
 xmlAliasData += '    <Map Name=\"ext-ver-hist-okta-oam-adapter\" Link=\"topics/settings/version_histories/ver_history_mfa_for_oam_plugin.htm\" ResolvedId=\"4005\" />';
 xmlAliasData += '    <Map Name=\"ext-usgp-import-safeguard\" Link=\"topics/users-groups-profiles/usgp-import-safeguard.htm\" ResolvedId=\"6026\" />';
+xmlAliasData += '    <Map Name=\"ext-breached-passwords\" Link=\"topics/security/breached-password-protection/about-breached-password-protection.htm\" ResolvedId=\"6950\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
