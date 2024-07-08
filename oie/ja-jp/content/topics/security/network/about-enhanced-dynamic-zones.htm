@@ -298,7 +298,7 @@
                                                     <p>拡張動的ゾーンはブロックリストとして構成できます。ブロックリストでは、ゾーンに追加されたすべてのIPサービスカテゴリータイプ、ロケーション、ASNが認証前にブロックされます。</p>
                                                     <p>認証前にトラフィックをブロックすると、ネットワークゾーンで特定されたIPまたはネットワークから攻撃が開始された場合に、攻撃者がOktaのサインインページおよび登録ページにアクセスできなくなります。</p>
                                                     <p>拡張動的ゾーンはポリシーで使用できるように構成することもできます。ポリシーでゾーンを使用すると、ユーザーがサインインするときに満たされる必要がある条件がゾーンによって定義されます。</p>
-                                                    <p><span class="uicontrol">［Block all requests from anonymizers（アノニマイザーからのリクエストをすべてブロック）］</span>セルフサービス機能を有効にした場合、orgにはすべてのアノニマイザープロキシを含むデフォルトの拡張動的ゾーンがあります。デフォルトのゾーンはブロックリストにすることも、ポリシーで使用することもできます。このゾーンは削除または名前変更できません。また、このゾーンにロケーションやASNを追加することもできません。</p>
+                                                    <p><span class="uicontrol">［Block all requests from anonymizers（アノニマイザーからのリクエストをすべてブロック）］</span>セルフサービス機能を有効にした場合、orgにはすべてのアノニマイザープロキシを含むデフォルトの拡張動的ゾーンがあります。このゾーンは削除または名前の変更ができません。また、このゾーンにロケーションやASNを追加することもできません。</p>
                                                     <p>拡張動的ゾーンがブロックリストとして使用されている場合は、<span class="code">security.request.blocked</span>イベントがシステムログに表示されます。</p>
                                                     <h2><a name="IP-service-category"></a>IPサービスカテゴリー</h2>
                                                     <p>IPサービスカテゴリーとは、IPの使用方法に関連する特性に基づくIPの分類のことです。IPサービスカテゴリーには、VPN、プロキシ、アノニマイザー、Torなどが含まれます。これらはリクエストの発信元を曖昧にするために使用されます。</p>
@@ -357,9 +357,7 @@
                                                     <p>ASNはIPアドレスのネットワーク全体を表すため、ASNを指定すると、複数のIPアドレスのリストを入力せずにオーバーヘッドを低減できます。オンラインのASN Lookupツールを使用して、特定のIPアドレスのASNを検索できます。ASN Lookupツールの例については、<a href="https://dnschecker.org/" target="_blank">DNSChecker</a>を参照してください。</p>
                                                     <h2>拡張動的ゾーンの評価</h2>
                                                     <p><span class="mc-variable okta-variables.ProductName variable">Okta</span>は、拡張動的ゾーンの構成がリクエストの発信元となっているIPのロケーション、IPサービスカテゴリー、ASNと一致するかどうかを検証します。</p>
-                                                    <p>Oktaは、ロケーションとプロキシタイプの両方をASN条件と比較し、一致するかどうかを判断します。</p>
-                                                    <p>リクエストのIPチェーンに1つのIPアドレスが含まれている場合は、ロケーション、プロキシタイプ、またはASNを解決します。Oktaはこれらの値を動的ゾーンの構成と比較し、リクエストが動的ゾーンから発信されたかどうかを判断します。</p>
-                                                    <p>リクエストのIPチェーンに複数のIPアドレスが含まれている場合は、リクエスト元のクライアントIPを特定しようとします。</p>
+                                                    <p>リクエストのIPチェーンに複数のIPアドレスが含まれる場合、Oktaはリクエスト元のクライアントIPの特定を試みます。</p>
                                                     <h3>拡張動的ゾーンの評価例</h3>
                                                     <table style="border-spacing: 5px 5px;border-top-left-radius: 1px;border-top-right-radius: 1px;border-bottom-right-radius: 1px;border-bottom-left-radius: 1px;border-left-style: solid;border-left-width: 1px;border-left-color: #d3d3d3;border-right-style: solid;border-right-width: 1px;border-right-color: #d3d3d3;border-top-style: solid;border-top-width: 1px;border-top-color: #d3d3d3;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #d3d3d3;mc-table-style: url('../../../resources/tablestyles/standard.css');" class="TableStyle-standard" cellspacing="0">
                                                         <col class="TableStyle-standard-Column-Column1" />
@@ -428,7 +426,7 @@
                                                     <ul>
                                                         <li>IPチェーンの右側にあるIPアドレスがプロキシとして定義されていない場合、このアドレスはクライアントIPとしてマークされます。</li>
                                                         <li>IPチェーンの右側にあるIPアドレスがプロキシIPである場合、その左横にあるIPアドレスの評価は、プロキシではないIPが検出されるまで行われます。このIPはクライアントIPとしてマークされます。</li>
-                                                        <li>クライアントIPが特定されると、そのIPのジオロケーション、プロキシタイプ、ASNが解決され、そのゾーンに対して構成されたジオロケーション、プロキシタイプ、ASNと比較されます。値が一致すると、そのゾーン内からリクエストが送信されます。</li>
+                                                        <li>クライアントIPが特定されると、そのIPのジオロケーション、IPサービスカテゴリ、ASNが解決され、そのゾーン向けに構成されたジオロケーション、IPサービスカテゴリ、ASNと比較されます。値が一致すると、そのゾーン内からリクエストが送信されます。</li>
                                                     </ul>
                                                     <h2>関連項目</h2>
                                                     <p><a href="network-zones.htm" class="MCXref xref">ネットワークゾーン</a>
