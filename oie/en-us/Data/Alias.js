@@ -177,6 +177,7 @@ xmlAliasData += '    <Map Name=\"csh_custom_user_types\" Link=\"topics/users-gro
 xmlAliasData += '    <Map Name=\"csh_custom_user_types_about\" Link=\"topics/users-groups-profiles/usgp-usertypes-about.htm\" ResolvedId=\"1214\" />';
 xmlAliasData += '    <Map Name=\"csh_eDirectory\" Link=\"topics/directory/ldap-agent-manage-integration.htm\" ResolvedId=\"1178\" />';
 xmlAliasData += '    <Map Name=\"csh_FIDO2_WebAuthn\" Link=\"topics/identity-engine/authenticators/configure-webauthn.htm\" ResolvedId=\"1112\" />';
+xmlAliasData += '    <Map Name=\"csh_MFA_Reset\" Link=\"topics/security/mfa/mfa-reset-users.htm\" ResolvedId=\"1095\" />';
 xmlAliasData += '    <Map Name=\"csh_notification_enroll\" Link=\"topics/security/security_general.htm#SecurityNotificationEmails\" ResolvedId=\"1098\" />';
 xmlAliasData += '    <Map Name=\"csh_notification_new\" Link=\"topics/security/security_general.htm#SecurityNotificationEmails\" ResolvedId=\"1097\" />';
 xmlAliasData += '    <Map Name=\"csh_notification_reset\" Link=\"topics/security/security_general.htm#SecurityNotificationEmails\" ResolvedId=\"1099\" />';
@@ -429,7 +430,6 @@ xmlAliasData += '    <Map Name=\"ext_Directory_Profile_Editor_Tasks\" Link=\"top
 xmlAliasData += '    <Map Name=\"ext_Directory_Profile_Masters\" Link=\"topics/users-groups-profiles/usgp-about-profile-sourcing.htm\" ResolvedId=\"200070\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_Using_Group_Push\" Link=\"topics/users-groups-profiles/usgp-about-group-push.htm\" ResolvedId=\"200072\" />';
 xmlAliasData += '    <Map Name=\"ext_early_access\" Link=\"topics/releasenotes/early-access.htm\" ResolvedId=\"200138\" />';
-xmlAliasData += '    <Map Name=\"ext_end_user_states\" Link=\"topics/users-groups-profiles/usgp-end-user-states.htm\" ResolvedId=\"1118\" />';
 xmlAliasData += '    <Map Name=\"ext_expose_app_groups\" Link=\"topics/directory/ldap-interface-expose-groups.htm\" ResolvedId=\"15002\" />';
 xmlAliasData += '    <Map Name=\"ext_f5_radius_intg\" Link=\"topics/integrations/f5-radius-intg.htm\" ResolvedId=\"200087\" />';
 xmlAliasData += '    <Map Name=\"ext_fortinet_radius_intg\" Link=\"topics/integrations/fortinet-radius-intg.htm\" ResolvedId=\"200088\" />';
