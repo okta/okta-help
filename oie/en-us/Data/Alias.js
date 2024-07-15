@@ -846,5 +846,6 @@ xmlAliasData += '    <Map Name=\"ext-usgp-import-safeguard\" Link=\"topics/users
 xmlAliasData += '    <Map Name=\"ext-breached-passwords\" Link=\"topics/security/breached-password-protection/about-breached-password-protection.htm\" ResolvedId=\"6950\" />';
 xmlAliasData += '    <Map Name=\"current-assignments-report-deprecated\" Link=\"topics/reports/deprecated/current-assignments-report.htm\" ResolvedId=\"7007\" />';
 xmlAliasData += '    <Map Name=\"csh-certificate-based-authentication\" Link=\"topics/apps/office365/certificate-based-authentication.htm\" ResolvedId=\"1146\" />';
+xmlAliasData += '    <Map Name=\"ext-about-ednz\" Link=\"topics/security/network/about-enhanced-dynamic-zones.htm\" ResolvedId=\"19051\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
