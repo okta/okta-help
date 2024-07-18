@@ -1453,6 +1453,15 @@ xmlAliasData += '    <Map Name=\"ext-googledirectory-method-createroleassignment
 xmlAliasData += '    <Map Name=\"ext-googledirectory-method-deleteroleassignment\" Link=\"topics/workflows/connector-reference/googledirectory/actions/deleteroleassignment.htm\" ResolvedId=\"6201\" />';
 xmlAliasData += '    <Map Name=\"ext-googledirectory-method-listroles\" Link=\"topics/workflows/connector-reference/googledirectory/actions/listroles.htm\" ResolvedId=\"6202\" />';
 xmlAliasData += '    <Map Name=\"ext-googledirectory-method-searchroleassignments\" Link=\"topics/workflows/connector-reference/googledirectory/actions/searchroleassignments.htm\" ResolvedId=\"6203\" />';
+xmlAliasData += '    <Map Name=\"ext-access-control-home\" Link=\"topics/workflows/access-control/access-control.htm\" ResolvedId=\"6160\" />';
+xmlAliasData += '    <Map Name=\"ext-access-control-assign-wf-admin\" Link=\"topics/workflows/access-control/access-control-assign-wf-admin.htm\" ResolvedId=\"6162\" />';
+xmlAliasData += '    <Map Name=\"ext-access-control-assign-wf-app\" Link=\"topics/workflows/access-control/access-control-assign-wf-app.htm\" ResolvedId=\"6163\" />';
+xmlAliasData += '    <Map Name=\"ext-access-control-get-started\" Link=\"topics/workflows/access-control/access-control-get-started.htm\" ResolvedId=\"6164\" />';
+xmlAliasData += '    <Map Name=\"ext-access-control-manage-roles\" Link=\"topics/workflows/access-control/access-control-manage-roles.htm\" ResolvedId=\"6165\" />';
+xmlAliasData += '    <Map Name=\"ext-access-control-permission-changes\" Link=\"topics/workflows/access-control/access-control-permission-changes.htm\" ResolvedId=\"6166\" />';
+xmlAliasData += '    <Map Name=\"ext-access-control-resource-permissions\" Link=\"topics/workflows/access-control/access-control-resource-permissions.htm\" ResolvedId=\"6167\" />';
+xmlAliasData += '    <Map Name=\"ext-access-control-roles\" Link=\"topics/workflows/access-control/access-control-roles.htm\" ResolvedId=\"6168\" />';
+xmlAliasData += '    <Map Name=\"ext-access-control-scenario\" Link=\"topics/workflows/access-control/access-control-scenario.htm\" ResolvedId=\"6169\" />';
 xmlAliasData += '    <Map Name=\"ext-oktadevices-method-authenticatoractivated\" Link=\"topics/workflows/connector-reference/oktadevices/events/authenticatoractivated.htm\" ResolvedId=\"6179\" />';
 xmlAliasData += '    <Map Name=\"ext-oktadevices-method-authenticatordeactivated\" Link=\"topics/workflows/connector-reference/oktadevices/events/authenticatordeactivated.htm\" ResolvedId=\"6180\" />';
 xmlAliasData += '    <Map Name=\"ext-oktadevices-method-deviceactivated\" Link=\"topics/workflows/connector-reference/oktadevices/events/deviceactivated.htm\" ResolvedId=\"6181\" />';
@@ -1482,5 +1491,11 @@ xmlAliasData += '    <Map Name=\"ext-zoom-method-readuser\" Link=\"topics/workfl
 xmlAliasData += '    <Map Name=\"csh-log-streaming-procedure-main\" Link=\"topics/workflows/execute/log-streaming-procedure-main.htm\" ResolvedId=\"6185\" />';
 xmlAliasData += '    <Map Name=\"csh-log-streaming\" Link=\"topics/workflows/execute/log-streaming.htm\" ResolvedId=\"6186\" />';
 xmlAliasData += '    <Map Name=\"ext-url-delimiters-specialcharacters\" Link=\"topics/workflows/function-reference/url/delimiters-specialcharacters.htm\" ResolvedId=\"6187\" />';
+xmlAliasData += '    <Map Name=\"ext-servicenow-method-createtask\" Link=\"topics/workflows/connector-reference/servicenow/actions/createtask.htm\" ResolvedId=\"6191\" />';
+xmlAliasData += '    <Map Name=\"ext-servicenow-method-readtask\" Link=\"topics/workflows/connector-reference/servicenow/actions/readtask.htm\" ResolvedId=\"6192\" />';
+xmlAliasData += '    <Map Name=\"ext-servicenow-method-deletetask\" Link=\"topics/workflows/connector-reference/servicenow/actions/deletetask.htm\" ResolvedId=\"6188\" />';
+xmlAliasData += '    <Map Name=\"ext-servicenow-method-searchtasks\" Link=\"topics/workflows/connector-reference/servicenow/actions/searchtasks.htm\" ResolvedId=\"6189\" />';
+xmlAliasData += '    <Map Name=\"ext-servicenow-method-updatetask\" Link=\"topics/workflows/connector-reference/servicenow/actions/updatetask.htm\" ResolvedId=\"6193\" />';
+xmlAliasData += '    <Map Name=\"csh-access-control-home\" Link=\"topics/workflows/access-control/access-control.htm\" ResolvedId=\"6190\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
