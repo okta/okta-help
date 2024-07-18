@@ -119,6 +119,7 @@ xmlAliasData += '    <Map Name=\"csh-LDAP-deployment\" Link=\"topics/directory/l
 xmlAliasData += '    <Map Name=\"csh-limit-access-dashboard\" Link=\"topics/settings/new-end-user-dashboard.htm\" ResolvedId=\"7001\" />';
 xmlAliasData += '    <Map Name=\"csh-limit-admins\" Link=\"topics/security/healthinsight/limit-admins.htm\" ResolvedId=\"1182\" />';
 xmlAliasData += '    <Map Name=\"csh-log-streams\" Link=\"topics/reports/log-streaming/about-log-streams.htm\" ResolvedId=\"13005\" />';
+xmlAliasData += '    <Map Name=\"csh-syslog-filters\" Link=\"topics/reports/syslog-filters.htm\" ResolvedId=\"9985\" />';
 xmlAliasData += '    <Map Name=\"csh-mfa-enroll-report\" Link=\"topics/reports/mfa-enrollment-user-report.htm\" ResolvedId=\"9001\" />';
 xmlAliasData += '    <Map Name=\"csh-mfa-for-admins\" Link=\"topics/security/mfa/mfa-enable-admins.htm\" ResolvedId=\"1179\" />';
 xmlAliasData += '    <Map Name=\"csh-new-end-user-experience\" Link=\"topics/settings/new-end-user-experience.htm\" ResolvedId=\"7002\" />';
@@ -798,9 +799,7 @@ xmlAliasData += '    <Map Name=\"csh-oie-relnotes-archive-2023\" Link=\"topics/r
 xmlAliasData += '    <Map Name=\"csh-oie-relnotes-archive-2022\" Link=\"topics/releasenotes/archive/oie-relnotes-2022.htm\" ResolvedId=\"9998\" />';
 xmlAliasData += '    <Map Name=\"csh-oie-relnotes-archive-2021\" Link=\"topics/releasenotes/archive/oie-relnotes-2021.htm\" ResolvedId=\"9997\" />';
 xmlAliasData += '    <Map Name=\"csh-preenrolled-yubikey-main\" Link=\"topics/identity-engine/authenticators/onboard-with-preenrolled-yubikey.htm\" ResolvedId=\"14005\" />';
-xmlAliasData += '    <Map Name=\"csh-config-pr-flow\" Link=\"topics/identity-engine/authenticators/pr-configure-onboarding-flow.htm\" ResolvedId=\"14006\" />';
-xmlAliasData += '    <Map Name=\"csh-wf-yubikey-setup\" Link=\"topics/identity-engine/authenticators/pr-set-up-yubikey-flow.htm\" ResolvedId=\"14007\" />';
-xmlAliasData += '    <Map Name=\"csh-pr-onboard-users\" Link=\"topics/identity-engine/authenticators/pr-onboard-users-pr.htm\" ResolvedId=\"14008\" />';
+xmlAliasData += '    <Map Name=\"csh-config-pr-flow\" Link=\"topics/identity-engine/authenticators/pr-set-up-policies.htm\" ResolvedId=\"14006\" />';
 xmlAliasData += '    <Map Name=\"csh-pr-main\" Link=\"topics/architecture/pr/pr-overview.htm\" ResolvedId=\"14009\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-pe-policy\" Link=\"topics/identity-engine/policies/configure-profile-enrollment-policy.htm\" ResolvedId=\"5044\" />';
 xmlAliasData += '    <Map Name=\"ext-multiple-ids\" Link=\"topics/identity-engine/policies/multiple-identifiers.htm\" ResolvedId=\"5045\" />';
@@ -809,7 +808,6 @@ xmlAliasData += '    <Map Name=\"ext-add-apps-user-profile-policy\" Link=\"topic
 xmlAliasData += '    <Map Name=\"ext-create-api-token\" Link=\"topics/security/api.htm#create-okta-api-token\" ResolvedId=\"5048\" />';
 xmlAliasData += '    <Map Name=\"ext-pam-entitlement-aws-connect\" Link=\"topics/privileged-access/pam-entitlement-aws-connect.htm\" ResolvedId=\"1331\" />';
 xmlAliasData += '    <Map Name=\"csh-endz\" Link=\"topics/security/network/about-enhanced-dynamic-zones.htm\" ResolvedId=\"19040\" />';
-xmlAliasData += '    <Map Name=\"csh-ednz-ip-service-category\" Link=\"topics/security/network/about-enhanced-dynamic-zones.htm#IP-service-category\" ResolvedId=\"19041\" />';
 xmlAliasData += '    <Map Name=\"csh-create-endz\" Link=\"topics/security/network/create-enhanced-dynamic-zone.htm\" ResolvedId=\"19042\" />';
 xmlAliasData += '    <Map Name=\"ext-post-upgrade-validation-tests\" Link=\"topics/identity-engine-upgrade/self-service/test-plan.htm\" ResolvedId=\"19043\" />';
 xmlAliasData += '    <Map Name=\"ext-custom-sign-in-page\" Link=\"topics/identity-engine-upgrade/self-service/custom-sign-in-page.htm\" ResolvedId=\"19044\" />';
@@ -846,6 +844,7 @@ xmlAliasData += '    <Map Name=\"ext-usgp-import-safeguard\" Link=\"topics/users
 xmlAliasData += '    <Map Name=\"ext-breached-passwords\" Link=\"topics/security/breached-password-protection/about-breached-password-protection.htm\" ResolvedId=\"6950\" />';
 xmlAliasData += '    <Map Name=\"current-assignments-report-deprecated\" Link=\"topics/reports/deprecated/current-assignments-report.htm\" ResolvedId=\"7007\" />';
 xmlAliasData += '    <Map Name=\"csh-certificate-based-authentication\" Link=\"topics/apps/office365/certificate-based-authentication.htm\" ResolvedId=\"1146\" />';
-xmlAliasData += '    <Map Name=\"ext-about-ednz\" Link=\"topics/security/network/about-enhanced-dynamic-zones.htm\" ResolvedId=\"19051\" />';
+xmlAliasData += '    <Map Name=\"csh-org2org-intg\" Link=\"topics/provisioning/org2org/org2org-integrate.htm\" ResolvedId=\"16029\" />';
+xmlAliasData += '    <Map Name=\"csh-org2org-intg-provisioning\" Link=\"topics/provisioning/org2org/org2org-integrate.htm#Use2\" ResolvedId=\"16030\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
