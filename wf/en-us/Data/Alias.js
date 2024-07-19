@@ -1488,8 +1488,8 @@ xmlAliasData += '    <Map Name=\"ext-openai-method-createchatcompletionse1hargsj
 xmlAliasData += '    <Map Name=\"ext-oktadevices-method-searchdevices\" Link=\"topics/workflows/connector-reference/oktadevices/actions/searchdevices.htm\" ResolvedId=\"6113\" />';
 xmlAliasData += '    <Map Name=\"ext-zoom-method-readgroup\" Link=\"topics/workflows/connector-reference/zoom/actions/readgroup.htm\" ResolvedId=\"6183\" />';
 xmlAliasData += '    <Map Name=\"ext-zoom-method-readuser\" Link=\"topics/workflows/connector-reference/zoom/actions/readuser.htm\" ResolvedId=\"6184\" />';
-xmlAliasData += '    <Map Name=\"csh-log-streaming-procedure-main\" Link=\"topics/workflows/execute/log-streaming-procedure-main.htm\" ResolvedId=\"6185\" />';
-xmlAliasData += '    <Map Name=\"csh-log-streaming\" Link=\"topics/workflows/execute/log-streaming.htm\" ResolvedId=\"6186\" />';
+xmlAliasData += '    <Map Name=\"ext-log-streaming-procedure-main\" Link=\"topics/workflows/execute/log-streaming-procedure-main.htm\" ResolvedId=\"6185\" />';
+xmlAliasData += '    <Map Name=\"ext-log-streaming\" Link=\"topics/workflows/execute/log-streaming.htm\" ResolvedId=\"6186\" />';
 xmlAliasData += '    <Map Name=\"ext-url-delimiters-specialcharacters\" Link=\"topics/workflows/function-reference/url/delimiters-specialcharacters.htm\" ResolvedId=\"6187\" />';
 xmlAliasData += '    <Map Name=\"ext-servicenow-method-createtask\" Link=\"topics/workflows/connector-reference/servicenow/actions/createtask.htm\" ResolvedId=\"6191\" />';
 xmlAliasData += '    <Map Name=\"ext-servicenow-method-readtask\" Link=\"topics/workflows/connector-reference/servicenow/actions/readtask.htm\" ResolvedId=\"6192\" />';
