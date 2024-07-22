@@ -850,5 +850,10 @@ xmlAliasData += '    <Map Name=\"csh-org2org-intg\" Link=\"topics/provisioning/o
 xmlAliasData += '    <Map Name=\"csh-org2org-intg-provisioning\" Link=\"topics/provisioning/org2org/org2org-integrate.htm#Use2\" ResolvedId=\"16030\" />';
 xmlAliasData += '    <Map Name=\"csh-managed-app-macos\" Link=\"topics/identity-engine/devices/managed-app-configs-macos.htm\" ResolvedId=\"3013\" />';
 xmlAliasData += '    <Map Name=\"csh-device-access-scep\" Link=\"topics/oda/oda-as-scep.htm\" ResolvedId=\"3014\" />';
+xmlAliasData += '    <Map Name=\"ext-oamp-enroll-first\" Link=\"topics/identity-engine/policies/add-app-sign-on-policy-rule.htm\" ResolvedId=\"5051\" />';
+xmlAliasData += '    <Map Name=\"ext-oamp-enroll-pr-auth\" Link=\"topics/identity-engine/policies/add-app-sign-on-policy-rule.htm\" ResolvedId=\"5052\" />';
+xmlAliasData += '    <Map Name=\"ext-oamp-recovery\" Link=\"topics/identity-engine/policies/add-app-sign-on-policy-rule.htm\" ResolvedId=\"5053\" />';
+xmlAliasData += '    <Map Name=\"ext-oamp\" Link=\"topics/identity-engine/policies/add-app-sign-on-policy-rule.htm\" ResolvedId=\"5054\" />';
+xmlAliasData += '    <Map Name=\"ext-uep\" Link=\"topics/security/security_general.htm#UserEnumeration\" ResolvedId=\"5055\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
