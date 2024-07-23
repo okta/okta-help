@@ -795,5 +795,7 @@ xmlAliasData += '    <Map Name=\"ext-administrators-workflows-admin\" Link=\"top
 xmlAliasData += '    <Map Name=\"ext-about-ednz\" Link=\"topics/security/network/supported-ip-service-categories.htm\" ResolvedId=\"19051\" />';
 xmlAliasData += '    <Map Name=\"csh-org2org-intg\" Link=\"topics/provisioning/org2org/org2org-integrate.htm\" ResolvedId=\"16029\" />';
 xmlAliasData += '    <Map Name=\"csh-org2org-intg-provisioning\" Link=\"topics/provisioning/org2org/org2org-integrate.htm#Use2\" ResolvedId=\"16030\" />';
+xmlAliasData += '    <Map Name=\"ext-pam-sudo-commands\" Link=\"topics/privileged-access/pam-sudo-commands.htm\" ResolvedId=\"1335\" />';
+xmlAliasData += '    <Map Name=\"csh-pam-sudo-commands\" Link=\"topics/privileged-access/pam-sudo-commands.htm\" ResolvedId=\"1336\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
