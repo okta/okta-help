@@ -855,5 +855,7 @@ xmlAliasData += '    <Map Name=\"ext-oamp-enroll-pr-auth\" Link=\"topics/identit
 xmlAliasData += '    <Map Name=\"ext-oamp-recovery\" Link=\"topics/identity-engine/policies/add-app-sign-on-policy-rule.htm\" ResolvedId=\"5053\" />';
 xmlAliasData += '    <Map Name=\"ext-oamp\" Link=\"topics/identity-engine/policies/add-app-sign-on-policy-rule.htm\" ResolvedId=\"5054\" />';
 xmlAliasData += '    <Map Name=\"ext-uep\" Link=\"topics/security/security_general.htm#UserEnumeration\" ResolvedId=\"5055\" />';
+xmlAliasData += '    <Map Name=\"ext-pam-sudo-commands\" Link=\"topics/privileged-access/pam-sudo-commands.htm\" ResolvedId=\"1335\" />';
+xmlAliasData += '    <Map Name=\"csh-pam-sudo-commands\" Link=\"topics/privileged-access/pam-sudo-commands.htm\" ResolvedId=\"1336\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
