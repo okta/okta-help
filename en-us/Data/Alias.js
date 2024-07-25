@@ -118,6 +118,7 @@ xmlAliasData += '    <Map Name=\"csh-LDAP-deployment\" Link=\"topics/directory/l
 xmlAliasData += '    <Map Name=\"csh-limit-access-dashboard\" Link=\"topics/settings/new-end-user-dashboard.htm\" ResolvedId=\"7001\" />';
 xmlAliasData += '    <Map Name=\"csh-limit-admins\" Link=\"topics/security/healthinsight/limit-admins.htm\" ResolvedId=\"1182\" />';
 xmlAliasData += '    <Map Name=\"csh-log-streams\" Link=\"topics/reports/log-streaming/about-log-streams.htm\" ResolvedId=\"13005\" />';
+xmlAliasData += '    <Map Name=\"csh-syslog-filters\" Link=\"topics/reports/syslog-filters.htm\" ResolvedId=\"9985\" />';
 xmlAliasData += '    <Map Name=\"csh-mfa-enroll-report\" Link=\"topics/reports/mfa-enrollment-user-report.htm\" ResolvedId=\"9001\" />';
 xmlAliasData += '    <Map Name=\"csh-mfa-for-admins\" Link=\"topics/security/mfa/mfa-enable-admins.htm\" ResolvedId=\"1179\" />';
 xmlAliasData += '    <Map Name=\"csh-mfa-home\" Link=\"topics/security/mfa/mfa-home.htm\" ResolvedId=\"18011\" />';
@@ -488,8 +489,6 @@ xmlAliasData += '    <Map Name=\"ext_ref_apps_events\" Link=\"topics/reference/r
 xmlAliasData += '    <Map Name=\"ext_ref_email_variables\" Link=\"topics/settings/velocity-variables.htm\" ResolvedId=\"200183\" />';
 xmlAliasData += '    <Map Name=\"ext_ref_supported_languages\" Link=\"topics/reference/ref-supported-languages.htm\" ResolvedId=\"200134\" />';
 xmlAliasData += '    <Map Name=\"ext_Reference_Directories\" Link=\"topics/directory/reference_directories.htm\" ResolvedId=\"200081\" />';
-xmlAliasData += '    <Map Name=\"ext_Reports\" Link=\"topics/reports/reports.htm\" ResolvedId=\"200143\" />';
-xmlAliasData += '    <Map Name=\"ext_Reports_RogueAccounts\" Link=\"topics/reports/reports.htm\" ResolvedId=\"200144\" />';
 xmlAliasData += '    <Map Name=\"ext_Reports_SysLog\" Link=\"topics/reports/reports_syslog.htm\" ResolvedId=\"200145\" />';
 xmlAliasData += '    <Map Name=\"ext_sar\" Link=\"topics/security/suspicious-activity-reporting.htm\" ResolvedId=\"1211\" />';
 xmlAliasData += '    <Map Name=\"ext_secpol_configpp\" Link=\"topics/security/policies/configure-password-policies.htm#Configur\" ResolvedId=\"1124\" />';
@@ -511,6 +510,7 @@ xmlAliasData += '    <Map Name=\"ext_Security_Network\" Link=\"topics/security/n
 xmlAliasData += '    <Map Name=\"ext_Security_Policies\" Link=\"topics/security/policies/policies-home.htm\" ResolvedId=\"200173\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_Using_Sync_Password\" Link=\"topics/directory/security_using_sync_password.htm\" ResolvedId=\"200174\" />';
 xmlAliasData += '    <Map Name=\"ext_self_service_registration_policy\" Link=\"topics/users-groups-profiles/usgp-self-service-registration.htm\" ResolvedId=\"1287\" />';
+xmlAliasData += '    <Map Name=\"ext_Settings\" Link=\"topics/settings/customizations-index.htm\" ResolvedId=\"200184\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Account\" Link=\"topics/settings/settings_account.htm\" ResolvedId=\"200185\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Add_Custom_Email_Templates_Multiple_Languages\" Link=\"topics/settings/settings_email.htm#Add\" ResolvedId=\"200186\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Configure_A_Custom_Email_Domain\" Link=\"topics/settings/settings_configure_a_custom_email_domain.htm\" ResolvedId=\"200188\" />';
@@ -754,7 +754,7 @@ xmlAliasData += '    <Map Name=\"csh-ar-export\" Link=\"topics/identity-governan
 xmlAliasData += '    <Map Name=\"ext-third-party-cookies\" Link=\"topics/security/okta-allow-cookies.htm\" ResolvedId=\"18040\" />';
 xmlAliasData += '    <Map Name=\"ext-cstm-admin-roles\" Link=\"topics/security/custom-admin-role/custom-admin-roles.htm\" ResolvedId=\"19039\" />';
 xmlAliasData += '    <Map Name=\"ext-configure-mfa-policy\" Link=\"topics/security/policies/configure-mfa-policies.htm\" ResolvedId=\"14003\" />';
-xmlAliasData += '    <Map Name=\"csh-known-issues\" Link=\"topics/security/governance-admin-roles/get-started.htm#Initial\" ResolvedId=\"13046\" />';
+xmlAliasData += '    <Map Name=\"csh-administrators-workflows-admin\" Link=\"topics/security/administrators-workflow-admin.htm\" ResolvedId=\"6025\" />';
 xmlAliasData += '    <Map Name=\"ext-telephony-inline-hook\" Link=\"topics/telephony/telephony-inline-hook.htm\" ResolvedId=\"14004\" />';
 xmlAliasData += '    <Map Name=\"csh-oce-relnotes-archive-2023\" Link=\"topics/releasenotes/archive/oce-relnotes-2023.htm\" ResolvedId=\"9996\" />';
 xmlAliasData += '    <Map Name=\"csh-oce-relnotes-archive-2022\" Link=\"topics/releasenotes/archive/oce-relnotes-2022.htm\" ResolvedId=\"9995\" />';
@@ -766,7 +766,7 @@ xmlAliasData += '    <Map Name=\"csh-oce-relnotes-archive-2017\" Link=\"topics/r
 xmlAliasData += '    <Map Name=\"ext-create-api-token\" Link=\"topics/security/api.htm#create-okta-api-token\" ResolvedId=\"5048\" />';
 xmlAliasData += '    <Map Name=\"ext-pam-entitlement-aws-connect\" Link=\"topics/privileged-access/pam-entitlement-aws-connect.htm\" ResolvedId=\"1331\" />';
 xmlAliasData += '    <Map Name=\"csh-endz\" Link=\"topics/security/network/about-enhanced-dynamic-zones.htm\" ResolvedId=\"19040\" />';
-xmlAliasData += '    <Map Name=\"csh-ednz-ip-service-category\" Link=\"topics/security/network/about-enhanced-dynamic-zones.htm#IP-service-category\" ResolvedId=\"19041\" />';
+xmlAliasData += '    <Map Name=\"csh-ednz-ip-service-category\" Link=\"topics/security/network/supported-ip-service-categories.htm\" ResolvedId=\"19041\" />';
 xmlAliasData += '    <Map Name=\"csh-create-endz\" Link=\"topics/security/network/create-enhanced-dynamic-zone.htm\" ResolvedId=\"19042\" />';
 xmlAliasData += '    <Map Name=\"ext-apps-deactivate\" Link=\"topics/apps/apps-deactivate.htm\" ResolvedId=\"19047\" />';
 xmlAliasData += '    <Map Name=\"csh-breached-password\" Link=\"topics/security/breached-password-protection/about-breached-password-protection.htm\" ResolvedId=\"18042\" />';
@@ -788,5 +788,14 @@ xmlAliasData += '    <Map Name=\"csh-pam-checkout-configure\" Link=\"topics/priv
 xmlAliasData += '    <Map Name=\"csh-pam-checkout-force-checkin\" Link=\"topics/privileged-access/pam-checkout-force-checkin.htm\" ResolvedId=\"1336\" />';
 xmlAliasData += '    <Map Name=\"ext-ver-hist-okta-hyperspace-agent\" Link=\"topics/settings/version_histories/ver_history_hyperspace_agent.htm\" ResolvedId=\"4004\" />';
 xmlAliasData += '    <Map Name=\"ext-ver-hist-okta-oam-adapter\" Link=\"topics/settings/version_histories/ver_history_mfa_for_oam_plugin.htm\" ResolvedId=\"4005\" />';
+xmlAliasData += '    <Map Name=\"ext-usgp-import-safeguard\" Link=\"topics/users-groups-profiles/usgp-import-safeguard.htm\" ResolvedId=\"6026\" />';
+xmlAliasData += '    <Map Name=\"ext-breached-passwords\" Link=\"topics/security/breached-password-protection/about-breached-password-protection.htm\" ResolvedId=\"6950\" />';
+xmlAliasData += '    <Map Name=\"current-assignments-report-deprecated\" Link=\"topics/reports/deprecated/current-assignments-report.htm\" ResolvedId=\"7007\" />';
+xmlAliasData += '    <Map Name=\"ext-administrators-workflows-admin\" Link=\"topics/security/administrators-workflow-admin.htm\" ResolvedId=\"6027\" />';
+xmlAliasData += '    <Map Name=\"ext-about-ednz\" Link=\"topics/security/network/supported-ip-service-categories.htm\" ResolvedId=\"19051\" />';
+xmlAliasData += '    <Map Name=\"csh-org2org-intg\" Link=\"topics/provisioning/org2org/org2org-integrate.htm\" ResolvedId=\"16029\" />';
+xmlAliasData += '    <Map Name=\"csh-org2org-intg-provisioning\" Link=\"topics/provisioning/org2org/org2org-integrate.htm#Use2\" ResolvedId=\"16030\" />';
+xmlAliasData += '    <Map Name=\"ext-pam-sudo-commands\" Link=\"topics/privileged-access/pam-sudo-commands.htm\" ResolvedId=\"1335\" />';
+xmlAliasData += '    <Map Name=\"csh-pam-sudo-commands\" Link=\"topics/privileged-access/pam-sudo-commands.htm\" ResolvedId=\"1336\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
