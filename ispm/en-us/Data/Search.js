@@ -1,1 +1,1 @@
-define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../content/topics/ispm/atlassian-jira.htm'],s:['+'],p:[['+',9]]});
+define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../content/topics/ispm/config-sso.htm'],s:['+'],p:[['+',2]]});
