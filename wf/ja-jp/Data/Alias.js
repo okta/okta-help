@@ -58,6 +58,7 @@ xmlAliasData += '    <Map Name=\"ext-amazons329-method-readobjecttags\" Link=\"t
 xmlAliasData += '    <Map Name=\"ext-amazons329-method-searchbuckets\" Link=\"topics/workflows/connector-reference/awss3/actions/searchbuckets.htm\" ResolvedId=\"33064\" />';
 xmlAliasData += '    <Map Name=\"ext-amazons329-method-searchobjects\" Link=\"topics/workflows/connector-reference/awss3/actions/searchobjects.htm\" ResolvedId=\"33065\" />';
 xmlAliasData += '    <Map Name=\"ext-amazons329-method-tagobject\" Link=\"topics/workflows/connector-reference/awss3/actions/tagobject.htm\" ResolvedId=\"33066\" />';
+xmlAliasData += '    <Map Name=\"ext-amazons329-method-uploadobject\" Link=\"topics/workflows/connector-reference/awss3/actions/uploadobject.htm\" ResolvedId=\"33067\" />';
 xmlAliasData += '    <Map Name=\"ext-amazons329-misc-authorization\" Link=\"topics/workflows/connector-reference/awss3/overviews/authorization.htm\" ResolvedId=\"33068\" />';
 xmlAliasData += '    <Map Name=\"ext-applications-connections\" Link=\"topics/workflows/learn/about-applications-connections.htm\" ResolvedId=\"1336\" />';
 xmlAliasData += '    <Map Name=\"ext-asana\" Link=\"topics/workflows/connector-reference/asana/asana.htm\" ResolvedId=\"30010\" />';
@@ -927,7 +928,7 @@ xmlAliasData += '    <Map Name=\"ext-okta-method-usersignedout\" Link=\"topics/w
 xmlAliasData += '    <Map Name=\"ext-okta-method-usersuspended\" Link=\"topics/workflows/connector-reference/okta/events/usersuspended.htm\" ResolvedId=\"30471\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-userunsuspended\" Link=\"topics/workflows/connector-reference/okta/events/userunsuspended.htm\" ResolvedId=\"30472\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-misc-authorization\" Link=\"topics/workflows/connector-reference/okta/overviews/authorization.htm\" ResolvedId=\"30473\" />';
-xmlAliasData += '    <Map Name=\"ext-okta-misc-revoke\" Link=\"topics/workflows/connector-reference/okta/overviews/revoke.htm\" ResolvedId=\"30474\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-misc-revoke\" Link=\"topics/workflows/connector-reference/okta/okta.htm#Revoke\" ResolvedId=\"30474\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-workflows\" Link=\"topics/workflows/workflows-main.htm\" ResolvedId=\"1228\" />';
 xmlAliasData += '    <Map Name=\"ext-onedrive\" Link=\"topics/workflows/connector-reference/onedrive/onedrive.htm\" ResolvedId=\"33048\" />';
 xmlAliasData += '    <Map Name=\"ext-onedrive-method-createfolder\" Link=\"topics/workflows/connector-reference/onedrive/actions/createfolder.htm\" ResolvedId=\"33036\" />';
@@ -1478,5 +1479,6 @@ xmlAliasData += '    <Map Name=\"ext-openai-method-createchatcompletionse1hargsj
 xmlAliasData += '    <Map Name=\"ext-oktadevices-method-searchdevices\" Link=\"topics/workflows/connector-reference/oktadevices/actions/searchdevices.htm\" ResolvedId=\"6113\" />';
 xmlAliasData += '    <Map Name=\"ext-zoom-method-readgroup\" Link=\"topics/workflows/connector-reference/zoom/actions/readgroup.htm\" ResolvedId=\"6183\" />';
 xmlAliasData += '    <Map Name=\"ext-zoom-method-readuser\" Link=\"topics/workflows/connector-reference/zoom/actions/readuser.htm\" ResolvedId=\"6184\" />';
+xmlAliasData += '    <Map Name=\"ext-url-delimiters-specialcharacters\" Link=\"topics/workflows/function-reference/url/delimiters-specialcharacters.htm\" ResolvedId=\"6185\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
