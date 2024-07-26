@@ -177,6 +177,7 @@ xmlAliasData += '    <Map Name=\"csh_custom_user_types\" Link=\"topics/users-gro
 xmlAliasData += '    <Map Name=\"csh_custom_user_types_about\" Link=\"topics/users-groups-profiles/usgp-usertypes-about.htm\" ResolvedId=\"1214\" />';
 xmlAliasData += '    <Map Name=\"csh_eDirectory\" Link=\"topics/directory/ldap-agent-manage-integration.htm\" ResolvedId=\"1178\" />';
 xmlAliasData += '    <Map Name=\"csh_FIDO2_WebAuthn\" Link=\"topics/identity-engine/authenticators/configure-webauthn.htm\" ResolvedId=\"1112\" />';
+xmlAliasData += '    <Map Name=\"csh_MFA_Reset\" Link=\"topics/security/mfa/mfa-reset-users.htm\" ResolvedId=\"1095\" />';
 xmlAliasData += '    <Map Name=\"csh_notification_enroll\" Link=\"topics/security/security_general.htm#SecurityNotificationEmails\" ResolvedId=\"1098\" />';
 xmlAliasData += '    <Map Name=\"csh_notification_new\" Link=\"topics/security/security_general.htm#SecurityNotificationEmails\" ResolvedId=\"1097\" />';
 xmlAliasData += '    <Map Name=\"csh_notification_reset\" Link=\"topics/security/security_general.htm#SecurityNotificationEmails\" ResolvedId=\"1099\" />';
@@ -429,7 +430,6 @@ xmlAliasData += '    <Map Name=\"ext_Directory_Profile_Editor_Tasks\" Link=\"top
 xmlAliasData += '    <Map Name=\"ext_Directory_Profile_Masters\" Link=\"topics/users-groups-profiles/usgp-about-profile-sourcing.htm\" ResolvedId=\"200070\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_Using_Group_Push\" Link=\"topics/users-groups-profiles/usgp-about-group-push.htm\" ResolvedId=\"200072\" />';
 xmlAliasData += '    <Map Name=\"ext_early_access\" Link=\"topics/releasenotes/early-access.htm\" ResolvedId=\"200138\" />';
-xmlAliasData += '    <Map Name=\"ext_end_user_states\" Link=\"topics/users-groups-profiles/usgp-end-user-states.htm\" ResolvedId=\"1118\" />';
 xmlAliasData += '    <Map Name=\"ext_expose_app_groups\" Link=\"topics/directory/ldap-interface-expose-groups.htm\" ResolvedId=\"15002\" />';
 xmlAliasData += '    <Map Name=\"ext_f5_radius_intg\" Link=\"topics/integrations/f5-radius-intg.htm\" ResolvedId=\"200087\" />';
 xmlAliasData += '    <Map Name=\"ext_fortinet_radius_intg\" Link=\"topics/integrations/fortinet-radius-intg.htm\" ResolvedId=\"200088\" />';
@@ -793,7 +793,6 @@ xmlAliasData += '    <Map Name=\"csh-ar-export\" Link=\"topics/identity-governan
 xmlAliasData += '    <Map Name=\"ext-third-party-cookies\" Link=\"topics/security/okta-allow-cookies.htm\" ResolvedId=\"18040\" />';
 xmlAliasData += '    <Map Name=\"ext-cstm-admin-roles\" Link=\"topics/security/custom-admin-role/custom-admin-roles.htm\" ResolvedId=\"19039\" />';
 xmlAliasData += '    <Map Name=\"csh-multiple-ids\" Link=\"topics/identity-engine/policies/multiple-identifiers.htm\" ResolvedId=\"5043\" />';
-xmlAliasData += '    <Map Name=\"csh-known-issues\" Link=\"topics/security/governance-admin-roles/get-started.htm#Initial\" ResolvedId=\"13046\" />';
 xmlAliasData += '    <Map Name=\"ext-telephony-inline-hook\" Link=\"topics/telephony/telephony-inline-hook.htm\" ResolvedId=\"14004\" />';
 xmlAliasData += '    <Map Name=\"csh-oie-relnotes-archive-2023\" Link=\"topics/releasenotes/archive/oie-relnotes-2023.htm\" ResolvedId=\"9999\" />';
 xmlAliasData += '    <Map Name=\"csh-oie-relnotes-archive-2022\" Link=\"topics/releasenotes/archive/oie-relnotes-2022.htm\" ResolvedId=\"9998\" />';
@@ -843,5 +842,10 @@ xmlAliasData += '    <Map Name=\"csh-account-management-policy\" Link=\"topics/i
 xmlAliasData += '    <Map Name=\"csh-itp-ul\" Link=\"topics/itp/universal-logout.htm\" ResolvedId=\"18044\" />';
 xmlAliasData += '    <Map Name=\"ext-ver-hist-okta-hyperspace-agent\" Link=\"topics/settings/version_histories/ver_history_hyperspace_agent.htm\" ResolvedId=\"4004\" />';
 xmlAliasData += '    <Map Name=\"ext-ver-hist-okta-oam-adapter\" Link=\"topics/settings/version_histories/ver_history_mfa_for_oam_plugin.htm\" ResolvedId=\"4005\" />';
+xmlAliasData += '    <Map Name=\"ext-usgp-import-safeguard\" Link=\"topics/users-groups-profiles/usgp-import-safeguard.htm\" ResolvedId=\"6026\" />';
+xmlAliasData += '    <Map Name=\"ext-breached-passwords\" Link=\"topics/security/breached-password-protection/about-breached-password-protection.htm\" ResolvedId=\"6950\" />';
+xmlAliasData += '    <Map Name=\"current-assignments-report-deprecated\" Link=\"topics/reports/deprecated/current-assignments-report.htm\" ResolvedId=\"7007\" />';
+xmlAliasData += '    <Map Name=\"csh-certificate-based-authentication\" Link=\"topics/apps/office365/certificate-based-authentication.htm\" ResolvedId=\"1146\" />';
+xmlAliasData += '    <Map Name=\"ext-about-ednz\" Link=\"topics/security/network/about-enhanced-dynamic-zones.htm\" ResolvedId=\"19051\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
