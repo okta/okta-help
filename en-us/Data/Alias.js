@@ -1,11 +1,4 @@
 var xmlAliasData = "";
 xmlAliasData += '<?xml version=\"1.0\" encoding=\"utf-8\"?>';
-xmlAliasData += '<CatapultAliasFile>';
-xmlAliasData += '    <Map Name=\"csh-oce\" Link=\"index-admin.htm\" ResolvedId=\"1109\" />';
-xmlAliasData += '    <Map Name=\"ext-admin-landing\" Link=\"index-admin.htm\" ResolvedId=\"1407\" />';
-xmlAliasData += '    <Map Name=\"ext-iga\" Link=\"topics/identity-governance/iga.htm\" ResolvedId=\"13015\" />';
-xmlAliasData += '    <Map Name=\"ext_Security\" Link=\"topics/security/security_at_okta.htm\" ResolvedId=\"200167\" />';
-xmlAliasData += '    <Map Name=\"ext_Security_at_Okta\" Link=\"topics/security/security_at_okta.htm\" ResolvedId=\"200168\" />';
-xmlAliasData += '    <Map Name=\"ext_Settings\" Link=\"topics/settings/customizations-index.htm\" ResolvedId=\"200184\" />';
-xmlAliasData += '</CatapultAliasFile>';
+xmlAliasData += '<CatapultAliasFile />';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);

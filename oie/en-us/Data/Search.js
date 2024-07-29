@@ -1,1 +1,1 @@
-define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../content/topics/identity-engine/authenticators/authentication-main.htm'],s:['10'],p:[['10',6]]});
+define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../content/topics/identity-engine/authenticators/authentication-main.htm'],s:['1'],p:[['1',10]]});
