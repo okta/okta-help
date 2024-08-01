@@ -837,7 +837,7 @@ xmlAliasData += '    <Map Name=\"ext-usgp-app-group-priority\" Link=\"topics/use
 xmlAliasData += '    <Map Name=\"ext-usgp-combine-values-use\" Link=\"topics/users-groups-profiles/usgp-combine-values-use.htm\" ResolvedId=\"19050\" />';
 xmlAliasData += '    <Map Name=\"csh-pam-checkout-configure\" Link=\"topics/privileged-access/pam-configure-checkout.htm\" ResolvedId=\"1335\" />';
 xmlAliasData += '    <Map Name=\"csh-pam-checkout-force-checkin\" Link=\"topics/privileged-access/pam-checkout-force-checkin.htm\" ResolvedId=\"1336\" />';
-xmlAliasData += '    <Map Name=\"csh-account-management-policy\" Link=\"topics/identity-engine/policies/create-auth-policy.htm\" ResolvedId=\"5050\" />';
+xmlAliasData += '    <Map Name=\"csh-account-management-policy\" Link=\"topics/identity-engine/policies/oamp.htm\" ResolvedId=\"5050\" />';
 xmlAliasData += '    <Map Name=\"csh-itp-ul\" Link=\"topics/itp/universal-logout.htm\" ResolvedId=\"18044\" />';
 xmlAliasData += '    <Map Name=\"ext-ver-hist-okta-hyperspace-agent\" Link=\"topics/settings/version_histories/ver_history_hyperspace_agent.htm\" ResolvedId=\"4004\" />';
 xmlAliasData += '    <Map Name=\"ext-ver-hist-okta-oam-adapter\" Link=\"topics/settings/version_histories/ver_history_mfa_for_oam_plugin.htm\" ResolvedId=\"4005\" />';
@@ -850,12 +850,15 @@ xmlAliasData += '    <Map Name=\"csh-org2org-intg\" Link=\"topics/provisioning/o
 xmlAliasData += '    <Map Name=\"csh-org2org-intg-provisioning\" Link=\"topics/provisioning/org2org/org2org-integrate.htm#Use2\" ResolvedId=\"16030\" />';
 xmlAliasData += '    <Map Name=\"csh-managed-app-macos\" Link=\"topics/identity-engine/devices/managed-app-configs-macos.htm\" ResolvedId=\"3013\" />';
 xmlAliasData += '    <Map Name=\"csh-device-access-scep\" Link=\"topics/oda/oda-as-scep.htm\" ResolvedId=\"3014\" />';
-xmlAliasData += '    <Map Name=\"ext-oamp-enroll-first\" Link=\"topics/identity-engine/policies/add-app-sign-on-policy-rule.htm\" ResolvedId=\"5051\" />';
-xmlAliasData += '    <Map Name=\"ext-oamp-enroll-pr-auth\" Link=\"topics/identity-engine/policies/add-app-sign-on-policy-rule.htm\" ResolvedId=\"5052\" />';
-xmlAliasData += '    <Map Name=\"ext-oamp-recovery\" Link=\"topics/identity-engine/policies/add-app-sign-on-policy-rule.htm\" ResolvedId=\"5053\" />';
-xmlAliasData += '    <Map Name=\"ext-oamp\" Link=\"topics/identity-engine/policies/add-app-sign-on-policy-rule.htm\" ResolvedId=\"5054\" />';
+xmlAliasData += '    <Map Name=\"ext-pam-setup\" Link=\"topics/privileged-access/pam-setup.htm\" ResolvedId=\"8013\" />';
+xmlAliasData += '    <Map Name=\"ext-pam-service-users\" Link=\"topics/privileged-access/pam-service-users.htm\" ResolvedId=\"6028\" />';
+xmlAliasData += '    <Map Name=\"ext-oamp-enroll-first\" Link=\"topics/identity-engine/policies/oamp-configure-first-pr-enrollment.htm\" ResolvedId=\"5051\" />';
+xmlAliasData += '    <Map Name=\"ext-oamp-enroll-pr-auth\" Link=\"topics/identity-engine/policies/oamp-configure-enroll.htm\" ResolvedId=\"5052\" />';
+xmlAliasData += '    <Map Name=\"ext-oamp-recovery\" Link=\"topics/identity-engine/policies/oamp-configure-account-recovery.htm\" ResolvedId=\"5053\" />';
+xmlAliasData += '    <Map Name=\"ext-oamp\" Link=\"topics/identity-engine/policies/oamp.htm\" ResolvedId=\"5054\" />';
 xmlAliasData += '    <Map Name=\"ext-uep\" Link=\"topics/security/security_general.htm#UserEnumeration\" ResolvedId=\"5055\" />';
 xmlAliasData += '    <Map Name=\"ext-pam-sudo-commands\" Link=\"topics/privileged-access/pam-sudo-commands.htm\" ResolvedId=\"1335\" />';
 xmlAliasData += '    <Map Name=\"csh-pam-sudo-commands\" Link=\"topics/privileged-access/pam-sudo-commands.htm\" ResolvedId=\"1336\" />';
+xmlAliasData += '    <Map Name=\"csh-user-interaction-options\" Link=\"topics/identity-engine/policies/new-user-interaction-options.htm\" ResolvedId=\"14011\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
