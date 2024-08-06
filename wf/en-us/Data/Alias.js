@@ -1481,7 +1481,7 @@ xmlAliasData += '    <Map Name=\"ext-oktadevices-method-usermfafactordeactivated
 xmlAliasData += '    <Map Name=\"ext-oktadevices-method-usermfafactorresetall\" Link=\"topics/workflows/connector-reference/oktadevices/events/usermfafactorresetall.htm\" ResolvedId=\"6176\" />';
 xmlAliasData += '    <Map Name=\"ext-oktadevices-method-usermfafactorsuspended\" Link=\"topics/workflows/connector-reference/oktadevices/events/usermfafactorsuspended.htm\" ResolvedId=\"6177\" />';
 xmlAliasData += '    <Map Name=\"ext-oktadevices-method-usermfafactorunsuspended\" Link=\"topics/workflows/connector-reference/oktadevices/events/usermfafactorunsuspended.htm\" ResolvedId=\"6178\" />';
-xmlAliasData += '    <Map Name=\"ext-openai\" Link=\"topics/workflows/connector-reference/openai/openai.htm\" ResolvedId=\"6141\" />';
+xmlAliasData += '    <Map Name=\"ext-openai\" Link=\"topics/workflows/connector-reference/openai/openai.htm\" ResolvedId=\"39999\" />';
 xmlAliasData += '    <Map Name=\"ext-openai-misc-authorization\" Link=\"topics/workflows/connector-reference/openai/overviews/authorization.htm\" ResolvedId=\"6142\" />';
 xmlAliasData += '    <Map Name=\"ext-openai-method-customapiactionc4ak0cyoon\" Link=\"topics/workflows/connector-reference/openai/actions/customapiaction.htm\" ResolvedId=\"6143\" />';
 xmlAliasData += '    <Map Name=\"ext-openai-method-createchatcompletionse1hargsjj\" Link=\"topics/workflows/connector-reference/openai/actions/createchatcompletion.htm\" ResolvedId=\"6144\" />';
