@@ -359,9 +359,9 @@ xmlAliasData += '    <Map Name=\"ext_Apps_Apps\" Link=\"topics/apps/apps_apps.ht
 xmlAliasData += '    <Map Name=\"ext_Apps_Apps_Page\" Link=\"topics/apps/apps_apps_page.htm\" ResolvedId=\"200013\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Apps_Page-assign\" Link=\"topics/apps/apps-assign-applications.htm\" ResolvedId=\"1105\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Browser_Plugin\" Link=\"topics/browser-plugin/browser-plugin-main.htm\" ResolvedId=\"200016\" />';
-xmlAliasData += '    <Map Name=\"ext_Apps_Configure_Okta_Template_WS_Federation\" Link=\"topics/apps/apps_configure_okta template_ws_federation.htm\" ResolvedId=\"200017\" />';
+xmlAliasData += '    <Map Name=\"ext_Apps_Configure_Okta_Template_WS_Federation\" Link=\"topics/apps/apps_configure_okta_template_ws_federation.htm\" ResolvedId=\"200017\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Configure_Template_App\" Link=\"topics/apps/apps_configure_template_app.htm\" ResolvedId=\"200018\" />';
-xmlAliasData += '    <Map Name=\"ext_Apps_Configuring_WS_Federation\" Link=\"topics/apps/apps_configuring ws-federation.htm\" ResolvedId=\"200019\" />';
+xmlAliasData += '    <Map Name=\"ext_Apps_Configuring_WS_Federation\" Link=\"topics/apps/apps_configuring_ws-federation.htm\" ResolvedId=\"200019\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Enable_O365_Chiclets\" Link=\"topics/apps/apps_enable_o365_applications.htm\" ResolvedId=\"200020\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Mapping_AD_LDAP_and_Workday_Values\" Link=\"topics/apps/apps_mapping_ad_ldap_and_workday_values.htm\" ResolvedId=\"200023\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Moving_Microsoft\" Link=\"topics/apps/apps_moving_microsoft.htm\" ResolvedId=\"200024\" />';
@@ -754,6 +754,7 @@ xmlAliasData += '    <Map Name=\"csh-ar-export\" Link=\"topics/identity-governan
 xmlAliasData += '    <Map Name=\"ext-third-party-cookies\" Link=\"topics/security/okta-allow-cookies.htm\" ResolvedId=\"18040\" />';
 xmlAliasData += '    <Map Name=\"ext-cstm-admin-roles\" Link=\"topics/security/custom-admin-role/custom-admin-roles.htm\" ResolvedId=\"19039\" />';
 xmlAliasData += '    <Map Name=\"ext-configure-mfa-policy\" Link=\"topics/security/policies/configure-mfa-policies.htm\" ResolvedId=\"14003\" />';
+xmlAliasData += '    <Map Name=\"csh-known-issues\" Link=\"topics/security/governance-admin-roles/get-started.htm\" ResolvedId=\"13046\" />';
 xmlAliasData += '    <Map Name=\"csh-administrators-workflows-admin\" Link=\"topics/security/administrators-workflow-admin.htm\" ResolvedId=\"6025\" />';
 xmlAliasData += '    <Map Name=\"ext-telephony-inline-hook\" Link=\"topics/telephony/telephony-inline-hook.htm\" ResolvedId=\"14004\" />';
 xmlAliasData += '    <Map Name=\"csh-oce-relnotes-archive-2023\" Link=\"topics/releasenotes/archive/oce-relnotes-2023.htm\" ResolvedId=\"9996\" />';
@@ -784,8 +785,8 @@ xmlAliasData += '    <Map Name=\"csh-admin-mfa\" Link=\"topics/security/mfa/mfa-
 xmlAliasData += '    <Map Name=\"ext-protected-actions\" Link=\"topics/security/admin-console-protected-actions.htm\" ResolvedId=\"19048\" />';
 xmlAliasData += '    <Map Name=\"ext-usgp-app-group-priority\" Link=\"topics/users-groups-profiles/usgp-assign-app-group-priority.htm\" ResolvedId=\"19049\" />';
 xmlAliasData += '    <Map Name=\"ext-usgp-combine-values-use\" Link=\"topics/users-groups-profiles/usgp-combine-values-use.htm\" ResolvedId=\"19050\" />';
-xmlAliasData += '    <Map Name=\"csh-pam-checkout-configure\" Link=\"topics/privileged-access/pam-configure-checkout.htm\" ResolvedId=\"1335\" />';
-xmlAliasData += '    <Map Name=\"csh-pam-checkout-force-checkin\" Link=\"topics/privileged-access/pam-checkout-force-checkin.htm\" ResolvedId=\"1336\" />';
+xmlAliasData += '    <Map Name=\"csh-pam-checkout-configure\" Link=\"topics/privileged-access/pam-configure-checkout.htm\" ResolvedId=\"4011\" />';
+xmlAliasData += '    <Map Name=\"csh-pam-checkout-force-checkin\" Link=\"topics/privileged-access/pam-checkout-force-checkin.htm\" ResolvedId=\"4010\" />';
 xmlAliasData += '    <Map Name=\"ext-ver-hist-okta-hyperspace-agent\" Link=\"topics/settings/version_histories/ver_history_hyperspace_agent.htm\" ResolvedId=\"4004\" />';
 xmlAliasData += '    <Map Name=\"ext-ver-hist-okta-oam-adapter\" Link=\"topics/settings/version_histories/ver_history_mfa_for_oam_plugin.htm\" ResolvedId=\"4005\" />';
 xmlAliasData += '    <Map Name=\"ext-usgp-import-safeguard\" Link=\"topics/users-groups-profiles/usgp-import-safeguard.htm\" ResolvedId=\"6026\" />';
@@ -795,7 +796,10 @@ xmlAliasData += '    <Map Name=\"ext-administrators-workflows-admin\" Link=\"top
 xmlAliasData += '    <Map Name=\"ext-about-ednz\" Link=\"topics/security/network/supported-ip-service-categories.htm\" ResolvedId=\"19051\" />';
 xmlAliasData += '    <Map Name=\"csh-org2org-intg\" Link=\"topics/provisioning/org2org/org2org-integrate.htm\" ResolvedId=\"16029\" />';
 xmlAliasData += '    <Map Name=\"csh-org2org-intg-provisioning\" Link=\"topics/provisioning/org2org/org2org-integrate.htm#Use2\" ResolvedId=\"16030\" />';
-xmlAliasData += '    <Map Name=\"ext-pam-sudo-commands\" Link=\"topics/privileged-access/pam-sudo-commands.htm\" ResolvedId=\"1335\" />';
-xmlAliasData += '    <Map Name=\"csh-pam-sudo-commands\" Link=\"topics/privileged-access/pam-sudo-commands.htm\" ResolvedId=\"1336\" />';
+xmlAliasData += '    <Map Name=\"ext-pam-setup\" Link=\"topics/privileged-access/pam-setup.htm\" ResolvedId=\"8013\" />';
+xmlAliasData += '    <Map Name=\"ext-pam-service-users\" Link=\"topics/privileged-access/pam-service-users.htm\" ResolvedId=\"6028\" />';
+xmlAliasData += '    <Map Name=\"ext-pam-sudo-commands\" Link=\"topics/privileged-access/pam-sudo-commands.htm\" ResolvedId=\"4009\" />';
+xmlAliasData += '    <Map Name=\"csh-pam-sudo-commands\" Link=\"topics/privileged-access/pam-sudo-commands.htm\" ResolvedId=\"4008\" />';
+xmlAliasData += '    <Map Name=\"ext-webauthn-classic\" Link=\"topics/security/mfa-webauthn.htm\" ResolvedId=\"14012\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
