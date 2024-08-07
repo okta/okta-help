@@ -327,7 +327,7 @@ xmlAliasData += '    <Map Name=\"ext-flow-backup-about\" Link=\"topics/workflows
 xmlAliasData += '    <Map Name=\"ext-flow-backup-setup\" Link=\"topics/workflows/build/flow-backup-setup.htm\" ResolvedId=\"31061\" />';
 xmlAliasData += '    <Map Name=\"ext-flow-charts\" Link=\"topics/workflows/learn/about-flow-charts.htm\" ResolvedId=\"32002\" />';
 xmlAliasData += '    <Map Name=\"ext-flow-execution-details\" Link=\"topics/workflows/execute/execution-history-view-details-column.htm\" ResolvedId=\"6023\" />';
-xmlAliasData += '    <Map Name=\"ext-flow-history\" Link=\"topics/workflows/execute/execution-history-view.htm#Executio\" ResolvedId=\"30719\" />';
+xmlAliasData += '    <Map Name=\"ext-flow-history\" Link=\"topics/workflows/execute/execution-history-view.htm#History\" ResolvedId=\"30719\" />';
 xmlAliasData += '    <Map Name=\"ext-flow-limit\" Link=\"topics/workflows/flow-limits.htm\" ResolvedId=\"31063\" />';
 xmlAliasData += '    <Map Name=\"ext-folder-view\" Link=\"topics/workflows/learn/about-folder-view.htm\" ResolvedId=\"32001\" />';
 xmlAliasData += '    <Map Name=\"ext-freshservice\" Link=\"topics/workflows/connector-reference/freshservice/freshservice.htm\" ResolvedId=\"1394\" />';
@@ -1375,6 +1375,7 @@ xmlAliasData += '    <Map Name=\"ext-connectorbuilder-webhookevent-deregister\" 
 xmlAliasData += '    <Map Name=\"ext-connectorbuilder-webhookevent-knownissues\" Link=\"topics/workflows/connector-builder/webhook-event-knownissues.htm\" ResolvedId=\"6073\" />';
 xmlAliasData += '    <Map Name=\"ext-connectorbuilder-webhookevent-register\" Link=\"topics/workflows/connector-builder/webhook-event-register.htm\" ResolvedId=\"6074\" />';
 xmlAliasData += '    <Map Name=\"ext-connectorbuilder-webhookevent-runmode\" Link=\"topics/workflows/connector-builder/webhook-event-runmode.htm\" ResolvedId=\"6075\" />';
+xmlAliasData += '    <Map Name=\"ext-connectorbuilder-capia-cards\" Link=\"topics/workflows/connector-builder/capia-cards.htm\" ResolvedId=\"9982\" />';
 xmlAliasData += '    <Map Name=\"ext-office365admin-method-groupcreated\" Link=\"topics/workflows/connector-reference/azuread/events/groupcreated.htm\" ResolvedId=\"6076\" />';
 xmlAliasData += '    <Map Name=\"ext-office365admin-method-groupdeleted\" Link=\"topics/workflows/connector-reference/azuread/events/groupdeleted.htm\" ResolvedId=\"6077\" />';
 xmlAliasData += '    <Map Name=\"ext-office365admin-method-groupmemberadded\" Link=\"topics/workflows/connector-reference/azuread/events/groupmemberadded.htm\" ResolvedId=\"6078\" />';
