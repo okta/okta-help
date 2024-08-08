@@ -1,7 +1,7 @@
 var xmlAliasData = "";
 xmlAliasData += '<?xml version=\"1.0\" encoding=\"utf-8\"?>';
 xmlAliasData += '<CatapultAliasFile>';
-xmlAliasData += '    <Map Name=\"ext-oag-firewall-rules\" Link=\"topics/access-gateway/about-oag-prereqs.htm\" ResolvedId=\"3002\" />';
+xmlAliasData += '    <Map Name=\"ext-oag-firewall-rules\" Link=\"topics/access-gateway/about-oag-prereqs.htm\" ResolvedId=\"39998\" />';
 xmlAliasData += '    <Map Name=\"ext-oag-manage-cert\" Link=\"topics/access-gateway/manage-certificates.htm\" ResolvedId=\"1294\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_about_auth_mod\" Link=\"topics/access-gateway/admin-settings-authmod.htm\" ResolvedId=\"3006\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_about_cap_planning\" Link=\"topics/access-gateway/capacity-planning-sizing.htm\" ResolvedId=\"3067\" />';
@@ -103,5 +103,6 @@ xmlAliasData += '    <Map Name=\"oag_ext_trouble_shooting_guide\" Link=\"topics/
 xmlAliasData += '    <Map Name=\"ext_oag_releasenotes\" Link=\"topics/releasenotes/oag/oag-release-notes.htm\" ResolvedId=\"3075\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_version_history\" Link=\"topics/releasenotes/oag/oag-version-history.htm\" ResolvedId=\"7005\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_troubleshooting_with_har\" Link=\"topics/access-gateway/troubleshooting-with-har.htm\" ResolvedId=\"7003\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_support_matrix\" Link=\"topics/access-gateway/support-matrix.htm\" ResolvedId=\"9984\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
