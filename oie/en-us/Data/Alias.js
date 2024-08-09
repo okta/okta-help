@@ -864,5 +864,6 @@ xmlAliasData += '    <Map Name=\"csh-user-interaction-options\" Link=\"topics/id
 xmlAliasData += '    <Map Name=\"ext-webauthn\" Link=\"topics/identity-engine/authenticators/configure-webauthn.htm\" ResolvedId=\"14013\" />';
 xmlAliasData += '    <Map Name=\"app-password-health-report-deprecated\" Link=\"topics/reports/deprecated/app-password-health-report.htm\" ResolvedId=\"7003\" />';
 xmlAliasData += '    <Map Name=\"recent-unassignments-report-deprecated\" Link=\"topics/reports/deprecated/recent-unassignments-report.htm\" ResolvedId=\"7005\" />';
+xmlAliasData += '    <Map Name=\"admin-remove-assignment\" Link=\"topics/security/admin-remove-assignment.htm\" ResolvedId=\"19052\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
