@@ -27,6 +27,9 @@ cp -f "${EN_PATH}/Sitemap.xml" "${JA_PATH}/Sitemap.xml"
 
 pushd ${JA_PATH}
 git restore --source origin/${BASE_BRANCH} -- 'Data/Tocs/*'
+    pushd Data
+    git restore --source origin/${TRANSLATION_BRANCH} -- 'Search*.js'
+    popd
 popd
 
 git add --all
