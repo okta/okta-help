@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="_Skins_okta_html5_topnav_nav_poc" data-mc-search-type="Stem" data-mc-help-system-file-name="okta_help.xml" data-mc-path-to-help-system="../../../" data-mc-has-content-body="True" data-mc-toc-path="[%=System.LinkedHeader%]|[%=System.LinkedHeader%]|[%=System.LinkedHeader%]" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic;Default" data-mc-preload-images="false" data-mc-in-preview-mode="false">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="_Skins_okta_html5_topnav_nav_poc" data-mc-search-type="Stem" data-mc-help-system-file-name="okta_help.xml" data-mc-path-to-help-system="../../../" data-mc-has-content-body="True" data-mc-searchable="True" data-mc-toc-path="App integrations|[%=System.LinkedHeader%]|Microsoft Azure AD and Office 365|[%=System.LinkedHeader%]|[%=System.LinkedHeader%]" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic;Default" data-mc-preload-images="false" data-mc-in-preview-mode="false">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="typeofcontent" content="documentation" />
         <meta name="audience" content="admin" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="viewport" content="width=device-width, height=device-height" /><title>sudoコマンドバンドルを作成する | Okta</title>
+        <meta name="description" content="OktaのWS-Federationテンプレートアプリケーションを使用して、使い慣れた安全なエンドユーザー認証エクスペリエンスを提供するWS-Federation対応アプリを作成します。" />
+        <meta name="viewport" content="width=device-width, height=device-height" /><title>OktaテンプレートWS-Federationアプリケーションを構成する | Okta</title>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <link rel="shortcut icon" href="../../Resources/Images/favicon.ico" type="image/x-icon" />
@@ -42,7 +43,6 @@
 
 </style>
         <link href="../../resources/stylesheets/okta-main-new-nav.css" rel="stylesheet" type="text/css" />
-        <link href="../../resources/tablestyles/standard.css" rel="stylesheet" data-mc-stylesheet-type="table" />
         <script src="../../../Resources/Scripts/jquery.min.js" type="text/javascript">
         </script>
         <script src="../../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
@@ -108,7 +108,7 @@
                 </aside>
                 <div class="off-canvas-content inner-wrap" data-off-canvas-content="">
                     <div data-sticky-container="" class="title-bar-container">
-                        <nav class="title-bar tab-bar sticky" role="banner" data-sticky="" data-options="marginTop:0" style="width:100%" data-sticky-on="only screen and (max-width: 1024px)" data-mc-ignore="true"><a class="skip-to-content fluid-skip showOnFocus" href="#">メインコンテンツにスキップする</a>
+                        <nav class="title-bar tab-bar sticky" role="banner" data-sticky="" data-options="marginTop:0" style="width:100%" data-sticky-on="only screen and (max-width: 1024px)" data-mc-ignore="true"><a class="skip-to-content fluid-skip showOnFocus" href="#">メインコンテンツにスキップ</a>
                             <div class="middle title-bar-section outer-row clearfix">
                                 <div class="menu-icon-container relative clearfix">
                                     <div class="central-account-wrapper">
@@ -291,124 +291,51 @@
                                             <div class="body-main" data-test="bodyContent">
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
-                                                    <h1>sudoコマンドバンドルを作成する</h1>
-                                                    <p><span class="mc-variable okta-feature-names.Okta_Privileged_Access variable">Okta Privileged Access</span>ユーザーがLinuxベースのサーバーにアクセスするための詳細な権限を強制適用するsudoコマンドバンドルを作成します。各sudoコマンドバンドルには最大で64コマンドを含めることができます。</p>
-                                                    <h2>開始する前に</h2>
+                                                    <h1>OktaテンプレートWS-Federationアプリケーションを構成する</h1>
+                                                    <p>Oktaは、WS-Fed対応のアプリをオンデマンドで作成できるWS-Federationテンプレートアプリを提供しています。</p>
+                                                    <p>このテンプレートアプリケーションを使用する場合、OktaはIDP（IDプロバイダー）として機能し、ターゲットアプリケーションはSP（サービスプロバイダー）になります。</p>
+                                                    <p>WS-Fedの場合、Okta（IDPとして機能）はSP起点の認証をサポートします。認証フローは次のとおりです。</p>
+                                                    <ol>
+                                                        <li value="1">最初にターゲットSPに移動するか、Oktaのアプリをクリックします。この時点では、ユーザーとSP間でのセッションは確立しません。 </li>
+                                                        <li value="2">SPは、ユーザーを構成済みのログインURL（Oktaが生成したアプリインスタンスURL）にリダイレクトし、パッシブリクエストを送信します。 </li>
+                                                        <li value="3">Oktaにはパッシブリクエストが送信されます（既存のOktaセッションがあると仮定します）。 </li>
+                                                        <li value="4">Oktaは設定されたSPに応答を送信します。 </li>
+                                                        <li value="5">SPは応答を受信し、クレームが正しいことを確認します。これにより、SP側でセッションが確立されます。 </li>
+                                                        <li value="6">認証は完了です。 </li>
+                                                    </ol>
+                                                    <p>WS-Fedの構成に使用するターゲットアプリ（SP）でより多くの構成が必要になります。Oktaは、WS-Fedアプリの説明でこの情報を提供しています（WS-Fedアプリ画面の［Sign On（サインオン）］タブからアクセスできます）。手順には、レルム、発行者、パッシブURL（前述のように、通常は上記のSP起点フローでのみ必要）が含まれます。構成はアプリに応じて異なります。WS-Fedをオンにすることがオールオアナッシング機能であるかどうかをSPベンダーに確認することをお勧めします。<span class="mc-variable okta-variables.ProductName variable"></span></p>
+                                                    <h4><a name="Realm"></a>レルム名</h4>
+                                                    <p>レルム名はIdPに対して一意である必要があります。すべての依拠当事者が、当事者ごとに生成された一意のエンドポイントの使用をサポートしているわけではありません。WS-Federation Template Appは、2つのレルムモードをサポートしています。</p>
                                                     <ul>
                                                         <li>
-                                                            <p>リソース管理者ロールが必要です。</p>
+                                                            <p>Oktaで生成されたレルム名を持つ共有エンドポイント</p>
+                                                            <p>レルム名を空のままにした場合、Oktaはアプリの外部キーを使用してレルム名を生成します。例：<code>https://[orgname].okta.com/app/template_wsfed/sso/wsfed/passive</code>。証明書利用者は要求に共通のエンドポイントを使用します。また、対象アプリのインスタンスは<code>wtrealm=urn:okta:app:[key]</code>クエリパラメーターで識別されます。</p>
                                                         </li>
                                                         <li>
-                                                            <p>「<a href="pam-sudo-commands.htm#Sudo" class="MCXref xref">sudoコマンドバンドルのルール</a>」を参照してください。</p>
+                                                            <p>顧客定義のレルム名を持つアプリエンドポイント</p>
+                                                            <p>お客様がレルム名を指定すると、Oktaはアプリ固有のエンドポイントを生成します。例：<code>https://[orgname].okta.com/apt/template_wsfed/[key]/sso/wsfed/</code>。名前空間はアプリであり、グローバルではないため、レルム名は再利用できます。レルム名は、構成値との一致の検証に使用され、それ以外には使用されません。</p>
                                                         </li>
                                                     </ul>
-                                                    <h2>タスクを開始する</h2>
+                                                    <p>どちらの構成でも、SAMLアサーションの発行者は常にアプリインスタンスキーです。たとえば、<code>http://www.okta.com/[key]</code>。オーディエンスは、常に構成されたオーディエンス制限値です。レルム名と同じ値を使用することをお勧めしますが、必要に応じて別の値を使用できます。</p>
+                                                    <h2>テンプレートWS-Fedを追加して構成する</h2>
+                                                    <p>まず、テンプレートWS-Fedアプリをorgに追加する必要があります。最初にスーパーユーザーとしてプライベートアプリを追加する必要があります。</p>
                                                     <ol>
-                                                        <li value="1">
-                                                            <p><span class="menucascade"><span class="uicontrol">［Resource Administration（リソース管理）］</span><span class="uicontrol">［Sudo commands（sudoコマンド）］</span></span>に移動します。</p>
-                                                        </li>
-                                                        <li value="2">
-                                                            <p><span class="uicontrol">［Create sudo command（sudoコマンドを作成）］</span>をクリックします。</p>
-                                                        </li>
-                                                        <li value="3">
-                                                            <p><span class="wintitle">［sudoコマンドを作成］</span>ページに次の情報を入力します。</p>
-                                                            <table style="width: 100%;mc-table-style: url('../../resources/tablestyles/standard.css');" class="TableStyle-standard" cellspacing="0">
-                                                                <col class="TableStyle-standard-Column-Column1" />
-                                                                <col class="TableStyle-standard-Column-Column1" />
-                                                                <thead>
-                                                                    <tr class="TableStyle-standard-Head-Header1">
-                                                                        <th class="TableStyle-standard-HeadF-Column1-Header1">タスク</th>
-                                                                        <th class="TableStyle-standard-HeadD-Column1-Header1">アクション</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <tr class="TableStyle-standard-Body-Body1">
-                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1">Name and description（名前と説明）</td>
-                                                                        <td class="TableStyle-standard-BodyD-Column1-Body1"><span class="uicontrol">［Command name（コマンド名）］</span>フィールドと<span class="uicontrol">［description（説明）］</span>フィールドにコマンドの名前と説明を入力します。</td>
-                                                                    </tr>
-                                                                    <tr class="TableStyle-standard-Body-Body2">
-                                                                        <td class="TableStyle-standard-BodyF-Column1-Body2">
-                                                                            <p>Command（コマンド）</p>
-                                                                        </td>
-                                                                        <td class="TableStyle-standard-BodyD-Column1-Body2">
-                                                                            <ol>
-                                                                                <li value="1">
-                                                                                    <p>sudoコマンドのタイプを選択します。</p>
-                                                                                    <ul>
-                                                                                        <li> <span class="uicontrol">Executable（実行可能）</span></li>
-                                                                                        <li><span class="uicontrol">Raw（未加工）</span>
-                                                                                        </li>
-                                                                                        <li><span class="uicontrol">Directory（ディレクトリ）</span>
-                                                                                        </li>
-                                                                                    </ul>
-                                                                                </li>
-                                                                                <li value="2">
-                                                                                    <p>実行可能ファイルタイプのコマンドを構成するときは、次のいずれかの引数を選択してコマンドが受け取る引数の種類を指定する必要があります。</p>
-                                                                                    <ul>
-                                                                                        <li><span class="uicontrol">Any arguments（任意の引数）</span>
-                                                                                        </li>
-                                                                                        <li><span class="uicontrol">No arguments（引数なし）</span>
-                                                                                        </li>
-                                                                                        <li><span class="uicontrol">Specific arguments（特定の引数）</span>
-                                                                                        </li>
-                                                                                    </ul>
-                                                                                </li>
-                                                                                <li value="3">特定の引数を選択するときは、表示されるフィールドに許可する引数を入力します。</li>
-                                                                            </ol>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="TableStyle-standard-Body-Body1">
-                                                                        <td class="TableStyle-standard-BodyF-Column1-Body1">Add another command（別のコマンドを追加）</td>
-                                                                        <td class="TableStyle-standard-BodyD-Column1-Body1"><span class="uicontrol">［Add Another Command（別のコマンドを追加）］</span>をクリックして前述の手順を繰り返すことで、さらにコマンドを追加します。</td>
-                                                                    </tr>
-                                                                    <tr class="TableStyle-standard-Body-Body2">
-                                                                        <td class="TableStyle-standard-BodyC-Column1-Body2">
-                                                                            <p>Advanced configuration（高度な構成）</p>
-                                                                        </td>
-                                                                        <td class="TableStyle-standard-BodyA-Column1-Body2">
-                                                                            <ol>
-                                                                                <li value="1">
-                                                                                    <p>sudoコマンドの高度な構成オプションにアクセスするには、<span class="uicontrol">［Advanced Configuration（高度な構成）］</span>を展開します。これらの設定は、sudoコマンドバンドル向けに定義されているすべてのコマンドに適用されます。</p>
-                                                                                </li>
-                                                                                <li value="2">
-                                                                                    <p>sudoコマンドバンドルに定義されているすべてのコマンドをルート以外の特定のユーザーとして実行するには、<span class="uicontrol">［Run commands as a non-root user（ルート以外のユーザーとしてコマンドを実行）］</span>フィールドにユーザー名を入力します。</p>
-                                                                                </li>
-                                                                                <li value="3">
-                                                                                    <p>デフォルトでは<span class="uicontrol">［Enable NOPASSWD（パスワードなしを有効にする）］</span>が選択されており、ユーザーはパスワードなしでsudoを実行できます。このオプションが常に有効であることを確認します。</p>
-                                                                                </li>
-                                                                                <li value="4">
-                                                                                    <p>コマンドに下位（子）プロセスの実行を許可しないときは、<span class="uicontrol">［Enable NOEXEC（NOEXECを有効にする）］</span>を選択します。</p>
-                                                                                </li>
-                                                                                <li value="5">
-                                                                                    <p>コマンドへの環境変数の上書きを許可する場合は、［<span class="uicontrol">Enable SETENV（SETENVを有効にする）</span>］を選択します。</p>
-                                                                                </li>
-                                                                                <li value="6">
-                                                                                    <p><span class="uicontrol">env_keep +=</span>引数と<span class="uicontrol">env_keep -=</span>引数を設定することで、sudoコマンドの環境変数設定をより詳細に調整できます。詳細については、システムのsudoドキュメントを参照してください。</p>
-                                                                                </li>
-                                                                            </ol>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </li>
-                                                        <li value="4">
-                                                            <p><span class="uicontrol">［Create（作成）］</span>をクリックします。</p>
-                                                        </li>
+                                                        <li value="1"><span class="mc-variable okta-feature-names.Admin_Console variable">Admin Console</span>で<span class="uicontrol">［Applications（アプリケーション）］ </span>に移動し、<span class="uicontrol">［Add Application（アプリケーションの追加）］</span>をクリックして、<span class="uicontrol">［Search（検索）］</span>ボックスに<span class="userinput">Template WS-Fed</span>と入力します。</li>
+                                                        <li value="2">テンプレートWS-Fedアプリで次のフィールドに入力します。これらのフィールドに入力する必要がある内容の詳細については、ターゲットアプリケーション（SP）のドキュメントを参照してください。 <ul><li><span class="uicontrol">［Application Label（アプリケーションラベル）］</span>：ユーザーのホームページに表示されるラベルをアプリに付けます。 </li><li><span class="uicontrol">［Web Application URL（WebアプリケーションURL）］</span>：Webアプリケーションの起動URL。例：<code>http://example.com</code>。</li><li><span class="uicontrol">［Realm（レルム）］</span>：リソースを安全に共有するように構成されているいくつかのドメインの1つ。レルムは、アプリケーションのURI（Uniform Resource Identifier）です。サインイン時にOkta IdPに送信されるのはIDです。セットアップ手順に示されているように、レルムを指定しない場合、Oktaはレルムを生成します。詳細については、上記の <a href="#Realm">「レルム名」</a> を参照してください。</li><li><span class="uicontrol">［ReplyTo URL］</span>：WS-Fed SPエンドポイント（ユーザーがログインする場所）です。例：http://test.acme.com/example-post-sign/。 </li><li><span class="uicontrol">［AllowReplyToOverride］</span>：これにより、WebアプリケーションがReplyTo URLをreplyパラメーターでオーバーライドできるようになります。</li><li><span class="uicontrol">［Name ID format（名前IDフォーマット）］</span>：選択する値はアプリケーションによって異なります。これは、WS-Fed応答で送信するユーザー名の形式です。詳細については、SPのドキュメントを参照してください。 </li><li><span class="uicontrol"><span class="uicontrol">［Audience Restriction（オーディエンス制限）］</span>：</span>SPのエンティティIDです。SPによって提供され、正確に一致する必要があります。詳細については、SPのドキュメントを参照してください。 </li><li><span class="uicontrol">［Assertion Authentication Context（アサーション認証コンテキスト）］</span>：認証制限のタイプを示します。これは通常、パスワードで保護されたトランスポートに設定する必要があります。詳細については、SPのドキュメントを参照してください。 </li><li><span class="uicontrol"><span class="uicontrol">［Attribute Statements (Optional)（属性ステートメント（オプション））］</span>：</span>Oktaプロファイルフィールド、LDAP、Active Directory、Workday値などのユーザー属性を統合できます。SPは、それに応じてフェデレーションWS-Fed属性値を使用します。詳細については、<a href="apps_mapping_ad_ldap_and_workday_values.htm" target="_blank">「テンプレートSAML 2.0またはWS FedアプリケーションでのActive Directory、LDAP、および稼働日の値のマッピング」</a> を参照してください。 </li><li><span class="uicontrol">［Group Name (Optional)（グループ名（オプション））］</span>：WS-Fed応答属性ステートメントに含まれるこの属性の名前を入力します。次に、グループ（式を使用）をグループフィルターフィールドに入力して、この属性に含まれるグループを指定します。フィルタリングしたグループに属するすべてのユーザーは、WS-Fed応答属性ステートメントに含まれます。 </li><li><span class="uicontrol">［Group Attribute Value（グループ属性値）］</span>：フィルタリングされたグループのWS-Fedアサーション属性値を指定します。この属性は、Active Directoryグループにのみ適用されます。選択肢は、WindowsDomainQualifiedName・samAccountName・dnです。</li><li><span class="uicontrol">［Group filter (Optional)（グループフィルター（オプション））］</span>：Group Nameフィールドで構成した属性に含めるユーザーグループを指定します。グループのフィルタリングに使用される正規表現を入力します。一致するユーザーグループに対応するADグループがある場合、属性ステートメントには、<span class="term">グループ属性値</span>で指定された属性の値が含まれます。一致するユーザーグループに対応するADグループが含まれていない場合は、属性ステートメントでグループ名が使用されます。</li><li><span class="uicontrol">［Username Attribute Statements（ユーザー名属性ステートメント）］</span>：WS-Fedアサーションに含める追加のユーザー名属性ステートメントを指定します。これにより、サブジェクトステートメントを無視する.NETアプリとの統合が簡素化されます。選択肢には、ユーザー名、UPN、ユーザー名、UPNが含まれ、なしが含まれます。</li><li><span class="uicontrol">［Custom Attribute Statements（カスタム属性ステートメント）］</span>：カスタムSAML属性ステートメントを定義します。 </li><li><span class="uicontrol">［Signature Algorithm（署名アルゴリズム）］</span>：SHA1またはSHA256のいずれかを選択します。</li><li><span class="uicontrol">［Digest Algorithm（ダイジェストアルゴリズム）］</span>：SHA1またはSHA256のいずれかを選択します。</li><li><span class="uicontrol">［Application Visibility (Optional)（アプリケーションの可視性（オプション））］</span>：ユーザーのホームページからアプリケーションアイコンを非表示にすることを選択できます。 </li></ul></li>
                                                     </ol>
-                                                    <h2>sudoコマンドを表示、編集、削除する</h2>
-                                                    <p>sudoコマンドがポリシー内で使用されている場合、そのコマンドは削除できません。</p>
+                                                    <h2>ターゲットアプリケーション（SP）でWS-Fedを構成する </h2>
+                                                    <p>WS-Fedを機能させるには、ターゲットアプリケーション（SP）でいくつかの追加手順を実行する必要があります。 </p>
+                                                    <p><span class="uicontrol">Note（注）</span>：SPのベンダーに連絡して、SAMLを有効にすることがオールオアナッシングオプションかどうかを判断することをお勧めします。<span class="mc-variable okta-variables.ProductName variable"></span>Oktaは、ターゲットSPで作成する必要のあるすべての必要な構成情報を提供します。</p>
+                                                    <p>この情報にアクセスするには、次の手順を実行します。</p>
                                                     <ol>
-                                                        <li value="1">
-                                                            <p><span class="menucascade"><span class="uicontrol">［Resource Administration（リソース管理）］</span><span class="uicontrol">［Sudo commands（sudoコマンド）］</span></span>に移動します。</p>
-                                                        </li>
-                                                        <li value="2">
-                                                            <p>表示するコマンドの<span class="uicontrol">［Actions（アクション）］</span>メニューをクリックし、<span class="uicontrol">［View（表示）］</span>を選択します。<span class="uicontrol">［View sudo commands（sudoコマンドを表示）］</span>ページにコマンドの詳細が表示されます。</p>
-                                                        </li>
+                                                        <li value="1">追加したテンプレートアプリのインスタンスをクリックします。 </li>
+                                                        <li value="2"><span class="uicontrol">［Sign On（サインオン）］</span>タブを選択し、<span class="uicontrol">［View Setup Instructions（設定手順を表示）］</span>をクリックします。<p><img src="../../resources/images/ws-fed_view_setup_instructions_500x109.png" style="width: 500;height: 109;" /></p></li>
+                                                        <li value="3">手順を<span class="uicontrol">［Configuration Data（構成データ）］</span>セクションまでスクロールします。ここで、必要なすべてのSPエンドポイント構成情報を取得できます。</li>
                                                     </ol>
+                                                    <h3>アプリをテストする</h3>
+                                                    <p>ユーザーをアプリに割り当て、ユーザーが正常に認証できることを確認します。</p>
                                                     <h2>関連項目</h2>
-                                                    <p><a href="pam-sudo-commands.htm" class="MCXref xref">sudoコマンドバンドル</a>
-                                                    </p>
-                                                    <p><a href="pam-policy.htm" class="MCXref xref">セキュリティポリシー</a>
+                                                    <p><a href="apps_configure_template_app.htm" class="MCXref xref">OktaテンプレートアプリとOktaプラグインテンプレートアプリを構成する</a>
                                                     </p>
                                                 </div>
                                             </div>
