@@ -863,6 +863,7 @@ xmlAliasData += '    <Map Name=\"csh-pam-sudo-commands\" Link=\"topics/privilege
 xmlAliasData += '    <Map Name=\"csh-user-interaction-options\" Link=\"topics/identity-engine/policies/new-user-interaction-options.htm\" ResolvedId=\"14011\" />';
 xmlAliasData += '    <Map Name=\"ext-webauthn\" Link=\"topics/identity-engine/authenticators/configure-webauthn.htm\" ResolvedId=\"14013\" />';
 xmlAliasData += '    <Map Name=\"csh-auth-method-chain\" Link=\"topics/identity-engine/policies/authentication-method-chain.htm\" ResolvedId=\"14015\" />';
+xmlAliasData += '    <Map Name=\"csh-device-access-recovery\" Link=\"topics/oda/macos-mfa/desktop-mfa-recovery-macos.htm\" ResolvedId=\"39829\" />';
 xmlAliasData += '    <Map Name=\"admin-remove-assignment\" Link=\"topics/security/admin-remove-assignment.htm\" ResolvedId=\"19052\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
