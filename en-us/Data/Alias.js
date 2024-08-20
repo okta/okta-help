@@ -130,7 +130,7 @@ xmlAliasData += '    <Map Name=\"csh-notification-reset\" Link=\"topics/security
 xmlAliasData += '    <Map Name=\"csh-notification-signon\" Link=\"topics/security/healthinsight/notifications-signon.htm\" ResolvedId=\"1186\" />';
 xmlAliasData += '    <Map Name=\"csh-o365-deploy\" Link=\"topics/apps/office365-deployment/deploy-main.htm\" ResolvedId=\"1392\" />';
 xmlAliasData += '    <Map Name=\"csh-o365-sa\" Link=\"topics/apps/apps_o365_silent_activation.htm\" ResolvedId=\"1252\" />';
-xmlAliasData += '    <Map Name=\"csh-o365-sso\" Link=\"topics/apps/office365/o365-sign-on-policies-main.htm\" ResolvedId=\"1409\" />';
+xmlAliasData += '    <Map Name=\"csh-o365-sso-classic\" Link=\"topics/security/o365_client-access-policies.htm\" ResolvedId=\"1410\" />';
 xmlAliasData += '    <Map Name=\"csh-okta-verify\" Link=\"topics/mobile/okta-verify-overview.htm\" ResolvedId=\"1068\" />';
 xmlAliasData += '    <Map Name=\"csh-okta-verify-admins\" Link=\"topics/mobile/okta-verify-overview.htm\" ResolvedId=\"1271\" />';
 xmlAliasData += '    <Map Name=\"csh-okta-verify-fips\" Link=\"topics/mobile/ov-admin-config.htm#fips\" ResolvedId=\"1067\" />';
@@ -283,6 +283,7 @@ xmlAliasData += '    <Map Name=\"ext-network-zones\" Link=\"topics/security/netw
 xmlAliasData += '    <Map Name=\"ext-o365-adv\" Link=\"topics/apps/office365/advanced.htm\" ResolvedId=\"1062\" />';
 xmlAliasData += '    <Map Name=\"ext-o365-deploy\" Link=\"topics/apps/office365-deployment/deploy-main.htm\" ResolvedId=\"1142\" />';
 xmlAliasData += '    <Map Name=\"ext-o365-main\" Link=\"topics/apps/office365/o365-main.htm\" ResolvedId=\"1143\" />';
+xmlAliasData += '    <Map Name=\"ext-o365-pro-depro\" Link=\"topics/apps/apps_okta_enhancements_office_365_integration.htm\" ResolvedId=\"1091\" />';
 xmlAliasData += '    <Map Name=\"ext-o365-provisioning\" Link=\"topics/apps/office365-deployment/provision-users.htm\" ResolvedId=\"1141\" />';
 xmlAliasData += '    <Map Name=\"ext-obp-security\" Link=\"topics/browser-plugin/plugin-security.htm\" ResolvedId=\"39944\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-verify-relnotes\" Link=\"topics/releasenotes/okta-verify-release-notes.htm\" ResolvedId=\"1327\" />';
@@ -366,6 +367,7 @@ xmlAliasData += '    <Map Name=\"ext_Apps_Mapping_AD_LDAP_and_Workday_Values\" L
 xmlAliasData += '    <Map Name=\"ext_Apps_Moving_Microsoft\" Link=\"topics/apps/apps_moving_microsoft.htm\" ResolvedId=\"200024\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_O365_Admin_Consent\" Link=\"topics/apps/apps_o365_admin_consent.htm\" ResolvedId=\"200025\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_O365_Silent_Activation\" Link=\"topics/apps/apps_o365_silent_activation.htm\" ResolvedId=\"200026\" />';
+xmlAliasData += '    <Map Name=\"ext_Apps_Okta_Enhancements_Office_365_Integration\" Link=\"topics/apps/apps_okta_enhancements_office_365_integration.htm\" ResolvedId=\"200027\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Okta_Mobile\" Link=\"topics/mobile/apps_okta_mobile.htm\" ResolvedId=\"200106\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Overview_of_Managing_Apps_and_SSO\" Link=\"topics/apps/apps_overview_of_managing_apps_and_sso.htm\" ResolvedId=\"200028\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Revealing_the_Password\" Link=\"topics/apps/apps_revealing_the_password.htm\" ResolvedId=\"200029\" />';
@@ -447,6 +449,7 @@ xmlAliasData += '    <Map Name=\"ext_MFA_OnPrem\" Link=\"topics/security/mfa_onp
 xmlAliasData += '    <Map Name=\"ext_mfa_windows_hello\" Link=\"topics/security/mfa/mfa-factors.htm\" ResolvedId=\"1066\" />';
 xmlAliasData += '    <Map Name=\"ext_MFAVoice\" Link=\"topics/security/mfa/voicecall.htm\" ResolvedId=\"1163\" />';
 xmlAliasData += '    <Map Name=\"ext_mobile_release_status\" Link=\"topics/releasenotes/mobile-release-status.htm\" ResolvedId=\"200139\" />';
+xmlAliasData += '    <Map Name=\"ext_o365_accesspol\" Link=\"topics/security/o365_client-access-policies.htm\" ResolvedId=\"1133\" />';
 xmlAliasData += '    <Map Name=\"ext_o365_dep_guide\" Link=\"topics/apps/office365-deployment/deploy-main.htm\" ResolvedId=\"1077\" />';
 xmlAliasData += '    <Map Name=\"ext_okta_active_directory_agent\" Link=\"topics/directory/ad-agent-manage-integration.htm\" ResolvedId=\"200076\" />';
 xmlAliasData += '    <Map Name=\"ext_okta_active_directory_agent_OLD\" Link=\"topics/directory/ad-agent-main.htm\" ResolvedId=\"200077\" />';
@@ -788,6 +791,7 @@ xmlAliasData += '    <Map Name=\"ext-ver-hist-okta-hyperspace-agent\" Link=\"top
 xmlAliasData += '    <Map Name=\"ext-ver-hist-okta-oam-adapter\" Link=\"topics/settings/version_histories/ver_history_mfa_for_oam_plugin.htm\" ResolvedId=\"39838\" />';
 xmlAliasData += '    <Map Name=\"ext-usgp-import-safeguard\" Link=\"topics/users-groups-profiles/usgp-import-safeguard.htm\" ResolvedId=\"39835\" />';
 xmlAliasData += '    <Map Name=\"ext-breached-passwords\" Link=\"topics/security/breached-password-protection/about-breached-password-protection.htm\" ResolvedId=\"6950\" />';
+xmlAliasData += '    <Map Name=\"current-assignments-report-deprecated\" Link=\"topics/reports/deprecated/current-assignments-report.htm\" ResolvedId=\"7007\" />';
 xmlAliasData += '    <Map Name=\"ext-administrators-workflows-admin\" Link=\"topics/security/administrators-workflow-admin.htm\" ResolvedId=\"39834\" />';
 xmlAliasData += '    <Map Name=\"ext-about-ednz\" Link=\"topics/security/network/supported-ip-service-categories.htm\" ResolvedId=\"19051\" />';
 xmlAliasData += '    <Map Name=\"csh-org2org-intg\" Link=\"topics/provisioning/org2org/org2org-integrate.htm\" ResolvedId=\"16029\" />';
@@ -798,7 +802,8 @@ xmlAliasData += '    <Map Name=\"ext-pam-sudo-commands\" Link=\"topics/privilege
 xmlAliasData += '    <Map Name=\"csh-pam-sudo-commands\" Link=\"topics/privileged-access/pam-sudo-commands.htm\" ResolvedId=\"39828\" />';
 xmlAliasData += '    <Map Name=\"ext-webauthn-classic\" Link=\"topics/security/mfa-webauthn.htm\" ResolvedId=\"14012\" />';
 xmlAliasData += '    <Map Name=\"ext-dt-win-tpm\" Link=\"topics/device-trust/dt-win-tpm.htm\" ResolvedId=\"9983\" />';
+xmlAliasData += '    <Map Name=\"app-password-health-report-deprecated\" Link=\"topics/reports/deprecated/app-password-health-report.htm\" ResolvedId=\"7003\" />';
+xmlAliasData += '    <Map Name=\"recent-unassignments-report-deprecated\" Link=\"topics/reports/deprecated/recent-unassignments-report.htm\" ResolvedId=\"7005\" />';
 xmlAliasData += '    <Map Name=\"admin-remove-assignment\" Link=\"topics/security/admin-remove-assignment.htm\" ResolvedId=\"19052\" />';
-xmlAliasData += '    <Map Name=\"configure-network-zones\" Link=\"topics/security/network/configure-network-zones.htm\" ResolvedId=\"19053\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
