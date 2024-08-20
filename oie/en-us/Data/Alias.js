@@ -92,7 +92,6 @@ xmlAliasData += '    <Map Name=\"csh-device-mgmt-desktop-mdm-setup\" Link=\"topi
 xmlAliasData += '    <Map Name=\"csh-device-mgmt-mobile-mdm-setup\" Link=\"topics/identity-engine/devices/config-device-mgmt-mobile.htm\" ResolvedId=\"12001\" />';
 xmlAliasData += '    <Map Name=\"csh-device-registration\" Link=\"topics/identity-engine/devices/device-registration.htm\" ResolvedId=\"17019\" />';
 xmlAliasData += '    <Map Name=\"csh-devices-view\" Link=\"topics/identity-engine/devices/devices-view.htm\" ResolvedId=\"21004\" />';
-xmlAliasData += '    <Map Name=\"csh-directory-integrations-main\" Link=\"topics/identity-engine/directories/directory-integrations-main.htm\" ResolvedId=\"15013\" />';
 xmlAliasData += '    <Map Name=\"csh-duo-security-oie\" Link=\"topics/identity-engine/authenticators/configure-duo-security.htm\" ResolvedId=\"18006\" />';
 xmlAliasData += '    <Map Name=\"csh-edr-integration-available-signals\" Link=\"topics/identity-engine/devices/edr-integration-available-signals.htm\" ResolvedId=\"17026\" />';
 xmlAliasData += '    <Map Name=\"csh-el-eg-reviewers\" Link=\"topics/identity-governance/access-certification/iga-el-examples.htm#reviewers\" ResolvedId=\"39970\" />';
@@ -176,6 +175,7 @@ xmlAliasData += '    <Map Name=\"csh-wap\" Link=\"topics/apps/office365/win-auto
 xmlAliasData += '    <Map Name=\"csh_admin-third\" Link=\"topics/security/administrators-configure-third-party-admins.htm\" ResolvedId=\"1232\" />';
 xmlAliasData += '    <Map Name=\"csh_custom_user_types\" Link=\"topics/users-groups-profiles/usgp-user-types-known-issues.htm\" ResolvedId=\"1213\" />';
 xmlAliasData += '    <Map Name=\"csh_custom_user_types_about\" Link=\"topics/users-groups-profiles/usgp-usertypes-about.htm\" ResolvedId=\"1214\" />';
+xmlAliasData += '    <Map Name=\"csh_dirintmain\" Link=\"topics/directory/directory-integrations-main.htm\" ResolvedId=\"1113\" />';
 xmlAliasData += '    <Map Name=\"csh_eDirectory\" Link=\"topics/directory/ldap-agent-manage-integration.htm\" ResolvedId=\"1178\" />';
 xmlAliasData += '    <Map Name=\"csh_FIDO2_WebAuthn\" Link=\"topics/identity-engine/authenticators/configure-webauthn.htm\" ResolvedId=\"1112\" />';
 xmlAliasData += '    <Map Name=\"csh_MFA_Reset\" Link=\"topics/security/mfa/mfa-reset-users.htm\" ResolvedId=\"1095\" />';
@@ -186,6 +186,7 @@ xmlAliasData += '    <Map Name=\"csh_security_general\" Link=\"topics/security/s
 xmlAliasData += '    <Map Name=\"csh_threat_insight\" Link=\"topics/security/threat-insight/ti-index.htm\" ResolvedId=\"1116\" />';
 xmlAliasData += '    <Map Name=\"custom-error-pages\" Link=\"topics/settings/custom-error-pages.htm\" ResolvedId=\"1032\" />';
 xmlAliasData += '    <Map Name=\"custom-sign-in-page\" Link=\"topics/settings/branding-pages.htm\" ResolvedId=\"1033\" />';
+xmlAliasData += '    <Map Name=\"Directory_Directory_Integrations\" Link=\"topics/directory/directory-integrations-main.htm\" ResolvedId=\"39992\" />';
 xmlAliasData += '    <Map Name=\"Directory_Groups\" Link=\"topics/users-groups-profiles/usgp-about-groups.htm#Directory_Groups\" ResolvedId=\"1140\" />';
 xmlAliasData += '    <Map Name=\"Directory_People\" Link=\"topics/users-groups-profiles/usgp-people.htm#Directory_People1\" ResolvedId=\"1130\" />';
 xmlAliasData += '    <Map Name=\"Directory_Profile_Editor\" Link=\"topics/directory/ad-agent-configure-user-profiles-attributes.htm\" ResolvedId=\"1150\" />';
@@ -260,7 +261,6 @@ xmlAliasData += '    <Map Name=\"ext-custom-footer\" Link=\"topics/settings/cust
 xmlAliasData += '    <Map Name=\"ext-custom-user-types\" Link=\"topics/users-groups-profiles/usgp-usertypes-about.htm\" ResolvedId=\"1225\" />';
 xmlAliasData += '    <Map Name=\"ext-devices-lifecycle\" Link=\"topics/identity-engine/devices/devices-lifecycle.htm\" ResolvedId=\"17028\" />';
 xmlAliasData += '    <Map Name=\"ext-devices-main\" Link=\"topics/identity-engine/devices/devices-main.htm\" ResolvedId=\"39949\" />';
-xmlAliasData += '    <Map Name=\"ext-directory-integrations-main\" Link=\"topics/identity-engine/directories/directory-integrations-main.htm\" ResolvedId=\"39948\" />';
 xmlAliasData += '    <Map Name=\"ext-docusign-main\" Link=\"topics/provisioning/docusign/docu-main.htm\" ResolvedId=\"15005\" />';
 xmlAliasData += '    <Map Name=\"ext-drbx-provisioning\" Link=\"topics/provisioning/dropbox/drbx-main.htm\" ResolvedId=\"8007\" />';
 xmlAliasData += '    <Map Name=\"ext-edr-integration-available-signals\" Link=\"topics/identity-engine/devices/edr-integration-available-signals.htm\" ResolvedId=\"17007\" />';
@@ -419,11 +419,14 @@ xmlAliasData += '    <Map Name=\"ext_custom_okta_hosted_sign_in_page\" Link=\"to
 xmlAliasData += '    <Map Name=\"ext_custom_url_domain\" Link=\"topics/settings/settings-customization-general.htm\" ResolvedId=\"200179\" />';
 xmlAliasData += '    <Map Name=\"ext_Dashboard\" Link=\"topics/dashboard/dashboard.htm\" ResolvedId=\"200037\" />';
 xmlAliasData += '    <Map Name=\"ext_Dashboard_End_User_Notifications\" Link=\"topics/dashboard/dashboard.htm\" ResolvedId=\"200038\" />';
+xmlAliasData += '    <Map Name=\"ext_Directory\" Link=\"topics/directory/directory-integrations-main.htm\" ResolvedId=\"200059\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_AD_agent\" Link=\"topics/directory/ad-agent-main.htm\" ResolvedId=\"200060\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_AD_Field_Mappings\" Link=\"topics/directory/directory_ad_field_mappings.htm\" ResolvedId=\"200061\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_Attribute_Mapping\" Link=\"topics/directory/ad-agent-configure-user-profiles-attributes.htm\" ResolvedId=\"200062\" />';
+xmlAliasData += '    <Map Name=\"ext_Directory_Directory_Integrations\" Link=\"topics/directory/directory-integrations-main.htm\" ResolvedId=\"1161\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_FAQ_Okta_and_AD_Groups\" Link=\"topics/directory/directory_faq_okta_and_ad_groups.htm\" ResolvedId=\"200064\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_Groups\" Link=\"topics/users-groups-profiles/usgp-about-groups.htm\" ResolvedId=\"200065\" />';
+xmlAliasData += '    <Map Name=\"ext_Directory_IntegrationOverview\" Link=\"topics/directory/directory-integrations-main.htm\" ResolvedId=\"200066\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_Manage_Profile_Attributes\" Link=\"topics/users-groups-profiles/usgp-user-profile-attributes-main.htm\" ResolvedId=\"200067\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_People\" Link=\"topics/users-groups-profiles/usgp-people.htm\" ResolvedId=\"200068\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_Profile_Editor\" Link=\"topics/users-groups-profiles/usgp-user-profiles-main.htm\" ResolvedId=\"200069\" />';
@@ -865,5 +868,6 @@ xmlAliasData += '    <Map Name=\"ext-webauthn\" Link=\"topics/identity-engine/au
 xmlAliasData += '    <Map Name=\"csh-auth-method-chain\" Link=\"topics/identity-engine/policies/authentication-method-chain.htm\" ResolvedId=\"14015\" />';
 xmlAliasData += '    <Map Name=\"csh-device-access-recovery\" Link=\"topics/oda/macos-mfa/desktop-mfa-recovery-macos.htm\" ResolvedId=\"39829\" />';
 xmlAliasData += '    <Map Name=\"admin-remove-assignment\" Link=\"topics/security/admin-remove-assignment.htm\" ResolvedId=\"19052\" />';
+xmlAliasData += '    <Map Name=\"configure-network-zones\" Link=\"topics/security/network/configure-network-zones.htm\" ResolvedId=\"19053\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);

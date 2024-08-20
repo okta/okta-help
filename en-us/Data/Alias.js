@@ -799,5 +799,6 @@ xmlAliasData += '    <Map Name=\"csh-pam-sudo-commands\" Link=\"topics/privilege
 xmlAliasData += '    <Map Name=\"ext-webauthn-classic\" Link=\"topics/security/mfa-webauthn.htm\" ResolvedId=\"14012\" />';
 xmlAliasData += '    <Map Name=\"ext-dt-win-tpm\" Link=\"topics/device-trust/dt-win-tpm.htm\" ResolvedId=\"9983\" />';
 xmlAliasData += '    <Map Name=\"admin-remove-assignment\" Link=\"topics/security/admin-remove-assignment.htm\" ResolvedId=\"19052\" />';
+xmlAliasData += '    <Map Name=\"configure-network-zones\" Link=\"topics/security/network/configure-network-zones.htm\" ResolvedId=\"19053\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
