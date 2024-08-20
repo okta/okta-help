@@ -1,1 +1,1 @@
-define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../content/topics/releasenotes/archive/wf-relnotes-2020.htm'],s:['$'],p:[['$',73]]});
+define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../content/topics/workflows/access-control/access-control-get-started.htm'],s:['0'],p:[['0',6]]});
