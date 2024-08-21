@@ -1,1 +1,1 @@
-define({'/content/topics/access-gateway/ag-main.htm':{i:[0],t:['Okta Access Gateway'],b:['']}});
+define({'/content/topics/access-gateway/about-application-attribute-datasources.htm':{i:[3],t:['Application attribute Data Stores1'],b:['']},'/content/topics/access-gateway/ag-main.htm':{i:[0],t:['Okta Access Gateway'],b:['']},'/content/topics/access-gateway/application-attributes.htm':{i:[2],t:['Application attributes'],b:['']},'/content/topics/access-gateway/integrate-apps-with-oag.htm':{i:[1],t:['Integrate applications with Access Gateway'],b:['']}});

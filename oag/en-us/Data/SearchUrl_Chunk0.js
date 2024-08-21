@@ -1,1 +1,1 @@
-define({"../content/topics/access-gateway/ag-main.htm":0,});
+define({"../content/topics/access-gateway/about-application-attribute-datasources.htm":3,"../content/topics/access-gateway/ag-main.htm":0,"../content/topics/access-gateway/application-attributes.htm":2,"../content/topics/access-gateway/integrate-apps-with-oag.htm":1,});
