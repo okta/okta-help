@@ -848,6 +848,7 @@ xmlAliasData += '    <Map Name=\"ext-ver-hist-okta-hyperspace-agent\" Link=\"top
 xmlAliasData += '    <Map Name=\"ext-ver-hist-okta-oam-adapter\" Link=\"topics/settings/version_histories/ver_history_mfa_for_oam_plugin.htm\" ResolvedId=\"39838\" />';
 xmlAliasData += '    <Map Name=\"ext-usgp-import-safeguard\" Link=\"topics/users-groups-profiles/usgp-import-safeguard.htm\" ResolvedId=\"39835\" />';
 xmlAliasData += '    <Map Name=\"ext-breached-passwords\" Link=\"topics/security/breached-password-protection/about-breached-password-protection.htm\" ResolvedId=\"6950\" />';
+xmlAliasData += '    <Map Name=\"current-assignments-report-deprecated\" Link=\"topics/reports/deprecated/current-assignments-report.htm\" ResolvedId=\"7007\" />';
 xmlAliasData += '    <Map Name=\"csh-certificate-based-authentication\" Link=\"topics/apps/office365/certificate-based-authentication.htm\" ResolvedId=\"1146\" />';
 xmlAliasData += '    <Map Name=\"ext-about-ednz\" Link=\"topics/security/network/supported-ip-service-categories.htm\" ResolvedId=\"19051\" />';
 xmlAliasData += '    <Map Name=\"csh-org2org-intg\" Link=\"topics/provisioning/org2org/org2org-integrate.htm\" ResolvedId=\"16029\" />';
@@ -866,6 +867,8 @@ xmlAliasData += '    <Map Name=\"csh-pam-sudo-commands\" Link=\"topics/privilege
 xmlAliasData += '    <Map Name=\"csh-user-interaction-options\" Link=\"topics/identity-engine/policies/new-user-interaction-options.htm\" ResolvedId=\"14011\" />';
 xmlAliasData += '    <Map Name=\"ext-webauthn\" Link=\"topics/identity-engine/authenticators/configure-webauthn.htm\" ResolvedId=\"14013\" />';
 xmlAliasData += '    <Map Name=\"csh-auth-method-chain\" Link=\"topics/identity-engine/policies/authentication-method-chain.htm\" ResolvedId=\"14015\" />';
+xmlAliasData += '    <Map Name=\"app-password-health-report-deprecated\" Link=\"topics/reports/deprecated/app-password-health-report.htm\" ResolvedId=\"7003\" />';
+xmlAliasData += '    <Map Name=\"recent-unassignments-report-deprecated\" Link=\"topics/reports/deprecated/recent-unassignments-report.htm\" ResolvedId=\"7005\" />';
 xmlAliasData += '    <Map Name=\"csh-device-access-recovery\" Link=\"topics/oda/macos-mfa/desktop-mfa-recovery-macos.htm\" ResolvedId=\"39829\" />';
 xmlAliasData += '    <Map Name=\"admin-remove-assignment\" Link=\"topics/security/admin-remove-assignment.htm\" ResolvedId=\"19052\" />';
 xmlAliasData += '    <Map Name=\"configure-network-zones\" Link=\"topics/security/network/configure-network-zones.htm\" ResolvedId=\"19053\" />';
