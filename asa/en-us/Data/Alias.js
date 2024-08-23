@@ -36,12 +36,12 @@ xmlAliasData += '    <Map Name=\"ext_asa_main\" Link=\"topics/adv_server_access/
 xmlAliasData += '    <Map Name=\"ext_asa_on_demand_users\" Link=\"topics/adv_server_access/docs/on-demand-users.htm\" ResolvedId=\"1273\" />';
 xmlAliasData += '    <Map Name=\"ext_asa_service_users\" Link=\"topics/adv_server_access/docs/service-users.htm\" ResolvedId=\"1302\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-releasenotes\" Link=\"topics/releasenotes/advanced-server-access-release-notes.htm\" ResolvedId=\"1402\" />';
-xmlAliasData += '    <Map Name=\"ext-asa-policysync\" Link=\"topics/adv_server_access/docs/policysync.htm\" ResolvedId=\"1000\" />';
-xmlAliasData += '    <Map Name=\"csh-asa-client-configuration-advanced\" Link=\"topics/adv_server_access/docs/ad-client-configuration-advanced.htm\" ResolvedId=\"1001\" />';
-xmlAliasData += '    <Map Name=\"csh-ad-user-sync\" Link=\"topics/adv_server_access/docs/ad-user-sync.htm\" ResolvedId=\"1002\" />';
-xmlAliasData += '    <Map Name=\"csh-ad-user-sync-activate\" Link=\"topics/adv_server_access/docs/ad-user-sync-activate.htm\" ResolvedId=\"1003\" />';
+xmlAliasData += '    <Map Name=\"ext-asa-policysync\" Link=\"topics/adv_server_access/docs/policysync.htm\" ResolvedId=\"39997\" />';
+xmlAliasData += '    <Map Name=\"csh-asa-client-configuration-advanced\" Link=\"topics/adv_server_access/docs/ad-client-configuration-advanced.htm\" ResolvedId=\"39996\" />';
+xmlAliasData += '    <Map Name=\"csh-ad-user-sync\" Link=\"topics/adv_server_access/docs/ad-user-sync.htm\" ResolvedId=\"39995\" />';
+xmlAliasData += '    <Map Name=\"csh-ad-user-sync-activate\" Link=\"topics/adv_server_access/docs/ad-user-sync-activate.htm\" ResolvedId=\"39994\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-team-roles\" Link=\"topics/adv_server_access/docs/team-roles.htm\" ResolvedId=\"15588\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-group-adduser\" Link=\"topics/adv_server_access/docs/group-add-user.htm\" ResolvedId=\"15589\" />';
-xmlAliasData += '    <Map Name=\"ext-asa-rn\" Link=\"topics/releasenotes/advanced-server-access-release-notes.htm\" ResolvedId=\"13000\" />';
+xmlAliasData += '    <Map Name=\"ext-asa-rn\" Link=\"topics/releasenotes/advanced-server-access-release-notes.htm\" ResolvedId=\"39993\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
