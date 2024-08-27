@@ -1149,6 +1149,7 @@ xmlAliasData += '    <Map Name=\"ext-slackadmin\" Link=\"topics/workflows/connec
 xmlAliasData += '    <Map Name=\"ext-slackadmin-method-activateuseraction\" Link=\"topics/workflows/connector-reference/slackadmin/actions/activateuseraction.htm\" ResolvedId=\"30614\" />';
 xmlAliasData += '    <Map Name=\"ext-slackadmin-method-adduserstogroup\" Link=\"topics/workflows/connector-reference/slackadmin/actions/adduserstogroup.htm\" ResolvedId=\"30615\" />';
 xmlAliasData += '    <Map Name=\"ext-slackadmin-method-createuser\" Link=\"topics/workflows/connector-reference/slackadmin/actions/createuser.htm\" ResolvedId=\"30616\" />';
+xmlAliasData += '    <Map Name=\"ext-slackadmin-method-customapiaction\" Link=\"topics/workflows/connector-reference/slackadmin/actions/httprequest.htm\" ResolvedId=\"30617\" />';
 xmlAliasData += '    <Map Name=\"ext-slackadmin-method-deactivateuser\" Link=\"topics/workflows/connector-reference/slackadmin/actions/deactivateuser.htm\" ResolvedId=\"30618\" />';
 xmlAliasData += '    <Map Name=\"ext-slackadmin-method-getgroups\" Link=\"topics/workflows/connector-reference/slackadmin/actions/getgroups.htm\" ResolvedId=\"30619\" />';
 xmlAliasData += '    <Map Name=\"ext-slackadmin-method-httprequest\" Link=\"topics/workflows/connector-reference/slackadmin/actions/httprequest.htm\" ResolvedId=\"30620\" />';
@@ -1524,5 +1525,6 @@ xmlAliasData += '    <Map Name=\"ext-oktaprivilegedaccess-method-listallresource
 xmlAliasData += '    <Map Name=\"ext-oktaprivilegedaccess-method-listallserviceaccountsdppfbss5p\" Link=\"topics/workflows/connector-reference/oktaprivilegedaccess/actions/listserviceaccounts.htm\" ResolvedId=\"8123\" />';
 xmlAliasData += '    <Map Name=\"ext-oktaprivilegedaccess-method-createaccessreportgvbqmzs32\" Link=\"topics/workflows/connector-reference/oktaprivilegedaccess/actions/retrieveaccessreport.htm\" ResolvedId=\"8124\" />';
 xmlAliasData += '    <Map Name=\"ext-oktaprivilegedaccess-method-createresourcegroupyi2xcxy\" Link=\"topics/workflows/connector-reference/oktaprivilegedaccess/actions/updateresourcegroup.htm\" ResolvedId=\"8125\" />';
+xmlAliasData += '    <Map Name=\"ext-googlesheets229-method-httprequest\" Link=\"topics/workflows/connector-reference/googlesheets/actions/customapiaction.htm\" ResolvedId=\"30294\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
