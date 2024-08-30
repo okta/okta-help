@@ -495,11 +495,14 @@ xmlAliasData += '    <Map Name=\"ext_Reports_SysLog\" Link=\"topics/reports/repo
 xmlAliasData += '    <Map Name=\"ext_sar\" Link=\"topics/security/suspicious-activity-reporting.htm\" ResolvedId=\"1211\" />';
 xmlAliasData += '    <Map Name=\"ext_secur_browser_support\" Link=\"topics/miscellaneous/platforms_browser_os_support.htm\" ResolvedId=\"3058\" />';
 xmlAliasData += '    <Map Name=\"ext_secur_manage_ea_bata\" Link=\"topics/security/manage-ea-and-beta-features.htm\" ResolvedId=\"3059\" />';
+xmlAliasData += '    <Map Name=\"ext_Security\" Link=\"topics/security/security_at_okta.htm\" ResolvedId=\"200167\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_Administrators\" Link=\"topics/security/administrators.htm\" ResolvedId=\"1106\" />';
+xmlAliasData += '    <Map Name=\"ext_Security_at_Okta\" Link=\"topics/security/security_at_okta.htm\" ResolvedId=\"200168\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_Authentication\" Link=\"topics/security/security_authentication.htm\" ResolvedId=\"200169\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_General\" Link=\"topics/security/security_general.htm\" ResolvedId=\"200171\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_Network\" Link=\"topics/security/network/network-zones.htm\" ResolvedId=\"200172\" />';
 xmlAliasData += '    <Map Name=\"ext_Security_Using_Sync_Password\" Link=\"topics/directory/security_using_sync_password.htm\" ResolvedId=\"200174\" />';
+xmlAliasData += '    <Map Name=\"ext_Settings\" Link=\"topics/settings/customizations-index.htm\" ResolvedId=\"200184\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Account\" Link=\"topics/settings/settings_account.htm\" ResolvedId=\"200185\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Add_Custom_Email_Templates_Multiple_Languages\" Link=\"topics/settings/settings_email.htm#Add\" ResolvedId=\"200186\" />';
 xmlAliasData += '    <Map Name=\"ext_Settings_Configure_A_Custom_Email_Domain\" Link=\"topics/settings/settings_configure_a_custom_email_domain.htm\" ResolvedId=\"200188\" />';

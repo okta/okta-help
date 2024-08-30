@@ -78,7 +78,6 @@ xmlAliasData += '    <Map Name=\"csh-cstm-admin-roles\" Link=\"topics/security/c
 xmlAliasData += '    <Map Name=\"csh-csv-integration-main\" Link=\"topics/directory/csv-integration-main.htm\" ResolvedId=\"20007\" />';
 xmlAliasData += '    <Map Name=\"csh-custom-domain\" Link=\"topics/settings/settings-customization-general.htm\" ResolvedId=\"1034\" />';
 xmlAliasData += '    <Map Name=\"csh-custom-otp-auth\" Link=\"topics/security/mfa-totp-seed.htm\" ResolvedId=\"12011\" />';
-xmlAliasData += '    <Map Name=\"csh-custom-redirect\" Link=\"topics/settings/settings-redirect-to-custom-page.htm\" ResolvedId=\"5002\" />';
 xmlAliasData += '    <Map Name=\"csh-customization\" Link=\"topics/settings/settings-customization-general.htm\" ResolvedId=\"1512\" />';
 xmlAliasData += '    <Map Name=\"csh-dashboard\" Link=\"topics/dashboard/dashboard.htm\" ResolvedId=\"1297\" />';
 xmlAliasData += '    <Map Name=\"csh-deploy-sharepoint\" Link=\"topics/deploymentguides/sharepoint/guide/deploy-sharepoint.htm\" ResolvedId=\"1246\" />';
@@ -542,7 +541,6 @@ xmlAliasData += '    <Map Name=\"ext_Ver_History_Sharepoint_People_Picker_Agent\
 xmlAliasData += '    <Map Name=\"ext_Ver_History_SSO_IWA_Agent\" Link=\"topics/settings/version_histories/ver_history_sso_iwa_agent.htm\" ResolvedId=\"200211\" />';
 xmlAliasData += '    <Map Name=\"ext_Verify_IE_Plugin\" Link=\"topics/browser-plugin/browser-plugin-main.htm\" ResolvedId=\"1074\" />';
 xmlAliasData += '    <Map Name=\"ext_vmware_horizon_radius_intg\" Link=\"topics/integrations/vmware-horizon-radius-intg.htm\" ResolvedId=\"200092\" />';
-xmlAliasData += '    <Map Name=\"ext_widget_redirect\" Link=\"topics/settings/settings-redirect-to-custom-page.htm\" ResolvedId=\"1065\" />';
 xmlAliasData += '    <Map Name=\"fortinet-radius-intg\" Link=\"topics/integrations/fortinet-radius-intg.htm\" ResolvedId=\"1036\" />';
 xmlAliasData += '    <Map Name=\"generic-oidc\" Link=\"topics/integrations/open-id-connect.htm\" ResolvedId=\"1081\" />';
 xmlAliasData += '    <Map Name=\"integrations\" Link=\"topics/integrations/integrations.htm\" ResolvedId=\"1222\" />';
