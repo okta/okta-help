@@ -54,7 +54,7 @@ document.addEventListener('readyToInitCoveo', function () {
         //     customSort: Coveo.OktaCusto.CONTENT_TYPE_CUSTOM_SORT
         // });
         Coveo.$$(searchboxRoot).on(Coveo.StandaloneSearchInterfaceEvents.beforeRedirect, function (e, args) {
-            args.searchPageUri = args.searchPageUri + "?sbOption=" + customSelectObj.getSelectedOption() + '&t=Documentation';
+            args.searchPageUri = args.searchPageUri + '?t=Documentation';
         });
         Coveo.configureResourceRoot('https://static.cloud.coveo.com/searchui/v2.5395/js/');
         Coveo.initSearchbox(searchboxRoot, coveo_search_url, {
