@@ -48,13 +48,13 @@ document.addEventListener('readyToInitCoveo', function () {
     tokenPromise.then(function (token) {
         Coveo.SearchEndpoint.configureCloudV2Endpoint(coveo_org_id, token, coveo_rest_uri);
         var searchboxRoot = document.getElementById('standaloneSearchbox');
-        var customSelectObj = new Coveo.CustomSelect(document.getElementById('customSelect'), {
-            field: '@commoncontenttype',
-            defaultOption: 'Documentation',
-            customSort: Coveo.OktaCusto.CONTENT_TYPE_CUSTOM_SORT
-        });
+        // var customSelectObj = new Coveo.CustomSelect(document.getElementById('customSelect'), {
+        //     field: '@commoncontenttype',
+        //     defaultOption: 'Documentation',
+        //     customSort: Coveo.OktaCusto.CONTENT_TYPE_CUSTOM_SORT
+        // });
         Coveo.$$(searchboxRoot).on(Coveo.StandaloneSearchInterfaceEvents.beforeRedirect, function (e, args) {
-            args.searchPageUri = args.searchPageUri + "?sbOption=" + customSelectObj.getSelectedOption();
+            args.searchPageUri = args.searchPageUri + '?t=Documentation';
         });
         Coveo.configureResourceRoot('https://static.cloud.coveo.com/searchui/v2.5395/js/');
         Coveo.initSearchbox(searchboxRoot, coveo_search_url, {
