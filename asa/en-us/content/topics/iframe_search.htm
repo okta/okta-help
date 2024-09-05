@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<html>
+<head>
+    <link rel="stylesheet" href="https://static.cloud.coveo.com/searchui/v2.10110/css/CoveoFullSearch.min.css" />
+    <script class="coveo-script" src="https://static.cloud.coveo.com/searchui/v2.10110/js/CoveoJsSearch.Lazy.min.js"></script>
+    <script src="https://static.cloud.coveo.com/searchui/v2.10110/js/templates/templates.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var getMadcapFlareVariable = function (id) {
+                var content = '';
+                var wrapper = window.parent.document.getElementById(id);
+                if (wrapper) {
+                    content = wrapper.firstChild.textContent || '';
+                }
+                return content;
+            };
+            var isProd = window.location.host === 'help.okta.com';
+
+            var coveo_org_id = getMadcapFlareVariable(isProd ? 'coveo_org_id' : 'coveo_dev_org_id');
+            var coveo_rest_uri = getMadcapFlareVariable('coveo_rest_uri');
+            var coveo_search_url = getMadcapFlareVariable('coveo_search_url');
+            var coveo_token_url = getMadcapFlareVariable('coveo_token_url');
+            var coveo_dev_token = getMadcapFlareVariable('coveo_dev_token');
+            var tokenPromise = new Promise(function (resolve, reject) {
+                if (!isProd) {
+                    resolve(coveo_dev_token);
+                    return;
+                }
+                var MS_IN_A_DAY = 1000 * 60 * 60 * 24;
+                var tokenObj = JSON.parse(localStorage.getItem("CoveoSearchToken"));
+                var renewTokenNeeded = true;
+                if (tokenObj) {
+                    var difference = new Date().getTime() - tokenObj.timestamp;
+                    var daysDifference = Math.floor(difference / MS_IN_A_DAY);
+                    renewTokenNeeded = daysDifference > 0;
+                }
+                if (!renewTokenNeeded) {
+                    resolve(tokenObj.value);
+                }
+                else {
+                    Coveo.HttpUtils.get(coveo_token_url, function (response) {
+                        var parsedResponse = JSON.parse(response);
+                        var token = parsedResponse.token ? parsedResponse.token : parsedResponse;
+                        var newTokenObj = { value: token, timestamp: new Date().getTime() };
+                        localStorage.setItem("CoveoSearchToken", JSON.stringify(newTokenObj));
+                        resolve(newTokenObj.value);
+                    });
+                }
+            });
+            tokenPromise.then(function (token) {
+                Coveo.SearchEndpoint.configureCloudV2Endpoint(coveo_org_id, token, coveo_rest_uri);
+                Coveo.init(document.getElementById('coveo_search'), {
+                    searchInterfaceConfig: {
+                        searchHub: "okta.help.com",
+                        enableHistory: !0,
+                        enableAutomaticResponsiveMode: !1
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="coveo_search" class='CoveoSearchInterface'> Hi from iframe
+        <div class='coveo-search-section'>
+            <div class="CoveoSearchbox" data-enable-omnibox="true"></div>
+        </div>
+
+        <div class="coveo-main-section">
+            <div class="coveo-facet-column">
+                <div class="CoveoFacet"
+                    data-title="Auth Engine"
+                    data-field="@auth_engine"
+                    data-tab="All"
+                    data-enable-facet-search='false'
+                    data-enable-settings='false'>
+                </div>
+                <div class="CoveoFacet"
+                    data-title="Products"
+                    data-field="@product_category"
+                    data-tab="All"
+                    data-allowed-values1="Workflows"
+                    data-enable-facet-search='false'
+                    data-enable-settings='false'>
+                </div>
+                <!-- <div class="CoveoFacet coveo-hidden1"
+                    id="document_facet"
+                    data-title="Content type"
+                    data-field="@commoncontenttype"
+                    data-tab="All"
+                    data-allowed-values="Documentation"
+                    data-enable-facet-search='false'
+                    data-enable-settings='false'>
+                </div> -->
+                <div class="CoveoFacet"
+                    data-title="Source"
+                    data-field="@source"
+                    data-tab="All"
+                    data-enable-facet-search='false'
+                    data-enable-settings='false'>
+                </div>
+                <div class="CoveoFacet coveo-hidden1"
+                    data-title="Language"
+                    data-field="@language"
+                    data-tab="All"
+                    id="lang_facet"
+                    data-allowed-values="English, Japanese"
+                    data-enable-facet-search='false'
+                    data-enable-settings='false'>
+                </div>
+                <div class="CoveoFacet"
+                    data-title="Content type"
+                    data-field="@okta_content_type"
+                    data-tab="All"
+                    data-enable-facet-search='false'
+                    data-enable-settings='false'>
+                </div>
+            </div>
+
+            <div class="coveo-results-column">
+                <div class="coveo-results-header">
+                    <div class="coveo-summary-section">
+                        <span class="CoveoQuerySummary"></span>
+                        <span class="CoveoQueryDuration"></span>
+                    </div>
+                    <div class="coveo-result-layout-section">
+                        <span class="CoveoResultLayout"></span>
+                    </div>
+                    <div class="coveo-sort-section">
+                        <span class="CoveoSort" data-sort-criteria="relevancy" data-caption="Relevance"></span>
+                        <span class="CoveoSort" data-sort-criteria="date descending,date ascending" data-caption="Date"></span>
+                    </div>
+                </div>
+                <div class="CoveoResultList" data-layout="list" data-wait-animation="fade" data-auto-select-fields-to-include="true"></div>
+                <div class="CoveoPager"></div>
+                <div class="CoveoResultsPerPage"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
