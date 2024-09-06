@@ -92,6 +92,7 @@ xmlAliasData += '    <Map Name=\"csh-device-mgmt-desktop-mdm-setup\" Link=\"topi
 xmlAliasData += '    <Map Name=\"csh-device-mgmt-mobile-mdm-setup\" Link=\"topics/identity-engine/devices/config-device-mgmt-mobile.htm\" ResolvedId=\"12001\" />';
 xmlAliasData += '    <Map Name=\"csh-device-registration\" Link=\"topics/identity-engine/devices/device-registration.htm\" ResolvedId=\"17019\" />';
 xmlAliasData += '    <Map Name=\"csh-devices-view\" Link=\"topics/identity-engine/devices/devices-view.htm\" ResolvedId=\"21004\" />';
+xmlAliasData += '    <Map Name=\"csh-directory-integrations-main\" Link=\"topics/directory/directory-integrations-main.htm\" ResolvedId=\"15013\" />';
 xmlAliasData += '    <Map Name=\"csh-duo-security-oie\" Link=\"topics/identity-engine/authenticators/configure-duo-security.htm\" ResolvedId=\"18006\" />';
 xmlAliasData += '    <Map Name=\"csh-edr-integration-available-signals\" Link=\"topics/identity-engine/devices/edr-integration-available-signals.htm\" ResolvedId=\"17026\" />';
 xmlAliasData += '    <Map Name=\"csh-el-eg-reviewers\" Link=\"topics/identity-governance/access-certification/iga-el-examples.htm#reviewers\" ResolvedId=\"39970\" />';
@@ -261,6 +262,7 @@ xmlAliasData += '    <Map Name=\"ext-custom-footer\" Link=\"topics/settings/cust
 xmlAliasData += '    <Map Name=\"ext-custom-user-types\" Link=\"topics/users-groups-profiles/usgp-usertypes-about.htm\" ResolvedId=\"1225\" />';
 xmlAliasData += '    <Map Name=\"ext-devices-lifecycle\" Link=\"topics/identity-engine/devices/devices-lifecycle.htm\" ResolvedId=\"17028\" />';
 xmlAliasData += '    <Map Name=\"ext-devices-main\" Link=\"topics/identity-engine/devices/devices-main.htm\" ResolvedId=\"39949\" />';
+xmlAliasData += '    <Map Name=\"ext-directory-integrations-main\" Link=\"topics/directory/directory-integrations-main.htm\" ResolvedId=\"39948\" />';
 xmlAliasData += '    <Map Name=\"ext-docusign-main\" Link=\"topics/provisioning/docusign/docu-main.htm\" ResolvedId=\"15005\" />';
 xmlAliasData += '    <Map Name=\"ext-drbx-provisioning\" Link=\"topics/provisioning/dropbox/drbx-main.htm\" ResolvedId=\"8007\" />';
 xmlAliasData += '    <Map Name=\"ext-edr-integration-available-signals\" Link=\"topics/identity-engine/devices/edr-integration-available-signals.htm\" ResolvedId=\"17007\" />';
