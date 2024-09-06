@@ -81,6 +81,7 @@ xmlAliasData += '    <Map Name=\"csh-custom-otp-auth\" Link=\"topics/security/mf
 xmlAliasData += '    <Map Name=\"csh-customization\" Link=\"topics/settings/settings-customization-general.htm\" ResolvedId=\"1512\" />';
 xmlAliasData += '    <Map Name=\"csh-dashboard\" Link=\"topics/dashboard/dashboard.htm\" ResolvedId=\"1297\" />';
 xmlAliasData += '    <Map Name=\"csh-deploy-sharepoint\" Link=\"topics/deploymentguides/sharepoint/guide/deploy-sharepoint.htm\" ResolvedId=\"1246\" />';
+xmlAliasData += '    <Map Name=\"csh-directory-integrations-main\" Link=\"topics/directory/directory-integrations-main.htm\" ResolvedId=\"15013\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-android-intune\" Link=\"topics/mobile/dt-mdm-managed-android-devices.htm\" ResolvedId=\"1088\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-android-mobileIron\" Link=\"topics/mobile/dt-mdm-managed-android-devices.htm\" ResolvedId=\"1087\" />';
 xmlAliasData += '    <Map Name=\"csh-dt-android-other-mngApp\" Link=\"topics/mobile/dt-mdm-managed-android-devices.htm\" ResolvedId=\"1092\" />';
@@ -247,6 +248,7 @@ xmlAliasData += '    <Map Name=\"ext-create-resource-set\" Link=\"topics/securit
 xmlAliasData += '    <Map Name=\"ext-csh-agentless-migration\" Link=\"topics/directory/configure-agentless-sso-migration.htm\" ResolvedId=\"1204\" />';
 xmlAliasData += '    <Map Name=\"ext-custom-footer\" Link=\"topics/settings/customizations-footer.htm\" ResolvedId=\"5001\" />';
 xmlAliasData += '    <Map Name=\"ext-custom-user-types\" Link=\"topics/users-groups-profiles/usgp-usertypes-about.htm\" ResolvedId=\"1225\" />';
+xmlAliasData += '    <Map Name=\"ext-directory-integrations-main\" Link=\"topics/directory/directory-integrations-main.htm\" ResolvedId=\"39948\" />';
 xmlAliasData += '    <Map Name=\"ext-docusign-main\" Link=\"topics/provisioning/docusign/docu-main.htm\" ResolvedId=\"15005\" />';
 xmlAliasData += '    <Map Name=\"ext-drbx-provisioning\" Link=\"topics/provisioning/dropbox/drbx-main.htm\" ResolvedId=\"8007\" />';
 xmlAliasData += '    <Map Name=\"ext-event-hooks\" Link=\"topics/automation-hooks/event-hooks-main.htm\" ResolvedId=\"1216\" />';
