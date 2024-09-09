@@ -1,1 +1,0 @@
-define({"../content/topics/directory/ad-bidirectional-group-management-configure.htm":1,"../content/topics/directory/ad-bidirectional-group-management.htm":0,});
