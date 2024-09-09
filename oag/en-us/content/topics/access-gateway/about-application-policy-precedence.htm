@@ -6,7 +6,7 @@
         <meta name="audience" content="Okta Access Gateway" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="description" content="Use Application Policies to control access to company resources." />
-        <meta name="viewport" content="width=device-width, height=device-height" /><title>Application policy Resource Path precedence | Okta</title>
+        <meta name="viewport" content="width=device-width, height=device-height" /><title>Application policy precedence | Okta</title>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <link rel="shortcut icon" href="../../Resources/Images/favicon.ico" type="image/x-icon" />
@@ -290,17 +290,23 @@
                                             <div class="body-main" data-test="bodyContent">
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
-                                                    <h1>Application policy <span class="uicontrol">Resource Path</span> precedence</h1>
-                                                    <p><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> applications can have multiple policies. Each policy is associated with a Resource path containing a URI, a rule type and other information. When a request is received for application with multiple policies, policies are evaluated in precedence order. </p>
+                                                    <h1>Application policy precedence</h1>
+                                                    <p><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> apps can have multiple policies. Each policy is associated with a resource path containing a URI, a rule type, and other information. When a request is received for an app with multiple policies, policies are evaluated in precedence order.</p>
                                                     <p>In general, policies are evaluated in the following order:</p>
                                                     <ul>
-                                                        <li>Custom policy - Custom policies are evaluated first, in the order in which they were entered chronologically.  First added to most recent.</li>
-                                                        <li>Longest to shortest - For example <span class="code">/a/b/c</span> is evaluated before <span class="code">/a/b</span>. </li>
-                                                        <li>Training or not trailing slash - Resource path ending with <span class="code">/</span>(slash) are treated as exact match. Resource paths not ending with <span class="code">/</span>(slash) are treated as a prefix. <br />For example: <span class="code">/rest</span> matches <span class="code">/restaurant</span>, <span class="code">/rest/</span> does not. </li>
-                                                        <li>For policies of the same length , case sensitive policies are evaluated before case insensitive policies. <br /></li>
-                                                        <li>Default policy, specified by <span class="code">'/'</span> is applied.</li>
+                                                        <li>Custom policy: Custom policies are evaluated first, in the order in which they were entered chronologically. Processing starts at the first policy added to the most recent.</li>
+                                                        <li>Longest to shortest: <span class="code">/a/b/c</span> is evaluated before <span class="code">/a/b</span>.</li>
+                                                        <li>Trailing or no trailing slash: Resource paths ending with <span class="code">/</span> (slash) are treated as an exact match. Resource paths not ending with <span class="code">/</span> (slash) are treated as a prefix. For example, <span class="code">/rest</span> matches <span class="code">/restaurant</span>, but <span class="code">/rest/</span> doesn't.</li>
+                                                        <li>For policies of the same length, case-sensitive policies are evaluated before case-insensitive policies.</li>
+                                                        <li>The default policy, specified by <span class="code">'/'</span> is applied.</li>
                                                     </ul>
-                                                    <p>The following are example policy URI and their behavior:</p>
+                                                    <p>In general, the sorting order follows these principles:</p>
+                                                    <ol>
+                                                        <li value="1">Total number of elements in the URI: For example <span class="code">/a/b/c</span> has three elements split by  "<span class="code">/</span>" (forward slash) in the resource path.</li>
+                                                        <li value="2">Case sensitivity: Case-sensitive policies sort before case-insensitive policies with the same number of elements.</li>
+                                                        <li value="3">Lexicographic order: Policies are then ordered alphabetically. </li>
+                                                    </ol>
+                                                    <p>The following are examples of policy URIs and their behavior:</p>
                                                     <table style="mc-table-style: url('../../resources/tablestyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
                                                         <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
                                                         <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
@@ -315,49 +321,49 @@
                                                         <tbody>
                                                             <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
                                                                 <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Custom</td>
-                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1" colspan="2">Evaluated before all other URIs policies. <br />Evaluated in order originally entered.<br />May include regular expressions in <span class="uicontrol">Resource Path</span>. .</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1" colspan="2">Evaluated before all other URIs policies. <br />Evaluated in the order in which they were originally entered.<br />This may include regular expressions in <span class="uicontrol">Resource Path</span>.</td>
                                                             </tr>
                                                             <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
                                                                 <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">URI rule: <span class="code">/a/b/C</span><br />Example:<span class="code">/a/b/C</span></td>
-                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><span class="code">/a</span> - does not match.
-<br /><span class="code">/a/b</span> - does not match.<br /><span class="code">/a/b/c</span> - does not match.</td>
-                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2"><span class="code">/a</span> - does not match.<br /><span class="code">/a/b</span> - does not match.<br /><span class="code">/a/b/c</span> - matches if no case sensitive rule.<br /><span class="code">/a/b/C</span> - matches</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><span class="code">/a</span>: doesn't match.
+<br /><span class="code">/a/b</span>: doesn't match.<br /><span class="code">/a/b/c</span>: doesn't match.</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2"><span class="code">/a</span>: doesn't match.<br /><span class="code">/a/b</span>: doesn't match.<br /><span class="code">/a/b/c</span>: matches if there's no case-sensitive rule.<br /><span class="code">/a/b/C</span>: matches</td>
                                                             </tr>
                                                             <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
                                                                 <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
                                                                     <p>URI rule: <span class="code">/a/b/C</span><br />Example:<span class="code">/a/b/c</span></p>
                                                                 </td>
                                                                 <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
-                                                                    <p><span class="code">/a</span> - does not match.<br /><span class="code">/a/b</span> - does not match.<br /><span class="code">/a/b/c</span> - matches</p>
+                                                                    <p><span class="code">/a</span>: doesn't match.<br /><span class="code">/a/b</span>: doesn't match.<br /><span class="code">/a/b/c</span>: matches</p>
                                                                 </td>
                                                                 <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
-                                                                    <p><span class="code">/a</span> - does not match.<br /><span class="code">/a/b</span> - does not match.<br /><span class="code">/a/b/c</span> - matches if no case sensitive rule.</p>
+                                                                    <p><span class="code">/a</span>: doesn't match.<br /><span class="code">/a/b</span>: doesn't match.<br /><span class="code">/a/b/c</span>: matches if there's no case-sensitive rule.</p>
                                                                 </td>
                                                             </tr>
                                                             <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
                                                                 <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">URI rule: <span class="code">/a/b</span><br />Example:<span class="code">/a/b</span></td>
-                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><span class="code">/a</span> - does not match.<br /><span class="code">/a/b</span> - matches.</td>
-                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2"><span class="code">/a</span> - does not match.<br /><span class="code">/a/b</span> matches if no case sensitive rule.</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2"><span class="code">/a</span>: doesn't match.<br /><span class="code">/a/b</span>: matches.</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2"><span class="code">/a</span>: doesn't match.<br /><span class="code">/a/b</span>: matches if there's no case-sensitive rule.</td>
                                                             </tr>
                                                             <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
                                                                 <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
                                                                     <p>URI rule: <span class="code">/a</span><br />Example: <span class="code">/a</span></p>
                                                                 </td>
                                                                 <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
-                                                                    <p><span class="code">/a</span>- matches.<br /><span class="code">/A</span> - does not match.<br /><span class="code">/a/b</span> - does not match.</p>
+                                                                    <p><span class="code">/a</span>: matches.<br /><span class="code">/A</span>: doesn't match.<br /><span class="code">/a/b</span>: doesn't match.</p>
                                                                 </td>
                                                                 <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
-                                                                    <p><span class="code">/a</span> - matches if no case sensitive match.<br />/A - matches.<br /><span class="code">/a/b</span> does not match.</p>
+                                                                    <p><span class="code">/a</span>: matches if there's no case-sensitive rule.<br /><span class="code">/A</span>: matches.<br /><span class="code">/a/b</span>: doesn't match.</p>
                                                                 </td>
                                                             </tr>
                                                             <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
-                                                                <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">Default ("/") rule</td>
-                                                                <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2" colspan="2">  Matches anything not matched by a prior rules.</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body2">Default ("<span class="code">/</span>") rule</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body2" colspan="2">Matches anything not matched by prior rules.</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
-                                                    <p>By default <span class="code">/uri</span> is a considered a prefix and matches any path starting with /uri.<br />By default <span class="code">/uri/</span> (ending with a trailing slash) is an exact match and only matches the exact URI string. </p>
-                                                    <p>Additional examples, shown in order of precedence.</p>
+                                                    <p><span class="code">/uri</span> is considered a prefix and matches any path starting with <span class="code">/uri</span>. <span class="code">/uri/</span> (ending with a trailing slash) is an exact match and only matches the exact URI string. </p>
+                                                    <p>These are more examples, shown in order of precedence.</p>
                                                     <table class="TableStyle-srb_header_alt_shade" style="mc-table-style: url('../../resources/tablestyles/standard-shaded-rows.css');" cellspacing="0">
                                                         <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
                                                         <col class="TableStyle-srb_header_alt_shade-Column-Column1" />
@@ -385,8 +391,8 @@
                                                                     <p>Yes</p>
                                                                 </td>
                                                                 <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
-                                                                    <p>Case sensitive has higher precedence then the same URI insentive.</p>
-                                                                </td>
+                        Case-sensitive entries have higher precedence than the same URI that is case-insensitive.
+                    </td>
                                                             </tr>
                                                             <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
                                                                 <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
@@ -396,8 +402,7 @@
                                                                 <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
                                                                     <p>No</p>
                                                                 </td>
-                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
-                                                                </td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2"> </td>
                                                             </tr>
                                                             <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
                                                                 <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">
@@ -408,8 +413,8 @@
                                                                     <p>Yes</p>
                                                                 </td>
                                                                 <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1" rowspan="2">
-                                                                    <p>Both marked case sensitive, same number of elements (two) sorted lexicographically.</p>
-                                                                </td>
+                        Both are marked as case-sensitive, and have the same number of elements (two) sorted lexicographically.
+                    </td>
                                                             </tr>
                                                             <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
                                                                 <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
@@ -429,8 +434,8 @@
                                                                     <p>No</p>
                                                                 </td>
                                                                 <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1" rowspan="2">
-                                                                    <p>Both marked case insensitive, same number of elements (two) sorted lexicographically, but after case sensitive two element rules.</p>
-                                                                </td>
+                        Both are marked as case-insensitive, and have the same number of elements (two) sorted lexicographically, but after case-sensitive, there are two element rules.
+                    </td>
                                                             </tr>
                                                             <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
                                                                 <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">
@@ -449,20 +454,10 @@
                                                                 <td class="TableStyle-srb_header_alt_shade-BodyC-Column1-Body1">
                                                                     <p>No</p>
                                                                 </td>
-                                                                <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body1">
-                                                                </td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyA-Column1-Body1"> </td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
-                                                    <p>In general, sorting order is determined by:</p>
-                                                    <ol>
-                                                        <li value="1">Custom policies: Custom policies are evaluated first and within custom policies evaluated in order entered.</li>
-                                                        <li value="2">Total number of elements in URI: For example <span class="code">/a/b/c</span> has three elements split by  "<span class="code">/</span>" (forward slash) in resource path.</li>
-                                                        <li value="3">Case sensitivity: Case sensitive policies sort above case insensitive policies with the same number of elements.</li>
-                                                        <li value="4">Lexicographic order: Policies are then ordered alphabetically. </li>
-                                                    </ol>
-                                                    <h2>Policies and upgrade</h2>
-                                                    <p>Prior to <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> v<span class="mc-variable oag-versions.2021-01 variable">2021.1.0</span> all policies were treated as case sensitive. During upgrade, all policies are marked as case sensitive to reflect past behavior. New policies, added post upgrade, will default to case insensitive and will need to be explicitly marked case sensitive, if required.</p>
                                                 </div>
                                             </div>
                                         </div>
