@@ -6,7 +6,7 @@
         <meta name="audience" content="OIE Admins" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="description" content="Configure the Okta RADIUS server agent to delegate authentication to Okta for network authentication from devices that don't support SAML." />
-        <meta name="viewport" content="width=device-width, height=device-height" /><title>Install Okta RADIUS Server agent on Windows | Okta</title>
+        <meta name="viewport" content="width=device-width, height=device-height" /><title>Install Okta RADIUS server agent on Windows | Okta</title>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <link rel="shortcut icon" href="../../Resources/Images/favicon.ico" type="image/x-icon" />
@@ -292,50 +292,44 @@
                                             <div class="body-main" data-test="bodyContent">
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
-                                                    <h1>Install Okta RADIUS Server agent on Windows</h1><a name="top"></a>
+                                                    <h1>Install Okta RADIUS server agent on Windows</h1><a name="top"></a>
                                                     <p>The Okta RADIUS server agent delegates authentication to Okta using single-factor authentication (SFA) or multifactor authentication (MFA). It installs as a Windows service and supports the Password Authentication Protocol (PAP).</p>
-                                                    <p>A RADIUS client sends the RADIUS agent the credentials (username and password) of a user that's requesting access to the client. Then, based on the org settings: </p>
+                                                    <p>A RADIUS client sends the credentials of a user who's requesting access to the client to the RADIUS agent. Authentication requests are processed based on the org settings: </p>
                                                     <ul>
                                                         <li>If MFA is disabled and the user credentials are valid, the user is authenticated.
 			</li>
-                                                        <li>If MFA is enabled and the user credentials are valid, the user is prompted to select a second authentication factor. The user selects one (for example, Google Authenticator or Okta Verify) and obtains a request for a validation code. If the code sent back to the client is correct, the user gains access.
-			</li>
+                                                        <li data-mc-conditions="MultiProdPublish.OIE">If MFA is enabled and the user credentials are valid, the user is prompted to select a second authenticator. The user selects one and obtains a request for a validation code. If the code is correct, the user gains access.</li>
                                                     </ul>
-                                                    <p>Some applications or services (for example, AWS Workspace) don't provide an MFA selection upon login, but instead ask for the MFA code in addition to the user's username and password. In the event that the user has enrolled in more than one MFA (for example, Okta Verify and Yubikey), there's no need for the user to specify which they are using – their entered code will be processed by each handler until it is validated successfully.</p>
-                                                    <ul>
-                                                        <li><a href="#Supporte" class="MCXref xref">Supported Operating Systems </a>
-                                                        </li>
-                                                        <li><a href="#Requirem" class="MCXref xref">Requirements and limitations</a>
-                                                        </li>
-                                                        <li><a href="#Tasks" class="MCXref xref">Typical workflow</a>
-                                                        </li>
-                                                    </ul>
-                                                    <h2><a name="Supporte"></a>Supported Operating Systems </h2>
+                                                    <p data-mc-conditions="MultiProdPublish.OIE">Some applications or services, like AWS Workspace, don't provide an MFA selection when signing in. Instead, they ask for the MFA code in addition to the user's username and password. If the user has enrolled in more than one authenticator, there's no need for the user to specify which authenticator they're using. Each handler processes their code  until it's validated.</p>
+                                                    <h2>Prerequisites</h2>
+                                                    <h3><a name="Supporte"></a>Operating systems </h3>
                                                     <div>
-                                                        <p>The Okta RADIUS agent can be installed on the following Windows Server versions:</p>
+                                                        <p>You can install the Okta RADIUS server agent on the following Windows Server versions:</p>
                                                         <ul>
                                                             <li>Windows Server 2012 R2</li>
                                                             <li>Windows Server 2016</li>
                                                             <li>Windows Server 2019</li>
                                                             <li>Windows Server 2022</li>
                                                         </ul>
-                                                        <p> Windows versions 2008, 2008 R2 and 2003 R2 are not supported.</p>
+                                                        <p> Windows versions 2008, 2008 R2 and 2003 R2 aren't supported.</p>
                                                     </div>
-                                                    <h2><a name="Requirem"></a>Requirements and limitations</h2>
+                                                    <h3>Browser</h3>
+                                                    <p>The Okta RADIUS server agent uses Microsoft Edge as the default built-in browser.</p>
+                                                    <h2><a name="Requirem"></a>Use SSL pinning</h2>
                                                     <div>
-                                                        <h4>Upgrading to Version 2.2.0 and later and SSL Pinning</h4>
-                                                        <p>RADIUS agent versions 2.2.0 and later are enabled with SSL pinning, providing an extra layer of security. SSL pinning is not enabled by default for current users upgrading to the new agent. If you're upgrading from an agent version earlier than v2.2.0,  do the following after the upgrade.</p>
+                                                        <p>RADIUS agent versions 2.2.0 and later are enabled with SSL pinning, which provides an extra layer of security. SSL pinning isn't enabled by default in earlier versions. </p>
+                                                        <p>If you upgrade from an agent version earlier than version 2.2.0,  do the following procedure after the upgrade. This process restricts agent communication only to servers that can present valid certificates with public keys known to the new agents.</p>
                                                         <div class="note_cautionOkta">
-                                                            <p class="noteContent">The following steps should not be performed for agents on a network containing a web security appliance.</p>
+                                                            <p class="noteContent">Don't do this procedure for agents on a network that has a web security appliance on it.</p>
                                                         </div>
                                                         <ol>
-                                                            <li value="1">Open the folder where the Okta RADIUS agent resides. The default installation folder is <span class="filepath">C:\Program Files (x86)\Okta\Okta RADIUS Agent\</span></li>
-                                                            <li value="2">From this folder, navigate to <span class="filepath">current\user\config\radius\config.properties</span>. Create back up copies of the config.properties and additional-config.properties files. Open <span class="filepath">current\user\config\radius\config.properties</span> in a text editor.</li>
-                                                            <li value="3">Append the following to the end of the file:<p><span class="codeblock">ragent.ssl.pinning = true</span></p></li>
-                                                            <li value="4">Save the file.</li>
-                                                            <li value="5">Restart the Okta RADIUS Agent service using the available Windows administrative tools.</li>
+                                                            <li value="1">Open the folder where the Okta RADIUS server agent resides. The default installation folder is <span class="filepath">C:\Program Files (x86)\Okta\Okta RADIUS Agent\</span>.</li>
+                                                            <li value="2">Open the <span class="filepath">current\user\config\radius\</span> folder and create backup copies of the config.properties and additional-config.properties files. </li>
+                                                            <li value="3">Open the <span class="filepath">current\user\config\radius\config.properties</span> file in a text editor.</li>
+                                                            <li value="4">Append the following line to the end of the file:<p><span class="codeblock">ragent.ssl.pinning = true</span></p></li>
+                                                            <li value="5">Save the file.</li>
+                                                            <li value="6">Restart the Okta RADIUS server agent service using the Windows administrative tools.</li>
                                                         </ol>
-                                                        <p>This process restricts agent communication to only servers which can present valid certificates with public keys known to the new agents.</p>
                                                     </div>
                                                     <h2><a name="Tasks"></a>Typical workflow</h2>
                                                     <table style="width: 100%;mc-table-style: url('../../resources/tablestyles/standard-shaded-rows.css');" class="TableStyle-srb_header_alt_shade" cellspacing="0">
@@ -353,22 +347,21 @@
                                                         </thead>
                                                         <tbody>
                                                             <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
-                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Download the RADIUS agent</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Download the Okta RADIUS server agent</td>
                                                                 <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1">
                                                                     <ol>
                                                                         <li value="1">In the <span class="mc-variable okta-feature-names.Admin_Console variable">Admin Console</span>, go to <span class="menucascade"><span class="uicontrol">Settings</span><span class="uicontrol">Downloads</span></span>.</li>
-                                                                        <li value="2">Click <span class="uicontrol">Download Latest</span> link next to the RADIUS installer that you want to download.</li>
-                                                                        <li value="3">Use one of the following commands to generate the hash on your local machine. Replace <span class="filepath">setup</span> in the commands with the file path to your downloaded agent.
-			<ul><li>Linux: <span class="code">sha512sum setup.rpm</span></li><li>macOS: <span class="code">shasum -a 512 setup.rpm</span></li><li>Windows: <span class="code">CertUtil -hashfile setup.exe SHA512</span></li></ul></li>
+                                                                        <li value="2">Click the <span class="uicontrol">Download Latest</span> link next to the RADIUS installer that you want to download. Make a note of the installer's file size and SHA-512 hash as they appear on the <span class="wintitle">Downloads</span> page.</li>
+                                                                        <li value="3">Use one of the following commands to generate the hash on your local machine. Replace <span class="filepath">setup</span> in the commands with the file path to your downloaded agent:			<ul><li>Linux: <span class="code">sha512sum setup.rpm</span></li><li>macOS: <span class="code">shasum -a 512 setup.rpm</span></li><li>Windows: <span class="code">CertUtil -hashfile setup.exe SHA512</span></li></ul></li>
                                                                         <li value="4">Verify that the generated hash matches the hash on the <span class="wintitle">Downloads</span> page.</li>
                                                                     </ol>
                                                                 </td>
                                                             </tr>
                                                             <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
-                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Configure RADIUS apps</td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Enable RADIUS authentication with Okta</td>
                                                                 <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body2">
-        To enable RADIUS authentication with Okta, you must install the Okta RADIUS server agent and configure one or more RADIUS applications in the Okta admin console.  Admin console RADIUS applications allow Okta to distinguish between different RADIUS-enabled apps and support them concurrently. In addition,   Okta RADIUS applications support policy creation and assignment of the application to groups.
-		<p>For more information on configuring the RADIUS App see <a href="okta_radius_app.htm" class="MCXref xref">RADIUS applications in Okta</a>.</p></td>
+        Install the Okta RADIUS server agent and configure RADIUS apps in the Admin Console. These apps allow Okta to distinguish between different RADIUS-enabled apps and then support them concurrently. Okta RADIUS apps also let you create policies and assign apps to groups.
+		<p>See <a href="okta_radius_app.htm" class="MCXref xref">RADIUS applications in Okta</a>.</p></td>
                                                             </tr>
                                                             <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
                                                                 <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Install the agent</td>
@@ -382,8 +375,7 @@
                                                             </tr>
                                                             <tr class="TableStyle-srb_header_alt_shade-Body-Body1">
                                                                 <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body1">Manage the agent</td>
-                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1"><a name="manage-win-agent"></a>You can open the Okta RADIUS Agent Manager to make changes to the Shared Secret, RADIUS Port, and Proxy settings using <span class="menucascade"><span class="uicontrol">Programs</span><span class="uicontrol">Okta RADIUS Agent Manager</span></span>.
-                    </td>
+                                                                <td class="TableStyle-srb_header_alt_shade-BodyD-Column1-Body1"><a name="manage-win-agent"></a>Open the Okta RADIUS Agent Manager to change the <span class="uicontrol">Shared Secret</span>, <span class="uicontrol">RADIUS Port</span>, and <span class="uicontrol">Proxy</span> settings using the <span class="menucascade"><span class="uicontrol">Programs</span><span class="uicontrol">Okta RADIUS Agent Manager</span></span> menu.</td>
                                                             </tr>
                                                             <tr class="TableStyle-srb_header_alt_shade-Body-Body2">
                                                                 <td class="TableStyle-srb_header_alt_shade-BodyF-Column1-Body2">Access and manage log files</td>
@@ -410,7 +402,7 @@
                                                         </p>
                                                         <p><a href="radius-best-pract.htm" class="MCXref xref">RADIUS server best practices</a>
                                                         </p>
-                                                        <p><a href="agent_installing_the_okta_radius_agent-linux.htm" class="MCXref xref">Install Okta RADIUS agent on Linux</a>
+                                                        <p><a href="agent_installing_the_okta_radius_agent-linux.htm" class="MCXref xref">Install Okta RADIUS server agent on Linux</a>
                                                         </p>
                                                         <p><a href="agent_determine_version.htm" class="MCXref xref">Determine the RADIUS agent version</a>
                                                         </p>
