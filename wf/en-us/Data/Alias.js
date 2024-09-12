@@ -1526,5 +1526,6 @@ xmlAliasData += '    <Map Name=\"ext-oktaprivilegedaccess-method-listallservicea
 xmlAliasData += '    <Map Name=\"ext-oktaprivilegedaccess-method-createaccessreportgvbqmzs32\" Link=\"topics/workflows/connector-reference/oktaprivilegedaccess/actions/retrieveaccessreport.htm\" ResolvedId=\"8124\" />';
 xmlAliasData += '    <Map Name=\"ext-oktaprivilegedaccess-method-createresourcegroupyi2xcxy\" Link=\"topics/workflows/connector-reference/oktaprivilegedaccess/actions/updateresourcegroup.htm\" ResolvedId=\"8125\" />';
 xmlAliasData += '    <Map Name=\"ext-googlesheets229-method-httprequest\" Link=\"topics/workflows/connector-reference/googlesheets/actions/customapiaction.htm\" ResolvedId=\"30294\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-misc-scopes\" Link=\"topics/workflows/connector-reference/okta/overviews/scopes.htm\" ResolvedId=\"6141\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
