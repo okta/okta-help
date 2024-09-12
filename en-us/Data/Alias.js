@@ -284,6 +284,7 @@ xmlAliasData += '    <Map Name=\"ext-network-zones\" Link=\"topics/security/netw
 xmlAliasData += '    <Map Name=\"ext-o365-adv\" Link=\"topics/apps/office365/advanced.htm\" ResolvedId=\"1062\" />';
 xmlAliasData += '    <Map Name=\"ext-o365-deploy\" Link=\"topics/apps/office365-deployment/deploy-main.htm\" ResolvedId=\"1142\" />';
 xmlAliasData += '    <Map Name=\"ext-o365-main\" Link=\"topics/apps/office365/o365-main.htm\" ResolvedId=\"1143\" />';
+xmlAliasData += '    <Map Name=\"ext-o365-pro-depro\" Link=\"topics/apps/apps_okta_enhancements_office_365_integration.htm\" ResolvedId=\"1091\" />';
 xmlAliasData += '    <Map Name=\"ext-o365-provisioning\" Link=\"topics/apps/office365-deployment/provision-users.htm\" ResolvedId=\"1141\" />';
 xmlAliasData += '    <Map Name=\"ext-obp-security\" Link=\"topics/browser-plugin/plugin-security.htm\" ResolvedId=\"39944\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-verify-relnotes\" Link=\"topics/releasenotes/okta-verify-release-notes.htm\" ResolvedId=\"1327\" />';
@@ -367,6 +368,7 @@ xmlAliasData += '    <Map Name=\"ext_Apps_Mapping_AD_LDAP_and_Workday_Values\" L
 xmlAliasData += '    <Map Name=\"ext_Apps_Moving_Microsoft\" Link=\"topics/apps/apps_moving_microsoft.htm\" ResolvedId=\"200024\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_O365_Admin_Consent\" Link=\"topics/apps/apps_o365_admin_consent.htm\" ResolvedId=\"200025\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_O365_Silent_Activation\" Link=\"topics/apps/apps_o365_silent_activation.htm\" ResolvedId=\"200026\" />';
+xmlAliasData += '    <Map Name=\"ext_Apps_Okta_Enhancements_Office_365_Integration\" Link=\"topics/apps/apps_okta_enhancements_office_365_integration.htm\" ResolvedId=\"200027\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Okta_Mobile\" Link=\"topics/mobile/apps_okta_mobile.htm\" ResolvedId=\"200106\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Overview_of_Managing_Apps_and_SSO\" Link=\"topics/apps/apps_overview_of_managing_apps_and_sso.htm\" ResolvedId=\"200028\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Revealing_the_Password\" Link=\"topics/apps/apps_revealing_the_password.htm\" ResolvedId=\"200029\" />';
