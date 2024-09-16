@@ -5,7 +5,7 @@
         <meta name="typeofcontent" content="documentation" />
         <meta name="audience" content="OIE Admins" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="viewport" content="width=device-width, height=device-height" /><title>Enforce Post auth session</title>
+        <meta name="viewport" content="width=device-width, height=device-height" /><title>Enforce post auth session evaluation policy</title>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <link rel="shortcut icon" href="../../Resources/Images/favicon.ico" type="image/x-icon" />
@@ -42,7 +42,6 @@
 
 </style>
         <link href="../../resources/stylesheets/okta-main-new-nav.css" rel="stylesheet" type="text/css" />
-        <link href="../../resources/tablestyles/standard.css" rel="stylesheet" data-mc-stylesheet-type="table" />
         <script src="../../../Resources/Scripts/jquery.min.js" type="text/javascript">
         </script>
         <script src="../../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
@@ -291,41 +290,33 @@
                                             <div class="body-main" data-test="bodyContent">
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
-                                                    <h1>Enforce Post auth session</h1>
-                                                    <p>Post auth session evaluates the authentication and global session policies to identify changes in session context after users authenticate to <span class="mc-variable okta-variables.ProductName variable">Okta</span>.</p>
-                                                    <div class="noteOkta">
-                                                        <p class="noteContent">When you enforce Post auth session, users may be asked to authenticate more often. This may occur when <span class="mc-variable okta-variables.ProductName variable">Okta</span> detects a violation, or if the user doesn't meet the requirements of the global session or authentication policy when they sign in to <span class="mc-variable okta-variables.ProductName variable">Okta</span> or an app. This is part of the protective function of this feature. Okta AI learns more about your users' behavior over time, which may result in fewer requests to reauthenticate. If you see a consistently higher-than-normal number of authentication requests, contact <a href="https://support.okta.com/help/s/?language=en_US" target="_blank">Okta Support</a>.</p>
-                                                    </div>
+                                                    <h1>Enforce post auth session evaluation policy</h1>
+                                                    <p>By default, the post auth session evaluation policy is in monitoring mode. You can enforce the policy with or without configuring remediation actions.</p>
+                                                    <p>In orgs with <span class="mc-variable okta-feature-names.ITP_long variable">Identity Threat Protection with Okta AI</span> (ITP) enabled, the post auth session evaluation policy monitors the user session for changes in IP address or device context. When ITP detects session context changes, it reevaluates the global session and authentication policies.</p>
+                                                    <h2>Policy modes</h2>
+                                                    <ul>
+                                                        <li><span class="uicontrol">Monitoring</span>: Default status. In this mode, the post auth session evaluation policy logs session context changes and session violations in the System Log. It doesn't enforce any remediation actions. You can review the System Log, dashboards, and ITP reports to understand the risk patterns in your org.</li>
+                                                        <li><span class="uicontrol">Enforced</span>: Require the post auth session evaluation but without triggering any remediation action. ITP evaluates the global session and authentication policies for all the apps in the <span class="mc-variable okta-variables.ProductName variable">Okta</span> session. Based on the policies applicable to the user, they may be prompted to reauthenticate.</li>
+                                                        <li><span class="uicontrol">Enforced with action</span>: Enforce the post auth session evaluation policy with a remediation action. You can configure remediation actions such as <span class="mc-variable okta-feature-names.Universal_Logout variable">Universal Logout</span> or run a Workflow to take a custom action.</li>
+                                                    </ul>
+                                                    <p>When the post auth session evaluation policy is in either of the enforced modes, users may be prompted to reauthenticate more often. As <span class="mc-variable okta-variables.ProductName variable">Okta</span> AI learns more about the user's behavior over time, the re-authentication requests may decrease. If the number of re-authentication requests remains higher than expected, contact <span class="mc-variable okta-variables.ProductName variable">Okta</span> Support.</p>
                                                     <h2>Before you begin</h2>
-                                                    <p>If you want to launch a Workflow when <span class="mc-variable okta-variables.ProductName variable">Okta</span> detects policy violations and changes to users' sessions, create a delegated Workflow before you enforce Post auth session. Only delegated Workflows are supported. See <a href="workflows-for-itp.htm" class="MCXref xref">Workflows for Identity Threat Protection</a>.</p>
-                                                    <h2>Configure Post auth session</h2>
+                                                    <p>Create <a href="workflows-for-itp.htm" class="MCXref xref">Workflows for Identity Threat Protection</a> if you want to take a custom remediation action when the post auth session evaluation policy is enforced with an action. Only delegated Workflows are supported.</p>
+                                                    <h2>Enforce post auth session evaluation policy with action</h2>
+                                                    <p>Enforce the post auth session evaluation policy with or without remediation actions.</p>
                                                     <ol start="1">
                                                         <li value="1">
                                                             <p>In the <span class="mc-variable okta-feature-names.Admin_Console variable">Admin Console</span>, go to <span class="menucascade"><span class="uicontrol">Security</span><span class="uicontrol"><span class="mc-variable okta-feature-names.App_Sign-On_Policies variable">Authentication Policies</span></span></span>.</p>
                                                         </li>
-                                                        <li value="2">Click the <span class="uicontrol">Post auth session</span> tab.</li>
-                                                        <li value="3">Click <span class="uicontrol">Edit</span>. </li>
-                                                        <li value="4">Click the <span class="uicontrol">Enforce policy</span> toggle to activate this feature. When you activate this feature, the <span class="wintitle">Enforced</span> status tag appears at the top of the page.
-			
-		</li>
-                                                        <li value="5">Configure the monitoring conditions. These conditions specify when the feature is enforced. 
-			
-				<table style="width: 100%;mc-table-style: url('../../resources/tablestyles/standard.css');" class="TableStyle-standard" cellspacing="0"><col style="width: 37%;" class="TableStyle-standard-Column-Column1" /><col class="TableStyle-standard-Column-Column1" /><thead><tr class="TableStyle-standard-Head-Header1"><th class="TableStyle-standard-HeadF-Column1-Header1">Condition</th><th class="TableStyle-standard-HeadD-Column1-Header1">Description</th></tr></thead><tbody><tr class="TableStyle-standard-Body-Body1"><td class="TableStyle-standard-BodyF-Column1-Body1"><span class="uicontrol">Groups impacted</span></td><td class="TableStyle-standard-BodyD-Column1-Body1">Select an option to specify the user groups to monitor:
-<ul><li><span class="uicontrol">All groups</span>: Monitor the session context of any group in your org.
-</li><li><span class="uicontrol">The following groups</span>: Specify which groups to include. Start typing the name of the group that you want. <span class="mc-variable okta-variables.ProductName variable">Okta</span> presents results that match what you enter. Click a group name to select it. Repeat this step to add more groups.</li></ul></td></tr><tr class="TableStyle-standard-Body-Body2"><td class="TableStyle-standard-BodyF-Column1-Body2"><span class="uicontrol">Active user sessions</span></td><td class="TableStyle-standard-BodyD-Column1-Body2">Specify how <span class="mc-variable okta-variables.ProductName variable">Okta</span> responds when it detects changes in the session context:<ul><li><span class="uicontrol">Configure an action if a policy violation is detected</span>: <ul><li><span class="uicontrol">Logout</span>: Configure logout options if a policy violation is detected. The <span class="wintitle">Apps impacted by action</span> section appears.</li><li><span class="uicontrol">Run a Workflow</span>: Run a delegated Workflow if <span class="mc-variable okta-variables.ProductName variable">Okta</span> detects a policy violation. The <span class="wintitle">Workflow triggered by action</span> section appears.</li></ul></li></ul><p>The <span class="wintitle">Enforced with action</span> status tag appears at the top of the page when you select either of these options.</p></td></tr><tr class="TableStyle-standard-Body-Body1" data-mc-conditions=""><td class="TableStyle-standard-BodyC-Column1-Body1"><p><span class="wintitle">Workflow triggered by action</span></p></td><td class="TableStyle-standard-BodyA-Column1-Body1"><p>This option appears when you select <span class="uicontrol">Run a Workflow for Active user sessions</span>. Click to select an existing delegated Workflow. Enter the name of the Workflow that you want, and then click the Workflow name to select it.</p></td></tr></tbody></table></li>
+                                                        <li value="2">On the <span class="uicontrol">Post auth session</span> tab, click <span class="uicontrol">Edit</span>. </li>
+                                                        <li value="3">Turn on the <span class="uicontrol">Enforce policy</span> option using the toggle switch.<![CDATA[		
+		]]></li>
+                                                        <li value="4">Configure the options.
+<ul><li><span class="uicontrol">Groups impacted</span>: Specify to which groups the post auth session evaluation policy applies. </li><li><span class="uicontrol">Active user sessions</span>: Select <span class="uicontrol">Configure an action if a policy violation is detected</span>. Then select the remediation action: <span class="mc-variable okta-feature-names.Universal_Logout variable">Universal Logout</span> or a Workflow.</li></ul></li>
                                                     </ol>
                                                     <ol data-mc-continue="true">
-                                                        <li value="6">
-                                                            <p>Click <span class="uicontrol">Save</span>.</p>
-                                                        </li>
+                                                        <li value="5">Click <span class="uicontrol">Save</span>.</li>
                                                     </ol>
-                                                    <h2>Status indicator</h2>
-                                                    <p>The status indicator appears on the <span class="wintitle">Post auth session</span> page and under the dashboard widget titles. It changes depending on how you've configured Post auth session:</p>
-                                                    <ul>
-                                                        <li><span class="wintitle">Monitoring</span>: This status indicates that <span class="mc-variable okta-variables.ProductName variable">Okta</span> is monitoring your org for violations, populating the dashboard widgets, and recording events to the System Log. You haven't configured a response. This indicator only appears in gray.</li>
-                                                        <li><span class="wintitle">Enforced</span>: This status indicates that <span class="mc-variable okta-variables.ProductName variable">Okta</span> is monitoring your org for access violations, populating the dashboard widgets, and recording events to the System Log. You haven't configured a response. In addition, your policies are enforced, and users may be required to re-authenticate if Post auth session detects an issue. This indicator only appears in green.</li>
-                                                        <li><span class="wintitle">Enforced with action</span>: This status indicates that <span class="mc-variable okta-variables.ProductName variable">Okta</span> is monitoring your org for access violations, populating the dashboard widgets, and recording events in the System Log. You've configured Post auth session to log users out of <span class="mc-variable okta-variables.ProductName variable">Okta</span> or logout-enabled apps, or to launch a Workflow in response. </li>
-                                                    </ul>
                                                     <h2>Related topics</h2>
                                                     <p><a href="overview.htm" class="MCXref xref">Identity Threat Protection with Okta AI</a>
                                                     </p>
