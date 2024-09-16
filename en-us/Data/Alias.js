@@ -125,8 +125,6 @@ xmlAliasData += '    <Map Name=\"csh-mfa-home\" Link=\"topics/security/mfa/mfa-h
 xmlAliasData += '    <Map Name=\"csh-new-end-user-experience\" Link=\"topics/settings/new-end-user-experience.htm\" ResolvedId=\"7002\" />';
 xmlAliasData += '    <Map Name=\"csh-new-eu-dashboard\" Link=\"topics/settings/new-end-user-dashboard.htm\" ResolvedId=\"1183\" />';
 xmlAliasData += '    <Map Name=\"csh-notification-changed-password\" Link=\"topics/security/healthinsight/notifications-changed-password.htm\" ResolvedId=\"1301\" />';
-xmlAliasData += '    <Map Name=\"csh-notification-enrollment\" Link=\"topics/security/healthinsight/notifications-factor-enroll.htm\" ResolvedId=\"1187\" />';
-xmlAliasData += '    <Map Name=\"csh-notification-reset\" Link=\"topics/security/healthinsight/notifications-factor-reset.htm\" ResolvedId=\"1188\" />';
 xmlAliasData += '    <Map Name=\"csh-notification-signon\" Link=\"topics/security/healthinsight/notifications-signon.htm\" ResolvedId=\"1186\" />';
 xmlAliasData += '    <Map Name=\"csh-o365-deploy\" Link=\"topics/apps/office365-deployment/deploy-main.htm\" ResolvedId=\"1392\" />';
 xmlAliasData += '    <Map Name=\"csh-o365-sa\" Link=\"topics/apps/apps_o365_silent_activation.htm\" ResolvedId=\"1252\" />';
@@ -142,7 +140,6 @@ xmlAliasData += '    <Map Name=\"csh-pass-mfa-claim\" Link=\"topics/apps/office3
 xmlAliasData += '    <Map Name=\"csh-prioritize-profile-sources\" Link=\"topics/users-groups-profiles/usgp-prioritize-profile-source.htm\" ResolvedId=\"15012\" />';
 xmlAliasData += '    <Map Name=\"csh-profile-masters\" Link=\"topics/users-groups-profiles/usgp-about-profile-sourcing.htm\" ResolvedId=\"1233\" />';
 xmlAliasData += '    <Map Name=\"csh-remediation\" Link=\"topics/identity-governance/access-certification/campaign-settings.htm#Remediation\" ResolvedId=\"39964\" />';
-xmlAliasData += '    <Map Name=\"csh-required-factors\" Link=\"topics/security/healthinsight/required-factors.htm\" ResolvedId=\"1191\" />';
 xmlAliasData += '    <Map Name=\"csh-review-bp-reviewers\" Link=\"topics/identity-governance/access-certification/iga-ac-review-campaign.htm#bp_reviewers\" ResolvedId=\"39963\" />';
 xmlAliasData += '    <Map Name=\"csh-review-campaign\" Link=\"topics/identity-governance/access-certification/iga-ac-review-campaign.htm\" ResolvedId=\"39962\" />';
 xmlAliasData += '    <Map Name=\"csh-risk-scoring\" Link=\"topics/security/security_risk_scoring.htm\" ResolvedId=\"12008\" />';
@@ -153,7 +150,6 @@ xmlAliasData += '    <Map Name=\"csh-session-lifetime\" Link=\"topics/security/h
 xmlAliasData += '    <Map Name=\"csh-session-revoke\" Link=\"topics/security/slo/session-revoke.htm\" ResolvedId=\"39961\" />';
 xmlAliasData += '    <Map Name=\"csh-shc-saml-authentication\" Link=\"topics/security/healthinsight/saml-authentication.htm\" ResolvedId=\"1194\" />';
 xmlAliasData += '    <Map Name=\"csh-SMS-customization\" Link=\"topics/settings/settings_sms.htm\" ResolvedId=\"1218\" />';
-xmlAliasData += '    <Map Name=\"csh-strong-factors\" Link=\"topics/security/healthinsight/strong-factors.htm\" ResolvedId=\"1181\" />';
 xmlAliasData += '    <Map Name=\"csh-strong-password\" Link=\"topics/security/healthinsight/strong-passwords.htm\" ResolvedId=\"1189\" />';
 xmlAliasData += '    <Map Name=\"csh-suspicious-activity-reporting\" Link=\"topics/security/suspicious-activity-reporting.htm\" ResolvedId=\"1177\" />';
 xmlAliasData += '    <Map Name=\"csh-telephony-usage-report\" Link=\"topics/reports/telephony-usage-report.htm\" ResolvedId=\"19002\" />';
@@ -617,7 +613,6 @@ xmlAliasData += '    <Map Name=\"csh-administrators-super-admin\" Link=\"topics/
 xmlAliasData += '    <Map Name=\"csh-administrators-report-admin\" Link=\"topics/security/administrators-report-admin.htm\" ResolvedId=\"19013\" />';
 xmlAliasData += '    <Map Name=\"csh-administrators-read-only-admin\" Link=\"topics/security/administrators-read-only-admin.htm\" ResolvedId=\"19014\" />';
 xmlAliasData += '    <Map Name=\"csh-administrators-org-admin\" Link=\"topics/security/administrators-org-admin.htm\" ResolvedId=\"19015\" />';
-xmlAliasData += '    <Map Name=\"csh-administrators-mobile-admin\" Link=\"topics/security/administrators-mobile-admin.htm\" ResolvedId=\"19016\" />';
 xmlAliasData += '    <Map Name=\"csh-administrators-help-desk-admin\" Link=\"topics/security/administrators-help-desk-admin.htm\" ResolvedId=\"19017\" />';
 xmlAliasData += '    <Map Name=\"csh-administrators-group-membership-admin\" Link=\"topics/security/administrators-group-membership-admin.htm\" ResolvedId=\"19018\" />';
 xmlAliasData += '    <Map Name=\"csh-administrators-group-admin\" Link=\"topics/security/administrators-group-admin.htm\" ResolvedId=\"19019\" />';
@@ -709,7 +704,26 @@ xmlAliasData += '    <Map Name=\"ext-pam-server-enrollment\" Link=\"topics/privi
 xmlAliasData += '    <Map Name=\"ext-pam-policy\" Link=\"topics/privileged-access/pam-policy.htm\" ResolvedId=\"39867\" />';
 xmlAliasData += '    <Map Name=\"ext-pam-entitlement-analysis\" Link=\"topics/privileged-access/pam-entitlement-analysis.htm\" ResolvedId=\"39866\" />';
 xmlAliasData += '    <Map Name=\"ext-pam-secrets\" Link=\"topics/privileged-access/pam-secrets.htm\" ResolvedId=\"39865\" />';
+xmlAliasData += '    <Map Name=\"csh-universal-logout\" Link=\"topics/itp/config-universal-logout.htm\" ResolvedId=\"9010\" />';
 xmlAliasData += '    <Map Name=\"csh-manage-certs\" Link=\"topics/apps/manage-signing-certificates.htm\" ResolvedId=\"9011\" />';
+xmlAliasData += '    <Map Name=\"csh-stay-signed-in\" Link=\"topics/security/stay-signed-in.htm\" ResolvedId=\"5030\" />';
+xmlAliasData += '    <Map Name=\"csh-enforce-continuous-access\" Link=\"topics/itp/enforce-continuous-access.htm\" ResolvedId=\"18024\" />';
+xmlAliasData += '    <Map Name=\"csh-workflows-for-itp\" Link=\"topics/itp/workflows-for-itp.htm\" ResolvedId=\"18025\" />';
+xmlAliasData += '    <Map Name=\"csh-detections\" Link=\"topics/itp/detections.htm\" ResolvedId=\"18027\" />';
+xmlAliasData += '    <Map Name=\"csh-at-risk-user-report\" Link=\"topics/itp/at-risk-user-report.htm\" ResolvedId=\"18029\" />';
+xmlAliasData += '    <Map Name=\"csh-at-risk-users-widget\" Link=\"topics/itp/at-risk-users-widget.htm\" ResolvedId=\"18030\" />';
+xmlAliasData += '    <Map Name=\"csh-continuous-access-widget\" Link=\"topics/itp/continuous-access-widget.htm\" ResolvedId=\"18031\" />';
+xmlAliasData += '    <Map Name=\"csh-entity-risk-detections-widget\" Link=\"topics/itp/entity-risk-detections-widget.htm\" ResolvedId=\"18032\" />';
+xmlAliasData += '    <Map Name=\"csh-entity-risk-policy\" Link=\"topics/itp/entity-risk-policy.htm\" ResolvedId=\"18033\" />';
+xmlAliasData += '    <Map Name=\"csh-entity-risk-report\" Link=\"topics/itp/entity-risk-report.htm\" ResolvedId=\"18034\" />';
+xmlAliasData += '    <Map Name=\"csh-itp-dashboard-widgets\" Link=\"topics/itp/itp-dashboard-widgets.htm\" ResolvedId=\"18035\" />';
+xmlAliasData += '    <Map Name=\"csh-itp-reports\" Link=\"topics/itp/itp-reports.htm\" ResolvedId=\"18036\" />';
+xmlAliasData += '    <Map Name=\"csh-update-entity-risk-policy-rule\" Link=\"topics/itp/update-entity-risk-policy-rule.htm\" ResolvedId=\"18037\" />';
+xmlAliasData += '    <Map Name=\"csh-continuous-access-evaluation\" Link=\"topics/itp/continuous-access-evaluation.htm\" ResolvedId=\"19033\" />';
+xmlAliasData += '    <Map Name=\"csh-continuous-access-violation-report\" Link=\"topics/itp/continuous-access-violation-report.htm\" ResolvedId=\"19034\" />';
+xmlAliasData += '    <Map Name=\"csh-config-shared-signal-provider\" Link=\"topics/itp/configure-shared-signal-provider.htm\" ResolvedId=\"19035\" />';
+xmlAliasData += '    <Map Name=\"csh-create-entity-risk-policy-rule\" Link=\"topics/itp/add-entity-risk-policy-rule.htm\" ResolvedId=\"18038\" />';
+xmlAliasData += '    <Map Name=\"ext-itp-overview\" Link=\"topics/itp/overview.htm\" ResolvedId=\"19036\" />';
 xmlAliasData += '    <Map Name=\"csh-configure-app-signon-policies\" Link=\"topics/security/policies/configure-app-signon-policies.htm\" ResolvedId=\"18023\" />';
 xmlAliasData += '    <Map Name=\"csh-manage-profile-attributes\" Link=\"topics/users-groups-profiles/usgp-user-profile-attributes-main.htm\" ResolvedId=\"5032\" />';
 xmlAliasData += '    <Map Name=\"csh-apps-main\" Link=\"topics/apps/apps_apps.htm\" ResolvedId=\"5033\" />';
@@ -721,6 +735,7 @@ xmlAliasData += '    <Map Name=\"csh-apps-self-service\" Link=\"topics/apps/apps
 xmlAliasData += '    <Map Name=\"csh-import-monitoring-dash\" Link=\"topics/users-groups-profiles/usgp-view-import-monitoring-dashboard.htm\" ResolvedId=\"5041\" />';
 xmlAliasData += '    <Map Name=\"csh-idp-add-saml\" Link=\"topics/security/idp-add-saml.htm\" ResolvedId=\"18039\" />';
 xmlAliasData += '    <Map Name=\"csh-ac-roles-entitlements\" Link=\"topics/identity-governance/access-certification/campaigns.htm\" ResolvedId=\"13042\" />';
+xmlAliasData += '    <Map Name=\"ext-stay-signed-in\" Link=\"topics/security/stay-signed-in.htm\" ResolvedId=\"5042\" />';
 xmlAliasData += '    <Map Name=\"csh-limited-access-oce\" Link=\"topics/apps/pass-device-context-limited-access.htm\" ResolvedId=\"39864\" />';
 xmlAliasData += '    <Map Name=\"ext-entitlement-mgt\" Link=\"topics/identity-governance/em/entitlement-mgt.htm\" ResolvedId=\"16019\" />';
 xmlAliasData += '    <Map Name=\"csh-protected-actions\" Link=\"topics/security/admin-console-protected-actions.htm\" ResolvedId=\"19037\" />';
@@ -754,7 +769,6 @@ xmlAliasData += '    <Map Name=\"ext-third-party-cookies\" Link=\"topics/securit
 xmlAliasData += '    <Map Name=\"ext-cstm-admin-roles\" Link=\"topics/security/custom-admin-role/custom-admin-roles.htm\" ResolvedId=\"19039\" />';
 xmlAliasData += '    <Map Name=\"ext-configure-mfa-policy\" Link=\"topics/security/policies/configure-mfa-policies.htm\" ResolvedId=\"14003\" />';
 xmlAliasData += '    <Map Name=\"csh-known-issues\" Link=\"topics/security/governance-admin-roles/get-started.htm\" ResolvedId=\"13046\" />';
-xmlAliasData += '    <Map Name=\"csh-administrators-workflows-admin\" Link=\"topics/security/administrators-workflow-admin.htm\" ResolvedId=\"39851\" />';
 xmlAliasData += '    <Map Name=\"ext-telephony-inline-hook\" Link=\"topics/telephony/telephony-inline-hook.htm\" ResolvedId=\"39850\" />';
 xmlAliasData += '    <Map Name=\"csh-oce-relnotes-archive-2023\" Link=\"topics/releasenotes/archive/oce-relnotes-2023.htm\" ResolvedId=\"9996\" />';
 xmlAliasData += '    <Map Name=\"csh-oce-relnotes-archive-2022\" Link=\"topics/releasenotes/archive/oce-relnotes-2022.htm\" ResolvedId=\"9995\" />';
@@ -768,6 +782,7 @@ xmlAliasData += '    <Map Name=\"ext-pam-entitlement-aws-connect\" Link=\"topics
 xmlAliasData += '    <Map Name=\"csh-endz\" Link=\"topics/security/network/about-enhanced-dynamic-zones.htm\" ResolvedId=\"19040\" />';
 xmlAliasData += '    <Map Name=\"csh-ednz-ip-service-category\" Link=\"topics/security/network/supported-ip-service-categories.htm\" ResolvedId=\"19041\" />';
 xmlAliasData += '    <Map Name=\"csh-create-endz\" Link=\"topics/security/network/create-enhanced-dynamic-zone.htm\" ResolvedId=\"19042\" />';
+xmlAliasData += '    <Map Name=\"csh-universal-logout-revocations\" Link=\"topics/itp/universal-logout-revocations.htm\" ResolvedId=\"18041\" />';
 xmlAliasData += '    <Map Name=\"ext-apps-deactivate\" Link=\"topics/apps/apps-deactivate.htm\" ResolvedId=\"19047\" />';
 xmlAliasData += '    <Map Name=\"csh-breached-password\" Link=\"topics/security/breached-password-protection/about-breached-password-protection.htm\" ResolvedId=\"18042\" />';
 xmlAliasData += '    <Map Name=\"csh-rcar\" Link=\"topics/identity-governance/access-requests/ar-overview.htm#Conditi\" ResolvedId=\"13047\" />';
@@ -786,12 +801,12 @@ xmlAliasData += '    <Map Name=\"ext-usgp-app-group-priority\" Link=\"topics/use
 xmlAliasData += '    <Map Name=\"ext-usgp-combine-values-use\" Link=\"topics/users-groups-profiles/usgp-combine-values-use.htm\" ResolvedId=\"19050\" />';
 xmlAliasData += '    <Map Name=\"csh-pam-checkout-configure\" Link=\"topics/privileged-access/pam-configure-checkout.htm\" ResolvedId=\"39825\" />';
 xmlAliasData += '    <Map Name=\"csh-pam-checkout-force-checkin\" Link=\"topics/privileged-access/pam-checkout-force-checkin.htm\" ResolvedId=\"39826\" />';
+xmlAliasData += '    <Map Name=\"csh-itp-ul\" Link=\"topics/itp/universal-logout.htm\" ResolvedId=\"18044\" />';
 xmlAliasData += '    <Map Name=\"ext-ver-hist-okta-hyperspace-agent\" Link=\"topics/settings/version_histories/ver_history_hyperspace_agent.htm\" ResolvedId=\"4004\" />';
 xmlAliasData += '    <Map Name=\"ext-ver-hist-okta-oam-adapter\" Link=\"topics/settings/version_histories/ver_history_mfa_for_oam_plugin.htm\" ResolvedId=\"39838\" />';
 xmlAliasData += '    <Map Name=\"ext-usgp-import-safeguard\" Link=\"topics/users-groups-profiles/usgp-import-safeguard.htm\" ResolvedId=\"39835\" />';
 xmlAliasData += '    <Map Name=\"ext-breached-passwords\" Link=\"topics/security/breached-password-protection/about-breached-password-protection.htm\" ResolvedId=\"6950\" />';
 xmlAliasData += '    <Map Name=\"current-assignments-report-deprecated\" Link=\"topics/reports/deprecated/current-assignments-report.htm\" ResolvedId=\"7007\" />';
-xmlAliasData += '    <Map Name=\"ext-administrators-workflows-admin\" Link=\"topics/security/administrators-workflow-admin.htm\" ResolvedId=\"39834\" />';
 xmlAliasData += '    <Map Name=\"ext-about-ednz\" Link=\"topics/security/network/supported-ip-service-categories.htm\" ResolvedId=\"19051\" />';
 xmlAliasData += '    <Map Name=\"csh-org2org-intg\" Link=\"topics/provisioning/org2org/org2org-integrate.htm\" ResolvedId=\"16029\" />';
 xmlAliasData += '    <Map Name=\"csh-org2org-intg-provisioning\" Link=\"topics/provisioning/org2org/org2org-integrate.htm#Use2\" ResolvedId=\"16030\" />';
@@ -805,6 +820,5 @@ xmlAliasData += '    <Map Name=\"app-password-health-report-deprecated\" Link=\"
 xmlAliasData += '    <Map Name=\"recent-unassignments-report-deprecated\" Link=\"topics/reports/deprecated/recent-unassignments-report.htm\" ResolvedId=\"7005\" />';
 xmlAliasData += '    <Map Name=\"admin-remove-assignment\" Link=\"topics/security/admin-remove-assignment.htm\" ResolvedId=\"19052\" />';
 xmlAliasData += '    <Map Name=\"configure-network-zones\" Link=\"topics/security/network/configure-network-zones.htm\" ResolvedId=\"19053\" />';
-xmlAliasData += '    <Map Name=\"administrator-settings\" Link=\"topics/security/administrator-settings.htm\" ResolvedId=\"19056\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
