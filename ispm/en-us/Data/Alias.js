@@ -20,8 +20,6 @@ xmlAliasData += '    <Map Name=\"csh-ispm-snowflake\" Link=\"topics/ispm/snowfla
 xmlAliasData += '    <Map Name=\"csh-ispm-okta-sso\" Link=\"topics/ispm/okta-sso.htm\" ResolvedId=\"13015\" />';
 xmlAliasData += '    <Map Name=\"ext-ispm-okta\" Link=\"topics/ispm/okta.htm\" ResolvedId=\"14000\" />';
 xmlAliasData += '    <Map Name=\"csh-ispm-aad-sso\" Link=\"topics/ispm/microsoft-entra-id-sso.htm\" ResolvedId=\"13016\" />';
-xmlAliasData += '    <Map Name=\"csh-ispm-sso\" Link=\"topics/ispm/config-sso.htm\" ResolvedId=\"13017\" />';
-xmlAliasData += '    <Map Name=\"csh-ispm-event-hooks\" Link=\"topics/ispm/ispm-event-hooks.htm\" ResolvedId=\"13018\" />';
 xmlAliasData += '    <Map Name=\"csh-ispm-config-event-hooks\" Link=\"topics/ispm/config-event-hook.htm\" ResolvedId=\"13019\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
