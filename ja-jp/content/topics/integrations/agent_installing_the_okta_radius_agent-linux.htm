@@ -6,7 +6,7 @@
         <meta name="audience" content="admin" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="description" content="SAMLをサポートしないデバイスからのネットワーク認証をOktaに委任するようにOkta RADIUS Serverエージェントを構成します。" />
-        <meta name="viewport" content="width=device-width, height=device-height" /><title>LinuxにOkta RADIUSエージェントをインストールする | Okta</title>
+        <meta name="viewport" content="width=device-width, height=device-height" /><title>LinuxにOkta RADIUSサーバーエージェントをインストールする | Okta</title>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <link rel="shortcut icon" href="../../Resources/Images/favicon.ico" type="image/x-icon" />
@@ -292,31 +292,23 @@
                                             <div class="body-main" data-test="bodyContent">
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
-                                                    <h1>LinuxにOkta RADIUSエージェントをインストールする</h1>
-                                                    <p>このドキュメントでは、LinuxオペレーティングシステムにOkta RADIUSエージェントをインストールするプロセスについて説明します。 </p>
-                                                    <p>Okta RADIUS Serverエージェントは、単一要素認証（SFA）または多要素認証（MFA）を使用するOktaに認証を委任します。 </p>
+                                                    <h1>LinuxにOkta RADIUSサーバーエージェントをインストールする</h1>
+                                                    <p>このドキュメントでは、LinuxオペレーティングシステムにOkta RADIUSサーバーエージェントをインストールする方法について説明します。 </p>
+                                                    <p>Okta RADIUSサーバーエージェントは、単一要素認証（SFA）または多要素認証（MFA）を使用するOktaに認証を委任します。</p>
                                                     <div>
-                                                        <p>RADIUSクライアントは、クライアントへのアクセスを要求するユーザーの資格情報（ユーザー名とパスワード）をRADIUSエージェントに送信します。認証はorgのMFA設定に依存します。 </p>
+                                                        <p>RADIUSクライアントは、クライアントへのアクセスを要求するユーザーの資格情報をRADIUSエージェントに送信します。認証リクエストは、orgの設定に基づいて処理されます。 </p>
                                                         <ul>
                                                             <li>MFAが無効でユーザーの資格情報が有効な場合、ユーザーは認証されます。
 				</li>
-                                                            <li>MFAが有効でユーザーの資格情報が有効な場合、ユーザーは2つ目の認証要素を選択するよう求められます。ユーザーはその1つを選択し（たとえば、Google AuthenticatorやOkta Verifyなど）、検証コードの要求を取得します。クライアントに送り返されたコードが正しい場合、ユーザーはアクセス権を取得します。
-				</li>
+                                                            <li data-mc-conditions="MultiProdPublish.Classic">MFAが有効でユーザーの資格情報が有効な場合、ユーザーは2つ目の認証要素の選択を求められます。ユーザーはその1つを選択し、検証コードのリクエストを取得します。コードが正しければ、ユーザーはアクセス権を取得します。</li>
                                                         </ul>
+                                                        <p>Okta RADIUSサーバーエージェントのデプロイメントの詳細については、「<a href="getting-started.htm" class="MCXref xref">OktaとRADIUSの統合を開始する</a>」および「<a href="radius-best-pract.htm" class="MCXref xref">RADIUSサーバーのベストプラクティス</a>」を参照してください。Okta RADIUS統合の詳細については、「<a href="ha-main.htm" class="MCXref xref">Okta RADIUS統合</a>」を参照してください。</p>
                                                     </div>
                                                     <div>
-                                                        <h3>トピック</h3>
-                                                        <ul>
-                                                            <li><a href="#SupportedOS" class="MCXref xref">サポートされているオペレーティングシステム </a> </li>
-                                                            <li><a href="#Requirem" class="MCXref xref">要件と制限</a>
-                                                            </li>
-                                                            <li><a href="#Tasks" class="MCXref xref">一般的なワークフロー</a>
-                                                            </li>
-                                                        </ul>
                                                         <div>
-                                                            <h2><a name="SupportedOS"></a>サポートされているオペレーティングシステム </h2>
+                                                            <h2><a name="SupportedOS"></a>サポートされるオペレーティングシステム </h2>
                                                             <div>
-                                                                <p>Okta RADIUSエージェントは、次のLinuxバージョンでテストされています。</p>
+                                                                <p>Okta RADIUSサーバーエージェントは、次のLinuxバージョンでテストされています。</p>
                                                                 <ul>
                                                                     <li>Red Hat Enterprise Linuxリリース8.0、8.3</li>
                                                                     <li>CentOS 7.6</li>
@@ -326,27 +318,18 @@
                                                         </div>
                                                     </div>
                                                     <div>
-                                                        <h2><a name="Requirem">要件と制限</a></h2>
-                                                        <h3><a name="Before"></a>はじめに</h3>
+                                                        <h2><a name="Before"></a>開始する前に</h2>
                                                         <ul>
-                                                            <li>rootとしてサインインできるか、<span class="code">sudo</span>などのコマンドを使用してrootレベルのコマンドを実行できる必要があります。</li>
-                                                            <li>インストール中に、<span class="url">https://mycompany.okta.com</span>などのOkta URLを入力するよう求められ、管理者として認証するよう求められます。OktaテナントURLと管理者資格情報を用意し、すぐに使用できるようにしておいてください。</li>
-                                                            <li>Okta RADIUSエージェントのデプロイについて詳しくは、<a href="getting-started.htm" class="MCXref xref">「OktaとRADIUSの統合を開始する」</a>および<a href="radius-best-pract.htm" class="MCXref xref">「RADIUSサーバーのベストプラクティス」</a>を参照してください。OktaのRADIUSとの統合に関する一般的な情報については、<a href="ha-main.htm" class="MCXref xref">「OktaとRADIUSの統合を始める」</a>を参照してください。</li>
-                                                        </ul>
-                                                        <div class="note_cautionOkta">
-                                                            <p class="noteContent">RADIUSエージェントをインストールするときは、読み取り専用管理者とアプリ管理者の両方のロール、またはスーパー管理者ロールを持つアカウントにログインする必要があります。 </p>
-                                                            <p class="noteContent">さらに、Oktaでは、RADIUSエージェントを承認するために専用のサービスアカウントを使用することをお勧めしています。専用アカウントは、RADIUSエージェントによって使用されるAPIトークンが、ユーザーが非アクティブ化されたときに非アクティブ化される可能性がある特定のユーザーアカウントのライフサイクルに関連付けられていないことを保証します。さらに、RADIUSエージェントに使用されるサービスアカウントには、適切な管理者権限を付与する必要があります。 </p>
-                                                            <p class="noteContent" data-mc-conditions="MultiProdPublish.Classic">
-                必要な具体的権限については、<a href="../security/administrators-admin-comparison.htm">管理者権限の表（多要素認証のセクション）</a>を参照してください。
-            </p>
-                                                        </div>
-                                                        <h3>既知の制限</h3>
-                                                        <ul>
-                                                            <li>プロキシー構成は、エージェント構成ファイルで直接構成する必要があります。</li>
-                                                            <li>ARM64インフラストラクチャへのインストールは現在サポートされていません。 </li>
+                                                            <li>ルートとしてサインインできる、または<span class="code">sudo</span>などのコマンドを使ってルートレベルのコマンドを実行できる必要があります。</li>
+                                                            <li>Okta RADIUSサーバーエージェントをインストールするときは、次のいずれかのロールが割り当てられているアカウントにサインインします。<ul><li>読み取り専用管理者ロールとアプリ管理者ロール</li><li>スーパー管理者ロール </li></ul></li>
+                                                            <li>専用のサービスアカウントを使ってOkta RADIUSサーバーエージェントを承認します。</li>
+                                                            <li>Okta RADIUSサーバーエージェントが使用するサービスアカウントに適切な管理者権限を付与します。「<a href="../security/administrators-admin-comparison.htm" class="MCXref xref">標準的な管理者ロールと権限</a>」の「<span class="wintitle">多要素認証</span>」セクションを参照してください。</li>
+                                                            <li>プロキシ構成は、エージェント構成ファイルでのみ行います。</li>
+                                                            <li>インストールの前にOkta orgのURLと管理者の資格情報を取得します。インストーラーはこれらの情報を要求します。</li>
+                                                            <li>ARM64インフラストラクチャへのインストールはサポートされません。 </li>
                                                         </ul>
                                                     </div>
-                                                    <h2><a name="Tasks">一般的なワークフロー</a></h2>
+                                                    <h2><a name="Tasks"></a>一般的なワークフロー</h2>
                                                     <table style="width: 100%;mc-table-style: url('../../resources/tablestyles/standard.css');" class="TableStyle-standard" cellspacing="0">
                                                         <col class="TableStyle-standard-Column-Column1" />
                                                         <col class="TableStyle-standard-Column-Column1" />
@@ -363,26 +346,20 @@
                                                         </thead>
                                                         <tbody>
                                                             <tr class="TableStyle-standard-Body-Body1">
-                                                                <td class="TableStyle-standard-BodyF-Column1-Body1">RADIUSエージェントをダウンロードする</td>
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body1">Okta RADIUSサーバーエージェントをダウンロードする</td>
                                                                 <td class="TableStyle-standard-BodyD-Column1-Body1">
-                                                                    <ol>
-                                                                        <li value="1"><span class="mc-variable okta-feature-names.Admin_Console variable">Admin Console</span>で、<span class="menucascade"><span class="uicontrol">［Settings（設定）］</span><span class="uicontrol">［Downloads（ダウンロード）］</span></span>に移動します。</li>
-                                                                        <li value="2">ダウンロードするRADIUSインストーラーの横にある<span class="uicontrol">［Download Latest（最新をダウンロード）］</span>リンクをクリックします。</li>
-                                                                        <li value="3">次のいずれかのコマンドを使用して、ローカルマシンでハッシュを生成します。コマンド内の<span class="filepath">setup</span>は、ダウンロードしたエージェントへのファイルパスに置き換えてください。
-			<ul><li>Linux：<span class="code">sha512sum setup.rpm</span></li><li>macOS：<span class="code">shasum -a 512 setup.rpm</span></li><li>Windows：<span class="code">CertUtil -hashfile setup.exe SHA512</span></li></ul></li>
-                                                                        <li value="4">生成されたハッシュが<span class="wintitle">［Downloads（ダウンロード）］</span>ページのハッシュと一致することを確認します。</li>
-                                                                    </ol>
-                                                                </td>
+                        「<a href="agent_install_linux-install.htm" class="MCXref xref">RADIUS Linuxサーバーエージェントをインストールする</a>」を参照してください。
+                    </td>
                                                             </tr>
                                                             <tr class="TableStyle-standard-Body-Body2">
-                                                                <td class="TableStyle-standard-BodyF-Column1-Body2">RADIUSアプリを構成する</td>
+                                                                <td class="TableStyle-standard-BodyF-Column1-Body2">OktaによるRADIUS認証を有効化する</td>
                                                                 <td class="TableStyle-standard-BodyD-Column1-Body2">
-        OktaでRADIUS認証を有効にするには、Okta RADIUS Serverエージェントをインストールし、Okta Admin Consoleで1つ以上のRADIUSアプリケーションを構成する必要があります。Okta Admin ConsoleのRADIUSアプリケーションを使用すると、Oktaは、異なるRADIUS対応アプリを区別し、それらを同時にサポートすることができます。さらに、Okta RADIUSアプリケーションは、ポリシーの作成とグループへのアプリケーションの割り当てをサポートします。
-		<p>RADIUSアプリの構成について詳しくは、<a href="okta_radius_app.htm" class="MCXref xref">「OktaのRADIUSアプリケーション」</a>を参照してください。</p></td>
+        Okta RADIUSサーバーエージェントをインストールし、Admin ConsoleでRADIUSアプリを構成します。これらのアプリを使用することで、Oktaは異なるRADIUS対応アプリを区別し、それらを同時にサポートできます。また、Okta RADIUSアプリを使用することで、ポリシーを作成し、アプリをグループに割り当てることもできます。
+		<p>「<a href="okta_radius_app.htm" class="MCXref xref">OktaのRADIUSアプリケーション</a>」を参照してください。</p></td>
                                                             </tr>
                                                             <tr class="TableStyle-standard-Body-Body1">
                                                                 <td class="TableStyle-standard-BodyF-Column1-Body1">エージェントをインストールする</td>
-                                                                <td class="TableStyle-standard-BodyD-Column1-Body1"><a href="agent_install_linux-install.htm" class="MCXref xref">RADIUS Linuxエージェントをインストールする</a>
+                                                                <td class="TableStyle-standard-BodyD-Column1-Body1"><a href="agent_install_linux-install.htm" class="MCXref xref">RADIUS Linuxサーバーエージェントをインストールする</a>
                                                                 </td>
                                                             </tr>
                                                             <tr class="TableStyle-standard-Body-Body2">
@@ -392,14 +369,14 @@
                                                             </tr>
                                                             <tr class="TableStyle-standard-Body-Body1">
                                                                 <td class="TableStyle-standard-BodyF-Column1-Body1">追加プロパティを構成する </td>
-                                                                <td class="TableStyle-standard-BodyD-Column1-Body1"><a href="agent_install_linux-conf-properties.htm"><a href="agent_install_linux-conf-properties.htm" class="MCXref xref">プロパティーを構成する</a></a>
+                                                                <td class="TableStyle-standard-BodyD-Column1-Body1"><a href="agent_install_linux-conf-properties.htm"><a href="agent_install_linux-conf-properties.htm" class="MCXref xref">プロパティを構成する</a></a>
                                                                 </td>
                                                             </tr>
                                                             <tr class="TableStyle-standard-Body-Body2">
                                                                 <td class="TableStyle-standard-BodyF-Column1-Body2">
                                                                     <p>エージェントを再起動する</p>
                                                                 </td>
-                                                                <td class="TableStyle-standard-BodyD-Column1-Body2">アップグレード後は必ずRADIUSエージェントを停止して、再起動してください。<br /><a href="agent_install_linux-manage.htm" class="MCXref xref">「エージェントを管理する」</a>の<a href="agent_install_linux-manage.htm#restart">「再起動」</a>を参照してください。</td>
+                                                                <td class="TableStyle-standard-BodyD-Column1-Body2">アップグレード後は、必ずOkta RADIUSサーバーエージェントを停止して再起動してください。<br />「<a href="agent_install_linux-manage.htm" class="MCXref xref">エージェントを管理する</a>」の「<a href="agent_install_linux-manage.htm#restart">再起動</a>」を参照してください。</td>
                                                             </tr>
                                                             <tr class="TableStyle-standard-Body-Body1">
                                                                 <td class="TableStyle-standard-BodyF-Column1-Body1">エージェントを管理する</td>
@@ -422,9 +399,9 @@
                                                     </table>
                                                     <div>
                                                         <h2>関連項目</h2>
-                                                        <p><a href="agent_installing_the_okta_radius_agent.htm" class="MCXref xref">WindowsにOkta RADIUS Serverエージェントをインストールする</a>
+                                                        <p><a href="agent_installing_the_okta_radius_agent.htm" class="MCXref xref">WindowsにOkta RADIUSサーバーエージェントをインストールする</a>
                                                         </p>
-                                                        <p><a href="getting-started.htm" class="MCXref xref">OktaとRADIUSの統合を開始する</a> </p>
+                                                        <p><a href="getting-started.htm" class="MCXref xref">Okta RADIUS統合を開始する</a> </p>
                                                         <p><a href="radius-best-pract.htm">RADIUS Server Agentのベストプラクティス</a>
                                                         </p>
                                                         <p><a href="agent_determine_version.htm" class="MCXref xref">RADIUSエージェントのバージョンを決定する</a>
