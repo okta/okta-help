@@ -11,6 +11,11 @@ document.addEventListener('DOMContentLoaded', function() {
     searchButtonDesktop.className = "search-btn";
     navbar.append(searchButtonDesktop);
 
+    searchButtonDesktop.addEventListener('click', function() {
+        window.open('/asa/en-us/content/topics/search.htm', "_self")
+    })
+    return;
+
     /** check for a click event on desktop search-button (toggle .show-search class) **/
     searchButtonDesktop.addEventListener('click', function() {
       const input = document.querySelector('.coveo-headline-wrapper #standaloneSearchbox .magic-box .magic-box-input > input');
