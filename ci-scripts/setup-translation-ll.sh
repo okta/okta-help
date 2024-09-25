@@ -2,7 +2,7 @@
 pushd ${OKTA_HOME}/${REPO}
 
 export SLACK_CHANNEL='#infodev-notifications'
-export targets=( "oce" "asa" "eu" "oie" "wf" "oag" )
+export targets=( "oce" "asa" "eu" "oie" "wf" "oag" "ispm" )
 
 if [[ ! "${targets[*]}" =~ "${TARGET}" ]]; then
   echo "No such target ${TARGET}. Exiting."
