@@ -13,13 +13,12 @@ $ python3 scripts/translation_modify_files.py asa
 import argparse
 import os
 
-targets = ['oie', 'oce', 'eu', 'wf', 'oag', 'asa']
+targets = ['oie', 'oce', 'eu', 'wf', 'oag', 'asa', 'ispm']
 EN_US = 'en-us'
 
 def main(target):
     if target not in targets:
         print(f'Target [{target}] does not exist')
-        exit()
 
     en_dir = EN_US if target == 'oce' else target + '/' + EN_US;
 
@@ -37,7 +36,7 @@ if __name__ == '__main__':
     """)
     parser.add_argument(
         "target",
-        help="[asa|oag|oie|oce|wf|eu]")
+        help="[asa|oag|oie|oce|wf|eu|ispm]")
 
     args = parser.parse_args()
 
