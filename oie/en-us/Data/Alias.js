@@ -879,7 +879,6 @@ xmlAliasData += '    <Map Name=\"admin-remove-assignment\" Link=\"topics/securit
 xmlAliasData += '    <Map Name=\"configure-network-zones\" Link=\"topics/security/network/configure-network-zones.htm\" ResolvedId=\"19053\" />';
 xmlAliasData += '    <Map Name=\"csh-oda-jit\" Link=\"topics/oda/jit-provisioning-oda.htm\" ResolvedId=\"3000\" />';
 xmlAliasData += '    <Map Name=\"administrator-settings\" Link=\"topics/security/administrator-settings.htm\" ResolvedId=\"19056\" />';
-xmlAliasData += '    <Map Name=\"auth-id-instance\" Link=\"topics/identity-engine/policies/add-app-sign-on-policy-rule.htm#auth_id_instance\" ResolvedId=\"14002\" />';
 xmlAliasData += '    <Map Name=\"workday-writeback-enhancement\" Link=\"topics/provisioning/workday/workday-writeback-enhancement.htm\" ResolvedId=\"16000\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
