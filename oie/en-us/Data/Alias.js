@@ -871,6 +871,7 @@ xmlAliasData += '    <Map Name=\"ext-pam-sudo-commands\" Link=\"topics/privilege
 xmlAliasData += '    <Map Name=\"csh-pam-sudo-commands\" Link=\"topics/privileged-access/pam-sudo-commands.htm\" ResolvedId=\"39828\" />';
 xmlAliasData += '    <Map Name=\"csh-user-interaction-options\" Link=\"topics/identity-engine/policies/new-user-interaction-options.htm\" ResolvedId=\"14011\" />';
 xmlAliasData += '    <Map Name=\"ext-webauthn\" Link=\"topics/identity-engine/authenticators/configure-webauthn.htm\" ResolvedId=\"14013\" />';
+xmlAliasData += '    <Map Name=\"csh-id-proofing\" Link=\"topics/security/idp-idv.htm\" ResolvedId=\"14014\" />';
 xmlAliasData += '    <Map Name=\"csh-auth-method-chain\" Link=\"topics/identity-engine/policies/authentication-method-chain.htm\" ResolvedId=\"14015\" />';
 xmlAliasData += '    <Map Name=\"app-password-health-report-deprecated\" Link=\"topics/reports/deprecated/app-password-health-report.htm\" ResolvedId=\"7003\" />';
 xmlAliasData += '    <Map Name=\"recent-unassignments-report-deprecated\" Link=\"topics/reports/deprecated/recent-unassignments-report.htm\" ResolvedId=\"7005\" />';
@@ -879,6 +880,7 @@ xmlAliasData += '    <Map Name=\"admin-remove-assignment\" Link=\"topics/securit
 xmlAliasData += '    <Map Name=\"configure-network-zones\" Link=\"topics/security/network/configure-network-zones.htm\" ResolvedId=\"19053\" />';
 xmlAliasData += '    <Map Name=\"csh-oda-jit\" Link=\"topics/oda/jit-provisioning-oda.htm\" ResolvedId=\"3000\" />';
 xmlAliasData += '    <Map Name=\"administrator-settings\" Link=\"topics/security/administrator-settings.htm\" ResolvedId=\"19056\" />';
+xmlAliasData += '    <Map Name=\"id-verification\" Link=\"topics/security/idp-idv.htm\" ResolvedId=\"14000\" />';
 xmlAliasData += '    <Map Name=\"workday-writeback-enhancement\" Link=\"topics/provisioning/workday/workday-writeback-enhancement.htm\" ResolvedId=\"16000\" />';
 xmlAliasData += '    <Map Name=\"lcm-about-user-management\" Link=\"topics/provisioning/lcm/lcm-about-user-management.htm\" ResolvedId=\"19057\" />';
 xmlAliasData += '</CatapultAliasFile>';
