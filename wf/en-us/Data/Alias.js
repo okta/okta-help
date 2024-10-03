@@ -1527,5 +1527,8 @@ xmlAliasData += '    <Map Name=\"ext-oktaprivilegedaccess-method-createaccessrep
 xmlAliasData += '    <Map Name=\"ext-oktaprivilegedaccess-method-createresourcegroupyi2xcxy\" Link=\"topics/workflows/connector-reference/oktaprivilegedaccess/actions/updateresourcegroup.htm\" ResolvedId=\"8125\" />';
 xmlAliasData += '    <Map Name=\"ext-googlesheets229-method-httprequest\" Link=\"topics/workflows/connector-reference/googlesheets/actions/customapiaction.htm\" ResolvedId=\"30294\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-misc-scopes\" Link=\"topics/workflows/connector-reference/okta/overviews/scopes.htm\" ResolvedId=\"6141\" />';
+xmlAliasData += '    <Map Name=\"ext-invoke-api-endpoint-flow-oauth\" Link=\"topics/workflows/execute/flow-api-endpoint-oauth.htm\" ResolvedId=\"10030\" />';
+xmlAliasData += '    <Map Name=\"ext-invoke-api-endpoint-flow-token\" Link=\"topics/workflows/execute/flow-api-endpoint-token.htm\" ResolvedId=\"10031\" />';
+xmlAliasData += '    <Map Name=\"ext-invoke-api-endpoint-flow-public\" Link=\"topics/workflows/execute/flow-api-endpoint-public.htm\" ResolvedId=\"10032\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
