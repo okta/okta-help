@@ -190,7 +190,6 @@ xmlAliasData += '    <Map Name=\"Directory_People\" Link=\"topics/users-groups-p
 xmlAliasData += '    <Map Name=\"Directory_Profile_Editor\" Link=\"topics/directory/ad-agent-configure-user-profiles-attributes.htm\" ResolvedId=\"1150\" />';
 xmlAliasData += '    <Map Name=\"Directory_Profile_Masters\" Link=\"topics/users-groups-profiles/usgp-about-profile-sourcing.htm#Directory_Profile_Masters1\" ResolvedId=\"1170\" />';
 xmlAliasData += '    <Map Name=\"dt-integrations\" Link=\"topics/mobile/okta_device_trust_native_apps_safari_mdm_devices.htm\" ResolvedId=\"1071\" />';
-xmlAliasData += '    <Map Name=\"dt-safari\" Link=\"topics/mobile/okta_device_trust_jamf_macos_devices.htm\" ResolvedId=\"1038\" />';
 xmlAliasData += '    <Map Name=\"dt-win-desktop\" Link=\"topics/mobile/okta_mobile_device_trust_windows-desktop.htm\" ResolvedId=\"1021\" />';
 xmlAliasData += '    <Map Name=\"edit-resources-standard-role\" Link=\"topics/security/custom-admin-role/edit-resources-standard-role.htm\" ResolvedId=\"19001\" />';
 xmlAliasData += '    <Map Name=\"epcs-okta-intg\" Link=\"topics/integrations/epcs-okta.htm\" ResolvedId=\"1234\" />';
@@ -397,7 +396,6 @@ xmlAliasData += '    <Map Name=\"ext_custom_url_domain\" Link=\"topics/settings/
 xmlAliasData += '    <Map Name=\"ext_Dashboard\" Link=\"topics/dashboard/dashboard.htm\" ResolvedId=\"200037\" />';
 xmlAliasData += '    <Map Name=\"ext_Dashboard_End_User_Notifications\" Link=\"topics/dashboard/dashboard.htm\" ResolvedId=\"200038\" />';
 xmlAliasData += '    <Map Name=\"ext_device_trust\" Link=\"topics/device-trust/device-trust-landing.htm\" ResolvedId=\"200112\" />';
-xmlAliasData += '    <Map Name=\"ext_Device_Trust_MacOS\" Link=\"topics/mobile/okta_device_trust_jamf_macos_devices.htm\" ResolvedId=\"1148\" />';
 xmlAliasData += '    <Map Name=\"ext_device_trust_mobile\" Link=\"topics/device-trust/device-trust-landing.htm\" ResolvedId=\"200111\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory\" Link=\"topics/directory/directory-integrations-main.htm\" ResolvedId=\"200059\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_AD_agent\" Link=\"topics/directory/ad-agent-main.htm\" ResolvedId=\"200060\" />';
@@ -454,7 +452,6 @@ xmlAliasData += '    <Map Name=\"ext_o365_dep_guide\" Link=\"topics/apps/office3
 xmlAliasData += '    <Map Name=\"ext_okta_active_directory_agent\" Link=\"topics/directory/ad-agent-manage-integration.htm\" ResolvedId=\"200076\" />';
 xmlAliasData += '    <Map Name=\"ext_okta_active_directory_agent_OLD\" Link=\"topics/directory/ad-agent-main.htm\" ResolvedId=\"200077\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_Active_Directory_Agent_UDMappingchanges\" Link=\"topics/users-groups-profiles/usgp-sourcing-main.htm\" ResolvedId=\"200079\" />';
-xmlAliasData += '    <Map Name=\"ext_Okta_Device_Trust_Jamf_AirWatch_macOS_Devices\" Link=\"topics/mobile/okta_device_trust_jamf_macos_devices.htm\" ResolvedId=\"200114\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_Device_Trust_Native_Apps_Safari_MDM_Devices\" Link=\"topics/mobile/okta_device_trust_native_apps_safari_mdm_devices.htm\" ResolvedId=\"200115\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_Java_LDAP_Agent\" Link=\"topics/directory/ldap-agent-manage-integration.htm\" ResolvedId=\"200078\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_Mobile_Device_Trust_Windows_desktop\" Link=\"topics/mobile/okta_mobile_device_trust_windows-desktop.htm\" ResolvedId=\"200121\" />';
