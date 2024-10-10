@@ -104,5 +104,7 @@ xmlAliasData += '    <Map Name=\"ext_oag_releasenotes\" Link=\"topics/releasenot
 xmlAliasData += '    <Map Name=\"ext_oag_version_history\" Link=\"topics/releasenotes/oag/oag-version-history.htm\" ResolvedId=\"7005\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_troubleshooting_with_har\" Link=\"topics/access-gateway/troubleshooting-with-har.htm\" ResolvedId=\"7003\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_support_matrix\" Link=\"topics/access-gateway/support-matrix.htm\" ResolvedId=\"9984\" />';
+xmlAliasData += '    <Map Name=\"adv_server_access\" Link=\"topics/access-gateway/environment-configurations.htm\" ResolvedId=\"1109\" />';
+xmlAliasData += '    <Map Name=\"csh-environment-configurations\" Link=\"topics/access-gateway/environment-configurations.htm\" ResolvedId=\"18000\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
