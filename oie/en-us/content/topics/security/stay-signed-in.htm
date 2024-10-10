@@ -5,7 +5,7 @@
         <meta name="typeofcontent" content="documentation" />
         <meta name="audience" content="OIE Admins" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="viewport" content="width=device-width, height=device-height" /><title>Stay signed in</title>
+        <meta name="viewport" content="width=device-width, height=device-height" /><title>Keep me signed in</title>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <link rel="shortcut icon" href="../../Resources/Images/favicon.ico" type="image/x-icon" />
@@ -290,13 +290,222 @@
                                             <div class="body-main" data-test="bodyContent">
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
-                                                    <h1>Stay signed in</h1>
-                                                    <p><span class="uicontrol">Stay signed in</span> lets users establish an Okta session that continues after they close and reopen their browser. Users who choose to stay signed in aren't prompted again for MFA for the amount of time defined in your global session policy. </p>
-                                                    <p>There are two ways to present this option to your users. By default, it's displayed on the <span class="mc-variable okta-feature-names.Sign-In_Widget variable">Sign-In Widget</span> when users enter their credentials. You can also configure it so that the prompt appears after users authenticate. This configuration is better for orgs that use delegated authentication or identity providers, because their users may bypass the credential entry page of the <span class="mc-variable okta-feature-names.Sign-In_Widget variable">Sign-In Widget</span>. </p>
-                                                    <p><span class="uicontrol">Stay signed in</span> is recommended for users on private devices or networks. Users who suspect that their credentials have been compromised can end all sessions in their account settings. </p>
-                                                    <h2>Before you begin</h2>
-                                                    <p>Optional. Enable the <span class="code">usePersistentCookie</span> option in the API if you want users to stay signed in across browser sessions. See <a href="https://developer.okta.com/docs/guides/shared-sso-android-ios/ios/main/#session-and-persistent-single-sign-on" target="_blank">Session and persistent Single Sign-On</a>.</p>
-                                                    <h2>Configure the  feature </h2>
+                                                    <h1>Keep me signed in</h1>
+                                                    <p class="featureBanner">Early Access release. See <a href="manage-ea-and-beta-features.htm" class="MCXref xref">Enable self-service features</a>.</p>
+                                                    <p>Keep me signed in (KMSI) is a usability feature that reduces sign-in friction on remembered devices. After successful authentication, users who select <span class="uicontrol">Keep me signed in</span> don't receive subsequent MFA prompts until the MFA lifetime expires or their browser cookies are cleared. </p>
+                                                    <p>Use of this feature may increase your <a href="https://www.okta.com/identity-101/what-is-an-attack-surface/" target="_blank">attack surface</a> and may not be appropriate for public sector and highly regulated customers, shared devices, or accounts or apps with access to sensitive data.</p>
+                                                    <div class="noteOkta">
+                                                        <p class="noteContent">If you don't enable this EA feature, your navigation is different. See <a href="#Keep" class="MCXref xref">Keep me signed in (GA)</a>.</p>
+                                                    </div>
+                                                    <h2>How it works</h2>
+                                                    <p>You can configure the feature so that the KMSI prompt appears before or after users authenticate. </p>
+                                                    <ul>
+                                                        <li>
+                                                            <p>In standard authentication flows, users go directly to an app or your org's sign-in page and enter their credentials. <a href="#Configur" class="MCXref xref">Configure pre-authentication KMSI</a> if you want to display the prompt on the <span class="mc-variable okta-feature-names.Sign-In_Widget variable">Sign-In Widget</span> when they enter their credentials. <a href="#Configur2" class="MCXref xref">Configure post-authentication KMSI</a> if you want them to see the prompt after their authentication is complete.</p>
+                                                        </li>
+                                                    </ul>
+                                                    <ul>
+                                                        <li>
+                                                            <p>In delegated authentication flows, users bypass the <span class="mc-variable okta-feature-names.Sign-In_Widget variable">Sign-In Widget</span> and sign in with an identity provider. <a href="#Configur2" class="MCXref xref">Configure post-authentication KMSI</a> for these users, so that the KMSI option appears after they authenticate and are redirected back to <span class="mc-variable okta-variables.ProductName variable">Okta</span>. </p>
+                                                        </li>
+                                                    </ul>
+                                                    <h2><a name="Configur"></a>Configure pre-authentication KMSI</h2>
+                                                    <p>Pre-authentication KMSI is set  in the <span class="uicontrol">Organization Security</span> settings and uses the MFA lifetime from your global session policy. Once enabled, it's available to all users in your org.</p>
+                                                    <h3>Enable the feature</h3>
+                                                    <ol>
+                                                        <li value="1">
+                                                            <p>In the <span class="mc-variable okta-feature-names.Admin_Console variable">Admin Console</span>, go to <span class="menucascade"><span class="uicontrol">Security</span><span class="uicontrol">General</span></span>.</p>
+                                                        </li>
+                                                        <li value="2">
+                                                            <p>In the <span class="uicontrol">Organization Security</span> section, click <span class="uicontrol">Edit</span>.</p>
+                                                        </li>
+                                                        <li value="3">
+                                                            <p>Enable the setting to <span class="uicontrol">Show option to stay signed in before users sign in</span>.</p>
+                                                        </li>
+                                                        <li value="4">
+                                                            <p>Click <span class="uicontrol">Save</span>.</p>
+                                                        </li>
+                                                    </ol>
+                                                    <h3>Modify your policies</h3>
+                                                    <ol>
+                                                        <li value="1">
+                                                            <p><a href="../identity-engine/policies/create-okta-sign-on-policy.htm" class="MCXref xref">Create a global session policy</a> or 
+<a href="../identity-engine/policies/edit-global-session-policy.htm" class="MCXref xref">Edit a global session policy</a>.                </p>
+                                                        </li>
+                                                        <li value="2">
+                                                            <p>Set the following rule conditions:              </p>
+                                                            <ul>
+                                                                <li>
+                                                                    <p><span class="uicontrol">Multifactor authentication (MFA) is</span>: Required </p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">Users will be prompted for MFA</span>:  After MFA lifetime expires for the device cookie</p>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li value="3">
+                                                            <p>To extend the <span class="uicontrol">Keep me signed in</span> feature to an app, <a href="../identity-engine/policies/manage-auth-policies.htm" target="_self">update its authentication policy</a>. </p>
+                                                        </li>
+                                                        <li value="4">
+                                                            <p>Set the following rule conditions:</p>
+                                                            <ul>
+                                                                <li>
+                                                                    <p><span class="uicontrol">User must authenticate with</span>: 2 factor types (either option)</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">Prompt for authentication</span>: When an Okta global session doesn't exist</p>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ol>
+                                                    <h2><a name="Configur2"></a>Configure post-authentication KMSI</h2>
+                                                    <p>Post-authentication KMSI is set at the app level in an authentication policy, so you can configure it on a per-app basis. You also need to modify your global session policy so that your intended KMSI duration is observed.  </p>
+                                                    <h3>Modify your global session policy</h3>
+                                                    <ol>
+                                                        <li value="1">
+                                                            <p>In the <span class="mc-variable okta-feature-names.Admin_Console variable">Admin Console</span>, go to <span class="menucascade"><span class="uicontrol">Security</span><span class="uicontrol"><span class="mc-variable okta-feature-names.Okta_sign-on_policy variable">Global Session Policy</span></span></span>.</p>
+                                                        </li>
+                                                        <li value="2">
+                                                            <p>Select the default policy, and then click <span class="uicontrol">Edit</span>.</p>
+                                                        </li>
+                                                        <li value="3">
+                                                            <p>Set the following IF conditions:</p>
+                                                            <ul>
+                                                                <li>
+                                                                    <p><span class="uicontrol">User's IP is</span>: Anywhere</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">Identity provider is</span>: Leave blank</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">Authenticates via</span>: Any</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">Behavior is</span>: Leave blank</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">Risk is</span>: Leave blank</p>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li value="4">
+                                                            <p>Set the following THEN conditions:</p>
+                                                            <ul>
+                                                                <li>
+                                                                    <p><span class="uicontrol">Access is</span>: Allowed</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">Establish the user session with</span>: Any factor used to meet the Authentication Policy requirements</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">Multifactor authentication (MFA) is</span>: Not required</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">Maximum Okta global session lifetime</span>: No time limit</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">Maximum Okta global session idle time</span>: 2 hours</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">Okta global session cookies persist across</span>: Disabled</p>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li value="5">
+                                                            <p>Click <span class="uicontrol">Save</span>.</p>
+                                                        </li>
+                                                    </ol>
+                                                    <h3>Create an authentication policy for post-authentication KMSI</h3>
+                                                    <ol>
+                                                        <li value="1">
+                                                            <p>In the <span class="mc-variable okta-feature-names.Admin_Console variable">Admin Console</span>, go to <span class="menucascade"><span class="uicontrol">Security</span><span class="uicontrol"><span class="mc-variable okta-feature-names.App_Sign-On_Policies variable">Authentication Policies</span></span></span>.</p>
+                                                        </li>
+                                                        <li value="2">
+                                                            <p>Select the <span class="uicontrol">Any two factors</span> policy.</p>
+                                                        </li>
+                                                        <li value="3">
+                                                            <p>In the <span class="uicontrol">Actions</span> menu of the catch-all rule, select <span class="uicontrol">Edit</span>.</p>
+                                                        </li>
+                                                        <li value="4">
+                                                            <p>Set the following IF conditions.</p>
+                                                            <ul>
+                                                                <li>
+                                                                    <p><span class="uicontrol">User type</span>: Any user type</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">User group membership includes</span>: Any group</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">User is</span>: Any user</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">Device state is</span>: Any</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">Device assurance policy is</span>: No policy</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">Device platform is</span>: Any platform</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">User's IP is</span>: Any IP</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">Risk is</span>: Any</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">The following custom expression is true</span>: Leave blank</p>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li value="5">
+                                                            <p>Set the following THEN conditions.</p>
+                                                            <ul>
+                                                                <li>
+                                                                    <p><span class="uicontrol">Access is</span>: Allowed after successful authentication</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">User must authenticate with</span>: Any 2 factor types</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">Possession factor constraints are</span>: Require user interaction (or choose the additional constraints that your org requires)</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">Authentication methods</span>: Allow specific authentication methods (and then enter the authenticators you want to allow) </p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">Option to stay signed in</span>: Show after users sign in</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">Show when not previously shown on the user's current device in the past</span>: 7 days</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">Prompt for authentication</span>: When it's been over a specified length of time since the user accessed any resource protected by the active Okta global session </p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">Time since last sign in</span>: 7 days</p>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li value="6">
+                                                            <p>Click <span class="uicontrol">Save</span>.</p>
+                                                        </li>
+                                                        <li value="7">
+                                                            <p>Go to the policy's <span class="uicontrol">Applications</span> tab.</p>
+                                                        </li>
+                                                        <li value="8">
+                                                            <p>Add apps to the policy by clicking <span class="uicontrol">Add app</span> or <span class="uicontrol">Switch policy</span>.</p>
+                                                        </li>
+                                                    </ol>
+                                                    <p>You can adapt this configuration to your own use cases, but the last two conditions are integral to KMSI. If your global session policy doesn't require MFA, your authentication policy must prompt for authentication when it's been over the specified length of time. If you select a different setting, the KMSI prompt appears more frequently but doesn't retain the user's choice. </p>
+                                                    <p>If the global session policy requires MFA, the authentication policy can prompt for authentication when it's been over a specified length of time or when no global session exists.</p>
+                                                    <p>For a seamless user experience, keep the durations for the <span class="uicontrol">Option to stay signed in</span> consistent with the <span class="uicontrol">Prompt for authentication</span>. If they don't match, users may not see the<span class="uicontrol"> Keep me signed in</span> prompt after being prompted for MFA.</p>
+                                                    <h2>User experience</h2>
+                                                    <p>In a pre-authentication KMSI flow, users select <span class="uicontrol">Keep me signed in</span> when they enter their username in the <span class="mc-variable okta-feature-names.Sign-In_Widget variable">Sign-In Widget</span>, and then they provide MFA to complete their authentication. </p>
+                                                    <p>In a post-authentication KMSI flow, users who go to your org's sign-in page may be redirected to an identity provider before they can select <span class="uicontrol">Keep me signed in</span>. After authenticating, these users select <span class="uicontrol">Stay signed in</span> when they're redirected back to Okta.  </p>
+                                                    <p>In either case, users who select <span class="uicontrol">Keep me signed in</span> are remembered on their device for the duration set in your authentication policy. They can  manually reset the KMSI prompt and clear all sessions by opening their dashboard account settings menu and selecting <span class="uicontrol">Sign out</span> (in the <span class="uicontrol">End All Sessions</span> section). The next time the user accesses your org, the <span class="uicontrol">Keep me signed in</span> option appears.</p>
+                                                    <h2><a name="Keep"></a>Keep me signed in (GA)</h2>
+                                                    <p>In the generally available version of this feature, both display options are available in the <span class="uicontrol">Organization Security</span> settings. Because this is a global setting, you can't configure it on a per-app basis.</p>
                                                     <ol>
                                                         <li value="1">In the <span class="mc-variable okta-feature-names.Admin_Console variable">Admin Console</span>, go to <span class="menucascade"><span class="uicontrol">Security</span><span class="uicontrol">General</span></span>.</li>
                                                         <li value="2">In the <span class="uicontrol">Organizational Security</span> section, click <span class="uicontrol">Edit</span>.</li>
@@ -307,14 +516,11 @@
                                                             <p>To show the option on the <span class="mc-variable okta-feature-names.Sign-In_Widget variable">Sign-In Widget</span> and after users authenticate, enable the feature, and then select <span class="uicontrol">Before and after users sign in</span>. This option is recommended for orgs that use delegated authentication or identity providers.</p>
                                                         </li>
                                                         <li value="5">
-                                                            <p>To hide the <span class="uicontrol">Stay signed in</span> options, select <span class="uicontrol">Not Enabled</span>.</p>
-                                                        </li>
-                                                        <li value="6">
                                                             <p>Click <span class="uicontrol">Save</span>.</p>
                                                         </li>
                                                     </ol>
-                                                    <h2>Modify your policies</h2>
-                                                    <p>Be sure that the rules in your global session and authentication policies accommodate the <span class="uicontrol">Stay signed in</span> feature. </p>
+                                                    <h3>Modify your policies</h3>
+                                                    <p>Be sure that the rules in your global session and authentication policies accommodate the KMSI feature. </p>
                                                     <ol>
                                                         <li value="1">
                                                             <p><a href="../identity-engine/policies/create-okta-sign-on-policy.htm" class="MCXref xref">Create a global session policy</a> or 
@@ -324,35 +530,28 @@
                                                             <p>Set the following rule conditions:              </p>
                                                             <ul>
                                                                 <li>
-                                                                    <p><span class="uicontrol">Multifactor authentication (MFA) is</span>: Required. </p>
+                                                                    <p><span class="uicontrol">Multifactor authentication (MFA) is</span>: Required </p>
                                                                 </li>
                                                                 <li>
-                                                                    <p><span class="uicontrol">Users will be prompted for MFA</span>: Select <span class="uicontrol">When signing in with a new device cookie</span> or <span class="uicontrol">After MFA lifetime expires for the device cookie</span>.</p>
-                                                                </li>
-                                                                <li>
-                                                                    <p><span class="uicontrol">Okta global session cookies persist across browser sessions</span>: Enable this option if you enabled the <span class="code">usePersistentCookie</span> option in the API.</p>
+                                                                    <p><span class="uicontrol">Users will be prompted for MFA</span>: After MFA lifetime expires for the device cookie</p>
                                                                 </li>
                                                             </ul>
                                                         </li>
                                                         <li value="3">
-                                                            <p>To extend the <span class="uicontrol">Stay signed in</span> feature to an app, <a href="../identity-engine/policies/manage-auth-policies.htm" target="_self">update its authentication policy</a>. </p>
+                                                            <p>To extend the <span class="uicontrol">Keep me signed in</span> feature to an app, <a href="../identity-engine/policies/manage-auth-policies.htm" target="_self">update its authentication policy</a>. </p>
                                                         </li>
                                                         <li value="4">
                                                             <p>Set the following rule conditions:</p>
                                                             <ul>
                                                                 <li>
-                                                                    <p><span class="uicontrol">User must authenticate with</span>: Select <span class="uicontrol">2 factor types</span> (either option).</p>
+                                                                    <p><span class="uicontrol">User must authenticate with</span>:  2 factor types (either option)</p>
                                                                 </li>
                                                                 <li>
-                                                                    <p><span class="uicontrol">Prompt for authentication</span>: Select <span class="uicontrol">When an Okta global session doesn't exist</span>.</p>
+                                                                    <p><span class="uicontrol">Prompt for authentication</span>: When an Okta global session doesn't exist</p>
                                                                 </li>
                                                             </ul>
                                                         </li>
                                                     </ol>
-                                                    <h2>User experience</h2>
-                                                    <p>In a standard authentication flow, users select <span class="uicontrol">Keep me signed in</span> after they enter their username in the <span class="mc-variable okta-feature-names.Sign-In_Widget variable">Sign-In Widget</span>, and then they provide MFA options to complete their authentication. The next time they access your org, users aren't prompted  for MFA.</p>
-                                                    <p>In an integrated authentication flow, users who go to your org's sign-in page may be redirected to an identity provider before they can select <span class="uicontrol">Keep me signed in</span>. If you enabled the <span class="uicontrol">Before and after users sign in</span> option, these users are prompted to choose <span class="uicontrol">Stay signed in</span> or <span class="uicontrol">Don't stay signed in</span> when they're redirected back to Okta. After they make a selection,   the  options are hidden the next time they sign in. </p>
-                                                    <p>When the <span class="uicontrol">Stay signed in</span> option is active, there's only one way for users to sign out of their session. They can  manually sign out all sessions (including the current one) by going to their account settings menu and selecting <span class="menucascade"><span class="uicontrol">Remembered devices</span> <span class="uicontrol">End all sessions</span></span>. This action also invalidates the <span class="code">usePersistentCookie</span> for the session if it was set. The next time the user accesses your org, the <span class="uicontrol">Stay signed in</span> option is displayed.</p>
                                                     <h2>Related topics</h2>
                                                     <p><a href="security_general.htm" class="MCXref xref">General Security</a>
                                                     </p>
