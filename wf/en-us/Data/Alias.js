@@ -390,7 +390,7 @@ xmlAliasData += '    <Map Name=\"ext-gmail-method-sendemailwithattachment\" Link
 xmlAliasData += '    <Map Name=\"ext-gmail-method-setautoreply\" Link=\"topics/workflows/connector-reference/gmail/actions/setautoreply.htm\" ResolvedId=\"30174\" />';
 xmlAliasData += '    <Map Name=\"ext-gmail-method-updateusergmailsettings\" Link=\"topics/workflows/connector-reference/gmail/actions/updateusergmailsettings.htm\" ResolvedId=\"30176\" />';
 xmlAliasData += '    <Map Name=\"ext-gmail-misc-authorization\" Link=\"topics/workflows/connector-reference/gmail/overviews/authorization.htm\" ResolvedId=\"30179\" />';
-xmlAliasData += '    <Map Name=\"ext-gmail-misc-transferofownership\" Link=\"topics/workflows/connector-reference/gmail/actions/transferofownership.htm\" ResolvedId=\"30175\" />';
+xmlAliasData += '    <Map Name=\"ext-gmail-misc-transferofownership\" Link=\"topics/workflows/connector-reference/gmail/overviews/transferofownership.htm\" ResolvedId=\"30175\" />';
 xmlAliasData += '    <Map Name=\"ext-googlecalendar\" Link=\"topics/workflows/connector-reference/googlecalendar/googlecalendar.htm\" ResolvedId=\"30181\" />';
 xmlAliasData += '    <Map Name=\"ext-googlecalendar-method-addusertocalendar\" Link=\"topics/workflows/connector-reference/googlecalendar/actions/addusertocalendar.htm\" ResolvedId=\"31051\" />';
 xmlAliasData += '    <Map Name=\"ext-googlecalendar-method-createnewevent\" Link=\"topics/workflows/connector-reference/googlecalendar/actions/createnewevent.htm\" ResolvedId=\"30183\" />';
