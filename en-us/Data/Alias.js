@@ -802,7 +802,6 @@ xmlAliasData += '    <Map Name=\"app-password-health-report-deprecated\" Link=\"
 xmlAliasData += '    <Map Name=\"recent-unassignments-report-deprecated\" Link=\"topics/reports/deprecated/recent-unassignments-report.htm\" ResolvedId=\"7005\" />';
 xmlAliasData += '    <Map Name=\"admin-remove-assignment\" Link=\"topics/security/admin-remove-assignment.htm\" ResolvedId=\"19052\" />';
 xmlAliasData += '    <Map Name=\"configure-network-zones\" Link=\"topics/security/network/configure-network-zones.htm\" ResolvedId=\"19053\" />';
-xmlAliasData += '    <Map Name=\"administrator-settings\" Link=\"topics/security/administrator-settings.htm\" ResolvedId=\"19056\" />';
 xmlAliasData += '    <Map Name=\"workday-writeback-enhancement\" Link=\"topics/provisioning/workday/workday-writeback-enhancement.htm\" ResolvedId=\"16000\" />';
 xmlAliasData += '    <Map Name=\"lcm-about-user-management\" Link=\"topics/provisioning/lcm/lcm-about-user-management.htm\" ResolvedId=\"19057\" />';
 xmlAliasData += '</CatapultAliasFile>';

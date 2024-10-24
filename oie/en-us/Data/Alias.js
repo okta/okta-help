@@ -879,7 +879,6 @@ xmlAliasData += '    <Map Name=\"csh-device-access-recovery\" Link=\"topics/oda/
 xmlAliasData += '    <Map Name=\"admin-remove-assignment\" Link=\"topics/security/admin-remove-assignment.htm\" ResolvedId=\"19052\" />';
 xmlAliasData += '    <Map Name=\"configure-network-zones\" Link=\"topics/security/network/configure-network-zones.htm\" ResolvedId=\"19053\" />';
 xmlAliasData += '    <Map Name=\"csh-oda-jit\" Link=\"topics/oda/jit-provisioning-oda.htm\" ResolvedId=\"3000\" />';
-xmlAliasData += '    <Map Name=\"administrator-settings\" Link=\"topics/security/administrator-settings.htm\" ResolvedId=\"19056\" />';
 xmlAliasData += '    <Map Name=\"id-verification\" Link=\"topics/security/idp-idv.htm\" ResolvedId=\"14000\" />';
 xmlAliasData += '    <Map Name=\"workday-writeback-enhancement\" Link=\"topics/provisioning/workday/workday-writeback-enhancement.htm\" ResolvedId=\"16000\" />';
 xmlAliasData += '    <Map Name=\"lcm-about-user-management\" Link=\"topics/provisioning/lcm/lcm-about-user-management.htm\" ResolvedId=\"19057\" />';
