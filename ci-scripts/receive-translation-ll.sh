@@ -1,6 +1,4 @@
 #!/bin/bash
-export BACON_TASK_NAME="CI_DOC_TOOLS_RECEIVE_TRANSLATION_LL"
-
 source setup-translation-ll.sh
 
 export TRANSLATION_RECEIVING_BRANCH="translations-${TARGET}-receive-$(TZ=UTC+8 date +'%Y-%m-%d_%H-%M-%S_%s')"

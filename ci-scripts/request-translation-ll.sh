@@ -1,5 +1,5 @@
 #!/bin/bash
-export BACON_TASK_NAME="CI_DOC_TOOLS_REQUEST_TRANSLATION_LL"
+export BACON_TASK_NAME="I18N_SYNC_TRANSLATIONS"
 
 source setup-translation-ll.sh
 
@@ -49,6 +49,17 @@ git -c user.name='CI Automation' -c user.email=${userEmail} \
   -m "Branch: ${BASE_BRANCH}" \
   -m "SHA: ${BASE_BRANCH_SHA}"
 git push origin ${TRANSLATION_BRANCH}
+
+export JSON_DATA='{
+  "xtmBranchRegex":"origin/'${TRANSLATION_BRANCH}'",
+  "i18nRepo":"okta-help"
+}'
+export BACON_TASK_RUN_ID=$(run_bacon_task_by_name "${BACON_TASK_NAME}" "${JSON_DATA}")
+
+if ! wait_for_bacon_task_to_complete "${BACON_TASK_RUN_ID}" $((TIMEOUT * 60));
+then
+  exit ${FAILED_SETUP}
+fi
 
 send_slack_message "${SLACK_CHANNEL}" \
   ":white_check_mark: Requested translation for [${TARGET^^}]" \
