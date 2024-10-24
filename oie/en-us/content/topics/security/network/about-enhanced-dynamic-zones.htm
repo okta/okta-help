@@ -293,13 +293,20 @@
                                                 <div role="main" id="mc-main-content">
                                                     <h1>Enhanced dynamic zones</h1>
                                                     <p>Use enhanced dynamic zones to define the IP service categories,  locations, and Autonomous System Numbers (ASNs) that are blocked or allowed in a zone. IP service categories include proxies, VPNs, and anonymizers.</p>
-                                                    <p>You can configure an enhanced dynamic zone as a blocklist, where all IP service category types, locations, and ASNs that you add to the zone are blocked before authentication.</p>
+                                                    <p>You can configure an enhanced dynamic zone as a blocklist, where all IP service category types, locations, and ASNs that you add are blocked before authentication. If you've enabled the IP Exempt Zone feature, you can also configure an exempt zone to always allow traffic from specific IPs regardless of conflicting network zones or <span class="mc-variable okta-feature-names.Okta_ThreatInsight variable">Okta ThreatInsight</span> configurations.</p>
                                                     <p>Blocking traffic before authentication prevents attackers from accessing your Okta sign-in and registration pages if the attempt is initiated from an IP or network identified in your network zone.</p>
                                                     <p>You can also configure an enhanced dynamic zone for use in a policy. When a zone is used in a policy, it defines the conditions that must be met when users sign in.</p>
+                                                    <h2>Enhanced dynamic zone blocklist</h2>
                                                     <p>Your org has a default enhanced dynamic zone that includes all anonymizing proxies. You can't delete or rename this zone, and you can't add locations or ASNs to it. The <span class="uicontrol">DefaultEnhancedDynamicZone</span> is in an inactive state by default. Activate it to block all anonymizing proxies. </p>
                                                     <p>When an enhanced dynamic zone is used as a blocklist, a <span class="code">security.request.blocked</span> event appears in the System Log.</p>
                                                     <div class="noteOkta">
                                                         <p class="noteContent">If you disable this feature, Okta recommends that you first remove any enhanced dynamic zones from your policy rules.</p>
+                                                    </div>
+                                                    <div>
+                                                        <p>Use this feature to allow traffic from specific gateway IPs irrespective of any <span class="mc-variable okta-feature-names.Okta_ThreatInsight variable">Okta ThreatInsight</span> configurations or blocked network zones. Your global session policy and authentication policies remain applicable and may prevent access.</p>
+                                                        <p>When you enable this feature, Okta creates a zone called DefaultExemptIpZone. Gateway IPs that you add to this zone always have access to Okta resources. You can add gateway IPs directly from the System Log event or by editing the zone.  </p>
+                                                        <p>For example, you've configured an enhanced dynamic network zone as a blocklist to block traffic from some IP service categories. However, you still need to allow traffic from one or more specific IPs that are a part of a blocked IP service category. Add those IPs to the DefaultExemptIpZone to allow traffic from those IP addresses. </p>
+                                                        <p>You can't add trusted proxy IPs to this zone or delete the zone.</p>
                                                     </div>
                                                     <h2><a name="IP-service-category"></a>IP service category</h2>
                                                     <p>An IP service category is a classification of IPs based on how the IP is used. IP service categories include VPNs, proxies, anonymizers, Tor, and more. They're used to obfuscate the source of a request. For a list of  IP service categories that Okta supports, see <a href="supported-ip-service-categories.htm" class="MCXref xref">Supported IP service categories</a>.</p>
@@ -336,6 +343,12 @@
                                                     <h2>Enhanced dynamic zone evaluation</h2>
                                                     <p><span class="mc-variable okta-variables.ProductName variable">Okta</span> verifies whether the enhanced dynamic zone configuration  matches the location, IP service categories, and ASN of the IP where the request originates.</p>
                                                     <p>If the IP chain of the request contains more than one IP address,  Okta attempts to identify the client IP where the request originated.</p>
+                                                    <p>To identify the originating client IP for the request, the IP chain of the request is evaluated and compared to all proxy IPs defined in all IP zones for that org.</p>
+                                                    <ul>
+                                                        <li>If the IP address to the right of the IP chain isn't defined as a proxy, it's marked as the client IP.</li>
+                                                        <li>If the IP address to the right of the IP chain is a proxy IP, evaluation of the next IP address to the left takes place until an IP that isn't a proxy is discovered. This IP is marked as the client IP.</li>
+                                                        <li>After the client IP is determined, the geolocation, IP service category, and ASN for that IP are resolved and compared with the configured geolocation, IP service category, and ASN values for that zone. If the values match, the request comes from inside that zone.</li>
+                                                    </ul>
                                                     <h3>Enhanced dynamic zone evaluation example</h3>
                                                     <table style="border-spacing: 5px 5px;border-top-left-radius: 1px;border-top-right-radius: 1px;border-bottom-right-radius: 1px;border-bottom-left-radius: 1px;border-left-style: solid;border-left-width: 1px;border-left-color: #d3d3d3;border-right-style: solid;border-right-width: 1px;border-right-color: #d3d3d3;border-top-style: solid;border-top-width: 1px;border-top-color: #d3d3d3;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #d3d3d3;mc-table-style: url('../../../resources/tablestyles/standard.css');" class="TableStyle-standard" cellspacing="0">
                                                         <col class="TableStyle-standard-Column-Column1" />
@@ -399,13 +412,6 @@
                                                             </tr>
                                                         </tbody>
                                                     </table>
-                                                    <h2>Originating client IP evaluation</h2>
-                                                    <p>To identify the originating client IP for the request, the IP chain of the request is evaluated and compared to all proxy IPs defined in all IP zones for that org.</p>
-                                                    <ul>
-                                                        <li>If the IP address to the right of the IP chain isn't defined as a proxy, it's marked as the client IP.</li>
-                                                        <li>If the IP address to the right of the IP chain is a proxy IP, evaluation of the next IP address to the left takes place until an IP that isn't a proxy is discovered. This IP is marked as the client IP.</li>
-                                                        <li>After the client IP is determined, the geolocation, IP service category, and ASN for that IP are resolved and compared with the configured geolocation, IP service category, and ASN values for that zone. If the values match, the request comes from inside that zone.</li>
-                                                    </ul>
                                                     <h2>Related topics</h2>
                                                     <p><a href="network-zones.htm" class="MCXref xref">Network zones</a>
                                                     </p>
