@@ -7,7 +7,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, height=device-height" />
         <meta name="coveo:title" content="Best practices for building flows" />
-        <meta name="coveo:method-description" content="Every Workflows tenant is subject to the limits of the flow plan to which it is subscribed." /><title>フロー構築のベストプラクティス | Okta</title>
+        <meta name="coveo:method-description" content="Every Workflows tenant is subject to the limits of the flow plan to which it's subscribed." /><title>フロー構築のベストプラクティス | Okta</title>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <link rel="shortcut icon" href="../../Resources/Images/favicon.ico" type="image/x-icon" />
@@ -144,7 +144,7 @@
                                         <form class="search" action="#">
                                             <div class="search-bar search-bar-container needs-pie">
                                                 <input class="search-field needs-pie" type="search" aria-label="検索フィールド" placeholder="検索" />
-                                                <div class="search-filter-wrapper"><span class="invisible-label" id="search-filters-label">フィルター： </span>
+                                                <div class="search-filter-wrapper"><span class="invisible-label" id="search-filters-label">フィルター：</span>
                                                     <div class="search-filter" aria-haspopup="true" aria-controls="sf-content" aria-expanded="false" aria-label="検索フィルター" title="すべてのファイル" role="button" tabindex="0">
                                                     </div>
                                                     <div class="search-filter-content" id="sf-content">
@@ -325,6 +325,10 @@
                                                                         </p>
                                                                     </li>
                                                                     <li>
+                                                                        <p><a href="#AvoidIfError" class="MCXref xref">複雑なエラー処理ブロックは避ける</a>
+                                                                        </p>
+                                                                    </li>
+                                                                    <li>
                                                                         <p><a href="#Filter" class="MCXref xref">大きなセットのフィルタリング</a>
                                                                         </p>
                                                                     </li>
@@ -348,8 +352,8 @@
                                                         <p>APIエンドポイントフローを操作するときのベストプラクティスは、フローが非同期に処理される構造にすることです。つまり、呼び出し元（HTTPクライアント）が特定の応答を待つ必要がないように設計します。</p>
                                                         <p>これは、Oktaフックと統合する場合に特に重要です。たとえば、同期登録やインポートインラインフックから始まるフローを考えてみましょう。このような場合は、非同期の<span class="wintitle">User Created</span>および<span class="wintitle">User Okta Profile Updated</span>イベントカードを使用するOktaイベントを使ってフローを再構築できます。非同期パターンへの移動は、どちらのシステムでもさらに利点があります。一般的な例は、新しいユーザーの登録とインポートを第3のシステムで記録する場合です。この操作を即時に行うことが絶対に必要でない限り、非同期パターンを使用した方が良好なエクスペリエンスが得られます。</p>
                                                         <h3><a name="Place"></a>APIコネクターのクローズカードを行の先頭に配置</h3>
-                                                        <p>タイムアウトのリスクを管理する方法の1つは、HTTP接続を可能な限り早く閉じることです。ベストプラクティスの1つは、フローの最初のカードとして <span class="wintitle">API Connector Close</span>カードを追加することです。これにより、Workflowsエンジンは呼び出し元（HTTPクライアント）へのHTTP接続を即座に解放できます。その後で、Workflowsエンジンはフローの残りの部分を非同期で処理します。「<a href="function-reference/http/http_close.htm" class="MCXref xref">Close</a>」を参照してください。</p>
-                                                        <p>もう1つのベストプラクティスは、<span class="wintitle">Call Flow Async</span>カードと<span class="wintitle">Flow Control Return Raw</span>カードを組み合わせて使用することです。これにより、処理の動作を非同期に開始でき、HTTP応答に対して粒度の細かいコントロールが可能になります。<a href="function-reference/flow-control/flocontrol_run.htm" class="MCXref xref">Call Flow Async</a>と<a href="function-reference/flow-control/flocontrol_returnraw.htm" class="MCXref xref">Return Raw</a>を参照してください。</p>
+                                                        <p>タイムアウトのリスクを管理する方法の1つは、HTTP接続を可能な限り早く閉じることです。ベストプラクティスの1つは、フローの最初のカードとして <span class="wintitle">API Connector Close</span>カードを追加することです。これにより、Workflowsエンジンは呼び出し元（HTTPクライアント）へのHTTP接続を即座に解放できます。その後、Workflowsエンジンはフローの残りの部分を非同期で処理します。「<a href="function-reference/http/http_close.htm" class="MCXref xref">Close</a>」を参照してください。</p>
+                                                        <p>もう1つのベストプラクティスは、<span class="wintitle">Call Flow Async</span>カードと<span class="wintitle">Flow Control Return Raw</span>カードを組み合わせて使用することです。これにより、処理の動作を非同期に開始でき、HTTP応答に対して粒度の細かいコントロールが可能になります。「<a href="function-reference/flow-control/flocontrol_run.htm" class="MCXref xref">Call Flow Async</a>」と「<a href="function-reference/flow-control/flocontrol_returnraw.htm" class="MCXref xref">Return Raw</a>」を参照してください。</p>
                                                         <p>
                                                             <img src="../../resources/images/workflows/call-flow-asynch.png" />
                                                         </p>
@@ -367,9 +371,11 @@
                                                         <p>Workflowsエンジンでは、少数の大きなアクションより、多数の小さなアクションの方が効率的に実行されます。過剰な量のメモリを使用するフローは、システムリソースを保護するために制限または停止されることがあります。フローのパフォーマンスを向上し、メモリ不足、調整、実行の遅延、実行のスタック、その他の問題を回避するための重要な技法があります。</p>
                                                         <h3><a name="Use"></a>ヘルパーフローを使用して大きな処理ジョブを分割</h3>
                                                         <p>複数の非同期フローを構築する際に、Workflowsエンジンはフローが可能な限り早く完了するように、作業をインテリジェントにスケジューリングします。親フローから行う非同期作業が大量に存在する場合、<span class="wintitle">Call Flow Async</span>カードの使用がベストプラクティスになります。このカードは、親フローの処理を続けながら、入力に指定されたヘルパーフローをエンジンで同時に実行します。</p>
-                                                        <p> 大量のアイテムのリストがあり、リストの各アイテムを処理する場合、<span class="wintitle">For Each - Ignore Errors</span>カードの使用がベストプラクティスになります。このカードはリストを受け付け、そのリストの各アイテムについてヘルパーフローを実行し、オプションとして同時並列処理も行います。カード名はエラーの無視を暗示しますが、これは親フローから見た場合にのみ該当します。エラーはヘルパーフロー内で処理できます。<a href="function-reference/list/list_asynceach.htm" class="MCXref xref">For Each - Ignore Errors</a>を参照してください。</p>
+                                                        <p>大量のアイテムのリストがあり、リストの各アイテムを処理する場合、<span class="wintitle">For Each - Ignore Errors</span>カードの使用がベストプラクティスになります。このカードはリストを受け付け、そのリストの各アイテムについてヘルパーフローを実行し、オプションとして同時並列処理も行います。カード名はエラーの無視を暗示しますが、これは親フローから見た場合にのみ該当します。エラーはヘルパーフロー内で処理できます。「<a href="function-reference/list/list_asynceach.htm" class="MCXref xref">For Each - Ignore Errors</a>」を参照してください。</p>
+                                                        <h3><a name="AvoidIfError"></a>複雑なエラー処理ブロックは避ける</h3>
+                                                        <p>複雑なエラー処理が原因で解析エラーが発生することを避けるために、<span class="mc-variable okta-variables.ProductName variable">Okta</span>では<span class="wintitle">If Error</span>ブロックのネスト数を3までに制限することをお勧めします。</p>
                                                         <h3><a name="Filter"></a>大きなセットのフィルタリング</h3>
-                                                        <p> リストのアイテムの一部だけを処理する場合、ヘルパーフローを早期に停止する代わりに、<span class="wintitle">Filter</span>カードを使ってフィルタリングを行うのがベストプラクティスとなります。「<a href="function-reference/list/list_filterby.htm" class="MCXref xref">Filter</a>」を参照してください。</p>
+                                                        <p>リストのアイテムの一部だけを処理する場合、ヘルパーフローを早期に停止する代わりに、<span class="wintitle">Filter</span>カードを使ってフィルタリングを行います。「<a href="function-reference/list/list_filterby.htm" class="MCXref xref">Filter</a>」を参照してください。</p>
                                                         <p>単一の大きなフローですべての処理を行うよりも、ヘルパーフローの方が好ましい方法ですが、ヘルパーフローの作成と実行がオーバーヘッドになることに留意してください。処理を必要としないジョブではヘルパーフローの作成を避けられれば、より効率的にフローを実行できます。</p>
                                                         <h3><a name="Avoid"></a>ヘルパーフローにリストを渡すことを避ける</h3>
                                                         <p>アイテムのリストに対して操作を行い、<span class="wintitle">For Each</span>カードを使用するときは、<span class="wintitle">［With the following values（次の値を使用）］</span>セクションを使ってヘルパーフローに必要なデータのみを渡します。個別のアイテムを取り出すインターフェイスにより、繰り返し処理を行うリストから個別のデータアイテムを取り出して、渡すことができます。たとえば、ユーザーのリストに対して操作を行う場合、ヘルパーフローにはユーザーオブジェクト全体ではなく、単一ユーザーの必要フィールドのみを渡します。</p>
@@ -378,7 +384,7 @@
                                                         </p>
                                                         <h3><a name="Use2"></a>可能な限りストリーミングアクションを使用</h3>
                                                         <p>ストリーミングアクションは結果のリストを受け取り、各アイテムについてヘルパーフローを自動的に非同期で実行します。この処理は最適化されているため、親フローはデータをページ単位で処理し、メモリ消費量を抑えてヘルパーフローを作成できます。</p>
-                                                        <p>ストリーミングでない結果セットのオプションを使用すると、フローメモリの使用量が増えることに留意してください。<span class="uicontrol">Resuts Set（結果セット）</span>フィールドに<span class="userinput">Stream Matching Records</span>オプションがあるカードは、ストリーミングアクションをサポートしています。Oktaコネクター用の<span class="wintitle">Find Users</span>、<span class="wintitle">List Users with Search</span>、<span class="wintitle">List Users Assigned to Applications</span>アクションカードはリストを返し、ストリーミングをサポートします。「<a href="build/search-with-streaming.htm" class="MCXref xref">ヘルパーフローを使ったレコードのストリーミング一致</a>」を参照してください。</p>
+                                                        <p>ストリーミングでない結果セットのオプションを使用すると、フローメモリの使用が増えることに留意してください。<span class="uicontrol">［Resuts Set（結果セット）］</span>フィールドに<span class="userinput">Stream Matching Records</span>オプションがあるカードは、ストリーミングアクションをサポートしています。Oktaコネクタ用の<span class="wintitle">Find Users</span>、<span class="wintitle">List Users with Search</span>、<span class="wintitle">List Users Assigned to Applications</span>アクションカードはリストを返し、ストリーミングをサポートしています。「<a href="build/search-with-streaming.htm" class="MCXref xref">ヘルパーフローを使ったレコードのストリーミング一致</a>」を参照してください。</p>
                                                         <h2>関連項目</h2>
                                                         <p><a href="workflows-elements.htm" class="MCXref xref">Workflows要素</a>
                                                         </p>
