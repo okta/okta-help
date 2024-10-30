@@ -6,6 +6,7 @@
         <meta name="audience" content="Okta Access Gateway" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, height=device-height" /><title>Configure High Availability | Okta</title>
+        
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <link rel="shortcut icon" href="../../Resources/Images/favicon.ico" type="image/x-icon" />
@@ -290,65 +291,53 @@
                                                 <div role="main" id="mc-main-content">
                                                     <h1>Configure High Availability</h1>
                                                     <div>
-                                                        <p><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> high availability consists of:
-
-</p>
-                                                        <ul>
-                                                            <li>A single administration instance of <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span>. The administration instance or <span class="disableGlossary" style="font-weight: normal;">admin</span> node is used to maintain and propagate configuration changes to worker nodes. Additionally, you can use the admin node as a normal <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> instance. </li>
-                                                            <li>One or more worker instances bound to the admin node, which service requests.</li>
-                                                            <li>A customer provided load balancer that routes requests to the <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> high availability cluster. </li>
-                                                        </ul>
-                                                        <p>Overview of the <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> high availability instance life-cycle:</p>
-                                                        <ul>
-                                                            <li>An instance of <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> is provisioned. This instance is called the Admin node. This node is configured normally, including defining protected applications. You aren't required to configure applications or IDP support before configuring high availability. </li>
-                                                            <li>Second and subsequent instances of <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> are provisioned. These instances are called worker nodes. These nodes are not configured with applications, but obtain all configurations from the admin node.</li>
-                                                            <li> Worker nodes are then specifically configured to use the admin node for all configuration. After you configure them, worker nodes don't expose the <span class="mc-variable okta-feature-names.Access_Gateway_UI variable">Access Gateway Admin UI console</span>. You can only access then using the command line interface. <br /><br /></li>
-                                                        </ul><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../resources/images/access-gateway/configure-high-availability.01.png" data-mc-popup-alt="Access Gateway High Availability architecture"><img class="MCPopupThumbnail img imgthumbnail" data-mc-width="800" data-mc-height="669" src="../../resources/images/access-gateway/configure-high-availability.01_thumb_220_220.png" alt="Access Gateway High Availability architecture" tabindex="" /></a>
+                                                        <p><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> High Availability is a single admin node that maintains and propagates configuration changes to worker nodes. You can also use it as a regular admin node, and route requests from your load balancer to it. </p>
+                                                        <p>You provision an admin node and designate it as High Availability. Next, you provision worker nodes and attach them to the High Availability admin node. These worker nodes obtain all configurations from this admin node, and you don't configure apps on them.</p>
+                                                        <p>You can only access worker nodes that are part of a High Availability cluster using the <span class="mc-variable okta-feature-names.Access_Gateway_CMD variable">Access Gateway Management console</span>. The <span class="mc-variable okta-feature-names.Access_Gateway_UI variable">Access Gateway Admin UI console</span> is only available on admin nodes and nodes that haven't been configured as worker nodes.</p>
+                                                        <p>This architecture diagram shows the admin node passing configuration updates to the worker nodes. </p>
+                                                        <p><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../resources/images/access-gateway/configure-high-availability.01.png" data-mc-popup-alt="Access Gateway High Availability architecture"><img class="MCPopupThumbnail img imgthumbnail" data-mc-width="800" data-mc-height="669" src="../../resources/images/access-gateway/configure-high-availability.01_thumb_220_220.png" alt="Access Gateway High Availability architecture" tabindex="" /></a>
+                                                        </p>
+                                                        <p>The admin node also receives requests from the load balancer, like the worker nodes. You can remove it from the load balancer configuration if you don't want it to receive requests.</p>
                                                     </div>
-                                                    <div class="noteOkta">
-                                                        <p class="noteContent">In this diagram the admin node is shown also acting as a worker node. If the admin is NOT intended to also service requests, it can be omitted from the load balancers configuration. </p>
-                                                    </div>
-                                                    <div class="noteOkta">
-                                                        <p class="noteContent">The admin user interface (UI) is only available on admin nodes and nodes that haven't been configured as worker nodes. After an instance is configured as a worker, you can't access it using the admin UI. All administration of an <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> cluster is done through the admin node and its admin UI. </p>
-                                                    </div>
-                                                    <h3><a name="HAOverview"></a>Overview</h3>
-                                                    <p>Configuring high availability includes the following overall process:</p>
+                                                    <h2><a name="HAOverview"></a>Overview of the configuration steps</h2>
+                                                    <p>Configuring a High Availability cluster includes these steps:</p>
                                                     <ol>
-                                                        <li value="1">Configuring an admin node. <br />During this step, the administration node is configured normally.</li>
-                                                        <li value="2">Configuring a worker node. <br />During this step, worker nodes are configured without any applications. </li>
-                                                        <li value="3">Preparing the admin node. <br />During this step, the command line interface is used on the admin node to alert or prepare the admin node for the addition of one or more worker nodes. </li>
-                                                        <li value="4">Preparing the worker node. <br />During this step, the command line interface is used on the worker node to prepare the worker for becoming a part of the <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> cluster.</li>
-                                                        <li value="5">Worker integration into cluster. <br />After the previous steps, the worker is automatically integrated into the cluster. During this phase, the worker admin UI is disabled and worker exchanges keys and the admin node provides the configuration.</li>
-                                                    </ol><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../resources/images/access-gateway/configure-high-availability.02.png" data-mc-popup-alt="Access Gateway High Availability add worker node sequence diagram"><img class="MCPopupThumbnail img imgthumbnail" data-mc-width="800" data-mc-height="446" src="../../resources/images/access-gateway/configure-high-availability.02_thumb_220_220.png" alt="Access Gateway High Availability add worker node sequence diagram" tabindex="" /></a>
-                                                    <h3><a name="HAOperations"></a>Operations</h3>
-                                                    <p>To configure high availability:</p>
+                                                        <li value="1">Configure an admin node normally.</li>
+                                                        <li value="2">Configure a worker node without any apps. </li>
+                                                        <li value="3">Prepare the admin node for the addition of worker nodes, using the <span class="mc-variable okta-feature-names.Access_Gateway_CMD variable">Access Gateway Management console</span>.</li>
+                                                        <li value="4">Prepare the worker node to become part of the High Availability cluster, using the <span class="mc-variable okta-feature-names.Access_Gateway_CMD variable">Access Gateway Management console</span>.</li>
+                                                        <li value="5">Integrate the worker node into the high-availability cluster. This step happens automatically. The worker node exchanges keys with the admin node, and receives the configuration from the admin node. The worker node's <span class="mc-variable okta-feature-names.Access_Gateway_UI variable">Access Gateway Admin UI console</span> is disabled.</li>
+                                                    </ol>
+                                                    <h2><a name="HAOperations"></a>Configuration steps</h2>
+                                                    <p>Follow these steps to configure a High Availability cluster:</p>
                                                     <ol>
-                                                        <li value="1"><a href="#ResetKey" class="MCXref xref">Reset the key associated with an Access Gateway node</a> - Reset the keys in both the admin instance and the worker instance.</li>
-                                                        <li value="2"><a href="#AddWorker" class="MCXref xref">Add a worker node to an Access Gateway cluster</a> - Add one or more worker nodes to the cluster.</li>
-                                                        <li value="3"><a href="#CheckCluster" class="MCXref xref">Check the cluster configuration</a> - Review the final configuration.</li>
+                                                        <li value="1"><a href="#ResetKey" class="MCXref xref">Reset the key associated with an Access Gateway node</a>: Reset the keys in both the admin node and the worker node.</li>
+                                                        <li value="2"><a href="#AddWorker" class="MCXref xref">Add a worker node to a High Availability cluster</a>: Add worker nodes to the cluster.</li>
+                                                        <li value="3"><a href="#CheckCluster" class="MCXref xref">Verify the cluster configuration</a>: Review the final configuration and verify that it works as intended.</li>
                                                     </ol>
                                                     <div>
-                                                        <h3><a name="ResetKey"></a>Reset the key associated with an <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> node</h3>
-                                                        <p><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> nodes use various keys to intercommunicate. You must regenerate keys if you want to use an instance  as a part of an <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> High Availability cluster. <br />You only need to regenerate keys once per instance. <br /></p>
+                                                        <h3><a name="ResetKey"></a>Reset the key associated with an Access Gateway node</h3>
+                                                        <p><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> nodes use various keys to communicate. You must reset the keys if you want to use an instance  as a part of an Access Gateway High Availability cluster. <br />You only need to reset the keys once per instance. <br /></p>
                                                         <ol>
                                                             <li value="1">Connect to the <span class="mc-variable okta-feature-names.Access_Gateway_CMD variable">Access Gateway Management console</span>.<br /><span class="codeblock">ssh oag-mgmt@[admin or worker]</span></li>
                                                             <li value="2">Select <span class="uicontrol">5 - System</span>.</li>
-                                                            <li value="3">Select <span class="uicontrol">8 - High Availability</span>.<br /></li>
-                                                            <li value="4">Select <span class="uicontrol">1 - Reset Key</span> node.</li>
-                                                            <li value="5">Enter <span class="userinput">y</span> to reset the keys being used by the high availability sync process or <span class="userinput">N</span> to abort the reset process.<br /></li>
-                                                            <li value="6">Enter <span class="userinput">x</span> to exit or any other menu item to continue.<br /></li>
+                                                            <li value="3">Select <span class="uicontrol">1 - Change Hostname</span> and follow the steps in <span class="wintitle">Change Hostname</span> in  <a href="command-line-console-reference-system.htm#Change" class="MCXref xref">Change Hostname</a>. Ensure that you update the hostname for both the admin and worker nodes before you configure High Availability. If you update a hostname after you configure High Availability, you must remove the node and add it again. See <span class="wintitle">Remove a worker node from an Access Gateway cluster</span> in <a href="high-availability-operations.htm#RemoveWorker" class="MCXref xref">Remove a worker node from an Access Gateway cluster</a>. You can skip this step if you already set the hostname during deployment.</li>
+                                                            <li value="4">Return to the <span class="uicontrol">5 - System</span> menu.</li>
+                                                            <li value="5">Select <span class="uicontrol">8 - High Availability</span>.<br /></li>
+                                                            <li value="6">Select <span class="uicontrol">1 - Reset Key</span>.</li>
+                                                            <li value="7">Enter <span class="userinput">y</span> to reset the keys being used by the High Availability sync process or <span class="userinput">N</span> to abort the reset process.</li>
+                                                            <li value="8">Enter <span class="userinput">x</span> to exit or any other menu item to continue.<br /></li>
                                                         </ol>
                                                     </div>
-                                                    <p> </p>
-                                                    <p> </p>
                                                     <div>
-                                                        <h3><a name="AddWorker"></a>Add a worker node to an <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> cluster</h3>
-                                                        <div class="noteOkta">
-                                                            <p class="noteContent">When you add a worker node, both the administration and the worker node must meet the following conditions:<ul><li>The nodes have already been provisioned. </li><li>The nodes are reachable using Secure Socket Shell (SSH).</li><li>The nodes have had their keys reset. See <a href="#ResetKey" class="MCXref xref">Reset the key associated with an Access Gateway node</a></li></ul></p>
-                                                        </div>
-                                                        <div class="note_cautionOkta">
-                                                            <p class="noteContent">When you prepare workers, ensure that you're connected to a worker node and not an admin. Running the prepare worker operation on the cluster admin renders the <span class="mc-variable okta-feature-names.Access_Gateway_UI variable">Access Gateway Admin UI console</span> inoperable. <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> version  2021.11.2 and later prohibit this operation. Reset nodes previously used as admins before you reuse them as workers. See <a href="deploy-post-install-reset-commandline.htm" class="MCXref xref">Reset Access Gateway: command line</a></p>
-                                                        </div>
+                                                        <h3><a name="AddWorker"></a>Add a worker node to a High Availability cluster</h3>
+                                                        <p>Verify that the admin and the worker nodes meet the following requirements:</p>
+                                                        <ul>
+                                                            <li>The nodes have already been provisioned. </li>
+                                                            <li>The nodes are reachable using Secure Shell.</li>
+                                                            <li>The nodes have had their keys reset. See <a href="#ResetKey" class="MCXref xref">Reset the key associated with an Access Gateway node</a></li>
+                                                        </ul>
+                                                        <p>When you prepare workers, ensure that you're connected to a worker node and not an admin. Running the prepare worker operation on the cluster admin node makes the <span class="mc-variable okta-feature-names.Access_Gateway_UI variable">Access Gateway Admin UI console</span> inoperable. <span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> version  2021.11.2 and later prohibit this operation. Reset the nodes that you previously used as admins before you reuse them as workers. See <a href="deploy-post-install-reset-commandline.htm" class="MCXref xref">Reset Access Gateway: command line</a></p>
                                                         <ol>
                                                             <li value="1">
                                                                 <p>Perform these tasks on the admin node:</p>
@@ -356,40 +345,39 @@
                                                                     <li value="1">Connect to the <span class="mc-variable okta-feature-names.Access_Gateway_CMD variable">Access Gateway Management console</span>.<span class="codeblock">ssh oag-mgmt@[admin.tld]</span></li>
                                                                     <li value="2">Select <span class="uicontrol">5 - System</span>.</li>
                                                                     <li value="3">Select <span class="uicontrol">8 - High Availability</span>.</li>
-                                                                    <li value="4">Select <span class="uicontrol">2 - Prepare Admin</span>.<div class="noteOkta"><p class="noteContent">When you configure an admin node for high availability for the first time, select <span class="uicontrol">1 - Reset Keys</span> to reset the instance's SSH keys. You only need to reset keys once per instance. See <a href="command-line-console-reference.htm" class="MCXref xref"> Command Line Management Console reference</a>.</p></div><div class="noteOkta"><p class="noteContent"><span class="mc-variable okta-feature-names.Access_Gateway variable">Access Gateway</span> Replication uses the hostname setting from the command line console. Ensure that you update the hostname for both the admin and worker nodes using the menu items <span class="menucascade"><span class="uicontrol">System (5)</span><span class="uicontrol">Change Hostname (1)</span></span>.</p></div></li>
+                                                                    <li value="4">Select <span class="uicontrol">2 - Prepare Admin</span>.</li>
                                                                     <li value="5">The admin node generates and displays an authorization token, which you provide to the worker node. Copy the authorization token to a secure location, such as a secure notes app. </li>
-                                                                    <li value="6">The admin node waits for connections from worker nodes. Leave the window open until all worker nodes have been added. Entering <span class="uicontrol">X</span> prematurely cause the admin node to end the process and stop listing worker node additions. Enter <span class="uicontrol">X</span> only after all worker nodes have appeared in the window.</li>
+                                                                    <li value="6">The admin node waits for connections from worker nodes. Leave the window open until all worker nodes have connected. Entering <span class="uicontrol">X</span> prematurely cause the admin node to end the process and stop listing worker node additions. Enter <span class="uicontrol">X</span> only after all worker nodes have appeared in the window.</li>
                                                                 </ol>
                                                                 <ol style="list-style-type: lower-alpha;">
                                                                     <li value="1">Return to the command prompt on the worker node that you're attaching.</li>
                                                                 </ol>
                                                             </li>
                                                             <li value="2">Perform these tasks on each worker node:
-						<ol style="list-style-type: lower-alpha;"><li value="1">Connect to the <span class="mc-variable okta-feature-names.Access_Gateway_CMD variable">Access Gateway Management console</span>.<span class="codeblock">ssh oag-mgmt@[worker.tld]</span></li><li value="2">Select <span class="uicontrol">5 - System</span>.</li><li value="3">Select <span class="uicontrol">8 - High Availability</span>.</li><li value="4">Select <span class="uicontrol">3 - Prepare Worker</span>.
-							<div class="noteOkta"><p class="noteContent">When you configure a worker node for high availability for the first time, select <span class="uicontrol">1 - Reset Keys</span> to reset the instance's SSH keys. You only need to reset keys once per instance. See <a href="command-line-console-reference.htm" class="MCXref xref"> Command Line Management Console reference</a>.</p></div></li><li value="5">Paste the token into the <span class="mc-variable okta-feature-names.Access_Gateway_CMD variable">Access Gateway Management console</span> window. The worker node connects to the admin node and completes the authorization.</li><li value="6">Press any key to continue. The worker instance is ready for use.</li><li value="7">Enter <span class="uicontrol">X</span> to exit or any other menu item to continue.</li></ol></li>
+						<ol style="list-style-type: lower-alpha;"><li value="1">Connect to the <span class="mc-variable okta-feature-names.Access_Gateway_CMD variable">Access Gateway Management console</span>.<span class="codeblock">ssh oag-mgmt@[worker.tld]</span></li><li value="2">Select <span class="uicontrol">5 - System</span>.</li><li value="3">Select <span class="uicontrol">8 - High Availability</span>.</li><li value="4">Select <span class="uicontrol">3 - Prepare Worker</span>.</li><li value="5">Paste the token into the <span class="mc-variable okta-feature-names.Access_Gateway_CMD variable">Access Gateway Management console</span> window. The worker node connects to the admin node and completes the authorization.</li><li value="6">Press any key to continue. The worker instance is ready for use.</li><li value="7">Enter <span class="uicontrol">X</span> to exit.</li></ol></li>
                                                         </ol>
                                                         <ol start="3">
                                                             <li value="3">Perform these tasks on the admin node:
 				
-					<ol style="list-style-type: lower-alpha;"><li value="1">Return to the admin instance <span class="mc-variable okta-feature-names.Access_Gateway_CMD variable">Access Gateway Management console</span>. View the results of adding the new worker node, similar to:
+					<ol style="list-style-type: lower-alpha;"><li value="1">Verify that the worker nodes have been added. Return to the admin node's <span class="mc-variable okta-feature-names.Access_Gateway_CMD variable">Access Gateway Management console</span>. View the results of adding the new worker node. Each worker should appear in the list, similar to this example:
                          <span class="codeblock" xml:space="preserve">Authorization token required to initiate setup from worker nodes is given
 below. Copy the text below this line and paste it on worker node when prompted.
 
-&lt;admin...com&gt;:927da506-7efb-4520-bd32-dd03b86f2a9b
+&lt;admin...com&gt;:927da506-xxxx-4520-xxxx-dd03b86f2a9b
 Worker nodes available so far:
 &lt;worker1...com&gt;
 &lt;worker2...com&gt;
-&lt;worker3...com&gt;</span></li><li value="2">Enter <span class="uicontrol">X</span> to exit or any other menu item to continue.</li></ol></li>
+&lt;worker3...com&gt;</span></li><li value="2">Enter <span class="uicontrol">X</span> to exit.</li></ol></li>
                                                         </ol>
                                                     </div>
                                                     <div>
-                                                        <h3><a name="CheckCluster"></a>Check the cluster configuration</h3>
+                                                        <h3><a name="CheckCluster"></a>Verify the cluster configuration</h3>
                                                         <ol>
                                                             <li value="1">Connect to the <span class="mc-variable okta-feature-names.Access_Gateway_CMD variable">Access Gateway Management console</span>.<span class="codeblock">ssh oag-mgmt@[admin or worker]</span></li>
                                                             <li value="2">Select <span class="uicontrol">5 - System</span>.</li>
                                                             <li value="3">Select <span class="uicontrol">8 - High Availability</span>.<br /></li>
-                                                            <li value="4">Select <span class="uicontrol">6 - Check Status</span>. This option shows the latest status of the cluster only after there's a configuration change or when the NGINX engine is restarted. If newly added nodes don't appear, perform any <span class="mc-variable okta-feature-names.Access_Gateway_UI variable">Access Gateway Admin UI console</span> function or restart the NGINX engine. See the <a href="command-line-console-reference-service.htm#NGIX">NGINX</a> sub-menu in the <span class="mc-variable okta-feature-names.Access_Gateway_CMD variable">Access Gateway Management console</span> <a href="command-line-console-reference-service.htm" class="MCXref xref">Services</a> section. A list of cluster instances appears.
-Pass indicates that the node is reachable and functioning. Fail indicates that the node is non-functional. See the node log for more information.</li>
+                                                            <li value="4">Select <span class="uicontrol">6 - Check Status</span>. This option shows the latest status of the cluster only after there's a configuration change or when the NGINX engine is restarted. If newly added nodes don't appear, perform any <span class="mc-variable okta-feature-names.Access_Gateway_UI variable">Access Gateway Admin UI console</span> function or restart the NGINX engine. See the NGINX sub-menu in the <span class="mc-variable okta-feature-names.Access_Gateway_CMD variable">Access Gateway Management console</span> Service section. A list of cluster instances appears.
+				<span class="wintitle">Pass</span> indicates that the node is reachable and functioning. <span class="wintitle">Fail</span> indicates that the node is non-functional. See the node log for more information.</li>
                                                             <li value="5">Enter <span class="uicontrol">x</span> to exit.</li>
                                                         </ol>
                                                     </div>
