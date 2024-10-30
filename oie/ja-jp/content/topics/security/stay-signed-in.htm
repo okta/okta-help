@@ -291,30 +291,42 @@
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
                                                     <h1>サインインしたままにする</h1>
-                                                    <p><span class="uicontrol">［Stay signed in（サインインしたままにする）］</span>を使用すると、ユーザーはブラウザーを閉じて開き直した後も継続するOktaセッションを確立できます。サインインしたままにすることを選択したユーザーは、グローバルセッションポリシー定められた時間、MFAを再度求められることはありません。 </p>
-                                                    <p>このオプションをユーザーに提供する方法は2つあります。デフォルトでは、ユーザーが資格情報を入力するときに<span class="mc-variable okta-feature-names.Sign-In_Widget variable">Sign-In Widget </span>に表示されます。ユーザーが認証した後にプロンプトが表示されるように構成することもできます。この構成は、代理認証またはIDプロバイダーを使用しているorgに適しています。このようなorgのユーザーは、<span class="mc-variable okta-feature-names.Sign-In_Widget variable">Sign-In Widget </span>の資格情報入力ページをバイパスする可能性があるからです。 </p>
-                                                    <p><span class="uicontrol">［Stay signed in（サインインしたままにする）］</span>は、プライベートデバイスまたはネットワークを使用するユーザーに推奨されます。資格情報が侵害された可能性があると疑っているユーザーは、アカウント設定ですべてのセッションを終了できます。 </p>
-                                                    <h2>はじめに</h2>
-                                                    <p>任意。ユーザーをブラウザーセッションにまたがってサインインしたままにする場合は、<span class="code">usePersistentCookie</span>オプションを有効にします。<a href="https://developer.okta.com/docs/guides/shared-sso-android-ios/ios/main/#session-and-persistent-single-sign-on" target="_blank">「セッションと永続的シングルサインオン」</a>を参照してください。</p>
-                                                    <h2>機能を構成する </h2>
+                                                    <p class="featureBanner">早期アクセスリリース。「<a href="manage-ea-and-beta-features.htm" class="MCXref xref">セルフサービス機能を有効にする</a>」を参照してください。</p>
+                                                    <p>［Keep me signed in (KMSI)（サインイン状態を維持する（KMSI））］は、サインイン情報が記憶されたデバイスにおいてサインインの煩わしさを軽減するユーザビリティ機能です。認証が成功した後、<span class="uicontrol">［Keep me signed in（サインイン状態を維持する）］</span>を選択したユーザーは、MFAの有効期限が切れるかブラウザーのクッキーが消去されるまで、その後のMFAのプロンプトを受け取りません。 </p>
+                                                    <p>この機能を使用すると、<a href="https://www.okta.com/identity-101/what-is-an-attack-surface/" target="_blank">攻撃面</a>が増える可能性があるため、公共部門や高度に規制された顧客、共有デバイス、または機密データにアクセスするアカウントやアプリには適さない場合があります。</p>
+                                                    <div class="noteOkta">
+                                                        <p class="noteContent">このEA機能を有効にしない場合は、ナビゲーションが変わります。「<a href="#Keep" class="MCXref xref">サインイン状態を維持する（GA）</a>」を参照してください。</p>
+                                                    </div>
+                                                    <h2>仕組み</h2>
+                                                    <p>この機能は、ユーザー認証の前または後にKMSIプロンプトが表示されるように構成することができます。 </p>
+                                                    <ul>
+                                                        <li>
+                                                            <p>標準の認証フローでは、ユーザーは直接アプリまたはorgのサインインページに移動し、資格情報を入力します。ユーザーが資格情報を入力したときに<span class="mc-variable okta-feature-names.Sign-In_Widget variable">Sign-In Widget</span>でプロンプトが表示されるようにしたい場合は、<a href="#Configur" class="MCXref xref">認証前KMSIを構成</a>します。認証完了後にプロンプトを表示させるようにしたい場合は、<a href="#Configur2" class="MCXref xref">認証後KMSIを構成</a>します。</p>
+                                                        </li>
+                                                    </ul>
+                                                    <ul>
+                                                        <li>
+                                                            <p>委任認証フローでは、ユーザーは<span class="mc-variable okta-feature-names.Sign-In_Widget variable">Sign-In Widget</span>をバイパスし、IDプロバイダーを使用してサインインします。これらのユーザーに対して、<a href="#Configur2" class="MCXref xref">認証後KMSIを構成</a>すると、認証後にKMSIオプションが表示され、<span class="mc-variable okta-variables.ProductName variable">Okta</span>にリダイレクトされるようになります。 </p>
+                                                        </li>
+                                                    </ul>
+                                                    <h2><a name="Configur"></a>認証前KMSIを構成する</h2>
+                                                    <p>認証前KMSIは<span class="uicontrol">［Organization Security（組織のセキュリティ）］</span>設定で指定され、グローバルセッションポリシーのMFAライフタイムを使用します。有効にすると、org内のすべてのユーザーがこれを使用できるようになります。</p>
+                                                    <h3>機能を有効にする</h3>
                                                     <ol>
-                                                        <li value="1"><span class="mc-variable okta-feature-names.Admin_Console variable">Admin Console</span>で、<span class="menucascade"><span class="uicontrol">［Security（セキュリティ）］</span><span class="uicontrol">［General（一般）］</span></span>の順に進みます。</li>
-                                                        <li value="2"><span class="uicontrol">［Organizational Security（組織のセキュリティ）］</span>セクションで<span class="uicontrol">［Edit（編集）］</span>をクリックします。</li>
+                                                        <li value="1">
+                                                            <p><span class="mc-variable okta-feature-names.Admin_Console variable">Admin Console</span>で、<span class="menucascade"><span class="uicontrol">［Security（セキュリティ）］</span><span class="uicontrol">［General（一般）］</span></span>の順に進みます。</p>
+                                                        </li>
+                                                        <li value="2">
+                                                            <p><span class="uicontrol">［Organizational Security（組織のセキュリティ）］</span>セクションで<span class="uicontrol">［Edit（編集）］</span>をクリックします。</p>
+                                                        </li>
                                                         <li value="3">
-                                                            <p>このオプションを<span class="mc-variable okta-feature-names.Sign-In_Widget variable">サインイン ウィジェット</span>にのみ表示するには、この機能を有効にしてから<span class="uicontrol">［Before users sign in（ユーザーがサインインする前）］</span>を選択します。これはデフォルト設定です。</p>
+                                                            <p><span class="uicontrol">［Show option to stay signed in before users sign in（ユーザーのサインイン前にサインイン状態を維持するオプションを表示する）］</span>設定を有効にします。</p>
                                                         </li>
                                                         <li value="4">
-                                                            <p>このオプションを<span class="mc-variable okta-feature-names.Sign-In_Widget variable">サインイン ウィジェット</span>に加えて、ユーザーが認証した後も表示するには、この機能を有効にしてから<span class="uicontrol">［Before and after users signed in（ユーザーがサインインする前後）］</span>を選択します。このオプションは、代理認証またはIDプロバイダーを使用しているorgに推奨されます。</p>
-                                                        </li>
-                                                        <li value="5">
-                                                            <p><span class="uicontrol">［Stay signed in（サインインしたままにする）］</span>オプションを非表示にするには、<span class="uicontrol">［Not Enabled（有効にしない）］</span>を選択します。</p>
-                                                        </li>
-                                                        <li value="6">
                                                             <p><span class="uicontrol">［Save（保存）］</span>をクリックします。</p>
                                                         </li>
                                                     </ol>
-                                                    <h2>ポリシーを変更する</h2>
-                                                    <p>グローバルセッションポリシーと認証ポリシーのルールを<span class="uicontrol">［Stay signed in（サインインしたままにする）］</span>機能に必ず対応させてください。 </p>
+                                                    <h3>ポリシーを変更する</h3>
                                                     <ol>
                                                         <li value="1">
                                                             <p><a href="../identity-engine/policies/create-okta-sign-on-policy.htm" class="MCXref xref">グルーバルセッションポリシーを作成</a>するか、
@@ -327,32 +339,219 @@
                                                                     <p><span class="uicontrol">［Multifactor authentication (MFA) is（多要素認証（MFA））］</span>：必要 </p>
                                                                 </li>
                                                                 <li>
-                                                                    <p><span class="uicontrol">［Users will be prompted for MFA（ユーザーにMFA用のプロンプトを表示）］</span>：<span class="uicontrol">［When signing in with a new device cookie（新しいデバイスCookieでサインインする場合）］</span>または<span class="uicontrol">［After MFA lifetime expires for the device cookie（デバイスCookieのMFAのライフタイムが期限切れになった後）］</span>を選択します。</p>
-                                                                </li>
-                                                                <li>
-                                                                    <p><span class="uicontrol">［Okta global session cookies persist across browser sessions（ブラウザーセッション間でOktaグローバルセッションCookieを保持）］</span>：APIで<span class="code">usePersistentCookie</span>を有効にした場合は、このオプションを有効にします。</p>
+                                                                    <p><span class="uicontrol">［Users will be prompted for MFA（ユーザーにMFA用のプロンプトを表示）］</span>：MFAのライフタイムがデバイスのクッキーに対して有効期限切れになった後</p>
                                                                 </li>
                                                             </ul>
                                                         </li>
                                                         <li value="3">
-                                                            <p><span class="uicontrol">［Stay signed in（サインインしたままにする）］</span>機能をアプリに拡張するには、<a href="../identity-engine/policies/manage-auth-policies.htm" target="_self">その認証ポリシーを更新</a>します。 </p>
+                                                            <p><span class="uicontrol">［Keep me signed in（サインインしたままにする）］</span>機能をアプリに拡張するには、<a href="../identity-engine/policies/manage-auth-policies.htm" target="_self">その認証ポリシーを更新</a>します。 </p>
                                                         </li>
                                                         <li value="4">
                                                             <p>次のルール条件を設定します。</p>
                                                             <ul>
                                                                 <li>
-                                                                    <p><span class="uicontrol">［User must authenticate with（ユーザーが使用する認証方法）］</span>：<span class="uicontrol">［2 factor types（2要素タイプ）］</span>（いずれかのオプション）を選択します。</p>
+                                                                    <p><span class="uicontrol">［User must authenticate with（ユーザーの認証に必要な要素）］</span>：2要素タイプ（いずれかのオプション）</p>
                                                                 </li>
                                                                 <li>
-                                                                    <p><span class="uicontrol">［Prompt for authentication（認証のためのプロンプト）］</span>：<span class="uicontrol">［When an Okta global session doesn't exist（Oktaグローバルセッションが存在しない場合）］</span>を選択します。</p>
+                                                                    <p><span class="uicontrol">［Prompt for authentication（認証のためのプロンプト）］</span>：Oktaグローバルセッションが存在しない場合</p>
                                                                 </li>
                                                             </ul>
                                                         </li>
                                                     </ol>
+                                                    <h2><a name="Configur2"></a>認証後KMSIを構成する</h2>
+                                                    <p>認証後KMSIは、認証ポリシー内のアプリレベルで設定されるため、アプリ単位で構成することができます。また、意図したKMSIの有効期間が守られるように、グローバルセッションポリシーも変更する必要があります。  </p>
+                                                    <h3>グローバルセッションポリシーを変更する</h3>
+                                                    <ol>
+                                                        <li value="1">
+                                                            <p><span class="mc-variable okta-feature-names.Admin_Console variable">Admin Console</span>で、<span class="menucascade"><span class="uicontrol">［Security（セキュリティ）］</span><span class="uicontrol"><span class="mc-variable okta-feature-names.Okta_sign-on_policy variable">［Global Session Policy（グローバルセッションポリシー）］</span></span></span>に移動します。</p>
+                                                        </li>
+                                                        <li value="2">
+                                                            <p>デフォルトポリシーを選択し、<span class="uicontrol">［Edit（編集）］</span>をクリックします。</p>
+                                                        </li>
+                                                        <li value="3">
+                                                            <p>次のIF条件を設定します。</p>
+                                                            <ul>
+                                                                <li>
+                                                                    <p><span class="uicontrol">［User's IP is（ユーザーのIP）］</span>：すべての場所</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">［Identity provider is（IDプロバイダー）］</span>：空白</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">［Authenticates via（認証手段）］</span>：任意</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">［Behavior is（挙動）］</span>：空白</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">［Risk is（リスク）］</span>：空白</p>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li value="4">
+                                                            <p>次のTHEN条件を設定します：</p>
+                                                            <ul>
+                                                                <li>
+                                                                    <p><span class="uicontrol">［Access is（アクセス）］</span>：許可</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">［Establish the user session with（次を使用してユーザーセッションを確立：）］</span>：［Any factor used to meet the Authentication Policy requirements（認証ポリシーの要件を満たすために使用される任意の要素）］</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">［Multifactor authentication (MFA) is（多要素認証（MFA））］</span>：要求しない</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">［Maximum Okta global session lifetime（Oktaグローバルセッションの最大ライフタイム）］</span>：制限時間なし</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">［Maximum Okta global session lifetime（Oktaグローバルセッションの最大アイドル時間）］</span>：2時間</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">［Okta global session cookies persist across :（Oktaグローバルセッションクッキーを保持）］</span>：無効</p>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li value="5">
+                                                            <p><span class="uicontrol">［Save（保存）］</span>をクリックします。</p>
+                                                        </li>
+                                                    </ol>
+                                                    <h3>認証後KMSIの認証ポリシーを作成する</h3>
+                                                    <ol>
+                                                        <li value="1">
+                                                            <p><span class="mc-variable okta-feature-names.Admin_Console variable">Admin Console</span>で<span class="menucascade"><span class="uicontrol">［Security（セキュリティ）］</span><span class="uicontrol"><span class="mc-variable okta-feature-names.App_Sign-On_Policies variable">［Authentication Policies（認証ポリシー）］</span></span></span>に移動します。</p>
+                                                        </li>
+                                                        <li value="2">
+                                                            <p><span class="uicontrol">［Any two factors（任意の2要素タイプ）］</span>ポリシーを選択します。</p>
+                                                        </li>
+                                                        <li value="3">
+                                                            <p>キャッチオールルールの<span class="uicontrol">［Actions（アクション）］</span>メニューで、<span class="uicontrol">［Edit（編集）］</span>を選択します。</p>
+                                                        </li>
+                                                        <li value="4">
+                                                            <p>次のIF条件を設定します。</p>
+                                                            <ul>
+                                                                <li>
+                                                                    <p><span class="uicontrol">［User type（ユーザータイプ）］</span>：任意のユーザータイプ</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">［User group membership includes（ユーザーのグループメンバーシップ）］</span>：任意のグループ</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">［User is（ユーザー）］</span>：任意のユーザー</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">［Device state is（デバイスの状態）］</span>：任意」</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">［Device assurance policy is（デバイス保証ポリシー：）］</span>：［ポリシーなし］</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">［Device platform is（デバイスプラットフォーム）］</span>：任意のプラットフォーム</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">［User's IP is（ユーザーのIP）］</span>：任意のIP</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">［Risk is（リスク）］</span>：任意</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">［The following custom expression is true（次のカスタム式をtrueとする）］</span>：空白</p>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li value="5">
+                                                            <p>次のTHEN条件を設定します。</p>
+                                                            <ul>
+                                                                <li>
+                                                                    <p><span class="uicontrol">［Access is（アクセス：）］</span>：認証の成功後に許可</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">［User must authenticate with（ユーザーが使用する認証方法）］</span>：任意の2要素タイプ</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">［Possession factor constraints are（所有要素の制約）］</span>：ユーザーの操作を必要とする（または、orgが必要とする追加の制約を選択）</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">［Authentication methods（認証方法）］</span>：特定の認証方法を許可する（続いて、許可する鑑別工具を入力） </p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">［Option to stay signed in（サインしたままにするオプション）</span>：ユーザーがサインインした後に表示</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">［Show when not previously shown on the user's current device in the past（ユーザーの現在のデバイスで過去に表示されていなかった場合に表示）］</span>：7日</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">［Prompt for authentication（認証のプロンプト）］</span>：アクティブなOktaグローバルセッションによって保護されるリソースにユーザーがアクセスしてから指定の時間が経過したとき </p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">［Time since last sign in（前回のサインインからの経過時間）］</span>：7日</p>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li value="6">
+                                                            <p><span class="uicontrol">［Save（保存）］</span>をクリックします。</p>
+                                                        </li>
+                                                        <li value="7">
+                                                            <p>ポリシーの<span class="uicontrol">［Applications（アプリケーション）］</span>タブに進みます。</p>
+                                                        </li>
+                                                        <li value="8">
+                                                            <p><span class="uicontrol">［Add app（アプリを追加）］</span>または<span class="uicontrol">［Switch policy（ポリシーの切り替え）］</span>をクリックして、アプリをポリシーに追加します。</p>
+                                                        </li>
+                                                    </ol>
+                                                    <p>この構成はご自身のユースケースに合わせて調整できますが、最後の2つの条件はKMSIにとって不可欠です。グローバルセッションポリシーにMFA（多要素認証）が必要ない場合、認証ポリシーは指定の期間を超えたときに認証を求める必要があります。異なる設定を選択すると、KMSIのプロンプトの表示頻度が高くなりますが、ユーザーの選択は保持されません。 </p>
+                                                    <p>グローバルセッションポリシーがMFA（多要素認証）を必要とする場合、認証ポリシーは指定の期間を超えたときやグローバルセッションが存在しない場合に認証を求めることができます。</p>
+                                                    <p>シームレスなユーザーエクスペリエンスを実現するには、<span class="uicontrol">［Option to stay signed in（サインしたままにするオプション）］</span>の期間と<span class="uicontrol">［Prompt for authentication（認証のプロンプト）］</span>の期間を一致させてください。これが一致しない場合、MFAのプロンプトが表示された後、<span class="uicontrol">［Keep me signed in（サインイン状態を維持する）］</span>プロンプトが表示されないことがあります。</p>
                                                     <h2>ユーザーエクスペリエンス</h2>
-                                                    <p>標準認証フローでは、ユーザーは<span class="mc-variable okta-feature-names.Sign-In_Widget variable">Sign-In Widget </span>にユーザー名を入力した後に<span class="uicontrol">［Keep me signed in（サインインしたままにする）］</span>を選択してから、MFAオプションを指定して認証を完了します。ユーザーはorgに次回アクセスしたときにMFAを求められません。</p>
-                                                    <p>統合認証フローでは、orgのサインインページにアクセスしたユーザーは、<span class="uicontrol">［Keep me signed in（サインインしたままにする）］</span>を選択する前にIDプロバイダーにリダイレクトされる場合があります。<span class="uicontrol">［Before and after users sign in（ユーザーがサインインする前後）］</span>オプションを有効にした場合、これらのユーザーは、Oktaに再度リダイレクトされたときに<span class="uicontrol">［Stay  signed in（サインインしたままにする）］</span>または<span class="uicontrol">［Don't stay signed in（サインインしたままにしない）］</span>を選択するよう求められます。選択すると、次回のサインイン時にオプションは非表示になります。 </p>
-                                                    <p><span class="uicontrol">［Stay signed in（サインインしたままにする）］</span>オプションがアクティブになっている場合、ユーザーがセッションからサインアウトする方法は1つしかありません。ユーザーは、アカウント設定メニューに移動して<span class="menucascade"><span class="uicontrol">［Remembered devices（記憶されているデバイス）］</span> <span class="uicontrol">［End all sessions（すべてのセッションを終了）］</span></span>を選択することで、すべてのセッション（現在のセッションを含む）を手動でサインアウトできます。このアクションを実行すると、セッションの<span class="code">usePersistentCookie</span>も無効になります（設定されていた場合）。ユーザーがorgに次回アクセスしたときには、<span class="uicontrol">［Stay signed in（サインインしたままにする）］</span>オプションが表示されます。</p>
+                                                    <p>認証前KMSIフローでは、ユーザーは<span class="mc-variable okta-feature-names.Sign-In_Widget variable">Sign-In Widget</span>にユーザー名を入力するときに<span class="uicontrol">［Keep me signed in（サインインしたままにする）］</span>を選択してから、MFAを指定して認証を完了します。 </p>
+                                                    <p>認証後KMSIフローでは、orgのサインインページにアクセスしたユーザーは、<span class="uicontrol">［Keep me signed in（サインインしたままにする）］</span>を選択する前にIDプロバイダーにリダイレクトされる場合があります。認証後、これらのユーザーはOktaにリダイレクトされた際に<span class="uicontrol">［Stay signed in（サインインしたままにする）］</span>を選択します。  </p>
+                                                    <p>いずれの場合も、<span class="uicontrol">［Keep me signed in（サインイン状態を維持する）］</span>を選択したユーザーは、認証ポリシーで設定された期間中、そのデバイスにログイン状態が記憶されます。ダッシュボードのアカウント設定メニューを開き、<span class="uicontrol">［End All Sessions（すべてのセッションを終了）］</span>セクションで<span class="uicontrol">［Sign Out（サインアウト）］</span>を選択することで、KMSIプロンプトを手動でリセットし、すべてのセッションを消去することができます。ユーザーがorgに次回アクセスしたときには、<span class="uicontrol">［Keep me signed in（サインインしたままにする）］</span>オプションが表示されます。</p>
+                                                    <h2><a name="Keep"></a>Keep me signed in（サインインしたままにする）（GA）</h2>
+                                                    <p>この機能の一般公開版では、両方の表示オプションが<span class="uicontrol">［Organization Security（組織のセキュリティ）］</span>設定で利用できます。これはグローバルな設定なので、アプリ単位で設定することはできません。</p>
+                                                    <ol>
+                                                        <li value="1"><span class="mc-variable okta-feature-names.Admin_Console variable">Admin Console</span>で、<span class="menucascade"><span class="uicontrol">［Security（セキュリティ）］</span><span class="uicontrol">［General（一般）］</span></span>の順に進みます。</li>
+                                                        <li value="2"><span class="uicontrol">［Organizational Security（組織のセキュリティ）］</span>セクションで<span class="uicontrol">［Edit（編集）］</span>をクリックします。</li>
+                                                        <li value="3">
+                                                            <p>このオプションを<span class="mc-variable okta-feature-names.Sign-In_Widget variable">サインイン ウィジェット</span>にのみ表示するには、この機能を有効にしてから<span class="uicontrol">［Before users sign in（ユーザーがサインインする前）］</span>を選択します。これはデフォルト設定です。</p>
+                                                        </li>
+                                                        <li value="4">
+                                                            <p>このオプションを<span class="mc-variable okta-feature-names.Sign-In_Widget variable">サインイン ウィジェット</span>に加えて、ユーザーが認証した後も表示するには、この機能を有効にしてから<span class="uicontrol">［Before and after users signed in（ユーザーがサインインする前後）］</span>を選択します。このオプションは、代理認証またはIDプロバイダーを使用しているorgに推奨されます。</p>
+                                                        </li>
+                                                        <li value="5">
+                                                            <p><span class="uicontrol">［Save（保存）］</span>をクリックします。</p>
+                                                        </li>
+                                                    </ol>
+                                                    <h3>ポリシーを変更する</h3>
+                                                    <p>グローバルセッションポリシーと認証ポリシーのルールをKMSI機能に必ず対応させてください。 </p>
+                                                    <ol>
+                                                        <li value="1">
+                                                            <p><a href="../identity-engine/policies/create-okta-sign-on-policy.htm" class="MCXref xref">グルーバルセッションポリシーを作成</a>するか、
+<a href="../identity-engine/policies/edit-global-session-policy.htm" class="MCXref xref">グルーバルセッションポリシーを編集</a>します。                </p>
+                                                        </li>
+                                                        <li value="2">
+                                                            <p>次のルール条件を設定します。              </p>
+                                                            <ul>
+                                                                <li>
+                                                                    <p><span class="uicontrol">［Multifactor authentication (MFA) is（多要素認証（MFA））］</span>：必要 </p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">［Users will be prompted for MFA（ユーザーにMFA用のプロンプトを表示）］</span>：MFAのライフタイムがデバイスのクッキーに対して有効期限切れになった後</p>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li value="3">
+                                                            <p><span class="uicontrol">［Keep me signed in（サインインしたままにする）］</span>機能をアプリに拡張するには、<a href="../identity-engine/policies/manage-auth-policies.htm" target="_self">その認証ポリシーを更新</a>します。 </p>
+                                                        </li>
+                                                        <li value="4">
+                                                            <p>次のルール条件を設定します。</p>
+                                                            <ul>
+                                                                <li>
+                                                                    <p><span class="uicontrol">［User must authenticate with（ユーザーの認証に必要な要素）］</span>：2要素タイプ（いずれかのオプション）</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">［Prompt for authentication（認証のためのプロンプト）］</span>：Oktaグローバルセッションが存在しない場合</p>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ol>
                                                     <h2>関連項目</h2>
                                                     <p><a href="security_general.htm" class="MCXref xref">一般的なセキュリティ</a>
                                                     </p>
