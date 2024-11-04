@@ -1,1 +1,1 @@
-define({data:[{code:'en-us', full:'English (United States)‎', target:'en-us/okta_help.htm'}]});
+define({data:[{code:'en-us', full:'English (United States)‎', target:'en-us/okta_help.htm'},{code:'ja-jp', full:'日本語 (日本)‎', target:'ja-jp/okta_help.htm'}]});
