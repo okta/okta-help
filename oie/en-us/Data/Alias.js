@@ -882,5 +882,9 @@ xmlAliasData += '    <Map Name=\"csh-oda-jit\" Link=\"topics/oda/jit-provisionin
 xmlAliasData += '    <Map Name=\"id-verification\" Link=\"topics/security/idp-idv.htm\" ResolvedId=\"14000\" />';
 xmlAliasData += '    <Map Name=\"workday-writeback-enhancement\" Link=\"topics/provisioning/workday/workday-writeback-enhancement.htm\" ResolvedId=\"16000\" />';
 xmlAliasData += '    <Map Name=\"lcm-about-user-management\" Link=\"topics/provisioning/lcm/lcm-about-user-management.htm\" ResolvedId=\"19057\" />';
+xmlAliasData += '    <Map Name=\"csh-activate-default-edz\" Link=\"topics/security/healthinsight/about-healthinsight.htm\" ResolvedId=\"5056\" />';
+xmlAliasData += '    <Map Name=\"ext-apps-create-bookmark\" Link=\"topics/apps/apps-create-bookmark.htm\" ResolvedId=\"9982\" />';
+xmlAliasData += '    <Map Name=\"ext-usgp-groups-main\" Link=\"topics/users-groups-profiles/usgp-groups-main.htm\" ResolvedId=\"9981\" />';
+xmlAliasData += '    <Map Name=\"settings-support-access\" Link=\"topics/settings/settings-support-access.htm\" ResolvedId=\"19058\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
