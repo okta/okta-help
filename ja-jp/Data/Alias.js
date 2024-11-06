@@ -190,7 +190,6 @@ xmlAliasData += '    <Map Name=\"Directory_People\" Link=\"topics/users-groups-p
 xmlAliasData += '    <Map Name=\"Directory_Profile_Editor\" Link=\"topics/directory/ad-agent-configure-user-profiles-attributes.htm\" ResolvedId=\"1150\" />';
 xmlAliasData += '    <Map Name=\"Directory_Profile_Masters\" Link=\"topics/users-groups-profiles/usgp-about-profile-sourcing.htm#Directory_Profile_Masters1\" ResolvedId=\"1170\" />';
 xmlAliasData += '    <Map Name=\"dt-integrations\" Link=\"topics/mobile/okta_device_trust_native_apps_safari_mdm_devices.htm\" ResolvedId=\"1071\" />';
-xmlAliasData += '    <Map Name=\"dt-safari\" Link=\"topics/mobile/okta_device_trust_jamf_macos_devices.htm\" ResolvedId=\"1038\" />';
 xmlAliasData += '    <Map Name=\"dt-win-desktop\" Link=\"topics/mobile/okta_mobile_device_trust_windows-desktop.htm\" ResolvedId=\"1021\" />';
 xmlAliasData += '    <Map Name=\"edit-resources-standard-role\" Link=\"topics/security/custom-admin-role/edit-resources-standard-role.htm\" ResolvedId=\"19001\" />';
 xmlAliasData += '    <Map Name=\"epcs-okta-intg\" Link=\"topics/integrations/epcs-okta.htm\" ResolvedId=\"1234\" />';
@@ -284,6 +283,7 @@ xmlAliasData += '    <Map Name=\"ext-network-zones\" Link=\"topics/security/netw
 xmlAliasData += '    <Map Name=\"ext-o365-adv\" Link=\"topics/apps/office365/advanced.htm\" ResolvedId=\"1062\" />';
 xmlAliasData += '    <Map Name=\"ext-o365-deploy\" Link=\"topics/apps/office365-deployment/deploy-main.htm\" ResolvedId=\"1142\" />';
 xmlAliasData += '    <Map Name=\"ext-o365-main\" Link=\"topics/apps/office365/o365-main.htm\" ResolvedId=\"1143\" />';
+xmlAliasData += '    <Map Name=\"ext-o365-pro-depro\" Link=\"topics/apps/apps_okta_enhancements_office_365_integration.htm\" ResolvedId=\"1091\" />';
 xmlAliasData += '    <Map Name=\"ext-o365-provisioning\" Link=\"topics/apps/office365-deployment/provision-users.htm\" ResolvedId=\"1141\" />';
 xmlAliasData += '    <Map Name=\"ext-obp-security\" Link=\"topics/browser-plugin/plugin-security.htm\" ResolvedId=\"39944\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-verify-relnotes\" Link=\"topics/releasenotes/okta-verify-release-notes.htm\" ResolvedId=\"1327\" />';
@@ -367,6 +367,7 @@ xmlAliasData += '    <Map Name=\"ext_Apps_Mapping_AD_LDAP_and_Workday_Values\" L
 xmlAliasData += '    <Map Name=\"ext_Apps_Moving_Microsoft\" Link=\"topics/apps/apps_moving_microsoft.htm\" ResolvedId=\"200024\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_O365_Admin_Consent\" Link=\"topics/apps/apps_o365_admin_consent.htm\" ResolvedId=\"200025\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_O365_Silent_Activation\" Link=\"topics/apps/apps_o365_silent_activation.htm\" ResolvedId=\"200026\" />';
+xmlAliasData += '    <Map Name=\"ext_Apps_Okta_Enhancements_Office_365_Integration\" Link=\"topics/apps/apps_okta_enhancements_office_365_integration.htm\" ResolvedId=\"200027\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Okta_Mobile\" Link=\"topics/mobile/apps_okta_mobile.htm\" ResolvedId=\"200106\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Overview_of_Managing_Apps_and_SSO\" Link=\"topics/apps/apps_overview_of_managing_apps_and_sso.htm\" ResolvedId=\"200028\" />';
 xmlAliasData += '    <Map Name=\"ext_Apps_Revealing_the_Password\" Link=\"topics/apps/apps_revealing_the_password.htm\" ResolvedId=\"200029\" />';
@@ -395,7 +396,6 @@ xmlAliasData += '    <Map Name=\"ext_custom_url_domain\" Link=\"topics/settings/
 xmlAliasData += '    <Map Name=\"ext_Dashboard\" Link=\"topics/dashboard/dashboard.htm\" ResolvedId=\"200037\" />';
 xmlAliasData += '    <Map Name=\"ext_Dashboard_End_User_Notifications\" Link=\"topics/dashboard/dashboard.htm\" ResolvedId=\"200038\" />';
 xmlAliasData += '    <Map Name=\"ext_device_trust\" Link=\"topics/device-trust/device-trust-landing.htm\" ResolvedId=\"200112\" />';
-xmlAliasData += '    <Map Name=\"ext_Device_Trust_MacOS\" Link=\"topics/mobile/okta_device_trust_jamf_macos_devices.htm\" ResolvedId=\"1148\" />';
 xmlAliasData += '    <Map Name=\"ext_device_trust_mobile\" Link=\"topics/device-trust/device-trust-landing.htm\" ResolvedId=\"200111\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory\" Link=\"topics/directory/directory-integrations-main.htm\" ResolvedId=\"200059\" />';
 xmlAliasData += '    <Map Name=\"ext_Directory_AD_agent\" Link=\"topics/directory/ad-agent-main.htm\" ResolvedId=\"200060\" />';
@@ -452,7 +452,6 @@ xmlAliasData += '    <Map Name=\"ext_o365_dep_guide\" Link=\"topics/apps/office3
 xmlAliasData += '    <Map Name=\"ext_okta_active_directory_agent\" Link=\"topics/directory/ad-agent-manage-integration.htm\" ResolvedId=\"200076\" />';
 xmlAliasData += '    <Map Name=\"ext_okta_active_directory_agent_OLD\" Link=\"topics/directory/ad-agent-main.htm\" ResolvedId=\"200077\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_Active_Directory_Agent_UDMappingchanges\" Link=\"topics/users-groups-profiles/usgp-sourcing-main.htm\" ResolvedId=\"200079\" />';
-xmlAliasData += '    <Map Name=\"ext_Okta_Device_Trust_Jamf_AirWatch_macOS_Devices\" Link=\"topics/mobile/okta_device_trust_jamf_macos_devices.htm\" ResolvedId=\"200114\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_Device_Trust_Native_Apps_Safari_MDM_Devices\" Link=\"topics/mobile/okta_device_trust_native_apps_safari_mdm_devices.htm\" ResolvedId=\"200115\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_Java_LDAP_Agent\" Link=\"topics/directory/ldap-agent-manage-integration.htm\" ResolvedId=\"200078\" />';
 xmlAliasData += '    <Map Name=\"ext_Okta_Mobile_Device_Trust_Windows_desktop\" Link=\"topics/mobile/okta_mobile_device_trust_windows-desktop.htm\" ResolvedId=\"200121\" />';
@@ -803,5 +802,8 @@ xmlAliasData += '    <Map Name=\"app-password-health-report-deprecated\" Link=\"
 xmlAliasData += '    <Map Name=\"recent-unassignments-report-deprecated\" Link=\"topics/reports/deprecated/recent-unassignments-report.htm\" ResolvedId=\"7005\" />';
 xmlAliasData += '    <Map Name=\"admin-remove-assignment\" Link=\"topics/security/admin-remove-assignment.htm\" ResolvedId=\"19052\" />';
 xmlAliasData += '    <Map Name=\"configure-network-zones\" Link=\"topics/security/network/configure-network-zones.htm\" ResolvedId=\"19053\" />';
+xmlAliasData += '    <Map Name=\"administrator-settings\" Link=\"topics/security/administrator-settings.htm\" ResolvedId=\"19056\" />';
+xmlAliasData += '    <Map Name=\"workday-writeback-enhancement\" Link=\"topics/provisioning/workday/workday-writeback-enhancement.htm\" ResolvedId=\"16000\" />';
+xmlAliasData += '    <Map Name=\"lcm-about-user-management\" Link=\"topics/provisioning/lcm/lcm-about-user-management.htm\" ResolvedId=\"19057\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);

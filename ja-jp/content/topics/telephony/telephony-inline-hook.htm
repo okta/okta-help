@@ -293,12 +293,16 @@
                                                 <div role="main" id="mc-main-content">
                                                     <h1>外部のテレフォニーサービスプロバイダーに接続する</h1>
                                                     <div>
-                                                        <p>ワンタイムパスワード（OTP）をSMSメッセージまたは音声通話でエンドユーザーに送信するには、テレフォニーインラインフックを使って外部のテレフォニーサービスプロバイダーに接続する必要があります。ここでは、テレフォニーインラインフックを追加および管理する方法について説明します。</p>
+                                                        <p>テレフォニーインラインフックを使用して外部のテレフォニーサービスプロバイダーに接続すると、ユーザーにワンタイムパスコード（OTP）を送信できるようになります。ここでは、テレフォニーインラインフックを追加および管理する方法について説明します。</p>
                                                         <h2>仕組み</h2>
-                                                        <p data-mc-conditions="MultiProdPublish.Classic">インラインフックを使用することで、<span class="mc-variable okta-variables.ProductName variable">Okta</span>から外部システムでホスティングされるWebサービスへのアウトバウンドコールを行うことができます。テレフォニーインラインフックを使用すると、SMSまたは音声通話認証要素が関与する登録、認証、復旧フローにテレフォニーサービスプロバイダーを統合できます。 </p>
-                                                        <p>外部のWebサービスに条件ロジックを構成することで、リクエストを各種テレフォニープロバイダーにリダイレクトできます。たとえば、発信元の国に基づいてリクエストをリダイレクトしたり、プライマリプロバイダーが失敗した場合にリクエストをセカンダリテレフォニープロバイダーにリダイレクトするエラー処理を含めたりできます。</p>
-                                                        <p>ユーザーがOTPを要求すると、<span class="mc-variable okta-variables.ProductName variable">Okta</span>はインラインフックを使ってこのリクエストを外部のWebサービスに転送します。次に、サービスはテレフォニープロバイダーにメッセージの配信を要求します。テレフォニープロバイダーはこのリクエストを処理し、ユーザーのデバイスにOTPを送信します。また、応答としてOTP配信ステータスを<span class="mc-variable okta-variables.ProductName variable">Okta</span>に送信します。この応答はSystem Logに登録されます。 </p>
+                                                        <p>テレフォニーインラインフックは、外部システムでホスティングされるWebサービスに<span class="mc-variable okta-variables.ProductName variable">Okta</span>からアウトバウンドで呼び出しを行えるようにします。テレフォニーサービスプロバイダーは、SMSや音声通話などの電話の鑑別工具が関与する登録、認証、復旧フローに統合することができます。 </p>
+                                                        <p>外部のWebサービスに条件ロジックを構成することで、リクエストを各種テレフォニープロバイダーに送信できます。たとえば、リクエストの送信先を発信元の国に基づいて決めることができます。また、プライマリプロバイダーが失敗した際に、エラー処理を含めて、セカンダリテレフォニープロバイダーに送信することができます。</p>
+                                                        <p>ユーザーがOTPを要求すると、<span class="mc-variable okta-variables.ProductName variable">Okta</span>はテレフォニーインラインフックを使ってこのリクエストを外部のWebサービスに転送します。次に、サービスはテレフォニープロバイダーにメッセージの配信を要求します。テレフォニープロバイダーはこのリクエストを処理し、ユーザーのデバイスにOTPを送信します。また、応答としてOTP配信ステータスを<span class="mc-variable okta-variables.ProductName variable">Okta</span>に送信します。この応答はSystem Logに登録されます。 </p>
                                                         <p>テレフォニープロバイダーがOTPを配信できない場合、<span class="mc-variable okta-variables.ProductName variable">Okta</span>はフォールバックプロバイダーを使ってOTPを送信します。ただし、このフォールバックメカニズムではレートが大幅に制限されます。</p>
+                                                        <h2>より堅固な鑑別工具を代わりに使用する</h2>
+                                                        <p>電話のOTPを使用しても、ユーザーの身元確認を保証できるわけではありません。「<a href="about-telephony.htm">SMSや通話による本人確認の潜在的なリスク</a>」を参照してください。 
+</p>
+                                                        <p data-mc-conditions="MultiProdPublish.Classic"><span class="mc-variable okta-variables.ProductName variable">Okta</span>では、より堅固な鑑別工具の使用をユーザー認証で必須にすることをお勧めします。たとえば、ユーザーの存在を確認するだけでなく、デバイスとの紐づけやハードウェア保護、フィッシング耐性のある鑑別工具を使用します。こうした鑑別工具には、アプリ、メールマジックリンク、<span class="mc-variable _3rd_Party_Integrations.FIDO2_(WebAuthn) variable">FIDO2（WebAuthn）</span>などが含まれます。「<a href="../security/mfa/mfa-factors.htm" class="MCXref xref">MFA要素の構成</a>」を参照してください。</p>
                                                     </div>
                                                     <h2>開始する前に</h2>
                                                     <p>次のいずれかの方法で、目的の外部テレフォニープロバイダーを<span class="mc-variable okta-variables.ProductName variable">Okta</span>にセットアップします。</p>
@@ -345,7 +349,7 @@
                                                                         </td>
                                                                         <td class="TableStyle-standard-BodyD-Column1-Body1">
                                                                             <p><span class="mc-variable okta-variables.ProductName variable">Okta</span>はデフォルトでテレフォニーインラインフックにレート制限を強制適用します。これにより、テレフォニープロバイダーアカウントへの望ましくない課金を引き起こす可能性があるトールフラウド攻撃が防止されます。「<a href="telephony-mitigate-tf.htm" class="MCXref xref">テレフォニーを使用した詐欺の防止または軽減</a>」を参照してください。</p>
-                                                                            <p>このレート制限保護はオプトアウトできます。ただし、これを行うと、トールフラウド攻撃を受けた場合にアカウントへ多額の課金が発生する可能性があります。<span class="mc-variable okta-variables.ProductName variable">Okta</span>はこのような課金について責任を負いません。<span class="mc-variable okta-variables.ProductName variable">Okta</span>はこの保護をオンのままにしておくことを推奨します。</p>
+                                                                            <p>このレート制限保護はオプトアウトできます。ただし、これを行うと、トールフラウド攻撃を受けた場合にアカウントへ多額の課金が発生する可能性があります。<span class="mc-variable okta-variables.ProductName variable">Okta</span>はこのような課金について責任を負いません。<span class="mc-variable okta-variables.ProductName variable">Okta</span>はこの保護を有効のままにしておくことを推奨します。</p>
                                                                         </td>
                                                                     </tr>
                                                                     <tr class="TableStyle-standard-Body-Body2">
@@ -373,8 +377,8 @@
                                                     <h2>テレフォニーインラインフックをテストする</h2>
                                                     <ol>
                                                         <li value="1"><span class="wintitle">［インラインフック］</span>で、<span class="uicontrol">［Active（アクティブ）］</span>なテレフォニーインラインフックを見つけ、<span class="menucascade"><span class="uicontrol">［Actions（アクション）］</span> <span class="uicontrol">［Preview（プレビュー）］</span></span>をクリックします。インラインフックの<span class="wintitle">［プレビュー］</span>タブが開きます。</li>
-                                                        <li value="2">このタブで、<span class="uicontrol">［Configure inline hook request（インラインフックリクエストの構成）］</span>に移動し、テストのためにユーザーの情報を入力します。<ul><li><span class="uicontrol">［data.userProfile］</span>：電話を有効なAuthenticatorとして使用しているユーザーの名前を入力します。</li><li><span class="uicontrol">［requestType］</span>：ドロップダウンメニューから、MFA登録、MFA検証、アカウントのロック解除、またはパスワードリセットのいずれかのイベントを選択し、SMSテキストまたは音声通話をユーザーに送信します。</li></ul></li>
-                                                        <li value="3"><span class="uicontrol">［Preview example Inline Hook request（サンプルインラインフックリクエストのプレビュー）］</span>セクションで、<span class="uicontrol">［Generate Request（リクエストを生成）］</span>をクリックします。これにより、<span class="mc-variable okta-variables.ProductName variable">Okta</span>がテレフォニープロバイダーに送信するJSONリクエストが生成されます。</li>
+                                                        <li value="2">このタブで、<span class="uicontrol">［Configure inline hook request（インラインフックリクエストの構成）］</span>に移動し、テストのためにユーザーの情報を入力します。<ul><li><span class="uicontrol">［data.userProfile］</span>：電話を有効な鑑別工具として使用しているユーザーの名前を入力します。</li><li><span class="uicontrol">［requestType］</span>：ドロップダウンメニューから、MFA登録、MFA検証、アカウントのロック解除、またはパスワードリセットのいずれかのイベントを選択し、ユーザーにSMSテキストの送信や音声通話を行います。</li></ul></li>
+                                                        <li value="3"><span class="uicontrol">［Preview example Inline hook request（サンプルインラインフックリクエストのプレビュー）］</span>セクションで、<span class="uicontrol">［Generate Request（リクエストを生成）］</span>をクリックします。これにより、<span class="mc-variable okta-variables.ProductName variable">Okta</span>がテレフォニープロバイダーに送信するJSONリクエストが生成されます。</li>
                                                         <li value="4">任意。<span class="uicontrol">［Edit（編集）］</span>をクリックして生成されたリクエストを編集します。たとえば、リクエストを送信する前に、ユーザープロファイルや電話番号を編集できます。</li>
                                                         <li value="5"><span class="uicontrol">［View Response（サービス レスポンスの表示）］</span>で、<span class="uicontrol">［View Response（レスポンスの表示）］</span>をクリックします。これにより、サービスプロバイダーからのレスポンスが表示されます。</li>
                                                     </ol>
