@@ -10,7 +10,7 @@ git switch ${TRANSLATION_BRANCH}
 
 # sync scripts from the main branch
 pushd scripts
-git restore --source origin/master -- .
+git restore --source origin/gh-pages -- .
 popd
 
 # update en-us files
