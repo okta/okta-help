@@ -2,6 +2,7 @@
 set -x
 source setup-translation-ll.sh
 
+
 export TRANSLATION_RECEIVING_BRANCH="translations-${TARGET}-receive-$(TZ=UTC+8 date +'%Y-%m-%d_%H-%M-%S_%s')"
 
 echo xxx
