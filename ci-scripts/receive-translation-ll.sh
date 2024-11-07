@@ -1,7 +1,11 @@
 #!/bin/bash
+set -x
 source setup-translation-ll.sh
 
 export TRANSLATION_RECEIVING_BRANCH="translations-${TARGET}-receive-$(TZ=UTC+8 date +'%Y-%m-%d_%H-%M-%S_%s')"
+
+echo xxx
+ls
 
 # topic from latest main
 git fetch --depth=1 origin ${BASE_BRANCH}
@@ -13,6 +17,8 @@ git fetch --depth=1 origin ${TRANSLATION_BRANCH}
 # get en-us sitemap for syncing ja-jp content
 git restore --source origin/${TRANSLATION_BRANCH} -- ${EN_PATH}/Sitemap.xml
 
+echo xxx
+ls
 # get ja-jp files from translation branch
 pushd ${JA_PATH}
 git restore --source origin/${TRANSLATION_BRANCH} -- .
