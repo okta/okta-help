@@ -20,10 +20,18 @@ git restore --source origin/${TRANSLATION_BRANCH} -- ${EN_PATH}/Sitemap.xml
 
 echo xxx
 ls
+
+pushd ispm
+echo yyy
+ls
+git status
+popd
+
 # get ja-jp files from translation branch
 pushd ${JA_PATH}
 git restore --source origin/${TRANSLATION_BRANCH} -- .
 popd
+exit 1
 
 # run post processing
 yum -y install python3-devel
