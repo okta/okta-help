@@ -289,27 +289,84 @@
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
                                                     <h1>Snowflake integration</h1>
-                                                    <p>Integrate <span class="mc-variable okta-feature-names.ISPM variable">Identity Security Posture Management</span> (ISMP) with your Snowflake account.</p>
+                                                    <p>Integrate <span class="mc-variable okta-feature-names.ISPM variable">Identity Security Posture Management</span> (ISPM) with your Snowflake account.</p>
+                                                    <h2>Download the public key </h2>
+                                                    <ol>
+                                                        <li value="1">
+                                                            <p>In the <span class="mc-variable okta-feature-names.ISPM variable">Identity Security Posture Management</span> console, go to <span class="menucascade"><span class="uicontrol">Settings</span> <span class="uicontrol">Data connectors</span></span>. </p>
+                                                        </li>
+                                                        <li value="2">
+                                                            <p>Select <span class="uicontrol">Snowflake</span>.</p>
+                                                        </li>
+                                                        <li value="3">
+                                                            <p>Click <span class="uicontrol">Download public key.txt</span> to get the public key.</p>
+                                                        </li>
+                                                    </ol>
                                                     <h2>Create a Snowflake user</h2>
                                                     <ol>
-                                                        <li value="1">Sign in to Snowflake  with an <span class="code">ACCOUNTADMIN</span> role.</li>
-                                                        <li value="2">Open an SQL Worksheet.</li>
-                                                        <li value="3">Click <span class="uicontrol">Worksheets</span>.</li>
-                                                        <li value="4">Click <span class="uicontrol">+</span> and select SQL Worksheet to add a new SQL worksheet.
-                </li>
-                                                        <li value="5">In the SQL worksheet, replace <span class="varname">password</span> with a strong password. If needed, replace <span class="varname">COMPUTE_WH</span>  with a different warehouse.</li>
-                                                        <li value="6">Execute the following SQL commands:
-                <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a><div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>Unset <br />-- Switch to ACCOUNTADMIN role <br />use role accountadmin; <br />-- create a new role for the user <br />create role SPERA_ROLE; <br />-- create a user for Spera <br />create user SPERA_INTEGRATION password = '&lt;password&gt;'; <br />-- grant read only access to the system-defined, read-only shared database grant imported privileges on database snowflake to SPERA_ROLE; <br />-- grant `Usage` privilege on the default warehouse and system DB grant usage on warehouse COMPUTE_WH to role SPERA_ROLE; <br />-- apply the role to the Spera user <br />grant role SPERA_ROLE to user SPERA_INTEGRATION; <br />-- Get the account identifier <br />SELECT CONCAT( <br />(CURRENT_ORGANIZATION_NAME()), <br />'-', <br />(CURRENT_ACCOUNT()) <br />) AS snowflake_account; <br /></code></pre></div></div></li>
-                                                        <li value="7">Click <span class="uicontrol">Run All</span>.
-              <p><img src="../../resources/images/ispm/snowflake/run-all.png" /></p></li>
-                                                        <li value="8">On the <span class="wintitle">Results</span> tab, copy the <span class="uicontrol">SNOWFLAKE_ACCOUNT</span> identifier and store it safely.
-              </li>
+                                                        <li value="1">
+                                                            <p>Sign in to Snowflake  with an <span class="code">ACCOUNTADMIN</span> role.</p>
+                                                        </li>
+                                                        <li value="2">
+                                                            <p>Click <span class="uicontrol">Worksheets</span>.</p>
+                                                        </li>
+                                                        <li value="3">
+                                                            <p>Click <span class="uicontrol">+</span> and select <span class="uicontrol">SQL Worksheet</span> to add an SQL worksheet.
+                </p>
+                                                        </li>
+                                                        <li value="4">
+                                                            <p>Copy the following SQL commands into the worksheet:             </p>
+                                                            <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
+                                                                <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>-- Switch to ACCOUNTADMIN role<br />use role accountadmin;<br />-- create a new role for the user<br />create role OKTA_ISPM_ROLE;<br />-- create a user for OKTA_ISPM<br />create user OKTA_ISPM_INTEGRATION RSA_PUBLIC_KEY = '&lt;public key&gt;';<br />-- grant read-only access to the system-defined, read-only shared database<br />grant imported privileges on database snowflake to OKTA_ISPM_ROLE;<br />-- grant `Usage` privilege on the default warehouse and system DB<br />grant usage on warehouse &lt;warehouse&gt; to role OKTA_ISPM_ROLE;<br />-- apply the role to the OKTA_ISPM user<br />grant role OKTA_ISPM_ROLE to user OKTA_ISPM_INTEGRATION;<br />-- Create a task that reads security integrations<br />CREATE DATABASE IF NOT EXISTS OKTA_ISPM;<br />CREATE OR ALTER TASK OKTA_ISPM.PUBLIC.READ_SECURITY_INTEGRATIONS<br />    USER_TASK_MANAGED_INITIAL_WAREHOUSE_SIZE = "XSMALL"<br />    ALLOW_OVERLAPPING_EXECUTION = FALSE<br />    COMMENT = 'Okta ISPM Task for reading security integrations'<br />AS<br />    DECLARE<br />        integration_name VARCHAR;<br />    BEGIN<br />        SHOW SECURITY INTEGRATIONS;<br />        CREATE OR REPLACE TABLE OKTA_ISPM.PUBLIC.SECURITY_INTEGRATIONS AS (<br />            SELECT *<br />            FROM TABLE(RESULT_SCAN(LAST_QUERY_ID()))<br />        );<br />        CREATE OR REPLACE TABLE OKTA_ISPM.PUBLIC.SECURITY_INTEGRATION_DESCRIPTIONS (<br />            property VARCHAR,<br />            property_type VARCHAR,<br />            property_value VARCHAR,<br />            property_default VARCHAR,<br />            integration_name VARCHAR<br />        );<br />        LET integrations_cursor CURSOR FOR SELECT * FROM OKTA_ISPM.PUBLIC.SECURITY_INTEGRATIONS;<br />        FOR current_integration IN integrations_cursor DO integration_name := current_integration."name";<br />            DESCRIBE SECURITY INTEGRATION IDENTIFIER(:integration_name);<br />            INSERT INTO OKTA_ISPM.PUBLIC.SECURITY_INTEGRATION_DESCRIPTIONS<br />            SELECT<br />                *,<br />                :integration_name<br />            FROM TABLE(RESULT_SCAN(LAST_QUERY_ID()));<br />        END FOR;<br />    END;<br /><br />-- Create a task that reads the authentication policies<br />CREATE OR ALTER TASK OKTA_ISPM.PUBLIC.READ_AUTHENTICATION_POLICIES<br />    USER_TASK_MANAGED_INITIAL_WAREHOUSE_SIZE = "XSMALL"<br />    ALLOW_OVERLAPPING_EXECUTION = FALSE<br />    COMMENT = 'Okta ISPM Task for reading authentication policies'<br />AS<br />    DECLARE<br />        policy_name VARCHAR;<br />        policy_db VARCHAR;<br />        policy_schema VARCHAR;<br />        policy_full_name VARCHAR;<br />    BEGIN<br />        SHOW AUTHENTICATION POLICIES;<br />        CREATE OR REPLACE TABLE OKTA_ISPM.PUBLIC.AUTHENTICATION_POLICIES AS (<br />            SELECT *<br />            FROM TABLE(RESULT_SCAN(LAST_QUERY_ID()))<br />        );<br />        CREATE OR REPLACE TABLE OKTA_ISPM.PUBLIC.AUTHENTICATION_POLICIES_DESCRIPTION (<br />            property VARCHAR,<br />            property_type VARCHAR,<br />            property_value VARCHAR,<br />            property_default VARCHAR,<br />            policy_name VARCHAR<br />        );<br />        CREATE OR REPLACE TABLE OKTA_ISPM.PUBLIC.AUTHENTICATION_POLICIES_REFERENCES (<br />            policy_db VARCHAR,<br />            policy_schema VARCHAR,<br />            policy_name VARCHAR,<br />            policy_kind VARCHAR,<br />            ref_database_name VARCHAR,<br />            ref_schema_name VARCHAR,<br />            ref_entity_name VARCHAR,<br />            ref_entity_domain VARCHAR,<br />            ref_column_name VARCHAR,<br />            ref_arg_column_names VARCHAR,<br />            data_database VARCHAR,<br />            tag_schema VARCHAR,<br />            tag_name VARCHAR,<br />            policy_status VARCHAR<br />        );<br /><br />        LET policies_cursor CURSOR FOR SELECT * FROM OKTA_ISPM.PUBLIC.AUTHENTICATION_POLICIES;<br />        FOR current_policy IN policies_cursor DO<br />            policy_db := current_policy."database_name";<br />            policy_schema := current_policy."schema_name";<br />            policy_name := current_policy."name";<br />            policy_full_name := :policy_db || '.' || :policy_schema || '.' || :policy_name;<br /><br />            DESCRIBE AUTHENTICATION POLICY IDENTIFIER(:policy_name);<br />            INSERT INTO OKTA_ISPM.PUBLIC.AUTHENTICATION_POLICIES_DESCRIPTION<br />            SELECT<br />                *,<br />                :policy_name<br />            FROM TABLE(RESULT_SCAN(LAST_QUERY_ID()));<br /><br />            INSERT INTO OKTA_ISPM.PUBLIC.AUTHENTICATION_POLICIES_REFERENCES<br />                SELECT *<br />                FROM TABLE(<br />                    SNOWFLAKE.INFORMATION_SCHEMA.POLICY_REFERENCES(<br />                        POLICY_NAME =&gt; :policy_full_name<br />                    )<br />                );<br />        END FOR;<br />    END<br />;<br />-- Grants task related privileges<br />GRANT USAGE ON DATABASE OKTA_ISPM TO ROLE OKTA_ISPM_ROLE;<br />GRANT USAGE ON SCHEMA OKTA_ISPM.PUBLIC TO ROLE OKTA_ISPM_ROLE;<br />GRANT SELECT ON FUTURE TABLES IN DATABASE OKTA_ISPM TO ROLE OKTA_ISPM_ROLE;<br />GRANT EXECUTE TASK ON ACCOUNT TO ROLE OKTA_ISPM_ROLE;<br />GRANT OPERATE ON TASK OKTA_ISPM.PUBLIC.READ_SECURITY_INTEGRATIONS TO ROLE OKTA_ISPM_ROLE;<br />GRANT OPERATE ON TASK OKTA_ISPM.PUBLIC.READ_AUTHENTICATION_POLICIES TO ROLE OKTA_ISPM_ROLE;<br />-- Execute tasks<br />EXECUTE TASK OKTA_ISPM.PUBLIC.READ_SECURITY_INTEGRATIONS;<br />EXECUTE TASK OKTA_ISPM.PUBLIC.READ_AUTHENTICATION_POLICIES;<br />-- Get the account identifier<br />SELECT CONCAT(<br />        (CURRENT_ORGANIZATION_NAME()),<br />        '-',<br />        (CURRENT_ACCOUNT_NAME())<br />    ) AS snowflake_account;<br /></code></pre>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li value="5">
+                                                            <p>Replace <span class="code">&lt;public key&gt;</span> with the public key that you downloaded earlier.</p>
+                                                        </li>
+                                                        <li value="6">
+                                                            <p>Replace <span class="code">&lt;warehouse&gt;</span> with any standard extra-small warehouse. </p>
+                                                        </li>
+                                                        <li value="7">
+                                                            <p>Click <span class="uicontrol">Run All</span>.
+              </p>
+                                                            <p>
+                                                                <img src="../../resources/images/ispm/snowflake/run-all.png" />
+                                                            </p>
+                                                        </li>
+                                                        <li value="8">
+                                                            <p>From the <span class="wintitle">Results</span> tab, copy the <span class="uicontrol">SNOWFLAKE_ACCOUNT</span> identifier and store it safely.
+              </p>
+                                                        </li>
                                                     </ol>
                                                     <h2><a name="Share"></a>Share the parameters with ISPM</h2>
                                                     <ol>
-                                                        <li value="1">Select <span class="uicontrol">Snowflake</span> and click <span class="uicontrol">Authorize</span>.</li>
-                                                        <li value="2">Enter the following values:<ul><li><span class="uicontrol">Username</span> and <span class="uicontrol">Password</span>: Enter the values that you used in the <span class="code">CREATE USER</span> command.</li><li><span class="uicontrol">Role</span>: Enter the value that you used in the <span class="code">CREATE ROLE</span> and <span class="code">GRANT ROLE</span> commands.</li><li><span class="uicontrol">Account</span>: Enter the full Snowflake account identifier that you copied earlier. Alternatively, follow the steps listed on Snowflake Account Identifiers page to find your account identifier.</li><li><span class="uicontrol">Warehouse</span>: Enter the name of the warehouse that you used in the <span class="code">GRANT USAGE ON WAREHOUSE</span> command.</li></ul></li>
-                                                        <li value="3">Click <span class="uicontrol">Submit</span>.</li>
+                                                        <li value="1">
+                                                            <p>In the <span class="mc-variable okta-feature-names.ISPM variable">Identity Security Posture Management</span> console, go to <span class="menucascade"><span class="uicontrol">Settings</span><span class="uicontrol">Data connectors</span></span>.</p>
+                                                        </li>
+                                                        <li value="2">
+                                                            <p>Select <span class="uicontrol">Snowflake</span>.</p>
+                                                        </li>
+                                                        <li value="3">
+                                                            <p>Enter the following values:</p>
+                                                            <ul>
+                                                                <li>
+                                                                    <p><span class="uicontrol">Username</span>: Enter the value that you used in the <span class="code">CREATE USER</span> command. <span class="code">OKTA_ISPM_INTEGRATION</span> is the default username.</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">Role</span>: Enter the value that you used in the <span class="code">CREATE ROLE</span> and <span class="code">GRANT ROLE</span> commands. <span class="code">OKTA_ISPM_ROLE</span> is the default role.</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">Account</span>: Enter the full Snowflake account identifier that you copied earlier. </p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">Warehouse</span>: Enter the name of the warehouse that you used earlier.</p>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li value="4">
+                                                            <p>Click <span class="uicontrol">Submit</span>.</p>
+                                                        </li>
                                                     </ol>
                                                 </div>
                                             </div>
