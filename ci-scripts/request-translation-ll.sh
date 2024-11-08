@@ -3,6 +3,9 @@ export BACON_TASK_NAME="I18N_SYNC_TRANSLATIONS"
 
 source setup-translation-ll.sh
 
+set -x
+TRANSLATION_BRANCH=LL_ispm_translation
+
 git fetch --depth=1 origin ${BASE_BRANCH}
 export BASE_BRANCH_SHA=$(git rev-parse origin/${BASE_BRANCH})
 
@@ -50,18 +53,18 @@ git -c user.name='CI Automation' -c user.email=${userEmail} \
   -m "SHA: ${BASE_BRANCH_SHA}"
 git push origin ${TRANSLATION_BRANCH}
 
-export JSON_DATA='{
-  "xtmBranchRegex":"origin/'${TRANSLATION_BRANCH}'",
-  "i18nRepo":"okta-help"
-}'
-export BACON_TASK_RUN_ID=$(run_bacon_task_by_name "${BACON_TASK_NAME}" "${JSON_DATA}")
+# export JSON_DATA='{
+#   "xtmBranchRegex":"origin/'${TRANSLATION_BRANCH}'",
+#   "i18nRepo":"okta-help"
+# }'
+# export BACON_TASK_RUN_ID=$(run_bacon_task_by_name "${BACON_TASK_NAME}" "${JSON_DATA}")
 
-if ! wait_for_bacon_task_to_complete "${BACON_TASK_RUN_ID}" $((TIMEOUT * 60));
-then
-  exit ${FAILED_SETUP}
-fi
+# if ! wait_for_bacon_task_to_complete "${BACON_TASK_RUN_ID}" $((TIMEOUT * 60));
+# then
+#   exit ${FAILED_SETUP}
+# fi
 
-send_slack_message "${SLACK_CHANNEL}" \
-  ":white_check_mark: Requested translation for [${TARGET^^}]" \
-  "Commit author: ${userEmail}\nTranslation commits: ${TRANSLATION_COMMITS}\nBacon task: ${BACON_LINK}" \
-  "good"
+# send_slack_message "${SLACK_CHANNEL}" \
+#   ":white_check_mark: Requested translation for [${TARGET^^}]" \
+#   "Commit author: ${userEmail}\nTranslation commits: ${TRANSLATION_COMMITS}\nBacon task: ${BACON_LINK}" \
+#   "good"
