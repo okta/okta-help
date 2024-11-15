@@ -289,27 +289,84 @@
                                                 <!-- Main content body -->
                                                 <div role="main" id="mc-main-content">
                                                     <h1>Snowflakeの統合</h1>
-                                                    <p><span class="mc-variable okta-feature-names.ISPM variable">Identity Security Posture Management</span>（ISMP）をSnowflakeアカウントと統合します。</p>
+                                                    <p><span class="mc-variable okta-feature-names.ISPM variable">Identity Security Posture Management</span>（ISMP）をSnowflakeアカウントに統合します。</p>
+                                                    <h2>公開鍵をダウンロードする </h2>
+                                                    <ol>
+                                                        <li value="1">
+                                                            <p><span class="mc-variable okta-feature-names.ISPM variable">Identity Security Posture Management</span>コンソールで<span class="menucascade"><span class="uicontrol">［Settings（設定）］</span> <span class="uicontrol">［Data connectors（データコネクター）］</span></span>に移動します。 </p>
+                                                        </li>
+                                                        <li value="2">
+                                                            <p><span class="uicontrol">［Snowflake］</span>を選択します。</p>
+                                                        </li>
+                                                        <li value="3">
+                                                            <p><span class="uicontrol">［Download public key.txt（public key.txtのダウンロード）］</span>をクリックして公開鍵を取得します。</p>
+                                                        </li>
+                                                    </ol>
                                                     <h2>Snowflakeユーザーを作成する</h2>
                                                     <ol>
-                                                        <li value="1"><span class="code">ACCOUNTADMIN</span>ロールでSnowflakeにサインインします。</li>
-                                                        <li value="2">SQLワークシートを開きます。</li>
-                                                        <li value="3"><span class="uicontrol">［Worksheets（ワークシート）］</span>をクリックします。</li>
-                                                        <li value="4"><span class="uicontrol">［+］</span>をクリックし、SQLワークシートを選択して、新しいSQLワークシートを追加します。
-                </li>
-                                                        <li value="5">SQLワークシートで、<span class="varname">password</span>を強力なパスワードに置き換えます。必要であれば、 <span class="varname">COMPUTE_WH</span>を他のウェアハウスに置き換えます。</li>
-                                                        <li value="6">次のSQLコマンドを実行します。
-                <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">コピー</a><div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>Unset <br />-- Switch to ACCOUNTADMIN role <br />use role accountadmin; <br />-- create a new role for the user <br />create role SPERA_ROLE; <br />-- create a user for Spera <br />create user SPERA_INTEGRATION password = '&lt;password&gt;'; <br />-- grant read only access to the system-defined, read-only shared database grant imported privileges on database snowflake to SPERA_ROLE; <br />-- grant `Usage` privilege on the default warehouse and system DB grant usage on warehouse COMPUTE_WH to role SPERA_ROLE; <br />-- apply the role to the Spera user <br />grant role SPERA_ROLE to user SPERA_INTEGRATION; <br />-- Get the account identifier <br />SELECT CONCAT( <br />(CURRENT_ORGANIZATION_NAME()), <br />'-', <br />(CURRENT_ACCOUNT()) <br />) AS snowflake_account; <br /></code></pre></div></div></li>
-                                                        <li value="7"><span class="uicontrol">［Run All（すべて実行）］</span>をクリックします。
-              <p><img src="../../resources/images/ispm/snowflake/run-all.png" /></p></li>
-                                                        <li value="8"><span class="wintitle">［Results（結果）］</span>タブで、<span class="uicontrol">SNOWFLAKE_ACCOUNT</span>識別子をコピーし、安全な場所に保管します。
-              </li>
+                                                        <li value="1">
+                                                            <p><span class="code">ACCOUNTADMIN</span>ロールでSnowflakeにサインインします。</p>
+                                                        </li>
+                                                        <li value="2">
+                                                            <p><span class="uicontrol">［Worksheets（ワークシート）］</span>をクリックします。</p>
+                                                        </li>
+                                                        <li value="3">
+                                                            <p><span class="uicontrol">［+］</span>をクリックしてから、<span class="uicontrol">［SQL Worksheet（SQLワークシート）］</span>を選択してSQLワークシートを追加します。
+                </p>
+                                                        </li>
+                                                        <li value="4">
+                                                            <p>以下のSQLコマンドをコピーしてワークシートに貼り付けます。             </p>
+                                                            <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">コピー</a>
+                                                                <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>-- Switch to ACCOUNTADMIN role<br />use role accountadmin;<br />-- create a new role for the user<br />create role OKTA_ISPM_ROLE;<br />-- create a user for OKTA_ISPM<br />create user OKTA_ISPM_INTEGRATION RSA_PUBLIC_KEY = '&lt;public key&gt;';<br />-- grant read-only access to the system-defined, read-only shared database<br />grant imported privileges on database snowflake to OKTA_ISPM_ROLE;<br />-- grant `Usage` privilege on the default warehouse and system DB<br />grant usage on warehouse &lt;warehouse&gt; to role OKTA_ISPM_ROLE;<br />-- apply the role to the OKTA_ISPM user<br />grant role OKTA_ISPM_ROLE to user OKTA_ISPM_INTEGRATION;<br />-- Create a task that reads security integrations<br />CREATE DATABASE IF NOT EXISTS OKTA_ISPM;<br />CREATE OR ALTER TASK OKTA_ISPM.PUBLIC.READ_SECURITY_INTEGRATIONS<br />    USER_TASK_MANAGED_INITIAL_WAREHOUSE_SIZE = &quot;XSMALL&quot;<br />    ALLOW_OVERLAPPING_EXECUTION = FALSE<br />    COMMENT = 'Okta ISPM Task for reading security integrations'<br />AS<br />    DECLARE<br />        integration_name VARCHAR;<br />    BEGIN<br />        SHOW SECURITY INTEGRATIONS;<br />        CREATE OR REPLACE TABLE OKTA_ISPM.PUBLIC.SECURITY_INTEGRATIONS AS (<br />            SELECT *<br />            FROM TABLE(RESULT_SCAN(LAST_QUERY_ID()))<br />        );<br />        CREATE OR REPLACE TABLE OKTA_ISPM.PUBLIC.SECURITY_INTEGRATION_DESCRIPTIONS (<br />            property VARCHAR,<br />            property_type VARCHAR,<br />            property_value VARCHAR,<br />            property_default VARCHAR,<br />            integration_name VARCHAR<br />        );<br />        LET integrations_cursor CURSOR FOR SELECT * FROM OKTA_ISPM.PUBLIC.SECURITY_INTEGRATIONS;<br />        FOR current_integration IN integrations_cursor DO integration_name := current_integration.&quot;name&quot;;<br />            DESCRIBE SECURITY INTEGRATION IDENTIFIER(:integration_name);<br />            INSERT INTO OKTA_ISPM.PUBLIC.SECURITY_INTEGRATION_DESCRIPTIONS<br />            SELECT<br />                *,<br />                :integration_name<br />            FROM TABLE(RESULT_SCAN(LAST_QUERY_ID()));<br />        END FOR;<br />    END;<br /><br />-- Create a task that reads the authentication policies<br />CREATE OR ALTER TASK OKTA_ISPM.PUBLIC.READ_AUTHENTICATION_POLICIES<br />    USER_TASK_MANAGED_INITIAL_WAREHOUSE_SIZE = &quot;XSMALL&quot;<br />    ALLOW_OVERLAPPING_EXECUTION = FALSE<br />    COMMENT = 'Okta ISPM Task for reading authentication policies'<br />AS<br />    DECLARE<br />        policy_name VARCHAR;<br />        policy_db VARCHAR;<br />        policy_schema VARCHAR;<br />        policy_full_name VARCHAR;<br />    BEGIN<br />        SHOW AUTHENTICATION POLICIES;<br />        CREATE OR REPLACE TABLE OKTA_ISPM.PUBLIC.AUTHENTICATION_POLICIES AS (<br />            SELECT *<br />            FROM TABLE(RESULT_SCAN(LAST_QUERY_ID()))<br />        );<br />        CREATE OR REPLACE TABLE OKTA_ISPM.PUBLIC.AUTHENTICATION_POLICIES_DESCRIPTION (<br />            property VARCHAR,<br />            property_type VARCHAR,<br />            property_value VARCHAR,<br />            property_default VARCHAR,<br />            policy_name VARCHAR<br />        );<br />        CREATE OR REPLACE TABLE OKTA_ISPM.PUBLIC.AUTHENTICATION_POLICIES_REFERENCES (<br />            policy_db VARCHAR,<br />            policy_schema VARCHAR,<br />            policy_name VARCHAR,<br />            policy_kind VARCHAR,<br />            ref_database_name VARCHAR,<br />            ref_schema_name VARCHAR,<br />            ref_entity_name VARCHAR,<br />            ref_entity_domain VARCHAR,<br />            ref_column_name VARCHAR,<br />            ref_arg_column_names VARCHAR,<br />            data_database VARCHAR,<br />            tag_schema VARCHAR,<br />            tag_name VARCHAR,<br />            policy_status VARCHAR<br />        );<br /><br />        LET policies_cursor CURSOR FOR SELECT * FROM OKTA_ISPM.PUBLIC.AUTHENTICATION_POLICIES;<br />        FOR current_policy IN policies_cursor DO<br />            policy_db := current_policy.&quot;database_name&quot;;<br />            policy_schema := current_policy.&quot;schema_name&quot;;<br />            policy_name := current_policy.&quot;name&quot;;<br />            policy_full_name := :policy_db || '.' || :policy_schema || '.' || :policy_name;<br /><br />            DESCRIBE AUTHENTICATION POLICY IDENTIFIER(:policy_name);<br />            INSERT INTO OKTA_ISPM.PUBLIC.AUTHENTICATION_POLICIES_DESCRIPTION<br />            SELECT<br />                *,<br />                :policy_name<br />            FROM TABLE(RESULT_SCAN(LAST_QUERY_ID()));<br /><br />            INSERT INTO OKTA_ISPM.PUBLIC.AUTHENTICATION_POLICIES_REFERENCES<br />                SELECT *<br />                FROM TABLE(<br />                    SNOWFLAKE.INFORMATION_SCHEMA.POLICY_REFERENCES(<br />                        POLICY_NAME =&gt; :policy_full_name<br />                    )<br />                );<br />        END FOR;<br />    END<br />;<br />-- Grants task related privileges<br />GRANT USAGE ON DATABASE OKTA_ISPM TO ROLE OKTA_ISPM_ROLE;<br />GRANT USAGE ON SCHEMA OKTA_ISPM.PUBLIC TO ROLE OKTA_ISPM_ROLE;<br />GRANT SELECT ON FUTURE TABLES IN DATABASE OKTA_ISPM TO ROLE OKTA_ISPM_ROLE;<br />GRANT EXECUTE TASK ON ACCOUNT TO ROLE OKTA_ISPM_ROLE;<br />GRANT OPERATE ON TASK OKTA_ISPM.PUBLIC.READ_SECURITY_INTEGRATIONS TO ROLE OKTA_ISPM_ROLE;<br />GRANT OPERATE ON TASK OKTA_ISPM.PUBLIC.READ_AUTHENTICATION_POLICIES TO ROLE OKTA_ISPM_ROLE;<br />-- Execute tasks<br />EXECUTE TASK OKTA_ISPM.PUBLIC.READ_SECURITY_INTEGRATIONS;<br />EXECUTE TASK OKTA_ISPM.PUBLIC.READ_AUTHENTICATION_POLICIES;<br />-- Get the account identifier<br />SELECT CONCAT(<br />        (CURRENT_ORGANIZATION_NAME()),<br />        '-',<br />        (CURRENT_ACCOUNT_NAME())<br />    ) AS snowflake_account;<br /></code></pre>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li value="5">
+                                                            <p><span class="code">&lt;public key&gt;</span>を、先ほどダウンロードした公開鍵に置き換えます。</p>
+                                                        </li>
+                                                        <li value="6">
+                                                            <p><span class="code">&lt;warehouse&gt;</span>を、標準タイプでサイズがXSの任意のウェアハウスに置き換えます。 </p>
+                                                        </li>
+                                                        <li value="7">
+                                                            <p><span class="uicontrol">［Run All（すべて実行）］</span>をクリックします。
+              </p>
+                                                            <p>
+                                                                <img src="../../resources/images/ispm/snowflake/run-all.png" />
+                                                            </p>
+                                                        </li>
+                                                        <li value="8">
+                                                            <p><span class="wintitle">結果</span>タブから<span class="uicontrol">SNOWFLAKE_ACCOUNT</span>識別子をコピーし、安全な場所に保管します。
+              </p>
+                                                        </li>
                                                     </ol>
-                                                    <h2><a name="Share"></a>ISPMとパラメーターを共有する</h2>
+                                                    <h2><a name="Share"></a>パラメーターをISPMと共有する</h2>
                                                     <ol>
-                                                        <li value="1"><span class="uicontrol">Snowflake</span>を選択し、<span class="uicontrol">［Authorize（認可）］</span>をクリックします。</li>
-                                                        <li value="2">以下の値を入力します。<ul><li><span class="uicontrol">［Username（ユーザー名）］</span>および<span class="uicontrol">［Password（パスワード）］</span>：<span class="code">CREATE USER</span>コマンドで使用した値を入力します。</li><li><span class="uicontrol">Role（ロール）</span>：<span class="code">CREATE ROLE</span>および<span class="code">GRANT ROLE</span>コマンドで使用した値を入力します。</li><li><span class="uicontrol">Account（アカウント）</span>：先ほどコピーしたSnowflakeアカウント識別子を入力します。または、Snowflakeアカウント識別子ページに記載されている手順に従って、アカウント識別子を見つけることもできます。</li><li><span class="uicontrol">Warehouse（ウェアハウス）</span>：<span class="code">GRANT USAGE ON WAREHOUSE</span>コマンドで使用したウェアハウスの名前を入力します。</li></ul></li>
-                                                        <li value="3"><span class="uicontrol">［Submit（送信）］</span>をクリックします。</li>
+                                                        <li value="1">
+                                                            <p><span class="mc-variable okta-feature-names.ISPM variable">Identity Security Posture Management</span>コンソールで<span class="menucascade"><span class="uicontrol">［Settings（設定）］</span><span class="uicontrol">［Data connectors（データコネクター）］</span></span>に移動します。</p>
+                                                        </li>
+                                                        <li value="2">
+                                                            <p><span class="uicontrol">［Snowflake］</span>を選択します。</p>
+                                                        </li>
+                                                        <li value="3">
+                                                            <p>以下の値を入力します。</p>
+                                                            <ul>
+                                                                <li>
+                                                                    <p><span class="uicontrol">Username（ユーザー名）</span>：<span class="code">CREATE USER</span>コマンドで使用した値を入力します。<span class="code">OKTA_ISPM_INTEGRATION</span>がデフォルトのユーザー名です。</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">Role（ロール）</span>：<span class="code">CREATE ROLE</span>および<span class="code">GRANT ROLE</span>コマンドで使用した値を入力します。<span class="code">OKTA_ISPM_ROLE</span>がデフォルトのロールです。</p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">Account（アカウント）</span>：先ほどコピーしたSnowflakeアカウント識別子を入力します。 </p>
+                                                                </li>
+                                                                <li>
+                                                                    <p><span class="uicontrol">Warehouse（ウェアハウス）</span>：先ほど使用したウェアハウスの名前を入力します。</p>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li value="4">
+                                                            <p><span class="uicontrol">［Submit（送信）］</span>をクリックします。</p>
+                                                        </li>
                                                     </ol>
                                                 </div>
                                             </div>
