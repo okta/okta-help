@@ -35,7 +35,7 @@ xmlAliasData += '    <Map Name=\"ext_asa\" Link=\"topics/adv_server_access/docs/
 xmlAliasData += '    <Map Name=\"ext_asa_main\" Link=\"topics/adv_server_access/docs/asa-overview.htm\" ResolvedId=\"1174\" />';
 xmlAliasData += '    <Map Name=\"ext_asa_on_demand_users\" Link=\"topics/adv_server_access/docs/on-demand-users.htm\" ResolvedId=\"1273\" />';
 xmlAliasData += '    <Map Name=\"ext_asa_service_users\" Link=\"topics/adv_server_access/docs/service-users.htm\" ResolvedId=\"1302\" />';
-xmlAliasData += '    <Map Name=\"ext-asa-releasenotes\" Link=\"topics/releasenotes/advanced-server-access-release-notes.htm\" ResolvedId=\"1402\" />';
+xmlAliasData += '    <Map Name=\"ext-asa-releasenotes\" Link=\"topics/releasenotes/advanced-server-access-release-notes.htm\" ResolvedId=\"33421\" />';
 xmlAliasData += '    <Map Name=\"ext-asa-policysync\" Link=\"topics/adv_server_access/docs/policysync.htm\" ResolvedId=\"39997\" />';
 xmlAliasData += '    <Map Name=\"csh-asa-client-configuration-advanced\" Link=\"topics/adv_server_access/docs/ad-client-configuration-advanced.htm\" ResolvedId=\"39996\" />';
 xmlAliasData += '    <Map Name=\"csh-ad-user-sync\" Link=\"topics/adv_server_access/docs/ad-user-sync.htm\" ResolvedId=\"39995\" />';
