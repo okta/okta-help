@@ -327,7 +327,7 @@ xmlAliasData += '    <Map Name=\"ext-flow-backup-about\" Link=\"topics/workflows
 xmlAliasData += '    <Map Name=\"ext-flow-backup-setup\" Link=\"topics/workflows/build/flow-backup-setup.htm\" ResolvedId=\"31061\" />';
 xmlAliasData += '    <Map Name=\"ext-flow-charts\" Link=\"topics/workflows/learn/about-flow-charts.htm\" ResolvedId=\"32002\" />';
 xmlAliasData += '    <Map Name=\"ext-flow-execution-details\" Link=\"topics/workflows/execute/execution-history-view-details-column.htm\" ResolvedId=\"6023\" />';
-xmlAliasData += '    <Map Name=\"ext-flow-history\" Link=\"topics/workflows/execute/execution-history-view.htm#History\" ResolvedId=\"30719\" />';
+xmlAliasData += '    <Map Name=\"ext-flow-history\" Link=\"topics/workflows/execute/execution-history-view.htm\" ResolvedId=\"30719\" />';
 xmlAliasData += '    <Map Name=\"ext-flow-limit\" Link=\"topics/workflows/flow-limits.htm\" ResolvedId=\"31063\" />';
 xmlAliasData += '    <Map Name=\"ext-folder-view\" Link=\"topics/workflows/learn/about-folder-view.htm\" ResolvedId=\"32001\" />';
 xmlAliasData += '    <Map Name=\"ext-freshservice\" Link=\"topics/workflows/connector-reference/freshservice/freshservice.htm\" ResolvedId=\"8205\" />';
@@ -928,7 +928,7 @@ xmlAliasData += '    <Map Name=\"ext-okta-method-usersignedout\" Link=\"topics/w
 xmlAliasData += '    <Map Name=\"ext-okta-method-usersuspended\" Link=\"topics/workflows/connector-reference/okta/events/usersuspended.htm\" ResolvedId=\"30471\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-method-userunsuspended\" Link=\"topics/workflows/connector-reference/okta/events/userunsuspended.htm\" ResolvedId=\"30472\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-misc-authorization\" Link=\"topics/workflows/connector-reference/okta/overviews/authorization.htm\" ResolvedId=\"30473\" />';
-xmlAliasData += '    <Map Name=\"ext-okta-misc-revoke\" Link=\"topics/workflows/connector-reference/okta/okta.htm#Revoke\" ResolvedId=\"30474\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-misc-revoke\" Link=\"topics/workflows/connector-reference/okta/okta.htm\" ResolvedId=\"30474\" />';
 xmlAliasData += '    <Map Name=\"ext-okta-workflows\" Link=\"topics/workflows/workflows-main.htm\" ResolvedId=\"1228\" />';
 xmlAliasData += '    <Map Name=\"ext-onedrive\" Link=\"topics/workflows/connector-reference/onedrive/onedrive.htm\" ResolvedId=\"33048\" />';
 xmlAliasData += '    <Map Name=\"ext-onedrive-method-createfolder\" Link=\"topics/workflows/connector-reference/onedrive/actions/createfolder.htm\" ResolvedId=\"33036\" />';
@@ -1300,7 +1300,7 @@ xmlAliasData += '    <Map Name=\"ext-zoom-method-removeuserfromgroup\" Link=\"to
 xmlAliasData += '    <Map Name=\"ext-zoom-method-searchgroups\" Link=\"topics/workflows/connector-reference/zoom/actions/searchgroups.htm\" ResolvedId=\"30930\" />';
 xmlAliasData += '    <Map Name=\"ext-zoom-method-updateuser\" Link=\"topics/workflows/connector-reference/zoom/actions/updateuser.htm\" ResolvedId=\"30736\" />';
 xmlAliasData += '    <Map Name=\"ext-zoom-misc-authorization\" Link=\"topics/workflows/connector-reference/zoom/overviews/authorization.htm\" ResolvedId=\"30737\" />';
-xmlAliasData += '    <Map Name=\"ext-workflows-releasenotes\" Link=\"topics/releasenotes/workflows/workflows-release-notes.htm\" ResolvedId=\"31059\" />';
+xmlAliasData += '    <Map Name=\"ext-workflows-releasenotes\" Link=\"topics/releasenotes/workflows/workflows-release-notes.htm\" ResolvedId=\"33420\" />';
 xmlAliasData += '    <Map Name=\"ext-about-low-latency\" Link=\"topics/workflows/learn/about-low-latency.htm\" ResolvedId=\"6000\" />';
 xmlAliasData += '    <Map Name=\"ext-third-party-overview\" Link=\"topics/workflows/connector-builder/third-party-submissions-overview.htm\" ResolvedId=\"6001\" />';
 xmlAliasData += '    <Map Name=\"ext-third-party-test\" Link=\"topics/workflows/connector-builder/third-party-submissions-test-details.htm\" ResolvedId=\"6002\" />';
@@ -1450,7 +1450,7 @@ xmlAliasData += '    <Map Name=\"ext-oraclehcm-misc-authorization\" Link=\"topic
 xmlAliasData += '    <Map Name=\"ext-oraclehcm-method-readworkerubffsxseca\" Link=\"topics/workflows/connector-reference/oraclehcm/actions/readworker.htm\" ResolvedId=\"6138\" />';
 xmlAliasData += '    <Map Name=\"ext-oraclehcm-method-searchworkersv8qcs7yfa\" Link=\"topics/workflows/connector-reference/oraclehcm/actions/searchworkers.htm\" ResolvedId=\"6139\" />';
 xmlAliasData += '    <Map Name=\"ext-oraclehcm-method-updateworker6kwurjohef\" Link=\"topics/workflows/connector-reference/oraclehcm/actions/updateworker.htm\" ResolvedId=\"6140\" />';
-xmlAliasData += '    <Map Name=\"ext-oktadevices-method-httprequest\" Link=\"topics/workflows/connector-reference/oktadevices/actions/customapiaction.htm\" ResolvedId=\"6170\" />';
+xmlAliasData += '    <Map Name=\"ext-oktadevices-method-httprequest\" Link=\"topics/workflows/connector-reference/oktadevices/actions/customapiaction.htm\" ResolvedId=\"6141\" />';
 xmlAliasData += '    <Map Name=\"ext-googledirectory-method-createroleassignment\" Link=\"topics/workflows/connector-reference/googledirectory/actions/createroleassignment.htm\" ResolvedId=\"6200\" />';
 xmlAliasData += '    <Map Name=\"ext-googledirectory-method-deleteroleassignment\" Link=\"topics/workflows/connector-reference/googledirectory/actions/deleteroleassignment.htm\" ResolvedId=\"6201\" />';
 xmlAliasData += '    <Map Name=\"ext-googledirectory-method-listroles\" Link=\"topics/workflows/connector-reference/googledirectory/actions/listroles.htm\" ResolvedId=\"6202\" />';
@@ -1526,7 +1526,7 @@ xmlAliasData += '    <Map Name=\"ext-oktaprivilegedaccess-method-listallservicea
 xmlAliasData += '    <Map Name=\"ext-oktaprivilegedaccess-method-createaccessreportgvbqmzs32\" Link=\"topics/workflows/connector-reference/oktaprivilegedaccess/actions/retrieveaccessreport.htm\" ResolvedId=\"8124\" />';
 xmlAliasData += '    <Map Name=\"ext-oktaprivilegedaccess-method-createresourcegroupyi2xcxy\" Link=\"topics/workflows/connector-reference/oktaprivilegedaccess/actions/updateresourcegroup.htm\" ResolvedId=\"8125\" />';
 xmlAliasData += '    <Map Name=\"ext-googlesheets229-method-httprequest\" Link=\"topics/workflows/connector-reference/googlesheets/actions/customapiaction.htm\" ResolvedId=\"30294\" />';
-xmlAliasData += '    <Map Name=\"ext-okta-misc-scopes\" Link=\"topics/workflows/connector-reference/okta/overviews/scopes.htm\" ResolvedId=\"6141\" />';
+xmlAliasData += '    <Map Name=\"ext-okta-misc-scopes\" Link=\"topics/workflows/connector-reference/okta/overviews/scopes.htm\" ResolvedId=\"36141\" />';
 xmlAliasData += '    <Map Name=\"ext-workday\" Link=\"topics/workflows/connector-reference/workday/workday.htm\" ResolvedId=\"8126\" />';
 xmlAliasData += '    <Map Name=\"ext-workday-misc-authorization\" Link=\"topics/workflows/connector-reference/workday/overviews/authorization.htm\" ResolvedId=\"8127\" />';
 xmlAliasData += '    <Map Name=\"ext-workday-method-listmultiinstancecustomobjectstqm1cuan\" Link=\"topics/workflows/connector-reference/workday/actions/listmultiinstanceworkercustomobjects.htm\" ResolvedId=\"8128\" />';
