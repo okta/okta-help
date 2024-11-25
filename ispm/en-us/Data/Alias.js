@@ -21,5 +21,6 @@ xmlAliasData += '    <Map Name=\"csh-ispm-okta-sso\" Link=\"topics/ispm/okta-sso
 xmlAliasData += '    <Map Name=\"ext-ispm-okta\" Link=\"topics/ispm/okta.htm\" ResolvedId=\"14000\" />';
 xmlAliasData += '    <Map Name=\"csh-ispm-aad-sso\" Link=\"topics/ispm/microsoft-entra-id-sso.htm\" ResolvedId=\"13016\" />';
 xmlAliasData += '    <Map Name=\"csh-ispm-config-event-hooks\" Link=\"topics/ispm/config-event-hook.htm\" ResolvedId=\"13019\" />';
+xmlAliasData += '    <Map Name=\"csh-ispm-box\" Link=\"topics/ispm/box.htm\" ResolvedId=\"13017\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);

@@ -13,13 +13,8 @@ document.addEventListener('readyToInitCoveo', function () {
     var coveo_org_id = getMadcapFlareVariable(isProd ? 'coveo_org_id' : 'coveo_dev_org_id');
     var coveo_rest_uri = getMadcapFlareVariable('coveo_rest_uri');
     var coveo_search_url = getMadcapFlareVariable('coveo_search_url');
-    var coveo_token_url = getMadcapFlareVariable('coveo_token_url');
-    var coveo_dev_token = getMadcapFlareVariable('coveo_dev_token');
+    var coveo_token_url = getMadcapFlareVariable(isProd ? 'coveo_token_url' : 'coveo_token_url_dev');
     var tokenPromise = new Promise(function (resolve, reject) {
-        if (!isProd) {
-            resolve(coveo_dev_token);
-            return;
-        }
         var MS_IN_A_DAY = 1000 * 60 * 60 * 24;
         var tokenObj = JSON.parse(localStorage.getItem("CoveoSearchToken"));
         var renewTokenNeeded = true;
