@@ -6,6 +6,7 @@
         <meta name="audience" content="OIE Admins" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, height=device-height" /><title>拡張動的ゾーン | Okta</title>
+        <link rel="canonical" href="https://help.okta.com/oie/en-us/content/topics/security/network/about-enhanced-dynamic-zones.htm" />
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <link rel="shortcut icon" href="../../../Resources/Images/favicon.ico" type="image/x-icon" />
@@ -195,7 +196,7 @@
                                     </div>
                                     <div id="coveo_dev_org_id" style="Display:None"><span class="mc-variable okta-coveo-config.DevOrgId variable">oktanonproduction1il1gtac7</span>
                                     </div>
-                                    <div id="coveo_dev_token" style="Display:None"><span class="mc-variable okta-coveo-config.DevSearchToken variable">xxf1de37f5-c8aa-42db-a8ef-0cbf06dfa5e3</span>
+                                    <div id="coveo_dev_token" style="Display:None"><span class="mc-variable okta-coveo-config.DevSearchToken variable">xx4032b001-0fbd-420a-aafc-7d9bc2bf3ef5</span>
                                     </div>
                                     <!-- End Coveo config parameters -->
                                     <!-- ************** Coveo Search bar ************************************* -->
@@ -293,9 +294,10 @@
                                                 <div role="main" id="mc-main-content">
                                                     <h1>拡張動的ゾーン</h1>
                                                     <p>拡張動的ゾーンを使用して、ゾーン内でブロックまたは許可されるIPサービスカテゴリ、ロケーション、およびAutonomous System番号（ASN）を定義します。IPサービスカテゴリには、プロキシ、VPN、アノニマイザーが含まれます。</p>
-                                                    <p>拡張動的ゾーンはブロックリストとして構成できます。ブロックリストでは、ゾーンに追加されたすべてのIPサービスカテゴリタイプ、ロケーション、ASNが認証前にブロックされます。</p>
+                                                    <p>拡張動的ゾーンはブロックリストとして構成できます。ブロックリストでは、ゾーンに追加されたすべてのIPサービスカテゴリタイプ、ロケーション、ASNが認証前にブロックされます。また、IP除外ゾーン機能を有効にすると、ネットワークゾーンの競合や<span class="mc-variable okta-feature-names.Okta_ThreatInsight variable">Okta ThreatInsight</span>の構成にかかわらず、特定のIPからのトラフィックを常に許可するように除外ゾーンを構成することができます。</p>
                                                     <p>認証前にトラフィックをブロックすると、ネットワークゾーンで特定されたIPまたはネットワークから攻撃が開始された場合に、攻撃者がOktaのサインインページおよび登録ページにアクセスできなくなります。</p>
                                                     <p>拡張動的ゾーンはポリシーで使用できるように構成することもできます。ポリシーでゾーンを使用すると、ユーザーがサインインするときに満たされる必要がある条件がゾーンによって定義されます。</p>
+                                                    <h2>拡張動的ゾーンのブロックリスト</h2>
                                                     <p>orgには、すべての匿名化プロキシを含むデフォルトの拡張動的ゾーンがあります。このゾーンは削除または名前の変更ができません。また、このゾーンにロケーションやASNを追加することもできません。<span class="uicontrol">DefaultEnhancedDynamicZone</span>は、デフォルトでは非アクティブ状態になっています。すべての匿名化プロキシがブロックするには、このゾーンをアクティブ化します。 </p>
                                                     <p>拡張動的ゾーンがブロックリストとして使用されている場合、System Logに<span class="code">security.request.blocked</span>イベントが表示されます。</p>
                                                     <div class="noteOkta">
@@ -336,6 +338,12 @@
                                                     <h2>拡張動的ゾーンの評価</h2>
                                                     <p><span class="mc-variable okta-variables.ProductName variable">Okta</span>は、拡張動的ゾーンの構成がリクエストの発信元となっているIPのロケーション、IPサービスカテゴリ、ASNと一致するかどうかを検証します。</p>
                                                     <p>リクエストのIPチェーンに複数のIPアドレスが含まれる場合、Oktaはリクエスト元のクライアントIPの特定を試みます。</p>
+                                                    <p>リクエストの発信元となるクライアントIPを特定するために、リクエストのIPチェーンが評価され、そのorgのすべてのIPゾーンで定義されているすべてのプロキシIPと比較されます。</p>
+                                                    <ul>
+                                                        <li>IPチェーンの右側にあるIPアドレスがプロキシとして定義されていない場合、このアドレスはクライアントIPとしてマークされます。</li>
+                                                        <li>IPチェーンの右側にあるIPアドレスがプロキシIPである場合、その左横にあるIPアドレスの評価は、プロキシではないIPが検出されるまで行われます。このIPはクライアントIPとしてマークされます。</li>
+                                                        <li>クライアントIPが特定されると、そのIPのジオロケーション、IPサービスカテゴリ、ASNが解決され、そのゾーン向けに構成されたジオロケーション、IPサービスカテゴリ、ASNと比較されます。値が一致すると、そのゾーン内からリクエストが送信されます。</li>
+                                                    </ul>
                                                     <h3>拡張動的ゾーンの評価例</h3>
                                                     <table style="border-spacing: 5px 5px;border-top-left-radius: 1px;border-top-right-radius: 1px;border-bottom-right-radius: 1px;border-bottom-left-radius: 1px;border-left-style: solid;border-left-width: 1px;border-left-color: #d3d3d3;border-right-style: solid;border-right-width: 1px;border-right-color: #d3d3d3;border-top-style: solid;border-top-width: 1px;border-top-color: #d3d3d3;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #d3d3d3;mc-table-style: url('../../../resources/tablestyles/standard.css');" class="TableStyle-standard" cellspacing="0">
                                                         <col class="TableStyle-standard-Column-Column1" />
@@ -344,7 +352,7 @@
                                                         <tbody>
                                                             <tr class="TableStyle-standard-Body-Body1">
                                                                 <td style="background-color: #f5f5f5;font-size: 12pt;" class="TableStyle-standard-BodyF-Column1-Body1">IPチェーン </td>
-                                                                <td style="background-color: #f5f5f5;font-size: 12pt;" class="TableStyle-standard-BodyF-Column1-Body1">orgに対して定義されたすべてのプロキシー</td>
+                                                                <td style="background-color: #f5f5f5;font-size: 12pt;" class="TableStyle-standard-BodyF-Column1-Body1">orgに対して定義されたすべてのプロキシ</td>
                                                                 <td style="background-color: #f5f5f5;font-size: 12pt;" class="TableStyle-standard-BodyD-Column1-Body1">リクエスト元のクライアントIP</td>
                                                             </tr>
                                                             <tr class="TableStyle-standard-Body-Body2">
@@ -399,13 +407,6 @@
                                                             </tr>
                                                         </tbody>
                                                     </table>
-                                                    <h2>発信元クライアントIPの評価</h2>
-                                                    <p>リクエストの発信元となるクライアントIPを特定するために、リクエストのIPチェーンが評価され、そのorgのすべてのIPゾーンで定義されているすべてのプロキシIPと比較されます。</p>
-                                                    <ul>
-                                                        <li>IPチェーンの右側にあるIPアドレスがプロキシとして定義されていない場合、このアドレスはクライアントIPとしてマークされます。</li>
-                                                        <li>IPチェーンの右側にあるIPアドレスがプロキシIPである場合、その左横にあるIPアドレスの評価は、プロキシではないIPが検出されるまで行われます。このIPはクライアントIPとしてマークされます。</li>
-                                                        <li>クライアントIPが特定されると、そのIPのジオロケーション、IPサービスカテゴリ、ASNが解決され、そのゾーン向けに構成されたジオロケーション、IPサービスカテゴリ、ASNと比較されます。値が一致すると、そのゾーン内からリクエストが送信されます。</li>
-                                                    </ul>
                                                     <h2>関連項目</h2>
                                                     <p><a href="network-zones.htm" class="MCXref xref">ネットワークゾーン</a>
                                                     </p>
