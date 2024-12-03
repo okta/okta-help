@@ -1,0 +1,1 @@
+define({r:1,st:'Stem',n:1,t:[0],m:[],u:['../content/topics/identity-governance/governance-analyzer/governance-analyzer.htm'],s:['90'],p:[['90',0]]});

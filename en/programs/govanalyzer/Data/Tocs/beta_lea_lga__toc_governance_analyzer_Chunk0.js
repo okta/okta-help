@@ -1,0 +1,1 @@
+define({'/content/topics/identity-governance/governance-analyzer/governance-analyzer.htm':{i:[0],t:['Governance Analyzer'],b:['']},'/content/topics/identity-governance/governance-analyzer/reviewer-experience.htm':{i:[2],t:['Understand reviewer experience'],b:['']},'/content/topics/identity-governance/governance-analyzer/set-up.htm':{i:[1],t:['Set up'],b:['']}});
