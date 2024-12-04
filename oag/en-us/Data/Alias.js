@@ -100,11 +100,10 @@ xmlAliasData += '    <Map Name=\"ext_oag_tutor_configHA\" Link=\"topics/access-g
 xmlAliasData += '    <Map Name=\"ext_oaginboundsaml\" Link=\"topics/access-gateway/add-admin-app-okta.htm\" ResolvedId=\"1201\" />';
 xmlAliasData += '    <Map Name=\"oag_ext_about_log_levels\" Link=\"topics/access-gateway/about-log-levels.htm\" ResolvedId=\"3072\" />';
 xmlAliasData += '    <Map Name=\"oag_ext_trouble_shooting_guide\" Link=\"topics/access-gateway/trouble-shooting-guide.htm\" ResolvedId=\"3071\" />';
-xmlAliasData += '    <Map Name=\"ext_oag_releasenotes\" Link=\"topics/releasenotes/oag/oag-release-notes.htm\" ResolvedId=\"3075\" />';
+xmlAliasData += '    <Map Name=\"ext_oag_releasenotes\" Link=\"topics/releasenotes/oag/oag-release-notes.htm\" ResolvedId=\"33419\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_version_history\" Link=\"topics/releasenotes/oag/oag-version-history.htm\" ResolvedId=\"7005\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_troubleshooting_with_har\" Link=\"topics/access-gateway/troubleshooting-with-har.htm\" ResolvedId=\"7003\" />';
 xmlAliasData += '    <Map Name=\"ext_oag_support_matrix\" Link=\"topics/access-gateway/support-matrix.htm\" ResolvedId=\"9984\" />';
-xmlAliasData += '    <Map Name=\"adv_server_access\" Link=\"topics/access-gateway/environment-configurations.htm\" ResolvedId=\"1109\" />';
-xmlAliasData += '    <Map Name=\"csh-environment-configurations\" Link=\"topics/access-gateway/environment-configurations.htm\" ResolvedId=\"18000\" />';
+xmlAliasData += '    <Map Name=\"csh-environment-configurations\" Link=\"topics/access-gateway/environment-configurations.htm\" ResolvedId=\"33300\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
