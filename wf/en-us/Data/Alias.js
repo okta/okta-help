@@ -1566,5 +1566,6 @@ xmlAliasData += '    <Map Name=\"ext-tableaucloud-method-searchgroupsrbeod5140s\
 xmlAliasData += '    <Map Name=\"ext-tableaucloud-method-searchusers1dntxip7c2\" Link=\"topics/workflows/connector-reference/tableaucloud/actions/searchusers.htm\" ResolvedId=\"8279\" />';
 xmlAliasData += '    <Map Name=\"ext-oktadevices-misc-scopes\" Link=\"topics/workflows/connector-reference/oktadevices/overviews/scopes.htm\" ResolvedId=\"8281\" />';
 xmlAliasData += '    <Map Name=\"ext-oktarealms-misc-scopes\" Link=\"topics/workflows/connector-reference/oktarealms/overviews/scopes.htm\" ResolvedId=\"8282\" />';
+xmlAliasData += '    <Map Name=\"ext-addigy\" Link=\"topics/workflows/connector-reference/addigy/addigy.htm\" ResolvedId=\"6014\" />';
 xmlAliasData += '</CatapultAliasFile>';
 MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add('Alias', xmlAliasData);
